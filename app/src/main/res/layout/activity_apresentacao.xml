@@ -10,7 +10,8 @@
     <androidx.viewpager.widget.ViewPager
         android:id="@+id/view_pager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="0dp"
+        android:layout_weight="9" />
 
     <LinearLayout
         android:id="@+id/layoutBars"
@@ -26,10 +27,10 @@
         android:id="@+id/next"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:background="@null"
         android:text="next"
         android:textSize="20dp"
-        android:textColor="@android:color/white"
+        android:background="@drawable/onboarding_button"
+        android:textColor="@color/whiteTextColor"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true" />
 

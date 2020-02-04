@@ -3,10 +3,13 @@ package com.vvm.sh.apresentacao;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
+import android.graphics.Color;
 import android.os.Bundle;
+import android.text.Html;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.vvm.sh.R;
 import com.vvm.sh.apresentacao.modelos.Slider;
@@ -31,9 +34,7 @@ public class ApresentacaoActivity extends AppCompatActivity {
     @BindView(R.id.btn_saltar)
     Button btn_saltar;
 
-/*    TextView[] bottomBars;
-    Button Skip, Next;
-*/
+    private TextView[] barrasProgresso;
 
     private ApresentacaoPagerAdapter apresentacaoViewPagerAdapter;
 
@@ -58,47 +59,55 @@ public class ApresentacaoActivity extends AppCompatActivity {
 /*
         int[] colorsInactive = getResources().getIntArray(R.array.dot_on_page_not_active);
         int[] colorsActive = getResources().getIntArray(R.array.dot_on_page_active);
-
-        screens = new Slider[]{
-
-                new Slider("Screen 0", colorsActive[0], colorsInactive[0],  R.layout.intro_screen, R.color.screen1),
-                new Slider("Screen 1", colorsActive[1], colorsInactive[1],  R.layout.intro_screen, R.color.screen2),
-                new Slider("Screen 2", colorsActive[2], colorsInactive[2],  R.layout.intro_screen, R.color.screen3)
-        };
 */
+        paginas = new Slider[]{
+
+                new Slider("Screen 0", R.color.blackTextColor, R.color.colorPrimary,  R.layout.content_apresentacao, R.color.colorPrimary),
+                new Slider("Screen 1", R.color.blackTextColor, R.color.colorPrimary,  R.layout.content_apresentacao, R.color.colorPrimaryDark),
+                new Slider("Screen 2", R.color.blackTextColor, R.color.colorPrimary,  R.layout.content_apresentacao, R.color.colorAccent)
+        };
+
         apresentacaoViewPagerAdapter = new ApresentacaoPagerAdapter(this, paginas);
         view_pager_conteudo.setAdapter(apresentacaoViewPagerAdapter);
         view_pager_conteudo.addOnPageChangeListener(viewPagerPageChangeListener);
 
     }
 
-    /*
-
-
-    public void skip(View view) {
-        launchMain();
-    }
-*/
     private void ColoredBars(int thisScreen) {
 
-        /*
-        int[] colorsInactive = getResources().getIntArray(R.array.dot_on_page_not_active);
-        int[] colorsActive = getResources().getIntArray(R.array.dot_on_page_active);
-        bottomBars = new TextView[screens.length];
 
-        Layout_bars.removeAllViews();
+        //int[] colorsInactive = getResources().getIntArray(R.array.dot_on_page_not_active);
+        //int[] colorsActive = getResources().getIntArray(R.array.dot_on_page_active);
+        barrasProgresso = new TextView[paginas.length];
 
-        for (int i = 0; i < bottomBars.length; i++) {
+        lnr_lyt_progresso.removeAllViews();
 
-            bottomBars[i] = new TextView(this);
-            bottomBars[i].setTextSize(100);
-            bottomBars[i].setText(Html.fromHtml("¯"));
-            Layout_bars.addView(bottomBars[i]);
-            bottomBars[i].setTextColor(colorsInactive[thisScreen]);
+        for (int i = 0; i < barrasProgresso.length; i++) {
+
+            barrasProgresso[i] = new TextView(this);
+            barrasProgresso[i].setWidth(35);
+            barrasProgresso[i].setHeight(5);
+            barrasProgresso[i].setBackground(this.getDrawable(R.drawable.onboarding_dotunselected));
+            lnr_lyt_progresso.addView(barrasProgresso[i]);
+            //barrasProgresso[i].setTextColor(Color.RED);
         }
-        if (bottomBars.length > 0)
-            bottomBars[thisScreen].setTextColor(colorsActive[thisScreen]);
-        */
+        if (barrasProgresso.length > 0)
+            barrasProgresso[thisScreen].setBackground(this.getDrawable(R.drawable.onboarding_dot_selected));
+
+        /*
+        lnr_lyt_progresso.removeAllViews();
+
+        for (int i = 0; i < barrasProgresso.length; i++) {
+
+            barrasProgresso[i] = new TextView(this);
+            barrasProgresso[i].setTextSize(100);
+            barrasProgresso[i].setText(Html.fromHtml("¯"));
+            lnr_lyt_progresso.addView(barrasProgresso[i]);
+            barrasProgresso[i].setTextColor(Color.RED);
+        }
+        if (barrasProgresso.length > 0)
+            barrasProgresso[thisScreen].setTextColor(Color.BLUE);
+*/
     }
 
     private int getItem(int i) {

@@ -34,7 +34,7 @@
         android:background="@android:color/white" />
 
     <Button
-        android:id="@+id/btn_next"
+        android:id="@+id/btn_prosseguir"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -44,7 +44,7 @@
         android:textColor="@android:color/white" />
 
     <Button
-        android:id="@+id/btn_skip"
+        android:id="@+id/btn_saltar"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"

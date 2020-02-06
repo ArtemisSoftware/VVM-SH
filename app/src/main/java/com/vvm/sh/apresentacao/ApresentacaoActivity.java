@@ -26,13 +26,14 @@ public class ApresentacaoActivity extends AppCompatActivity {
     @BindView(R.id.lnr_lyt_progresso)
     LinearLayout lnr_lyt_progresso;
 
-
+/*
 
     @BindView(R.id.btn_prosseguir)
     Button btn_prosseguir;
 
     @BindView(R.id.btn_saltar)
     Button btn_saltar;
+    */
 
     private TextView[] barrasProgresso;
 
@@ -85,14 +86,14 @@ public class ApresentacaoActivity extends AppCompatActivity {
         for (int i = 0; i < barrasProgresso.length; i++) {
 
             barrasProgresso[i] = new TextView(this);
-            barrasProgresso[i].setWidth(35);
-            barrasProgresso[i].setHeight(5);
-            barrasProgresso[i].setBackground(this.getDrawable(R.drawable.onboarding_dotunselected));
+            barrasProgresso[i].setWidth(8);
+            barrasProgresso[i].setHeight(8);
+            barrasProgresso[i].setBackground(this.getDrawable(R.drawable.ic_appintro_indicator_unselected));
             lnr_lyt_progresso.addView(barrasProgresso[i]);
             //barrasProgresso[i].setTextColor(Color.RED);
         }
         if (barrasProgresso.length > 0)
-            barrasProgresso[thisScreen].setBackground(this.getDrawable(R.drawable.onboarding_dot_selected));
+            barrasProgresso[thisScreen].setBackground(this.getDrawable(R.drawable.ic_appintro_indicator_selected));
 
         /*
         lnr_lyt_progresso.removeAllViews();
@@ -126,7 +127,7 @@ public class ApresentacaoActivity extends AppCompatActivity {
     //Eventos
     //-------------------
 
-
+/*
     @OnClick(R.id.btn_prosseguir)
     public void onProsseguirButtonClick(View view) {
 
@@ -146,14 +147,14 @@ public class ApresentacaoActivity extends AppCompatActivity {
         iniciarApp();
     }
 
-
+*/
     ViewPager.OnPageChangeListener viewPagerPageChangeListener = new ViewPager.OnPageChangeListener() {
 
         @Override
         public void onPageSelected(int position) {
             ColoredBars(position);
 
-
+/*
             if (position == paginas.length - 1) {
                 btn_prosseguir.setText(getString(R.string.iniciar));
                 btn_saltar.setVisibility(View.GONE);
@@ -162,7 +163,7 @@ public class ApresentacaoActivity extends AppCompatActivity {
                 btn_prosseguir.setText(getString(R.string.avancar));
                 btn_saltar.setVisibility(View.VISIBLE);
             }
-
+*/
         }
 
         @Override

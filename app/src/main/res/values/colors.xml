@@ -4,6 +4,13 @@
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
 
+
+    <!-- Screens background color-->
+
+    <color name="bg_screen1">#20d2bb</color>
+    <color name="bg_screen2">#3395ff</color>
+    <color name="bg_screen3">#c873f4</color>
+
     <!--colors for modern ui-->
     <color name="whiteTextColor">#fff</color>
     <color name="blackTextColor">#000</color>

@@ -29,7 +29,7 @@
     <dimen name="appintro_desctext_size">16sp</dimen>
     <dimen name="appintro_desc_padding">16dp</dimen>
     <dimen name="appintro_head_padding">8dp</dimen>
-    <dimen name="appintro_headtext_size">28sp</dimen>
+    <dimen name="appintro_headtext_size">32sp</dimen>
 
 
 

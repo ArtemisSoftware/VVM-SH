@@ -83,8 +83,8 @@
     </style>
 
     <style name="AppIntroDefaultImage">
-        <item name="android:paddingLeft">32dp</item>
-        <item name="android:paddingRight">32dp</item>
+        <item name="android:paddingLeft">132dp</item>
+        <item name="android:paddingRight">132dp</item>
         <item name="android:scaleType">centerInside</item>
     </style>
 

@@ -38,8 +38,8 @@
                 android:textSize="@dimen/headerTextSize"
                 android:textColor="@color/blackTextColor"
                 android:textStyle="bold" />
-<!--
-            <android.support.design.widget.TextInputLayout
+
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputEmail"
                 style="@style/parent.TextLayout"
                 android:layout_marginTop="@dimen/signup_text_margin_top">
@@ -49,9 +49,9 @@
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
                     android:hint="username"/>
-            </android.support.design.widget.TextInputLayout>
+            </com.google.android.material.textfield.TextInputLayout>
 
-            <android.support.design.widget.TextInputLayout
+            <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputPassword"
                 style="@style/parent.TextLayout"
                 android:layout_marginTop="@dimen/signup_text_margin_top">
@@ -61,8 +61,8 @@
                     android:hint="password"
                     android:maxLines="1"
                     android:inputType="textPassword"/>
-            </android.support.design.widget.TextInputLayout>
--->
+            </com.google.android.material.textfield.TextInputLayout>
+
 
             <ImageView
                 android:layout_width="wrap_content"

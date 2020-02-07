@@ -5,4 +5,10 @@
     <dimen name="onboardingHeaderSize">30dp</dimen>
     <dimen name="onboardingContentSize">14dp</dimen>
 
+
+    <color name="blackTextColor">#000</color>
+    <color name="colorLoginPrimaryDark">#FDFFFF</color>
+
+    <dimen name="headerTextSize">22sp</dimen>
+    <dimen name="newsMoreTextSize">16sp</dimen>
 </resources>

@@ -27,5 +27,9 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
 
-    implementation 'com.android.support:design:27.1.1'
+    def design_version = "27.1.1"
+    implementation "com.android.support:design:$design_version"
+
+    def material_version = "1.0.0"
+    implementation "com.google.android.material:material:$material_version"
 }

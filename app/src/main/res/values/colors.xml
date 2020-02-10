@@ -5,14 +5,15 @@
     <color name="colorAccent">#D81B60</color>
 
 
-    <!-- Cores para as introducoes background color-->
+    <!-- Cores para as introducoes (background color)-->
 
     <color name="cor_fundo_atualizacao">#20d2bb</color>
     <color name="cor_fundo_correcao">#3395ff</color>
     <color name="cor_fundo_funcionalidade">#c873f4</color>
 
 
-
+    <color name="apresentacao_titulo_color">#FFFFFF</color>
+    <color name="apresentacao_texto_color">#FFFFFF</color>
 
 
 
@@ -35,7 +36,6 @@
 
     <color name="appintro_statusbar_color">#22000000</color>
     <color name="appintro_background_color">#222222</color>
-    <color name="appintro_title_color">#FFFFFF</color>
     <color name="appintro_desc_color">#FFFFFF</color>
     <color name="appintro_separator_color">#22000000</color>
     <color name="appintro_bar_color">@android:color/transparent</color>

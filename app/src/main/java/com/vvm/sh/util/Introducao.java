@@ -43,6 +43,10 @@ public abstract class Introducao {
         return imagem;
     }
 
+    /**
+     * Metodo que permite obter a cor de fundo da introducao
+     * @return uma cor
+     */
     public int obterCorFundo() {
         return corFundo;
     }

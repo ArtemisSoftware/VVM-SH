@@ -1,6 +1,11 @@
 <resources>
     <string name="app_name">vvmsh</string>
 
+    <!-- texto de teste -->
+    <string name="lorem_ipsum_titulo">Lorem ipsum dolor sit amet</string>
+    <string name="lorem_ipsum_texto">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </string>
+
+
 
     <!--A-->
     <string name="avancar">Avançar</string>
@@ -20,10 +25,5 @@
     <string name="onboarding_welcome_1">Welcome</string>
 
 
-    <string name="app_intro_skip_button">SKIP</string>
-    <string name="app_intro_next_button" >NEXT</string>
-    <string name="app_intro_back_button" >BACK</string>
-    <string name="app_intro_done_button">DONE</string>
-    <string name="app_intro_image_content_description" >graphics</string>
 
 </resources>

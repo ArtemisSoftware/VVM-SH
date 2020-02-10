@@ -45,6 +45,27 @@
 
     <style name="AppIntroStyle" parent="Theme.AppCompat.DayNight.NoActionBar" />
 
+
+    <style name="apresentacao_titulo" parent="TextAppearance.AppCompat.Display1">
+        <item name="android:textColor">@color/apresentacao_titulo_color</item>
+        <item name="android:textSize">@dimen/apresentacao_titulo_size</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:padding">@dimen/apresentacao_titulo_padding</item>
+        <item name="android:gravity">bottom|center_horizontal</item>
+    </style>
+
+
+    <style name="apresentacao_texto" parent="TextAppearance.AppCompat.Body1">
+        <item name="android:textColor">@color/apresentacao_texto_color</item>
+        <item name="android:textSize">@dimen/apresentacao_texto_size</item>
+        <item name="android:padding">@dimen/apresentacao_texto_padding</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+
+
+
+
     <style name="AppIntroButtonStyleCompat" parent="Widget.AppCompat.Button.Borderless">
         <item name="android:background">?attr/selectableItemBackground</item>
         <item name="android:minHeight">@dimen/appintro_button_minheight</item>
@@ -68,12 +89,16 @@
     </style>
 
     <style name="AppIntroDefaultHeading" parent="TextAppearance.AppCompat.Display1">
-        <item name="android:textColor">@color/appintro_title_color</item>
+        <item name="android:textColor">@color/apresentacao_titulo_color</item>
         <item name="android:textSize">@dimen/appintro_headtext_size</item>
         <item name="android:textStyle">bold</item>
         <item name="android:padding">@dimen/appintro_head_padding</item>
         <item name="android:gravity">bottom|center_horizontal</item>
     </style>
+
+
+
+
 
     <style name="AppIntroDefaultText" parent="TextAppearance.AppCompat.Body1">
         <item name="android:textColor">@color/appintro_desc_color</item>

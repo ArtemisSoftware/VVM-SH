@@ -212,14 +212,11 @@ public class ApresentacaoActivity extends AppCompatActivity {
 
 
             if (position == paginas.length - 1) {
-                //btn_prosseguir.setText(getString(R.string.iniciar));
                 img_btn_saltar.setVisibility(View.GONE);
             }
             else {
-                //btn_prosseguir.setText(getString(R.string.avancar));
                 img_btn_saltar.setVisibility(View.VISIBLE);
             }
-
         }
 
         @Override

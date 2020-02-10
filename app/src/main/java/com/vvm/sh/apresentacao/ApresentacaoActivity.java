@@ -3,16 +3,18 @@ package com.vvm.sh.apresentacao;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
-import android.graphics.Color;
 import android.os.Bundle;
-import android.text.Html;
 import android.view.View;
-import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.vvm.sh.R;
-import com.vvm.sh.apresentacao.modelos.Slider;
+import com.vvm.sh.apresentacao.modelos.Atualizacao;
+import com.vvm.sh.apresentacao.modelos.Correcao;
+import com.vvm.sh.apresentacao.modelos.Funcionalidade;
+import com.vvm.sh.util.Introducao;
+import com.vvm.sh.util.IntroducaoFactory;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,20 +28,23 @@ public class ApresentacaoActivity extends AppCompatActivity {
     @BindView(R.id.lnr_lyt_progresso)
     LinearLayout lnr_lyt_progresso;
 
-/*
 
-    @BindView(R.id.btn_prosseguir)
-    Button btn_prosseguir;
 
-    @BindView(R.id.btn_saltar)
-    Button btn_saltar;
-    */
+    @BindView(R.id.img_btn_prosseguir)
+    ImageButton btn_prosseguir;
+
+    @BindView(R.id.img_btn_saltar)
+    ImageButton img_btn_saltar;
+
+
 
     private TextView[] barrasProgresso;
 
     private ApresentacaoPagerAdapter apresentacaoViewPagerAdapter;
 
-    private Slider[] paginas;
+    private Introducao[] paginas;
+
+    boolean primeiraUtilizacao;
 
 
     @Override
@@ -49,36 +54,94 @@ public class ApresentacaoActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-        iniciarAtividade();
+        subscreverObservadores();
 
-        ColoredBars(0);
+        obterApresentacao();
     }
 
-    private void iniciarAtividade() {
 
+    //------------------------
+    //Metodos locais
+    //------------------------
+
+
+    /**
+     * Metodo que permite subscrever observadores
+     */
+    private void subscreverObservadores(){
+
+
+        //TODO: subscrever observadores do viewmodel
 
 /*
-        int[] colorsInactive = getResources().getIntArray(R.array.dot_on_page_not_active);
-        int[] colorsActive = getResources().getIntArray(R.array.dot_on_page_active);
-*/
-        paginas = new Slider[]{
+        paginas = new Introducao[]{
 
-                new Slider("Screen 0", R.color.blackTextColor, R.color.colorPrimary,  R.layout.content_apresentacao, R.color.colorPrimary),
-                new Slider("Screen 1", R.color.blackTextColor, R.color.colorPrimary,  R.layout.content_apresentacao, R.color.colorPrimaryDark),
-                new Slider("Screen 2", R.color.blackTextColor, R.color.colorPrimary,  R.layout.content_apresentacao, R.color.colorAccent)
+                new Correcao("Correção da  funcionalidade abc"),
+                new Funcionalidade("Adicionada a funcionalidade 1"),
+                new Atualizacao("Atualizado o funcionamento da funcionalidade 0"),
+
         };
 
-        apresentacaoViewPagerAdapter = new ApresentacaoPagerAdapter(this, paginas);
-        view_pager_conteudo.setAdapter(apresentacaoViewPagerAdapter);
-        view_pager_conteudo.addOnPageChangeListener(viewPagerPageChangeListener);
+        iniciarApresentacao();
+        */
+    }
+
+
+    /**
+     * Metodo que permite obter as paginas necessárias para realizar a apresentacao
+     */
+    private void obterApresentacao(){
+
+        primeiraUtilizacao = true;//preferenceManager.setFirstTimeLaunch(false, versao atual);
+
+        if(primeiraUtilizacao == true){
+
+            Introducao[] paginas = new Introducao[]{
+                    new Atualizacao("Bem vindo a app vvm.sh."),
+            };
+
+            iniciarApresentacao(paginas);
+        }
+        else{
+
+            //TODO: chamar metodo do viewmodel para obter apresentacao
+
+            Introducao[] paginas = new Introducao[]{
+
+                    new Correcao("Correção da  funcionalidade abc"),
+                    new Funcionalidade("Adicionada a funcionalidade 1"),
+                    new Atualizacao("Atualizado o funcionamento da funcionalidade 0"),
+
+            };
+
+            iniciarApresentacao(paginas);
+        }
 
     }
 
-    private void ColoredBars(int thisScreen) {
+
+    /**
+     * Metodo que permite iniciar a apresentacao
+     * @param paginas paginas a apresentar
+     */
+    private void iniciarApresentacao(Introducao[] paginas) {
+
+        IntroducaoFactory introducaoFactory = new IntroducaoFactory();
+
+        this.paginas = paginas;
+        apresentacaoViewPagerAdapter = new ApresentacaoPagerAdapter(this, this.paginas);
+        view_pager_conteudo.setAdapter(apresentacaoViewPagerAdapter);
+        view_pager_conteudo.addOnPageChangeListener(viewPagerPageChangeListener);
+        registarProgresso(0);
+    }
 
 
-        //int[] colorsInactive = getResources().getIntArray(R.array.dot_on_page_not_active);
-        //int[] colorsActive = getResources().getIntArray(R.array.dot_on_page_active);
+    /**
+     * Metodo que permite registar o progresso da apresentacao
+     * @param posicao a posicao da apresentacao a apresentada
+     */
+    private void registarProgresso(int posicao) {
+
         barrasProgresso = new TextView[paginas.length];
 
         lnr_lyt_progresso.removeAllViews();
@@ -90,34 +153,27 @@ public class ApresentacaoActivity extends AppCompatActivity {
             barrasProgresso[i].setHeight(8);
             barrasProgresso[i].setBackground(this.getDrawable(R.drawable.ic_appintro_indicator_unselected));
             lnr_lyt_progresso.addView(barrasProgresso[i]);
-            //barrasProgresso[i].setTextColor(Color.RED);
         }
         if (barrasProgresso.length > 0)
-            barrasProgresso[thisScreen].setBackground(this.getDrawable(R.drawable.ic_appintro_indicator_selected));
-
-        /*
-        lnr_lyt_progresso.removeAllViews();
-
-        for (int i = 0; i < barrasProgresso.length; i++) {
-
-            barrasProgresso[i] = new TextView(this);
-            barrasProgresso[i].setTextSize(100);
-            barrasProgresso[i].setText(Html.fromHtml("¯"));
-            lnr_lyt_progresso.addView(barrasProgresso[i]);
-            barrasProgresso[i].setTextColor(Color.RED);
-        }
-        if (barrasProgresso.length > 0)
-            barrasProgresso[thisScreen].setTextColor(Color.BLUE);
-*/
+            barrasProgresso[posicao].setBackground(this.getDrawable(R.drawable.ic_appintro_indicator_selected));
     }
+
+
+
 
     private int getItem(int i) {
         return view_pager_conteudo.getCurrentItem() + i;
     }
 
     private void iniciarApp() {
-        //preferenceManager.setFirstTimeLaunch(false);
-        //startActivity(new Intent(MainScreen.this, MainActivity.class));
+
+        //preferenceManager.setFirstTimeLaunch(false, versao atual);
+
+        if(primeiraUtilizacao == true){
+
+            //startActivity(new Intent(MainScreen.this, MainActivity.class));
+        }
+
         finish();
     }
 
@@ -127,8 +183,8 @@ public class ApresentacaoActivity extends AppCompatActivity {
     //Eventos
     //-------------------
 
-/*
-    @OnClick(R.id.btn_prosseguir)
+
+    @OnClick(R.id.img_btn_prosseguir)
     public void onProsseguirButtonClick(View view) {
 
         int i = getItem(+1);
@@ -142,28 +198,28 @@ public class ApresentacaoActivity extends AppCompatActivity {
     }
 
 
-    @OnClick(R.id.btn_saltar)
+    @OnClick(R.id.img_btn_saltar)
     public void onSaltarButtonClick(View view) {
         iniciarApp();
     }
 
-*/
+
     ViewPager.OnPageChangeListener viewPagerPageChangeListener = new ViewPager.OnPageChangeListener() {
 
         @Override
         public void onPageSelected(int position) {
-            ColoredBars(position);
+            registarProgresso(position);
 
-/*
+
             if (position == paginas.length - 1) {
-                btn_prosseguir.setText(getString(R.string.iniciar));
-                btn_saltar.setVisibility(View.GONE);
+                //btn_prosseguir.setText(getString(R.string.iniciar));
+                img_btn_saltar.setVisibility(View.GONE);
             }
             else {
-                btn_prosseguir.setText(getString(R.string.avancar));
-                btn_saltar.setVisibility(View.VISIBLE);
+                //btn_prosseguir.setText(getString(R.string.avancar));
+                img_btn_saltar.setVisibility(View.VISIBLE);
             }
-*/
+
         }
 
         @Override

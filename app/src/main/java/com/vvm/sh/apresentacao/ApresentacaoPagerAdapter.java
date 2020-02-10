@@ -8,24 +8,26 @@ import android.view.ViewGroup;
 
 import androidx.viewpager.widget.PagerAdapter;
 
+import com.vvm.sh.R;
 import com.vvm.sh.apresentacao.modelos.Slider;
+import com.vvm.sh.util.Introducao;
 
 public class ApresentacaoPagerAdapter extends PagerAdapter {
 
     private LayoutInflater inflater;
-    private Slider [] screens;
+    private Introducao [] paginas;
     private Activity context;
 
-    public ApresentacaoPagerAdapter(Activity context, Slider[] screens) {
+    public ApresentacaoPagerAdapter(Activity context, Introducao[] paginas) {
 
         this.context = context;
-        this.screens = screens;
+        this.paginas = paginas;
     }
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
         inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-        View view = inflater.inflate(screens[position].obterConteudo(), container, false);
+        View view = inflater.inflate(R.layout.content_apresentacao, container, false);
         container.addView(view);
 
 
@@ -38,7 +40,7 @@ public class ApresentacaoPagerAdapter extends PagerAdapter {
 
     @Override
     public int getCount() {
-        return screens.length;
+        return paginas.length;
     }
 
     @Override

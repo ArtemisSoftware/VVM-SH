@@ -6,18 +6,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.viewpager.widget.PagerAdapter;
 
 import com.vvm.sh.R;
-import com.vvm.sh.apresentacao.modelos.Slider;
 import com.vvm.sh.util.Introducao;
-
-import butterknife.BindView;
-import butterknife.ButterKnife;
 
 public class ApresentacaoPagerAdapter extends PagerAdapter {
 

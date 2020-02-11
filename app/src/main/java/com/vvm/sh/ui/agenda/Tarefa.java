@@ -1,4 +1,4 @@
-package com.vvm.sh.ui;
+package com.vvm.sh.ui.agenda;
 
 public class Tarefa {
 

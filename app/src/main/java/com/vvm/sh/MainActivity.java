@@ -1,6 +1,8 @@
 package com.vvm.sh;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,9 +15,13 @@ import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
 import com.vvm.sh.apresentacao.ApresentacaoActivity;
 import com.vvm.sh.ui.BaseActivity;
+import com.vvm.sh.ui.agenda.Tarefa;
+import com.vvm.sh.ui.agenda.adaptadores.TarefaRecyclerAdapter;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -26,6 +32,12 @@ public class MainActivity extends BaseActivity implements DatePickerDialog.OnDat
 
     @BindView(R.id.fab_menu_agenda)
     FloatingActionMenu fab_menu_agenda;
+
+
+    @BindView(R.id.rcl_tarefas)
+    RecyclerView rcl_tarefas;
+
+    private TarefaRecyclerAdapter tarefaRecyclerAdapter;
 
 
 
@@ -42,8 +54,46 @@ public class MainActivity extends BaseActivity implements DatePickerDialog.OnDat
         //Intent intent = new Intent(this, ApresentacaoActivity.class);
         //startActivity(intent);
 
+
+        iniciarAtividade();
+        obterTarefas();
     }
 
+
+    //------------------------
+    //Metodos locais
+    //------------------------
+
+
+    /**
+     * Metodo que permite iniciar a atividade
+     */
+    private void iniciarAtividade(){
+
+        tarefaRecyclerAdapter = new TarefaRecyclerAdapter();
+        rcl_tarefas.setAdapter(tarefaRecyclerAdapter);
+        rcl_tarefas.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+
+    private void obterTarefas(){
+
+        List<Tarefa> t1 = new ArrayList<>();
+        t1.add(new Tarefa(1, "Tarefa numero 1"));
+        t1.add(new Tarefa(2, "Tarefa numero 2"));
+
+        tarefaRecyclerAdapter.fixarRegistos(t1);
+    }
+
+    /**
+     * Metodo que permite subscrever observadores
+     */
+    private void subscreverObservadores(){
+
+
+        //TODO: subscrever observadores do viewmodel
+
+    }
 
 
     //---------------------

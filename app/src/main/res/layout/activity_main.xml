@@ -96,7 +96,7 @@
 
 
         <com.github.clans.fab.FloatingActionMenu
-            android:id="@+id/menu"
+            android:id="@+id/fab_menu_agenda"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_lorem_ipsum_24dp"
@@ -136,7 +136,7 @@
             fab:menu_showShadow="true">
 
             <com.github.clans.fab.FloatingActionButton
-                android:id="@+id/menu_item"
+                android:id="@+id/fab_calendario"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_lorem_ipsum_24dp"

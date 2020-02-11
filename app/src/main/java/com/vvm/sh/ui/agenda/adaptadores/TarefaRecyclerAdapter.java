@@ -9,17 +9,25 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.vvm.sh.R;
 import com.vvm.sh.ui.agenda.Tarefa;
+import com.vvm.sh.util.adaptadores.OnItemListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class TarefaRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
+
     private List<Tarefa> registos;
 
-    public TarefaRecyclerAdapter() {
+
+    private OnItemListener onItemListener;
+
+
+    public TarefaRecyclerAdapter(OnItemListener onItemListener) {
+
         this.registos = new ArrayList<>();
 
+        this.onItemListener = onItemListener;
     }
 
 
@@ -28,7 +36,7 @@ public class TarefaRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.agenda_list_item, parent, false);
-        return new TarefaViewHolder(view);
+        return new TarefaViewHolder(view, this.onItemListener);
     }
 
 

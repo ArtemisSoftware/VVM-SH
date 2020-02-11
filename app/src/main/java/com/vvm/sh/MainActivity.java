@@ -17,6 +17,7 @@ import com.vvm.sh.apresentacao.ApresentacaoActivity;
 import com.vvm.sh.ui.BaseActivity;
 import com.vvm.sh.ui.agenda.Tarefa;
 import com.vvm.sh.ui.agenda.adaptadores.TarefaRecyclerAdapter;
+import com.vvm.sh.util.adaptadores.OnItemListener;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import java.util.ArrayList;
@@ -26,7 +27,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class MainActivity extends BaseActivity implements DatePickerDialog.OnDateSetListener{
+public class MainActivity extends BaseActivity implements DatePickerDialog.OnDateSetListener, OnItemListener {
 
 
 
@@ -70,7 +71,7 @@ public class MainActivity extends BaseActivity implements DatePickerDialog.OnDat
      */
     private void iniciarAtividade(){
 
-        tarefaRecyclerAdapter = new TarefaRecyclerAdapter();
+        tarefaRecyclerAdapter = new TarefaRecyclerAdapter(this);
         rcl_tarefas.setAdapter(tarefaRecyclerAdapter);
         rcl_tarefas.setLayoutManager(new LinearLayoutManager(this));
     }
@@ -79,8 +80,8 @@ public class MainActivity extends BaseActivity implements DatePickerDialog.OnDat
     private void obterTarefas(){
 
         List<Tarefa> t1 = new ArrayList<>();
-        t1.add(new Tarefa(1, "Tarefa numero 1"));
-        t1.add(new Tarefa(2, "Tarefa numero 2"));
+        t1.add(new Tarefa(1, "Tarefa numero 1", "SH"));
+        t1.add(new Tarefa(2, "Tarefa numero 2", "SA"));
 
         tarefaRecyclerAdapter.fixarRegistos(t1);
     }
@@ -99,6 +100,14 @@ public class MainActivity extends BaseActivity implements DatePickerDialog.OnDat
     //---------------------
     //Eventos
     //---------------------
+
+
+    @Override
+    public void onItemClick(int position) {
+        //Intent intent = new Intent(this, PictureActivity.class);
+        //intent.putExtra(AppConstants.PICTURE, pictureRecyclerAdapter.getSelectedPicture(position).getId());
+        //startActivity(intent);
+    }
 
 
     @OnClick(R.id.fab_calendario)

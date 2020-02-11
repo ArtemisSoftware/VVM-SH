@@ -50,14 +50,14 @@
                     android:id="@+id/circleView"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
-                    android:src="@drawable/face" />
+                    android:src="@drawable/ic_lorem_ipsum_24dp" />
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/circleView_"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
                     android:layout_alignParentRight="true"
-                    android:src="@drawable/face" />
+                    android:src="@drawable/ic_lorem_ipsum_24dp" />
 
 
 

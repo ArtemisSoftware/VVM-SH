@@ -18,6 +18,24 @@
 
 
 
+    <!--colors for profile-->
+    <color name="profilePrimaryDark">#FF3B30</color>
+    <color name="profileAccentColor">#F7F7F7</color>
+    <color name="profileBackground">#fff</color>
+    <color name="profileEditTextColor">#707070</color>
+
+
+
+
+
+
+
+
+
+
+
+
+
 
     <!-- Screens background color-->
 

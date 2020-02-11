@@ -50,4 +50,7 @@ dependencies {
 
     def circlebutton_version = "1.1"
     implementation "com.github.markushi:circlebutton:$circlebutton_version"
+
+    def clans_fab_version = "1.6.4"
+    implementation "com.github.clans:fab:$clans_fab_version"
 }

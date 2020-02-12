@@ -66,6 +66,38 @@
 
 
 
+    <style name="exp_toolbar_title" parent="@android:style/TextAppearance.Holo.Medium">
+        <item name="android:textSize">36dp</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+    <style name="coll_toolbar_title" parent="@android:style/TextAppearance.Medium">
+        <item name="android:textSize">20dp</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     <style name="AppIntroButtonStyleCompat" parent="Widget.AppCompat.Button.Borderless">
         <item name="android:background">?attr/selectableItemBackground</item>
         <item name="android:minHeight">@dimen/appintro_button_minheight</item>

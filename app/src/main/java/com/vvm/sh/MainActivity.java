@@ -16,6 +16,7 @@ import com.github.clans.fab.FloatingActionMenu;
 import com.vvm.sh.apresentacao.ApresentacaoActivity;
 import com.vvm.sh.ui.BaseActivity;
 import com.vvm.sh.ui.agenda.Tarefa;
+import com.vvm.sh.ui.agenda.TarefaActivity;
 import com.vvm.sh.ui.agenda.adaptadores.TarefaRecyclerAdapter;
 import com.vvm.sh.util.adaptadores.OnItemListener;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
@@ -27,7 +28,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class MainActivity extends BaseActivity implements DatePickerDialog.OnDateSetListener, OnItemListener {
+public class MainActivity extends BaseActivity implements /*DatePickerDialog.OnDateSetListener,*/ OnItemListener {
 
 
 
@@ -104,9 +105,9 @@ public class MainActivity extends BaseActivity implements DatePickerDialog.OnDat
 
     @Override
     public void onItemClick(int position) {
-        //Intent intent = new Intent(this, PictureActivity.class);
+        Intent intent = new Intent(this, TarefaActivity.class);
         //intent.putExtra(AppConstants.PICTURE, pictureRecyclerAdapter.getSelectedPicture(position).getId());
-        //startActivity(intent);
+        startActivity(intent);
     }
 
 
@@ -114,7 +115,7 @@ public class MainActivity extends BaseActivity implements DatePickerDialog.OnDat
     public void fab_calendario_OnClickListener(View view) {
 
         fab_menu_agenda.close(true);
-
+/*
         Calendar calendar = Calendar.getInstance();
         Year = calendar.get(Calendar.YEAR) ;
         Month = calendar.get(Calendar.MONTH);
@@ -171,13 +172,14 @@ public class MainActivity extends BaseActivity implements DatePickerDialog.OnDat
 
 
         dpd.show(getSupportFragmentManager(), "Datepickerdialog");
-
+*/
     }
 
 
-
+/*
     @Override
     public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
         Toast.makeText(MainActivity.this, "OverrideOverrideOverrideOverrideOverride", Toast.LENGTH_LONG).show();
     }
+    */
 }

@@ -19,7 +19,7 @@ import butterknife.ButterKnife;
 public class TarefaViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
     @BindView(R.id.txt_titulo)
-    TextView txt_title;
+    TextView txt_titulo;
 
     @BindView(R.id.img_empresa)
     ImageView img_empresa;
@@ -40,7 +40,7 @@ public class TarefaViewHolder extends RecyclerView.ViewHolder implements View.On
 
     public void onBind(Tarefa tarefa){
 
-        txt_title.setText(tarefa.obterDescricao());
+        txt_titulo.setText(tarefa.obterDescricao());
 
         TextDrawable drawable = TextDrawable.builder()
                 .beginConfig()

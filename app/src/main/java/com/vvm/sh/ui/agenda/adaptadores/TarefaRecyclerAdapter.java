@@ -26,7 +26,6 @@ public class TarefaRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     public TarefaRecyclerAdapter(OnItemListener onItemListener) {
 
         this.registos = new ArrayList<>();
-
         this.onItemListener = onItemListener;
     }
 

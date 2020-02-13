@@ -48,6 +48,7 @@ public class TarefaViewHolder extends RecyclerView.ViewHolder implements View.On
                 .endConfig()
                 .buildRound(tarefa.obterEmpresa(), Color.RED);
         img_empresa.setImageDrawable(drawable);
+
     }
 
 

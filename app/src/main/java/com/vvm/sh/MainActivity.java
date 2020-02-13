@@ -28,7 +28,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class MainActivity extends BaseActivity implements /*DatePickerDialog.OnDateSetListener,*/ OnItemListener {
+public class MainActivity extends BaseActivity implements DatePickerDialog.OnDateSetListener, OnItemListener {
 
 
 
@@ -115,7 +115,7 @@ public class MainActivity extends BaseActivity implements /*DatePickerDialog.OnD
     public void fab_calendario_OnClickListener(View view) {
 
         fab_menu_agenda.close(true);
-/*
+
         Calendar calendar = Calendar.getInstance();
         Year = calendar.get(Calendar.YEAR) ;
         Month = calendar.get(Calendar.MONTH);
@@ -172,14 +172,14 @@ public class MainActivity extends BaseActivity implements /*DatePickerDialog.OnD
 
 
         dpd.show(getSupportFragmentManager(), "Datepickerdialog");
-*/
+
     }
 
 
-/*
+
     @Override
     public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
         Toast.makeText(MainActivity.this, "OverrideOverrideOverrideOverrideOverride", Toast.LENGTH_LONG).show();
     }
-    */
+
 }

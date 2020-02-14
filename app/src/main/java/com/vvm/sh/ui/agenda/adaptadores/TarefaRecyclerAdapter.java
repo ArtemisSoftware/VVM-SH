@@ -34,7 +34,7 @@ public class TarefaRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.agenda_list_item, parent, false);
+        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.agenda_list_card_item, parent, false);
         return new TarefaViewHolder(view, this.onItemListener);
     }
 

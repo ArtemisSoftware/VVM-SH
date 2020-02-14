@@ -22,7 +22,7 @@
         android:textStyle="bold" />
 
     <TextView
-        android:id="@+id/genre"
+        android:id="@+id/txt_descricao"
         android:text="@string/lorem_ipsum_titulo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

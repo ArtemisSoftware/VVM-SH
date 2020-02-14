@@ -31,9 +31,9 @@ public abstract class ItemViewHolder extends RecyclerView.ViewHolder{
         ButterKnife.bind(this, itemView);
     }
 
-    public void onBind(Tarefa tarefa){
+    public void onBind(Item item){
 
-        txt_descricao.setText(tarefa.obterDescricao());
+        txt_descricao.setText(item.obterDescricao());
     }
 
 

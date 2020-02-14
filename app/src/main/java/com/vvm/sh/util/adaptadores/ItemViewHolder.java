@@ -34,6 +34,7 @@ public abstract class ItemViewHolder extends RecyclerView.ViewHolder{
     public void onBind(Item item){
 
         txt_descricao.setText(item.obterDescricao());
+        preencherCampos(item);
     }
 
 
@@ -41,8 +42,11 @@ public abstract class ItemViewHolder extends RecyclerView.ViewHolder{
     //Metodos abstratos
     //--------------------
 
+
+
     /**
      * Metodo que permite preencher os campos do view holder
+     * @param item item com os dados
      */
-    protected abstract void preencherCampos();
+    protected abstract void preencherCampos(Item item);
 }

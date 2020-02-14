@@ -12,7 +12,7 @@
     android:paddingTop="@dimen/row_padding_vertical">
 
     <TextView
-        android:id="@+id/title"
+        android:id="@+id/txt_data"
         android:text="@string/lorem_ipsum_titulo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -28,7 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_marginLeft="12dp"
-        android:layout_toEndOf="@id/title" />
+        android:layout_toEndOf="@id/txt_data" />
 
 
 </RelativeLayout>

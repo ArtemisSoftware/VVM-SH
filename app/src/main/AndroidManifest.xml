@@ -10,13 +10,16 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".ui.crossSelling.CrossSellingActivity"></activity>
-        <activity android:name=".ui.atividadesExecutadas.AtividadesExecutadasActivity" />
+        <activity
+            android:name=".ui.atividadesExecutadas.AtividadesExecutadasActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.cliente.InformacaoActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.agenda.TarefaActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+
         <activity android:name=".apresentacao.ApresentacaoActivity" />
         <activity
             android:name=".MainActivity"

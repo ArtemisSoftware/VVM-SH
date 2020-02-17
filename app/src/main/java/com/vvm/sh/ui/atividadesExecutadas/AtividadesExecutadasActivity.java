@@ -1,10 +1,13 @@
 package com.vvm.sh.ui.atividadesExecutadas;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.widget.LinearLayout;
 
 import com.vvm.sh.R;
 import com.vvm.sh.ui.BaseActivity;
@@ -31,6 +34,12 @@ public class AtividadesExecutadasActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_atividades_executadas);
 
+
+        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        if(getSupportActionBar() != null)
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         iniciarAtividade();
         obterRegistos();
     }
@@ -48,6 +57,7 @@ public class AtividadesExecutadasActivity extends BaseActivity {
         atividadeExecutadaRecyclerAdapter = new AtividadeExecutadaRecyclerAdapter();
         rcl_registos.setAdapter(atividadeExecutadaRecyclerAdapter);
         rcl_registos.setLayoutManager(new LinearLayoutManager(this));
+        rcl_registos.addItemDecoration(new DividerItemDecoration(this, LinearLayout.VERTICAL));
     }
 
 

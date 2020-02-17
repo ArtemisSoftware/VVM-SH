@@ -1,10 +1,13 @@
 package com.vvm.sh.ui.crossSelling;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.vvm.sh.R;
@@ -34,6 +37,7 @@ public class CrossSellingActivity extends BaseActivity {
 
         iniciarAtividade();
         obterRegistos("1", true);
+
     }
 
 
@@ -51,6 +55,7 @@ public class CrossSellingActivity extends BaseActivity {
         crossSellingRecyclerAdapter = new CrossSellingRecyclerAdapter();
         rcl_registos.setAdapter(crossSellingRecyclerAdapter);
         rcl_registos.setLayoutManager(new LinearLayoutManager(this));
+        rcl_registos.addItemDecoration(new DividerItemDecoration(this, LinearLayout.VERTICAL));
     }
 
 

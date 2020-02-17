@@ -5,6 +5,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.amulyakhare.textdrawable.TextDrawable;
@@ -23,6 +24,7 @@ import butterknife.ButterKnife;
  */
 public abstract class ItemViewHolder extends RecyclerView.ViewHolder{
 
+    @Nullable
     @BindView(R.id.txt_descricao)
     TextView txt_descricao;
 

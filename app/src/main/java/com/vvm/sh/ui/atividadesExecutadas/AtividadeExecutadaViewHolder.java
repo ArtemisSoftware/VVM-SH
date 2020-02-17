@@ -15,7 +15,7 @@ public class AtividadeExecutadaViewHolder extends ItemViewHolder {
 
 
     @BindView(R.id.txt_data)
-    TextView txt_descricao;
+    TextView txt_data;
 
 
     public AtividadeExecutadaViewHolder(@NonNull View itemView) {
@@ -24,6 +24,6 @@ public class AtividadeExecutadaViewHolder extends ItemViewHolder {
 
     @Override
     protected void preencherCampos(Item item) {
-        ((AtividadeExecutada) item).obterData();
+        txt_data.setText(((AtividadeExecutada) item).obterData());
     }
 }

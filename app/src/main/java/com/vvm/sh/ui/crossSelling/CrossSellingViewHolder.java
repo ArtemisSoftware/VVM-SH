@@ -38,6 +38,7 @@ public class CrossSellingViewHolder extends ItemViewHolder implements CheckBox.O
     protected void preencherCampos(Item item) {
 
         chk_box_produto.setText(item.obterDescricao());
+        chk_box_produto.setSelected(true);
         chk_box_produto.setOnCheckedChangeListener(this);
 
         CrossSelling registo = (CrossSelling) item;

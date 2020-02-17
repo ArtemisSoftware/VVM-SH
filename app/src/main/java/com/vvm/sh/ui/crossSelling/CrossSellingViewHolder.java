@@ -40,10 +40,12 @@ public class CrossSellingViewHolder extends ItemViewHolder implements CheckBox.O
         chk_box_produto.setText(item.obterDescricao());
         chk_box_produto.setOnCheckedChangeListener(this);
 
-        if(true){
+        CrossSelling registo = (CrossSelling) item;
+
+        if(registo.existeSinaletica() == true){
             lnr_lyt_sinaletica.setVisibility(View.VISIBLE);
-            txt_dimensao.setText("");
-            txt_tipo.setText("");
+            txt_dimensao.setText(registo.obterDimensao());
+            txt_tipo.setText(registo.obterTipo());
         }
         else{
             lnr_lyt_sinaletica.setVisibility(View.GONE);

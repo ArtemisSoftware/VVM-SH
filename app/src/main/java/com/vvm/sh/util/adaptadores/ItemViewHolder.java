@@ -16,8 +16,10 @@ import butterknife.ButterKnife;
 
 /**
  * Classe que representa a base para um item de uma RecyclerView
- *
- * <b>O layout deve obrigatoriamento ter uma Textview com o @id <i><u>txt_descricao</u></i></b>
+ * <br>
+ * <br>
+ * <b>Nota</b><br>
+ * Caso o layout possua uma Textview com o @id <i><u>txt_descricao</u></i> esta será preenchida <b>automaticamente</b>
  */
 public abstract class ItemViewHolder extends RecyclerView.ViewHolder{
 
@@ -33,7 +35,11 @@ public abstract class ItemViewHolder extends RecyclerView.ViewHolder{
 
     public void onBind(Item item){
 
-        txt_descricao.setText(item.obterDescricao());
+        try {
+            txt_descricao.setText(item.obterDescricao());
+        }
+        catch(NullPointerException e){}
+
         preencherCampos(item);
     }
 

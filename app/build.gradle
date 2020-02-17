@@ -59,4 +59,7 @@ dependencies {
 
     def textdrawable_version = "1.0.1"
     implementation "com.amulyakhare:com.amulyakhare.textdrawable:$textdrawable_version"
+
+    def finestwebview_version = "1.2.7"
+    implementation "com.thefinestartist:finestwebview:$finestwebview_version"
 }

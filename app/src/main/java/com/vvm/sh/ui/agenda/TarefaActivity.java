@@ -11,6 +11,7 @@ import com.vvm.sh.R;
 import com.vvm.sh.ui.BaseActivity;
 import com.vvm.sh.ui.atividadesExecutadas.AtividadesExecutadasActivity;
 import com.vvm.sh.ui.cliente.InformacaoActivity;
+import com.vvm.sh.ui.contaCorrente.ContaCorrenteActivity;
 
 import butterknife.OnClick;
 
@@ -39,6 +40,14 @@ public class TarefaActivity extends BaseActivity {
     @OnClick(R.id.crd_atividades_executadas)
     public void crd_atividades_executadas_OnClickListener(View view) {
         Intent intent = new Intent(this, AtividadesExecutadasActivity.class);
+        //intent.putExtra(AppConstants.PICTURE, pictureRecyclerAdapter.getSelectedPicture(position).getId());
+        startActivity(intent);
+    }
+
+
+    @OnClick(R.id.crd_conta_corrente)
+    public void crd_conta_corrente_OnClickListener(View view) {
+        Intent intent = new Intent(this, ContaCorrenteActivity.class);
         //intent.putExtra(AppConstants.PICTURE, pictureRecyclerAdapter.getSelectedPicture(position).getId());
         startActivity(intent);
     }

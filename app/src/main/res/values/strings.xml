@@ -30,6 +30,8 @@
     <string name="conta_corrente">Conta Corrente</string>
     <string name="dimensao_">Dimensão:</string>
     <string name="tipo_">Tipo:</string>
+    <string name="areaRecomendacao_">Área / Recomendação:</string>
+    <string name="produtos">Produtos</string>
 
 
 </resources>

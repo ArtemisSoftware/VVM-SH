@@ -33,7 +33,9 @@
     <color name="lightgray">#ededed</color>
 
 
-
+    <color name="cor_tabelas">#FF1565C0</color>
+    <color name="cor_tabelas_">#FF42A5F5</color>
+    <color name="cor_tabelas__">#FF0D47A1</color>
 
 
 

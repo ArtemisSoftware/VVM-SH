@@ -32,6 +32,7 @@
     <string name="tipo_">Tipo:</string>
     <string name="areaRecomendacao_">Área / Recomendação:</string>
     <string name="produtos">Produtos</string>
+    <string name="cross_selling">Cross Selling</string>
 
 
 </resources>

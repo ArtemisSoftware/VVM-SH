@@ -12,6 +12,7 @@ import com.vvm.sh.ui.BaseActivity;
 import com.vvm.sh.ui.atividadesExecutadas.AtividadesExecutadasActivity;
 import com.vvm.sh.ui.cliente.InformacaoActivity;
 import com.vvm.sh.ui.contaCorrente.ContaCorrenteActivity;
+import com.vvm.sh.ui.crossSelling.CrossSellingActivity;
 
 import butterknife.OnClick;
 
@@ -37,6 +38,15 @@ public class TarefaActivity extends BaseActivity {
         startActivity(intent);
     }
 
+
+    @OnClick(R.id.crd_cross_selling)
+    public void crd_cross_selling_OnClickListener(View view) {
+        Intent intent = new Intent(this, CrossSellingActivity.class);
+        //intent.putExtra(AppConstants.PICTURE, pictureRecyclerAdapter.getSelectedPicture(position).getId());
+        startActivity(intent);
+    }
+
+
     @OnClick(R.id.crd_atividades_executadas)
     public void crd_atividades_executadas_OnClickListener(View view) {
         Intent intent = new Intent(this, AtividadesExecutadasActivity.class);
@@ -51,4 +61,6 @@ public class TarefaActivity extends BaseActivity {
         //intent.putExtra(AppConstants.PICTURE, pictureRecyclerAdapter.getSelectedPicture(position).getId());
         startActivity(intent);
     }
+
+    /*https://www.11zon.com/android/android_cardview.php*/
 }

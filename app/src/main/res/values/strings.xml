@@ -9,8 +9,12 @@
     <!--A-->
     <string name="avancar">Avançar</string>
 
+
+    <string name="conta_corrente_nif_">Conta Corrente para o nif:</string>
+
     <!--I-->
     <string name="iniciar">Iniciar</string>
+    <string name="informacao">Informação</string>
 
 
     <!--onboarding designs-->
@@ -20,7 +24,7 @@
     <string name="onboarding_welcome_3">Welcome 3</string>
     <string name="onboarding_welcome_2">Welcome 2</string>
     <string name="onboarding_welcome_1">Welcome</string>
-    <string name="informacao">Informação</string>
+
 
 
 </resources>

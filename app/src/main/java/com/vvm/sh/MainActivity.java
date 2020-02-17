@@ -58,7 +58,8 @@ public class MainActivity extends BaseActivity implements /*DatePickerDialog.OnD
 
 
         iniciarAtividade();
-        obterTarefas();
+        subscreverObservadores();
+        obterRegistos();
     }
 
 
@@ -78,13 +79,16 @@ public class MainActivity extends BaseActivity implements /*DatePickerDialog.OnD
     }
 
 
-    private void obterTarefas(){
+    private void obterRegistos(){
 
+        //--TESTE (apagar quando houver dados)
         List<Tarefa> t1 = new ArrayList<>();
         t1.add(new Tarefa(1, "Tarefa numero 1", "SH"));
         t1.add(new Tarefa(2, "Tarefa numero 2", "SA"));
 
         tarefaRecyclerAdapter.fixarRegistos(t1);
+
+        //TODO: chamar metodo do viewmodel
     }
 
     /**

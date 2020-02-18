@@ -10,6 +10,7 @@ import android.view.View;
 import com.vvm.sh.R;
 import com.vvm.sh.ui.BaseActivity;
 import com.vvm.sh.ui.atividadesExecutadas.AtividadesExecutadasActivity;
+import com.vvm.sh.ui.atividadesPendentes.AtividadesPendentesActivity;
 import com.vvm.sh.ui.cliente.InformacaoActivity;
 import com.vvm.sh.ui.contaCorrente.ContaCorrenteActivity;
 import com.vvm.sh.ui.crossSelling.CrossSellingActivity;
@@ -46,6 +47,12 @@ public class TarefaActivity extends BaseActivity {
         startActivity(intent);
     }
 
+    @OnClick(R.id.crd_atividades_pendentes)
+    public void crd_atividades_pendentes_OnClickListener(View view) {
+        Intent intent = new Intent(this, AtividadesPendentesActivity.class);
+        //intent.putExtra(AppConstants.PICTURE, pictureRecyclerAdapter.getSelectedPicture(position).getId());
+        startActivity(intent);
+    }
 
     @OnClick(R.id.crd_atividades_executadas)
     public void crd_atividades_executadas_OnClickListener(View view) {

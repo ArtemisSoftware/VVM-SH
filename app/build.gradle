@@ -63,5 +63,6 @@ dependencies {
     def finestwebview_version = "1.2.7"
     implementation "com.thefinestartist:finestwebview:$finestwebview_version"
 
-    implementation "com.github.skydoves:powerspinner:1.0.4"
+    def powerspinner_version = "1.0.4"
+    implementation "com.github.skydoves:powerspinner:$powerspinner_version"
 }

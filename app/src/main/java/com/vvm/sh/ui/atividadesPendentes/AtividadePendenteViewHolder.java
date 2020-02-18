@@ -58,7 +58,7 @@ public class AtividadePendenteViewHolder extends ItemViewHolder implements View.
 
     @Override
     public void onClick(View v) {
-
+        onItemListener.onItemClick(getAdapterPosition());
     }
 
 

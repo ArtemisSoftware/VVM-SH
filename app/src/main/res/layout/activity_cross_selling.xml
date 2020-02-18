@@ -5,82 +5,116 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:orientation="vertical"
     android:layout_centerHorizontal="true">
 
-    <LinearLayout android:layout_width="fill_parent"
-        android:layout_height="fill_parent"
-        android:orientation="vertical" >
 
-
-        <!-- ..............pesquisa............... -->
-
+    <androidx.cardview.widget.CardView
+        android:id="@+id/idCardView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="9dp"
+        android:layout_margin="7dp"
+        app:cardBackgroundColor="@color/cardview_light_background"
+        android:gravity="center"
+        app:cardCornerRadius="2dp"
+        app:cardPreventCornerOverlap="false">
 
         <LinearLayout
             android:layout_width="fill_parent"
-            android:layout_height="42dp"
-            android:gravity="center_vertical"
-            android:orientation="horizontal"
-            android:layout_marginLeft="10dp" >
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
 
+                <!-- Product Image -->
 
-            <com.skydoves.powerspinner.PowerSpinnerView
-                android:id="@+id/spnr_area_recomendacao"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@color/md_blue_200"
-                android:foreground="?attr/selectableItemBackground"
-                android:gravity="center_vertical"
-                android:hint="@string/areaRecomendacao"
-                android:padding="10dp"
-                android:textColor="@color/white_93"
-                android:textColorHint="@color/white_70"
-                android:textSize="14.5sp"
-                app:spinner_arrow_gravity="end"
-                app:spinner_arrow_padding="8dp"
-                app:spinner_divider_color="@color/white_70"
-                app:spinner_divider_show="true"
-                app:spinner_divider_size="0.4dp"
-                app:spinner_popup_animation="normal"
-                app:spinner_popup_background="@color/background800"
-                app:spinner_popup_elevation="14dp"
-                tools:ignore="HardcodedText,UnusedAttribute" />
+                <LinearLayout
+                    android:id="@+id/idLinearLayoutProductImage"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true">
 
-            <TextView android:id="@+id/txt_sinaletica"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textStyle="italic"
-                android:text="@string/lorem_ipsum_titulo"
-                android:layout_marginLeft="15dp" />
+                    <de.hdodenhof.circleimageview.CircleImageView
+                        android:src="@drawable/ic_lorem_ipsum_24dp"
+                        app:civ_border_width="2dp"
+                        app:civ_border_color="#FF000000"
+                        android:layout_width="50dp"
+                        android:layout_height="50dp">
 
+                    </de.hdodenhof.circleimageview.CircleImageView>
 
+                </LinearLayout>
+
+                <!-- Rest of the product info and add/remove to/from cart symbols -->
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:id="@+id/idTopLayout"
+                    android:paddingLeft="18dp"
+                    android:layout_gravity="center_vertical">
+
+                    <com.skydoves.powerspinner.PowerSpinnerView
+                        android:id="@+id/spnr_area_recomendacao"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:background="@color/md_blue_200"
+                        android:foreground="?attr/selectableItemBackground"
+                        android:gravity="center_vertical"
+                        android:hint="@string/areaRecomendacao"
+                        android:padding="10dp"
+                        android:textColor="@color/white_93"
+                        android:textColorHint="@color/white_70"
+                        android:textSize="14.5sp"
+                        app:spinner_arrow_gravity="end"
+                        app:spinner_arrow_padding="8dp"
+                        app:spinner_divider_color="@color/white_70"
+                        app:spinner_divider_show="true"
+                        app:spinner_divider_size="0.4dp"
+                        app:spinner_popup_animation="normal"
+                        app:spinner_popup_background="@color/background800"
+                        app:spinner_popup_elevation="14dp"
+                        tools:ignore="HardcodedText,UnusedAttribute" />
+
+                </LinearLayout>
+
+            </LinearLayout>
 
         </LinearLayout>
 
-
-        <!-- ..............cabecalho............... -->
-
-
-        <TextView android:layout_width="fill_parent"
+        <RelativeLayout
+            android:id="@+id/rlt_lyt_sinaletica"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="10dp"
-            android:text="@string/produtos"
-            android:textColor="@color/whiteCardColor"
-            android:textSize="14sp"
-            android:textStyle="bold"
-            android:background="@color/cor_tabelas__" />
+            android:visibility="visible"
+            android:layout_marginEnd="22dp"
+            android:layout_marginTop="47dp">
 
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:text="@string/sinaletica"
+                android:textStyle="italic" />
+        </RelativeLayout>
 
-        <!-- ..............lista............... -->
-
-        <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/rcl_registos"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
-
+    </androidx.cardview.widget.CardView>
 
 
 
-    </LinearLayout>
+    <!-- ..............lista............... -->
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rcl_registos"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
 </LinearLayout>

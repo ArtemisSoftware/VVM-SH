@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.skydoves.powerspinner.IconSpinnerAdapter;
@@ -30,8 +31,8 @@ public class CrossSellingActivity extends BaseActivity implements OnCheckBoxItem
     @BindView(R.id.rcl_registos)
     RecyclerView rcl_registos;
 
-    @BindView(R.id.txt_sinaletica)
-    TextView txt_sinaletica;
+    @BindView(R.id.rlt_lyt_sinaletica)
+    RelativeLayout rlt_lyt_sinaletica;
 
     @BindView(R.id.spnr_area_recomendacao)
     PowerSpinnerView spnr_area_recomendacao;

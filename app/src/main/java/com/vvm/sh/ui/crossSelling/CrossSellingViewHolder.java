@@ -4,6 +4,7 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
@@ -22,8 +23,8 @@ public class CrossSellingViewHolder extends ItemViewHolder implements CheckBox.O
     @BindView(R.id.chk_box_produto)
     CheckBox chk_box_produto;
 
-    @BindView(R.id.lnr_lyt_sinaletica)
-    LinearLayout lnr_lyt_sinaletica;
+    @BindView(R.id.rlt_lyt_sinaletica)
+    RelativeLayout rlt_lyt_sinaletica;
 
     @BindView(R.id.txt_dimensao)
     TextView txt_dimensao;
@@ -51,12 +52,12 @@ public class CrossSellingViewHolder extends ItemViewHolder implements CheckBox.O
         chk_box_produto.setChecked(registo.obterSelecao());
 
         if(registo.existeSinaletica() == true){
-            lnr_lyt_sinaletica.setVisibility(View.VISIBLE);
+            rlt_lyt_sinaletica.setVisibility(View.VISIBLE);
             txt_dimensao.setText(registo.obterDimensao());
             txt_tipo.setText(registo.obterTipo());
         }
         else{
-            lnr_lyt_sinaletica.setVisibility(View.GONE);
+            rlt_lyt_sinaletica.setVisibility(View.GONE);
         }
 
 

@@ -1,28 +1,20 @@
 package com.vvm.sh;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.Toast;
-import android.widget.Toolbar;
 
-import com.github.clans.fab.FloatingActionButton;
 import com.github.clans.fab.FloatingActionMenu;
-import com.vvm.sh.apresentacao.ApresentacaoActivity;
 import com.vvm.sh.ui.BaseActivity;
 import com.vvm.sh.ui.agenda.Tarefa;
 import com.vvm.sh.ui.agenda.TarefaActivity;
 import com.vvm.sh.ui.agenda.adaptadores.TarefaRecyclerAdapter;
-import com.vvm.sh.util.adaptadores.OnItemListener;
-import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
+import com.vvm.sh.util.interfaces.OnItemListener;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import butterknife.BindView;

@@ -11,6 +11,8 @@ import androidx.annotation.NonNull;
 import com.vvm.sh.R;
 import com.vvm.sh.util.adaptadores.Item;
 import com.vvm.sh.util.adaptadores.ItemViewHolder;
+import com.vvm.sh.util.interfaces.OnCheckBoxItemListener;
+import com.vvm.sh.util.interfaces.OnItemListener;
 
 import butterknife.BindView;
 
@@ -29,16 +31,20 @@ public class CrossSellingViewHolder extends ItemViewHolder implements CheckBox.O
     @BindView(R.id.txt_tipo)
     TextView txt_tipo;
 
+    private OnCheckBoxItemListener onItemListener;
 
-    public CrossSellingViewHolder(@NonNull View itemView) {
+
+    public CrossSellingViewHolder(@NonNull View itemView, OnCheckBoxItemListener onItemListener) {
         super(itemView);
+
+        this.onItemListener = onItemListener;
     }
+
 
     @Override
     protected void preencherCampos(Item item) {
 
         chk_box_produto.setText(item.obterDescricao());
-        chk_box_produto.setOnCheckedChangeListener(this);
 
         CrossSelling registo = (CrossSelling) item;
 
@@ -53,10 +59,13 @@ public class CrossSellingViewHolder extends ItemViewHolder implements CheckBox.O
             lnr_lyt_sinaletica.setVisibility(View.GONE);
         }
 
+
+        chk_box_produto.setOnCheckedChangeListener(this);
     }
+
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
+        onItemListener.onItemClick(getAdapterPosition(), isChecked);
     }
 }

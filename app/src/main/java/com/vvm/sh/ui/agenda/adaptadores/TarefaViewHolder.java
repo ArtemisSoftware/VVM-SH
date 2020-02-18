@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.vvm.sh.R;
 import com.vvm.sh.ui.agenda.Tarefa;
-import com.vvm.sh.util.adaptadores.OnItemListener;
+import com.vvm.sh.util.interfaces.OnItemListener;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

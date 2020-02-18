@@ -16,13 +16,15 @@ import com.skydoves.powerspinner.PowerSpinnerView;
 import com.vvm.sh.R;
 import com.vvm.sh.ui.BaseActivity;
 import com.vvm.sh.util.adaptadores.Item;
+import com.vvm.sh.util.interfaces.OnCheckBoxItemListener;
+import com.vvm.sh.util.interfaces.OnItemListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 
-public class CrossSellingActivity extends BaseActivity {
+public class CrossSellingActivity extends BaseActivity implements OnCheckBoxItemListener {
 
 
     @BindView(R.id.rcl_registos)
@@ -58,7 +60,7 @@ public class CrossSellingActivity extends BaseActivity {
      */
     private void iniciarAtividade(){
 
-        crossSellingRecyclerAdapter = new CrossSellingRecyclerAdapter();
+        crossSellingRecyclerAdapter = new CrossSellingRecyclerAdapter(this);
         rcl_registos.setAdapter(crossSellingRecyclerAdapter);
         rcl_registos.setLayoutManager(new LinearLayoutManager(this));
         rcl_registos.addItemDecoration(new DividerItemDecoration(this, LinearLayout.VERTICAL));
@@ -68,7 +70,6 @@ public class CrossSellingActivity extends BaseActivity {
     private void obterRegistos(String idArea, boolean sinaletica){
 
         //--TESTE (apagar quando houver dados)
-
 
         List<IconSpinnerItem> iconSpinnerItems = new ArrayList<>();
         iconSpinnerItems.add(new IconSpinnerItem(null, "Report 1"));
@@ -99,6 +100,31 @@ public class CrossSellingActivity extends BaseActivity {
 
 
         //TODO: subscrever observadores do viewmodel
+
+    }
+
+
+    //---------------------
+    //Eventos
+    //---------------------
+
+    @Override
+    public void onItemClick(int posicao, boolean selecao) {
+
+        //TODO: saber se é sinaletica é uma informação contida no objeto da spinner
+
+
+        if(selecao == true /*& sinaletica == false*/){
+            //--gravar(null);
+        }
+        else if(selecao == true /*& sinaletica == true*/){
+            //--dialogoSinaletica();
+        }
+
+        else{
+            //--acessoBdCrossSelling.remover(registos.get(posicao).obterId());
+            //--atualizar();
+        }
 
     }
 

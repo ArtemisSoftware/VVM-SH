@@ -1,4 +1,4 @@
-package com.vvm.sh.ui.agenda.adaptadores;
+package com.vvm.sh.ui.agenda;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,8 +8,6 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.vvm.sh.R;
-import com.vvm.sh.ui.agenda.Tarefa;
-import com.vvm.sh.ui.tarefa.TarefaViewHolder;
 import com.vvm.sh.util.interfaces.OnItemListener;
 
 import java.util.ArrayList;

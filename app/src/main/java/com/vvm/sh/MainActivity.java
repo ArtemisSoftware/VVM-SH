@@ -11,7 +11,7 @@ import com.github.clans.fab.FloatingActionMenu;
 import com.vvm.sh.ui.BaseActivity;
 import com.vvm.sh.ui.agenda.Tarefa;
 import com.vvm.sh.ui.agenda.TarefaActivity;
-import com.vvm.sh.ui.agenda.adaptadores.TarefaRecyclerAdapter;
+import com.vvm.sh.ui.agenda.TarefaRecyclerAdapter;
 import com.vvm.sh.util.interfaces.OnItemListener;
 
 import java.util.ArrayList;

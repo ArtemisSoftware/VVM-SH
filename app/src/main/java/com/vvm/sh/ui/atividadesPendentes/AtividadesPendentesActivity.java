@@ -1,36 +1,35 @@
-package com.vvm.sh.ui.atividadesExecutadas;
+package com.vvm.sh.ui.atividadesPendentes;
 
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
-import android.widget.LinearLayout;
 
 import com.vvm.sh.R;
 import com.vvm.sh.ui.BaseActivity;
 import com.vvm.sh.util.adaptadores.Item;
+import com.vvm.sh.util.interfaces.OnItemListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 
-public class AtividadesExecutadasActivity extends BaseActivity {
-
+public class AtividadesPendentesActivity extends BaseActivity implements OnItemListener {
 
     @BindView(R.id.rcl_registos)
     RecyclerView rcl_registos;
 
 
-    private AtividadeExecutadaRecyclerAdapter atividadeExecutadaRecyclerAdapter;
+    private AtividadePendenteRecyclerAdapter atividadePendenteRecyclerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_atividades_executadas);
-
+        setContentView(R.layout.activity_atividades_pendentes);
 
         Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -40,6 +39,7 @@ public class AtividadesExecutadasActivity extends BaseActivity {
         iniciarAtividade();
         obterRegistos();
     }
+
 
     //------------------------
     //Metodos locais
@@ -51,10 +51,9 @@ public class AtividadesExecutadasActivity extends BaseActivity {
      */
     private void iniciarAtividade(){
 
-        atividadeExecutadaRecyclerAdapter = new AtividadeExecutadaRecyclerAdapter();
-        rcl_registos.setAdapter(atividadeExecutadaRecyclerAdapter);
+        atividadePendenteRecyclerAdapter = new AtividadePendenteRecyclerAdapter(this);
+        rcl_registos.setAdapter(atividadePendenteRecyclerAdapter);
         rcl_registos.setLayoutManager(new LinearLayoutManager(this));
-        rcl_registos.addItemDecoration(new DividerItemDecoration(this, LinearLayout.VERTICAL));
     }
 
 
@@ -63,10 +62,10 @@ public class AtividadesExecutadasActivity extends BaseActivity {
         //--TESTE (apagar quando houver dados)
 
         List<Item> t1 = new ArrayList<>();
-        t1.add(new AtividadeExecutada(1, "Atividade numero 1", "29-10-2020"));
-        t1.add(new AtividadeExecutada(2, "Atividade numero 2", "30-10-2020"));
+        t1.add(new AtividadePendente(1, "Atividade pendente numero 1", "29-10-2020", "1 e 2 anuidade", 1, "Iluminação"));
+        t1.add(new AtividadePendente(2, "Atividade pendente numero 2", "30-10-2020", "1 e 2 anuidade", -1, null));
 
-        atividadeExecutadaRecyclerAdapter.fixarRegistos(t1);
+        atividadePendenteRecyclerAdapter.fixarRegistos(t1);
 
         //TODO: chamar metodo do viewmodel
     }
@@ -79,5 +78,17 @@ public class AtividadesExecutadasActivity extends BaseActivity {
 
         //TODO: subscrever observadores do viewmodel
 
+    }
+
+
+    //---------------------
+    //Eventos
+    //---------------------
+
+    @Override
+    public void onItemClick(int position) {
+        //Intent intent = new Intent(this, TarefaActivity.class);
+        //intent.putExtra(AppConstants.PICTURE, pictureRecyclerAdapter.getSelectedPicture(position).getId());
+        //startActivity(intent);
     }
 }

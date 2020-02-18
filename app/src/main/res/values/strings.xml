@@ -6,6 +6,7 @@
     <string name="lorem_ipsum_texto">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </string>
     <string name="lorem_ipsum_texto_pequeno">consectetur adipiscing</string>
     <string name="lorem_ipsum_numero">290346</string>
+    <string name="lorem_ipsum_data">29-03-2046</string>
 
 
     <!--A-->

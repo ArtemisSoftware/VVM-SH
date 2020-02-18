@@ -1,4 +1,4 @@
-package com.vvm.sh.ui.agenda.adaptadores;
+package com.vvm.sh.ui.tarefa;
 
 import android.graphics.Color;
 import android.view.View;

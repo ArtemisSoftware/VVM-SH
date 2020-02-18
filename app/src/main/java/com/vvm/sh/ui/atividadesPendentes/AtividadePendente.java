@@ -1,9 +1,11 @@
 package com.vvm.sh.ui.atividadesPendentes;
 
 import com.vvm.sh.util.adaptadores.Item;
+import com.vvm.sh.util.metodos.Datas;
 
 public class AtividadePendente extends Item {
 
+    public static final int SEM_RELATORIO = -1;
 
     private String data, anuidade, tempoExecucao, observacoes, dataExecucao, idAnomalia;
 
@@ -27,28 +29,30 @@ public class AtividadePendente extends Item {
 
 
     public AtividadePendente(int id, String descricao, String data, String anuidade,
-                             int idRelatorio, String relatorio, String checklistAVR,
+                             int idRelatorio, String relatorio/*, String checklistAVR,
                              int estado, String tempoExecucao, String dataExecucao, String idAnomalia, String observacoes,
                              int validadeRelatorio, int validadeProcessoProdutivo, int validadeTrabalhadoresVulneraveis, int validadeEquipamentos,
-                             int validadePlanoAcao, int validadeLevantamentosRisco, int validadeChecklist, int validadeCapaRelatorio, String idRelatorioAmbiental) {
+                             int validadePlanoAcao, int validadeLevantamentosRisco, int validadeChecklist, int validadeCapaRelatorio, String idRelatorioAmbiental*/) {
         super(id, descricao);
 
         this.data = data;
         this.anuidade = anuidade;
-        this.checklistAVR = checklistAVR;
-
-        gerarInformacaoEstado(estado);
 
         this.idRelatorio = idRelatorio;
         this.relatorio = relatorio;
+
+        //this.checklistAVR = checklistAVR;
+
+        //gerarInformacaoEstado(estado);
         //imagemRelatorio = obterImagem(validadeRelatorio);
 
-        gerarValidadeAtividade(idRelatorio, validadeRelatorio);
+        //gerarValidadeAtividade(idRelatorio, validadeRelatorio);
 
-        gerarInformacaoAvaliacaoRisco(validadeProcessoProdutivo,validadeEquipamentos,validadeTrabalhadoresVulneraveis,validadeChecklist,validadePlanoAcao,validadeLevantamentosRisco, validadeCapaRelatorio);
+        //gerarInformacaoAvaliacaoRisco(validadeProcessoProdutivo,validadeEquipamentos,validadeTrabalhadoresVulneraveis,validadeChecklist,validadePlanoAcao,validadeLevantamentosRisco, validadeCapaRelatorio);
 
         //checkList(checklist, completudeChecklist, descricaoChecklist);
 
+        /*
         this.estado = estado; //
         this.tempoExecucao = tempoExecucao;
         this.observacoes = observacoes; //
@@ -56,7 +60,50 @@ public class AtividadePendente extends Item {
         this.idAnomalia = idAnomalia;//
 
         this.idRelatorioAmbiental = idRelatorioAmbiental;
+        */
     }
+
+
+    /**
+     * Metodo que permite obter a data da atividade
+     * @return uma data (dd-mm-yyyy)
+     */
+    public String obterData(){
+        return Datas.converterData(data, Datas.DATA_FORMATO_DD_MM_YYYY);
+    }
+
+
+    /**
+     * Metodo que permite obter a anuidade
+     * @return a anuidade
+     */
+    public String obterAnuidade(){
+        return anuidade;
+    }
+
+
+
+    /**
+     * Metodo que devolve o identificador do tipo do relatorio
+     * @return o identificador do tipo do relatorio
+     */
+    public int obterIdRelatorio(){
+        return idRelatorio;
+    }
+
+
+
+    /**
+     * Metodo que devolve a descricao do relatorio
+     * @return uma descricao
+     */
+    public String obterRelatorio(){
+        return relatorio;
+    }
+
+
+
+
 
 
 
@@ -100,23 +147,6 @@ public class AtividadePendente extends Item {
     }
 
 
-    /**
-     * Metodo que permite obter a data da atividade
-     * @return uma data (dd-mm-yyyy)
-     */
-    /*
-    public String obterData(){
-        return MetodosDatas.converterData(data, DataIF.DATA_FORMATO_DD_MM_YYYY);
-    }
-*/
-
-    /**
-     * Metodo que permite obter a anuidade
-     * @return a anuidade
-     */
-    public String obterAnuidade(){
-        return anuidade;
-    }
 
 
 
@@ -231,15 +261,6 @@ public class AtividadePendente extends Item {
 
 
 
-    /**
-     * Metodo que devolve o identificador do tipo do relatorio
-     * @return o identificador do tipo do relatorio
-     */
-    public int obterIdRelatorio(){
-        return idRelatorio;
-    }
-
-
 
     /**
      * Metodo que devolve um identificador a indicar qual a obrigacao da atividade
@@ -272,15 +293,6 @@ public class AtividadePendente extends Item {
     }
 */
 
-
-
-    /**
-     * Metodo que devolve a descricao do relatorio
-     * @return uma descricao
-     */
-    public String obterDescricaoRelatorio(){
-        return relatorio;
-    }
 
 
 

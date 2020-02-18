@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.vvm.sh.R;
 import com.vvm.sh.ui.agenda.Tarefa;
+import com.vvm.sh.ui.tarefa.TarefaViewHolder;
 import com.vvm.sh.util.interfaces.OnItemListener;
 
 import java.util.ArrayList;

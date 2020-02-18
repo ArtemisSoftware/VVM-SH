@@ -1,8 +1,10 @@
 package com.vvm.sh.ui.crossSelling;
 
 import com.vvm.sh.util.adaptadores.Item;
+import com.vvm.sh.util.interfaces.CheckBoxIF;
+import com.vvm.sh.util.metodos.Conversor;
 
-public class CrossSelling extends Item {
+public class CrossSelling extends Item implements CheckBoxIF {
 
     private String dimensao, tipo;
     private boolean selecionado;
@@ -12,7 +14,7 @@ public class CrossSelling extends Item {
 
         this.dimensao = dimensao;
         this.tipo = tipo;
-        this.selecionado = true;//MetodosConversor.converter_Integer_Para_Boolean(selecionado);
+        this.selecionado = Conversor.converter_Integer_Para_Boolean(selecionado);
     }
 
 
@@ -47,4 +49,13 @@ public class CrossSelling extends Item {
         return true;
     }
 
+    @Override
+    public void fixarSelecao(boolean selecao) {
+        this.selecionado = selecao;
+    }
+
+    @Override
+    public boolean obterSelecao() {
+        return selecionado;
+    }
 }

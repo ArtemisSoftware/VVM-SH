@@ -10,6 +10,9 @@ import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.skydoves.powerspinner.IconSpinnerAdapter;
+import com.skydoves.powerspinner.IconSpinnerItem;
+import com.skydoves.powerspinner.PowerSpinnerView;
 import com.vvm.sh.R;
 import com.vvm.sh.ui.BaseActivity;
 import com.vvm.sh.util.adaptadores.Item;
@@ -27,6 +30,9 @@ public class CrossSellingActivity extends BaseActivity {
 
     @BindView(R.id.txt_sinaletica)
     TextView txt_sinaletica;
+
+    @BindView(R.id.spnr_area_recomendacao)
+    PowerSpinnerView spnr_area_recomendacao;
 
     private CrossSellingRecyclerAdapter crossSellingRecyclerAdapter;
 
@@ -62,6 +68,19 @@ public class CrossSellingActivity extends BaseActivity {
     private void obterRegistos(String idArea, boolean sinaletica){
 
         //--TESTE (apagar quando houver dados)
+
+
+        List<IconSpinnerItem> iconSpinnerItems = new ArrayList<>();
+        iconSpinnerItems.add(new IconSpinnerItem(null, "Report 1"));
+        iconSpinnerItems.add(new IconSpinnerItem(null, "Report do Report do Report para o Report 2"));
+        iconSpinnerItems.add(new IconSpinnerItem(null, "Report 3"));
+        iconSpinnerItems.add(new IconSpinnerItem(null, "Report 4"));
+        iconSpinnerItems.add(new IconSpinnerItem(null, "Report 5"));
+
+        IconSpinnerAdapter iconSpinnerAdapter = new IconSpinnerAdapter(spnr_area_recomendacao);
+        spnr_area_recomendacao.setSpinnerAdapter(iconSpinnerAdapter);
+        spnr_area_recomendacao.setItems(iconSpinnerItems);
+
 
         List<Item> t1 = new ArrayList<>();
         t1.add(new CrossSelling(1, "Produto numero 1", "200 x 400", "tipo duplo", 1));

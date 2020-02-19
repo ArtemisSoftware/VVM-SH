@@ -92,4 +92,6 @@
     <color name="md_purple_100">#AA00FF</color>
     <color name="md_purple_200">#7200CA</color>
 
+    <color name="contentTextColor">#020000</color>
+
 </resources>

@@ -12,6 +12,7 @@ import com.vvm.sh.ui.BaseActivity;
 import com.vvm.sh.ui.atividadesExecutadas.AtividadesExecutadasActivity;
 import com.vvm.sh.ui.atividadesPendentes.AtividadesPendentesActivity;
 import com.vvm.sh.ui.cliente.InformacaoActivity;
+import com.vvm.sh.ui.cliente.SinistralidadeActivity;
 import com.vvm.sh.ui.contaCorrente.ContaCorrenteActivity;
 import com.vvm.sh.ui.crossSelling.CrossSellingActivity;
 
@@ -43,6 +44,14 @@ public class TarefaActivity extends BaseActivity {
     @OnClick(R.id.crd_cross_selling)
     public void crd_cross_selling_OnClickListener(View view) {
         Intent intent = new Intent(this, CrossSellingActivity.class);
+        //intent.putExtra(AppConstants.PICTURE, pictureRecyclerAdapter.getSelectedPicture(position).getId());
+        startActivity(intent);
+    }
+
+
+    @OnClick(R.id.crd_sinistralidade)
+    public void crd_sinistralidade_OnClickListener(View view) {
+        Intent intent = new Intent(this, SinistralidadeActivity.class);
         //intent.putExtra(AppConstants.PICTURE, pictureRecyclerAdapter.getSelectedPicture(position).getId());
         startActivity(intent);
     }

@@ -65,4 +65,6 @@ dependencies {
 
     def powerspinner_version = "1.0.4"
     implementation "com.github.skydoves:powerspinner:$powerspinner_version"
+
+    implementation 'com.mobsandgeeks:android-saripaar:2.0.3'
 }

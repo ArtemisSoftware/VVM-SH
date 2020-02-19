@@ -51,6 +51,18 @@
     <string name="relatorio_">Relatório:</string>
     <string name="atividades_pendentes">Atividades Pendentes</string>
     <string name="indices_de_sinistralidade_ano">Índices de Sinistralidade / Ano</string>
+    <string name="sinistralidade">Sinistralidade</string>
+    <string name="av_gravidade">Av. Gravidade</string>
+    <string name="gravidade">Gravidade</string>
+    <string name="incidencia">Incidência</string>
+    <string name="frequencia">Frequência</string>
+    <string name="indices">Índices</string>
+    <string name="n_total_de_horas_trabalhadas">Nº total de horas trabalhadas</string>
+    <string name="n_de_faltas_horas">Nº de faltas (horas)</string>
+    <string name="n_horas_ano_trabalhador">Nº horas / ano / trabalhador</string>
+    <string name="n_total_de_trabalhadores">Nº total de trabalhadores</string>
+    <string name="n_de_dias_perdidos">Nº de dias perdidos</string>
+    <string name="n_de_acidentes_de_trabalho">Nº de acidentes de trabalho</string>
 
 
 </resources>

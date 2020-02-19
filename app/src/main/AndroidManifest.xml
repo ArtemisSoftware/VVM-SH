@@ -19,13 +19,17 @@
         <activity
             android:name=".ui.atividadesExecutadas.AtividadesExecutadasActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".ui.cliente.InformacaoActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+
         <activity
             android:name=".ui.agenda.TarefaActivity"
             android:theme="@style/AppTheme.NoActionBar" />
+
         <activity android:name=".apresentacao.ApresentacaoActivity" />
+
         <activity
             android:name=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -35,6 +39,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name="com.thefinestartist.finestwebview.FinestWebViewActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"

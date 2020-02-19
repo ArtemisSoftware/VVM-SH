@@ -8,12 +8,17 @@
     <string name="lorem_ipsum_numero">290346</string>
     <string name="lorem_ipsum_data">29-03-2046</string>
 
+    <!-- misc -->
+
+    <string name="sem_dados"></string>
 
     <!--A-->
 
     <string name="areaRecomendacao">Área / Recomendação</string>
     <string name="avancar">Avançar</string>
     <string name="atividades_executadas">Atividades Executadas</string>
+    <string name="av_gravidade">Av. Gravidade</string>
+    <string name="atividades_pendentes">Atividades Pendentes</string>
 
     <!--C-->
 
@@ -26,15 +31,47 @@
 
     <string name="dimensao_">Dimensão:</string>
 
+
+    <!--F-->
+
+
+    <string name="frequencia">Frequência</string>
+
+    <!--G-->
+
+    <string name="gravidade">Gravidade</string>
+
     <!--I-->
 
     <string name="iniciar">Iniciar</string>
     <string name="informacao">Informação</string>
+    <string name="incidencia">Incidência</string>
+    <string name="indices">Índices</string>
+    <string name="indices_de_sinistralidade_ano">Índices de Sinistralidade / Ano</string>
 
+
+    <!--N-->
+
+    <string name="n_total_de_horas_trabalhadas">Nº total de horas trabalhadas</string>
+    <string name="n_de_faltas_horas">Nº de faltas (horas)</string>
+    <string name="n_horas_ano_trabalhador">Nº horas / ano / trabalhador</string>
+    <string name="n_total_de_trabalhadores">Nº total de trabalhadores</string>
+    <string name="n_de_dias_perdidos">Nº de dias perdidos</string>
+    <string name="n_de_acidentes_de_trabalho">Nº de acidentes de trabalho</string>
 
     <!--P-->
 
     <string name="produtos">Produtos</string>
+
+    <!--R-->
+
+
+    <string name="relatorio_">Relatório:</string>
+
+    <!--S-->
+
+    <string name="sinaletica">Sinalética</string>
+    <string name="sinistralidade">Sinistralidade</string>
 
     <!--T-->
 
@@ -47,22 +84,11 @@
     <string name="onboarding_welcome_3">Welcome 3</string>
     <string name="onboarding_welcome_2">Welcome 2</string>
     <string name="onboarding_welcome_1">Welcome</string>
-    <string name="sinaletica">Sinalética</string>
-    <string name="relatorio_">Relatório:</string>
-    <string name="atividades_pendentes">Atividades Pendentes</string>
-    <string name="indices_de_sinistralidade_ano">Índices de Sinistralidade / Ano</string>
-    <string name="sinistralidade">Sinistralidade</string>
-    <string name="av_gravidade">Av. Gravidade</string>
-    <string name="gravidade">Gravidade</string>
-    <string name="incidencia">Incidência</string>
-    <string name="frequencia">Frequência</string>
-    <string name="indices">Índices</string>
-    <string name="n_total_de_horas_trabalhadas">Nº total de horas trabalhadas</string>
-    <string name="n_de_faltas_horas">Nº de faltas (horas)</string>
-    <string name="n_horas_ano_trabalhador">Nº horas / ano / trabalhador</string>
-    <string name="n_total_de_trabalhadores">Nº total de trabalhadores</string>
-    <string name="n_de_dias_perdidos">Nº de dias perdidos</string>
-    <string name="n_de_acidentes_de_trabalho">Nº de acidentes de trabalho</string>
+
+
+
+
+
 
 
 </resources>

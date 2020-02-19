@@ -30,8 +30,8 @@ public class TarefaViewHolder extends RecyclerView.ViewHolder implements View.On
 
     public TarefaViewHolder(@NonNull View itemView, OnItemListener onItemListener) {
         super(itemView);
-
         ButterKnife.bind(this, itemView);
+
 
         this.onItemListener = onItemListener;
         itemView.setOnClickListener(this);

@@ -23,6 +23,7 @@
 
     </com.google.android.material.appbar.AppBarLayout>
 
+
     <androidx.core.widget.NestedScrollView
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -31,6 +32,7 @@
         android:paddingRight="@dimen/activity_horizontal_margin"
         android:paddingTop="@dimen/activity_vertical_margin"
         app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -47,100 +49,94 @@
                 android:textStyle="bold" />
 
 
+
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/errorInputLayout"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/activity_horizontal_margin"
-                app:counterEnabled="true"
-                android:hint="Default Error Label"
-                app:counterMaxLength="5"
+                style="@style/parent.TextLayout"
+                android:hint="@string/n_de_acidentes_de_trabalho"
+                android:layout_width="450dp"
+                android:layout_marginTop="@dimen/signup_text_margin_top"
                 app:errorEnabled="true">
 
-            <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/errorEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content" />
-
-
-            </com.google.android.material.textfield.TextInputLayout>
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/txt_inp_acidentes_trabalho"
-                style="@style/parent.TextLayout"
-                android:layout_width="450dp"
-                android:layout_marginTop="@dimen/signup_text_margin_top">
-                <EditText
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txt_inp_acidentes_trabalho"
                     style="@style/modifiedEditText"
                     android:inputType="numberDecimal"
-                    android:maxLines="1"
-                    android:hint="@string/n_de_acidentes_de_trabalho"/>
+                    android:maxLines="1"/>
             </com.google.android.material.textfield.TextInputLayout>
 
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/txt_inp_dias_perdidos"
                 style="@style/parent.TextLayout"
+                android:hint="@string/n_de_dias_perdidos"
                 android:layout_width="450dp"
-                android:layout_marginTop="@dimen/signup_text_margin_top">
-                <EditText
+                android:layout_marginTop="@dimen/signup_text_margin_top"
+                app:errorEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txt_inp_dias_perdidos"
                     style="@style/modifiedEditText"
                     android:inputType="numberDecimal"
-                    android:maxLines="1"
-                    android:hint="@string/n_de_dias_perdidos"/>
+                    android:maxLines="1"/>
             </com.google.android.material.textfield.TextInputLayout>
 
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/txt_inp_total_trabalhadores"
                 style="@style/parent.TextLayout"
+                android:hint="@string/n_total_de_trabalhadores"
                 android:layout_width="450dp"
-                android:layout_marginTop="@dimen/signup_text_margin_top">
-                <EditText
+                android:layout_marginTop="@dimen/signup_text_margin_top"
+                app:errorEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txt_inp_total_trabalhadores"
+                    style="@style/modifiedEditText"
+                    android:inputType="number"
+                    android:maxLines="1"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/parent.TextLayout"
+                android:hint="@string/n_horas_ano_trabalhador"
+                android:layout_width="450dp"
+                android:layout_marginTop="@dimen/signup_text_margin_top"
+                app:errorEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txt_inp_horas_ano_trabalhador"
                     style="@style/modifiedEditText"
                     android:inputType="numberDecimal"
-                    android:maxLines="1"
-                    android:hint="@string/n_total_de_trabalhadores"/>
+                    android:maxLines="1"/>
             </com.google.android.material.textfield.TextInputLayout>
 
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/txt_inp_horas_ano_trabalhador"
+                android:hint="@string/n_de_faltas_horas"
                 style="@style/parent.TextLayout"
                 android:layout_width="450dp"
-                android:layout_marginTop="@dimen/signup_text_margin_top">
-                <EditText
+                android:layout_marginTop="@dimen/signup_text_margin_top"
+                app:errorEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txt_inp_faltas"
                     style="@style/modifiedEditText"
                     android:inputType="numberDecimal"
-                    android:maxLines="1"
-                    android:hint="@string/n_horas_ano_trabalhador"/>
+                    android:maxLines="1"/>
             </com.google.android.material.textfield.TextInputLayout>
 
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/txt_inp_faltas"
+                android:hint="@string/n_total_de_horas_trabalhadas"
                 style="@style/parent.TextLayout"
                 android:layout_width="450dp"
                 android:layout_marginTop="@dimen/signup_text_margin_top">
-                <EditText
-                    style="@style/modifiedEditText"
-                    android:inputType="numberDecimal"
-                    android:maxLines="1"
-                    android:hint="@string/n_de_faltas_horas"/>
-            </com.google.android.material.textfield.TextInputLayout>
 
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/txt_inp_total_horas_trabalhadas"
-                style="@style/parent.TextLayout"
-                android:layout_width="450dp"
-                android:layout_marginTop="@dimen/signup_text_margin_top">
-                <EditText
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txt_inp_total_horas_trabalhadas"
                     style="@style/modifiedEditText"
                     android:inputType="text"
                     android:enabled="false"
-                    android:maxLines="1"
-                    android:hint="@string/n_total_de_horas_trabalhadas"/>
+                    android:maxLines="1"/>
             </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -158,58 +154,62 @@
 
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/txt_inp_frequencia"
+                android:hint="@string/frequencia"
                 style="@style/parent.TextLayout"
                 android:layout_width="200dp"
                 android:layout_marginTop="@dimen/signup_text_margin_top">
-                <EditText
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txt_inp_frequencia"
                     style="@style/modifiedEditText"
                     android:inputType="text"
                     android:enabled="false"
-                    android:maxLines="1"
-                    android:hint="@string/frequencia"/>
+                    android:maxLines="1"/>
             </com.google.android.material.textfield.TextInputLayout>
 
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/txt_inp_incidencia"
+                android:hint="@string/incidencia"
                 style="@style/parent.TextLayout"
                 android:layout_width="200dp"
                 android:layout_marginTop="@dimen/signup_text_margin_top">
-                <EditText
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txt_inp_incidencia"
                     style="@style/modifiedEditText"
                     android:inputType="text"
                     android:enabled="false"
-                    android:maxLines="1"
-                    android:hint="@string/incidencia"/>
+                    android:maxLines="1"/>
             </com.google.android.material.textfield.TextInputLayout>
 
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/txt_inp_gravidade"
+                android:hint="@string/gravidade"
                 style="@style/parent.TextLayout"
                 android:layout_width="200dp"
                 android:layout_marginTop="@dimen/signup_text_margin_top">
-                <EditText
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txt_inp_gravidade"
                     style="@style/modifiedEditText"
                     android:inputType="text"
                     android:enabled="false"
-                    android:maxLines="1"
-                    android:hint="@string/gravidade"/>
+                    android:maxLines="1"/>
             </com.google.android.material.textfield.TextInputLayout>
 
 
             <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/txt_inp_avaliacao_gravidade"
+                android:hint="@string/av_gravidade"
                 style="@style/parent.TextLayout"
                 android:layout_width="200dp"
                 android:layout_marginTop="@dimen/signup_text_margin_top">
-                <EditText
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txt_inp_avaliacao_gravidade"
                     style="@style/modifiedEditText"
                     android:inputType="text"
                     android:enabled="false"
-                    android:maxLines="1"
-                    android:hint="@string/av_gravidade"/>
+                    android:maxLines="1"/>
             </com.google.android.material.textfield.TextInputLayout>
 
 

@@ -83,9 +83,6 @@
     <string name="tipo_">Tipo:</string>
 
 
-
-
-
     <!--onboarding designs-->
     <string name="onboardingWelcomeContent">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </string>
     <string name="onboardingSpinWinContent">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </string>
@@ -101,6 +98,7 @@
     <string name="departamento_">Departamento:</string>
     <string name="contrato_">Contrato:</string>
     <string name="estado_">Estado:</string>
+    <string name="marca_">Marca:</string>
 
 
 </resources>

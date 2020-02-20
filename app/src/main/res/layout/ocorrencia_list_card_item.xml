@@ -61,9 +61,9 @@
                 android:gravity="center_vertical">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/lorem_ipsum_texto_pequeno"
+                    android:text="@string/departamento_"
                     android:textSize="13sp"
                     android:layout_marginLeft="12dp"/>
 
@@ -85,9 +85,9 @@
                 android:gravity="center_vertical">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/lorem_ipsum_texto_pequeno"
+                    android:text="@string/contrato_"
                     android:textSize="13sp"
                     android:layout_marginLeft="12dp"/>
 
@@ -109,9 +109,9 @@
                 android:gravity="center_vertical">
 
                 <TextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/lorem_ipsum_texto_pequeno"
+                    android:text="@string/estado_"
                     android:textSize="13sp"
                     android:layout_marginLeft="12dp"/>
 

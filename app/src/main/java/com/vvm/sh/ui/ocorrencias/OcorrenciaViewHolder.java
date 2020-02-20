@@ -29,7 +29,7 @@ public class OcorrenciaViewHolder extends ItemViewHolder implements View.OnClick
 
     private OnItemListener onItemListener;
 
-    public OcorrenciaViewHolder(@NonNull View itemView) {
+    public OcorrenciaViewHolder(@NonNull View itemView, OnItemListener onItemListener) {
         super(itemView);
 
         this.onItemListener = onItemListener;

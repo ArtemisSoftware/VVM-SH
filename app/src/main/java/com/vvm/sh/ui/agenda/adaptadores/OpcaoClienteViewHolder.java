@@ -1,19 +1,14 @@
-package com.vvm.sh.ui.agenda;
+package com.vvm.sh.ui.agenda.adaptadores;
 
 import android.view.View;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
-import com.vvm.sh.R;
 import com.vvm.sh.util.adaptadores.Item;
 import com.vvm.sh.util.adaptadores.ItemViewHolder;
 import com.vvm.sh.util.interfaces.OnItemListener;
 
-import butterknife.BindView;
-
-public class OpcaoClienteViewHolder extends ItemViewHolder implements View.OnClickListener{
-
+public class OpcaoClienteViewHolder extends ItemViewHolder implements View.OnClickListener {
 
     private OnItemListener onItemListener;
 

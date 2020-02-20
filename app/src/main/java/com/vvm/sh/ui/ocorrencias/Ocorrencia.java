@@ -7,12 +7,13 @@ import com.vvm.sh.util.metodos.Datas;
 public class Ocorrencia extends Item {
 
     private String descricaoDepartamento, contrato, dataEntrada, marca, situacao;
-    private String dias, observacao;
+    private String dias, observacao, data;
     private boolean fiscalizado;
 
     private int tipo;
     public static final int TIPO_OCORRENCIA = 1;
     public static final int TIPO_NOVA_OCORRENCIA = 2;
+    public static final int TIPO_HISTORICO_OCORRENCIA = 3;
 
 
     public Ocorrencia(int id, String descricao, int fiscalizado, String dias, String observacao) {
@@ -34,6 +35,16 @@ public class Ocorrencia extends Item {
         this.marca = marca;
         this.situacao = estado;
         this.tipo = TIPO_OCORRENCIA;
+    }
+
+    public Ocorrencia(String data, String situacao, String observacao, String departamento) {
+        super(0, "");
+        this.data = Datas.converterData(data, Datas.DATA_FORMATO_DD_MM_YYYY);
+        this.situacao = situacao;
+        this.observacao = observacao;
+        this.descricaoDepartamento = departamento;
+
+        this.tipo = TIPO_HISTORICO_OCORRENCIA;
     }
 
 
@@ -134,6 +145,14 @@ public class Ocorrencia extends Item {
         return situacao;
     }
 
+
+    /**
+     * Metodo que devolve a data do historico
+     * @return data do historico
+     */
+    public String obterData(){
+        return data;
+    }
 
     /**
      * Metodo que permite obter o tipo de ocorrencia

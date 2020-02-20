@@ -18,6 +18,7 @@ import com.vvm.sh.ui.cliente.InformacaoActivity;
 import com.vvm.sh.ui.cliente.SinistralidadeActivity;
 import com.vvm.sh.ui.contaCorrente.ContaCorrenteActivity;
 import com.vvm.sh.ui.crossSelling.CrossSellingActivity;
+import com.vvm.sh.ui.ocorrencias.OcorrenciasActivity;
 import com.vvm.sh.util.adaptadores.Item;
 import com.vvm.sh.util.interfaces.OnItemListener;
 
@@ -51,7 +52,6 @@ public class TarefaActivity extends BaseActivity implements OnItemListener {
 
         iniciarAtividade();
         subscreverObservadores();
-        obterRegistos();
     }
 
 
@@ -71,18 +71,6 @@ public class TarefaActivity extends BaseActivity implements OnItemListener {
     }
 
 
-    private void obterRegistos(){
-
-        //--TESTE (apagar quando houver dados)
-        List<Item> t1 = new ArrayList<>();
-        t1.add(new OpcaoCliente(1, "Tarefa numero 1"));
-        //t1.add(new OpcaoCliente(2, "Tarefa numero 2", "SA"));
-
-        opcaoClienteRecyclerAdapter.fixarRegistos(t1);
-
-        //TODO: chamar metodo do viewmodel
-    }
-
 
     /**
      * Metodo que permite subscrever observadores
@@ -94,29 +82,6 @@ public class TarefaActivity extends BaseActivity implements OnItemListener {
 
     }
 
-
-    @OnClick(R.id.crd_informacao)
-    public void crd_informacao_OnClickListener(View view) {
-        Intent intent = new Intent(this, InformacaoActivity.class);
-        //intent.putExtra(AppConstants.PICTURE, pictureRecyclerAdapter.getSelectedPicture(position).getId());
-        startActivity(intent);
-    }
-
-
-    @OnClick(R.id.crd_cross_selling)
-    public void crd_cross_selling_OnClickListener(View view) {
-        Intent intent = new Intent(this, CrossSellingActivity.class);
-        //intent.putExtra(AppConstants.PICTURE, pictureRecyclerAdapter.getSelectedPicture(position).getId());
-        startActivity(intent);
-    }
-
-
-    @OnClick(R.id.crd_sinistralidade)
-    public void crd_sinistralidade_OnClickListener(View view) {
-        Intent intent = new Intent(this, SinistralidadeActivity.class);
-        //intent.putExtra(AppConstants.PICTURE, pictureRecyclerAdapter.getSelectedPicture(position).getId());
-        startActivity(intent);
-    }
 
     @OnClick(R.id.crd_atividades_pendentes)
     public void crd_atividades_pendentes_OnClickListener(View view) {
@@ -141,6 +106,13 @@ public class TarefaActivity extends BaseActivity implements OnItemListener {
     }
 
 
+    @OnClick(R.id.crd_ocorrencias)
+    public void crd_ocorrencias_OnClickListener(View view) {
+        Intent intent = new Intent(this, OcorrenciasActivity.class);
+        //intent.putExtra(AppConstants.PICTURE, pictureRecyclerAdapter.getSelectedPicture(position).getId());
+        startActivity(intent);
+    }
+
     //---------------------
     //Eventos
     //---------------------
@@ -148,9 +120,34 @@ public class TarefaActivity extends BaseActivity implements OnItemListener {
 
     @Override
     public void onItemClick(int position) {
-        //Intent intent = new Intent(this, TarefaActivity.class);
-        //intent.putExtra(AppConstants.PICTURE, pictureRecyclerAdapter.getSelectedPicture(position).getId());
-        //startActivity(intent);
+
+        Intent intent = null;
+
+        switch (opcaoClienteRecyclerAdapter.obterRegisto(position).obterId()){
+
+            case OpcaoClienteRecyclerAdapter.OPCAO_INFORMCACAO:
+
+                intent = new Intent(this, InformacaoActivity.class);
+                break;
+
+            case OpcaoClienteRecyclerAdapter.OPCAO_CROSS_SELLING:
+
+                intent = new Intent(this, CrossSellingActivity.class);
+                break;
+
+            case OpcaoClienteRecyclerAdapter.OPCAO_SINISTRALIDADE:
+
+                intent = new Intent(this, SinistralidadeActivity.class);
+                break;
+
+            default:
+                break;
+        }
+
+        if(intent != null) {
+            //intent.putExtra(AppConstants.PICTURE, pictureRecyclerAdapter.getSelectedPicture(position).getId());
+            startActivity(intent);
+        }
     }
 
     /*https://www.11zon.com/android/android_cardview.php*/

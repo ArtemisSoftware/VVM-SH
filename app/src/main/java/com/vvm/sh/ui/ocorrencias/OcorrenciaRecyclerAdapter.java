@@ -23,17 +23,17 @@ public class OcorrenciaRecyclerAdapter extends ItemRecyclerAdapter {
     @Override
     protected int obterLayout(int viewType) {
         switch (viewType){
-
+/*
             case Ocorrencia.TIPO_NOVA_OCORRENCIA:{
-                return R.layout.ocorrencia_list_card_item;
+                return R.layout.ocorrencia_nova_list_card_item;
             }
-
+*/
             case Ocorrencia.TIPO_HISTORICO_OCORRENCIA:{
                 return R.layout.ocorrencia_historico_list_card_item;
             }
 
             default:{
-                return R.layout.ocorrencia_nova_list_card_item;
+                return R.layout.ocorrencia_list_card_item;
             }
         }
     }
@@ -43,11 +43,11 @@ public class OcorrenciaRecyclerAdapter extends ItemRecyclerAdapter {
     protected ItemViewHolder obterViewHolder(View view, int viewType) {
 
         switch (viewType){
-
+/*
             case Ocorrencia.TIPO_NOVA_OCORRENCIA:{
                 return new OcorrenciaNovaViewHolder(view);
             }
-
+*/
             case Ocorrencia.TIPO_HISTORICO_OCORRENCIA:{
                 return new OcorrenciaHistoricoViewHolder(view);
             }

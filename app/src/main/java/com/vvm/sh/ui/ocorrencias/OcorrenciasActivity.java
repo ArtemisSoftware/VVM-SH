@@ -11,6 +11,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.vvm.sh.R;
+import com.vvm.sh.ui.BaseActivity;
 import com.vvm.sh.util.adaptadores.Item;
 import com.vvm.sh.util.interfaces.OnItemListener;
 
@@ -20,7 +21,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class OcorrenciasActivity extends AppCompatActivity implements OnItemListener {
+public class OcorrenciasActivity extends BaseActivity implements OnItemListener {
 
 
     @BindView(R.id.rcl_registos)

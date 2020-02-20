@@ -24,7 +24,7 @@ public class OcorrenciaViewHolder extends ItemViewHolder implements View.OnClick
     @BindView(R.id.txt_contrato)
     TextView txt_contrato;
 
-    @BindView(R.id.txt_data)
+    @BindView(R.id.txt_estado)
     TextView txt_estado;
 
 

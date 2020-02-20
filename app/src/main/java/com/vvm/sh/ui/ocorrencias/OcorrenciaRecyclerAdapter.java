@@ -3,9 +3,12 @@ package com.vvm.sh.ui.ocorrencias;
 import android.view.View;
 
 import com.vvm.sh.R;
+import com.vvm.sh.util.adaptadores.Item;
 import com.vvm.sh.util.adaptadores.ItemRecyclerAdapter;
 import com.vvm.sh.util.adaptadores.ItemViewHolder;
 import com.vvm.sh.util.interfaces.OnItemListener;
+
+import java.util.List;
 
 public class OcorrenciaRecyclerAdapter extends ItemRecyclerAdapter {
 
@@ -67,4 +70,16 @@ public class OcorrenciaRecyclerAdapter extends ItemRecyclerAdapter {
         }
     }
 
+
+    //-------------------
+    //Metodos locais
+    //-------------------
+
+    @Override
+    public void fixarRegistos(List<Item> registos){
+
+        this.registos.clear();
+        this.registos.addAll(registos);
+        notifyDataSetChanged();
+    }
 }

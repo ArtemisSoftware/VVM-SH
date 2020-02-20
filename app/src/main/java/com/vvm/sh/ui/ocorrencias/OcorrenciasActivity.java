@@ -1,16 +1,132 @@
 package com.vvm.sh.ui.ocorrencias;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+import androidx.cardview.widget.CardView;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.View;
+import android.widget.TextView;
 
 import com.vvm.sh.R;
+import com.vvm.sh.util.adaptadores.Item;
+import com.vvm.sh.util.interfaces.OnItemListener;
 
-public class OcorrenciasActivity extends AppCompatActivity {
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.BindView;
+import butterknife.OnClick;
+
+public class OcorrenciasActivity extends AppCompatActivity implements OnItemListener {
+
+
+    @BindView(R.id.rcl_registos)
+    RecyclerView rcl_registos;
+
+    @BindView(R.id.txt_historico)
+    TextView txt_historico;
+
+    @BindView(R.id.txt_marca)
+    TextView txt_marca;
+
+    @BindView(R.id.txt_estado)
+    TextView txt_estado;
+
+
+    @BindView(R.id.crs_historico)
+    CardView crs_historico;
+
+    private OcorrenciaRecyclerAdapter ocorrenciaRecyclerAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ocorrencias);
+
+        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        if(getSupportActionBar() != null)
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        iniciarAtividade();
+        obterRegistos();
+    }
+
+
+    //------------------------
+    //Metodos locais
+    //------------------------
+
+
+    /**
+     * Metodo que permite iniciar a atividade
+     */
+    private void iniciarAtividade(){
+
+        crs_historico.setVisibility(View.GONE);
+        ocorrenciaRecyclerAdapter = new OcorrenciaRecyclerAdapter(this);
+        rcl_registos.setAdapter(ocorrenciaRecyclerAdapter);
+        rcl_registos.setLayoutManager(new LinearLayoutManager(this));
+    }
+
+
+    private void obterRegistos(){
+
+        //--TESTE (apagar quando houver dados)
+
+        List<Item> t1 = new ArrayList<>();
+        t1.add(new Ocorrencia(1, "Ocorrencia numero 1", "Departamento norte", "12345235", "2020-02-20", "Marca 1", "estado 1"));
+        t1.add(new Ocorrencia(2, "Ocorrencia numero 2", "Departamento sul", "674543", "2020-02-18", "Marca 20", "estado raly"));
+
+        ocorrenciaRecyclerAdapter.fixarRegistos(t1);
+
+        //TODO: chamar metodo do viewmodel
+    }
+
+    /**
+     * Metodo que permite subscrever observadores
+     */
+    private void subscreverObservadores(){
+
+
+        //TODO: subscrever observadores do viewmodel
+
+    }
+
+
+    //---------------------
+    //Eventos
+    //---------------------
+
+    @OnClick(R.id.fab_adicionar)
+    public void fab_calendario_OnClickListener(View view) {
+        //Intent intent = new Intent(this, TarefaActivity.class);
+        //intent.putExtra(AppConstants.PICTURE, pictureRecyclerAdapter.getSelectedPicture(position).getId());
+        //startActivity(intent);
+    }
+
+
+    @Override
+    public void onItemClick(int position) {
+
+        try {
+            Ocorrencia registo = (Ocorrencia) ocorrenciaRecyclerAdapter.obterRegisto(position);
+
+            crs_historico.setVisibility(View.VISIBLE);
+            txt_historico.setText(registo.obterDescricao());
+            txt_marca.setText(registo.obterMarca());
+            txt_estado.setText(registo.obterSituacao());
+
+            List<Item> t1 = new ArrayList<>();
+            t1.add(new Ocorrencia("2019-02-04", "Resolvido", "uma observação grande", "departamento interno"));
+            t1.add(new Ocorrencia("2019-02-02", "Resolvido por enquanto", "uma observação pequena", "departamento externo"));
+            ocorrenciaRecyclerAdapter.fixarRegistos(t1);
+
+        }
+        catch(IndexOutOfBoundsException e){}
+
     }
 }

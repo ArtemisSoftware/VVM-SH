@@ -47,11 +47,26 @@ public abstract class ItemRecyclerAdapter extends RecyclerView.Adapter<RecyclerV
     //Metodos locais
     //-------------------
 
+    /**
+     * Metodo que permite fixar registos
+     * @param registos uma lista de registos
+     */
     public void fixarRegistos(List<Item> registos){
         this.registos.addAll(registos);
         notifyDataSetChanged();
     }
 
+
+    /**
+     * Metodo que permite obter um registo
+     * @param posicao a posicao do registo
+     * @return um registo
+     * @throws IndexOutOfBoundsException
+     */
+    public Item obterRegisto(int posicao) throws IndexOutOfBoundsException{
+
+        return this.registos.get(posicao);
+    }
 
     //-------------------
     //Metodos abstratos

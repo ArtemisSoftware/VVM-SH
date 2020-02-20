@@ -10,6 +10,10 @@ public class Ocorrencia extends Item {
     private String dias, observacao;
     private boolean fiscalizado;
 
+    private int tipo;
+    public static final int TIPO_OCORRENCIA = 1;
+    public static final int TIPO_NOVA_OCORRENCIA = 2;
+
 
     public Ocorrencia(int id, String descricao, int fiscalizado, String dias, String observacao) {
         super(id, descricao);
@@ -17,6 +21,7 @@ public class Ocorrencia extends Item {
         this.dias = dias;
         this.observacao = observacao;
         this.fiscalizado = Conversor.converter_Integer_Para_Boolean(fiscalizado);
+        this.tipo = TIPO_NOVA_OCORRENCIA;
     }
 
 
@@ -28,6 +33,7 @@ public class Ocorrencia extends Item {
         this.dataEntrada = Datas.converterData(dataEntrada, Datas.DATA_FORMATO_DD_MM_YYYY);
         this.marca = marca;
         this.situacao = estado;
+        this.tipo = TIPO_OCORRENCIA;
     }
 
 
@@ -129,4 +135,11 @@ public class Ocorrencia extends Item {
     }
 
 
+    /**
+     * Metodo que permite obter o tipo de ocorrencia
+     * @return o tipo de ocorrencia
+     */
+    public int obterTipo(){
+        return tipo;
+    }
 }

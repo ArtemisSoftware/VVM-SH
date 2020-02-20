@@ -27,7 +27,9 @@ public class OcorrenciaViewHolder extends ItemViewHolder implements View.OnClick
     @BindView(R.id.txt_data)
     TextView txt_estado;
 
+
     private OnItemListener onItemListener;
+
 
     public OcorrenciaViewHolder(@NonNull View itemView, OnItemListener onItemListener) {
         super(itemView);
@@ -44,7 +46,7 @@ public class OcorrenciaViewHolder extends ItemViewHolder implements View.OnClick
         txt_data_entrada.setText(registo.obterDataEntrada());
         txt_departamento.setText(registo.obterDepartamento());
         txt_contrato.setText(registo.obterContrato());
-        txt_estado.setText(registo.obterFiscalizacao());
+        txt_estado.setText(registo.obterSituacao());
     }
 
     @Override

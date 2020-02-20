@@ -14,7 +14,7 @@ import java.util.List;
 
 public abstract class ItemRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
-    private List<Item> registos;
+    protected List<Item> registos;
 
 
     public ItemRecyclerAdapter() {
@@ -27,8 +27,8 @@ public abstract class ItemRecyclerAdapter extends RecyclerView.Adapter<RecyclerV
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        View view = LayoutInflater.from(parent.getContext()).inflate(obterLayout(), parent, false);
-        return obterViewHolder(view);
+        View view = LayoutInflater.from(parent.getContext()).inflate(obterLayout(viewType), parent, false);
+        return obterViewHolder(view, viewType);
     }
 
 
@@ -57,7 +57,7 @@ public abstract class ItemRecyclerAdapter extends RecyclerView.Adapter<RecyclerV
     //Metodos abstratos
     //-------------------
 
-    protected abstract int obterLayout();
+    protected abstract int obterLayout(int viewType);
 
-    protected abstract ItemViewHolder obterViewHolder(View view);
+    protected abstract ItemViewHolder obterViewHolder(View view, int viewType);
 }

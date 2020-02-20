@@ -9,12 +9,12 @@ import com.vvm.sh.util.adaptadores.ItemViewHolder;
 public class AtividadeExecutadaRecyclerAdapter extends ItemRecyclerAdapter {
 
     @Override
-    protected int obterLayout() {
+    protected int obterLayout(int viewType) {
         return R.layout.atividade_executada_list_item;
     }
 
     @Override
-    protected ItemViewHolder obterViewHolder(View view) {
+    protected ItemViewHolder obterViewHolder(View view, int viewType) {
         return new AtividadeExecutadaViewHolder(view);
     }
 }

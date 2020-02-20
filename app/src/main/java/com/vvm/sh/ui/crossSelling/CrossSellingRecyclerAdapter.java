@@ -17,12 +17,12 @@ public class CrossSellingRecyclerAdapter extends ItemRecyclerAdapter {
     }
 
     @Override
-    protected int obterLayout() {
+    protected int obterLayout(int viewType) {
         return R.layout.cross_selling_list_item;
     }
 
     @Override
-    protected ItemViewHolder obterViewHolder(View view) {
+    protected ItemViewHolder obterViewHolder(View view, int viewType) {
         return new CrossSellingViewHolder(view, this.onItemListener);
     }
 }

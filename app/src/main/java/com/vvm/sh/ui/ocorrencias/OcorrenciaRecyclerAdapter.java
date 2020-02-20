@@ -25,6 +25,10 @@ public class OcorrenciaRecyclerAdapter extends ItemRecyclerAdapter {
                 return R.layout.ocorrencia_list_card_item;
             }
 
+            case Ocorrencia.TIPO_HISTORICO_OCORRENCIA:{
+                return R.layout.ocorrencia_historico_list_card_item;
+            }
+
             default:{
                 return R.layout.ocorrencia_nova_list_card_item;
             }
@@ -39,6 +43,10 @@ public class OcorrenciaRecyclerAdapter extends ItemRecyclerAdapter {
 
             case Ocorrencia.TIPO_NOVA_OCORRENCIA:{
                 return new OcorrenciaNovaViewHolder(view);
+            }
+
+            case Ocorrencia.TIPO_HISTORICO_OCORRENCIA:{
+                return new OcorrenciaHistoricoViewHolder(view);
             }
 
             default:{

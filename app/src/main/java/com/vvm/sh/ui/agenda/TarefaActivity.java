@@ -2,6 +2,8 @@ package com.vvm.sh.ui.agenda;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -9,16 +11,32 @@ import android.view.View;
 
 import com.vvm.sh.R;
 import com.vvm.sh.ui.BaseActivity;
+import com.vvm.sh.ui.agenda.adaptadores.OpcaoClienteRecyclerAdapter;
 import com.vvm.sh.ui.atividadesExecutadas.AtividadesExecutadasActivity;
 import com.vvm.sh.ui.atividadesPendentes.AtividadesPendentesActivity;
 import com.vvm.sh.ui.cliente.InformacaoActivity;
 import com.vvm.sh.ui.cliente.SinistralidadeActivity;
 import com.vvm.sh.ui.contaCorrente.ContaCorrenteActivity;
 import com.vvm.sh.ui.crossSelling.CrossSellingActivity;
+import com.vvm.sh.util.adaptadores.Item;
+import com.vvm.sh.util.interfaces.OnItemListener;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import butterknife.BindView;
 import butterknife.OnClick;
 
-public class TarefaActivity extends BaseActivity {
+public class TarefaActivity extends BaseActivity implements OnItemListener {
+
+
+
+    @BindView(R.id.rcl_opcoes_cliente)
+    RecyclerView rcl_opcoes_cliente;
+
+    private OpcaoClienteRecyclerAdapter opcaoClienteRecyclerAdapter;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -30,6 +48,50 @@ public class TarefaActivity extends BaseActivity {
 
         getSupportActionBar().setHomeButtonEnabled(true);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+        iniciarAtividade();
+        subscreverObservadores();
+        obterRegistos();
+    }
+
+
+    //------------------------
+    //Metodos locais
+    //------------------------
+
+
+    /**
+     * Metodo que permite iniciar a atividade
+     */
+    private void iniciarAtividade(){
+
+        opcaoClienteRecyclerAdapter = new OpcaoClienteRecyclerAdapter(this);
+        rcl_opcoes_cliente.setAdapter(opcaoClienteRecyclerAdapter);
+        rcl_opcoes_cliente.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
+    }
+
+
+    private void obterRegistos(){
+
+        //--TESTE (apagar quando houver dados)
+        List<Item> t1 = new ArrayList<>();
+        t1.add(new OpcaoCliente(1, "Tarefa numero 1"));
+        //t1.add(new OpcaoCliente(2, "Tarefa numero 2", "SA"));
+
+        opcaoClienteRecyclerAdapter.fixarRegistos(t1);
+
+        //TODO: chamar metodo do viewmodel
+    }
+
+
+    /**
+     * Metodo que permite subscrever observadores
+     */
+    private void subscreverObservadores(){
+
+
+        //TODO: subscrever observadores do viewmodel
+
     }
 
 
@@ -76,6 +138,19 @@ public class TarefaActivity extends BaseActivity {
         Intent intent = new Intent(this, ContaCorrenteActivity.class);
         //intent.putExtra(AppConstants.PICTURE, pictureRecyclerAdapter.getSelectedPicture(position).getId());
         startActivity(intent);
+    }
+
+
+    //---------------------
+    //Eventos
+    //---------------------
+
+
+    @Override
+    public void onItemClick(int position) {
+        //Intent intent = new Intent(this, TarefaActivity.class);
+        //intent.putExtra(AppConstants.PICTURE, pictureRecyclerAdapter.getSelectedPicture(position).getId());
+        //startActivity(intent);
     }
 
     /*https://www.11zon.com/android/android_cardview.php*/

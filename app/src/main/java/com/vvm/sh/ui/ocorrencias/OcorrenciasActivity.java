@@ -101,6 +101,11 @@ public class OcorrenciasActivity extends AppCompatActivity implements OnItemList
     //Eventos
     //---------------------
 
+    @OnClick(R.id.crl_img_regressar)
+    public void crl_img_regressar_OnClickListener(View view) {
+        obterRegistos();
+    }
+
     @OnClick(R.id.fab_adicionar)
     public void fab_calendario_OnClickListener(View view) {
         //Intent intent = new Intent(this, TarefaActivity.class);
@@ -113,6 +118,9 @@ public class OcorrenciasActivity extends AppCompatActivity implements OnItemList
     public void onItemClick(int position) {
 
         try {
+
+            //--TESTE (apagar quando houver dados)
+
             Ocorrencia registo = (Ocorrencia) ocorrenciaRecyclerAdapter.obterRegisto(position);
 
             crs_historico.setVisibility(View.VISIBLE);
@@ -124,6 +132,8 @@ public class OcorrenciasActivity extends AppCompatActivity implements OnItemList
             t1.add(new Ocorrencia("2019-02-04", "Resolvido", "uma observação grande", "departamento interno"));
             t1.add(new Ocorrencia("2019-02-02", "Resolvido por enquanto", "uma observação pequena", "departamento externo"));
             ocorrenciaRecyclerAdapter.fixarRegistos(t1);
+
+            //TODO: chamar metodo do viewmodel
 
         }
         catch(IndexOutOfBoundsException e){}

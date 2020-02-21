@@ -8,15 +8,14 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.vvm.sh.R;
+import com.vvm.sh.util.adaptadores.ItemRecyclerAdapter;
+import com.vvm.sh.util.adaptadores.ItemViewHolder;
 import com.vvm.sh.util.interfaces.OnItemListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class TarefaRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
-
-
-    private List<Tarefa> registos;
+public class TarefaRecyclerAdapter extends ItemRecyclerAdapter {
 
 
     private OnItemListener onItemListener;
@@ -24,38 +23,19 @@ public class TarefaRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     public TarefaRecyclerAdapter(OnItemListener onItemListener) {
 
-        this.registos = new ArrayList<>();
         this.onItemListener = onItemListener;
     }
 
 
-    @NonNull
     @Override
-    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+    protected int obterLayout(int viewType) {
+        return R.layout.agenda_list_card_item;
+    }
 
-        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.agenda_list_card_item, parent, false);
+    @Override
+    protected ItemViewHolder obterViewHolder(View view, int viewType) {
         return new TarefaViewHolder(view, this.onItemListener);
     }
 
 
-    //-------------------
-    //Metodos locais
-    //-------------------
-
-    public void fixarRegistos(List<Tarefa> registos){
-        this.registos.addAll(registos);
-        notifyDataSetChanged();
-    }
-
-
-
-    @Override
-    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-        ((TarefaViewHolder) holder).onBind(this.registos.get(position));
-    }
-
-    @Override
-    public int getItemCount() {
-        return registos.size();
-    }
 }

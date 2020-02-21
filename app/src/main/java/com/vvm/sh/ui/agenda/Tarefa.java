@@ -1,23 +1,14 @@
 package com.vvm.sh.ui.agenda;
 
-public class Tarefa {
+import com.vvm.sh.util.adaptadores.Item;
 
-    private int id;
-    private String descricao;
+public class Tarefa extends Item {
+
     private String empresa;
 
     public Tarefa(int id, String descricao, String empresa) {
-        this.id = id;
-        this.descricao = descricao;
+        super(id, descricao);
         this.empresa = empresa;
-    }
-
-    public int obterId() {
-        return id;
-    }
-
-    public String obterDescricao() {
-        return descricao;
     }
 
     public String obterEmpresa() {

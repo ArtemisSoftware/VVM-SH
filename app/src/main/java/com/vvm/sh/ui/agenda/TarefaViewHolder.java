@@ -11,15 +11,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.vvm.sh.R;
 import com.vvm.sh.ui.agenda.Tarefa;
+import com.vvm.sh.util.adaptadores.Item;
+import com.vvm.sh.util.adaptadores.ItemViewHolder;
 import com.vvm.sh.util.interfaces.OnItemListener;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class TarefaViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+public class TarefaViewHolder extends ItemViewHolder implements View.OnClickListener{
 
-    @BindView(R.id.txt_titulo)
-    TextView txt_titulo;
 
     @BindView(R.id.img_empresa)
     ImageView img_empresa;
@@ -30,7 +30,6 @@ public class TarefaViewHolder extends RecyclerView.ViewHolder implements View.On
 
     public TarefaViewHolder(@NonNull View itemView, OnItemListener onItemListener) {
         super(itemView);
-        ButterKnife.bind(this, itemView);
 
 
         this.onItemListener = onItemListener;
@@ -38,17 +37,18 @@ public class TarefaViewHolder extends RecyclerView.ViewHolder implements View.On
     }
 
 
-    public void onBind(Tarefa tarefa){
 
-        txt_titulo.setText(tarefa.obterDescricao());
+    @Override
+    protected void preencherCampos(Item item) {
+
+        Tarefa registo = (Tarefa) item;
 
         TextDrawable drawable = TextDrawable.builder()
                 .beginConfig()
                 .toUpperCase()
                 .endConfig()
-                .buildRound(tarefa.obterEmpresa(), Color.RED);
+                .buildRound(registo.obterEmpresa(), Color.RED);
         img_empresa.setImageDrawable(drawable);
-
     }
 
 

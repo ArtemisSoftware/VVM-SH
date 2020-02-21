@@ -52,6 +52,7 @@ public class TarefaActivity extends BaseActivity implements OnItemListener {
 
         iniciarAtividade();
         subscreverObservadores();
+        obterRegistos();
     }
 
 
@@ -81,6 +82,17 @@ public class TarefaActivity extends BaseActivity implements OnItemListener {
         //TODO: subscrever observadores do viewmodel
 
     }
+
+
+    private void obterRegistos(){
+
+        //--TESTE (apagar quando houver dados)
+
+        opcaoClienteRecyclerAdapter.gerarOpcoes();
+
+        //TODO: chamar metodo do viewmodel
+    }
+
 
 
     @OnClick(R.id.crd_atividades_pendentes)

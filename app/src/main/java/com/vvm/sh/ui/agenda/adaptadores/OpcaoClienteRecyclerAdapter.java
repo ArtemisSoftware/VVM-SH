@@ -24,7 +24,6 @@ public class OpcaoClienteRecyclerAdapter extends ItemRecyclerAdapter {
     public OpcaoClienteRecyclerAdapter(OnItemListener onItemListener) {
         this.onItemListener = onItemListener;
 
-        gerarOpcoes();
     }
 
     @Override
@@ -38,10 +37,14 @@ public class OpcaoClienteRecyclerAdapter extends ItemRecyclerAdapter {
     }
 
 
-    private void gerarOpcoes(){
+    /**
+     * Metodo que permite gerar as opções do cliente
+     */
+    public void gerarOpcoes(){
 
         this.registos.add(new OpcaoCliente(OPCAO_INFORMCACAO, "Informação"));
         this.registos.add(new OpcaoCliente(OPCAO_CROSS_SELLING, "Cross Selling"));
         this.registos.add(new OpcaoCliente(OPCAO_SINISTRALIDADE, "Sinistralidade"));
+        notifyDataSetChanged();
     }
 }

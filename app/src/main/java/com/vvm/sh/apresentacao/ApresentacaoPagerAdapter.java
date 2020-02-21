@@ -34,9 +34,9 @@ public class ApresentacaoPagerAdapter extends PagerAdapter {
         View view = inflater.inflate(R.layout.content_apresentacao, container, false);
         container.addView(view);
 
-        ((RelativeLayout) view.findViewById(R.id.rlt_lyt_content)).setBackgroundColor(contexto.getResources().getColor(paginas[position].obterCorFundo()));
+        //((RelativeLayout) view.findViewById(R.id.rlt_lyt_content)).setBackgroundColor(contexto.getResources().getColor(paginas[position].obterCorFundo()));
         ((TextView) view.findViewById(R.id.txt_titulo)).setText(paginas[position].obterTitulo());
-        ((ImageView) view.findViewById(R.id.img_logo)).setImageDrawable(contexto.getDrawable(paginas[position].obterImagem()));
+        //((ImageView) view.findViewById(R.id.img_logo)).setImageDrawable(contexto.getDrawable(paginas[position].obterImagem()));
         ((TextView) view.findViewById(R.id.txt_texto)).setText(paginas[position].obterTexto());
 
         return view;

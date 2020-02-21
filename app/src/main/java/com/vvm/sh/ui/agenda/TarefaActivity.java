@@ -15,6 +15,7 @@ import com.vvm.sh.ui.atividadesExecutadas.AtividadesExecutadasActivity;
 import com.vvm.sh.ui.atividadesPendentes.AtividadesPendentesActivity;
 import com.vvm.sh.ui.cliente.InformacaoActivity;
 import com.vvm.sh.ui.cliente.SinistralidadeActivity;
+import com.vvm.sh.ui.cliente.extintores.ExtintoresActivity;
 import com.vvm.sh.ui.contaCorrente.ContaCorrenteActivity;
 import com.vvm.sh.ui.crossSelling.CrossSellingActivity;
 import com.vvm.sh.ui.ocorrencias.OcorrenciasActivity;
@@ -145,6 +146,11 @@ public class TarefaActivity extends BaseActivity implements OnItemListener {
             case OpcaoClienteRecyclerAdapter.OPCAO_SINISTRALIDADE:
 
                 intent = new Intent(this, SinistralidadeActivity.class);
+                break;
+
+            case OpcaoClienteRecyclerAdapter.OPCAO_EXTINTORES:
+
+                intent = new Intent(this, ExtintoresActivity.class);
                 break;
 
             default:

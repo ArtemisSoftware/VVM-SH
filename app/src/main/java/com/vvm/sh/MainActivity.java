@@ -8,10 +8,13 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.github.clans.fab.FloatingActionMenu;
+import com.vvm.sh.apresentacao.ApresentacaoActivity;
+import com.vvm.sh.apresentacao.modelos.Apresentacao;
 import com.vvm.sh.ui.BaseActivity;
 import com.vvm.sh.ui.agenda.Tarefa;
 import com.vvm.sh.ui.agenda.TarefaActivity;
 import com.vvm.sh.ui.agenda.TarefaRecyclerAdapter;
+import com.vvm.sh.util.adaptadores.Item;
 import com.vvm.sh.util.interfaces.OnItemListener;
 
 import java.util.ArrayList;
@@ -74,7 +77,7 @@ public class MainActivity extends BaseActivity implements /*DatePickerDialog.OnD
     private void obterRegistos(){
 
         //--TESTE (apagar quando houver dados)
-        List<Tarefa> t1 = new ArrayList<>();
+        List<Item> t1 = new ArrayList<>();
         t1.add(new Tarefa(1, "Tarefa numero 1", "SH"));
         t1.add(new Tarefa(2, "Tarefa numero 2", "SA"));
 
@@ -101,9 +104,11 @@ public class MainActivity extends BaseActivity implements /*DatePickerDialog.OnD
 
     @Override
     public void onItemClick(int position) {
-        Intent intent = new Intent(this, TarefaActivity.class);
+        Intent intent = new Intent(this, ApresentacaoActivity.class);
+        //Intent intent = new Intent(this, TarefaActivity.class);
         //intent.putExtra(AppConstants.PICTURE, pictureRecyclerAdapter.getSelectedPicture(position).getId());
         startActivity(intent);
+
     }
 
 

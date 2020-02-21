@@ -5,11 +5,14 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.vvm.sh.R;
+import com.vvm.sh.apresentacao.modelos.Apresentacao;
 import com.vvm.sh.apresentacao.modelos.Atualizacao;
 import com.vvm.sh.apresentacao.modelos.Correcao;
 import com.vvm.sh.apresentacao.modelos.Funcionalidade;
@@ -25,20 +28,23 @@ public class ApresentacaoActivity extends AppCompatActivity {
     @BindView(R.id.view_pager_conteudo)
     ViewPager view_pager_conteudo;
 
+    @BindView(R.id.lnr_lyt_apresentacao)
+    LinearLayout lnr_lyt_apresentacao;
+
+    @BindView(R.id.lnr_lyt_iniciar)
+    LinearLayout lnr_lyt_iniciar;
+
     @BindView(R.id.lnr_lyt_progresso)
     LinearLayout lnr_lyt_progresso;
 
 
 
-    @BindView(R.id.img_btn_prosseguir)
-    ImageButton btn_prosseguir;
-
-    @BindView(R.id.img_btn_saltar)
-    ImageButton img_btn_saltar;
+    @BindView(R.id.img_saltar)
+    ImageView img_saltar;
 
 
 
-    private TextView[] barrasProgresso;
+
 
     private ApresentacaoPagerAdapter apresentacaoViewPagerAdapter;
 
@@ -73,17 +79,6 @@ public class ApresentacaoActivity extends AppCompatActivity {
 
         //TODO: subscrever observadores do viewmodel
 
-/*
-        paginas = new Introducao[]{
-
-                new Correcao("Correção da  funcionalidade abc"),
-                new Funcionalidade("Adicionada a funcionalidade 1"),
-                new Atualizacao("Atualizado o funcionamento da funcionalidade 0"),
-
-        };
-
-        iniciarApresentacao();
-        */
     }
 
 
@@ -96,13 +91,17 @@ public class ApresentacaoActivity extends AppCompatActivity {
 
         if(primeiraUtilizacao == true){
 
+            lnr_lyt_iniciar.setVisibility(View.VISIBLE);
+
             Introducao[] paginas = new Introducao[]{
-                    new Atualizacao("Bem vindo a app vvm.sh."),
+                    new Apresentacao(-1, "Empresa","Bem vindo a app vvm.sh."),
             };
 
             iniciarApresentacao(paginas);
         }
         else{
+
+            lnr_lyt_apresentacao.setVisibility(View.VISIBLE);
 
             //TODO: chamar metodo do viewmodel para obter apresentacao
 
@@ -116,7 +115,6 @@ public class ApresentacaoActivity extends AppCompatActivity {
 
             iniciarApresentacao(paginas);
         }
-
     }
 
 
@@ -142,15 +140,15 @@ public class ApresentacaoActivity extends AppCompatActivity {
      */
     private void registarProgresso(int posicao) {
 
-        barrasProgresso = new TextView[paginas.length];
+        TextView[] barrasProgresso = new TextView[paginas.length];
 
         lnr_lyt_progresso.removeAllViews();
 
         for (int i = 0; i < barrasProgresso.length; i++) {
 
             barrasProgresso[i] = new TextView(this);
-            barrasProgresso[i].setWidth(8);
-            barrasProgresso[i].setHeight(8);
+            barrasProgresso[i].setWidth(10);
+            barrasProgresso[i].setHeight(10);
             barrasProgresso[i].setBackground(this.getDrawable(R.drawable.ic_appintro_indicator_unselected));
             lnr_lyt_progresso.addView(barrasProgresso[i]);
         }
@@ -160,10 +158,6 @@ public class ApresentacaoActivity extends AppCompatActivity {
 
 
 
-
-    private int getItem(int i) {
-        return view_pager_conteudo.getCurrentItem() + i;
-    }
 
     private void iniciarApp() {
 
@@ -184,13 +178,13 @@ public class ApresentacaoActivity extends AppCompatActivity {
     //-------------------
 
 
-    @OnClick(R.id.img_btn_prosseguir)
-    public void onProsseguirButtonClick(View view) {
+    @OnClick(R.id.img_prosseguir)
+    public void img_prosseguir_ButtonClick(View view) {
 
-        int i = getItem(+1);
+        int index = view_pager_conteudo.getCurrentItem() + 1;
 
-        if (i < paginas.length) {
-            view_pager_conteudo.setCurrentItem(i);
+        if (index < paginas.length) {
+            view_pager_conteudo.setCurrentItem(index);
         }
         else {
             iniciarApp();
@@ -198,8 +192,8 @@ public class ApresentacaoActivity extends AppCompatActivity {
     }
 
 
-    @OnClick(R.id.img_btn_saltar)
-    public void onSaltarButtonClick(View view) {
+    @OnClick({R.id.img_saltar, R.id.btn_iniciar})
+    public void iniciarButtonClick(View view) {
         iniciarApp();
     }
 
@@ -212,10 +206,10 @@ public class ApresentacaoActivity extends AppCompatActivity {
 
 
             if (position == paginas.length - 1) {
-                img_btn_saltar.setVisibility(View.GONE);
+                img_saltar.setVisibility(View.INVISIBLE);
             }
             else {
-                img_btn_saltar.setVisibility(View.VISIBLE);
+                img_saltar.setVisibility(View.VISIBLE);
             }
         }
 

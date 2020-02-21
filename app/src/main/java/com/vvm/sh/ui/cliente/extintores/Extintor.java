@@ -37,7 +37,7 @@ public class Extintor extends Item /*ItemFormulario*/{
      * Metodo que permite obter a data de validade
      * @return a data (dd-MM-yyyy)
      */
-    public String obterDataValidade(String formato){
+    public String obterDataValidade(){
         return Datas.converterData(this.dataValidade, Datas.DATA_FORMATO_DD_MM_YYYY);
     }
 

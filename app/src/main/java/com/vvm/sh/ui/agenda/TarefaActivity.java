@@ -1,6 +1,5 @@
 package com.vvm.sh.ui.agenda;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -19,11 +18,7 @@ import com.vvm.sh.ui.cliente.SinistralidadeActivity;
 import com.vvm.sh.ui.contaCorrente.ContaCorrenteActivity;
 import com.vvm.sh.ui.crossSelling.CrossSellingActivity;
 import com.vvm.sh.ui.ocorrencias.OcorrenciasActivity;
-import com.vvm.sh.util.adaptadores.Item;
 import com.vvm.sh.util.interfaces.OnItemListener;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -137,7 +132,7 @@ public class TarefaActivity extends BaseActivity implements OnItemListener {
 
         switch (opcaoClienteRecyclerAdapter.obterRegisto(position).obterId()){
 
-            case OpcaoClienteRecyclerAdapter.OPCAO_INFORMCACAO:
+            case OpcaoClienteRecyclerAdapter.OPCAO_INFORMACAO:
 
                 intent = new Intent(this, InformacaoActivity.class);
                 break;

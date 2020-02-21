@@ -100,6 +100,7 @@
     <string name="estado_">Estado:</string>
     <string name="marca_">Marca:</string>
     <string name="historico_">Historico:</string>
+    <string name="quantidade_">Quantidade:</string>
 
 
 </resources>

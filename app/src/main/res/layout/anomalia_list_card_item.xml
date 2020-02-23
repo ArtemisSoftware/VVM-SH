@@ -86,12 +86,12 @@
                 <TextView
                     android:layout_width="100dp"
                     android:layout_height="wrap_content"
-                    android:text="@string/departamento_"
+                    android:text="@string/tipo_"
                     android:textSize="13sp"
                     android:layout_marginLeft="12dp"/>
 
                 <TextView
-                    android:id="@+id/txt_departamento"
+                    android:id="@+id/txt_tipo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/lorem_ipsum_texto_pequeno"

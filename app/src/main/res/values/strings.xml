@@ -107,6 +107,8 @@
     <string name="historico_">Historico:</string>
     <string name="quantidade_">Quantidade:</string>
     <string name="email">Email</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="gravar">Gravar</string>
 
 
 </resources>

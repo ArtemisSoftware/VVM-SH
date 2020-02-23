@@ -17,7 +17,7 @@
         app:errorEnabled="true">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/txt_email"
+            android:id="@+id/txt_inp_email"
             style="@style/modifiedEditText"
             android:inputType="textEmailAddress"
             android:maxLines="1"/>

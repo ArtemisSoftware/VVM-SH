@@ -27,7 +27,7 @@ import com.vvm.sh.util.interfaces.OnItemListener;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class TarefaActivity extends BaseActivity implements OnItemListener/*, ExampleDialog.ExampleDialogListener*/ {
+public class TarefaActivity extends BaseActivity implements OnItemListener, DialogoEmail.DialogEmailListener {
 
 
 
@@ -56,19 +56,19 @@ public class TarefaActivity extends BaseActivity implements OnItemListener/*, Ex
     }
 
 
-/*
-    public void openDialog() {
-        ExampleDialog exampleDialog = new ExampleDialog();
-        exampleDialog.show(getSupportFragmentManager(), "example dialog");
+
+    public void abrirDialogoEmail() {
+        DialogoEmail dialogo = new DialogoEmail();
+        dialogo.show(getSupportFragmentManager(), "example dialog");
     }
-    */
-/*
+
+
     @Override
-    public void applyTexts(String username, String password) {
+    public void gravarEmail(String email, int estado) {
         //textViewUsername.setText(username);
         //textViewPassword.setText(password);
     }
-*/
+
     //------------------------
     //Metodos locais
     //------------------------
@@ -179,7 +179,7 @@ public class TarefaActivity extends BaseActivity implements OnItemListener/*, Ex
 
             case OpcaoClienteRecyclerAdapter.OPCAO_EMAIL:
 
-                openDialog();
+                abrirDialogoEmail();
                 break;
 
             default:

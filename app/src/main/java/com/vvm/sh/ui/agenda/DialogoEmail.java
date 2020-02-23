@@ -19,43 +19,13 @@ import butterknife.BindView;
 
 public class DialogoEmail extends BaseDialogFragment {
 
-    private EditText editTextPassword;
 
     @BindView(R.id.txt_inp_email)
     TextInputEditText txt_inp_email;
 
     private DialogEmailListener listener;
-/*
-    @Override
-    public Dialog onCreateDialog(Bundle savedInstanceState) {
-        AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 
-        LayoutInflater inflater = getActivity().getLayoutInflater();
-        View view = inflater.inflate(R.layout.dialogo_email, null);
 
-        builder.setView(view)
-                .setTitle(getString(R.string.email))
-                .setNegativeButton(getString(R.string.cancelar), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-
-                    }
-                })
-                .setPositiveButton(getString(R.string.gravar), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
-                        //String username = editTextUsername.getText().toString();
-                        //String password = editTextPassword.getText().toString();
-                        listener.gravarEmail("username", 1);
-                    }
-                });
-
-        //editTextUsername = view.findViewById(R.id.edit_username);
-        //editTextPassword = view.findViewById(R.id.edit_password);
-
-        return builder.create();
-    }
-*/
     @Override
     protected int obterLayout() {
         return R.layout.dialogo_email;
@@ -76,10 +46,60 @@ public class DialogoEmail extends BaseDialogFragment {
                     public void onClick(DialogInterface dialogInterface, int i) {
                         //String username = editTextUsername.getText().toString();
                         //String password = editTextPassword.getText().toString();
-                        listener.gravarEmail("username", 1);
+                        listener.gravarEmail(txt_inp_email.getText().toString(), 1);
                     }
                 });
+
+        //editTextUsername = view.findViewById(R.id.edit_username);
+        //editTextPassword = view.findViewById(R.id.edit_password);
     }
+
+    /*
+  	@SuppressWarnings("serial")
+	Map<String, String > EMAIL_PERGUNTAS = new HashMap<String, String>(){{
+		put(EMAIL_CLIENTE_NAO_TEM_EMAIL,ID_EMAIL_CLIENTE_NAO_TEM_EMAIL);
+		put(EMAIL_AUTORIZADO,ID_EMAIL_AUTORIZADO);
+		put(EMAIL_NAO_AUTORIZADO,ID_EMAIL_NAO_AUTORIZADO);
+	}};
+
+
+
+*/
+
+
+    /**
+     * Metodo que valida o email
+     * @return true caso os dados sejam válidos e false caso contrário
+     */
+    /*
+    private boolean validarEmail(){
+
+        boolean valido = true;
+        LinearLayout lnr_lyt_email_erros = (LinearLayout)viewEmail.findViewById(R.id.lnr_lyt_email_erros);
+        TextView txt_view_email_erro = (TextView)viewEmail.findViewById(R.id.txt_view_email_erro);
+
+        txt_view_email_erro.setVisibility(View.GONE);
+        lnr_lyt_email_erros.setVisibility(View.GONE);
+
+        if(spnr_email_estado.getSelectedItem().toString().equals(SintaxeIF.EMAIL_RESPOSTA_AUTORIZADO) == true
+                ||
+                spnr_email_estado.getSelectedItem().toString().equals(SintaxeIF.EMAIL_RESPOSTA_NAO_AUTORIZADO) == true){
+
+            if(edit_txt_informacao_email.getText().toString().equals(AppIF.SEM_TEXTO)
+                    ||
+                    edit_txt_informacao_email.getText().toString().contains(SintaxeIF.ARROBA) == false){
+
+                txt_view_email_erro.setVisibility(View.VISIBLE);
+                valido = false & valido;
+            }
+        }
+
+        if(valido == false){
+            lnr_lyt_email_erros.setVisibility(View.VISIBLE);
+        }
+        return valido;
+    }
+*/
 
     @Override
     public void onAttach(Context context) {

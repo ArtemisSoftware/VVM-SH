@@ -23,9 +23,6 @@ public abstract class BaseDialogFragment extends AppCompatDialogFragment {
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View view = inflater.inflate(obterLayout(), null);
 
-
-
-
         builder.setView(view);
 
         ButterKnife.bind(this, view);
@@ -35,10 +32,22 @@ public abstract class BaseDialogFragment extends AppCompatDialogFragment {
     }
 
 
+    //--------------------
+    //Metodos abstratos
+    //---------------------
 
 
+    /**
+     * Metodo que permite obter o layout do dialogo
+     * @return o dialogo
+     */
     protected abstract int obterLayout();
 
+
+    /**
+     * Metodo que permite criar o dialogo
+     * @param builder
+     */
     protected abstract void criarDialogo(AlertDialog.Builder builder);
 
 

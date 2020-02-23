@@ -57,10 +57,7 @@ public class TarefaActivity extends BaseActivity implements OnItemListener, Dial
 
 
 
-    public void abrirDialogoEmail() {
-        DialogoEmail dialogo = new DialogoEmail();
-        dialogo.show(getSupportFragmentManager(), "example dialog");
-    }
+
 
 
     @Override
@@ -179,7 +176,8 @@ public class TarefaActivity extends BaseActivity implements OnItemListener, Dial
 
             case OpcaoClienteRecyclerAdapter.OPCAO_EMAIL:
 
-                abrirDialogoEmail();
+                DialogoEmail dialogo = new DialogoEmail();
+                dialogo.show(getSupportFragmentManager(), "example dialog");
                 break;
 
             default:

@@ -11,14 +11,21 @@ import android.widget.EditText;
 
 import androidx.appcompat.app.AppCompatDialogFragment;
 
+import com.google.android.material.textfield.TextInputEditText;
 import com.vvm.sh.R;
+import com.vvm.sh.ui.BaseDialogFragment;
 
-public class DialogoEmail extends AppCompatDialogFragment {
+import butterknife.BindView;
 
-    private EditText txt_inp_email;
+public class DialogoEmail extends BaseDialogFragment {
+
     private EditText editTextPassword;
-    private DialogEmailListener listener;
 
+    @BindView(R.id.txt_inp_email)
+    TextInputEditText txt_inp_email;
+
+    private DialogEmailListener listener;
+/*
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
@@ -47,6 +54,31 @@ public class DialogoEmail extends AppCompatDialogFragment {
         //editTextPassword = view.findViewById(R.id.edit_password);
 
         return builder.create();
+    }
+*/
+    @Override
+    protected int obterLayout() {
+        return R.layout.dialogo_email;
+    }
+
+    @Override
+    protected void criarDialogo(AlertDialog.Builder builder) {
+
+        builder.setTitle(getString(R.string.email))
+                .setNegativeButton(getString(R.string.cancelar), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+
+                    }
+                })
+                .setPositiveButton(getString(R.string.gravar), new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        //String username = editTextUsername.getText().toString();
+                        //String password = editTextPassword.getText().toString();
+                        listener.gravarEmail("username", 1);
+                    }
+                });
     }
 
     @Override

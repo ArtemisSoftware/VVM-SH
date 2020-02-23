@@ -104,8 +104,8 @@ public class MainActivity extends BaseActivity implements /*DatePickerDialog.OnD
 
     @Override
     public void onItemClick(int position) {
-        Intent intent = new Intent(this, ApresentacaoActivity.class);
-        //Intent intent = new Intent(this, TarefaActivity.class);
+        //Intent intent = new Intent(this, ApresentacaoActivity.class);
+        Intent intent = new Intent(this, TarefaActivity.class);
         //intent.putExtra(AppConstants.PICTURE, pictureRecyclerAdapter.getSelectedPicture(position).getId());
         startActivity(intent);
 

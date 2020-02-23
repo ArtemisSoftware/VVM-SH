@@ -7,10 +7,13 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Button;
+import android.widget.TextView;
 
 import com.vvm.sh.R;
 import com.vvm.sh.ui.BaseActivity;
 import com.vvm.sh.ui.agenda.adaptadores.OpcaoClienteRecyclerAdapter;
+import com.vvm.sh.ui.anomalias.AnomaliasActivity;
 import com.vvm.sh.ui.atividadesExecutadas.AtividadesExecutadasActivity;
 import com.vvm.sh.ui.atividadesPendentes.AtividadesPendentesActivity;
 import com.vvm.sh.ui.cliente.InformacaoActivity;
@@ -24,7 +27,7 @@ import com.vvm.sh.util.interfaces.OnItemListener;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class TarefaActivity extends BaseActivity implements OnItemListener {
+public class TarefaActivity extends BaseActivity implements OnItemListener/*, ExampleDialog.ExampleDialogListener*/ {
 
 
 
@@ -49,9 +52,23 @@ public class TarefaActivity extends BaseActivity implements OnItemListener {
         iniciarAtividade();
         subscreverObservadores();
         obterRegistos();
+
     }
 
 
+/*
+    public void openDialog() {
+        ExampleDialog exampleDialog = new ExampleDialog();
+        exampleDialog.show(getSupportFragmentManager(), "example dialog");
+    }
+    */
+/*
+    @Override
+    public void applyTexts(String username, String password) {
+        //textViewUsername.setText(username);
+        //textViewPassword.setText(password);
+    }
+*/
     //------------------------
     //Metodos locais
     //------------------------
@@ -94,6 +111,13 @@ public class TarefaActivity extends BaseActivity implements OnItemListener {
     @OnClick(R.id.crd_atividades_pendentes)
     public void crd_atividades_pendentes_OnClickListener(View view) {
         Intent intent = new Intent(this, AtividadesPendentesActivity.class);
+        //intent.putExtra(AppConstants.PICTURE, pictureRecyclerAdapter.getSelectedPicture(position).getId());
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.crd_anomalias)
+    public void crd_anomalias_OnClickListener(View view) {
+        Intent intent = new Intent(this, AnomaliasActivity.class);
         //intent.putExtra(AppConstants.PICTURE, pictureRecyclerAdapter.getSelectedPicture(position).getId());
         startActivity(intent);
     }
@@ -151,6 +175,11 @@ public class TarefaActivity extends BaseActivity implements OnItemListener {
             case OpcaoClienteRecyclerAdapter.OPCAO_EXTINTORES:
 
                 intent = new Intent(this, ExtintoresActivity.class);
+                break;
+
+            case OpcaoClienteRecyclerAdapter.OPCAO_EMAIL:
+
+                openDialog();
                 break;
 
             default:

@@ -177,6 +177,7 @@
 
 
             <androidx.cardview.widget.CardView
+                android:id="@+id/crd_anomalias"
                 android:foreground="?android:attr/selectableItemBackground"
                 android:clickable="true"
                 android:layout_width="160dp"
@@ -198,7 +199,7 @@
                         android:layout_height="wrap_content"
                         android:textStyle="bold"
                         android:layout_marginTop="10dp"
-                        android:text="Ideas"/>
+                        android:text="Anomalias"/>
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="1dp"

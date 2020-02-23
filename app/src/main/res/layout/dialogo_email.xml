@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/parent.TextLayout"
+        android:hint="@string/email"
+        android:layout_width="450dp"
+        android:layout_marginTop="@dimen/signup_text_margin_top"
+        app:errorEnabled="true">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/txt_email"
+            style="@style/modifiedEditText"
+            android:inputType="textEmailAddress"
+            android:maxLines="1"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <com.skydoves.powerspinner.PowerSpinnerView
+        android:id="@+id/spnr_estado"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:background="@color/md_blue_200"
+        android:foreground="?attr/selectableItemBackground"
+        android:gravity="center_vertical"
+        android:hint="@string/estado"
+        android:padding="10dp"
+        android:textColor="@color/white_93"
+        android:textColorHint="@color/white_70"
+        android:textSize="14.5sp"
+        app:spinner_arrow_gravity="end"
+        app:spinner_arrow_padding="8dp"
+        app:spinner_divider_color="@color/white_70"
+        app:spinner_divider_show="true"
+        app:spinner_divider_size="0.4dp"
+        app:spinner_popup_animation="normal"
+        app:spinner_popup_background="@color/background800"
+        app:spinner_popup_elevation="14dp"
+        tools:ignore="HardcodedText,UnusedAttribute"
+        android:layout_marginTop="12dp"/>
+
+
+
+</LinearLayout>

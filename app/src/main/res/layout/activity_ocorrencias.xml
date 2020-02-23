@@ -82,6 +82,64 @@
                 tools:ignore="HardcodedText,UnusedAttribute"
                 android:layout_marginTop="12dp"/>
 
+
+
+            <RelativeLayout android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="20dp">
+
+                <androidx.cardview.widget.CardView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginBottom="20dp"
+                    android:minHeight="200dp"
+                    app:cardBackgroundColor="#A72683"
+                    app:cardCornerRadius="16dp"
+                    app:cardElevation="10dp"
+                    app:cardPreventCornerOverlap="false">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center_vertical"
+                        android:orientation="vertical"
+                        android:padding="10dp">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Shop now, \npay Next Month"
+                            android:textColor="@color/whiteTextColor"
+                            android:textSize="17sp"
+                            android:textStyle="bold"/>
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="15dp"
+                            android:layout_marginLeft="20dp"
+                            android:text="Introducing postpaid \nfor shopping."
+                            android:textColor="@color/whiteTextColor"
+                            android:textSize="13sp"
+                            android:textStyle="bold" />
+
+                    </LinearLayout>
+                </androidx.cardview.widget.CardView>
+
+                <ImageView
+                    android:layout_width="150dp"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentEnd="true"
+                    android:adjustViewBounds="true"
+                    android:cropToPadding="true"
+                    android:layout_centerVertical="true"
+                    android:elevation="44dp"
+                    android:src="@drawable/hero_image" />
+            </RelativeLayout>
+
+
+
             <androidx.cardview.widget.CardView
                 android:id="@+id/crs_historico"
                 android:layout_width="match_parent"
@@ -93,6 +151,8 @@
                 app:cardCornerRadius="2dp"
                 app:cardPreventCornerOverlap="false"
                 android:layout_marginTop="12dp">
+
+
 
                 <LinearLayout
                     android:layout_width="fill_parent"

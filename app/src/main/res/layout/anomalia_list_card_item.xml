@@ -31,6 +31,7 @@
                 android:textStyle="bold" />
 
             <LinearLayout
+                android:id="@+id/lnr_lyt_data"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -53,6 +54,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/lnr_lyt_contacto"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
@@ -77,6 +79,7 @@
 
 
             <LinearLayout
+                android:id="@+id/lnr_lyt_tipo"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"

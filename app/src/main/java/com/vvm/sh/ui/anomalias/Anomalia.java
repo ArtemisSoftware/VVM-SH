@@ -4,15 +4,30 @@ import com.vvm.sh.util.adaptadores.Item;
 
 public class Anomalia extends Item {
 
-    private String data, descricao, observacoes, contacto, tipo;
 
-    public Anomalia(int id, String descricao, String data, String observacoes,  String contacto, String tipo) {
+    public final static int TIPO_ANOMALIA = 1;
+    public final static int TIPO_NOVA_ANOMALIA = 2;
+
+    private String data, observacoes, contacto, tipo;
+    private int tipoAnomalia;
+
+    public Anomalia(int id, String descricao, String observacoes) {
+        super(id, descricao);
+
+        this.observacoes = observacoes;
+        this.tipoAnomalia = TIPO_NOVA_ANOMALIA;
+    }
+
+
+    public Anomalia(int id, String descricao, String data, String observacoes, String contacto, String tipo) {
         super(id, descricao);
 
         this.data = data;
         this.observacoes = observacoes;
         this.contacto = contacto;
         this.tipo = tipo;
+
+        this.tipoAnomalia = TIPO_ANOMALIA;
     }
 
     
@@ -48,5 +63,15 @@ public class Anomalia extends Item {
      */
     public String obterData(){
         return data;
+    }
+
+
+
+    /**
+     * Metodo que permite obter o tipo de anomalia
+     * @return o tipo de anomalia
+     */
+    public int obterTipoAnomalia(){
+        return tipoAnomalia;
     }
 }

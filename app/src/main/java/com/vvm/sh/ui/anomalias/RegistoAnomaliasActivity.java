@@ -29,7 +29,6 @@ public class RegistoAnomaliasActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_registo_anomalias);
 
-
         iniciarAtividade();
         obterRegistos();
     }
@@ -77,6 +76,7 @@ public class RegistoAnomaliasActivity extends AppCompatActivity {
     //---------------------
     //Eventos
     //---------------------
+
 
     @OnClick(R.id.fab_adicionar)
     public void fab_adicionar_OnClickListener(View view) {

@@ -49,9 +49,10 @@ public class DialogoAnomalia extends BaseDialogFragment implements Validator.Val
                 .setPositiveButton(getString(R.string.gravar), new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialogInterface, int i) {
-                        //String username = editTextUsername.getText().toString();
-                        //String password = editTextPassword.getText().toString();
-                        listener.gravarAnomalia(spnr_anomalia.getText().toString(), txt_inp_observacao.getText().toString());
+
+                        validador.validate();
+
+                        //listener.gravarAnomalia(spnr_anomalia.getText().toString(), txt_inp_observacao.getText().toString());
                     }
                 });
     }

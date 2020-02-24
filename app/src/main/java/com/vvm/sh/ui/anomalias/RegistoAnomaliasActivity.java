@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.vvm.sh.R;
+import com.vvm.sh.ui.BaseActivity;
 import com.vvm.sh.util.adaptadores.Item;
 
 import java.util.ArrayList;
@@ -16,7 +17,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class RegistoAnomaliasActivity extends AppCompatActivity {
+public class RegistoAnomaliasActivity extends BaseActivity implements DialogoAnomalia.DialogAnomaliaListener {
 
     @BindView(R.id.rcl_registos)
     RecyclerView rcl_registos;
@@ -80,9 +81,13 @@ public class RegistoAnomaliasActivity extends AppCompatActivity {
 
     @OnClick(R.id.fab_adicionar)
     public void fab_adicionar_OnClickListener(View view) {
-        //Intent intent = new Intent(this, TarefaActivity.class);
-        //intent.putExtra(AppConstants.PICTURE, pictureRecyclerAdapter.getSelectedPicture(position).getId());
-        //startActivity(intent);
+
+        DialogoAnomalia dialogo = new DialogoAnomalia();
+        dialogo.show(getSupportFragmentManager(), "example dialog");
     }
 
+    @Override
+    public void gravarAnomalia(String idAnomalia, String observacao) {
+
+    }
 }

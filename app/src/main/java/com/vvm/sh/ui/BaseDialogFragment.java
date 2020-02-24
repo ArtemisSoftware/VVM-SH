@@ -38,17 +38,17 @@ public abstract class BaseDialogFragment extends AppCompatDialogFragment {
 
 
     /**
-     * Metodo que permite obter o layout do dialogo
-     * @return o dialogo
-     */
-    protected abstract int obterLayout();
-
-
-    /**
      * Metodo que permite criar o dialogo
      * @param builder
      */
     protected abstract void criarDialogo(AlertDialog.Builder builder);
+
+
+    /**
+     * Metodo que permite obter o layout do dialogo
+     * @return o dialogo
+     */
+    protected abstract int obterLayout();
 
 
 }

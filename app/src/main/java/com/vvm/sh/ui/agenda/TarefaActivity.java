@@ -14,6 +14,8 @@ import com.vvm.sh.R;
 import com.vvm.sh.ui.BaseActivity;
 import com.vvm.sh.ui.agenda.adaptadores.OpcaoClienteRecyclerAdapter;
 import com.vvm.sh.ui.anomalias.AnomaliasActivity;
+import com.vvm.sh.ui.anomalias.DialogoAnomalia;
+import com.vvm.sh.ui.anomalias.RegistoAnomaliasActivity;
 import com.vvm.sh.ui.atividadesExecutadas.AtividadesExecutadasActivity;
 import com.vvm.sh.ui.atividadesPendentes.AtividadesPendentesActivity;
 import com.vvm.sh.ui.cliente.InformacaoActivity;
@@ -178,6 +180,11 @@ public class TarefaActivity extends BaseActivity implements OnItemListener, Dial
 
                 DialogoEmail dialogo = new DialogoEmail();
                 dialogo.show(getSupportFragmentManager(), "example dialog");
+                break;
+
+            case OpcaoClienteRecyclerAdapter.OPCAO_ANOMALIA:
+
+                intent = new Intent(this, RegistoAnomaliasActivity.class);
                 break;
 
             default:

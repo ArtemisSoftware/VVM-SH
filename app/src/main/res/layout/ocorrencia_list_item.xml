@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:gravity="center_vertical"
+    android:padding="8dp" >
+
+    <TextView
+        android:id="@+id/txt_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/lorem_ipsum_numero"
+        android:textSize="15sp"/>
+
+    <TextView
+        android:id="@+id/txt_descricao"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/lorem_ipsum_texto"
+        android:textSize="15sp"
+        android:layout_marginLeft="12dp"
+        android:drawableRight="@drawable/ic_lorem_ipsum_24dp"/>
+
+</LinearLayout>

@@ -15,6 +15,7 @@ public class OpcaoClienteRecyclerAdapter extends ItemRecyclerAdapter {
     public static final int OPCAO_SINISTRALIDADE = 3;
     public static final int OPCAO_EXTINTORES = 4;
     public static final int OPCAO_EMAIL = 5;
+    public static final int OPCAO_ANOMALIA = 6;
 
     private OnItemListener onItemListener;
 
@@ -45,6 +46,7 @@ public class OpcaoClienteRecyclerAdapter extends ItemRecyclerAdapter {
         this.registos.add(new OpcaoCliente(OPCAO_SINISTRALIDADE, "Sinistralidade"));
         this.registos.add(new OpcaoCliente(OPCAO_EXTINTORES, "Extintores"));
         this.registos.add(new OpcaoCliente(OPCAO_EMAIL, "Email"));
+        this.registos.add(new OpcaoCliente(OPCAO_ANOMALIA, "Registo de anomalia"));
         notifyDataSetChanged();
     }
 }

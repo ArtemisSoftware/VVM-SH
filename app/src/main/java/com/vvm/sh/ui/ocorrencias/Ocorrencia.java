@@ -1,14 +1,17 @@
 package com.vvm.sh.ui.ocorrencias;
 
 import com.vvm.sh.util.adaptadores.Item;
+import com.vvm.sh.util.interfaces.CheckBoxIF;
 import com.vvm.sh.util.metodos.Conversor;
 import com.vvm.sh.util.metodos.Datas;
 
-public class Ocorrencia extends Item {
+public class Ocorrencia extends Item implements CheckBoxIF {
 
     private String descricaoDepartamento, contrato, dataEntrada, marca, situacao;
     private String dias, observacao, data, codigo;
     private boolean fiscalizado;
+    private boolean selecionado;
+
 
     private int tipo;
     public static final int TIPO_OCORRENCIA = 1;
@@ -50,9 +53,10 @@ public class Ocorrencia extends Item {
     }
 
 
-    public Ocorrencia(int id, String descricao, String codigo, int opcao) {
+    public Ocorrencia(int id, String descricao, String codigo, int opcao, int selecionado) {
         super(id, descricao);
         this.codigo = codigo;
+        this.selecionado = Conversor.converter_Integer_Para_Boolean(selecionado);
 
         if(opcao == 1) {
             this.tipo = TIPO_TIPIFICACAO;
@@ -184,5 +188,15 @@ public class Ocorrencia extends Item {
      */
     public int obterTipo(){
         return tipo;
+    }
+
+    @Override
+    public void fixarSelecao(boolean selecao) {
+        this.selecionado = selecao;
+    }
+
+    @Override
+    public boolean obterSelecao() {
+        return selecionado;
     }
 }

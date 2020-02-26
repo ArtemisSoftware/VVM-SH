@@ -2,5 +2,5 @@ package com.vvm.sh.util.interfaces;
 
 public interface OnCheckBoxItemListener {
 
-    void onItemClick(int posicao, boolean selecao);
+    void onItemChecked(int posicao, boolean selecao);
 }

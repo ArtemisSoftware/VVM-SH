@@ -5,7 +5,9 @@ import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
@@ -23,7 +25,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnItemSelected;
 
-public class RegistoOcorrenciasActivity extends BaseActivity implements OnCheckBoxItemListener {
+public class RegistoOcorrenciasActivity extends BaseActivity implements OnItemListener, OnCheckBoxItemListener {
 
     @BindView(R.id.rcl_registos)
     RecyclerView rcl_registos;
@@ -58,7 +60,7 @@ public class RegistoOcorrenciasActivity extends BaseActivity implements OnCheckB
      */
     private void iniciarAtividade(){
 
-        ocorrenciaRecyclerAdapter = new OcorrenciaRecyclerAdapter(this);
+        ocorrenciaRecyclerAdapter = new OcorrenciaRecyclerAdapter(this, this);
         rcl_registos.setAdapter(ocorrenciaRecyclerAdapter);
         rcl_registos.setLayoutManager(new LinearLayoutManager(this));
         rcl_registos.addItemDecoration(new DividerItemDecoration(this, LinearLayout.VERTICAL));
@@ -108,6 +110,8 @@ public class RegistoOcorrenciasActivity extends BaseActivity implements OnCheckB
 
         //--TESTE (apagar quando houver dados)
 
+        txt_descricao.setVisibility(View.GONE);
+
         List<Item> t1 = new ArrayList<>();
         t1.add(new Ocorrencia(1, "Ocorrencia numero 1478", "560.2", 1, 0));
         t1.add(new Ocorrencia(1, "Ocorrencia numero 22", "410.2", 2, 1));
@@ -119,19 +123,46 @@ public class RegistoOcorrenciasActivity extends BaseActivity implements OnCheckB
 
 
     @Override
-    public void onItemClick(int posicao, boolean selecao) {
+    public void onItemClick(int posicao) {
+
+        //--TESTE (apagar quando houver dados)
+
+        Ocorrencia registo = (Ocorrencia) ocorrenciaRecyclerAdapter.obterRegisto(posicao);
+
+        txt_descricao.setText(registo.obterCodigo() + " " + registo.obterDescricao());
+        txt_descricao.setVisibility(View.VISIBLE);
+
+        List<Item> t1 = new ArrayList<>();
+        t1.add(new Ocorrencia(1, "Ocorrencia numero 50000", "2340.2", 1, 0));
+        t1.add(new Ocorrencia(1, "Ocorrencia numero 65434", "410.2", 2, 1));
+
+        ocorrenciaRecyclerAdapter.fixarRegistos(t1);
 
 
-        if(selecao == true /*& sinaletica == false*/){
-            //--atividade;
+
+        //TODO: chamar metodo do viewmodel
+
+    }
+
+    @Override
+    public void onItemChecked(int posicao, boolean selecao) {
+
+
+        if(selecao == true){
+            Intent intent = new Intent(this, RegistarOcorrenciaActivity.class);
+            //intent.putExtra(AppConstants.PICTURE, pictureRecyclerAdapter.getSelectedPicture(position).getId());
+            startActivityForResult(intent, 000000);
         }
 
         else{
+
+            //TODO: chamar metodo do viewmodel
             //--acessoBdCrossSelling.remover(registos.get(posicao).obterId());
             //--atualizar();
         }
 
     }
+
 
 
 }

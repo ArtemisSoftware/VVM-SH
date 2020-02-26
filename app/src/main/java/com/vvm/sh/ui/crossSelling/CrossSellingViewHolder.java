@@ -3,7 +3,6 @@ package com.vvm.sh.ui.crossSelling;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -13,7 +12,6 @@ import com.vvm.sh.R;
 import com.vvm.sh.util.adaptadores.Item;
 import com.vvm.sh.util.adaptadores.ItemViewHolder;
 import com.vvm.sh.util.interfaces.OnCheckBoxItemListener;
-import com.vvm.sh.util.interfaces.OnItemListener;
 
 import butterknife.BindView;
 
@@ -67,6 +65,6 @@ public class CrossSellingViewHolder extends ItemViewHolder implements CheckBox.O
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        onItemListener.onItemClick(getAdapterPosition(), isChecked);
+        onItemListener.onItemChecked(getAdapterPosition(), isChecked);
     }
 }

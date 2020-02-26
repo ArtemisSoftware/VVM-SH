@@ -6,6 +6,7 @@ import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -109,9 +110,9 @@ public class OcorrenciasActivity extends BaseActivity implements OnItemListener 
 
     @OnClick(R.id.fab_adicionar)
     public void fab_calendario_OnClickListener(View view) {
-        //Intent intent = new Intent(this, TarefaActivity.class);
+        Intent intent = new Intent(this, RegistoOcorrenciasActivity.class);
         //intent.putExtra(AppConstants.PICTURE, pictureRecyclerAdapter.getSelectedPicture(position).getId());
-        //startActivity(intent);
+        startActivityForResult(intent, 1111111);
     }
 
 

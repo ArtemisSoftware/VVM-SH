@@ -110,7 +110,7 @@ public class CrossSellingActivity extends BaseActivity implements OnCheckBoxItem
     //---------------------
 
     @Override
-    public void onItemClick(int posicao, boolean selecao) {
+    public void onItemChecked(int posicao, boolean selecao) {
 
         //TODO: saber se é sinaletica é uma informação contida no objeto da spinner
 

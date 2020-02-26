@@ -3,13 +3,10 @@ package com.vvm.sh.ui.ocorrencias;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
 import com.vvm.sh.R;
-import com.vvm.sh.ui.crossSelling.CrossSelling;
 import com.vvm.sh.util.adaptadores.Item;
 import com.vvm.sh.util.adaptadores.ItemViewHolder;
 import com.vvm.sh.util.interfaces.OnCheckBoxItemListener;
@@ -47,6 +44,6 @@ public class OcorrenciaRegistoViewHolder extends ItemViewHolder implements Check
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        onItemListener.onItemClick(getAdapterPosition(), isChecked);
+        onItemListener.onItemChecked(getAdapterPosition(), isChecked);
     }
 }

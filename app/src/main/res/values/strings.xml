@@ -114,6 +114,7 @@
     <string name="cancelar">Cancelar</string>
     <string name="gravar">Gravar</string>
     <string name="ocorrencia">Ocorrência</string>
+    <string name="dias_fiscalizacao__valor">1</string>
 
 
 </resources>

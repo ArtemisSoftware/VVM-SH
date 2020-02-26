@@ -58,6 +58,7 @@
 
 
             <LinearLayout
+                android:id="@+id/lnr_lyt_dias"
                 android:orientation="vertical"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -96,9 +97,8 @@
                 app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/txt_inp_dias"
                     style="@style/modifiedEditText"
-                    android:inputType="numberDecimal"
+                    android:text="@string/dias_fiscalizacao__valor"
                     android:maxLines="1"
                     android:enabled="false"/>
             </com.google.android.material.textfield.TextInputLayout>

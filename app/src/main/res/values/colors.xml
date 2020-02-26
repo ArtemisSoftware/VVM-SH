@@ -95,4 +95,6 @@
 
     <color name="contentTextColor">#020000</color>
 
+    <color name="primaryTextColor__">#25C0DE</color>
+
 </resources>

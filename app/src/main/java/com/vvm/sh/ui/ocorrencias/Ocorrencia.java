@@ -7,13 +7,15 @@ import com.vvm.sh.util.metodos.Datas;
 public class Ocorrencia extends Item {
 
     private String descricaoDepartamento, contrato, dataEntrada, marca, situacao;
-    private String dias, observacao, data;
+    private String dias, observacao, data, codigo;
     private boolean fiscalizado;
 
     private int tipo;
     public static final int TIPO_OCORRENCIA = 1;
     public static final int TIPO_NOVA_OCORRENCIA = 2;
     public static final int TIPO_HISTORICO_OCORRENCIA = 3;
+    public static final int TIPO_TIPIFICACAO = 4;
+    public static final int TIPO_REGISTO_NOVA_OCORRENCIA = 5;
 
 
     public Ocorrencia(int id, String descricao, int fiscalizado, String dias, String observacao) {
@@ -45,6 +47,28 @@ public class Ocorrencia extends Item {
         this.descricaoDepartamento = departamento;
 
         this.tipo = TIPO_HISTORICO_OCORRENCIA;
+    }
+
+
+    public Ocorrencia(int id, String descricao, String codigo, int opcao) {
+        super(id, descricao);
+        this.codigo = codigo;
+
+        if(opcao == 1) {
+            this.tipo = TIPO_TIPIFICACAO;
+        }
+        else{
+            this.tipo = TIPO_REGISTO_NOVA_OCORRENCIA;
+        }
+    }
+
+
+    /**
+     * Metodo que permite obter o codigo
+     * @return  o codigo
+     */
+    public String obterCodigo(){
+        return codigo;
     }
 
 

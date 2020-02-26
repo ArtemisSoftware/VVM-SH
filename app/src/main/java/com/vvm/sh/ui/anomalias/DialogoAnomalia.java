@@ -11,7 +11,6 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.google.android.material.textfield.TextInputEditText;
-import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.Select;
@@ -33,8 +32,6 @@ public class DialogoAnomalia extends BaseDialogFragment implements Validator.Val
     @BindView(R.id.spinner__)
     Spinner spinner__;
 
-    @BindView(R.id.spinner_)
-    MaterialSpinner spinner_;
 
     @BindView(R.id.spnr_anomalia)
     PowerSpinnerView spnr_anomalia;
@@ -181,11 +178,6 @@ public class DialogoAnomalia extends BaseDialogFragment implements Validator.Val
             }
 
 
-            if (view instanceof MaterialSpinner) {
-                ((TextView) ((MaterialSpinner) view).getRootView()).setError(message);
-
-                //((TextView) ((Spinner) view).getSelectedView()).setError(message);
-            }
 
         }
     }

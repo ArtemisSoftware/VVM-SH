@@ -13,23 +13,15 @@
     <Spinner
         android:id="@+id/spinner__"
         android:layout_width="match_parent"
-        android:layout_height="120dp"
+        android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:foreground="?attr/selectableItemBackground"
         android:gravity="center_vertical"
         android:prompt="@string/anomalia"
         android:spinnerMode="dropdown"
-        android:padding="10dp"/>
+        android:padding="10dp"
+        style="@style/Widget.AppCompat.Spinner.Underlined"/>
 
-    <com.jaredrummler.materialspinner.MaterialSpinner
-        android:id="@+id/spinner_"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:foreground="?attr/selectableItemBackground"
-        android:gravity="center_vertical"
-        android:hint="@string/anomalia"
-        android:padding="10dp"/>
 
 
     <com.skydoves.powerspinner.PowerSpinnerView

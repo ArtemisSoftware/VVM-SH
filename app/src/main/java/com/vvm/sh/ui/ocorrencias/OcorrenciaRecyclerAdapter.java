@@ -22,8 +22,9 @@ public class OcorrenciaRecyclerAdapter extends ItemRecyclerAdapter {
         this.onItemListener = onItemListener;
     }
 
-    public OcorrenciaRecyclerAdapter(OnCheckBoxItemListener onCheckBoxItemListener) {
+    public OcorrenciaRecyclerAdapter(/*OnItemListener onItemListener,*/OnCheckBoxItemListener onCheckBoxItemListener ) {
 
+        this.onItemListener = onItemListener;
         this.onCheckBoxItemListener = onCheckBoxItemListener;
     }
 

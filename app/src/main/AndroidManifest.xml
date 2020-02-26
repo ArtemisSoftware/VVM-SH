@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.anomalias.RegistoAnomaliasActivity"></activity>
+        <activity android:name=".ui.ocorrencias.RegistoOcorrenciasActivity"></activity>
+        <activity android:name=".ui.anomalias.RegistoAnomaliasActivity" />
         <activity
             android:name=".ui.anomalias.AnomaliasActivity"
             android:theme="@style/AppTheme.NoActionBar" />

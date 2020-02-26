@@ -111,6 +111,7 @@
     <string name="email">Email</string>
     <string name="cancelar">Cancelar</string>
     <string name="gravar">Gravar</string>
+    <string name="ocorrencia">Ocorrência</string>
 
 
 </resources>

@@ -6,6 +6,7 @@ import com.vvm.sh.R;
 import com.vvm.sh.util.adaptadores.Item;
 import com.vvm.sh.util.adaptadores.ItemRecyclerAdapter;
 import com.vvm.sh.util.adaptadores.ItemViewHolder;
+import com.vvm.sh.util.interfaces.OnCheckBoxItemListener;
 import com.vvm.sh.util.interfaces.OnItemListener;
 
 import java.util.List;
@@ -14,10 +15,16 @@ public class OcorrenciaRecyclerAdapter extends ItemRecyclerAdapter {
 
 
     private OnItemListener onItemListener;
+    private OnCheckBoxItemListener onCheckBoxItemListener;
 
     public OcorrenciaRecyclerAdapter(OnItemListener onItemListener) {
 
         this.onItemListener = onItemListener;
+    }
+
+    public OcorrenciaRecyclerAdapter(OnCheckBoxItemListener onCheckBoxItemListener) {
+
+        this.onCheckBoxItemListener = onCheckBoxItemListener;
     }
 
     @Override
@@ -30,6 +37,10 @@ public class OcorrenciaRecyclerAdapter extends ItemRecyclerAdapter {
 
             case Ocorrencia.TIPO_HISTORICO_OCORRENCIA:{
                 return R.layout.ocorrencia_historico_list_card_item;
+            }
+
+            case Ocorrencia.TIPO_REGISTO_NOVA_OCORRENCIA:{
+                return R.layout.ocorrencia_registo_list_item;
             }
 
             case Ocorrencia.TIPO_TIPIFICACAO:{
@@ -54,6 +65,10 @@ public class OcorrenciaRecyclerAdapter extends ItemRecyclerAdapter {
 
             case Ocorrencia.TIPO_HISTORICO_OCORRENCIA:{
                 return new OcorrenciaHistoricoViewHolder(view);
+            }
+
+            case Ocorrencia.TIPO_REGISTO_NOVA_OCORRENCIA:{
+                return new OcorrenciaRegistoViewHolder(view, onCheckBoxItemListener);
             }
 
             case Ocorrencia.TIPO_TIPIFICACAO:{

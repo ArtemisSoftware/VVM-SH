@@ -106,19 +106,20 @@ public class RegistoOcorrenciasActivity extends BaseActivity implements OnCheckB
     @OnItemSelected(R.id.spnr_ocorrencia)
     public void spnr_ocorrencia_ItemSelected(Spinner spinner, int position) {
 
+        //--TESTE (apagar quando houver dados)
 
         List<Item> t1 = new ArrayList<>();
         t1.add(new Ocorrencia(1, "Ocorrencia numero 1478", "560.2", 1, 0));
         t1.add(new Ocorrencia(1, "Ocorrencia numero 22", "410.2", 2, 1));
 
         ocorrenciaRecyclerAdapter.fixarRegistos(t1);
+
+        //TODO: chamar metodo do viewmodel
     }
 
 
     @Override
     public void onItemClick(int posicao, boolean selecao) {
-
-        //TODO: saber se é sinaletica é uma informação contida no objeto da spinner
 
 
         if(selecao == true /*& sinaletica == false*/){

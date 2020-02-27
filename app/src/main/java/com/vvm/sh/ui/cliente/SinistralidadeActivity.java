@@ -3,18 +3,12 @@ package com.vvm.sh.ui.cliente;
 import androidx.appcompat.widget.Toolbar;
 
 import android.os.Bundle;
-import android.text.Editable;
 import android.view.View;
-import android.widget.EditText;
 
 import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.DecimalMin;
-import com.mobsandgeeks.saripaar.annotation.Digits;
-import com.mobsandgeeks.saripaar.annotation.Length;
-import com.mobsandgeeks.saripaar.annotation.Min;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.vvm.sh.R;
 import com.vvm.sh.ui.BaseActivity;

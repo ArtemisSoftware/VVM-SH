@@ -52,12 +52,12 @@
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/anomalia"
+                android:text="@string/designacao"
                 android:layout_marginTop="12dp"
                 style="@style/InputLabel" />
 
             <Spinner
-                android:id="@+id/spnr_designacao_acao"
+                android:id="@+id/spnr_designacao"
                 android:layout_width="match_parent"
                 android:layout_height="45dp"
                 android:layout_alignParentStart="true"
@@ -69,21 +69,6 @@
                 android:layout_marginBottom="18dp"
                 style="@style/Widget.AppCompat.Spinner.Underlined"/>
 
-
-
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/parent.TextLayout"
-                android:hint="@string/designacao"
-                android:layout_width="450dp"
-                android:layout_marginTop="@dimen/signup_text_margin_top"
-                app:errorEnabled="true">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/txt_inp_designacao"
-                    style="@style/modifiedEditText"
-                    android:inputType="numberDecimal"
-                    android:maxLines="1"/>
-            </com.google.android.material.textfield.TextInputLayout>
 
 
             <com.google.android.material.textfield.TextInputLayout
@@ -115,7 +100,7 @@
                     app:errorEnabled="true">
 
                     <com.google.android.material.textfield.TextInputEditText
-                        android:id="@+id/txt_inp_horas_ano_trabalhador"
+                        android:id="@+id/txt_inp_data"
                         style="@style/modifiedEditText"
                         android:inputType="numberDecimal"
                         android:maxLines="1"/>
@@ -123,6 +108,7 @@
 
 
                 <at.markushi.ui.CircleButton
+                    android:id="@+id/crl_btn_data"
                     android:layout_width="64dip"
                     android:layout_height="64dip"
                     android:src="@drawable/ic_lorem_ipsum_24dp"
@@ -155,6 +141,7 @@
 
 
                 <at.markushi.ui.CircleButton
+                    android:id="@+id/crl_btn_inicio"
                     android:layout_width="64dip"
                     android:layout_height="64dip"
                     android:src="@drawable/ic_lorem_ipsum_24dp"
@@ -187,6 +174,7 @@
 
 
                 <at.markushi.ui.CircleButton
+                    android:id="@+id/crl_btn_fim"
                     android:layout_width="64dip"
                     android:layout_height="64dip"
                     android:src="@drawable/ic_lorem_ipsum_24dp"

@@ -145,20 +145,20 @@
         app:menu_fab_label="your_label_here">
 
         <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/menu_item"
+            android:id="@+id/fab_adicionar_acao_formacao"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_lorem_ipsum_24dp"
             app:fab_size="mini"
-            app:fab_label="Menu item 1" />
+            app:fab_label="@string/acao_formacao" />
 
         <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/menu_item_"
+            android:id="@+id/fab_adicionar_formando"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_lorem_ipsum_24dp"
             app:fab_size="mini"
-            app:fab_label="Menu item 1" />
+            app:fab_label="@string/formando" />
 
     </com.github.clans.fab.FloatingActionMenu>
 

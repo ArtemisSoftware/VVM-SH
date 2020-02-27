@@ -38,10 +38,9 @@
             android:orientation="vertical">
 
 
-            <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+            <androidx.cardview.widget.CardView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                xmlns:app="http://schemas.android.com/apk/res-auto"
                 app:cardBackgroundColor="@color/whiteTextColor"
                 app:cardCornerRadius="5dp"
                 android:layout_marginTop="5dp"
@@ -50,32 +49,33 @@
                 android:layout_marginRight="10dp">
 
                 <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_width="543dp"
+                    android:layout_height="match_parent"
                     android:padding="10dp">
 
                     <ImageView
                         android:id="@+id/salesImageView"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@drawable/ic_lorem_ipsum_24dp"/>
+                        android:src="@drawable/ic_lorem_ipsum_24dp" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:orientation="vertical"
                         android:layout_centerVertical="true"
                         android:layout_marginLeft="20dp"
-                        android:layout_toRightOf="@id/salesImageView">
+                        android:layout_toRightOf="@id/salesImageView"
+                        android:orientation="vertical">
 
                         <TextView
                             style="@style/viewParent.headerText"
                             android:text="Cash"
-                            android:textColor="#25C0DE"/>
+                            android:textColor="#25C0DE" />
+
                         <TextView
                             style="@style/viewParent.headerText"
-                            android:textSize="21sp"
-                            android:text="$1000.22"/>
+                            android:text="$1000.22"
+                            android:textSize="21sp" />
 
                     </LinearLayout>
 
@@ -95,12 +95,73 @@
         </LinearLayout>
     </androidx.core.widget.NestedScrollView>
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_gravar"
+
+
+
+
+    <com.github.clans.fab.FloatingActionMenu
+        android:id="@+id/menu"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
         android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        android:src="@android:drawable/ic_dialog_email" />
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"
+        android:layout_marginLeft="10dp"
+        app:menu_fab_size="normal"
+        app:menu_showShadow="true"
+        app:menu_shadowColor="#66000000"
+        app:menu_shadowRadius="4dp"
+        app:menu_shadowXOffset="1dp"
+        app:menu_shadowYOffset="3dp"
+        app:menu_colorNormal="#DA4336"
+        app:menu_colorPressed="#E75043"
+        app:menu_colorRipple="#99FFFFFF"
+        app:menu_animationDelayPerItem="50"
+        app:menu_icon="@drawable/fab_add"
+        app:menu_buttonSpacing="0dp"
+        app:menu_labels_margin="0dp"
+        app:menu_labels_showAnimation="@anim/fab_slide_in_from_right"
+        app:menu_labels_hideAnimation="@anim/fab_slide_out_to_right"
+        app:menu_labels_paddingTop="4dp"
+        app:menu_labels_paddingRight="8dp"
+        app:menu_labels_paddingBottom="4dp"
+        app:menu_labels_paddingLeft="8dp"
+        app:menu_labels_padding="8dp"
+        app:menu_labels_textColor="#FFFFFF"
+        app:menu_labels_textSize="14sp"
+        app:menu_labels_cornerRadius="3dp"
+        app:menu_labels_colorNormal="#333333"
+        app:menu_labels_colorPressed="#444444"
+        app:menu_labels_colorRipple="#66FFFFFF"
+        app:menu_labels_showShadow="true"
+        app:menu_labels_singleLine="false"
+        app:menu_labels_ellipsize="none"
+        app:menu_labels_maxLines="-1"
+        app:menu_labels_position="left"
+        app:menu_openDirection="up"
+        app:menu_backgroundColor="@android:color/transparent"
+        app:menu_fab_label="your_label_here">
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/menu_item"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_lorem_ipsum_24dp"
+            app:fab_size="mini"
+            app:fab_label="Menu item 1" />
+
+        <com.github.clans.fab.FloatingActionButton
+            android:id="@+id/menu_item_"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/ic_lorem_ipsum_24dp"
+            app:fab_size="mini"
+            app:fab_label="Menu item 1" />
+
+    </com.github.clans.fab.FloatingActionMenu>
+
+
 
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

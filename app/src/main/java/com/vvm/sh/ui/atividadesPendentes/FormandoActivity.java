@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.fragment.app.FragmentTransaction;
 
 import android.os.Bundle;
 import android.view.MenuItem;
@@ -27,6 +28,7 @@ public class FormandoActivity extends AppCompatActivity {
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
 
         toolbar.setTitle("Shop");
+        loadFragment(new FormandoFragment());
     }
 
 
@@ -37,9 +39,13 @@ public class FormandoActivity extends AppCompatActivity {
         public boolean onNavigationItemSelected(@NonNull MenuItem item) {
             Fragment fragment;
             switch (item.getItemId()) {
+
                 case R.id.navigation_shop:
                     toolbar.setTitle("Shop");
+                    fragment = new FormandoFragment();
+                    loadFragment(fragment);
                     return true;
+
                 case R.id.navigation_gifts:
                     toolbar.setTitle("My Gifts");
                     return true;
@@ -48,4 +54,12 @@ public class FormandoActivity extends AppCompatActivity {
             return false;
         }
     };
+
+    private void loadFragment(Fragment fragment) {
+        // load fragment
+        FragmentTransaction transaction = getSupportFragmentManager().beginTransaction();
+        transaction.replace(R.id.frame_container, fragment);
+        transaction.addToBackStack(null);
+        transaction.commit();
+    }
 }

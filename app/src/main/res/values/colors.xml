@@ -97,4 +97,5 @@
 
     <color name="primaryTextColor__">#25C0DE</color>
 
+    <color name="bgBottomNavigation">#fe485a</color>
 </resources>

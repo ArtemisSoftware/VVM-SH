@@ -1,6 +1,7 @@
 package com.vvm.sh.ui.atividadesPendentes;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -9,8 +10,12 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.vvm.sh.R;
+
+import butterknife.BindView;
+import butterknife.OnClick;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -31,6 +36,14 @@ public class AssinaturaFormandoFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+
+
+
+    @BindView(R.id.img_assinatura)
+    ImageView img_assinatura;
+
+
+
 
     public AssinaturaFormandoFragment() {
         // Required empty public constructor
@@ -60,6 +73,9 @@ public class AssinaturaFormandoFragment extends Fragment {
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
+
+            subscreverObservadores();
+            obterRegistos();
         }
     }
 
@@ -108,4 +124,60 @@ public class AssinaturaFormandoFragment extends Fragment {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
     }
+
+
+
+
+
+
+
+    //------------------------
+    //Metodos locais
+    //------------------------
+
+
+    private void obterRegistos(){
+
+        //--TESTE (apagar quando houver dados)
+
+        //img_assinatura.setImageBitmap();
+        //drawView.addBitmap(MetodosImagem.converterString_para_BitMap(resultado));
+        //drawView.assinado(true);
+
+        //TODO: chamar metodo do viewmodel
+    }
+
+    /**
+     * Metodo que permite subscrever observadores
+     */
+    private void subscreverObservadores(){
+
+        //TODO: subscrever observadores do viewmodel
+    }
+
+
+
+
+    //-------------------------
+    //Eventos
+    //--------------------------
+
+
+    @OnClick(R.id.img_assinatura)
+    public void img_assinatura_OnClickListener(View view) {
+
+        //if( ((IndiceFormando_Activity) contexto).prontoAssinar() == true){
+
+            //Intent intent = new Intent(getActivity(), AssinaturaActivity.class);
+            //intent.putExtra(BundleIF.ID_TAREFA, acessoBDFormando.obterIdTarefa(idAtividade));
+            //intent.putExtra(BundleIF.ID_FORMANDO, idRelatorio);
+            //intent.putExtra(BundleIF.ORIGEM, IdentificadoresIF.ORIGEM_FORMANDO);
+            //getActivity().startActivityForResult(intent, /*CodigoAtividadeIF.REGISTO_ASSINATURA*/ 444444);
+        /*}
+        else{
+            MetodosDialogo.dialogoAlerta(contexto, SintaxeIF.TITULO_ASSINATURA, "O relatório só pode ser assinado quando estiver completo.");
+        }*/
+
+    }
+
 }

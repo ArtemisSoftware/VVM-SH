@@ -3,6 +3,7 @@ package com.vvm.sh.ui.atividadesPendentes;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentTransaction;
 
@@ -11,6 +12,7 @@ import android.view.MenuItem;
 
 import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.vvm.sh.R;
+import com.vvm.sh.util.BottomNavigationBehavior;
 
 public class FormandoActivity extends AppCompatActivity {
 
@@ -26,6 +28,9 @@ public class FormandoActivity extends AppCompatActivity {
 
         BottomNavigationView navigation = (BottomNavigationView) findViewById(R.id.navigation);
         navigation.setOnNavigationItemSelectedListener(mOnNavigationItemSelectedListener);
+
+        CoordinatorLayout.LayoutParams layoutParams = (CoordinatorLayout.LayoutParams) navigation.getLayoutParams();
+        layoutParams.setBehavior(new BottomNavigationBehavior());
 
         toolbar.setTitle("Shop");
         loadFragment(new FormandoFragment());
@@ -48,6 +53,8 @@ public class FormandoActivity extends AppCompatActivity {
 
                 case R.id.navigation_gifts:
                     toolbar.setTitle("My Gifts");
+                    fragment = new AssinaturaFormandoFragment();
+                    loadFragment(fragment);
                     return true;
 
             }

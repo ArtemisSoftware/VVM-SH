@@ -7,10 +7,11 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.vvm.sh.R;
+import com.vvm.sh.ui.BaseActivity;
 
 import butterknife.OnClick;
 
-public class FormacaoActivity extends AppCompatActivity {
+public class FormacaoActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -24,6 +25,9 @@ public class FormacaoActivity extends AppCompatActivity {
      * Metodo que permite iniciar o formulario de formando
      */
     public void initFormando(){
+
+        Intent intent = new Intent(this, FormandoActivity.class);
+        startActivity(intent);
 
         /*
         Intent intent = new Intent(this, IndiceFormando_Activity.class);

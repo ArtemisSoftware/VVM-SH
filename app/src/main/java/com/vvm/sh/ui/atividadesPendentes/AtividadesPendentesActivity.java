@@ -87,8 +87,9 @@ public class AtividadesPendentesActivity extends BaseActivity implements OnItemL
 
     @Override
     public void onItemClick(int position) {
+        Intent intent = new Intent(this, FormacaoActivity.class);
         //Intent intent = new Intent(this, TarefaActivity.class);
         //intent.putExtra(AppConstants.PICTURE, pictureRecyclerAdapter.getSelectedPicture(position).getId());
-        //startActivity(intent);
+        startActivity(intent);
     }
 }

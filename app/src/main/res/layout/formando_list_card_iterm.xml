@@ -11,7 +11,8 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal"
         card_view:cardCornerRadius="5dp"
-        card_view:cardUseCompatPadding="true" >
+        card_view:cardUseCompatPadding="true"
+        android:foreground="?android:attr/selectableItemBackground" >
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -79,8 +80,6 @@
                     app:civ_border_color="#FF000000"/>
             </RelativeLayout>
 
-
-
             <CheckBox
                 android:id="@+id/chk_selecionado"
                 android:layout_width="wrap_content"
@@ -88,7 +87,8 @@
                 android:layout_alignParentRight="true"
                 android:layout_alignParentTop="true"
                 />
-        </RelativeLayout>
+
+       </RelativeLayout>
 
     </androidx.cardview.widget.CardView>
 

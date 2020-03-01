@@ -22,6 +22,7 @@ public class FormandoViewHolder extends ItemViewHolder implements View.OnClickLi
     @BindView(R.id.chk_selecionado)
     CheckBox chk_selecionado;
 
+
     @BindView(R.id.txt_identificacao)
     TextView txt_identificacao;
 
@@ -34,6 +35,7 @@ public class FormandoViewHolder extends ItemViewHolder implements View.OnClickLi
         super(itemView);
 
         this.onItemListener = onItemListener;
+        itemView.setOnClickListener(this);
         this.onCheckBoxItemListener = onCheckBoxItemListener;
     }
 

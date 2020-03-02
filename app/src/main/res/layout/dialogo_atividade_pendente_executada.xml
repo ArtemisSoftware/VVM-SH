@@ -1,0 +1,58 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
+    android:padding="16dp">
+
+
+
+    <com.google.android.material.textfield.TextInputLayout
+        style="@style/parent.TextLayout"
+        android:hint="@string/minutos"
+        android:layout_width="450dp"
+        android:layout_marginTop="@dimen/signup_text_margin_top"
+        app:errorEnabled="true">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/txt_inp_minutos"
+            style="@style/modifiedEditText"
+            android:inputType="number"
+            android:maxLines="1"/>
+    </com.google.android.material.textfield.TextInputLayout>
+
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical">
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/parent.TextLayout"
+            android:hint="@string/data_execucao"
+            android:layout_width="450dp"
+            android:layout_marginTop="@dimen/signup_text_margin_top"
+            app:errorEnabled="true">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txt_inp_data"
+                style="@style/modifiedEditText"
+                android:inputType="numberDecimal"
+                android:maxLines="1"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <at.markushi.ui.CircleButton
+            android:id="@+id/crl_btn_data"
+            android:layout_width="64dip"
+            android:layout_height="64dip"
+            android:src="@drawable/ic_lorem_ipsum_24dp"
+            app:cb_color="#99CC00"
+            app:cb_pressedRingWidth="8dip" />
+
+    </LinearLayout>
+
+</LinearLayout>
+

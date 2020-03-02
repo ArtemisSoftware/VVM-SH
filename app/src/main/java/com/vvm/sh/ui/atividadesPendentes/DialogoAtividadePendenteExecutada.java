@@ -2,28 +2,54 @@ package com.vvm.sh.ui.atividadesPendentes;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.view.View;
+import android.widget.TextView;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.mobsandgeeks.saripaar.ValidationError;
+import com.mobsandgeeks.saripaar.Validator;
+import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.vvm.sh.R;
 import com.vvm.sh.ui.BaseDialogFragment;
+import com.vvm.sh.util.BaseDialogoPersistenteFragment;
+
+import java.util.List;
 
 import butterknife.BindView;
 
-public class DialogoAtividadePendenteExecutada extends BaseDialogFragment {
+public class DialogoAtividadePendenteExecutada extends BaseDialogoPersistenteFragment  implements Validator.ValidationListener{
 
+    @NotEmpty(message = "Campo de preenchimento obrigatório")
     @BindView(R.id.txt_inp_minutos)
     TextInputEditText txt_inp_minutos;
 
+    @NotEmpty(message = "Campo de preenchimento obrigatório")
     @BindView(R.id.txt_inp_data_execucao)
     TextInputEditText txt_inp_data_execucao;
 
 
+    private Validator validador;
+
     private DialogListener listener;
 
-    @Override
-    protected void criarDialogo(AlertDialog.Builder builder) {
 
+    @Override
+    protected void iniciarDialogo() {
+
+        validador = new Validator(this);
+        validador.setValidationListener(this);
     }
+
+    @Override
+    protected void clickPositivo() {
+        validador.validate();
+    }
+
+    @Override
+    protected String obterTitulo() {
+        return getString(R.string.concluir_atividade);
+    }
+
 
     @Override
     protected int obterLayout() {
@@ -44,8 +70,30 @@ public class DialogoAtividadePendenteExecutada extends BaseDialogFragment {
         }
     }
 
+    @Override
+    public void onValidationSucceeded() {
+
+        listener.gravarAtividade(txt_inp_minutos.getText().toString(), txt_inp_data_execucao.getText().toString());
+        terminarDialogo();
+    }
+
+    @Override
+    public void onValidationFailed(List<ValidationError> errors) {
+        for (ValidationError error : errors) {
+            View view = error.getView();
+            String message = error.getCollatedErrorMessage(getContext());
+
+            // Display error messages
+
+            if (view instanceof TextInputEditText) {
+                ((TextInputEditText) view).setError(message);
+            }
+
+        }
+    }
+
 
     public interface DialogListener {
-        void gravarAnomalia(String minutos, String dataExecucao);
+        void gravarAtividade(String minutos, String dataExecucao);
     }
 }

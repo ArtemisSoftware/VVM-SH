@@ -132,5 +132,6 @@
     <string name="data_de_nascimento">Data de nascimento</string>
     <string name="minutos">Minutos</string>
     <string name="data_execucao">Data de execução</string>
+    <string name="concluir_atividade">Concluir atvidade</string>
 
 </resources>

@@ -45,7 +45,6 @@ public abstract class BaseDialogoPersistenteFragment extends BaseDialogFragment 
             });
 
 
-
             dialogo.getButton(Dialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v){

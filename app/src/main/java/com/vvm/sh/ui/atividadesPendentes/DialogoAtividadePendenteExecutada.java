@@ -1,23 +1,22 @@
 package com.vvm.sh.ui.atividadesPendentes;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.view.View;
-import android.widget.TextView;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.vvm.sh.R;
-import com.vvm.sh.ui.BaseDialogFragment;
 import com.vvm.sh.util.BaseDialogoPersistenteFragment;
 
 import java.util.List;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
-public class DialogoAtividadePendenteExecutada extends BaseDialogoPersistenteFragment  implements Validator.ValidationListener{
+public class DialogoAtividadePendenteExecutada extends BaseDialogoPersistenteFragment implements Validator.ValidationListener{
+
 
     @NotEmpty(message = "Campo de preenchimento obrigatório")
     @BindView(R.id.txt_inp_minutos)
@@ -91,6 +90,20 @@ public class DialogoAtividadePendenteExecutada extends BaseDialogoPersistenteFra
 
         }
     }
+
+
+
+    //-------------------
+    //Eventos
+    //-------------------
+
+
+    @OnClick(R.id.crl_btn_data_execucao)
+    public void crl_btn_data_execucao_OnClickListener(View view) {
+
+    }
+
+
 
 
     public interface DialogListener {

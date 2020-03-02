@@ -28,7 +28,8 @@
     <string name="cross_selling">Cross Selling</string>
     <string name="conta_corrente">Conta Corrente</string>
     <string name="conta_corrente_nif_">Conta Corrente para o nif:</string>
-
+    <string name="concluir_atividade_executada">Concluir actividade executada</string>
+    <string name="concluir_atividade_nao_executada">Concluir actividade não executada</string>
 
     <!--D-->
 
@@ -81,7 +82,6 @@
     <string name="produtos">Produtos</string>
 
     <!--R-->
-
 
     <string name="relatorio_">Relatório:</string>
 

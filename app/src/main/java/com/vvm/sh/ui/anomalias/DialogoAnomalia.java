@@ -101,6 +101,11 @@ public class DialogoAnomalia extends BaseDialogFragment implements Validator.Val
     }
 
     @Override
+    protected String obterTitulo() {
+        return getString(R.string.anomalia);
+    }
+
+    @Override
     protected int obterLayout() {
         return R.layout.dialogo_anomalia;
     }

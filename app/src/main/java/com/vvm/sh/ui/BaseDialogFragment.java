@@ -45,8 +45,15 @@ public abstract class BaseDialogFragment extends AppCompatDialogFragment {
 
 
     /**
+     * Metodo que permite obter o titulo do dialogo
+     * @return o titulo
+     */
+    protected abstract String obterTitulo();
+
+
+    /**
      * Metodo que permite obter o layout do dialogo
-     * @return o dialogo
+     * @return o layout
      */
     protected abstract int obterLayout();
 

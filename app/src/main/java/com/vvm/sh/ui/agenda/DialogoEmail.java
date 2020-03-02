@@ -54,6 +54,11 @@ public class DialogoEmail extends BaseDialogFragment {
         //editTextPassword = view.findViewById(R.id.edit_password);
     }
 
+    @Override
+    protected String obterTitulo() {
+        return getString(R.string.email);
+    }
+
     /*
   	@SuppressWarnings("serial")
 	Map<String, String > EMAIL_PERGUNTAS = new HashMap<String, String>(){{

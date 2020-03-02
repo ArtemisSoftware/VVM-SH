@@ -37,9 +37,9 @@
             app:errorEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/txt_inp_data"
+                android:id="@+id/txt_inp_data_execucao"
                 style="@style/modifiedEditText"
-                android:inputType="numberDecimal"
+                android:inputType="text"
                 android:maxLines="1"/>
         </com.google.android.material.textfield.TextInputLayout>
 

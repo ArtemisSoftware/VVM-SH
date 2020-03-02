@@ -31,6 +31,22 @@ public abstract class BaseDialogFragment extends AppCompatDialogFragment {
         return builder.create();
     }
 
+    //------------------------
+    //Metodos locais
+    //------------------------
+
+
+    /**
+     * Metodo que permite terminar o dialogo
+     */
+    protected void terminarDialogo(){
+
+        final AlertDialog dialogo = (AlertDialog)getDialog();
+
+        if(dialogo != null){
+            dialogo.dismiss();
+        }
+    }
 
     //--------------------
     //Metodos abstratos

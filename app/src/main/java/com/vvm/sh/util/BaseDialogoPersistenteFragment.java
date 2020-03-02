@@ -54,22 +54,7 @@ public abstract class BaseDialogoPersistenteFragment extends BaseDialogFragment 
         }
     }
 
-    //------------------------
-    //Metodos locais
-    //------------------------
 
-
-    /**
-     * Metodo que permite terminar o dialogo
-     */
-    protected void terminarDialogo(){
-
-        final AlertDialog dialogo = (AlertDialog)getDialog();
-
-        if(dialogo != null){
-            dialogo.dismiss();
-        }
-    }
 
     //------------------------
     //Metodos abstratos

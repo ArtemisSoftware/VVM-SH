@@ -44,21 +44,27 @@ public class DialogoAtividadePendente extends BaseDialogFragment {
 
         // Check which radio button was clicked
         switch (radioButton.getId()) {
+
             case R.id.rd_btn_actividade_executada:
                 if (checked) {
                     // 1 clicked
-                    listener.selecionarOpcao(123);
+                    listener.concluirAtividadeExecutada();
+                    terminarDialogo();
                 }
                 break;
             case R.id.rd_btn_actividade_nao_executada:
                 if (checked) {
                     // 2 clicked
+                    listener.concluirAtividadeNaoExecutada();
+                    terminarDialogo();
                 }
                 break;
 
             case R.id.rd_btn_relatorio:
                 if (checked) {
                     // 2 clicked
+                    listener.iniciarRelatorio();
+                    terminarDialogo();
                 }
                 break;
 
@@ -82,6 +88,11 @@ public class DialogoAtividadePendente extends BaseDialogFragment {
     }
 
     public interface DialogoListener {
-        void selecionarOpcao(int idOpcao);
+
+        void concluirAtividadeExecutada();
+
+        void concluirAtividadeNaoExecutada();
+
+        void iniciarRelatorio();
     }
 }

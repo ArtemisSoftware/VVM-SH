@@ -18,7 +18,8 @@ import java.util.List;
 
 import butterknife.BindView;
 
-public class AtividadesPendentesActivity extends BaseActivity implements OnItemListener {
+public class AtividadesPendentesActivity extends BaseActivity implements OnItemListener,
+        DialogoAtividadePendente.DialogoListener, DialogoAtividadePendenteExecutada.DialogListener, DialogoAtividadePendenteNaoExecutada.DialogoListener {
 
     @BindView(R.id.rcl_registos)
     RecyclerView rcl_registos;
@@ -87,9 +88,45 @@ public class AtividadesPendentesActivity extends BaseActivity implements OnItemL
 
     @Override
     public void onItemClick(int position) {
-        Intent intent = new Intent(this, FormacaoActivity.class);
+
+        DialogoAtividadePendente dialogo = new DialogoAtividadePendente();
+        dialogo.show(getSupportFragmentManager(), "example dialog");
+
+        //Intent intent = new Intent(this, FormacaoActivity.class);
         //Intent intent = new Intent(this, TarefaActivity.class);
         //intent.putExtra(AppConstants.PICTURE, pictureRecyclerAdapter.getSelectedPicture(position).getId());
+        //startActivity(intent);
+    }
+
+
+    @Override
+    public void concluirAtividadeExecutada() {
+
+        DialogoAtividadePendenteExecutada dialogo = new DialogoAtividadePendenteExecutada();
+        dialogo.show(getSupportFragmentManager(), "example dialog");
+    }
+
+    @Override
+    public void concluirAtividadeNaoExecutada() {
+
+        DialogoAtividadePendenteNaoExecutada dialogo = new DialogoAtividadePendenteNaoExecutada();
+        dialogo.show(getSupportFragmentManager(), "example dialog");
+    }
+
+    @Override
+    public void iniciarRelatorio() {
+
+        Intent intent = new Intent(this, FormacaoActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    public void gravarAtividade(String minutos, String dataExecucao) {
+
+    }
+
+    @Override
+    public void gravarAtividadeNaoExecutada(String idAnomalia, String observacao) {
+
     }
 }

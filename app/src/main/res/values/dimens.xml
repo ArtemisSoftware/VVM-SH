@@ -70,20 +70,13 @@
     <dimen name="ic_plus_width">28dp</dimen>
 
 
-    <dimen name="signup_text_margin_top">5dp</dimen>
-
-    <dimen name="newsMoreTextSize">16sp</dimen>
-    <dimen name="headerTextSize">25sp</dimen>
 
 
     <dimen name="input_label_vertical_spacing">8dp</dimen>
     <dimen name="input_label_horizontal_spacing">4dp</dimen>
 
-
     <dimen name="borderThickness">4dp</dimen>
 
-    <color name="blackTextColor">#000</color>
-    <color name="colorLoginPrimaryDark">#FDFFFF</color>
 
     <dimen name="headerTextSize">22sp</dimen>
     <dimen name="newsMoreTextSize">16sp</dimen>

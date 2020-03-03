@@ -75,13 +75,13 @@
                 android:layout_height="5dp"
                 android:background="@drawable/onboarding_dotunselected"/>
         </LinearLayout>
-
+<!-- android:background="@drawable/onboarding_button"-->
         <Button
             android:id="@+id/loginBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:background="@drawable/onboarding_button"
+
             android:text="LOGIN"
             android:textColor="@color/whiteTextColor"
             android:textSize="20dp"

@@ -134,5 +134,9 @@
     <string name="minutos">Minutos</string>
     <string name="data_execucao">Data de execução</string>
     <string name="concluir_atividade">Concluir atvidade</string>
+    <string name="autenticacao">Autenticação</string>
+    <string name="utilizadores_teste">Utilizadores de teste</string>
+    <string name="identificador">Identificador</string>
+    <string name="palavra_chave">Palavra-chave</string>
 
 </resources>

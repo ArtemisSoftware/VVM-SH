@@ -10,6 +10,7 @@ import android.view.View;
 import com.github.clans.fab.FloatingActionMenu;
 import com.vvm.sh.apresentacao.ApresentacaoActivity;
 import com.vvm.sh.apresentacao.modelos.Apresentacao;
+import com.vvm.sh.autenticacao.AutenticacaoActivity;
 import com.vvm.sh.ui.BaseActivity;
 import com.vvm.sh.ui.agenda.Tarefa;
 import com.vvm.sh.ui.agenda.TarefaActivity;
@@ -55,6 +56,10 @@ public class MainActivity extends BaseActivity implements /*DatePickerDialog.OnD
         iniciarAtividade();
         subscreverObservadores();
         obterRegistos();
+
+        Intent intent = new Intent(this, AutenticacaoActivity.class);
+        //intent.putExtra(AppConstants.PICTURE, pictureRecyclerAdapter.getSelectedPicture(position).getId());
+        startActivity(intent);
     }
 
 

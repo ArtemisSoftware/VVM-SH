@@ -1,9 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <!--
     <color name="colorPrimary">#008577</color>
     <color name="colorPrimaryDark">#00574B</color>
     <color name="colorAccent">#D81B60</color>
+-->
 
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#000033</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <color name="colorLoginPrimaryDark">#FDFFFF</color>
 
     <!-- Cores para as introducoes (background color)-->
 
@@ -16,7 +23,6 @@
     <color name="apresentacao_texto_color">#FFFFFF</color>
 
 
-    <color name="colorLoginPrimaryDark">#FDFFFF</color>
 
 
     <!--colors for profile-->
@@ -99,4 +105,5 @@
     <color name="primaryTextColor__">#25C0DE</color>
 
     <color name="bgBottomNavigation">#fe485a</color>
+
 </resources>

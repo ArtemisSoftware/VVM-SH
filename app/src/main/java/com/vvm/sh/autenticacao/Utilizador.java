@@ -40,4 +40,11 @@ public class Utilizador {
     }
 
 
+    /**
+     * Metodo que permite obter as inicias do utilizador
+     * @return as iniciais
+     */
+    public  String obterIniciais(){
+        return nome.replaceAll("^\\s*([a-zA-Z]).*\\s+([a-zA-Z])\\S+$", "$1$2").toUpperCase();
+    }
 }

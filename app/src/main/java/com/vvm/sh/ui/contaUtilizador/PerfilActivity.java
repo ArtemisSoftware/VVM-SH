@@ -9,6 +9,7 @@ import android.widget.TextView;
 
 import com.amulyakhare.textdrawable.TextDrawable;
 import com.vvm.sh.R;
+import com.vvm.sh.autenticacao.Utilizador;
 import com.vvm.sh.ui.BaseActivity;
 import com.vvm.sh.util.adaptadores.Item;
 
@@ -53,18 +54,17 @@ public class PerfilActivity extends BaseActivity {
 
         //--TESTE (apagar quando houver dados)
 
-        TextDrawable drawable = TextDrawable.builder().buildRect("LI", Color.GREEN);
+        Utilizador t1 = new Utilizador("3956342", getString(R.string.lorem_ipsum_titulo), "3444565436");
+
+
+        TextDrawable drawable = TextDrawable.builder().buildRect(t1.obterIniciais(), Color.GREEN);
 
         img_perfil.setImageDrawable(drawable);
 
+        txt_nome.setText(t1.obterNome());
+        txt_numero.setText(t1.obterId());
+        txt_cap.setText(t1.obterCap());
 
-        /*
-        List<Item> t1 = new ArrayList<>();
-        t1.add(new Tarefa(1, "Tarefa numero 1", "SH"));
-        t1.add(new Tarefa(2, "Tarefa numero 2", "SA"));
-
-        tarefaRecyclerAdapter.fixarRegistos(t1);
-*/
         //TODO: chamar metodo do viewmodel
     }
 

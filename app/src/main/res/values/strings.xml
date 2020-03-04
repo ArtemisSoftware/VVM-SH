@@ -141,5 +141,7 @@
     <string name="numero">Numero</string>
     <string name="cap">CAP</string>
     <string name="tecnico_higiene_seguranca">Técnico de higiene e segurança</string>
+    <string name="numero_de_registos_">Numero de registos:</string>
+    <string name="ultima_atualizacao_">Última atualização:</string>
 
 </resources>

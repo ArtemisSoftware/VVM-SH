@@ -138,5 +138,8 @@
     <string name="utilizadores_teste">Utilizadores de teste</string>
     <string name="identificador">Identificador</string>
     <string name="palavra_chave">Palavra-chave</string>
+    <string name="numero">Numero</string>
+    <string name="cap">CAP</string>
+    <string name="tecnico_higiene_seguranca">Técnico de higiene e segurança</string>
 
 </resources>

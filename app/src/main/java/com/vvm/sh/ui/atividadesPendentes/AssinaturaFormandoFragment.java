@@ -13,6 +13,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.vvm.sh.R;
+import com.vvm.sh.ui.AssinaturaActivity;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -170,11 +171,11 @@ public class AssinaturaFormandoFragment extends Fragment {
 
         //if( ((IndiceFormando_Activity) contexto).prontoAssinar() == true){
 
-            //Intent intent = new Intent(getActivity(), AssinaturaActivity.class);
+            Intent intent = new Intent(getActivity(), AssinaturaActivity.class);
             //intent.putExtra(BundleIF.ID_TAREFA, acessoBDFormando.obterIdTarefa(idAtividade));
             //intent.putExtra(BundleIF.ID_FORMANDO, idRelatorio);
             //intent.putExtra(BundleIF.ORIGEM, IdentificadoresIF.ORIGEM_FORMANDO);
-            //getActivity().startActivityForResult(intent, /*CodigoAtividadeIF.REGISTO_ASSINATURA*/ 444444);
+            getActivity().startActivityForResult(intent, /*CodigoAtividadeIF.REGISTO_ASSINATURA*/ 11);
         /*}
         else{
             MetodosDialogo.dialogoAlerta(contexto, SintaxeIF.TITULO_ASSINATURA, "O relatório só pode ser assinado quando estiver completo.");

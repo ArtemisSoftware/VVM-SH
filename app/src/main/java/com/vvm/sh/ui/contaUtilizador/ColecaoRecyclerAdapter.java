@@ -9,12 +9,7 @@ import com.vvm.sh.util.interfaces.OnItemListener;
 
 public class ColecaoRecyclerAdapter extends ItemRecyclerAdapter {
 
-    private OnItemListener onItemListener;
 
-
-    public ColecaoRecyclerAdapter(OnItemListener onItemListener) {
-        this.onItemListener = onItemListener;
-    }
 
     @Override
     protected int obterLayout(int viewType) {
@@ -23,6 +18,6 @@ public class ColecaoRecyclerAdapter extends ItemRecyclerAdapter {
 
     @Override
     protected ItemViewHolder obterViewHolder(View view, int viewType) {
-        return new ColecaoViewHolder(view, this.onItemListener);
+        return new ColecaoViewHolder(view);
     }
 }

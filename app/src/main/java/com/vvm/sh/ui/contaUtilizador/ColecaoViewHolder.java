@@ -12,7 +12,7 @@ import com.vvm.sh.util.interfaces.OnItemListener;
 
 import butterknife.BindView;
 
-public class ColecaoViewHolder extends ItemViewHolder implements View.OnClickListener {
+public class ColecaoViewHolder extends ItemViewHolder  {
 
     @BindView(R.id.txt_numero_registos)
     TextView txt_numero_registos;
@@ -20,14 +20,11 @@ public class ColecaoViewHolder extends ItemViewHolder implements View.OnClickLis
     @BindView(R.id.txt_data)
     TextView txt_data;
 
-    private OnItemListener onItemListener;
 
 
-    public ColecaoViewHolder(@NonNull View itemView, OnItemListener onItemListener) {
+    public ColecaoViewHolder(@NonNull View itemView) {
         super(itemView);
 
-        this.onItemListener = onItemListener;
-        itemView.setOnClickListener(this);
     }
 
     @Override
@@ -40,10 +37,6 @@ public class ColecaoViewHolder extends ItemViewHolder implements View.OnClickLis
     }
 
 
-    @Override
-    public void onClick(View v) {
-        onItemListener.onItemClick(getAdapterPosition());
-    }
 
 
 }

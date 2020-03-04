@@ -9,7 +9,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.contaUtilizador.PerfilActivity"></activity>
+        <activity android:name=".ui.contaUtilizador.TiposActivity"></activity>
+        <activity android:name=".ui.contaUtilizador.PerfilActivity" />
         <activity android:name=".autenticacao.AutenticacaoActivity" />
         <activity android:name=".apresentacao.ApresentacaoActivity" />
         <activity android:name=".ui.CarregamentoInicialActivity" />

@@ -143,5 +143,18 @@
     <string name="tecnico_higiene_seguranca">Técnico de higiene e segurança</string>
     <string name="numero_de_registos_">Numero de registos:</string>
     <string name="ultima_atualizacao_">Última atualização:</string>
+    <string name="aplicacao">Aplicação</string>
+    <string name="geral">Geral</string>
+    <string name="versao">Versão</string>
+
+
+    <string name="key_versao_app">chave_versao</string>
+    <string name="key_ultima_atualizacao">chave_ultima_atualizacao</string>
+    <string name="ultima_atualizacao">Última atualização</string>
+    <string name="permissoes">Permissões</string>
+    <string name="key_permissoes">key_permissoes</string>
+    <string name="key_entrar_contacto">key_entrar_contacto</string>
+    <string name="entrar_contacto">Entrar em contacto</string>
+    <string name="configuracao">Configuração</string>
 
 </resources>

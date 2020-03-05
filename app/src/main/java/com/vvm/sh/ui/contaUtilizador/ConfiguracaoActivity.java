@@ -13,6 +13,6 @@ public class ConfiguracaoActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // load settings fragment
-        getSupportFragmentManager().beginTransaction().replace(android.R.id.content, /*new MainPreferenceFragment()*/null).commit();
+        getSupportFragmentManager().beginTransaction().replace(android.R.id.content, new ConfiguracaoPreferenceFragment()).commit();
     }
 }

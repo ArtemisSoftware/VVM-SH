@@ -26,10 +26,6 @@
             android:summary="@string/lorem_ipsum_data"/>
 
 
-        <Preference
-            android:key="@string/key_entrar_contacto"
-            android:title="@string/entrar_contacto"
-            android:summary="@string/lorem_ipsum_texto" />
 
 
     </PreferenceCategory>

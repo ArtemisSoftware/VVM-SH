@@ -25,8 +25,6 @@ public class AutenticacaoActivity extends BaseActivity {
 
     private void iniciarApp(){
 
-
-
         /*
         SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", Context.MODE_PRIVATE); // 0 - for private mode
         SharedPreferences.Editor editor = pref.edit();
@@ -74,7 +72,6 @@ public class AutenticacaoActivity extends BaseActivity {
                 return super.onOptionsItemSelected(item);
         }
     }
-
 
     */
 

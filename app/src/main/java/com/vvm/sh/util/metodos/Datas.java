@@ -50,6 +50,21 @@ public class Datas {
 
 
 
+    /**
+     * Metodo que convert um long para uma data
+     * @param data long representativo da data
+     * @param formato formato pretendido para a data
+     * @return a nova data
+     */
+    public static String converterData(long data, String formato) {
+
+        Date resultado = new Date(data);
+        SimpleDateFormat formatoData = new SimpleDateFormat(formato);
+        return formatoData.format(resultado);
+    }
+
+
+
 
     /**
      * Metodo qua permite escolher datas atrav?s de uma caixa de di?logo

@@ -3,11 +3,11 @@
 
     <PreferenceCategory android:title="@string/configuracao">
 
-        <ListPreference
+        <Preference
             android:key="@string/key_permissoes"
             android:title="@string/permissoes"
-            android:summary="@string/lorem_ipsum_texto"
-            android:dialogTitle="@string/permissoes" />
+            android:summary="@string/lorem_ipsum_texto"/>
+
     </PreferenceCategory>
 
 

@@ -34,6 +34,20 @@ public class BaseActivity extends AppCompatActivity {
 
     public void apresentarProgresso(boolean visible) {
         pgr_bar_carregamento.setVisibility(visible ? View.VISIBLE : View.INVISIBLE);
+
+        /*
+
+        To disable the user interaction you just need to add the following code
+
+getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
+                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+
+To get user interaction back you just need to add the following code
+
+getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+
+
+         */
     }
 
 

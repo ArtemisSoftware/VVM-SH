@@ -105,8 +105,11 @@ public class AutenticacaoActivity extends BaseActivity implements Validator.Vali
     @OnItemSelected(R.id.spnr_utilizadores_teste)
     public void spnr_utilizadores_teste_ItemSelected(Spinner spinner, int position) {
 
-        txt_inp_identificador.setText(spnr_utilizadores_teste.obterItem().obterId() + "");
-        txt_inp_palavra_chave.setText(spnr_utilizadores_teste.obterItem().obterCodigo());
+        if(spnr_utilizadores_teste.selecionado() == true) {
+            txt_inp_identificador.setText(spnr_utilizadores_teste.obterItem().obterId() + "");
+            txt_inp_palavra_chave.setText(spnr_utilizadores_teste.obterItem().obterCodigo());
+        }
+
     }
 
 

@@ -107,7 +107,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_login_button"
-                android:background="?android:attr/actionBarItemBackground"
+                android:background="?selectableItemBackgroundBorderless"
                 android:layout_gravity="right"/>
 
 

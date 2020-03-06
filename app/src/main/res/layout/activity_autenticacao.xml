@@ -60,7 +60,7 @@
                 <com.vvm.sh.util.adaptadores.SpinnerComboBox
                     android:id="@+id/spnr_utilizadores_teste"
                     android:layout_width="match_parent"
-                    android:layout_height="45dp"
+                    android:layout_height="49dp"
                     android:layout_alignParentStart="true"
                     android:foreground="?attr/selectableItemBackground"
                     android:gravity="center_vertical"

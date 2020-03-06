@@ -57,7 +57,7 @@ public abstract class SpinnerBaseAdaptador  extends ArrayAdapter<ItemSpinner> {
 
         TextView txt = obterTexto(position);
 
-        txt.setHeight(40);
+        txt.setHeight(87);
         txt.setPadding(10, 0, 0, 0);
         txt.setGravity(Gravity.CENTER_VERTICAL);
         return txt;

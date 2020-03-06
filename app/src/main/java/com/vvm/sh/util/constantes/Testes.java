@@ -17,6 +17,7 @@ public class Testes {
 
         resultado.add(new ItemSpinner(1, "Super administrador", "3090"));
         resultado.add(new ItemSpinner(2, "Etelvina Verediana", "657547"));
+        resultado.add(new ItemSpinner(3, "Dinorá Jacinta", "21212"));
 
         return new SpinnerAdaptador(contexto, resultado);
     }

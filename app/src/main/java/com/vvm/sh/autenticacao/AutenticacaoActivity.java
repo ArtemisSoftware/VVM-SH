@@ -1,28 +1,46 @@
 package com.vvm.sh.autenticacao;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.content.Context;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Spinner;
 
+import com.google.android.material.textfield.TextInputEditText;
 import com.vvm.sh.MainActivity;
 import com.vvm.sh.R;
 import com.vvm.sh.ui.BaseActivity;
 import com.vvm.sh.ui.contaUtilizador.ConfiguracaoActivity;
+import com.vvm.sh.util.adaptadores.SpinnerComboBox;
+import com.vvm.sh.util.constantes.Testes;
 
+import butterknife.BindView;
 import butterknife.OnClick;
+import butterknife.OnItemSelected;
 
 public class AutenticacaoActivity extends BaseActivity {
+
+
+    @BindView(R.id.spnr_utilizadores_teste)
+    SpinnerComboBox spnr_utilizadores_teste;
+
+
+    @BindView(R.id.txt_inp_identificador)
+    TextInputEditText txt_inp_identificador;
+
+
+    @BindView(R.id.txt_inp_palavra_chave)
+    TextInputEditText txt_inp_palavra_chave;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_autenticacao);
+
+        subscreverObservadores();
+        obterRegistos();
     }
 
 
@@ -37,9 +55,43 @@ public class AutenticacaoActivity extends BaseActivity {
     }
 
 
+    //------------------------
+    //Metodos locais
+    //------------------------
+
+
+    private void obterRegistos(){
+
+        //--TESTE (apagar quando houver dados)
+
+        spnr_utilizadores_teste.setAdapter(Testes.obterUtilizadores(this));
+
+
+        //TODO: chamar metodo do viewmodel
+    }
+
+    /**
+     * Metodo que permite subscrever observadores
+     */
+    private void subscreverObservadores(){
+
+        //TODO: subscrever observadores do viewmodel
+    }
+
+
     //--------------------
     //Eventos
     //--------------------
+
+
+    @OnItemSelected(R.id.spnr_utilizadores_teste)
+    public void spnr_utilizadores_teste_ItemSelected(Spinner spinner, int position) {
+
+        txt_inp_identificador.setText(spnr_utilizadores_teste.obterItem().obterId() + "");
+        txt_inp_palavra_chave.setText(spnr_utilizadores_teste.obterItem().obterDescricao());
+    }
+
+
 
     @OnClick(R.id.crl_btn_autenticacao)
     public void crl_btn_autenticacao_OnClickListener(View view) {
@@ -56,6 +108,7 @@ public class AutenticacaoActivity extends BaseActivity {
         getMenuInflater().inflate(R.menu.menu_autenticacao, menu);
         return true;
     }
+
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {

@@ -57,7 +57,7 @@
                     android:text="@string/utilizadores_teste"
                     style="@style/InputLabel" />
 
-                <Spinner
+                <com.vvm.sh.util.adaptadores.SpinnerComboBox
                     android:id="@+id/spnr_utilizadores_teste"
                     android:layout_width="match_parent"
                     android:layout_height="45dp"
@@ -69,7 +69,9 @@
                     android:padding="10dp"
                     style="@style/Widget.AppCompat.Spinner.Underlined"/>
 
+
             </LinearLayout>
+
 
 
 
@@ -77,19 +79,22 @@
                 style="@style/parent.TextLayout"
                 android:hint="@string/identificador"
                 android:layout_marginTop="@dimen/signup_text_margin_top">
-                <EditText
+
+                <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/txt_inp_identificador"
                     style="@style/modifiedEditText"
                     android:inputType="number"
                     android:maxLines="1"/>
             </com.google.android.material.textfield.TextInputLayout>
 
+
             <com.google.android.material.textfield.TextInputLayout
                 app:passwordToggleEnabled="true"
                 android:hint="@string/palavra_chave"
                 style="@style/parent.TextLayout"
                 android:layout_marginTop="@dimen/signup_text_margin_top">
-                <EditText
+
+                <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/txt_inp_palavra_chave"
                     style="@style/modifiedEditText"
                     android:maxLines="1"
@@ -102,6 +107,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_login_button"
+                android:background="?android:attr/actionBarItemBackground"
                 android:layout_gravity="right"/>
 
 

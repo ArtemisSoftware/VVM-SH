@@ -152,6 +152,9 @@
     <string name="key_ultima_atualizacao">chave_ultima_atualizacao</string>
     <string name="ultima_atualizacao">Última atualização</string>
     <string name="permissoes">Permissões</string>
+    <string name="definicoes">Definições</string>
+    <string name="permissao_necessaria_aceder_definicoes">A app necessita de permissão para usar esta funcionalidade. A permissão pode ser concedida nas definições.</string>
+
     <string name="key_permissoes">key_permissoes</string>
     <string name="key_entrar_contacto">key_entrar_contacto</string>
     <string name="entrar_contacto">Entrar em contacto</string>

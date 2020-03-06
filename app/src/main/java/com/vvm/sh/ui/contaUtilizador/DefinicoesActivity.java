@@ -4,7 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
-public class ConfiguracaoActivity extends AppCompatActivity {
+public class DefinicoesActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -13,6 +13,6 @@ public class ConfiguracaoActivity extends AppCompatActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         // load settings fragment
-        getSupportFragmentManager().beginTransaction().replace(android.R.id.content, new ConfiguracaoPreferenceFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(android.R.id.content, new DefinicoesPreferenceFragment()).commit();
     }
 }

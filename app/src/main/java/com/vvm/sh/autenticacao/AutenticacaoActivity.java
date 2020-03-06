@@ -10,12 +10,10 @@ import android.widget.Spinner;
 import com.google.android.material.textfield.TextInputEditText;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
-import com.mobsandgeeks.saripaar.annotation.Digits;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
-import com.vvm.sh.MainActivity;
 import com.vvm.sh.R;
 import com.vvm.sh.ui.BaseActivity;
-import com.vvm.sh.ui.contaUtilizador.ConfiguracaoActivity;
+import com.vvm.sh.ui.contaUtilizador.DefinicoesActivity;
 import com.vvm.sh.util.adaptadores.SpinnerComboBox;
 import com.vvm.sh.util.constantes.Testes;
 
@@ -136,7 +134,7 @@ public class AutenticacaoActivity extends BaseActivity implements Validator.Vali
         switch (item.getItemId()){
 
             case R.id.item_app:
-                Intent intent = new Intent(this, ConfiguracaoActivity.class);
+                Intent intent = new Intent(this, DefinicoesActivity.class);
                 startActivity(intent);
                 return true;
 

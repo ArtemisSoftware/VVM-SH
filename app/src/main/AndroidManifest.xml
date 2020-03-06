@@ -10,7 +10,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".ui.AtualizacaoAppActivity"></activity>
-        <activity android:name=".ui.contaUtilizador.ConfiguracaoActivity" />
+        <activity android:name=".ui.contaUtilizador.DefinicoesActivity" />
         <activity android:name=".ui.AssinaturaActivity" />
         <activity android:name=".ui.contaUtilizador.TiposActivity" />
         <activity android:name=".ui.contaUtilizador.PerfilActivity" />

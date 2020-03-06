@@ -15,12 +15,12 @@ import com.vvm.sh.util.metodos.Datas;
 
 import java.io.File;
 
-public class ConfiguracaoPreferenceFragment extends PreferenceFragmentCompat {
+public class DefinicoesPreferenceFragment extends PreferenceFragmentCompat {
 
 
     @Override
     public void onCreatePreferences(Bundle savedInstanceState, String rootKey) {
-        setPreferencesFromResource(R.xml.pref_configuracao, rootKey);
+        setPreferencesFromResource(R.xml.pref_definicoes, rootKey);
 
         ((Preference) findPreference(getString(R.string.key_versao_app))).setSummary(BuildConfig.VERSION_NAME);
 

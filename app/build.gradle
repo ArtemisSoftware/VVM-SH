@@ -75,4 +75,7 @@ dependencies {
     def preference_version = "1.0.0"
     implementation "androidx.preference:preference:$preference_version"
 
+    def dexter_version = "6.0.2"
+    implementation "com.karumi:dexter:$dexter_version"
+
 }

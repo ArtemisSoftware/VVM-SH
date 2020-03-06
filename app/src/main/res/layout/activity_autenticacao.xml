@@ -98,7 +98,7 @@
                     android:id="@+id/txt_inp_palavra_chave"
                     style="@style/modifiedEditText"
                     android:maxLines="1"
-                    android:inputType="textPassword"/>
+                    android:inputType="numberPassword"/>
             </com.google.android.material.textfield.TextInputLayout>
 
 

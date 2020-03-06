@@ -8,6 +8,10 @@ import android.view.View;
 import android.widget.Spinner;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.mobsandgeeks.saripaar.ValidationError;
+import com.mobsandgeeks.saripaar.Validator;
+import com.mobsandgeeks.saripaar.annotation.Digits;
+import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.vvm.sh.MainActivity;
 import com.vvm.sh.R;
 import com.vvm.sh.ui.BaseActivity;
@@ -15,29 +19,43 @@ import com.vvm.sh.ui.contaUtilizador.ConfiguracaoActivity;
 import com.vvm.sh.util.adaptadores.SpinnerComboBox;
 import com.vvm.sh.util.constantes.Testes;
 
+import java.util.List;
+
+import at.markushi.ui.CircleButton;
 import butterknife.BindView;
 import butterknife.OnClick;
 import butterknife.OnItemSelected;
 
-public class AutenticacaoActivity extends BaseActivity {
+public class AutenticacaoActivity extends BaseActivity implements Validator.ValidationListener {
 
 
     @BindView(R.id.spnr_utilizadores_teste)
     SpinnerComboBox spnr_utilizadores_teste;
 
 
+    @NotEmpty(message = "Preenchimento obrigatório")
     @BindView(R.id.txt_inp_identificador)
     TextInputEditText txt_inp_identificador;
 
 
+    @NotEmpty(message = "Preenchimento obrigatório")
     @BindView(R.id.txt_inp_palavra_chave)
     TextInputEditText txt_inp_palavra_chave;
 
+
+    @BindView(R.id.crl_btn_autenticacao)
+    CircleButton crl_btn_autenticacao;
+
+
+    private Validator validador;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_autenticacao);
+
+        validador = new Validator(this);
+        validador.setValidationListener(this);
 
         subscreverObservadores();
         obterRegistos();
@@ -88,7 +106,7 @@ public class AutenticacaoActivity extends BaseActivity {
     public void spnr_utilizadores_teste_ItemSelected(Spinner spinner, int position) {
 
         txt_inp_identificador.setText(spnr_utilizadores_teste.obterItem().obterId() + "");
-        txt_inp_palavra_chave.setText(spnr_utilizadores_teste.obterItem().obterDescricao());
+        txt_inp_palavra_chave.setText(spnr_utilizadores_teste.obterItem().obterCodigo());
     }
 
 
@@ -96,9 +114,8 @@ public class AutenticacaoActivity extends BaseActivity {
     @OnClick(R.id.crl_btn_autenticacao)
     public void crl_btn_autenticacao_OnClickListener(View view) {
 
-        Intent intent = new Intent(this, MainActivity.class);
-        //intent.putExtra(AppConstants.PICTURE, pictureRecyclerAdapter.getSelectedPicture(position).getId());
-        startActivity(intent);
+        validador.validate();
+
     }
 
 
@@ -126,5 +143,28 @@ public class AutenticacaoActivity extends BaseActivity {
     }
 
 
+    @Override
+    public void onValidationSucceeded() {
 
+                /*
+        Intent intent = new Intent(this, MainActivity.class);
+        //intent.putExtra(AppConstants.PICTURE, pictureRecyclerAdapter.getSelectedPicture(position).getId());
+        startActivity(intent);
+        */
+    }
+
+    @Override
+    public void onValidationFailed(List<ValidationError> errors) {
+
+        for (ValidationError error : errors) {
+            View view = error.getView();
+            String message = error.getCollatedErrorMessage(this);
+
+            // Display error messages ;)
+            if (view instanceof TextInputEditText) {
+                ((TextInputEditText) view).setError(message);
+            }
+        }
+
+    }
 }

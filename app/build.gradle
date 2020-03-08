@@ -78,4 +78,6 @@ dependencies {
     def dexter_version = "6.0.2"
     implementation "com.karumi:dexter:$dexter_version"
 
+    implementation 'com.andrognito.flashbar:flashbar:1.0.3'
+
 }

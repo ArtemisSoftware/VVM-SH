@@ -7,6 +7,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Spinner;
 
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+
 import com.google.android.material.textfield.TextInputEditText;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
@@ -16,6 +18,7 @@ import com.vvm.sh.ui.BaseActivity;
 import com.vvm.sh.ui.contaUtilizador.DefinicoesActivity;
 import com.vvm.sh.util.adaptadores.SpinnerComboBox;
 import com.vvm.sh.util.constantes.Testes;
+import com.vvm.sh.util.metodos.Permissoes;
 
 import java.util.List;
 
@@ -45,6 +48,7 @@ public class AutenticacaoActivity extends BaseActivity implements Validator.Vali
     CircleButton crl_btn_autenticacao;
 
 
+
     private Validator validador;
 
     @Override
@@ -57,6 +61,7 @@ public class AutenticacaoActivity extends BaseActivity implements Validator.Vali
 
         subscreverObservadores();
         obterRegistos();
+        Permissoes.pedirPermissoesApp(this);
     }
 
 

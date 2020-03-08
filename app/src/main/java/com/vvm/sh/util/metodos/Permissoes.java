@@ -6,7 +6,12 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.provider.Settings;
+import android.widget.Toast;
 
+import androidx.coordinatorlayout.widget.CoordinatorLayout;
+
+import com.andrognito.flashbar.Flashbar;
+import com.google.android.material.snackbar.Snackbar;
 import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
@@ -48,7 +53,7 @@ public class Permissoes {
 
                         // check if all permissions are granted
                         if (report.areAllPermissionsGranted()) {
-                            //--Snackbar.make(coordinatorLayout, "Welcome to AndroidHive", Snackbar.LENGTH_LONG).show();
+                            //--Snackbar.make(contexto.getCurrentFocus(), "Welcome to AndroidHive", Snackbar.LENGTH_LONG).show();
                             //--Toast.makeText(context, "All permissions are granted!", Toast.LENGTH_SHORT).show();
                         }
 
@@ -58,6 +63,7 @@ public class Permissoes {
                             dialogoPermissoes(contexto);
                         }
                         else {
+
                             //--Snackbar.make(coordinatorLayout, "Welcome to AndroidHive", Snackbar.LENGTH_LONG).show();
                             //--Toast.makeText(context, "All permissions are not granted..", Toast.LENGTH_SHORT).show();
                         }
@@ -72,8 +78,17 @@ public class Permissoes {
                 withErrorListener(new PermissionRequestErrorListener() {
                     @Override
                     public void onError(DexterError error) {
-                        //--Snackbar.make(coordinatorLayout, "Welcome to AndroidHive", Snackbar.LENGTH_LONG).show();
-                        //--Toast.makeText(context, "Error occurred! ", Toast.LENGTH_SHORT).show();
+                        Flashbar flashbar = new Flashbar.Builder(contexto)
+                                .gravity(Flashbar.Gravity.TOP)
+                                .title("Erro nas permissoes")
+                                .duration(4000)
+                                .message(error.name())
+                                .backgroundColorRes(R.color.colorPrimaryDark)
+                                .build();
+                        flashbar.show();
+
+                        //Snackbar.make(coordinatorLayout, "Erro nas permissoes: " + error.name(), Snackbar.LENGTH_LONG).show();
+                        //Toast.makeText(contexto, "Erro nas permissoes: " + error.name(), Toast.LENGTH_SHORT).show();
                     }
                 })
                 .onSameThread()
@@ -107,6 +122,8 @@ public class Permissoes {
         builder.show();
 
     }
+
+
 
 
     /**

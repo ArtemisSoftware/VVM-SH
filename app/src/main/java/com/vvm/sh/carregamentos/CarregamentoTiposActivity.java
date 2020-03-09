@@ -6,11 +6,11 @@ import android.os.Bundle;
 
 import com.vvm.sh.R;
 
-public class CarregamentoInicialActivity extends AppCompatActivity {
+public class CarregamentoTiposActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_carregamento_inicial);
+        setContentView(R.layout.activity_carregamento_tipos);
     }
 }

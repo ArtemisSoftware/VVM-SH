@@ -159,5 +159,8 @@
     <string name="key_entrar_contacto">key_entrar_contacto</string>
     <string name="entrar_contacto">Entrar em contacto</string>
     <string name="configuracao">Configuração</string>
+    <string name="atualizacao">Atualização</string>
+    <string name="versao_">Versão:</string>
+    <string name="terminar">Terminar</string>
 
 </resources>

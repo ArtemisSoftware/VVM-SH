@@ -79,7 +79,7 @@ public class Permissoes {
                     @Override
                     public void onError(DexterError error) {
                         Flashbar flashbar = new Flashbar.Builder(contexto)
-                                .gravity(Flashbar.Gravity.TOP)
+                                .gravity(Flashbar.Gravity.BOTTOM)
                                 .title("Erro nas permissoes")
                                 .duration(4000)
                                 .message(error.name())
@@ -87,8 +87,6 @@ public class Permissoes {
                                 .build();
                         flashbar.show();
 
-                        //Snackbar.make(coordinatorLayout, "Erro nas permissoes: " + error.name(), Snackbar.LENGTH_LONG).show();
-                        //Toast.makeText(contexto, "Erro nas permissoes: " + error.name(), Toast.LENGTH_SHORT).show();
                     }
                 })
                 .onSameThread()

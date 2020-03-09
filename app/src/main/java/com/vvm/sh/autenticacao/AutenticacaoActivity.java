@@ -14,6 +14,7 @@ import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.vvm.sh.R;
+import com.vvm.sh.ui.AtualizacaoAppActivity;
 import com.vvm.sh.ui.BaseActivity;
 import com.vvm.sh.ui.contaUtilizador.DefinicoesActivity;
 import com.vvm.sh.util.adaptadores.SpinnerComboBox;
@@ -139,10 +140,20 @@ public class AutenticacaoActivity extends BaseActivity implements Validator.Vali
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
+        Intent intent;
+
         switch (item.getItemId()){
 
             case R.id.item_app:
-                Intent intent = new Intent(this, DefinicoesActivity.class);
+
+                intent = new Intent(this, DefinicoesActivity.class);
+                startActivity(intent);
+                return true;
+
+
+            case R.id.item_atualizar_app:
+
+                intent = new Intent(this, AtualizacaoAppActivity.class);
                 startActivity(intent);
                 return true;
 

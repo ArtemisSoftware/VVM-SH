@@ -1,0 +1,152 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="12">
+
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="8"
+        android:orientation="vertical">
+
+        <ImageView
+            android:layout_margin="10dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:adjustViewBounds="true"
+            android:cropToPadding="true"
+            android:layout_centerInParent="true"
+            android:src="@drawable/lorem_ipsum_banner" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:layout_alignParentBottom="true">
+
+            <TextView
+                style="@style/onBoardingHeaderText"
+                android:text="@string/atualizacao" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal">
+
+                <TextView
+                    style="@style/onBoardingContentText"
+                    android:text="@string/versao_"/>
+
+                <TextView
+                    android:id="@+id/txt_versao_app"
+                    style="@style/onBoardingContentText"
+                    android:text="@string/lorem_ipsum_texto_pequeno"/>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/txt_atualizacoes"
+                style="@style/onBoardingContentText"
+                android:text="@string/onboardingWelcomeContent"/>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+
+
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:orientation="vertical"
+        android:layout_weight="4"
+        android:gravity="center">
+
+
+
+        <RelativeLayout
+            android:layout_width="500dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal">
+
+            <ProgressBar
+                android:id="@+id/pgr_bar_progresso_notificacao"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:max="100"/>
+
+
+            <TextView
+                android:id="@+id/txt_progresso"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lorem_ipsum_texto_pequeno"
+                android:layout_alignRight="@+id/pgr_bar_progresso_notificacao"
+                android:layout_below="@+id/pgr_bar_progresso_notificacao"
+                android:layout_marginTop="35dp"/>
+
+        </RelativeLayout>
+
+
+        <RelativeLayout
+            android:layout_width="500dp"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal">
+
+            <ProgressBar
+                android:id="@+id/pgr_bar_progresso_notificacao_secondario"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:max="100"/>
+
+
+            <TextView
+                android:id="@+id/txt_progresso_secondario"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/lorem_ipsum_texto_pequeno"
+                android:layout_alignRight="@+id/pgr_bar_progresso_notificacao_secondario"
+                android:layout_below="@+id/pgr_bar_progresso_notificacao_secondario"
+                android:layout_marginTop="35dp"/>
+
+        </RelativeLayout>
+
+        <!-- android:background="@drawable/onboarding_button"@dimen/dots_height-->
+
+        <Button
+            android:id="@+id/btn_terminar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/onboarding_button"
+            android:text="@string/terminar"
+            android:textColor="@color/whiteTextColor"
+            android:textSize="20dp"
+            android:layout_margin="25dp"/>
+
+
+
+
+    </LinearLayout>
+
+
+
+</LinearLayout>
+

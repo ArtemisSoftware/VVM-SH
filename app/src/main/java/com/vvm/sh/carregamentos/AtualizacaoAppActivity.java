@@ -1,4 +1,4 @@
-package com.vvm.sh.ui;
+package com.vvm.sh.carregamentos;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -8,6 +8,7 @@ import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.vvm.sh.R;
+import com.vvm.sh.ui.BaseActivity;
 
 import butterknife.BindView;
 import butterknife.OnClick;

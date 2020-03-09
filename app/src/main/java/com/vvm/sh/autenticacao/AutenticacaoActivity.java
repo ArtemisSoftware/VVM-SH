@@ -7,14 +7,12 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Spinner;
 
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
-
 import com.google.android.material.textfield.TextInputEditText;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.vvm.sh.R;
-import com.vvm.sh.ui.AtualizacaoAppActivity;
+import com.vvm.sh.carregamentos.AtualizacaoAppActivity;
 import com.vvm.sh.ui.BaseActivity;
 import com.vvm.sh.ui.contaUtilizador.DefinicoesActivity;
 import com.vvm.sh.util.adaptadores.SpinnerComboBox;

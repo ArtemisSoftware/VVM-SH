@@ -9,14 +9,15 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.AtualizacaoAppActivity"></activity>
+        <activity android:name=".carregamentos.CarregamentoTrabalhoActivity"></activity>
+        <activity android:name=".carregamentos.AtualizacaoAppActivity" />
         <activity android:name=".ui.contaUtilizador.DefinicoesActivity" />
         <activity android:name=".ui.AssinaturaActivity" />
         <activity android:name=".ui.contaUtilizador.TiposActivity" />
         <activity android:name=".ui.contaUtilizador.PerfilActivity" />
         <activity android:name=".autenticacao.AutenticacaoActivity" />
         <activity android:name=".apresentacao.ApresentacaoActivity" />
-        <activity android:name=".ui.CarregamentoInicialActivity" />
+        <activity android:name=".carregamentos.CarregamentoInicialActivity" />
         <activity android:name=".ui.atividadesPendentes.FormandoActivity" />
         <activity
             android:name=".ui.atividadesPendentes.AcaoFormacaoActivity"

@@ -3,6 +3,7 @@ package com.vvm.sh.ui;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -15,6 +16,7 @@ import butterknife.ButterKnife;
 public class BaseActivity extends AppCompatActivity {
 
     private ProgressBar pgr_bar_carregamento;
+    private LinearLayout lnr_lyt_desabilitar;
 
     @Override
     public void setContentView(int layoutResID) {
@@ -22,6 +24,7 @@ public class BaseActivity extends AppCompatActivity {
         ConstraintLayout constraintLayout = (ConstraintLayout) getLayoutInflater().inflate(R.layout.activity_base, null);
         FrameLayout frameLayout = constraintLayout.findViewById(R.id.activity_content);
         pgr_bar_carregamento = constraintLayout.findViewById(R.id.pgr_bar_carregamento);
+        lnr_lyt_desabilitar = constraintLayout.findViewById(R.id.lnr_lyt_desabilitar);
 
         getLayoutInflater().inflate(layoutResID, frameLayout, true);
 
@@ -32,22 +35,25 @@ public class BaseActivity extends AppCompatActivity {
 
     }
 
-    public void apresentarProgresso(boolean visible) {
-        pgr_bar_carregamento.setVisibility(visible ? View.VISIBLE : View.INVISIBLE);
 
-        /*
+    /**
+     * Metodo que permite apresentar o estado de progresso
+     * @param visivel true para apresentar ou false para remover a apresentacao
+     */
+    public void apresentarProgresso(boolean visivel) {
 
-        To disable the user interaction you just need to add the following code
+        pgr_bar_carregamento.setVisibility(visivel ? View.VISIBLE : View.INVISIBLE);
 
-getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE,
-                    WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+        lnr_lyt_desabilitar.setVisibility(visivel ? View.VISIBLE : View.INVISIBLE);
 
-To get user interaction back you just need to add the following code
+        if(visivel == true) { //desativar interacao do utilizador
 
-getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+            getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+        }
+        else{ //ativar interacao do utilizador
 
-
-         */
+            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
+        }
     }
 
 

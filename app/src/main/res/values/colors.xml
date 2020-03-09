@@ -10,6 +10,10 @@
     <color name="colorPrimaryDark">#000033</color>
     <color name="colorAccent">#FF4081</color>
 
+
+
+    <color name="cor_ecra_bloqueado">#61111111</color>
+
     <color name="colorLoginPrimaryDark">#FDFFFF</color>
 
     <!-- Cores para as introducoes (background color)-->
@@ -105,5 +109,6 @@
     <color name="primaryTextColor__">#25C0DE</color>
 
     <color name="bgBottomNavigation">#fe485a</color>
+
 
 </resources>

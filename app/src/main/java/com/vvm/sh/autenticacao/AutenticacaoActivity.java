@@ -67,6 +67,8 @@ public class AutenticacaoActivity extends BaseActivity implements Validator.Vali
 
     private void iniciarApp(){
 
+
+
         /*
         SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", Context.MODE_PRIVATE); // 0 - for private mode
         SharedPreferences.Editor editor = pref.edit();
@@ -96,6 +98,8 @@ public class AutenticacaoActivity extends BaseActivity implements Validator.Vali
      */
     private void subscreverObservadores(){
 
+        //apresentarProgresso(true);
+
         //TODO: subscrever observadores do viewmodel
     }
 
@@ -112,7 +116,6 @@ public class AutenticacaoActivity extends BaseActivity implements Validator.Vali
             txt_inp_identificador.setText(spnr_utilizadores_teste.obterItem().obterId() + "");
             txt_inp_palavra_chave.setText(spnr_utilizadores_teste.obterItem().obterCodigo());
         }
-
     }
 
 

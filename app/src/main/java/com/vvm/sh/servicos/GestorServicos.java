@@ -1,6 +1,6 @@
 package com.vvm.sh.servicos;
 
-public class GestorServicos {
+public abstract class GestorServicos {
 
     //protected Context contexto;
     //protected Notario notario;

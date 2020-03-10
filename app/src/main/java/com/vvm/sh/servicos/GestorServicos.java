@@ -1,6 +1,12 @@
 package com.vvm.sh.servicos;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public abstract class GestorServicos {
+
+
+    private final int LIMITE_SERVICOS_WS = 128;
 
     //protected Context contexto;
     //protected Notario notario;
@@ -11,9 +17,9 @@ public abstract class GestorServicos {
     //protected final Handler handlerNotificacoesUI;
 
     /**
-     * Variavel que representa a lista de servicos a serem executados
+     * Variavel que contem a lista de servicos a serem executados
      */
-    //protected ArrayList<Servico> servicos;
+    protected List<Servico> servicos;
 
     private int numeroPedidos, numeroPedidosTotal;
 
@@ -27,9 +33,9 @@ public abstract class GestorServicos {
         FONTE = MetodosApp.obterNomeClasse(this.getClass());
 
         handlerNotificacoesUI = gerarHandler();
-
-        servicos = new ArrayList<Servico>();
-
+*/
+        servicos = new ArrayList<>();
+/*
         processador = obterProcessador(contexto, handlerUI);
         */
     }
@@ -110,32 +116,31 @@ public abstract class GestorServicos {
 
 
     /**
-     * Metodo que inicializa as variaveis de carregamento
+     * Metodo que inicializa as variaveis do gestor
      */
-    /*
-    protected void iniciarVariaveisCarregamento(){
+    protected void iniciarVariaveis(){
 
         servicos.clear();
         numeroPedidos = 0;
         numeroPedidosTotal = 0;
     }
-*/
+
 
     /**
-     * Metodo que permite adicionar servicos - pilha de servicos a serem executados
-     * @param servico um ser executado
-     *//*
+     * Metodo que permite adicionar servicos a pilha de servicos a serem executados
+     * @param servico um servico a ser executado
+     */
     protected void adicionarServicos(Servico servico){
 
-        if((servicos.size() + 1) < AppConfigIF.LIMITE_SERVICOS_WS){
+        if((servicos.size() + 1) < LIMITE_SERVICOS_WS){
 
             servicos.add(servico);
         }
         else{
-            LogApp_v4.obterInstancia(FONTE, LogIF.ID_LOG_GERAL).adicionarTexto("Atingido o numero m-ximo de pedidos ao ws");
+            //--LOG--LogApp_v4.obterInstancia(FONTE, LogIF.ID_LOG_GERAL).adicionarTexto("Atingido o numero m-ximo de pedidos ao ws");
         }
     }
-*/
+
 
 
     /**

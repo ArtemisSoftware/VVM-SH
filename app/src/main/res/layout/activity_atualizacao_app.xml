@@ -104,6 +104,17 @@
         <!-- android:background="@drawable/onboarding_button"@dimen/dots_height-->
 
         <Button
+            android:id="@+id/btn_iniciar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/onboarding_button"
+            android:text="Iniciar atualização"
+            android:textColor="@color/whiteTextColor"
+            android:textSize="20dp"
+            android:layout_margin="5dp"/>
+
+        <Button
             android:id="@+id/btn_terminar"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

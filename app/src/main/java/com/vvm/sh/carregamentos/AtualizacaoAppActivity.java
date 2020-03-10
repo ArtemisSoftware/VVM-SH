@@ -13,13 +13,8 @@ import com.vvm.sh.ui.BaseActivity;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class AtualizacaoAppActivity extends BaseActivity {
+public class AtualizacaoAppActivity extends CarregamentoActivity {
 
-    @BindView(R.id.pgr_bar_progresso_notificacao)
-    ProgressBar pgr_bar_progresso_notificacao;
-
-    @BindView(R.id.txt_progresso)
-    TextView txt_progresso;
 
     @BindView(R.id.txt_atualizacoes)
     TextView txt_atualizacoes;

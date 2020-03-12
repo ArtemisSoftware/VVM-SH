@@ -74,7 +74,7 @@ public abstract class Servico extends AsyncTask<String, String, Void> {
     protected void onPostExecute(Void result) {
         super.onPostExecute(result);
 
-        notificacaoFinal();
+        //notificacaoFinal();
     }
 
 
@@ -137,6 +137,6 @@ public abstract class Servico extends AsyncTask<String, String, Void> {
     /**
      * Metodo que permite executar uma instrução após ter sido executada a tarefa do servico
      */
-    protected abstract void notificacaoFinal();
+    //protected abstract void notificacaoFinal();
 
 }

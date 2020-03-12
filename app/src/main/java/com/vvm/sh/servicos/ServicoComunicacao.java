@@ -40,6 +40,8 @@ public abstract class ServicoComunicacao extends Servico {
     @Override
     protected void executar() {
         //enviarInformacao(obterParametros());
+
+        expedirDados();
     }
 
 
@@ -100,11 +102,10 @@ public abstract class ServicoComunicacao extends Servico {
 
     /**
      * Metodo que permite expedir dados para o ws
-     * @param parametros objeto com os dados a serem enviados
      * @return a resposta do web service
      */
 
-    private /*JSONObject*//*void*/ String expedirDados(Datagrama parametros){
+    private /*JSONObject*//*void*/ String expedirDados(){
 
         HttpURLConnection urlConnection = null;
         BufferedReader reader = null;

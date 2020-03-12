@@ -5,7 +5,9 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
+import java.net.MalformedURLException;
 import java.net.URL;
+import java.util.Scanner;
 
 
 public abstract class ServicoComunicacao extends Servico {
@@ -43,7 +45,6 @@ public abstract class ServicoComunicacao extends Servico {
 
         expedirDados();
     }
-
 
 
     //-----------------------------------------------
@@ -102,17 +103,48 @@ public abstract class ServicoComunicacao extends Servico {
 
     /**
      * Metodo que permite expedir dados para o ws
+     *
      * @return a resposta do web service
      */
 
-    private /*JSONObject*//*void*/ String expedirDados(){
+    private /*JSONObject*/void /*String*/ expedirDados() {
+        StringBuilder resposta = new StringBuilder();
+        try {
+            URL url = new URL(
+                    //"https://pokeapi.co/api/v2/language/4/"
+                    "https://pokeapi.co/api/v2/pokemon/1"
+                    //"http://ws.matheuscastiglioni.com.br/ws/cep/find/13845373/json"
+            );
 
+            HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+            connection.setRequestMethod("GET");
+            connection.setRequestProperty("Content-type", "application/json");
+            connection.setRequestProperty("Accept", "application/json");
+            connection.setDoOutput(true);
+            connection.setConnectTimeout(5000);
+            connection.connect();
+
+            Scanner scanner = new Scanner(url.openStream());
+            while (scanner.hasNext()) {
+                resposta.append(scanner.next());
+            }
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+
+        /*
         HttpURLConnection urlConnection = null;
         BufferedReader reader = null;
-        try {
-            URL url = new URL("http://pokeapi.co/api/v2/pokemon/1/");
-            urlConnection = (HttpURLConnection) url.openConnection();
+        try {*/
+        //URL url = new URL(/*"http://pokeapi.co/api/v2/pokemon/1/"*/"http://ws.matheuscastiglioni.com.br/ws/cep/find/13845373/json");
+            /*urlConnection = (HttpURLConnection) url.openConnection();
             urlConnection.setRequestMethod("GET");
+            urlConnection.setRequestProperty("Content-type", "application/json");
+            urlConnection.setRequestProperty("Accept", "application/json");
+            urlConnection.setDoOutput(true);
             urlConnection.connect();
             InputStream inputStream = urlConnection.getInputStream();
             reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
@@ -138,7 +170,7 @@ public abstract class ServicoComunicacao extends Servico {
         }
         return null;
 
-
+*/
 
         /*
         String url = parametros.obterUrl(), resultado;
@@ -189,7 +221,7 @@ public abstract class ServicoComunicacao extends Servico {
         }
 
          */
-        
+
         //--LOG--LogApp_v4.obterInstancia(FONTE, LogIF.ID_LOG_REDE).adicionarTextoComunicacaoWS(parametros, resultado);
         //return null /*MetodosRede.obterJSON(resultado)*/;
     }

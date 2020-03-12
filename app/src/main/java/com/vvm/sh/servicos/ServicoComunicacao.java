@@ -1,5 +1,13 @@
 package com.vvm.sh.servicos;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+
+
 public abstract class ServicoComunicacao extends Servico {
 
 
@@ -95,9 +103,43 @@ public abstract class ServicoComunicacao extends Servico {
      * @param parametros objeto com os dados a serem enviados
      * @return a resposta do web service
      */
-    /*
-    private JSONObject expedirDados(Datagrama parametros){
 
+    private /*JSONObject*//*void*/ String expedirDados(Datagrama parametros){
+
+        HttpURLConnection urlConnection = null;
+        BufferedReader reader = null;
+        try {
+            URL url = new URL("http://pokeapi.co/api/v2/pokemon/1/");
+            urlConnection = (HttpURLConnection) url.openConnection();
+            urlConnection.setRequestMethod("GET");
+            urlConnection.connect();
+            InputStream inputStream = urlConnection.getInputStream();
+            reader = new BufferedReader(new InputStreamReader(inputStream, "UTF-8"));
+            String linha;
+            StringBuffer buffer = new StringBuffer();
+            while((linha = reader.readLine()) != null) {
+                buffer.append(linha);
+                buffer.append("\n");
+            }
+            return buffer.toString();
+        } catch (Exception e) {
+            e.printStackTrace();
+            if (urlConnection != null) {
+                urlConnection.disconnect();
+            }
+            if (reader != null) {
+                try {
+                    reader.close();
+                } catch (IOException e1) {
+                    e1.printStackTrace();
+                }
+            }
+        }
+        return null;
+
+
+
+        /*
         String url = parametros.obterUrl(), resultado;
 
         BufferedReader inBuffer = null;
@@ -145,12 +187,63 @@ public abstract class ServicoComunicacao extends Servico {
             }
         }
 
-        LogApp_v4.obterInstancia(FONTE, LogIF.ID_LOG_REDE).adicionarTextoComunicacaoWS(parametros, resultado);
-
-        return MetodosRede.obterJSON(resultado);
+         */
+        
+        //--LOG--LogApp_v4.obterInstancia(FONTE, LogIF.ID_LOG_REDE).adicionarTextoComunicacaoWS(parametros, resultado);
+        //return null /*MetodosRede.obterJSON(resultado)*/;
     }
-*/
 
+
+
+    /*
+
+    String webResponse = "";
+        try {
+            final String NAMESPACE = "http://tempuri.org/";
+            final String URL = "http://www.10.118.52.133.com/ProductService.asmx";
+            final String SOAP_ACTION = "http://tempuri.org/GetFirstName";
+            final String METHOD_NAME = "GetFirstName";
+
+            SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME);
+            PropertyInfo info = new PropertyInfo();
+            info.setName("StationID");
+            info.setValue(1);
+            info.setType(Integer.class);
+            request.addProperty(info);
+
+            PropertyInfo info11 = new PropertyInfo();
+            info11.setName("Rows");
+            info11.setValue(1);
+            info11.setType(Integer.class);
+            request.addProperty(info11);
+
+            SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
+                    SoapEnvelope.VER11);
+            envelope.dotNet = true;
+
+            envelope.setOutputSoapObject(request);
+            HttpTransportSE androidHttpTransport = new HttpTransportSE(URL);
+            androidHttpTransport.debug = true;
+            try {
+                androidHttpTransport.call(SOAP_ACTION, envelope);
+
+                MyDeptt = androidHttpTransport.responseDump;
+                Log.e("test", "MyDept:--" + MyDeptt);
+                webResponse = MyDeptt;
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        } catch (Exception e) {
+
+            Toast.makeText(context,
+                    "Cannot access the web service" + e.toString(),
+                    Toast.LENGTH_LONG).show();
+
+        }
+        return webResponse;
+
+
+     */
 
     //--------------------------------------
     //Metodos abstratos

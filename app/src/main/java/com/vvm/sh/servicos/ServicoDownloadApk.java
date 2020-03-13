@@ -9,6 +9,7 @@ import android.os.Handler;
 
 import com.vvm.sh.util.Notificacao;
 import com.vvm.sh.util.constantes.Sintaxe;
+import com.vvm.sh.util.metodos.Diretorias;
 
 import java.io.File;
 
@@ -41,7 +42,7 @@ public class ServicoDownloadApk extends Servico {
         nomeFicheiro = Download_Uri.toString().split("/")[Download_Uri.toString().split("/").length - 1];
         //--LOG--LogApp_v4.obterInstancia(FONTE, LogIF.ID_LOG_GERAL).adicionarTexto("Nome ficheiro:" + nomeFicheiro);
 
-        File ficheiro = null;//--new File(Environment.getExternalStorageDirectory().toString() + "/" + AppConfigIF.DIRETORIA_DOWNLOAD, nomeFicheiro);
+        File ficheiro = new File(Environment.getExternalStorageDirectory().toString() + "/" + Diretorias.DIRETORIA_DOWNLOAD, nomeFicheiro);
 
         if(ficheiro.exists()){
 
@@ -52,7 +53,7 @@ public class ServicoDownloadApk extends Servico {
         DownloadManager.Request pedido = new DownloadManager.Request(Uri.parse(versaoApp.obterUrlDownload()));
         pedido.setDescription(versaoApp.obterTexto());
         pedido.setTitle("Atualização v." + versaoApp.obterVersao());
-        //--pedido.setDestinationInExternalPublicDir("/" + AppConfigIF.DIRETORIA_DOWNLOAD, nomeFicheiro);
+        pedido.setDestinationInExternalPublicDir("/" + Diretorias.DIRETORIA_DOWNLOAD, nomeFicheiro);
         pedido.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI);
         pedido.setAllowedOverRoaming(false);
 

@@ -29,7 +29,7 @@ public class AtualizacaoAppActivity extends CarregamentoActivity {
 
         txt_progresso.setText(1 + "/"+ pgr_bar_progresso_notificacao.getMax());
 
-        new ServicoVersaoApp().execute();
+        new ServicoVersaoApp(handlerNotificacoesUI).execute();
 
     }
 

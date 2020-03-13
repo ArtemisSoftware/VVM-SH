@@ -1,8 +1,15 @@
 package com.vvm.sh.servicos;
 
+import android.os.Handler;
+
+import com.google.gson.Gson;
 import com.vvm.sh.util.constantes.WebService;
 
 public class ServicoVersaoApp extends ServicoComunicacao {
+
+    public ServicoVersaoApp(Handler handler) {
+        super(handler);
+    }
 
     @Override
     protected Datagrama obterDatagrama() {
@@ -13,6 +20,7 @@ public class ServicoVersaoApp extends ServicoComunicacao {
     protected void terminarExecucao() {
 
         //Gson gson = new Gson();
-        //Employee employee = gson.fromJson(json, Employee.class);
+        //VersaoApp versaoApp = gson.fromJson(this.resposta, VersaoApp.class);
+
     }
 }

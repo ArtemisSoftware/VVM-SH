@@ -1,5 +1,7 @@
 package com.vvm.sh.servicos;
 
+import android.os.Handler;
+
 import com.vvm.sh.util.constantes.WebService;
 
 import org.ksoap2.SoapEnvelope;
@@ -34,7 +36,8 @@ public abstract class ServicoComunicacao extends Servico {
     protected boolean BLOQUEAR_COMUNICACAO;
 
 
-    public ServicoComunicacao(/*Context contexto, Handler handler, boolean ativarDialogo*/) {
+    public ServicoComunicacao(/*Context contexto, */Handler handler/*, boolean ativarDialogo*/) {
+        super(handler);
         /*
         super(contexto, handler,ativarDialogo);
 

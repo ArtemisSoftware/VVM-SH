@@ -8,4 +8,9 @@ public class ServicoVersaoApp extends ServicoComunicacao {
     protected Datagrama obterDatagrama() {
         return new Datagrama(WebService.METODO_Obter_Actualizacoes);
     }
+
+    @Override
+    protected void terminarExecucao() {
+
+    }
 }

@@ -25,11 +25,8 @@ public abstract class ServicoComunicacao extends Servico {
     /**
      * Variavel que contem a resposta do ws após uma comunicacao
      */
-/*
-    protected JSONObject info;
+    protected String resposta;
 
-    protected GestorDatagramas datagrama;
-*/
 
     /**
      * Varialve que indica se a comunicacao deva ser bloqueada
@@ -138,21 +135,17 @@ public abstract class ServicoComunicacao extends Servico {
             try {
                 httpTransportSE.call(datagrama.obterSoapAction(), envelope);
                 SoapPrimitive soapPrimitive = (SoapPrimitive)envelope.getResponse();
-                String result = soapPrimitive.toString();
+                this.resposta = soapPrimitive.toString();
             }
             catch (Exception e) {
                 e.printStackTrace();
             }
-
         }
         catch (Exception e) {
 
             e.printStackTrace();
 
         }
-        //return webResponse;
-
-
     }
 
 

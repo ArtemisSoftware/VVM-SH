@@ -6,10 +6,7 @@ import com.thefinestartist.finestwebview.FinestWebView;
 import com.thefinestartist.finestwebview.listeners.WebViewListener;
 import com.vvm.sh.R;
 import com.vvm.sh.ui.BaseActivity;
-import com.vvm.sh.util.constantes.Api;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.vvm.sh.util.constantes.Url;
 
 public class ContaCorrenteActivity extends BaseActivity {
 
@@ -61,7 +58,7 @@ public class ContaCorrenteActivity extends BaseActivity {
      */
     private void iniciarWebView(String nif){
 
-        String url = Api.URL_CONTA_CORRENTE + nif;
+        String url = Url.URL_CONTA_CORRENTE + nif;
         new FinestWebView.Builder(this).titleDefault(getString(R.string.conta_corrente_nif_) + nif)
                 .showMenuShareVia(false)
                 .showMenuCopyLink(false)

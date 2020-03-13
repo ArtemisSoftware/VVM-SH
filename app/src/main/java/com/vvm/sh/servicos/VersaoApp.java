@@ -3,6 +3,7 @@ package com.vvm.sh.servicos;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import com.vvm.sh.BuildConfig;
+import com.vvm.sh.util.constantes.Url;
 
 import java.util.Arrays;
 
@@ -38,6 +39,10 @@ public class VersaoApp {
     private boolean atualizar;
 
 
+    @Expose(serialize = false)
+    private String urlDownload;
+
+
     public VersaoApp(String versaoTeste, String textoTeste, String versaoProducao, String textoProducao,
                      String [] utilizadoresTeste, boolean atualizacaoTeste){
 
@@ -71,14 +76,18 @@ public class VersaoApp {
 
                 versao = versaoTeste;
                 texto = textoTeste;
-            } else {
+                urlDownload = Url.URL_DOWNLOAD_APP_TESTE;
+            }
+            else {
                 versao = versaoProducao;
                 texto = textoProducao;
+                urlDownload = Url.URL_DOWNLOAD_APP_PRODUCAO;
             }
         }
         else{
             versao = versaoProducao;
             texto = textoProducao;
+            urlDownload = Url.URL_DOWNLOAD_APP_PRODUCAO;
         }
 
         try{
@@ -124,4 +133,11 @@ public class VersaoApp {
     }
 
 
+    /**
+     * Metodo que permite obter o url para download da versao
+     * @return o url
+     */
+    public String obterUrlDownload(){
+        return urlDownload;
+    }
 }

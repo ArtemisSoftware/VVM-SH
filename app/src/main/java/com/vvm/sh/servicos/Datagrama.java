@@ -1,15 +1,27 @@
 package com.vvm.sh.servicos;
 
+import com.vvm.sh.util.constantes.Api;
+import com.vvm.sh.util.constantes.WebService;
+
 import java.util.ArrayList;
 import java.util.List;
 
 public class Datagrama {
 
-    private String url;
+
+    /*
+
+    String METHOD_NAME = "Obter_Actualizacoes";
+    String SOAP_ACTION = "http://tempuri.org/Obter_Actualizacoes";
+    */
+
+
+    private String metodo;
+    private String soapAction;
     private List<String> nomes, valores;
     //private String idTabela, nomeTabela;
 
-    public Datagrama (String urlBase, String urlRelativo){
+    public Datagrama (String metodo){
 
         /*
         if(url.contains(WebServiceComIF.URL_SHT_PRODUCAO) == false && url.contains(WebServiceComIF.URL_CONTRATOS_PRODUCAO) == false) {
@@ -17,18 +29,28 @@ public class Datagrama {
         }
         */
 
-        this.url = urlBase + urlRelativo;
+        this.metodo = metodo;
+        this.soapAction = WebService.NAMESPACE_WEB_SERVICE + metodo;
         nomes = new ArrayList<>();
         valores = new ArrayList<>();
     }
 
 
     /**
-     * Metodo que devolve o url
-     * @return o url
+     * Metodo que devolve o soap action
+     * @return o soap action
      */
-    public String obterUrl(){
-        return url;
+    public String obterSoapAction(){
+        return soapAction;
+    }
+
+
+    /**
+     * Metodo que permite obter o metodo
+     * @return o metodo
+     */
+    public String obterMetodo(){
+        return metodo;
     }
 
 

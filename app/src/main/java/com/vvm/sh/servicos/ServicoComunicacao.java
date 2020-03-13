@@ -1,5 +1,7 @@
 package com.vvm.sh.servicos;
 
+import com.vvm.sh.util.constantes.WebService;
+
 import org.ksoap2.SoapEnvelope;
 import org.ksoap2.serialization.SoapObject;
 import org.ksoap2.serialization.SoapPrimitive;
@@ -110,52 +112,48 @@ public abstract class ServicoComunicacao extends Servico {
 
     private void expedirDados_soap() {
 
-        String URL="http://www.vivamais.com/tablet_ws/service.asmx";
-        String NAMESPACE="http://tempuri.org/";
-        String METHOD_NAME = "Obter_Actualizacoes";
-        String SOAP_ACTION = "http://tempuri.org/Obter_Actualizacoes";
+        Datagrama datagrama = obterDatagrama();
 
         try {
-        SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME);
-        /*
-        PropertyInfo info = new PropertyInfo();
-        info.setName("StationID");
-        info.setValue(1);
-        info.setType(Integer.class);
-        request.addProperty(info);
-        */
-/*
-        PropertyInfo info11 = new PropertyInfo();
-        info11.setName("Rows");
-        info11.setValue(1);
-        info11.setType(Integer.class);
-        request.addProperty(info11);
-*/
+            SoapObject request = new SoapObject(WebService.NAMESPACE_WEB_SERVICE, datagrama.obterMetodo());
 
+            /*
+            PropertyInfo info = new PropertyInfo();
+            info.setName("StationID");
+            info.setValue(1);
+            info.setType(Integer.class);
+            request.addProperty(info);
+
+            PropertyInfo info11 = new PropertyInfo();
+            info11.setName("Rows");
+            info11.setValue(1);
+            info11.setType(Integer.class);
+            request.addProperty(info11);
+            */
 
             SoapSerializationEnvelope envelope =  new SoapSerializationEnvelope(SoapEnvelope.VER11);
             envelope.setOutputSoapObject(request);
-
-            HttpTransportSE httpTransportSE = new HttpTransportSE(URL);
+            HttpTransportSE httpTransportSE = new HttpTransportSE(WebService.URL_WEB_SERVICE);
 
             try {
-                httpTransportSE.call(SOAP_ACTION, envelope);
+                httpTransportSE.call(datagrama.obterSoapAction(), envelope);
                 SoapPrimitive soapPrimitive = (SoapPrimitive)envelope.getResponse();
                 String result = soapPrimitive.toString();
-            } catch (Exception e) {
+            }
+            catch (Exception e) {
                 e.printStackTrace();
             }
 
+        }
+        catch (Exception e) {
 
-    } catch (Exception e) {
+            e.printStackTrace();
 
-        e.printStackTrace();
-
-    }
+        }
         //return webResponse;
 
 
-}
+    }
 
 
 
@@ -294,10 +292,10 @@ public abstract class ServicoComunicacao extends Servico {
 
 
     /**
-     * Metodo que permite obter os parametros necessarios para o pedido de dados
-     * @return os parametros de pedido de dados
+     * Metodo que permite obter o datagrama necessario para executar a comunicacao
+     * @return os parametros
      */
-    //abstract protected Datagrama obterParametros();
+    abstract protected Datagrama obterDatagrama();
 
 
 }

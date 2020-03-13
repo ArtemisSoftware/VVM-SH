@@ -1,10 +1,12 @@
 package com.vvm.sh.servicos;
 
+import com.google.gson.annotations.SerializedName;
+
 public class VersaoApp {
 
     //{"versaoTeste":true,"versaoApp":"1.42.27","utilizadoresTeste":["500005"],"Texto":"Existe uma nova versão da aplicação.++Bug:++-++","versaoProducao":"1.42.22","textoProducao":"Existe uma nova versão da aplicação.++Bug:++-++"}
 
-    //@SerializedName("versaoApp")
+    @SerializedName("versaoApp")
     private String versaoTeste;
 
 

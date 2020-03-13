@@ -12,5 +12,7 @@ public class ServicoVersaoApp extends ServicoComunicacao {
     @Override
     protected void terminarExecucao() {
 
+        //Gson gson = new Gson();
+        //Employee employee = gson.fromJson(json, Employee.class);
     }
 }

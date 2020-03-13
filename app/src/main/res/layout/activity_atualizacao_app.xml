@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -9,12 +10,15 @@
     android:weightSum="12">
 
 
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="9"
         android:orientation="vertical">
+
+
+        <!--..........imagem...........-->
+
 
         <ImageView
             android:layout_margin="10dp"
@@ -25,6 +29,10 @@
             android:layout_centerInParent="true"
             android:src="@drawable/lorem_ipsum_banner" />
 
+
+        <!--..........dados do carregamento...........-->
+
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -32,27 +40,34 @@
             android:layout_alignParentBottom="true">
 
             <TextView
-                style="@style/onBoardingHeaderText"
+                style="@style/tituloCarregamento"
                 android:text="@string/atualizacao" />
+
+
+            <!--..........descricao...........-->
+
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:layout_marginLeft="20dp">
 
                 <TextView
-                    style="@style/onBoardingContentText"
+                    style="@style/textoCarregamento"
                     android:text="@string/versao_"/>
 
                 <TextView
                     android:id="@+id/txt_versao_app"
-                    style="@style/onBoardingContentText"
+                    style="@style/textoCarregamento"
+                    android:layout_marginLeft="5dp"
                     android:text="@string/lorem_ipsum_texto_pequeno"/>
             </LinearLayout>
 
             <TextView
                 android:id="@+id/txt_atualizacoes"
-                style="@style/onBoardingContentText"
+                style="@style/textoCarregamento"
+                android:layout_marginLeft="20dp"
                 android:text="@string/onboardingWelcomeContent"/>
 
         </LinearLayout>
@@ -70,12 +85,11 @@
         android:gravity="center">
 
 
-
         <RelativeLayout
             android:layout_width="500dp"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="10dp"
+            android:layout_marginBottom="40dp"
             android:orientation="horizontal">
 
             <ProgressBar
@@ -101,29 +115,26 @@
 
 
 
-        <!-- android:background="@drawable/onboarding_button"@dimen/dots_height-->
-
-        <Button
-            android:id="@+id/btn_iniciar"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="@drawable/onboarding_button"
-            android:text="Iniciar atualização"
-            android:textColor="@color/whiteTextColor"
-            android:textSize="20dp"
-            android:layout_margin="5dp"/>
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="5dp"
+            android:gravity="center">
 
-        <Button
-            android:id="@+id/btn_terminar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="@drawable/onboarding_button"
-            android:text="@string/terminar"
-            android:textColor="@color/whiteTextColor"
-            android:textSize="20dp"
-            android:layout_margin="25dp"/>
+            <Button
+                android:id="@+id/btn_iniciar"
+                style="@style/botaoCarregamento"
+                android:visibility="invisible"
+                android:text="Iniciar atualização"/>
+
+            <Button
+                android:id="@+id/btn_terminar"
+                style="@style/botaoCarregamento"
+                android:text="@string/terminar"
+                android:visibility="gone" />
+
+        </RelativeLayout>
 
 
 

@@ -81,4 +81,11 @@
     <dimen name="headerTextSize">22sp</dimen>
     <dimen name="newsMoreTextSize">16sp</dimen>
     <dimen name="signup_text_margin_top">5dp</dimen>
+
+
+
+
+    <dimen name="tituloCarregamentoTamanho">30dp</dimen>
+    <dimen name="textoCarregamentoTamanho">14dp</dimen>
+
 </resources>

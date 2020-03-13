@@ -319,4 +319,59 @@
         <item name="android:gravity">center</item>
     </style>
 
+
+    <!--..............#####################.............-->
+
+
+    <!--..............titulos.............-->
+
+
+    <style name="tituloCarregamento" parent="viewParent">
+
+        <item name="android:textSize">@dimen/tituloCarregamentoTamanho</item>
+        <item name="android:textColor">@color/cor_preto</item>
+        <item name="android:textStyle">bold</item>
+
+        <item name="android:layout_marginBottom">10dp</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:layout_marginRight">10dp</item>
+
+    </style>
+
+
+    <!--..............textos.............-->
+
+
+    <style name="textoCarregamento" parent="viewParent">
+
+        <item name="android:textSize">@dimen/textoCarregamentoTamanho</item>
+        <item name="android:textColor">@color/cor_preto</item>
+
+        <item name="android:layout_marginBottom">15dp</item>
+
+        <!--
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:layout_marginRight">10dp</item>
+        -->
+    </style>
+
+
+    <!--..............botões.............-->
+
+
+    <style name="botaoCarregamento" parent="viewParent">
+
+        <item name="android:textColor">@color/cor_branco</item>
+        <item name="android:background">@drawable/onboarding_button</item>
+
+        <item name="android:textSize">@dimen/textoCarregamentoTamanho</item>
+
+        <item name="android:layout_marginBottom">15dp</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:layout_marginRight">10dp</item>
+
+    </style>
+
+
+
 </resources>

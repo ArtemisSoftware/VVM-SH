@@ -11,6 +11,8 @@ import com.vvm.sh.util.Notificacao;
 
 import butterknife.BindView;
 
+import static com.vvm.sh.util.Notificacao.Codigo.*;
+
 public abstract class CarregamentoActivity extends BaseActivity {
 
     @BindView(R.id.pgr_bar_progresso_notificacao)
@@ -35,14 +37,11 @@ public abstract class CarregamentoActivity extends BaseActivity {
         @Override
         public void handleMessage(Message msg) {
 
-            switch (msg.what) {
+            Notificacao.Comunicado comunicado = (Notificacao.Comunicado) msg.obj;
+
+            switch (comunicado.obterCodigo()) {
+
 /*
-                case Notificacao.Codigo.CONCLUIR_PEDIDO_VERSAO_APP:
-
-                    //imprimirRelatorio(R.id.lnr_lyt_progresso_1, R.id.pBar_progresso_1, R.id.txt_view_progresso_1, (Comunicado)msg.obj);
-                    break;
-
-
                 case NotificacaoUIIF.REGISTAR_PROGRESSO_DIAGNOSTICO:
 
                     imprimirRelatorio(R.id.lnr_lyt_progresso_1, R.id.pBar_progresso_1, R.id.txt_view_progresso_1, (Comunicado)msg.obj);
@@ -68,7 +67,7 @@ public abstract class CarregamentoActivity extends BaseActivity {
                     break;
             }
 
-            //gerirNotificacoesWs(msg);
+            gerirNotificacoesWs(comunicado);
 
             super.handleMessage(msg);
         }
@@ -76,5 +75,10 @@ public abstract class CarregamentoActivity extends BaseActivity {
 
 
 
+    /**
+     * Metodo que permite gerir as notificaoees e dados provenientes do ws
+     * @param comunicado dados da notificacao
+     */
+    protected abstract void gerirNotificacoesWs(Notificacao.Comunicado comunicado);
 
 }

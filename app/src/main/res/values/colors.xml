@@ -111,4 +111,12 @@
     <color name="bgBottomNavigation">#fe485a</color>
 
 
+
+    <!--...................-->
+
+
+    <color name="cor_branco">#fff</color>
+    <color name="cor_preto">#000</color>
+
+
 </resources>

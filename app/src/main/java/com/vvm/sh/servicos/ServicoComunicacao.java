@@ -1,5 +1,11 @@
 package com.vvm.sh.servicos;
 
+import org.ksoap2.SoapEnvelope;
+import org.ksoap2.serialization.SoapObject;
+import org.ksoap2.serialization.SoapPrimitive;
+import org.ksoap2.serialization.SoapSerializationEnvelope;
+import org.ksoap2.transport.HttpTransportSE;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -8,6 +14,7 @@ import java.net.HttpURLConnection;
 import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.Scanner;
+
 
 
 public abstract class ServicoComunicacao extends Servico {
@@ -43,7 +50,8 @@ public abstract class ServicoComunicacao extends Servico {
     protected void executar() {
         //enviarInformacao(obterParametros());
 
-        expedirDados();
+        //expedirDados();
+        expedirDados_soap();
     }
 
 
@@ -99,6 +107,56 @@ public abstract class ServicoComunicacao extends Servico {
         return info;
     }
 */
+
+    private void expedirDados_soap() {
+
+        String URL="http://www.vivamais.com/tablet_ws/service.asmx";
+        String NAMESPACE="http://tempuri.org/";
+        String METHOD_NAME = "Obter_Actualizacoes";
+        String SOAP_ACTION = "http://tempuri.org/Obter_Actualizacoes";
+
+        try {
+        SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME);
+        /*
+        PropertyInfo info = new PropertyInfo();
+        info.setName("StationID");
+        info.setValue(1);
+        info.setType(Integer.class);
+        request.addProperty(info);
+        */
+/*
+        PropertyInfo info11 = new PropertyInfo();
+        info11.setName("Rows");
+        info11.setValue(1);
+        info11.setType(Integer.class);
+        request.addProperty(info11);
+*/
+
+
+            SoapSerializationEnvelope envelope =  new SoapSerializationEnvelope(SoapEnvelope.VER11);
+            envelope.setOutputSoapObject(request);
+
+            HttpTransportSE httpTransportSE = new HttpTransportSE(URL);
+
+            try {
+                httpTransportSE.call(SOAP_ACTION, envelope);
+                SoapPrimitive soapPrimitive = (SoapPrimitive)envelope.getResponse();
+                String result = soapPrimitive.toString();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+
+
+    } catch (Exception e) {
+
+        e.printStackTrace();
+
+    }
+        //return webResponse;
+
+
+}
+
 
 
     /**
@@ -228,55 +286,7 @@ public abstract class ServicoComunicacao extends Servico {
 
 
 
-    /*
 
-    String webResponse = "";
-        try {
-            final String NAMESPACE = "http://tempuri.org/";
-            final String URL = "http://www.10.118.52.133.com/ProductService.asmx";
-            final String SOAP_ACTION = "http://tempuri.org/GetFirstName";
-            final String METHOD_NAME = "GetFirstName";
-
-            SoapObject request = new SoapObject(NAMESPACE, METHOD_NAME);
-            PropertyInfo info = new PropertyInfo();
-            info.setName("StationID");
-            info.setValue(1);
-            info.setType(Integer.class);
-            request.addProperty(info);
-
-            PropertyInfo info11 = new PropertyInfo();
-            info11.setName("Rows");
-            info11.setValue(1);
-            info11.setType(Integer.class);
-            request.addProperty(info11);
-
-            SoapSerializationEnvelope envelope = new SoapSerializationEnvelope(
-                    SoapEnvelope.VER11);
-            envelope.dotNet = true;
-
-            envelope.setOutputSoapObject(request);
-            HttpTransportSE androidHttpTransport = new HttpTransportSE(URL);
-            androidHttpTransport.debug = true;
-            try {
-                androidHttpTransport.call(SOAP_ACTION, envelope);
-
-                MyDeptt = androidHttpTransport.responseDump;
-                Log.e("test", "MyDept:--" + MyDeptt);
-                webResponse = MyDeptt;
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        } catch (Exception e) {
-
-            Toast.makeText(context,
-                    "Cannot access the web service" + e.toString(),
-                    Toast.LENGTH_LONG).show();
-
-        }
-        return webResponse;
-
-
-     */
 
     //--------------------------------------
     //Metodos abstratos

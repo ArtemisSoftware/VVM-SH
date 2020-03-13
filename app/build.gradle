@@ -27,13 +27,15 @@ android {
 }
 
 dependencies {
-    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
     implementation 'androidx.appcompat:appcompat:1.0.2'
     implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'androidx.test.ext:junit:1.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
+
+    //--BIBLIOTECAS
 
 
     def butterknife_version = "10.2.1"
@@ -81,4 +83,5 @@ dependencies {
     def flashbar_version = "1.0.3"
     implementation "com.andrognito.flashbar:flashbar:$flashbar_version"
 
+    implementation files('libs/ksoap2-android-2.5.2.jar')
 }

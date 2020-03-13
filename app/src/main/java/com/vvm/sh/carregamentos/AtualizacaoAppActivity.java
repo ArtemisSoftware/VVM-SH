@@ -1,15 +1,11 @@
 package com.vvm.sh.carregamentos;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ProgressBar;
 import android.widget.TextView;
 
 import com.vvm.sh.R;
 import com.vvm.sh.servicos.ServicoVersaoApp;
-import com.vvm.sh.ui.BaseActivity;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -34,6 +30,7 @@ public class AtualizacaoAppActivity extends CarregamentoActivity {
         txt_progresso.setText(1 + "/"+ pgr_bar_progresso_notificacao.getMax());
 
         new ServicoVersaoApp().execute();
+
     }
 
 

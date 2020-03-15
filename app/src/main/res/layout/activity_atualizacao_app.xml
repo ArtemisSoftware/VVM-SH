@@ -86,6 +86,8 @@
 
 
         <RelativeLayout
+            android:id="@+id/rlt_lyt_progresso"
+            android:visibility="invisible"
             android:layout_width="500dp"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -101,15 +103,28 @@
                 android:layout_centerVertical="true"
                 android:max="100"/>
 
-
-            <TextView
-                android:id="@+id/txt_progresso"
+            <RelativeLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/lorem_ipsum_texto_pequeno"
-                android:layout_alignRight="@+id/pgr_bar_progresso_notificacao"
                 android:layout_below="@+id/pgr_bar_progresso_notificacao"
-                android:layout_marginTop="35dp"/>
+                android:layout_marginTop="35dp">
+
+                <TextView
+                    android:id="@+id/txt_titulo_progresso"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/lorem_ipsum_texto_pequeno"
+                    android:layout_alignParentLeft="true"/>
+
+                <TextView
+                    android:id="@+id/txt_progresso"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/lorem_ipsum_texto_pequeno"
+                    android:layout_alignParentRight="true"/>
+
+            </RelativeLayout>
+
 
         </RelativeLayout>
 

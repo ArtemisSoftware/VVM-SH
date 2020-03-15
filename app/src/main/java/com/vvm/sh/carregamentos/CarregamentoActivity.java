@@ -2,12 +2,15 @@ package com.vvm.sh.carregamentos;
 
 import android.os.Handler;
 import android.os.Message;
+import android.view.View;
 import android.widget.ProgressBar;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.vvm.sh.R;
 import com.vvm.sh.ui.BaseActivity;
 import com.vvm.sh.util.Notificacao;
+import com.vvm.sh.util.constantes.Sintaxe;
 
 import butterknife.BindView;
 
@@ -17,15 +20,38 @@ public abstract class CarregamentoActivity extends BaseActivity {
 
     @BindView(R.id.pgr_bar_progresso_notificacao)
     ProgressBar pgr_bar_progresso_notificacao;
-/*
-    @BindView(R.id.txt_titulo)
-    TextView txt_titulo;
-*/
+
+    @BindView(R.id.txt_titulo_progresso)
+    TextView txt_titulo_progresso;
+
     @BindView(R.id.txt_progresso)
     TextView txt_progresso;
 
+    @BindView(R.id.rlt_lyt_progresso)
+    RelativeLayout rlt_lyt_progresso;
 
 
+    //--------------------------
+    //Metodos locais
+    //--------------------------
+
+
+    /**
+     * Metodo que permite apresentar o progresso da execucao de um servico
+     * @param comunicado os dados da execucao
+     */
+    private void imprimirProgresso(Notificacao.Comunicado comunicado){
+
+        if(comunicado.obterLimite() != Sintaxe.SEM_REGISTO){
+            if(pgr_bar_progresso_notificacao.getMax() != comunicado.obterLimite()){
+                pgr_bar_progresso_notificacao.setMax(comunicado.obterLimite());
+            }
+        }
+
+        txt_progresso.setText(comunicado.obterPosicao() + "/" + comunicado.obterLimite());
+        txt_titulo_progresso.setText(comunicado.obterMensagem());
+        rlt_lyt_progresso.setVisibility(View.VISIBLE);
+    }
 
 
     //----------------------------------------
@@ -40,6 +66,11 @@ public abstract class CarregamentoActivity extends BaseActivity {
             Notificacao.Comunicado comunicado = (Notificacao.Comunicado) msg.obj;
 
             switch (comunicado.obterCodigo()) {
+
+                case PROCESSAMENTO_DADOS:
+
+                    imprimirProgresso(comunicado);
+                    break;
 
 /*
                 case NotificacaoUIIF.REGISTAR_PROGRESSO_DIAGNOSTICO:

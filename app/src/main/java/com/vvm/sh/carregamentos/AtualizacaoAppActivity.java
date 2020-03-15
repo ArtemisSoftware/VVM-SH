@@ -7,6 +7,8 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.vvm.sh.R;
+import com.vvm.sh.servicos.Servico;
+import com.vvm.sh.servicos.ServicoDownloadApk;
 import com.vvm.sh.servicos.ServicoVersaoApp;
 import com.vvm.sh.servicos.VersaoApp;
 import com.vvm.sh.util.Notificacao;
@@ -30,16 +32,18 @@ public class AtualizacaoAppActivity extends CarregamentoActivity {
     @BindView(R.id.btn_terminar)
     Button btn_terminar;
 
+
+    private Servico servico;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_atualizacao_app);
 
+        pgr_bar_progresso_notificacao.setProgress(0);
 
-        pgr_bar_progresso_notificacao.setProgress(30);
-
-
-        new ServicoVersaoApp(handlerNotificacoesUI).execute();
+        servico = new ServicoVersaoApp(handlerNotificacoesUI);
+        servico.execute();
 
     }
 
@@ -57,6 +61,17 @@ public class AtualizacaoAppActivity extends CarregamentoActivity {
 
                 relatorioVersao(comunicado);
                 break;
+
+            case CONCLUIR_DOWNLOAD_APK:
+
+                //relatorioVersao(comunicado);
+                break;
+
+
+            case ERRO_DOWNLOAD_APK:
+
+                //relatorioVersao(comunicado);
+                break;
         }
     }
 
@@ -72,6 +87,8 @@ public class AtualizacaoAppActivity extends CarregamentoActivity {
         txt_atualizacoes.setText(versaoApp.obterTexto());
 
         if(versaoApp.atualizar() == true) {
+
+            servico = new ServicoDownloadApk(this, handlerNotificacoesUI, versaoApp);
             btn_iniciar.setVisibility(View.VISIBLE);
             btn_terminar.setVisibility(View.GONE);
         }
@@ -86,12 +103,20 @@ public class AtualizacaoAppActivity extends CarregamentoActivity {
     //Eventos
     //----------------------
 
+    @OnClick(R.id.btn_iniciar)
+    public void btn_iniciar_OnClickListener(View view) {
+
+        btn_iniciar.setEnabled(false);
+
+    }
+
     @OnClick(R.id.btn_terminar)
     public void btn_terminar_OnClickListener(View view) {
 
 
 
     }
+
 
 
 }

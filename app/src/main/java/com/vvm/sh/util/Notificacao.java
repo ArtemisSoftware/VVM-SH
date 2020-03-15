@@ -105,12 +105,12 @@ public class Notificacao {
             return mensagem;
         }
 
-        public String obterPosicao(){
-            return dados;
+        public int obterPosicao(){
+            return posicao;
         }
 
-        public String obterLimite(){
-            return dados;
+        public int obterLimite(){
+            return limite;
         }
     }
 }

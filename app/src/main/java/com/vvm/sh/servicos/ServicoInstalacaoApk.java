@@ -45,7 +45,7 @@ public class ServicoInstalacaoApk extends Servico {
             contexto.startActivity(intent);
         }
         catch(Exception e){
-            notificacao.atualizarUI(Notificacao.Codigo., e.getMessage());
+            notificacao.atualizarUI(Notificacao.Codigo.ERRO_INSTALACAO_APK, e.getMessage());
         }
     }
 

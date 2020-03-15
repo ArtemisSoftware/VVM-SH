@@ -107,10 +107,14 @@ public class AtualizacaoAppActivity extends CarregamentoActivity {
     }
 
 
+    /**
+     * Metodo que permite iniciar a instalacao da nova versao
+     */
     private void iniciarInstalacao(){
 
-        //limpar relatorio
+        limparProgresso();
         servico = new ServicoInstalacaoApk(this, handlerNotificacoesUI, versaoApp);
+        servico.execute();
     }
 
     //----------------------
@@ -121,6 +125,7 @@ public class AtualizacaoAppActivity extends CarregamentoActivity {
     public void btn_iniciar_OnClickListener(View view) {
 
         btn_iniciar.setEnabled(false);
+        servico.execute();
 
     }
 

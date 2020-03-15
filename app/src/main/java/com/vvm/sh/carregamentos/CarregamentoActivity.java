@@ -53,6 +53,15 @@ public abstract class CarregamentoActivity extends BaseActivity {
         rlt_lyt_progresso.setVisibility(View.VISIBLE);
     }
 
+    /**
+     * Metodo que permite limpar o registo do progresso
+     */
+    protected void limparProgresso(){
+
+        pgr_bar_progresso_notificacao.setProgress(0);
+        txt_progresso.setText(Sintaxe.SEM_TEXTO);
+        txt_titulo_progresso.setText(Sintaxe.SEM_TEXTO);
+    }
 
     //----------------------------------------
     //HANDLER (notificacoes para o ui)

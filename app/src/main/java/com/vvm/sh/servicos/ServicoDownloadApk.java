@@ -20,6 +20,10 @@ public class ServicoDownloadApk extends Servico {
     private String nomeFicheiro;
     private boolean downloadCompleto;
 
+    private static final int ERRO_PASTA_DOWNLOAD = 1;
+    private int erro = -1;
+
+
 
     public ServicoDownloadApk(Context contexto, Handler handler, VersaoApp versaoApp) {
         super(handler);
@@ -43,22 +47,30 @@ public class ServicoDownloadApk extends Servico {
         //--LOG--LogApp_v4.obterInstancia(FONTE, LogIF.ID_LOG_GERAL).adicionarTexto("Nome ficheiro:" + nomeFicheiro);
 
         File ficheiro = new File(Environment.getExternalStorageDirectory().toString() + "/" + Diretorias.DIRETORIA_DOWNLOAD, nomeFicheiro);
+        versaoApp.fixarFicheiro(ficheiro);
 
-        if(ficheiro.exists()){
 
-            //--LOG--LogApp_v4.obterInstancia(FONTE, LogIF.ID_LOG_GERAL).adicionarTexto("Ficheiro:" + nomeFicheiro + " foi apagado para ser substituido por um ficheiro mais recente.");
-            ficheiro.delete();
+        if(Diretorias.verificarDiretoria(ficheiro) == true) {
+
+            if (ficheiro.exists()) {
+
+                //--LOG--LogApp_v4.obterInstancia(FONTE, LogIF.ID_LOG_GERAL).adicionarTexto("Ficheiro:" + nomeFicheiro + " foi apagado para ser substituido por um ficheiro mais recente.");
+                ficheiro.delete();
+            }
+
+            DownloadManager.Request pedido = new DownloadManager.Request(Uri.parse(versaoApp.obterUrlDownload()));
+            pedido.setDescription(versaoApp.obterTexto());
+            pedido.setTitle("Atualização v." + versaoApp.obterVersao());
+            pedido.setDestinationInExternalPublicDir("/" + Diretorias.DIRETORIA_DOWNLOAD, nomeFicheiro);
+            pedido.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI);
+            pedido.setAllowedOverRoaming(false);
+
+            downloadManager = (DownloadManager) contexto.getSystemService(Context.DOWNLOAD_SERVICE);
+            idDownload = downloadManager.enqueue(pedido);
         }
-
-        DownloadManager.Request pedido = new DownloadManager.Request(Uri.parse(versaoApp.obterUrlDownload()));
-        pedido.setDescription(versaoApp.obterTexto());
-        pedido.setTitle("Atualização v." + versaoApp.obterVersao());
-        pedido.setDestinationInExternalPublicDir("/" + Diretorias.DIRETORIA_DOWNLOAD, nomeFicheiro);
-        pedido.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI);
-        pedido.setAllowedOverRoaming(false);
-
-        downloadManager = (DownloadManager) contexto.getSystemService(Context.DOWNLOAD_SERVICE);
-        idDownload = downloadManager.enqueue(pedido);
+        else{
+            erro = ERRO_PASTA_DOWNLOAD;
+        }
     }
 
 
@@ -66,38 +78,41 @@ public class ServicoDownloadApk extends Servico {
     @Override
     protected void executar() {
 
-        boolean downloadEmCurso = true;
+        if(erro != ERRO_PASTA_DOWNLOAD){
 
-        while (downloadEmCurso) {
+            boolean downloadEmCurso = true;
 
-            DownloadManager.Query query = new DownloadManager.Query();
-            query.setFilterById(idDownload);
+            while (downloadEmCurso) {
 
-            Cursor cursor = downloadManager.query(query);
-            cursor.moveToFirst();
+                DownloadManager.Query query = new DownloadManager.Query();
+                query.setFilterById(idDownload);
 
-            int bytesDescarregados = cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR));
-            int totalBytes = cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES));
-            int estado = cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_STATUS));
+                Cursor cursor = downloadManager.query(query);
+                cursor.moveToFirst();
 
-            if (estado == DownloadManager.STATUS_SUCCESSFUL) {
-                downloadEmCurso = false;
-                downloadCompleto = true;
+                int bytesDescarregados = cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_BYTES_DOWNLOADED_SO_FAR));
+                int totalBytes = cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_TOTAL_SIZE_BYTES));
+                int estado = cursor.getInt(cursor.getColumnIndex(DownloadManager.COLUMN_STATUS));
+
+                if (estado == DownloadManager.STATUS_SUCCESSFUL) {
+                    downloadEmCurso = false;
+                    downloadCompleto = true;
+                }
+
+                if (estado == DownloadManager.STATUS_FAILED) {
+
+                    //--LOG--LogApp_v4.obterInstancia(FONTE, LogIF.ID_LOG_GERAL).adicionarTexto("Download falhou. Razao: " + cursor.getColumnIndex(DownloadManager.COLUMN_REASON));
+                    break;
+                }
+
+                if (totalBytes != -1 & bytesDescarregados != 0) {
+
+                    //--LOG--LogApp_v4.obterInstancia(FONTE, LogIF.ID_LOG_GERAL).adicionarTexto("Download: " + bytesDescarregados + " / " + totalBytes);
+                    notificacao.atualizarUI(Notificacao.Codigo.PROCESSAMENTO_DADOS, obterEstado(cursor), bytesDescarregados, totalBytes);
+                }
+
+                cursor.close();
             }
-
-            if(estado == DownloadManager.STATUS_FAILED){
-
-                //--LOG--LogApp_v4.obterInstancia(FONTE, LogIF.ID_LOG_GERAL).adicionarTexto("Download falhou. Razao: " + cursor.getColumnIndex(DownloadManager.COLUMN_REASON));
-                break;
-            }
-
-            if(totalBytes != -1 & bytesDescarregados != 0){
-
-                //--LOG--LogApp_v4.obterInstancia(FONTE, LogIF.ID_LOG_GERAL).adicionarTexto("Download: " + bytesDescarregados + " / " + totalBytes);
-                notificacao.atualizarUI(Notificacao.Codigo.PROCESSAMENTO_DADOS, obterEstado(cursor), bytesDescarregados, totalBytes);
-            }
-
-            cursor.close();
         }
     }
 
@@ -160,11 +175,15 @@ public class ServicoDownloadApk extends Servico {
     @Override
     protected void terminarExecucao() {
 
-        if(downloadCompleto == true){
-            notificacao.atualizarUI(Notificacao.Codigo.CONCLUIR_DOWNLOAD_APK, nomeFicheiro);
+        if(erro == ERRO_PASTA_DOWNLOAD){
+            notificacao.atualizarUI(Notificacao.Codigo.ERRO_DOWNLOAD_APK, Sintaxe.ERRO_PASTA_DOWNLOAD);
         }
-        else{
-            notificacao.atualizarUI(Notificacao.Codigo.ERRO_DOWNLOAD_APK);
+        else {
+            if (downloadCompleto == true) {
+                notificacao.atualizarUI(Notificacao.Codigo.CONCLUIR_DOWNLOAD_APK, nomeFicheiro);
+            } else {
+                notificacao.atualizarUI(Notificacao.Codigo.ERRO_DOWNLOAD_APK);
+            }
         }
     }
 }

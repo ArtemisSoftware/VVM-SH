@@ -5,6 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import com.vvm.sh.BuildConfig;
 import com.vvm.sh.util.constantes.Url;
 
+import java.io.File;
 import java.util.Arrays;
 
 public class VersaoApp {
@@ -41,6 +42,8 @@ public class VersaoApp {
 
     @Expose(serialize = false)
     private String urlDownload;
+
+    private File ficheiro;
 
 
     public VersaoApp(String versaoTeste, String textoTeste, String versaoProducao, String textoProducao,
@@ -140,4 +143,22 @@ public class VersaoApp {
     public String obterUrlDownload(){
         return urlDownload;
     }
+
+
+    /**
+     * Metodo que permite fixar o ficheiro da versao da app
+     * @param ficheiro o ficheiro da versao da app
+     */
+    public void fixarFicheiro(File ficheiro){
+        this.ficheiro = ficheiro;
+    }
+
+    /**
+     * Metodo que permite obter o ficheiro da versao da app
+     * @return um ficheiro
+     */
+    public File obterFicheiro(){
+        return ficheiro;
+    }
+
 }

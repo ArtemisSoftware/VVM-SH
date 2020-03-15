@@ -63,7 +63,8 @@ public class Notificacao {
         CONCLUIR_PEDIDO_VERSAO_APP,
         PROCESSAMENTO_DADOS,
         CONCLUIR_DOWNLOAD_APK,
-        ERRO_DOWNLOAD_APK
+        ERRO_DOWNLOAD_APK,
+        ERRO_INSTALACAO_APK
     }
 
 

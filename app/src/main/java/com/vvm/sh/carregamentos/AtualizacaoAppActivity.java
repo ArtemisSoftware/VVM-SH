@@ -9,6 +9,7 @@ import com.google.gson.Gson;
 import com.vvm.sh.R;
 import com.vvm.sh.servicos.Servico;
 import com.vvm.sh.servicos.ServicoDownloadApk;
+import com.vvm.sh.servicos.ServicoInstalacaoApk;
 import com.vvm.sh.servicos.ServicoVersaoApp;
 import com.vvm.sh.servicos.VersaoApp;
 import com.vvm.sh.util.Notificacao;
@@ -34,6 +35,7 @@ public class AtualizacaoAppActivity extends CarregamentoActivity {
 
 
     private Servico servico;
+    private VersaoApp versaoApp;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,23 +65,29 @@ public class AtualizacaoAppActivity extends CarregamentoActivity {
                 break;
 
             case CONCLUIR_DOWNLOAD_APK:
-
-                //relatorioVersao(comunicado);
+                iniciarInstalacao();
                 break;
-
 
             case ERRO_DOWNLOAD_APK:
 
                 //relatorioVersao(comunicado);
                 break;
+
+            case ERRO_INSTALACAO_APK:
+
+                break;
         }
     }
 
 
+    /**
+     * Metodo que permite apresentar o relatorio do pedido de versão
+     * @param comunicado o resultado da execucao
+     */
     private void relatorioVersao(Notificacao.Comunicado comunicado){
 
         Gson gson = new Gson();
-        VersaoApp versaoApp = gson.fromJson(comunicado.obterDados(), VersaoApp.class);
+        versaoApp = gson.fromJson(comunicado.obterDados(), VersaoApp.class);
 
         versaoApp.fixarUtilizador("500005");
 
@@ -98,6 +106,12 @@ public class AtualizacaoAppActivity extends CarregamentoActivity {
         }
     }
 
+
+    private void iniciarInstalacao(){
+
+        //limpar relatorio
+        servico = new ServicoInstalacaoApk(this, handlerNotificacoesUI, versaoApp);
+    }
 
     //----------------------
     //Eventos

@@ -1,6 +1,11 @@
 package com.vvm.sh.util.metodos;
 
+import android.content.Context;
+import android.net.Uri;
+import android.os.Build;
 import android.os.Environment;
+
+import com.vvm.sh.BuildConfig;
 
 import java.io.File;
 
@@ -27,27 +32,68 @@ public class Diretorias {
     }
 
 
+
     /**
-     * Metodo que cria uma directoria
+     * Metodo que permite criar uma diretoria
      * @param nomeDiretoria nome da directoria que se pretende criar
+     * @return true caso a diretoria seja criada com sucesso ou false caso contrario
      */
-    private static void criarDirectoria(String nomeDiretoria){
+    private static boolean criarDirectoria(String nomeDiretoria){
 
         File diretoria = new File(Environment.getExternalStorageDirectory(), nomeDiretoria);
 
-        String mensagemLog;
+        //--LOG--String mensagemLog;
+        boolean resultado = false;
 
         if (diretoria.exists() == false) { // se a directoria não existe deve ser criada
 
-            boolean resultado = diretoria.mkdirs();
-            mensagemLog = "Directoria :<" + diretoria.getPath() + "> não existe. Criada: " + resultado;
+            resultado = diretoria.mkdirs();
+            //--LOG--mensagemLog = "Directoria :<" + diretoria.getPath() + "> não existe. Criada: " + resultado;
         }
         else{
-            mensagemLog = "Directoria :<" + diretoria.getPath() + "> já existe.";
+            resultado = true;
+            //--LOG--mensagemLog = "Directoria :<" + diretoria.getPath() + "> já existe.";
         }
 
         //--LOG--LogApp_v4.obterInstancia(FONTE, LogIF.ID_LOG_GERAL).adicionarTexto(mensagemLog);
+
+        return resultado;
     }
 
 
+    /**
+     * Metodo que verifica se uma diretoria já existe. Caso nao exista irá criá-la
+     * @param ficheiro o nome do ficheiro
+     * @return true caso a diretoria já exista false caso tenha ocorrido um erro ao criar a diretoria
+     */
+    public static boolean verificarDiretoria(File ficheiro){
+
+        if(ficheiro.getParentFile().exists() == false){
+
+            return criarDirectoria(ficheiro.getParentFile().getName());
+        }
+
+        return true;
+    }
+
+
+    /**
+     * Metodo que permite obter o uri de um ficheiro
+     * @param contexto
+     * @param ficheiro o ficheiro
+     * @return um uri
+     */
+    public static Uri obterUri(Context contexto, File ficheiro){
+
+        Uri uri;
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            uri = null;//FileProvider.getUriForFile(contexto, BuildConfig.APPLICATION_ID + ".provider", ficheiro);
+        }
+        else{
+            uri = Uri.fromFile(ficheiro);
+        }
+
+        return uri;
+    }
 }

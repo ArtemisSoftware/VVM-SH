@@ -27,7 +27,7 @@
             android:adjustViewBounds="true"
             android:cropToPadding="true"
             android:layout_centerInParent="true"
-            android:src="@drawable/lorem_ipsum_banner" />
+            android:src="@drawable/atualicao_app" />
 
 
         <!--..........dados do carregamento...........-->

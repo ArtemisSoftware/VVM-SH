@@ -13,7 +13,7 @@ public class Diretorias {
 
     public static final String DIRETORIA = "vvmsh";
     public static final String DIRETORIA_DOWNLOAD = DIRETORIA + "/" + "Download";
-    public static final String DIRETORIA_BASE_DADOS = DIRETORIA + "/" + "BaseDados";
+    public static final String BASE_DADOS = DIRETORIA + "/" + "BaseDados";
     public static final String DIRETORIA_IMAGENS = DIRETORIA + "/" + "Imagens";
     public static final String DIRETORIA_PDF = DIRETORIA + "/" + "Pdf";
     public static final String DIRETORIA_LOG = DIRETORIA + "/" + "Logs";

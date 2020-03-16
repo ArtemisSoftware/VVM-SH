@@ -1,4 +1,4 @@
-package com.vvm.sh.util;
+package com.vvm.sh.util.metodos;
 
 import android.content.Context;
 import android.content.SharedPreferences;
@@ -106,7 +106,7 @@ public class Preferencias {
         String pacote = contexto.getPackageName();
 
         SharedPreferences preferencias = contexto.getSharedPreferences(pacote, Context.MODE_PRIVATE);
-        return preferencias.getString(ID_UTILIZADOR, "");
+        return preferencias.getString(ID_UTILIZADOR, "10101");
     }
 
 

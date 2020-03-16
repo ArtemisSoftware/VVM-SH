@@ -12,7 +12,7 @@ public class Colecao extends Item {
         super(-1, descricao);
 
         this.numeroRegistos = numeroRegistos;
-        this.data = Datas.converterData(data, Datas.DATA_FORMATO_DD_MM_YYYY__HH_MM_SS);
+        this.data = Datas.converterData(data, Datas.FORMATO_DD_MM_YYYY__HH_MM_SS);
     }
 
 

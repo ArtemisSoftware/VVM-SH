@@ -5,22 +5,36 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.GregorianCalendar;
 
 public class Datas {
 
-    public static final String DATA_FORMATO_DD_MM_YYYY = "dd-MM-yyyy";
-    public static final String DATA_FORMATO_YYYY_MM_DD = "yyyy-MM-dd";
+    public static final String FORMATO_DD_MM_YYYY = "dd-MM-yyyy";
+    public static final String FORMATO_YYYY_MM_DD = "yyyy-MM-dd";
     public static final String DATA_FORMATO_YYYY_MM = "yyyy-MM";
     public static final String DATA_FORMATO_YYYY_MM_DD__HH_MM_SS = "yyyy-MM-dd HH:mm:ss";
 
     public static final String DATA_FORMATO_DD_MM_YYYY__HH_MM = "dd-MM-yyyy HH:mm";
-    public static final String DATA_FORMATO_DD_MM_YYYY__HH_MM_SS = "dd-MM-yyyy HH:mm:ss";
+    public static final String FORMATO_DD_MM_YYYY__HH_MM_SS = "dd-MM-yyyy HH:mm:ss";
     public static final String DATA_FORMATO_DD_MM_YYYY__HH_MM_SS_V2 = "dd/MM/yyyy HH:mm:ss";
 
     public static final String DATA_FORMATO_MMMM_YYYY = "MMMM yyyy";
     public static final String HORA_FORMATO_HH_MM = "HH:mm";
     public static final String HORA_FORMATO_HH_MM_SS = "HH:mm:ss";
+
+
+    /**
+     * Obter data de atual
+     * @param formato formato da data
+     * @return data no formato escolhido
+     */
+    public static String obterDataAtual(String formato){
+
+        DateFormat df = new SimpleDateFormat(formato);
+        Date dataHoje = Calendar.getInstance().getTime();
+        String dataActual = df.format(dataHoje);
+
+        return dataActual;
+    }
 
 
     /**
@@ -31,7 +45,7 @@ public class Datas {
      */
     public static String converterData(String data, String formatoData){
 
-        SimpleDateFormat formatter = new SimpleDateFormat(DATA_FORMATO_YYYY_MM_DD);
+        SimpleDateFormat formatter = new SimpleDateFormat(FORMATO_YYYY_MM_DD);
         Date novaData = null;
 
         try {

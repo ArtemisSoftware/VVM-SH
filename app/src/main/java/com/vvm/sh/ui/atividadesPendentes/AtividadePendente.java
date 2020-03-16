@@ -69,7 +69,7 @@ public class AtividadePendente extends Item {
      * @return uma data (dd-mm-yyyy)
      */
     public String obterData(){
-        return Datas.converterData(data, Datas.DATA_FORMATO_DD_MM_YYYY);
+        return Datas.converterData(data, Datas.FORMATO_DD_MM_YYYY);
     }
 
 

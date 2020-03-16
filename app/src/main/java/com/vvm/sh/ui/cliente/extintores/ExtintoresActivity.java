@@ -154,7 +154,7 @@ public class ExtintoresActivity extends BaseActivity implements OnItemListener {
 
         MetodosDialogo.dialogo(contexto, vista, SintaxeIF.TITULO_DATA_VALIDADE, metodoGravar).show();
 
-        MetodosDatas.fixarData_DatePicker(((DatePicker) vista.findViewById(R.id.pick_data_validade)), ((Extintor) adaptador.obterRegistoSelecionado()).obterDataValidade(DataIF.DATA_FORMATO_YYYY_MM_DD));
+        MetodosDatas.fixarData_DatePicker(((DatePicker) vista.findViewById(R.id.pick_data_validade)), ((Extintor) adaptador.obterRegistoSelecionado()).obterDataValidade(DataIF.FORMATO_YYYY_MM_DD));
     }
 */
 }

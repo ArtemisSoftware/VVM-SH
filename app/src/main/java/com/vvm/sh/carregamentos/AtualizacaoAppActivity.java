@@ -1,7 +1,6 @@
 package com.vvm.sh.carregamentos;
 
 import android.os.Bundle;
-import android.os.Environment;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
@@ -15,7 +14,7 @@ import com.vvm.sh.servicos.ServicoInstalacaoApk;
 import com.vvm.sh.servicos.ServicoVersaoApp;
 import com.vvm.sh.servicos.VersaoApp;
 import com.vvm.sh.util.AtualizacaoUI;
-import com.vvm.sh.util.Notificacao;
+import com.vvm.sh.util.metodos.Notificacao;
 
 import butterknife.BindView;
 import butterknife.OnClick;

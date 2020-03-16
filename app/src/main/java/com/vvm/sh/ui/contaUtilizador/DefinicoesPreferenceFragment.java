@@ -43,7 +43,7 @@ public class DefinicoesPreferenceFragment extends PreferenceFragmentCompat {
             }
 
             ApplicationInfo appInfo = manager.getApplicationInfo(info.packageName, 0);
-            String data = Datas.converterData(new File(appInfo.sourceDir).lastModified(), Datas.DATA_FORMATO_DD_MM_YYYY__HH_MM_SS);
+            String data = Datas.converterData(new File(appInfo.sourceDir).lastModified(), Datas.FORMATO_DD_MM_YYYY__HH_MM_SS);
 
             ((Preference) findPreference(getString(R.string.key_ultima_atualizacao))).setSummary(data);
 

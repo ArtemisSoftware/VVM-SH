@@ -59,7 +59,6 @@ public class MainActivity extends BaseActivity implements /*DatePickerDialog.OnD
         //Intent intent = new Intent(this, ApresentacaoActivity.class);
         //startActivity(intent);
 
-
         iniciarAtividade();
         subscreverObservadores();
         obterRegistos();
@@ -114,6 +113,7 @@ public class MainActivity extends BaseActivity implements /*DatePickerDialog.OnD
         tarefaRecyclerAdapter = new TarefaRecyclerAdapter(this);
         rcl_tarefas.setAdapter(tarefaRecyclerAdapter);
         rcl_tarefas.setLayoutManager(new LinearLayoutManager(this));
+
     }
 
 
@@ -155,7 +155,7 @@ public class MainActivity extends BaseActivity implements /*DatePickerDialog.OnD
     }
 
 
-    @OnClick(R.id.fab_calendario)
+    //@OnClick(R.id.fab_calendario)
     public void fab_calendario_OnClickListener(View view) {
 /*
         fab_menu_agenda.close(true);

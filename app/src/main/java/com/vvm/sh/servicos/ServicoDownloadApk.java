@@ -7,7 +7,7 @@ import android.net.Uri;
 import android.os.Environment;
 import android.os.Handler;
 
-import com.vvm.sh.util.Notificacao;
+import com.vvm.sh.util.AtualizacaoUI;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.metodos.Diretorias;
 
@@ -108,7 +108,7 @@ public class ServicoDownloadApk extends Servico {
                 if (totalBytes != -1 & bytesDescarregados != 0) {
 
                     //--LOG--LogApp_v4.obterInstancia(FONTE, LogIF.ID_LOG_GERAL).adicionarTexto("Download: " + bytesDescarregados + " / " + totalBytes);
-                    notificacao.atualizarUI(Notificacao.Codigo.PROCESSAMENTO_DADOS, obterEstado(cursor), bytesDescarregados, totalBytes);
+                    atualizacaoUI.atualizarUI(AtualizacaoUI.Codigo.PROCESSAMENTO_DADOS, obterEstado(cursor), bytesDescarregados, totalBytes);
                 }
 
                 cursor.close();
@@ -176,13 +176,13 @@ public class ServicoDownloadApk extends Servico {
     protected void terminarExecucao() {
 
         if(erro == ERRO_PASTA_DOWNLOAD){
-            notificacao.atualizarUI(Notificacao.Codigo.ERRO_DOWNLOAD_APK, Sintaxe.ERRO_PASTA_DOWNLOAD);
+            atualizacaoUI.atualizarUI(AtualizacaoUI.Codigo.ERRO_DOWNLOAD_APK, Sintaxe.ERRO_PASTA_DOWNLOAD);
         }
         else {
             if (downloadCompleto == true) {
-                notificacao.atualizarUI(Notificacao.Codigo.CONCLUIR_DOWNLOAD_APK, nomeFicheiro);
+                atualizacaoUI.atualizarUI(AtualizacaoUI.Codigo.CONCLUIR_DOWNLOAD_APK, nomeFicheiro);
             } else {
-                notificacao.atualizarUI(Notificacao.Codigo.ERRO_DOWNLOAD_APK);
+                atualizacaoUI.atualizarUI(AtualizacaoUI.Codigo.ERRO_DOWNLOAD_APK);
             }
         }
     }

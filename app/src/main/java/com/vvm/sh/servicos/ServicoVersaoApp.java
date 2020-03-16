@@ -2,8 +2,7 @@ package com.vvm.sh.servicos;
 
 import android.os.Handler;
 
-import com.google.gson.Gson;
-import com.vvm.sh.util.Notificacao;
+import com.vvm.sh.util.AtualizacaoUI;
 import com.vvm.sh.util.constantes.WebService;
 
 public class ServicoVersaoApp extends ServicoComunicacao {
@@ -20,7 +19,7 @@ public class ServicoVersaoApp extends ServicoComunicacao {
     @Override
     protected void terminarExecucao() {
 
-        notificacao.atualizarUI(Notificacao.Codigo.CONCLUIR_PEDIDO_VERSAO_APP, resposta);
+        atualizacaoUI.atualizarUI(AtualizacaoUI.Codigo.CONCLUIR_PEDIDO_VERSAO_APP, resposta);
 
     }
 }

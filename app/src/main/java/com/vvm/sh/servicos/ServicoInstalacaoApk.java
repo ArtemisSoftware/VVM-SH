@@ -3,14 +3,11 @@ package com.vvm.sh.servicos;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Environment;
 import android.os.Handler;
 
-import com.vvm.sh.util.Notificacao;
+import com.vvm.sh.util.AtualizacaoUI;
 import com.vvm.sh.util.constantes.AppConfig;
 import com.vvm.sh.util.metodos.Diretorias;
-
-import java.io.File;
 
 public class ServicoInstalacaoApk extends Servico {
 
@@ -34,7 +31,7 @@ public class ServicoInstalacaoApk extends Servico {
 
         //--LOG--LogApp_v4.obterInstancia(FONTE, LogIF.ID_LOG_GERAL).adicionarTexto("Download da nova versão da aplicacao completo. A iniciar a instalação....");
 
-        notificacao.atualizarUI(Notificacao.Codigo.PROCESSAMENTO_DADOS, "Instalacão", 0, 1);
+        atualizacaoUI.atualizarUI(AtualizacaoUI.Codigo.PROCESSAMENTO_DADOS, "Instalacão", 0, 1);
 
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setDataAndType(uri, AppConfig.MIME_VERSAO_APP);
@@ -45,7 +42,7 @@ public class ServicoInstalacaoApk extends Servico {
             contexto.startActivity(intent);
         }
         catch(Exception e){
-            notificacao.atualizarUI(Notificacao.Codigo.ERRO_INSTALACAO_APK, e.getMessage());
+            atualizacaoUI.atualizarUI(AtualizacaoUI.Codigo.ERRO_INSTALACAO_APK, e.getMessage());
         }
     }
 

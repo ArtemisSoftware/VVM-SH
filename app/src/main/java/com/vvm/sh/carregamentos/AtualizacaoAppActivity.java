@@ -12,11 +12,10 @@ import com.vvm.sh.servicos.ServicoDownloadApk;
 import com.vvm.sh.servicos.ServicoInstalacaoApk;
 import com.vvm.sh.servicos.ServicoVersaoApp;
 import com.vvm.sh.servicos.VersaoApp;
-import com.vvm.sh.util.Notificacao;
+import com.vvm.sh.util.AtualizacaoUI;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import static com.vvm.sh.util.Notificacao.Codigo.*;
 
 public class AtualizacaoAppActivity extends CarregamentoActivity {
 
@@ -55,7 +54,7 @@ public class AtualizacaoAppActivity extends CarregamentoActivity {
     //----------------------
 
     @Override
-    protected void gerirNotificacoesWs(Notificacao.Comunicado comunicado) {
+    protected void gerirNotificacoesWs(AtualizacaoUI.Comunicado comunicado) {
 
         switch (comunicado.obterCodigo()) {
 
@@ -84,7 +83,7 @@ public class AtualizacaoAppActivity extends CarregamentoActivity {
      * Metodo que permite apresentar o relatorio do pedido de versão
      * @param comunicado o resultado da execucao
      */
-    private void relatorioVersao(Notificacao.Comunicado comunicado){
+    private void relatorioVersao(AtualizacaoUI.Comunicado comunicado){
 
         Gson gson = new Gson();
         versaoApp = gson.fromJson(comunicado.obterDados(), VersaoApp.class);

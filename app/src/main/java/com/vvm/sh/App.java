@@ -7,6 +7,7 @@ import android.os.Build;
 
 public class App extends Application {
 
+    public static final int ATUALIZACAO_APP_ID = 1;
     public static final String CANAL_ATUALIZACAO_APP_ID = "Atualização app";
 
 
@@ -19,7 +20,7 @@ public class App extends Application {
 
 
     /**
-     * Metodo que permite criar os canais de notificacao
+     * Metodo que permite criar os canais de atualizacaoUI
      */
     private void criarCanaisNotificacao() {
 

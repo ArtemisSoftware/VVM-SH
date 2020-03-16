@@ -23,6 +23,8 @@
     <string name="atividade_pendente">Atividade Pendente</string>
     <string name="atividades_pendentes">Atividades Pendentes</string>
     <string name="anomalia">Anomalia</string>
+    <string name="atualizacao">Atualização</string>
+    <string name="atualizacao_sh">Atualização SH</string>
 
     <!--C-->
 
@@ -77,6 +79,8 @@
 
     <!--O-->
 
+    <string name="observacao_">Observação:</string>
+    <string name="observacao">Observação</string>
 
     <!--P-->
 
@@ -104,37 +108,38 @@
     <string name="onboarding_welcome_2">Welcome 2</string>
     <string name="onboarding_welcome_1">Welcome</string>
 
-    <string name="observacao_">Observação:</string>
-    <string name="observacao">Observação</string>
 
 
+    <string name="autenticacao">Autenticação</string>
+    <string name="aplicacao">Aplicação</string>
+    <string name="bi_cartao_de_cidadao_">BI / Cartão de cidadão:</string>
     <string name="fiscalizado_">Fiscalizado:</string>
+    <string name="fim">Fim</string>
+    <string name="formando">Formando</string>
+    <string name="data_de_nascimento">Data de nascimento</string>
+    <string name="data_execucao">Data de execução</string>
+    <string name="dias_fiscalizacao__valor">1</string>
     <string name="departamento_">Departamento:</string>
+    <string name="dados_da_formacao">Dados da Formação</string>
+    <string name="designacao">Designação</string>
     <string name="contrato_">Contrato:</string>
+    <string name="cancelar">Cancelar</string>
+    <string name="configuracao">Configuração</string>
+
     <string name="marca_">Marca:</string>
     <string name="historico_">Historico:</string>
     <string name="quantidade_">Quantidade:</string>
     <string name="email">Email</string>
-    <string name="cancelar">Cancelar</string>
     <string name="gravar">Gravar</string>
     <string name="ocorrencia">Ocorrência</string>
-    <string name="dias_fiscalizacao__valor">1</string>
-    <string name="bi_cartao_de_cidadao_">BI / Cartão de cidadão:</string>
-    <string name="dados_da_formacao">Dados da Formação</string>
-    <string name="designacao">Designação</string>
     <string name="local">Local</string>
     <string name="inicio">Inicio</string>
-    <string name="fim">Fim</string>
-    <string name="formando">Formando</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="genero">Género</string>
-    <string name="data_de_nascimento">Data de nascimento</string>
     <string name="minutos">Minutos</string>
-    <string name="data_execucao">Data de execução</string>
     <string name="concluir_atividade">Concluir atvidade</string>
-    <string name="autenticacao">Autenticação</string>
     <string name="utilizadores_teste">Utilizadores de teste</string>
     <string name="identificador">Identificador</string>
     <string name="palavra_chave">Palavra-chave</string>
@@ -143,23 +148,21 @@
     <string name="tecnico_higiene_seguranca">Técnico de higiene e segurança</string>
     <string name="numero_de_registos_">Numero de registos:</string>
     <string name="ultima_atualizacao_">Última atualização:</string>
-    <string name="aplicacao">Aplicação</string>
     <string name="geral">Geral</string>
     <string name="versao">Versão</string>
 
 
     <string name="key_versao_app">chave_versao</string>
     <string name="key_ultima_atualizacao">chave_ultima_atualizacao</string>
+    <string name="key_permissoes">key_permissoes</string>
+    <string name="key_entrar_contacto">key_entrar_contacto</string>
+
     <string name="ultima_atualizacao">Última atualização</string>
     <string name="permissoes">Permissões</string>
     <string name="definicoes">Definições</string>
     <string name="permissao_necessaria_aceder_definicoes">A app necessita de permissão para usar esta funcionalidade. A permissão pode ser concedida nas definições.</string>
 
-    <string name="key_permissoes">key_permissoes</string>
-    <string name="key_entrar_contacto">key_entrar_contacto</string>
     <string name="entrar_contacto">Entrar em contacto</string>
-    <string name="configuracao">Configuração</string>
-    <string name="atualizacao">Atualização</string>
     <string name="versao_">Versão:</string>
     <string name="terminar">Terminar</string>
 

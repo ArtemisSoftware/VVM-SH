@@ -3,7 +3,7 @@ package com.vvm.sh.servicos;
 import android.os.AsyncTask;
 import android.os.Handler;
 
-import com.vvm.sh.util.Notificacao;
+import com.vvm.sh.util.AtualizacaoUI;
 
 public abstract class Servico extends AsyncTask<String, String, Void> {
 
@@ -13,7 +13,7 @@ public abstract class Servico extends AsyncTask<String, String, Void> {
     /**
      * Permite enviar mensagens para fora do servico
      */
-    protected Notificacao notificacao;
+    protected AtualizacaoUI atualizacaoUI;
 
 
     /**
@@ -29,7 +29,7 @@ public abstract class Servico extends AsyncTask<String, String, Void> {
 
     public Servico (Handler handler){
 
-        notificacao = new Notificacao(handler);
+        atualizacaoUI = new AtualizacaoUI(handler);
         /*
         FONTE = MetodosApp.obterNomeClasse(this.getClass());
         LogApp_v4.obterInstancia(FONTE, LogIF.ID_LOG_GERAL).adicionarTexto("A executar o servico: " + FONTE);

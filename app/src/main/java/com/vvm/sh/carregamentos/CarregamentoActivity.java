@@ -9,12 +9,10 @@ import android.widget.TextView;
 
 import com.vvm.sh.R;
 import com.vvm.sh.ui.BaseActivity;
-import com.vvm.sh.util.Notificacao;
+import com.vvm.sh.util.AtualizacaoUI;
 import com.vvm.sh.util.constantes.Sintaxe;
 
 import butterknife.BindView;
-
-import static com.vvm.sh.util.Notificacao.Codigo.*;
 
 public abstract class CarregamentoActivity extends BaseActivity {
 
@@ -40,7 +38,7 @@ public abstract class CarregamentoActivity extends BaseActivity {
      * Metodo que permite apresentar o progresso da execucao de um servico
      * @param comunicado os dados da execucao
      */
-    private void imprimirProgresso(Notificacao.Comunicado comunicado){
+    private void imprimirProgresso(AtualizacaoUI.Comunicado comunicado){
 
         if(comunicado.obterLimite() != Sintaxe.SEM_REGISTO){
             if(pgr_bar_progresso_notificacao.getMax() != comunicado.obterLimite()){
@@ -72,7 +70,7 @@ public abstract class CarregamentoActivity extends BaseActivity {
         @Override
         public void handleMessage(Message msg) {
 
-            Notificacao.Comunicado comunicado = (Notificacao.Comunicado) msg.obj;
+            AtualizacaoUI.Comunicado comunicado = (AtualizacaoUI.Comunicado) msg.obj;
 
             switch (comunicado.obterCodigo()) {
 
@@ -117,8 +115,8 @@ public abstract class CarregamentoActivity extends BaseActivity {
 
     /**
      * Metodo que permite gerir as notificaoees e dados provenientes do ws
-     * @param comunicado dados da notificacao
+     * @param comunicado dados da atualizacaoUI
      */
-    protected abstract void gerirNotificacoesWs(Notificacao.Comunicado comunicado);
+    protected abstract void gerirNotificacoesWs(AtualizacaoUI.Comunicado comunicado);
 
 }

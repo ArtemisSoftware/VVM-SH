@@ -5,20 +5,18 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 
-import com.vvm.sh.BuildConfig;
-
 import java.io.File;
 
 public class Diretorias {
 
     public static final String DIRETORIA = "vvmsh";
-    public static final String DIRETORIA_DOWNLOAD = DIRETORIA + "/" + "Download";
+    public static final String DOWNLOAD = DIRETORIA + "/" + "Download";
     public static final String BASE_DADOS = DIRETORIA + "/" + "BaseDados";
     public static final String DIRETORIA_IMAGENS = DIRETORIA + "/" + "Imagens";
     public static final String DIRETORIA_PDF = DIRETORIA + "/" + "Pdf";
     public static final String DIRETORIA_LOG = DIRETORIA + "/" + "Logs";
 
-    private static String DIRETORIAS []= {DIRETORIA_DOWNLOAD/*, DIRETORIA_IMAGENS, DIRETORIA_PDF, DIRETORIA_BASE_DADOS, DIRETORIA_LOG*/};
+    private static String DIRETORIAS []= {DOWNLOAD/*, DIRETORIA_IMAGENS, DIRETORIA_PDF*/, BASE_DADOS/*, DIRETORIA_LOG*/};
 
 
     /**

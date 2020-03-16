@@ -19,7 +19,7 @@ public class ServicoInstalacaoApk extends Servico {
 
         this.contexto = contexto;
 
-        //File ficheiro = new File(Environment.getExternalStorageDirectory().toString() + "/" + Diretorias.DIRETORIA_DOWNLOAD, nomeFicheiro);
+        //File ficheiro = new File(Environment.getExternalStorageDirectory().toString() + "/" + Diretorias.DOWNLOAD, nomeFicheiro);
         //--LOG--LogApp_v4.obterInstancia(FONTE, LogIF.ID_LOG_GERAL).adicionarTexto("Caminho para o novo apk: "+ file.getAbsolutePath());
 
         uri = Diretorias.obterUri(contexto, versaoApp.obterFicheiro());

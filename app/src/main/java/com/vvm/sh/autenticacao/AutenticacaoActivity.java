@@ -11,6 +11,7 @@ import com.google.android.material.textfield.TextInputEditText;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
+import com.vvm.sh.MainActivity;
 import com.vvm.sh.R;
 import com.vvm.sh.carregamentos.AtualizacaoAppActivity;
 import com.vvm.sh.ui.BaseActivity;
@@ -164,11 +165,12 @@ public class AutenticacaoActivity extends BaseActivity implements Validator.Vali
     @Override
     public void onValidationSucceeded() {
 
-                /*
+        //Todo: chamar view model
+
+
         Intent intent = new Intent(this, MainActivity.class);
         //intent.putExtra(AppConstants.PICTURE, pictureRecyclerAdapter.getSelectedPicture(position).getId());
         startActivity(intent);
-        */
     }
 
     @Override

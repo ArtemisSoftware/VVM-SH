@@ -13,73 +13,67 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="9"
-        android:orientation="vertical">
+        android:layout_weight="9">
 
-
-        <!--..........imagem...........-->
-
-
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center">
 
             <ImageView
-                android:layout_margin="10dp"
+                android:layout_margin="48dp"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:adjustViewBounds="true"
                 android:cropToPadding="true"
-
-                android:layout_centerInParent="true"
+                android:layout_weight = "1"
                 android:src="@drawable/atualicao_app" />
-
-
-
-
-        <!--..........dados do carregamento...........-->
-
-
-        <LinearLayout
-            android:id="@+id/lnr_lyt_dd"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:layout_alignParentBottom="true">
-
-            <TextView
-                style="@style/tituloCarregamento"
-                android:text="@string/atualizacao" />
-
-
-            <!--..........descricao...........-->
-
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginLeft="20dp">
+                android:orientation="vertical"
+                android:layout_alignParentBottom="true">
 
                 <TextView
-                    style="@style/textoCarregamento"
-                    android:text="@string/versao_"/>
+                    style="@style/tituloCarregamento"
+                    android:text="@string/atualizacao" />
+
+
+                <!--..........descricao...........-->
+
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp">
+
+                    <TextView
+                        style="@style/textoCarregamento"
+                        android:text="@string/versao_"/>
+
+                    <TextView
+                        android:id="@+id/txt_versao_app"
+                        style="@style/textoCarregamento"
+                        android:layout_marginLeft="5dp"
+                        android:text="@string/lorem_ipsum_texto_pequeno"/>
+                </LinearLayout>
 
                 <TextView
-                    android:id="@+id/txt_versao_app"
+                    android:id="@+id/txt_atualizacoes"
                     style="@style/textoCarregamento"
-                    android:layout_marginLeft="5dp"
-                    android:text="@string/lorem_ipsum_texto_pequeno"/>
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:text="@string/onboardingWelcomeContent"/>
+
             </LinearLayout>
-
-            <TextView
-                android:id="@+id/txt_atualizacoes"
-                style="@style/textoCarregamento"
-                android:layout_marginLeft="20dp"
-                android:text="@string/onboardingWelcomeContent"/>
 
         </LinearLayout>
 
     </RelativeLayout>
-
-
 
 
     <LinearLayout
@@ -179,7 +173,6 @@
 
 
     </LinearLayout>
-
 
 
 </LinearLayout>

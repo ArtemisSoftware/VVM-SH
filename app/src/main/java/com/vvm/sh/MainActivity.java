@@ -1,10 +1,13 @@
 package com.vvm.sh;
 
+import androidx.appcompat.widget.Toolbar;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.github.clans.fab.FloatingActionMenu;
@@ -47,8 +50,12 @@ public class MainActivity extends BaseActivity implements /*DatePickerDialog.OnD
         setContentView(R.layout.activity_main);
 
 
-        //Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-        //setSupportActionBar(toolbar);
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(null);
+
+
         //Intent intent = new Intent(this, ApresentacaoActivity.class);
         //startActivity(intent);
 
@@ -57,9 +64,40 @@ public class MainActivity extends BaseActivity implements /*DatePickerDialog.OnD
         subscreverObservadores();
         obterRegistos();
 
-        Intent intent = new Intent(this, AutenticacaoActivity.class);
+        //Intent intent = new Intent(this, AutenticacaoActivity.class);
         //intent.putExtra(AppConstants.PICTURE, pictureRecyclerAdapter.getSelectedPicture(position).getId());
-        startActivity(intent);
+        //startActivity(intent);
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_autenticacao, menu);
+        return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        Intent intent;
+
+        switch (item.getItemId()){
+
+            case R.id.item_app:
+
+
+                return true;
+
+
+            case R.id.item_atualizar_app:
+
+
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
 

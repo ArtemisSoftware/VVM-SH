@@ -40,7 +40,7 @@ public class Diretorias {
      */
     private static boolean criarDirectoria(String nomeDiretoria){
 
-        File diretoria = new File(Environment.getExternalStorageDirectory(), nomeDiretoria);
+        File diretoria = new File(obterCaminho(nomeDiretoria));
 
         //--LOG--String mensagemLog;
         boolean resultado = false;
@@ -70,7 +70,7 @@ public class Diretorias {
 
         if(ficheiro.getParentFile().exists() == false){
 
-            return criarDirectoria(ficheiro.getParentFile().getName());
+            return criarDirectoria(ficheiro.getParentFile().getAbsolutePath());
         }
 
         return true;
@@ -96,4 +96,21 @@ public class Diretorias {
 
         return uri;
     }
+
+
+    /**
+     * Metodo que permite obter o caminho completo para uma diretoria
+     * @param diretoria a diretoria pretendida
+     * @return um caminho
+     */
+    public static  String obterCaminho(String diretoria){
+
+        if(diretoria.contains("/storage/emulated/0/") == true){
+            return diretoria;
+        }
+
+        return Environment.getDataDirectory().getAbsolutePath().toString() + "/storage/emulated/0/" + diretoria;
+        //return Environment.getExternalStorageDirectory().toString() + "/" + diretoria;
+    }
+
 }

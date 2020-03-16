@@ -164,6 +164,7 @@
 
     <string name="entrar_contacto">Entrar em contacto</string>
     <string name="versao_">Versão:</string>
+    <string name="nova_versao_disponivel_versao_">Nova versão disponivel para atualização. Versão:</string>
     <string name="terminar">Terminar</string>
 
 </resources>

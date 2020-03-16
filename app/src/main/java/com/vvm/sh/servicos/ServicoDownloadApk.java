@@ -46,7 +46,7 @@ public class ServicoDownloadApk extends Servico {
         nomeFicheiro = Download_Uri.toString().split("/")[Download_Uri.toString().split("/").length - 1];
         //--LOG--LogApp_v4.obterInstancia(FONTE, LogIF.ID_LOG_GERAL).adicionarTexto("Nome ficheiro:" + nomeFicheiro);
 
-        File ficheiro = new File(Environment.getExternalStorageDirectory().toString() + "/" + Diretorias.DIRETORIA_DOWNLOAD, nomeFicheiro);
+        File ficheiro = new File(Diretorias.obterCaminho(Diretorias.DIRETORIA_DOWNLOAD), nomeFicheiro);
         versaoApp.fixarFicheiro(ficheiro);
 
 

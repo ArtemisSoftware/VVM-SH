@@ -1,8 +1,10 @@
 package com.vvm.sh.carregamentos;
 
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.View;
 import android.widget.Button;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -13,6 +15,7 @@ import com.vvm.sh.servicos.ServicoInstalacaoApk;
 import com.vvm.sh.servicos.ServicoVersaoApp;
 import com.vvm.sh.servicos.VersaoApp;
 import com.vvm.sh.util.AtualizacaoUI;
+import com.vvm.sh.util.Notificacao;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -26,8 +29,8 @@ public class AtualizacaoAppActivity extends CarregamentoActivity {
     @BindView(R.id.txt_versao_app)
     TextView txt_versao_app;
 
-    @BindView(R.id.btn_iniciar)
-    Button btn_iniciar;
+    @BindView(R.id.rlt_lyt_opcoes)
+    RelativeLayout rlt_lyt_opcoes;
 
     @BindView(R.id.btn_terminar)
     Button btn_terminar;
@@ -45,7 +48,6 @@ public class AtualizacaoAppActivity extends CarregamentoActivity {
 
         servico = new ServicoVersaoApp(handlerNotificacoesUI);
         servico.execute();
-
     }
 
 
@@ -96,12 +98,10 @@ public class AtualizacaoAppActivity extends CarregamentoActivity {
         if(versaoApp.atualizar() == true) {
 
             servico = new ServicoDownloadApk(this, handlerNotificacoesUI, versaoApp);
-            btn_iniciar.setVisibility(View.VISIBLE);
-            btn_terminar.setVisibility(View.GONE);
+            rlt_lyt_opcoes.setVisibility(View.VISIBLE);
         }
         else{
-            btn_iniciar.setVisibility(View.GONE);
-            btn_terminar.setVisibility(View.VISIBLE);
+            rlt_lyt_opcoes.setVisibility(View.GONE);
         }
     }
 
@@ -123,16 +123,18 @@ public class AtualizacaoAppActivity extends CarregamentoActivity {
     @OnClick(R.id.btn_iniciar)
     public void btn_iniciar_OnClickListener(View view) {
 
-        btn_iniciar.setEnabled(false);
+        rlt_lyt_opcoes.setVisibility(View.GONE);
         servico.execute();
 
     }
 
-    @OnClick(R.id.btn_terminar)
+    @OnClick({R.id.btn_terminar, R.id.btn_cancelar})
     public void btn_terminar_OnClickListener(View view) {
 
-
-
+        if(versaoApp.atualizar() == true) {
+            Notificacao.notificarAtualizacaoApp(getApplication(), versaoApp.obterVersao());
+            finish();
+        }
     }
 
 

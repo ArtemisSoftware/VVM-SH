@@ -25,7 +25,7 @@ public class Notificacao {
         Notification notificacao = new NotificationCompat.Builder(contexto, App.CANAL_ATUALIZACAO_APP_ID)
                 .setSmallIcon(R.drawable.ic_lorem_ipsum_24dp)
                 .setContentTitle(contexto.getString(R.string.atualizacao_sh))
-                .setContentText(contexto.getString(R.string.versao_) + versao)
+                .setContentText(contexto.getString(R.string.nova_versao_disponivel_versao_) + versao)
                 .setPriority(NotificationCompat.PRIORITY_HIGH)
                 .setCategory(NotificationCompat.CATEGORY_MESSAGE)
                 .setColor(Color.BLUE)

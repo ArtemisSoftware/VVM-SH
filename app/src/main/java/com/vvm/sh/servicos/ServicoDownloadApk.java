@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Environment;
 import android.os.Handler;
 
+import com.vvm.sh.R;
 import com.vvm.sh.util.AtualizacaoUI;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.metodos.Diretorias;
@@ -17,7 +18,6 @@ public class ServicoDownloadApk extends Servico {
 
     private DownloadManager downloadManager;
     private long idDownload;
-    private String nomeFicheiro;
     private boolean downloadCompleto;
 
     private static final int ERRO_PASTA_DOWNLOAD = 1;
@@ -43,7 +43,7 @@ public class ServicoDownloadApk extends Servico {
         Uri Download_Uri = Uri.parse(versaoApp.obterUrlDownload());
         //--LOG--LogApp_v4.obterInstancia(FONTE, LogIF.ID_LOG_GERAL).adicionarTexto("Uri:" + Download_Uri.toString());
 
-        nomeFicheiro = Download_Uri.toString().split("/")[Download_Uri.toString().split("/").length - 1];
+        String nomeFicheiro = Download_Uri.toString().split("/")[Download_Uri.toString().split("/").length - 1];
         //--LOG--LogApp_v4.obterInstancia(FONTE, LogIF.ID_LOG_GERAL).adicionarTexto("Nome ficheiro:" + nomeFicheiro);
 
         File ficheiro = new File(Diretorias.obterCaminho(Diretorias.DIRETORIA_DOWNLOAD), nomeFicheiro);
@@ -60,7 +60,7 @@ public class ServicoDownloadApk extends Servico {
 
             DownloadManager.Request pedido = new DownloadManager.Request(Uri.parse(versaoApp.obterUrlDownload()));
             pedido.setDescription(versaoApp.obterTexto());
-            pedido.setTitle("Atualização v." + versaoApp.obterVersao());
+            pedido.setTitle(contexto.getString(R.string.atualizacao_v) + versaoApp.obterVersao());
             pedido.setDestinationInExternalPublicDir("/" + Diretorias.DIRETORIA_DOWNLOAD, nomeFicheiro);
             pedido.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI);
             pedido.setAllowedOverRoaming(false);
@@ -180,8 +180,9 @@ public class ServicoDownloadApk extends Servico {
         }
         else {
             if (downloadCompleto == true) {
-                atualizacaoUI.atualizarUI(AtualizacaoUI.Codigo.CONCLUIR_DOWNLOAD_APK, nomeFicheiro);
-            } else {
+                atualizacaoUI.atualizarUI(AtualizacaoUI.Codigo.CONCLUIR_DOWNLOAD_APK);
+            }
+            else {
                 atualizacaoUI.atualizarUI(AtualizacaoUI.Codigo.ERRO_DOWNLOAD_APK);
             }
         }

@@ -46,6 +46,7 @@ public class AtualizacaoAppActivity extends CarregamentoActivity {
 
         pgr_bar_progresso_notificacao.setProgress(0);
 
+        apresentarProgresso(true);
         servico = new ServicoVersaoApp(handlerNotificacoesUI);
         servico.execute();
     }
@@ -66,18 +67,31 @@ public class AtualizacaoAppActivity extends CarregamentoActivity {
                 break;
 
             case CONCLUIR_DOWNLOAD_APK:
+
                 iniciarInstalacao();
                 break;
 
             case ERRO_DOWNLOAD_APK:
 
-                //relatorioVersao(comunicado);
+                relatorioErro(comunicado);
                 break;
 
             case ERRO_INSTALACAO_APK:
 
+                relatorioErro(comunicado);
+                break;
+
+            default:
+                //TODO: alerta de erro
+
+                //--Alerta de erro
+                //if(comunicado.obterMensagem() != null)
+                //--AlertaUI.erro(dialogo, comunicado.obterMensagem())
                 break;
         }
+
+        apresentarProgresso(false);
+
     }
 
 
@@ -103,6 +117,25 @@ public class AtualizacaoAppActivity extends CarregamentoActivity {
         else{
             rlt_lyt_opcoes.setVisibility(View.GONE);
         }
+
+        apresentarProgresso(false);
+    }
+
+
+    /**
+     * Metodo que permite apresentar um relatorio de erro
+     * @param comunicado
+     */
+    private void relatorioErro(AtualizacaoUI.Comunicado comunicado){
+
+        btn_terminar.setVisibility(View.VISIBLE);
+
+
+        //TODO: alerta de erro
+
+        //--Alerta de erro
+        //if(comunicado.obterMensagem() != null)
+        //--AlertaUI.erro(dialogo, comunicado.obterMensagem())
     }
 
 
@@ -128,15 +161,16 @@ public class AtualizacaoAppActivity extends CarregamentoActivity {
 
     }
 
+
     @OnClick({R.id.btn_terminar, R.id.btn_cancelar})
     public void btn_terminar_OnClickListener(View view) {
 
         if(versaoApp.atualizar() == true) {
             Notificacao.notificarAtualizacaoApp(getApplication(), versaoApp.obterVersao());
-            finish();
         }
-    }
 
+        finish();
+    }
 
 
 }

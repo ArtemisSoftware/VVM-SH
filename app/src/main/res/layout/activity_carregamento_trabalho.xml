@@ -32,31 +32,32 @@
             android:layout_alignParentBottom="true">
 
             <TextView
-                style="@style/onBoardingHeaderText"
+                style="@style/tituloCarregamento"
                 android:text="@string/atualizacao" />
 
+
             <LinearLayout
-                style="@style/onBoardingContentText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:gravity="center_vertical">
+                android:layout_marginLeft="20dp">
 
                 <TextView
-                    style="@style/onBoardingContentText_"
+                    style="@style/textoCarregamento"
                     android:text="@string/data_"/>
 
                 <TextView
                     android:id="@+id/txt_data"
-                    android:layout_marginLeft="12dp"
-                    style="@style/onBoardingContentText_"
-                    android:text="@string/lorem_ipsum_data"/>
+                    style="@style/textoCarregamento"
+                    android:layout_marginLeft="5dp"
+                    android:text="@string/lorem_ipsum_texto_pequeno"/>
             </LinearLayout>
 
             <TextView
-                android:id="@+id/txt_cliente"
-                style="@style/onBoardingContentText"
-                android:text="@string/lorem_ipsum_texto"/>
+                android:id="@+id/txt_atualizacoes"
+                style="@style/textoCarregamento"
+                android:layout_marginLeft="20dp"
+                android:text="@string/onboardingWelcomeContent"/>
 
         </LinearLayout>
 
@@ -91,12 +92,17 @@
                 android:max="100"/>
 
             <RelativeLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_alignRight="@+id/pgr_bar_progresso_notificacao"
                 android:layout_below="@+id/pgr_bar_progresso_notificacao"
                 android:layout_marginTop="35dp">
+
+                <TextView
+                    android:id="@+id/txt_titulo_progresso"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/lorem_ipsum_texto_pequeno"
+                    android:layout_alignParentLeft="true"/>
 
                 <TextView
                     android:id="@+id/txt_progresso"
@@ -104,14 +110,6 @@
                     android:layout_height="wrap_content"
                     android:text="@string/lorem_ipsum_texto_pequeno"
                     android:layout_alignParentRight="true"/>
-
-
-                <TextView
-                    android:id="@+id/txt_titulo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/lorem_ipsum_texto_pequeno"
-                    android:layout_alignParentLeft="true"/>
 
             </RelativeLayout>
 
@@ -137,10 +135,8 @@
 
 
             <RelativeLayout
-                android:layout_width="match_parent"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_alignRight="@+id/pgr_bar_progresso_notificacao_secundario"
                 android:layout_below="@+id/pgr_bar_progresso_notificacao_secundario"
                 android:layout_marginTop="35dp">
 
@@ -149,17 +145,17 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/lorem_ipsum_texto_pequeno"
-                    android:layout_alignParentRight="true"/>
-
+                    android:layout_alignParentLeft="true"/>
 
                 <TextView
                     android:id="@+id/txt_titulo_secundario"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/lorem_ipsum_texto_pequeno"
-                    android:layout_alignParentLeft="true"/>
+                    android:layout_alignParentRight="true"/>
 
             </RelativeLayout>
+
 
         </RelativeLayout>
 
@@ -167,14 +163,11 @@
 
         <Button
             android:id="@+id/btn_terminar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:background="@drawable/onboarding_button"
+            style="@style/botaoCarregamento"
             android:text="@string/terminar"
-            android:textColor="@color/whiteTextColor"
-            android:textSize="20dp"
-            android:layout_margin="25dp"/>
+            android:layout_centerHorizontal="true"/>
+
+
 
 
 

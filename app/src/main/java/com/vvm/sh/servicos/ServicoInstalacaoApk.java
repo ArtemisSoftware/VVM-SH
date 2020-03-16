@@ -31,7 +31,7 @@ public class ServicoInstalacaoApk extends Servico {
 
         //--LOG--LogApp_v4.obterInstancia(FONTE, LogIF.ID_LOG_GERAL).adicionarTexto("Download da nova versão da aplicacao completo. A iniciar a instalação....");
 
-        atualizacaoUI.atualizarUI(AtualizacaoUI.Codigo.PROCESSAMENTO_DADOS, "Instalacão", 0, 1);
+        atualizacaoUI.atualizarUI(AtualizacaoUI.Codigo.PROCESSAMENTO_DADOS, "Instalacão", 50, 100);
 
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setDataAndType(uri, AppConfig.MIME_VERSAO_APP);

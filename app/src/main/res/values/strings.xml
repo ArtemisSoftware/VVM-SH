@@ -175,5 +175,8 @@
     <string name="nova_versao_disponivel_versao_">Nova versão disponivel para atualização. Versão:</string>
     <string name="terminar">Terminar</string>
     <string name="calendario">Calendário</string>
+    <string name="opcoes_avancadas">Opções avançadas</string>
+    <string name="perfil">Perfil</string>
+    <string name="terminar_sessao">Terminar sessão</string>
 
 </resources>

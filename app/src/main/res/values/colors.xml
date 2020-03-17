@@ -111,6 +111,11 @@
     <color name="bgBottomNavigation">#fe485a</color>
 
 
+    <!--colors for light mode-->
+    <color name="contentBodyColor">#FCFCFC</color>
+    <color name="imageBorderColor">#E01E7A</color>
+    <color name="miniTitle">#2A2E43</color>
+
 
     <!--...................-->
 

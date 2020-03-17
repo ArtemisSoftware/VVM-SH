@@ -16,13 +16,18 @@ import com.github.clans.fab.FloatingActionMenu;
 import com.vvm.sh.apresentacao.ApresentacaoActivity;
 import com.vvm.sh.apresentacao.modelos.Apresentacao;
 import com.vvm.sh.autenticacao.AutenticacaoActivity;
+import com.vvm.sh.carregamentos.AtualizacaoAppActivity;
 import com.vvm.sh.ui.BaseActivity;
 import com.vvm.sh.ui.agenda.Tarefa;
 import com.vvm.sh.ui.agenda.TarefaActivity;
 import com.vvm.sh.ui.agenda.TarefaRecyclerAdapter;
+import com.vvm.sh.ui.contaUtilizador.DefinicoesActivity;
+import com.vvm.sh.ui.contaUtilizador.OpcoesAvancadasActivity;
+import com.vvm.sh.ui.contaUtilizador.PerfilActivity;
 import com.vvm.sh.util.adaptadores.Item;
 import com.vvm.sh.util.interfaces.OnItemListener;
 import com.vvm.sh.util.metodos.Datas;
+import com.vvm.sh.util.metodos.Preferencias;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import java.util.ArrayList;
@@ -121,6 +126,17 @@ public class MainActivity extends BaseActivity implements DatePickerDialog.OnDat
     }
 
 
+    /**
+     * Metodo que permite terminar a sessao
+     */
+    private void terminarSessao(){
+
+        Preferencias.eliminarDadosUtilizador(this);
+
+        //TODO: apagar dados da bd - chamar viewmodel
+        finish();
+    }
+
     //---------------------
     //Eventos
     //---------------------
@@ -175,7 +191,7 @@ public class MainActivity extends BaseActivity implements DatePickerDialog.OnDat
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_autenticacao, menu);
+        getMenuInflater().inflate(R.menu.menu_principal, menu);
         return true;
     }
 
@@ -187,15 +203,34 @@ public class MainActivity extends BaseActivity implements DatePickerDialog.OnDat
 
         switch (item.getItemId()){
 
-            case R.id.item_app:
+            case R.id.item_perfil:
 
+                intent = new Intent(this, PerfilActivity.class);
+                startActivity(intent);
+                return true;
 
+            case R.id.item_definicoes:
+
+                intent = new Intent(this, DefinicoesActivity.class);
+                startActivity(intent);
+                return true;
+
+            case R.id.item_opcoes_avancadas:
+
+                intent = new Intent(this, OpcoesAvancadasActivity.class);
+                startActivity(intent);
+                return true;
+
+            case R.id.item_terminar_sessao:
+
+                terminarSessao();
                 return true;
 
 
             case R.id.item_atualizar_app:
 
-
+                intent = new Intent(this, AtualizacaoAppActivity.class);
+                startActivity(intent);
                 return true;
 
             default:

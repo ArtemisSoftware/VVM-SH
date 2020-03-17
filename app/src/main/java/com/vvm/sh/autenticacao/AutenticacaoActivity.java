@@ -143,7 +143,7 @@ public class AutenticacaoActivity extends BaseActivity implements Validator.Vali
 
         switch (item.getItemId()){
 
-            case R.id.item_app:
+            case R.id.item_definicoes:
 
                 intent = new Intent(this, DefinicoesActivity.class);
                 startActivity(intent);

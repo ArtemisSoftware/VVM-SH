@@ -11,6 +11,7 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
 public class Datas {
 
@@ -23,9 +24,12 @@ public class Datas {
     public static final String FORMATO_DD_MM_YYYY__HH_MM_SS = "dd-MM-yyyy HH:mm:ss";
     public static final String DATA_FORMATO_DD_MM_YYYY__HH_MM_SS_V2 = "dd/MM/yyyy HH:mm:ss";
 
+    public static final String DATA_FORMATO_DD_MMMM_YYYY = "dd-MMMM-yyyy";
     public static final String DATA_FORMATO_MMMM_YYYY = "MMMM yyyy";
     public static final String HORA_FORMATO_HH_MM = "HH:mm";
     public static final String HORA_FORMATO_HH_MM_SS = "HH:mm:ss";
+
+    public static final Locale LOCAL_PORTUGAL = new Locale( "pt" );
 
 
     /**
@@ -43,13 +47,6 @@ public class Datas {
     }
 
 
-    /**
-     * Metodo que permite obter uma data
-     * @param ano
-     * @param mesDoAno 0 - Janeiro , 1 - Fevereiro....
-     * @param diaDoMes o dia do mes
-     * @return uma data no fora
-     */
 
     /**
      * Metodo que permite obter uma data
@@ -66,6 +63,27 @@ public class Datas {
 
         SimpleDateFormat format = new SimpleDateFormat(formatoData);
         String data = format.format(calendar.getTime());
+
+        return data;
+    }
+
+
+    /**
+     * Metodo que permite obter uma data com o mes por extenso
+     * @param ano
+     * @param mesDoAno 0 - Janeiro , 1 - Fevereiro....
+     * @param diaDoMes o dia do mes
+     * @param formatoData o formato da data (ex:dd/MMMM/yyyy)
+     * @param local lingua do mes
+     * @return uma data
+     */
+    public static String converterData(int ano, int mesDoAno, int diaDoMes, String formatoData, Locale local){
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(ano, mesDoAno, diaDoMes);
+
+        DateFormat fmt = new SimpleDateFormat(formatoData, local);
+        String data = fmt.format(calendar.getTime());
 
         return data;
     }

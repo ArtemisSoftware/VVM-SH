@@ -84,8 +84,12 @@
 
 
 
+    <!-- ............... -->
+
 
     <dimen name="tituloCarregamentoTamanho">30dp</dimen>
     <dimen name="textoCarregamentoTamanho">14dp</dimen>
+
+    <dimen name="tituloTamanho">28dp</dimen>
 
 </resources>

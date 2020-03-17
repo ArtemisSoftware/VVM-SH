@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.github.clans.fab.FloatingActionMenu;
@@ -32,6 +33,14 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 public class MainActivity extends BaseActivity implements DatePickerDialog.OnDateSetListener, OnItemListener {
+
+
+    @BindView(R.id.txt_data_dia)
+    TextView txt_data_dia;
+
+
+    @BindView(R.id.txt_data)
+    TextView txt_data;
 
 
     @BindView(R.id.fab_menu_agenda)
@@ -70,37 +79,6 @@ public class MainActivity extends BaseActivity implements DatePickerDialog.OnDat
     }
 
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_autenticacao, menu);
-        return true;
-    }
-
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-
-        Intent intent;
-
-        switch (item.getItemId()){
-
-            case R.id.item_app:
-
-
-                return true;
-
-
-            case R.id.item_atualizar_app:
-
-
-                return true;
-
-            default:
-                return super.onOptionsItemSelected(item);
-        }
-    }
-
-
     //------------------------
     //Metodos locais
     //------------------------
@@ -110,6 +88,8 @@ public class MainActivity extends BaseActivity implements DatePickerDialog.OnDat
      * Metodo que permite iniciar a atividade
      */
     private void iniciarAtividade(){
+
+        txt_data.setText(Datas.obterDataAtual(Datas.FORMATO_DD_MM_YYYY));
 
         tarefaRecyclerAdapter = new TarefaRecyclerAdapter(this);
         rcl_tarefas.setAdapter(tarefaRecyclerAdapter);
@@ -161,11 +141,8 @@ public class MainActivity extends BaseActivity implements DatePickerDialog.OnDat
 
         fab_menu_agenda.close(true);
 
-
-        DatePickerDialog dpd = Datas.obterCalendarioAgenda(this);
-
-        dpd.show(getSupportFragmentManager(), "Datepickerdialog");
-
+        DatePickerDialog dialogo = Datas.obterCalendarioAgenda(this);
+        dialogo.show(getSupportFragmentManager(), "Datepickerdialog");
     }
 
 
@@ -173,7 +150,12 @@ public class MainActivity extends BaseActivity implements DatePickerDialog.OnDat
     @Override
     public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
 
+
+        txt_data_dia.setText(Datas.converterData(year, monthOfYear, dayOfMonth, "dd"));
+        txt_data.setText(Datas.converterData(year, monthOfYear, dayOfMonth, Datas.DATA_FORMATO_MMMM_YYYY, Datas.LOCAL_PORTUGAL));
+
         String data = Datas.converterData(year, monthOfYear, dayOfMonth, Datas.FORMATO_YYYY_MM_DD);
+
 
         //Toast.makeText(MainActivity.this, date, Toast.LENGTH_LONG).show();
 
@@ -188,5 +170,39 @@ public class MainActivity extends BaseActivity implements DatePickerDialog.OnDat
         //TODO: chamar metodo do viewmodel
 
     }
+
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_autenticacao, menu);
+        return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        Intent intent;
+
+        switch (item.getItemId()){
+
+            case R.id.item_app:
+
+
+                return true;
+
+
+            case R.id.item_atualizar_app:
+
+
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+
 
 }

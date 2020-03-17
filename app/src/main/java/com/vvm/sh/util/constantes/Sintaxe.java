@@ -10,4 +10,10 @@ public class Sintaxe {
 
 
     public static final String ERRO_PASTA_DOWNLOAD = "O download não pode ser realizado.";
+
+
+    public class Titulos{
+
+        public static final String AGENDA = "Agenda";
+    }
 }

@@ -83,7 +83,7 @@ public class OcorrenciasActivity extends BaseActivity implements OnItemListener 
         t1.add(new Ocorrencia(1, "Ocorrencia numero 1", "Departamento norte", "12345235", "2020-02-20", "Marca 1", "estado 1"));
         t1.add(new Ocorrencia(2, "Ocorrencia numero 2", "Departamento sul", "674543", "2020-02-18", "Marca 20", "estado raly"));
 
-        ocorrenciaRecyclerAdapter.fixarRegistos(t1);
+        ocorrenciaRecyclerAdapter.renovarRegistos(t1);
 
         //TODO: chamar metodo do viewmodel
     }
@@ -133,7 +133,7 @@ public class OcorrenciasActivity extends BaseActivity implements OnItemListener 
             List<Item> t1 = new ArrayList<>();
             t1.add(new Ocorrencia("2019-02-04", "Resolvido", "uma observação grande", "departamento interno"));
             t1.add(new Ocorrencia("2019-02-02", "Resolvido por enquanto", "uma observação pequena", "departamento externo"));
-            ocorrenciaRecyclerAdapter.fixarRegistos(t1);
+            ocorrenciaRecyclerAdapter.renovarRegistos(t1);
 
             //TODO: chamar metodo do viewmodel
 

@@ -85,7 +85,7 @@ public class RegistoOcorrenciasActivity extends BaseActivity implements OnItemLi
         t1.add(new Ocorrencia(1, "Ocorrencia numero 2", "10.2", 1, 0));
         t1.add(new Ocorrencia(1, "Ocorrencia numero 34", "23.2", 1, 0));
 
-        ocorrenciaRecyclerAdapter.fixarRegistos(t1);
+        ocorrenciaRecyclerAdapter.renovarRegistos(t1);
 
         //TODO: chamar metodo do viewmodel
     }
@@ -116,7 +116,7 @@ public class RegistoOcorrenciasActivity extends BaseActivity implements OnItemLi
         t1.add(new Ocorrencia(1, "Ocorrencia numero 1478", "560.2", 1, 0));
         t1.add(new Ocorrencia(1, "Ocorrencia numero 22", "410.2", 2, 1));
 
-        ocorrenciaRecyclerAdapter.fixarRegistos(t1);
+        ocorrenciaRecyclerAdapter.renovarRegistos(t1);
 
         //TODO: chamar metodo do viewmodel
     }
@@ -136,7 +136,7 @@ public class RegistoOcorrenciasActivity extends BaseActivity implements OnItemLi
         t1.add(new Ocorrencia(1, "Ocorrencia numero 50000", "2340.2", 1, 0));
         t1.add(new Ocorrencia(1, "Ocorrencia numero 65434", "410.2", 2, 1));
 
-        ocorrenciaRecyclerAdapter.fixarRegistos(t1);
+        ocorrenciaRecyclerAdapter.renovarRegistos(t1);
 
 
 

@@ -48,13 +48,25 @@ public abstract class ItemRecyclerAdapter extends RecyclerView.Adapter<RecyclerV
     //-------------------
 
     /**
-     * Metodo que permite fixar registos
+     * Metodo que permite adicionar registos à lista de registos
      * @param registos uma lista de registos
      */
     public void fixarRegistos(List<Item> registos){
         this.registos.addAll(registos);
         notifyDataSetChanged();
     }
+
+
+    /**
+     * Metodo que permite apagar os registos e adicionar novos registos à lista de registos
+     * @param registos uma lista de registos
+     */
+    public void renovarRegistos(List<Item> registos){
+        this.registos.clear();
+        this.registos.addAll(registos);
+        notifyDataSetChanged();
+    }
+
 
 
     /**

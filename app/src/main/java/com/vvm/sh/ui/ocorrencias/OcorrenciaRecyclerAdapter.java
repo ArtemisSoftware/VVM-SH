@@ -95,15 +95,4 @@ public class OcorrenciaRecyclerAdapter extends ItemRecyclerAdapter {
     }
 
 
-    //-------------------
-    //Metodos locais
-    //-------------------
-
-    @Override
-    public void fixarRegistos(List<Item> registos){
-
-        this.registos.clear();
-        this.registos.addAll(registos);
-        notifyDataSetChanged();
-    }
 }

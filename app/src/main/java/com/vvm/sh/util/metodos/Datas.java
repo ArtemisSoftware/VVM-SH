@@ -1,5 +1,11 @@
 package com.vvm.sh.util.metodos;
 
+import android.app.Activity;
+import android.content.Context;
+
+import com.vvm.sh.util.constantes.Sintaxe;
+import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
+
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -34,6 +40,34 @@ public class Datas {
         String dataActual = df.format(dataHoje);
 
         return dataActual;
+    }
+
+
+    /**
+     * Metodo que permite obter uma data
+     * @param ano
+     * @param mesDoAno 0 - Janeiro , 1 - Fevereiro....
+     * @param diaDoMes o dia do mes
+     * @return uma data no fora
+     */
+
+    /**
+     * Metodo que permite obter uma data
+     * @param ano
+     * @param mesDoAno 0 - Janeiro , 1 - Fevereiro....
+     * @param diaDoMes o dia do mes
+     * @param formatoData o formato da data (ex:dd/MM/yyyy)
+     * @return uma data
+     */
+    public static String converterData(int ano, int mesDoAno, int diaDoMes, String formatoData){
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(ano, mesDoAno, diaDoMes);
+
+        SimpleDateFormat format = new SimpleDateFormat(formatoData);
+        String data = format.format(calendar.getTime());
+
+        return data;
     }
 
 
@@ -75,6 +109,69 @@ public class Datas {
         Date resultado = new Date(data);
         SimpleDateFormat formatoData = new SimpleDateFormat(formato);
         return formatoData.format(resultado);
+    }
+
+
+
+
+    public static DatePickerDialog obterCalendarioAgenda(DatePickerDialog.OnDateSetListener listener){
+
+        int ano, mes, dia;
+
+        Calendar calendar = Calendar.getInstance();
+        ano = calendar.get(Calendar.YEAR) ;
+        mes = calendar.get(Calendar.MONTH);
+        dia = calendar.get(Calendar.DAY_OF_MONTH);
+
+        DatePickerDialog dpd = DatePickerDialog.newInstance(listener, ano, mes, dia);
+
+        dpd.setTitle(Sintaxe.Titulos.AGENDA);
+
+        // Setting Min Date to today date
+        Calendar min_date_c = Calendar.getInstance();
+        dpd.setMinDate(min_date_c);
+
+
+        // Setting Max Date to next 2 years
+        Calendar max_date_c = Calendar.getInstance();
+        max_date_c.set(Calendar.YEAR, ano + 2);
+        //max_date_c.set(Calendar.DAY_OF_MONTH, 15);
+        dpd.setMaxDate(max_date_c);
+
+
+        //Disable all SUNDAYS and SATURDAYS between Min and Max Dates
+        for (Calendar loopdate = min_date_c; min_date_c.before(max_date_c); min_date_c.add(Calendar.DATE, 1), loopdate = min_date_c) {
+            int dayOfWeek = loopdate.get(Calendar.DAY_OF_WEEK);
+            if (dayOfWeek == Calendar.SUNDAY || dayOfWeek == Calendar.SATURDAY) {
+                Calendar[] disabledDays =  new Calendar[1];
+                disabledDays[0] = loopdate;
+                dpd.setDisabledDays(disabledDays);
+            }
+        }
+
+
+        Calendar[] high = new Calendar[1];
+        Calendar calendarff = Calendar.getInstance();
+        calendarff.get(Calendar.YEAR) ;
+        calendarff.get(Calendar.MONTH);
+        calendarff.set(Calendar.DAY_OF_WEEK, 13);
+
+        high [0] = calendarff;
+
+        dpd.setHighlightedDays(high);
+
+        /*
+        dpd.setOnDateSetListener(new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+                String date = "Date: "+Day+"/"+(Month+1)+"/"+Year;
+
+                Toast.makeText(MainActivity.this, date, Toast.LENGTH_LONG).show();
+            }
+        });
+*/
+
+        return dpd;
     }
 
 

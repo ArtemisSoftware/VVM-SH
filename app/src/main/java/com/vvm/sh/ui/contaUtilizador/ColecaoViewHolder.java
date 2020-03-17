@@ -17,8 +17,8 @@ public class ColecaoViewHolder extends ItemViewHolder  {
     @BindView(R.id.txt_numero_registos)
     TextView txt_numero_registos;
 
-    @BindView(R.id.txt_data)
-    TextView txt_data;
+    @BindView(R.id.txt_ultima_atualizacao)
+    TextView txt_ultima_atualizacao;
 
 
 
@@ -32,7 +32,7 @@ public class ColecaoViewHolder extends ItemViewHolder  {
 
         Colecao registo = (Colecao) item;
 
-        txt_data.setText(registo.obterData());
+        txt_ultima_atualizacao.setText(registo.obterData());
         txt_numero_registos.setText(registo.obterNumeroRegistos() + "");
     }
 

@@ -10,14 +10,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.github.clans.fab.FloatingActionMenu;
-import com.vvm.sh.apresentacao.ApresentacaoActivity;
-import com.vvm.sh.apresentacao.modelos.Apresentacao;
-import com.vvm.sh.autenticacao.AutenticacaoActivity;
 import com.vvm.sh.carregamentos.AtualizacaoAppActivity;
 import com.vvm.sh.ui.BaseActivity;
+import com.vvm.sh.ui.agenda.DialogoOpcoesTrabalhoFragment;
 import com.vvm.sh.ui.agenda.Tarefa;
 import com.vvm.sh.ui.agenda.TarefaActivity;
 import com.vvm.sh.ui.agenda.TarefaRecyclerAdapter;
@@ -31,22 +28,20 @@ import com.vvm.sh.util.metodos.Preferencias;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class MainActivity extends BaseActivity implements DatePickerDialog.OnDateSetListener, OnItemListener {
-
-
-    @BindView(R.id.txt_data_dia)
-    TextView txt_data_dia;
+public class MainActivity extends BaseActivity
+        implements DatePickerDialog.OnDateSetListener, OnItemListener, DialogoOpcoesTrabalhoFragment.DialogoListener {
 
 
     @BindView(R.id.txt_data)
     TextView txt_data;
 
+    @BindView(R.id.txt_estado)
+    TextView txt_estado;
 
     @BindView(R.id.fab_menu_agenda)
     FloatingActionMenu fab_menu_agenda;
@@ -55,6 +50,8 @@ public class MainActivity extends BaseActivity implements DatePickerDialog.OnDat
     @BindView(R.id.rcl_tarefas)
     RecyclerView rcl_tarefas;
 
+
+    private String data;
     private TarefaRecyclerAdapter tarefaRecyclerAdapter;
 
 
@@ -94,7 +91,8 @@ public class MainActivity extends BaseActivity implements DatePickerDialog.OnDat
      */
     private void iniciarAtividade(){
 
-        txt_data.setText(Datas.obterDataAtual(Datas.FORMATO_DD_MM_YYYY));
+        txt_data.setText(Datas.obterDataAtual(Datas.FORMATO_DD_MMMM_YYYY, Datas.LOCAL_PORTUGAL));
+        data = Datas.obterDataAtual(Datas.FORMATO_YYYY_MM_DD);
 
         tarefaRecyclerAdapter = new TarefaRecyclerAdapter(this);
         rcl_tarefas.setAdapter(tarefaRecyclerAdapter);
@@ -166,11 +164,9 @@ public class MainActivity extends BaseActivity implements DatePickerDialog.OnDat
     @Override
     public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
 
+        txt_data.setText(Datas.converterData(year, monthOfYear, dayOfMonth, Datas.FORMATO_DD_MMMM_YYYY, Datas.LOCAL_PORTUGAL));
 
-        txt_data_dia.setText(Datas.converterData(year, monthOfYear, dayOfMonth, "dd"));
-        txt_data.setText(Datas.converterData(year, monthOfYear, dayOfMonth, Datas.DATA_FORMATO_MMMM_YYYY, Datas.LOCAL_PORTUGAL));
-
-        String data = Datas.converterData(year, monthOfYear, dayOfMonth, Datas.FORMATO_YYYY_MM_DD);
+        data = Datas.converterData(year, monthOfYear, dayOfMonth, Datas.FORMATO_YYYY_MM_DD);
 
 
         //Toast.makeText(MainActivity.this, date, Toast.LENGTH_LONG).show();
@@ -186,6 +182,19 @@ public class MainActivity extends BaseActivity implements DatePickerDialog.OnDat
         //TODO: chamar metodo do viewmodel
 
     }
+
+
+
+    @Override
+    public void recarregarTrabalho() {
+
+    }
+
+    @Override
+    public void reUploadDados() {
+
+    }
+
 
 
 
@@ -215,6 +224,14 @@ public class MainActivity extends BaseActivity implements DatePickerDialog.OnDat
                 startActivity(intent);
                 return true;
 
+
+            case R.id.item_opcoes_trabalho:
+
+
+                DialogoOpcoesTrabalhoFragment dialogo = new DialogoOpcoesTrabalhoFragment();
+                dialogo.show(getSupportFragmentManager(), "example dialog");
+                return true;
+
             case R.id.item_opcoes_avancadas:
 
                 intent = new Intent(this, OpcoesAvancadasActivity.class);
@@ -233,11 +250,16 @@ public class MainActivity extends BaseActivity implements DatePickerDialog.OnDat
                 startActivity(intent);
                 return true;
 
+
+            case R.id.item_upload_dados:
+
+                return true;
+
+
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
-
 
 
 }

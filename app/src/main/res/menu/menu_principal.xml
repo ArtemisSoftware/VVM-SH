@@ -7,6 +7,9 @@
     <item  android:id="@+id/item_perfil"
         android:title="@string/perfil"/>
 
+    <item  android:id="@+id/item_opcoes_trabalho"
+        android:title="@string/opcoes_trabalho"/>
+
     <item  android:id="@+id/item_definicoes"
         android:title="@string/definicoes"/>
 
@@ -16,8 +19,15 @@
     <item  android:id="@+id/item_terminar_sessao"
         android:title="@string/terminar_sessao"/>
 
+
     <item  android:id="@+id/item_atualizar_app"
-        android:title="Item 1"
+        android:title="@string/atualizar_app"
         app:showAsAction="always"
         android:icon="@drawable/ic_lorem_ipsum_24dp"/>
+
+    <item  android:id="@+id/item_upload_dados"
+        android:title="@string/upload"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_lorem_ipsum_24dp"/>
+
 </menu>

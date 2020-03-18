@@ -173,5 +173,8 @@
     <string name="opcoes_avancadas">Opções avançadas</string>
     <string name="perfil">Perfil</string>
     <string name="terminar_sessao">Terminar sessão</string>
+    <string name="upload">Upload</string>
+    <string name="atualizar_app">Atualizar App</string>
+    <string name="opcoes_trabalho">Opções de trabalho</string>
 
 </resources>

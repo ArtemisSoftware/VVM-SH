@@ -364,8 +364,6 @@
         <item name="android:textSize">@dimen/tituloTamanho</item>
         <item name="android:textColor">@color/cor_branco</item>
         <item name="android:textStyle">bold</item>
-
-
         <item name="android:layout_marginLeft">10dp</item>
         <item name="android:layout_marginRight">10dp</item>
     </style>
@@ -386,6 +384,15 @@
         <item name="android:layout_marginLeft">10dp</item>
         <item name="android:layout_marginRight">10dp</item>
         -->
+    </style>
+
+
+    <style name="texto" parent="viewParent">
+
+        <item name="android:textSize">@dimen/textoTamanho</item>
+        <item name="android:textColor">@color/cor_branco</item>
+        <item name="android:layout_marginLeft">10dp</item>
+        <item name="android:layout_marginRight">10dp</item>
     </style>
 
 

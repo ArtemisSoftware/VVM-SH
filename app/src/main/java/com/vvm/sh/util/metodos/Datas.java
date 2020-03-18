@@ -24,7 +24,7 @@ public class Datas {
     public static final String FORMATO_DD_MM_YYYY__HH_MM_SS = "dd-MM-yyyy HH:mm:ss";
     public static final String DATA_FORMATO_DD_MM_YYYY__HH_MM_SS_V2 = "dd/MM/yyyy HH:mm:ss";
 
-    public static final String DATA_FORMATO_DD_MMMM_YYYY = "dd-MMMM-yyyy";
+    public static final String FORMATO_DD_MMMM_YYYY = "dd-MMMM-yyyy";
     public static final String DATA_FORMATO_MMMM_YYYY = "MMMM yyyy";
     public static final String HORA_FORMATO_HH_MM = "HH:mm";
     public static final String HORA_FORMATO_HH_MM_SS = "HH:mm:ss";
@@ -33,7 +33,7 @@ public class Datas {
 
 
     /**
-     * Obter data de atual
+     * Metodo que permite obter a data atual
      * @param formato formato da data
      * @return data no formato escolhido
      */
@@ -44,6 +44,23 @@ public class Datas {
         String dataActual = df.format(dataHoje);
 
         return dataActual;
+    }
+
+
+    /**
+     * Metodo que permite obter a data atual
+     * @param formato formato da data
+     * @param local lingua do mes
+     * @return data no formato escolhido
+     */
+    public static String obterDataAtual(String formato, Locale local){
+
+        Date dataHoje = Calendar.getInstance().getTime();
+
+        DateFormat fmt = new SimpleDateFormat(formato, local);
+        String data = fmt.format(dataHoje.getTime());
+
+        return data;
     }
 
 

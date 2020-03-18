@@ -90,5 +90,6 @@
     <dimen name="textoCarregamentoTamanho">14dp</dimen>
 
     <dimen name="tituloTamanho">28dp</dimen>
+    <dimen name="textoTamanho">14dp</dimen>
 
 </resources>

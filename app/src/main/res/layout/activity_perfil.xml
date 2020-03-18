@@ -94,7 +94,6 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_below="@+id/profile_layout"
-
                         android:background="#fff"
                         android:elevation="4dp"
                         android:orientation="vertical"
@@ -111,12 +110,6 @@
                             android:layout_height="wrap_content"
                             android:orientation="vertical">
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/numero"
-                                android:textColor="@color/headings"
-                                android:textSize="13sp" />
 
                             <TextView
                                 android:id="@+id/txt_numero"
@@ -126,6 +119,16 @@
                                 android:text="@string/lorem_ipsum_numero"
                                 android:textColor="#000000"
                                 android:textSize="18sp" />
+
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/numero"
+                                android:textColor="@color/headings"
+                                android:textSize="13sp" />
+
+
 
                         </LinearLayout>
 
@@ -141,12 +144,6 @@
                             android:padding="10dp"
                             app:layout_constraintTop_toBottomOf="@+id/lnr_lyt_numero" >
 
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="@string/cap"
-                                android:textColor="@color/headings"
-                                android:textSize="13sp" />
 
                             <TextView
                                 android:id="@+id/txt_cap"
@@ -156,6 +153,16 @@
                                 android:text="@string/lorem_ipsum_numero"
                                 android:textColor="#000000"
                                 android:textSize="18sp" />
+
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="@string/cap"
+                                android:textColor="@color/headings"
+                                android:textSize="13sp" />
+
+
 
 
                         </LinearLayout>

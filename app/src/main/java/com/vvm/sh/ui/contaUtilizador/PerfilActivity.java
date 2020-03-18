@@ -56,11 +56,6 @@ public class PerfilActivity extends BaseActivity {
 
         Utilizador t1 = new Utilizador("3956342", getString(R.string.lorem_ipsum_titulo), "3444565436");
 
-
-        TextDrawable drawable = TextDrawable.builder().buildRect(t1.obterIniciais(), Color.GREEN);
-
-        img_perfil.setImageDrawable(drawable);
-
         txt_nome.setText(t1.obterNome());
         txt_numero.setText(t1.obterId());
         txt_cap.setText(t1.obterCap());

@@ -14,11 +14,12 @@ import com.vvm.sh.ui.agenda.Tarefa;
 import com.vvm.sh.util.adaptadores.Item;
 import com.vvm.sh.util.adaptadores.ItemViewHolder;
 import com.vvm.sh.util.interfaces.OnItemListener;
+import com.vvm.sh.util.interfaces.OnItemLongListener;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class TarefaViewHolder extends ItemViewHolder implements View.OnClickListener{
+public class TarefaViewHolder extends ItemViewHolder implements View.OnClickListener, View.OnLongClickListener{
 
 
     @BindView(R.id.img_empresa)
@@ -26,14 +27,17 @@ public class TarefaViewHolder extends ItemViewHolder implements View.OnClickList
 
 
     private OnItemListener onItemListener;
+    private OnItemLongListener onItemLongListener;
 
 
-    public TarefaViewHolder(@NonNull View itemView, OnItemListener onItemListener) {
+    public TarefaViewHolder(@NonNull View itemView, OnItemListener onItemListener, OnItemLongListener onItemLongListener) {
         super(itemView);
 
 
         this.onItemListener = onItemListener;
+        this.onItemLongListener = onItemLongListener;
         itemView.setOnClickListener(this);
+        itemView.setOnLongClickListener(this);
     }
 
 
@@ -57,4 +61,9 @@ public class TarefaViewHolder extends ItemViewHolder implements View.OnClickList
         onItemListener.onItemClick(getAdapterPosition());
     }
 
+    @Override
+    public boolean onLongClick(View v) {
+        onItemLongListener.onItemLongClick(getAdapterPosition());
+        return true;
+    }
 }

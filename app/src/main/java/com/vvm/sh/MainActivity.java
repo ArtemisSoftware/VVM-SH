@@ -23,6 +23,7 @@ import com.vvm.sh.ui.contaUtilizador.OpcoesAvancadasActivity;
 import com.vvm.sh.ui.contaUtilizador.PerfilActivity;
 import com.vvm.sh.util.adaptadores.Item;
 import com.vvm.sh.util.interfaces.OnItemListener;
+import com.vvm.sh.util.interfaces.OnItemLongListener;
 import com.vvm.sh.util.metodos.Datas;
 import com.vvm.sh.util.metodos.Preferencias;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
@@ -34,7 +35,8 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 public class MainActivity extends BaseActivity
-        implements DatePickerDialog.OnDateSetListener, OnItemListener, DialogoOpcoesTrabalhoFragment.DialogoListener {
+        implements OnItemListener, OnItemLongListener,
+                   DatePickerDialog.OnDateSetListener,  DialogoOpcoesTrabalhoFragment.DialogoListener {
 
 
     @BindView(R.id.txt_data)
@@ -94,7 +96,7 @@ public class MainActivity extends BaseActivity
         txt_data.setText(Datas.obterDataAtual(Datas.FORMATO_DD_MMMM_YYYY, Datas.LOCAL_PORTUGAL));
         data = Datas.obterDataAtual(Datas.FORMATO_YYYY_MM_DD);
 
-        tarefaRecyclerAdapter = new TarefaRecyclerAdapter(this);
+        tarefaRecyclerAdapter = new TarefaRecyclerAdapter(this, this);
         rcl_tarefas.setAdapter(tarefaRecyclerAdapter);
         rcl_tarefas.setLayoutManager(new LinearLayoutManager(this));
 
@@ -146,6 +148,12 @@ public class MainActivity extends BaseActivity
         Intent intent = new Intent(this, TarefaActivity.class);
         //intent.putExtra(AppConstants.PICTURE, pictureRecyclerAdapter.getSelectedPicture(position).getId());
         startActivity(intent);
+
+    }
+
+
+    @Override
+    public void onItemLongClick(int posicao) {
 
     }
 
@@ -260,6 +268,7 @@ public class MainActivity extends BaseActivity
                 return super.onOptionsItemSelected(item);
         }
     }
+
 
 
 }

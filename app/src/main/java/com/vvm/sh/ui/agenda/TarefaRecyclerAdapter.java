@@ -11,6 +11,7 @@ import com.vvm.sh.R;
 import com.vvm.sh.util.adaptadores.ItemRecyclerAdapter;
 import com.vvm.sh.util.adaptadores.ItemViewHolder;
 import com.vvm.sh.util.interfaces.OnItemListener;
+import com.vvm.sh.util.interfaces.OnItemLongListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -19,11 +20,13 @@ public class TarefaRecyclerAdapter extends ItemRecyclerAdapter {
 
 
     private OnItemListener onItemListener;
+    private OnItemLongListener onItemLongListener;
 
 
-    public TarefaRecyclerAdapter(OnItemListener onItemListener) {
+    public TarefaRecyclerAdapter(OnItemListener onItemListener, OnItemLongListener onItemLongListener) {
 
         this.onItemListener = onItemListener;
+        this.onItemLongListener = onItemLongListener;
     }
 
 
@@ -34,7 +37,7 @@ public class TarefaRecyclerAdapter extends ItemRecyclerAdapter {
 
     @Override
     protected ItemViewHolder obterViewHolder(View view, int viewType) {
-        return new TarefaViewHolder(view, this.onItemListener);
+        return new TarefaViewHolder(view, this.onItemListener, this.onItemLongListener);
     }
 
 

@@ -5,7 +5,12 @@ import android.app.NotificationChannel;
 import android.app.NotificationManager;
 import android.os.Build;
 
-public class App extends Application {
+import com.vvm.sh.di.DaggerAppComponent;
+
+import dagger.android.AndroidInjector;
+import dagger.android.DaggerApplication;
+
+public class App extends DaggerApplication {
 
     public static final int ATUALIZACAO_APP_ID = 1;
     public static final String CANAL_ATUALIZACAO_APP_ID = "Atualização app";
@@ -17,6 +22,16 @@ public class App extends Application {
 
         criarCanaisNotificacao();
     }
+
+
+    @Override
+    protected AndroidInjector<? extends DaggerApplication> applicationInjector() {
+
+        //Timber.d("AndroidInjector... ");
+
+        return DaggerAppComponent.builder().application(this).build();
+    }
+
 
 
     /**

@@ -35,6 +35,26 @@ dependencies {
     androidTestImplementation 'androidx.test.ext:junit:1.1.0'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.1.1'
 
+
+
+
+    //---------------
+    //
+    //---------------
+
+    def gson_version = "2.8.6"
+    implementation "com.google.code.gson:gson:$gson_version"
+
+
+    // -------- Retrofit
+    def retrofit_version = "2.8.1";
+    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
+    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
+
+
+
+
+
     //--BIBLIOTECAS
 
 
@@ -85,13 +105,6 @@ dependencies {
 
     implementation files('libs/ksoap2-android-2.5.2.jar')
 
-
-    //---------------
-    //
-    //---------------
-
-    def gson_version = "2.8.6"
-    implementation "com.google.code.gson:gson:$gson_version"
 
 
 }

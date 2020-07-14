@@ -14,6 +14,7 @@ import android.widget.TextView;
 import com.github.clans.fab.FloatingActionMenu;
 import com.vvm.sh.carregamentos.AtualizacaoAppActivity;
 import com.vvm.sh.ui.BaseActivity;
+import com.vvm.sh.ui.agenda.DialogoOpcoesTarefaFragment;
 import com.vvm.sh.ui.agenda.DialogoOpcoesTrabalhoFragment;
 import com.vvm.sh.ui.agenda.Tarefa;
 import com.vvm.sh.ui.agenda.TarefaActivity;
@@ -36,7 +37,7 @@ import butterknife.OnClick;
 
 public class MainActivity extends BaseActivity
         implements OnItemListener, OnItemLongListener,
-                   DatePickerDialog.OnDateSetListener,  DialogoOpcoesTrabalhoFragment.DialogoListener {
+                   DatePickerDialog.OnDateSetListener,  DialogoOpcoesTrabalhoFragment.DialogoListener, DialogoOpcoesTarefaFragment.DialogoListener {
 
 
     @BindView(R.id.txt_data)
@@ -155,6 +156,8 @@ public class MainActivity extends BaseActivity
     @Override
     public void onItemLongClick(int posicao) {
 
+        DialogoOpcoesTarefaFragment dialogo = new DialogoOpcoesTarefaFragment();
+        dialogo.show(getSupportFragmentManager(), "dialogo_tarefa");
     }
 
 
@@ -204,6 +207,10 @@ public class MainActivity extends BaseActivity
     }
 
 
+    @Override
+    public void recarregarTarefa() {
+
+    }
 
 
     @Override

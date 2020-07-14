@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.os.Handler;
 
+import com.vvm.sh.api.modelos.VersaoApp;
 import com.vvm.sh.util.AtualizacaoUI;
 import com.vvm.sh.util.constantes.AppConfig;
 import com.vvm.sh.util.metodos.Diretorias;

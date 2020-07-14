@@ -12,7 +12,7 @@ import com.vvm.sh.servicos.Servico;
 import com.vvm.sh.servicos.ServicoDownloadApk;
 import com.vvm.sh.servicos.ServicoInstalacaoApk;
 import com.vvm.sh.servicos.ServicoVersaoApp;
-import com.vvm.sh.servicos.VersaoApp;
+import com.vvm.sh.api.modelos.VersaoApp;
 import com.vvm.sh.util.AtualizacaoUI;
 import com.vvm.sh.util.metodos.Notificacao;
 

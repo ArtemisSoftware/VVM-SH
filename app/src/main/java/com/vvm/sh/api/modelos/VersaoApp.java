@@ -1,4 +1,4 @@
-package com.vvm.sh.servicos;
+package com.vvm.sh.api.modelos;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;

@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Handler;
 
 import com.vvm.sh.R;
+import com.vvm.sh.api.modelos.VersaoApp;
 import com.vvm.sh.util.AtualizacaoUI;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.metodos.Diretorias;

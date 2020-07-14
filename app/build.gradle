@@ -93,6 +93,11 @@ dependencies {
     annotationProcessor "com.google.dagger:dagger-android-processor:$dagger_version"
 
 
+    // -------- ViewModel and LiveData
+    def lifecycle_version = "2.0.0"
+    implementation "androidx.lifecycle:lifecycle-extensions:$lifecycle_version"
+
+
     //--BIBLIOTECAS
 
 

@@ -36,6 +36,13 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="tituloCartao" parent="viewParent">
+        <item name="android:textSize">@dimen/tituloCartao</item>
+        <item name="android:textColor">@color/cor_preto</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+
+
 
     <style name="textoDetalhe" parent="viewParent">
         <item name="android:textSize">@dimen/texto</item>

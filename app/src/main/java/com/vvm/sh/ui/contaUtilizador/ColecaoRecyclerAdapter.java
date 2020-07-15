@@ -5,7 +5,6 @@ import android.view.View;
 import com.vvm.sh.R;
 import com.vvm.sh.util.adaptadores.ItemRecyclerAdapter;
 import com.vvm.sh.util.adaptadores.ItemViewHolder;
-import com.vvm.sh.util.interfaces.OnItemListener;
 
 public class ColecaoRecyclerAdapter extends ItemRecyclerAdapter {
 
@@ -13,7 +12,7 @@ public class ColecaoRecyclerAdapter extends ItemRecyclerAdapter {
 
     @Override
     protected int obterLayout(int viewType) {
-        return R.layout.tipo_list_card_item;
+        return R.layout.item_tipo;
     }
 
     @Override

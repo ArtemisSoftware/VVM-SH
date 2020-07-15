@@ -1,179 +1,155 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:weightSum="12">
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View"/>
+        <import type="java.util.List"/>
 
 
-    <RelativeLayout
+
+
+        <variable name="activity" type="com.vvm.sh.ui.opcoes.AtualizacaoAppActivity" />
+
+        <variable
+            name="viewmodel"
+            type="com.vvm.sh.ui.opcoes.OpcoesViewModel"/>
+<!--
+        <variable
+            name="listener"
+            type="com.artemissoftware.pokedex.ui.pokepidia.adapters.OnPokedexListener"/>
+-->
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="9">
+        android:layout_height="match_parent">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:gravity="center">
-
-            <ImageView
-                android:layout_margin="48dp"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:adjustViewBounds="true"
-                android:cropToPadding="true"
-                android:layout_weight = "1"
-                android:src="@drawable/atualicao_app" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_alignParentBottom="true">
-
-                <TextView
-                    style="@style/tituloCarregamento"
-                    android:text="@string/atualizacao" />
+       <ImageView
+           android:id="@+id/imageView"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:layout_marginTop="84dp"
+           app:layout_constraintEnd_toEndOf="parent"
+           app:layout_constraintStart_toStartOf="parent"
+           app:layout_constraintTop_toTopOf="parent"
+           app:srcCompat="@drawable/atualicao_app" />
 
 
-                <!--..........descricao...........-->
+       <LinearLayout
+           android:id="@+id/linearLayout"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_marginTop="64dp"
+           android:orientation="vertical"
+           android:paddingLeft="32dp"
+           android:paddingBottom="8dp"
+           app:layout_constraintEnd_toEndOf="@+id/imageView"
+           app:layout_constraintStart_toStartOf="@+id/imageView"
+           app:layout_constraintTop_toBottomOf="@+id/imageView">
 
 
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp">
+           <TextView
+               style="@style/titulo"
+               android:text="@string/atualizacao" />
 
-                    <TextView
-                        style="@style/textoCarregamento"
-                        android:text="@string/versao_"/>
+           <LinearLayout
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:orientation="horizontal"
+               android:layout_marginTop="16dp">
 
-                    <TextView
-                        android:id="@+id/txt_versao_app"
-                        style="@style/textoCarregamento"
-                        android:layout_marginLeft="5dp"
-                        android:text="@string/lorem_ipsum_texto_pequeno"/>
-                </LinearLayout>
+               <TextView
+                   style="@style/textoDetalhe"
+                   android:text="@string/versao_"/>
 
-                <TextView
-                    android:id="@+id/txt_atualizacoes"
-                    style="@style/textoCarregamento"
-                    android:layout_marginLeft="20dp"
-                    android:layout_marginRight="20dp"
-                    android:text="@string/lorem_ipsum_grande"/>
+               <TextView
+                   android:id="@+id/txt_versao_app"
+                   style="@style/textoDetalhe"
+                   android:layout_marginLeft="8dp"
+                   android:text="@{viewmodel.versaoApp.versao, default=0}"/>
+           </LinearLayout>
 
-            </LinearLayout>
-
-        </LinearLayout>
-
-    </RelativeLayout>
+           <TextView
+               android:id="@+id/txt_atualizacoes"
+               style="@style/textoDetalhe"
+               android:layout_marginTop="16dp"
+               android:layout_marginRight="20dp"
+               android:text="@{viewmodel.versaoApp.texto}"/>
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:orientation="vertical"
-        android:layout_weight="3"
-        android:gravity="center">
+       </LinearLayout>
 
 
-        <RelativeLayout
-            android:id="@+id/rlt_lyt_progresso"
-            android:visibility="invisible"
-            android:layout_width="500dp"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="40dp"
-            android:orientation="horizontal">
+       <androidx.constraintlayout.widget.ConstraintLayout
+           android:id="@+id/lnr_lyt_progresso"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           app:layout_constraintBottom_toBottomOf="parent"
+           app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+           android:visibility="@{viewmodel.versaoApp.atualizar ? View.VISIBLE : View.GONE}">
 
-            <ProgressBar
-                android:id="@+id/pgr_bar_progresso_notificacao"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
-                android:max="100"/>
+           <ProgressBar
+               android:id="@+id/progressBar_progresso"
+               style="?android:attr/progressBarStyleHorizontal"
+               android:layout_width="400dp"
+               android:layout_height="wrap_content"
+               android:max="100"
+               android:progress="0"
+               app:layout_constraintBottom_toTopOf="@+id/button"
+               app:layout_constraintEnd_toEndOf="parent"
+               app:layout_constraintStart_toStartOf="parent"
+               app:layout_constraintTop_toTopOf="parent"
+               app:layout_constraintVertical_bias="0.19999999" />
 
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/pgr_bar_progresso_notificacao"
-                android:layout_marginTop="35dp">
+           <TextView
+               android:id="@+id/txt_titulo_progresso"
+               style="@style/textoDetalhe"
+               android:layout_marginTop="8dp"
+               android:layout_marginBottom="64dp"
+               app:layout_constraintBottom_toTopOf="@+id/button"
+               app:layout_constraintStart_toStartOf="@+id/progressBar_progresso"
+               app:layout_constraintTop_toBottomOf="@+id/progressBar_progresso"
+               app:layout_constraintVertical_bias="0.07999998" />
 
-                <TextView
-                    android:id="@+id/txt_titulo_progresso"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/lorem_ipsum_texto_pequeno"
-                    android:layout_alignParentLeft="true"/>
+           <TextView
+               android:id="@+id/txt_progresso"
+               style="@style/textoDetalhe"
+               app:layout_constraintEnd_toEndOf="@+id/progressBar_progresso"
+               app:layout_constraintTop_toTopOf="@+id/txt_titulo_progresso" />
 
-                <TextView
-                    android:id="@+id/txt_progresso"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="@string/lorem_ipsum_texto_pequeno"
-                    android:layout_alignParentRight="true"/>
+           <Button
+               android:id="@+id/button"
+               style="@style/botaoOpcao"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_marginStart="32dp"
+               android:layout_marginBottom="32dp"
+               android:text="@string/cancelar"
+               app:layout_constraintBottom_toBottomOf="parent"
+               app:layout_constraintStart_toStartOf="parent"
+               android:onClick="@{(view) -> activity.onCancelarClick(viewmodel.versaoApp)}" />
 
-            </RelativeLayout>
-
-
-        </RelativeLayout>
-
-
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_margin="5dp"
-            android:gravity="center">
-
-            <RelativeLayout
-                android:id="@+id/rlt_lyt_opcoes"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:gravity="center"
-                android:visibility="gone">
-
-                <Button
-                    android:id="@+id/btn_iniciar"
-                    style="@style/botaoCarregamento"
-                    android:text="Iniciar atualização"
-                    android:layout_alignParentEnd="true"/>
-
-                <Button
-                    android:id="@+id/btn_cancelar"
-                    style="@style/botaoCarregamento"
-                    android:text="@string/cancelar"
-                    android:layout_alignParentStart="true" />
-
-            </RelativeLayout>
-
-            <Button
-                android:id="@+id/btn_terminar"
-                style="@style/botaoCarregamento"
-                android:text="@string/terminar"
-                android:layout_centerHorizontal="true"
-                android:visibility="gone"/>
-
-        </RelativeLayout>
+           <Button
+               android:id="@+id/button2"
+               style="@style/botaoOpcao"
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:layout_marginEnd="32dp"
+               android:text="Iniciar atualização"
+               app:layout_constraintBottom_toBottomOf="@+id/button"
+               app:layout_constraintEnd_toEndOf="parent"
+               android:onClick="@{(view) -> activity.onAtualizarClick()}" />
 
 
+       </androidx.constraintlayout.widget.ConstraintLayout>
 
 
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-    </LinearLayout>
-
-
-</LinearLayout>
-
+</layout>

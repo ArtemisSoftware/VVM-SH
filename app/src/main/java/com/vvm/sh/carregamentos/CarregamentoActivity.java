@@ -25,8 +25,6 @@ public abstract class CarregamentoActivity extends BaseActivity {
     @BindView(R.id.txt_progresso)
     TextView txt_progresso;
 
-    @BindView(R.id.rlt_lyt_progresso)
-    RelativeLayout rlt_lyt_progresso;
 
 
     //--------------------------
@@ -48,7 +46,6 @@ public abstract class CarregamentoActivity extends BaseActivity {
 
         txt_progresso.setText(comunicado.obterPosicao() + "/" + comunicado.obterLimite());
         txt_titulo_progresso.setText(comunicado.obterMensagem());
-        rlt_lyt_progresso.setVisibility(View.VISIBLE);
     }
 
     /**

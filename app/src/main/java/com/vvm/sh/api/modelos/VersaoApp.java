@@ -31,13 +31,13 @@ public class VersaoApp {
 
 
     @Expose(serialize = false)
-    private String versao;
+    public String versao;
 
     @Expose(serialize = false)
-    private String texto;
+    public String texto;
 
     @Expose(serialize = false)
-    private boolean atualizar;
+    public boolean atualizar;
 
 
     @Expose(serialize = false)
@@ -77,7 +77,7 @@ public class VersaoApp {
 
             if (Arrays.asList(utilizadoresTeste).contains(idUtilizador) == true & atualizacaoTeste == true) {
 
-                versao = versaoTeste;
+                versao = versaoTeste + " Teste";
                 texto = textoTeste;
                 urlDownload = Url.URL_DOWNLOAD_APP_TESTE;
             }
@@ -95,7 +95,7 @@ public class VersaoApp {
 
         try{
 
-            int versaoInt = Integer.parseInt(versao.replace(".", ""));
+            int versaoInt = Integer.parseInt(versao.replace( " Teste", "").replace(".", ""));
             int versaoAtual = Integer.parseInt(BuildConfig.VERSION_NAME.replace(".", ""));
 
             if(versaoInt > versaoAtual){

@@ -2,6 +2,13 @@
 <resources>
 
 
+    <!--  #####################FINAL -->
+
+    <dimen name="titulo">30dp</dimen>
+    <dimen name="texto">14dp</dimen>
+
+    <!--  #####################FINAL################### -->
+
     <!-- Apresentacao -->
 
 

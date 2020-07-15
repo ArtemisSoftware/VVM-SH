@@ -13,7 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.contaUtilizador.OpcoesAvancadasActivity"></activity>
+        <activity android:name=".ui.opcoes.AtualizacaoAppActivity"></activity>
+        <activity android:name=".ui.contaUtilizador.OpcoesAvancadasActivity" />
         <activity android:name=".carregamentos.CarregamentoTrabalhoActivity" />
         <activity android:name=".carregamentos.AtualizacaoAppActivity" />
         <activity android:name=".ui.contaUtilizador.DefinicoesActivity" />

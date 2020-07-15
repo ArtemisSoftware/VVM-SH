@@ -1,6 +1,7 @@
 package com.vvm.sh.ui.contaUtilizador;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -12,75 +13,72 @@ import android.view.View;
 import android.widget.AdapterView;
 
 import com.vvm.sh.R;
+import com.vvm.sh.databinding.ActivityTiposBinding;
+import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseActivity;
+import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.ocorrencias.OcorrenciaRecyclerAdapter;
+import com.vvm.sh.ui.opcoes.OpcoesViewModel;
 import com.vvm.sh.util.adaptadores.Item;
 import com.vvm.sh.util.interfaces.OnItemListener;
+import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 
-public class TiposActivity extends BaseActivity {
+public class TiposActivity extends BaseDaggerActivity {
 
-    @BindView(R.id.rcl_registos)
-    RecyclerView rcl_registos;
+    private ActivityTiposBinding activityTiposBinding;
 
 
-    private ColecaoRecyclerAdapter colecaoRecyclerAdapter;
+    @Inject
+    ViewModelProviderFactory providerFactory;
+
+
+    private OpcoesViewModel viewModel;
+
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_tipos);
+    protected void intActivity(Bundle savedInstanceState) {
 
-        iniciarAtividade();
-        obterRegistos();
+        viewModel = ViewModelProviders.of(this, providerFactory).get(OpcoesViewModel.class);
+
+        activityTiposBinding = (ActivityTiposBinding) activityBinding;
+        activityTiposBinding.setLifecycleOwner(this);
+        activityTiposBinding.setViewmodel(viewModel);
+
+        subscreverObservadores();
+
+        viewModel.obterTipos();
     }
 
+    @Override
+    protected int obterLayout() {
+        return R.layout.activity_tipos;
+    }
+
+    @Override
+    protected BaseViewModel obterBaseViewModel() {
+        return viewModel;
+    }
+
+
+    @Override
+    protected void subscreverObservadores() {
+
+        //TODO: subscrever observadores do viewmodel
+    }
 
     //------------------------
     //Metodos locais
     //------------------------
 
 
-    /**
-     * Metodo que permite iniciar a atividade
-     */
-    private void iniciarAtividade(){
-
-        colecaoRecyclerAdapter = new ColecaoRecyclerAdapter();
-        rcl_registos.setAdapter(colecaoRecyclerAdapter);
-        rcl_registos.setLayoutManager(new LinearLayoutManager(this));
-
-        registerForContextMenu(rcl_registos);
-    }
-
-
-    private void obterRegistos(){
-
-        //--TESTE (apagar quando houver dados)
-
-        List<Item> t1 = new ArrayList<>();
-        t1.add(new Colecao("Anomalias", 2, "2019-04-12"));
-        t1.add(new Colecao("Cross-Selling Dimensao", 4, "2019-06-22"));
-
-        colecaoRecyclerAdapter.fixarRegistos(t1);
-
-        //TODO: chamar metodo do viewmodel
-    }
-
-    /**
-     * Metodo que permite subscrever observadores
-     */
-    private void subscreverObservadores(){
-
-
-        //TODO: subscrever observadores do viewmodel
-
-    }
 
 
     //---------------------
@@ -93,12 +91,13 @@ public class TiposActivity extends BaseActivity {
     {
         super.onCreateContextMenu(menu, v, menuInfo);
 
-
+/*
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
         String titulo = colecaoRecyclerAdapter.obterRegisto(info.position).obterDescricao();
         menu.setHeaderTitle(titulo);
 
         menu.add(Menu.NONE, 1, Menu.NONE, getString(R.string.recarregar_tipo));
+        */
 
     }
 

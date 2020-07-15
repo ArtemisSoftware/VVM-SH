@@ -64,4 +64,12 @@ public abstract class BaseDaggerActivity extends DaggerAppCompatActivity {
      * @return um view model
      */
     protected abstract BaseViewModel obterBaseViewModel();
+
+
+    /**
+     * Metodo que permite subscrever observadores
+     */
+    protected abstract void subscreverObservadores();
+
+
 }

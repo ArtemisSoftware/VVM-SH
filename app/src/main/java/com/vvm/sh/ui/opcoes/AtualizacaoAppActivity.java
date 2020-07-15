@@ -56,17 +56,11 @@ public class AtualizacaoAppActivity extends BaseDaggerActivity {
         return viewModel;
     }
 
-
-    /**
-     * Metodo que permite subscrever observadores
-     */
-    private void subscreverObservadores(){
-
+    @Override
+    protected void subscreverObservadores() {
 
         //TODO: subscrever observadores do viewmodel
-
     }
-
 
 
     //----------------------------------------

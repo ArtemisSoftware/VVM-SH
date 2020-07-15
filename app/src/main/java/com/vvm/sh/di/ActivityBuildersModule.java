@@ -1,16 +1,21 @@
 package com.vvm.sh.di;
 
+import com.vvm.sh.di.opcoes.OpcoesModule;
+import com.vvm.sh.di.opcoes.OpcoesScope;
+import com.vvm.sh.di.opcoes.OpcoesViewModelsModule;
+import com.vvm.sh.ui.opcoes.AtualizacaoAppActivity;
+
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
 
 @Module
 public abstract class ActivityBuildersModule {
 
-    /*
-    @PokemonScope
+
+    @OpcoesScope
     @ContributesAndroidInjector(
-            modules = { PokemonViewModelsModule.class, PokemonModule.class }
+            modules = { OpcoesViewModelsModule.class, OpcoesModule.class }
     )
-    abstract FavouritesActivity contributeFavouritesActivity();
-*/
+    abstract AtualizacaoAppActivity contributeAtualizacaoAppActivity();
+
 }

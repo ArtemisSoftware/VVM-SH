@@ -3,6 +3,7 @@ package com.vvm.sh.di;
 
 import com.vvm.sh.api.ApiConstantes;
 import com.vvm.sh.api.SegurancaAlimentarApi;
+import com.vvm.sh.util.interceptores.WebServiceInterceptor;
 
 import java.util.concurrent.TimeUnit;
 
@@ -29,9 +30,14 @@ public class RedeModule {
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
 
+        WebServiceInterceptor webServiceInterceptor = new WebServiceInterceptor();
+
+
         OkHttpClient client = new OkHttpClient.Builder()
 
                 .addInterceptor(loggingInterceptor)
+
+                .addInterceptor(webServiceInterceptor)
 
                 //establish connection to server
                 .connectTimeout(ApiConstantes.CONNECTION_TIMEOUT, TimeUnit.SECONDS)

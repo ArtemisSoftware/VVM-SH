@@ -6,7 +6,6 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.constraintlayout.widget.ConstraintLayout;
 
 import com.vvm.sh.R;
@@ -14,7 +13,7 @@ import com.vvm.sh.R;
 import butterknife.ButterKnife;
 import dagger.android.support.DaggerAppCompatActivity;
 
-public class BaseActivity extends AppCompatActivity {
+public class BaseDaggerActivity extends DaggerAppCompatActivity {
 
     private ProgressBar pgr_bar_carregamento;
     private LinearLayout lnr_lyt_desabilitar;

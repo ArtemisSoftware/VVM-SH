@@ -12,7 +12,6 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.github.clans.fab.FloatingActionMenu;
-import com.vvm.sh.carregamentos.AtualizacaoAppActivity;
 import com.vvm.sh.ui.BaseActivity;
 import com.vvm.sh.ui.agenda.DialogoOpcoesTarefaFragment;
 import com.vvm.sh.ui.agenda.DialogoOpcoesTrabalhoFragment;
@@ -22,6 +21,7 @@ import com.vvm.sh.ui.agenda.TarefaRecyclerAdapter;
 import com.vvm.sh.ui.contaUtilizador.DefinicoesActivity;
 import com.vvm.sh.ui.contaUtilizador.OpcoesAvancadasActivity;
 import com.vvm.sh.ui.contaUtilizador.PerfilActivity;
+import com.vvm.sh.ui.opcoes.AtualizacaoAppActivity;
 import com.vvm.sh.util.adaptadores.Item;
 import com.vvm.sh.util.interfaces.OnItemListener;
 import com.vvm.sh.util.interfaces.OnItemLongListener;

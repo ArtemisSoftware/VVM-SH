@@ -1,5 +1,6 @@
 package com.vvm.sh.ui;
 
+import android.os.Bundle;
 import android.view.View;
 import android.view.WindowManager;
 import android.widget.FrameLayout;
@@ -7,54 +8,60 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
 import androidx.constraintlayout.widget.ConstraintLayout;
+import androidx.databinding.DataBindingUtil;
+import androidx.databinding.ViewDataBinding;
 
 import com.vvm.sh.R;
+import com.vvm.sh.databinding.ActivityBaseDaggerBinding;
+import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import butterknife.ButterKnife;
 import dagger.android.support.DaggerAppCompatActivity;
 
-public class BaseDaggerActivity extends DaggerAppCompatActivity {
+public abstract class BaseDaggerActivity extends DaggerAppCompatActivity {
 
-    private ProgressBar pgr_bar_carregamento;
-    private LinearLayout lnr_lyt_desabilitar;
+    private ActivityBaseDaggerBinding activityBaseBinding;
+    protected ViewDataBinding activityBinding;
+
+    public ProgressBar mProgressBar;
+    //--public SweetAlertDialog dialog;
+
+
 
     @Override
-    public void setContentView(int layoutResID) {
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
 
-        ConstraintLayout constraintLayout = (ConstraintLayout) getLayoutInflater().inflate(R.layout.activity_base, null);
-        FrameLayout frameLayout = constraintLayout.findViewById(R.id.activity_content);
-        pgr_bar_carregamento = constraintLayout.findViewById(R.id.pgr_bar_carregamento);
-        lnr_lyt_desabilitar = constraintLayout.findViewById(R.id.lnr_lyt_desabilitar);
+        activityBaseBinding = DataBindingUtil.setContentView(this, R.layout.activity_base_dagger);
+        activityBinding = DataBindingUtil.inflate(getLayoutInflater(), obterLayout(), activityBaseBinding.activityContent, false);
 
-        getLayoutInflater().inflate(layoutResID, frameLayout, true);
+        activityBaseBinding.activityContent.addView(activityBinding.getRoot());
+        intActivity(savedInstanceState);
 
-        getWindow().setFlags(WindowManager.LayoutParams.FLAG_SECURE, WindowManager.LayoutParams.FLAG_SECURE);
+        activityBaseBinding.setLifecycleOwner(this);
+        activityBaseBinding.setBaseviewmodel(obterBaseViewModel());
 
-        super.setContentView(constraintLayout);
-        ButterKnife.bind(this);
-
+        //--dialog = new SweetAlertDialog(this);
     }
 
 
     /**
-     * Metodo que permite apresentar o estado de progresso
-     * @param visivel true para apresentar ou false para remover a apresentacao
+     * Metodo que inicia a activity
+     * @param savedInstanceState
      */
-    public void apresentarProgresso(boolean visivel) {
-
-        pgr_bar_carregamento.setVisibility(visivel ? View.VISIBLE : View.INVISIBLE);
-
-        lnr_lyt_desabilitar.setVisibility(visivel ? View.VISIBLE : View.INVISIBLE);
-
-        if(visivel == true) { //desativar interacao do utilizador
-
-            getWindow().setFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE, WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-        }
-        else{ //ativar interacao do utilizador
-
-            getWindow().clearFlags(WindowManager.LayoutParams.FLAG_NOT_TOUCHABLE);
-        }
-    }
+    protected abstract void intActivity(Bundle savedInstanceState);
 
 
+    /**
+     * Metodo que permite obter o layout da activity
+     * @return um layout
+     */
+    protected abstract int obterLayout();
+
+
+    /**
+     * Metodo que permite obter o view model associado à activity
+     * @return um view model
+     */
+    protected abstract BaseViewModel obterBaseViewModel();
 }

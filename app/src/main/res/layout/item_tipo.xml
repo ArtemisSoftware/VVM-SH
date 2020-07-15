@@ -5,11 +5,14 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-    <!--
-            <variable
-                name="note"
-                type="com.artemissoftware.pokedex.ui.pokemon.models.Note" />
 
+        <import type="java.util.List"/>
+        <import type="com.vvm.sh.util.StringUtil"/>
+
+        <variable
+            name="tipo"
+            type="com.vvm.sh.ui.contaUtilizador.Colecao" />
+<!--
             <variable
                 name="listener"
                 type="com.artemissoftware.pokedex.ui.pokemon.OnPokemonListener"/>
@@ -40,7 +43,7 @@
                 style="@style/tituloCartao"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:text="TextView"
+                android:text="@{tipo.obterDescricao(), default=descricao}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -56,7 +59,7 @@
                 android:id="@+id/textView3"
                 style="@style/textoDetalhe"
                 android:layout_marginStart="16dp"
-                android:text="TextView"
+                android:text="@{StringUtil.converterString(tipo.obterNumeroRegistos()), default=0}"
                 app:layout_constraintStart_toEndOf="@+id/textView2"
                 app:layout_constraintTop_toTopOf="@+id/textView2" />
 
@@ -73,7 +76,7 @@
             <TextView
                 android:id="@+id/textView5"
                 style="@style/textoDetalhe"
-                android:text="TextView"
+                android:text="@{tipo.obterData(), default=0}"
                 app:layout_constraintStart_toStartOf="@+id/textView3"
                 app:layout_constraintTop_toTopOf="@+id/textView4" />
         </androidx.constraintlayout.widget.ConstraintLayout>

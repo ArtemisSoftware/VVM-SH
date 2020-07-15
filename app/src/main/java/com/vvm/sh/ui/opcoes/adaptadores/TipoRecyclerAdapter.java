@@ -40,8 +40,8 @@ public class TipoRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
-        Colecao register = items.get(position);
-//        ((TipoViewHolder)holder).binding.setNote(register);
+        Colecao registo = items.get(position);
+        ((TipoViewHolder)holder).binding.setTipo(registo);
 //        ((TipoViewHolder)holder).binding.setListener((OnPokemonListener) context);
 
         ((TipoViewHolder)holder).binding.executePendingBindings();

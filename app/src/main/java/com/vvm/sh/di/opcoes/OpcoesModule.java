@@ -11,7 +11,7 @@ import dagger.Provides;
 public class OpcoesModule {
 
 
-    //@PokemonScope
+    @OpcoesScope
     @Provides
     VersaoAppRepositorio providePokemonRepository(SegurancaAlimentarApi segurancaAlimentarApi) {
 

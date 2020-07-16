@@ -1,13 +1,16 @@
 package com.vvm.sh.ui.opcoes.modelos;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Index;
 
 import static androidx.room.ForeignKey.CASCADE;
 
 
 @Entity(tableName = "tipos",
+        indices = {@Index("descricao")},
         primaryKeys = {"id","descricao"},
         foreignKeys = @ForeignKey(entity = Atualizacao.class,
                                     parentColumns = "descricao",
@@ -15,8 +18,10 @@ import static androidx.room.ForeignKey.CASCADE;
                                     onDelete = CASCADE))
 public class Tipo {
 
-
+    @NonNull
     public int id;
+
+    @NonNull
     public String descricao;
 
     @ColumnInfo(name = "codigo")

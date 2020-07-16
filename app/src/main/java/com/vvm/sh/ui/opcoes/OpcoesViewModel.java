@@ -7,11 +7,13 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.vvm.sh.api.modelos.TipoResposta;
 import com.vvm.sh.api.modelos.VersaoApp;
+import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.repositorios.TiposRepositorio;
 import com.vvm.sh.repositorios.VersaoAppRepositorio;
 import com.vvm.sh.servicos.ServicoDownloadApk;
 import com.vvm.sh.servicos.ServicoInstalacaoApk;
 import com.vvm.sh.ui.contaUtilizador.Colecao;
+import com.vvm.sh.ui.opcoes.servicos.AtualizarTipoAsyncTask;
 import com.vvm.sh.util.adaptadores.Item;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
@@ -32,6 +34,10 @@ public class OpcoesViewModel extends BaseViewModel {
     private final TiposRepositorio tiposRepositorio;
     public MutableLiveData<VersaoApp> versaoApp;
     public MutableLiveData<List<Colecao>> tipos;
+
+
+    @Inject
+    VvmshBaseDados vvmshBaseDados;
 
 
     @Inject
@@ -80,6 +86,9 @@ public class OpcoesViewModel extends BaseViewModel {
                             @Override
                             public void onSuccess(TipoResposta tipoResposta) {
 
+                                tipoResposta.tipo = metodo;
+                                AtualizarTipoAsyncTask servico = new AtualizarTipoAsyncTask(vvmshBaseDados, tiposRepositorio);
+                                servico.execute(tipoResposta);
                             }
 
                             @Override

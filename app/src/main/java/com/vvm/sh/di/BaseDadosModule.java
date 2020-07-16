@@ -1,4 +1,4 @@
-package com.vvm.sh.di.opcoes;
+package com.vvm.sh.di;
 
 import android.app.Application;
 

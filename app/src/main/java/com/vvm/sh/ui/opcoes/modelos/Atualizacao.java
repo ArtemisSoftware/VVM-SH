@@ -1,5 +1,6 @@
 package com.vvm.sh.ui.opcoes.modelos;
 
+import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
@@ -11,6 +12,7 @@ public class Atualizacao {
 
 
     @PrimaryKey
+    @NonNull
     private String descricao;
 
     @ColumnInfo(name = "seloTemporal")
@@ -23,13 +25,11 @@ public class Atualizacao {
     }
 
 
-    public String obterDescricao() {
+    public String getDescricao() {
         return descricao;
     }
 
-
-
-    public String obterSeloTemporal() {
+    public String getSeloTemporal() {
         return seloTemporal;
     }
 }

@@ -6,7 +6,7 @@ import static androidx.room.ForeignKey.CASCADE;
 
 
 //@Entity(tableName = "tipos", primaryKeys = {"id","descricao"}
-//        foreignKeys = @ForeignKey(entity = Atualizacao.class,
+//        foreignKeys = @ForeignKey(entity = AtualizacaoDao.class,
 //                                    parentColumns = "id",
 //                                    childColumns = "userId",
 //

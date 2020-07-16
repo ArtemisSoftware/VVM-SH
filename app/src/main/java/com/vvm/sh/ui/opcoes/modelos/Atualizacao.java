@@ -5,16 +5,15 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.PrimaryKey;
 
-import static androidx.room.ForeignKey.CASCADE;
 
-//@Entity(tableName = "atualizacoes")
+@Entity(tableName = "atualizacoes")
 public class Atualizacao {
 
 
-//    @PrimaryKey
+    @PrimaryKey
     private String descricao;
 
-//    @ColumnInfo(name = "seloTemporal")
+    @ColumnInfo(name = "seloTemporal")
     private String seloTemporal;
 
 

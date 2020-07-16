@@ -90,7 +90,7 @@ public class TiposActivity extends BaseDaggerActivity implements OnTipoListener 
 
     @Override
     public void OnTipoLongPressListener(String metodo) {
-
+        viewModel.obterTipo(metodo);
     }
 
 

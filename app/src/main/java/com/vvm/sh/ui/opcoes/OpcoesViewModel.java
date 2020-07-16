@@ -5,7 +5,9 @@ import android.os.Handler;
 
 import androidx.lifecycle.MutableLiveData;
 
+import com.vvm.sh.api.modelos.TipoResposta;
 import com.vvm.sh.api.modelos.VersaoApp;
+import com.vvm.sh.repositorios.TiposRepositorio;
 import com.vvm.sh.repositorios.VersaoAppRepositorio;
 import com.vvm.sh.servicos.ServicoDownloadApk;
 import com.vvm.sh.servicos.ServicoInstalacaoApk;
@@ -27,14 +29,16 @@ public class OpcoesViewModel extends BaseViewModel {
 
 
     private final VersaoAppRepositorio versaoAppRepositorio;
+    private final TiposRepositorio tiposRepositorio;
     public MutableLiveData<VersaoApp> versaoApp;
     public MutableLiveData<List<Colecao>> tipos;
 
 
     @Inject
-    public OpcoesViewModel(VersaoAppRepositorio versaoAppRepositorio){
+    public OpcoesViewModel(VersaoAppRepositorio versaoAppRepositorio, TiposRepositorio tiposRepositorio){
 
         this.versaoAppRepositorio = versaoAppRepositorio;
+        this.tiposRepositorio = tiposRepositorio;
 
         versaoApp = new MutableLiveData<>();
         tipos = new MutableLiveData<>();
@@ -58,6 +62,35 @@ public class OpcoesViewModel extends BaseViewModel {
     }
 
 
+    public void obterTipo(String metodo) {
+
+        showProgressBar(true);
+
+        tiposRepositorio.obterTipo(metodo)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new SingleObserver<TipoResposta>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onSuccess(TipoResposta tipoResposta) {
+
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+                        }
+
+
+                );
+    }
 
     //---------------------
     //Tipos
@@ -87,7 +120,7 @@ public class OpcoesViewModel extends BaseViewModel {
                         new SingleObserver<VersaoApp>() {
                             @Override
                             public void onSubscribe(Disposable d) {
-
+                                disposables.add(d);
                             }
 
                             @Override

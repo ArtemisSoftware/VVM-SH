@@ -58,6 +58,14 @@ public class OpcoesViewModel extends BaseViewModel {
     }
 
 
+
+    //---------------------
+    //Tipos
+    //---------------------
+
+
+
+
     //------------------
     //Atualizacao
     //------------------

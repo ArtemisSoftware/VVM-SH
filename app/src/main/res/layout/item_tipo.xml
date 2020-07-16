@@ -12,11 +12,11 @@
         <variable
             name="tipo"
             type="com.vvm.sh.ui.contaUtilizador.Colecao" />
-<!--
-            <variable
-                name="listener"
-                type="com.artemissoftware.pokedex.ui.pokemon.OnPokemonListener"/>
-    -->
+
+        <variable
+            name="listener"
+            type="com.vvm.sh.ui.opcoes.adaptadores.OnTipoListener"/>
+
         </data>
 
 

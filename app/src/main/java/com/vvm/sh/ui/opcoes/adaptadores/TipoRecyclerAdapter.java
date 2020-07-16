@@ -20,12 +20,12 @@ public class TipoRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
     private List<Colecao> items = new ArrayList<>();
     private Context contexto;
-    //private NotesFragment.OnNoteLongPressListener onItemLongListener;
+    private OnTipoListener onItemLongListener;
 
-    public TipoRecyclerAdapter(Context contexto, List<Colecao> items/*, NotesFragment.OnNoteLongPressListener onItemLongListener*/) {
+    public TipoRecyclerAdapter(Context contexto, List<Colecao> items, OnTipoListener onItemLongListener) {
         this.items = items;
         this.contexto = contexto;
-        //this.onItemLongListener = onItemLongListener;
+        this.onItemLongListener = onItemLongListener;
     }
 
 
@@ -34,7 +34,7 @@ public class TipoRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         ItemTipoBinding binding = DataBindingUtil.inflate(LayoutInflater.from(contexto), R.layout.item_tipo, parent, false);
-        return new TipoViewHolder(binding.getRoot()/*, this.onItemLongListener*/);
+        return new TipoViewHolder(binding.getRoot(), this.onItemLongListener);
     }
 
     @Override
@@ -42,7 +42,7 @@ public class TipoRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
 
         Colecao registo = items.get(position);
         ((TipoViewHolder)holder).binding.setTipo(registo);
-//        ((TipoViewHolder)holder).binding.setListener((OnPokemonListener) context);
+        ((TipoViewHolder)holder).binding.setListener((OnTipoListener) contexto);
 
         ((TipoViewHolder)holder).binding.executePendingBindings();
 

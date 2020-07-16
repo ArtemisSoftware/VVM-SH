@@ -19,6 +19,7 @@ import com.vvm.sh.ui.BaseActivity;
 import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.ocorrencias.OcorrenciaRecyclerAdapter;
 import com.vvm.sh.ui.opcoes.OpcoesViewModel;
+import com.vvm.sh.ui.opcoes.adaptadores.OnTipoListener;
 import com.vvm.sh.util.adaptadores.Item;
 import com.vvm.sh.util.interfaces.OnItemListener;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
@@ -30,7 +31,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 
-public class TiposActivity extends BaseDaggerActivity {
+public class TiposActivity extends BaseDaggerActivity implements OnTipoListener {
 
     private ActivityTiposBinding activityTiposBinding;
 
@@ -50,6 +51,7 @@ public class TiposActivity extends BaseDaggerActivity {
 
         activityTiposBinding = (ActivityTiposBinding) activityBinding;
         activityTiposBinding.setLifecycleOwner(this);
+        activityTiposBinding.setListener(this);
         activityTiposBinding.setViewmodel(viewModel);
 
         subscreverObservadores();
@@ -87,6 +89,12 @@ public class TiposActivity extends BaseDaggerActivity {
 
 
     @Override
+    public void OnTipoLongPressListener(String metodo) {
+
+    }
+
+
+    @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo)
     {
         super.onCreateContextMenu(menu, v, menuInfo);
@@ -115,5 +123,6 @@ public class TiposActivity extends BaseDaggerActivity {
 
         return true;
     }
+
 
 }

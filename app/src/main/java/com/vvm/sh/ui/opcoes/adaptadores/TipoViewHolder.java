@@ -10,20 +10,20 @@ import com.vvm.sh.databinding.ItemTipoBinding;
 public class TipoViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener{
 
     ItemTipoBinding binding;
-    //private NotesFragment.OnNoteLongPressListener onItemLongListener;
+    private OnTipoListener onItemLongListener;
 
 
-    public TipoViewHolder(View itemView/*, NotesFragment.OnNoteLongPressListener onItemLongListener*/) {
+    public TipoViewHolder(View itemView, OnTipoListener onItemLongListener) {
         super(itemView);
         binding = DataBindingUtil.bind(itemView);
 
-        //this.onItemLongListener = onItemLongListener;
-        //itemView.setOnLongClickListener(this);
+        this.onItemLongListener = onItemLongListener;
+        itemView.setOnLongClickListener(this);
     }
 
     @Override
     public boolean onLongClick(View v) {
-        //onItemLongListener.onNoteLongClick(binding.getNote());//onItemLongClick(/*getAdapterPosition()*/);
+        onItemLongListener.OnTipoLongPressListener(binding.getTipo().obterDescricao());//onItemLongClick(/*getAdapterPosition()*/);
         return true;
     }
 

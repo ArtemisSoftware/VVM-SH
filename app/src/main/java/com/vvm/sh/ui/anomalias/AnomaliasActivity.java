@@ -61,8 +61,8 @@ public class AnomaliasActivity extends BaseActivity {
 
         List<Item> t1 = new ArrayList<>();
 
-        t1.add(new Anomalia(1, "Anomalia numero 1", "2020-02-20","observacao norte", "12345235", "Tipo 1"));
-        t1.add(new Anomalia(2, "Anomalia numero 1", "2020-02-20","observacao norte", "12345235", "Tipo 1"));
+        t1.add(new Anomalia(1, "Anomalia numero 1", "2020-02-20","observacao norte", "12345235", "TipoResultado 1"));
+        t1.add(new Anomalia(2, "Anomalia numero 1", "2020-02-20","observacao norte", "12345235", "TipoResultado 1"));
 
         anomaliaRecyclerAdapter.fixarRegistos(t1);
 

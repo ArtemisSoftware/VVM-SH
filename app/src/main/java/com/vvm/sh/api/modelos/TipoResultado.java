@@ -2,7 +2,7 @@ package com.vvm.sh.api.modelos;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Tipo {
+public class TipoResultado {
 
     @SerializedName("Id")
     public String id;
@@ -21,8 +21,5 @@ public class Tipo {
 
     @SerializedName("detailData")
     public boolean detalhe;
-
-    @SerializedName("TimeStamp")
-    public String timeStamp;
 
 }

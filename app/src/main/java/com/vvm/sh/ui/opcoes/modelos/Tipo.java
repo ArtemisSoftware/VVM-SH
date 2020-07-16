@@ -1,34 +1,37 @@
 package com.vvm.sh.ui.opcoes.modelos;
 
 import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.ForeignKey;
 
 import static androidx.room.ForeignKey.CASCADE;
 
 
-//@Entity(tableName = "tipos", primaryKeys = {"id","descricao"}
-//        foreignKeys = @ForeignKey(entity = AtualizacaoDao.class,
-//                                    parentColumns = "id",
-//                                    childColumns = "userId",
-//
+@Entity(tableName = "tipos",
+        primaryKeys = {"id","descricao"},
+        foreignKeys = @ForeignKey(entity = Atualizacao.class,
+                                    parentColumns = "descricao",
+                                    childColumns = "descricao",
+                                    onDelete = CASCADE))
 public class Tipo {
 
 
     public int id;
     public String descricao;
 
-//    @ColumnInfo(name = "codigo")
+    @ColumnInfo(name = "codigo")
     public String codigo;
 
-//    @ColumnInfo(name = "idPai")
+    @ColumnInfo(name = "idPai")
     public String idPai;
 
-//    @ColumnInfo(name = "ativo")
+    @ColumnInfo(name = "ativo")
     public int ativo;
 
-//    @ColumnInfo(name = "detalhe")
+    @ColumnInfo(name = "detalhe")
     public boolean detalhe;
 
-//    @ColumnInfo(name = "tipo")
+    @ColumnInfo(name = "tipo")
     public String tipo;
 
 

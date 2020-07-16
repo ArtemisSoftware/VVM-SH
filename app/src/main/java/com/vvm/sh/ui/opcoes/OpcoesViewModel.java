@@ -49,7 +49,7 @@ public class OpcoesViewModel extends BaseViewModel {
     public void obterTipos(){
 
         List<Colecao> t1 = new ArrayList<>();
-        t1.add(new Colecao("Anomalias", 2, "2019-04-12"));
+        t1.add(new Colecao("GetCrossSellingProdutos", 2, "2019-04-12"));
         t1.add(new Colecao("Cross-Selling Dimensao", 4, "2019-06-22"));
 
 

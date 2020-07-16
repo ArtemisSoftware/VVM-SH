@@ -1,15 +1,12 @@
 package com.vvm.sh.ui.contaUtilizador;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.vvm.sh.R;
 import com.vvm.sh.ui.BaseActivity;
+import com.vvm.sh.ui.opcoes.TiposActivity;
 import com.vvm.sh.util.metodos.Avancado;
 
 import butterknife.OnClick;

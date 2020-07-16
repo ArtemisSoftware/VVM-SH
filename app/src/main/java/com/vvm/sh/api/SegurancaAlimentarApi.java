@@ -5,6 +5,7 @@ import com.vvm.sh.api.modelos.VersaoApp;
 
 import io.reactivex.Single;
 import retrofit2.http.GET;
+import retrofit2.http.Path;
 
 public interface SegurancaAlimentarApi {
 
@@ -14,6 +15,9 @@ public interface SegurancaAlimentarApi {
     @GET("GetCrossSellingProdutos?dataT=")
     Single<TipoResposta> obterCrossSellingProdutos();
 
+
+    @GET("{metodo}?dataT=")
+    Single<TipoResposta> obterTipo(@Path("metodo") String metodo);
 
     @GET("Obter_Actualizacoes")
     Single<VersaoApp> obterAtualizacao();

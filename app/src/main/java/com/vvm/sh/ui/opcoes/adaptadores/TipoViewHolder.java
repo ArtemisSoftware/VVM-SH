@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.vvm.sh.databinding.ItemTipoBinding;
 
-public class TipoViewHolder extends RecyclerView.ViewHolder /*implements View.OnLongClickListener*/{
+public class TipoViewHolder extends RecyclerView.ViewHolder implements View.OnLongClickListener{
 
     ItemTipoBinding binding;
     //private NotesFragment.OnNoteLongPressListener onItemLongListener;
@@ -21,10 +21,10 @@ public class TipoViewHolder extends RecyclerView.ViewHolder /*implements View.On
         //itemView.setOnLongClickListener(this);
     }
 
-//    @Override
-//    public boolean onLongClick(View v) {
-//        onItemLongListener.onNoteLongClick(binding.getNote());//onItemLongClick(/*getAdapterPosition()*/);
-//        return true;
-//    }
-//
+    @Override
+    public boolean onLongClick(View v) {
+        //onItemLongListener.onNoteLongClick(binding.getNote());//onItemLongClick(/*getAdapterPosition()*/);
+        return true;
+    }
+
 }

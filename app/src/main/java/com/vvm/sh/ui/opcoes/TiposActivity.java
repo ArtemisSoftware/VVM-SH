@@ -1,4 +1,4 @@
-package com.vvm.sh.ui.contaUtilizador;
+package com.vvm.sh.ui.opcoes;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;

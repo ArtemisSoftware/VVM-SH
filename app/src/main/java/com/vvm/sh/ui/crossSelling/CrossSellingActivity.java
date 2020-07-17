@@ -58,7 +58,7 @@ public class CrossSellingActivity extends BaseDaggerActivity implements OnCheckB
 
         activityCrossSellingBinding = (ActivityCrossSellingBinding) activityBinding;
         activityCrossSellingBinding.setLifecycleOwner(this);
-       // activityCrossSellingBinding.setListener(this);
+        activityCrossSellingBinding.setListener(this);
         activityCrossSellingBinding.setViewmodel(viewModel);
 
         activityCrossSellingBinding.spnrAreaRecomendacao.setOnSpinnerItemSelectedListener(this);
@@ -87,11 +87,27 @@ public class CrossSellingActivity extends BaseDaggerActivity implements OnCheckB
     @Override
     public void onItemChecked(int posicao, boolean selecao) {
 
+
+        //        if(selecao == true /*& sinaletica == false*/){
+//            //--gravar(null);
+//        }
+//        else if(selecao == true /*& sinaletica == true*/){
+//            //--dialogoSinaletica();
+//        }
+//
+//        else{
+//            //--acessoBdCrossSelling.remover(registos.get(posicao).obterId());
+//            //--atualizar();
+//        }
+
+
     }
 
     @Override
     public void onItemSelected(NiceSpinner parent, View view, int position, long id) {
         Tipo item = (Tipo)parent.getItemAtPosition(position);
+
+        viewModel.obterCrossSelling(item);
     }
 }
 

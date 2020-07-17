@@ -125,4 +125,6 @@
     <color name="cor_preto">#000</color>
     <color name="cor_separador">#c0c0c0</color>
 
+    <color name="cor_nota">#59000000</color>
+
 </resources>

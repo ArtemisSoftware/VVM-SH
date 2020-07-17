@@ -21,6 +21,8 @@ public class CrossSellingViewModel extends BaseViewModel {
     private final CrossSellingRepositorio crossSellingRepositorio;
 
     public MutableLiveData<List<Tipo>> produtos;
+    public MutableLiveData<List<Tipo>> crossSelling;
+    public MutableLiveData<Boolean> sinaletica;
 
 
     @Inject
@@ -29,6 +31,8 @@ public class CrossSellingViewModel extends BaseViewModel {
         this.crossSellingRepositorio = crossSellingRepositorio;
 
         produtos = new MutableLiveData<>();
+        crossSelling = new MutableLiveData<>();
+        sinaletica = new MutableLiveData<>();
     }
 
 
@@ -74,19 +78,19 @@ public class CrossSellingViewModel extends BaseViewModel {
     }
 
 
+
     /**
      * Metodo que permite obter o cross selling de um produto
-     * @param idProduto o identificador do produto
+     * @param produto os dados do produto
      */
-    public void obterCrossSelling(String idProduto){
+    public void obterCrossSelling(Tipo produto){
 
         showProgressBar(true);
 
-        crossSellingRepositorio.obterProdutos().toObservable()
+        crossSellingRepositorio.obterCrossSelling(produto.id + "").toObservable()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-
 
                         new Observer<List<Tipo>>() {
                             @Override
@@ -97,6 +101,8 @@ public class CrossSellingViewModel extends BaseViewModel {
                             @Override
                             public void onNext(List<Tipo> tipos) {
 
+                                crossSelling.setValue(tipos);
+                                sinaletica.setValue(produto.detalhe);
                                 showProgressBar(false);
                             }
 

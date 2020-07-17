@@ -8,16 +8,16 @@
     <data>
 
         <import type="java.util.List"/>
-
+        <import type="android.view.View"/>
 
         <variable
             name="viewmodel"
             type="com.vvm.sh.ui.crossSelling.CrossSellingViewModel"/>
-<!--
+
         <variable
             name="listener"
-            type="com.vvm.sh.ui.opcoes.adaptadores.OnTipoListener"/>
--->
+            type="com.vvm.sh.util.interfaces.OnCheckBoxItemListener"/>
+
     </data>
 
 
@@ -37,7 +37,8 @@
 
             <org.angmarch.views.NiceSpinner
                 android:id="@+id/spnr_area_recomendacao"
-                android:layout_width="wrap_content"
+                android:layout_width="600dp"
+                app:popupTextAlignment="start"
                 android:layout_height="wrap_content"
                 app:produtos="@{viewmodel.produtos}"
                 android:layout_marginStart="16dp"
@@ -56,12 +57,13 @@
 
             <TextView
                 android:id="@+id/txt_sinaletica"
-                style="@style/textoDetalhe"
+                style="@style/textoNota"
                 android:layout_below="@+id/txt_data_s"
                 android:layout_alignParentRight="true"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="16dp"
                 android:text="@string/sinaletica"
+                android:visibility="@{viewmodel.sinaletica ? View.VISIBLE : View.GONE}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/spnr_area_recomendacao"
                 app:layout_constraintTop_toBottomOf="@+id/txt_data_s" />
@@ -79,6 +81,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:verticalSpacing="24dp"
+            registos="@{viewmodel.crossSelling}"
+            checkBox="@{listener}"
             tools:listitem="@layout/item_cross_selling"
             app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 

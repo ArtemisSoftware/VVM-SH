@@ -8,6 +8,7 @@
     <dimen name="tituloCartao">24dp</dimen>
 
     <dimen name="texto">14dp</dimen>
+    <dimen name="textoNota">10dp</dimen>
 
     <!--  #####################FINAL################### -->
 

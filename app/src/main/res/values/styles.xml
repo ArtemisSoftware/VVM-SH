@@ -53,6 +53,11 @@
         <item name="android:textColor">@color/cor_preto</item>
     </style>
 
+    <style name="textoNota" parent="viewParent">
+        <item name="android:textSize">@dimen/texto</item>
+        <item name="android:textColor">@color/cor_nota</item>
+        <item name="android:textStyle">italic</item>
+    </style>
 
 
     <style name="botaoOpcao" parent="viewParent">

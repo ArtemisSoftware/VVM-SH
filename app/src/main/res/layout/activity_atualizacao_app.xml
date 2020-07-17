@@ -17,11 +17,7 @@
         <variable
             name="viewmodel"
             type="com.vvm.sh.ui.opcoes.OpcoesViewModel"/>
-<!--
-        <variable
-            name="listener"
-            type="com.artemissoftware.pokedex.ui.pokepidia.adapters.OnPokedexListener"/>
--->
+
     </data>
 
 

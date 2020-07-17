@@ -11,13 +11,13 @@
 
 
         <variable
-            name="tipo"
+            name="crossSelling"
             type="com.vvm.sh.ui.opcoes.modelos.Tipo" />
-<!--
+
         <variable
             name="listener"
-            type="com.vvm.sh.ui.opcoes.adaptadores.OnTipoListener"/>
--->
+            type="com.vvm.sh.util.interfaces.OnCheckBoxItemListener"/>
+
     </data>
 
 
@@ -38,7 +38,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:text="@string/lorem_ipsum_texto"
+                android:text="@{crossSelling.descricao, default=descricao}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -47,7 +47,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
-                android:visibility="visible"
+                android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/chk_box_item"
                 app:layout_constraintTop_toBottomOf="@+id/chk_box_item">

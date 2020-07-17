@@ -47,8 +47,8 @@ public class CrossSellingRecyclerAdapter  extends RecyclerView.Adapter<RecyclerV
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
         Tipo registo = items.get(position);
-        ((CrossSellingViewHolder)holder).binding.setTipo(registo);
-        //((CrossSellingViewHolder)holder).binding.setListener((OnTipoListener) contexto);
+        ((CrossSellingViewHolder)holder).binding.setCrossSelling(registo);
+        ((CrossSellingViewHolder)holder).binding.setListener((OnCheckBoxItemListener) contexto);
 
         ((CrossSellingViewHolder)holder).binding.executePendingBindings();
 

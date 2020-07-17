@@ -1,7 +1,9 @@
 package com.vvm.sh.util;
 
 import com.vvm.sh.api.modelos.TipoResposta;
+import com.vvm.sh.api.modelos.TipoResultado;
 import com.vvm.sh.ui.opcoes.modelos.Atualizacao;
+import com.vvm.sh.ui.opcoes.modelos.Tipo;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -13,8 +15,18 @@ public interface ModelMapping {
     static final ModelMapping INSTANCE = Mappers.getMapper( ModelMapping.class );
 
     @Mapping(source = "tipo", target = "descricao")
-        //@Mapping(source = "height", target = "especie")
+    @Mapping(source = "seloTemporal", target = "seloTemporal")
     Atualizacao map(TipoResposta item);
+
+
+    @Mapping(source = "id", target = "id")
+    @Mapping(source = "descricao", target = "descricao")
+    @Mapping(source = "codigo", target = "codigo")
+    @Mapping(source = "idPai", target = "idPai")
+    @Mapping(source = "ativo", target = "ativo")
+    @Mapping(source = "detalhe", target = "detalhe")
+    Tipo map(TipoResultado item);
+
 
 /*
     @Mapping(source = "id", target = "number")

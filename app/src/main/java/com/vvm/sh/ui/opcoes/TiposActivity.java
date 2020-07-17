@@ -1,35 +1,20 @@
 package com.vvm.sh.ui.opcoes;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.ContextMenu;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 
 import com.vvm.sh.R;
 import com.vvm.sh.databinding.ActivityTiposBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
-import com.vvm.sh.ui.BaseActivity;
 import com.vvm.sh.ui.BaseDaggerActivity;
-import com.vvm.sh.ui.ocorrencias.OcorrenciaRecyclerAdapter;
-import com.vvm.sh.ui.opcoes.OpcoesViewModel;
 import com.vvm.sh.ui.opcoes.adaptadores.OnTipoListener;
-import com.vvm.sh.util.adaptadores.Item;
-import com.vvm.sh.util.interfaces.OnItemListener;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.inject.Inject;
-
-import butterknife.BindView;
 
 public class TiposActivity extends BaseDaggerActivity implements OnTipoListener {
 
@@ -90,7 +75,7 @@ public class TiposActivity extends BaseDaggerActivity implements OnTipoListener 
 
     @Override
     public void OnTipoLongPressListener(String metodo) {
-        viewModel.obterTipo(metodo);
+        viewModel.atualizarTipo(metodo);
     }
 
 

@@ -22,6 +22,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import io.reactivex.MaybeObserver;
+import io.reactivex.Observer;
 import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -56,19 +58,58 @@ public class OpcoesViewModel extends BaseViewModel {
     }
 
 
+    //---------------------
+    //Tipos
+    //---------------------
+
+
+    /**
+     * Metodo que permite obter um resumo dos tipos existentes
+     */
     public void obterTipos(){
 
-        List<Colecao> t1 = new ArrayList<>();
-        t1.add(new Colecao("GetCrossSellingProdutos", 2, "2019-04-12"));
-        t1.add(new Colecao("Cross-Selling Dimensao", 4, "2019-06-22"));
+        showProgressBar(true);
 
+        tiposRepositorio.obterTipos().toObservable()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
 
+                        new Observer<List<Colecao>>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
 
-        tipos.setValue(t1);
+                            @Override
+                            public void onNext(List<Colecao> registos) {
+                                registos.add(new Colecao("Cross-Selling Dimensao", 4, "2019-06-22"));
+                                tipos.setValue(registos);
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+
+                            @Override
+                            public void onComplete() {
+                                showProgressBar(false);
+                            }
+                        }
+
+                );
+
     }
 
 
-    public void obterTipo(String metodo) {
+
+    /**
+     * Metodo que permite atualizar um tipo
+     * @param metodo o metodo associado ao tipo
+     */
+    public void atualizarTipo(String metodo) {
 
         showProgressBar(true);
 
@@ -89,11 +130,14 @@ public class OpcoesViewModel extends BaseViewModel {
                                 tipoResposta.tipo = metodo;
                                 AtualizarTipoAsyncTask servico = new AtualizarTipoAsyncTask(vvmshBaseDados, tiposRepositorio);
                                 servico.execute(tipoResposta);
+
+                                showProgressBar(false);
                             }
 
                             @Override
                             public void onError(Throwable e) {
 
+                                showProgressBar(false);
                             }
                         }
 
@@ -101,9 +145,7 @@ public class OpcoesViewModel extends BaseViewModel {
                 );
     }
 
-    //---------------------
-    //Tipos
-    //---------------------
+
 
 
 

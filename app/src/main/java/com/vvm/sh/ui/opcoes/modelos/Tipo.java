@@ -4,24 +4,30 @@ import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Ignore;
 import androidx.room.Index;
 
 import static androidx.room.ForeignKey.CASCADE;
 
 
 @Entity(tableName = "tipos",
-        indices = {@Index("descricao")},
-        primaryKeys = {"id","descricao"},
+        indices = {@Index("tipo")},
+        primaryKeys = {"id","tipo"},
         foreignKeys = @ForeignKey(entity = Atualizacao.class,
                                     parentColumns = "descricao",
-                                    childColumns = "descricao",
+                                    childColumns = "tipo",
                                     onDelete = CASCADE))
 public class Tipo {
 
     @NonNull
     public int id;
 
+
     @NonNull
+    public String tipo;
+
+
+    @ColumnInfo(name = "descricao")
     public String descricao;
 
     @ColumnInfo(name = "codigo")
@@ -36,9 +42,9 @@ public class Tipo {
     @ColumnInfo(name = "detalhe")
     public boolean detalhe;
 
-    @ColumnInfo(name = "tipo")
-    public String tipo;
 
+    @Ignore
+    public Tipo(){}
 
     public Tipo(int id, String descricao, String codigo, String idPai, int ativo, boolean detalhe, String tipo) {
         this.id = id;

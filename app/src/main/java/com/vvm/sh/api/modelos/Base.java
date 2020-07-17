@@ -7,7 +7,7 @@ import java.util.List;
 public class Base<T> {
 
     @SerializedName("TimeStamp")
-    public String timeStamp;
+    public String seloTemporal;
 
     @SerializedName(value="dadosNovos", alternate={"Novos", "userNovos"})
     public List<T> dadosNovos;

@@ -14,6 +14,14 @@ public abstract class Item {
     }
 
 
+    public void setId(int id) {
+        this.id = id;
+    }
+
+    public void setDescricao(String descricao) {
+        this.descricao = descricao;
+    }
+
     /**
      * Metodo que permite obter o identificador
      * @return o identificador

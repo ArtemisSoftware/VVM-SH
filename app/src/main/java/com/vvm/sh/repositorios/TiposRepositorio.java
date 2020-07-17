@@ -6,8 +6,14 @@ import com.vvm.sh.api.SegurancaAlimentarApi;
 import com.vvm.sh.api.modelos.TipoResposta;
 import com.vvm.sh.baseDados.AtualizacaoDao;
 import com.vvm.sh.baseDados.TipoDao;
+import com.vvm.sh.ui.contaUtilizador.Colecao;
 import com.vvm.sh.ui.opcoes.modelos.Atualizacao;
+import com.vvm.sh.ui.opcoes.modelos.Tipo;
 
+import java.util.List;
+
+import io.reactivex.Flowable;
+import io.reactivex.Maybe;
 import io.reactivex.Single;
 
 public class TiposRepositorio {
@@ -25,17 +31,27 @@ public class TiposRepositorio {
     }
 
 
+    public Flowable<List<Colecao>> obterTipos() {
+        return tipoDao.obterTipos();
+    }
+
+
 
     public Single<TipoResposta> obterTipo(String metodo) {
         return api.obterTipo(metodo);
     }
 
 
-
-    public void atualizarTipo(String tipo/*, Atualizacao atualizacao*/){
+    /**
+     * Metodo que permite atualizar um tipo
+     * @param tipo o nome do tipo
+     * @param atualizacao os dados da atualizacao
+     * @param tipos os dados do tipo
+     */
+    public void atualizarTipo(String tipo, Atualizacao atualizacao, List<Tipo> tipos){
         atualizacaoDao.remover(tipo);
-        //--atualizacaoDao.inserir(atualizacao);
-        //--tipoDao.
+        atualizacaoDao.inserirRegisto(atualizacao);
+        tipoDao.inserir(tipos);
     }
 
 }

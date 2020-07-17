@@ -4,8 +4,15 @@ import android.database.sqlite.SQLiteConstraintException;
 import android.os.AsyncTask;
 
 import com.vvm.sh.api.modelos.TipoResposta;
+import com.vvm.sh.api.modelos.TipoResultado;
 import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.repositorios.TiposRepositorio;
+import com.vvm.sh.ui.opcoes.modelos.Atualizacao;
+import com.vvm.sh.ui.opcoes.modelos.Tipo;
+import com.vvm.sh.util.ModelMapping;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class AtualizarTipoAsyncTask extends AsyncTask<TipoResposta, Void, Void> {
 
@@ -27,6 +34,17 @@ public class AtualizarTipoAsyncTask extends AsyncTask<TipoResposta, Void, Void> 
 
         TipoResposta resposta = tipoRespostas[0];
 
+        Atualizacao atualizacao = ModelMapping.INSTANCE.map(resposta);
+
+        List<Tipo> tipos = new ArrayList<>();
+
+        for (TipoResultado item : resposta.dadosNovos) {
+
+            Tipo resultado = ModelMapping.INSTANCE.map(item);
+            resultado.tipo = resposta.tipo;
+            tipos.add(resultado);
+        }
+
 
         this.vvmshBaseDados.runInTransaction(new Runnable(){
             @Override
@@ -34,7 +52,7 @@ public class AtualizarTipoAsyncTask extends AsyncTask<TipoResposta, Void, Void> 
 
                 try {
 
-                    repositorio.atualizarTipo(resposta.tipo);
+                    repositorio.atualizarTipo(resposta.tipo, atualizacao, tipos);
                 }
                 catch(SQLiteConstraintException throwable){
                     errorMessage = throwable.getMessage();

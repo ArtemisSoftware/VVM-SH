@@ -114,7 +114,11 @@ public class Datas {
      */
     public static String converterData(String data, String formatoData){
 
-        SimpleDateFormat formatter = new SimpleDateFormat(FORMATO_YYYY_MM_DD);
+        if(data == null){
+            return "";
+        }
+
+        SimpleDateFormat formatter = new SimpleDateFormat(DATA_FORMATO_YYYY_MM_DD__HH_MM_SS);
         Date novaData = null;
 
         try {

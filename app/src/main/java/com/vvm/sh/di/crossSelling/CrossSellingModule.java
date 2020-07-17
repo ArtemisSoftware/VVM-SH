@@ -8,7 +8,7 @@ import dagger.Provides;
 public class CrossSellingModule {
 
 
-    //@OpcoesScope
+    @CrossSellingScope
     @Provides
     CrossSellingRepositorio provideCrossSellingRepositorio(TipoDao tipoDao) {
 

@@ -17,7 +17,7 @@
 
 
             <CheckBox
-                android:id="@+id/checkBox3"
+                android:id="@+id/chk_box_item"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -33,8 +33,8 @@
                 android:layout_marginStart="24dp"
                 android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/checkBox3"
-                app:layout_constraintTop_toBottomOf="@+id/checkBox3">
+                app:layout_constraintStart_toStartOf="@+id/chk_box_item"
+                app:layout_constraintTop_toBottomOf="@+id/chk_box_item">
 
                 <TextView
                     android:id="@+id/textView9"

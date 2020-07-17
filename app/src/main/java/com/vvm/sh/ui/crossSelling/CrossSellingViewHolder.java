@@ -7,59 +7,31 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.vvm.sh.R;
+import com.vvm.sh.databinding.ItemCrossSellingBinding;
 import com.vvm.sh.util.adaptadores.Item;
 import com.vvm.sh.util.adaptadores.ItemViewHolder;
 import com.vvm.sh.util.interfaces.OnCheckBoxItemListener;
 
 import butterknife.BindView;
 
-public class CrossSellingViewHolder extends ItemViewHolder implements CheckBox.OnCheckedChangeListener {
+public class CrossSellingViewHolder extends RecyclerView.ViewHolder implements CheckBox.OnCheckedChangeListener {
 
 
-    @BindView(R.id.chk_box_produto)
-    CheckBox chk_box_produto;
-
-    @BindView(R.id.rlt_lyt_sinaletica)
-    RelativeLayout rlt_lyt_sinaletica;
-
-    @BindView(R.id.txt_dimensao)
-    TextView txt_dimensao;
-
-    @BindView(R.id.txt_tipo)
-    TextView txt_tipo;
-
+    ItemCrossSellingBinding binding;
     private OnCheckBoxItemListener onItemListener;
 
 
-    public CrossSellingViewHolder(@NonNull View itemView, OnCheckBoxItemListener onItemListener) {
+    public CrossSellingViewHolder(View itemView, OnCheckBoxItemListener onItemListener) {
         super(itemView);
+        binding = DataBindingUtil.bind(itemView);
 
         this.onItemListener = onItemListener;
-    }
-
-
-    @Override
-    protected void preencherCampos(Item item) {
-
-        chk_box_produto.setText(item.obterDescricao());
-
-        CrossSelling registo = (CrossSelling) item;
-
-        chk_box_produto.setChecked(registo.obterSelecao());
-
-        if(registo.existeSinaletica() == true){
-            rlt_lyt_sinaletica.setVisibility(View.VISIBLE);
-            txt_dimensao.setText(registo.obterDimensao());
-            txt_tipo.setText(registo.obterTipo());
-        }
-        else{
-            rlt_lyt_sinaletica.setVisibility(View.GONE);
-        }
-
-
-        chk_box_produto.setOnCheckedChangeListener(this);
+        binding.chkBoxItem.setOnCheckedChangeListener(this);
+        //--itemView.setOnLongClickListener(this);
     }
 
 

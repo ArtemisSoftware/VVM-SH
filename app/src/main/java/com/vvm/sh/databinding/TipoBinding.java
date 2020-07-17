@@ -11,7 +11,7 @@ import com.vvm.sh.ui.opcoes.adaptadores.TipoRecyclerAdapter;
 
 import java.util.List;
 
-public class RecyclerviewBinding {
+public class TipoBinding {
 
 
     @BindingAdapter({"tipos", "onLongClick"})

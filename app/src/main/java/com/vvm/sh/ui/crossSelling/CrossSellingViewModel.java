@@ -54,6 +54,7 @@ public class CrossSellingViewModel extends BaseViewModel {
                             @Override
                             public void onNext(List<Tipo> tipos) {
 
+                                produtos.setValue(tipos);
                                 showProgressBar(false);
                             }
 

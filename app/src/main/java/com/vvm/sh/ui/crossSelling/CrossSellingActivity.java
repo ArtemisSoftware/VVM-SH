@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -20,10 +21,14 @@ import com.vvm.sh.databinding.ActivityCrossSellingBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseActivity;
 import com.vvm.sh.ui.BaseDaggerActivity;
+import com.vvm.sh.ui.opcoes.modelos.Tipo;
 import com.vvm.sh.util.adaptadores.Item;
 import com.vvm.sh.util.interfaces.OnCheckBoxItemListener;
 import com.vvm.sh.util.interfaces.OnItemListener;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
+
+import org.angmarch.views.NiceSpinner;
+import org.angmarch.views.OnSpinnerItemSelectedListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -33,7 +38,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 
 
-public class CrossSellingActivity extends BaseDaggerActivity implements OnCheckBoxItemListener {
+public class CrossSellingActivity extends BaseDaggerActivity implements OnCheckBoxItemListener, OnSpinnerItemSelectedListener {
 
 
     private ActivityCrossSellingBinding activityCrossSellingBinding;
@@ -55,6 +60,8 @@ public class CrossSellingActivity extends BaseDaggerActivity implements OnCheckB
         activityCrossSellingBinding.setLifecycleOwner(this);
        // activityCrossSellingBinding.setListener(this);
         activityCrossSellingBinding.setViewmodel(viewModel);
+
+        activityCrossSellingBinding.spnrAreaRecomendacao.setOnSpinnerItemSelectedListener(this);
 
         subscreverObservadores();
 
@@ -80,6 +87,11 @@ public class CrossSellingActivity extends BaseDaggerActivity implements OnCheckB
     @Override
     public void onItemChecked(int posicao, boolean selecao) {
 
+    }
+
+    @Override
+    public void onItemSelected(NiceSpinner parent, View view, int position, long id) {
+        Tipo item = (Tipo)parent.getItemAtPosition(position);
     }
 }
 

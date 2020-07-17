@@ -8,6 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.vvm.sh.ui.crossSelling.CrossSellingRecyclerAdapter;
+import com.vvm.sh.ui.crossSelling.OnCrossSellingListener;
 import com.vvm.sh.ui.opcoes.modelos.Tipo;
 import com.vvm.sh.util.interfaces.OnCheckBoxItemListener;
 
@@ -43,7 +44,7 @@ public class CrossSellingBinding {
 
 
     @BindingAdapter({"registos", "checkBox"})
-    public static void setRegistos(RecyclerView view, List<Tipo> items, OnCheckBoxItemListener listener) {
+    public static void setRegistos(RecyclerView view, List<Tipo> items, OnCrossSellingListener listener) {
 
         if(items == null){
             return;

@@ -16,7 +16,7 @@
 
         <variable
             name="listener"
-            type="com.vvm.sh.util.interfaces.OnCheckBoxItemListener"/>
+            type="com.vvm.sh.ui.crossSelling.OnCrossSellingListener"/>
 
     </data>
 

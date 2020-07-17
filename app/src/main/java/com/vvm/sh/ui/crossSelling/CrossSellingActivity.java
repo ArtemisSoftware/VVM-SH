@@ -38,7 +38,7 @@ import javax.inject.Inject;
 import butterknife.BindView;
 
 
-public class CrossSellingActivity extends BaseDaggerActivity implements OnCheckBoxItemListener, OnSpinnerItemSelectedListener {
+public class CrossSellingActivity extends BaseDaggerActivity implements OnCrossSellingListener, OnSpinnerItemSelectedListener {
 
 
     private ActivityCrossSellingBinding activityCrossSellingBinding;
@@ -85,7 +85,7 @@ public class CrossSellingActivity extends BaseDaggerActivity implements OnCheckB
     }
 
     @Override
-    public void onItemChecked(int posicao, boolean selecao) {
+    public void onItemChecked(Tipo tipo, boolean selecao) {
 
 
         //        if(selecao == true /*& sinaletica == false*/){
@@ -109,6 +109,9 @@ public class CrossSellingActivity extends BaseDaggerActivity implements OnCheckB
 
         viewModel.obterCrossSelling(item);
     }
+
+
+
 }
 
 

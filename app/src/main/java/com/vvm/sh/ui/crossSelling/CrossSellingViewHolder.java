@@ -22,21 +22,20 @@ public class CrossSellingViewHolder extends RecyclerView.ViewHolder implements C
 
 
     ItemCrossSellingBinding binding;
-    private OnCheckBoxItemListener onItemListener;
+    private OnCrossSellingListener onItemListener;
 
 
-    public CrossSellingViewHolder(View itemView, OnCheckBoxItemListener onItemListener) {
+    public CrossSellingViewHolder(View itemView, OnCrossSellingListener onItemListener) {
         super(itemView);
         binding = DataBindingUtil.bind(itemView);
 
         this.onItemListener = onItemListener;
         binding.chkBoxItem.setOnCheckedChangeListener(this);
-        //--itemView.setOnLongClickListener(this);
     }
 
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        onItemListener.onItemChecked(getAdapterPosition(), isChecked);
+        onItemListener.onItemChecked(binding.getCrossSelling(), isChecked);
     }
 }

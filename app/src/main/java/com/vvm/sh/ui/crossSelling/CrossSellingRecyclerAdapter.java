@@ -12,8 +12,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.vvm.sh.R;
 import com.vvm.sh.databinding.ItemCrossSellingBinding;
 import com.vvm.sh.ui.opcoes.modelos.Tipo;
-import com.vvm.sh.util.adaptadores.ItemRecyclerAdapter;
-import com.vvm.sh.util.adaptadores.ItemViewHolder;
 import com.vvm.sh.util.interfaces.OnCheckBoxItemListener;
 
 import java.util.ArrayList;
@@ -25,10 +23,10 @@ public class CrossSellingRecyclerAdapter  extends RecyclerView.Adapter<RecyclerV
 
     private List<Tipo> items = new ArrayList<>();
     private Context contexto;
-    private OnCheckBoxItemListener onItemListener;
+    private OnCrossSellingListener onItemListener;
 
 
-    public CrossSellingRecyclerAdapter(Context contexto, List<Tipo> items, OnCheckBoxItemListener onItemListener) {
+    public CrossSellingRecyclerAdapter(Context contexto, List<Tipo> items, OnCrossSellingListener onItemListener) {
         this.items = items;
         this.contexto = contexto;
         this.onItemListener = onItemListener;
@@ -48,7 +46,7 @@ public class CrossSellingRecyclerAdapter  extends RecyclerView.Adapter<RecyclerV
 
         Tipo registo = items.get(position);
         ((CrossSellingViewHolder)holder).binding.setCrossSelling(registo);
-        ((CrossSellingViewHolder)holder).binding.setListener((OnCheckBoxItemListener) contexto);
+        ((CrossSellingViewHolder)holder).binding.setListener((OnCrossSellingListener) contexto);
 
         ((CrossSellingViewHolder)holder).binding.executePendingBindings();
 

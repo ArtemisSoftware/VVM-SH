@@ -15,5 +15,5 @@ public abstract class OpcoesViewModelsModule {
     @Binds
     @IntoMap
     @ViewModelKey(OpcoesViewModel.class)
-    public abstract ViewModel bindPokemonViewModel(OpcoesViewModel viewModel);
+    public abstract ViewModel bindOpcoesViewModel(OpcoesViewModel viewModel);
 }

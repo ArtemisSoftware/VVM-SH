@@ -29,10 +29,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
         android:orientation="vertical"
-        android:padding="16dp">
+        android:padding="16dp"
+        android:background="@color/cor_separador">
 
 
         <TextView
@@ -65,6 +64,7 @@
 
         <org.angmarch.views.NiceSpinner
             android:id="@+id/spnr_area_recomendacao"
+            app:produtos="@{viewmodel.produtos}"
             android:layout_width="400dp"
             app:popupTextAlignment="start"
             android:layout_height="wrap_content"

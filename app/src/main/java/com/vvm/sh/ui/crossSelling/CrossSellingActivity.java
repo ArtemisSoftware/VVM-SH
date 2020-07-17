@@ -88,6 +88,9 @@ public class CrossSellingActivity extends BaseDaggerActivity implements OnCrossS
     public void onItemChecked(Tipo tipo, boolean selecao) {
 
 
+        DialogoSinaletica dialogo = new DialogoSinaletica();
+        dialogo.show(getSupportFragmentManager(), "example dialog");
+
         //        if(selecao == true /*& sinaletica == false*/){
 //            //--gravar(null);
 //        }

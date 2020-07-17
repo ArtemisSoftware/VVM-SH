@@ -48,6 +48,8 @@ public abstract class BaseDialogFragment extends AppCompatDialogFragment {
         }
     }
 
+
+
     //--------------------
     //Metodos abstratos
     //---------------------

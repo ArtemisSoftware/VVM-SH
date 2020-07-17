@@ -8,6 +8,7 @@ import com.vvm.sh.di.opcoes.OpcoesScope;
 import com.vvm.sh.di.opcoes.OpcoesViewModelsModule;
 import com.vvm.sh.ui.crossSelling.CrossSellingActivity;
 import com.vvm.sh.ui.crossSelling.CrossSellingViewModel;
+import com.vvm.sh.ui.crossSelling.DialogoSinaletica;
 import com.vvm.sh.ui.opcoes.TiposActivity;
 import com.vvm.sh.ui.opcoes.AtualizacaoAppActivity;
 
@@ -38,5 +39,12 @@ public abstract class ActivityBuildersModule {
             modules = { CrossSellingViewModelsModule.class, CrossSellingModule.class }
     )
     abstract CrossSellingActivity contributeCrossSellingActivity();
+
+
+    @CrossSellingScope
+    @ContributesAndroidInjector(
+            modules = { CrossSellingViewModelsModule.class, CrossSellingModule.class }
+    )
+    abstract DialogoSinaletica contributeDialogoSinaletica();
 
 }

@@ -1,122 +1,105 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:layout_centerHorizontal="true">
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="java.util.List"/>
 
 
-    <androidx.cardview.widget.CardView
-        android:id="@+id/idCardView"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:elevation="9dp"
-        android:layout_margin="7dp"
-        app:cardBackgroundColor="@color/cardview_light_background"
-        android:gravity="center"
-        app:cardCornerRadius="2dp"
-        app:cardPreventCornerOverlap="false">
-
-        <LinearLayout
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:padding="10dp">
-
-            <LinearLayout
-                android:orientation="horizontal"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content">
-
-
-                <!-- Product Image -->
-
-                <LinearLayout
-                    android:id="@+id/idLinearLayoutProductImage"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true">
-
-                    <de.hdodenhof.circleimageview.CircleImageView
-                        android:src="@drawable/ic_lorem_ipsum_24dp"
-                        app:civ_border_width="2dp"
-                        app:civ_border_color="#FF000000"
-                        android:layout_width="50dp"
-                        android:layout_height="50dp">
-
-                    </de.hdodenhof.circleimageview.CircleImageView>
-
-                </LinearLayout>
-
-                <!-- Rest of the product info and add/remove to/from cart symbols -->
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:id="@+id/idTopLayout"
-                    android:paddingLeft="18dp"
-                    android:layout_gravity="center_vertical">
-
-                    <com.skydoves.powerspinner.PowerSpinnerView
-                        android:id="@+id/spnr_area_recomendacao"
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:background="@color/md_blue_200"
-                        android:foreground="?attr/selectableItemBackground"
-                        android:gravity="center_vertical"
-                        android:hint="@string/areaRecomendacao"
-                        android:padding="10dp"
-                        android:textColor="@color/white_93"
-                        android:textColorHint="@color/white_70"
-                        android:textSize="14.5sp"
-                        app:spinner_arrow_gravity="end"
-                        app:spinner_arrow_padding="8dp"
-                        app:spinner_divider_color="@color/white_70"
-                        app:spinner_divider_show="true"
-                        app:spinner_divider_size="0.4dp"
-                        app:spinner_popup_animation="normal"
-                        app:spinner_popup_background="@color/background800"
-                        app:spinner_popup_elevation="14dp"
-                        tools:ignore="HardcodedText,UnusedAttribute" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <RelativeLayout
-            android:id="@+id/rlt_lyt_sinaletica"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="visible"
-            android:layout_marginEnd="22dp"
-            android:layout_marginTop="47dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentEnd="true"
-                android:text="@string/sinaletica"
-                android:textStyle="italic" />
-        </RelativeLayout>
-
-    </androidx.cardview.widget.CardView>
+        <variable
+            name="viewmodel"
+            type="com.vvm.sh.ui.crossSelling.CrossSellingViewModel"/>
+<!--
+        <variable
+            name="listener"
+            type="com.vvm.sh.ui.opcoes.adaptadores.OnTipoListener"/>
+-->
+    </data>
 
 
 
-    <!-- ..............lista............... -->
 
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/rcl_registos"
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:verticalSpacing="24dp"
-        tools:listitem="@layout/item_cross_selling"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+        android:orientation="vertical"
+        android:layout_centerHorizontal="true">
 
-</LinearLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content">
+
+
+            <com.skydoves.powerspinner.PowerSpinnerView
+                android:id="@+id/spnr_area_recomendacao"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:background="@color/md_blue_200"
+                android:foreground="?attr/selectableItemBackground"
+                android:gravity="center_vertical"
+                android:hint="@string/areaRecomendacao"
+                android:padding="10dp"
+                android:textColor="@color/white_93"
+                android:textColorHint="@color/white_70"
+                android:textSize="14.5sp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:spinner_arrow_gravity="end"
+                app:spinner_arrow_padding="8dp"
+                app:spinner_divider_color="@color/white_70"
+                app:spinner_divider_show="true"
+                app:spinner_divider_size="0.4dp"
+                app:spinner_popup_animation="normal"
+                app:spinner_popup_background="@color/background800"
+                app:spinner_popup_elevation="14dp"
+                tools:ignore="HardcodedText,UnusedAttribute" />
+
+
+            <View
+                android:id="@+id/txt_data_s"
+                android:layout_width="280dp"
+                android:layout_height="0.2dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/cor_separador"
+                app:layout_constraintStart_toStartOf="@+id/spnr_area_recomendacao"
+                app:layout_constraintTop_toBottomOf="@+id/spnr_area_recomendacao" />
+
+            <TextView
+                android:id="@+id/txt_sinaletica"
+                style="@style/textoDetalhe"
+                android:layout_below="@+id/txt_data_s"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp"
+                android:text="@string/sinaletica"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/spnr_area_recomendacao"
+                app:layout_constraintTop_toBottomOf="@+id/txt_data_s" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+        <!-- ..............lista............... -->
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcl_registos"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:verticalSpacing="24dp"
+            tools:listitem="@layout/item_cross_selling"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+    </LinearLayout>
+
+</layout>

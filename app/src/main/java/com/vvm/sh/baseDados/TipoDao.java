@@ -34,4 +34,14 @@ abstract public class TipoDao implements BaseDao<Atualizacao>{
             "LEFT JOIN (SELECT tipo, COUNT(id) as numeroRegistos FROM tipos GROUP BY tipo) as tp ON atl.descricao = tp.tipo " +
             "ORDER BY descricao ASC")
     abstract public Flowable<List<Colecao>> obterTipos();
+
+
+
+
+    @Query("SELECT * FROM tipos WHERE tipo = :tipo AND idPai = '' AND ativo = 1")
+    abstract public Flowable<List<Tipo>> obterCrossSellingProdutos(String tipo);
+
+    @Query("SELECT * FROM tipos WHERE tipo = :tipo AND idPai = :idProduto AND ativo = 1")
+    abstract public Flowable<List<Tipo>> obterCrossSelling(String tipo, String idProduto);
+
 }

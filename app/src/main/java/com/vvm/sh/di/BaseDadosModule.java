@@ -5,6 +5,7 @@ import android.app.Application;
 import androidx.room.Room;
 
 import com.vvm.sh.baseDados.BaseDadosContantes;
+import com.vvm.sh.baseDados.TipoDao;
 import com.vvm.sh.baseDados.VvmshBaseDados;
 
 import javax.inject.Singleton;
@@ -23,6 +24,16 @@ public class BaseDadosModule {
                 .build();
     }
 
+
+    @Singleton
+    @Provides
+    static TipoDao provideTipoDao(VvmshBaseDados vvmshBaseDados){
+
+        TipoDao dao = vvmshBaseDados.obterTipoDao();
+
+        //Timber.d("Providing NoteDao: " + dao);
+        return dao;
+    }
 
 
 }

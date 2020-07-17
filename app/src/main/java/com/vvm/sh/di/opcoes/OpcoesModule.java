@@ -37,15 +37,6 @@ public class OpcoesModule {
         return dao;
     }
 
-    @OpcoesScope
-    @Provides
-    static TipoDao provideTipoDao(VvmshBaseDados vvmshBaseDados){
-
-        TipoDao dao = vvmshBaseDados.obterTipoDao();
-
-        //Timber.d("Providing NoteDao: " + dao);
-        return dao;
-    }
 
 
 

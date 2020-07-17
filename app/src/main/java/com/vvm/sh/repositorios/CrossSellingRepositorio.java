@@ -24,4 +24,9 @@ public class CrossSellingRepositorio {
     public Flowable<List<Tipo>> obterProdutos(){
         return tipoDao.obterCrossSellingProdutos(TiposConstantes.CROSS_SELLING_PRODUTOS);
     }
+
+
+    public Flowable<List<Tipo>> obterCrossSelling(String idProduto){
+        return tipoDao.obterCrossSelling(TiposConstantes.CROSS_SELLING_PRODUTOS, idProduto);
+    }
 }

@@ -6,8 +6,10 @@ import com.vvm.sh.di.ViewModelKey;
 import com.vvm.sh.ui.crossSelling.CrossSellingViewModel;
 
 import dagger.Binds;
+import dagger.Module;
 import dagger.multibindings.IntoMap;
 
+@Module
 public abstract class CrossSellingViewModelsModule {
 
     @Binds

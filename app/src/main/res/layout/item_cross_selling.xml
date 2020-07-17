@@ -6,6 +6,22 @@
     xmlns:tools="http://schemas.android.com/tools">
 
 
+
+    <data>
+
+
+        <variable
+            name="tipo"
+            type="com.vvm.sh.ui.opcoes.modelos.Tipo" />
+<!--
+        <variable
+            name="listener"
+            type="com.vvm.sh.ui.opcoes.adaptadores.OnTipoListener"/>
+-->
+    </data>
+
+
+
     <androidx.cardview.widget.CardView
         style="@style/cartao">
 

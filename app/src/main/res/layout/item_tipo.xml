@@ -17,7 +17,7 @@
             name="listener"
             type="com.vvm.sh.ui.opcoes.adaptadores.OnTipoListener"/>
 
-        </data>
+    </data>
 
 
     <androidx.cardview.widget.CardView

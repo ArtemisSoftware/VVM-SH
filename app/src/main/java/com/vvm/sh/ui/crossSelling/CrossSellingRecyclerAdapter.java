@@ -1,27 +1,72 @@
 package com.vvm.sh.ui.crossSelling;
 
+import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.vvm.sh.R;
+import com.vvm.sh.databinding.ItemCrossSellingBinding;
+import com.vvm.sh.ui.opcoes.modelos.Tipo;
 import com.vvm.sh.util.adaptadores.ItemRecyclerAdapter;
 import com.vvm.sh.util.adaptadores.ItemViewHolder;
 import com.vvm.sh.util.interfaces.OnCheckBoxItemListener;
 
-public class CrossSellingRecyclerAdapter extends ItemRecyclerAdapter {
+import java.util.ArrayList;
+import java.util.List;
 
+
+public class CrossSellingRecyclerAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+
+
+    private List<Tipo> items = new ArrayList<>();
+    private Context contexto;
     private OnCheckBoxItemListener onItemListener;
 
-    public CrossSellingRecyclerAdapter(OnCheckBoxItemListener onItemListener) {
+
+    public CrossSellingRecyclerAdapter(Context contexto, List<Tipo> items, OnCheckBoxItemListener onItemListener) {
+        this.items = items;
+        this.contexto = contexto;
         this.onItemListener = onItemListener;
     }
 
+
+    @NonNull
     @Override
-    protected int obterLayout(int viewType) {
-        return R.layout.item_cross_selling;
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
+        ItemCrossSellingBinding binding = DataBindingUtil.inflate(LayoutInflater.from(contexto), R.layout.item_cross_selling, parent, false);
+        return new CrossSellingViewHolder(binding.getRoot(), this.onItemListener);
     }
 
     @Override
-    protected ItemViewHolder obterViewHolder(View view, int viewType) {
-        return new CrossSellingViewHolder(view, this.onItemListener);
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+
+        Tipo registo = items.get(position);
+        ((CrossSellingViewHolder)holder).binding.setTipo(registo);
+        //((CrossSellingViewHolder)holder).binding.setListener((OnTipoListener) contexto);
+
+        ((CrossSellingViewHolder)holder).binding.executePendingBindings();
+
+
     }
+
+    @Override
+    public int getItemCount() {
+        return items.size();
+    }
+
+
+    public void atualizar(List<Tipo> items){
+        this.items.clear();
+        this.items.addAll(items);
+        notifyDataSetChanged();
+    }
+
+
+
 }

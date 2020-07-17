@@ -1,6 +1,7 @@
 package com.vvm.sh.ui.crossSelling;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,6 +16,8 @@ import com.skydoves.powerspinner.IconSpinnerAdapter;
 import com.skydoves.powerspinner.IconSpinnerItem;
 import com.skydoves.powerspinner.PowerSpinnerView;
 import com.vvm.sh.R;
+import com.vvm.sh.databinding.ActivityCrossSellingBinding;
+import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseActivity;
 import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.util.adaptadores.Item;
@@ -25,33 +28,53 @@ import com.vvm.sh.util.viewmodel.BaseViewModel;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 
 
 public class CrossSellingActivity extends BaseDaggerActivity implements OnCheckBoxItemListener {
 
 
+    private ActivityCrossSellingBinding activityCrossSellingBinding;
 
+
+    @Inject
+    ViewModelProviderFactory providerFactory;
+
+
+    private CrossSellingViewModel viewModel;
 
 
     @Override
     protected void intActivity(Bundle savedInstanceState) {
 
+        viewModel = ViewModelProviders.of(this, providerFactory).get(CrossSellingViewModel.class);
+
+        activityCrossSellingBinding = (ActivityCrossSellingBinding) activityBinding;
+        activityCrossSellingBinding.setLifecycleOwner(this);
+       // activityCrossSellingBinding.setListener(this);
+        activityCrossSellingBinding.setViewmodel(viewModel);
+
+        subscreverObservadores();
+
+        viewModel.obterProdutos();
     }
 
     @Override
     protected int obterLayout() {
-        return 0;
+        return R.layout.activity_cross_selling;
     }
 
     @Override
     protected BaseViewModel obterBaseViewModel() {
-        return null;
+        return viewModel;
     }
 
     @Override
     protected void subscreverObservadores() {
 
+        //TODO: subscrever observadores do viewmodel
     }
 
     @Override

@@ -175,6 +175,7 @@ public class OpcoesViewModel extends BaseViewModel {
 
                             @Override
                             public void onSuccess(VersaoApp resposta) {
+                                //TODO: o id do utilizador deve ser passado de outra forma
                                 resposta.fixarUtilizador("500005");
                                 versaoApp.setValue(resposta);
                                 showProgressBar(false);

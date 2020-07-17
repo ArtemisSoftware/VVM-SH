@@ -17,7 +17,7 @@ public class OpcoesModule {
 
     @OpcoesScope
     @Provides
-    VersaoAppRepositorio providePokemonRepositorio(SegurancaAlimentarApi segurancaAlimentarApi) {
+    VersaoAppRepositorio provideVersaoAppRepositorio(SegurancaAlimentarApi segurancaAlimentarApi) {
 
         VersaoAppRepositorio repositorio = new VersaoAppRepositorio(segurancaAlimentarApi);
 

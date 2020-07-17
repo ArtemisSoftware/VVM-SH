@@ -7,14 +7,7 @@
 
 
     <androidx.cardview.widget.CardView
-        android:layout_margin="10dp"
-        app:cardElevation="0dp"
-        android:foreground="?android:attr/selectableItemBackground"
-        android:orientation="vertical"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:clickable="true">
-
+        style="@style/cartao">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout

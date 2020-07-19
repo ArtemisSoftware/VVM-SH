@@ -6,4 +6,6 @@ public interface OnCrossSellingListener {
 
     void onItemChecked(Tipo tipo, boolean selecao);
 
+    void gravarSinaletica(Tipo tipo, String idDimensao, String idTipo);
+
 }

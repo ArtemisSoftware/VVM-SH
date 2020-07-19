@@ -1,25 +1,16 @@
 package com.vvm.sh.ui.crossSelling;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
 import android.content.DialogInterface;
-import android.os.Bundle;
-import android.view.LayoutInflater;
 
-import androidx.annotation.NonNull;
-import androidx.annotation.Nullable;
-import androidx.databinding.DataBindingUtil;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.vvm.sh.R;
 import com.vvm.sh.databinding.DialogoSinaleticaBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.opcoes.BaseDaggerDialogFragment;
-import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import javax.inject.Inject;
-
-import dagger.android.support.DaggerDialogFragment;
 
 public class DialogoSinaletica extends BaseDaggerDialogFragment {
 
@@ -34,7 +25,7 @@ public class DialogoSinaletica extends BaseDaggerDialogFragment {
     private CrossSellingViewModel viewModel;
 
 
-    //private NoteDialogListener listener;
+    private OnCrossSellingListener listener;
 
     private static final String ARG_ID_POKEMON = "idPokemon";
     private static final String ARG_NAME = "name";
@@ -46,8 +37,10 @@ public class DialogoSinaletica extends BaseDaggerDialogFragment {
     }
 
 
-    public static DialogoSinaletica newInstance() {
+    public static DialogoSinaletica newInstance(OnCrossSellingListener listener_) {
         DialogoSinaletica frag = new DialogoSinaletica();
+
+
 //        Bundle args = new Bundle();
 //        args.putString(ARG_ID_POKEMON, idPokemon);
 //        args.putString(ARG_NAME, name);
@@ -60,16 +53,21 @@ public class DialogoSinaletica extends BaseDaggerDialogFragment {
     @Override
     protected void initDialogo(AlertDialog.Builder builder) {
 
+        listener = (OnCrossSellingListener) getContext();
+
+
         viewModel = ViewModelProviders.of(this, providerFactory).get(CrossSellingViewModel.class);
 
         binding = (DialogoSinaleticaBinding) activityBaseBinding;
         binding.setViewmodel(viewModel);
 
+        viewModel.obterProdutos();
 
         builder.setPositiveButton("OK",  new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                //--saveNote();
+
+                listener.gravarSinaletica(null, null, null);
             }
         });
 

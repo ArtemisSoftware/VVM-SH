@@ -87,22 +87,28 @@ public class CrossSellingActivity extends BaseDaggerActivity implements OnCrossS
     @Override
     public void onItemChecked(Tipo tipo, boolean selecao) {
 
+        boolean sinaletica = ((Tipo) activityCrossSellingBinding.spnrAreaRecomendacao.getSelectedItem()).detalhe;
 
-        DialogoSinaletica dialogo = new DialogoSinaletica();
-        dialogo.show(getSupportFragmentManager(), "example dialog");
 
-        //        if(selecao == true /*& sinaletica == false*/){
-//            //--gravar(null);
-//        }
-//        else if(selecao == true /*& sinaletica == true*/){
-//            //--dialogoSinaletica();
-//        }
-//
-//        else{
-//            //--acessoBdCrossSelling.remover(registos.get(posicao).obterId());
-//            //--atualizar();
-//        }
+        if(selecao == true & sinaletica == false){
+            //--gravar(null);
+        }
+        else if(selecao == true & sinaletica == true){
 
+            DialogoSinaletica dialogo = new DialogoSinaletica();
+            dialogo.show(getSupportFragmentManager(), "example dialog");
+        }
+
+        else{
+            //--acessoBdCrossSelling.remover(registos.get(posicao).obterId());
+            //--atualizar();
+        }
+
+
+    }
+
+    @Override
+    public void gravarSinaletica(Tipo tipo, String idDimensao, String idTipo) {
 
     }
 

@@ -19,8 +19,8 @@ import java.util.List;
 
 public class CrossSellingBinding {
 
-    @BindingAdapter({"produtos"})
-    public static void setProdutos(NiceSpinner view, List<Tipo> registos) {
+    @BindingAdapter({"tipos"})
+    public static void setTipos(NiceSpinner view, List<Tipo> registos) {
 
         if (registos == null)
             return;

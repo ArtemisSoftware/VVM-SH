@@ -82,7 +82,8 @@ public class OpcoesViewModel extends BaseViewModel {
 
                             @Override
                             public void onNext(List<Colecao> registos) {
-                                registos.add(new Colecao("Cross-Selling Dimensao", 4, "2019-06-22"));
+                                registos.add(new Colecao("GetCrossSellingTpDimensao", 4, "2019-06-22"));
+                                registos.add(new Colecao("GetCrossSellingTpTipo", 4, "2019-06-22"));
                                 tipos.setValue(registos);
                                 showProgressBar(false);
                             }

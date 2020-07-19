@@ -1,6 +1,5 @@
 package com.vvm.sh.servicos;
 
-import com.vvm.sh.util.constantes.Api;
 import com.vvm.sh.util.constantes.WebService;
 
 import java.util.ArrayList;

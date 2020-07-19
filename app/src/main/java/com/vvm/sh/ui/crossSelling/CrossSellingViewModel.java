@@ -22,6 +22,8 @@ public class CrossSellingViewModel extends BaseViewModel {
 
     public MutableLiveData<List<Tipo>> produtos;
     public MutableLiveData<List<Tipo>> crossSelling;
+    public MutableLiveData<List<Tipo>> dimensoes;
+    public MutableLiveData<List<Tipo>> tipos;
     public MutableLiveData<Boolean> sinaletica;
 
 
@@ -33,7 +35,17 @@ public class CrossSellingViewModel extends BaseViewModel {
         produtos = new MutableLiveData<>();
         crossSelling = new MutableLiveData<>();
         sinaletica = new MutableLiveData<>();
+        dimensoes = new MutableLiveData<>();
+        tipos = new MutableLiveData<>();
     }
+
+
+    public void gravar(String idTarefa, String idCrossSelling, String idDimensao, String idTipo){
+
+
+        //TODO: gravar crossSelling. Ter atenção que idDimensao e idTipo podem ser nulos
+    }
+
 
 
     /**
@@ -103,6 +115,89 @@ public class CrossSellingViewModel extends BaseViewModel {
 
                                 crossSelling.setValue(tipos);
                                 sinaletica.setValue(produto.detalhe);
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+
+                            @Override
+                            public void onComplete() {
+                                showProgressBar(false);
+                            }
+                        }
+
+                );
+
+    }
+
+
+
+
+    /**
+     * Metodo que permite obter as dimensões
+     */
+    public void obterDimensoes(){
+
+        showProgressBar(true);
+
+        crossSellingRepositorio.obterDimensoes().toObservable()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new Observer<List<Tipo>>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onNext(List<Tipo> tipos) {
+
+                                dimensoes.setValue(tipos);
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+
+                            @Override
+                            public void onComplete() {
+                                showProgressBar(false);
+                            }
+                        }
+
+                );
+
+    }
+
+    /**
+     * Metodo que permite obter os tipos
+     */
+    public void obterTipos(){
+
+        showProgressBar(true);
+
+        crossSellingRepositorio.obterTipos().toObservable()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new Observer<List<Tipo>>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onNext(List<Tipo> registos) {
+
+                                tipos.setValue(registos);
                                 showProgressBar(false);
                             }
 

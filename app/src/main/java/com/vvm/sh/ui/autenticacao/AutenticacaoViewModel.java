@@ -1,21 +1,17 @@
-package com.vvm.sh.autenticacao;
-
-import androidx.lifecycle.MutableLiveData;
+package com.vvm.sh.ui.autenticacao;
 
 import com.vvm.sh.api.modelos.UtilizadorResposta;
 import com.vvm.sh.api.modelos.UtilizadorResultado;
 import com.vvm.sh.repositorios.AutenticacaoRepositorio;
+import com.vvm.sh.ui.autenticacao.modelos.Utilizador;
 import com.vvm.sh.util.ModelMapping;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
-
-import java.util.List;
 
 import javax.inject.Inject;
 
 import io.reactivex.ObservableSource;
 import io.reactivex.Observer;
-import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Function;

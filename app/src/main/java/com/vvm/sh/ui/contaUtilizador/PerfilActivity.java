@@ -1,20 +1,12 @@
 package com.vvm.sh.ui.contaUtilizador;
 
-import androidx.appcompat.app.AppCompatActivity;
-
-import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.amulyakhare.textdrawable.TextDrawable;
 import com.vvm.sh.R;
-import com.vvm.sh.autenticacao.Utilizador;
+import com.vvm.sh.ui.autenticacao.modelos.Utilizador;
 import com.vvm.sh.ui.BaseActivity;
-import com.vvm.sh.util.adaptadores.Item;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import butterknife.BindView;
 

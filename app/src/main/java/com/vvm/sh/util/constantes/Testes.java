@@ -1,10 +1,6 @@
 package com.vvm.sh.util.constantes;
 
-import android.content.Context;
-
-import com.vvm.sh.autenticacao.Utilizador;
-import com.vvm.sh.util.adaptadores.SpinnerAdaptador;
-import com.vvm.sh.util.itens.ItemSpinner;
+import com.vvm.sh.ui.autenticacao.modelos.Utilizador;
 
 import java.util.ArrayList;
 import java.util.List;

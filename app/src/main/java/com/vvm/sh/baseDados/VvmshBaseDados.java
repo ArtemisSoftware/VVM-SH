@@ -3,7 +3,7 @@ package com.vvm.sh.baseDados;
 import androidx.room.Database;
 import androidx.room.RoomDatabase;
 
-import com.vvm.sh.autenticacao.Utilizador;
+import com.vvm.sh.ui.autenticacao.modelos.Utilizador;
 import com.vvm.sh.ui.opcoes.modelos.Atualizacao;
 import com.vvm.sh.ui.opcoes.modelos.Tipo;
 

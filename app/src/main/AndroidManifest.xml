@@ -15,12 +15,12 @@
         android:theme="@style/AppTheme">
         <activity android:name=".ui.opcoes.AtualizacaoAppActivity"></activity>
         <activity android:name=".ui.contaUtilizador.OpcoesAvancadasActivity" />
-        <activity android:name=".carregamentos.CarregamentoTrabalhoActivity" />
+        <activity android:name=".ui.agenda.TrabalhoActivity" />
         <activity android:name=".ui.contaUtilizador.DefinicoesActivity" />
         <activity android:name=".ui.AssinaturaActivity" />
         <activity android:name=".ui.opcoes.TiposActivity" />
         <activity android:name=".ui.contaUtilizador.PerfilActivity" />
-        <activity android:name=".autenticacao.AutenticacaoActivity" />
+        <activity android:name=".ui.autenticacao.AutenticacaoActivity" />
         <activity android:name=".apresentacao.ApresentacaoActivity" />
         <activity android:name=".carregamentos.CarregamentoTiposActivity" />
         <activity android:name=".ui.atividadesPendentes.FormandoActivity" />

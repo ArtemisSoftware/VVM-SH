@@ -1,4 +1,4 @@
-package com.vvm.sh.autenticacao;
+package com.vvm.sh.ui.autenticacao.modelos;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;

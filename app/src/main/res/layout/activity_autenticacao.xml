@@ -9,17 +9,19 @@
     <data>
 
         <import type="java.util.List"/>
-        <import type="com.vvm.sh.autenticacao.Utilizador"/>
+        <import type="com.vvm.sh.ui.autenticacao.modelos.Utilizador"/>
 
         <variable
             name="utilizadoresTestes"
             type="List&lt;Utilizador>"/>
 
-        <variable name="activity" type="com.vvm.sh.autenticacao.AutenticacaoActivity" />
+        <variable
+            name="activity"
+            type="com.vvm.sh.ui.autenticacao.AutenticacaoActivity" />
 
         <variable
             name="viewmodel"
-            type="com.vvm.sh.autenticacao.AutenticacaoViewModel"/>
+            type="com.vvm.sh.ui.autenticacao.AutenticacaoViewModel"/>
 
 
 <!--
@@ -29,7 +31,7 @@
 
 
     <LinearLayout
-        tools:context=".autenticacao.AutenticacaoActivity"
+        tools:context=".ui.autenticacao.AutenticacaoActivity"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         style="@style/LoginTheme">

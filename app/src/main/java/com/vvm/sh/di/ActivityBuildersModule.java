@@ -1,6 +1,6 @@
 package com.vvm.sh.di;
 
-import com.vvm.sh.autenticacao.AutenticacaoActivity;
+import com.vvm.sh.ui.autenticacao.AutenticacaoActivity;
 import com.vvm.sh.di.autenticacao.AutenticacaoModule;
 import com.vvm.sh.di.autenticacao.AutenticacaoScope;
 import com.vvm.sh.di.autenticacao.AutenticacaoViewModelsModule;
@@ -11,7 +11,6 @@ import com.vvm.sh.di.opcoes.OpcoesModule;
 import com.vvm.sh.di.opcoes.OpcoesScope;
 import com.vvm.sh.di.opcoes.OpcoesViewModelsModule;
 import com.vvm.sh.ui.crossSelling.CrossSellingActivity;
-import com.vvm.sh.ui.crossSelling.CrossSellingViewModel;
 import com.vvm.sh.ui.crossSelling.DialogoSinaletica;
 import com.vvm.sh.ui.opcoes.TiposActivity;
 import com.vvm.sh.ui.opcoes.AtualizacaoAppActivity;

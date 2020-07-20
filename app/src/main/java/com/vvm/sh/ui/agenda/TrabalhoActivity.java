@@ -1,4 +1,4 @@
-package com.vvm.sh.carregamentos;
+package com.vvm.sh.ui.agenda;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -6,11 +6,11 @@ import android.os.Bundle;
 
 import com.vvm.sh.R;
 
-public class CarregamentoTrabalhoActivity extends AppCompatActivity {
+public class TrabalhoActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_carregamento_trabalho);
+        setContentView(R.layout.activity_trabalho);
     }
 }

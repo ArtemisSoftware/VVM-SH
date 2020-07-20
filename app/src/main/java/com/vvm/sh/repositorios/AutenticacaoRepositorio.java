@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 
 import com.vvm.sh.api.SegurancaAlimentarApi;
 import com.vvm.sh.api.modelos.UtilizadorResposta;
-import com.vvm.sh.autenticacao.Utilizador;
+import com.vvm.sh.ui.autenticacao.modelos.Utilizador;
 import com.vvm.sh.baseDados.UtilizadorDao;
 
 import io.reactivex.Single;

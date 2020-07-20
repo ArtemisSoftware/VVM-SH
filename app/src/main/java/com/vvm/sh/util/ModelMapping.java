@@ -2,9 +2,8 @@ package com.vvm.sh.util;
 
 import com.vvm.sh.api.modelos.TipoResposta;
 import com.vvm.sh.api.modelos.TipoResultado;
-import com.vvm.sh.api.modelos.UtilizadorResposta;
 import com.vvm.sh.api.modelos.UtilizadorResultado;
-import com.vvm.sh.autenticacao.Utilizador;
+import com.vvm.sh.ui.autenticacao.modelos.Utilizador;
 import com.vvm.sh.ui.opcoes.modelos.Atualizacao;
 import com.vvm.sh.ui.opcoes.modelos.Tipo;
 

@@ -16,7 +16,7 @@ import butterknife.BindView;
 
 public abstract class CarregamentoActivity extends BaseActivity {
 
-    @BindView(R.id.pgr_bar_progresso_notificacao)
+    //@BindView(R.id.pgr_bar_progresso_notificacao)
     ProgressBar pgr_bar_progresso_notificacao;
 
     @BindView(R.id.txt_titulo_progresso)

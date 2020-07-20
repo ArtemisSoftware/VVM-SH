@@ -1,11 +1,10 @@
-package com.vvm.sh.autenticacao;
+package com.vvm.sh.ui.autenticacao;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.Spinner;
 
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -16,16 +15,13 @@ import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.vvm.sh.MainActivity;
 import com.vvm.sh.R;
-import com.vvm.sh.databinding.ActivityAtualizacaoAppBinding;
 import com.vvm.sh.databinding.ActivityAutenticacaoBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
-import com.vvm.sh.ui.BaseActivity;
 import com.vvm.sh.ui.BaseDaggerActivity;
+import com.vvm.sh.ui.autenticacao.modelos.Utilizador;
 import com.vvm.sh.ui.contaUtilizador.DefinicoesActivity;
 import com.vvm.sh.ui.opcoes.AtualizacaoAppActivity;
-import com.vvm.sh.ui.opcoes.OpcoesViewModel;
 import com.vvm.sh.util.Recurso;
-import com.vvm.sh.util.adaptadores.SpinnerComboBox;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.constantes.Testes;
 import com.vvm.sh.util.metodos.Permissoes;
@@ -35,16 +31,11 @@ import com.vvm.sh.util.viewmodel.BaseViewModel;
 import org.angmarch.views.NiceSpinner;
 import org.angmarch.views.OnSpinnerItemSelectedListener;
 
-import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
 
 import javax.inject.Inject;
 
-import at.markushi.ui.CircleButton;
 import butterknife.BindView;
-import butterknife.OnClick;
-import butterknife.OnItemSelected;
 
 public class AutenticacaoActivity extends BaseDaggerActivity implements Validator.ValidationListener, OnSpinnerItemSelectedListener {
 

@@ -2,7 +2,7 @@ package com.vvm.sh.di.autenticacao;
 
 import androidx.lifecycle.ViewModel;
 
-import com.vvm.sh.autenticacao.AutenticacaoViewModel;
+import com.vvm.sh.ui.autenticacao.AutenticacaoViewModel;
 import com.vvm.sh.di.ViewModelKey;
 
 import dagger.Binds;

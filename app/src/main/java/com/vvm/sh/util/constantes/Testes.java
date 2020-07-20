@@ -16,8 +16,8 @@ public class Testes {
 
         List<Utilizador> resultado = new ArrayList();
 
-        resultado.add(new Utilizador("500005", "SA", "Super administrador", "gustavomaia@vivamais.com"));
-
+        resultado.add(new Utilizador("500005", "7765", "SA", "Super administrador", "gustavomaia@vivamais.com"));
+        resultado.add(new Utilizador("12724", "58077278", "SA", "Marisa Mendonça", "gustavomaia@vivamais.com"));
         return resultado;
     }
 

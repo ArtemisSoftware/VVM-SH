@@ -15,7 +15,7 @@ import java.util.List;
 public class AutenticacaoBinding {
 
     @BindingAdapter({"utilizadores"})
-    public static void setTipos(NiceSpinner view, List<Utilizador> registos) {
+    public static void setUtilizadores(NiceSpinner view, List<Utilizador> registos) {
 
         if (registos == null)
             return;

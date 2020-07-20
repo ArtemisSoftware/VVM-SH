@@ -54,11 +54,11 @@ public class PerfilActivity extends BaseActivity {
 
         //--TESTE (apagar quando houver dados)
 
-        Utilizador t1 = new Utilizador("3956342", getString(R.string.lorem_ipsum_titulo), "3444565436");
+        Utilizador t1 = new Utilizador("3956342", getString(R.string.lorem_ipsum_titulo), "3444565436", "fddfd");
 
-        txt_nome.setText(t1.obterNome());
-        txt_numero.setText(t1.obterId());
-        txt_cap.setText(t1.obterCap());
+//        txt_nome.setText(t1.obterNome());
+//        txt_numero.setText(t1.obterId());
+//        txt_cap.setText(t1.obterCap());
 
         //TODO: chamar metodo do viewmodel
     }

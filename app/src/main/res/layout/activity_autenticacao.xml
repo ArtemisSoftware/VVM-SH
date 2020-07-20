@@ -23,14 +23,7 @@
 
 
 <!--
-
         <import type="android.view.View"/>
-
-
-
-        <variable
-            name="listener"
-            type="com.vvm.sh.ui.crossSelling.adaptadores.OnCrossSellingListener"/>
 -->
     </data>
 
@@ -39,14 +32,12 @@
         tools:context=".autenticacao.AutenticacaoActivity"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        style="@style/LoginTheme"
-        android:background="@color/colorLoginPrimaryDark">
+        style="@style/LoginTheme">
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="20dp">
+            android:layout_height="wrap_content">
 
 
             <ImageView
@@ -61,88 +52,98 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <TextView
-                android:id="@+id/textView6"
-                style="@style/titulo"
-                android:layout_marginTop="24dp"
-                android:text="@string/autenticacao"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/imageView2" />
 
-
-            <LinearLayout
-                android:id="@+id/lnr_lyt_utilizadores_teste"
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:orientation="vertical"
+                android:layout_marginTop="24dp"
+                android:padding="30dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView6">
+                app:layout_constraintTop_toBottomOf="@+id/imageView2">
+
 
                 <TextView
-                    style="@style/textoInput"
+                    android:id="@+id/textView6"
+                    style="@style/titulo"
+                    android:text="@string/autenticacao"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <LinearLayout
+                    android:id="@+id/lnr_lyt_utilizadores_teste"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/utilizadores_teste" />
+                    android:layout_marginTop="16dp"
+                    android:orientation="vertical"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textView6">
+
+                    <TextView
+                        style="@style/textoInput"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/utilizadores_teste" />
 
 
-                <org.angmarch.views.NiceSpinner
-                    android:id="@+id/nice_spinner"
-                    utilizadores=""
+                    <org.angmarch.views.NiceSpinner
+                        android:id="@+id/nice_spinner"
+                        android:layout_width="450dp"
+                        android:layout_height="wrap_content"
+                        app:popupTextAlignment="start"
+                        app:utilizadores="@{utilizadoresTestes}" />
+
+                </LinearLayout>
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayout"
+                    style="@style/parent.TextLayout"
+                    android:layout_marginTop="16dp"
+                    android:hint="@string/identificador"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/lnr_lyt_utilizadores_teste">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/txt_inp_identificador"
+                        style="@style/modifiedEditText"
+                        android:inputType="number"
+                        android:maxLines="1" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/textInputLayout2"
+                    style="@style/parent.TextLayout"
+                    android:layout_marginTop="24dp"
+                    android:hint="@string/palavra_chave"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
+                    app:passwordToggleEnabled="true">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/txt_inp_palavra_chave"
+                        style="@style/modifiedEditText"
+                        android:inputType="numberPassword"
+                        android:maxLines="1" />
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+                <at.markushi.ui.CircleButton
+                    android:id="@+id/crl_btn_autenticacao"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    app:popupTextAlignment="start" />
-
-            </LinearLayout>
-
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayout"
-                style="@style/parent.TextLayout"
-                android:layout_marginTop="16dp"
-                android:hint="@string/identificador"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/lnr_lyt_utilizadores_teste">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/txt_inp_identificador"
-                    style="@style/modifiedEditText"
-                    android:inputType="number"
-                    android:maxLines="1" />
-            </com.google.android.material.textfield.TextInputLayout>
+                    android:layout_gravity="right"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:background="?selectableItemBackgroundBorderless"
+                    android:onClick="@{(view) -> activity.onAutenticarClick()}"
+                    android:src="@drawable/ic_login_button"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/textInputLayout2" />
 
 
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/textInputLayout2"
-                style="@style/parent.TextLayout"
-                android:layout_marginTop="24dp"
-                android:hint="@string/palavra_chave"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
-                app:passwordToggleEnabled="true">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/txt_inp_palavra_chave"
-                    style="@style/modifiedEditText"
-                    android:inputType="numberPassword"
-                    android:maxLines="1" />
-            </com.google.android.material.textfield.TextInputLayout>
-
-
-            <at.markushi.ui.CircleButton
-                android:id="@+id/crl_btn_autenticacao"
-                android:onClick="@{(view) -> activity.onAutenticarClick()}"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:background="?selectableItemBackgroundBorderless"
-                android:src="@drawable/ic_login_button"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textInputLayout2" />
-
-
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -14,15 +14,20 @@ public class Utilizador {
     @NonNull
     public String id;
 
+    @NonNull
     @ColumnInfo(name = "area")
     public String area;
 
+    @NonNull
     @ColumnInfo(name = "nome")
     public String nome;
 
+    @NonNull
     @ColumnInfo(name = "email")
     public String email;
 
+    @Ignore
+    public String palavraChave;
 
     @Ignore
     public Utilizador() {}
@@ -35,6 +40,14 @@ public class Utilizador {
         this.email = email;
     }
 
+    @Ignore
+    public Utilizador(String id, String palavraChave, String area, String nome, String email) {
+        this.id = id;
+        this.area = area;
+        this.nome = nome;
+        this.email = email;
+        this.palavraChave = palavraChave;
+    }
 
 
     /**

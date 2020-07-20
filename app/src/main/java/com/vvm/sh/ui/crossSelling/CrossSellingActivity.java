@@ -72,6 +72,8 @@ public class CrossSellingActivity extends BaseDaggerActivity implements OnCrossS
 
 
         if(selecao == true & sinaletica == false){
+
+            //TODO: gravar dados sem sinaletica
             //--gravar(null);
         }
         else if(selecao == true & sinaletica == true){
@@ -81,6 +83,9 @@ public class CrossSellingActivity extends BaseDaggerActivity implements OnCrossS
         }
 
         else{
+
+            //TODO: remover dados
+
             //--acessoBdCrossSelling.remover(registos.get(posicao).obterId());
             //--atualizar();
         }

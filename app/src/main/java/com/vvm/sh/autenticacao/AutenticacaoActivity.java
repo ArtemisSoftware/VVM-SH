@@ -35,6 +35,8 @@ import com.vvm.sh.util.viewmodel.BaseViewModel;
 import org.angmarch.views.NiceSpinner;
 import org.angmarch.views.OnSpinnerItemSelectedListener;
 
+import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -92,7 +94,7 @@ public class AutenticacaoActivity extends BaseDaggerActivity implements Validato
         activityAutenticacaoBinding.setActivity(this);
 
         activityAutenticacaoBinding.setUtilizadoresTestes(Testes.obterUtilizadores());
-
+        activityAutenticacaoBinding.niceSpinner.setOnSpinnerItemSelectedListener(this);
 
         subscreverObservadores();
 
@@ -203,19 +205,11 @@ public class AutenticacaoActivity extends BaseDaggerActivity implements Validato
     @Override
     public void onItemSelected(NiceSpinner parent, View view, int position, long id) {
 
+        Utilizador item = (Utilizador)parent.getItemAtPosition(position);
+
+        txt_inp_identificador.setText(item.id);
+        txt_inp_palavra_chave.setText(item.palavraChave);
     }
-
-
-    //@OnItemSelected(R.id.spnr_utilizadores_teste)
-//    public void spnr_utilizadores_teste_ItemSelected(Spinner spinner, int position) {
-//
-//        if(spnr_utilizadores_teste.selecionado() == true) {
-//            txt_inp_identificador.setText(spnr_utilizadores_teste.obterItem().obterId() + "");
-//            txt_inp_palavra_chave.setText(spnr_utilizadores_teste.obterItem().obterCodigo());
-//        }
-//    }
-
-
 
 
 

@@ -20,7 +20,7 @@ public class AgendaRepositorio {
      * @param idUtilizador o identificador do utilizador
      * @return o trabalho
      */
-    public Single<Sessao> obterUtilizadores(String idUtilizador) {
+    public Single<Sessao> obterTrabalho(String idUtilizador) {
         return api.obterTrabalho(idUtilizador);
     }
 

@@ -7,29 +7,39 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Spinner;
 
+import androidx.lifecycle.ViewModelProviders;
+
 import com.google.android.material.textfield.TextInputEditText;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.vvm.sh.MainActivity;
 import com.vvm.sh.R;
+import com.vvm.sh.databinding.ActivityAtualizacaoAppBinding;
+import com.vvm.sh.databinding.ActivityAutenticacaoBinding;
+import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseActivity;
+import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.contaUtilizador.DefinicoesActivity;
 import com.vvm.sh.ui.opcoes.AtualizacaoAppActivity;
+import com.vvm.sh.ui.opcoes.OpcoesViewModel;
 import com.vvm.sh.util.adaptadores.SpinnerComboBox;
 import com.vvm.sh.util.constantes.Testes;
 import com.vvm.sh.util.metodos.Permissoes;
+import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 import at.markushi.ui.CircleButton;
 import butterknife.BindView;
 import butterknife.OnClick;
 import butterknife.OnItemSelected;
 
-public class AutenticacaoActivity extends BaseActivity implements Validator.ValidationListener {
+public class AutenticacaoActivity extends BaseDaggerActivity implements Validator.ValidationListener {
 
-
+/*
     @BindView(R.id.spnr_utilizadores_teste)
     SpinnerComboBox spnr_utilizadores_teste;
 
@@ -47,21 +57,54 @@ public class AutenticacaoActivity extends BaseActivity implements Validator.Vali
     @BindView(R.id.crl_btn_autenticacao)
     CircleButton crl_btn_autenticacao;
 
+*/
+
+    private ActivityAutenticacaoBinding activityAutenticacaoBinding;
+
+    @Inject
+    ViewModelProviderFactory providerFactory;
+
+
+    private OpcoesViewModel viewModel;
 
 
     private Validator validador;
 
+
+
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_autenticacao);
+    protected void intActivity(Bundle savedInstanceState) {
 
         validador = new Validator(this);
         validador.setValidationListener(this);
 
+//        viewModel = ViewModelProviders.of(this, providerFactory).get(OpcoesViewModel.class);
+//
+        activityAutenticacaoBinding = (ActivityAutenticacaoBinding) activityBinding;
+        activityAutenticacaoBinding.setLifecycleOwner(this);
+//        activityAutenticacaoBinding.setViewmodel(viewModel);
+        activityAutenticacaoBinding.setActivity(this);
+
         subscreverObservadores();
-        obterRegistos();
+
+
+
         Permissoes.pedirPermissoesApp(this);
+    }
+
+    @Override
+    protected int obterLayout() {
+        return R.layout.activity_autenticacao;
+    }
+
+    @Override
+    protected BaseViewModel obterBaseViewModel() {
+        return null;
+    }
+
+    @Override
+    protected void subscreverObservadores() {
+
     }
 
 
@@ -87,21 +130,12 @@ public class AutenticacaoActivity extends BaseActivity implements Validator.Vali
 
         //--TESTE (apagar quando houver dados)
 
-        spnr_utilizadores_teste.setAdapter(Testes.obterUtilizadores(this));
+        //--spnr_utilizadores_teste.setAdapter(Testes.obterUtilizadores(this));
 
 
         //TODO: chamar metodo do viewmodel
     }
 
-    /**
-     * Metodo que permite subscrever observadores
-     */
-    private void subscreverObservadores(){
-
-        //apresentarProgresso(true);
-
-        //TODO: subscrever observadores do viewmodel
-    }
 
 
     //--------------------
@@ -109,23 +143,30 @@ public class AutenticacaoActivity extends BaseActivity implements Validator.Vali
     //--------------------
 
 
-    @OnItemSelected(R.id.spnr_utilizadores_teste)
-    public void spnr_utilizadores_teste_ItemSelected(Spinner spinner, int position) {
-
-        if(spnr_utilizadores_teste.selecionado() == true) {
-            txt_inp_identificador.setText(spnr_utilizadores_teste.obterItem().obterId() + "");
-            txt_inp_palavra_chave.setText(spnr_utilizadores_teste.obterItem().obterCodigo());
-        }
-    }
-
-
-
-    @OnClick(R.id.crl_btn_autenticacao)
-    public void crl_btn_autenticacao_OnClickListener(View view) {
+    public void onAutenticarClick() {
 
         validador.validate();
-
     }
+
+
+
+
+
+
+
+
+    //@OnItemSelected(R.id.spnr_utilizadores_teste)
+//    public void spnr_utilizadores_teste_ItemSelected(Spinner spinner, int position) {
+//
+//        if(spnr_utilizadores_teste.selecionado() == true) {
+//            txt_inp_identificador.setText(spnr_utilizadores_teste.obterItem().obterId() + "");
+//            txt_inp_palavra_chave.setText(spnr_utilizadores_teste.obterItem().obterCodigo());
+//        }
+//    }
+
+
+
+
 
 
 

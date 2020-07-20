@@ -7,6 +7,10 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
+
+        <variable name="activity" type="com.vvm.sh.autenticacao.AutenticacaoActivity" />
+
 <!--
         <import type="java.util.List"/>
         <import type="android.view.View"/>
@@ -117,6 +121,7 @@
 
             <at.markushi.ui.CircleButton
                 android:id="@+id/crl_btn_autenticacao"
+                android:onClick="@{(view) -> activity.onAutenticarClick()}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="right"

@@ -65,8 +65,8 @@ public class AtividadePendente extends Item {
 
 
     /**
-     * Metodo que permite obter a data da atividade
-     * @return uma data (dd-mm-yyyy)
+     * Metodo que permite obter a dados da atividade
+     * @return uma dados (dd-mm-yyyy)
      */
     public String obterData(){
         return Datas.converterData(data, Datas.FORMATO_DD_MM_YYYY);
@@ -357,8 +357,8 @@ public class AtividadePendente extends Item {
 
 
     /**
-     * Metodo que permite obter a data de execucao
-     * @return a data (yyyy-mm-dd)
+     * Metodo que permite obter a dados de execucao
+     * @return a dados (yyyy-mm-dd)
      */
     public String obterDataExecucao() {
         return dataExecucao;

@@ -18,7 +18,7 @@ public class UtilizadorResultado {
     public String palavraChave;
 
     @SerializedName("Activo")
-    public int ativo;
+    public boolean ativo;
 
     @SerializedName("Email")
     public String email;

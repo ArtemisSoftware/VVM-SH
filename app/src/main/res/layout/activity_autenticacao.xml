@@ -11,13 +11,16 @@
 
         <variable name="activity" type="com.vvm.sh.autenticacao.AutenticacaoActivity" />
 
+        <variable
+            name="viewmodel"
+            type="com.vvm.sh.autenticacao.AutenticacaoViewModel"/>
+
+
 <!--
         <import type="java.util.List"/>
         <import type="android.view.View"/>
 
-        <variable
-            name="viewmodel"
-            type="com.vvm.sh.ui.crossSelling.CrossSellingViewModel"/>
+
 
         <variable
             name="listener"
@@ -105,7 +108,7 @@
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/textInputLayout2"
                 style="@style/parent.TextLayout"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="24dp"
                 android:hint="@string/palavra_chave"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/textInputLayout"

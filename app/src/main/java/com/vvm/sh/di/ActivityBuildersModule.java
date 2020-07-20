@@ -1,5 +1,9 @@
 package com.vvm.sh.di;
 
+import com.vvm.sh.autenticacao.AutenticacaoActivity;
+import com.vvm.sh.di.autenticacao.AutenticacaoModule;
+import com.vvm.sh.di.autenticacao.AutenticacaoScope;
+import com.vvm.sh.di.autenticacao.AutenticacaoViewModelsModule;
 import com.vvm.sh.di.crossSelling.CrossSellingModule;
 import com.vvm.sh.di.crossSelling.CrossSellingScope;
 import com.vvm.sh.di.crossSelling.CrossSellingViewModelsModule;
@@ -17,6 +21,13 @@ import dagger.android.ContributesAndroidInjector;
 
 @Module
 public abstract class ActivityBuildersModule {
+
+    @AutenticacaoScope
+    @ContributesAndroidInjector(
+            modules = { AutenticacaoViewModelsModule.class, AutenticacaoModule.class }
+    )
+    abstract AutenticacaoActivity contributeAutenticacaoActivity();
+
 
 
     @OpcoesScope

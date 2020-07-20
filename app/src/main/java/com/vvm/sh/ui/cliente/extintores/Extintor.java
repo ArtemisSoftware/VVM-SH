@@ -24,7 +24,7 @@ public class Extintor extends Item /*ItemFormulario*/{
 
 
     /**
-     * Metodo que indica se existe uma nova data de validade
+     * Metodo que indica se existe uma nova dados de validade
      * @return true caso exista ou false caso contrario
      */
     public boolean obterEstadoNovaDataValidade(){
@@ -34,8 +34,8 @@ public class Extintor extends Item /*ItemFormulario*/{
 
 
     /**
-     * Metodo que permite obter a data de validade
-     * @return a data (dd-MM-yyyy)
+     * Metodo que permite obter a dados de validade
+     * @return a dados (dd-MM-yyyy)
      */
     public String obterDataValidade(){
         return Datas.converterData(this.dataValidade, Datas.FORMATO_DD_MM_YYYY);

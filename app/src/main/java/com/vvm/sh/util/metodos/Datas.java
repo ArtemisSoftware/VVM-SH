@@ -33,9 +33,9 @@ public class Datas {
 
 
     /**
-     * Metodo que permite obter a data atual
-     * @param formato formato da data
-     * @return data no formato escolhido
+     * Metodo que permite obter a dados atual
+     * @param formato formato da dados
+     * @return dados no formato escolhido
      */
     public static String obterDataAtual(String formato){
 
@@ -48,10 +48,10 @@ public class Datas {
 
 
     /**
-     * Metodo que permite obter a data atual
-     * @param formato formato da data
+     * Metodo que permite obter a dados atual
+     * @param formato formato da dados
      * @param local lingua do mes
-     * @return data no formato escolhido
+     * @return dados no formato escolhido
      */
     public static String obterDataAtual(String formato, Locale local){
 
@@ -66,12 +66,12 @@ public class Datas {
 
 
     /**
-     * Metodo que permite obter uma data
+     * Metodo que permite obter uma dados
      * @param ano
      * @param mesDoAno 0 - Janeiro , 1 - Fevereiro....
      * @param diaDoMes o dia do mes
-     * @param formatoData o formato da data (ex:dd/MM/yyyy)
-     * @return uma data
+     * @param formatoData o formato da dados (ex:dd/MM/yyyy)
+     * @return uma dados
      */
     public static String converterData(int ano, int mesDoAno, int diaDoMes, String formatoData){
 
@@ -86,13 +86,13 @@ public class Datas {
 
 
     /**
-     * Metodo que permite obter uma data com o mes por extenso
+     * Metodo que permite obter uma dados com o mes por extenso
      * @param ano
      * @param mesDoAno 0 - Janeiro , 1 - Fevereiro....
      * @param diaDoMes o dia do mes
-     * @param formatoData o formato da data (ex:dd/MMMM/yyyy)
+     * @param formatoData o formato da dados (ex:dd/MMMM/yyyy)
      * @param local lingua do mes
-     * @return uma data
+     * @return uma dados
      */
     public static String converterData(int ano, int mesDoAno, int diaDoMes, String formatoData, Locale local){
 
@@ -107,10 +107,10 @@ public class Datas {
 
 
     /**
-     * Metodo que converte uma data no formato string para o formato date
-     * @param data data a converter (YYYY-mm-dd)
-     * @param formatoData o formato da data (ex:dd/MM/yyyy)
-     * @return uma data
+     * Metodo que converte uma dados no formato string para o formato date
+     * @param data dados a converter (YYYY-mm-dd)
+     * @param formatoData o formato da dados (ex:dd/MM/yyyy)
+     * @return uma dados
      */
     public static String converterData(String data, String formatoData){
 
@@ -138,10 +138,10 @@ public class Datas {
 
 
     /**
-     * Metodo que convert um long para uma data
-     * @param data long representativo da data
-     * @param formato formato pretendido para a data
-     * @return a nova data
+     * Metodo que convert um long para uma dados
+     * @param data long representativo da dados
+     * @param formato formato pretendido para a dados
+     * @return a nova dados
      */
     public static String converterData(long data, String formato) {
 
@@ -219,7 +219,7 @@ public class Datas {
     /**
      * Metodo qua permite escolher datas atrav?s de uma caixa de di?logo
      * @param view
-     * @param txtData objecto onde escrever a data
+     * @param txtData objecto onde escrever a dados
      *//*
     public static void escolherData(View view, TextView txtData){
 
@@ -236,7 +236,7 @@ public class Datas {
             mes = Integer.parseInt(st.nextToken()) - 1;
             ano = Integer.parseInt(st.nextToken());
         }
-        else { //N?o existe data escolhida
+        else { //N?o existe dados escolhida
 
             Date dataHoje = MetodosDatas.obterDataActual();
             Calendar cal = Calendar.getInstance();

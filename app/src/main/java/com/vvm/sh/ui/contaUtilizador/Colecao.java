@@ -36,8 +36,8 @@ public class Colecao /*extends Item*/ {
 
 
     /**
-     * Metodo que permite obter a data da ultima atualização
-     * @return uma data (DD_MM_YYYY__HH_MM_SS)
+     * Metodo que permite obter a dados da ultima atualização
+     * @return uma dados (DD_MM_YYYY__HH_MM_SS)
      */
     public String obterSeloTemporal(){
         return seloTemporal;

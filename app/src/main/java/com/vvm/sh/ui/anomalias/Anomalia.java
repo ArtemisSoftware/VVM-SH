@@ -58,8 +58,8 @@ public class Anomalia extends Item {
 
 
     /**
-     * Metodo que permite obter a data
-     * @return a data
+     * Metodo que permite obter a dados
+     * @return a dados
      */
     public String obterData(){
         return data;

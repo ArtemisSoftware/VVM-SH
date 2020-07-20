@@ -146,8 +146,8 @@ public class Ocorrencia extends Item implements CheckBoxIF {
 
 
     /**
-     * Metodo que devolve a data de entrada da ocorrência
-     * @return a data de entrada da ocorrência
+     * Metodo que devolve a dados de entrada da ocorrência
+     * @return a dados de entrada da ocorrência
      */
     public String obterDataEntrada(){
         return dataEntrada;
@@ -175,8 +175,8 @@ public class Ocorrencia extends Item implements CheckBoxIF {
 
 
     /**
-     * Metodo que devolve a data do historico
-     * @return data do historico
+     * Metodo que devolve a dados do historico
+     * @return dados do historico
      */
     public String obterData(){
         return data;

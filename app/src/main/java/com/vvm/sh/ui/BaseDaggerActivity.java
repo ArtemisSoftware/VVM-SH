@@ -41,6 +41,8 @@ public abstract class BaseDaggerActivity extends DaggerAppCompatActivity {
         activityBaseBinding.setLifecycleOwner(this);
         activityBaseBinding.setBaseviewmodel(obterBaseViewModel());
 
+        ButterKnife.bind(this);
+
         //--dialog = new SweetAlertDialog(this);
     }
 

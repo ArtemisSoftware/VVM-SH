@@ -49,6 +49,7 @@ public class AutenticacaoViewModel extends BaseViewModel {
                             public void onSuccess(UtilizadorResposta resposta) {
 
 
+                                autenticar(resposta, idUtilizador, palavraChave);
                                 showProgressBar(false);
                             }
 
@@ -61,6 +62,22 @@ public class AutenticacaoViewModel extends BaseViewModel {
 
 
                 );
+    }
+
+
+
+    private void autenticar(UtilizadorResposta resposta, String idUtilizador, String palavraChave){
+
+
+        for (UtilizadorResultado registo : resposta.dadosNovos) {
+
+
+            if(registo.id.equals(idUtilizador) == true & registo.ativo == true){
+
+
+            }
+        }
+
     }
 
 

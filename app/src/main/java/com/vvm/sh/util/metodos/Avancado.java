@@ -28,7 +28,7 @@ public class Avancado {
 
             if (sd.canWrite()) {
 
-                String caminhoBdAtual = "//data//" + contexto.getPackageName() + "//databases//" + BaseDados.NOME + "";
+                String caminhoBdAtual = "//dados//" + contexto.getPackageName() + "//databases//" + BaseDados.NOME + "";
                 String caminhoBdCopia = Diretorias.BASE_DADOS + "/" + BaseDados.NOME + "__" + nomeCopia + BaseDados.EXTENSAO;
                 File bdAtual = new File(data, caminhoBdAtual);
                 File bdCopia = new File(sd, caminhoBdCopia);
@@ -64,9 +64,9 @@ public class Avancado {
         String mensagem = "Importar bd - ";
         String novaBd = Environment.getExternalStorageDirectory() + "/" + AppConfigIF.DIRETORIA_BASE_DADOS_ + "/" + nomeCopia;
 
-        File data = Environment.getDataDirectory();
-        String caminhoBdAtual = "//data//" + contexto.getPackageName() + "//databases//" + AtualizacaoIF.BASE_DADOS_NOME + "";
-        File bdAtual = new File(data, caminhoBdAtual);
+        File dados = Environment.getDataDirectory();
+        String caminhoBdAtual = "//dados//" + contexto.getPackageName() + "//databases//" + AtualizacaoIF.BASE_DADOS_NOME + "";
+        File bdAtual = new File(dados, caminhoBdAtual);
 
         try {
             gestor.importarBaseDados(novaBd, bdAtual);

@@ -117,7 +117,7 @@ public class DialogoSinaletica extends BaseDaggerDialogFragment {
 //
 //
 //    /**
-//     * Call this method to send the data back to the parent fragment
+//     * Call this method to send the dados back to the parent fragment
 //     */
 //    public void saveNote() {
 //

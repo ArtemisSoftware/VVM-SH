@@ -44,6 +44,16 @@ public class AutenticacaoActivity extends BaseDaggerActivity implements Validato
     SpinnerComboBox spnr_utilizadores_teste;
 
 
+
+
+
+    @BindView(R.id.crl_btn_autenticacao)
+    CircleButton crl_btn_autenticacao;
+
+*/
+
+
+
     @NotEmpty(message = "Preenchimento obrigatório")
     @BindView(R.id.txt_inp_identificador)
     TextInputEditText txt_inp_identificador;
@@ -54,10 +64,6 @@ public class AutenticacaoActivity extends BaseDaggerActivity implements Validato
     TextInputEditText txt_inp_palavra_chave;
 
 
-    @BindView(R.id.crl_btn_autenticacao)
-    CircleButton crl_btn_autenticacao;
-
-*/
 
     private ActivityAutenticacaoBinding activityAutenticacaoBinding;
 
@@ -65,7 +71,7 @@ public class AutenticacaoActivity extends BaseDaggerActivity implements Validato
     ViewModelProviderFactory providerFactory;
 
 
-    private OpcoesViewModel viewModel;
+    private AutenticacaoViewModel viewModel;
 
 
     private Validator validador;
@@ -78,16 +84,14 @@ public class AutenticacaoActivity extends BaseDaggerActivity implements Validato
         validador = new Validator(this);
         validador.setValidationListener(this);
 
-//        viewModel = ViewModelProviders.of(this, providerFactory).get(OpcoesViewModel.class);
-//
+        viewModel = ViewModelProviders.of(this, providerFactory).get(AutenticacaoViewModel.class);
+
         activityAutenticacaoBinding = (ActivityAutenticacaoBinding) activityBinding;
         activityAutenticacaoBinding.setLifecycleOwner(this);
-//        activityAutenticacaoBinding.setViewmodel(viewModel);
+        activityAutenticacaoBinding.setViewmodel(viewModel);
         activityAutenticacaoBinding.setActivity(this);
 
         subscreverObservadores();
-
-
 
         Permissoes.pedirPermissoesApp(this);
     }
@@ -99,7 +103,7 @@ public class AutenticacaoActivity extends BaseDaggerActivity implements Validato
 
     @Override
     protected BaseViewModel obterBaseViewModel() {
-        return null;
+        return viewModel;
     }
 
     @Override
@@ -150,6 +154,26 @@ public class AutenticacaoActivity extends BaseDaggerActivity implements Validato
     }
 
 
+    @Override
+    public void onValidationSucceeded() {
+
+        viewModel.autenticar(activityAutenticacaoBinding.txtInpIdentificador.getText().toString(), activityAutenticacaoBinding.txtInpPalavraChave.getText().toString());
+    }
+
+
+    @Override
+    public void onValidationFailed(List<ValidationError> errors) {
+
+        for (ValidationError error : errors) {
+            View view = error.getView();
+            String message = error.getCollatedErrorMessage(this);
+
+            // Display error messages ;)
+            if (view instanceof TextInputEditText) {
+                ((TextInputEditText) view).setError(message);
+            }
+        }
+    }
 
 
 
@@ -204,29 +228,4 @@ public class AutenticacaoActivity extends BaseDaggerActivity implements Validato
     }
 
 
-    @Override
-    public void onValidationSucceeded() {
-
-        //Todo: chamar view model
-
-
-        Intent intent = new Intent(this, MainActivity.class);
-        //intent.putExtra(AppConstants.PICTURE, pictureRecyclerAdapter.getSelectedPicture(position).getId());
-        startActivity(intent);
-    }
-
-    @Override
-    public void onValidationFailed(List<ValidationError> errors) {
-
-        for (ValidationError error : errors) {
-            View view = error.getView();
-            String message = error.getCollatedErrorMessage(this);
-
-            // Display error messages ;)
-            if (view instanceof TextInputEditText) {
-                ((TextInputEditText) view).setError(message);
-            }
-        }
-
-    }
 }

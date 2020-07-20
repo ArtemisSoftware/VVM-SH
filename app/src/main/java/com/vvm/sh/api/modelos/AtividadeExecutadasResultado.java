@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 /**
  * Classe que representa uma atividade executada proveniente do web service
  */
-public class AtividadesExecutadasResultado {
+public class AtividadeExecutadasResultado {
 
 
     @SerializedName("Ordem")

@@ -26,7 +26,7 @@ public interface SegurancaAlimentarApi {
     Single<UtilizadorResposta> obterUtilizadores();
 
 
-    @GET("GetDados?strUser=")
-    Single<Sessao> obterTrabalho(String idUtilizador);
+    @GET("GetDados?strUser={idUtilizador}")
+    Single<Sessao> obterTrabalho(@Path("idUtilizador") String idUtilizador);
 
 }

@@ -5,6 +5,7 @@ import android.app.Application;
 import androidx.room.Room;
 
 import com.vvm.sh.baseDados.BaseDadosContantes;
+import com.vvm.sh.baseDados.Migracao;
 import com.vvm.sh.baseDados.TipoDao;
 import com.vvm.sh.baseDados.VvmshBaseDados;
 
@@ -20,7 +21,7 @@ public class BaseDadosModule {
     @Provides
     static VvmshBaseDados provideVvmshBaseDados(Application application){
         return Room.databaseBuilder(application, VvmshBaseDados.class, BaseDadosContantes.NOME)
-                //.addMigrations(MigrationDb.getMigrations())
+                .addMigrations(Migracao.obterMigracoes())
                 .build();
     }
 

@@ -1,4 +1,4 @@
-package com.vvm.sh.ui.crossSelling;
+package com.vvm.sh.ui.crossSelling.modelos;
 
 import com.vvm.sh.util.adaptadores.Item;
 import com.vvm.sh.util.interfaces.CheckBoxIF;

@@ -1,22 +1,13 @@
-package com.vvm.sh.ui.crossSelling;
+package com.vvm.sh.ui.crossSelling.adaptadores;
 
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
-import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.vvm.sh.R;
 import com.vvm.sh.databinding.ItemCrossSellingBinding;
-import com.vvm.sh.util.adaptadores.Item;
-import com.vvm.sh.util.adaptadores.ItemViewHolder;
-import com.vvm.sh.util.interfaces.OnCheckBoxItemListener;
-
-import butterknife.BindView;
 
 public class CrossSellingViewHolder extends RecyclerView.ViewHolder implements CheckBox.OnCheckedChangeListener {
 

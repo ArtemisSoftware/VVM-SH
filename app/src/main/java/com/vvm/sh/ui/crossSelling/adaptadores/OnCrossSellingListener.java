@@ -1,4 +1,4 @@
-package com.vvm.sh.ui.crossSelling;
+package com.vvm.sh.ui.crossSelling.adaptadores;
 
 import com.vvm.sh.ui.opcoes.modelos.Tipo;
 

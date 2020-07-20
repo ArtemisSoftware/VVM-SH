@@ -7,6 +7,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Spinner;
 
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.google.android.material.textfield.TextInputEditText;
@@ -23,9 +24,12 @@ import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.contaUtilizador.DefinicoesActivity;
 import com.vvm.sh.ui.opcoes.AtualizacaoAppActivity;
 import com.vvm.sh.ui.opcoes.OpcoesViewModel;
+import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.adaptadores.SpinnerComboBox;
+import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.constantes.Testes;
 import com.vvm.sh.util.metodos.Permissoes;
+import com.vvm.sh.util.metodos.Preferencias;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import java.util.List;
@@ -42,13 +46,6 @@ public class AutenticacaoActivity extends BaseDaggerActivity implements Validato
 /*
     @BindView(R.id.spnr_utilizadores_teste)
     SpinnerComboBox spnr_utilizadores_teste;
-
-
-
-
-
-    @BindView(R.id.crl_btn_autenticacao)
-    CircleButton crl_btn_autenticacao;
 
 */
 
@@ -96,39 +93,70 @@ public class AutenticacaoActivity extends BaseDaggerActivity implements Validato
         Permissoes.pedirPermissoesApp(this);
     }
 
+
     @Override
     protected int obterLayout() {
         return R.layout.activity_autenticacao;
     }
+
 
     @Override
     protected BaseViewModel obterBaseViewModel() {
         return viewModel;
     }
 
+
+
     @Override
     protected void subscreverObservadores() {
 
-        //TODO: subscrever observadores do viewmodel
+        viewModel.observarMessagem().observe(this, new Observer<Recurso>() {
+            @Override
+            public void onChanged(Recurso recurso) {
+
+
+                switch (recurso.status){
+
+                    case SUCESSO:
+
+                        iniciarApp();
+                        break;
+
+                    case ERRO:
+
+                        //TODO: mensagem de erro
+                        activityAutenticacaoBinding.crlBtnAutenticacao.setEnabled(false);
+                        break;
+
+                }
+            }
+        });
     }
 
-
-    private void iniciarApp(){
-
-
-
-        /*
-        SharedPreferences pref = getApplicationContext().getSharedPreferences("MyPref", Context.MODE_PRIVATE); // 0 - for private mode
-        SharedPreferences.Editor editor = pref.edit();
-        editor.putString("token", "string value");
-        editor.commit();
-        */
-    }
 
 
     //------------------------
     //Metodos locais
     //------------------------
+
+
+    /**
+     * Metodo que permite iniciar a aplicacao
+     */
+    private void iniciarApp(){
+
+        Preferencias.fixarDadosUtilizador(this, activityAutenticacaoBinding.txtInpIdentificador.getText().toString());
+
+        activityAutenticacaoBinding.crlBtnAutenticacao.setEnabled(true);
+        activityAutenticacaoBinding.txtInpIdentificador.setText(Sintaxe.SEM_TEXTO);
+        activityAutenticacaoBinding.txtInpPalavraChave.setText(Sintaxe.SEM_TEXTO);
+
+        Intent intent = new Intent(this, MainActivity.class);
+        startActivity(intent);
+    }
+
+
+
 
 
     private void obterRegistos(){
@@ -150,6 +178,7 @@ public class AutenticacaoActivity extends BaseDaggerActivity implements Validato
 
     public void onAutenticarClick() {
 
+        activityAutenticacaoBinding.crlBtnAutenticacao.setEnabled(false);
         validador.validate();
     }
 
@@ -171,6 +200,7 @@ public class AutenticacaoActivity extends BaseDaggerActivity implements Validato
             // Display error messages ;)
             if (view instanceof TextInputEditText) {
                 ((TextInputEditText) view).setError(message);
+                activityAutenticacaoBinding.crlBtnAutenticacao.setEnabled(true);
             }
         }
     }

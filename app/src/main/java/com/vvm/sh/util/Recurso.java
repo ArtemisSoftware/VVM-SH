@@ -20,18 +20,30 @@ public class Recurso <T> {
         this.messagem = messagem;
     }
 
-    public static <T> Recurso<T> success(@NonNull T data) {
+
+    public static <T> Recurso<T> successo() {
+        return new Recurso<>(Status.SUCESSO, null, "");
+    }
+
+    public static <T> Recurso<T> successo(@NonNull T data) {
         return new Recurso<>(Status.SUCESSO, data, "");
     }
 
-
-    public static <T> Recurso<T> success(@NonNull T data, @NonNull String message) {
-        return new Recurso<>(Status.SUCESSO, data, message);
+    public static <T> Recurso<T> successo(@NonNull T data, @NonNull String messagem) {
+        return new Recurso<>(Status.SUCESSO, data, messagem);
     }
 
-    public static <T> Recurso<T> error( @Nullable T data, @NonNull String msg) {
+
+
+    public static <T> Recurso<T> erro(@NonNull String msg) {
+        return new Recurso<>(Status.ERRO, null, msg);
+    }
+
+    public static <T> Recurso<T> erro( @Nullable T data, @NonNull String msg) {
         return new Recurso<>(Status.ERRO, data, msg);
     }
+
+
 
     public static <T> Recurso<T> loading(@Nullable T data) {
         return new Recurso<>(Status.LOADING, data, null);

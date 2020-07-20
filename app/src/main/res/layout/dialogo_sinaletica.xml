@@ -17,7 +17,7 @@
 
         <variable
             name="listener"
-            type="com.vvm.sh.ui.crossSelling.OnCrossSellingListener"/>
+            type="com.vvm.sh.ui.crossSelling.adaptadores.OnCrossSellingListener"/>
 
     </data>
 

@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.vvm.sh.api.modelos.UtilizadorResposta;
 import com.vvm.sh.api.modelos.UtilizadorResultado;
 import com.vvm.sh.repositorios.AutenticacaoRepositorio;
+import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import java.util.List;
@@ -29,7 +30,11 @@ public class AutenticacaoViewModel extends BaseViewModel {
     }
 
 
-
+    /**
+     * Metodo que permite autenticar o utilizador
+     * @param idUtilizador o identificador do utilizador
+     * @param palavraChave a palavra chave do utilizador
+     */
     public void autenticar(String idUtilizador, String palavraChave) {
 
         showProgressBar(true);
@@ -48,7 +53,6 @@ public class AutenticacaoViewModel extends BaseViewModel {
                             @Override
                             public void onSuccess(UtilizadorResposta resposta) {
 
-
                                 autenticar(resposta, idUtilizador, palavraChave);
                                 showProgressBar(false);
                             }
@@ -56,6 +60,7 @@ public class AutenticacaoViewModel extends BaseViewModel {
                             @Override
                             public void onError(Throwable e) {
 
+                                //TODO: adicionar mensagem de erro
                                 showProgressBar(false);
                             }
                         }
@@ -65,18 +70,25 @@ public class AutenticacaoViewModel extends BaseViewModel {
     }
 
 
-
+    /**
+     * Metodo que permite verificar as credenciais do utilizador
+     * @param resposta os dados da api
+     * @param idUtilizador o identificador do utilizador
+     * @param palavraChave a palavra chave do utilizador
+     */
     private void autenticar(UtilizadorResposta resposta, String idUtilizador, String palavraChave){
-
 
         for (UtilizadorResultado registo : resposta.dadosNovos) {
 
+            //TODO: adicionar a verificacao da palavra chave
 
             if(registo.id.equals(idUtilizador) == true & registo.ativo == true){
-
-
+                messagemLiveData.setValue(Recurso.successo());
+                return;
             }
         }
+
+        messagemLiveData.setValue(Recurso.erro("Erro na autenticação"));
 
     }
 

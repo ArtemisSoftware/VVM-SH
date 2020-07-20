@@ -1,43 +1,40 @@
 package com.vvm.sh.autenticacao;
 
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
+
+@Entity(tableName = "utilizadores")
 public class Utilizador {
 
-    private String id, nome, cap;
+
+    @PrimaryKey
+    @NonNull
+    private String id;
+
+    @ColumnInfo(name = "area")
+    private String area;
+
+    @ColumnInfo(name = "nome")
+    private String nome;
+
+    @ColumnInfo(name = "email")
+    private String email;
 
 
-    public Utilizador (String id, String nome, String cap){
+    @Ignore
+    public Utilizador() {}
+
+
+    public Utilizador(String id, String area, String nome, String email) {
         this.id = id;
+        this.area = area;
         this.nome = nome;
-        this.cap = cap;
+        this.email = email;
     }
 
-
-
-    /**
-     * Metodo que devolve o identificador do utilizador
-     * @return o identificador
-     */
-    public String obterId(){
-        return id;
-    }
-
-
-    /**
-     * Metodo que devolve o nome do utilizador
-     * @return o nome
-     */
-    public String obterNome(){
-        return nome;
-    }
-
-
-    /**
-     * Metodo que devolve o cap do utilizador
-     * @return o cap
-     */
-    public String obterCap(){
-        return cap;
-    }
 
 
     /**

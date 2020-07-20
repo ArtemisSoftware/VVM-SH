@@ -11,4 +11,8 @@ public class AppConfig {
     public static final String MIME_TIPO_APLICACAO_PDF = "application/pdf";
 
      */
+
+
+    public static final int DIAS_VALIDADE_AUTENTICACAO = 1;
+
 }

@@ -7,10 +7,9 @@ import androidx.databinding.BindingAdapter;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.vvm.sh.ui.crossSelling.CrossSellingRecyclerAdapter;
-import com.vvm.sh.ui.crossSelling.OnCrossSellingListener;
+import com.vvm.sh.ui.crossSelling.adaptadores.CrossSellingRecyclerAdapter;
+import com.vvm.sh.ui.crossSelling.adaptadores.OnCrossSellingListener;
 import com.vvm.sh.ui.opcoes.modelos.Tipo;
-import com.vvm.sh.util.interfaces.OnCheckBoxItemListener;
 
 import org.angmarch.views.NiceSpinner;
 import org.angmarch.views.SpinnerTextFormatter;

@@ -3,6 +3,7 @@ package com.vvm.sh.util.metodos;
 import android.app.Activity;
 import android.content.Context;
 
+import com.vvm.sh.util.constantes.AppConfig;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
@@ -30,6 +31,20 @@ public class Datas {
     public static final String HORA_FORMATO_HH_MM_SS = "HH:mm:ss";
 
     public static final Locale LOCAL_PORTUGAL = new Locale( "pt" );
+
+
+    /**
+     * Metodo que permite obter a data de validade da autenticacao
+     * @return data no formato long
+     */
+    public static long obterDataValidadeAutenticacao(){
+
+        Calendar calendario = Calendar.getInstance();
+        calendario.add(Calendar.DAY_OF_YEAR, AppConfig.DIAS_VALIDADE_AUTENTICACAO);
+        Date data =new Date(calendario.getTimeInMillis());
+        return data.getTime();
+    }
+
 
 
     /**
@@ -149,6 +164,7 @@ public class Datas {
         SimpleDateFormat formatoData = new SimpleDateFormat(formato);
         return formatoData.format(resultado);
     }
+
 
 
 

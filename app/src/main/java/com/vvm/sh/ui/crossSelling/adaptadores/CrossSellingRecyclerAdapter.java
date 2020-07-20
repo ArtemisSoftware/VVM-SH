@@ -1,8 +1,7 @@
-package com.vvm.sh.ui.crossSelling;
+package com.vvm.sh.ui.crossSelling.adaptadores;
 
 import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -12,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.vvm.sh.R;
 import com.vvm.sh.databinding.ItemCrossSellingBinding;
 import com.vvm.sh.ui.opcoes.modelos.Tipo;
-import com.vvm.sh.util.interfaces.OnCheckBoxItemListener;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -5,13 +5,15 @@ import android.view.View;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.vvm.sh.util.Recurso;
+
 import io.reactivex.disposables.CompositeDisposable;
 
 public abstract class BaseViewModel extends ViewModel {
 
 
     protected final CompositeDisposable disposables;
-    //protected MutableLiveData<Resource> messageLiveData;
+    protected MutableLiveData<Recurso> messagemLiveData;
 
 
     public MutableLiveData<Integer> loading;
@@ -19,7 +21,7 @@ public abstract class BaseViewModel extends ViewModel {
     public BaseViewModel() {
 
         this.disposables = new CompositeDisposable();
-        //messageLiveData = new MutableLiveData<>();
+        messagemLiveData = new MutableLiveData<>();
         loading = new MutableLiveData<>();
 
         showProgressBar(false);
@@ -27,9 +29,9 @@ public abstract class BaseViewModel extends ViewModel {
 
 
 
-//    public MutableLiveData<Resource> observeMessages(){
-//        return messageLiveData;
-//    }
+    public MutableLiveData<Recurso> observarMessagem(){
+        return messagemLiveData;
+    }
 
 
     protected void showProgressBar(boolean visible) {

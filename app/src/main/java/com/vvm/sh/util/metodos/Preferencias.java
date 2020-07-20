@@ -11,6 +11,7 @@ public class Preferencias {
     private static final String PRIMEIRA_UTILIZACAO = "primeira_utilizacao";
     private static final String VERSAO_APP = "versao_app";
     private static final String ID_UTILIZADOR = "id_utilizador";
+    private static final String DATA_VALIDADE_AUTENTICACAO = "validadeAutenticacao";
     private static final String TOKEN = "token";
 
 
@@ -35,16 +36,15 @@ public class Preferencias {
      * Metodo que permite fixar os dados do utilizador
      * @param contexto
      * @param idUtilizador o identificador do utilizador
-     * @param token o token associado
      */
-    public static void fixarDadosUtilizador(Context contexto, String idUtilizador, String token){
+    public static void fixarDadosUtilizador(Context contexto, String idUtilizador){
 
         String pacote = contexto.getPackageName();
 
         SharedPreferences preferencias = contexto.getSharedPreferences(pacote, Context.MODE_PRIVATE); // 0 - for private mode
         SharedPreferences.Editor editor = preferencias.edit();
         editor.putString(ID_UTILIZADOR, idUtilizador);
-        editor.putString(TOKEN, token);
+        editor.putLong (DATA_VALIDADE_AUTENTICACAO, Datas.obterDataValidadeAutenticacao());
         editor.commit();
     }
 

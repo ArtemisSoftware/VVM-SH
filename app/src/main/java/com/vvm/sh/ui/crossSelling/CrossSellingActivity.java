@@ -1,41 +1,22 @@
 package com.vvm.sh.ui.crossSelling;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
-import android.widget.TextView;
 
-import com.skydoves.powerspinner.IconSpinnerAdapter;
-import com.skydoves.powerspinner.IconSpinnerItem;
-import com.skydoves.powerspinner.PowerSpinnerView;
 import com.vvm.sh.R;
 import com.vvm.sh.databinding.ActivityCrossSellingBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
-import com.vvm.sh.ui.BaseActivity;
 import com.vvm.sh.ui.BaseDaggerActivity;
+import com.vvm.sh.ui.crossSelling.adaptadores.OnCrossSellingListener;
 import com.vvm.sh.ui.opcoes.modelos.Tipo;
-import com.vvm.sh.util.adaptadores.Item;
-import com.vvm.sh.util.interfaces.OnCheckBoxItemListener;
-import com.vvm.sh.util.interfaces.OnItemListener;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import org.angmarch.views.NiceSpinner;
 import org.angmarch.views.OnSpinnerItemSelectedListener;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.inject.Inject;
-
-import butterknife.BindView;
 
 
 public class CrossSellingActivity extends BaseDaggerActivity implements OnCrossSellingListener, OnSpinnerItemSelectedListener {

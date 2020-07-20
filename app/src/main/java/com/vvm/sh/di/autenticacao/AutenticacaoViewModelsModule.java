@@ -15,5 +15,5 @@ public abstract class AutenticacaoViewModelsModule {
     @Binds
     @IntoMap
     @ViewModelKey(AutenticacaoViewModel.class)
-    public abstract ViewModel bindCrossSellingViewModel(AutenticacaoViewModel viewModel);
+    public abstract ViewModel bindAutenticacaoViewModel(AutenticacaoViewModel viewModel);
 }

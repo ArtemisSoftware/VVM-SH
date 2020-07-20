@@ -1,5 +1,6 @@
 package com.vvm.sh.api;
 
+import com.vvm.sh.api.modelos.Sessao;
 import com.vvm.sh.api.modelos.TipoResposta;
 import com.vvm.sh.api.modelos.UtilizadorResposta;
 import com.vvm.sh.api.modelos.VersaoApp;
@@ -23,5 +24,9 @@ public interface SegurancaAlimentarApi {
 
     @GET("GetUtilizadores?dataT=")
     Single<UtilizadorResposta> obterUtilizadores();
+
+
+    @GET("GetDados?strUser=")
+    Single<Sessao> obterTrabalho(String idUtilizador);
 
 }

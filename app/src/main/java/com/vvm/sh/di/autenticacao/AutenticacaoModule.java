@@ -9,7 +9,7 @@ import dagger.Provides;
 @Module
 public class AutenticacaoModule {
 
-    //@CrossSellingScope
+    @AutenticacaoScope
     @Provides
     AutenticacaoRepositorio provideAutenticacaoRepositorio(SegurancaAlimentarApi segurancaAlimentarApi) {
 

@@ -12,14 +12,15 @@ public interface SegurancaAlimentarApi {
     String URL_BASE = "http://www.vivamais.com/tablet_hsa_ws/service.asmx/";
 
 
-    @GET("GetCrossSellingProdutos?dataT=")
-    Single<TipoResposta> obterCrossSellingProdutos();
-
 
     @GET("{metodo}?dataT=")
     Single<TipoResposta> obterTipo(@Path("metodo") String metodo);
 
     @GET("Obter_Actualizacoes")
     Single<VersaoApp> obterAtualizacao();
+
+
+    //@GET("GetUtilizadores?dataT=")
+    //Single<TipoResposta> obterUtilizadores();
 
 }

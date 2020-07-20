@@ -105,6 +105,7 @@ public class AutenticacaoActivity extends BaseDaggerActivity implements Validato
     @Override
     protected void subscreverObservadores() {
 
+        //TODO: subscrever observadores do viewmodel
     }
 
 

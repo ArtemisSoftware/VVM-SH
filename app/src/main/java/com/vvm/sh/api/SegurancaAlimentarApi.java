@@ -1,6 +1,7 @@
 package com.vvm.sh.api;
 
 import com.vvm.sh.api.modelos.TipoResposta;
+import com.vvm.sh.api.modelos.UtilizadorResposta;
 import com.vvm.sh.api.modelos.VersaoApp;
 
 import io.reactivex.Single;
@@ -20,7 +21,7 @@ public interface SegurancaAlimentarApi {
     Single<VersaoApp> obterAtualizacao();
 
 
-    //@GET("GetUtilizadores?dataT=")
-    //Single<TipoResposta> obterUtilizadores();
+    @GET("GetUtilizadores?dataT=")
+    Single<UtilizadorResposta> obterUtilizadores();
 
 }

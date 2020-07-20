@@ -3,6 +3,7 @@ package com.vvm.sh.repositorios;
 import androidx.annotation.NonNull;
 
 import com.vvm.sh.api.SegurancaAlimentarApi;
+import com.vvm.sh.api.modelos.UtilizadorResposta;
 
 import io.reactivex.Single;
 
@@ -18,8 +19,8 @@ public class AutenticacaoRepositorio {
 
 
 
-//    public Single<VersaoApp> obterAtualizacao() {
-//        return api.obterAtualizacao();
-//    }
+    public Single<UtilizadorResposta> obterUtilizadores() {
+        return api.obterUtilizadores();
+    }
 
 }

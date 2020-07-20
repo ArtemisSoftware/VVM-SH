@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.vvm.sh.api.modelos.UtilizadorResposta;
 import com.vvm.sh.api.modelos.UtilizadorResultado;
 import com.vvm.sh.repositorios.AutenticacaoRepositorio;
+import com.vvm.sh.util.ModelMapping;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
@@ -12,9 +13,12 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import io.reactivex.ObservableSource;
+import io.reactivex.Observer;
 import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 public class AutenticacaoViewModel extends BaseViewModel {
@@ -40,20 +44,47 @@ public class AutenticacaoViewModel extends BaseViewModel {
         showProgressBar(true);
 
         autenticacaoRepositorio.obterUtilizadores()
+                .toObservable()
+                .map(new Function<UtilizadorResposta, Object>() {
+                    @Override
+                    public UtilizadorResultado apply(UtilizadorResposta resposta) throws Exception {
+
+                        UtilizadorResultado resultado = autenticarUtilizador(resposta, idUtilizador, palavraChave);
+
+                        if(resultado == null){
+                            //TODO: criar excepcao
+                            throw new Exception("lololololo");
+                        }
+
+                        return resultado;
+
+                    }
+                })
+
+                .flatMap(new Function<Object, ObservableSource<?>>() {
+                    @Override
+                    public ObservableSource<?> apply(Object o) throws Exception {
+
+                        Utilizador utilizador = ModelMapping.INSTANCE.map((UtilizadorResultado) o);
+                        return autenticacaoRepositorio.inserir(utilizador).toObservable();
+
+                    }
+                })
+
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
+
                 .subscribe(
 
-                        new SingleObserver<UtilizadorResposta>() {
+                        new Observer<Object>() {
                             @Override
                             public void onSubscribe(Disposable d) {
                                 disposables.add(d);
                             }
 
                             @Override
-                            public void onSuccess(UtilizadorResposta resposta) {
-
-                                autenticar(resposta, idUtilizador, palavraChave);
+                            public void onNext(Object o) {
+                                messagemLiveData.setValue(Recurso.successo());
                                 showProgressBar(false);
                             }
 
@@ -61,13 +92,20 @@ public class AutenticacaoViewModel extends BaseViewModel {
                             public void onError(Throwable e) {
 
                                 //TODO: adicionar mensagem de erro
+
+                                messagemLiveData.setValue(Recurso.erro("Erro na autenticação"));
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onComplete() {
                                 showProgressBar(false);
                             }
                         }
-
-
                 );
+
     }
+
 
 
     /**
@@ -75,21 +113,21 @@ public class AutenticacaoViewModel extends BaseViewModel {
      * @param resposta os dados da api
      * @param idUtilizador o identificador do utilizador
      * @param palavraChave a palavra chave do utilizador
+     * @return um utilizador
      */
-    private void autenticar(UtilizadorResposta resposta, String idUtilizador, String palavraChave){
+    private UtilizadorResultado autenticarUtilizador(UtilizadorResposta resposta, String idUtilizador, String palavraChave){
 
         for (UtilizadorResultado registo : resposta.dadosNovos) {
 
             //TODO: adicionar a verificacao da palavra chave
 
             if(registo.id.equals(idUtilizador) == true & registo.ativo == true){
-                messagemLiveData.setValue(Recurso.successo());
-                return;
+
+                return registo;
             }
         }
 
-        messagemLiveData.setValue(Recurso.erro("Erro na autenticação"));
-
+        return null;
     }
 
 

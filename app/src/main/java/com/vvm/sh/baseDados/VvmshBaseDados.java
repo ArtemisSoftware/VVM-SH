@@ -17,4 +17,6 @@ public abstract class VvmshBaseDados extends RoomDatabase {
 
     public abstract TipoDao obterTipoDao();
 
+
+    public abstract UtilizadorDao obterUtilizadorDao();
 }

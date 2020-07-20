@@ -2,6 +2,9 @@ package com.vvm.sh.util;
 
 import com.vvm.sh.api.modelos.TipoResposta;
 import com.vvm.sh.api.modelos.TipoResultado;
+import com.vvm.sh.api.modelos.UtilizadorResposta;
+import com.vvm.sh.api.modelos.UtilizadorResultado;
+import com.vvm.sh.autenticacao.Utilizador;
 import com.vvm.sh.ui.opcoes.modelos.Atualizacao;
 import com.vvm.sh.ui.opcoes.modelos.Tipo;
 
@@ -26,6 +29,13 @@ public interface ModelMapping {
     @Mapping(source = "ativo", target = "ativo")
     @Mapping(source = "detalhe", target = "detalhe")
     Tipo map(TipoResultado item);
+
+
+    @Mapping(source = "id", target = "id")
+    @Mapping(source = "area", target = "area")
+    @Mapping(source = "nome", target = "nome")
+    @Mapping(source = "email", target = "email")
+    Utilizador map(UtilizadorResultado item);
 
 
 /*

@@ -75,13 +75,13 @@ public class MainActivity extends BaseActivity
         //Intent intent = new Intent(this, ApresentacaoActivity.class);
         //startActivity(intent);
 
-//        iniciarAtividade();
-//        subscreverObservadores();
-//        obterRegistos();
+        iniciarAtividade();
+        subscreverObservadores();
+        obterRegistos();
 
-        Intent intent = new Intent(this, AutenticacaoActivity.class);
+        //Intent intent = new Intent(this, AutenticacaoActivity.class);
         //intent.putExtra(AppConstants.PICTURE, pictureRecyclerAdapter.getSelectedPicture(position).getId());
-        startActivity(intent);
+        //startActivity(intent);
     }
 
 

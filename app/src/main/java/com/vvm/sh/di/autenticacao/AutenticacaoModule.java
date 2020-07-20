@@ -1,6 +1,8 @@
 package com.vvm.sh.di.autenticacao;
 
 import com.vvm.sh.api.SegurancaAlimentarApi;
+import com.vvm.sh.baseDados.UtilizadorDao;
+import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.repositorios.AutenticacaoRepositorio;
 
 import dagger.Module;
@@ -9,11 +11,24 @@ import dagger.Provides;
 @Module
 public class AutenticacaoModule {
 
+
     @AutenticacaoScope
     @Provides
-    AutenticacaoRepositorio provideAutenticacaoRepositorio(SegurancaAlimentarApi segurancaAlimentarApi) {
+    static UtilizadorDao provideUtilizadorDao(VvmshBaseDados vvmshBaseDados){
 
-        AutenticacaoRepositorio repositorio = new AutenticacaoRepositorio(segurancaAlimentarApi);
+        UtilizadorDao dao = vvmshBaseDados.obterUtilizadorDao();
+
+        //Timber.d("Providing NoteDao: " + dao);
+        return dao;
+    }
+
+
+
+    @AutenticacaoScope
+    @Provides
+    AutenticacaoRepositorio provideAutenticacaoRepositorio(SegurancaAlimentarApi segurancaAlimentarApi, UtilizadorDao utilizadorDao) {
+
+        AutenticacaoRepositorio repositorio = new AutenticacaoRepositorio(segurancaAlimentarApi, utilizadorDao);
 
         //Timber.d("Providing PokemonRepository: " + repository);
         return repositorio;

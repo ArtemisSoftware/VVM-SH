@@ -12,16 +12,16 @@ public class Utilizador {
 
     @PrimaryKey
     @NonNull
-    private String id;
+    public String id;
 
     @ColumnInfo(name = "area")
-    private String area;
+    public String area;
 
     @ColumnInfo(name = "nome")
-    private String nome;
+    public String nome;
 
     @ColumnInfo(name = "email")
-    private String email;
+    public String email;
 
 
     @Ignore

@@ -32,6 +32,9 @@ import com.vvm.sh.util.metodos.Permissoes;
 import com.vvm.sh.util.metodos.Preferencias;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
+import org.angmarch.views.NiceSpinner;
+import org.angmarch.views.OnSpinnerItemSelectedListener;
+
 import java.util.List;
 
 import javax.inject.Inject;
@@ -41,7 +44,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 import butterknife.OnItemSelected;
 
-public class AutenticacaoActivity extends BaseDaggerActivity implements Validator.ValidationListener {
+public class AutenticacaoActivity extends BaseDaggerActivity implements Validator.ValidationListener, OnSpinnerItemSelectedListener {
 
 /*
     @BindView(R.id.spnr_utilizadores_teste)
@@ -87,6 +90,9 @@ public class AutenticacaoActivity extends BaseDaggerActivity implements Validato
         activityAutenticacaoBinding.setLifecycleOwner(this);
         activityAutenticacaoBinding.setViewmodel(viewModel);
         activityAutenticacaoBinding.setActivity(this);
+
+        activityAutenticacaoBinding.setUtilizadoresTestes(Testes.obterUtilizadores());
+
 
         subscreverObservadores();
 
@@ -157,20 +163,6 @@ public class AutenticacaoActivity extends BaseDaggerActivity implements Validato
 
 
 
-
-
-    private void obterRegistos(){
-
-        //--TESTE (apagar quando houver dados)
-
-        //--spnr_utilizadores_teste.setAdapter(Testes.obterUtilizadores(this));
-
-
-        //TODO: chamar metodo do viewmodel
-    }
-
-
-
     //--------------------
     //Eventos
     //--------------------
@@ -208,6 +200,10 @@ public class AutenticacaoActivity extends BaseDaggerActivity implements Validato
 
 
 
+    @Override
+    public void onItemSelected(NiceSpinner parent, View view, int position, long id) {
+
+    }
 
 
     //@OnItemSelected(R.id.spnr_utilizadores_teste)

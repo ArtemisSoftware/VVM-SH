@@ -8,6 +8,12 @@
 
     <data>
 
+        <import type="java.util.List"/>
+        <import type="com.vvm.sh.autenticacao.Utilizador"/>
+
+        <variable
+            name="utilizadoresTestes"
+            type="List&lt;Utilizador>"/>
 
         <variable name="activity" type="com.vvm.sh.autenticacao.AutenticacaoActivity" />
 
@@ -17,7 +23,7 @@
 
 
 <!--
-        <import type="java.util.List"/>
+
         <import type="android.view.View"/>
 
 
@@ -82,6 +88,7 @@
 
                 <org.angmarch.views.NiceSpinner
                     android:id="@+id/nice_spinner"
+                    utilizadores=""
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     app:popupTextAlignment="start" />

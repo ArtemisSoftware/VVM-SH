@@ -2,6 +2,7 @@ package com.vvm.sh.util.constantes;
 
 import android.content.Context;
 
+import com.vvm.sh.autenticacao.Utilizador;
 import com.vvm.sh.util.adaptadores.SpinnerAdaptador;
 import com.vvm.sh.util.itens.ItemSpinner;
 
@@ -11,15 +12,13 @@ import java.util.List;
 public class Testes {
 
 
-    public static SpinnerAdaptador obterUtilizadores(Context contexto){
+    public static List<Utilizador> obterUtilizadores(){
 
-        ArrayList<ItemSpinner> resultado = new ArrayList();
+        List<Utilizador> resultado = new ArrayList();
 
-        resultado.add(new ItemSpinner(1, "Super administrador", "3090"));
-        resultado.add(new ItemSpinner(2, "Etelvina Verediana", "657547"));
-        resultado.add(new ItemSpinner(3, "Dinorá Jacinta", "21212"));
+        resultado.add(new Utilizador("500005", "SA", "Super administrador", "gustavomaia@vivamais.com"));
 
-        return new SpinnerAdaptador(contexto, resultado);
+        return resultado;
     }
 
 

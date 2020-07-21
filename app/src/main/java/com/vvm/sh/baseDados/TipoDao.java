@@ -15,7 +15,7 @@ import io.reactivex.Flowable;
 import io.reactivex.Maybe;
 
 @Dao
-abstract public class TipoDao implements BaseDao<Atualizacao>{
+abstract public class TipoDao implements BaseDao<Tipo>{
 
 
     @Insert

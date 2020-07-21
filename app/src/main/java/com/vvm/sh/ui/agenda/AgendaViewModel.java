@@ -1,7 +1,9 @@
 package com.vvm.sh.ui.agenda;
 
 import com.vvm.sh.api.modelos.SessaoResposta;
+import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.repositorios.AgendaRepositorio;
+import com.vvm.sh.ui.agenda.servicos.TrabalhoAsyncTask;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import javax.inject.Inject;
@@ -14,6 +16,10 @@ import io.reactivex.schedulers.Schedulers;
 public class AgendaViewModel extends BaseViewModel {
 
     private final AgendaRepositorio agendaRepositorio;
+
+
+    @Inject
+    VvmshBaseDados vvmshBaseDados;
 
     @Inject
     public AgendaViewModel(AgendaRepositorio agendaRepositorio){
@@ -47,6 +53,10 @@ public class AgendaViewModel extends BaseViewModel {
                             @Override
                             public void onNext(SessaoResposta[] sessao) {
 
+                                TrabalhoAsyncTask servico = new TrabalhoAsyncTask(vvmshBaseDados, agendaRepositorio, idUtilizador);
+                                servico.execute(sessao[0]);
+
+                                showProgressBar(false);
                             }
 
                             @Override

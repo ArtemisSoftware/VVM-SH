@@ -32,7 +32,7 @@ public class DadosResultado {
     public String novo;
 
     @SerializedName("PrefixoCT")
-    public String prefixoCT;
+    public String prefixoCt;
 
     @SerializedName("DtInsercao")
     public String dataInsercao;

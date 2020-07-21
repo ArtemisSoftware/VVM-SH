@@ -6,6 +6,8 @@ import androidx.room.Entity;
 import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
+import java.util.Date;
+
 @Entity(tableName = "tarefas")
 public class Tarefa {
 
@@ -20,15 +22,15 @@ public class Tarefa {
 
     @NonNull
     @ColumnInfo(name = "ordem")
-    public String seloTemporal;
+    public String ordem;
 
     @NonNull
     @ColumnInfo(name = "prefixoCt")
     public String prefixoCt;
 
-    //@NonNull
-    //@ColumnInfo(name = "data")
-    //private Date data;
+    @NonNull
+    @ColumnInfo(name = "data")
+    public Date data;
 
 
     @Ignore
@@ -37,18 +39,20 @@ public class Tarefa {
     }
 
     @Ignore
-    public Tarefa(@NonNull String idUtilizador, @NonNull String seloTemporal, @NonNull String prefixoCt) {
+    public Tarefa(@NonNull String idUtilizador, @NonNull String ordem, @NonNull String prefixoCt, @NonNull Date data) {
         this.idUtilizador = idUtilizador;
-        this.seloTemporal = seloTemporal;
+        this.ordem = ordem;
         this.prefixoCt = prefixoCt;
+        this.data = data;
     }
 
 
 
-    public Tarefa(int idTarefa, @NonNull String idUtilizador, @NonNull String seloTemporal, @NonNull String prefixoCt) {
+    public Tarefa(int idTarefa, @NonNull String idUtilizador, @NonNull String ordem, @NonNull String prefixoCt, @NonNull Date data) {
         this.idTarefa = idTarefa;
         this.idUtilizador = idUtilizador;
-        this.seloTemporal = seloTemporal;
+        this.ordem = ordem;
         this.prefixoCt = prefixoCt;
+        this.data = data;
     }
 }

@@ -24,6 +24,6 @@ public class AtividadeExecutadaViewHolder extends ItemViewHolder {
 
     @Override
     protected void preencherCampos(Item item) {
-        txt_data.setText(((AtividadeExecutada) item).obterData());
+        //--txt_data.setText(((AtividadeExecutada) item).obterData());
     }
 }

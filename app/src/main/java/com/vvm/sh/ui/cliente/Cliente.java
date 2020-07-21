@@ -4,10 +4,13 @@ import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 import com.vvm.sh.ui.agenda.modelos.Tarefa;
+
+import java.util.Date;
 
 import static androidx.room.ForeignKey.CASCADE;
 
@@ -54,7 +57,7 @@ public class Cliente {
     @ColumnInfo(name = "actividade")
     public String actividade;
 
-    @NonNull
+
     @ColumnInfo(name = "actividade1")
     public String actividade1;
 
@@ -100,13 +103,15 @@ public class Cliente {
 
 
 
+
+
     @NonNull
     @ColumnInfo(name = "numeroCliente")
     public String numeroCliente;
 
     @NonNull
-    @ColumnInfo(name = "servicoTP")
-    public String servicoTP;
+    @ColumnInfo(name = "servicoTp")
+    public String servicoTp;
 
     @NonNull
     @ColumnInfo(name = "servico")
@@ -116,17 +121,17 @@ public class Cliente {
     @ColumnInfo(name = "minutos")
     public String minutos;
 
-//    @NonNull
-//    @ColumnInfo(name = "ultimaVisita")
-//    public Date  ultimaVisita;
+    @NonNull
+    @ColumnInfo(name = "ultimaVisita")
+    public Date  ultimaVisita;
 
     @NonNull
     @ColumnInfo(name = "contrato")
     public String contrato;
 
-//    @NonNull
-//    @ColumnInfo(name = "dataContrato")
-//    public Date  dataContrato;
+    @NonNull
+    @ColumnInfo(name = "dataContrato")
+    public Date dataContrato;
 
     @NonNull
     @ColumnInfo(name = "novo")
@@ -134,9 +139,9 @@ public class Cliente {
 
 
 
-//    @NonNull
-//    @ColumnInfo(name = "dataInsercao")
-//    public Date  dataInsercao;
+    @NonNull
+    @ColumnInfo(name = "dataInsercao")
+    public Date  dataInsercao;
 
     @NonNull
     @ColumnInfo(name = "minutosRealizados")
@@ -146,5 +151,51 @@ public class Cliente {
     @ColumnInfo(name = "periodo")
     public String periodo;
 
+    @Ignore
+    public Cliente() {
 
+    }
+
+
+    public Cliente(int idTarefa, @NonNull String nome, @NonNull String morada, @NonNull String localidade,
+                   @NonNull String codigoPostal, @NonNull String cpAlf, @NonNull String freguesia,
+                   @NonNull String nif, @NonNull String actividade, String actividade1, @NonNull String responsavel,
+                   @NonNull String telefone, @NonNull String telemovel, @NonNull String email,
+                   boolean emailAutenticado, @NonNull String cae, @NonNull String cae1, boolean moveLife,
+                   @NonNull String numeroAnalises, @NonNull String segmento, @NonNull String numeroCliente,
+                   @NonNull String servicoTp, @NonNull String servico, @NonNull String minutos, @NonNull Date ultimaVisita,
+                   @NonNull String contrato, @NonNull Date dataContrato, @NonNull String novo, @NonNull Date dataInsercao,
+                   @NonNull String minutosRealizados, @NonNull String periodo) {
+        this.idTarefa = idTarefa;
+        this.nome = nome;
+        this.morada = morada;
+        this.localidade = localidade;
+        this.codigoPostal = codigoPostal;
+        this.cpAlf = cpAlf;
+        this.freguesia = freguesia;
+        this.nif = nif;
+        this.actividade = actividade;
+        this.actividade1 = actividade1;
+        this.responsavel = responsavel;
+        this.telefone = telefone;
+        this.telemovel = telemovel;
+        this.email = email;
+        this.emailAutenticado = emailAutenticado;
+        this.cae = cae;
+        this.cae1 = cae1;
+        this.moveLife = moveLife;
+        this.numeroAnalises = numeroAnalises;
+        this.segmento = segmento;
+        this.numeroCliente = numeroCliente;
+        this.servicoTp = servicoTp;
+        this.servico = servico;
+        this.minutos = minutos;
+        this.ultimaVisita = ultimaVisita;
+        this.contrato = contrato;
+        this.dataContrato = dataContrato;
+        this.novo = novo;
+        this.dataInsercao = dataInsercao;
+        this.minutosRealizados = minutosRealizados;
+        this.periodo = periodo;
+    }
 }

@@ -5,6 +5,7 @@ import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
 import com.vvm.sh.ui.agenda.modelos.Tarefa;
+import com.vvm.sh.ui.atividadesExecutadas.AtividadeExecutada;
 import com.vvm.sh.ui.autenticacao.modelos.Utilizador;
 import com.vvm.sh.ui.cliente.Cliente;
 import com.vvm.sh.ui.opcoes.modelos.Atualizacao;
@@ -14,7 +15,7 @@ import com.vvm.sh.ui.opcoes.modelos.Tipo;
             entities = {
                     Atualizacao.class, Tipo.class, Utilizador.class,
                     Tarefa.class,
-                    Cliente.class
+                    Cliente.class, AtividadeExecutada.class
             },
             version = BaseDadosContantes.VERSAO
 )

@@ -24,5 +24,5 @@ public class TarefaResultado {
     public DadosResultado dados;
 
     @SerializedName("Cliente")
-    public ClienteDados cliente;
+    public ClienteResultado cliente;
 }

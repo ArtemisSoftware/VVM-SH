@@ -4,7 +4,7 @@ import com.vvm.sh.api.modelos.UtilizadorResposta;
 import com.vvm.sh.api.modelos.UtilizadorResultado;
 import com.vvm.sh.repositorios.AutenticacaoRepositorio;
 import com.vvm.sh.ui.autenticacao.modelos.Utilizador;
-import com.vvm.sh.util.ModelMapping;
+import com.vvm.sh.util.mapeamento.ModelMapping;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 

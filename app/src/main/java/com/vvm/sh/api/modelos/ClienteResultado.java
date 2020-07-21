@@ -2,7 +2,7 @@ package com.vvm.sh.api.modelos;
 
 import com.google.gson.annotations.SerializedName;
 
-public class ClienteDados {
+public class ClienteResultado {
 
     @SerializedName("Nome")
     public String nome;
@@ -64,7 +64,7 @@ public class ClienteDados {
 
 
 
-
+/*
     @SerializedName("Ordem")
     public String ordem;
 
@@ -103,6 +103,6 @@ public class ClienteDados {
 
     @SerializedName("Periodo")
     public String periodo;
-
+*/
 
 }

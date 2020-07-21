@@ -11,11 +11,83 @@ public class Migracao {
     public static final Migration[] obterMigracoes(){
 
         Migration migrations [] =  new Migration []{
-                MIGRACAO_1_2
+                MIGRACAO_1_2, MIGRACAO_2_3
         };
 
         return migrations;
     }
+
+
+    public static final Migration MIGRACAO_2_3 = new Migration(2, 3) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            try {
+                database.execSQL("CREATE TABLE IF NOT EXISTS 'tarefas' ("
+                        + "'idTarefa' INTEGER PRIMARY KEY NOT NULL, "
+                        + "'idUtilizador' TEXT NOT NULL, "
+                        + "'ordem' TEXT NOT NULL, "
+                        + "'prefixoCt' TEXT NOT NULL, "
+                        + "'data' INTEGER NOT NULL) ");
+
+                database.execSQL("CREATE TABLE IF NOT EXISTS 'atividadeExecutadas' ("
+                        + "'idTarefa' INTEGER NOT NULL, "
+                        + "'ordem' TEXT NOT NULL, "
+                        + "'idServico' TEXT NOT NULL, "
+                        + "'descricao' TEXT NOT NULL, "
+                        + "'dataProgramada' INTEGER NOT NULL, "
+                        + "'dataExecucao' INTEGER NOT NULL, "
+                        + "PRIMARY KEY (idTarefa, idServico), "
+                        + "FOREIGN KEY (idTarefa) REFERENCES tarefas (idTarefa)  ON DELETE CASCADE) ");
+
+
+                database.execSQL("CREATE UNIQUE INDEX index_atividadeExecutadas_idTarefa ON atividadeExecutadas (idTarefa)");
+
+                database.execSQL("CREATE TABLE IF NOT EXISTS 'clientes' ("
+                        + "'idTarefa' INTEGER PRIMARY KEY NOT NULL, "
+                        + "'nome' TEXT NOT NULL, "
+                        + "'morada' TEXT NOT NULL, "
+                        + "'localidade' TEXT NOT NULL, "
+                        + "'codigoPostal' TEXT NOT NULL, "
+                        + "'cpAlf' TEXT NOT NULL, "
+                        + "'freguesia' TEXT NOT NULL, "
+                        + "'nif' TEXT NOT NULL, "
+                        + "'actividade' TEXT NOT NULL, "
+                        + "'actividade1' TEXT, "
+                        + "'responsavel' TEXT NOT NULL, "
+                        + "'telefone' TEXT NOT NULL, "
+                        + "'telemovel' TEXT NOT NULL, "
+                        + "'email' TEXT NOT NULL, "
+                        + "'emailAutenticado' INTEGER NOT NULL, "
+                        + "'cae' TEXT NOT NULL, "
+                        + "'cae1' TEXT NOT NULL, "
+                        + "'moveLife' INTEGER NOT NULL, "
+                        + "'numeroAnalises' TEXT NOT NULL, "
+                        + "'segmento' TEXT NOT NULL, "
+                        + "'numeroCliente' TEXT NOT NULL, "
+                        + "'servicoTp' TEXT NOT NULL, "
+                        + "'servico' TEXT NOT NULL, "
+                        + "'minutos' TEXT NOT NULL, "
+                        + "'ultimaVisita' INTEGER NOT NULL, "
+                        + "'contrato' TEXT NOT NULL, "
+                        + "'dataContrato' INTEGER NOT NULL, "
+                        + "'novo' TEXT NOT NULL, "
+                        + "'dataInsercao' INTEGER NOT NULL, "
+                        + "'minutosRealizados' TEXT NOT NULL, "
+                        + "'periodo' TEXT NOT NULL, "
+                        + "FOREIGN KEY (idTarefa) REFERENCES tarefas (idTarefa) ON DELETE CASCADE) ");
+
+
+
+                //Timber.d("MIGRACAO_1_2: success");
+            }
+            catch(SQLException e){
+                Log.e("Migracao", "erro MIGRACAO_2_3: " + e.getMessage());
+                //Timber.e("erro MIGRACAO_1_2: " + e.getMessage());
+            }
+        }
+    };
+
+
 
 
     public static final Migration MIGRACAO_1_2 = new Migration(1, 2) {

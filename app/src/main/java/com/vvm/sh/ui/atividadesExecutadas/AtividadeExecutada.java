@@ -5,6 +5,7 @@ import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
@@ -15,8 +16,8 @@ import java.util.Date;
 import static androidx.room.ForeignKey.CASCADE;
 
 @Entity(tableName = "atividadeExecutadas",
-        indices = {@Index("idTarefa")},
-        primaryKeys = {"idTarefa","ordem"},
+        indices = {@Index(value="idTarefa", unique = true) },
+        primaryKeys = {"idTarefa","idServico"},
         foreignKeys = @ForeignKey(entity = Tarefa.class,
                                 parentColumns = "idTarefa",
                                 childColumns = "idTarefa",
@@ -29,19 +30,38 @@ public class AtividadeExecutada {
 
 
     @NonNull
+    @ColumnInfo(name = "ordem")
     public String ordem;
 
 
 
-    @ColumnInfo(name = "idServico")
+    @NonNull
     public String idServico;
 
+    @NonNull
     @ColumnInfo(name = "descricao")
     public String descricao;
 
+    @NonNull
     @ColumnInfo(name = "dataProgramada")
     public Date dataProgramada;
 
+    @NonNull
     @ColumnInfo(name = "dataExecucao")
     public Date dataExecucao;
+
+
+    @Ignore
+    public AtividadeExecutada() {
+
+    }
+
+    public AtividadeExecutada(int idTarefa, @NonNull String ordem, String idServico, String descricao, Date dataProgramada, Date dataExecucao) {
+        this.idTarefa = idTarefa;
+        this.ordem = ordem;
+        this.idServico = idServico;
+        this.descricao = descricao;
+        this.dataProgramada = dataProgramada;
+        this.dataExecucao = dataExecucao;
+    }
 }

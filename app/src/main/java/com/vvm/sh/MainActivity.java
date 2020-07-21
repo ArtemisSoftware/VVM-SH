@@ -2,12 +2,14 @@ package com.vvm.sh;
 
 import androidx.lifecycle.ViewModelProviders;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.vvm.sh.databinding.ActivityMainBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.agenda.AgendaViewModel;
+import com.vvm.sh.ui.agenda.TrabalhoActivity;
 import com.vvm.sh.util.metodos.Datas;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
@@ -46,7 +48,17 @@ public class MainActivity extends BaseDaggerActivity
 
         subscreverObservadores();
 
-        viewModel.obterTrabalho("12724");
+
+        //TODO: verificar se deve chamar a TrabalhoActivity ou carregar os dados da bd
+
+        //viewModel.obterTrabalho("12724");
+
+        //Intent intent = new Intent(this, AutenticacaoActivity.class);
+//        //intent.putExtra(AppConstants.PICTURE, pictureRecyclerAdapter.getSelectedPicture(position).getId());
+        Intent intent = new Intent(this, TrabalhoActivity.class);
+        startActivity(intent);
+
+
 
     }
 

@@ -79,6 +79,17 @@ public class Datas {
     }
 
 
+    public static Date converterString(String data, String formato){
+
+        SimpleDateFormat format = new SimpleDateFormat(formato);
+        try {
+            return format.parse(data);
+
+        } catch (ParseException e) {
+            return new Date();
+        }
+    }
+
 
     /**
      * Metodo que permite obter uma dados

@@ -9,7 +9,7 @@ import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.repositorios.TiposRepositorio;
 import com.vvm.sh.ui.opcoes.modelos.Atualizacao;
 import com.vvm.sh.ui.opcoes.modelos.Tipo;
-import com.vvm.sh.util.ModelMapping;
+import com.vvm.sh.util.mapeamento.ModelMapping;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -1,17 +1,54 @@
 package com.vvm.sh.ui.agenda;
 
-import com.vvm.sh.util.adaptadores.Item;
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.Ignore;
+import androidx.room.PrimaryKey;
 
-public class Tarefa extends Item {
+@Entity(tableName = "tarefas")
+public class Tarefa {
 
-    private String empresa;
 
-    public Tarefa(int id, String descricao, String empresa) {
-        super(id, descricao);
-        this.empresa = empresa;
+    @PrimaryKey
+    @NonNull
+    public int idTarefa;
+
+    @NonNull
+    @ColumnInfo(name = "idUtilizador")
+    public String idUtilizador;
+
+    @NonNull
+    @ColumnInfo(name = "ordem")
+    public String seloTemporal;
+
+    @NonNull
+    @ColumnInfo(name = "prefixoCt")
+    public String prefixoCt;
+
+    //@NonNull
+    //@ColumnInfo(name = "data")
+    //private String data;
+
+
+    @Ignore
+    public Tarefa() {
+
     }
 
-    public String obterEmpresa() {
-        return empresa;
+    @Ignore
+    public Tarefa(@NonNull String idUtilizador, @NonNull String seloTemporal, @NonNull String prefixoCt) {
+        this.idUtilizador = idUtilizador;
+        this.seloTemporal = seloTemporal;
+        this.prefixoCt = prefixoCt;
+    }
+
+
+
+    public Tarefa(int idTarefa, @NonNull String idUtilizador, @NonNull String seloTemporal, @NonNull String prefixoCt) {
+        this.idTarefa = idTarefa;
+        this.idUtilizador = idUtilizador;
+        this.seloTemporal = seloTemporal;
+        this.prefixoCt = prefixoCt;
     }
 }

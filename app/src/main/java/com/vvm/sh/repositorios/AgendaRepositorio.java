@@ -40,6 +40,11 @@ public class AgendaRepositorio {
     }
 
 
+    public void obterTarefas(String idUtilizador, String data){
+
+    }
+
+
     public long inserirTarefa(Tarefa tarefa){
         return tarefaDao.inserirRegisto(tarefa);
     }

@@ -4,15 +4,19 @@ import androidx.annotation.NonNull;
 
 import com.vvm.sh.api.SegurancaAlimentarApi;
 import com.vvm.sh.api.modelos.SessaoResposta;
+import com.vvm.sh.baseDados.TarefaDao;
+import com.vvm.sh.ui.agenda.modelos.Tarefa;
 
 import io.reactivex.Single;
 
 public class AgendaRepositorio {
 
     private final SegurancaAlimentarApi api;
+    private final TarefaDao tarefaDao;
 
-    public AgendaRepositorio(@NonNull SegurancaAlimentarApi api) {
+    public AgendaRepositorio(@NonNull SegurancaAlimentarApi api, @NonNull TarefaDao tarefaDao) {
         this.api = api;
+        this.tarefaDao = tarefaDao;
     }
 
     /**
@@ -25,4 +29,7 @@ public class AgendaRepositorio {
     }
 
 
+    public long inserirTarefa(Tarefa tarefa){
+        return tarefaDao.inserirRegisto(tarefa);
+    }
 }

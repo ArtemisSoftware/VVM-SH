@@ -47,6 +47,14 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+
+    <style name="tituloAgenda_" parent="titulo">
+
+        <item name="android:textSize">@dimen/tituloTamanho</item>
+    </style>
+
+
+
     <style name="subTituloCartao" parent="tituloCartao">
         <item name="android:textSize">@dimen/subTituloCartao</item>
     </style>

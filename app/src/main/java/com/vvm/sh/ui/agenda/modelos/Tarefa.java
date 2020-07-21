@@ -1,4 +1,4 @@
-package com.vvm.sh.ui.agenda;
+package com.vvm.sh.ui.agenda.modelos;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;

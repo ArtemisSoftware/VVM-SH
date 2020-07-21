@@ -1,47 +1,17 @@
 package com.vvm.sh;
 
-import androidx.appcompat.widget.Toolbar;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
+import androidx.lifecycle.ViewModelProviders;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuItem;
-import android.view.View;
-import android.widget.TextView;
 
-import com.github.clans.fab.FloatingActionMenu;
 import com.vvm.sh.databinding.ActivityMainBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.agenda.AgendaViewModel;
-import com.vvm.sh.ui.agenda.TrabalhoActivity;
-import com.vvm.sh.ui.BaseActivity;
-import com.vvm.sh.ui.agenda.DialogoOpcoesTarefaFragment;
-import com.vvm.sh.ui.agenda.DialogoOpcoesTrabalhoFragment;
-import com.vvm.sh.ui.agenda.Tarefa;
-import com.vvm.sh.ui.agenda.TarefaActivity;
-import com.vvm.sh.ui.agenda.TarefaRecyclerAdapter;
-import com.vvm.sh.ui.contaUtilizador.DefinicoesActivity;
-import com.vvm.sh.ui.contaUtilizador.OpcoesAvancadasActivity;
-import com.vvm.sh.ui.contaUtilizador.PerfilActivity;
-import com.vvm.sh.ui.opcoes.AtualizacaoAppActivity;
-import com.vvm.sh.util.adaptadores.Item;
-import com.vvm.sh.util.interfaces.OnItemListener;
-import com.vvm.sh.util.interfaces.OnItemLongListener;
 import com.vvm.sh.util.metodos.Datas;
-import com.vvm.sh.util.metodos.Preferencias;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
-import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.inject.Inject;
-
-import butterknife.BindView;
-import butterknife.OnClick;
 
 public class MainActivity extends BaseDaggerActivity
         /*implements OnItemListener, OnItemLongListener,
@@ -64,6 +34,20 @@ public class MainActivity extends BaseDaggerActivity
     @Override
     protected void intActivity(Bundle savedInstanceState) {
 
+        viewModel = ViewModelProviders.of(this, providerFactory).get(AgendaViewModel.class);
+
+        activityMainBinding = (ActivityMainBinding) activityBinding;
+        activityMainBinding.setLifecycleOwner(this);
+        activityMainBinding.setViewmodel(viewModel);
+        //activityTrabalhoBinding.setActivity(this);
+
+
+        activityMainBinding.txtData.setText(Datas.obterDataAtual(Datas.FORMATO_DD_MMMM_YYYY, Datas.LOCAL_PORTUGAL));
+
+        subscreverObservadores();
+
+        viewModel.obterTrabalho("12724");
+
     }
 
     @Override
@@ -73,13 +57,33 @@ public class MainActivity extends BaseDaggerActivity
 
     @Override
     protected BaseViewModel obterBaseViewModel() {
-        return null;
+        return viewModel;
     }
 
     @Override
     protected void subscreverObservadores() {
 
     }
+
+
+
+    //------------------------
+    //Metodos locais
+    //------------------------
+
+
+//    /**
+//     * Metodo que permite iniciar a atividade
+//     */
+//    private void iniciarAtividade(){
+//
+//
+//        data = Datas.obterDataAtual(Datas.FORMATO_YYYY_MM_DD);
+//
+//    }
+
+
+
 
 //
 //    @BindView(R.id.txt_data)

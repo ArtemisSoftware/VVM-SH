@@ -1,6 +1,5 @@
 package com.vvm.sh.util.adaptadores;
 
-import android.graphics.Color;
 import android.view.View;
 import android.widget.TextView;
 
@@ -8,9 +7,7 @@ import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.amulyakhare.textdrawable.TextDrawable;
 import com.vvm.sh.R;
-import com.vvm.sh.ui.agenda.Tarefa;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

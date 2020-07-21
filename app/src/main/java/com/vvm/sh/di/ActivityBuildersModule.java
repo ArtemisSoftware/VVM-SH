@@ -1,5 +1,6 @@
 package com.vvm.sh.di;
 
+import com.vvm.sh.MainActivity;
 import com.vvm.sh.di.agenda.AgendaModule;
 import com.vvm.sh.di.agenda.AgendaScope;
 import com.vvm.sh.di.agenda.AgendaViewModelsModule;
@@ -31,6 +32,13 @@ public abstract class ActivityBuildersModule {
     )
     abstract AutenticacaoActivity contributeAutenticacaoActivity();
 
+
+
+    @AgendaScope
+    @ContributesAndroidInjector(
+            modules = { AgendaViewModelsModule.class, AgendaModule.class }
+    )
+    abstract MainActivity contributeMainActivity();
 
 
     @AgendaScope

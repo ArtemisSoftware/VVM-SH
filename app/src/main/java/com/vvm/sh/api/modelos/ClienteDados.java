@@ -61,4 +61,48 @@ public class ClienteDados {
     @SerializedName("Segmento")
     public String segmento;
 
+
+
+
+
+    @SerializedName("Ordem")
+    public String ordem;
+
+    @SerializedName("NrCliente")
+    public String numeroCliente;
+
+    @SerializedName("ServicoTP")
+    public String servicoTP;
+
+    @SerializedName("Servico")
+    public String servico;
+
+    @SerializedName("Minutos")
+    public String minutos;
+
+    @SerializedName("UltVisita")
+    public String ultimaVisita;
+
+    @SerializedName("Contrato")
+    public String contrato;
+
+    @SerializedName("DtContrato")
+    public String dataContrato;
+
+    @SerializedName("Novo")
+    public String novo;
+
+    @SerializedName("PrefixoCT")
+    public String prefixoCT;
+
+    @SerializedName("DtInsercao")
+    public String dataInsercao;
+
+    @SerializedName("MinutosRealizados")
+    public String minutosRealizados;
+
+    @SerializedName("Periodo")
+    public String periodo;
+
+
 }

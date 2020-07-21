@@ -11,7 +11,7 @@ public class DadosResultado {
     public String numeroCliente;
 
     @SerializedName("ServicoTP")
-    public String servicoTP;
+    public String servicoTp;
 
     @SerializedName("Servico")
     public String servico;

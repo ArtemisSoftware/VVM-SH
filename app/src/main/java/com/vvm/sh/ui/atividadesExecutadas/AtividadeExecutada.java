@@ -16,7 +16,7 @@ import java.util.Date;
 import static androidx.room.ForeignKey.CASCADE;
 
 @Entity(tableName = "atividadeExecutadas",
-        indices = {@Index(value="idTarefa", unique = true) },
+        indices = {@Index(value="idTarefa", unique = false) },
         primaryKeys = {"idTarefa","idServico"},
         foreignKeys = @ForeignKey(entity = Tarefa.class,
                                 parentColumns = "idTarefa",

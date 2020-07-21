@@ -5,9 +5,11 @@ import androidx.annotation.NonNull;
 import com.vvm.sh.api.SegurancaAlimentarApi;
 import com.vvm.sh.api.modelos.SessaoResposta;
 import com.vvm.sh.baseDados.AtividadeExecutadaDao;
+import com.vvm.sh.baseDados.ClienteDao;
 import com.vvm.sh.baseDados.TarefaDao;
 import com.vvm.sh.ui.agenda.modelos.Tarefa;
 import com.vvm.sh.ui.atividadesExecutadas.AtividadeExecutada;
+import com.vvm.sh.ui.cliente.Cliente;
 
 import java.util.List;
 
@@ -18,11 +20,14 @@ public class AgendaRepositorio {
     private final SegurancaAlimentarApi api;
     private final TarefaDao tarefaDao;
     private final AtividadeExecutadaDao atividadeExecutadaDao;
+    private final ClienteDao clienteDao;
 
-    public AgendaRepositorio(@NonNull SegurancaAlimentarApi api, @NonNull TarefaDao tarefaDao, @NonNull AtividadeExecutadaDao atividadeExecutadaDao) {
+    public AgendaRepositorio(@NonNull SegurancaAlimentarApi api,
+                             @NonNull TarefaDao tarefaDao, @NonNull AtividadeExecutadaDao atividadeExecutadaDao, @NonNull ClienteDao clienteDao) {
         this.api = api;
         this.tarefaDao = tarefaDao;
         this.atividadeExecutadaDao = atividadeExecutadaDao;
+        this.clienteDao = clienteDao;
     }
 
     /**
@@ -43,5 +48,10 @@ public class AgendaRepositorio {
     public void inserirAtividadesExecutadas(List<AtividadeExecutada> atividades){
         atividadeExecutadaDao.inserir(atividades);
     }
+
+    public void inserirCliente(Cliente cliente){
+        clienteDao.inserirRegisto(cliente);
+    }
+
 
 }

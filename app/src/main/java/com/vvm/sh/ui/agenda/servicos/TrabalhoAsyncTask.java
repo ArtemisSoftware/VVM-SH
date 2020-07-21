@@ -32,7 +32,6 @@ public class TrabalhoAsyncTask extends AsyncTask<SessaoResposta, Void, Void> {
     @Override
     protected Void doInBackground(SessaoResposta... sessaoRespostas) {
 
-
         if(sessaoRespostas[0] == null)
             return null;
 
@@ -53,6 +52,9 @@ public class TrabalhoAsyncTask extends AsyncTask<SessaoResposta, Void, Void> {
                         Tarefa tarefa = ModelMapping.INSTANCE.map(info.tarefas.dados);
                         tarefa.data = Datas.converterString(data, Datas.FORMATO_YYYY_MM_DD);
                         tarefa.idUtilizador = idUtilizador;
+
+                        //tarefa
+
                         int idTarefa = (int) repositorio.inserirTarefa(tarefa);
 
                         List<AtividadeExecutada> atividadesExecutadas = new ArrayList<>();
@@ -64,17 +66,15 @@ public class TrabalhoAsyncTask extends AsyncTask<SessaoResposta, Void, Void> {
                             atividadesExecutadas.add(atividadeExecutada);
                         }
 
+                        //atividades executadas
+
                         repositorio.inserirAtividadesExecutadas(atividadesExecutadas);
 
                         Cliente cliente = ModelMapping.INSTANCE.map(info.tarefas.cliente, info.tarefas.dados);
                         cliente.idTarefa = idTarefa;
 
-                        //repositorio.inserirCliente(cliente);
+                        repositorio.inserirCliente(cliente);
                     }
-
-
-
-
 
                 }
                 catch(SQLiteConstraintException throwable){

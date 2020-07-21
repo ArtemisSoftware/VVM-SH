@@ -13,7 +13,8 @@ import com.vvm.sh.ui.opcoes.modelos.Tipo;
 
 @Database(
             entities = {
-                    Atualizacao.class, Tipo.class, Utilizador.class,
+                    Atualizacao.class, Tipo.class,
+                    Utilizador.class,
                     Tarefa.class,
                     Cliente.class, AtividadeExecutada.class
             },
@@ -36,4 +37,5 @@ public abstract class VvmshBaseDados extends RoomDatabase {
     public abstract AtividadeExecutadaDao obterAtividadeExecutadaDao();
 
     public abstract ClienteDao obterClienteDao();
+
 }

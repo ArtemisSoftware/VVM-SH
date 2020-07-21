@@ -28,6 +28,11 @@
     </style>
 
 
+    <style name="matchParent">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">match_parent</item>
+    </style>
+
     <!--  #####################FINAL -->
 
     <style name="titulo" parent="viewParent">
@@ -87,6 +92,13 @@
         <item name="android:clickable">true</item>
         <item name="cardElevation">0dp</item>
         <item name="android:orientation">vertical</item>
+
+    </style>
+
+
+    <style name="lista" parent="matchParent">
+        <item name="android:verticalSpacing">24dp</item>
+        <item name="layout_behavior">@string/appbar_scrolling_view_behavior</item>
 
     </style>
 

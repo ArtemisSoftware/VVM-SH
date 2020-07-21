@@ -78,13 +78,10 @@
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcl_registos"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:verticalSpacing="24dp"
+            style="@style/lista"
             registos="@{viewmodel.crossSelling}"
             checkBox="@{listener}"
-            tools:listitem="@layout/item_cross_selling"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+            tools:listitem="@layout/item_cross_selling"/>
 
     </LinearLayout>
 

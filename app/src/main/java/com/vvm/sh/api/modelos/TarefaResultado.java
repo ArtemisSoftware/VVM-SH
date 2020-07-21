@@ -21,5 +21,8 @@ public class TarefaResultado {
 
 
     @SerializedName("Dados")
-    public List<DadosResultado> dados;
+    public DadosResultado dados;
+
+    @SerializedName("Cliente")
+    public ClienteDados cliente;
 }

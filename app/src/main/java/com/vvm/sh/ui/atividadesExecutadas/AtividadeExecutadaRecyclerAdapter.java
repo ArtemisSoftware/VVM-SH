@@ -10,7 +10,7 @@ public class AtividadeExecutadaRecyclerAdapter extends ItemRecyclerAdapter {
 
     @Override
     protected int obterLayout(int viewType) {
-        return R.layout.atividade_executada_list_item;
+        return R.layout.item_atividade_executada;
     }
 
     @Override

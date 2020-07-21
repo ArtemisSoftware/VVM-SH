@@ -10,8 +10,8 @@ import androidx.room.PrimaryKey;
 public class Tarefa {
 
 
-    @PrimaryKey
     @NonNull
+    @PrimaryKey(autoGenerate = true)
     public int idTarefa;
 
     @NonNull
@@ -28,7 +28,7 @@ public class Tarefa {
 
     //@NonNull
     //@ColumnInfo(name = "data")
-    //private String data;
+    //private Date data;
 
 
     @Ignore

@@ -118,7 +118,7 @@ public class Cliente {
 
 //    @NonNull
 //    @ColumnInfo(name = "ultimaVisita")
-//    public String ultimaVisita;
+//    public Date  ultimaVisita;
 
     @NonNull
     @ColumnInfo(name = "contrato")
@@ -126,7 +126,7 @@ public class Cliente {
 
 //    @NonNull
 //    @ColumnInfo(name = "dataContrato")
-//    public String dataContrato;
+//    public Date  dataContrato;
 
     @NonNull
     @ColumnInfo(name = "novo")
@@ -136,7 +136,7 @@ public class Cliente {
 
 //    @NonNull
 //    @ColumnInfo(name = "dataInsercao")
-//    public String dataInsercao;
+//    public Date  dataInsercao;
 
     @NonNull
     @ColumnInfo(name = "minutosRealizados")

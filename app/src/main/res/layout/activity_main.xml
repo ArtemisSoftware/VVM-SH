@@ -70,8 +70,9 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcl_registos"
             style="@style/lista"
-            tools:listitem="@layout/agenda_list_card_item"/>
 
+            tools:listitem="@layout/item_tarefa"/>
+<!-- registos="@{viewmodel.tarefas}" -->
     </LinearLayout>
 
 </layout>

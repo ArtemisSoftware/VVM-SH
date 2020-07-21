@@ -1,10 +1,15 @@
 package com.vvm.sh.ui.agenda;
 
+import androidx.lifecycle.MutableLiveData;
+
 import com.vvm.sh.api.modelos.SessaoResposta;
 import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.repositorios.AgendaRepositorio;
+import com.vvm.sh.ui.agenda.modelos.TarefaDia;
 import com.vvm.sh.ui.agenda.servicos.TrabalhoAsyncTask;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -16,6 +21,8 @@ import io.reactivex.schedulers.Schedulers;
 public class AgendaViewModel extends BaseViewModel {
 
     private final AgendaRepositorio agendaRepositorio;
+
+    public MutableLiveData<List<TarefaDia>> tarefas;
 
 
     @Inject
@@ -72,6 +79,40 @@ public class AgendaViewModel extends BaseViewModel {
 
                 );
 
+    }
+
+
+
+    public void obterTarefas(String idUtilizador, String data){
+
+        agendaRepositorio.obterTarefas(idUtilizador, data).toObservable()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new Observer<List<TarefaDia>>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+
+                            }
+
+                            @Override
+                            public void onNext(List<TarefaDia> tarefaDias) {
+
+                                tarefas.setValue(tarefaDias);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+
+                            @Override
+                            public void onComplete() {
+
+                            }
+                        }
+                );
     }
 
 }

@@ -8,6 +8,7 @@ import com.vvm.sh.baseDados.AtividadeExecutadaDao;
 import com.vvm.sh.baseDados.ClienteDao;
 import com.vvm.sh.baseDados.TarefaDao;
 import com.vvm.sh.ui.agenda.modelos.Tarefa;
+import com.vvm.sh.ui.agenda.modelos.TarefaDia;
 import com.vvm.sh.ui.atividadesExecutadas.AtividadeExecutada;
 import com.vvm.sh.ui.cliente.Cliente;
 
@@ -40,8 +41,8 @@ public class AgendaRepositorio {
     }
 
 
-    public void obterTarefas(String idUtilizador, String data){
-
+    public Single<List<TarefaDia>> obterTarefas(String idUtilizador, String data){
+        return tarefaDao.obterTarefasDia();
     }
 
 

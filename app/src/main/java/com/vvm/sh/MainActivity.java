@@ -53,6 +53,8 @@ public class MainActivity extends BaseDaggerActivity
 
         //viewModel.obterTrabalho("12724");
 
+        viewModel.obterTarefas("12724", "2020-07-21");
+
         //Intent intent = new Intent(this, AutenticacaoActivity.class);
 //        //intent.putExtra(AppConstants.PICTURE, pictureRecyclerAdapter.getSelectedPicture(position).getId());
         Intent intent = new Intent(this, TrabalhoActivity.class);

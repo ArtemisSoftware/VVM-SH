@@ -53,7 +53,7 @@ public class TrabalhoAsyncTask extends AsyncTask<SessaoResposta, Void, Void> {
                         Tarefa tarefa = ModelMapping.INSTANCE.map(info.tarefas.dados);
                         tarefa.data = Datas.converterString(data, Datas.FORMATO_YYYY_MM_DD);
                         tarefa.idUtilizador = idUtilizador;
-                        int idTarefa = 0;//--repositorio.inserirTarefa(tarefa);
+                        int idTarefa = (int) repositorio.inserirTarefa(tarefa);
 
                         List<AtividadeExecutada> atividadesExecutadas = new ArrayList<>();
 
@@ -64,7 +64,7 @@ public class TrabalhoAsyncTask extends AsyncTask<SessaoResposta, Void, Void> {
                             atividadesExecutadas.add(atividadeExecutada);
                         }
 
-                        //repositorio.inserirAtividadesExecutadas(atividadesExecutadas);
+                        repositorio.inserirAtividadesExecutadas(atividadesExecutadas);
 
                         Cliente cliente = ModelMapping.INSTANCE.map(info.tarefas.cliente, info.tarefas.dados);
                         cliente.idTarefa = idTarefa;

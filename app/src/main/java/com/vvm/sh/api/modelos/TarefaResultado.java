@@ -13,6 +13,9 @@ public class TarefaResultado {
     public String saldoCartaoVm;
 
 
+    @SerializedName("Notas")
+    public String notas;
+
     @SerializedName("ActivExecutadas")
     public List<AtividadeExecutadasResultado> atividadesExecutadas;
 

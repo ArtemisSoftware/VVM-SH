@@ -1,23 +1,47 @@
 package com.vvm.sh.ui.atividadesExecutadas;
 
-import com.vvm.sh.util.adaptadores.Item;
 
-public class AtividadeExecutada extends Item {
+import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.ForeignKey;
+import androidx.room.Index;
+import androidx.room.PrimaryKey;
 
-    private String data;
+import com.vvm.sh.ui.agenda.modelos.Tarefa;
 
-    public AtividadeExecutada(int id, String descricao, String data) {
-        super(id, descricao);
+import java.util.Date;
 
-        this.data = data;
-    }
+import static androidx.room.ForeignKey.CASCADE;
+
+@Entity(tableName = "atividadeExecutadas",
+        indices = {@Index("idTarefa")},
+        primaryKeys = {"idTarefa","ordem"},
+        foreignKeys = @ForeignKey(entity = Tarefa.class,
+                                parentColumns = "idTarefa",
+                                childColumns = "idTarefa",
+                                onDelete = CASCADE))
+public class AtividadeExecutada {
 
 
-    /**
-     * Metodo que permite obter a dados
-     * @return a dados
-     */
-    public String obterData() {
-        return data;
-    }
+    @NonNull
+    public int idTarefa;
+
+
+    @NonNull
+    public String ordem;
+
+
+
+    @ColumnInfo(name = "idServico")
+    public String idServico;
+
+    @ColumnInfo(name = "descricao")
+    public String descricao;
+
+    @ColumnInfo(name = "dataProgramada")
+    public Date dataProgramada;
+
+    @ColumnInfo(name = "dataExecucao")
+    public Date dataExecucao;
 }

@@ -1,5 +1,9 @@
 package com.vvm.sh.di;
 
+import com.vvm.sh.di.agenda.AgendaModule;
+import com.vvm.sh.di.agenda.AgendaScope;
+import com.vvm.sh.di.agenda.AgendaViewModelsModule;
+import com.vvm.sh.ui.agenda.TrabalhoActivity;
 import com.vvm.sh.ui.autenticacao.AutenticacaoActivity;
 import com.vvm.sh.di.autenticacao.AutenticacaoModule;
 import com.vvm.sh.di.autenticacao.AutenticacaoScope;
@@ -26,6 +30,14 @@ public abstract class ActivityBuildersModule {
             modules = { AutenticacaoViewModelsModule.class, AutenticacaoModule.class }
     )
     abstract AutenticacaoActivity contributeAutenticacaoActivity();
+
+
+
+    @AgendaScope
+    @ContributesAndroidInjector(
+            modules = { AgendaViewModelsModule.class, AgendaModule.class }
+    )
+    abstract TrabalhoActivity contributeTrabalhoActivity();
 
 
 

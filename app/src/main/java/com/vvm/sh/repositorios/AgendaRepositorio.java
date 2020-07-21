@@ -3,7 +3,7 @@ package com.vvm.sh.repositorios;
 import androidx.annotation.NonNull;
 
 import com.vvm.sh.api.SegurancaAlimentarApi;
-import com.vvm.sh.api.modelos.Sessao;
+import com.vvm.sh.api.modelos.SessaoResposta;
 
 import io.reactivex.Single;
 
@@ -20,7 +20,7 @@ public class AgendaRepositorio {
      * @param idUtilizador o identificador do utilizador
      * @return o trabalho
      */
-    public Single<Sessao> obterTrabalho(String idUtilizador) {
+    public Single<SessaoResposta[]> obterTrabalho(String idUtilizador) {
         return api.obterTrabalho(idUtilizador);
     }
 

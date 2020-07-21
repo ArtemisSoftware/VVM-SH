@@ -9,6 +9,9 @@ import java.util.List;
  */
 public class TarefaResultado {
 
+    @SerializedName("SaldoCartaoVM")
+    public String saldoCartaoVm;
+
     @SerializedName("ActivExecutadas")
     public List<AtividadeExecutadasResultado> atividadesExecutadas;
 }

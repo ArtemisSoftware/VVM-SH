@@ -1,8 +1,6 @@
 package com.vvm.sh.ui.agenda;
 
-import androidx.lifecycle.MutableLiveData;
-
-import com.vvm.sh.api.modelos.Sessao;
+import com.vvm.sh.api.modelos.SessaoResposta;
 import com.vvm.sh.repositorios.AgendaRepositorio;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
@@ -25,10 +23,12 @@ public class AgendaViewModel extends BaseViewModel {
     }
 
 
+
     /**
-     * Metodo que permite obter os produtos existentes
+     * Metodo que permite obter o trabalho do dia
+     * @param idUtilizador o identificador do utilizador
      */
-    public void obterProdutos(String idUtilizador){
+    public void obterTrabalho(String idUtilizador){
 
         showProgressBar(true);
 
@@ -38,14 +38,14 @@ public class AgendaViewModel extends BaseViewModel {
                 .subscribe(
 
 
-                        new Observer<Sessao>() {
+                        new Observer<SessaoResposta[]>() {
                             @Override
                             public void onSubscribe(Disposable d) {
 
                             }
 
                             @Override
-                            public void onNext(Sessao sessao) {
+                            public void onNext(SessaoResposta[] sessao) {
 
                             }
 

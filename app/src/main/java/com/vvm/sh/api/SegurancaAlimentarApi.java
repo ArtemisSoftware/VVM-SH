@@ -1,6 +1,6 @@
 package com.vvm.sh.api;
 
-import com.vvm.sh.api.modelos.Sessao;
+import com.vvm.sh.api.modelos.SessaoResposta;
 import com.vvm.sh.api.modelos.TipoResposta;
 import com.vvm.sh.api.modelos.UtilizadorResposta;
 import com.vvm.sh.api.modelos.VersaoApp;
@@ -8,6 +8,7 @@ import com.vvm.sh.api.modelos.VersaoApp;
 import io.reactivex.Single;
 import retrofit2.http.GET;
 import retrofit2.http.Path;
+import retrofit2.http.Query;
 
 public interface SegurancaAlimentarApi {
 
@@ -26,7 +27,7 @@ public interface SegurancaAlimentarApi {
     Single<UtilizadorResposta> obterUtilizadores();
 
 
-    @GET("GetDados?strUser={idUtilizador}")
-    Single<Sessao> obterTrabalho(@Path("idUtilizador") String idUtilizador);
+    @GET("GetDados")
+    Single<SessaoResposta[]> obterTrabalho(@Query("strUser") String idUtilizador);
 
 }

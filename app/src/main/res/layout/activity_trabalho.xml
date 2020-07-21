@@ -6,22 +6,28 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
-    <!--
+
     <data>
-        <import type="android.view.View"/>
-        <import type="java.util.List"/>
+    <!--
+    <import type="android.view.View"/>
+    <import type="java.util.List"/>
 
 
 
 
-        <variable name="activity" type="com.vvm.sh.ui.opcoes.AtualizacaoAppActivity" />
+    <variable name="activity" type="com.vvm.sh.ui.opcoes.AtualizacaoAppActivity" />
+
+    <variable
+        name="viewmodel"
+        type="com.vvm.sh.ui.opcoes.OpcoesViewModel"/>
+        -->
 
         <variable
             name="viewmodel"
-            type="com.vvm.sh.ui.opcoes.OpcoesViewModel"/>
+            type="com.vvm.sh.ui.agenda.AgendaViewModel"/>
 
     </data>
-    -->
+
 
 
     <androidx.constraintlayout.widget.ConstraintLayout

@@ -16,23 +16,24 @@ import com.vvm.sh.util.interfaces.OnItemLongListener;
 
 import butterknife.BindView;
 
-public class TarefaViewHolder extends RecyclerView.ViewHolder /*implements View.OnClickListener, View.OnLongClickListener*/{
+public class TarefaViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener/*, View.OnLongClickListener*/{
 
 
     public ItemTarefaBinding binding;
 
-
+    private OnAgendaListener listener;
     private OnItemListener onItemListener;
     private OnItemLongListener onItemLongListener;
 
 
-    public TarefaViewHolder(@NonNull View itemView/*, OnItemListener onItemListener, OnItemLongListener onItemLongListener*/) {
+    public TarefaViewHolder(@NonNull View itemView , OnAgendaListener listener/*, OnItemListener onItemListener, OnItemLongListener onItemLongListener*/) {
         super(itemView);
 
         binding = DataBindingUtil.bind(itemView);
+        this.listener = listener;
         //this.onItemListener = onItemListener;
         //this.onItemLongListener = onItemLongListener;
-        //itemView.setOnClickListener(this);
+        itemView.setOnClickListener(this);
         //itemView.setOnLongClickListener(this);
     }
 
@@ -55,10 +56,10 @@ public class TarefaViewHolder extends RecyclerView.ViewHolder /*implements View.
 //    }
 //
 //
-//    @Override
-//    public void onClick(View v) {
-//        onItemListener.onItemClick(getAdapterPosition());
-//    }
+    @Override
+    public void onClick(View v) {
+        this.listener.onItemClick(binding.getTarefaDia());
+    }
 //
 //    @Override
 //    public boolean onLongClick(View v) {

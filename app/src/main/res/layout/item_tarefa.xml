@@ -13,11 +13,11 @@
             name="tarefaDia"
             type="com.vvm.sh.ui.agenda.modelos.TarefaDia" />
 
-        <!--
+
         <variable
             name="listener"
-            type="com.vvm.sh.ui.opcoes.adaptadores.OnTipoListener"/>
-        -->
+            type="com.vvm.sh.ui.agenda.adaptadores.OnAgendaListener"/>
+
 
     </data>
 

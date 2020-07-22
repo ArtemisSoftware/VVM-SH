@@ -9,14 +9,18 @@ import com.vvm.sh.databinding.ActivityMainBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.agenda.AgendaViewModel;
+import com.vvm.sh.ui.agenda.TarefaActivity;
 import com.vvm.sh.ui.agenda.TrabalhoActivity;
+import com.vvm.sh.ui.agenda.adaptadores.OnAgendaListener;
+import com.vvm.sh.ui.agenda.modelos.TarefaDia;
 import com.vvm.sh.util.metodos.Datas;
+import com.vvm.sh.util.metodos.Preferencias;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import javax.inject.Inject;
 
 public class MainActivity extends BaseDaggerActivity
-        /*implements OnItemListener, OnItemLongListener,
+        implements OnAgendaListener/*OnItemListener, OnItemLongListener,
                    DatePickerDialog.OnDateSetListener,  DialogoOpcoesTrabalhoFragment.DialogoListener, DialogoOpcoesTarefaFragment.DialogoListener */{
 
 
@@ -41,6 +45,7 @@ public class MainActivity extends BaseDaggerActivity
         activityMainBinding = (ActivityMainBinding) activityBinding;
         activityMainBinding.setLifecycleOwner(this);
         activityMainBinding.setViewmodel(viewModel);
+        activityMainBinding.setListener(this);
         //activityTrabalhoBinding.setActivity(this);
 
 
@@ -79,6 +84,21 @@ public class MainActivity extends BaseDaggerActivity
 
     }
 
+
+    //---------------------
+    //Eventos
+    //---------------------
+
+
+    @Override
+    public void onItemClick(TarefaDia tarefaDia) {
+
+        Preferencias.fixarTarefa(this, tarefaDia.tarefa.idTarefa);
+
+        Intent intent = new Intent(this, TarefaActivity.class);
+        startActivity(intent);
+
+    }
 
 
     //------------------------
@@ -204,14 +224,7 @@ public class MainActivity extends BaseDaggerActivity
 //    //---------------------
 //
 //
-//    @Override
-//    public void onItemClick(int position) {
-//        //Intent intent = new Intent(this, ApresentacaoActivity.class);
-//        Intent intent = new Intent(this, TarefaActivity.class);
-//        //intent.putExtra(AppConstants.PICTURE, pictureRecyclerAdapter.getSelectedPicture(position).getId());
-//        startActivity(intent);
-//
-//    }
+
 //
 //
 //    @Override

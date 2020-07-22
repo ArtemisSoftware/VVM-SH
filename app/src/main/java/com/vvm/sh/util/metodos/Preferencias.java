@@ -11,7 +11,8 @@ public class Preferencias {
     private static final String PRIMEIRA_UTILIZACAO = "primeira_utilizacao";
     private static final String VERSAO_APP = "versao_app";
     private static final String ID_UTILIZADOR = "id_utilizador";
-    private static final String DATA_VALIDADE_AUTENTICACAO = "validadeAutenticacao";
+    private static final String ID_TAREFA = "id_tarefa";
+    private static final String DATA_VALIDADE_AUTENTICACAO = "validade_autenticacao";
     private static final String TOKEN = "token";
 
 
@@ -47,6 +48,24 @@ public class Preferencias {
         editor.putLong (DATA_VALIDADE_AUTENTICACAO, Datas.obterDataValidadeAutenticacao());
         editor.commit();
     }
+
+
+    /**
+     * Metodo que permite fixar a tarefa em curso
+     * @param contexto
+     * @param idTarefa o identificador da tarefa
+     */
+    public static void fixarTarefa(Context contexto, int idTarefa){
+
+        String pacote = contexto.getPackageName();
+
+        SharedPreferences preferencias = contexto.getSharedPreferences(pacote, Context.MODE_PRIVATE); // 0 - for private mode
+        SharedPreferences.Editor editor = preferencias.edit();
+        editor.putInt(ID_TAREFA, idTarefa);
+        editor.commit();
+    }
+
+
 
 
     /**

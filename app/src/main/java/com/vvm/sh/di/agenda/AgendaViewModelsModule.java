@@ -16,5 +16,5 @@ public abstract class AgendaViewModelsModule {
     @Binds
     @IntoMap
     @ViewModelKey(AgendaViewModel.class)
-    public abstract ViewModel bindAgendaViewModelModel(AgendaViewModel viewModel);
+    public abstract ViewModel bindAgendaViewModel(AgendaViewModel viewModel);
 }

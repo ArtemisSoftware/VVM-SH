@@ -1,4 +1,4 @@
-package com.vvm.sh.ui.atividadesExecutadas;
+package com.vvm.sh.ui.atividadesExecutadas.adaptadores;
 
 import android.view.View;
 import android.widget.TextView;
@@ -17,7 +17,7 @@ import butterknife.BindView;
 public class AtividadeExecutadaViewHolder extends RecyclerView.ViewHolder {
 
 
-    ItemAtividadeExecutadaBinding binding;
+    public ItemAtividadeExecutadaBinding binding;
 
 
     @BindView(R.id.txt_data)

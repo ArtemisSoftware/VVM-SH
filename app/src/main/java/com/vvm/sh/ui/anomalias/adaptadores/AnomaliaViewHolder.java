@@ -1,4 +1,4 @@
-package com.vvm.sh.ui.anomalias;
+package com.vvm.sh.ui.anomalias.adaptadores;
 
 import android.view.View;
 import android.widget.LinearLayout;
@@ -18,7 +18,7 @@ import butterknife.BindView;
 
 public class AnomaliaViewHolder extends RecyclerView.ViewHolder {
 
-    ItemAnomaliaBinding binding;
+    public ItemAnomaliaBinding binding;
 
     public AnomaliaViewHolder(@NonNull View itemView) {
         super(itemView);

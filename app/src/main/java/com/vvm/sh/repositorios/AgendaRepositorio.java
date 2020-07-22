@@ -4,11 +4,13 @@ import androidx.annotation.NonNull;
 
 import com.vvm.sh.api.SegurancaAlimentarApi;
 import com.vvm.sh.api.modelos.SessaoResposta;
+import com.vvm.sh.baseDados.AnomaliaDao;
 import com.vvm.sh.baseDados.AtividadeExecutadaDao;
 import com.vvm.sh.baseDados.ClienteDao;
 import com.vvm.sh.baseDados.TarefaDao;
 import com.vvm.sh.ui.agenda.modelos.Tarefa;
 import com.vvm.sh.ui.agenda.modelos.TarefaDia;
+import com.vvm.sh.ui.anomalias.modelos.Anomalia;
 import com.vvm.sh.ui.atividadesExecutadas.modelos.AtividadeExecutada;
 import com.vvm.sh.ui.cliente.Cliente;
 
@@ -22,13 +24,15 @@ public class AgendaRepositorio {
     private final TarefaDao tarefaDao;
     private final AtividadeExecutadaDao atividadeExecutadaDao;
     private final ClienteDao clienteDao;
+    private final AnomaliaDao anomaliaDao;
 
     public AgendaRepositorio(@NonNull SegurancaAlimentarApi api,
-                             @NonNull TarefaDao tarefaDao, @NonNull AtividadeExecutadaDao atividadeExecutadaDao, @NonNull ClienteDao clienteDao) {
+                             @NonNull TarefaDao tarefaDao, @NonNull AtividadeExecutadaDao atividadeExecutadaDao, @NonNull ClienteDao clienteDao, @NonNull AnomaliaDao anomaliaDao) {
         this.api = api;
         this.tarefaDao = tarefaDao;
         this.atividadeExecutadaDao = atividadeExecutadaDao;
         this.clienteDao = clienteDao;
+        this.anomaliaDao = anomaliaDao;
     }
 
     /**
@@ -50,7 +54,6 @@ public class AgendaRepositorio {
         return tarefaDao.inserirRegisto(tarefa);
     }
 
-
     public void inserirAtividadesExecutadas(List<AtividadeExecutada> atividades){
         atividadeExecutadaDao.inserir(atividades);
     }
@@ -59,5 +62,7 @@ public class AgendaRepositorio {
         clienteDao.inserirRegisto(cliente);
     }
 
-
+    public void inserirAnomalias(List<Anomalia> anomalias){
+        anomaliaDao.inserir(anomalias);
+    }
 }

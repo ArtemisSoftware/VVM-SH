@@ -89,7 +89,7 @@ public class TrabalhoAsyncTask extends AsyncTask<SessaoResposta, Void, Void> {
             registos.add(registo);
         }
 
-        //--repositorio.inserirAtividadesExecutadas(atividadesExecutadas);
+        repositorio.inserirAnomalias(registos);
 
     }
 

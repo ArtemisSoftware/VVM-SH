@@ -32,7 +32,7 @@ public class AgendaViewModel extends BaseViewModel {
     public AgendaViewModel(AgendaRepositorio agendaRepositorio){
 
         this.agendaRepositorio = agendaRepositorio;
-
+        tarefas = new MutableLiveData<>();
     }
 
 

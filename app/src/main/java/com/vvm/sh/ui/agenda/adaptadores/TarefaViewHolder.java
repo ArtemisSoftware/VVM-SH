@@ -1,4 +1,4 @@
-package com.vvm.sh.ui.agenda;
+package com.vvm.sh.ui.agenda.adaptadores;
 
 import android.view.View;
 import android.widget.ImageView;
@@ -19,7 +19,7 @@ import butterknife.BindView;
 public class TarefaViewHolder extends RecyclerView.ViewHolder /*implements View.OnClickListener, View.OnLongClickListener*/{
 
 
-    ItemTarefaBinding binding;
+    public ItemTarefaBinding binding;
 
 
     private OnItemListener onItemListener;

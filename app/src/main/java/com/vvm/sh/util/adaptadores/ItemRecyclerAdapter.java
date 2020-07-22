@@ -7,8 +7,6 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.vvm.sh.ui.atividadesExecutadas.AtividadeExecutada;
-
 import java.util.ArrayList;
 import java.util.List;
 

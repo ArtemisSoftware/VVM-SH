@@ -6,10 +6,10 @@
 
     <dimen name="titulo">30dp</dimen>
     <dimen name="tituloCartao">24dp</dimen>
-    <dimen name="subTituloCartao">20dp</dimen>
+    <dimen name="subTituloCartao">16dp</dimen>
     <dimen name="subTituloDescritivo">12dp</dimen>
 
-    <dimen name="textoDescritivo">18dp</dimen>
+    <dimen name="textoDescritivo">14dp</dimen>
     <dimen name="texto">14dp</dimen>
     <dimen name="textoNota">10dp</dimen>
 

@@ -45,7 +45,7 @@ public class Preferencias {
         SharedPreferences preferencias = contexto.getSharedPreferences(pacote, Context.MODE_PRIVATE); // 0 - for private mode
         SharedPreferences.Editor editor = preferencias.edit();
         editor.putString(ID_UTILIZADOR, idUtilizador);
-        editor.putLong (DATA_VALIDADE_AUTENTICACAO, Datas.obterDataValidadeAutenticacao());
+        editor.putLong (DATA_VALIDADE_AUTENTICACAO, DatasUtil.obterDataValidadeAutenticacao());
         editor.commit();
     }
 

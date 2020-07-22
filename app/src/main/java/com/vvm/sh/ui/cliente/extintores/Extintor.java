@@ -2,7 +2,7 @@ package com.vvm.sh.ui.cliente.extintores;
 
 import com.vvm.sh.util.adaptadores.Item;
 import com.vvm.sh.util.metodos.Conversor;
-import com.vvm.sh.util.metodos.Datas;
+import com.vvm.sh.util.metodos.DatasUtil;
 
 public class Extintor extends Item /*ItemFormulario*/{
 
@@ -38,7 +38,7 @@ public class Extintor extends Item /*ItemFormulario*/{
      * @return a dados (dd-MM-yyyy)
      */
     public String obterDataValidade(){
-        return Datas.converterData(this.dataValidade, Datas.FORMATO_DD_MM_YYYY);
+        return DatasUtil.converterData(this.dataValidade, DatasUtil.FORMATO_DD_MM_YYYY);
     }
 
 

@@ -8,10 +8,10 @@ import com.vvm.sh.api.modelos.SessaoResposta;
 import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.repositorios.AgendaRepositorio;
 import com.vvm.sh.ui.agenda.modelos.Tarefa;
-import com.vvm.sh.ui.atividadesExecutadas.AtividadeExecutada;
+import com.vvm.sh.ui.atividadesExecutadas.modelos.AtividadeExecutada;
 import com.vvm.sh.ui.cliente.Cliente;
 import com.vvm.sh.util.mapeamento.ModelMapping;
-import com.vvm.sh.util.metodos.Datas;
+import com.vvm.sh.util.metodos.DatasUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,7 +50,7 @@ public class TrabalhoAsyncTask extends AsyncTask<SessaoResposta, Void, Void> {
                     for (SessaoResposta.TrabalhoInfo info : trabalho) {
 
                         Tarefa tarefa = ModelMapping.INSTANCE.map(info.tarefas.dados);
-                        tarefa.data = Datas.converterString(data, Datas.FORMATO_YYYY_MM_DD);
+                        tarefa.data = DatasUtil.converterString(data, DatasUtil.FORMATO_YYYY_MM_DD);
                         tarefa.idUtilizador = idUtilizador;
 
                         //tarefa

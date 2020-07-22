@@ -5,7 +5,7 @@ import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
 import com.vvm.sh.ui.agenda.modelos.Tarefa;
-import com.vvm.sh.ui.atividadesExecutadas.AtividadeExecutada;
+import com.vvm.sh.ui.atividadesExecutadas.modelos.AtividadeExecutada;
 import com.vvm.sh.ui.autenticacao.modelos.Utilizador;
 import com.vvm.sh.ui.cliente.Cliente;
 import com.vvm.sh.ui.opcoes.modelos.Atualizacao;

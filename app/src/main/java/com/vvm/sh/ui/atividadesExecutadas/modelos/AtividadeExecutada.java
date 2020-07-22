@@ -1,4 +1,4 @@
-package com.vvm.sh.ui.atividadesExecutadas;
+package com.vvm.sh.ui.atividadesExecutadas.modelos;
 
 
 import androidx.annotation.NonNull;

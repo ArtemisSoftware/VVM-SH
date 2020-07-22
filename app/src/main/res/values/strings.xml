@@ -184,5 +184,13 @@
     <string name="morada">Morada</string>
     <string name="nif">Nif</string>
     <string name="cae_atividade">Cae/Atividade</string>
+    <string name="responsavel">Responsavel</string>
+    <string name="telefone">Telefone</string>
+    <string name="servico">Serviço</string>
+    <string name="novo_contrato">Novo contrato</string>
+    <string name="notas">Notas</string>
+    <string name="anomalias">Anomalias</string>
+    <string name="segmento">Segmento</string>
+    <string name="coordenadas">Coordenadas</string>
 
 </resources>

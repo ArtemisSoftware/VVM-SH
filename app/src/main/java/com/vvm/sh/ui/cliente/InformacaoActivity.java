@@ -41,6 +41,11 @@ public class InformacaoActivity extends BaseDaggerActivity {
         activityInformacaoBinding.setViewmodel(viewModel);
 
 
+        setSupportActionBar(activityInformacaoBinding.toolbar);
+        if(getSupportActionBar() != null)
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
+
         subscreverObservadores();
 
         viewModel.obterCliente(Preferencias.obterIdTarefa(this));

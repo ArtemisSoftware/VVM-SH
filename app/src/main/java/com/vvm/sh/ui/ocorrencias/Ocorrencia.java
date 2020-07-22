@@ -3,7 +3,7 @@ package com.vvm.sh.ui.ocorrencias;
 import com.vvm.sh.util.adaptadores.Item;
 import com.vvm.sh.util.interfaces.CheckBoxIF;
 import com.vvm.sh.util.metodos.Conversor;
-import com.vvm.sh.util.metodos.Datas;
+import com.vvm.sh.util.metodos.DatasUtil;
 
 public class Ocorrencia extends Item implements CheckBoxIF {
 
@@ -36,7 +36,7 @@ public class Ocorrencia extends Item implements CheckBoxIF {
 
         this.descricaoDepartamento = descricaoDepartamento;
         this.contrato = contrato;
-        this.dataEntrada = Datas.converterData(dataEntrada, Datas.FORMATO_DD_MM_YYYY);
+        this.dataEntrada = DatasUtil.converterData(dataEntrada, DatasUtil.FORMATO_DD_MM_YYYY);
         this.marca = marca;
         this.situacao = estado;
         this.tipo = TIPO_OCORRENCIA;
@@ -44,7 +44,7 @@ public class Ocorrencia extends Item implements CheckBoxIF {
 
     public Ocorrencia(String data, String situacao, String observacao, String departamento) {
         super(0, "");
-        this.data = Datas.converterData(data, Datas.FORMATO_DD_MM_YYYY);
+        this.data = DatasUtil.converterData(data, DatasUtil.FORMATO_DD_MM_YYYY);
         this.situacao = situacao;
         this.observacao = observacao;
         this.descricaoDepartamento = departamento;

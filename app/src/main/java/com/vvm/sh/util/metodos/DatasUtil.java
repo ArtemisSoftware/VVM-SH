@@ -14,7 +14,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
 
-public class Datas {
+public class DatasUtil {
 
     public static final String FORMATO_DD_MM_YYYY = "dd-MM-yyyy";
     public static final String FORMATO_YYYY_MM_DD = "yyyy-MM-dd";
@@ -76,6 +76,24 @@ public class Datas {
         String data = fmt.format(dataHoje.getTime());
 
         return data;
+    }
+
+
+    /**
+     * Metodo que permite converter uma data numformato especifico para String
+     * @param data a data a converter
+     * @param formato o formato da data convertida
+     * @return uma data
+     */
+    public static String converterData(Date data, String formato){
+
+       if(data == null){
+           return "";
+       }
+
+       DateFormat fmt = new SimpleDateFormat(formato);
+       return fmt.format(data.getTime());
+
     }
 
 

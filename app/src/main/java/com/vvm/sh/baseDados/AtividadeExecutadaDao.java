@@ -4,7 +4,7 @@ import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
 
-import com.vvm.sh.ui.atividadesExecutadas.AtividadeExecutada;
+import com.vvm.sh.ui.atividadesExecutadas.modelos.AtividadeExecutada;
 
 import java.util.List;
 

@@ -20,7 +20,7 @@ public class Avancado {
 
         String mensagem = "Exportar bd - ";
 
-        String nomeCopia = Preferencias.obterIdUtilizador(contexto) + "_" + Datas.obterDataAtual(Datas.FORMATO_DD_MM_YYYY) + "_" + BaseDados.VERSAO;
+        String nomeCopia = Preferencias.obterIdUtilizador(contexto) + "_" + DatasUtil.obterDataAtual(DatasUtil.FORMATO_DD_MM_YYYY) + "_" + BaseDados.VERSAO;
 
         try {
             File sd = Environment.getExternalStorageDirectory();

@@ -1,7 +1,6 @@
 package com.vvm.sh.ui.contaUtilizador;
 
-import com.vvm.sh.util.adaptadores.Item;
-import com.vvm.sh.util.metodos.Datas;
+import com.vvm.sh.util.metodos.DatasUtil;
 
 public class Colecao /*extends Item*/ {
 
@@ -13,7 +12,7 @@ public class Colecao /*extends Item*/ {
         //super(-1, descricao);
         this.descricao = descricao;
         this.numeroRegistos = numeroRegistos;
-        this.seloTemporal = Datas.converterData(seloTemporal, Datas.FORMATO_DD_MM_YYYY__HH_MM_SS);
+        this.seloTemporal = DatasUtil.converterData(seloTemporal, DatasUtil.FORMATO_DD_MM_YYYY__HH_MM_SS);
     }
 
 

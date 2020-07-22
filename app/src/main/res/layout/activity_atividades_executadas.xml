@@ -71,7 +71,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcl_registos"
             style="@style/lista"
-            aatividadesExecutadas="@{viewmodel.atividadesExecutadas}"
+            atividadesExecutas="@{viewmodel.atividadesExecutadas}"
             tools:listitem="@layout/item_atividade_executada"/>
 
     </LinearLayout>

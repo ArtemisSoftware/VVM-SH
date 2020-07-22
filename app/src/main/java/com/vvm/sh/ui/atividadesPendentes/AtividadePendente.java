@@ -1,7 +1,7 @@
 package com.vvm.sh.ui.atividadesPendentes;
 
 import com.vvm.sh.util.adaptadores.Item;
-import com.vvm.sh.util.metodos.Datas;
+import com.vvm.sh.util.metodos.DatasUtil;
 
 public class AtividadePendente extends Item {
 
@@ -69,7 +69,7 @@ public class AtividadePendente extends Item {
      * @return uma dados (dd-mm-yyyy)
      */
     public String obterData(){
-        return Datas.converterData(data, Datas.FORMATO_DD_MM_YYYY);
+        return DatasUtil.converterData(data, DatasUtil.FORMATO_DD_MM_YYYY);
     }
 
 

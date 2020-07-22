@@ -3,7 +3,7 @@ package com.vvm.sh.ui.tarefa;
 import androidx.lifecycle.MutableLiveData;
 
 import com.vvm.sh.repositorios.TarefaRepositorio;
-import com.vvm.sh.ui.atividadesExecutadas.AtividadeExecutada;
+import com.vvm.sh.ui.atividadesExecutadas.modelos.AtividadeExecutada;
 import com.vvm.sh.ui.cliente.Cliente;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
@@ -57,6 +57,7 @@ public class TarefaViewModel extends BaseViewModel {
                             public void onNext(List<AtividadeExecutada> registos) {
 
                                 atividadesExecutadas.setValue(registos);
+                                showProgressBar(false);
                             }
 
                             @Override
@@ -96,6 +97,7 @@ public class TarefaViewModel extends BaseViewModel {
                             public void onNext(Cliente registo) {
 
                                 cliente.setValue(registo);
+                                showProgressBar(false);
                             }
 
                             @Override

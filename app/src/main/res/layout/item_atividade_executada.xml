@@ -13,9 +13,11 @@
 
 -->
 
+        <import type="com.vvm.sh.util.metodos.DatasUtil"/>
+
         <variable
             name="atividade"
-            type="com.vvm.sh.ui.atividadesExecutadas.AtividadeExecutada" />
+            type="com.vvm.sh.ui.atividadesExecutadas.modelos.AtividadeExecutada" />
 
     </data>
 
@@ -31,7 +33,7 @@
             <TextView
                 android:id="@+id/textView13"
                 style="@style/textoDetalhe"
-                android:text="TextView"
+                android:text="@{DatasUtil.converterData(atividade.dataExecucao, DatasUtil.FORMATO_DD_MM_YYYY), default=dataExecucao}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -44,11 +46,13 @@
             <TextView
                 android:id="@+id/textView14"
                 style="@style/subTituloCartao"
-                android:text="TextView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
+                android:text="@{atividade.descricao, default=atividade}"
                 app:layout_constraintBottom_toBottomOf="@+id/textView13"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/textView13"
                 app:layout_constraintTop_toTopOf="@+id/textView13" />
         </androidx.constraintlayout.widget.ConstraintLayout>

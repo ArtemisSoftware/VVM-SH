@@ -2,7 +2,6 @@ package com.vvm.sh.ui.atividadesExecutadas.adaptadores;
 
 import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -11,10 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.vvm.sh.R;
 import com.vvm.sh.databinding.ItemAtividadeExecutadaBinding;
-import com.vvm.sh.ui.atividadesExecutadas.AtividadeExecutada;
-import com.vvm.sh.ui.atividadesExecutadas.adaptadores.AtividadeExecutadaViewHolder;
-import com.vvm.sh.util.adaptadores.ItemRecyclerAdapter;
-import com.vvm.sh.util.adaptadores.ItemViewHolder;
+import com.vvm.sh.ui.atividadesExecutadas.modelos.AtividadeExecutada;
 
 import java.util.ArrayList;
 import java.util.List;

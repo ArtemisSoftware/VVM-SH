@@ -10,10 +10,9 @@ import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.agenda.AgendaViewModel;
 import com.vvm.sh.ui.agenda.TarefaActivity;
-import com.vvm.sh.ui.agenda.TrabalhoActivity;
 import com.vvm.sh.ui.agenda.adaptadores.OnAgendaListener;
 import com.vvm.sh.ui.agenda.modelos.TarefaDia;
-import com.vvm.sh.util.metodos.Datas;
+import com.vvm.sh.util.metodos.DatasUtil;
 import com.vvm.sh.util.metodos.Preferencias;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
@@ -49,7 +48,7 @@ public class MainActivity extends BaseDaggerActivity
         //activityTrabalhoBinding.setActivity(this);
 
 
-        activityMainBinding.txtData.setText(Datas.obterDataAtual(Datas.FORMATO_DD_MMMM_YYYY, Datas.LOCAL_PORTUGAL));
+        activityMainBinding.txtData.setText(DatasUtil.obterDataAtual(DatasUtil.FORMATO_DD_MMMM_YYYY, DatasUtil.LOCAL_PORTUGAL));
 
         subscreverObservadores();
 
@@ -112,7 +111,7 @@ public class MainActivity extends BaseDaggerActivity
 //    private void iniciarAtividade(){
 //
 //
-//        data = Datas.obterDataAtual(Datas.FORMATO_YYYY_MM_DD);
+//        data = DatasUtil.obterDataAtual(DatasUtil.FORMATO_YYYY_MM_DD);
 //
 //    }
 
@@ -175,8 +174,8 @@ public class MainActivity extends BaseDaggerActivity
 //     */
 //    private void iniciarAtividade(){
 //
-//        txt_data.setText(Datas.obterDataAtual(Datas.FORMATO_DD_MMMM_YYYY, Datas.LOCAL_PORTUGAL));
-//        data = Datas.obterDataAtual(Datas.FORMATO_YYYY_MM_DD);
+//        txt_data.setText(DatasUtil.obterDataAtual(DatasUtil.FORMATO_DD_MMMM_YYYY, DatasUtil.LOCAL_PORTUGAL));
+//        data = DatasUtil.obterDataAtual(DatasUtil.FORMATO_YYYY_MM_DD);
 //
 //        tarefaRecyclerAdapter = new TarefaRecyclerAdapter(this, this);
 //        rcl_tarefas.setAdapter(tarefaRecyclerAdapter);
@@ -240,7 +239,7 @@ public class MainActivity extends BaseDaggerActivity
 //
 //        fab_menu_agenda.close(true);
 //
-//        DatePickerDialog dialogo = Datas.obterCalendarioAgenda(this);
+//        DatePickerDialog dialogo = DatasUtil.obterCalendarioAgenda(this);
 //        dialogo.show(getSupportFragmentManager(), "Datepickerdialog");
 //    }
 //
@@ -249,9 +248,9 @@ public class MainActivity extends BaseDaggerActivity
 //    @Override
 //    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
 //
-//        txt_data.setText(Datas.converterData(year, monthOfYear, dayOfMonth, Datas.FORMATO_DD_MMMM_YYYY, Datas.LOCAL_PORTUGAL));
+//        txt_data.setText(DatasUtil.converterData(year, monthOfYear, dayOfMonth, DatasUtil.FORMATO_DD_MMMM_YYYY, DatasUtil.LOCAL_PORTUGAL));
 //
-//        data = Datas.converterData(year, monthOfYear, dayOfMonth, Datas.FORMATO_YYYY_MM_DD);
+//        data = DatasUtil.converterData(year, monthOfYear, dayOfMonth, DatasUtil.FORMATO_YYYY_MM_DD);
 //
 //
 //        //Toast.makeText(MainActivity.this, date, Toast.LENGTH_LONG).show();

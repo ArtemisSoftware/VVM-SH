@@ -83,7 +83,7 @@
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
-                    android:layout_height="400dp">
+                    android:layout_height="800dp">
 
 
                     <TextView
@@ -137,8 +137,6 @@
                     </LinearLayout>
 
 
-
-
                     <LinearLayout
                         android:id="@+id/linearLayout4"
                         android:layout_width="wrap_content"
@@ -160,35 +158,294 @@
 
 
 
-<!--
-
                     <LinearLayout
-                        android:layout_width="match_parent"
+                        android:id="@+id/linearLayout5"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
                         android:orientation="vertical"
-                        app:layout_constraintStart_toStartOf="@+id/linearLayout2"
-                        app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+                        app:layout_constraintStart_toStartOf="@+id/linearLayout4"
+                        app:layout_constraintTop_toBottomOf="@+id/linearLayout4">
 
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:fontFamily="sans-serif-light"
-                            android:text="joey@sharenofood.com"
-                            android:textColor="#000000"
-                            android:textSize="18sp" />
+                            style="@style/textoDescritivo"
+                            android:text="@{viewmodel.cliente.responsavel, default=responsavel}" />
 
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:text="Email"
-                            android:textColor="@color/headings"
-                            android:textSize="13sp" />
-
-
+                            style="@style/subTituloDescritivo"
+                            android:text="@string/responsavel" />
 
                     </LinearLayout>
 
--->
+
+                    <LinearLayout
+                        android:id="@+id/linearLayout6"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:orientation="vertical"
+                        app:layout_constraintStart_toStartOf="@+id/linearLayout5"
+                        app:layout_constraintTop_toBottomOf="@+id/linearLayout5">
+
+                        <TextView
+                            style="@style/textoDescritivo"
+                            android:text="@{viewmodel.cliente.telemovel, default=telefone}" />
+
+                        <TextView
+                            style="@style/subTituloDescritivo"
+                            android:text="@string/telefone" />
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:id="@+id/linearLayout7"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:orientation="vertical"
+                        app:layout_constraintStart_toStartOf="@+id/linearLayout6"
+                        app:layout_constraintTop_toBottomOf="@+id/linearLayout6">
+
+                        <TextView
+                            style="@style/textoDescritivo"
+                            android:text="@{viewmodel.cliente.servico, default=servico}" />
+
+                        <TextView
+                            style="@style/subTituloDescritivo"
+                            android:text="@string/servico" />
+
+                    </LinearLayout>
+
+
+
+                    <LinearLayout
+                        android:id="@+id/linearLayout8"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:orientation="vertical"
+                        app:layout_constraintStart_toStartOf="@+id/linearLayout7"
+                        app:layout_constraintTop_toBottomOf="@+id/linearLayout7">
+
+                        <TextView
+                            style="@style/textoDescritivo"
+                            android:text="@{viewmodel.cliente.responsavel, default=responsavel}" />
+
+                        <TextView
+                            style="@style/subTituloDescritivo"
+                            android:text="@string/responsavel" />
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:id="@+id/linearLayout9"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:orientation="vertical"
+                        app:layout_constraintStart_toStartOf="@+id/linearLayout8"
+                        app:layout_constraintTop_toBottomOf="@+id/linearLayout8">
+
+                        <TextView
+                            style="@style/textoDescritivo"
+                            android:text="@{viewmodel.cliente.numeroCliente, default=numerocliente}" />
+
+                        <TextView
+                            style="@style/subTituloDescritivo"
+                            android:text="@string/telefone" />
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:id="@+id/linearLayout10"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:orientation="vertical"
+                        app:layout_constraintStart_toStartOf="@+id/linearLayout9"
+                        app:layout_constraintTop_toBottomOf="@+id/linearLayout9">
+
+                        <TextView
+                            android:text="@{viewmodel.cliente.servico, default=servico}"
+                            style="@style/textoDescritivo" />
+
+
+                        <TextView
+                            style="@style/subTituloDescritivo"
+                            android:text="@string/servico" />
+
+                    </LinearLayout>
+
+
+
+
+                    <LinearLayout
+                        android:id="@+id/linearLayout11"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:orientation="vertical"
+                        app:layout_constraintStart_toStartOf="@+id/linearLayout10"
+                        app:layout_constraintTop_toBottomOf="@+id/linearLayout10">
+
+                        <TextView
+                            style="@style/textoDescritivo"
+                            android:text="@{viewmodel.cliente.novo, default=novo}" />
+
+                        <TextView
+                            style="@style/subTituloDescritivo"
+                            android:text="@string/novo_contrato" />
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:id="@+id/linearLayout12"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:orientation="vertical"
+                        app:layout_constraintStart_toStartOf="@+id/linearLayout11"
+                        app:layout_constraintTop_toBottomOf="@+id/linearLayout11">
+
+                        <TextView
+                            style="@style/textoDescritivo"
+                             />
+
+                        <!-- android:text="@{viewmodel.cliente.telemovel, default=notas}" -->
+
+                        <TextView
+                            style="@style/subTituloDescritivo"
+                            android:text="@string/notas" />
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:id="@+id/linearLayout13"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:orientation="vertical"
+                        app:layout_constraintStart_toStartOf="@+id/linearLayout12"
+                        app:layout_constraintTop_toBottomOf="@+id/linearLayout12">
+
+                        <TextView
+                            style="@style/textoDescritivo"
+                             />
+
+                        <!-- android:text="@{viewmodel.cliente.anomalias, default=anomalias}" -->
+
+                        <TextView
+                            style="@style/subTituloDescritivo"
+                            android:text="@string/anomalias" />
+
+                    </LinearLayout>
+
+
+
+
+
+                    <LinearLayout
+                        android:id="@+id/linearLayout14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:orientation="vertical"
+                        app:layout_constraintStart_toStartOf="@+id/linearLayout13"
+                        app:layout_constraintTop_toBottomOf="@+id/linearLayout13">
+
+                        <TextView
+                            style="@style/textoDescritivo"
+                            android:text="@{viewmodel.cliente.segmento, default=segmento}" />
+
+                        <TextView
+                            style="@style/subTituloDescritivo"
+                            android:text="@string/segmento" />
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:id="@+id/linearLayout15"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:orientation="vertical"
+                        app:layout_constraintStart_toStartOf="@+id/linearLayout14"
+                        app:layout_constraintTop_toBottomOf="@+id/linearLayout14">
+
+                        <TextView
+                            style="@style/textoDescritivo"
+                            android:text="@{viewmodel.cliente.email, default=email}"/>
+
+                        <!--  -->
+
+                        <TextView
+                            style="@style/subTituloDescritivo"
+                            android:text="@string/email" />
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:id="@+id/linearLayout16"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:orientation="vertical"
+                        app:layout_constraintStart_toStartOf="@+id/linearLayout15"
+                        app:layout_constraintTop_toBottomOf="@+id/linearLayout15">
+
+                        <TextView
+                            style="@style/textoDescritivo"
+                            />
+
+                        <!-- android:text="@{viewmodel.cliente.anomalias, default=anomalias}" -->
+
+                        <TextView
+                            style="@style/subTituloDescritivo"
+                            android:text="@string/coordenadas" />
+
+                    </LinearLayout>
+
+
+
+
+
+
+                    <!--
+
+                                        <LinearLayout
+                                            android:layout_width="match_parent"
+                                            android:layout_height="wrap_content"
+                                            android:orientation="vertical"
+                                            app:layout_constraintStart_toStartOf="@+id/linearLayout2"
+                                            app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:fontFamily="sans-serif-light"
+                                                android:text="joey@sharenofood.com"
+                                                android:textColor="#000000"
+                                                android:textSize="18sp" />
+
+                                            <TextView
+                                                android:layout_width="wrap_content"
+                                                android:layout_height="wrap_content"
+                                                android:text="Email"
+                                                android:textColor="@color/headings"
+                                                android:textSize="13sp" />
+
+
+
+                                        </LinearLayout>
+
+                    -->
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>

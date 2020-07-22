@@ -57,7 +57,7 @@ public class MainActivity extends BaseDaggerActivity
 
         //Intent intent = new Intent(this, AutenticacaoActivity.class);
 //        //intent.putExtra(AppConstants.PICTURE, pictureRecyclerAdapter.getSelectedPicture(position).getId());
-        Intent intent = new Intent(this, TrabalhoActivity.class);
+        //Intent intent = new Intent(this, TrabalhoActivity.class);
         //startActivity(intent);
 
 

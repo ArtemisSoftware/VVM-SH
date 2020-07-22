@@ -85,6 +85,8 @@ public class AgendaViewModel extends BaseViewModel {
 
     public void obterTarefas(String idUtilizador, String data){
 
+        //TODO: terminar metodo agendaRepositorio.obterTarefas. Parametros ainda não estão a ser usados
+
         agendaRepositorio.obterTarefas(idUtilizador, data).toObservable()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())

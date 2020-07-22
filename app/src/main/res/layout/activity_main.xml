@@ -70,9 +70,9 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcl_registos"
             style="@style/lista"
-
+            tarefas="@{viewmodel.tarefas}"
             tools:listitem="@layout/item_tarefa"/>
-<!-- registos="@{viewmodel.tarefas}" -->
+<!--  -->
     </LinearLayout>
 
 </layout>

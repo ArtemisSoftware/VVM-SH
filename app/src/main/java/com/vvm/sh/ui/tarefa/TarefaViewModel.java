@@ -20,7 +20,7 @@ public class TarefaViewModel extends BaseViewModel {
 
     private final TarefaRepositorio tarefaRepositorio;
 
-    public MutableLiveData<List<Cliente>> cliente;
+    public MutableLiveData<Cliente> cliente;
     public MutableLiveData<List<AtividadeExecutada>> atividadesExecutadas;
 
 
@@ -67,5 +67,38 @@ public class TarefaViewModel extends BaseViewModel {
     }
 
 
+    public void obterCliente(int idTarefa) {
 
+
+        tarefaRepositorio.obterCliente(idTarefa).toObservable()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new Observer<Cliente>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+
+                            }
+
+                            @Override
+                            public void onNext(Cliente registo) {
+
+                                cliente.setValue(registo);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+
+                            @Override
+                            public void onComplete() {
+
+                            }
+                        }
+                );
+
+
+    }
 }

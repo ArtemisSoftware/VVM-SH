@@ -6,9 +6,11 @@ import com.vvm.sh.baseDados.AtividadeExecutadaDao;
 import com.vvm.sh.baseDados.ClienteDao;
 import com.vvm.sh.baseDados.TipoDao;
 import com.vvm.sh.ui.atividadesExecutadas.AtividadeExecutada;
+import com.vvm.sh.ui.cliente.Cliente;
 
 import java.util.List;
 
+import io.reactivex.Completable;
 import io.reactivex.Flowable;
 
 public class TarefaRepositorio {
@@ -19,6 +21,10 @@ public class TarefaRepositorio {
     public TarefaRepositorio(@NonNull ClienteDao clienteDao, @NonNull AtividadeExecutadaDao atividadeExecutadaDao) {
         this.clienteDao = clienteDao;
         this.atividadeExecutadaDao = atividadeExecutadaDao;
+    }
+
+    public Flowable<Cliente> obterCliente(int idTarefa) {
+        return clienteDao.obterCliente(idTarefa);
     }
 
 

@@ -116,6 +116,21 @@ public class Preferencias {
 
 
     /**
+     * Metodo que permite obter o identificador da tarefa em curso
+     * @param contexto
+     * @return o identificador da tarefa em curso
+     */
+    public static int obterIdTarefa(Context contexto) {
+
+        String pacote = contexto.getPackageName();
+
+        SharedPreferences preferencias = contexto.getSharedPreferences(pacote, Context.MODE_PRIVATE);
+        return preferencias.getInt(ID_TAREFA, 0);
+    }
+
+
+
+    /**
      * Metodo que permite obter o identificador do utilizador
      * @param contexto
      * @return o identificador do utilizador
@@ -127,6 +142,7 @@ public class Preferencias {
         SharedPreferences preferencias = contexto.getSharedPreferences(pacote, Context.MODE_PRIVATE);
         return preferencias.getString(ID_UTILIZADOR, "10101");
     }
+
 
 
     /**

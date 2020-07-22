@@ -10,10 +10,12 @@
         <import type="java.util.List"/>
         <import type="com.vvm.sh.util.StringUtil"/>
 
-        <variable
-            name="tipo"
-            type="com.vvm.sh.ui.contaUtilizador.Colecao" />
+
 -->
+
+        <variable
+            name="atividade"
+            type="com.vvm.sh.ui.atividadesExecutadas.AtividadeExecutada" />
 
     </data>
 

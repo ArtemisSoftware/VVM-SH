@@ -1,4 +1,4 @@
-package com.vvm.sh.ui.anomalias;
+package com.vvm.sh.ui.anomalias.adaptadores;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.vvm.sh.R;
 import com.vvm.sh.databinding.ItemAnomaliaBinding;
+import com.vvm.sh.ui.anomalias.Anomalia;
 import com.vvm.sh.ui.anomalias.adaptadores.AnomaliaViewHolder;
 import com.vvm.sh.util.adaptadores.ItemRecyclerAdapter;
 import com.vvm.sh.util.adaptadores.ItemViewHolder;

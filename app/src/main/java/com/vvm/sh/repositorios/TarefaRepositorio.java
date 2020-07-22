@@ -10,7 +10,6 @@ import com.vvm.sh.ui.cliente.Cliente;
 
 import java.util.List;
 
-import io.reactivex.Completable;
 import io.reactivex.Flowable;
 
 public class TarefaRepositorio {
@@ -28,9 +27,10 @@ public class TarefaRepositorio {
     }
 
 
-//    public Flowable<List<AtividadeExecutada>> obterAtividadesExecutadas(int idTarefa) {
-//        return atividadeExecutadaDao. obterTipos();
-//    }
+
+    public Flowable<List<AtividadeExecutada>> obterAtividadesExecutadas(int idTarefa) {
+        return atividadeExecutadaDao.obterAtividades(idTarefa);
+    }
 
 
 

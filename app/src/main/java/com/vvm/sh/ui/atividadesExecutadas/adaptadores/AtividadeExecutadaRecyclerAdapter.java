@@ -1,4 +1,4 @@
-package com.vvm.sh.ui.atividadesExecutadas;
+package com.vvm.sh.ui.atividadesExecutadas.adaptadores;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.vvm.sh.R;
 import com.vvm.sh.databinding.ItemAtividadeExecutadaBinding;
+import com.vvm.sh.ui.atividadesExecutadas.AtividadeExecutada;
 import com.vvm.sh.ui.atividadesExecutadas.adaptadores.AtividadeExecutadaViewHolder;
 import com.vvm.sh.util.adaptadores.ItemRecyclerAdapter;
 import com.vvm.sh.util.adaptadores.ItemViewHolder;

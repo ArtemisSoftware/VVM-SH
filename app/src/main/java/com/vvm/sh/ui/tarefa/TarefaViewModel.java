@@ -33,42 +33,53 @@ public class TarefaViewModel extends BaseViewModel {
     }
 
 
-
+    /**
+     * Metodo que permite obter as atividades executadas
+     * @param idTarefa o identificador da tarefa
+     */
     public void obterAtividadesExecutadas(int idTarefa){
 
-//        tarefaRepositorio.obterAtividadesExecutadas(idTarefa).toObservable()
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(
-//
-//                        new Observer<List<AtividadeExecutada>>() {
-//                            @Override
-//                            public void onSubscribe(Disposable d) {
-//
-//                            }
-//
-//                            @Override
-//                            public void onNext(List<AtividadeExecutada> registos) {
-//
-//                                atividadesExecutadas.setValue(registos);
-//                            }
-//
-//                            @Override
-//                            public void onError(Throwable e) {
-//
-//                            }
-//
-//                            @Override
-//                            public void onComplete() {
-//
-//                            }
-//                        }
-//                );
+
+        showProgressBar(true);
+
+        tarefaRepositorio.obterAtividadesExecutadas(idTarefa).toObservable()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new Observer<List<AtividadeExecutada>>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onNext(List<AtividadeExecutada> registos) {
+
+                                atividadesExecutadas.setValue(registos);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onComplete() {
+                                showProgressBar(false);
+                            }
+                        }
+                );
     }
 
 
+    /**
+     * Metodo que permite obter os dados do cliente
+     * @param idTarefa o identificador da tarefa
+     */
     public void obterCliente(int idTarefa) {
 
+        showProgressBar(true);
 
         tarefaRepositorio.obterCliente(idTarefa).toObservable()
                 .subscribeOn(Schedulers.io())
@@ -78,7 +89,7 @@ public class TarefaViewModel extends BaseViewModel {
                         new Observer<Cliente>() {
                             @Override
                             public void onSubscribe(Disposable d) {
-
+                                disposables.add(d);
                             }
 
                             @Override
@@ -89,12 +100,12 @@ public class TarefaViewModel extends BaseViewModel {
 
                             @Override
                             public void onError(Throwable e) {
-
+                                showProgressBar(false);
                             }
 
                             @Override
                             public void onComplete() {
-
+                                showProgressBar(false);
                             }
                         }
                 );

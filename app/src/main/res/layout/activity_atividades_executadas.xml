@@ -7,13 +7,12 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-<!--
+
         <import type="java.util.List"/>
 
         <variable
             name="viewmodel"
-            type="com.vvm.sh.ui.crossSelling.CrossSellingViewModel"/>
--->
+            type="com.vvm.sh.ui.tarefa.TarefaViewModel"/>
 
     </data>
 
@@ -72,6 +71,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcl_registos"
             style="@style/lista"
+            aatividadesExecutadas="@{viewmodel.atividadesExecutadas}"
             tools:listitem="@layout/item_atividade_executada"/>
 
     </LinearLayout>

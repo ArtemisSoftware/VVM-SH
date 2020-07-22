@@ -301,6 +301,7 @@
 
                     </LinearLayout>
 
+                    <!-- TODO: faltam parametros saldo gps e dois botoes, concatenar os contactos, visibilidade da atividade1, numero de anomalias, autorização do email  -->
 
                     <LinearLayout
                         android:id="@+id/linearLayout12"

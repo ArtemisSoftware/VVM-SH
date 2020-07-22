@@ -18,6 +18,33 @@ public class Migracao {
     }
 
 
+
+
+    public static final Migration MIGRACAO_3_4 = new Migration(3, 4) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            try {
+                database.execSQL("CREATE TABLE IF NOT EXISTS 'anomalias' ("
+                        + "'idTarefa' INTEGER , "
+                        + "'id' INTEGER PRIMARY KEY AUTOINCREMENT, "
+                        + "'data' INTEGER NOT NULL, "
+                        + "'descricao' TEXT NOT NULL, "
+                        + "'observacao' TEXT , "
+                        + "'contacto' TEXT , "
+                        + "'tipo' TEXT NOT NULL,"
+                        + "FOREIGN KEY (idTarefa) REFERENCES tarefas (idTarefa)  ON DELETE CASCADE)  ");
+
+                //Timber.d("MIGRACAO_3_4: success");
+            }
+            catch(SQLException e){
+                Log.e("Migracao", "erro MIGRACAO_1_2: " + e.getMessage());
+                //Timber.e("erro MIGRACAO_3_4: " + e.getMessage());
+            }
+        }
+    };
+
+
+
     public static final Migration MIGRACAO_2_3 = new Migration(2, 3) {
         @Override
         public void migrate(SupportSQLiteDatabase database) {
@@ -78,11 +105,11 @@ public class Migracao {
 
 
 
-                //Timber.d("MIGRACAO_1_2: success");
+                //Timber.d("MIGRACAO_2_3: success");
             }
             catch(SQLException e){
                 Log.e("Migracao", "erro MIGRACAO_2_3: " + e.getMessage());
-                //Timber.e("erro MIGRACAO_1_2: " + e.getMessage());
+                //Timber.e("erro MIGRACAO_2_3: " + e.getMessage());
             }
         }
     };

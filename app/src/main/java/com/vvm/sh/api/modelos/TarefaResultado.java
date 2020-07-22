@@ -19,6 +19,13 @@ public class TarefaResultado {
     @SerializedName("ActivExecutadas")
     public List<AtividadeExecutadasResultado> atividadesExecutadas;
 
+    @SerializedName("Ocorrencias")
+    public List<OcorrenciaResultado> ocorrencias;
+
+
+    @SerializedName("Anomalias")
+    public List<AnomaliaResultado> anomalias;
+
 
     @SerializedName("Dados")
     public DadosResultado dados;

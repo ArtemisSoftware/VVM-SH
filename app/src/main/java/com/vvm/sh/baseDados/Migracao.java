@@ -37,7 +37,7 @@ public class Migracao {
                 //Timber.d("MIGRACAO_3_4: success");
             }
             catch(SQLException e){
-                Log.e("Migracao", "erro MIGRACAO_1_2: " + e.getMessage());
+                Log.e("Migracao", "erro MIGRACAO_3_4: " + e.getMessage());
                 //Timber.e("erro MIGRACAO_3_4: " + e.getMessage());
             }
         }

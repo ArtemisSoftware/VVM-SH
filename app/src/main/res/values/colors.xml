@@ -127,4 +127,6 @@
 
     <color name="cor_nota">#59000000</color>
 
+    <color name="cor_texto_descritivo">#2B292B</color>
+
 </resources>

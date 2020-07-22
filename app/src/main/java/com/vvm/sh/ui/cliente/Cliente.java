@@ -198,4 +198,13 @@ public class Cliente {
         this.minutosRealizados = minutosRealizados;
         this.periodo = periodo;
     }
+
+    /**
+     * Metodo que permite obter o cae e a atividade
+     * @return cae - atividade
+     */
+    public String obterAtividade(){
+        return cae + " - " + actividade;
+    }
+
 }

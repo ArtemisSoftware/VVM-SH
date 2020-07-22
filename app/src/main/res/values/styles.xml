@@ -65,9 +65,22 @@
         <item name="android:textStyle">bold</item>
     </style>
 
+    <style name="subTituloDescritivo" parent="viewParent">
+        <item name="android:textSize">@dimen/subTituloDescritivo</item>
+        <item name="android:textColor">@color/cor_preto</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+    </style>
+
+    <style name="textoDescritivo" parent="viewParent">
+        <item name="android:textSize">@dimen/textoDescritivo</item>
+        <item name="android:textColor">@color/cor_preto</item>
+    </style>
+
+
     <style name="textoDetalhe" parent="viewParent">
         <item name="android:textSize">@dimen/texto</item>
         <item name="android:textColor">@color/cor_preto</item>
+        <item name="android:fontFamily">sans-serif-light</item>
     </style>
 
     <style name="textoNota" parent="viewParent">

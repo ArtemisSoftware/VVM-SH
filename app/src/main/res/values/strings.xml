@@ -181,5 +181,8 @@
     <string name="opcoes_trabalho">Opções de trabalho</string>
     <string name="registos">registos</string>
     <string name="ordem_">Ordem:</string>
+    <string name="morada">Morada</string>
+    <string name="nif">Nif</string>
+    <string name="cae_atividade">Cae/Atividade</string>
 
 </resources>

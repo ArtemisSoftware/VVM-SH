@@ -4,7 +4,12 @@ import com.vvm.sh.MainActivity;
 import com.vvm.sh.di.agenda.AgendaModule;
 import com.vvm.sh.di.agenda.AgendaScope;
 import com.vvm.sh.di.agenda.AgendaViewModelsModule;
+import com.vvm.sh.di.tarefa.TarefaModule;
+import com.vvm.sh.di.tarefa.TarefaScope;
+import com.vvm.sh.di.tarefa.TarefaViewModelsModule;
+import com.vvm.sh.ui.agenda.TarefaActivity;
 import com.vvm.sh.ui.agenda.TrabalhoActivity;
+import com.vvm.sh.ui.atividadesExecutadas.AtividadesExecutadasActivity;
 import com.vvm.sh.ui.autenticacao.AutenticacaoActivity;
 import com.vvm.sh.di.autenticacao.AutenticacaoModule;
 import com.vvm.sh.di.autenticacao.AutenticacaoScope;
@@ -15,6 +20,7 @@ import com.vvm.sh.di.crossSelling.CrossSellingViewModelsModule;
 import com.vvm.sh.di.opcoes.OpcoesModule;
 import com.vvm.sh.di.opcoes.OpcoesScope;
 import com.vvm.sh.di.opcoes.OpcoesViewModelsModule;
+import com.vvm.sh.ui.cliente.InformacaoActivity;
 import com.vvm.sh.ui.crossSelling.CrossSellingActivity;
 import com.vvm.sh.ui.crossSelling.DialogoSinaletica;
 import com.vvm.sh.ui.opcoes.TiposActivity;
@@ -34,6 +40,9 @@ public abstract class ActivityBuildersModule {
 
 
 
+
+
+
     @AgendaScope
     @ContributesAndroidInjector(
             modules = { AgendaViewModelsModule.class, AgendaModule.class }
@@ -46,6 +55,35 @@ public abstract class ActivityBuildersModule {
             modules = { AgendaViewModelsModule.class, AgendaModule.class }
     )
     abstract TrabalhoActivity contributeTrabalhoActivity();
+
+
+
+
+
+
+
+    @TarefaScope
+    @ContributesAndroidInjector(
+            modules = { TarefaViewModelsModule.class, TarefaModule.class }
+    )
+    abstract TarefaActivity contributeTarefaActivity();
+
+    @TarefaScope
+    @ContributesAndroidInjector(
+            modules = { TarefaViewModelsModule.class, TarefaModule.class }
+    )
+    abstract AtividadesExecutadasActivity contributeAtividadesExecutadasActivity();
+
+
+    @TarefaScope
+    @ContributesAndroidInjector(
+            modules = { TarefaViewModelsModule.class, TarefaModule.class }
+    )
+    abstract InformacaoActivity contributeInformacaoActivityActivity();
+
+
+
+
 
 
 

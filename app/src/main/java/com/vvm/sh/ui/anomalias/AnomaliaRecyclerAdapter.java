@@ -9,7 +9,7 @@ import com.vvm.sh.util.adaptadores.ItemViewHolder;
 public class AnomaliaRecyclerAdapter extends ItemRecyclerAdapter {
     @Override
     protected int obterLayout(int viewType) {
-        return R.layout.anomalia_list_card_item;
+        return R.layout.item_anomalia;
     }
 
     @Override

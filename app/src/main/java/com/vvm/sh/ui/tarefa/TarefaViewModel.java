@@ -39,7 +39,6 @@ public class TarefaViewModel extends BaseViewModel {
      */
     public void obterAtividadesExecutadas(int idTarefa){
 
-
         showProgressBar(true);
 
         tarefaRepositorio.obterAtividadesExecutadas(idTarefa).toObservable()

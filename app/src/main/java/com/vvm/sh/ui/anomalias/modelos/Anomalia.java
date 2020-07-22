@@ -1,4 +1,4 @@
-package com.vvm.sh.ui.anomalias;
+package com.vvm.sh.ui.anomalias.modelos;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
@@ -64,7 +64,8 @@ public class Anomalia{
         this.tipo = tipo;
     }
 
-//
+//TODO: verificar os tipos de anomalia
+
 //        public final static int TIPO_ANOMALIA = 1;
 //        public final static int TIPO_NOVA_ANOMALIA = 2;
 //

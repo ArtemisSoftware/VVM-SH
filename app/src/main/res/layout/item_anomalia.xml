@@ -10,7 +10,7 @@
 
         <variable
             name="anomalia"
-            type="com.vvm.sh.ui.anomalias.Anomalia" />
+            type="com.vvm.sh.ui.anomalias.modelos.Anomalia" />
 
     </data>
 

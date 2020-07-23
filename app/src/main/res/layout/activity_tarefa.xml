@@ -5,11 +5,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <!--
-                <import type="java.util.List"/>
 
-
--->
+        <import type="java.util.List"/>
 
         <variable
             name="viewmodel"

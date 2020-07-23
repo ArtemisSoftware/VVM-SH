@@ -96,38 +96,8 @@ public class TarefaActivity extends BaseDaggerActivity
 //    //------------------------
 //
 //
-//    /**
-//     * Metodo que permite iniciar a atividade
-//     */
-//    private void iniciarAtividade(){
-//
-//        opcaoClienteRecyclerAdapter = new OpcaoClienteRecyclerAdapter(this);
-//        rcl_opcoes_cliente.setAdapter(opcaoClienteRecyclerAdapter);
-//        rcl_opcoes_cliente.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false));
-//    }
-//
-//
-//
-//    /**
-//     * Metodo que permite subscrever observadores
-//     */
-//    private void subscreverObservadores(){
-//
-//
-//        //TODO: subscrever observadores do viewmodel
-//
-//    }
-//
-//
-//    private void obterRegistos(){
-//
-//        //--TESTE (apagar quando houver dados)
-//
-//        opcaoClienteRecyclerAdapter.gerarOpcoes();
-//
-//        //TODO: chamar metodo do viewmodel
-//    }
-//
+
+
 //
 //
 //    @OnClick(R.id.crd_atividades_pendentes)

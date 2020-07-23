@@ -18,7 +18,8 @@ import java.util.List;
 
 import butterknife.BindView;
 
-public class AtividadesPendentesActivity extends BaseActivity implements OnItemListener,
+public class AtividadesPendentesActivity extends BaseActivity
+        implements OnItemListener,
         DialogoAtividadePendente.DialogoListener, DialogoAtividadePendenteExecutada.DialogListener, DialogoAtividadePendenteNaoExecutada.DialogoListener {
 
     @BindView(R.id.rcl_registos)

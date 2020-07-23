@@ -14,7 +14,7 @@ import android.widget.TextView;
 
 import com.vvm.sh.R;
 import com.vvm.sh.ui.BaseActivity;
-import com.vvm.sh.ui.ocorrencias.modelos.Ocorrencia;
+import com.vvm.sh.ui.ocorrencias.adaptadores.OcorrenciaRecyclerAdapter;
 import com.vvm.sh.util.adaptadores.Item;
 import com.vvm.sh.util.interfaces.OnCheckBoxItemListener;
 import com.vvm.sh.util.interfaces.OnItemListener;
@@ -60,7 +60,7 @@ public class RegistoOcorrenciasActivity extends BaseActivity implements OnItemLi
      */
     private void iniciarAtividade(){
 
-        ocorrenciaRecyclerAdapter = new OcorrenciaRecyclerAdapter(this, this);
+        //ocorrenciaRecyclerAdapter = new OcorrenciaRecyclerAdapter(this, this);
         rcl_registos.setAdapter(ocorrenciaRecyclerAdapter);
         rcl_registos.setLayoutManager(new LinearLayoutManager(this));
         rcl_registos.addItemDecoration(new DividerItemDecoration(this, LinearLayout.VERTICAL));
@@ -85,7 +85,7 @@ public class RegistoOcorrenciasActivity extends BaseActivity implements OnItemLi
 //        t1.add(new Ocorrencia(1, "Ocorrencia numero 2", "10.2", 1, 0));
 //        t1.add(new Ocorrencia(1, "Ocorrencia numero 34", "23.2", 1, 0));
 
-        ocorrenciaRecyclerAdapter.renovarRegistos(t1);
+        //ocorrenciaRecyclerAdapter.renovarRegistos(t1);
 
         //TODO: chamar metodo do viewmodel
     }
@@ -116,7 +116,7 @@ public class RegistoOcorrenciasActivity extends BaseActivity implements OnItemLi
 //        t1.add(new Ocorrencia(1, "Ocorrencia numero 1478", "560.2", 1, 0));
 //        t1.add(new Ocorrencia(1, "Ocorrencia numero 22", "410.2", 2, 1));
 
-        ocorrenciaRecyclerAdapter.renovarRegistos(t1);
+        //ocorrenciaRecyclerAdapter.renovarRegistos(t1);
 
         //TODO: chamar metodo do viewmodel
     }

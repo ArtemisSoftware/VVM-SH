@@ -1,7 +1,6 @@
 package com.vvm.sh.ui.ocorrencias;
 
 import androidx.appcompat.widget.Toolbar;
-import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -12,7 +11,7 @@ import android.widget.TextView;
 
 import com.vvm.sh.R;
 import com.vvm.sh.ui.BaseActivity;
-import com.vvm.sh.ui.ocorrencias.modelos.Ocorrencia;
+import com.vvm.sh.ui.ocorrencias.adaptadores.OcorrenciaRecyclerAdapter;
 import com.vvm.sh.util.adaptadores.Item;
 import com.vvm.sh.util.interfaces.OnItemListener;
 
@@ -69,7 +68,7 @@ public class OcorrenciasActivity extends BaseActivity implements OnItemListener 
     private void iniciarAtividade(){
 
 //        crs_historico.setVisibility(View.GONE);
-        ocorrenciaRecyclerAdapter = new OcorrenciaRecyclerAdapter(this);
+        //ocorrenciaRecyclerAdapter = new OcorrenciaRecyclerAdapter(this);
         rcl_registos.setAdapter(ocorrenciaRecyclerAdapter);
         rcl_registos.setLayoutManager(new LinearLayoutManager(this));
     }
@@ -83,7 +82,7 @@ public class OcorrenciasActivity extends BaseActivity implements OnItemListener 
 //        t1.add(new Ocorrencia(1, "Ocorrencia numero 1", "Departamento norte", "12345235", "2020-02-20", "Marca 1", "estado 1"));
 //        t1.add(new Ocorrencia(2, "Ocorrencia numero 2", "Departamento sul", "674543", "2020-02-18", "Marca 20", "estado raly"));
 
-        ocorrenciaRecyclerAdapter.renovarRegistos(t1);
+        //ocorrenciaRecyclerAdapter.renovarRegistos(t1);
 
         //TODO: chamar metodo do viewmodel
     }

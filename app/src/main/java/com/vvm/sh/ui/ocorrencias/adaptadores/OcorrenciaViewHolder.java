@@ -1,4 +1,4 @@
-package com.vvm.sh.ui.ocorrencias;
+package com.vvm.sh.ui.ocorrencias.adaptadores;
 
 import android.view.View;
 import android.widget.TextView;
@@ -27,7 +27,7 @@ public class OcorrenciaViewHolder extends RecyclerView.ViewHolder implements Vie
     private OnItemListener onItemListener;
 
 
-    public OcorrenciaViewHolder(@NonNull View itemView, OnItemListener onItemListener) {
+    public OcorrenciaViewHolder(@NonNull View itemView/*, OnItemListener onItemListener*/) {
         super(itemView);
         binding = DataBindingUtil.bind(itemView);
 

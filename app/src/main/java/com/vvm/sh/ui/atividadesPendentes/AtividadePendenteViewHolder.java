@@ -23,13 +23,15 @@ public class AtividadePendenteViewHolder extends RecyclerView.ViewHolder impleme
 
     private OnItemListener onItemListener;
 
-    public AtividadePendenteViewHolder(@NonNull View itemView, OnItemListener onItemListener) {
+    public AtividadePendenteViewHolder(@NonNull View itemView/*, OnItemListener onItemListener*/) {
         super(itemView);
 
         binding = DataBindingUtil.bind(itemView);
 
+        /*
         this.onItemListener = onItemListener;
         itemView.setOnClickListener(this);
+        */
     }
 
 

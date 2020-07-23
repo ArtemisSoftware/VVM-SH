@@ -1,28 +1,65 @@
 package com.vvm.sh.ui.atividadesPendentes;
 
+import android.content.Context;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+
+import androidx.annotation.NonNull;
+import androidx.databinding.DataBindingUtil;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.vvm.sh.R;
+import com.vvm.sh.databinding.ItemAtividadePendenteBinding;
+import com.vvm.sh.ui.atividadesPendentes.modelos.AtividadePendente;
 import com.vvm.sh.util.adaptadores.ItemRecyclerAdapter;
 import com.vvm.sh.util.adaptadores.ItemViewHolder;
 import com.vvm.sh.util.interfaces.OnItemListener;
 
-public class AtividadePendenteRecyclerAdapter extends ItemRecyclerAdapter {
+import java.util.ArrayList;
+import java.util.List;
 
-    private OnItemListener onItemListener;
+public class AtividadePendenteRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
 
-    public AtividadePendenteRecyclerAdapter(OnItemListener onItemListener) {
-        this.onItemListener = onItemListener;
+    private List<AtividadePendente> items = new ArrayList<>();
+    private Context contexto;
+
+    public AtividadePendenteRecyclerAdapter(Context contexto, List<AtividadePendente> items) {
+        this.items = items;
+        this.contexto = contexto;
+    }
+
+
+    @NonNull
+    @Override
+    public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+
+        ItemAtividadePendenteBinding binding = DataBindingUtil.inflate(LayoutInflater.from(contexto), R.layout.item_atividade_pendente, parent, false);
+        return new AtividadePendenteViewHolder(binding.getRoot());
     }
 
     @Override
-    protected int obterLayout(int viewType) {
-        return R.layout.item_atividade_pendente;
+    public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
+
+        AtividadePendente registo = items.get(position);
+        ((AtividadePendenteViewHolder)holder).binding.setAtividade(registo);
+
+        ((AtividadePendenteViewHolder)holder).binding.executePendingBindings();
+
     }
 
     @Override
-    protected ItemViewHolder obterViewHolder(View view, int viewType) {
-        return new AtividadePendenteViewHolder(view, this.onItemListener);
+    public int getItemCount() {
+        return items.size();
     }
+
+
+    public void atualizar(List<AtividadePendente> items){
+        this.items.clear();
+        this.items.addAll(items);
+        notifyDataSetChanged();
+    }
+
+
 }

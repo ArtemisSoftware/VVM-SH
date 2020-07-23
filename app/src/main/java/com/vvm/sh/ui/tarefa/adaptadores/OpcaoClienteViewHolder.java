@@ -1,4 +1,4 @@
-package com.vvm.sh.ui.agenda.adaptadores;
+package com.vvm.sh.ui.tarefa.adaptadores;
 
 import android.view.View;
 

@@ -1,42 +1,16 @@
 package com.vvm.sh.ui.tarefa;
 
-import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.TextView;
 
 import com.vvm.sh.R;
-import com.vvm.sh.databinding.ActivityCrossSellingBinding;
 import com.vvm.sh.databinding.ActivityTarefaBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
-import com.vvm.sh.ui.BaseActivity;
 import com.vvm.sh.ui.BaseDaggerActivity;
-import com.vvm.sh.ui.agenda.DialogoEmail;
-import com.vvm.sh.ui.agenda.adaptadores.OpcaoClienteRecyclerAdapter;
-import com.vvm.sh.ui.anomalias.AnomaliasActivity;
-import com.vvm.sh.ui.anomalias.DialogoAnomalia;
-import com.vvm.sh.ui.anomalias.RegistoAnomaliasActivity;
-import com.vvm.sh.ui.atividadesExecutadas.AtividadesExecutadasActivity;
-import com.vvm.sh.ui.atividadesPendentes.AtividadesPendentesActivity;
-import com.vvm.sh.ui.cliente.InformacaoActivity;
-import com.vvm.sh.ui.cliente.SinistralidadeActivity;
-import com.vvm.sh.ui.cliente.extintores.ExtintoresActivity;
-import com.vvm.sh.ui.contaCorrente.ContaCorrenteActivity;
-import com.vvm.sh.ui.crossSelling.CrossSellingActivity;
-import com.vvm.sh.ui.ocorrencias.OcorrenciasActivity;
-import com.vvm.sh.util.interfaces.OnItemListener;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import javax.inject.Inject;
-
-import butterknife.BindView;
-import butterknife.OnClick;
 
 public class TarefaActivity extends BaseDaggerActivity
         /*implements OnItemListener, DialogoEmail.DialogEmailListener*/ {

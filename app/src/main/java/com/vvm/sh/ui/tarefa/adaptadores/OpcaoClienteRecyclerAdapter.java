@@ -1,8 +1,7 @@
-package com.vvm.sh.ui.agenda.adaptadores;
+package com.vvm.sh.ui.tarefa.adaptadores;
 
 import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -11,9 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.vvm.sh.R;
 import com.vvm.sh.databinding.ItemOpcaoClienteBinding;
-import com.vvm.sh.ui.agenda.OpcaoCliente;
-import com.vvm.sh.util.adaptadores.ItemRecyclerAdapter;
-import com.vvm.sh.util.adaptadores.ItemViewHolder;
+import com.vvm.sh.ui.tarefa.modelos.OpcaoCliente;
 import com.vvm.sh.util.interfaces.OnItemListener;
 
 import java.util.ArrayList;

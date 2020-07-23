@@ -4,11 +4,16 @@ import com.vvm.sh.MainActivity;
 import com.vvm.sh.di.agenda.AgendaModule;
 import com.vvm.sh.di.agenda.AgendaScope;
 import com.vvm.sh.di.agenda.AgendaViewModelsModule;
+import com.vvm.sh.di.anomalias.AnomaliasModule;
+import com.vvm.sh.di.anomalias.AnomaliasScope;
+import com.vvm.sh.di.anomalias.AnomaliasViewModelsModule;
 import com.vvm.sh.di.tarefa.TarefaModule;
 import com.vvm.sh.di.tarefa.TarefaScope;
 import com.vvm.sh.di.tarefa.TarefaViewModelsModule;
 import com.vvm.sh.ui.agenda.TarefaActivity;
 import com.vvm.sh.ui.agenda.TrabalhoActivity;
+import com.vvm.sh.ui.anomalias.AnomaliasActivity;
+import com.vvm.sh.ui.anomalias.AnomaliasViewModel;
 import com.vvm.sh.ui.atividadesExecutadas.AtividadesExecutadasActivity;
 import com.vvm.sh.ui.autenticacao.AutenticacaoActivity;
 import com.vvm.sh.di.autenticacao.AutenticacaoModule;
@@ -79,9 +84,15 @@ public abstract class ActivityBuildersModule {
     @ContributesAndroidInjector(
             modules = { TarefaViewModelsModule.class, TarefaModule.class }
     )
-    abstract InformacaoActivity contributeInformacaoActivityActivity();
+    abstract InformacaoActivity contributeInformacaoActivity();
 
 
+
+    @AnomaliasScope
+    @ContributesAndroidInjector(
+            modules = { AnomaliasViewModelsModule.class, AnomaliasModule.class }
+    )
+    abstract AnomaliasActivity contributeAnomaliasActivity();
 
 
 

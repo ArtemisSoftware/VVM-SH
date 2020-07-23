@@ -9,13 +9,13 @@
                 <import type="java.util.List"/>
 
 
-
+-->
 
         <variable
             name="viewmodel"
-            type="com.vvm.sh.ui.agenda.AgendaViewModel"/>
+            type="com.vvm.sh.ui.anomalias.AnomaliasViewModel"/>
 
--->
+
 
     </data>
 
@@ -76,7 +76,7 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rcl_registos"
                     style="@style/lista"
-
+                    anomalias="@{viewmodel.anomalias}"
                     tools:listitem="@layout/item_anomalia"/>
                 <!-- tarefas="@{viewmodel.tarefas}"
                     app:onItemClick="@{listener}" -->

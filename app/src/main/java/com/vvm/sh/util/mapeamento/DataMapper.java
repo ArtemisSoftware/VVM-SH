@@ -17,7 +17,8 @@ public class DataMapper {
                     .parse( date ) : null;
         }
         catch ( ParseException e ) {
-            throw new RuntimeException( e );
+            //throw new RuntimeException( e );
+            return new Date(); //TODO: devolver null ou a data de hoje????
         }
     }
 }

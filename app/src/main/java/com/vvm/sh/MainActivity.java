@@ -10,6 +10,7 @@ import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.agenda.AgendaViewModel;
 import com.vvm.sh.ui.agenda.TarefaActivity;
+import com.vvm.sh.ui.agenda.TrabalhoActivity;
 import com.vvm.sh.ui.agenda.adaptadores.OnAgendaListener;
 import com.vvm.sh.ui.agenda.modelos.TarefaDia;
 import com.vvm.sh.util.metodos.DatasUtil;
@@ -61,7 +62,7 @@ public class MainActivity extends BaseDaggerActivity
 
         //Intent intent = new Intent(this, AutenticacaoActivity.class);
 //        //intent.putExtra(AppConstants.PICTURE, pictureRecyclerAdapter.getSelectedPicture(position).getId());
-        //Intent intent = new Intent(this, TrabalhoActivity.class);
+        Intent intent = new Intent(this, TrabalhoActivity.class);
         //startActivity(intent);
 
 

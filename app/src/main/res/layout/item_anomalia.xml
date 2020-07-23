@@ -8,6 +8,8 @@
 
     <data>
 
+        <import type="com.vvm.sh.util.metodos.DatasUtil"/>
+
         <variable
             name="anomalia"
             type="com.vvm.sh.ui.anomalias.modelos.Anomalia" />
@@ -28,11 +30,11 @@
                 style="@style/tituloCartao"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:text="@string/lorem_ipsum_titulo"
+                android:text="@{anomalia.descricao, default=descricao}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <!-- android:text="@{anomalia., default=descricao}" -->
+            <!--  -->
 
 
             <LinearLayout
@@ -55,7 +57,7 @@
                     android:id="@+id/txt_data"
                     style="@style/textoDetalhe"
                     android:layout_marginLeft="12dp"
-                    android:text="@string/lorem_ipsum_data" />
+                    android:text="@{DatasUtil.converterData(anomalia.data, DatasUtil.FORMATO_DD_MM_YYYY), default=data}" />
 
                 <!-- android:text="@{anomalia., default=descricao}" -->
             </LinearLayout>
@@ -81,7 +83,7 @@
                     android:id="@+id/text"
                     style="@style/textoDetalhe"
                     android:layout_marginLeft="12dp"
-                    android:text="@string/lorem_ipsum_data" />
+                    android:text="@{anomalia.contacto, default=contacto}" />
 
                 <!-- android:text="@{anomalia., default=descricao}" -->
             </LinearLayout>
@@ -105,7 +107,7 @@
                     android:id="@+id/textView1"
                     style="@style/textoDetalhe"
                     android:layout_marginLeft="8dp"
-                    android:text="@string/lorem_ipsum_texto_pequeno" />
+                    android:text="@{anomalia.tipo, default=tipo}"/>
                 <!-- android:text="@{anomalia., default=descricao}" -->
             </LinearLayout>
 
@@ -130,7 +132,7 @@
                     android:id="@+id/textView2"
                     style="@style/textoDetalhe"
                     android:layout_marginLeft="8dp"
-                    android:text="@string/lorem_ipsum_texto_pequeno" />
+                    android:text="@{anomalia.observacao, default=observacao}" />
 
                 <!-- android:text="@{anomalia., default=descricao}" -->
             </LinearLayout>

@@ -11,7 +11,7 @@ public class Migracao {
     public static final Migration[] obterMigracoes(){
 
         Migration migrations [] =  new Migration []{
-                MIGRACAO_1_2, MIGRACAO_2_3
+                MIGRACAO_1_2, MIGRACAO_2_3, MIGRACAO_3_4
         };
 
         return migrations;
@@ -25,14 +25,16 @@ public class Migracao {
         public void migrate(SupportSQLiteDatabase database) {
             try {
                 database.execSQL("CREATE TABLE IF NOT EXISTS 'anomalias' ("
-                        + "'idTarefa' INTEGER , "
-                        + "'id' INTEGER PRIMARY KEY AUTOINCREMENT, "
+                        + "'idTarefa' INTEGER NOT NULL, "
+                        + "'id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
                         + "'data' INTEGER NOT NULL, "
                         + "'descricao' TEXT NOT NULL, "
                         + "'observacao' TEXT , "
                         + "'contacto' TEXT , "
                         + "'tipo' TEXT NOT NULL,"
                         + "FOREIGN KEY (idTarefa) REFERENCES tarefas (idTarefa)  ON DELETE CASCADE)  ");
+
+                database.execSQL("CREATE INDEX index_anomalias_idTarefa ON anomalias (idTarefa)");
 
                 //Timber.d("MIGRACAO_3_4: success");
             }
@@ -67,7 +69,7 @@ public class Migracao {
                         + "FOREIGN KEY (idTarefa) REFERENCES tarefas (idTarefa)  ON DELETE CASCADE) ");
 
 
-                database.execSQL("CREATE UNIQUE INDEX index_atividadeExecutadas_idTarefa ON atividadeExecutadas (idTarefa)");
+                database.execSQL("CREATE INDEX index_atividadeExecutadas_idTarefa ON atividadeExecutadas (idTarefa)");
 
                 database.execSQL("CREATE TABLE IF NOT EXISTS 'clientes' ("
                         + "'idTarefa' INTEGER PRIMARY KEY NOT NULL, "
@@ -94,7 +96,7 @@ public class Migracao {
                         + "'servicoTp' TEXT NOT NULL, "
                         + "'servico' TEXT NOT NULL, "
                         + "'minutos' TEXT NOT NULL, "
-                        + "'ultimaVisita' INTEGER NOT NULL, "
+                        + "'ultimaVisita' INTEGER NOT NULL, " //TODO: este campo pode vir vazio
                         + "'contrato' TEXT NOT NULL, "
                         + "'dataContrato' INTEGER NOT NULL, "
                         + "'novo' TEXT NOT NULL, "

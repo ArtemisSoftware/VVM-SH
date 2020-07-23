@@ -1,8 +1,7 @@
-package com.vvm.sh.ui.atividadesPendentes;
+package com.vvm.sh.ui.atividadesPendentes.adaptadores;
 
 import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -12,9 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.vvm.sh.R;
 import com.vvm.sh.databinding.ItemAtividadePendenteBinding;
 import com.vvm.sh.ui.atividadesPendentes.modelos.AtividadePendente;
-import com.vvm.sh.util.adaptadores.ItemRecyclerAdapter;
-import com.vvm.sh.util.adaptadores.ItemViewHolder;
-import com.vvm.sh.util.interfaces.OnItemListener;
 
 import java.util.ArrayList;
 import java.util.List;

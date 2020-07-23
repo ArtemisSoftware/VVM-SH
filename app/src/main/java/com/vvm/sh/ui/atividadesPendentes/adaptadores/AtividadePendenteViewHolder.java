@@ -1,4 +1,4 @@
-package com.vvm.sh.ui.atividadesPendentes;
+package com.vvm.sh.ui.atividadesPendentes.adaptadores;
 
 import android.view.View;
 import android.widget.LinearLayout;

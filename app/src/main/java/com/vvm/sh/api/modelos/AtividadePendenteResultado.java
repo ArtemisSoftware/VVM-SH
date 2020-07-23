@@ -10,7 +10,7 @@ public class AtividadePendenteResultado {
 
 
     @SerializedName("ServID")
-    public String servID;
+    public String servId;
 
     @SerializedName("Descricao")
     public String descricao;

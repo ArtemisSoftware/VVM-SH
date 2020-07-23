@@ -31,21 +31,21 @@
                 style="@style/tituloCartao"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-
+                android:text="@{atividade.descricao, default=descricao}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-            <!-- android:text="@{anomalia.descricao, default=descricao}" -->
+            <!--  -->
 
             <TextView
                 android:id="@+id/textView2"
                 style="@style/textoDetalhe"
                 android:layout_marginTop="8dp"
-
+                android:text="@{DatasUtil.converterData(atividade.dataProgramada, DatasUtil.FORMATO_DD_MM_YYYY), default=data}"
                 app:layout_constraintStart_toStartOf="@+id/textView"
                 app:layout_constraintTop_toBottomOf="@+id/textView" />
 
-            <!-- android:text="@{anomalia.contacto, default=contacto}" -->
+            <!--  -->
 
             <LinearLayout
                 android:id="@+id/linearLayout1"
@@ -66,6 +66,7 @@
                 <TextView
                     android:id="@+id/textView3"
                     style="@style/textoDetalhe"
+                    android:text="@{atividade.descricao, default=descricao}"
                     android:layout_marginLeft="12dp"
                      />
 

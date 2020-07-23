@@ -49,7 +49,7 @@ public class Migracao {
                         + "'estado' TEXT NOT NULL,"
                         + "FOREIGN KEY (idTarefa) REFERENCES tarefas (idTarefa)  ON DELETE CASCADE)  ");
 
-                database.execSQL("CREATE INDEX index_anomalias_idTarefa ON ocorrencias (idTarefa)");
+                database.execSQL("CREATE INDEX index_ocorrencias_idTarefa ON ocorrencias (idTarefa)");
 
 
                 database.execSQL("CREATE TABLE IF NOT EXISTS 'ocorrenciasHistorico' ("
@@ -61,7 +61,7 @@ public class Migracao {
                         + "'departamento' TEXT NOT NULL, "
                         + "FOREIGN KEY (idOcorrencia) REFERENCES ocorrencias (id)  ON DELETE CASCADE)  ");
 
-                database.execSQL("CREATE INDEX index_anomalias_idOcorrencia ON ocorrenciasHistorico (idOcorrencia)");
+                database.execSQL("CREATE INDEX index_ocorrenciasHistorico_idOcorrencia ON ocorrenciasHistorico (idOcorrencia)");
 
 
                 //Timber.d("MIGRACAO_3_4: success");

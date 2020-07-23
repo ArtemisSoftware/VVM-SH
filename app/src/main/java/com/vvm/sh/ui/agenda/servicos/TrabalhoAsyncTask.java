@@ -81,8 +81,13 @@ public class TrabalhoAsyncTask extends AsyncTask<SessaoResposta, Void, Void> {
         return null;
     }
 
-    private void inserirAtividadesPendentes(List<AtividadePendenteResultado> atividadesPendentes, int idTarefa) {
 
+    /**
+     * Metodo que permite inserir as atividades pendentes
+     * @param atividadesPendentes os dados das atividades pendentes
+     * @param idTarefa o identificador da tarefa
+     */
+    private void inserirAtividadesPendentes(List<AtividadePendenteResultado> atividadesPendentes, int idTarefa) {
 
         List<AtividadePendente> registos = new ArrayList<>();
 
@@ -93,17 +98,22 @@ public class TrabalhoAsyncTask extends AsyncTask<SessaoResposta, Void, Void> {
             registos.add(registo);
         }
 
-        //repositorio.inserirAtividadesPendentes(registos);
-
+        repositorio.inserirAtividadesPendentes(registos);
     }
 
+
+    /**
+     * Metodo que permite inserir as ocorrencias
+     * @param ocorrencias os dados das ocorrencias
+     * @param idTarefa o identificador da tarefa
+     */
     private void inserirOcorrencias(List<OcorrenciaResultado> ocorrencias, int idTarefa) {
 
         for(OcorrenciaResultado ocorrenciaResultado : ocorrencias){
 
             Ocorrencia registo = ModelMapping.INSTANCE.map(ocorrenciaResultado);
             registo.idTarefa = idTarefa;
-            int idOcorrencia = 0;//(int) repositorio.inserirOcorrencia(registo);
+            int idOcorrencia = (int) repositorio.inserirOcorrencia(registo);
 
             List<OcorrenciaHistorico> registos = new ArrayList<>();
 
@@ -114,7 +124,7 @@ public class TrabalhoAsyncTask extends AsyncTask<SessaoResposta, Void, Void> {
                 registos.add(item);
             }
 
-            //repositorio.inserirOcorrenciaHistorico(registos);
+            repositorio.inserirHistoricoOcorrencias(registos);
         }
 
     }
@@ -136,7 +146,7 @@ public class TrabalhoAsyncTask extends AsyncTask<SessaoResposta, Void, Void> {
             registos.add(registo);
         }
 
-        //repositorio.inserirAnomalias(registos);
+        repositorio.inserirAnomalias(registos);
 
     }
 

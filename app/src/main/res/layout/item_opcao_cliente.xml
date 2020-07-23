@@ -1,7 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+
+        <variable
+            name="opcao"
+            type="com.vvm.sh.ui.agenda.OpcaoCliente" />
+
+
+    </data>
+
+
+    <FrameLayout
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
@@ -36,10 +50,12 @@
                 android:layout_height="wrap_content"
                 android:textColor="@android:color/darker_gray"
                 android:padding="3dp"
-                android:text="@string/lorem_ipsum_titulo"/>
+                android:text="@{opcao.descricao, default=descricao}"/>
 
 
         </LinearLayout>
 
     </androidx.cardview.widget.CardView>
 </FrameLayout >
+
+</layout>

@@ -56,7 +56,7 @@
             android:name=".ui.cliente.InformacaoActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ui.agenda.TarefaActivity"
+            android:name=".ui.tarefa.TarefaActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".MainActivity"

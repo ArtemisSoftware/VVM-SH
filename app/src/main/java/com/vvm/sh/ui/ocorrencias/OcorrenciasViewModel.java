@@ -34,7 +34,7 @@ public class OcorrenciasViewModel extends BaseViewModel {
      * Metodo que permite obter as ocorrencias
      * @param idTarefa o identificador da tarefa
      */
-    public void obterAtividades(int idTarefa){
+    public void obterOcorrencias(int idTarefa){
 
         showProgressBar(true);
 

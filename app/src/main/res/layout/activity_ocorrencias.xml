@@ -6,17 +6,11 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <!--
-                <import type="java.util.List"/>
-
-
--->
+        <import type="java.util.List"/>
 
         <variable
             name="viewmodel"
-            type="com.vvm.sh.ui.anomalias.AnomaliasViewModel"/>
-
-
+            type="com.vvm.sh.ui.ocorrencias.OcorrenciasViewModel"/>
 
     </data>
 
@@ -77,9 +71,9 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rcl_registos"
                 style="@style/lista"
-
+                ocorrencias="@{viewmodel.ocorrencias}"
                 tools:listitem="@layout/item_ocorrencia"/>
-            <!-- tarefas="@{viewmodel.tarefas}"
+            <!--
                 app:onItemClick="@{listener}" -->
 
         </LinearLayout>

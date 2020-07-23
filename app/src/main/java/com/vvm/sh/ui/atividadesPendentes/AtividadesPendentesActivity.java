@@ -2,6 +2,7 @@ package com.vvm.sh.ui.atividadesPendentes;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -9,14 +10,19 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.vvm.sh.R;
+import com.vvm.sh.databinding.ActivityAtividadesPendentesBinding;
+import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseActivity;
 import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.util.adaptadores.Item;
 import com.vvm.sh.util.interfaces.OnItemListener;
+import com.vvm.sh.util.metodos.Preferencias;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 
@@ -25,9 +31,30 @@ public class AtividadesPendentesActivity extends BaseDaggerActivity
         DialogoAtividadePendente.DialogoListener, DialogoAtividadePendenteExecutada.DialogListener, DialogoAtividadePendenteNaoExecutada.DialogoListener*/ {
 
 
+    private ActivityAtividadesPendentesBinding activityAtividadesPendentesBinding;
+
+
+    @Inject
+    ViewModelProviderFactory providerFactory;
+
+
+    private AtividadesPendentesViewModel viewModel;
+
+
+
     @Override
     protected void intActivity(Bundle savedInstanceState) {
 
+        viewModel = ViewModelProviders.of(this, providerFactory).get(AtividadesPendentesViewModel.class);
+
+        activityAtividadesPendentesBinding = (ActivityAtividadesPendentesBinding) activityBinding;
+        activityAtividadesPendentesBinding.setLifecycleOwner(this);
+        activityAtividadesPendentesBinding.setViewmodel(viewModel);
+
+
+        subscreverObservadores();
+
+        viewModel.obterAtividades(Preferencias.obterIdTarefa(this));
     }
 
     @Override
@@ -37,7 +64,7 @@ public class AtividadesPendentesActivity extends BaseDaggerActivity
 
     @Override
     protected BaseViewModel obterBaseViewModel() {
-        return null;
+        return viewModel;
     }
 
     @Override

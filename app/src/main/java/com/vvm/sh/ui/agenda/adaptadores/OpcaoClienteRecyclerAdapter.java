@@ -27,7 +27,7 @@ public class OpcaoClienteRecyclerAdapter extends ItemRecyclerAdapter {
 
     @Override
     protected int obterLayout(int viewType) {
-        return R.layout.opcao_cliente_list_card_item;
+        return R.layout.item_opcao_cliente;
     }
 
     @Override

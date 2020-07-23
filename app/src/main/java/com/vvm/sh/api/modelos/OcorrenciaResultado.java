@@ -57,11 +57,11 @@ public class OcorrenciaResultado {
 
     public class OcorrenciaHistoricoResultado{
 
-        @SerializedName("data")
-        public String Data;
+        @SerializedName("Data")
+        public String data;
 
 
-        @SerializedName("estado")
+        @SerializedName("Estado")
         public String estado;
 
 

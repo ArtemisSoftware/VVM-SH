@@ -108,6 +108,15 @@ public class Ocorrencia  {
     }
 
 
+    /**
+     * Metodo que permite obter o tipo
+     * @return o tipo
+     */
+    public String obterTipo(){
+        return tipo + " " + descricaoTipo;
+    }
+
+
 //    private String descricaoDepartamento, contrato, dataEntrada, marca, situacao;
 //    private String dias, observacao, data, codigo;
 //    private boolean fiscalizado;

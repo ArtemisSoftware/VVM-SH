@@ -10,11 +10,11 @@
     <data>
 
         <import type="java.util.List"/>
-<!--
+
         <variable
             name="viewmodel"
-            type="com.vvm.sh.ui.tarefa.TarefaViewModel"/>
--->
+            type="com.vvm.sh.ui.atividadesPendentes.AtividadesPendentesViewModel"/>
+
     </data>
 
 
@@ -72,10 +72,9 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcl_registos"
             style="@style/lista"
-
+            atividadesPendentes="@{viewmodel.atividades}"
             tools:listitem="@layout/item_atividade_pendente"/>
 
-        <!-- atividadesExecutas="@{viewmodel.atividadesExecutadas}"-->
     </LinearLayout>
 
 </layout>

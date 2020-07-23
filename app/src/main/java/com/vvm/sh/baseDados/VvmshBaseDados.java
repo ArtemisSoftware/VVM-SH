@@ -11,6 +11,7 @@ import com.vvm.sh.ui.atividadesPendentes.modelos.AtividadePendente;
 import com.vvm.sh.ui.autenticacao.modelos.Utilizador;
 import com.vvm.sh.ui.cliente.Cliente;
 import com.vvm.sh.ui.ocorrencias.modelos.Ocorrencia;
+import com.vvm.sh.ui.ocorrencias.modelos.OcorrenciaHistorico;
 import com.vvm.sh.ui.opcoes.modelos.Atualizacao;
 import com.vvm.sh.ui.opcoes.modelos.Tipo;
 
@@ -19,7 +20,7 @@ import com.vvm.sh.ui.opcoes.modelos.Tipo;
                     Atualizacao.class, Tipo.class,
                     Utilizador.class,
                     Tarefa.class,
-                    Cliente.class, AtividadeExecutada.class, Anomalia.class, AtividadePendente.class, Ocorrencia.class, OcorrenciaHistoricoDao.class
+                    Cliente.class, AtividadeExecutada.class, Anomalia.class, AtividadePendente.class, Ocorrencia.class, OcorrenciaHistorico.class
             },
             version = BaseDadosContantes.VERSAO
 )

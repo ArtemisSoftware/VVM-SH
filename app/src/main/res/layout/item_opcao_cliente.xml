@@ -6,6 +6,9 @@
 
     <data>
 
+        <variable
+            name="listener"
+            type="com.vvm.sh.util.interfaces.OnItemListener"/>
 
         <variable
             name="opcao"

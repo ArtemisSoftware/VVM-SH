@@ -15,9 +15,7 @@ import com.vvm.sh.repositorios.AgendaRepositorio;
 import com.vvm.sh.ui.agenda.modelos.Tarefa;
 import com.vvm.sh.ui.anomalias.modelos.Anomalia;
 import com.vvm.sh.ui.atividadesExecutadas.modelos.AtividadeExecutada;
-import com.vvm.sh.ui.atividadesPendentes.AtividadePendente;
 import com.vvm.sh.ui.cliente.Cliente;
-import com.vvm.sh.ui.ocorrencias.Ocorrencia;
 import com.vvm.sh.util.mapeamento.ModelMapping;
 import com.vvm.sh.util.metodos.DatasUtil;
 

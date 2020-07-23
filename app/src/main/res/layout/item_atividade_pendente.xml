@@ -13,7 +13,7 @@
 
         <variable
             name="atividade"
-            type="com.vvm.sh.ui.atividadesPendentes.AtividadePendente" />
+            type="com.vvm.sh.ui.atividadesPendentes.modelos.AtividadePendente" />
 
     </data>
 

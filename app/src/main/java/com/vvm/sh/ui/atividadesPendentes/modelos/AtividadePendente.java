@@ -1,4 +1,4 @@
-package com.vvm.sh.ui.atividadesPendentes;
+package com.vvm.sh.ui.atividadesPendentes.modelos;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;

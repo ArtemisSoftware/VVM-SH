@@ -15,11 +15,11 @@ public class OcorrenciaResultado {
 
 
     @SerializedName("Tip")
-    public String tip;
+    public String tipo;
 
 
     @SerializedName("DescTip")
-    public String descricaoTip;
+    public String descricaoTipo;
 
 
     @SerializedName("DescDep")
@@ -35,7 +35,7 @@ public class OcorrenciaResultado {
 
 
     @SerializedName("DataResol")
-    public String dataResol;
+    public String dataResolucao;
 
 
     @SerializedName("DescOcorrencia")

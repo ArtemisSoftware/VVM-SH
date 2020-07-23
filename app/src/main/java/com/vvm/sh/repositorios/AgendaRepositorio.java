@@ -9,6 +9,7 @@ import com.vvm.sh.baseDados.AtividadeExecutadaDao;
 import com.vvm.sh.baseDados.AtividadePendenteDao;
 import com.vvm.sh.baseDados.ClienteDao;
 import com.vvm.sh.baseDados.OcorrenciaDao;
+import com.vvm.sh.baseDados.OcorrenciaHistoricoDao;
 import com.vvm.sh.baseDados.TarefaDao;
 import com.vvm.sh.ui.agenda.modelos.Tarefa;
 import com.vvm.sh.ui.agenda.modelos.TarefaDia;
@@ -17,6 +18,7 @@ import com.vvm.sh.ui.atividadesExecutadas.modelos.AtividadeExecutada;
 import com.vvm.sh.ui.atividadesPendentes.modelos.AtividadePendente;
 import com.vvm.sh.ui.cliente.Cliente;
 import com.vvm.sh.ui.ocorrencias.modelos.Ocorrencia;
+import com.vvm.sh.ui.ocorrencias.modelos.OcorrenciaHistorico;
 
 import java.util.List;
 
@@ -31,11 +33,12 @@ public class AgendaRepositorio {
     private final AnomaliaDao anomaliaDao;
     private final AtividadePendenteDao atividadePendenteDao;
     private final OcorrenciaDao ocorrenciaDao;
+    private final OcorrenciaHistoricoDao ocorrenciaHistoricoDao;
 
     public AgendaRepositorio(@NonNull SegurancaAlimentarApi api,
                              @NonNull TarefaDao tarefaDao, @NonNull AtividadeExecutadaDao atividadeExecutadaDao,
                              @NonNull ClienteDao clienteDao, @NonNull AnomaliaDao anomaliaDao, @NonNull AtividadePendenteDao atividadePendenteDao,
-                             @NonNull OcorrenciaDao ocorrenciaDao) {
+                             @NonNull OcorrenciaDao ocorrenciaDao, OcorrenciaHistoricoDao ocorrenciaHistoricoDao) {
         this.api = api;
         this.tarefaDao = tarefaDao;
         this.atividadeExecutadaDao = atividadeExecutadaDao;
@@ -43,6 +46,7 @@ public class AgendaRepositorio {
         this.anomaliaDao = anomaliaDao;
         this.atividadePendenteDao = atividadePendenteDao;
         this.ocorrenciaDao = ocorrenciaDao;
+        this.ocorrenciaHistoricoDao = ocorrenciaHistoricoDao;
     }
 
     /**
@@ -84,6 +88,9 @@ public class AgendaRepositorio {
         return ocorrenciaDao.inserirRegisto(ocorrencia);
     }
 
+    public void inserirHistoricoOcorrencias(List<OcorrenciaHistorico> historico){
+        ocorrenciaHistoricoDao.inserir(historico);
+    }
 
 
 }

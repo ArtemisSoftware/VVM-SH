@@ -7,6 +7,7 @@ import com.vvm.sh.baseDados.AtividadeExecutadaDao;
 import com.vvm.sh.baseDados.AtividadePendenteDao;
 import com.vvm.sh.baseDados.ClienteDao;
 import com.vvm.sh.baseDados.OcorrenciaDao;
+import com.vvm.sh.baseDados.OcorrenciaHistoricoDao;
 import com.vvm.sh.baseDados.TarefaDao;
 import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.repositorios.AgendaRepositorio;
@@ -86,15 +87,25 @@ public class AgendaModule {
     }
 
 
+    @AgendaScope
+    @Provides
+    static OcorrenciaHistoricoDao provideOcorrenciaHistoricoDao(VvmshBaseDados vvmshBaseDados){
+
+        OcorrenciaHistoricoDao dao = vvmshBaseDados.obterOcorrenciaHistoricoDao();
+
+        //Timber.d("Providing NoteDao: " + dao);
+        return dao;
+    }
+
 
     @AgendaScope
     @Provides
     AgendaRepositorio provideAgendaRepositorio(SegurancaAlimentarApi segurancaAlimentarApi,
                                                TarefaDao tarefaDao, AtividadeExecutadaDao atividadeExecutadaDao,
                                                ClienteDao clienteDao, AnomaliaDao anomaliaDao, AtividadePendenteDao atividadePendenteDao,
-                                               OcorrenciaDao ocorrenciaDao) {
+                                               OcorrenciaDao ocorrenciaDao, OcorrenciaHistoricoDao ocorrenciaHistoricoDao) {
 
-        AgendaRepositorio repositorio = new AgendaRepositorio(segurancaAlimentarApi, tarefaDao, atividadeExecutadaDao, clienteDao, anomaliaDao, atividadePendenteDao, ocorrenciaDao);
+        AgendaRepositorio repositorio = new AgendaRepositorio(segurancaAlimentarApi, tarefaDao, atividadeExecutadaDao, clienteDao, anomaliaDao, atividadePendenteDao, ocorrenciaDao, ocorrenciaHistoricoDao);
 
         //Timber.d("Providing PokemonRepository: " + repository);
         return repositorio;

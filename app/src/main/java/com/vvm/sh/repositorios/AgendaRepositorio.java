@@ -6,12 +6,14 @@ import com.vvm.sh.api.SegurancaAlimentarApi;
 import com.vvm.sh.api.modelos.SessaoResposta;
 import com.vvm.sh.baseDados.AnomaliaDao;
 import com.vvm.sh.baseDados.AtividadeExecutadaDao;
+import com.vvm.sh.baseDados.AtividadePendenteDao;
 import com.vvm.sh.baseDados.ClienteDao;
 import com.vvm.sh.baseDados.TarefaDao;
 import com.vvm.sh.ui.agenda.modelos.Tarefa;
 import com.vvm.sh.ui.agenda.modelos.TarefaDia;
 import com.vvm.sh.ui.anomalias.modelos.Anomalia;
 import com.vvm.sh.ui.atividadesExecutadas.modelos.AtividadeExecutada;
+import com.vvm.sh.ui.atividadesPendentes.modelos.AtividadePendente;
 import com.vvm.sh.ui.cliente.Cliente;
 
 import java.util.List;
@@ -25,14 +27,17 @@ public class AgendaRepositorio {
     private final AtividadeExecutadaDao atividadeExecutadaDao;
     private final ClienteDao clienteDao;
     private final AnomaliaDao anomaliaDao;
+    private final AtividadePendenteDao atividadePendenteDao;
 
     public AgendaRepositorio(@NonNull SegurancaAlimentarApi api,
-                             @NonNull TarefaDao tarefaDao, @NonNull AtividadeExecutadaDao atividadeExecutadaDao, @NonNull ClienteDao clienteDao, @NonNull AnomaliaDao anomaliaDao) {
+                             @NonNull TarefaDao tarefaDao, @NonNull AtividadeExecutadaDao atividadeExecutadaDao,
+                             @NonNull ClienteDao clienteDao, @NonNull AnomaliaDao anomaliaDao, @NonNull AtividadePendenteDao atividadePendenteDao) {
         this.api = api;
         this.tarefaDao = tarefaDao;
         this.atividadeExecutadaDao = atividadeExecutadaDao;
         this.clienteDao = clienteDao;
         this.anomaliaDao = anomaliaDao;
+        this.atividadePendenteDao = atividadePendenteDao;
     }
 
     /**
@@ -65,4 +70,11 @@ public class AgendaRepositorio {
     public void inserirAnomalias(List<Anomalia> anomalias){
         anomaliaDao.inserir(anomalias);
     }
+
+    public void inserirAtividadesPendentes(List<AtividadePendente> atividades){
+        atividadePendenteDao.inserir(atividades);
+    }
+
+
+
 }

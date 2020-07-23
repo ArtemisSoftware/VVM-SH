@@ -4,6 +4,7 @@ package com.vvm.sh.di.agenda;
 import com.vvm.sh.api.SegurancaAlimentarApi;
 import com.vvm.sh.baseDados.AnomaliaDao;
 import com.vvm.sh.baseDados.AtividadeExecutadaDao;
+import com.vvm.sh.baseDados.AtividadePendenteDao;
 import com.vvm.sh.baseDados.ClienteDao;
 import com.vvm.sh.baseDados.TarefaDao;
 import com.vvm.sh.baseDados.VvmshBaseDados;
@@ -64,10 +65,22 @@ public class AgendaModule {
 
     @AgendaScope
     @Provides
-    AgendaRepositorio provideAgendaRepositorio(SegurancaAlimentarApi segurancaAlimentarApi,
-                                               TarefaDao tarefaDao, AtividadeExecutadaDao atividadeExecutadaDao, ClienteDao clienteDao, AnomaliaDao anomaliaDao) {
+    static AtividadePendenteDao provideAtividadePendenteDao(VvmshBaseDados vvmshBaseDados){
 
-        AgendaRepositorio repositorio = new AgendaRepositorio(segurancaAlimentarApi, tarefaDao, atividadeExecutadaDao, clienteDao, anomaliaDao);
+        AtividadePendenteDao dao = vvmshBaseDados.obterAtividadePendenteDao();
+
+        //Timber.d("Providing NoteDao: " + dao);
+        return dao;
+    }
+
+
+    @AgendaScope
+    @Provides
+    AgendaRepositorio provideAgendaRepositorio(SegurancaAlimentarApi segurancaAlimentarApi,
+                                               TarefaDao tarefaDao, AtividadeExecutadaDao atividadeExecutadaDao,
+                                               ClienteDao clienteDao, AnomaliaDao anomaliaDao, AtividadePendenteDao atividadePendenteDao) {
+
+        AgendaRepositorio repositorio = new AgendaRepositorio(segurancaAlimentarApi, tarefaDao, atividadeExecutadaDao, clienteDao, anomaliaDao, atividadePendenteDao);
 
         //Timber.d("Providing PokemonRepository: " + repository);
         return repositorio;

@@ -8,6 +8,7 @@ import com.vvm.sh.baseDados.AnomaliaDao;
 import com.vvm.sh.baseDados.AtividadeExecutadaDao;
 import com.vvm.sh.baseDados.AtividadePendenteDao;
 import com.vvm.sh.baseDados.ClienteDao;
+import com.vvm.sh.baseDados.OcorrenciaDao;
 import com.vvm.sh.baseDados.TarefaDao;
 import com.vvm.sh.ui.agenda.modelos.Tarefa;
 import com.vvm.sh.ui.agenda.modelos.TarefaDia;
@@ -15,6 +16,7 @@ import com.vvm.sh.ui.anomalias.modelos.Anomalia;
 import com.vvm.sh.ui.atividadesExecutadas.modelos.AtividadeExecutada;
 import com.vvm.sh.ui.atividadesPendentes.modelos.AtividadePendente;
 import com.vvm.sh.ui.cliente.Cliente;
+import com.vvm.sh.ui.ocorrencias.modelos.Ocorrencia;
 
 import java.util.List;
 
@@ -28,16 +30,19 @@ public class AgendaRepositorio {
     private final ClienteDao clienteDao;
     private final AnomaliaDao anomaliaDao;
     private final AtividadePendenteDao atividadePendenteDao;
+    private final OcorrenciaDao ocorrenciaDao;
 
     public AgendaRepositorio(@NonNull SegurancaAlimentarApi api,
                              @NonNull TarefaDao tarefaDao, @NonNull AtividadeExecutadaDao atividadeExecutadaDao,
-                             @NonNull ClienteDao clienteDao, @NonNull AnomaliaDao anomaliaDao, @NonNull AtividadePendenteDao atividadePendenteDao) {
+                             @NonNull ClienteDao clienteDao, @NonNull AnomaliaDao anomaliaDao, @NonNull AtividadePendenteDao atividadePendenteDao,
+                             @NonNull OcorrenciaDao ocorrenciaDao) {
         this.api = api;
         this.tarefaDao = tarefaDao;
         this.atividadeExecutadaDao = atividadeExecutadaDao;
         this.clienteDao = clienteDao;
         this.anomaliaDao = anomaliaDao;
         this.atividadePendenteDao = atividadePendenteDao;
+        this.ocorrenciaDao = ocorrenciaDao;
     }
 
     /**
@@ -73,6 +78,10 @@ public class AgendaRepositorio {
 
     public void inserirAtividadesPendentes(List<AtividadePendente> atividades){
         atividadePendenteDao.inserir(atividades);
+    }
+
+    public long inserirOcorrencia(Ocorrencia ocorrencia){
+        return ocorrenciaDao.inserirRegisto(ocorrencia);
     }
 
 

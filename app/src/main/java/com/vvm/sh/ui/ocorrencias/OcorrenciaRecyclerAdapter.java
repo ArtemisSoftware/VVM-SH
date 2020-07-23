@@ -3,13 +3,10 @@ package com.vvm.sh.ui.ocorrencias;
 import android.view.View;
 
 import com.vvm.sh.R;
-import com.vvm.sh.util.adaptadores.Item;
 import com.vvm.sh.util.adaptadores.ItemRecyclerAdapter;
 import com.vvm.sh.util.adaptadores.ItemViewHolder;
 import com.vvm.sh.util.interfaces.OnCheckBoxItemListener;
 import com.vvm.sh.util.interfaces.OnItemListener;
-
-import java.util.List;
 
 public class OcorrenciaRecyclerAdapter extends ItemRecyclerAdapter {
 
@@ -49,7 +46,7 @@ public class OcorrenciaRecyclerAdapter extends ItemRecyclerAdapter {
             }
 
             default:{
-                return R.layout.ocorrencia_list_card_item;
+                return R.layout.item_ocorrencia;
             }
         }
     }

@@ -18,7 +18,7 @@ public class AtividadePendenteRecyclerAdapter extends ItemRecyclerAdapter {
 
     @Override
     protected int obterLayout(int viewType) {
-        return R.layout.atividade_pendente_list_card_item;
+        return R.layout.item_atividade_pendente;
     }
 
     @Override

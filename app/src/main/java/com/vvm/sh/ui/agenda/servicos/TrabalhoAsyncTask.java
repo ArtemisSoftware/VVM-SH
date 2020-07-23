@@ -5,15 +5,19 @@ import android.os.AsyncTask;
 
 import com.vvm.sh.api.modelos.AnomaliaResultado;
 import com.vvm.sh.api.modelos.AtividadeExecutadasResultado;
+import com.vvm.sh.api.modelos.AtividadePendenteResultado;
 import com.vvm.sh.api.modelos.ClienteResultado;
 import com.vvm.sh.api.modelos.DadosResultado;
+import com.vvm.sh.api.modelos.OcorrenciaResultado;
 import com.vvm.sh.api.modelos.SessaoResposta;
 import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.repositorios.AgendaRepositorio;
 import com.vvm.sh.ui.agenda.modelos.Tarefa;
 import com.vvm.sh.ui.anomalias.modelos.Anomalia;
 import com.vvm.sh.ui.atividadesExecutadas.modelos.AtividadeExecutada;
+import com.vvm.sh.ui.atividadesPendentes.AtividadePendente;
 import com.vvm.sh.ui.cliente.Cliente;
+import com.vvm.sh.ui.ocorrencias.Ocorrencia;
 import com.vvm.sh.util.mapeamento.ModelMapping;
 import com.vvm.sh.util.metodos.DatasUtil;
 
@@ -60,6 +64,10 @@ public class TrabalhoAsyncTask extends AsyncTask<SessaoResposta, Void, Void> {
                         inserirCliente(info.tarefas.cliente, info.tarefas.dados, idTarefa);
 
                         inserirAnomalias(info.tarefas.anomalias, idTarefa);
+
+                        inserirOcorrencias(info.tarefas.ocorrencias, idTarefa);
+
+                        inserirAtividadesPendentes(info.tarefas.atividadesPendentes, idTarefa);
                     }
 
                 }
@@ -70,6 +78,44 @@ public class TrabalhoAsyncTask extends AsyncTask<SessaoResposta, Void, Void> {
         });
 
         return null;
+    }
+
+    private void inserirAtividadesPendentes(List<AtividadePendenteResultado> atividadesPendentes, int idTarefa) {
+
+        /*
+        List<AtividadePendente> registos = new ArrayList<>();
+
+        for(AtividadePendenteResultado atividadePendenteResultado : atividadesPendentes){
+
+            AtividadePendente registo = ModelMapping.INSTANCE.map(atividadePendenteResultado);
+            registo.idTarefa = idTarefa;
+            registos.add(registo);
+        }
+
+        repositorio.inserirAtividadesPendentes(registos);
+        */
+    }
+
+    private void inserirOcorrencias(List<OcorrenciaResultado> ocorrencias, int idTarefa) {
+        /*
+        for(OcorrenciaResultado ocorrenciaResultado : ocorrencias){
+
+            Ocorrencia registo = ModelMapping.INSTANCE.map(ocorrenciaResultado);
+            registo.idTarefa = idTarefa;
+            int idOcorrencia = (int) repositorio.inserirOcorrencia(registo);
+
+            List<OcorrenciaResultado.OcorrenciaHistoricoResultado> registos = new ArrayList<>();
+
+            for(OcorrenciaResultado.OcorrenciaHistoricoResultado ocorrenciaHistoricoResultado : ocorrenciaResultado.historico){
+
+                OcorrenciaHistorico registo = ModelMapping.INSTANCE.map(ocorrenciaHistoricoResultado);
+                registo.idOcorrencia = idOcorrencia;
+                registos.add(registo);
+            }
+
+            repositorio.inserirOcorrenciaHistorico(registos);
+        }
+        */
     }
 
 

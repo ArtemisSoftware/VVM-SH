@@ -1,4 +1,135 @@
 <?xml version="1.0" encoding="utf-8"?>
+
+
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <data>
+
+        <import type="com.vvm.sh.util.metodos.DatasUtil"/>
+
+        <variable
+            name="atividade"
+            type="com.vvm.sh.ui.atividadesPendentes.AtividadePendente" />
+
+    </data>
+
+
+
+    <androidx.cardview.widget.CardView
+        style="@style/cartao">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/textView"
+                style="@style/tituloCartao"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <!-- android:text="@{anomalia.descricao, default=descricao}" -->
+
+            <TextView
+                android:id="@+id/textView2"
+                style="@style/textoDetalhe"
+                android:layout_marginTop="8dp"
+
+                app:layout_constraintStart_toStartOf="@+id/textView"
+                app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+            <!-- android:text="@{anomalia.contacto, default=contacto}" -->
+
+            <LinearLayout
+                android:id="@+id/linearLayout1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="@+id/textView2"
+                app:layout_constraintTop_toBottomOf="@+id/textView2">
+
+                <ImageView
+                    android:id="@+id/circleView1"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:src="@drawable/ic_lorem_ipsum_24dp" />
+
+                <TextView
+                    android:id="@+id/textView3"
+                    style="@style/textoDetalhe"
+                    android:layout_marginLeft="12dp"
+                     />
+
+                <!-- android:text="@{DatasUtil.converterData(anomalia.data, DatasUtil.FORMATO_DD_MM_YYYY), default=data}" -->
+            </LinearLayout>
+
+
+
+
+            <!-- TODO: este layout deve ser visivel se houver relatorio-->
+
+
+            <LinearLayout
+                android:id="@+id/linearLayout2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/linearLayout1"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout1">
+
+                <!-- TODO: imagem para indicar se o relatorio está completo-->
+
+                <ImageView
+                    android:id="@+id/circleView2"
+                    android:layout_width="32dp"
+                    android:layout_height="32dp"
+                    android:src="@drawable/ic_lorem_ipsum_24dp" />
+
+                <TextView
+                    style="@style/subTituloDescritivo"
+                    android:layout_marginLeft="8dp"
+                    android:text="@string/relatorio_"/>
+
+                <TextView
+                    android:id="@+id/textView4"
+                    style="@style/textoDetalhe"
+                    android:layout_marginLeft="8dp"
+                    />
+                <!-- android:text="@{anomalia.tipo, default=relatorio}" -->
+            </LinearLayout>
+
+
+            <!-- TODO: indica se tem baixa ou não-->
+
+            <ImageView
+                android:id="@+id/imageView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textView"
+                app:srcCompat="@drawable/ic_lorem_ipsum_24dp" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</layout>
+
+
+<!--
 <FrameLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
@@ -165,4 +296,4 @@
 
 </FrameLayout >
 
-
+-->

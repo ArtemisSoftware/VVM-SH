@@ -26,6 +26,9 @@ public class TarefaResultado {
     @SerializedName("Anomalias")
     public List<AnomaliaResultado> anomalias;
 
+    @SerializedName("ActivPendente")
+    public List<AtividadePendenteResultado> atividadesPendentes;
+
 
     @SerializedName("Dados")
     public DadosResultado dados;

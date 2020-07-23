@@ -63,7 +63,7 @@ public class Ocorrencia  {
 
     @NonNull
     @ColumnInfo(name = "dataEntrada")
-    public String dataEntrada;
+    public Date dataEntrada;
 
 
     @ColumnInfo(name = "dataResolucao")
@@ -92,7 +92,7 @@ public class Ocorrencia  {
 
     public Ocorrencia(int idTarefa, @NonNull String idOcorrencia, @NonNull String tipo,
                       @NonNull String descricaoTipo, @NonNull String descricaoDepartamento, @NonNull String contrato,
-                      @NonNull String dataEntrada, Date dataResolucao, @NonNull String descricaoOcorrencia,
+                      @NonNull Date dataEntrada, Date dataResolucao, @NonNull String descricaoOcorrencia,
                       @NonNull String marca, @NonNull String estado) {
         this.idTarefa = idTarefa;
         this.idOcorrencia = idOcorrencia;

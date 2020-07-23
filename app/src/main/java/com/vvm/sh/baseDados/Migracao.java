@@ -11,13 +11,67 @@ public class Migracao {
     public static final Migration[] obterMigracoes(){
 
         Migration migrations [] =  new Migration []{
-                MIGRACAO_1_2, MIGRACAO_2_3, MIGRACAO_3_4
+                MIGRACAO_1_2, MIGRACAO_2_3, MIGRACAO_3_4, MIGRACAO_4_5
         };
 
         return migrations;
     }
 
 
+    public static final Migration MIGRACAO_4_5 = new Migration(4, 5) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            try {
+                database.execSQL("CREATE TABLE IF NOT EXISTS 'atividadesPendentes' ("
+                        + "'idTarefa' INTEGER NOT NULL, "
+                        + "'id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
+                        + "'dataProgramada' INTEGER NOT NULL, "
+                        + "'descricao' TEXT NOT NULL, "
+                        + "'servId' TEXT NOT NULL , "
+                        + "'formacao' INTEGER NOT NULL , "
+                        + "FOREIGN KEY (idTarefa) REFERENCES tarefas (idTarefa)  ON DELETE CASCADE)  ");
+
+                database.execSQL("CREATE INDEX index_atividadesPendentes_idTarefa ON atividadesPendentes (idTarefa)");
+
+
+                database.execSQL("CREATE TABLE IF NOT EXISTS 'ocorrencias' ("
+                        + "'idTarefa' INTEGER NOT NULL, "
+                        + "'id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
+                        + "'idOcorrencia' TEXT NOT NULL, "
+                        + "'tipo' TEXT NOT NULL, "
+                        + "'descricaoTipo' TEXT NOT NULL, "
+                        + "'descricaoDepartamento' TEXT NOT NULL, "
+                        + "'contrato' TEXT NOT NULL,"
+                        + "'dataEntrada' INTEGER NOT NULL,"
+                        + "'dataResolucao' INTEGER ,"
+                        + "'descricaoOcorrencia' TEXT NOT NULL,"
+                        + "'marca' TEXT NOT NULL,"
+                        + "'estado' TEXT NOT NULL,"
+                        + "FOREIGN KEY (idTarefa) REFERENCES tarefas (idTarefa)  ON DELETE CASCADE)  ");
+
+                database.execSQL("CREATE INDEX index_anomalias_idTarefa ON ocorrencias (idTarefa)");
+
+
+                database.execSQL("CREATE TABLE IF NOT EXISTS 'ocorrenciasHistorico' ("
+                        + "'idOcorrencia' INTEGER NOT NULL, "
+                        + "'id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
+                        + "'data' INTEGER NOT NULL, "
+                        + "'estado' TEXT NOT NULL, "
+                        + "'observacao' TEXT , "
+                        + "'departamento' TEXT NOT NULL, "
+                        + "FOREIGN KEY (idOcorrencia) REFERENCES ocorrencias (id)  ON DELETE CASCADE)  ");
+
+                database.execSQL("CREATE INDEX index_anomalias_idOcorrencia ON ocorrenciasHistorico (idOcorrencia)");
+
+
+                //Timber.d("MIGRACAO_3_4: success");
+            }
+            catch(SQLException e){
+                Log.e("Migracao", "erro MIGRACAO_3_4: " + e.getMessage());
+                //Timber.e("erro MIGRACAO_3_4: " + e.getMessage());
+            }
+        }
+    };
 
 
     public static final Migration MIGRACAO_3_4 = new Migration(3, 4) {

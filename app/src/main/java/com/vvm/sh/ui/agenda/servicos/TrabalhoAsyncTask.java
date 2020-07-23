@@ -15,7 +15,10 @@ import com.vvm.sh.repositorios.AgendaRepositorio;
 import com.vvm.sh.ui.agenda.modelos.Tarefa;
 import com.vvm.sh.ui.anomalias.modelos.Anomalia;
 import com.vvm.sh.ui.atividadesExecutadas.modelos.AtividadeExecutada;
+import com.vvm.sh.ui.atividadesPendentes.modelos.AtividadePendente;
 import com.vvm.sh.ui.cliente.Cliente;
+import com.vvm.sh.ui.ocorrencias.modelos.Ocorrencia;
+import com.vvm.sh.ui.ocorrencias.modelos.OcorrenciaHistorico;
 import com.vvm.sh.util.mapeamento.ModelMapping;
 import com.vvm.sh.util.metodos.DatasUtil;
 
@@ -80,7 +83,7 @@ public class TrabalhoAsyncTask extends AsyncTask<SessaoResposta, Void, Void> {
 
     private void inserirAtividadesPendentes(List<AtividadePendenteResultado> atividadesPendentes, int idTarefa) {
 
-        /*
+
         List<AtividadePendente> registos = new ArrayList<>();
 
         for(AtividadePendenteResultado atividadePendenteResultado : atividadesPendentes){
@@ -90,30 +93,30 @@ public class TrabalhoAsyncTask extends AsyncTask<SessaoResposta, Void, Void> {
             registos.add(registo);
         }
 
-        repositorio.inserirAtividadesPendentes(registos);
-        */
+        //repositorio.inserirAtividadesPendentes(registos);
+
     }
 
     private void inserirOcorrencias(List<OcorrenciaResultado> ocorrencias, int idTarefa) {
-        /*
+
         for(OcorrenciaResultado ocorrenciaResultado : ocorrencias){
 
             Ocorrencia registo = ModelMapping.INSTANCE.map(ocorrenciaResultado);
             registo.idTarefa = idTarefa;
-            int idOcorrencia = (int) repositorio.inserirOcorrencia(registo);
+            int idOcorrencia = 0;//(int) repositorio.inserirOcorrencia(registo);
 
-            List<OcorrenciaResultado.OcorrenciaHistoricoResultado> registos = new ArrayList<>();
+            List<OcorrenciaHistorico> registos = new ArrayList<>();
 
             for(OcorrenciaResultado.OcorrenciaHistoricoResultado ocorrenciaHistoricoResultado : ocorrenciaResultado.historico){
 
-                OcorrenciaHistorico registo = ModelMapping.INSTANCE.map(ocorrenciaHistoricoResultado);
-                registo.idOcorrencia = idOcorrencia;
-                registos.add(registo);
+                OcorrenciaHistorico item = ModelMapping.INSTANCE.map(ocorrenciaHistoricoResultado);
+                item.idOcorrencia = idOcorrencia;
+                registos.add(item);
             }
 
-            repositorio.inserirOcorrenciaHistorico(registos);
+            //repositorio.inserirOcorrenciaHistorico(registos);
         }
-        */
+
     }
 
 
@@ -133,7 +136,7 @@ public class TrabalhoAsyncTask extends AsyncTask<SessaoResposta, Void, Void> {
             registos.add(registo);
         }
 
-        repositorio.inserirAnomalias(registos);
+        //repositorio.inserirAnomalias(registos);
 
     }
 

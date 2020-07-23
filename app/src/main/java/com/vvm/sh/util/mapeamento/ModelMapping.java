@@ -2,16 +2,21 @@ package com.vvm.sh.util.mapeamento;
 
 import com.vvm.sh.api.modelos.AnomaliaResultado;
 import com.vvm.sh.api.modelos.AtividadeExecutadasResultado;
+import com.vvm.sh.api.modelos.AtividadePendenteResultado;
 import com.vvm.sh.api.modelos.ClienteResultado;
 import com.vvm.sh.api.modelos.DadosResultado;
+import com.vvm.sh.api.modelos.OcorrenciaResultado;
 import com.vvm.sh.api.modelos.TipoResposta;
 import com.vvm.sh.api.modelos.TipoResultado;
 import com.vvm.sh.api.modelos.UtilizadorResultado;
 import com.vvm.sh.ui.agenda.modelos.Tarefa;
 import com.vvm.sh.ui.anomalias.modelos.Anomalia;
 import com.vvm.sh.ui.atividadesExecutadas.modelos.AtividadeExecutada;
+import com.vvm.sh.ui.atividadesPendentes.modelos.AtividadePendente;
 import com.vvm.sh.ui.autenticacao.modelos.Utilizador;
 import com.vvm.sh.ui.cliente.Cliente;
+import com.vvm.sh.ui.ocorrencias.modelos.Ocorrencia;
+import com.vvm.sh.ui.ocorrencias.modelos.OcorrenciaHistorico;
 import com.vvm.sh.ui.opcoes.modelos.Atualizacao;
 import com.vvm.sh.ui.opcoes.modelos.Tipo;
 
@@ -63,6 +68,13 @@ public interface ModelMapping {
 
 
     Anomalia map(AnomaliaResultado item);
+
+    AtividadePendente map(AtividadePendenteResultado item);
+
+    Ocorrencia map(OcorrenciaResultado item);
+
+    OcorrenciaHistorico map(OcorrenciaResultado.OcorrenciaHistoricoResultado item);
+
 /*
     @Mapping(source = "id", target = "number")
     PokemonResponse map(Pokemon item);

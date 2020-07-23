@@ -6,6 +6,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import com.vvm.sh.R;
+import com.vvm.sh.ui.ocorrencias.modelos.Ocorrencia;
 import com.vvm.sh.util.adaptadores.Item;
 import com.vvm.sh.util.adaptadores.ItemViewHolder;
 
@@ -31,10 +32,10 @@ public class OcorrenciaNovaViewHolder extends ItemViewHolder {
     @Override
     protected void preencherCampos(Item item) {
 
-        Ocorrencia registo = (Ocorrencia) item;
-
-        txt_fiscalizado.setText(registo.obterFiscalizacao());
-        txt_dias.setText(registo.obterDuracao());
-        txt_observacao.setText(registo.obterObservacao());
+//        Ocorrencia registo = (Ocorrencia) item;
+//
+//        txt_fiscalizado.setText(registo.obterFiscalizacao());
+//        txt_dias.setText(registo.obterDuracao());
+//        txt_observacao.setText(registo.obterObservacao());
     }
 }

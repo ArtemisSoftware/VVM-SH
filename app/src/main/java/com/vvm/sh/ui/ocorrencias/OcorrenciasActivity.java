@@ -1,6 +1,5 @@
 package com.vvm.sh.ui.ocorrencias;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
 import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -13,6 +12,7 @@ import android.widget.TextView;
 
 import com.vvm.sh.R;
 import com.vvm.sh.ui.BaseActivity;
+import com.vvm.sh.ui.ocorrencias.modelos.Ocorrencia;
 import com.vvm.sh.util.adaptadores.Item;
 import com.vvm.sh.util.interfaces.OnItemListener;
 
@@ -28,18 +28,18 @@ public class OcorrenciasActivity extends BaseActivity implements OnItemListener 
     @BindView(R.id.rcl_registos)
     RecyclerView rcl_registos;
 
-    @BindView(R.id.txt_historico)
-    TextView txt_historico;
-
-    @BindView(R.id.txt_marca)
-    TextView txt_marca;
+//    @BindView(R.id.txt_historico)
+//    TextView txt_historico;
+//
+//    @BindView(R.id.txt_marca)
+//    TextView txt_marca;
 
     @BindView(R.id.txt_estado)
     TextView txt_estado;
 
 
-    @BindView(R.id.crs_historico)
-    CardView crs_historico;
+//    @BindView(R.id.crs_historico)
+//    CardView crs_historico;
 
     private OcorrenciaRecyclerAdapter ocorrenciaRecyclerAdapter;
 
@@ -68,7 +68,7 @@ public class OcorrenciasActivity extends BaseActivity implements OnItemListener 
      */
     private void iniciarAtividade(){
 
-        crs_historico.setVisibility(View.GONE);
+//        crs_historico.setVisibility(View.GONE);
         ocorrenciaRecyclerAdapter = new OcorrenciaRecyclerAdapter(this);
         rcl_registos.setAdapter(ocorrenciaRecyclerAdapter);
         rcl_registos.setLayoutManager(new LinearLayoutManager(this));
@@ -80,8 +80,8 @@ public class OcorrenciasActivity extends BaseActivity implements OnItemListener 
         //--TESTE (apagar quando houver dados)
 
         List<Item> t1 = new ArrayList<>();
-        t1.add(new Ocorrencia(1, "Ocorrencia numero 1", "Departamento norte", "12345235", "2020-02-20", "Marca 1", "estado 1"));
-        t1.add(new Ocorrencia(2, "Ocorrencia numero 2", "Departamento sul", "674543", "2020-02-18", "Marca 20", "estado raly"));
+//        t1.add(new Ocorrencia(1, "Ocorrencia numero 1", "Departamento norte", "12345235", "2020-02-20", "Marca 1", "estado 1"));
+//        t1.add(new Ocorrencia(2, "Ocorrencia numero 2", "Departamento sul", "674543", "2020-02-18", "Marca 20", "estado raly"));
 
         ocorrenciaRecyclerAdapter.renovarRegistos(t1);
 
@@ -103,7 +103,7 @@ public class OcorrenciasActivity extends BaseActivity implements OnItemListener 
     //Eventos
     //---------------------
 
-    @OnClick(R.id.crl_img_regressar)
+//    @OnClick(R.id.crl_img_regressar)
     public void crl_img_regressar_OnClickListener(View view) {
         obterRegistos();
     }
@@ -123,17 +123,17 @@ public class OcorrenciasActivity extends BaseActivity implements OnItemListener 
 
             //--TESTE (apagar quando houver dados)
 
-            Ocorrencia registo = (Ocorrencia) ocorrenciaRecyclerAdapter.obterRegisto(position);
-
-            crs_historico.setVisibility(View.VISIBLE);
-            txt_historico.setText(registo.obterDescricao());
-            txt_marca.setText(registo.obterMarca());
-            txt_estado.setText(registo.obterSituacao());
-
-            List<Item> t1 = new ArrayList<>();
-            t1.add(new Ocorrencia("2019-02-04", "Resolvido", "uma observação grande", "departamento interno"));
-            t1.add(new Ocorrencia("2019-02-02", "Resolvido por enquanto", "uma observação pequena", "departamento externo"));
-            ocorrenciaRecyclerAdapter.renovarRegistos(t1);
+//            Ocorrencia registo = (Ocorrencia) ocorrenciaRecyclerAdapter.obterRegisto(position);
+//
+//            crs_historico.setVisibility(View.VISIBLE);
+//            txt_historico.setText(registo.obterDescricao());
+//            txt_marca.setText(registo.obterMarca());
+//            txt_estado.setText(registo.obterSituacao());
+//
+//            List<Item> t1 = new ArrayList<>();
+//            t1.add(new Ocorrencia("2019-02-04", "Resolvido", "uma observação grande", "departamento interno"));
+//            t1.add(new Ocorrencia("2019-02-02", "Resolvido por enquanto", "uma observação pequena", "departamento externo"));
+//            ocorrenciaRecyclerAdapter.renovarRegistos(t1);
 
             //TODO: chamar metodo do viewmodel
 

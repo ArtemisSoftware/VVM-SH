@@ -1,6 +1,5 @@
 package com.vvm.sh.ui.ocorrencias;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,6 +14,7 @@ import android.widget.TextView;
 
 import com.vvm.sh.R;
 import com.vvm.sh.ui.BaseActivity;
+import com.vvm.sh.ui.ocorrencias.modelos.Ocorrencia;
 import com.vvm.sh.util.adaptadores.Item;
 import com.vvm.sh.util.interfaces.OnCheckBoxItemListener;
 import com.vvm.sh.util.interfaces.OnItemListener;
@@ -81,9 +81,9 @@ public class RegistoOcorrenciasActivity extends BaseActivity implements OnItemLi
 
 
         List<Item> t1 = new ArrayList<>();
-        t1.add(new Ocorrencia(1, "Ocorrencia numero 1", "30.2", 1, 0));
-        t1.add(new Ocorrencia(1, "Ocorrencia numero 2", "10.2", 1, 0));
-        t1.add(new Ocorrencia(1, "Ocorrencia numero 34", "23.2", 1, 0));
+//        t1.add(new Ocorrencia(1, "Ocorrencia numero 1", "30.2", 1, 0));
+//        t1.add(new Ocorrencia(1, "Ocorrencia numero 2", "10.2", 1, 0));
+//        t1.add(new Ocorrencia(1, "Ocorrencia numero 34", "23.2", 1, 0));
 
         ocorrenciaRecyclerAdapter.renovarRegistos(t1);
 
@@ -113,8 +113,8 @@ public class RegistoOcorrenciasActivity extends BaseActivity implements OnItemLi
         txt_descricao.setVisibility(View.GONE);
 
         List<Item> t1 = new ArrayList<>();
-        t1.add(new Ocorrencia(1, "Ocorrencia numero 1478", "560.2", 1, 0));
-        t1.add(new Ocorrencia(1, "Ocorrencia numero 22", "410.2", 2, 1));
+//        t1.add(new Ocorrencia(1, "Ocorrencia numero 1478", "560.2", 1, 0));
+//        t1.add(new Ocorrencia(1, "Ocorrencia numero 22", "410.2", 2, 1));
 
         ocorrenciaRecyclerAdapter.renovarRegistos(t1);
 
@@ -127,16 +127,16 @@ public class RegistoOcorrenciasActivity extends BaseActivity implements OnItemLi
 
         //--TESTE (apagar quando houver dados)
 
-        Ocorrencia registo = (Ocorrencia) ocorrenciaRecyclerAdapter.obterRegisto(posicao);
-
-        txt_descricao.setText(registo.obterCodigo() + " " + registo.obterDescricao());
-        txt_descricao.setVisibility(View.VISIBLE);
-
-        List<Item> t1 = new ArrayList<>();
-        t1.add(new Ocorrencia(1, "Ocorrencia numero 50000", "2340.2", 1, 0));
-        t1.add(new Ocorrencia(1, "Ocorrencia numero 65434", "410.2", 2, 1));
-
-        ocorrenciaRecyclerAdapter.renovarRegistos(t1);
+//        Ocorrencia registo = (Ocorrencia) ocorrenciaRecyclerAdapter.obterRegisto(posicao);
+//
+//        txt_descricao.setText(registo.obterCodigo() + " " + registo.obterDescricao());
+//        txt_descricao.setVisibility(View.VISIBLE);
+//
+//        List<Item> t1 = new ArrayList<>();
+//        t1.add(new Ocorrencia(1, "Ocorrencia numero 50000", "2340.2", 1, 0));
+//        t1.add(new Ocorrencia(1, "Ocorrencia numero 65434", "410.2", 2, 1));
+//
+//        ocorrenciaRecyclerAdapter.renovarRegistos(t1);
 
 
 

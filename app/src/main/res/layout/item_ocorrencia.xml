@@ -13,7 +13,7 @@
 
         <variable
             name="ocorrencia"
-            type="com.vvm.sh.ui.ocorrencias.Ocorrencia" />
+            type="com.vvm.sh.ui.ocorrencias.modelos.Ocorrencia" />
 
     </data>
 

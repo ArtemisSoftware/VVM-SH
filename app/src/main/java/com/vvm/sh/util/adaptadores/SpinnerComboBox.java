@@ -5,7 +5,6 @@ import android.content.Context;
 import android.util.AttributeSet;
 import android.widget.Spinner;
 
-import com.vvm.sh.ui.ocorrencias.Ocorrencia;
 import com.vvm.sh.util.itens.ItemSpinner;
 
 @SuppressLint("AppCompatCustomView")

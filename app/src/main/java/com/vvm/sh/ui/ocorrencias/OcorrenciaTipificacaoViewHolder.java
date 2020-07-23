@@ -6,6 +6,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import com.vvm.sh.R;
+import com.vvm.sh.ui.ocorrencias.modelos.Ocorrencia;
 import com.vvm.sh.util.adaptadores.Item;
 import com.vvm.sh.util.adaptadores.ItemViewHolder;
 import com.vvm.sh.util.interfaces.OnItemListener;
@@ -30,9 +31,9 @@ public class OcorrenciaTipificacaoViewHolder extends ItemViewHolder implements V
     @Override
     protected void preencherCampos(Item item) {
 
-        Ocorrencia registo = (Ocorrencia) item;
-
-        txt_codigo.setText(registo.obterCodigo());
+//        Ocorrencia registo = (Ocorrencia) item;
+//
+//        txt_codigo.setText(registo.obterCodigo());
     }
 
     @Override

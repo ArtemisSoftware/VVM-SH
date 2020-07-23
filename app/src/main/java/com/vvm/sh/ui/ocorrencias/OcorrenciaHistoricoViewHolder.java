@@ -6,6 +6,7 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 
 import com.vvm.sh.R;
+import com.vvm.sh.ui.ocorrencias.modelos.Ocorrencia;
 import com.vvm.sh.util.adaptadores.Item;
 import com.vvm.sh.util.adaptadores.ItemViewHolder;
 
@@ -33,11 +34,11 @@ public class OcorrenciaHistoricoViewHolder extends ItemViewHolder {
     @Override
     protected void preencherCampos(Item item) {
 
-        Ocorrencia registo = (Ocorrencia) item;
-
-        txt_data.setText(registo.obterData());
-        txt_estado.setText(registo.obterSituacao());
-        txt_departamento.setText(registo.obterDepartamento());
-        txt_observacao.setText(registo.obterObservacao());
+//        Ocorrencia registo = (Ocorrencia) item;
+//
+//        txt_data.setText(registo.obterData());
+//        txt_estado.setText(registo.obterSituacao());
+//        txt_departamento.setText(registo.obterDepartamento());
+//        txt_observacao.setText(registo.obterObservacao());
     }
 }

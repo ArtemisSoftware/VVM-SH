@@ -1,4 +1,4 @@
-package com.vvm.sh.ui.ocorrencias;
+package com.vvm.sh.ui.ocorrencias.modelos;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;

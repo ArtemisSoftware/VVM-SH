@@ -20,10 +20,12 @@ public class AtividadePendenteRecyclerAdapter extends RecyclerView.Adapter<Recyc
 
     private List<AtividadePendente> items = new ArrayList<>();
     private Context contexto;
+    private OnAtividadePendenteListener listener;
 
-    public AtividadePendenteRecyclerAdapter(Context contexto, List<AtividadePendente> items) {
+    public AtividadePendenteRecyclerAdapter(Context contexto, List<AtividadePendente> items, OnAtividadePendenteListener listener) {
         this.items = items;
         this.contexto = contexto;
+        this.listener = listener;
     }
 
 
@@ -32,7 +34,7 @@ public class AtividadePendenteRecyclerAdapter extends RecyclerView.Adapter<Recyc
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         ItemAtividadePendenteBinding binding = DataBindingUtil.inflate(LayoutInflater.from(contexto), R.layout.item_atividade_pendente, parent, false);
-        return new AtividadePendenteViewHolder(binding.getRoot());
+        return new AtividadePendenteViewHolder(binding.getRoot(), listener);
     }
 
     @Override
@@ -40,7 +42,7 @@ public class AtividadePendenteRecyclerAdapter extends RecyclerView.Adapter<Recyc
 
         AtividadePendente registo = items.get(position);
         ((AtividadePendenteViewHolder)holder).binding.setAtividade(registo);
-
+        ((AtividadePendenteViewHolder)holder).binding.setListener(listener);
         ((AtividadePendenteViewHolder)holder).binding.executePendingBindings();
 
     }

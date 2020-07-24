@@ -1,32 +1,23 @@
 package com.vvm.sh.ui.atividadesPendentes;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
 import android.os.Bundle;
 
 import com.vvm.sh.R;
 import com.vvm.sh.databinding.ActivityAtividadesPendentesBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
-import com.vvm.sh.ui.BaseActivity;
 import com.vvm.sh.ui.BaseDaggerActivity;
-import com.vvm.sh.util.adaptadores.Item;
-import com.vvm.sh.util.interfaces.OnItemListener;
+import com.vvm.sh.ui.atividadesPendentes.adaptadores.OnAtividadePendenteListener;
+import com.vvm.sh.ui.atividadesPendentes.modelos.AtividadePendente;
 import com.vvm.sh.util.metodos.Preferencias;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.inject.Inject;
 
-import butterknife.BindView;
-
 public class AtividadesPendentesActivity extends BaseDaggerActivity
+
+        implements OnAtividadePendenteListener
         /*implements OnItemListener,
         DialogoAtividadePendente.DialogoListener, DialogoAtividadePendenteExecutada.DialogListener, DialogoAtividadePendenteNaoExecutada.DialogoListener*/ {
 
@@ -49,6 +40,7 @@ public class AtividadesPendentesActivity extends BaseDaggerActivity
 
         activityAtividadesPendentesBinding = (ActivityAtividadesPendentesBinding) activityBinding;
         activityAtividadesPendentesBinding.setLifecycleOwner(this);
+        activityAtividadesPendentesBinding.setListener(this);
         activityAtividadesPendentesBinding.setViewmodel(viewModel);
 
 
@@ -69,6 +61,29 @@ public class AtividadesPendentesActivity extends BaseDaggerActivity
 
     @Override
     protected void subscreverObservadores() {
+
+    }
+
+
+    @Override
+    public void OnAtividadeClick(AtividadePendente atividade) {
+
+        DialogoAtividadePendente dialogo = DialogoAtividadePendente.newInstance(atividade.id, atividade.existeRelatorio());
+        dialogo.show(getSupportFragmentManager(), "example dialog");
+    }
+
+    @Override
+    public void OnConcluirAtividadeExecutada() {
+
+    }
+
+    @Override
+    public void OnConcluirAtividadeNaoExecutada() {
+
+    }
+
+    @Override
+    public void OnIniciarRelatorio(AtividadePendente atividade) {
 
     }
 

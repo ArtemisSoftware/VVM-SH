@@ -65,6 +65,22 @@ public class AtividadePendente {
     }
 
 
+    /**
+     * Metodo que indica se existe um relatorio associado à atividade
+     * @return true caso exista ou false caso contrario
+     */
+    public boolean existeRelatorio(){
+
+        if(formacao == true){
+            return true;
+        }
+        else{
+            return false;
+        }
+
+    }
+
+
 //    public static final int SEM_RELATORIO = -1;
 //
 //    private String data, anuidade, tempoExecucao, observacoes, dataExecucao, idAnomalia;

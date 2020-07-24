@@ -11,6 +11,11 @@
 
         <import type="java.util.List"/>
 
+
+        <variable
+            name="listener"
+            type="com.vvm.sh.ui.atividadesPendentes.adaptadores.OnAtividadePendenteListener"/>
+
         <variable
             name="viewmodel"
             type="com.vvm.sh.ui.atividadesPendentes.AtividadesPendentesViewModel"/>
@@ -73,6 +78,7 @@
             android:id="@+id/rcl_registos"
             style="@style/lista"
             atividadesPendentes="@{viewmodel.atividades}"
+            app:onItemClick="@{listener}"
             tools:listitem="@layout/item_atividade_pendente"/>
 
     </LinearLayout>

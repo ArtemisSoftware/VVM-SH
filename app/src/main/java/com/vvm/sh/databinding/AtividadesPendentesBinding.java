@@ -5,14 +5,15 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.vvm.sh.ui.atividadesPendentes.adaptadores.AtividadePendenteRecyclerAdapter;
+import com.vvm.sh.ui.atividadesPendentes.adaptadores.OnAtividadePendenteListener;
 import com.vvm.sh.ui.atividadesPendentes.modelos.AtividadePendente;
 
 import java.util.List;
 
 public class AtividadesPendentesBinding {
 
-    @BindingAdapter({"atividadesPendentes"})
-    public static void setAtividadesPendentes(RecyclerView view, List<AtividadePendente> items) {
+    @BindingAdapter({"atividadesPendentes", "onItemClick"})
+    public static void setAtividadesPendentes(RecyclerView view, List<AtividadePendente> items, OnAtividadePendenteListener listener) {
 
         if(items == null){
             return;
@@ -27,7 +28,7 @@ public class AtividadesPendentesBinding {
         AtividadePendenteRecyclerAdapter adapter = (AtividadePendenteRecyclerAdapter) view.getAdapter();
 
         if(adapter == null){
-            adapter = new AtividadePendenteRecyclerAdapter(view.getContext(), items);
+            adapter = new AtividadePendenteRecyclerAdapter(view.getContext(), items, listener);
 
             view.setAdapter(adapter);
         }

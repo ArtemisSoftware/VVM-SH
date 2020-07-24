@@ -1,38 +1,51 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+
+
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:padding="16dp">
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
 
 
-    <RadioGroup
-        android:id="@+id/rd_gp_concluir_actividade"
+    </data>
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp">
 
 
-        <RadioButton
-            android:id="@+id/rd_btn_actividade_executada"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:text="@string/concluir_atividade_executada"/>
-
-        <RadioButton
-            android:id="@+id/rd_btn_actividade_nao_executada"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:text="@string/concluir_atividade_nao_executada" />
+        <RadioGroup
+            android:id="@+id/rd_gp_concluir_actividade"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
 
 
-        <RadioButton
-            android:id="@+id/rd_btn_relatorio"
-            android:layout_width="wrap_content"
-            android:layout_height="50dp"
-            android:text="@string/relatorio_" />
+            <RadioButton
+                android:id="@+id/rd_btn_actividade_executada"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:text="@string/concluir_atividade_executada"/>
 
-    </RadioGroup>
+            <RadioButton
+                android:id="@+id/rd_btn_actividade_nao_executada"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:text="@string/concluir_atividade_nao_executada" />
 
-</LinearLayout>
+
+            <RadioButton
+                android:id="@+id/rd_btn_relatorio"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:text="@string/relatorio_" />
+
+        </RadioGroup>
+
+    </LinearLayout>
+
+
+</layout>

@@ -12,6 +12,10 @@
         <import type="com.vvm.sh.util.metodos.DatasUtil"/>
 
         <variable
+            name="listener"
+            type="com.vvm.sh.ui.atividadesPendentes.adaptadores.OnAtividadePendenteListener"/>
+
+        <variable
             name="atividade"
             type="com.vvm.sh.ui.atividadesPendentes.modelos.AtividadePendente" />
 

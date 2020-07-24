@@ -3,38 +3,109 @@ package com.vvm.sh.ui.atividadesPendentes;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.os.Bundle;
+import android.view.View;
 import android.widget.RadioButton;
 
+import androidx.lifecycle.ViewModelProviders;
+
 import com.vvm.sh.R;
+import com.vvm.sh.databinding.DialogoAtividadePendenteBinding;
+import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDialogFragment;
+import com.vvm.sh.ui.atividadesPendentes.adaptadores.OnAtividadePendenteListener;
+import com.vvm.sh.ui.opcoes.BaseDaggerDialogFragment;
+
+import javax.inject.Inject;
 
 import butterknife.OnClick;
 
-public class DialogoAtividadePendente extends BaseDialogFragment {
+public class DialogoAtividadePendente extends BaseDaggerDialogFragment {
 
-    private DialogoListener listener;
 
-    @Override
-    protected void criarDialogo(AlertDialog.Builder builder) {
+    private DialogoAtividadePendenteBinding binding;
 
-        builder.setNegativeButton(getString(R.string.cancelar), new DialogInterface.OnClickListener() {
-                    @Override
-                    public void onClick(DialogInterface dialogInterface, int i) {
+    @Inject
+    ViewModelProviderFactory providerFactory;
 
-                    }
-                });
+    private AtividadesPendentesViewModel viewModel;
 
+
+    private OnAtividadePendenteListener listener;
+
+
+
+    private static final String ARGUMENTO_RELATORIO = "relatorio";
+    private static final String ARGUMENTO_ID_ATIVIDADE = "id";
+
+    public DialogoAtividadePendente() {
+        // Empty constructor required for DialogFragment
     }
 
+
+    public static DialogoAtividadePendente newInstance(int id, boolean relatorio) {
+        DialogoAtividadePendente frag = new DialogoAtividadePendente();
+
+        Bundle args = new Bundle();
+        args.putBoolean(ARGUMENTO_RELATORIO, relatorio);
+        args.putInt(ARGUMENTO_ID_ATIVIDADE, id);
+        frag.setArguments(args);
+        return frag;
+    }
+
+
+
+
     @Override
-    protected String obterTitulo() {
-        return getString(R.string.atividade_pendente);
+    protected void initDialogo(AlertDialog.Builder builder) {
+
+        listener = (OnAtividadePendenteListener) getContext();
+
+        viewModel = ViewModelProviders.of(this, providerFactory).get(AtividadesPendentesViewModel.class);
+        binding = (DialogoAtividadePendenteBinding) activityBaseBinding;
+
+
+        formatarDialogo();
+
+        builder.setNegativeButton(getString(R.string.cancelar), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialogInterface, int i) {
+                terminarDialogo();
+            }
+        });
+
     }
 
     @Override
     protected int obterLayout() {
         return R.layout.dialogo_atividade_pendente;
     }
+
+    @Override
+    protected int obterTitulo() {
+        return R.string.atividade_pendente;
+    }
+
+    @Override
+    protected void subscreverObservadores() {
+
+    }
+
+
+    /**
+     * Metodo que permite formatar as opcoes do dialogo
+     */
+    private void formatarDialogo() {
+
+        if(getArguments().getBoolean(ARGUMENTO_RELATORIO) == false){
+
+            binding.rdBtnRelatorio.setVisibility(View.GONE);
+        }
+    }
+
+
+
+
 
 
     @OnClick({R.id.rd_btn_actividade_executada, R.id.rd_btn_actividade_nao_executada, R.id.rd_btn_relatorio})
@@ -48,14 +119,14 @@ public class DialogoAtividadePendente extends BaseDialogFragment {
             case R.id.rd_btn_actividade_executada:
                 if (checked) {
                     // 1 clicked
-                    listener.concluirAtividadeExecutada();
+                    //--listener.concluirAtividadeExecutada();
                     terminarDialogo();
                 }
                 break;
             case R.id.rd_btn_actividade_nao_executada:
                 if (checked) {
                     // 2 clicked
-                    listener.concluirAtividadeNaoExecutada();
+                    //--listener.concluirAtividadeNaoExecutada();
                     terminarDialogo();
                 }
                 break;
@@ -63,7 +134,7 @@ public class DialogoAtividadePendente extends BaseDialogFragment {
             case R.id.rd_btn_relatorio:
                 if (checked) {
                     // 2 clicked
-                    listener.iniciarRelatorio();
+                    //--listener.iniciarRelatorio();
                     terminarDialogo();
                 }
                 break;
@@ -75,24 +146,92 @@ public class DialogoAtividadePendente extends BaseDialogFragment {
 
 
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
 
-        try {
-            listener = (DialogoListener) context;
-        } catch (ClassCastException e) {
-            throw new ClassCastException(context.toString() +
-                    "must implement ExampleDialogListener");
-        }
-    }
 
-    public interface DialogoListener {
 
-        void concluirAtividadeExecutada();
 
-        void concluirAtividadeNaoExecutada();
-
-        void iniciarRelatorio();
-    }
+//
+//    private DialogoListener listener;
+//
+//    @Override
+//    protected void criarDialogo(AlertDialog.Builder builder) {
+//
+//        builder.setNegativeButton(getString(R.string.cancelar), new DialogInterface.OnClickListener() {
+//                    @Override
+//                    public void onClick(DialogInterface dialogInterface, int i) {
+//
+//                    }
+//                });
+//
+//    }
+//
+//    @Override
+//    protected String obterTitulo() {
+//        return getString(R.string.atividade_pendente);
+//    }
+//
+//    @Override
+//    protected int obterLayout() {
+//        return R.layout.dialogo_atividade_pendente;
+//    }
+//
+//
+//    @OnClick({R.id.rd_btn_actividade_executada, R.id.rd_btn_actividade_nao_executada, R.id.rd_btn_relatorio})
+//    public void onRadioButtonClicked(RadioButton radioButton) {
+//        // Is the button now checked?
+//        boolean checked = radioButton.isChecked();
+//
+//        // Check which radio button was clicked
+//        switch (radioButton.getId()) {
+//
+//            case R.id.rd_btn_actividade_executada:
+//                if (checked) {
+//                    // 1 clicked
+//                    listener.concluirAtividadeExecutada();
+//                    terminarDialogo();
+//                }
+//                break;
+//            case R.id.rd_btn_actividade_nao_executada:
+//                if (checked) {
+//                    // 2 clicked
+//                    listener.concluirAtividadeNaoExecutada();
+//                    terminarDialogo();
+//                }
+//                break;
+//
+//            case R.id.rd_btn_relatorio:
+//                if (checked) {
+//                    // 2 clicked
+//                    listener.iniciarRelatorio();
+//                    terminarDialogo();
+//                }
+//                break;
+//
+//            default:
+//                break;
+//        }
+//    }
+//
+//
+//
+//    @Override
+//    public void onAttach(Context context) {
+//        super.onAttach(context);
+//
+//        try {
+//            listener = (DialogoListener) context;
+//        } catch (ClassCastException e) {
+//            throw new ClassCastException(context.toString() +
+//                    "must implement ExampleDialogListener");
+//        }
+//    }
+//
+//    public interface DialogoListener {
+//
+//        void concluirAtividadeExecutada();
+//
+//        void concluirAtividadeNaoExecutada();
+//
+//        void iniciarRelatorio();
+//    }
 }

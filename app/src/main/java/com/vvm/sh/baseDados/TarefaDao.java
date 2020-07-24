@@ -24,4 +24,9 @@ public abstract class TarefaDao implements BaseDao<Tarefa>{
     @Query("SELECT * FROM tarefas ")
     abstract public Single<List<TarefaDia>> obterTarefasDia();
 
+
+    @Transaction
+    @Query("SELECT * FROM tarefas WHERE idTarefa = :idTarefa ")
+    abstract public Single<TarefaDia> obterTarefaDia(int idTarefa);
+
 }

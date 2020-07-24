@@ -36,7 +36,7 @@
                 android:id="@+id/collapsing_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:title="@string/lorem_ipsum_titulo"
+                app:title="@{viewmodel.cliente.nome, default=cliente}"
                 app:collapsedTitleTextAppearance="@style/coll_toolbar_title"
                 app:expandedTitleTextAppearance="@style/exp_toolbar_title"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed">
@@ -92,7 +92,7 @@
                     <TextView
                         android:id="@+id/textview"
                         style="@style/tituloCartao"
-                        android:text="@string/informacao"
+                        android:text="@string/informacao_cliente"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="16dp"
                         app:layout_constraintStart_toStartOf="parent"
@@ -110,8 +110,8 @@
 
                     <TextView
                         android:id="@+id/txt_estado"
-                        style="@style/textoNota"
-                        android:text="@string/lorem_ipsum_texto_pequeno"
+                        style="@style/textoDetalhe"
+                        android:text="@string/ordem_"
                         android:layout_below="@+id/textview2"
                         android:layout_alignParentRight="true"
                         android:layout_marginTop="8dp"
@@ -119,6 +119,14 @@
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="@+id/textview"
                         app:layout_constraintTop_toBottomOf="@+id/textview2" />
+
+                    <TextView
+                        android:id="@+id/textView16"
+                        style="@style/textoNota"
+                        android:layout_marginStart="8dp"
+                        android:text="@{viewmodel.tarefa.ordem, default = ordem}"
+                        app:layout_constraintStart_toEndOf="@+id/txt_estado"
+                        app:layout_constraintTop_toTopOf="@+id/txt_estado" />
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -157,9 +165,7 @@
 
 
                 <androidx.cardview.widget.CardView
-                    android:id="@+id/crd_atividades_pendentes"
-                    android:foreground="?android:attr/selectableItemBackground"
-                    android:clickable="true"
+                    style="@style/cartao"
                     android:layout_width="160dp"
                     android:layout_height="190dp"
                     android:layout_margin="10dp">
@@ -175,9 +181,7 @@
                             android:src="@drawable/ic_lorem_ipsum_24dp"
                             android:padding="10dp"/>
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textStyle="bold"
+                            style="@style/textoDetalhe"
                             android:layout_marginTop="10dp"
                             android:text="@string/atividades_pendentes"/>
                         <View

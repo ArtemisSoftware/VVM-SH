@@ -91,4 +91,9 @@ public class Tipo {
     public String obterTipo() {
         return tipo;
     }
+
+    @Override
+    public String toString() {
+        return descricao;
+    }
 }

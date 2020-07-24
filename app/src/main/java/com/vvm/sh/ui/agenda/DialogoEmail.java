@@ -21,8 +21,10 @@ import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDialogFragment;
 import com.vvm.sh.ui.cliente.Cliente;
 import com.vvm.sh.ui.opcoes.BaseDaggerDialogFragment;
+import com.vvm.sh.ui.opcoes.modelos.Tipo;
 import com.vvm.sh.ui.tarefa.TarefaViewModel;
 import com.vvm.sh.ui.tarefa.adaptadores.OnTarefaListener;
+import com.vvm.sh.ui.tarefa.modelos.Email;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.Recurso.Status.*;
 import com.vvm.sh.util.constantes.Sintaxe;
@@ -90,7 +92,9 @@ public class DialogoEmail extends BaseDaggerDialogFragment {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
-                listener.OnGravarEmailListener();
+                Email email = new Email(Preferencias.obterIdTarefa(getContext()), binding.txtInpEmail.getText().toString(), (Tipo)binding.spnrTipos.getSelectedItem());
+
+                listener.OnGravarEmailListener(email);
             }
         });
 
@@ -128,9 +132,8 @@ public class DialogoEmail extends BaseDaggerDialogFragment {
 
                         Cliente cliente = (Cliente)recurso.dados;
                         binding.txtInpEmail.setText(cliente.email);
-                        //List<String> dataset = new LinkedList<>(Arrays.asList("One", "Two", "Three", "Four", "Five"));
-                        //binding.spnrTipos.attachDataSource(dataset);
 
+                        //TODO: o index deve vir da bd
                         binding.spnrTipos.setSelectedIndex(2);
 
                         break;

@@ -4,9 +4,11 @@ import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Ignore;
 import androidx.room.Index;
 
 import com.vvm.sh.ui.agenda.modelos.Tarefa;
+import com.vvm.sh.ui.opcoes.modelos.Tipo;
 
 import java.util.Date;
 
@@ -37,6 +39,15 @@ public class Email {
     @NonNull
     @ColumnInfo(name = "idAutorizacao")
     public int idAutorizacao;
+
+
+    @Ignore
+    public Email(int idTarefa, @NonNull String endereco, Tipo autorizacao) {
+        this.idTarefa = idTarefa;
+        this.endereco = endereco;
+        this.autorizacao = autorizacao.descricao;
+        this.idAutorizacao = autorizacao.id;
+    }
 
 
     public Email(int idTarefa, @NonNull String endereco, @NonNull String autorizacao, int idAutorizacao) {

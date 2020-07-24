@@ -40,12 +40,14 @@ public class CrossSellingBinding {
 
 
         view.setSpinnerTextFormatter(textFormatter);
-        view.setSelectedTextFormatter(new SpinnerTextFormatter() {
+        /*
+        view.setSelectedTextFormatter(new SpinnerTextFormatter<Tipo>() {
             @Override
-            public Spannable format(Object item) {
-                return new SpannableString(item.toString());
+            public Spannable format(Tipo tipo) {
+                return new SpannableString(tipo.descricao);
             }
         });
+        */
         view.attachDataSource(registos);
     }
 

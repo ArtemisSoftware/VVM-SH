@@ -11,6 +11,7 @@ import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.agenda.DialogoEmail;
 import com.vvm.sh.ui.tarefa.adaptadores.OnTarefaListener;
+import com.vvm.sh.ui.tarefa.modelos.Email;
 import com.vvm.sh.ui.tarefa.modelos.OpcaoCliente;
 import com.vvm.sh.util.metodos.Preferencias;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
@@ -42,7 +43,7 @@ public class TarefaActivity extends BaseDaggerActivity
 
         subscreverObservadores();
 
-        viewModel.obterOpcoesCliente(Preferencias.obterIdTarefa(this));
+        viewModel.obterTarefa(Preferencias.obterIdTarefa(this));
     }
 
     @Override
@@ -67,8 +68,10 @@ public class TarefaActivity extends BaseDaggerActivity
 
 
     @Override
-    public void OnGravarEmailListener() {
+    public void OnGravarEmailListener(Email email) {
 
+
+        viewModel.gravarEmail(email);
     }
 
 

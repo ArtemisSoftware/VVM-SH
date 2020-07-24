@@ -67,6 +67,9 @@
 
     <string name="iniciar">Iniciar</string>
     <string name="informacao">Informação</string>
+    <string name="informacao_cliente">Informação do cliente</string>
+
+
     <string name="incidencia">Incidência</string>
     <string name="indices">Índices</string>
     <string name="indices_de_sinistralidade_ano">Índices de Sinistralidade / Ano</string>

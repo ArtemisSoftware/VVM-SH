@@ -18,6 +18,11 @@ public class Sintaxe {
     }
 
 
+    public class Palavras{
+
+        public static final String FORMACAO = "Formação";
+    }
+
     public class Opcoes{
 
         public static final String GRAVAR = "Gravar";

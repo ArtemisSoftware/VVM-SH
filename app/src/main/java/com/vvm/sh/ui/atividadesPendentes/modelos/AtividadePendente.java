@@ -10,6 +10,7 @@ import androidx.room.PrimaryKey;
 
 import com.vvm.sh.ui.agenda.modelos.Tarefa;
 import com.vvm.sh.util.adaptadores.Item;
+import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.metodos.DatasUtil;
 
 import java.util.Date;
@@ -51,6 +52,8 @@ public class AtividadePendente {
     public boolean formacao;
 
 
+
+
     @Ignore
     public AtividadePendente() {
     }
@@ -77,8 +80,23 @@ public class AtividadePendente {
         else{
             return false;
         }
-
     }
+
+
+    /**
+     * Metodo que devolve a descricao do relatorio
+     * @return uma descricao
+     */
+    public String obterRelatorio(){
+
+        if(formacao == true){
+            return Sintaxe.Palavras.FORMACAO;
+        }
+        else{
+            return "";
+        }
+    }
+
 
 
 //    public static final int SEM_RELATORIO = -1;
@@ -169,13 +187,7 @@ public class AtividadePendente {
 //
 //
 //
-//    /**
-//     * Metodo que devolve a descricao do relatorio
-//     * @return uma descricao
-//     */
-//    public String obterRelatorio(){
-//        return relatorio;
-//    }
+
 //
 //
 //

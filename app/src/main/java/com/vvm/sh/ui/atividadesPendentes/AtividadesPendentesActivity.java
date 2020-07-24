@@ -75,6 +75,9 @@ public class AtividadesPendentesActivity extends BaseDaggerActivity
     @Override
     public void OnConcluirAtividadeExecutada() {
 
+        DialogoAtividadePendenteNaoExecutada dialogo = new DialogoAtividadePendenteNaoExecutada();
+        dialogo.show(getSupportFragmentManager(), "example dialog");
+
     }
 
     @Override

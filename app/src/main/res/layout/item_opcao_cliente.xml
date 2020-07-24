@@ -8,7 +8,7 @@
 
         <variable
             name="listener"
-            type="com.vvm.sh.util.interfaces.OnItemListener"/>
+            type="com.vvm.sh.ui.tarefa.adaptadores.OnTarefaListener"/>
 
         <variable
             name="opcao"

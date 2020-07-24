@@ -12,7 +12,9 @@
             name="viewmodel"
             type="com.vvm.sh.ui.tarefa.TarefaViewModel"/>
 
-
+        <variable
+            name="listener"
+            type="com.vvm.sh.ui.tarefa.adaptadores.OnTarefaListener"/>
 
     </data>
 
@@ -74,10 +76,10 @@
 
 
             <LinearLayout
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"
-            android:orientation="vertical"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+                app:layout_behavior="@string/appbar_scrolling_view_behavior"
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
 
 
 

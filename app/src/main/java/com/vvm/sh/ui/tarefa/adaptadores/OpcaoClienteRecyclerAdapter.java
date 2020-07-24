@@ -21,9 +21,9 @@ public class OpcaoClienteRecyclerAdapter extends RecyclerView.Adapter<RecyclerVi
 
     private List<OpcaoCliente> items = new ArrayList<>();
     private Context contexto;
-    private OnItemListener onItemListener;
+    private OnTarefaListener onItemListener;
 
-    public OpcaoClienteRecyclerAdapter(Context contexto, List<OpcaoCliente> items, OnItemListener onItemListener) {
+    public OpcaoClienteRecyclerAdapter(Context contexto, List<OpcaoCliente> items, OnTarefaListener onItemListener) {
         this.items = items;
         this.contexto = contexto;
         this.onItemListener = onItemListener;
@@ -43,7 +43,7 @@ public class OpcaoClienteRecyclerAdapter extends RecyclerView.Adapter<RecyclerVi
 
         OpcaoCliente registo = items.get(position);
         ((OpcaoClienteViewHolder)holder).binding.setOpcao(registo);
-        //((OpcaoClienteViewHolder)holder).binding.setListener((OnItemListener) contexto);
+        ((OpcaoClienteViewHolder)holder).binding.setListener((OnTarefaListener) contexto);
 
         ((OpcaoClienteViewHolder)holder).binding.executePendingBindings();
 
@@ -73,12 +73,7 @@ public class OpcaoClienteRecyclerAdapter extends RecyclerView.Adapter<RecyclerVi
 //
 //
 //
-//    public static final int OPCAO_INFORMACAO = 1;
-//    public static final int OPCAO_CROSS_SELLING = 2;
-//    public static final int OPCAO_SINISTRALIDADE = 3;
-//    public static final int OPCAO_EXTINTORES = 4;
-//    public static final int OPCAO_EMAIL = 5;
-//    public static final int OPCAO_ANOMALIA = 6;
+
 //
 //    private OnItemListener onItemListener;
 //

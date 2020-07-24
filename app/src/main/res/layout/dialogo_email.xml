@@ -1,53 +1,128 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+
+
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical"
-    android:padding="16dp">
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="java.util.List"/>
 
 
+        <variable
+            name="viewmodel"
+            type="com.vvm.sh.ui.tarefa.TarefaViewModel"/>
 
-    <com.google.android.material.textfield.TextInputLayout
-        style="@style/parent.TextLayout"
-        android:hint="@string/email"
-        android:layout_width="450dp"
-        android:layout_marginTop="@dimen/signup_text_margin_top"
-        app:errorEnabled="true">
+        <variable
+            name="listener"
+            type="com.vvm.sh.ui.tarefa.adaptadores.OnTarefaListener"/>
 
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/txt_inp_email"
-            style="@style/modifiedEditText"
-            android:inputType="textEmailAddress"
-            android:maxLines="1"/>
-    </com.google.android.material.textfield.TextInputLayout>
+    </data>
 
 
-    <com.skydoves.powerspinner.PowerSpinnerView
-        android:id="@+id/spnr_estado"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:background="@color/md_blue_200"
-        android:foreground="?attr/selectableItemBackground"
-        android:gravity="center_vertical"
-        android:hint="@string/estado"
-        android:padding="10dp"
-        android:textColor="@color/white_93"
-        android:textColorHint="@color/white_70"
-        android:textSize="14.5sp"
-        app:spinner_arrow_gravity="end"
-        app:spinner_arrow_padding="8dp"
-        app:spinner_divider_color="@color/white_70"
-        app:spinner_divider_show="true"
-        app:spinner_divider_size="0.4dp"
-        app:spinner_popup_animation="normal"
-        app:spinner_popup_background="@color/background800"
-        app:spinner_popup_elevation="14dp"
-        tools:ignore="HardcodedText,UnusedAttribute"
-        android:layout_marginTop="12dp"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp"
+        android:background="@color/white_93">
 
 
 
-</LinearLayout>
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/parent.TextLayout"
+            android:hint="@string/email"
+            android:layout_width="450dp"
+            android:layout_marginTop="@dimen/signup_text_margin_top"
+            app:errorEnabled="true">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txt_inp_email"
+                style="@style/modifiedEditText"
+                android:inputType="textEmailAddress"
+                android:maxLines="1"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/estado"
+            android:layout_marginTop="25dp"
+            style="@style/textoInput" />
+
+
+        <org.angmarch.views.NiceSpinner
+            android:id="@+id/spnr_tipos"
+
+            android:layout_width="400dp"
+            app:popupTextAlignment="start"
+            android:layout_height="wrap_content"
+            android:prompt="@string/anomalia"/>
+
+        <!-- app:tipos="@{viewmodel.tipos}" -->
+
+    </LinearLayout>
+
+</layout>
+
+
+
+    <!--
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/parent.TextLayout"
+            android:hint="@string/email"
+            android:layout_width="450dp"
+            android:layout_marginTop="@dimen/signup_text_margin_top"
+            app:errorEnabled="true">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txt_inp_email"
+                style="@style/modifiedEditText"
+                android:inputType="textEmailAddress"
+                android:maxLines="1"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+        <com.skydoves.powerspinner.PowerSpinnerView
+            android:id="@+id/spnr_estado"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:background="@color/md_blue_200"
+            android:foreground="?attr/selectableItemBackground"
+            android:gravity="center_vertical"
+            android:hint="@string/estado"
+            android:padding="10dp"
+            android:textColor="@color/white_93"
+            android:textColorHint="@color/white_70"
+            android:textSize="14.5sp"
+            app:spinner_arrow_gravity="end"
+            app:spinner_arrow_padding="8dp"
+            app:spinner_divider_color="@color/white_70"
+            app:spinner_divider_show="true"
+            app:spinner_divider_size="0.4dp"
+            app:spinner_popup_animation="normal"
+            app:spinner_popup_background="@color/background800"
+            app:spinner_popup_elevation="14dp"
+            tools:ignore="HardcodedText,UnusedAttribute"
+            android:layout_marginTop="12dp"/>
+
+
+
+    </LinearLayout>
+
+    -->

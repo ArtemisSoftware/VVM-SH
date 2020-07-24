@@ -129,7 +129,7 @@ public class TarefaViewModel extends BaseViewModel {
 
         List<OpcaoCliente> items = new ArrayList<>();
 
-        items.add(new OpcaoCliente(5, "Email"));
+        items.add(new OpcaoCliente(OpcaoCliente.OPCAO_EMAIL, "Email"));
 
         opcoesCliente.setValue(items);
 /*

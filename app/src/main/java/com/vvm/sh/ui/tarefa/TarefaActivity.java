@@ -2,19 +2,23 @@ package com.vvm.sh.ui.tarefa;
 
 import androidx.lifecycle.ViewModelProviders;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.vvm.sh.R;
 import com.vvm.sh.databinding.ActivityTarefaBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
+import com.vvm.sh.ui.agenda.DialogoEmail;
+import com.vvm.sh.ui.tarefa.adaptadores.OnTarefaListener;
+import com.vvm.sh.ui.tarefa.modelos.OpcaoCliente;
 import com.vvm.sh.util.metodos.Preferencias;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import javax.inject.Inject;
 
 public class TarefaActivity extends BaseDaggerActivity
-        /*implements OnItemListener, DialogoEmail.DialogEmailListener*/ {
+        implements OnTarefaListener/*, DialogoEmail.DialogEmailListener*/ {
 
     private ActivityTarefaBinding activityTarefaBinding;
 
@@ -52,6 +56,61 @@ public class TarefaActivity extends BaseDaggerActivity
 
     @Override
     protected void subscreverObservadores() {
+
+    }
+
+
+    //---------------------
+    //Eventos
+    //---------------------
+
+
+    @Override
+    public void OnOpcaoItemListener(OpcaoCliente opcao) {
+
+
+        Intent intent = null;
+
+        switch (opcao.id){
+//
+//            case OpcaoClienteRecyclerAdapter.OPCAO_INFORMACAO:
+//
+//                intent = new Intent(this, InformacaoActivity.class);
+//                break;
+//
+//            case OpcaoClienteRecyclerAdapter.OPCAO_CROSS_SELLING:
+//
+//                intent = new Intent(this, CrossSellingActivity.class);
+//                break;
+//
+//            case OpcaoClienteRecyclerAdapter.OPCAO_SINISTRALIDADE:
+//
+//                intent = new Intent(this, SinistralidadeActivity.class);
+//                break;
+//
+//            case OpcaoClienteRecyclerAdapter.OPCAO_EXTINTORES:
+//
+//                intent = new Intent(this, ExtintoresActivity.class);
+//                break;
+
+            case OpcaoCliente.OPCAO_EMAIL:
+
+                DialogoEmail dialogo = new DialogoEmail();
+                dialogo.show(getSupportFragmentManager(), "example dialog");
+                break;
+
+//            case OpcaoClienteRecyclerAdapter.OPCAO_ANOMALIA:
+//
+//                intent = new Intent(this, RegistoAnomaliasActivity.class);
+//                break;
+
+            default:
+                break;
+        }
+
+        if(intent != null) {
+            startActivity(intent);
+        }
 
     }
 
@@ -138,58 +197,8 @@ public class TarefaActivity extends BaseDaggerActivity
 //        startActivity(intent);
 //    }
 //
-//    //---------------------
-//    //Eventos
-//    //---------------------
-//
-//
-//    @Override
-//    public void onItemClick(int position) {
-//
-//        Intent intent = null;
-//
-//        switch (opcaoClienteRecyclerAdapter.obterRegisto(position).obterId()){
-//
-//            case OpcaoClienteRecyclerAdapter.OPCAO_INFORMACAO:
-//
-//                intent = new Intent(this, InformacaoActivity.class);
-//                break;
-//
-//            case OpcaoClienteRecyclerAdapter.OPCAO_CROSS_SELLING:
-//
-//                intent = new Intent(this, CrossSellingActivity.class);
-//                break;
-//
-//            case OpcaoClienteRecyclerAdapter.OPCAO_SINISTRALIDADE:
-//
-//                intent = new Intent(this, SinistralidadeActivity.class);
-//                break;
-//
-//            case OpcaoClienteRecyclerAdapter.OPCAO_EXTINTORES:
-//
-//                intent = new Intent(this, ExtintoresActivity.class);
-//                break;
-//
-//            case OpcaoClienteRecyclerAdapter.OPCAO_EMAIL:
-//
-//                DialogoEmail dialogo = new DialogoEmail();
-//                dialogo.show(getSupportFragmentManager(), "example dialog");
-//                break;
-//
-//            case OpcaoClienteRecyclerAdapter.OPCAO_ANOMALIA:
-//
-//                intent = new Intent(this, RegistoAnomaliasActivity.class);
-//                break;
-//
-//            default:
-//                break;
-//        }
-//
-//        if(intent != null) {
-//            //intent.putExtra(AppConstants.PICTURE, pictureRecyclerAdapter.getSelectedPicture(position).getId());
-//            startActivity(intent);
-//        }
-//    }
+
+
 
     /*https://www.11zon.com/android/android_cardview.php*/
 }

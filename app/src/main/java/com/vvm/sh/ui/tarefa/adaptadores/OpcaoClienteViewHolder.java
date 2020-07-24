@@ -14,9 +14,9 @@ import com.vvm.sh.util.interfaces.OnItemListener;
 public class OpcaoClienteViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
     ItemOpcaoClienteBinding binding;
-    private OnItemListener onItemListener;
+    private OnTarefaListener onItemListener;
 
-    public OpcaoClienteViewHolder(@NonNull View itemView, OnItemListener onItemListener) {
+    public OpcaoClienteViewHolder(@NonNull View itemView, OnTarefaListener onItemListener) {
         super(itemView);
         binding = DataBindingUtil.bind(itemView);
 
@@ -28,6 +28,6 @@ public class OpcaoClienteViewHolder extends RecyclerView.ViewHolder implements V
 
     @Override
     public void onClick(View v) {
-        onItemListener.onItemClick(getAdapterPosition());
+        onItemListener.OnOpcaoItemListener(binding.getOpcao());
     }
 }

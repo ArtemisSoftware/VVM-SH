@@ -57,13 +57,12 @@
 
         <org.angmarch.views.NiceSpinner
             android:id="@+id/spnr_tipos"
-
+            app:tipos="@{viewmodel.opcoesEmail}"
             android:layout_width="400dp"
             app:popupTextAlignment="start"
             android:layout_height="wrap_content"
             android:prompt="@string/anomalia"/>
 
-        <!-- app:tipos="@{viewmodel.tipos}" -->
 
     </LinearLayout>
 

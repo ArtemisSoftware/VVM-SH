@@ -16,4 +16,12 @@ public class Sintaxe {
 
         public static final String AGENDA = "Agenda";
     }
+
+
+    public class Opcoes{
+
+        public static final String GRAVAR = "Gravar";
+        public static final String CANCELAR = "Cancelar";
+    }
+
 }

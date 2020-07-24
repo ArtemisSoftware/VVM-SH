@@ -14,6 +14,10 @@ public class Recurso <T> {
     @Nullable
     public final String messagem;
 
+
+
+
+
     public Recurso(@NonNull Status status, @Nullable T dados, @NonNull String messagem) {
         this.status = status;
         this.dados = dados;

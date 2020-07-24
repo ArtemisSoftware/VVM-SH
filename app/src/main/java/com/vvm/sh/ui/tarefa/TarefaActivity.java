@@ -37,6 +37,7 @@ public class TarefaActivity extends BaseDaggerActivity
 
         activityTarefaBinding = (ActivityTarefaBinding) activityBinding;
         activityTarefaBinding.setLifecycleOwner(this);
+        activityTarefaBinding.setListener(this);
         activityTarefaBinding.setViewmodel(viewModel);
 
         subscreverObservadores();
@@ -56,6 +57,17 @@ public class TarefaActivity extends BaseDaggerActivity
 
     @Override
     protected void subscreverObservadores() {
+
+    }
+
+
+    //-------------------
+    //Gravar
+    //-------------------
+
+
+    @Override
+    public void OnGravarEmailListener() {
 
     }
 

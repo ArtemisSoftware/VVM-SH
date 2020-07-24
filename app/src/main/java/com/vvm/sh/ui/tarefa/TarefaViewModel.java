@@ -5,7 +5,10 @@ import androidx.lifecycle.MutableLiveData;
 import com.vvm.sh.repositorios.TarefaRepositorio;
 import com.vvm.sh.ui.atividadesExecutadas.modelos.AtividadeExecutada;
 import com.vvm.sh.ui.cliente.Cliente;
+import com.vvm.sh.ui.opcoes.modelos.Tipo;
 import com.vvm.sh.ui.tarefa.modelos.OpcaoCliente;
+import com.vvm.sh.util.Recurso;
+import com.vvm.sh.util.constantes.TiposConstantes;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import java.util.ArrayList;
@@ -25,6 +28,7 @@ public class TarefaViewModel extends BaseViewModel {
     public MutableLiveData<Cliente> cliente;
     public MutableLiveData<List<AtividadeExecutada>> atividadesExecutadas;
     public MutableLiveData<List<OpcaoCliente>> opcoesCliente;
+    public MutableLiveData<List<Tipo>> opcoesEmail;
 
     @Inject
     public TarefaViewModel(TarefaRepositorio tarefaRepositorio){
@@ -32,6 +36,7 @@ public class TarefaViewModel extends BaseViewModel {
         this.tarefaRepositorio = tarefaRepositorio;
         cliente = new MutableLiveData<>();
         opcoesCliente = new MutableLiveData<>();
+        opcoesEmail = new MutableLiveData<>();
         atividadesExecutadas = new MutableLiveData<>();
     }
 
@@ -169,4 +174,70 @@ public class TarefaViewModel extends BaseViewModel {
     }
 
 
+    /**
+     * Metodo que permite obter as opcoes do email
+     */
+    public void obterOpcoesEmail(int idTarefa) {
+
+        List<Tipo> items = new ArrayList<>();
+
+        items.add(TiposConstantes.EMAIL_CLIENTE_NAO_TEM_EMAIL);
+        items.add(TiposConstantes.EMAIL_AUTORIZADO);
+        items.add(TiposConstantes.EMAIL_NAO_AUTORIZADO);
+
+        opcoesEmail.setValue(items);
+
+        obterEmail(idTarefa);
+    }
+
+
+    /**
+     * Metodo que permite obter as opcoes do email
+     */
+    public void obterEmail(int idTarefa) {
+
+        showProgressBar(true);
+
+        //TODO: estes dados têm que vir da tabela email
+
+        tarefaRepositorio.obterCliente(idTarefa).toObservable()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new Observer<Cliente>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onNext(Cliente registo) {
+
+
+                                messagemLiveData.setValue(Recurso.successo(registo));
+
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onComplete() {
+                                showProgressBar(false);
+                            }
+                        }
+                );
+    }
+
+
+
+
+
+
+    public static final int TIPOS = 1;
+    public static final int REGISTO = 2;
 }

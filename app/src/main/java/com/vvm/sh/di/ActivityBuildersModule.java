@@ -16,6 +16,7 @@ import com.vvm.sh.di.ocorrencias.OcorrenciasViewModelsModule;
 import com.vvm.sh.di.tarefa.TarefaModule;
 import com.vvm.sh.di.tarefa.TarefaScope;
 import com.vvm.sh.di.tarefa.TarefaViewModelsModule;
+import com.vvm.sh.ui.agenda.DialogoEmail;
 import com.vvm.sh.ui.tarefa.TarefaActivity;
 import com.vvm.sh.ui.agenda.TrabalhoActivity;
 import com.vvm.sh.ui.anomalias.AnomaliasActivity;
@@ -89,6 +90,21 @@ public abstract class ActivityBuildersModule {
             modules = { TarefaViewModelsModule.class, TarefaModule.class }
     )
     abstract InformacaoActivity contributeInformacaoActivity();
+
+
+
+    @TarefaScope
+    @ContributesAndroidInjector(
+            modules = { TarefaViewModelsModule.class, TarefaModule.class }
+    )
+    abstract DialogoEmail contributeDialogoEmail();
+
+
+
+
+
+
+
 
 
 

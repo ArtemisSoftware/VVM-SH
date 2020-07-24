@@ -3,7 +3,7 @@ package com.vvm.sh.repositorios;
 import androidx.annotation.NonNull;
 
 import com.vvm.sh.baseDados.TipoDao;
-import com.vvm.sh.baseDados.TiposConstantes;
+import com.vvm.sh.util.constantes.TiposConstantes;
 import com.vvm.sh.ui.opcoes.modelos.Tipo;
 
 import java.util.List;

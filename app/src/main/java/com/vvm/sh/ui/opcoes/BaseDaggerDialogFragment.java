@@ -38,7 +38,7 @@ public abstract class BaseDaggerDialogFragment extends DaggerDialogFragment {
 
         activityBaseBinding.setLifecycleOwner(this);
 
-
+        subscreverObservadores();
 
         return alertDialogBuilder.create();
     }
@@ -90,4 +90,8 @@ public abstract class BaseDaggerDialogFragment extends DaggerDialogFragment {
     protected abstract int obterTitulo();
 
 
+    /**
+     * Metodo que permite subscrever observadores
+     */
+    protected abstract void subscreverObservadores();
 }

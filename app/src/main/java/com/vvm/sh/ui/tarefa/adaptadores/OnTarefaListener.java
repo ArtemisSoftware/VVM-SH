@@ -6,4 +6,5 @@ public interface OnTarefaListener {
 
     void OnOpcaoItemListener(OpcaoCliente opcao);
 
+    void OnGravarEmailListener();
 }

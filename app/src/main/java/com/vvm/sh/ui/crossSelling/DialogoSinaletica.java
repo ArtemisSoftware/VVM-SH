@@ -90,6 +90,10 @@ public class DialogoSinaletica extends BaseDaggerDialogFragment {
         return R.string.sinaletica;
     }
 
+    @Override
+    protected void subscreverObservadores() {
+
+    }
 
 
     //

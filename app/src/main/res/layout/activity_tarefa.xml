@@ -127,10 +127,11 @@
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rcl_opcoes_cliente"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:padding="20dp"
+
+                style="@style/lista"
                 opcoesCliente="@{viewmodel.opcoesCliente}"
-                />
+                onItemClick="@{listener}"/>
 
             <!-- tools:listitem="@layout/item_opcao_cliente" -->
 

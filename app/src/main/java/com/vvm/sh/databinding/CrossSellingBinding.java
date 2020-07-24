@@ -2,6 +2,7 @@ package com.vvm.sh.databinding;
 
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
 
 import androidx.databinding.BindingAdapter;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -35,8 +36,16 @@ public class CrossSellingBinding {
             }
         };
 
+
+
+
         view.setSpinnerTextFormatter(textFormatter);
-        view.setSelectedTextFormatter(textFormatter);
+        view.setSelectedTextFormatter(new SpinnerTextFormatter() {
+            @Override
+            public Spannable format(Object item) {
+                return new SpannableString(item.toString());
+            }
+        });
         view.attachDataSource(registos);
     }
 

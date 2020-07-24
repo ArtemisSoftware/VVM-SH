@@ -8,17 +8,29 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.Spinner;
 
 import androidx.appcompat.app.AppCompatDialogFragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.vvm.sh.R;
 import com.vvm.sh.databinding.DialogoEmailBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDialogFragment;
+import com.vvm.sh.ui.cliente.Cliente;
 import com.vvm.sh.ui.opcoes.BaseDaggerDialogFragment;
 import com.vvm.sh.ui.tarefa.TarefaViewModel;
 import com.vvm.sh.ui.tarefa.adaptadores.OnTarefaListener;
+import com.vvm.sh.util.Recurso;
+import com.vvm.sh.util.Recurso.Status.*;
+import com.vvm.sh.util.constantes.Sintaxe;
+import com.vvm.sh.util.metodos.Preferencias;
+
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -39,8 +51,55 @@ public class DialogoEmail extends BaseDaggerDialogFragment {
 
     private OnTarefaListener listener;
 
+
+    private static final String ARGUMENTO_EMAIL = "email";
+
+
+
+    public DialogoEmail() {
+        // Empty constructor required for DialogFragment
+    }
+
+
+    public static DialogoEmail newInstance() {
+        DialogoEmail frag = new DialogoEmail();
+
+//        Bundle args = new Bundle();
+//        args.putString(ARGUMENTO_EMAIL, email);
+//        frag.setArguments(args);
+        return frag;
+    }
+
+
+
     @Override
     protected void initDialogo(AlertDialog.Builder builder) {
+
+        listener = (OnTarefaListener) getContext();
+
+        viewModel = ViewModelProviders.of(this, providerFactory).get(TarefaViewModel.class);
+
+        binding = (DialogoEmailBinding) activityBaseBinding;
+        binding.setViewmodel(viewModel);
+
+
+
+        viewModel.obterOpcoesEmail(Preferencias.obterIdTarefa(getContext()));
+
+        builder.setPositiveButton(Sintaxe.Opcoes.GRAVAR,  new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                listener.OnGravarEmailListener();
+            }
+        });
+
+        builder.setNegativeButton(Sintaxe.Opcoes.CANCELAR, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                terminarDialogo();
+            }
+        });
 
     }
 
@@ -52,6 +111,37 @@ public class DialogoEmail extends BaseDaggerDialogFragment {
     @Override
     protected int obterTitulo() {
         return R.string.email;
+    }
+
+
+    @Override
+    protected void subscreverObservadores() {
+
+
+        viewModel.observarMessagem().observe(this, new Observer<Recurso>() {
+            @Override
+            public void onChanged(Recurso recurso) {
+
+                switch (recurso.status){
+
+                    case SUCESSO:
+
+                        Cliente cliente = (Cliente)recurso.dados;
+                        binding.txtInpEmail.setText(cliente.email);
+                        //List<String> dataset = new LinkedList<>(Arrays.asList("One", "Two", "Three", "Four", "Five"));
+                        //binding.spnrTipos.attachDataSource(dataset);
+
+                        binding.spnrTipos.setSelectedIndex(2);
+
+                        break;
+
+                    default:
+                        break;
+                }
+
+            }
+        });
+
     }
 
 

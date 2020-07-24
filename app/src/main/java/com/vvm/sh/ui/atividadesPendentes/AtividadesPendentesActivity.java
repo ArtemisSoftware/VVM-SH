@@ -97,41 +97,8 @@ public class AtividadesPendentesActivity extends BaseDaggerActivity
 //    //Metodos locais
 //    //------------------------
 //
-//
-//    /**
-//     * Metodo que permite iniciar a atividade
-//     */
-//    private void iniciarAtividade(){
-//
-//        atividadePendenteRecyclerAdapter = new AtividadePendenteRecyclerAdapter(this);
-//        rcl_registos.setAdapter(atividadePendenteRecyclerAdapter);
-//        rcl_registos.setLayoutManager(new LinearLayoutManager(this));
-//    }
-//
-//
-//    private void obterRegistos(){
-//
-//        //--TESTE (apagar quando houver dados)
-//
-//        List<Item> t1 = new ArrayList<>();
-//        t1.add(new AtividadePendente(1, "Atividade pendente numero 1", "29-10-2020", "1 e 2 anuidade", 1, "Iluminação"));
-//        t1.add(new AtividadePendente(2, "Atividade pendente numero 2", "30-10-2020", "1 e 2 anuidade", -1, null));
-//
-//        atividadePendenteRecyclerAdapter.fixarRegistos(t1);
-//
-//        //TODO: chamar metodo do viewmodel
-//    }
-//
-//    /**
-//     * Metodo que permite subscrever observadores
-//     */
-//    private void subscreverObservadores(){
-//
-//
-//        //TODO: subscrever observadores do viewmodel
-//
-//    }
-//
+
+
 //
 //    //---------------------
 //    //Eventos

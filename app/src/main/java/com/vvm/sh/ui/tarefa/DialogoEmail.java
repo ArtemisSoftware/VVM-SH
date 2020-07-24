@@ -1,42 +1,24 @@
-package com.vvm.sh.ui.agenda;
+package com.vvm.sh.ui.tarefa;
 
 import android.app.AlertDialog;
-import android.app.Dialog;
-import android.content.Context;
 import android.content.DialogInterface;
-import android.os.Bundle;
-import android.view.LayoutInflater;
-import android.view.View;
-import android.widget.EditText;
-import android.widget.Spinner;
 
-import androidx.appcompat.app.AppCompatDialogFragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
-import com.google.android.material.textfield.TextInputEditText;
 import com.vvm.sh.R;
 import com.vvm.sh.databinding.DialogoEmailBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
-import com.vvm.sh.ui.BaseDialogFragment;
 import com.vvm.sh.ui.cliente.Cliente;
 import com.vvm.sh.ui.opcoes.BaseDaggerDialogFragment;
 import com.vvm.sh.ui.opcoes.modelos.Tipo;
-import com.vvm.sh.ui.tarefa.TarefaViewModel;
 import com.vvm.sh.ui.tarefa.adaptadores.OnTarefaListener;
 import com.vvm.sh.ui.tarefa.modelos.Email;
 import com.vvm.sh.util.Recurso;
-import com.vvm.sh.util.Recurso.Status.*;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.metodos.Preferencias;
 
-import java.util.Arrays;
-import java.util.LinkedList;
-import java.util.List;
-
 import javax.inject.Inject;
-
-import butterknife.BindView;
 
 public class DialogoEmail extends BaseDaggerDialogFragment {
 

@@ -116,6 +116,13 @@
 
     </style>
 
+    <style name="cartaoTarefa" parent="parent">
+
+        <item name="android:foreground">?android:attr/selectableItemBackground</item>
+        <item name="android:clickable">true</item>
+
+    </style>
+
 
     <style name="lista" parent="matchParent">
         <item name="android:verticalSpacing">24dp</item>

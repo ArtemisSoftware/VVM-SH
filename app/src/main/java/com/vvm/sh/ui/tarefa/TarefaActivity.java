@@ -4,12 +4,13 @@ import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import com.vvm.sh.R;
 import com.vvm.sh.databinding.ActivityTarefaBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
-import com.vvm.sh.ui.agenda.DialogoEmail;
+import com.vvm.sh.ui.atividadesPendentes.AtividadesPendentesActivity;
 import com.vvm.sh.ui.tarefa.adaptadores.OnTarefaListener;
 import com.vvm.sh.ui.tarefa.modelos.Email;
 import com.vvm.sh.ui.tarefa.modelos.OpcaoCliente;
@@ -17,6 +18,8 @@ import com.vvm.sh.util.metodos.Preferencias;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import javax.inject.Inject;
+
+import butterknife.OnClick;
 
 public class TarefaActivity extends BaseDaggerActivity
         implements OnTarefaListener/*, DialogoEmail.DialogEmailListener*/ {
@@ -40,6 +43,7 @@ public class TarefaActivity extends BaseDaggerActivity
         activityTarefaBinding.setLifecycleOwner(this);
         activityTarefaBinding.setListener(this);
         activityTarefaBinding.setViewmodel(viewModel);
+
 
         subscreverObservadores();
 
@@ -130,6 +134,16 @@ public class TarefaActivity extends BaseDaggerActivity
     }
 
 
+
+
+    @OnClick(R.id.crd_atividades_pendentes)
+    public void crd_atividades_pendentes_OnClickListener(View view) {
+        Intent intent = new Intent(this, AtividadesPendentesActivity.class);
+        startActivity(intent);
+    }
+
+
+
 //
 //    @BindView(R.id.rcl_opcoes_cliente)
 //    RecyclerView rcl_opcoes_cliente;
@@ -175,12 +189,7 @@ public class TarefaActivity extends BaseDaggerActivity
 
 //
 //
-//    @OnClick(R.id.crd_atividades_pendentes)
-//    public void crd_atividades_pendentes_OnClickListener(View view) {
-//        Intent intent = new Intent(this, AtividadesPendentesActivity.class);
-//        //intent.putExtra(AppConstants.PICTURE, pictureRecyclerAdapter.getSelectedPicture(position).getId());
-//        startActivity(intent);
-//    }
+
 //
 //    @OnClick(R.id.crd_anomalias)
 //    public void crd_anomalias_OnClickListener(View view) {

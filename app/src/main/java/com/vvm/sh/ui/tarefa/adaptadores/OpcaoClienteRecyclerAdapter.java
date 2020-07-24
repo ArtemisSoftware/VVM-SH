@@ -43,7 +43,7 @@ public class OpcaoClienteRecyclerAdapter extends RecyclerView.Adapter<RecyclerVi
 
         OpcaoCliente registo = items.get(position);
         ((OpcaoClienteViewHolder)holder).binding.setOpcao(registo);
-        ((OpcaoClienteViewHolder)holder).binding.setListener((OnItemListener) contexto);
+        //((OpcaoClienteViewHolder)holder).binding.setListener((OnItemListener) contexto);
 
         ((OpcaoClienteViewHolder)holder).binding.executePendingBindings();
 
@@ -88,15 +88,6 @@ public class OpcaoClienteRecyclerAdapter extends RecyclerView.Adapter<RecyclerVi
 //
 //    }
 //
-//    @Override
-//    protected int obterLayout(int viewType) {
-//        return R.layout.item_opcao_cliente;
-//    }
-//
-//    @Override
-//    protected ItemViewHolder obterViewHolder(View view, int viewType) {
-//        return new OpcaoClienteViewHolder(view, this.onItemListener);
-//    }
 //
 //
 //    /**
@@ -108,7 +99,7 @@ public class OpcaoClienteRecyclerAdapter extends RecyclerView.Adapter<RecyclerVi
 //        this.registos.add(new OpcaoCliente(OPCAO_CROSS_SELLING, "Cross Selling"));
 //        this.registos.add(new OpcaoCliente(OPCAO_SINISTRALIDADE, "Sinistralidade"));
 //        this.registos.add(new OpcaoCliente(OPCAO_EXTINTORES, "Extintores"));
-//        this.registos.add(new OpcaoCliente(OPCAO_EMAIL, "Email"));
+//
 //        this.registos.add(new OpcaoCliente(OPCAO_ANOMALIA, "Registo de anomalia"));
 //        notifyDataSetChanged();
 //    }

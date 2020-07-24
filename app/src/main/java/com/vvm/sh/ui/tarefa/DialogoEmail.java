@@ -10,7 +10,7 @@ import com.vvm.sh.R;
 import com.vvm.sh.databinding.DialogoEmailBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.cliente.Cliente;
-import com.vvm.sh.ui.opcoes.BaseDaggerDialogFragment;
+import com.vvm.sh.ui.BaseDaggerDialogFragment;
 import com.vvm.sh.ui.opcoes.modelos.Tipo;
 import com.vvm.sh.ui.tarefa.adaptadores.OnTarefaListener;
 import com.vvm.sh.ui.tarefa.modelos.Email;

@@ -1,4 +1,4 @@
-package com.vvm.sh.ui.opcoes;
+package com.vvm.sh.ui;
 
 import android.app.AlertDialog;
 import android.app.Dialog;

@@ -1,7 +1,6 @@
 package com.vvm.sh.ui.atividadesPendentes;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
 import android.view.View;
@@ -12,9 +11,8 @@ import androidx.lifecycle.ViewModelProviders;
 import com.vvm.sh.R;
 import com.vvm.sh.databinding.DialogoAtividadePendenteBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
-import com.vvm.sh.ui.BaseDialogFragment;
 import com.vvm.sh.ui.atividadesPendentes.adaptadores.OnAtividadePendenteListener;
-import com.vvm.sh.ui.opcoes.BaseDaggerDialogFragment;
+import com.vvm.sh.ui.BaseDaggerDialogFragment;
 
 import javax.inject.Inject;
 

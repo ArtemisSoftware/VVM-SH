@@ -65,6 +65,11 @@ public class AtividadesPendentesActivity extends BaseDaggerActivity
     }
 
 
+     //---------------------
+    //Eventos
+    //---------------------
+
+
     @Override
     public void OnAtividadeClick(AtividadePendente atividade) {
 
@@ -75,14 +80,15 @@ public class AtividadesPendentesActivity extends BaseDaggerActivity
     @Override
     public void OnConcluirAtividadeExecutada() {
 
-        DialogoAtividadePendenteNaoExecutada dialogo = new DialogoAtividadePendenteNaoExecutada();
-        dialogo.show(getSupportFragmentManager(), "example dialog");
+
 
     }
 
     @Override
     public void OnConcluirAtividadeNaoExecutada() {
 
+        DialogoAtividadePendenteNaoExecutada dialogo = new DialogoAtividadePendenteNaoExecutada();
+        dialogo.show(getSupportFragmentManager(), "example dialog");
     }
 
     @Override
@@ -118,22 +124,8 @@ public class AtividadesPendentesActivity extends BaseDaggerActivity
 
 
 //
-//    //---------------------
-//    //Eventos
-//    //---------------------
-//
-//    @Override
-//    public void onItemClick(int position) {
-//
-//        DialogoAtividadePendente dialogo = new DialogoAtividadePendente();
-//        dialogo.show(getSupportFragmentManager(), "example dialog");
-//
-//        //Intent intent = new Intent(this, FormacaoActivity.class);
-//        //Intent intent = new Intent(this, TarefaActivity.class);
-//        //intent.putExtra(AppConstants.PICTURE, pictureRecyclerAdapter.getSelectedPicture(position).getId());
-//        //startActivity(intent);
-//    }
-//
+
+
 //
 //    @Override
 //    public void concluirAtividadeExecutada() {
@@ -141,14 +133,7 @@ public class AtividadesPendentesActivity extends BaseDaggerActivity
 //        DialogoAtividadePendenteExecutada dialogo = new DialogoAtividadePendenteExecutada();
 //        dialogo.show(getSupportFragmentManager(), "example dialog");
 //    }
-//
-//    @Override
-//    public void concluirAtividadeNaoExecutada() {
-//
-//        DialogoAtividadePendenteNaoExecutada dialogo = new DialogoAtividadePendenteNaoExecutada();
-//        dialogo.show(getSupportFragmentManager(), "example dialog");
-//    }
-//
+
 //    @Override
 //    public void iniciarRelatorio() {
 //

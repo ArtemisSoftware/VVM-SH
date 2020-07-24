@@ -9,7 +9,7 @@ import com.vvm.sh.R;
 import com.vvm.sh.databinding.DialogoSinaleticaBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.crossSelling.adaptadores.OnCrossSellingListener;
-import com.vvm.sh.ui.opcoes.BaseDaggerDialogFragment;
+import com.vvm.sh.ui.BaseDaggerDialogFragment;
 
 import javax.inject.Inject;
 

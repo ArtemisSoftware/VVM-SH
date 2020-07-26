@@ -6,9 +6,9 @@ public interface OnAtividadePendenteListener {
 
     void OnAtividadeClick(AtividadePendente atividade);
 
-    void OnConcluirAtividadeExecutada();
+    void OnConcluirAtividadeExecutada(int idAtividade);
 
-    void OnConcluirAtividadeNaoExecutada();
+    void OnConcluirAtividadeNaoExecutada(int idAtividade);
 
     void OnIniciarRelatorio(AtividadePendente atividade);
 

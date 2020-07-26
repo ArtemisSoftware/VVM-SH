@@ -30,12 +30,12 @@
 
         <org.angmarch.views.NiceSpinner
             android:id="@+id/spnr_anomalias"
-            app:tipos="@{viewmodel.anomalias}"
+
             android:layout_width="400dp"
             app:popupTextAlignment="start"
             android:layout_height="wrap_content"
             android:prompt="@string/anomalia"/>
-
+<!-- app:tipos="@{viewmodel.anomalias}" -->
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/parent.TextLayout"

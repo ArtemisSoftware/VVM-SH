@@ -15,6 +15,7 @@ import com.vvm.sh.R;
 import com.vvm.sh.databinding.ActivityBaseDaggerBinding;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
+import butterknife.ButterKnife;
 import dagger.android.support.DaggerDialogFragment;
 
 public abstract class BaseDaggerDialogFragment extends DaggerDialogFragment {
@@ -33,6 +34,8 @@ public abstract class BaseDaggerDialogFragment extends DaggerDialogFragment {
         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(getActivity());
         alertDialogBuilder.setTitle(getActivity().getString(obterTitulo()));
         alertDialogBuilder.setView(activityBaseBinding.getRoot());
+
+        ButterKnife.bind(this, activityBaseBinding.getRoot());
 
         initDialogo(alertDialogBuilder);
 

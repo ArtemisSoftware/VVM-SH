@@ -78,16 +78,16 @@ public class AtividadesPendentesActivity extends BaseDaggerActivity
     }
 
     @Override
-    public void OnConcluirAtividadeExecutada() {
+    public void OnConcluirAtividadeExecutada(int idAtividade) {
 
 
 
     }
 
     @Override
-    public void OnConcluirAtividadeNaoExecutada() {
+    public void OnConcluirAtividadeNaoExecutada(int idAtividade) {
 
-        DialogoAtividadePendenteNaoExecutada dialogo = new DialogoAtividadePendenteNaoExecutada();
+        DialogoAtividadePendenteNaoExecutada dialogo = DialogoAtividadePendenteNaoExecutada.newInstance(idAtividade);
         dialogo.show(getSupportFragmentManager(), "example dialog");
     }
 

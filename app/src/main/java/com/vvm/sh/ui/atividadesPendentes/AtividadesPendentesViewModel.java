@@ -73,5 +73,6 @@ public class AtividadesPendentesViewModel extends BaseViewModel {
     }
 
 
-
+    public void obterAtividadesNaoExecutada(int idAtividade) {
+    }
 }

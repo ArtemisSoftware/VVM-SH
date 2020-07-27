@@ -5,6 +5,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.vvm.sh.ui.ocorrencias.adaptadores.OcorrenciaRecyclerAdapter;
+import com.vvm.sh.ui.ocorrencias.adaptadores.OcorrenciaRegistoRecyclerAdapter;
 import com.vvm.sh.ui.ocorrencias.modelos.Ocorrencia;
 import com.vvm.sh.ui.opcoes.modelos.Tipo;
 
@@ -51,15 +52,15 @@ public class OcorrenciasBinding {
             view.setLayoutManager(new LinearLayoutManager(view.getContext()));
         }
 
-        OcorrenciaRecyclerAdapter adapter = (OcorrenciaRecyclerAdapter) view.getAdapter();
+        OcorrenciaRegistoRecyclerAdapter adapter = (OcorrenciaRegistoRecyclerAdapter) view.getAdapter();
 
         if(adapter == null){
-            //adapter = new OcorrenciaRecyclerAdapter(view.getContext(), items);
+            adapter = new OcorrenciaRegistoRecyclerAdapter(view.getContext(), items);
 
             view.setAdapter(adapter);
         }
         else{
-            //adapter.atualizar(items);
+            adapter.atualizar(items);
         }
     }
 

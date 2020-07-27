@@ -21,6 +21,7 @@ import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseActivity;
 import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.ocorrencias.adaptadores.OcorrenciaRecyclerAdapter;
+import com.vvm.sh.ui.ocorrencias.adaptadores.OnOcorrenciaRegistoListener;
 import com.vvm.sh.ui.opcoes.modelos.Tipo;
 import com.vvm.sh.util.adaptadores.Item;
 import com.vvm.sh.util.interfaces.OnCheckBoxItemListener;
@@ -40,7 +41,7 @@ import butterknife.BindView;
 import butterknife.OnItemSelected;
 
 public class OcorrenciasRegistoActivity extends BaseDaggerActivity
-        implements /*OnItemListener, OnCheckBoxItemListener,*/ /*OnSpinnerItemSelectedListener*/ MaterialSpinner.OnItemSelectedListener {
+        implements OnOcorrenciaRegistoListener, MaterialSpinner.OnItemSelectedListener {
 
 
 
@@ -66,6 +67,7 @@ public class OcorrenciasRegistoActivity extends BaseDaggerActivity
         activityOcorrenciasRegistoBinding = (ActivityOcorrenciasRegistoBinding) activityBinding;
         activityOcorrenciasRegistoBinding.setLifecycleOwner(this);
         activityOcorrenciasRegistoBinding.setViewmodel(viewModel);
+        activityOcorrenciasRegistoBinding.setListener(this);
         activityOcorrenciasRegistoBinding.spnrOcorrencias.setOnItemSelectedListener(this);
 
         subscreverObservadores();
@@ -97,8 +99,17 @@ public class OcorrenciasRegistoActivity extends BaseDaggerActivity
     @Override
     public void onItemSelected(MaterialSpinner view, int position, long id, Object item) {
 
+        activityOcorrenciasRegistoBinding.txtDescricao.setVisibility(View.GONE);
         Tipo tipo = (Tipo) item;
         viewModel.obterRegistosOcorrencias(tipo.id);
+    }
+
+    @Override
+    public void OnOcorrenciaClick(Tipo ocorrencia) {
+
+        activityOcorrenciasRegistoBinding.txtDescricao.setVisibility(View.VISIBLE);
+        activityOcorrenciasRegistoBinding.txtDescricao.setText(ocorrencia.codigo + " " + ocorrencia.descricao);
+        viewModel.obterRegistosOcorrencias(ocorrencia.id);
     }
 
 

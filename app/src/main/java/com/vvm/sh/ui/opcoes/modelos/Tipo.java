@@ -11,7 +11,7 @@ import static androidx.room.ForeignKey.CASCADE;
 
 
 @Entity(tableName = "tipos",
-        indices = {@Index("tipo")},
+        indices = {@Index(value="tipo", unique = false) },
         primaryKeys = {"id","tipo"},
         foreignKeys = @ForeignKey(entity = Atualizacao.class,
                                     parentColumns = "descricao",
@@ -26,16 +26,19 @@ public class Tipo {
     @NonNull
     public String tipo;
 
-
+    @NonNull
     @ColumnInfo(name = "descricao")
     public String descricao;
 
+    @NonNull
     @ColumnInfo(name = "codigo")
     public String codigo;
 
+    @NonNull
     @ColumnInfo(name = "idPai")
     public String idPai;
 
+    @NonNull
     @ColumnInfo(name = "ativo")
     public int ativo;
 

@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.vvm.sh.ui.ocorrencias.adaptadores.OcorrenciaRecyclerAdapter;
 import com.vvm.sh.ui.ocorrencias.adaptadores.OcorrenciaRegistoRecyclerAdapter;
+import com.vvm.sh.ui.ocorrencias.adaptadores.OnOcorrenciaRegistoListener;
 import com.vvm.sh.ui.ocorrencias.modelos.Ocorrencia;
 import com.vvm.sh.ui.opcoes.modelos.Tipo;
 
@@ -39,8 +40,8 @@ public class OcorrenciasBinding {
     }
 
 
-    @BindingAdapter({"registosOcorrencias"})
-    public static void setRegistosOcorrencias(RecyclerView view, List<Tipo> items) {
+    @BindingAdapter({"registosOcorrencias", "onItemClick"})
+    public static void setRegistosOcorrencias(RecyclerView view, List<Tipo> items, OnOcorrenciaRegistoListener listener) {
 
         if(items == null){
             return;
@@ -55,7 +56,7 @@ public class OcorrenciasBinding {
         OcorrenciaRegistoRecyclerAdapter adapter = (OcorrenciaRegistoRecyclerAdapter) view.getAdapter();
 
         if(adapter == null){
-            adapter = new OcorrenciaRegistoRecyclerAdapter(view.getContext(), items);
+            adapter = new OcorrenciaRegistoRecyclerAdapter(view.getContext(), items, listener);
 
             view.setAdapter(adapter);
         }

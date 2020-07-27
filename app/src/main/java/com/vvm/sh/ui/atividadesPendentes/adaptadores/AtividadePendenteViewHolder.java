@@ -20,10 +20,8 @@ public class AtividadePendenteViewHolder extends RecyclerView.ViewHolder impleme
 
         binding = DataBindingUtil.bind(itemView);
 
-
         this.listener = listener;
         itemView.setOnClickListener(this);
-
     }
 
 

@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="java.util.List"/>
+        <import type="android.view.View"/>
+
+        <variable
+            name="viewmodel"
+            type="com.vvm.sh.ui.ocorrencias.OcorrenciasViewModel"/>
+
+    </data>
+
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        tools:context=".ui.ocorrencias.RegistarOcorrenciaActivity">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/AppTheme.AppBarOverlay">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="500dp">
+
+
+                    <TextView
+                        android:id="@+id/textView18"
+                        style="@style/tituloCartao"
+                        android:text="Registar ocorrencência"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <View
+                        android:id="@+id/textview2"
+                        android:layout_width="280dp"
+                        android:layout_height="0.2dp"
+                        android:layout_marginTop="8dp"
+                        android:background="@color/cor_separador"
+                        app:layout_constraintStart_toStartOf="@+id/textView18"
+                        app:layout_constraintTop_toBottomOf="@+id/textView18" />
+
+
+                    <TextView
+                        android:id="@+id/textView19"
+                        style="@style/subTituloCartao"
+                        android:layout_marginTop="32dp"
+                        android:text="Registar ocorrencência"
+                        app:layout_constraintStart_toStartOf="@+id/textView18"
+                        app:layout_constraintTop_toBottomOf="@+id/textview2" />
+
+                    <CheckBox
+                        android:id="@+id/checkBox2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="32dp"
+                        android:text="@string/fiscalizado__pergunta"
+                        app:layout_constraintStart_toStartOf="@+id/textView18"
+                        app:layout_constraintTop_toBottomOf="@+id/textView19" />
+
+
+                    <com.jaredrummler.materialspinner.MaterialSpinner
+                        android:id="@+id/spnr_dias"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="24dp"
+                        app:layout_constraintStart_toStartOf="@+id/textView18"
+                        app:layout_constraintTop_toBottomOf="@+id/checkBox2" />
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/txt_inp_lyt_dias"
+                        style="@style/parent.TextLayout"
+                        android:layout_width="450dp"
+                        android:layout_marginTop="24dp"
+                        android:hint="@string/dias"
+                        app:errorEnabled="true"
+                        app:layout_constraintStart_toStartOf="@+id/textView18"
+                        app:layout_constraintTop_toBottomOf="@+id/spnr_dias">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            style="@style/modifiedEditText"
+                            android:enabled="false"
+                            android:maxLines="1"
+                            android:text="@string/dias_fiscalizacao__valor" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        style="@style/parent.TextLayout"
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="24dp"
+                        android:hint="@string/observacao"
+                        app:errorEnabled="true"
+                        app:layout_constraintStart_toStartOf="@+id/textView18"
+                        app:layout_constraintTop_toBottomOf="@+id/txt_inp_lyt_dias">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/txt_inp_observacao"
+                            style="@style/modifiedEditText"
+                            android:gravity="top|left"
+                            android:lines="5"
+                            android:maxLines="5" />
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </LinearLayout>
+
+            <!--
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:layout_marginBottom="5dp"
+                    android:text="@string/lorem_ipsum_titulo"
+                    android:textSize="25sp"
+                    android:textStyle="bold" />
+
+
+                <CheckBox
+                    android:id="@+id/chk_box_fiscalizado"
+                    android:text="@string/fiscalizado__pergunta"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="3dp"/>
+
+
+                <LinearLayout
+                    android:id="@+id/lnr_lyt_dias"
+                    android:orientation="vertical"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp">
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/dias"
+                        style="@style/InputLabel" />
+
+                    <Spinner
+                        android:id="@+id/spnr_dias"
+                        android:layout_width="match_parent"
+                        android:layout_height="45dp"
+                        android:layout_alignParentStart="true"
+                        android:foreground="?attr/selectableItemBackground"
+                        android:gravity="center_vertical"
+                        android:prompt="@string/anomalia"
+                        android:spinnerMode="dropdown"
+                        android:padding="10dp"
+                        style="@style/Widget.AppCompat.Spinner.Underlined"/>
+
+                </LinearLayout>
+
+
+
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    android:id="@+id/txt_inp_lyt_dias"
+                    style="@style/parent.TextLayout"
+                    android:hint="@string/dias"
+                    android:layout_width="450dp"
+                    android:layout_marginTop="@dimen/signup_text_margin_top"
+                    app:errorEnabled="true">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        style="@style/modifiedEditText"
+                        android:text="@string/dias_fiscalizacao__valor"
+                        android:maxLines="1"
+                        android:enabled="false"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
+                <com.google.android.material.textfield.TextInputLayout
+                    style="@style/parent.TextLayout"
+                    android:hint="@string/observacao"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="@dimen/signup_text_margin_top"
+                    app:errorEnabled="true">
+
+                    <com.google.android.material.textfield.TextInputEditText
+                        android:id="@+id/txt_inp_observacao"
+                        style="@style/modifiedEditText"
+                        android:gravity="top|left"
+                        android:lines="5"
+                        android:maxLines="5"/>
+                </com.google.android.material.textfield.TextInputLayout>
+
+
+            </LinearLayout>
+
+
+            -->
+        </androidx.core.widget.NestedScrollView>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_gravar"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="@dimen/fab_margin"
+            android:src="@android:drawable/ic_dialog_email" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+
+</layout>

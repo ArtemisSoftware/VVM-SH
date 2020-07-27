@@ -11,11 +11,54 @@ public class Migracao {
     public static final Migration[] obterMigracoes(){
 
         Migration migrations [] =  new Migration []{
-                MIGRACAO_1_2, MIGRACAO_2_3, MIGRACAO_3_4, MIGRACAO_4_5
+                MIGRACAO_1_2, MIGRACAO_2_3, MIGRACAO_3_4, MIGRACAO_4_5, MIGRACAO_5_6
         };
 
         return migrations;
     }
+
+
+
+    public static final Migration MIGRACAO_5_6 = new Migration(5, 6) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            try {
+
+                database.execSQL(" ALTER TABLE tipos RENAME TO tmp");
+
+                database.execSQL("CREATE TABLE IF NOT EXISTS 'tipos' ("
+                        + "'id' INTEGER NOT NULL, "
+                        + "'tipo' TEXT NOT NULL, "
+                        + "'descricao' TEXT NOT NULL, "
+                        + "'codigo' TEXT NOT NULL, "
+                        + "'idPai' TEXT NOT NULL, "
+                        + "'ativo' INTEGER NOT NULL, "
+                        + "'detalhe' TEXT NOT NULL, "
+                        + "PRIMARY KEY (id, tipo), "
+                        + "FOREIGN KEY (tipo) REFERENCES atualizacoes (descricao)  ON DELETE CASCADE) ");
+
+                database.execSQL("CREATE INDEX index_tipos_tipo ON tipos (tipo)");
+
+                database.execSQL(" INSERT INTO tipos(id, tipo, descricao, codigo, idPai, ativo, detalhe) "
+                        + "SELECT id, tipo, descricao, codigo, idPai, ativo, cast(detalhe as text) as detalhe FROM tmp");
+
+                database.execSQL("DROP TABLE tmp");
+
+                //Timber.d("MIGRACAO_2_3: success");
+            }
+            catch(SQLException e){
+                Log.e("Migracao", "erro MIGRACAO_2_3: " + e.getMessage());
+                //Timber.e("erro MIGRACAO_2_3: " + e.getMessage());
+            }
+        }
+    };
+
+
+
+
+
+
+
 
 
     public static final Migration MIGRACAO_4_5 = new Migration(4, 5) {

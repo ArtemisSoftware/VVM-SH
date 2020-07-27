@@ -8,12 +8,28 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.vvm.sh.databinding.ItemOcorrenciaRegistoBinding;
 
-public class OcorrenciaRegistoViewHolder extends RecyclerView.ViewHolder{
+public class OcorrenciaRegistoViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
+
 
     public ItemOcorrenciaRegistoBinding binding;
 
-    public OcorrenciaRegistoViewHolder(@NonNull View itemView) {
+    private OnOcorrenciaRegistoListener listener;
+
+
+    public OcorrenciaRegistoViewHolder(@NonNull View itemView, OnOcorrenciaRegistoListener listener) {
         super(itemView);
         binding = DataBindingUtil.bind(itemView);
+
+        this.listener = listener;
+        itemView.setOnClickListener(this);
     }
+
+
+
+    @Override
+    public void onClick(View v) {
+        listener.OnOcorrenciaClick(binding.getTipo());
+    }
+
+
 }

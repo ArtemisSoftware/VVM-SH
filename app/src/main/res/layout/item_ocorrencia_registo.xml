@@ -13,11 +13,11 @@
         <variable
             name="tipo"
             type="com.vvm.sh.ui.opcoes.modelos.Tipo" />
-<!--
+
         <variable
             name="listener"
-            type="com.vvm.sh.ui.crossSelling.adaptadores.OnCrossSellingListener"/>
--->
+            type="com.vvm.sh.ui.ocorrencias.adaptadores.OnOcorrenciaRegistoListener"/>
+
     </data>
 
 
@@ -36,7 +36,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:text="@{StringUtil.converterString(tipo.id), default=id}"
+                android:text="@{tipo.codigo, default=codigo}"
                 android:visibility="visible"
                 app:layout_constraintBottom_toBottomOf="@+id/textView18"
                 app:layout_constraintStart_toStartOf="parent"

@@ -15,7 +15,7 @@
 
         <variable
             name="listener"
-            type="com.vvm.sh.ui.crossSelling.adaptadores.OnCrossSellingListener"/>
+            type="com.vvm.sh.ui.ocorrencias.adaptadores.OnOcorrenciaRegistoListener"/>
 
     </data>
 
@@ -109,10 +109,11 @@
             android:id="@+id/rcl_registos"
             style="@style/lista"
             registosOcorrencias="@{viewmodel.ocorrenciasRegistos}"
+            onItemClick="@{listener}"
             tools:listitem="@layout/item_ocorrencia_registo"/>
 
         <!--
-            checkBox="@{listener}" -->
+             -->
 
     </LinearLayout>
 

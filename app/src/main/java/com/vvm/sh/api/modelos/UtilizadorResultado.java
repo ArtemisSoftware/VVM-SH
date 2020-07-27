@@ -23,7 +23,7 @@ public class UtilizadorResultado {
     @SerializedName("Activo")
     public boolean ativo;
 
-    @SerializedName("Email")
+    @SerializedName("EmailResultado")
     public String email;
 
 }

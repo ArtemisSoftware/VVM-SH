@@ -8,7 +8,7 @@ import com.vvm.sh.ui.agenda.modelos.TarefaDia;
 import com.vvm.sh.ui.atividadesExecutadas.modelos.AtividadeExecutada;
 import com.vvm.sh.ui.cliente.Cliente;
 import com.vvm.sh.ui.opcoes.modelos.Tipo;
-import com.vvm.sh.ui.tarefa.modelos.Email;
+import com.vvm.sh.ui.tarefa.modelos.EmailResultado;
 import com.vvm.sh.ui.tarefa.modelos.OpcaoCliente;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.constantes.TiposConstantes;
@@ -60,7 +60,7 @@ public class TarefaViewModel extends BaseViewModel {
     //--------------------
 
 
-    public void gravarEmail(Email email) {
+    public void gravarEmail(EmailResultado email) {
 
 
         if(tarefaValidada == true){
@@ -184,7 +184,7 @@ public class TarefaViewModel extends BaseViewModel {
 
         List<OpcaoCliente> items = new ArrayList<>();
 
-        items.add(new OpcaoCliente(OpcaoCliente.OPCAO_EMAIL, "Email"));
+        items.add(new OpcaoCliente(OpcaoCliente.OPCAO_EMAIL, "EmailResultado"));
 
         opcoesCliente.setValue(items);
 

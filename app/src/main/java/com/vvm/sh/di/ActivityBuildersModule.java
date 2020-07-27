@@ -17,6 +17,7 @@ import com.vvm.sh.di.tarefa.TarefaModule;
 import com.vvm.sh.di.tarefa.TarefaScope;
 import com.vvm.sh.di.tarefa.TarefaViewModelsModule;
 import com.vvm.sh.ui.atividadesPendentes.DialogoAtividadePendente;
+import com.vvm.sh.ui.atividadesPendentes.DialogoAtividadePendenteExecutada;
 import com.vvm.sh.ui.atividadesPendentes.DialogoAtividadePendenteNaoExecutada;
 import com.vvm.sh.ui.tarefa.DialogoEmail;
 import com.vvm.sh.ui.tarefa.TarefaActivity;
@@ -144,6 +145,12 @@ public abstract class ActivityBuildersModule {
     )
     abstract DialogoAtividadePendenteNaoExecutada contributeDialogoAtividadePendenteNaoExecutada();
 
+
+    @AtividadesPendentesScope
+    @ContributesAndroidInjector(
+            modules = { AtividadesPendentesViewModelsModule.class, AtividadesPendentesModule.class }
+    )
+    abstract DialogoAtividadePendenteExecutada contributeDialogoAtividadePendenteExecutada();
 
 
 

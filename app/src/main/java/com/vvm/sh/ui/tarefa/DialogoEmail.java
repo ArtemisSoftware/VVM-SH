@@ -13,7 +13,7 @@ import com.vvm.sh.ui.cliente.Cliente;
 import com.vvm.sh.ui.BaseDaggerDialogFragment;
 import com.vvm.sh.ui.opcoes.modelos.Tipo;
 import com.vvm.sh.ui.tarefa.adaptadores.OnTarefaListener;
-import com.vvm.sh.ui.tarefa.modelos.Email;
+import com.vvm.sh.ui.tarefa.modelos.EmailResultado;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.metodos.Preferencias;
@@ -74,7 +74,7 @@ public class DialogoEmail extends BaseDaggerDialogFragment {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
-                Email email = new Email(Preferencias.obterIdTarefa(getContext()), binding.txtInpEmail.getText().toString(), (Tipo)binding.spnrTipos.getSelectedItem());
+                EmailResultado email = new EmailResultado(Preferencias.obterIdTarefa(getContext()), binding.txtInpEmail.getText().toString(), (Tipo)binding.spnrTipos.getSelectedItem());
 
                 listener.OnGravarEmailListener(email);
             }

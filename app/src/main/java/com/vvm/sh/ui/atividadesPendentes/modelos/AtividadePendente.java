@@ -27,6 +27,9 @@ import static androidx.room.ForeignKey.CASCADE;
 public class AtividadePendente {
 
 
+    public final static int RELATORIO_FORMACAO = 1;
+
+
 
     @NonNull
     public int idTarefa;
@@ -96,6 +99,26 @@ public class AtividadePendente {
             return "";
         }
     }
+
+
+    /**
+     * Metodo que permite obter o identificador do relatorio
+     * @return o identificador do relatorio
+     */
+    public int obterIdRelatorio(){
+
+
+        if(formacao == true){
+            return RELATORIO_FORMACAO;
+        }
+        else{
+            return -1;
+        }
+    }
+
+
+
+
 
 
 
@@ -350,36 +373,7 @@ public class AtividadePendente {
 //
 //
 //
-//    /**
-//     * Metodo que devolve um identificador a indicar qual a obrigacao da atividade
-//     * @return 1 > relatorio <br> 2 > avaliação de riscos <br> - 1 > sem obrigacao
-//     */
-//    /*
-//    public int obterRelatorio(){
-//
-//        int resultado = RELATORIO;
-//
-//        switch (idRelatorio) {
-//
-//            case AppIF.SEM_REGISTO:
-//
-//                resultado = AppIF.SEM_REGISTO;
-//                break;
-//
-//            case IdentificadoresIF.ID_AVALIACAO_RISCOS:
-//
-//                resultado = AVALIACAO_RISCOS;
-//                break;
-//
-//
-//            default:
-//                break;
-//        }
-//
-//
-//        return resultado;
-//    }
-//*/
+
 //
 //
 //

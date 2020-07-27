@@ -66,6 +66,25 @@ public abstract class BaseDaggerDialogFragment extends DaggerDialogFragment {
     }
 
 
+    /**
+     * Metodo que verifica a validade do bundle
+     * @param argumento o nome do argumento a validar
+     * @return true caso o bundle seja válido ou false caso contrário
+     */
+    protected boolean verificarArgumentos(String argumento){
+
+        if(getArguments() !=null) {
+            return false;
+        }
+
+        if (getArguments().containsKey(argumento)) {
+            return false;
+        }
+
+        return true;
+    }
+
+
 
     //--------------------
     //Metodos abstratos

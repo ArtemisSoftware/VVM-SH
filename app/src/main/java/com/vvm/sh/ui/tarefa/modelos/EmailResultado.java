@@ -14,13 +14,13 @@ import java.util.Date;
 
 import static androidx.room.ForeignKey.CASCADE;
 
-@Entity(tableName = "emails",
+@Entity(tableName = "emailsResultado",
         primaryKeys = {"idTarefa"},
         foreignKeys = @ForeignKey(entity = Tarefa.class,
                 parentColumns = "idTarefa",
                 childColumns = "idTarefa",
                 onDelete = CASCADE))
-public class Email {
+public class EmailResultado {
 
 
     @NonNull
@@ -42,7 +42,7 @@ public class Email {
 
 
     @Ignore
-    public Email(int idTarefa, @NonNull String endereco, Tipo autorizacao) {
+    public EmailResultado(int idTarefa, @NonNull String endereco, Tipo autorizacao) {
         this.idTarefa = idTarefa;
         this.endereco = endereco;
         this.autorizacao = autorizacao.descricao;
@@ -50,7 +50,7 @@ public class Email {
     }
 
 
-    public Email(int idTarefa, @NonNull String endereco, @NonNull String autorizacao, int idAutorizacao) {
+    public EmailResultado(int idTarefa, @NonNull String endereco, @NonNull String autorizacao, int idAutorizacao) {
         this.idTarefa = idTarefa;
         this.endereco = endereco;
         this.autorizacao = autorizacao;

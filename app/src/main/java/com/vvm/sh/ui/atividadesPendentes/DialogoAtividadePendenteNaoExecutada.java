@@ -17,6 +17,7 @@ import com.vvm.sh.databinding.DialogoAtividadePendenteNaoExecutadaBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerDialogoPersistenteFragment;
 import com.vvm.sh.ui.atividadesPendentes.adaptadores.OnAtividadePendenteListener;
+import com.vvm.sh.ui.opcoes.modelos.Tipo;
 import com.vvm.sh.util.BaseDialogoPersistenteFragment;
 
 import org.angmarch.views.NiceSpinner;
@@ -81,10 +82,17 @@ public class DialogoAtividadePendenteNaoExecutada extends BaseDaggerDialogoPersi
         binding.setViewmodel(viewModel);
 
 
-        validador = new Validator(this);
-        validador.setValidationListener(this);
+        if(verificarArgumentos(ARGUMENTO_ID_ATIVIDADE) == true){
+            validador = new Validator(this);
+            validador.setValidationListener(this);
 
-        viewModel.obterAtividadesNaoExecutada(getArguments().getInt(ARGUMENTO_ID_ATIVIDADE));
+            viewModel.obterAtividadesNaoExecutada(getArguments().getInt(ARGUMENTO_ID_ATIVIDADE));
+        }
+        else{
+            terminarDialogo();
+        }
+
+
     }
 
 
@@ -115,7 +123,11 @@ public class DialogoAtividadePendenteNaoExecutada extends BaseDaggerDialogoPersi
     @Override
     public void onValidationSucceeded() {
 
-        //listener.gravarAtividadeNaoExecutada(txt_inp_minutos.getText().toString(), txt_inp_observacao.getText().toString());
+        int idAtividade = getArguments().getInt(ARGUMENTO_ID_ATIVIDADE);
+        int idAnomalia = ((Tipo)spnr_anomalias.getSelectedItem()).id;
+        String observacao = binding.txtInpObservacao.getText().toString();
+
+        listener.OnGravarAtividadeNaoExecutada(idAtividade, idAnomalia, observacao);;
         terminarDialogo();
     }
 

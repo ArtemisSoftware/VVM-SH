@@ -11,7 +11,7 @@ public class TiposConstantes {
 
 
 
-    //Email
+    //EmailResultado
 
 
     public static final Tipo EMAIL_CLIENTE_NAO_TEM_EMAIL = new Tipo(38, "Cliente não tem email");

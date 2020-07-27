@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.vvm.sh.repositorios.AtividadePendenteRepositorio;
 import com.vvm.sh.ui.atividadesPendentes.modelos.AtividadePendente;
+import com.vvm.sh.ui.atividadesPendentes.modelos.AtividadePendenteResultado;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import java.util.List;
@@ -73,6 +74,15 @@ public class AtividadesPendentesViewModel extends BaseViewModel {
     }
 
 
+
+
+
     public void obterAtividadesNaoExecutada(int idAtividade) {
+    }
+
+    public void obterAtividadesExecutada(int anInt) {
+    }
+
+    public void gravarAtividade(AtividadePendenteResultado atividade) {
     }
 }

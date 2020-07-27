@@ -8,7 +8,12 @@ public interface OnAtividadePendenteListener {
 
     void OnConcluirAtividadeExecutada(int idAtividade);
 
+    void OnGravarAtividadeExecutada(int idAtividade, String minutos, String data);
+
     void OnConcluirAtividadeNaoExecutada(int idAtividade);
+
+    void OnGravarAtividadeNaoExecutada(int idAtividade, int idAnomalia, String observacao);
+
 
     void OnIniciarRelatorio(AtividadePendente atividade);
 

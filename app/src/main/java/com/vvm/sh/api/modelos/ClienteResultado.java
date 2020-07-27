@@ -40,7 +40,7 @@ public class ClienteResultado {
     @SerializedName("Telemovel")
     public String telemovel;
 
-    @SerializedName("Email")
+    @SerializedName("EmailResultado")
     public String email;
 
     @SerializedName("EmailAUT")

@@ -12,7 +12,7 @@ import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.atividadesPendentes.AtividadesPendentesActivity;
 import com.vvm.sh.ui.tarefa.adaptadores.OnTarefaListener;
-import com.vvm.sh.ui.tarefa.modelos.Email;
+import com.vvm.sh.ui.tarefa.modelos.EmailResultado;
 import com.vvm.sh.ui.tarefa.modelos.OpcaoCliente;
 import com.vvm.sh.util.metodos.Preferencias;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
@@ -72,7 +72,7 @@ public class TarefaActivity extends BaseDaggerActivity
 
 
     @Override
-    public void OnGravarEmailListener(Email email) {
+    public void OnGravarEmailListener(EmailResultado email) {
 
 
         viewModel.gravarEmail(email);

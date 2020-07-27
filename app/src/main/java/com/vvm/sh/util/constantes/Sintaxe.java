@@ -29,4 +29,10 @@ public class Sintaxe {
         public static final String CANCELAR = "Cancelar";
     }
 
+    public class Alertas{
+
+        public static final String PREENCHIMENTO_OBRIGATORIO = "Campo de preenchimento obrigatório";
+
+    }
+
 }

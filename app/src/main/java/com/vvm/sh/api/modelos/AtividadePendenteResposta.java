@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 /**
  * Classe que representa uma atividade pendente proveniente do web service
  */
-public class AtividadePendenteResultado {
+public class AtividadePendenteResposta {
 
 
     @SerializedName("ServID")

@@ -2,6 +2,7 @@ package com.vvm.sh.ui.atividadesPendentes;
 
 import androidx.lifecycle.ViewModelProviders;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.vvm.sh.R;
@@ -10,13 +11,14 @@ import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.atividadesPendentes.adaptadores.OnAtividadePendenteListener;
 import com.vvm.sh.ui.atividadesPendentes.modelos.AtividadePendente;
+import com.vvm.sh.ui.atividadesPendentes.modelos.AtividadePendenteResultado;
+import com.vvm.sh.util.metodos.DatasUtil;
 import com.vvm.sh.util.metodos.Preferencias;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import javax.inject.Inject;
 
 public class AtividadesPendentesActivity extends BaseDaggerActivity
-
         implements OnAtividadePendenteListener
         /*implements OnItemListener,
         DialogoAtividadePendente.DialogoListener, DialogoAtividadePendenteExecutada.DialogListener, DialogoAtividadePendenteNaoExecutada.DialogoListener*/ {
@@ -80,8 +82,15 @@ public class AtividadesPendentesActivity extends BaseDaggerActivity
     @Override
     public void OnConcluirAtividadeExecutada(int idAtividade) {
 
+        DialogoAtividadePendenteExecutada dialogo = DialogoAtividadePendenteExecutada.newInstance(idAtividade);
+        dialogo.show(getSupportFragmentManager(), "example dialog");
+    }
 
+    @Override
+    public void OnGravarAtividadeExecutada(int idAtividade, String minutos, String data) {
 
+        AtividadePendenteResultado atividade = new AtividadePendenteResultado(idAtividade, minutos, DatasUtil.converterString(data, DatasUtil.FORMATO_YYYY_MM_DD));
+        viewModel.gravarAtividade(atividade);
     }
 
     @Override
@@ -92,15 +101,38 @@ public class AtividadesPendentesActivity extends BaseDaggerActivity
     }
 
     @Override
+    public void OnGravarAtividadeNaoExecutada(int idAtividade, int idAnomalia, String observacao) {
+
+        AtividadePendenteResultado atividade = new AtividadePendenteResultado(idAtividade, idAnomalia, observacao);
+        viewModel.gravarAtividade(atividade);
+    }
+
+    @Override
     public void OnIniciarRelatorio(AtividadePendente atividade) {
+
+        Intent intent = null;
+
+        switch (atividade.obterIdRelatorio()){
+
+            case AtividadePendente.RELATORIO_FORMACAO:
+                intent = new Intent(this, FormacaoActivity.class);
+                break;
+
+            default:
+                break;
+
+        }
+
+
+        if(intent != null){
+
+            //TODO: Passar o identificador da atividade
+            startActivity(intent);
+        }
 
     }
 
-//    @BindView(R.id.rcl_registos)
-//    RecyclerView rcl_registos;
-//
-//
-//    private AtividadePendenteRecyclerAdapter atividadePendenteRecyclerAdapter;
+
 //
 //    @Override
 //    protected void onCreate(Bundle savedInstanceState) {
@@ -115,39 +147,6 @@ public class AtividadesPendentesActivity extends BaseDaggerActivity
 //        iniciarAtividade();
 //        obterRegistos();
 //    }
-//
-//
-//    //------------------------
-//    //Metodos locais
-//    //------------------------
-//
 
 
-//
-
-
-//
-//    @Override
-//    public void concluirAtividadeExecutada() {
-//
-//        DialogoAtividadePendenteExecutada dialogo = new DialogoAtividadePendenteExecutada();
-//        dialogo.show(getSupportFragmentManager(), "example dialog");
-//    }
-
-//    @Override
-//    public void iniciarRelatorio() {
-//
-//        Intent intent = new Intent(this, FormacaoActivity.class);
-//        startActivity(intent);
-//    }
-//
-//    @Override
-//    public void gravarAtividade(String minutos, String dataExecucao) {
-//
-//    }
-//
-//    @Override
-//    public void gravarAtividadeNaoExecutada(String idAnomalia, String observacao) {
-//
-//    }
 }

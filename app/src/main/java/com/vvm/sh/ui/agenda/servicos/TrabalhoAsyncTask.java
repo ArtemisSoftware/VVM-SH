@@ -5,7 +5,7 @@ import android.os.AsyncTask;
 
 import com.vvm.sh.api.modelos.AnomaliaResultado;
 import com.vvm.sh.api.modelos.AtividadeExecutadasResultado;
-import com.vvm.sh.api.modelos.AtividadePendenteResultado;
+import com.vvm.sh.api.modelos.AtividadePendenteResposta;
 import com.vvm.sh.api.modelos.ClienteResultado;
 import com.vvm.sh.api.modelos.DadosResultado;
 import com.vvm.sh.api.modelos.OcorrenciaResultado;
@@ -87,13 +87,13 @@ public class TrabalhoAsyncTask extends AsyncTask<SessaoResposta, Void, Void> {
      * @param atividadesPendentes os dados das atividades pendentes
      * @param idTarefa o identificador da tarefa
      */
-    private void inserirAtividadesPendentes(List<AtividadePendenteResultado> atividadesPendentes, int idTarefa) {
+    private void inserirAtividadesPendentes(List<AtividadePendenteResposta> atividadesPendentes, int idTarefa) {
 
         List<AtividadePendente> registos = new ArrayList<>();
 
-        for(AtividadePendenteResultado atividadePendenteResultado : atividadesPendentes){
+        for(AtividadePendenteResposta atividadePendenteResposta : atividadesPendentes){
 
-            AtividadePendente registo = ModelMapping.INSTANCE.map(atividadePendenteResultado);
+            AtividadePendente registo = ModelMapping.INSTANCE.map(atividadePendenteResposta);
             registo.idTarefa = idTarefa;
             registos.add(registo);
         }

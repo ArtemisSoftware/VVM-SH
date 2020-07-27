@@ -15,7 +15,7 @@ public class OpcaoCliente {
 
 
     public int id;
-    public String descricao;
+    public String descricao, detalhe;
     public boolean ativo;
 
     public OpcaoCliente(int id, String descricao) {

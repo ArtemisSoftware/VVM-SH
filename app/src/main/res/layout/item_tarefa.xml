@@ -38,7 +38,7 @@
                 style="@style/tituloCartao"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:text="@{tarefaDia.cliente.nome, default=cliente}"
+                android:text="@{StringUtil.formatarHtml(tarefaDia.cliente.nome), default=cliente}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 

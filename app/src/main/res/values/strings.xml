@@ -146,6 +146,7 @@
     <string name="email">Email</string>
     <string name="gravar">Gravar</string>
     <string name="ocorrencia">Ocorrência</string>
+    <string name="ocorrencias">Ocorrências</string>
     <string name="local">Local</string>
     <string name="inicio">Inicio</string>
 
@@ -196,5 +197,6 @@
     <string name="segmento">Segmento</string>
     <string name="coordenadas">Coordenadas</string>
     <string name="tarefas_realizar">Tarefas a realizar</string>
+    <string name="consultar_registar">Consultar / Registar</string>
 
 </resources>

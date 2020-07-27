@@ -12,6 +12,7 @@ import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.atividadesPendentes.AtividadesPendentesActivity;
 import com.vvm.sh.ui.crossSelling.CrossSellingActivity;
+import com.vvm.sh.ui.ocorrencias.OcorrenciasActivity;
 import com.vvm.sh.ui.tarefa.adaptadores.OnTarefaListener;
 import com.vvm.sh.ui.tarefa.modelos.EmailResultado;
 import com.vvm.sh.ui.tarefa.modelos.OpcaoCliente;
@@ -145,6 +146,17 @@ public class TarefaActivity extends BaseDaggerActivity
 
 
 
+
+
+    @OnClick(R.id.crd_ocorrencias)
+    public void crd_ocorrencias_OnClickListener(View view) {
+        Intent intent = new Intent(this, OcorrenciasActivity.class);
+        startActivity(intent);
+    }
+
+
+
+
 //
 //    @BindView(R.id.rcl_opcoes_cliente)
 //    RecyclerView rcl_opcoes_cliente;
@@ -213,15 +225,7 @@ public class TarefaActivity extends BaseDaggerActivity
 //        //intent.putExtra(AppConstants.PICTURE, pictureRecyclerAdapter.getSelectedPicture(position).getId());
 //        startActivity(intent);
 //    }
-//
-//
-//    @OnClick(R.id.crd_ocorrencias)
-//    public void crd_ocorrencias_OnClickListener(View view) {
-//        Intent intent = new Intent(this, OcorrenciasActivity.class);
-//        //intent.putExtra(AppConstants.PICTURE, pictureRecyclerAdapter.getSelectedPicture(position).getId());
-//        startActivity(intent);
-//    }
-//
+
 
 
 

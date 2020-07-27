@@ -84,7 +84,7 @@ public class OcorrenciaRecyclerAdapter extends RecyclerView.Adapter<RecyclerView
 ////            }
 ////
 ////            case Ocorrencia.TIPO_REGISTO_NOVA_OCORRENCIA:{
-////                return R.layout.ocorrencia_registo_list_item;
+////                return R.layout.item_ocorrencia_registo;
 ////            }
 ////
 ////            case Ocorrencia.TIPO_TIPIFICACAO:{

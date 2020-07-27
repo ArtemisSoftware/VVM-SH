@@ -7,6 +7,7 @@
     <data>
 
         <import type="java.util.List"/>
+        <import type="com.vvm.sh.util.StringUtil"/>
 
         <variable
             name="viewmodel"
@@ -41,7 +42,7 @@
                 android:id="@+id/collapsing_toolbar"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                app:title="@{viewmodel.cliente.nome, default=cliente}"
+                app:title="@{StringUtil.formatarHtml(viewmodel.cliente.nome), default=cliente}"
                 app:collapsedTitleTextAppearance="@style/coll_toolbar_title"
                 app:expandedTitleTextAppearance="@style/exp_toolbar_title"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed">
@@ -215,7 +216,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:padding="5dp"
-                            android:text="Check your bank activities"
+                            android:text="@string/consultar_registar"
                             android:textColor="@android:color/darker_gray"
                             app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintEnd_toEndOf="@+id/circularImageView"
@@ -329,42 +330,67 @@
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/crd_ocorrencias"
-                    android:foreground="?android:attr/selectableItemBackground"
-                    android:clickable="true"
+                    style="@style/cartaoTarefa"
                     android:layout_width="160dp"
                     android:layout_height="190dp"
                     android:layout_margin="10dp">
-                    <LinearLayout
+
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:orientation="vertical"
-                        android:gravity="center">
+                        android:layout_height="match_parent">
+
                         <ImageView
+                            android:id="@+id/circularImageView4"
                             android:layout_width="64dp"
                             android:layout_height="64dp"
                             android:background="@drawable/ic_lorem_ipsum_24dp"
                             android:src="@drawable/ic_lorem_ipsum_24dp"
-                            android:padding="10dp"/>
+                            android:padding="10dp"
+                            android:layout_marginTop="16dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent"/>
+
+
+
                         <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:textStyle="bold"
-                            android:layout_marginTop="10dp"
-                            android:text="Ocorrencias"/>
+                            android:id="@+id/textView4"
+                            style="@style/textoDetalhe"
+                            android:layout_marginTop="16dp"
+                            android:text="@string/ocorrencias"
+                            app:layout_constraintEnd_toEndOf="@+id/circularImageView4"
+                            app:layout_constraintStart_toStartOf="@+id/circularImageView4"
+                            app:layout_constraintTop_toBottomOf="@+id/circularImageView4" />
+
+
                         <View
+                            android:id="@+id/view4"
                             android:layout_width="match_parent"
                             android:layout_height="1dp"
+                            android:layout_margin="10dp"
                             android:background="@color/lightgray"
-                            android:layout_margin="10dp"/>
+                            app:layout_constraintEnd_toEndOf="@+id/circularImageView4"
+                            app:layout_constraintStart_toStartOf="@+id/circularImageView4"
+                            app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="center"
-                            android:text="Check your bank activities"
                             android:padding="5dp"
-                            android:textColor="@android:color/darker_gray"/>
+                            android:text="@string/consultar_registar"
+                            android:textColor="@android:color/darker_gray"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintEnd_toEndOf="@+id/circularImageView4"
+                            app:layout_constraintStart_toStartOf="@+id/circularImageView4"
+                            app:layout_constraintTop_toBottomOf="@+id/view4" />
 
-                    </LinearLayout>
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
                 </androidx.cardview.widget.CardView>
 
 

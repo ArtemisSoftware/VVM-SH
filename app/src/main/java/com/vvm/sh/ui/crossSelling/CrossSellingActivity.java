@@ -93,7 +93,6 @@ public class CrossSellingActivity extends BaseDaggerActivity
             DialogoSinaletica dialogo = DialogoSinaletica.newInstance(produto.id);
             dialogo.show(getSupportFragmentManager(), "example dialog");
         }
-
         else{
 
             viewModel.remover(produto);
@@ -210,26 +209,7 @@ public class CrossSellingActivity extends BaseDaggerActivity
 //    //Eventos
 //    //---------------------
 //
-//    @Override
-//    public void onItemChecked(int posicao, boolean selecao) {
-//
-//        //TODO: saber se é sinaletica é uma informação contida no objeto da spinner
-//
-//
-//        if(selecao == true /*& sinaletica == false*/){
-//            //--gravar(null);
-//        }
-//        else if(selecao == true /*& sinaletica == true*/){
-//            //--dialogoSinaletica();
-//        }
-//
-//        else{
-//            //--acessoBdCrossSelling.remover(registos.get(posicao).obterId());
-//            //--atualizar();
-//        }
-//
-//    }
-//
+
 //
 //    /*
 //    private CheckBox.OnClickListener checkbox_OnClickListener = new CheckBox.OnClickListener(){

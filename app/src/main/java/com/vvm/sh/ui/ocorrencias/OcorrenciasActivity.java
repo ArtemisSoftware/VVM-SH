@@ -77,6 +77,23 @@ public class OcorrenciasActivity extends BaseDaggerActivity /*implements OnItemL
 
     }
 
+
+
+    //---------------------
+    //Eventos
+    //---------------------
+
+
+    @OnClick(R.id.fab_adicionar)
+    public void fab_adicionar_OnClickListener(View view) {
+        Intent intent = new Intent(this, RegistoOcorrenciasActivity.class);
+        //intent.putExtra(AppConstants.PICTURE, pictureRecyclerAdapter.getSelectedPicture(position).getId());
+        //startActivityForResult(intent, 1111111);
+    }
+
+
+
+
 //
 //    @BindView(R.id.rcl_registos)
 //    RecyclerView rcl_registos;
@@ -152,21 +169,14 @@ public class OcorrenciasActivity extends BaseDaggerActivity /*implements OnItemL
 //    }
 //
 //
-//    //---------------------
-//    //Eventos
-//    //---------------------
+
 //
 ////    @OnClick(R.id.crl_img_regressar)
 //    public void crl_img_regressar_OnClickListener(View view) {
 //        obterRegistos();
 //    }
 //
-//    @OnClick(R.id.fab_adicionar)
-//    public void fab_calendario_OnClickListener(View view) {
-//        Intent intent = new Intent(this, RegistoOcorrenciasActivity.class);
-//        //intent.putExtra(AppConstants.PICTURE, pictureRecyclerAdapter.getSelectedPicture(position).getId());
-//        startActivityForResult(intent, 1111111);
-//    }
+
 //
 //
 //    @Override

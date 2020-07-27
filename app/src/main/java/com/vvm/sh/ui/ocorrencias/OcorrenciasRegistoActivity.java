@@ -1,5 +1,6 @@
 package com.vvm.sh.ui.ocorrencias;
 
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -12,28 +13,64 @@ import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.vvm.sh.R;
+import com.vvm.sh.databinding.ActivityOcorrenciasBinding;
+import com.vvm.sh.databinding.ActivityOcorrenciasRegistoBinding;
+import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseActivity;
 import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.ocorrencias.adaptadores.OcorrenciaRecyclerAdapter;
+import com.vvm.sh.ui.opcoes.modelos.Tipo;
 import com.vvm.sh.util.adaptadores.Item;
 import com.vvm.sh.util.interfaces.OnCheckBoxItemListener;
 import com.vvm.sh.util.interfaces.OnItemListener;
+import com.vvm.sh.util.metodos.Preferencias;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
+
+import org.angmarch.views.NiceSpinner;
+import org.angmarch.views.OnSpinnerItemSelectedListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.inject.Inject;
+
 import butterknife.BindView;
 import butterknife.OnItemSelected;
 
-public class RegistoOcorrenciasActivity extends BaseDaggerActivity
-        /*implements OnItemListener, OnCheckBoxItemListener*/ {
+public class OcorrenciasRegistoActivity extends BaseDaggerActivity
+        implements /*OnItemListener, OnCheckBoxItemListener,*/ /*OnSpinnerItemSelectedListener*/ MaterialSpinner.OnItemSelectedListener {
+
+
+
+    private ActivityOcorrenciasRegistoBinding activityOcorrenciasRegistoBinding;
+
+
+    @Inject
+    ViewModelProviderFactory providerFactory;
+
+
+    private OcorrenciasViewModel viewModel;
+
+
+
 
 
     @Override
     protected void intActivity(Bundle savedInstanceState) {
 
+
+        viewModel = ViewModelProviders.of(this, providerFactory).get(OcorrenciasViewModel.class);
+
+        activityOcorrenciasRegistoBinding = (ActivityOcorrenciasRegistoBinding) activityBinding;
+        activityOcorrenciasRegistoBinding.setLifecycleOwner(this);
+        activityOcorrenciasRegistoBinding.setViewmodel(viewModel);
+        activityOcorrenciasRegistoBinding.spnrOcorrencias.setOnItemSelectedListener(this);
+
+        subscreverObservadores();
+
+        viewModel.obterOcorrencias();
     }
 
     @Override
@@ -43,12 +80,25 @@ public class RegistoOcorrenciasActivity extends BaseDaggerActivity
 
     @Override
     protected BaseViewModel obterBaseViewModel() {
-        return null;
+        return viewModel;
     }
 
     @Override
     protected void subscreverObservadores() {
 
+    }
+
+
+    //---------------------
+    //Eventos
+    //---------------------
+
+
+    @Override
+    public void onItemSelected(MaterialSpinner view, int position, long id, Object item) {
+
+        Tipo tipo = (Tipo) item;
+        viewModel.obterRegistosOcorrencias(tipo.id);
     }
 
 
@@ -126,9 +176,7 @@ public class RegistoOcorrenciasActivity extends BaseDaggerActivity
 //    }
 //
 //
-//    //---------------------
-//    //Eventos
-//    //---------------------
+
 //
 //    @OnItemSelected(R.id.spnr_ocorrencia)
 //    public void spnr_ocorrencia_ItemSelected(Spinner spinner, int position) {

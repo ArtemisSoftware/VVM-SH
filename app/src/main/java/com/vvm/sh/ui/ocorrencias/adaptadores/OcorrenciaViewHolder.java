@@ -20,10 +20,6 @@ public class OcorrenciaViewHolder extends RecyclerView.ViewHolder implements Vie
 
     public ItemOcorrenciaBinding binding;
 
-    @BindView(R.id.txt_estado)
-    TextView txt_estado;
-
-
     private OnItemListener onItemListener;
 
 

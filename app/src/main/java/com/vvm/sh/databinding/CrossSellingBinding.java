@@ -8,6 +8,7 @@ import androidx.databinding.BindingAdapter;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.vvm.sh.ui.crossSelling.adaptadores.CrossSellingRecyclerAdapter;
 import com.vvm.sh.ui.crossSelling.adaptadores.OnCrossSellingListener;
 import com.vvm.sh.ui.opcoes.modelos.Tipo;
@@ -36,10 +37,8 @@ public class CrossSellingBinding {
             }
         };
 
-
-
-
         view.setSpinnerTextFormatter(textFormatter);
+        view.setSelectedTextFormatter(textFormatter);
         /*
         view.setSelectedTextFormatter(new SpinnerTextFormatter<Tipo>() {
             @Override
@@ -78,5 +77,18 @@ public class CrossSellingBinding {
         }
 
     }
+
+
+    @BindingAdapter({"tipos_"})
+    public static void setTipos_(MaterialSpinner view, List<Tipo> registos) {
+
+        if (registos == null)
+            return;
+
+
+        view.setItems(registos);
+
+    }
+
 
 }

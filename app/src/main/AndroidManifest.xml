@@ -31,7 +31,7 @@
             android:name=".ui.atividadesPendentes.FormacaoActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ui.ocorrencias.RegistarOcorrenciaActivity" />
-        <activity android:name=".ui.ocorrencias.RegistoOcorrenciasActivity" />
+        <activity android:name=".ui.ocorrencias.OcorrenciasRegistoActivity" />
         <activity android:name=".ui.anomalias.RegistoAnomaliasActivity" />
         <activity
             android:name=".ui.anomalias.AnomaliasActivity"

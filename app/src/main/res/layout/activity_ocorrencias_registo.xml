@@ -8,15 +8,15 @@
 
         <import type="java.util.List"/>
         <import type="android.view.View"/>
-<!--
-        <variable
-            name="viewmodel"
-            type="com.vvm.sh.ui.crossSelling.CrossSellingViewModel"/>
 
         <variable
-            name="listener"
-            type="com.vvm.sh.ui.crossSelling.adaptadores.OnCrossSellingListener"/>
--->
+            name="viewmodel"
+            type="com.vvm.sh.ui.ocorrencias.OcorrenciasViewModel"/>
+        <!--
+                <variable
+                    name="listener"
+                    type="com.vvm.sh.ui.crossSelling.adaptadores.OnCrossSellingListener"/>
+        -->
     </data>
 
 
@@ -62,19 +62,29 @@
                 android:layout_alignParentRight="true"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="24dp"
-                app:layout_constraintBottom_toBottomOf="textview2"
                 app:layout_constraintStart_toStartOf="@+id/textview"
                 app:layout_constraintTop_toBottomOf="@+id/textview2" />
 
-
+<!--
             <org.angmarch.views.NiceSpinner
                 android:id="@+id/spnr_ocorrencias"
+                app:tipos="@{viewmodel.ocorrenciasGeral}"
                 android:layout_width="600dp"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 app:layout_constraintTop_toBottomOf="@+id/txt_estado"
                 app:layout_constraintStart_toStartOf="@+id/textview"
                 app:popupTextAlignment="start" />
+-->
+
+            <com.jaredrummler.materialspinner.MaterialSpinner
+                android:id="@+id/spnr_ocorrencias"
+                app:tipos_="@{viewmodel.ocorrenciasGeral}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                app:layout_constraintTop_toBottomOf="@+id/txt_estado"
+                app:layout_constraintStart_toStartOf="@+id/textview"/>
 
 
             <TextView

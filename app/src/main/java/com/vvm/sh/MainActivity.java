@@ -9,6 +9,7 @@ import com.vvm.sh.databinding.ActivityMainBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.agenda.AgendaViewModel;
+import com.vvm.sh.ui.opcoes.TiposActivity;
 import com.vvm.sh.ui.tarefa.TarefaActivity;
 import com.vvm.sh.ui.agenda.TrabalhoActivity;
 import com.vvm.sh.ui.agenda.adaptadores.OnAgendaListener;
@@ -62,7 +63,8 @@ public class MainActivity extends BaseDaggerActivity
 
         //Intent intent = new Intent(this, AutenticacaoActivity.class);
 //        //intent.putExtra(AppConstants.PICTURE, pictureRecyclerAdapter.getSelectedPicture(position).getId());
-        Intent intent = new Intent(this, TrabalhoActivity.class);
+        //Intent intent = new Intent(this, TrabalhoActivity.class);
+        Intent intent = new Intent(this, TiposActivity.class);
         //startActivity(intent);
         viewModel.obterTarefas("12724", "2020-07-21");
 

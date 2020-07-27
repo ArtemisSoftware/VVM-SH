@@ -15,6 +15,7 @@ import com.vvm.sh.servicos.ServicoInstalacaoApk;
 import com.vvm.sh.ui.contaUtilizador.Colecao;
 import com.vvm.sh.ui.opcoes.servicos.AtualizarTipoAsyncTask;
 import com.vvm.sh.util.adaptadores.Item;
+import com.vvm.sh.util.constantes.TiposConstantes;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import java.util.ArrayList;
@@ -82,8 +83,11 @@ public class OpcoesViewModel extends BaseViewModel {
 
                             @Override
                             public void onNext(List<Colecao> registos) {
-                                registos.add(new Colecao("GetCrossSellingTpDimensao", 4, "2019-06-22"));
-                                registos.add(new Colecao("GetCrossSellingTpTipo", 4, "2019-06-22"));
+                                registos.add(new Colecao(TiposConstantes.CROSS_SELLING_DIMENSAO, 4, "2019-06-22"));
+                                registos.add(new Colecao(TiposConstantes.CROSS_SELLING_PRODUTOS, 4, "2019-06-22"));
+                                registos.add(new Colecao(TiposConstantes.CROSS_SELLING_TIPO, 4, "2019-06-22"));
+                                //registos.add(new Colecao(TiposConstantes.TIPIFICACAO_OCORRENCIA, 4, "2019-06-22"));
+                                registos.add(new Colecao(TiposConstantes.TIPOS_ANOMALIA, 4, "2019-06-22"));
                                 tipos.setValue(registos);
                                 showProgressBar(false);
                             }

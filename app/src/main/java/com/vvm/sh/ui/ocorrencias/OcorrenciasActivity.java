@@ -1,33 +1,20 @@
 package com.vvm.sh.ui.ocorrencias;
 
-import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
 
 import com.vvm.sh.R;
-import com.vvm.sh.databinding.ActivityAtividadesPendentesBinding;
 import com.vvm.sh.databinding.ActivityOcorrenciasBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
-import com.vvm.sh.ui.BaseActivity;
 import com.vvm.sh.ui.BaseDaggerActivity;
-import com.vvm.sh.ui.ocorrencias.adaptadores.OcorrenciaRecyclerAdapter;
-import com.vvm.sh.util.adaptadores.Item;
-import com.vvm.sh.util.interfaces.OnItemListener;
 import com.vvm.sh.util.metodos.Preferencias;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.inject.Inject;
 
-import butterknife.BindView;
 import butterknife.OnClick;
 
 public class OcorrenciasActivity extends BaseDaggerActivity /*implements OnItemListener*/ {
@@ -86,9 +73,8 @@ public class OcorrenciasActivity extends BaseDaggerActivity /*implements OnItemL
 
     @OnClick(R.id.fab_adicionar)
     public void fab_adicionar_OnClickListener(View view) {
-        Intent intent = new Intent(this, RegistoOcorrenciasActivity.class);
-        //intent.putExtra(AppConstants.PICTURE, pictureRecyclerAdapter.getSelectedPicture(position).getId());
-        //startActivityForResult(intent, 1111111);
+        Intent intent = new Intent(this, OcorrenciasRegistoActivity.class);
+        startActivity(intent);
     }
 
 

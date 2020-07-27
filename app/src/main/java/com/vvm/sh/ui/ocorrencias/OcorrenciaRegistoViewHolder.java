@@ -17,8 +17,8 @@ import butterknife.BindView;
 public class OcorrenciaRegistoViewHolder extends ItemViewHolder implements CheckBox.OnCheckedChangeListener {
 
 
-    @BindView(R.id.chk_box_id)
-    CheckBox chk_box_id;
+//    @BindView(R.id.chk_box_id)
+//    CheckBox chk_box_id;
 
 
     private OnCheckBoxItemListener onItemListener;

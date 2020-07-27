@@ -45,7 +45,7 @@ public class WebServiceInterceptor implements Interceptor {
 
 //        try {
 
-            int inicio = respostaWS.indexOf( '[' );
+            int inicio = respostaWS.indexOf(">[");
 
             if(inicio == -1){
                 inicio = respostaWS.indexOf( '{' );

@@ -3,6 +3,7 @@ package com.vvm.sh.ui.crossSelling;
 import androidx.lifecycle.MutableLiveData;
 
 import com.vvm.sh.repositorios.CrossSellingRepositorio;
+import com.vvm.sh.ui.crossSelling.modelos.CrossSellingResultado;
 import com.vvm.sh.ui.opcoes.modelos.Tipo;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
@@ -216,4 +217,13 @@ public class CrossSellingViewModel extends BaseViewModel {
 
     }
 
+    public void gravar(CrossSellingResultado registo) {
+
+        //TODO: gravar
+    }
+
+    public void remover(Tipo produto) {
+
+        //TODO: remover
+    }
 }

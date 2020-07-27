@@ -10,7 +10,9 @@ import com.vvm.sh.databinding.ActivityCrossSellingBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.crossSelling.adaptadores.OnCrossSellingListener;
+import com.vvm.sh.ui.crossSelling.modelos.CrossSellingResultado;
 import com.vvm.sh.ui.opcoes.modelos.Tipo;
+import com.vvm.sh.util.metodos.Preferencias;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import org.angmarch.views.NiceSpinner;
@@ -19,10 +21,11 @@ import org.angmarch.views.OnSpinnerItemSelectedListener;
 import javax.inject.Inject;
 
 
-public class CrossSellingActivity extends BaseDaggerActivity implements OnCrossSellingListener, OnSpinnerItemSelectedListener {
+public class CrossSellingActivity extends BaseDaggerActivity
+        implements OnCrossSellingListener, OnSpinnerItemSelectedListener {
 
 
-    private ActivityCrossSellingBinding activityCrossSellingBinding;
+    private ActivityCrossSellingBinding binding;
 
 
     @Inject
@@ -37,12 +40,12 @@ public class CrossSellingActivity extends BaseDaggerActivity implements OnCrossS
 
         viewModel = ViewModelProviders.of(this, providerFactory).get(CrossSellingViewModel.class);
 
-        activityCrossSellingBinding = (ActivityCrossSellingBinding) activityBinding;
-        activityCrossSellingBinding.setLifecycleOwner(this);
-        activityCrossSellingBinding.setListener(this);
-        activityCrossSellingBinding.setViewmodel(viewModel);
+        binding = (ActivityCrossSellingBinding) activityBinding;
+        binding.setLifecycleOwner(this);
+        binding.setListener(this);
+        binding.setViewmodel(viewModel);
 
-        activityCrossSellingBinding.spnrAreaRecomendacao.setOnSpinnerItemSelectedListener(this);
+        binding.spnrAreaRecomendacao.setOnSpinnerItemSelectedListener(this);
 
         subscreverObservadores();
 
@@ -65,43 +68,53 @@ public class CrossSellingActivity extends BaseDaggerActivity implements OnCrossS
         //TODO: subscrever observadores do viewmodel
     }
 
-    @Override
-    public void onItemChecked(Tipo tipo, boolean selecao) {
 
-        boolean sinaletica = ((Tipo) activityCrossSellingBinding.spnrAreaRecomendacao.getSelectedItem()).detalhe;
+
+    //---------------------
+    //Eventos
+    //---------------------
+
+
+
+    @Override
+    public void onItemChecked(Tipo produto, boolean selecao) {
+
+        boolean sinaletica = ((Tipo) binding.spnrAreaRecomendacao.getSelectedItem()).detalhe;
 
 
         if(selecao == true & sinaletica == false){
 
-            //TODO: gravar dados sem sinaletica
-            //--gravar(null);
+            Tipo area = (Tipo) binding.spnrAreaRecomendacao.getSelectedItem();
+            CrossSellingResultado registo = new CrossSellingResultado(Preferencias.obterIdTarefa(this), area.id, produto.id);
+            viewModel.gravar(registo);
         }
         else if(selecao == true & sinaletica == true){
 
-            DialogoSinaletica dialogo = new DialogoSinaletica();
+            DialogoSinaletica dialogo = DialogoSinaletica.newInstance(produto.id);
             dialogo.show(getSupportFragmentManager(), "example dialog");
         }
 
         else{
 
-            //TODO: remover dados
-
-            //--acessoBdCrossSelling.remover(registos.get(posicao).obterId());
-            //--atualizar();
+            viewModel.remover(produto);
         }
-
-
     }
 
     @Override
-    public void gravarSinaletica(Tipo tipo, String idDimensao, String idTipo) {
+    public void OnGravarSinaletica(int idProduto, Tipo dimensao, Tipo tipo) {
 
+        Tipo area = (Tipo) binding.spnrAreaRecomendacao.getSelectedItem();
+
+        CrossSellingResultado registo = new CrossSellingResultado(Preferencias.obterIdTarefa(this), area.id, idProduto, dimensao, tipo);
+
+        viewModel.gravar(registo);
     }
+
 
     @Override
     public void onItemSelected(NiceSpinner parent, View view, int position, long id) {
-        Tipo item = (Tipo)parent.getItemAtPosition(position);
 
+        Tipo item = (Tipo)parent.getItemAtPosition(position);
         viewModel.obterCrossSelling(item);
     }
 

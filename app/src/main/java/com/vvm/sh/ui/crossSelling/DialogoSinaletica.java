@@ -2,6 +2,7 @@ package com.vvm.sh.ui.crossSelling;
 
 import android.app.AlertDialog;
 import android.content.DialogInterface;
+import android.os.Bundle;
 
 import androidx.lifecycle.ViewModelProviders;
 
@@ -10,6 +11,8 @@ import com.vvm.sh.databinding.DialogoSinaleticaBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.crossSelling.adaptadores.OnCrossSellingListener;
 import com.vvm.sh.ui.BaseDaggerDialogFragment;
+import com.vvm.sh.ui.opcoes.modelos.Tipo;
+import com.vvm.sh.util.constantes.Sintaxe;
 
 import javax.inject.Inject;
 
@@ -28,9 +31,7 @@ public class DialogoSinaletica extends BaseDaggerDialogFragment {
 
     private OnCrossSellingListener listener;
 
-    private static final String ARG_ID_POKEMON = "idPokemon";
-    private static final String ARG_NAME = "name";
-    private static final String ARG_NOTE = "note";
+    private static final String ARGUMENTO_ID_PRODUTO = "idProduto";
 
 
     public DialogoSinaletica() {
@@ -38,14 +39,12 @@ public class DialogoSinaletica extends BaseDaggerDialogFragment {
     }
 
 
-    public static DialogoSinaletica newInstance(OnCrossSellingListener listener_) {
+    public static DialogoSinaletica newInstance(int idProduto) {
         DialogoSinaletica frag = new DialogoSinaletica();
 
-
-//        Bundle args = new Bundle();
-//        args.putString(ARG_ID_POKEMON, idPokemon);
-//        args.putString(ARG_NAME, name);
-//        frag.setArguments(args);
+        Bundle args = new Bundle();
+        args.putInt(ARGUMENTO_ID_PRODUTO, idProduto);
+        frag.setArguments(args);
         return frag;
     }
 
@@ -62,22 +61,36 @@ public class DialogoSinaletica extends BaseDaggerDialogFragment {
         binding = (DialogoSinaleticaBinding) activityBaseBinding;
         binding.setViewmodel(viewModel);
 
-        viewModel.obterProdutos();
 
-        builder.setPositiveButton("OK",  new DialogInterface.OnClickListener() {
+        builder.setPositiveButton(Sintaxe.Opcoes.GRAVAR,  new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
-                listener.gravarSinaletica(null, null, null);
+
+                int idProduto = getArguments().getInt(ARGUMENTO_ID_PRODUTO);
+                Tipo dimensao =  (Tipo) binding.spnrDimensao.getSelectedItem();
+                Tipo tipo =  (Tipo) binding.spnrTipos.getSelectedItem();
+
+
+                listener.OnGravarSinaletica(idProduto, dimensao, tipo);
             }
         });
 
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+        builder.setNegativeButton(Sintaxe.Opcoes.CANCELAR, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 terminarDialogo();
             }
         });
+
+
+        if(verificarArgumentos(ARGUMENTO_ID_PRODUTO) == true){
+            viewModel.obterProdutos();
+        }
+        else{
+            terminarDialogo();
+        }
+
     }
 
     @Override
@@ -162,11 +175,6 @@ public class DialogoSinaletica extends BaseDaggerDialogFragment {
 //        super.onDetach();
 //        listener = null;
 //    }
-//
-//
-//    public interface NoteDialogListener {
-//
-//        void saveNote(Note note);
-//    }
+
 
 }

@@ -11,6 +11,7 @@ import com.vvm.sh.databinding.ActivityTarefaBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.atividadesPendentes.AtividadesPendentesActivity;
+import com.vvm.sh.ui.crossSelling.CrossSellingActivity;
 import com.vvm.sh.ui.tarefa.adaptadores.OnTarefaListener;
 import com.vvm.sh.ui.tarefa.modelos.EmailResultado;
 import com.vvm.sh.ui.tarefa.modelos.OpcaoCliente;
@@ -96,12 +97,12 @@ public class TarefaActivity extends BaseDaggerActivity
 //
 //                intent = new Intent(this, InformacaoActivity.class);
 //                break;
-//
-//            case OpcaoClienteRecyclerAdapter.OPCAO_CROSS_SELLING:
-//
-//                intent = new Intent(this, CrossSellingActivity.class);
-//                break;
-//
+
+            case OpcaoCliente.OPCAO_CROSS_SELLING:
+
+                intent = new Intent(this, CrossSellingActivity.class);
+                break;
+
 //            case OpcaoClienteRecyclerAdapter.OPCAO_SINISTRALIDADE:
 //
 //                intent = new Intent(this, SinistralidadeActivity.class);

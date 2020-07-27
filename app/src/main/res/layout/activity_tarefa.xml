@@ -150,22 +150,17 @@
 
 
             <TextView
-                android:text="@string/lorem_ipsum_titulo"
+                android:text="@string/tarefas_realizar"
                 style="@style/subTituloCartao"
-                android:layout_width="match_parent"
-                android:layout_marginTop="23dp"
-                android:layout_height="wrap_content"></TextView>
+                android:padding="16dp"/>
 
 
             <LinearLayout
-                android:layout_marginTop="23dp"
                 android:clipToPadding="false"
                 android:gravity="center"
                 android:orientation="horizontal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-
-
 
 
 

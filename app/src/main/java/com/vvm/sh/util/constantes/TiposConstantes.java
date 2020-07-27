@@ -8,7 +8,8 @@ public class TiposConstantes {
     public static final String CROSS_SELLING_PRODUTOS = "GetCrossSellingProdutos";
     public static final String CROSS_SELLING_DIMENSAO = "GetCrossSellingTpDimensao";
     public static final String CROSS_SELLING_TIPO = "GetCrossSellingTpTipo";
-
+    public static final String TIPOS_ANOMALIA = "GetTiposAnomalia";
+    public static final String TIPIFICACAO_OCORRENCIA = "GetTipificacoesOcorrencia_New";
 
 
     //EmailResultado

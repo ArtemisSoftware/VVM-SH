@@ -73,15 +73,11 @@ public abstract class BaseDaggerDialogFragment extends DaggerDialogFragment {
      */
     protected boolean verificarArgumentos(String argumento){
 
-        if(getArguments() !=null) {
+        if(getArguments() == null) {
             return false;
         }
 
-        if (getArguments().containsKey(argumento)) {
-            return false;
-        }
-
-        return true;
+        return getArguments().containsKey(argumento);
     }
 
 

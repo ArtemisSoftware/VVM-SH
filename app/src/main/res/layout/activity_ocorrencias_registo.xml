@@ -12,11 +12,11 @@
         <variable
             name="viewmodel"
             type="com.vvm.sh.ui.ocorrencias.OcorrenciasViewModel"/>
-        <!--
-                <variable
-                    name="listener"
-                    type="com.vvm.sh.ui.crossSelling.adaptadores.OnCrossSellingListener"/>
-        -->
+
+        <variable
+            name="listener"
+            type="com.vvm.sh.ui.crossSelling.adaptadores.OnCrossSellingListener"/>
+
     </data>
 
 
@@ -108,10 +108,10 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcl_registos"
             style="@style/lista"
-
+            registosOcorrencias="@{viewmodel.ocorrenciasRegistos}"
             tools:listitem="@layout/item_ocorrencia_registo"/>
 
-        <!--              registos="@{viewmodel.crossSelling}"
+        <!--
             checkBox="@{listener}" -->
 
     </LinearLayout>

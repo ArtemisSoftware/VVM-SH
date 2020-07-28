@@ -4,6 +4,7 @@ import androidx.room.Database;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
+import com.vvm.sh.ui.agenda.modelos.Resultado;
 import com.vvm.sh.ui.agenda.modelos.Tarefa;
 import com.vvm.sh.ui.anomalias.modelos.Anomalia;
 import com.vvm.sh.ui.atividadesExecutadas.modelos.AtividadeExecutada;
@@ -22,7 +23,7 @@ import com.vvm.sh.ui.tarefa.modelos.EmailResultado;
                     Utilizador.class,
                     Tarefa.class,
                     Cliente.class, AtividadeExecutada.class, Anomalia.class, AtividadePendente.class, Ocorrencia.class, OcorrenciaHistorico.class,
-                    EmailResultado.class
+                    EmailResultado.class, Resultado.class
             },
             version = BaseDadosContantes.VERSAO
 )
@@ -56,5 +57,7 @@ public abstract class VvmshBaseDados extends RoomDatabase {
 
 
     public abstract EmailDao obterEmailDao();
+
+    public abstract ResultadoDao obterResultadoDao();
 
 }

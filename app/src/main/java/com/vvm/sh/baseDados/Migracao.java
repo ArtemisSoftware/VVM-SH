@@ -11,7 +11,7 @@ public class Migracao {
     public static final Migration[] obterMigracoes(){
 
         Migration migrations [] =  new Migration []{
-                MIGRACAO_1_2, MIGRACAO_2_3, MIGRACAO_3_4, MIGRACAO_4_5, MIGRACAO_5_6
+                MIGRACAO_1_2, MIGRACAO_2_3, MIGRACAO_3_4, MIGRACAO_4_5, MIGRACAO_5_6, MIGRACAO_6_7
         };
 
         return migrations;
@@ -23,6 +23,15 @@ public class Migracao {
         @Override
         public void migrate(SupportSQLiteDatabase database) {
             try {
+
+
+                database.execSQL("CREATE TABLE IF NOT EXISTS 'resultados' ("
+                        + "'idTarefa' INTEGER NOT NULL, "
+                        + "'id' INTEGER NOT NULL, "
+                        + "'sincronizado' INTEGER NOT NULL, "
+                        + "PRIMARY KEY (idTarefa, id), "
+                        + "FOREIGN KEY (idTarefa) REFERENCES tarefas (idTarefa)  ON DELETE CASCADE) ");
+
 
 
                 database.execSQL("CREATE TABLE IF NOT EXISTS 'emailsResultado' ("

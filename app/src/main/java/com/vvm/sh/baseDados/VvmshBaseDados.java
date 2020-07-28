@@ -14,13 +14,15 @@ import com.vvm.sh.ui.ocorrencias.modelos.Ocorrencia;
 import com.vvm.sh.ui.ocorrencias.modelos.OcorrenciaHistorico;
 import com.vvm.sh.ui.opcoes.modelos.Atualizacao;
 import com.vvm.sh.ui.opcoes.modelos.Tipo;
+import com.vvm.sh.ui.tarefa.modelos.EmailResultado;
 
 @Database(
             entities = {
                     Atualizacao.class, Tipo.class,
                     Utilizador.class,
                     Tarefa.class,
-                    Cliente.class, AtividadeExecutada.class, Anomalia.class, AtividadePendente.class, Ocorrencia.class, OcorrenciaHistorico.class
+                    Cliente.class, AtividadeExecutada.class, Anomalia.class, AtividadePendente.class, Ocorrencia.class, OcorrenciaHistorico.class,
+                    EmailResultado.class
             },
             version = BaseDadosContantes.VERSAO
 )
@@ -49,4 +51,10 @@ public abstract class VvmshBaseDados extends RoomDatabase {
     public abstract OcorrenciaDao obterOcorrenciaDao();
 
     public abstract OcorrenciaHistoricoDao obterOcorrenciaHistoricoDao();
+
+
+
+
+    public abstract EmailDao obterEmailDao();
+
 }

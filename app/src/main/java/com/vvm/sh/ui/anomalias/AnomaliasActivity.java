@@ -5,7 +5,9 @@ import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import com.vvm.sh.R;
 import com.vvm.sh.databinding.ActivityAnomaliasBinding;
@@ -24,6 +26,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 public class AnomaliasActivity extends BaseDaggerActivity {
 
@@ -67,6 +70,14 @@ public class AnomaliasActivity extends BaseDaggerActivity {
     @Override
     protected void subscreverObservadores() {
 
+    }
+
+
+    @OnClick(R.id.fab_adicionar)
+    public void fab_adicionar_OnClickListener(View view) {
+
+        DialogoAnomalia dialogo = new DialogoAnomalia();
+        dialogo.show(getSupportFragmentManager(), "example dialog");
     }
 
 

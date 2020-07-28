@@ -19,6 +19,32 @@ public class Migracao {
 
 
 
+    public static final Migration MIGRACAO_6_7 = new Migration(6, 7) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            try {
+
+
+                database.execSQL("CREATE TABLE IF NOT EXISTS 'emailsResultado' ("
+                        + "'idTarefa' INTEGER NOT NULL, "
+                        + "'endereco' TEXT , "
+                        + "'autorizacao' TEXT NOT NULL, "
+                        + "'idAutorizacao' INTEGER NOT NULL, "
+                        + "PRIMARY KEY (idTarefa), "
+                        + "FOREIGN KEY (idTarefa) REFERENCES tarefas (idTarefa)  ON DELETE CASCADE) ");
+
+            }
+            catch(SQLException e){
+                Log.e("Migracao", "erro MIGRACAO_2_3: " + e.getMessage());
+                //Timber.e("erro MIGRACAO_2_3: " + e.getMessage());
+            }
+        }
+    };
+
+
+
+
+
     public static final Migration MIGRACAO_5_6 = new Migration(5, 6) {
         @Override
         public void migrate(SupportSQLiteDatabase database) {
@@ -54,11 +80,6 @@ public class Migracao {
             }
         }
     };
-
-
-
-
-
 
 
 

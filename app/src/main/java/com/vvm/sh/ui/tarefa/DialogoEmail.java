@@ -67,14 +67,16 @@ public class DialogoEmail extends BaseDaggerDialogFragment {
         binding.setViewmodel(viewModel);
 
 
-
         viewModel.obterOpcoesEmail(Preferencias.obterIdTarefa(getContext()));
 
         builder.setPositiveButton(Sintaxe.Opcoes.GRAVAR,  new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
 
-                EmailResultado email = new EmailResultado(Preferencias.obterIdTarefa(getContext()), binding.txtInpEmail.getText().toString(), (Tipo)binding.spnrTipos.getSelectedItem());
+                String endereco = binding.txtInpEmail.getText().toString();
+                Tipo autorizacao = (Tipo)binding.spnrEmail.getItems().get(binding.spnrEmail.getSelectedIndex());
+
+                EmailResultado email = new EmailResultado(Preferencias.obterIdTarefa(getContext()), endereco, autorizacao);
 
                 listener.OnGravarEmailListener(email);
             }
@@ -116,7 +118,7 @@ public class DialogoEmail extends BaseDaggerDialogFragment {
                         binding.txtInpEmail.setText(cliente.email);
 
                         //TODO: o index deve vir da bd
-                        binding.spnrTipos.setSelectedIndex(2);
+                        binding.spnrEmail.setSelectedIndex(2);
 
                         break;
 
@@ -168,16 +170,7 @@ public class DialogoEmail extends BaseDaggerDialogFragment {
 //    protected String obterTitulo() {
 //        return getString(R.string.email);
 //    }
-//
-//    /*
-//  	@SuppressWarnings("serial")
-//	Map<String, String > EMAIL_PERGUNTAS = new HashMap<String, String>(){{
-//		put(EMAIL_CLIENTE_NAO_TEM_EMAIL,ID_EMAIL_CLIENTE_NAO_TEM_EMAIL);
-//		put(EMAIL_AUTORIZADO,ID_EMAIL_AUTORIZADO);
-//		put(EMAIL_NAO_AUTORIZADO,ID_EMAIL_NAO_AUTORIZADO);
-//	}};
-//
-//
+
 //
 //*/
 //
@@ -215,20 +208,5 @@ public class DialogoEmail extends BaseDaggerDialogFragment {
 //        return valido;
 //    }
 //*/
-//
-//    @Override
-//    public void onAttach(Context context) {
-//        super.onAttach(context);
-//
-//        try {
-//            listener = (DialogEmailListener) context;
-//        } catch (ClassCastException e) {
-//            throw new ClassCastException(context.toString() +
-//                    "must implement ExampleDialogListener");
-//        }
-//    }
-//
-//    public interface DialogEmailListener {
-//        void gravarEmail(String email, int estado);
-//    }
+
 }

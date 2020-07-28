@@ -26,7 +26,6 @@ public class EmailResultado {
     @NonNull
     public int idTarefa;
 
-    @NonNull
     @ColumnInfo(name = "endereco")
     public String endereco;
 
@@ -42,7 +41,7 @@ public class EmailResultado {
 
 
     @Ignore
-    public EmailResultado(int idTarefa, @NonNull String endereco, Tipo autorizacao) {
+    public EmailResultado(int idTarefa, String endereco, Tipo autorizacao) {
         this.idTarefa = idTarefa;
         this.endereco = endereco;
         this.autorizacao = autorizacao.descricao;
@@ -50,7 +49,7 @@ public class EmailResultado {
     }
 
 
-    public EmailResultado(int idTarefa, @NonNull String endereco, @NonNull String autorizacao, int idAutorizacao) {
+    public EmailResultado(int idTarefa, String endereco, @NonNull String autorizacao, int idAutorizacao) {
         this.idTarefa = idTarefa;
         this.endereco = endereco;
         this.autorizacao = autorizacao;

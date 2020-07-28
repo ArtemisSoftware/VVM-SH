@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.thefinestartist.finestwebview.FinestWebView;
 import com.vvm.sh.R;
 import com.vvm.sh.databinding.ActivityTarefaBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
@@ -19,6 +20,8 @@ import com.vvm.sh.ui.ocorrencias.OcorrenciasActivity;
 import com.vvm.sh.ui.tarefa.adaptadores.OnTarefaListener;
 import com.vvm.sh.ui.tarefa.modelos.EmailResultado;
 import com.vvm.sh.ui.tarefa.modelos.OpcaoCliente;
+import com.vvm.sh.util.constantes.Sintaxe;
+import com.vvm.sh.util.constantes.Url;
 import com.vvm.sh.util.metodos.Preferencias;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
@@ -48,6 +51,11 @@ public class TarefaActivity extends BaseDaggerActivity
         activityTarefaBinding.setLifecycleOwner(this);
         activityTarefaBinding.setListener(this);
         activityTarefaBinding.setViewmodel(viewModel);
+
+
+        setSupportActionBar(activityTarefaBinding.toolbar);
+        if(getSupportActionBar() != null)
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
 
         subscreverObservadores();
@@ -171,6 +179,21 @@ public class TarefaActivity extends BaseDaggerActivity
 
 
 
+    @OnClick(R.id.crd_conta_corrente)
+    public void crd_conta_corrente_OnClickListener(View view) {
+
+        String url = Url.URL_CONTA_CORRENTE + viewModel.cliente.getValue().nif;
+
+        new FinestWebView.Builder(getApplicationContext()).titleDefault(Sintaxe.Frases.CONTA_CORRENTE_NIF + viewModel.cliente.getValue().nif)
+                .showMenuShareVia(false)
+                .showMenuCopyLink(false)
+                .showMenuOpenWith(false)
+                .show(url);
+    }
+
+
+
+
 
 //
 //    @BindView(R.id.rcl_opcoes_cliente)
@@ -222,12 +245,7 @@ public class TarefaActivity extends BaseDaggerActivity
 
 //
 //
-//    @OnClick(R.id.crd_conta_corrente)
-//    public void crd_conta_corrente_OnClickListener(View view) {
-//        Intent intent = new Intent(this, ContaCorrenteActivity.class);
-//        //intent.putExtra(AppConstants.PICTURE, pictureRecyclerAdapter.getSelectedPicture(position).getId());
-//        startActivity(intent);
-//    }
+
 
 
 

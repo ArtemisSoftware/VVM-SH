@@ -16,6 +16,7 @@ import com.vvm.sh.di.ocorrencias.OcorrenciasViewModelsModule;
 import com.vvm.sh.di.tarefa.TarefaModule;
 import com.vvm.sh.di.tarefa.TarefaScope;
 import com.vvm.sh.di.tarefa.TarefaViewModelsModule;
+import com.vvm.sh.ui.anomalias.DialogoAnomalia;
 import com.vvm.sh.ui.atividadesPendentes.DialogoAtividadePendente;
 import com.vvm.sh.ui.atividadesPendentes.DialogoAtividadePendenteExecutada;
 import com.vvm.sh.ui.atividadesPendentes.DialogoAtividadePendenteNaoExecutada;
@@ -120,6 +121,14 @@ public abstract class ActivityBuildersModule {
     abstract AnomaliasActivity contributeAnomaliasActivity();
 
 
+    @AnomaliasScope
+    @ContributesAndroidInjector(
+            modules = { AnomaliasViewModelsModule.class, AnomaliasModule.class }
+    )
+    abstract DialogoAnomalia contributeDialogoAnomalia();
+
+
+
     @OcorrenciasScope
     @ContributesAndroidInjector(
             modules = { OcorrenciasViewModelsModule.class, OcorrenciasModule.class }
@@ -171,6 +180,9 @@ public abstract class ActivityBuildersModule {
             modules = { AtividadesPendentesViewModelsModule.class, AtividadesPendentesModule.class }
     )
     abstract DialogoAtividadePendenteExecutada contributeDialogoAtividadePendenteExecutada();
+
+
+
 
 
 

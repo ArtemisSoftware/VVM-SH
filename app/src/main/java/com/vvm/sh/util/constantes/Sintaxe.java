@@ -35,4 +35,9 @@ public class Sintaxe {
 
     }
 
+    public class Frases{
+
+        public static final String CONTA_CORRENTE_NIF = "Conta corrente do nif ";
+    }
+
 }

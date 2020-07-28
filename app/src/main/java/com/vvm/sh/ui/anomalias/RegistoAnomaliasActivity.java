@@ -17,7 +17,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class RegistoAnomaliasActivity extends BaseActivity implements DialogoAnomalia.DialogAnomaliaListener {
+public class RegistoAnomaliasActivity extends BaseActivity /*implements DialogoAnomalia.DialogAnomaliaListener*/ {
 
     @BindView(R.id.rcl_registos)
     RecyclerView rcl_registos;
@@ -85,9 +85,10 @@ public class RegistoAnomaliasActivity extends BaseActivity implements DialogoAno
         DialogoAnomalia dialogo = new DialogoAnomalia();
         dialogo.show(getSupportFragmentManager(), "example dialog");
     }
-
+/*
     @Override
     public void gravarAnomalia(String idAnomalia, String observacao) {
 
     }
+    */
 }

@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.vvm.sh.repositorios.AnomaliaRepositorio;
 import com.vvm.sh.ui.anomalias.modelos.Anomalia;
+import com.vvm.sh.ui.anomalias.modelos.AnomaliaResultado;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import java.util.List;
@@ -43,7 +44,6 @@ public class AnomaliasViewModel extends BaseViewModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
 
-
                         new Observer<List<Anomalia>>() {
                             @Override
                             public void onSubscribe(Disposable d) {
@@ -54,7 +54,6 @@ public class AnomaliasViewModel extends BaseViewModel {
                             public void onNext(List<Anomalia> registo) {
 
                                 anomalias.setValue(registo);
-
                                 showProgressBar(false);
                             }
 
@@ -74,6 +73,6 @@ public class AnomaliasViewModel extends BaseViewModel {
     }
 
 
-
-
+    public void gravar(AnomaliaResultado anomalia) {
+    }
 }

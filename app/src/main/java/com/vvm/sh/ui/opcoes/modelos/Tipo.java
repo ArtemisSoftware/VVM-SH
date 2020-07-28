@@ -42,8 +42,9 @@ public class Tipo {
     @ColumnInfo(name = "ativo")
     public int ativo;
 
+    @NonNull
     @ColumnInfo(name = "detalhe")
-    public boolean detalhe;
+    public String detalhe;
 
 
     @Ignore
@@ -56,7 +57,7 @@ public class Tipo {
     }
 
 
-    public Tipo(int id, String descricao, String codigo, String idPai, int ativo, boolean detalhe, String tipo) {
+    public Tipo(int id, String descricao, String codigo, String idPai, int ativo, String detalhe, String tipo) {
         this.id = id;
         this.descricao = descricao;
         this.codigo = codigo;
@@ -87,7 +88,7 @@ public class Tipo {
         return ativo;
     }
 
-    public boolean obterDetalhe() {
+    public String obterDetalhe() {
         return detalhe;
     }
 

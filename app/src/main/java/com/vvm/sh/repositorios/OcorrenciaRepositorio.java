@@ -40,6 +40,8 @@ public class OcorrenciaRepositorio {
         return tipoDao.obterTipos(TiposConstantes.TIPIFICACAO_OCORRENCIA, idOcorrencia +"");
     }
 
-
+    public Flowable<Tipo> obterOcorrencia(int id) {
+        return tipoDao.obterTipo(TiposConstantes.TIPIFICACAO_OCORRENCIA, id);
+    }
 
 }

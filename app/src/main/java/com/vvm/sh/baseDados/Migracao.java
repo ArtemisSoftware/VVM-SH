@@ -37,13 +37,15 @@ public class Migracao {
                         + "PRIMARY KEY (id, tipo), "
                         + "FOREIGN KEY (tipo) REFERENCES atualizacoes (descricao)  ON DELETE CASCADE) ");
 
-                database.execSQL("CREATE INDEX index_tipos_tipo ON tipos (tipo)");
+                //database.execSQL("CREATE INDEX index_tipos_tipo ON tipos (tipo)");
 
                 database.execSQL(" INSERT INTO tipos(id, tipo, descricao, codigo, idPai, ativo, detalhe) "
                         + "SELECT id, tipo, descricao, codigo, idPai, ativo, cast(detalhe as text) as detalhe FROM tmp");
 
                 database.execSQL("DROP TABLE tmp");
 
+                database.execSQL("DROP INDEX IF EXISTS index_tipos_tipo");
+                database.execSQL("CREATE INDEX index_tipos_tipo ON tipos (tipo)");
                 //Timber.d("MIGRACAO_2_3: success");
             }
             catch(SQLException e){

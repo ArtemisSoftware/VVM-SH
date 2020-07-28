@@ -73,11 +73,13 @@
                         app:layout_constraintTop_toBottomOf="@+id/textView18" />
 
 
+                    <!-- TODO: deve aparecer codigo + descricao-->
+
                     <TextView
                         android:id="@+id/textView19"
                         style="@style/subTituloCartao"
                         android:layout_marginTop="32dp"
-                        android:text="Registar ocorrencência"
+                        android:text="@{viewmodel.ocorrencia.descricao, default=ocorrencia}"
                         app:layout_constraintStart_toStartOf="@+id/textView18"
                         app:layout_constraintTop_toBottomOf="@+id/textview2" />
 

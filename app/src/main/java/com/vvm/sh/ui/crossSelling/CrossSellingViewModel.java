@@ -115,7 +115,9 @@ public class CrossSellingViewModel extends BaseViewModel {
                             public void onNext(List<Tipo> tipos) {
 
                                 crossSelling.setValue(tipos);
-                                sinaletica.setValue(produto.detalhe);
+
+                                //TODO: detalhe agora é string, fazer a conversao
+                                sinaletica.setValue(true/*produto.detalhe*/);
                                 showProgressBar(false);
                             }
 

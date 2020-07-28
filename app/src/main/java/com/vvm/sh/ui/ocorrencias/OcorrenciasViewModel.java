@@ -162,6 +162,44 @@ public class OcorrenciasViewModel extends BaseViewModel {
     }
 
     public void obterOcorrencia(int idTarefa, int id) {
+
+
+        showProgressBar(true);
+
+        //TODO: o identificador da tarefa deve fazer parte da query. Fazer quando as tabelas de resultado estiverem prontas
+
+        ocorrenciaRepositorio.obterOcorrencia(id).toObservable()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+
+                        new Observer<Tipo>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onNext(Tipo resultado) {
+
+                                ocorrencia.setValue(resultado);
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+
+                            @Override
+                            public void onComplete() {
+                                showProgressBar(false);
+                            }
+                        }
+
+                );
+
     }
 
     public void remover(int obterIdTarefa, int id) {

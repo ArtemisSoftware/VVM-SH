@@ -79,7 +79,8 @@ public class CrossSellingActivity extends BaseDaggerActivity
     @Override
     public void onItemChecked(Tipo produto, boolean selecao) {
 
-        boolean sinaletica = ((Tipo) binding.spnrAreaRecomendacao.getSelectedItem()).detalhe;
+        //TODO: detalhe agora é string, fazer a conversao
+        boolean sinaletica = true;//((Tipo) binding.spnrAreaRecomendacao.getSelectedItem()).detalhe;
 
 
         if(selecao == true & sinaletica == false){

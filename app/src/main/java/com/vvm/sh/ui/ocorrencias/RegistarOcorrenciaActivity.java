@@ -128,33 +128,4 @@ public class RegistarOcorrenciaActivity extends BaseDaggerActivity {
         viewModel.gravar(ocorrencia);
     }
 
-
-
-//    @BindView(R.id.chk_box_fiscalizado)
-//    CheckBox chk_box_fiscalizado;
-//
-//    @BindView(R.id.lnr_lyt_dias)
-//    LinearLayout lnr_lyt_dias;
-//
-//    @BindView(R.id.spnr_dias)
-//    Spinner spnr_dias;
-//
-//    @BindView(R.id.txt_inp_lyt_dias)
-//    TextInputLayout txt_inp_lyt_dias;
-//
-//    @BindView(R.id.txt_inp_observacao)
-//    TextInputEditText txt_inp_observacao;
-//
-//
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_ocorrencia_registar);
-//    }
-//
-
-//
-//
-
-
 }

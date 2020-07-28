@@ -9,6 +9,7 @@ import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 import com.vvm.sh.ui.agenda.modelos.Tarefa;
+import com.vvm.sh.util.constantes.Sintaxe;
 
 import java.util.Date;
 
@@ -208,8 +209,52 @@ public class Cliente {
     }
 
 
+    /**
+     * Metodo que permite obter o segundo cae e a atividade
+     * @return cae - atividade
+     */
+    public String obterAtividade2(){
+        return cae1 + " - " + actividade1;
+    }
+
+    /**
+     * Metodo que indica se existe o segundo cae e a atividade
+     * @return true caso exista ou false caso contrario
+     */
+    public boolean existeAtividade2(){
+
+        if(cae1.equals(Sintaxe.SEM_TEXTO) == true){
+            return false;
+        }
+        else{
+            return true;
+        }
+    }
 
 
+    /**
+     * Metodo que permite obter os contactos
+     * @return telefone + telemovel
+     */
+    public String obterContactos(){
+        return telemovel + ", " + telefone;
+    }
 
 
+    /**
+     * Metodo que permite obter o servico
+     * @return o servico
+     */
+    public String obterServico(){
+        return servicoTp + " - " + servico;
+    }
+
+
+    /**
+     * Metodo que permite obter a morada
+     * @return a morada
+     */
+    public String obterMorada(){
+        return morada + "   CP:" + codigoPostal + " " + freguesia;
+    }
 }

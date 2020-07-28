@@ -10,7 +10,10 @@ import com.vvm.sh.R;
 import com.vvm.sh.databinding.ActivityTarefaBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
+import com.vvm.sh.ui.anomalias.AnomaliasActivity;
+import com.vvm.sh.ui.atividadesExecutadas.AtividadesExecutadasActivity;
 import com.vvm.sh.ui.atividadesPendentes.AtividadesPendentesActivity;
+import com.vvm.sh.ui.cliente.InformacaoActivity;
 import com.vvm.sh.ui.crossSelling.CrossSellingActivity;
 import com.vvm.sh.ui.ocorrencias.OcorrenciasActivity;
 import com.vvm.sh.ui.tarefa.adaptadores.OnTarefaListener;
@@ -93,11 +96,11 @@ public class TarefaActivity extends BaseDaggerActivity
         Intent intent = null;
 
         switch (opcao.id){
-//
-//            case OpcaoClienteRecyclerAdapter.OPCAO_INFORMACAO:
-//
-//                intent = new Intent(this, InformacaoActivity.class);
-//                break;
+
+            case OpcaoCliente.OPCAO_INFORMACAO:
+
+                intent = new Intent(this, InformacaoActivity.class);
+                break;
 
             case OpcaoCliente.OPCAO_CROSS_SELLING:
 
@@ -145,7 +148,19 @@ public class TarefaActivity extends BaseDaggerActivity
     }
 
 
+    @OnClick(R.id.crd_atividades_executadas)
+    public void crd_atividades_executadas_OnClickListener(View view) {
+        Intent intent = new Intent(this, AtividadesExecutadasActivity.class);
+        startActivity(intent);
+    }
 
+
+
+    @OnClick(R.id.crd_anomalias)
+    public void crd_anomalias_OnClickListener(View view) {
+        Intent intent = new Intent(this, AnomaliasActivity.class);
+        startActivity(intent);
+    }
 
 
     @OnClick(R.id.crd_ocorrencias)
@@ -203,20 +218,8 @@ public class TarefaActivity extends BaseDaggerActivity
 //
 //
 
-//
-//    @OnClick(R.id.crd_anomalias)
-//    public void crd_anomalias_OnClickListener(View view) {
-//        Intent intent = new Intent(this, AnomaliasActivity.class);
-//        //intent.putExtra(AppConstants.PICTURE, pictureRecyclerAdapter.getSelectedPicture(position).getId());
-//        startActivity(intent);
-//    }
-//
-//    @OnClick(R.id.crd_atividades_executadas)
-//    public void crd_atividades_executadas_OnClickListener(View view) {
-//        Intent intent = new Intent(this, AtividadesExecutadasActivity.class);
-//        //intent.putExtra(AppConstants.PICTURE, pictureRecyclerAdapter.getSelectedPicture(position).getId());
-//        startActivity(intent);
-//    }
+
+
 //
 //
 //    @OnClick(R.id.crd_conta_corrente)

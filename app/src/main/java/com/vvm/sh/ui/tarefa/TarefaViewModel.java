@@ -184,6 +184,7 @@ public class TarefaViewModel extends BaseViewModel {
 
         List<OpcaoCliente> items = new ArrayList<>();
 
+        items.add(new OpcaoCliente(OpcaoCliente.OPCAO_INFORMACAO, "Informação"));
         items.add(new OpcaoCliente(OpcaoCliente.OPCAO_EMAIL, "Email"));
         items.add(new OpcaoCliente(OpcaoCliente.OPCAO_CROSS_SELLING, "Cross Selling"));
 

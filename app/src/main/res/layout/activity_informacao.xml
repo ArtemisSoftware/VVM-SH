@@ -17,7 +17,8 @@
             name="listener"
             type="com.vvm.sh.ui.crossSelling.adaptadores.OnCrossSellingListener"/>
 -->
-
+        <import type="android.view.View"/>
+        <import type="com.vvm.sh.util.StringUtil"/>
 
         <variable
             name="viewmodel"
@@ -41,7 +42,7 @@
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:layout_width="match_parent"
-                android:layout_height="350dp"
+                android:layout_height="300dp"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
                 app:contentScrim="?attr/colorPrimary"
                 app:expandedTitleTextAppearance="@android:color/transparent"
@@ -54,14 +55,14 @@
                     android:contentDescription="@string/app_name"
                     android:scaleType="centerCrop"
                     android:layout_width="match_parent"
-                    android:layout_height="350dp" />
+                    android:layout_height="match_parent" />
 
                 <androidx.appcompat.widget.Toolbar
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
                     app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
-                    android:title="@string/lorem_ipsum_titulo"
+                    android:title="@string/cliente"
                     app:layout_collapseMode="pin"/>
 
 
@@ -91,13 +92,14 @@
                         style="@style/tituloCartao"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="16dp"
-                        android:text="@{viewmodel.cliente.nome, default=cliente}"
+                        android:text="@{StringUtil.formatarHtml(viewmodel.cliente.nome), default=cliente}"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
 
+
                     <LinearLayout
-                        android:id="@+id/linearLayout2"
+                        android:id="@+id/linearLayout21"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="8dp"
@@ -108,7 +110,29 @@
 
                         <TextView
                             style="@style/textoDescritivo"
-                            android:text="@{viewmodel.cliente.morada, default=morada}" />
+                            android:text="@{viewmodel.tarefa.obterMarcaOrdem(), default=ordem}" />
+
+                        <TextView
+                            style="@style/subTituloDescritivo"
+                            android:text="@string/marca_ordem" />
+
+                    </LinearLayout>
+
+
+
+                    <LinearLayout
+                        android:id="@+id/linearLayout2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="8dp"
+                        android:orientation="vertical"
+                        app:layout_constraintStart_toStartOf="@+id/textView15"
+                        app:layout_constraintTop_toBottomOf="@+id/linearLayout21">
+
+                        <TextView
+                            style="@style/textoDescritivo"
+                            android:text="@{viewmodel.cliente.obterMorada(), default=morada}" />
 
                         <TextView
                             style="@style/subTituloDescritivo"
@@ -150,6 +174,13 @@
                             style="@style/textoDescritivo"
                             android:text="@{viewmodel.cliente.obterAtividade(), default=atividade}" />
 
+
+                        <TextView
+                            style="@style/textoDescritivo"
+                            android:visibility="@{viewmodel.cliente.existeAtividade2() ? View.VISIBLE : View.GONE}"
+                            android:text="@{viewmodel.cliente.obterAtividade2(), default=atividade2}" />
+
+
                         <TextView
                             style="@style/subTituloDescritivo"
                             android:text="@string/cae_atividade" />
@@ -158,8 +189,9 @@
 
 
 
+
                     <LinearLayout
-                        android:id="@+id/linearLayout5"
+                        android:id="@+id/linearLayout6"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
@@ -169,31 +201,11 @@
 
                         <TextView
                             style="@style/textoDescritivo"
-                            android:text="@{viewmodel.cliente.responsavel, default=responsavel}" />
+                            android:text="@{viewmodel.cliente.obterContactos(), default=contactos}" />
 
                         <TextView
                             style="@style/subTituloDescritivo"
-                            android:text="@string/responsavel" />
-
-                    </LinearLayout>
-
-
-                    <LinearLayout
-                        android:id="@+id/linearLayout6"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:orientation="vertical"
-                        app:layout_constraintStart_toStartOf="@+id/linearLayout5"
-                        app:layout_constraintTop_toBottomOf="@+id/linearLayout5">
-
-                        <TextView
-                            style="@style/textoDescritivo"
-                            android:text="@{viewmodel.cliente.telemovel, default=telefone}" />
-
-                        <TextView
-                            style="@style/subTituloDescritivo"
-                            android:text="@string/telefone" />
+                            android:text="@string/contactos" />
 
                     </LinearLayout>
 
@@ -209,7 +221,7 @@
 
                         <TextView
                             style="@style/textoDescritivo"
-                            android:text="@{viewmodel.cliente.servico, default=servico}" />
+                            android:text="@{viewmodel.cliente.obterServico(), default=servico}" />
 
                         <TextView
                             style="@style/subTituloDescritivo"
@@ -240,7 +252,7 @@
 
 
                     <LinearLayout
-                        android:id="@+id/linearLayout9"
+                        android:id="@+id/linearLayout10"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
@@ -254,36 +266,17 @@
 
                         <TextView
                             style="@style/subTituloDescritivo"
-                            android:text="@string/telefone" />
-
-                    </LinearLayout>
-
-
-                    <LinearLayout
-                        android:id="@+id/linearLayout10"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dp"
-                        android:orientation="vertical"
-                        app:layout_constraintStart_toStartOf="@+id/linearLayout9"
-                        app:layout_constraintTop_toBottomOf="@+id/linearLayout9">
-
-                        <TextView
-                            android:text="@{viewmodel.cliente.servico, default=servico}"
-                            style="@style/textoDescritivo" />
-
-
-                        <TextView
-                            style="@style/subTituloDescritivo"
-                            android:text="@string/servico" />
+                            android:text="@string/numero_do_cliente" />
 
                     </LinearLayout>
 
 
 
 
+
+
                     <LinearLayout
-                        android:id="@+id/linearLayout11"
+                        android:id="@+id/linearLayout111"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="8dp"
@@ -301,7 +294,35 @@
 
                     </LinearLayout>
 
-                    <!-- TODO: faltam parametros saldo gps e dois botoes, concatenar os contactos, visibilidade da atividade1, numero de anomalias, autorização do email  -->
+
+
+
+                    <!-- TODO: faltam dois botoes -->
+
+                    <LinearLayout
+                        android:id="@+id/linearLayout11"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:orientation="vertical"
+                        app:layout_constraintStart_toStartOf="@+id/linearLayout111"
+                        app:layout_constraintTop_toBottomOf="@+id/linearLayout111">
+
+                        <!-- TODO: falta saldo  -->
+
+                        <TextView
+                            style="@style/textoDescritivo"
+                            />
+
+                        <!-- android:text="@{viewmodel.cliente.telemovel, default=notas}" -->
+
+                        <TextView
+                            style="@style/subTituloDescritivo"
+                            android:text="@string/saldo_cartao_vivamais" />
+
+                    </LinearLayout>
+
+
 
                     <LinearLayout
                         android:id="@+id/linearLayout12"
@@ -311,6 +332,8 @@
                         android:orientation="vertical"
                         app:layout_constraintStart_toStartOf="@+id/linearLayout11"
                         app:layout_constraintTop_toBottomOf="@+id/linearLayout11">
+
+                        <!-- TODO: faltam as notas  -->
 
                         <TextView
                             style="@style/textoDescritivo"
@@ -333,6 +356,9 @@
                         android:orientation="vertical"
                         app:layout_constraintStart_toStartOf="@+id/linearLayout12"
                         app:layout_constraintTop_toBottomOf="@+id/linearLayout12">
+
+                        <!-- TODO: falta o numero de anomalias  -->
+
 
                         <TextView
                             style="@style/textoDescritivo"
@@ -379,6 +405,10 @@
                         app:layout_constraintStart_toStartOf="@+id/linearLayout14"
                         app:layout_constraintTop_toBottomOf="@+id/linearLayout14">
 
+
+                        <!-- TODO: falta autorização do email  -->
+
+
                         <TextView
                             style="@style/textoDescritivo"
                             android:text="@{viewmodel.cliente.email, default=email}"/>
@@ -400,6 +430,9 @@
                         android:orientation="vertical"
                         app:layout_constraintStart_toStartOf="@+id/linearLayout15"
                         app:layout_constraintTop_toBottomOf="@+id/linearLayout15">
+
+                        <!-- TODO: faltam as coordenadas  -->
+
 
                         <TextView
                             style="@style/textoDescritivo"

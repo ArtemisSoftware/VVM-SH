@@ -55,4 +55,12 @@ public class Tarefa {
         this.prefixoCt = prefixoCt;
         this.data = data;
     }
+
+    /**
+     * Metodo que permite obter a marca e a ordem da tarefa
+     * @return a marca e a ordem
+     */
+    public String obterMarcaOrdem(){
+        return prefixoCt + " / " + ordem;
+    }
 }

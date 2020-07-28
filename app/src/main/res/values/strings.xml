@@ -31,6 +31,7 @@
 
     <!--C-->
 
+    <string name="cliente">Cliente</string>
     <string name="cross_selling">Cross Selling</string>
     <string name="conta_corrente">Conta Corrente</string>
     <string name="conta_corrente_nif_">Conta Corrente para o nif:</string>
@@ -193,6 +194,9 @@
     <string name="opcoes_trabalho">Opções de trabalho</string>
     <string name="registos">registos</string>
     <string name="ordem_">Ordem:</string>
+    <string name="marca_ordem">Marca / Ordem</string>
+    <string name="saldo_cartao_vivamais">Saldo no cartão vivamais</string>
+    <string name="ordem">Ordem</string>
     <string name="morada">Morada</string>
     <string name="nif">Nif</string>
     <string name="cae_atividade">Cae/Atividade</string>
@@ -206,5 +210,8 @@
     <string name="coordenadas">Coordenadas</string>
     <string name="tarefas_realizar">Tarefas a realizar</string>
     <string name="consultar_registar">Consultar / Registar</string>
+    <string name="consultar">Consultar</string>
+    <string name="contactos">Contactos</string>
+    <string name="numero_do_cliente">Número do cliente</string>
 
 </resources>

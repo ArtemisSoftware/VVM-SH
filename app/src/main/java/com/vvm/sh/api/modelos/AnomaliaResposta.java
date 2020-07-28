@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 /**
  * Classe que representa uma anomalia proveniente do web service
  */
-public class AnomaliaResultado {
+public class AnomaliaResposta {
 
     @SerializedName("Data")
     public String data;

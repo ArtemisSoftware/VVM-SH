@@ -1,6 +1,6 @@
 package com.vvm.sh.util.mapeamento;
 
-import com.vvm.sh.api.modelos.AnomaliaResultado;
+import com.vvm.sh.api.modelos.AnomaliaResposta;
 import com.vvm.sh.api.modelos.AtividadeExecutadasResultado;
 import com.vvm.sh.api.modelos.AtividadePendenteResposta;
 import com.vvm.sh.api.modelos.ClienteResultado;
@@ -67,7 +67,7 @@ public interface ModelMapping {
     Cliente map(ClienteResultado item, DadosResultado itemd);
 
 
-    Anomalia map(AnomaliaResultado item);
+    Anomalia map(AnomaliaResposta item);
 
     AtividadePendente map(AtividadePendenteResposta item);
 

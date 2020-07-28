@@ -3,7 +3,7 @@ package com.vvm.sh.ui.agenda.servicos;
 import android.database.sqlite.SQLiteConstraintException;
 import android.os.AsyncTask;
 
-import com.vvm.sh.api.modelos.AnomaliaResultado;
+import com.vvm.sh.api.modelos.AnomaliaResposta;
 import com.vvm.sh.api.modelos.AtividadeExecutadasResultado;
 import com.vvm.sh.api.modelos.AtividadePendenteResposta;
 import com.vvm.sh.api.modelos.ClienteResultado;
@@ -135,11 +135,11 @@ public class TrabalhoAsyncTask extends AsyncTask<SessaoResposta, Void, Void> {
      * @param anomalias uma lista de anomalias
      * @param idTarefa o identificador da tarefa
      */
-    private void inserirAnomalias(List<AnomaliaResultado> anomalias, int idTarefa) {
+    private void inserirAnomalias(List<AnomaliaResposta> anomalias, int idTarefa) {
 
         List<Anomalia> registos = new ArrayList<>();
 
-        for(AnomaliaResultado anomaliaResultado : anomalias){
+        for(AnomaliaResposta anomaliaResultado : anomalias){
 
             Anomalia registo = ModelMapping.INSTANCE.map(anomaliaResultado);
             registo.idTarefa = idTarefa;

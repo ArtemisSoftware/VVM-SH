@@ -20,7 +20,7 @@ public class TarefaResultado {
     public List<AtividadeExecutadasResultado> atividadesExecutadas;
 
     @SerializedName("Ocorrencias")
-    public List<OcorrenciaResultado> ocorrencias;
+    public List<OcorrenciaResposta> ocorrencias;
 
 
     @SerializedName("Anomalias")

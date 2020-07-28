@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Classe que representa uma ocorrencia do web service
  */
-public class OcorrenciaResultado {
+public class OcorrenciaResposta {
 
     @SerializedName("ID")
     public String idOcorrencia;

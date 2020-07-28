@@ -115,6 +115,14 @@
     <string name="key_entrar_contacto">key_entrar_contacto</string>
 
 
+    <!-- ARGUMENTOS DO BUNDLE -->
+
+    <string name="argumento_id">id</string>
+
+
+
+
+
     <!--onboarding designs-->
     <string name="onboardingWelcomeContent">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </string>
     <string name="onboardingSpinWinContent">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </string>

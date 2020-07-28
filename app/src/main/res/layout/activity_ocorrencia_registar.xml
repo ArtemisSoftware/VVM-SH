@@ -82,7 +82,7 @@
                         app:layout_constraintTop_toBottomOf="@+id/textview2" />
 
                     <CheckBox
-                        android:id="@+id/checkBox2"
+                        android:id="@+id/chk_box_fiscalizado"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="32dp"
@@ -97,7 +97,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="24dp"
                         app:layout_constraintStart_toStartOf="@+id/textView18"
-                        app:layout_constraintTop_toBottomOf="@+id/checkBox2" />
+                        app:layout_constraintTop_toBottomOf="@+id/chk_box_fiscalizado" />
 
 
                     <com.google.android.material.textfield.TextInputLayout
@@ -107,10 +107,12 @@
                         android:layout_marginTop="24dp"
                         android:hint="@string/dias"
                         app:errorEnabled="true"
+                        android:visibility="gone"
                         app:layout_constraintStart_toStartOf="@+id/textView18"
                         app:layout_constraintTop_toBottomOf="@+id/spnr_dias">
 
                         <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/txt_inp_dias"
                             style="@style/modifiedEditText"
                             android:enabled="false"
                             android:maxLines="1"

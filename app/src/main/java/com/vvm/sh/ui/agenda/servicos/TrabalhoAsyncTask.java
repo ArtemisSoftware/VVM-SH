@@ -8,7 +8,7 @@ import com.vvm.sh.api.modelos.AtividadeExecutadasResultado;
 import com.vvm.sh.api.modelos.AtividadePendenteResposta;
 import com.vvm.sh.api.modelos.ClienteResultado;
 import com.vvm.sh.api.modelos.DadosResultado;
-import com.vvm.sh.api.modelos.OcorrenciaResultado;
+import com.vvm.sh.api.modelos.OcorrenciaResposta;
 import com.vvm.sh.api.modelos.SessaoResposta;
 import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.repositorios.AgendaRepositorio;
@@ -107,9 +107,9 @@ public class TrabalhoAsyncTask extends AsyncTask<SessaoResposta, Void, Void> {
      * @param ocorrencias os dados das ocorrencias
      * @param idTarefa o identificador da tarefa
      */
-    private void inserirOcorrencias(List<OcorrenciaResultado> ocorrencias, int idTarefa) {
+    private void inserirOcorrencias(List<OcorrenciaResposta> ocorrencias, int idTarefa) {
 
-        for(OcorrenciaResultado ocorrenciaResultado : ocorrencias){
+        for(OcorrenciaResposta ocorrenciaResultado : ocorrencias){
 
             Ocorrencia registo = ModelMapping.INSTANCE.map(ocorrenciaResultado);
             registo.idTarefa = idTarefa;
@@ -117,7 +117,7 @@ public class TrabalhoAsyncTask extends AsyncTask<SessaoResposta, Void, Void> {
 
             List<OcorrenciaHistorico> registos = new ArrayList<>();
 
-            for(OcorrenciaResultado.OcorrenciaHistoricoResultado ocorrenciaHistoricoResultado : ocorrenciaResultado.historico){
+            for(OcorrenciaResposta.OcorrenciaHistoricoResultado ocorrenciaHistoricoResultado : ocorrenciaResultado.historico){
 
                 OcorrenciaHistorico item = ModelMapping.INSTANCE.map(ocorrenciaHistoricoResultado);
                 item.idOcorrencia = idOcorrencia;

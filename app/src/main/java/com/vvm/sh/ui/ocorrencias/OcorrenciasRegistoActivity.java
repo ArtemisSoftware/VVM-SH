@@ -112,6 +112,21 @@ public class OcorrenciasRegistoActivity extends BaseDaggerActivity
         viewModel.obterRegistosOcorrencias(ocorrencia.id);
     }
 
+    @Override
+    public void OnOcorrenciaCheck(Tipo ocorrencia, boolean selecionado) {
+
+        if(selecionado == true){
+            Intent intent = new Intent(this, RegistarOcorrenciaActivity.class);
+            intent.putExtra(getString(R.string.argumento_id), ocorrencia.id);
+            startActivityForResult(intent, 000000);
+        }
+
+        else{
+
+            viewModel.remover(Preferencias.obterIdTarefa(this), ocorrencia.id);
+        }
+    }
+
 
 //    @BindView(R.id.rcl_registos)
 //    RecyclerView rcl_registos;

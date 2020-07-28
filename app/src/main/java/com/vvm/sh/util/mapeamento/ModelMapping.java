@@ -5,7 +5,7 @@ import com.vvm.sh.api.modelos.AtividadeExecutadasResultado;
 import com.vvm.sh.api.modelos.AtividadePendenteResposta;
 import com.vvm.sh.api.modelos.ClienteResultado;
 import com.vvm.sh.api.modelos.DadosResultado;
-import com.vvm.sh.api.modelos.OcorrenciaResultado;
+import com.vvm.sh.api.modelos.OcorrenciaResposta;
 import com.vvm.sh.api.modelos.TipoResposta;
 import com.vvm.sh.api.modelos.TipoResultado;
 import com.vvm.sh.api.modelos.UtilizadorResultado;
@@ -71,9 +71,9 @@ public interface ModelMapping {
 
     AtividadePendente map(AtividadePendenteResposta item);
 
-    Ocorrencia map(OcorrenciaResultado item);
+    Ocorrencia map(OcorrenciaResposta item);
 
-    OcorrenciaHistorico map(OcorrenciaResultado.OcorrenciaHistoricoResultado item);
+    OcorrenciaHistorico map(OcorrenciaResposta.OcorrenciaHistoricoResultado item);
 
 /*
     @Mapping(source = "id", target = "number")

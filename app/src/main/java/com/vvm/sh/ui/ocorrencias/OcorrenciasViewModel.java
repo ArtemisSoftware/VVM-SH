@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.vvm.sh.repositorios.OcorrenciaRepositorio;
 import com.vvm.sh.ui.ocorrencias.modelos.Ocorrencia;
+import com.vvm.sh.ui.ocorrencias.modelos.OcorrenciaResultado;
 import com.vvm.sh.ui.opcoes.modelos.Tipo;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
@@ -23,6 +24,7 @@ public class OcorrenciasViewModel extends BaseViewModel {
     public MutableLiveData<List<Ocorrencia>> ocorrencias;
     public MutableLiveData<List<Tipo>> ocorrenciasGeral;
     public MutableLiveData<List<Tipo>> ocorrenciasRegistos;
+    public MutableLiveData<Tipo> ocorrencia;
 
     @Inject
     public OcorrenciasViewModel(OcorrenciaRepositorio ocorrenciaRepositorio){
@@ -31,6 +33,7 @@ public class OcorrenciasViewModel extends BaseViewModel {
         ocorrencias = new MutableLiveData<>();
         ocorrenciasGeral = new MutableLiveData<>();
         ocorrenciasRegistos = new MutableLiveData<>();
+        ocorrencia = new MutableLiveData<>();
     }
 
 
@@ -153,5 +156,14 @@ public class OcorrenciasViewModel extends BaseViewModel {
                         }
 
                 );
+    }
+
+    public void gravar(OcorrenciaResultado registo) {
+    }
+
+    public void obterOcorrencia(int idTarefa, int id) {
+    }
+
+    public void remover(int obterIdTarefa, int id) {
     }
 }

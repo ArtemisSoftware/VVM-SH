@@ -149,6 +149,7 @@
     <string name="departamento_">Departamento:</string>
     <string name="dados_da_formacao">Dados da Formação</string>
     <string name="designacao">Designação</string>
+    <string name="designacao_">Designação:</string>
     <string name="contrato_">Contrato:</string>
     <string name="cancelar">Cancelar</string>
     <string name="configuracao">Configuração</string>
@@ -161,6 +162,7 @@
     <string name="ocorrencia">Ocorrência</string>
     <string name="ocorrencias">Ocorrências</string>
     <string name="local">Local</string>
+    <string name="local_">Local:</string>
     <string name="inicio">Inicio</string>
 
     <!-- TODO: Remove or change this placeholder text -->
@@ -220,5 +222,6 @@
     <string name="endereco">Endereço</string>
 
     <string name="email_endereco_invalido">Endereço inválido</string>
+    <string name="formacao">Formação</string>
 
 </resources>

@@ -11,7 +11,7 @@
 
         <variable
             name="formando"
-            type="com.vvm.sh.ui.atividadesPendentes.Formando" />
+            type="com.vvm.sh.ui.atividadesPendentes.relatorios.Formando" />
 <!--
         <variable
             name="listener"

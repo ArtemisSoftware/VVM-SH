@@ -3,12 +3,12 @@ package com.vvm.sh.ui.atividadesPendentes;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 
 import com.vvm.sh.R;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.Formando;
 import com.vvm.sh.util.adaptadores.Item;
 import com.vvm.sh.util.adaptadores.ItemViewHolder;
 import com.vvm.sh.util.interfaces.OnCheckBoxItemListener;
@@ -23,7 +23,7 @@ public class FormandoViewHolder extends ItemViewHolder implements View.OnClickLi
     CheckBox chk_selecionado;
 
 
-    @BindView(R.id.txt_identificacao)
+    //@BindView(R.id.txt_identificacao)
     TextView txt_identificacao;
 
 
@@ -43,10 +43,10 @@ public class FormandoViewHolder extends ItemViewHolder implements View.OnClickLi
     @Override
     protected void preencherCampos(Item item) {
 
-        Formando registo = (Formando) item;
-
-        chk_selecionado.setChecked(registo.obterSelecao());
-        txt_identificacao.setText(registo.obterBiCartaoCidadao());
+//        Formando registo = (Formando) item;
+//
+//        chk_selecionado.setChecked(registo.obterSelecao());
+//        txt_identificacao.setText(registo.obterBiCartaoCidadao());
 
         chk_selecionado.setOnCheckedChangeListener(this);
     }

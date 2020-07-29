@@ -67,7 +67,7 @@ public class DialogoEmail extends BaseDaggerDialogFragment {
         binding.setViewmodel(viewModel);
 
 
-        viewModel.obterOpcoesEmail(Preferencias.obterIdTarefa(getContext()));
+        viewModel.obterEmail(Preferencias.obterIdTarefa(getContext()));
 
         builder.setPositiveButton(Sintaxe.Opcoes.GRAVAR,  new DialogInterface.OnClickListener() {
             @Override
@@ -114,12 +114,7 @@ public class DialogoEmail extends BaseDaggerDialogFragment {
 
                     case SUCESSO:
 
-                        Cliente cliente = (Cliente)recurso.dados;
-                        binding.txtInpEmail.setText(cliente.email);
-
-                        //TODO: o index deve vir da bd
-                        binding.spnrEmail.setSelectedIndex(2);
-
+                        terminarDialogo();
                         break;
 
                     default:

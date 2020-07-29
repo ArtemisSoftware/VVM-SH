@@ -11,6 +11,7 @@ import com.vvm.sh.ui.agenda.modelos.TarefaDia;
 
 import java.util.List;
 
+import io.reactivex.Flowable;
 import io.reactivex.Single;
 
 @Dao
@@ -27,6 +28,6 @@ public abstract class TarefaDao implements BaseDao<Tarefa>{
 
     @Transaction
     @Query("SELECT * FROM tarefas WHERE idTarefa = :idTarefa ")
-    abstract public Single<TarefaDia> obterTarefaDia(int idTarefa);
+    abstract public Flowable<TarefaDia> obterTarefaDia(int idTarefa);
 
 }

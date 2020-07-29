@@ -20,6 +20,8 @@ public class Sintaxe {
 
     public class Palavras{
 
+        public static final String AUTENTICADO = "(Autenticado)";
+        public static final String NAO_AUTENTICADO = "(Não autenticado)";
         public static final String FORMACAO = "Formação";
     }
 

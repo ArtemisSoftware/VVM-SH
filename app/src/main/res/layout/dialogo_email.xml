@@ -40,6 +40,7 @@
                 android:id="@+id/txt_inp_email"
                 style="@style/modifiedEditText"
                 android:inputType="textEmailAddress"
+                android:text="@{viewmodel.tarefaDia.obterEnderecoEmail()}"
                 android:maxLines="1"/>
         </com.google.android.material.textfield.TextInputLayout>
 
@@ -48,6 +49,7 @@
         <com.jaredrummler.materialspinner.MaterialSpinner
             android:id="@+id/spnr_email"
             app:tipos_="@{viewmodel.opcoesEmail}"
+            app:email="@{viewmodel.tarefaDia.email}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="25dp"

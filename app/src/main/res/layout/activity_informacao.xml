@@ -405,15 +405,9 @@
                         app:layout_constraintStart_toStartOf="@+id/linearLayout14"
                         app:layout_constraintTop_toBottomOf="@+id/linearLayout14">
 
-
-                        <!-- TODO: falta autorização do email  -->
-
-
                         <TextView
                             style="@style/textoDescritivo"
-                            android:text="@{viewmodel.cliente.email, default=email}"/>
-
-                        <!--  -->
+                            android:text="@{viewmodel.tarefaDia.obterEmail(), default=email}"/>
 
                         <TextView
                             style="@style/subTituloDescritivo"

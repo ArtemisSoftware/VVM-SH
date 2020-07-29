@@ -105,8 +105,12 @@
 
     <!--T-->
 
+    <string name="tarefa_bloqueada">Tarefa bloqueada</string>
     <string name="tipo_">Tipo:</string>
 
+
+
+    <string name="validar_email_desbloquear">Valide o email para desbloquear a tarefa</string>
 
     <!-- CHAVES PREFERENCIAS -->
 

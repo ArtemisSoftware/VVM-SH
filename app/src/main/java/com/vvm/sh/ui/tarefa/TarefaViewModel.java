@@ -19,6 +19,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -29,7 +30,9 @@ public class TarefaViewModel extends BaseViewModel {
     private final TarefaRepositorio tarefaRepositorio;
 
     public MutableLiveData<Cliente> cliente;
+    public MutableLiveData<TarefaDia> tarefaDia;
     public MutableLiveData<Tarefa> tarefa;
+    public MutableLiveData<EmailResultado> email;
     public MutableLiveData<List<AtividadeExecutada>> atividadesExecutadas;
     public MutableLiveData<List<OpcaoCliente>> opcoesCliente;
     public MutableLiveData<List<Tipo>> opcoesEmail;
@@ -38,7 +41,7 @@ public class TarefaViewModel extends BaseViewModel {
     /**
      * Variavel que indica se a tarefa está validada
      */
-    private boolean tarefaValidada;
+    public MutableLiveData<Boolean> tarefaValidada;
 
 
     @Inject
@@ -46,12 +49,14 @@ public class TarefaViewModel extends BaseViewModel {
 
         this.tarefaRepositorio = tarefaRepositorio;
         tarefa = new MutableLiveData<>();
+        tarefaDia = new MutableLiveData<>();
         cliente = new MutableLiveData<>();
+        email = new MutableLiveData<>();
         opcoesCliente = new MutableLiveData<>();
         opcoesEmail = new MutableLiveData<>();
         atividadesExecutadas = new MutableLiveData<>();
 
-        tarefaValidada = false;
+        tarefaValidada = new MutableLiveData<>();
     }
 
 
@@ -63,12 +68,67 @@ public class TarefaViewModel extends BaseViewModel {
     public void gravarEmail(EmailResultado email) {
 
 
-        if(tarefaValidada == true){
-            //TODO: atualizar email
+        if(tarefaDia.getValue().email == null){
+
+            tarefaRepositorio.inserir(email).toObservable()
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+
+                            new Observer<Long>() {
+                                @Override
+                                public void onSubscribe(Disposable d) {
+
+                                }
+
+                                @Override
+                                public void onNext(Long aLong) {
+
+                                }
+
+                                @Override
+                                public void onError(Throwable e) {
+
+                                }
+
+                                @Override
+                                public void onComplete() {
+
+                                }
+                            }
+                    );
         }
         else{
-            //TODO: inserir email
+
+            tarefaRepositorio.atualizar(email).toObservable()
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+
+                            new Observer<Integer>() {
+                                @Override
+                                public void onSubscribe(Disposable d) {
+
+                                }
+
+                                @Override
+                                public void onNext(Integer integer) {
+
+                                }
+
+                                @Override
+                                public void onError(Throwable e) {
+
+                                }
+
+                                @Override
+                                public void onComplete() {
+
+                                }
+                            }
+                    );
         }
+
 
     }
 
@@ -84,8 +144,55 @@ public class TarefaViewModel extends BaseViewModel {
      * @param idTarefa
      */
     public void obterTarefa(int idTarefa){
-        obterCliente(idTarefa);
-        obterOpcoesCliente(idTarefa);
+
+        showProgressBar(true);
+
+        tarefaRepositorio.obterTarefa(idTarefa).toObservable()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new Observer<TarefaDia>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onNext(TarefaDia registo) {
+
+                                tarefaDia.setValue(registo);
+                                tarefa.setValue(registo.tarefa);
+                                cliente.setValue(registo.cliente);
+                                email.setValue(registo.email);
+                                obterOpcoesCliente(registo.email);
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onComplete() {
+                                showProgressBar(false);
+                            }
+                        }
+                );
+
+
+    }
+
+
+    /**
+     * Metodo que permite obter as opcoes do email
+     * @param idTarefa o identificador da tarefa
+     */
+    public void obterEmail(int idTarefa) {
+
+        obterOpcoesEmail();
+        obterTarefa(idTarefa);
     }
 
 
@@ -130,57 +237,13 @@ public class TarefaViewModel extends BaseViewModel {
     }
 
 
-    /**
-     * Metodo que permite obter os dados do cliente
-     * @param idTarefa o identificador da tarefa
-     */
-    public void obterCliente(int idTarefa) {
-
-        showProgressBar(true);
-
-        tarefaRepositorio.obterTarefa(idTarefa).toObservable()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-
-                        new Observer<TarefaDia>() {
-                            @Override
-                            public void onSubscribe(Disposable d) {
-                                disposables.add(d);
-                            }
-
-                            @Override
-                            public void onNext(TarefaDia registo) {
-
-                                tarefa.setValue(registo.tarefa);
-                                cliente.setValue(registo.cliente);
-                                showProgressBar(false);
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-                                showProgressBar(false);
-                            }
-
-                            @Override
-                            public void onComplete() {
-                                showProgressBar(false);
-                            }
-                        }
-                );
-
-
-    }
-
-
 
 
     /**
      * Metodo que permite obter os dados do cliente
-     * @param idTarefa o identificador da tarefa
+     * @param email os dados do email
      */
-    public void obterOpcoesCliente(int idTarefa) {
-
+    private void obterOpcoesCliente(EmailResultado email) {
 
         List<OpcaoCliente> items = new ArrayList<>();
 
@@ -190,49 +253,19 @@ public class TarefaViewModel extends BaseViewModel {
 
         opcoesCliente.setValue(items);
 
-        //TODO: consultar a tabela email e consoante o resultado (existir - desbloquear + nao existir bloquear) mudar a variavel "tarefaValidada"
-/*
-        showProgressBar(true);
-
-        tarefaRepositorio.obterCliente(idTarefa).toObservable()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-
-                        new Observer<Cliente>() {
-                            @Override
-                            public void onSubscribe(Disposable d) {
-                                disposables.add(d);
-                            }
-
-                            @Override
-                            public void onNext(Cliente registo) {
-
-                                cliente.setValue(registo);
-                                showProgressBar(false);
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-                                showProgressBar(false);
-                            }
-
-                            @Override
-                            public void onComplete() {
-                                showProgressBar(false);
-                            }
-                        }
-                );
-*/
-
+        if(email == null){
+            tarefaValidada.setValue(false);
+        }
+        else{
+            tarefaValidada.setValue(true);
+        }
     }
 
 
     /**
      * Metodo que permite obter as opcoes do email
-     * @param idTarefa o identificador da tarefa
      */
-    public void obterOpcoesEmail(int idTarefa) {
+    private void obterOpcoesEmail() {
 
         List<Tipo> items = new ArrayList<>();
 
@@ -242,56 +275,9 @@ public class TarefaViewModel extends BaseViewModel {
 
         opcoesEmail.setValue(items);
 
-        obterEmail(idTarefa);
     }
 
 
-    /**
-     * Metodo que permite obter as opcoes do email
-     */
-    public void obterEmail(int idTarefa) {
-
-        showProgressBar(true);
-
-        //TODO: estes dados têm que vir da tabela email
-
-        tarefaRepositorio.obterTarefa(idTarefa).toObservable()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-
-                        new Observer<TarefaDia>() {
-                            @Override
-                            public void onSubscribe(Disposable d) {
-                                disposables.add(d);
-                            }
-
-                            @Override
-                            public void onNext(TarefaDia registo) {
-
-
-                                messagemLiveData.setValue(Recurso.successo(registo.cliente));
-
-                                showProgressBar(false);
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-                                showProgressBar(false);
-                            }
-
-                            @Override
-                            public void onComplete() {
-                                showProgressBar(false);
-                            }
-                        }
-                );
-    }
-
-
-
-    public static final int TIPOS = 1;
-    public static final int REGISTO = 2;
 
 
 }

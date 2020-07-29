@@ -6,6 +6,7 @@ import androidx.room.Room;
 
 import com.vvm.sh.baseDados.BaseDadosContantes;
 import com.vvm.sh.baseDados.Migracao;
+import com.vvm.sh.baseDados.ResultadoDao;
 import com.vvm.sh.baseDados.TipoDao;
 import com.vvm.sh.baseDados.VvmshBaseDados;
 
@@ -37,4 +38,13 @@ public class BaseDadosModule {
     }
 
 
+    @Singleton
+    @Provides
+    static ResultadoDao provideResultadoDao(VvmshBaseDados vvmshBaseDados){
+
+        ResultadoDao dao = vvmshBaseDados.obterResultadoDao();
+
+        //Timber.d("Providing NoteDao: " + dao);
+        return dao;
+    }
 }

@@ -3,6 +3,8 @@ package com.vvm.sh.ui.tarefa;
 import androidx.lifecycle.MutableLiveData;
 
 import com.vvm.sh.repositorios.TarefaRepositorio;
+import com.vvm.sh.servicos.ResultadoAsyncTask;
+import com.vvm.sh.ui.agenda.modelos.Resultado;
 import com.vvm.sh.ui.agenda.modelos.Tarefa;
 import com.vvm.sh.ui.agenda.modelos.TarefaDia;
 import com.vvm.sh.ui.atividadesExecutadas.modelos.AtividadeExecutada;
@@ -65,8 +67,11 @@ public class TarefaViewModel extends BaseViewModel {
     //--------------------
 
 
+    /**
+     * Metodo que permite gravar um email
+     * @param email os dados do email
+     */
     public void gravarEmail(EmailResultado email) {
-
 
         if(tarefaDia.getValue().email == null){
 
@@ -78,17 +83,17 @@ public class TarefaViewModel extends BaseViewModel {
                             new Observer<Long>() {
                                 @Override
                                 public void onSubscribe(Disposable d) {
-
+                                    disposables.add(d);
                                 }
 
                                 @Override
                                 public void onNext(Long aLong) {
-
+                                    messagemLiveData.setValue(Recurso.successo());
                                 }
 
                                 @Override
                                 public void onError(Throwable e) {
-
+                                    messagemLiveData.setValue(Recurso.erro(e.getMessage()));
                                 }
 
                                 @Override
@@ -108,17 +113,17 @@ public class TarefaViewModel extends BaseViewModel {
                             new Observer<Integer>() {
                                 @Override
                                 public void onSubscribe(Disposable d) {
-
+                                    disposables.add(d);
                                 }
 
                                 @Override
                                 public void onNext(Integer integer) {
-
+                                    messagemLiveData.setValue(Recurso.successo());
                                 }
 
                                 @Override
                                 public void onError(Throwable e) {
-
+                                    messagemLiveData.setValue(Recurso.erro(e.getMessage()));
                                 }
 
                                 @Override
@@ -130,6 +135,8 @@ public class TarefaViewModel extends BaseViewModel {
         }
 
 
+        ResultadoAsyncTask servico = new ResultadoAsyncTask(vvmshBaseDados, tarefaRepositorio.resultadoDao);
+        servico.execute(new Resultado(email.idTarefa, Resultado.ResultadoId.EMAIL));
     }
 
 
@@ -237,6 +244,10 @@ public class TarefaViewModel extends BaseViewModel {
     }
 
 
+
+    //--------------------
+    //Misc
+    //--------------------
 
 
     /**

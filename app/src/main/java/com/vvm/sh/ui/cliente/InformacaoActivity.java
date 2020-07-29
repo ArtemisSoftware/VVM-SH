@@ -48,7 +48,7 @@ public class InformacaoActivity extends BaseDaggerActivity {
 
         subscreverObservadores();
 
-        viewModel.obterCliente(Preferencias.obterIdTarefa(this));
+        viewModel.obterTarefa(Preferencias.obterIdTarefa(this));
 
     }
 

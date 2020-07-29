@@ -5,7 +5,10 @@ import android.view.View;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.util.Recurso;
+
+import javax.inject.Inject;
 
 import io.reactivex.disposables.CompositeDisposable;
 
@@ -17,6 +20,10 @@ public abstract class BaseViewModel extends ViewModel {
 
 
     public MutableLiveData<Integer> loading;
+
+
+    @Inject
+    protected VvmshBaseDados vvmshBaseDados;
 
     public BaseViewModel() {
 

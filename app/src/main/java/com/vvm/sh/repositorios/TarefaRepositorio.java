@@ -21,7 +21,7 @@ public class TarefaRepositorio {
     private final TarefaDao tarefaDao;
     private final AtividadeExecutadaDao atividadeExecutadaDao;
     private final EmailDao emailDao;
-    private final ResultadoDao resultadoDao;
+    public final ResultadoDao resultadoDao;
 
     public TarefaRepositorio(@NonNull TarefaDao clienteDao, @NonNull AtividadeExecutadaDao atividadeExecutadaDao,
                              @NonNull EmailDao emailDao, @NonNull ResultadoDao resultadoDao) {

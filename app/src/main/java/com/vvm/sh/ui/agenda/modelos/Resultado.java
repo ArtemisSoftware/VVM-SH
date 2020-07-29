@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Ignore;
 
 import static androidx.room.ForeignKey.CASCADE;
 
@@ -27,9 +28,17 @@ public class Resultado {
     public boolean sincronizado;
 
 
+    @Ignore
+    public Resultado(int idTarefa, ResultadoId id) {
+        this.idTarefa = idTarefa;
+        this.id = id.getValue();
+        this.sincronizado = sincronizado;
+    }
+
     public Resultado(int idTarefa, int id, boolean sincronizado) {
         this.idTarefa = idTarefa;
         this.id = id;
         this.sincronizado = sincronizado;
     }
+
 }

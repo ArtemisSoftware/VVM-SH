@@ -9,11 +9,14 @@ import androidx.lifecycle.ViewModelProviders;
 import com.vvm.sh.R;
 import com.vvm.sh.databinding.DialogoEmailBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
+import com.vvm.sh.servicos.ResultadoAsyncTask;
+import com.vvm.sh.ui.agenda.modelos.Resultado;
 import com.vvm.sh.ui.cliente.Cliente;
 import com.vvm.sh.ui.BaseDaggerDialogFragment;
 import com.vvm.sh.ui.opcoes.modelos.Tipo;
 import com.vvm.sh.ui.tarefa.adaptadores.OnTarefaListener;
 import com.vvm.sh.ui.tarefa.modelos.EmailResultado;
+import com.vvm.sh.util.MensagensUtil;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.metodos.Preferencias;
@@ -69,6 +72,7 @@ public class DialogoEmail extends BaseDaggerDialogFragment {
 
         viewModel.obterEmail(Preferencias.obterIdTarefa(getContext()));
 
+
         builder.setPositiveButton(Sintaxe.Opcoes.GRAVAR,  new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -114,6 +118,7 @@ public class DialogoEmail extends BaseDaggerDialogFragment {
 
                     case SUCESSO:
 
+                        MensagensUtil.sucesso();
                         terminarDialogo();
                         break;
 

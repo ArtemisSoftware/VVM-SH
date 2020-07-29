@@ -25,8 +25,7 @@ public class AgendaViewModel extends BaseViewModel {
     public MutableLiveData<List<TarefaDia>> tarefas;
 
 
-    @Inject
-    VvmshBaseDados vvmshBaseDados;
+
 
     @Inject
     public AgendaViewModel(AgendaRepositorio agendaRepositorio){

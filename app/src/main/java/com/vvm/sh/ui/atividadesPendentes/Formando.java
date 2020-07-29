@@ -7,9 +7,12 @@ import com.vvm.sh.util.metodos.Conversor;
 public class Formando extends Item implements CheckBoxIF {
 
     private boolean selecionado;
-    private String biCartaoCidadao;
+    public String biCartaoCidadao;
     private String niss;
     private int origem;
+
+
+    public String nome;
 
 
     public Formando(int id, String nome, String biCartaoCidadao, String niss, int origem, int selecionado, int valido) {

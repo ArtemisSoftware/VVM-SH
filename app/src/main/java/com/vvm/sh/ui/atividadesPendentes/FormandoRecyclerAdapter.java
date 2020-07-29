@@ -21,7 +21,7 @@ public class FormandoRecyclerAdapter extends ItemRecyclerAdapter {
 
     @Override
     protected int obterLayout(int viewType) {
-        return R.layout.formando_list_card_iterm;
+        return R.layout.item_formando;
     }
 
     @Override

@@ -108,6 +108,11 @@ public class DialogoSinaletica extends BaseDaggerDialogFragment {
 
     }
 
+    @Override
+    protected void clickPositivo() {
+
+    }
+
 
     //
 //    public static NoteDialogFragment newInstance(String name, Note note) {

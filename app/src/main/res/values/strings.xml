@@ -219,4 +219,6 @@
     <string name="numero_do_cliente">Número do cliente</string>
     <string name="endereco">Endereço</string>
 
+    <string name="email_endereco_invalido">Endereço inválido</string>
+
 </resources>

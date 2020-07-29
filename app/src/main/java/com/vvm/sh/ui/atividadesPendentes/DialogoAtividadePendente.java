@@ -89,6 +89,11 @@ public class DialogoAtividadePendente extends BaseDaggerDialogFragment {
 
     }
 
+    @Override
+    protected void clickPositivo() {
+
+    }
+
 
     /**
      * Metodo que permite formatar as opcoes do dialogo

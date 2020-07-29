@@ -79,18 +79,6 @@ public class TarefaActivity extends BaseDaggerActivity
     }
 
 
-    //-------------------
-    //Gravar
-    //-------------------
-
-
-    @Override
-    public void OnGravarEmailListener(EmailResultado email) {
-
-
-        viewModel.gravarEmail(email);
-    }
-
 
     //---------------------
     //Eventos
@@ -194,15 +182,6 @@ public class TarefaActivity extends BaseDaggerActivity
 
 
 
-
-//
-//    @BindView(R.id.rcl_opcoes_cliente)
-//    RecyclerView rcl_opcoes_cliente;
-//
-//    private OpcaoClienteRecyclerAdapter opcaoClienteRecyclerAdapter;
-//
-//
-//
 //    @Override
 //    protected void onCreate(Bundle savedInstanceState) {
 //        super.onCreate(savedInstanceState);
@@ -219,27 +198,6 @@ public class TarefaActivity extends BaseDaggerActivity
 //        obterRegistos();
 //
 //    }
-//
-//
-//
-//
-//
-//
-//    @Override
-//    public void gravarEmail(String email, int estado) {
-//        //textViewUsername.setText(username);
-//        //textViewPassword.setText(password);
-//    }
-//
-//    //------------------------
-//    //Metodos locais
-//    //------------------------
-//
-//
-
-
-//
-//
 
 
 

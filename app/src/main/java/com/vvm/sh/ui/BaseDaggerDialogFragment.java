@@ -13,6 +13,7 @@ import androidx.databinding.ViewDataBinding;
 
 import com.vvm.sh.R;
 import com.vvm.sh.databinding.ActivityBaseDaggerBinding;
+import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import butterknife.ButterKnife;
@@ -36,6 +37,23 @@ public abstract class BaseDaggerDialogFragment extends DaggerDialogFragment {
         alertDialogBuilder.setView(activityBaseBinding.getRoot());
 
         ButterKnife.bind(this, activityBaseBinding.getRoot());
+
+
+        alertDialogBuilder.setPositiveButton(Sintaxe.Opcoes.GRAVAR,  new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+                clickPositivo();
+            }
+        });
+
+        alertDialogBuilder.setNegativeButton(Sintaxe.Opcoes.CANCELAR, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                terminarDialogo();
+            }
+        });
+
 
         initDialogo(alertDialogBuilder);
 
@@ -112,4 +130,10 @@ public abstract class BaseDaggerDialogFragment extends DaggerDialogFragment {
      * Metodo que permite subscrever observadores
      */
     protected abstract void subscreverObservadores();
+
+
+    /**
+     * Metodo que permite lidar com o click positivo do dialogo
+     */
+    protected abstract void clickPositivo();
 }

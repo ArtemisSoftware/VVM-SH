@@ -57,8 +57,5 @@ public abstract class BaseDaggerDialogoPersistenteFragment extends BaseDaggerDia
     protected abstract void iniciarDialogo();
 
 
-    /**
-     * Metodo que permite lidar com o click positivo do dialogo
-     */
-    protected abstract void clickPositivo();
+
 }

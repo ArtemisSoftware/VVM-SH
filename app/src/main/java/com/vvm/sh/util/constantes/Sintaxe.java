@@ -10,6 +10,7 @@ public class Sintaxe {
 
 
     public static final String ERRO_PASTA_DOWNLOAD = "O download não pode ser realizado.";
+    public static final CharSequence ARROBA = "@";
 
 
     public class Titulos{
@@ -29,6 +30,9 @@ public class Sintaxe {
 
         public static final String GRAVAR = "Gravar";
         public static final String CANCELAR = "Cancelar";
+        public static final String CLIENTE_NAO_TEM_EMAIL = "Cliente não tem email";
+        public static final String AUTORIZADO = "Autorizado";
+        public static final String NAO_AUTORIZADO = "Não autorizado";
     }
 
     public class Alertas{

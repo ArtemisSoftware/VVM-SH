@@ -6,13 +6,12 @@ import android.content.DialogInterface;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.google.android.material.textfield.TextInputEditText;
+import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.vvm.sh.R;
 import com.vvm.sh.databinding.DialogoEmailBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
-import com.vvm.sh.servicos.ResultadoAsyncTask;
-import com.vvm.sh.ui.agenda.modelos.Resultado;
-import com.vvm.sh.ui.cliente.Cliente;
-import com.vvm.sh.ui.BaseDaggerDialogFragment;
+import com.vvm.sh.ui.BaseDaggerDialogoPersistenteFragment;
 import com.vvm.sh.ui.opcoes.modelos.Tipo;
 import com.vvm.sh.ui.tarefa.adaptadores.OnTarefaListener;
 import com.vvm.sh.ui.tarefa.modelos.EmailResultado;
@@ -23,7 +22,9 @@ import com.vvm.sh.util.metodos.Preferencias;
 
 import javax.inject.Inject;
 
-public class DialogoEmail extends BaseDaggerDialogFragment {
+import butterknife.BindView;
+
+public class DialogoEmail extends BaseDaggerDialogoPersistenteFragment {
 
 
 
@@ -36,10 +37,9 @@ public class DialogoEmail extends BaseDaggerDialogFragment {
     private TarefaViewModel viewModel;
 
 
-    private OnTarefaListener listener;
 
-
-    private static final String ARGUMENTO_EMAIL = "email";
+    @BindView(R.id.txt_inp_email)
+    TextInputEditText txt_inp_email;
 
 
 
@@ -49,51 +49,23 @@ public class DialogoEmail extends BaseDaggerDialogFragment {
 
 
     public static DialogoEmail newInstance() {
-        DialogoEmail frag = new DialogoEmail();
-
-//        Bundle args = new Bundle();
-//        args.putString(ARGUMENTO_EMAIL, email);
-//        frag.setArguments(args);
-        return frag;
+        DialogoEmail fragmento = new DialogoEmail();
+        return fragmento;
     }
 
 
 
     @Override
-    protected void initDialogo(AlertDialog.Builder builder) {
-
-        listener = (OnTarefaListener) getContext();
+    protected void iniciarDialogo() {
 
         viewModel = ViewModelProviders.of(this, providerFactory).get(TarefaViewModel.class);
 
         binding = (DialogoEmailBinding) activityBaseBinding;
         binding.setViewmodel(viewModel);
 
-
         viewModel.obterEmail(Preferencias.obterIdTarefa(getContext()));
-
-
-        builder.setPositiveButton(Sintaxe.Opcoes.GRAVAR,  new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-
-                String endereco = binding.txtInpEmail.getText().toString();
-                Tipo autorizacao = (Tipo)binding.spnrEmail.getItems().get(binding.spnrEmail.getSelectedIndex());
-
-                EmailResultado email = new EmailResultado(Preferencias.obterIdTarefa(getContext()), endereco, autorizacao);
-
-                listener.OnGravarEmailListener(email);
-            }
-        });
-
-        builder.setNegativeButton(Sintaxe.Opcoes.CANCELAR, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                terminarDialogo();
-            }
-        });
-
     }
+
 
     @Override
     protected int obterLayout() {
@@ -109,7 +81,6 @@ public class DialogoEmail extends BaseDaggerDialogFragment {
     @Override
     protected void subscreverObservadores() {
 
-
         viewModel.observarMessagem().observe(this, new Observer<Recurso>() {
             @Override
             public void onChanged(Recurso recurso) {
@@ -118,6 +89,7 @@ public class DialogoEmail extends BaseDaggerDialogFragment {
 
                     case SUCESSO:
 
+                        //TODO: Completar metodo
                         MensagensUtil.sucesso();
                         terminarDialogo();
                         break;
@@ -132,81 +104,52 @@ public class DialogoEmail extends BaseDaggerDialogFragment {
     }
 
 
-//    @BindView(R.id.txt_inp_email)
-//    TextInputEditText txt_inp_email;
-//
-//    private DialogEmailListener listener;
-//
-//
-//    @Override
-//    protected int obterLayout() {
-//        return R.layout.dialogo_email;
-//    }
-//
-//    @Override
-//    protected void criarDialogo(AlertDialog.Builder builder) {
-//
-//        builder.setTitle(getString(R.string.email))
-//                .setNegativeButton(getString(R.string.cancelar), new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialogInterface, int i) {
-//
-//                    }
-//                })
-//                .setPositiveButton(getString(R.string.gravar), new DialogInterface.OnClickListener() {
-//                    @Override
-//                    public void onClick(DialogInterface dialogInterface, int i) {
-//                        //String username = editTextUsername.getText().toString();
-//                        //String password = editTextPassword.getText().toString();
-//                        listener.gravarEmail(txt_inp_email.getText().toString(), 1);
-//                    }
-//                });
-//
-//        //editTextUsername = view.findViewById(R.id.edit_username);
-//        //editTextPassword = view.findViewById(R.id.edit_password);
-//    }
-//
-//    @Override
-//    protected String obterTitulo() {
-//        return getString(R.string.email);
-//    }
+    @Override
+    protected void clickPositivo() {
 
-//
-//*/
-//
-//
-//    /**
-//     * Metodo que valida o email
-//     * @return true caso os dados sejam válidos e false caso contrário
-//     */
-//    /*
-//    private boolean validarEmail(){
-//
-//        boolean valido = true;
-//        LinearLayout lnr_lyt_email_erros = (LinearLayout)viewEmail.findViewById(R.id.lnr_lyt_email_erros);
-//        TextView txt_view_email_erro = (TextView)viewEmail.findViewById(R.id.txt_view_email_erro);
-//
-//        txt_view_email_erro.setVisibility(View.GONE);
-//        lnr_lyt_email_erros.setVisibility(View.GONE);
-//
-//        if(spnr_email_estado.getSelectedItem().toString().equals(SintaxeIF.EMAIL_RESPOSTA_AUTORIZADO) == true
-//                ||
-//                spnr_email_estado.getSelectedItem().toString().equals(SintaxeIF.EMAIL_RESPOSTA_NAO_AUTORIZADO) == true){
-//
-//            if(edit_txt_informacao_email.getText().toString().equals(AppIF.SEM_TEXTO)
-//                    ||
-//                    edit_txt_informacao_email.getText().toString().contains(SintaxeIF.ARROBA) == false){
-//
-//                txt_view_email_erro.setVisibility(View.VISIBLE);
-//                valido = false & valido;
-//            }
-//        }
-//
-//        if(valido == false){
-//            lnr_lyt_email_erros.setVisibility(View.VISIBLE);
-//        }
-//        return valido;
-//    }
-//*/
+        if(validarEmail() == true) {
+            String endereco = binding.txtInpEmail.getText().toString();
+            Tipo autorizacao = (Tipo) binding.spnrEmail.getItems().get(binding.spnrEmail.getSelectedIndex());
+
+            EmailResultado email = new EmailResultado(Preferencias.obterIdTarefa(getContext()), endereco, autorizacao);
+
+            viewModel.gravarEmail(email);
+        }
+    }
+
+
+    //-----------------------
+    //Metodos locais
+    //-----------------------
+
+
+
+    /**
+     * Metodo que valida o email
+     * @return true caso os dados sejam válidos e false caso contrário
+     */
+
+    private boolean validarEmail(){
+
+        boolean valido = true;
+
+        String opcao = ((Tipo) binding.spnrEmail.getItems().get(binding.spnrEmail.getSelectedIndex())).descricao;
+
+        if(opcao.equals(Sintaxe.Opcoes.AUTORIZADO) == true || opcao.equals(Sintaxe.Opcoes.NAO_AUTORIZADO) == true){
+
+            if(txt_inp_email.getText().toString().equals(Sintaxe.SEM_TEXTO)
+                    ||
+                    txt_inp_email.getText().toString().contains(Sintaxe.ARROBA) == false){
+
+                valido = false & valido;
+            }
+        }
+
+        if(valido == false){
+            txt_inp_email.setError(getString(R.string.email_endereco_invalido));
+        }
+        return valido;
+    }
+
 
 }

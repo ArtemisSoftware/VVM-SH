@@ -13,6 +13,7 @@ import com.vvm.sh.ui.opcoes.modelos.Tipo;
 import com.vvm.sh.ui.tarefa.modelos.EmailResultado;
 import com.vvm.sh.ui.tarefa.modelos.OpcaoCliente;
 import com.vvm.sh.util.Recurso;
+import com.vvm.sh.util.ResultadoId;
 import com.vvm.sh.util.constantes.TiposConstantes;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
@@ -136,7 +137,7 @@ public class TarefaViewModel extends BaseViewModel {
 
 
         ResultadoAsyncTask servico = new ResultadoAsyncTask(vvmshBaseDados, tarefaRepositorio.resultadoDao);
-        servico.execute(new Resultado(email.idTarefa, Resultado.ResultadoId.EMAIL));
+        servico.execute(new Resultado(email.idTarefa, ResultadoId.EMAIL));
     }
 
 

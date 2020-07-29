@@ -6,6 +6,4 @@ import com.vvm.sh.ui.tarefa.modelos.OpcaoCliente;
 public interface OnTarefaListener {
 
     void OnOpcaoItemListener(OpcaoCliente opcao);
-
-    void OnGravarEmailListener(EmailResultado email);
 }

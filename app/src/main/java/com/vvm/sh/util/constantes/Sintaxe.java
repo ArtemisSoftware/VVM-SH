@@ -36,6 +36,9 @@ public class Sintaxe {
         public static final String NAO_AUTORIZADO = "Não autorizado";
         public static final String MASCULINO = "Masculino";
         public static final String FEMININO = "Feminino";
+
+        public static final String CONSULTAR = "Consultar";
+        public static final String NOVOS_REGISTOS = "Novos registos";
     }
 
     public class Codigos{

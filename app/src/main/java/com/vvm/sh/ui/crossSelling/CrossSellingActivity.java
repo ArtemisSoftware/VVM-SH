@@ -46,6 +46,7 @@ public class CrossSellingActivity extends BaseDaggerActivity
         binding.setViewmodel(viewModel);
 
         binding.spnrAreaRecomendacao.setOnSpinnerItemSelectedListener(this);
+        binding.spnrAreaRecomendacao.setSelectedIndex(0);
 
         subscreverObservadores();
 

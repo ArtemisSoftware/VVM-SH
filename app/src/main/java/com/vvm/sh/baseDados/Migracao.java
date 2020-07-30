@@ -14,7 +14,7 @@ public class Migracao {
     public static final Migration[] obterMigracoes(){
 
         Migration migrations [] =  new Migration []{
-                MIGRACAO_1_2, MIGRACAO_2_3, MIGRACAO_3_4, MIGRACAO_4_5, MIGRACAO_5_6, MIGRACAO_6_7
+                MIGRACAO_1_2, MIGRACAO_2_3, MIGRACAO_3_4, MIGRACAO_4_5, MIGRACAO_5_6, MIGRACAO_6_7, MIGRACAO_7_8
         };
 
         return migrations;
@@ -31,7 +31,6 @@ public class Migracao {
                         + "'id' INTEGER  PRIMARY KEY AUTOINCREMENT NOT NULL, "
                         + "'idAnomalia' INTEGER NOT NULL, "
                         + "'observacao' TEXT , "
-                        + "PRIMARY KEY (idTarefa, id), "
                         + "FOREIGN KEY (idTarefa) REFERENCES tarefas (idTarefa)  ON DELETE CASCADE) ");
 
                 database.execSQL("CREATE INDEX index_anomaliasResultado_idTarefa ON anomaliasResultado (idTarefa)");
@@ -43,8 +42,8 @@ public class Migracao {
                         + "'idDesignacao' INTEGER NOT NULL, "
                         + "'local' TEXT NOT NULL , "
                         + "'data' INTEGER NOT NULL , "
-                        + "'inicio' TEXT NOT NULL , "
-                        + "'termino' TEXT NOT NULL , "
+                        + "'inicio' INTEGER NOT NULL , "
+                        + "'termino' INTEGER NOT NULL , "
                         + "PRIMARY KEY (idAtividade), "
                         + "FOREIGN KEY (idAtividade) REFERENCES atividadesPendentes (id)  ON DELETE CASCADE) ");
 
@@ -62,32 +61,25 @@ public class Migracao {
                         + "'dataNascimento' INTEGER NOT NULL , "
                         + "'naturalidade' TEXT NOT NULL , "
                         + "'nacionalidade' TEXT NOT NULL , "
-                        + "'selecionado' INTEGER DEFAULT " + Sintaxe.Codigos.NAO_SELECIONADO + " , "
-                        + "'origem' INTEGER DEFAULT " + Identificadores.Origens.ORIGEM_BD + " , "
+                        + "'selecionado' INTEGER NOT NULL DEFAULT " + Sintaxe.Codigos.NAO_SELECIONADO + " , "
+                        + "'origem' INTEGER NOT NULL DEFAULT " + Identificadores.Origens.ORIGEM_BD + " , "
                         + "FOREIGN KEY (idAtividade) REFERENCES atividadesPendentes (id)  ON DELETE CASCADE) ");
 
-                database.execSQL("CREATE INDEX index_acoesFormacaoResultado_idAtividade ON acoesFormacaoResultado (idAtividade)");
-
-//------------
+                database.execSQL("CREATE INDEX index_formandosResultado_idAtividade ON formandosResultado (idAtividade)");
 
 
-                database.execSQL("CREATE TABLE IF NOT EXISTS 'resultados' ("
-                        + "'idTarefa' INTEGER NOT NULL, "
+
+                database.execSQL("CREATE TABLE IF NOT EXISTS 'atividadesPendentesResultado' ("
                         + "'id' INTEGER NOT NULL, "
-                        + "'sincronizado' INTEGER NOT NULL, "
-                        + "PRIMARY KEY (idTarefa, id), "
-                        + "FOREIGN KEY (idTarefa) REFERENCES tarefas (idTarefa)  ON DELETE CASCADE) ");
+                        + "'idEstado' INTEGER NOT NULL , "
+                        + "'tempoExecucao' TEXT  , "
+                        + "'dataExecucao' INTEGER  , "
+                        + "'idAnomalia' INTEGER , "
+                        + "'observacao' TEXT  , "
+                        + "PRIMARY KEY (id), "
+                        + "FOREIGN KEY (id) REFERENCES atividadesPendentes (id)  ON DELETE CASCADE) ");
 
-
-
-                database.execSQL("CREATE TABLE IF NOT EXISTS 'emailsResultado' ("
-                        + "'idTarefa' INTEGER NOT NULL, "
-                        + "'endereco' TEXT , "
-                        + "'autorizacao' TEXT NOT NULL, "
-                        + "'idAutorizacao' INTEGER NOT NULL, "
-                        + "PRIMARY KEY (idTarefa), "
-                        + "FOREIGN KEY (idTarefa) REFERENCES tarefas (idTarefa)  ON DELETE CASCADE) ");
-
+                database.execSQL("CREATE INDEX index_atividadesPendentesResultado_id ON atividadesPendentesResultado (id)");
             }
             catch(SQLException e){
                 Log.e("Migracao", "erro MIGRACAO_2_3: " + e.getMessage());

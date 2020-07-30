@@ -17,7 +17,7 @@ import static androidx.room.ForeignKey.CASCADE;
         indices = {@Index(value="idAtividade", unique = false) },
         primaryKeys = {"idAtividade"},
         foreignKeys = @ForeignKey(entity = AtividadePendente.class,
-                parentColumns = "idAtividade",
+                parentColumns = "id",
                 childColumns = "idAtividade",
                 onDelete = CASCADE))
 public class AcaoFormacao {

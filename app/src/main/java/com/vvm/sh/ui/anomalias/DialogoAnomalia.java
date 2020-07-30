@@ -97,7 +97,14 @@ public class DialogoAnomalia extends BaseDaggerDialogoPersistenteFragment{
 
         Tipo tipo = (Tipo) binding.spnrAnomalias.getItems().get(binding.spnrAnomalias.getSelectedIndex());
 
-        AnomaliaResultado anomalia = new AnomaliaResultado(Preferencias.obterIdTarefa(getContext()), tipo.id, binding.txtInpObservacao.getText().toString());
+        AnomaliaResultado anomalia;
+
+        if(getArguments() != null) {
+            anomalia = new AnomaliaResultado(Preferencias.obterIdTarefa(getContext()), getArguments().getInt(ARGUMENTO_ID), tipo.id, binding.txtInpObservacao.getText().toString());
+        }
+        else{
+            anomalia = new AnomaliaResultado(Preferencias.obterIdTarefa(getContext()), tipo.id, binding.txtInpObservacao.getText().toString());
+        }
 
         viewModel.gravar(anomalia);
     }

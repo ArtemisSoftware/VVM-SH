@@ -14,7 +14,6 @@ import static androidx.room.ForeignKey.CASCADE;
 
 @Entity(tableName = "anomaliasResultado",
         indices = {@Index(value="idTarefa", unique = false) },
-        primaryKeys = {"idTarefa"},
 
         foreignKeys = @ForeignKey(entity = Tarefa.class,
                 parentColumns = "idTarefa",
@@ -24,6 +23,7 @@ public class AnomaliaResultado {
 
 
     @NonNull
+    @ColumnInfo(name = "idTarefa")
     public int idTarefa;
 
     @NonNull
@@ -36,6 +36,7 @@ public class AnomaliaResultado {
 
     @ColumnInfo(name = "observacao")
     public String observacao;
+
 
 
     @Ignore

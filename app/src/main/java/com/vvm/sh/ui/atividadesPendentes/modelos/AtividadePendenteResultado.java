@@ -16,7 +16,7 @@ import java.util.Date;
 import static androidx.room.ForeignKey.CASCADE;
 
 @Entity(tableName = "atividadesPendentesResultado",
-
+        primaryKeys = {"id"},
         foreignKeys = @ForeignKey(entity = AtividadePendente.class,
                 parentColumns = "id",
                 childColumns = "id",

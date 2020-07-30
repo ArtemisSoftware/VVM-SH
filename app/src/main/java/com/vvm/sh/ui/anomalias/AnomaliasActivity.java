@@ -9,6 +9,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.vvm.sh.R;
 import com.vvm.sh.databinding.ActivityAnomaliasBinding;
 import com.vvm.sh.databinding.ActivityTrabalhoBinding;
@@ -16,6 +17,7 @@ import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseActivity;
 import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.anomalias.adaptadores.AnomaliaRecyclerAdapter;
+import com.vvm.sh.ui.opcoes.modelos.Tipo;
 import com.vvm.sh.util.adaptadores.Item;
 import com.vvm.sh.util.metodos.Preferencias;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
@@ -28,7 +30,8 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class AnomaliasActivity extends BaseDaggerActivity {
+public class AnomaliasActivity extends BaseDaggerActivity
+        implements MaterialSpinner.OnItemSelectedListener {
 
 
     private ActivityAnomaliasBinding activityAnomaliasBinding;
@@ -50,7 +53,8 @@ public class AnomaliasActivity extends BaseDaggerActivity {
         activityAnomaliasBinding = (ActivityAnomaliasBinding) activityBinding;
         activityAnomaliasBinding.setLifecycleOwner(this);
         activityAnomaliasBinding.setViewmodel(viewModel);
-        //activityTrabalhoBinding.setActivity(this);
+
+        activityAnomaliasBinding.spnrEstado.setOnItemSelectedListener(this);
 
         subscreverObservadores();
 
@@ -78,6 +82,18 @@ public class AnomaliasActivity extends BaseDaggerActivity {
 
         DialogoAnomalia dialogo = new DialogoAnomalia();
         dialogo.show(getSupportFragmentManager(), "example dialog");
+    }
+
+    @Override
+    public void onItemSelected(MaterialSpinner view, int position, long id, Object item) {
+        Tipo tipo = (Tipo) item;
+
+        if(tipo.id == 1){
+            viewModel.obterAnomaliasExistentes(Preferencias.obterIdTarefa(this));
+        }
+        else{
+            viewModel.obterAnomaliasRegistadas(Preferencias.obterIdTarefa(this));
+        }
     }
 
 

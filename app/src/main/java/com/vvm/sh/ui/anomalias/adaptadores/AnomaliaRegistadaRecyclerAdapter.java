@@ -22,10 +22,12 @@ public class AnomaliaRegistadaRecyclerAdapter extends RecyclerView.Adapter<Recyc
 
     private List<AnomaliaRegistada> items = new ArrayList<>();
     private Context contexto;
+    private OnAnomaliasListener listener;
 
-    public AnomaliaRegistadaRecyclerAdapter(Context contexto, List<AnomaliaRegistada> items) {
+    public AnomaliaRegistadaRecyclerAdapter(Context contexto, List<AnomaliaRegistada> items, OnAnomaliasListener listener) {
         this.items = items;
         this.contexto = contexto;
+        this.listener = listener;
     }
 
 
@@ -34,7 +36,7 @@ public class AnomaliaRegistadaRecyclerAdapter extends RecyclerView.Adapter<Recyc
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         ItemAnomaliaRegistadaBinding binding = DataBindingUtil.inflate(LayoutInflater.from(contexto), R.layout.item_anomalia_registada, parent, false);
-        return new AnomaliaRegistadaViewHolder(binding.getRoot());
+        return new AnomaliaRegistadaViewHolder(binding.getRoot(), listener);
     }
 
     @Override

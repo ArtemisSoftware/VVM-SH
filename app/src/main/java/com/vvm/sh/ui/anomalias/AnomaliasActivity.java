@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.jaredrummler.materialspinner.MaterialSpinner;
@@ -17,6 +18,7 @@ import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseActivity;
 import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.anomalias.adaptadores.AnomaliaRecyclerAdapter;
+import com.vvm.sh.ui.anomalias.adaptadores.OnAnomaliasListener;
 import com.vvm.sh.ui.opcoes.modelos.Tipo;
 import com.vvm.sh.util.adaptadores.Item;
 import com.vvm.sh.util.metodos.Preferencias;
@@ -31,7 +33,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 public class AnomaliasActivity extends BaseDaggerActivity
-        implements MaterialSpinner.OnItemSelectedListener {
+        implements MaterialSpinner.OnItemSelectedListener, OnAnomaliasListener {
 
 
     private ActivityAnomaliasBinding activityAnomaliasBinding;
@@ -53,6 +55,7 @@ public class AnomaliasActivity extends BaseDaggerActivity
         activityAnomaliasBinding = (ActivityAnomaliasBinding) activityBinding;
         activityAnomaliasBinding.setLifecycleOwner(this);
         activityAnomaliasBinding.setViewmodel(viewModel);
+        activityAnomaliasBinding.setListener(this);
 
         activityAnomaliasBinding.spnrEstado.setOnItemSelectedListener(this);
 
@@ -90,11 +93,28 @@ public class AnomaliasActivity extends BaseDaggerActivity
 
         if(tipo.id == 1){
             viewModel.obterAnomaliasExistentes(Preferencias.obterIdTarefa(this));
+            activityAnomaliasBinding.recyclerViewExistentes.setVisibility(View.VISIBLE);
+            activityAnomaliasBinding.recyclerViewRegistados.setVisibility(View.GONE);
         }
         else{
             viewModel.obterAnomaliasRegistadas(Preferencias.obterIdTarefa(this));
+            activityAnomaliasBinding.recyclerViewExistentes.setVisibility(View.GONE);
+            activityAnomaliasBinding.recyclerViewRegistados.setVisibility(View.VISIBLE);
         }
     }
+
+    @Override
+    public void onEditarClick(int id) {
+        DialogoAnomalia dialogo = DialogoAnomalia.newInstance(id);
+        dialogo.show(getSupportFragmentManager(), "example dialog");
+    }
+
+    @Override
+    public void onRemoverClick(int id) {
+
+        viewModel.remover(id);
+    }
+
 
 
 //    @Override

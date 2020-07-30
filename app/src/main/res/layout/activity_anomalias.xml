@@ -5,11 +5,9 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-        <!--
-                <import type="java.util.List"/>
-
-
--->
+        <variable
+            name="listener"
+            type="com.vvm.sh.ui.anomalias.adaptadores.OnAnomaliasListener"/>
 
         <variable
             name="viewmodel"
@@ -85,7 +83,8 @@
                     android:id="@+id/recyclerView_registados"
                     android:visibility="gone"
                     style="@style/lista"
-                    anomalias="@{viewmodel.anomaliasResultados}"
+                    anomaliasRegistadas="@{viewmodel.anomaliasResultados}"
+                    listener="@{listener}"
                     tools:listitem="@layout/item_anomalia"/>
 
 

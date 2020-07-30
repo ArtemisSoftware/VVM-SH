@@ -6,7 +6,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.vvm.sh.ui.anomalias.adaptadores.AnomaliaRecyclerAdapter;
+import com.vvm.sh.ui.anomalias.adaptadores.AnomaliaRegistadaRecyclerAdapter;
+import com.vvm.sh.ui.anomalias.adaptadores.OnAnomaliasListener;
 import com.vvm.sh.ui.anomalias.modelos.Anomalia;
+import com.vvm.sh.ui.anomalias.modelos.AnomaliaRegistada;
 import com.vvm.sh.ui.anomalias.modelos.AnomaliaResultado;
 import com.vvm.sh.ui.opcoes.modelos.Tipo;
 
@@ -39,6 +42,34 @@ public class AnomaliasBinding {
         }
 
     }
+
+
+    @BindingAdapter({"anomaliasRegistadas" , "listener"})
+    public static void setAnomaliasRegistadas(RecyclerView view, List<AnomaliaRegistada> items, OnAnomaliasListener listener) {
+
+        if(items == null){
+            return;
+        }
+
+        RecyclerView.LayoutManager layoutManager = view.getLayoutManager();
+
+        if(layoutManager == null){
+            view.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        }
+
+        AnomaliaRegistadaRecyclerAdapter adapter = (AnomaliaRegistadaRecyclerAdapter) view.getAdapter();
+
+        if(adapter == null){
+            adapter = new AnomaliaRegistadaRecyclerAdapter(view.getContext(), items, listener);
+
+            view.setAdapter(adapter);
+        }
+        else{
+            adapter.atualizar(items);
+        }
+
+    }
+
 
 
     @BindingAdapter({"tipos_", "anomalia"})

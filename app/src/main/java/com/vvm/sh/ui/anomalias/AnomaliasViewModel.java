@@ -7,6 +7,7 @@ import com.vvm.sh.ui.anomalias.modelos.Anomalia;
 import com.vvm.sh.ui.anomalias.modelos.AnomaliaRegistada;
 import com.vvm.sh.ui.anomalias.modelos.AnomaliaResultado;
 import com.vvm.sh.ui.opcoes.modelos.Tipo;
+import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.constantes.TiposConstantes;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
@@ -229,7 +230,7 @@ public class AnomaliasViewModel extends BaseViewModel {
 
 
     public void gravar(AnomaliaResultado anomalia) {
-/*
+
         if (anomalia.id == 0) {
 
             anomaliaRepositorio.inserir(anomalia).toObservable()
@@ -246,6 +247,7 @@ public class AnomaliasViewModel extends BaseViewModel {
                                 @Override
                                 public void onNext(Long aLong) {
 
+                                    messagemLiveData.setValue(Recurso.successo());
                                 }
 
                                 @Override
@@ -275,7 +277,7 @@ public class AnomaliasViewModel extends BaseViewModel {
 
                                 @Override
                                 public void onNext(Integer integer) {
-
+                                    messagemLiveData.setValue(Recurso.successo());
                                 }
 
                                 @Override
@@ -292,12 +294,11 @@ public class AnomaliasViewModel extends BaseViewModel {
                     );
         }
 
- */
     }
 
-    public void remover(AnomaliaResultado anomalia) {
+    public void remover(int idAnomalia) {
 
-        anomaliaRepositorio.remover(anomalia).toObservable()
+        anomaliaRepositorio.remover(idAnomalia).toObservable()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(

@@ -40,8 +40,8 @@ public class AnomaliaRepositorio {
         return anomaliaResultadoDao.atualizar(anomalia);
     }
 
-    public Single<Integer> remover(AnomaliaResultado anomalia) {
-        return anomaliaResultadoDao.remover(anomalia);
+    public Single<Integer> remover(int idAnomalia) {
+        return anomaliaResultadoDao.remover(idAnomalia);
     }
 
 

@@ -9,6 +9,7 @@ import com.vvm.sh.ui.agenda.modelos.Tarefa;
 import com.vvm.sh.ui.anomalias.modelos.Anomalia;
 import com.vvm.sh.ui.atividadesExecutadas.modelos.AtividadeExecutada;
 import com.vvm.sh.ui.atividadesPendentes.modelos.AtividadePendente;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.Formando;
 import com.vvm.sh.ui.autenticacao.modelos.Utilizador;
 import com.vvm.sh.ui.cliente.Cliente;
 import com.vvm.sh.ui.ocorrencias.modelos.Ocorrencia;
@@ -23,21 +24,28 @@ import com.vvm.sh.ui.tarefa.modelos.EmailResultado;
                     Utilizador.class,
                     Tarefa.class,
                     Cliente.class, AtividadeExecutada.class, Anomalia.class, AtividadePendente.class, Ocorrencia.class, OcorrenciaHistorico.class,
-                    EmailResultado.class, Resultado.class
+                    EmailResultado.class, Formando.class, Resultado.class
             },
             version = BaseDadosContantes.VERSAO
 )
 @TypeConverters({Conversor.class})
 public abstract class VvmshBaseDados extends RoomDatabase {
 
+
+    //---------------------
+    //Geral
+    //---------------------
+
     public abstract AtualizacaoDao obterAtualizacaoDao();
 
     public abstract TipoDao obterTipoDao();
 
-
     public abstract UtilizadorDao obterUtilizadorDao();
 
 
+    //---------------------
+    //Trabalho
+    //---------------------
 
     public abstract TarefaDao obterTarefaDao();
 
@@ -55,8 +63,13 @@ public abstract class VvmshBaseDados extends RoomDatabase {
 
 
 
+    //---------------------
+    //Resultados
+    //---------------------
 
     public abstract EmailDao obterEmailDao();
+
+    public abstract FormandoDao obterFormandoDao();
 
     public abstract ResultadoDao obterResultadoDao();
 

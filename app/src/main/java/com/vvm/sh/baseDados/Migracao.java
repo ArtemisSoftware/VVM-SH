@@ -23,6 +23,14 @@ public class Migracao {
         public void migrate(SupportSQLiteDatabase database) {
             try {
 
+//                acoesFormacaoResultado
+//                CAMPO_ID_ATIVIDADE_PENDENTE +" INTEGER," +
+//                        CAMPO_ID_DESIGNACAO +" INTEGER," +
+//                        CAMPO_LOCAL +" TEXT," +
+//                        CAMPO_DATA + " DATETIME," +
+//                        CAMPO_INICIO + " DATETIME," +
+//                        CAMPO_TERMINO + " DATETIME," +
+
 
 //formandosResultado
                 //    CAMPO_ID_ATIVIDADE_PENDENTE +" INTEGER NOT NULL," +

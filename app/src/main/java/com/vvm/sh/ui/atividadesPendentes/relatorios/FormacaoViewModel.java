@@ -20,6 +20,7 @@ public class FormacaoViewModel extends BaseViewModel {
 
     public MutableLiveData<List<Formando>> formandos;
     public MutableLiveData<Formando> formando;
+    public MutableLiveData<AcaoFormacao> acaoFormacao;
 
     //--@Inject
     public FormacaoViewModel(FormacaoRepositorio formacaoRepositorio){
@@ -27,6 +28,7 @@ public class FormacaoViewModel extends BaseViewModel {
         this.formacaoRepositorio = formacaoRepositorio;
         formandos = new MutableLiveData<>();
         formando = new MutableLiveData<>();
+        acaoFormacao = new MutableLiveData<>();
     }
 
 
@@ -78,5 +80,18 @@ public class FormacaoViewModel extends BaseViewModel {
     }
 
     public void obterFormando(int idFormando) {
+    }
+
+    public void obterAcaoFormacao(int anInt) {
+    }
+
+    public void gravar(AcaoFormacao registo) {
+
+        if(acaoFormacao.getValue() == null){
+            //inserir
+        }
+        else{
+            //editar
+        }
     }
 }

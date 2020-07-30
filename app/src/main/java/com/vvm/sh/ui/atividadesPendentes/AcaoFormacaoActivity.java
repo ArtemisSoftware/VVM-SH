@@ -1,6 +1,7 @@
 package com.vvm.sh.ui.atividadesPendentes;
 
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
 import android.view.View;
@@ -13,20 +14,40 @@ import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.mobsandgeeks.saripaar.annotation.Select;
 import com.vvm.sh.R;
+import com.vvm.sh.databinding.ActivityAcaoFormacaoBinding;
+import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseActivity;
+import com.vvm.sh.ui.BaseDaggerActivity;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.AcaoFormacao;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.FormacaoViewModel;
+import com.vvm.sh.ui.opcoes.modelos.Tipo;
+import com.vvm.sh.util.metodos.DatasUtil;
+import com.vvm.sh.util.viewmodel.BaseViewModel;
 
+import java.util.Date;
 import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class AcaoFormacaoActivity extends BaseActivity implements Validator.ValidationListener {
+public class AcaoFormacaoActivity extends BaseDaggerActivity
+        implements Validator.ValidationListener {
 
 
-    @Select
-    @BindView(R.id.spnr_designacao)
-    Spinner spnr_designacao;
 
+    private ActivityAcaoFormacaoBinding activityAcaoFormacaoBinding;
+
+
+    @Inject
+    ViewModelProviderFactory providerFactory;
+
+
+    private FormacaoViewModel viewModel;
+
+
+    private Validator validador;
 
     @NotEmpty(message = "Preenchimento obrigatório")
     @BindView(R.id.txt_inp_local)
@@ -46,52 +67,46 @@ public class AcaoFormacaoActivity extends BaseActivity implements Validator.Vali
 
 
 
-    private Validator validador;
-
-
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_acao_formacao);
+    protected void intActivity(Bundle savedInstanceState) {
 
-        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
-        setSupportActionBar(toolbar);
-        if(getSupportActionBar() != null)
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-        // Validation
         validador = new Validator(this);
         validador.setValidationListener(this);
 
+        viewModel = ViewModelProviders.of(this, providerFactory).get(FormacaoViewModel.class);
+
+        activityAcaoFormacaoBinding = (ActivityAcaoFormacaoBinding) activityBinding;
+        activityAcaoFormacaoBinding.setLifecycleOwner(this);
+        //activityFormandoBinding.setListener(this);
+        activityAcaoFormacaoBinding.setViewmodel(viewModel);
+
         subscreverObservadores();
-        obterRegistos();
+
+        Bundle bundle = getIntent().getExtras();
+
+        if(bundle != null) {
+
+            viewModel.obterAcaoFormacao(bundle.getInt(getString(R.string.argumento_id_atividade)));
+        }
+        else{
+            finish();
+        }
     }
 
-
-    //------------------------
-    //Metodos locais
-    //------------------------
-
-
-    private void obterRegistos(){
-
-        //--TESTE (apagar quando houver dados)
-/*
-        Sinistralidade t1 = new Sinistralidade("1","2","3", "4","5");
-        txt_inp_acidentes_trabalho.setText(t1.obterAcidentesComBaixa());
-*/
-        //TODO: chamar metodo do viewmodel
+    @Override
+    protected int obterLayout() {
+        return R.layout.activity_acao_formacao;
     }
 
-
-    /**
-     * Metodo que permite subscrever observadores
-     */
-    private void subscreverObservadores(){
-
-        //TODO: subscrever observadores do viewmodel
+    @Override
+    protected BaseViewModel obterBaseViewModel() {
+        return viewModel;
     }
 
+    @Override
+    protected void subscreverObservadores() {
+
+    }
 
 
     //----------------------
@@ -125,7 +140,22 @@ public class AcaoFormacaoActivity extends BaseActivity implements Validator.Vali
     @Override
     public void onValidationSucceeded() {
 
+
+        //TODO:acrescentar esta validacao
         //valido = MetodosValidacao.validarHorario(txt_inp_inicio, txt_inp_fim) & valido;
+
+        Bundle bundle = getIntent().getExtras();
+        int idAtividade = bundle.getInt(getString(R.string.argumento_id_atividade));
+
+        Tipo designacao = (Tipo) activityAcaoFormacaoBinding.spnrDesignacao.getItems().get(activityAcaoFormacaoBinding.spnrDesignacao.getSelectedIndex());
+        String local = activityAcaoFormacaoBinding.txtInpLocal.getText().toString();
+        Date data = DatasUtil.converterString(activityAcaoFormacaoBinding.txtInpData.getText().toString(), DatasUtil.FORMATO_DD_MM_YYYY);
+        Date inicio = DatasUtil.converterString(activityAcaoFormacaoBinding.txtInpData.getText().toString() + " " + activityAcaoFormacaoBinding.txtInpInicio.getText().toString(), DatasUtil.DATA_FORMATO_DD_MM_YYYY__HH_MM);
+        Date fim = DatasUtil.converterString(activityAcaoFormacaoBinding.txtInpData.getText().toString() + " " + activityAcaoFormacaoBinding.txtInpFim.getText().toString(), DatasUtil.DATA_FORMATO_DD_MM_YYYY__HH_MM);
+
+        AcaoFormacao registo = new AcaoFormacao(idAtividade, designacao.id, local, data, inicio, fim);
+
+        viewModel.gravar(registo);
     }
 
     @Override
@@ -140,9 +170,8 @@ public class AcaoFormacaoActivity extends BaseActivity implements Validator.Vali
                 ((TextInputEditText) view).setError(message);
             }
 
-            if (view instanceof Spinner) {
-                ((TextView) ((Spinner) view).getSelectedView()).setError(message);
-            }
         }
     }
+
+
 }

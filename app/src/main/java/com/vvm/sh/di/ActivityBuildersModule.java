@@ -18,6 +18,7 @@ import com.vvm.sh.di.tarefa.TarefaModule;
 import com.vvm.sh.di.tarefa.TarefaScope;
 import com.vvm.sh.di.tarefa.TarefaViewModelsModule;
 import com.vvm.sh.ui.anomalias.DialogoAnomalia;
+import com.vvm.sh.ui.atividadesPendentes.AcaoFormacaoActivity;
 import com.vvm.sh.ui.atividadesPendentes.DialogoAtividadePendente;
 import com.vvm.sh.ui.atividadesPendentes.DialogoAtividadePendenteExecutada;
 import com.vvm.sh.ui.atividadesPendentes.DialogoAtividadePendenteNaoExecutada;
@@ -198,6 +199,11 @@ public abstract class ActivityBuildersModule {
     )
     abstract FormandoActivity contributeFormandoActivity();
 
+    @FormacaoScope
+    @ContributesAndroidInjector(
+            modules = { AtividadesPendentesViewModelsModule.class, AtividadesPendentesModule.class }
+    )
+    abstract AcaoFormacaoActivity contributeAcaoFormacaoActivity();
 
 
 

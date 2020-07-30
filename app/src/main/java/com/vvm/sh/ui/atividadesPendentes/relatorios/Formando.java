@@ -17,6 +17,8 @@ import androidx.room.PrimaryKey;
 import com.vvm.sh.R;
 import com.vvm.sh.databinding.ItemFormandoBinding;
 import com.vvm.sh.ui.atividadesPendentes.modelos.AtividadePendente;
+import com.vvm.sh.util.constantes.Identificadores;
+import com.vvm.sh.util.constantes.Sintaxe;
 
 import java.util.ArrayList;
 import java.util.Date;
@@ -36,6 +38,7 @@ public class Formando {
 
 
     @NonNull
+    @ColumnInfo(name = "idAtividade")
     public int idAtividade;
 
     @NonNull
@@ -72,11 +75,11 @@ public class Formando {
     public String nacionalidade;
 
     @NonNull
-    @ColumnInfo(name = "selecionado", defaultValue = "0")
+    @ColumnInfo(name = "selecionado", defaultValue = Sintaxe.Codigos.NAO_SELECIONADO)
     public boolean selecionado;
 
     @NonNull
-    @ColumnInfo(name = "origem", defaultValue = "1")
+    @ColumnInfo(name = "origem", defaultValue = Identificadores.Origens.ORIGEM_BD + "")
     public int origem;
 
 

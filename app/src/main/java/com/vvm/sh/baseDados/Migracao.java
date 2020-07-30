@@ -6,6 +6,9 @@ import android.util.Log;
 import androidx.room.migration.Migration;
 import androidx.sqlite.db.SupportSQLiteDatabase;
 
+import com.vvm.sh.util.constantes.Identificadores;
+import com.vvm.sh.util.constantes.Sintaxe;
+
 public class Migracao {
 
     public static final Migration[] obterMigracoes(){
@@ -35,33 +38,37 @@ public class Migracao {
 
 
 
-//                acoesFormacaoResultado
-//                CAMPO_ID_ATIVIDADE_PENDENTE +" INTEGER," +
-//                        CAMPO_ID_DESIGNACAO +" INTEGER," +
-//                        CAMPO_LOCAL +" TEXT," +
-//                        CAMPO_DATA + " DATETIME," +
-//                        CAMPO_INICIO + " DATETIME," +
-//                        CAMPO_TERMINO + " DATETIME," +
+                database.execSQL("CREATE TABLE IF NOT EXISTS 'acoesFormacaoResultado' ("
+                        + "'idAtividade' INTEGER NOT NULL, "
+                        + "'idDesignacao' INTEGER NOT NULL, "
+                        + "'local' TEXT NOT NULL , "
+                        + "'data' INTEGER NOT NULL , "
+                        + "'inicio' TEXT NOT NULL , "
+                        + "'termino' TEXT NOT NULL , "
+                        + "PRIMARY KEY (idAtividade), "
+                        + "FOREIGN KEY (idAtividade) REFERENCES atividadesPendentes (id)  ON DELETE CASCADE) ");
+
+                database.execSQL("CREATE INDEX index_acoesFormacaoResultado_idAtividade ON acoesFormacaoResultado (idAtividade)");
 
 
 
+                database.execSQL("CREATE TABLE IF NOT EXISTS 'formandosResultado' ("
+                        + "'idAtividade' INTEGER NOT NULL, "
+                        + "'id' INTEGER  PRIMARY KEY AUTOINCREMENT NOT NULL, "
+                        + "'nome' TEXT NOT NULL , "
+                        + "'biCartaoCidadao' TEXT NOT NULL , "
+                        + "'sexo' TEXT NOT NULL , "
+                        + "'niss' TEXT NOT NULL , "
+                        + "'dataNascimento' INTEGER NOT NULL , "
+                        + "'naturalidade' TEXT NOT NULL , "
+                        + "'nacionalidade' TEXT NOT NULL , "
+                        + "'selecionado' INTEGER DEFAULT " + Sintaxe.Codigos.NAO_SELECIONADO + " , "
+                        + "'origem' INTEGER DEFAULT " + Identificadores.Origens.ORIGEM_BD + " , "
+                        + "FOREIGN KEY (idAtividade) REFERENCES atividadesPendentes (id)  ON DELETE CASCADE) ");
 
-//formandosResultado
-                //    CAMPO_ID_ATIVIDADE_PENDENTE +" INTEGER NOT NULL," +
-//    CAMPO_ID +" INTEGER PRIMARY KEY AUTOINCREMENT," +
-//    CAMPO_NOME +" TEXT," +
-//    CAMPO_BI_CARTAO_CIDADAO + " TEXT," +
-//    CAMPO_SEXO + " TEXT," +
-//    CAMPO_NISS + " TEXT," +
-//    CAMPO_DATA_NASCIMENTO + " DATETIME," +
-//    CAMPO_NATURALIDADE + " TEXT," +
-//    CAMPO_NACIONALIDADE + " TEXT," +
-//    CAMPO_SELECIONADO + " INTEGER DEFAULT 0," +
-//    CAMPO_ID_QUADRO_PESSOAL + " INTEGER," +
-//    CAMPO_ORIGEM + " INTEGER DEFAULT " + IdentificadoresIF.ORIGEM_DADOS_WS + ", " +
+                database.execSQL("CREATE INDEX index_acoesFormacaoResultado_idAtividade ON acoesFormacaoResultado (idAtividade)");
 
-
-
+//------------
 
 
                 database.execSQL("CREATE TABLE IF NOT EXISTS 'resultados' ("

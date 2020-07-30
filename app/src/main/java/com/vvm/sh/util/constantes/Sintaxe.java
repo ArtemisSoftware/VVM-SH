@@ -28,6 +28,7 @@ public class Sintaxe {
 
     public class Opcoes{
 
+
         public static final String GRAVAR = "Gravar";
         public static final String CANCELAR = "Cancelar";
         public static final String CLIENTE_NAO_TEM_EMAIL = "Cliente não tem email";
@@ -39,6 +40,8 @@ public class Sintaxe {
 
     public class Codigos{
 
+        public static final String SELECIONADO = "1";
+        public static final String NAO_SELECIONADO = "0";
         public static final String MASCULINO = "M";
         public static final String FEMININO = "F";
     }

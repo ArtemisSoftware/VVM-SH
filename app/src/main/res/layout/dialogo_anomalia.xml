@@ -31,6 +31,7 @@
             android:layout_marginTop="24dp"
             android:hint="@string/anomalia"
             tipos_="@{viewmodel.tiposAnomalias}"
+            anomalia="@{viewmodel.anomaliaResultado}"
             app:layout_constraintStart_toStartOf="@+id/textView18"
             app:layout_constraintTop_toBottomOf="@+id/chk_box_fiscalizado" />
 
@@ -45,6 +46,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/txt_inp_observacao"
                 style="@style/modifiedEditText"
+                android:text="@{viewmodel.anomaliaResultado.observacao}"
                 android:gravity="top|left"
                 android:lines="5"
                 android:maxLines="5"/>

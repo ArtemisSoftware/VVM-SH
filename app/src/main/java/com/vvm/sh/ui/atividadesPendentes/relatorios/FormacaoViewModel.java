@@ -19,12 +19,14 @@ public class FormacaoViewModel extends BaseViewModel {
     private final FormacaoRepositorio formacaoRepositorio;
 
     public MutableLiveData<List<Formando>> formandos;
+    public MutableLiveData<Formando> formando;
 
     //--@Inject
     public FormacaoViewModel(FormacaoRepositorio formacaoRepositorio){
 
         this.formacaoRepositorio = formacaoRepositorio;
         formandos = new MutableLiveData<>();
+        formando = new MutableLiveData<>();
     }
 
 

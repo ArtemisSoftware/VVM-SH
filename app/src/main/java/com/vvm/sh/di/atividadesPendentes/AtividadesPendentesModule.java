@@ -2,6 +2,7 @@ package com.vvm.sh.di.atividadesPendentes;
 
 import com.vvm.sh.baseDados.AnomaliaDao;
 import com.vvm.sh.baseDados.AtividadePendenteDao;
+import com.vvm.sh.baseDados.FormandoDao;
 import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.repositorios.AtividadePendenteRepositorio;
 
@@ -31,5 +32,16 @@ public class AtividadesPendentesModule {
         //Timber.d("Providing PokemonRepository: " + repository);
         return repositorio;
     }
+
+
+//    @FormacaoScope
+//    @Provides
+//    static FormandoDao provideFormandoDao(VvmshBaseDados vvmshBaseDados){
+//
+//        FormandoDao dao = vvmshBaseDados.obterFormandoDao();
+//
+//        //Timber.d("Providing NoteDao: " + dao);
+//        return dao;
+//    }
 
 }

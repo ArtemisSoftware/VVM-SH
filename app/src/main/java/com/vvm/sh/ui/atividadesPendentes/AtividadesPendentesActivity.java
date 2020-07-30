@@ -12,6 +12,7 @@ import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.atividadesPendentes.adaptadores.OnAtividadePendenteListener;
 import com.vvm.sh.ui.atividadesPendentes.modelos.AtividadePendente;
 import com.vvm.sh.ui.atividadesPendentes.modelos.AtividadePendenteResultado;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.FormacaoActivity;
 import com.vvm.sh.util.metodos.DatasUtil;
 import com.vvm.sh.util.metodos.Preferencias;
 import com.vvm.sh.util.viewmodel.BaseViewModel;

@@ -11,11 +11,11 @@
         <variable
             name="viewmodel"
             type="com.vvm.sh.ui.atividadesPendentes.relatorios.FormacaoViewModel"/>
-        <!--
-                <variable
-                    name="listener"
-                    type="com.vvm.sh.ui.ocorrencias.adaptadores.OnOcorrenciaRegistoListener"/>
-        -->
+
+        <variable
+            name="listener"
+            type="com.vvm.sh.ui.atividadesPendentes.relatorios.OnFormacaoListener"/>
+
     </data>
 
 
@@ -258,12 +258,12 @@
 
 
         <com.github.clans.fab.FloatingActionButton
-            android:id="@+id/menu_item_2"
+            android:id="@+id/fab_adicionar_formando"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_add_24dp"
             app:fab_size="mini"
-            app:fab_label="Menu item 1" />
+            app:fab_label="@string/adicionar_formando" />
 
         <com.github.clans.fab.FloatingActionButton
             android:id="@+id/menu_item"

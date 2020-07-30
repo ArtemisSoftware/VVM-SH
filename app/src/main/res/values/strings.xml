@@ -124,7 +124,7 @@
 
     <string name="argumento_id">id</string>
     <string name="argumento_id_atividade">idAtividade</string>
-
+    <string name="argumento_id_formando">idFormando</string>
 
 
 
@@ -223,5 +223,6 @@
 
     <string name="email_endereco_invalido">Endereço inválido</string>
     <string name="formacao">Formação</string>
+    <string name="adicionar_formando">Adicionar formando</string>
 
 </resources>

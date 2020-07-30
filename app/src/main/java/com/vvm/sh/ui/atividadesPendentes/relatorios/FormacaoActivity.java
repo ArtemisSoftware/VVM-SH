@@ -1,4 +1,4 @@
-package com.vvm.sh.ui.atividadesPendentes;
+package com.vvm.sh.ui.atividadesPendentes.relatorios;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
@@ -15,6 +15,7 @@ import com.vvm.sh.databinding.ActivityFormacaoBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseActivity;
 import com.vvm.sh.ui.BaseDaggerActivity;
+import com.vvm.sh.ui.atividadesPendentes.FormandoActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.FormacaoViewModel;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.Formando;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.OnFormacaoListener;
@@ -55,7 +56,7 @@ public class FormacaoActivity extends BaseDaggerActivity
 
         activityFormacaoBinding = (ActivityFormacaoBinding) activityBinding;
         activityFormacaoBinding.setLifecycleOwner(this);
-        //activityFormacaoBinding.setListener(this);
+        activityFormacaoBinding.setListener(this);
         activityFormacaoBinding.setViewmodel(viewModel);
 
         subscreverObservadores();
@@ -88,12 +89,45 @@ public class FormacaoActivity extends BaseDaggerActivity
     @Override
     public void OnFormandoClick(Formando formando) {
 
+        Bundle bundle = getIntent().getExtras();
+        if(bundle != null) {
+
+            Intent intent = new Intent(this, FormandoActivity.class);
+
+            bundle.putInt(getString(R.string.argumento_id_atividade), bundle.getInt(getString(R.string.argumento_id_atividade)));
+
+            if(formando != null){
+                bundle.putInt(getString(R.string.argumento_id_formando), formando.id);
+            }
+
+            intent.putExtras(bundle);
+            startActivity(intent);
+
+        }
+        else{
+            finish();
+        }
     }
 
     @Override
     public void OnSelecionadoCheck(Formando formando, boolean selecionado) {
 
+        formando.selecionado = selecionado;
+        viewModel.gravar(formando);
     }
+
+
+
+    //-------------------
+    //Eventos
+    //-------------------
+
+
+    @OnClick(R.id.fab_adicionar_formando)
+    public void fab_adicionar_formando_OnClickListener(View view) {
+        OnFormandoClick(null);
+    }
+
 
 
 //
@@ -189,16 +223,7 @@ public class FormacaoActivity extends BaseDaggerActivity
 //    }
 //
 //
-//
-//    //-------------------
-//    //Eventos
-//    //-------------------
-//
-//
-//    @OnClick(R.id.fab_adicionar_formando)
-//    public void fab_adicionar_formando_OnClickListener(View view) {
-//        initFormando();
-//    }
+
 //
 //
 //

@@ -28,7 +28,7 @@
             android:name=".ui.atividadesPendentes.AcaoFormacaoActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ui.atividadesPendentes.FormacaoActivity"
+            android:name=".ui.atividadesPendentes.relatorios.FormacaoActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ui.ocorrencias.RegistarOcorrenciaActivity" />
         <activity android:name=".ui.ocorrencias.OcorrenciasRegistoActivity" />

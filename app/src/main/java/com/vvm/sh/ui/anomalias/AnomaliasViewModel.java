@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.vvm.sh.repositorios.AnomaliaRepositorio;
 import com.vvm.sh.ui.anomalias.modelos.Anomalia;
+import com.vvm.sh.ui.anomalias.modelos.AnomaliaRegistada;
 import com.vvm.sh.ui.anomalias.modelos.AnomaliaResultado;
 import com.vvm.sh.ui.opcoes.modelos.Tipo;
 import com.vvm.sh.util.constantes.TiposConstantes;
@@ -24,7 +25,7 @@ public class AnomaliasViewModel extends BaseViewModel {
     private final AnomaliaRepositorio anomaliaRepositorio;
 
     public MutableLiveData<List<Anomalia>> anomalias;
-    public MutableLiveData<List<AnomaliaResultado>> anomaliasResultados;
+    public MutableLiveData<List<AnomaliaRegistada>> anomaliasResultados;
 
     public MutableLiveData<List<Tipo>> tiposAnomalias;
     public MutableLiveData<AnomaliaResultado> anomaliaResultado;
@@ -98,19 +99,19 @@ public class AnomaliasViewModel extends BaseViewModel {
 
         showProgressBar(true);
 
-        anomaliaRepositorio.obterAnomaliasResultado(idTarefa).toObservable()
+        anomaliaRepositorio.obterAnomaliasRegistadas(idTarefa).toObservable()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
 
-                        new Observer<List<AnomaliaResultado>>() {
+                        new Observer<List<AnomaliaRegistada>>() {
                             @Override
                             public void onSubscribe(Disposable d) {
                                 disposables.add(d);
                             }
 
                             @Override
-                            public void onNext(List<AnomaliaResultado> registo) {
+                            public void onNext(List<AnomaliaRegistada> registo) {
 
                                 anomaliasResultados.setValue(registo);
                                 showProgressBar(false);

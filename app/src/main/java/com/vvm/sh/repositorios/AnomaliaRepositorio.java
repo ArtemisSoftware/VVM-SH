@@ -7,6 +7,7 @@ import com.vvm.sh.baseDados.AnomaliaResultadoDao;
 import com.vvm.sh.baseDados.ResultadoDao;
 import com.vvm.sh.baseDados.TipoDao;
 import com.vvm.sh.ui.anomalias.modelos.Anomalia;
+import com.vvm.sh.ui.anomalias.modelos.AnomaliaRegistada;
 import com.vvm.sh.ui.anomalias.modelos.AnomaliaResultado;
 import com.vvm.sh.ui.opcoes.modelos.Tipo;
 import com.vvm.sh.util.constantes.TiposConstantes;
@@ -54,8 +55,8 @@ public class AnomaliaRepositorio {
         return tipoDao.obterTipos(TiposConstantes.TIPOS_ANOMALIA);
     }
 
-    public Flowable<List<AnomaliaResultado>> obterAnomaliasResultado(int idTarefa) {
-        return anomaliaResultadoDao.obterAnomaliasResultado(idTarefa);
+    public Flowable<List<AnomaliaRegistada>> obterAnomaliasRegistadas(int idTarefa) {
+        return anomaliaResultadoDao.obterAnomaliasRegistadas(idTarefa, TiposConstantes.TIPOS_ANOMALIA);
     }
 
     public Single<AnomaliaResultado> obterAnomaliaResultado(int id) {

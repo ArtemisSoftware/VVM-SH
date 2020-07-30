@@ -8,8 +8,6 @@
 
     <data>
 
-        <import type="com.vvm.sh.util.metodos.DatasUtil"/>
-
         <variable
             name="anomalia"
             type="com.vvm.sh.ui.anomalias.modelos.AnomaliaRegistada" />

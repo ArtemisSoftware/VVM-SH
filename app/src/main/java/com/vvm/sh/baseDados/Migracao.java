@@ -18,6 +18,57 @@ public class Migracao {
     }
 
 
+    public static final Migration MIGRACAO_7_8 = new Migration(7, 8) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            try {
+
+
+//formandosResultado
+                //    CAMPO_ID_ATIVIDADE_PENDENTE +" INTEGER NOT NULL," +
+//    CAMPO_ID +" INTEGER PRIMARY KEY AUTOINCREMENT," +
+//    CAMPO_NOME +" TEXT," +
+//    CAMPO_BI_CARTAO_CIDADAO + " TEXT," +
+//    CAMPO_SEXO + " TEXT," +
+//    CAMPO_NISS + " TEXT," +
+//    CAMPO_DATA_NASCIMENTO + " DATETIME," +
+//    CAMPO_NATURALIDADE + " TEXT," +
+//    CAMPO_NACIONALIDADE + " TEXT," +
+//    CAMPO_SELECIONADO + " INTEGER DEFAULT 0," +
+//    CAMPO_ID_QUADRO_PESSOAL + " INTEGER," +
+//    CAMPO_ORIGEM + " INTEGER DEFAULT " + IdentificadoresIF.ORIGEM_DADOS_WS + ", " +
+
+
+
+                database.execSQL("CREATE TABLE IF NOT EXISTS 'resultados' ("
+                        + "'idTarefa' INTEGER NOT NULL, "
+                        + "'id' INTEGER NOT NULL, "
+                        + "'sincronizado' INTEGER NOT NULL, "
+                        + "PRIMARY KEY (idTarefa, id), "
+                        + "FOREIGN KEY (idTarefa) REFERENCES tarefas (idTarefa)  ON DELETE CASCADE) ");
+
+
+
+                database.execSQL("CREATE TABLE IF NOT EXISTS 'emailsResultado' ("
+                        + "'idTarefa' INTEGER NOT NULL, "
+                        + "'endereco' TEXT , "
+                        + "'autorizacao' TEXT NOT NULL, "
+                        + "'idAutorizacao' INTEGER NOT NULL, "
+                        + "PRIMARY KEY (idTarefa), "
+                        + "FOREIGN KEY (idTarefa) REFERENCES tarefas (idTarefa)  ON DELETE CASCADE) ");
+
+            }
+            catch(SQLException e){
+                Log.e("Migracao", "erro MIGRACAO_2_3: " + e.getMessage());
+                //Timber.e("erro MIGRACAO_2_3: " + e.getMessage());
+            }
+        }
+    };
+
+
+
+
+
 
     public static final Migration MIGRACAO_6_7 = new Migration(6, 7) {
         @Override

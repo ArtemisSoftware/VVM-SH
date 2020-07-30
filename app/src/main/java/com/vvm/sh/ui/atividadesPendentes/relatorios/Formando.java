@@ -64,26 +64,12 @@ public class Formando {
     public String nacionalidade;
 
     @NonNull
-    @ColumnInfo(name = "selecionado")
+    @ColumnInfo(name = "selecionado", defaultValue = "0")
     public boolean selecionado;
 
     @NonNull
     @ColumnInfo(name = "origem", defaultValue = "1")
     public int origem;
-
-
-//    CAMPO_ID_ATIVIDADE_PENDENTE +" INTEGER NOT NULL," +
-//    CAMPO_ID +" INTEGER PRIMARY KEY AUTOINCREMENT," +
-//    CAMPO_NOME +" TEXT," +
-//    CAMPO_BI_CARTAO_CIDADAO + " TEXT," +
-//    CAMPO_SEXO + " TEXT," +
-//    CAMPO_NISS + " TEXT," +
-//    CAMPO_DATA_NASCIMENTO + " DATETIME," +
-//    CAMPO_NATURALIDADE + " TEXT," +
-//    CAMPO_NACIONALIDADE + " TEXT," +
-//    CAMPO_SELECIONADO + " INTEGER DEFAULT 0," +
-//    CAMPO_ID_QUADRO_PESSOAL + " INTEGER," +
-//    CAMPO_ORIGEM + " INTEGER DEFAULT " + IdentificadoresIF.ORIGEM_DADOS_WS + ", " +
 
 
     public Formando(int idAtividade, int id,

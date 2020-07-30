@@ -64,12 +64,12 @@ public class DialogoAtividadePendenteExecutada extends BaseDaggerDialogoPersiste
 
 
     public static DialogoAtividadePendenteExecutada newInstance(int id) {
-        DialogoAtividadePendenteExecutada frag = new DialogoAtividadePendenteExecutada();
+        DialogoAtividadePendenteExecutada fragmento = new DialogoAtividadePendenteExecutada();
 
         Bundle args = new Bundle();
         args.putInt(ARGUMENTO_ID_ATIVIDADE, id);
-        frag.setArguments(args);
-        return frag;
+        fragmento.setArguments(args);
+        return fragmento;
     }
 
 

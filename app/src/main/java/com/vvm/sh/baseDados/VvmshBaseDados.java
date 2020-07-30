@@ -24,7 +24,7 @@ import com.vvm.sh.ui.tarefa.modelos.EmailResultado;
                     Utilizador.class,
                     Tarefa.class,
                     Cliente.class, AtividadeExecutada.class, Anomalia.class, AtividadePendente.class, Ocorrencia.class, OcorrenciaHistorico.class,
-                    EmailResultado.class, Formando.class, Resultado.class
+                    EmailResultado.class, /*Formando.class,*/ Resultado.class
             },
             version = BaseDadosContantes.VERSAO
 )

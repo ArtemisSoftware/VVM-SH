@@ -11,6 +11,7 @@ import android.widget.Button;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.google.android.material.textfield.TextInputEditText;
@@ -30,6 +31,8 @@ import com.vvm.sh.ui.anomalias.modelos.AnomaliaResultado;
 import com.vvm.sh.ui.atividadesPendentes.AtividadesPendentesViewModel;
 import com.vvm.sh.ui.atividadesPendentes.DialogoAtividadePendenteExecutada;
 import com.vvm.sh.ui.opcoes.modelos.Tipo;
+import com.vvm.sh.util.MensagensUtil;
+import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.metodos.Preferencias;
 
 import java.util.ArrayList;
@@ -56,20 +59,21 @@ public class DialogoAnomalia extends BaseDaggerDialogoPersistenteFragment{
 
 
 
+    private static final String ARGUMENTO_ID= "id";
+
+
     public DialogoAnomalia() {
         // Empty constructor required for DialogFragment
     }
 
 
-    public static DialogoAnomalia newInstance() {
-        DialogoAnomalia frag = new DialogoAnomalia();
+    public static DialogoAnomalia newInstance(int id) {
+        DialogoAnomalia fragmento = new DialogoAnomalia();
 
-        /*
         Bundle args = new Bundle();
-        args.putInt(ARGUMENTO_ID_ATIVIDADE, id);
-        frag.setArguments(args);
-        */
-        return frag;
+        args.putInt(ARGUMENTO_ID, id);
+        fragmento.setArguments(args);
+        return fragmento;
     }
 
 
@@ -80,8 +84,12 @@ public class DialogoAnomalia extends BaseDaggerDialogoPersistenteFragment{
         binding = (DialogoAnomaliaBinding) activityBaseBinding;
         binding.setViewmodel(viewModel);
 
-        viewModel.obterAnomalias(Preferencias.obterIdTarefa(getContext()));
-
+        if(getArguments() != null) {
+            viewModel.obterAnomalia(getArguments().getInt(ARGUMENTO_ID));
+        }
+        else{
+            viewModel.obterAnomalia(0);
+        }
     }
 
     @Override
@@ -108,6 +116,25 @@ public class DialogoAnomalia extends BaseDaggerDialogoPersistenteFragment{
     @Override
     protected void subscreverObservadores() {
 
+        viewModel.observarMessagem().observe(this, new Observer<Recurso>() {
+            @Override
+            public void onChanged(Recurso recurso) {
+
+                switch (recurso.status){
+
+                    case SUCESSO:
+
+                        //TODO: Completar metodo
+                        MensagensUtil.sucesso();
+                        terminarDialogo();
+                        break;
+
+                    default:
+                        break;
+                }
+
+            }
+        });
     }
 
 

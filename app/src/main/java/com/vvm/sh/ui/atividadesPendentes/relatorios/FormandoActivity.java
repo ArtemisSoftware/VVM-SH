@@ -1,4 +1,4 @@
-package com.vvm.sh.ui.atividadesPendentes;
+package com.vvm.sh.ui.atividadesPendentes.relatorios;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBar;

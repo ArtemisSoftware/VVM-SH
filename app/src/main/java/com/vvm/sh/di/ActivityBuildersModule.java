@@ -22,7 +22,7 @@ import com.vvm.sh.ui.atividadesPendentes.AcaoFormacaoActivity;
 import com.vvm.sh.ui.atividadesPendentes.DialogoAtividadePendente;
 import com.vvm.sh.ui.atividadesPendentes.DialogoAtividadePendenteExecutada;
 import com.vvm.sh.ui.atividadesPendentes.DialogoAtividadePendenteNaoExecutada;
-import com.vvm.sh.ui.atividadesPendentes.FormandoActivity;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.FormandoActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.FormacaoActivity;
 import com.vvm.sh.ui.ocorrencias.OcorrenciasRegistoActivity;
 import com.vvm.sh.ui.ocorrencias.RegistarOcorrenciaActivity;
@@ -187,23 +187,23 @@ public abstract class ActivityBuildersModule {
 
 
 
-    @FormacaoScope
-    @ContributesAndroidInjector(
-            modules = { AtividadesPendentesViewModelsModule.class, AtividadesPendentesModule.class }
-    )
-    abstract FormacaoActivity contributeFormacaoActivity();
-
-    @FormacaoScope
-    @ContributesAndroidInjector(
-            modules = { AtividadesPendentesViewModelsModule.class, AtividadesPendentesModule.class }
-    )
-    abstract FormandoActivity contributeFormandoActivity();
-
-    @FormacaoScope
-    @ContributesAndroidInjector(
-            modules = { AtividadesPendentesViewModelsModule.class, AtividadesPendentesModule.class }
-    )
-    abstract AcaoFormacaoActivity contributeAcaoFormacaoActivity();
+//    @FormacaoScope
+//    @ContributesAndroidInjector(
+//            modules = { AtividadesPendentesViewModelsModule.class, AtividadesPendentesModule.class }
+//    )
+//    abstract FormacaoActivity contributeFormacaoActivity();
+//
+//    @FormacaoScope
+//    @ContributesAndroidInjector(
+//            modules = { AtividadesPendentesViewModelsModule.class, AtividadesPendentesModule.class }
+//    )
+//    abstract FormandoActivity contributeFormandoActivity();
+//
+//    @FormacaoScope
+//    @ContributesAndroidInjector(
+//            modules = { AtividadesPendentesViewModelsModule.class, AtividadesPendentesModule.class }
+//    )
+//    abstract AcaoFormacaoActivity contributeAcaoFormacaoActivity();
 
 
 

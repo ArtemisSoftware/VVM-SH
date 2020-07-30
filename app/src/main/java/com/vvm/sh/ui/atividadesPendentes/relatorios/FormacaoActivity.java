@@ -1,10 +1,6 @@
 package com.vvm.sh.ui.atividadesPendentes.relatorios;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,24 +9,12 @@ import android.view.View;
 import com.vvm.sh.R;
 import com.vvm.sh.databinding.ActivityFormacaoBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
-import com.vvm.sh.ui.BaseActivity;
 import com.vvm.sh.ui.BaseDaggerActivity;
-import com.vvm.sh.ui.atividadesPendentes.FormandoActivity;
-import com.vvm.sh.ui.atividadesPendentes.relatorios.FormacaoViewModel;
-import com.vvm.sh.ui.atividadesPendentes.relatorios.Formando;
-import com.vvm.sh.ui.atividadesPendentes.relatorios.OnFormacaoListener;
-import com.vvm.sh.util.adaptadores.Item;
-import com.vvm.sh.util.interfaces.OnCheckBoxItemListener;
-import com.vvm.sh.util.interfaces.OnItemListener;
-import com.vvm.sh.util.metodos.Preferencias;
+import com.vvm.sh.ui.atividadesPendentes.AcaoFormacaoActivity;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
-
-import java.util.ArrayList;
-import java.util.List;
 
 import javax.inject.Inject;
 
-import butterknife.BindView;
 import butterknife.OnClick;
 
 public class FormacaoActivity extends BaseDaggerActivity
@@ -94,13 +78,16 @@ public class FormacaoActivity extends BaseDaggerActivity
 
             Intent intent = new Intent(this, FormandoActivity.class);
 
-            bundle.putInt(getString(R.string.argumento_id_atividade), bundle.getInt(getString(R.string.argumento_id_atividade)));
+            int idAtividade = bundle.getInt(getString(R.string.argumento_id_atividade));
+
+            Bundle bundleFormacao = new Bundle();
+            bundleFormacao.putInt(getString(R.string.argumento_id_atividade), idAtividade);
 
             if(formando != null){
-                bundle.putInt(getString(R.string.argumento_id_formando), formando.id);
+                bundleFormacao.putInt(getString(R.string.argumento_id_formando), formando.id);
             }
 
-            intent.putExtras(bundle);
+            intent.putExtras(bundleFormacao);
             startActivity(intent);
 
         }
@@ -129,6 +116,27 @@ public class FormacaoActivity extends BaseDaggerActivity
     }
 
 
+    @OnClick(R.id.fab_adicionar_acao_formacao)
+    public void fab_adicionar_acao_formacao_OnClickListener(View view) {
+
+        Intent intent = new Intent(this, AcaoFormacaoActivity.class);
+
+        Bundle bundle = getIntent().getExtras();
+        if(bundle != null) {
+
+            int idAtividade = bundle.getInt(getString(R.string.argumento_id_atividade));
+
+            Bundle bundleFormacao = new Bundle();
+            bundleFormacao.putInt(getString(R.string.argumento_id_atividade), idAtividade);
+
+            intent.putExtras(bundleFormacao);
+            startActivity(intent);
+        }
+        else{
+            finish();
+        }
+
+    }
 
 //
 //    @BindView(R.id.rcl_registos)
@@ -227,13 +235,7 @@ public class FormacaoActivity extends BaseDaggerActivity
 //
 //
 //
-//    @OnClick(R.id.fab_adicionar_acao_formacao)
-//    public void fab_adicionar_acao_formacao_OnClickListener(View view) {
-//
-//        Intent intent = new Intent(this, AcaoFormacaoActivity.class);
-//        //intent.putExtra(AppConstants.PICTURE, pictureRecyclerAdapter.getSelectedPicture(position).getId());
-//        startActivityForResult(intent, 2);
-//    }
+
 //
 //
 //    @Override

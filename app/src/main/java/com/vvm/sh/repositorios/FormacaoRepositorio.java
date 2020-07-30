@@ -17,10 +17,10 @@ public class FormacaoRepositorio {
         this.formandoDao = formandoDao;
     }
 
-
+/*
     public Flowable<List<Formando>> obterFormandos(int idAtividade) {
         return formandoDao.obterFormandos(idAtividade);
     }
 
-
+*/
 }

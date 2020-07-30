@@ -23,6 +23,18 @@ public class Migracao {
         public void migrate(SupportSQLiteDatabase database) {
             try {
 
+                database.execSQL("CREATE TABLE IF NOT EXISTS 'anomaliasResultado' ("
+                        + "'idTarefa' INTEGER NOT NULL, "
+                        + "'id' INTEGER  PRIMARY KEY AUTOINCREMENT NOT NULL, "
+                        + "'idAnomalia' INTEGER NOT NULL, "
+                        + "'observacao' TEXT , "
+                        + "PRIMARY KEY (idTarefa, id), "
+                        + "FOREIGN KEY (idTarefa) REFERENCES tarefas (idTarefa)  ON DELETE CASCADE) ");
+
+                database.execSQL("CREATE INDEX index_anomaliasResultado_idTarefa ON anomaliasResultado (idTarefa)");
+
+
+
 //                acoesFormacaoResultado
 //                CAMPO_ID_ATIVIDADE_PENDENTE +" INTEGER," +
 //                        CAMPO_ID_DESIGNACAO +" INTEGER," +
@@ -30,6 +42,8 @@ public class Migracao {
 //                        CAMPO_DATA + " DATETIME," +
 //                        CAMPO_INICIO + " DATETIME," +
 //                        CAMPO_TERMINO + " DATETIME," +
+
+
 
 
 //formandosResultado
@@ -45,6 +59,8 @@ public class Migracao {
 //    CAMPO_SELECIONADO + " INTEGER DEFAULT 0," +
 //    CAMPO_ID_QUADRO_PESSOAL + " INTEGER," +
 //    CAMPO_ORIGEM + " INTEGER DEFAULT " + IdentificadoresIF.ORIGEM_DADOS_WS + ", " +
+
+
 
 
 

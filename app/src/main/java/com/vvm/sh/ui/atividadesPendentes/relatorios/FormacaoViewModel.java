@@ -40,7 +40,7 @@ public class FormacaoViewModel extends BaseViewModel {
     public void obterFormandos(int idAtividade){
 
         showProgressBar(true);
-
+/*
         formacaoRepositorio.obterFormandos(idAtividade).toObservable()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -72,7 +72,7 @@ public class FormacaoViewModel extends BaseViewModel {
                         }
 
                 );
-
+*/
     }
 
 

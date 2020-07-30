@@ -19,8 +19,8 @@ public abstract class AtividadesPendentesViewModelsModule {
     public abstract ViewModel bindAtividadesPendentesViewModel(AtividadesPendentesViewModel viewModel);
 
 
-    @Binds
-    @IntoMap
-    @ViewModelKey(FormacaoViewModel.class)
-    public abstract ViewModel bindFormacaoViewModel(FormacaoViewModel viewModel);
+//    @Binds
+//    @IntoMap
+//    @ViewModelKey(FormacaoViewModel.class)
+//    public abstract ViewModel bindFormacaoViewModel(FormacaoViewModel viewModel);
 }

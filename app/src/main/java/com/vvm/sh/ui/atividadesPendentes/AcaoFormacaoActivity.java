@@ -21,6 +21,7 @@ import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.AcaoFormacao;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.FormacaoViewModel;
 import com.vvm.sh.ui.opcoes.modelos.Tipo;
+import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.metodos.DatasUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
@@ -49,19 +50,19 @@ public class AcaoFormacaoActivity extends BaseDaggerActivity
 
     private Validator validador;
 
-    @NotEmpty(message = "Preenchimento obrigatório")
+    @NotEmpty(message = Sintaxe.Alertas.PREENCHIMENTO_OBRIGATORIO)
     @BindView(R.id.txt_inp_local)
     TextInputEditText txt_inp_local;
 
-    @NotEmpty(message = "Preenchimento obrigatório")
+    @NotEmpty(message = Sintaxe.Alertas.PREENCHIMENTO_OBRIGATORIO)
     @BindView(R.id.txt_inp_data)
     TextInputEditText txt_inp_data;
 
-    @NotEmpty(message = "Preenchimento obrigatório")
+    @NotEmpty(message = Sintaxe.Alertas.PREENCHIMENTO_OBRIGATORIO)
     @BindView(R.id.txt_inp_inicio)
     TextInputEditText txt_inp_inicio;
 
-    @NotEmpty(message = "Preenchimento obrigatório")
+    @NotEmpty(message = Sintaxe.Alertas.PREENCHIMENTO_OBRIGATORIO)
     @BindView(R.id.txt_inp_fim)
     TextInputEditText txt_inp_fim;
 

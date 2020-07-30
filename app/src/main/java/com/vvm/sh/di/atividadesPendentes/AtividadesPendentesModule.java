@@ -5,6 +5,7 @@ import com.vvm.sh.baseDados.AtividadePendenteDao;
 import com.vvm.sh.baseDados.FormandoDao;
 import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.repositorios.AtividadePendenteRepositorio;
+import com.vvm.sh.repositorios.FormacaoRepositorio;
 
 import dagger.Module;
 import dagger.Provides;
@@ -42,6 +43,17 @@ public class AtividadesPendentesModule {
 //
 //        //Timber.d("Providing NoteDao: " + dao);
 //        return dao;
+//    }
+
+
+//    @FormacaoScope
+//    @Provides
+//    FormacaoRepositorio provideFormacaoRepositorio(FormandoDao formandoDao) {
+//
+//        FormacaoRepositorio repositorio = new FormacaoRepositorio(formandoDao);
+//
+//        //Timber.d("Providing PokemonRepository: " + repository);
+//        return repositorio;
 //    }
 
 }

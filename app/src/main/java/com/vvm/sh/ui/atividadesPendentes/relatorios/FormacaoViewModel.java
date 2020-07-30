@@ -20,7 +20,7 @@ public class FormacaoViewModel extends BaseViewModel {
 
     public MutableLiveData<List<Formando>> formandos;
 
-    @Inject
+    //--@Inject
     public FormacaoViewModel(FormacaoRepositorio formacaoRepositorio){
 
         this.formacaoRepositorio = formacaoRepositorio;
@@ -33,7 +33,7 @@ public class FormacaoViewModel extends BaseViewModel {
      * Metodo que permite obter os formandos
      * @param idAtividade o identificador da atividade
      */
-    public void obterFormando(int idAtividade){
+    public void obterFormandos(int idAtividade){
 
         showProgressBar(true);
 

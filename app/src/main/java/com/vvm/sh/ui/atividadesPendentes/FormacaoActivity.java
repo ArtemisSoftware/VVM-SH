@@ -2,6 +2,7 @@ package com.vvm.sh.ui.atividadesPendentes;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -10,15 +11,21 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.vvm.sh.R;
+import com.vvm.sh.databinding.ActivityFormacaoBinding;
+import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseActivity;
 import com.vvm.sh.ui.BaseDaggerActivity;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.FormacaoViewModel;
 import com.vvm.sh.util.adaptadores.Item;
 import com.vvm.sh.util.interfaces.OnCheckBoxItemListener;
 import com.vvm.sh.util.interfaces.OnItemListener;
+import com.vvm.sh.util.metodos.Preferencias;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -27,9 +34,38 @@ public class FormacaoActivity extends BaseDaggerActivity
         /*implements OnItemListener, OnCheckBoxItemListener*/ {
 
 
+    private ActivityFormacaoBinding activityFormacaoBinding;
+
+
+    @Inject
+    ViewModelProviderFactory providerFactory;
+
+
+    private FormacaoViewModel viewModel;
+
+
+
+
     @Override
     protected void intActivity(Bundle savedInstanceState) {
 
+        viewModel = ViewModelProviders.of(this, providerFactory).get(FormacaoViewModel.class);
+
+        activityFormacaoBinding = (ActivityFormacaoBinding) activityBinding;
+        activityFormacaoBinding.setLifecycleOwner(this);
+        //activityFormacaoBinding.setListener(this);
+        activityFormacaoBinding.setViewmodel(viewModel);
+
+        subscreverObservadores();
+
+        Bundle bundle = getIntent().getExtras();
+
+        if(bundle != null) {
+            viewModel.obterFormandos(bundle.getInt(getString(R.string.argumento_id_atividade)));
+        }
+        else{
+            finish();
+        }
     }
 
     @Override
@@ -39,7 +75,7 @@ public class FormacaoActivity extends BaseDaggerActivity
 
     @Override
     protected BaseViewModel obterBaseViewModel() {
-        return null;
+        return viewModel;
     }
 
     @Override

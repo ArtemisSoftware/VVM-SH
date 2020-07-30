@@ -10,6 +10,7 @@ import com.vvm.sh.di.anomalias.AnomaliasViewModelsModule;
 import com.vvm.sh.di.atividadesPendentes.AtividadesPendentesModule;
 import com.vvm.sh.di.atividadesPendentes.AtividadesPendentesScope;
 import com.vvm.sh.di.atividadesPendentes.AtividadesPendentesViewModelsModule;
+import com.vvm.sh.di.atividadesPendentes.FormacaoScope;
 import com.vvm.sh.di.ocorrencias.OcorrenciasModule;
 import com.vvm.sh.di.ocorrencias.OcorrenciasScope;
 import com.vvm.sh.di.ocorrencias.OcorrenciasViewModelsModule;
@@ -20,6 +21,7 @@ import com.vvm.sh.ui.anomalias.DialogoAnomalia;
 import com.vvm.sh.ui.atividadesPendentes.DialogoAtividadePendente;
 import com.vvm.sh.ui.atividadesPendentes.DialogoAtividadePendenteExecutada;
 import com.vvm.sh.ui.atividadesPendentes.DialogoAtividadePendenteNaoExecutada;
+import com.vvm.sh.ui.atividadesPendentes.FormacaoActivity;
 import com.vvm.sh.ui.ocorrencias.OcorrenciasRegistoActivity;
 import com.vvm.sh.ui.ocorrencias.RegistarOcorrenciaActivity;
 import com.vvm.sh.ui.tarefa.DialogoEmail;
@@ -181,7 +183,11 @@ public abstract class ActivityBuildersModule {
     )
     abstract DialogoAtividadePendenteExecutada contributeDialogoAtividadePendenteExecutada();
 
-
+    @FormacaoScope
+    @ContributesAndroidInjector(
+            modules = { AtividadesPendentesViewModelsModule.class, AtividadesPendentesModule.class }
+    )
+    abstract FormacaoActivity contributeFormacaoActivity();
 
 
 

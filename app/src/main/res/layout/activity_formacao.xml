@@ -7,15 +7,15 @@
 
         <import type="java.util.List"/>
         <import type="android.view.View"/>
-<!--
-        <variable
-            name="viewmodel"
-            type="com.vvm.sh.ui.ocorrencias.OcorrenciasViewModel"/>
 
         <variable
-            name="listener"
-            type="com.vvm.sh.ui.ocorrencias.adaptadores.OnOcorrenciaRegistoListener"/>
--->
+            name="viewmodel"
+            type="com.vvm.sh.ui.atividadesPendentes.relatorios.FormacaoViewModel"/>
+        <!--
+                <variable
+                    name="listener"
+                    type="com.vvm.sh.ui.ocorrencias.adaptadores.OnOcorrenciaRegistoListener"/>
+        -->
     </data>
 
 

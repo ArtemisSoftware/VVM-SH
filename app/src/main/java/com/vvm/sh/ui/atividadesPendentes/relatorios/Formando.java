@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
@@ -79,6 +80,41 @@ public class Formando {
     public int origem;
 
 
+    @Ignore
+    public Formando(int idAtividade,
+                    @NonNull String nome, @NonNull String biCartaoCidadao, @NonNull String sexo,
+                    @NonNull String niss, @NonNull Date dataNascimento, @NonNull String naturalidade,
+                    @NonNull String nacionalidade) {
+
+        this.idAtividade = idAtividade;
+        this.nome = nome;
+        this.biCartaoCidadao = biCartaoCidadao;
+        this.sexo = sexo;
+        this.niss = niss;
+        this.dataNascimento = dataNascimento;
+        this.naturalidade = naturalidade;
+        this.nacionalidade = nacionalidade;
+    }
+
+
+    @Ignore
+    public Formando(int idAtividade, int id,
+                    @NonNull String nome, @NonNull String biCartaoCidadao, @NonNull String sexo,
+                    @NonNull String niss, @NonNull Date dataNascimento, @NonNull String naturalidade,
+                    @NonNull String nacionalidade) {
+
+        this.idAtividade = idAtividade;
+        this.id = id;
+        this.nome = nome;
+        this.biCartaoCidadao = biCartaoCidadao;
+        this.sexo = sexo;
+        this.niss = niss;
+        this.dataNascimento = dataNascimento;
+        this.naturalidade = naturalidade;
+        this.nacionalidade = nacionalidade;
+    }
+
+
     public Formando(int idAtividade, int id,
                     @NonNull String nome, @NonNull String biCartaoCidadao, @NonNull String sexo,
                     @NonNull String niss, @NonNull Date dataNascimento, @NonNull String naturalidade,
@@ -97,50 +133,4 @@ public class Formando {
         this.origem = origem;
     }
 
-    public static class FormandoRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
-
-
-        private List<Formando> items = new ArrayList<>();
-        private Context contexto;
-        private OnFormacaoListener listener;
-
-        public FormandoRecyclerAdapter(Context contexto, List<Formando> items, OnFormacaoListener listener) {
-            this.items = items;
-            this.contexto = contexto;
-            this.listener = listener;
-        }
-
-
-        @NonNull
-        @Override
-        public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-
-            ItemFormandoBinding binding = DataBindingUtil.inflate(LayoutInflater.from(contexto), R.layout.item_formando, parent, false);
-            return new FormandoViewHolder(binding.getRoot(), listener);
-        }
-
-        @Override
-        public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
-
-            Formando registo = items.get(position);
-            ((FormandoViewHolder)holder).binding.setFormando(registo);
-            ((FormandoViewHolder)holder).binding.setListener(listener);
-            ((FormandoViewHolder)holder).binding.executePendingBindings();
-
-        }
-
-        @Override
-        public int getItemCount() {
-            return items.size();
-        }
-
-
-        public void atualizar(List<Formando> items){
-            this.items.clear();
-            this.items.addAll(items);
-            notifyDataSetChanged();
-        }
-
-
-    }
 }

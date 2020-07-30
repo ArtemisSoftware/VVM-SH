@@ -33,6 +33,14 @@ public class Sintaxe {
         public static final String CLIENTE_NAO_TEM_EMAIL = "Cliente não tem email";
         public static final String AUTORIZADO = "Autorizado";
         public static final String NAO_AUTORIZADO = "Não autorizado";
+        public static final String MASCULINO = "Masculino";
+        public static final String FEMININO = "Feminino";
+    }
+
+    public class Codigos{
+
+        public static final String MASCULINO = "M";
+        public static final String FEMININO = "F";
     }
 
     public class Alertas{

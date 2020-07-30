@@ -57,6 +57,14 @@ public class Tipo {
     }
 
 
+    @Ignore
+    public Tipo(int id, String descricao, String codigo) {
+        this.id = id;
+        this.descricao = descricao;
+        this.codigo = codigo;
+    }
+
+
     public Tipo(int id, String descricao, String codigo, String idPai, int ativo, String detalhe, String tipo) {
         this.id = id;
         this.descricao = descricao;

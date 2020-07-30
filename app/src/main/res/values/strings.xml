@@ -224,5 +224,8 @@
     <string name="email_endereco_invalido">Endereço inválido</string>
     <string name="formacao">Formação</string>
     <string name="adicionar_formando">Adicionar formando</string>
+    <string name="niss">Niss</string>
+    <string name="naturalidade">Naturalidade</string>
+    <string name="nacionalidade">Nacionalidade</string>
 
 </resources>

@@ -20,4 +20,9 @@ public class TiposConstantes {
     public static final Tipo EMAIL_NAO_AUTORIZADO = new Tipo(41, Sintaxe.Opcoes.NAO_AUTORIZADO);
 
 
+    //Genero
+
+    public static final Tipo GENERO_MASCULINO = new Tipo(1, Sintaxe.Opcoes.MASCULINO, Sintaxe.Codigos.MASCULINO);
+    public static final Tipo GENERO_FEMININO = new Tipo(2, Sintaxe.Opcoes.FEMININO, Sintaxe.Codigos.FEMININO);
+
 }

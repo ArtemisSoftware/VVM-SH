@@ -74,4 +74,7 @@ public class FormacaoViewModel extends BaseViewModel {
 
     public void gravar(Formando formando) {
     }
+
+    public void obterFormando(int idFormando) {
+    }
 }

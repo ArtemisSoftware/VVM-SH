@@ -12,11 +12,11 @@
         <variable
             name="formando"
             type="com.vvm.sh.ui.atividadesPendentes.relatorios.Formando" />
-<!--
+
         <variable
             name="listener"
-            type="com.vvm.sh.ui.opcoes.adaptadores.OnTipoListener"/>
--->
+            type="com.vvm.sh.ui.atividadesPendentes.relatorios.OnFormacaoListener"/>
+
     </data>
 
 

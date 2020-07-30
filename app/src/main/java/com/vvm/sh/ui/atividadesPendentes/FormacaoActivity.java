@@ -16,6 +16,8 @@ import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseActivity;
 import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.FormacaoViewModel;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.Formando;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.OnFormacaoListener;
 import com.vvm.sh.util.adaptadores.Item;
 import com.vvm.sh.util.interfaces.OnCheckBoxItemListener;
 import com.vvm.sh.util.interfaces.OnItemListener;
@@ -31,7 +33,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 public class FormacaoActivity extends BaseDaggerActivity
-        /*implements OnItemListener, OnCheckBoxItemListener*/ {
+        implements OnFormacaoListener {
 
 
     private ActivityFormacaoBinding activityFormacaoBinding;
@@ -80,6 +82,16 @@ public class FormacaoActivity extends BaseDaggerActivity
 
     @Override
     protected void subscreverObservadores() {
+
+    }
+
+    @Override
+    public void OnFormandoClick(Formando formando) {
+
+    }
+
+    @Override
+    public void OnSelecionadoCheck(Formando formando, boolean selecionado) {
 
     }
 

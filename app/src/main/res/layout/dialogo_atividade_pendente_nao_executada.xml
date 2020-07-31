@@ -23,11 +23,13 @@
 
 
         <com.jaredrummler.materialspinner.MaterialSpinner
+            android:id="@+id/spnr_anomalias"
+            tipos_="@{viewmodel.tiposAnomalias}"
+            atividade="@{viewmodel.atividadeResultado}"
             android:layout_width="400dp"
             android:layout_height="wrap_content"
             android:hint="@string/anomalia"/>
 
-<!-- app:tipos="@{viewmodel.anomalias}" -->
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/parent.TextLayout"
@@ -39,6 +41,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/txt_inp_observacao"
                 style="@style/modifiedEditText"
+                android:text="@{viewmodel.atividadeResultado.observacao}"
                 android:gravity="top|left"
                 android:lines="5"
                 android:maxLines="5"/>

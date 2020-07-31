@@ -9,6 +9,7 @@ import androidx.room.Index;
 
 import com.vvm.sh.ui.agenda.modelos.Tarefa;
 import com.vvm.sh.ui.opcoes.modelos.Tipo;
+import com.vvm.sh.util.constantes.Identificadores;
 
 import static androidx.room.ForeignKey.CASCADE;
 
@@ -37,11 +38,13 @@ public class CrossSellingResultado {
     public int idAreaRecomendacao;
 
 
-    @ColumnInfo(name = "idDimensao")
+    @NonNull
+    @ColumnInfo(name = "idDimensao", defaultValue = Identificadores.SEM_VALOR)
     public int idDimensao;
 
 
-    @ColumnInfo(name = "idTipo")
+    @NonNull
+    @ColumnInfo(name = "idTipo", defaultValue = Identificadores.SEM_VALOR)
     public int idTipo;
 
 

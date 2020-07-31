@@ -12,8 +12,6 @@ public interface OnAtividadePendenteListener {
 
     void OnConcluirAtividadeNaoExecutada(int idAtividade);
 
-    void OnGravarAtividadeNaoExecutada(int idAtividade, int idAnomalia, String observacao);
-
 
     void OnIniciarRelatorio(AtividadePendente atividade);
 

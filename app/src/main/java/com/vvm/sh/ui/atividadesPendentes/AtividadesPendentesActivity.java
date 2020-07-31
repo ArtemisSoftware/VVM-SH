@@ -91,7 +91,7 @@ public class AtividadesPendentesActivity extends BaseDaggerActivity
     public void OnGravarAtividadeExecutada(int idAtividade, String minutos, String data) {
 
         AtividadePendenteResultado atividade = new AtividadePendenteResultado(idAtividade, minutos, DatasUtil.converterString(data, DatasUtil.FORMATO_YYYY_MM_DD));
-        viewModel.gravarAtividade(atividade);
+        //viewModel.gravarAtividade(atividade);
     }
 
     @Override
@@ -101,11 +101,6 @@ public class AtividadesPendentesActivity extends BaseDaggerActivity
         dialogo.show(getSupportFragmentManager(), "example dialog");
     }
 
-    @Override
-    public void OnGravarAtividadeNaoExecutada(int idAtividade, int idAnomalia, String observacao) {
-
-
-    }
 
     @Override
     public void OnIniciarRelatorio(AtividadePendente atividade) {

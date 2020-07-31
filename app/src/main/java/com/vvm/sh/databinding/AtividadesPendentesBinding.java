@@ -4,9 +4,12 @@ import androidx.databinding.BindingAdapter;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.vvm.sh.ui.atividadesPendentes.adaptadores.AtividadePendenteRecyclerAdapter;
 import com.vvm.sh.ui.atividadesPendentes.adaptadores.OnAtividadePendenteListener;
 import com.vvm.sh.ui.atividadesPendentes.modelos.AtividadePendente;
+import com.vvm.sh.ui.atividadesPendentes.modelos.AtividadePendenteResultado;
+import com.vvm.sh.ui.opcoes.modelos.Tipo;
 
 import java.util.List;
 
@@ -37,4 +40,26 @@ public class AtividadesPendentesBinding {
         }
 
     }
+
+
+    @BindingAdapter({"tipos_", "atividade"})
+    public static void setTipos_(MaterialSpinner view, List<Tipo> registos, AtividadePendenteResultado resultado) {
+
+        if (registos == null)
+            return;
+
+        view.setItems(registos);
+
+        if(resultado != null) {
+
+            for (int index = 0; index < registos.size(); ++index) {
+
+                if(registos.get(index).id == resultado.idAnomalia){
+                    view.setSelectedIndex(index);
+                    break;
+                }
+            }
+        }
+    }
+
 }

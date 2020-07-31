@@ -10,10 +10,12 @@ import com.vvm.sh.ui.anomalias.modelos.Anomalia;
 import com.vvm.sh.ui.anomalias.modelos.AnomaliaResultado;
 import com.vvm.sh.ui.atividadesExecutadas.modelos.AtividadeExecutada;
 import com.vvm.sh.ui.atividadesPendentes.modelos.AtividadePendente;
+import com.vvm.sh.ui.atividadesPendentes.modelos.AtividadePendenteResultado;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.AcaoFormacao;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.Formando;
 import com.vvm.sh.ui.autenticacao.modelos.Utilizador;
 import com.vvm.sh.ui.cliente.Cliente;
+import com.vvm.sh.ui.crossSelling.modelos.CrossSellingResultado;
 import com.vvm.sh.ui.ocorrencias.modelos.Ocorrencia;
 import com.vvm.sh.ui.ocorrencias.modelos.OcorrenciaHistorico;
 import com.vvm.sh.ui.opcoes.modelos.Atualizacao;
@@ -22,11 +24,17 @@ import com.vvm.sh.ui.tarefa.modelos.EmailResultado;
 
 @Database(
             entities = {
-                    Atualizacao.class, Tipo.class,
-                    Utilizador.class,
+                    Atualizacao.class, Tipo.class, Utilizador.class,
                     Tarefa.class,
+
+                    //Trabalho
+
                     Cliente.class, AtividadeExecutada.class, Anomalia.class, AtividadePendente.class, Ocorrencia.class, OcorrenciaHistorico.class,
-                    EmailResultado.class, AnomaliaResultado.class, Formando.class, AcaoFormacao.class, Resultado.class
+
+                    //Resultado
+
+                    EmailResultado.class, AnomaliaResultado.class, Formando.class, AcaoFormacao.class,
+                    AtividadePendenteResultado.class, CrossSellingResultado.class, Resultado.class
             },
             version = BaseDadosContantes.VERSAO
 )
@@ -72,6 +80,8 @@ public abstract class VvmshBaseDados extends RoomDatabase {
     public abstract EmailDao obterEmailDao();
 
     public abstract AnomaliaResultadoDao obterAnomaliaResultadoDao();
+
+    public abstract AtividadePendenteResultadoDao obterAtividadePendenteResultadoDao();
 
     public abstract FormandoDao obterFormandoDao();
 

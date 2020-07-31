@@ -14,11 +14,54 @@ public class Migracao {
     public static final Migration[] obterMigracoes(){
 
         Migration migrations [] =  new Migration []{
-                MIGRACAO_1_2, MIGRACAO_2_3, MIGRACAO_3_4, MIGRACAO_4_5, MIGRACAO_5_6, MIGRACAO_6_7, MIGRACAO_7_8
+                MIGRACAO_1_2, MIGRACAO_2_3, MIGRACAO_3_4, MIGRACAO_4_5, MIGRACAO_5_6, MIGRACAO_6_7, MIGRACAO_7_8, MIGRACAO_8_9
         };
 
         return migrations;
     }
+
+
+    public static final Migration MIGRACAO_8_9 = new Migration(8, 9) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            try {
+
+                database.execSQL("CREATE TABLE IF NOT EXISTS 'crossSellingResultado' ("
+                        + "'id' INTEGER NOT NULL , "
+                        + "'idTarefa' INTEGER NOT NULL, "
+                        + "'idAreaRecomendacao' INTEGER NOT NULL , "
+                        + "'idDimensao' INTEGER NOT NULL DEFAULT " + Identificadores.SEM_VALOR + " , "
+                        + "'idTipo' INTEGER NOT NULL DEFAULT " + Identificadores.SEM_VALOR + " , "
+                        + "PRIMARY KEY (id, idTarefa), "
+                        + "FOREIGN KEY (idTarefa) REFERENCES tarefas (idTarefa)  ON DELETE CASCADE) ");
+
+                database.execSQL("CREATE INDEX index_crossSellingResultado_idTarefa ON crossSellingResultado (idTarefa)");
+
+
+                database.execSQL("DROP TABLE IF EXISTS atividadesPendentesResultado");
+                database.execSQL("CREATE TABLE IF NOT EXISTS 'atividadesPendentesResultado' ("
+                        + "'id' INTEGER NOT NULL, "
+                        + "'idEstado' INTEGER NOT NULL , "
+                        + "'tempoExecucao' TEXT  , "
+                        + "'dataExecucao' INTEGER  , "
+                        + "'idAnomalia' INTEGER NOT NULL DEFAULT " + Identificadores.SEM_VALOR + " , "
+                        + "'observacao' TEXT  , "
+                        + "PRIMARY KEY (id), "
+                        + "FOREIGN KEY (id) REFERENCES atividadesPendentes (id)  ON DELETE CASCADE) ");
+
+                database.execSQL("DROP INDEX IF EXISTS index_atividadesPendentesResultado_id");
+                database.execSQL("CREATE INDEX index_atividadesPendentesResultado_id ON atividadesPendentesResultado (id)");
+            }
+            catch(SQLException e){
+                Log.e("Migracao", "erro MIGRACAO_2_3: " + e.getMessage());
+                //Timber.e("erro MIGRACAO_2_3: " + e.getMessage());
+            }
+        }
+    };
+
+
+
+
 
 
     public static final Migration MIGRACAO_7_8 = new Migration(7, 8) {

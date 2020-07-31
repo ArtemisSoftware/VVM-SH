@@ -23,6 +23,7 @@ import com.vvm.sh.ui.opcoes.modelos.Tipo;
 import com.vvm.sh.util.BaseDialogoPersistenteFragment;
 import com.vvm.sh.util.MensagensUtil;
 import com.vvm.sh.util.Recurso;
+import com.vvm.sh.util.metodos.Preferencias;
 
 import org.angmarch.views.NiceSpinner;
 
@@ -32,8 +33,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 
-public class DialogoAtividadePendenteNaoExecutada extends BaseDaggerDialogoPersistenteFragment
-        implements Validator.ValidationListener{
+public class DialogoAtividadePendenteNaoExecutada extends BaseDaggerDialogoPersistenteFragment{
 
 
     private DialogoAtividadePendenteNaoExecutadaBinding binding;
@@ -44,15 +44,6 @@ public class DialogoAtividadePendenteNaoExecutada extends BaseDaggerDialogoPersi
     private AtividadesPendentesViewModel viewModel;
 
 
-    private OnAtividadePendenteListener listener;
-
-
-    private Validator validador;
-
-
-    //@Select
-    @BindView(R.id.spnr_anomalias)
-    NiceSpinner spnr_anomalias;
 
 
     private static final String ARGUMENTO_ID_ATIVIDADE = "id";
@@ -78,18 +69,14 @@ public class DialogoAtividadePendenteNaoExecutada extends BaseDaggerDialogoPersi
     @Override
     protected void iniciarDialogo() {
 
-        listener = (OnAtividadePendenteListener) getContext();
-
         viewModel = ViewModelProviders.of(this, providerFactory).get(AtividadesPendentesViewModel.class);
         binding = (DialogoAtividadePendenteNaoExecutadaBinding) activityBaseBinding;
         binding.setViewmodel(viewModel);
 
 
         if(verificarArgumentos(ARGUMENTO_ID_ATIVIDADE) == true){
-            validador = new Validator(this);
-            validador.setValidationListener(this);
 
-            viewModel.obterAtividadesNaoExecutada(getArguments().getInt(ARGUMENTO_ID_ATIVIDADE));
+            viewModel.obterAtividade(getArguments().getInt(ARGUMENTO_ID_ATIVIDADE));
         }
         else{
             terminarDialogo();
@@ -134,38 +121,13 @@ public class DialogoAtividadePendenteNaoExecutada extends BaseDaggerDialogoPersi
 
     @Override
     protected void clickPositivo() {
-        validador.validate();
-    }
-
-
-
-
-    @Override
-    public void onValidationSucceeded() {
 
         int idAtividade = getArguments().getInt(ARGUMENTO_ID_ATIVIDADE);
-        int idAnomalia = ((Tipo)spnr_anomalias.getSelectedItem()).id;
+        int idAnomalia = ((Tipo) binding.spnrAnomalias.getItems().get(binding.spnrAnomalias.getSelectedIndex())).id;
         String observacao = binding.txtInpObservacao.getText().toString();
 
         AtividadePendenteResultado atividade = new AtividadePendenteResultado(idAtividade, idAnomalia, observacao);
-        viewModel.gravarAtividade(atividade);
+        viewModel.gravarAtividade(Preferencias.obterIdTarefa(getContext()), atividade);
     }
-
-    @Override
-    public void onValidationFailed(List<ValidationError> errors) {
-
-        for (ValidationError error : errors) {
-            View view = error.getView();
-            String message = error.getCollatedErrorMessage(getContext());
-
-            // Display error messages
-/*
-            if (view instanceof NiceSpinner) {
-                ((TextView) ((NiceSpinner) view).getSelectedView()).setError(message);
-            }
-*/
-        }
-    }
-
 
 }

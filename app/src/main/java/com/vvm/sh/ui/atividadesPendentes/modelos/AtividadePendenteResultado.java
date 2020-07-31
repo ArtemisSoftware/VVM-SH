@@ -17,6 +17,7 @@ import java.util.Date;
 import static androidx.room.ForeignKey.CASCADE;
 
 @Entity(tableName = "atividadesPendentesResultado",
+        indices = {@Index(value="id", unique = false) },
         primaryKeys = {"id"},
         foreignKeys = @ForeignKey(entity = AtividadePendente.class,
                 parentColumns = "id",
@@ -41,7 +42,9 @@ public class AtividadePendenteResultado {
     @ColumnInfo(name = "dataExecucao")
     public Date dataExecucao;
 
-    @ColumnInfo(name = "idAnomalia")
+
+    @NonNull
+    @ColumnInfo(name = "idAnomalia", defaultValue = Identificadores.SEM_VALOR)
     public int idAnomalia;
 
     @ColumnInfo(name = "observacao")
@@ -60,6 +63,7 @@ public class AtividadePendenteResultado {
     public AtividadePendenteResultado(int id, String tempoExecucao, Date dataExecucao) {
         this.id = id;
         this.idEstado = Identificadores.Estados.ESTADO_EXECUTADO;
+        this.idAnomalia = Identificadores.SEM_VALOR_INT;
         this.tempoExecucao = tempoExecucao;
         this.dataExecucao = dataExecucao;
     }

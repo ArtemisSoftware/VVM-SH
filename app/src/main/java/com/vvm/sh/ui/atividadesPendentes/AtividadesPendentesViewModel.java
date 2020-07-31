@@ -6,6 +6,7 @@ import com.vvm.sh.repositorios.AtividadePendenteRepositorio;
 import com.vvm.sh.servicos.ResultadoAsyncTask;
 import com.vvm.sh.ui.agenda.modelos.Resultado;
 import com.vvm.sh.ui.atividadesPendentes.modelos.AtividadePendente;
+import com.vvm.sh.ui.atividadesPendentes.modelos.AtividadePendenteRegisto;
 import com.vvm.sh.ui.atividadesPendentes.modelos.AtividadePendenteResultado;
 import com.vvm.sh.ui.opcoes.modelos.Tipo;
 import com.vvm.sh.util.Recurso;
@@ -25,7 +26,7 @@ public class AtividadesPendentesViewModel extends BaseViewModel {
 
     private final AtividadePendenteRepositorio atividadePendenteRepositorio;
 
-    public MutableLiveData<List<AtividadePendente>> atividades;
+    public MutableLiveData<List<AtividadePendenteRegisto>> atividades;
     public MutableLiveData<AtividadePendenteResultado> atividadeResultado;
 
     public MutableLiveData<List<Tipo>> tiposAnomalias;
@@ -139,14 +140,14 @@ public class AtividadesPendentesViewModel extends BaseViewModel {
                 .subscribe(
 
 
-                        new Observer<List<AtividadePendente>>() {
+                        new Observer<List<AtividadePendenteRegisto>>() {
                             @Override
                             public void onSubscribe(Disposable d) {
                                 disposables.add(d);
                             }
 
                             @Override
-                            public void onNext(List<AtividadePendente> resultado) {
+                            public void onNext(List<AtividadePendenteRegisto> resultado) {
 
                                 atividades.setValue(resultado);
                                 showProgressBar(false);

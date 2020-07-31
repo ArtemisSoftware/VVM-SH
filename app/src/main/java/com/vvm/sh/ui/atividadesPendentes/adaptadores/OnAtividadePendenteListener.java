@@ -1,10 +1,11 @@
 package com.vvm.sh.ui.atividadesPendentes.adaptadores;
 
 import com.vvm.sh.ui.atividadesPendentes.modelos.AtividadePendente;
+import com.vvm.sh.ui.atividadesPendentes.modelos.AtividadePendenteRegisto;
 
 public interface OnAtividadePendenteListener {
 
-    void OnAtividadeClick(AtividadePendente atividade);
+    void OnAtividadeClick(AtividadePendenteRegisto atividade);
 
     void OnConcluirAtividadeExecutada(int idAtividade);
 

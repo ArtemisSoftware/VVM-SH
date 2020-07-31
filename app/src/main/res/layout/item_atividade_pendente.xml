@@ -17,7 +17,7 @@
 
         <variable
             name="atividade"
-            type="com.vvm.sh.ui.atividadesPendentes.modelos.AtividadePendente" />
+            type="com.vvm.sh.ui.atividadesPendentes.modelos.AtividadePendenteRegisto" />
 
     </data>
 
@@ -35,7 +35,7 @@
                 style="@style/tituloCartao"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:text="@{atividade.descricao, default=descricao}"
+                android:text="@{atividade.atividade.descricao, default=descricao}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -46,7 +46,7 @@
                 style="@style/textoDetalhe"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="16dp"
-                android:text="@{DatasUtil.converterData(atividade.dataProgramada, DatasUtil.FORMATO_DD_MM_YYYY), default=data}"
+                android:text="@{DatasUtil.converterData(atividade.atividade.dataProgramada, DatasUtil.FORMATO_DD_MM_YYYY), default=data}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/textView"
                 app:layout_constraintTop_toBottomOf="@+id/textView"
@@ -54,6 +54,8 @@
 
             <!--  android:visibility="@{viewmodel.sinaletica ? View.VISIBLE : View.GONE}" -->
 
+
+            <!-- TODO: para SH por a anuidade-->
             <LinearLayout
                 android:visibility="gone"
                 android:id="@+id/linearLayout1"
@@ -74,7 +76,7 @@
                 <TextView
                     android:id="@+id/textView3"
                     style="@style/textoDetalhe"
-                    android:text="@{atividade.descricao, default=descricao}"
+                    android:text="@{atividade.atividade.descricao, default=descricao}"
                     android:layout_marginLeft="12dp"
                      />
 
@@ -84,7 +86,7 @@
 
 
             <LinearLayout
-                android:visibility="@{atividade.existeRelatorio() ? View.VISIBLE : View.GONE}"
+                android:visibility="@{atividade.atividade.existeRelatorio() ? View.VISIBLE : View.GONE}"
                 android:id="@+id/linearLayout2"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -112,7 +114,7 @@
                 <TextView
                     android:id="@+id/textView4"
                     style="@style/textoDetalhe"
-                    android:text="@{atividade.obterRelatorio(), default=relatorio}"
+                    android:text="@{atividade.atividade.obterRelatorio(), default=relatorio}"
                     android:layout_marginLeft="8dp"
                     />
                 <!-- android:text="@{anomalia.tipo, default=relatorio}" -->
@@ -122,6 +124,7 @@
             <!-- TODO: indica se tem baixa ou não-->
 
             <ImageView
+                atividadeResultado="@{atividade.resultado}"
                 android:id="@+id/imageView3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

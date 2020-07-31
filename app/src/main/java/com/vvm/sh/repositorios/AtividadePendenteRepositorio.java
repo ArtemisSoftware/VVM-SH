@@ -7,6 +7,7 @@ import com.vvm.sh.baseDados.AtividadePendenteResultadoDao;
 import com.vvm.sh.baseDados.ResultadoDao;
 import com.vvm.sh.baseDados.TipoDao;
 import com.vvm.sh.ui.atividadesPendentes.modelos.AtividadePendente;
+import com.vvm.sh.ui.atividadesPendentes.modelos.AtividadePendenteRegisto;
 import com.vvm.sh.ui.atividadesPendentes.modelos.AtividadePendenteResultado;
 import com.vvm.sh.ui.opcoes.modelos.Tipo;
 import com.vvm.sh.util.constantes.TiposConstantes;
@@ -34,7 +35,7 @@ public class AtividadePendenteRepositorio {
     }
 
 
-    public Flowable<List<AtividadePendente>> obterAtividades(int idTarefa) {
+    public Flowable<List<AtividadePendenteRegisto>> obterAtividades(int idTarefa) {
         return atividadePendenteDao.obterAtividades(idTarefa);
     }
 

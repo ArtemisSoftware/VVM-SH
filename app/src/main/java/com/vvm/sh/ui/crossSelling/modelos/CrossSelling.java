@@ -4,58 +4,75 @@ import com.vvm.sh.util.adaptadores.Item;
 import com.vvm.sh.util.interfaces.CheckBoxIF;
 import com.vvm.sh.util.metodos.Conversor;
 
-public class CrossSelling extends Item implements CheckBoxIF {
+public class CrossSelling  {
 
-    private String dimensao, tipo;
-    private boolean selecionado;
 
-    public CrossSelling(int id, String descricao, String dimensao, String tipo, int selecionado) {
-        super(id, descricao);
+    public int idTarefa;
+    public int id;
+    public int descricao;
+    public int idAreaRecomendacao;
+    public int idDimensao;
+    public int idTipo;
 
-        this.dimensao = dimensao;
-        this.tipo = tipo;
-        this.selecionado = Conversor.converter_Integer_Para_Boolean(selecionado);
+    public CrossSelling(int idTarefa, int id, int descricao, int idAreaRecomendacao, int idDimensao, int idTipo) {
+        this.idTarefa = idTarefa;
+        this.id = id;
+        this.descricao = descricao;
+        this.idAreaRecomendacao = idAreaRecomendacao;
+        this.idDimensao = idDimensao;
+        this.idTipo = idTipo;
     }
 
-
-    /**
-     * Metodo que permite obter a dimensao
-     * @return a dimensao
-     */
-    public String obterDimensao() {
-        return dimensao;
-    }
-
-
-    /**
-     * Metodo que permite obter o tipo
-     * @return o tipo
-     */
-    public String obterTipo() {
-        return tipo;
-    }
-
-
-    /**
-     * Metodo que inidica se existe detalhe de sinalietica (tipo + dimensao)
-     * @return true caso exista ou false caso contrario
-     */
-    public boolean existeSinaletica(){
-
-        if(dimensao == null){
-            return false;
-        }
-
-        return true;
-    }
-
-    @Override
-    public void fixarSelecao(boolean selecao) {
-        this.selecionado = selecao;
-    }
-
-    @Override
-    public boolean obterSelecao() {
-        return selecionado;
-    }
+    //    private String dimensao, tipo;
+//    private boolean selecionado;
+//
+//    public CrossSelling(int id, String descricao, String dimensao, String tipo, int selecionado) {
+//        super(id, descricao);
+//
+//        this.dimensao = dimensao;
+//        this.tipo = tipo;
+//        this.selecionado = Conversor.converter_Integer_Para_Boolean(selecionado);
+//    }
+//
+//
+//    /**
+//     * Metodo que permite obter a dimensao
+//     * @return a dimensao
+//     */
+//    public String obterDimensao() {
+//        return dimensao;
+//    }
+//
+//
+//    /**
+//     * Metodo que permite obter o tipo
+//     * @return o tipo
+//     */
+//    public String obterTipo() {
+//        return tipo;
+//    }
+//
+//
+//    /**
+//     * Metodo que inidica se existe detalhe de sinalietica (tipo + dimensao)
+//     * @return true caso exista ou false caso contrario
+//     */
+//    public boolean existeSinaletica(){
+//
+//        if(dimensao == null){
+//            return false;
+//        }
+//
+//        return true;
+//    }
+//
+//    @Override
+//    public void fixarSelecao(boolean selecao) {
+//        this.selecionado = selecao;
+//    }
+//
+//    @Override
+//    public boolean obterSelecao() {
+//        return selecionado;
+//    }
 }

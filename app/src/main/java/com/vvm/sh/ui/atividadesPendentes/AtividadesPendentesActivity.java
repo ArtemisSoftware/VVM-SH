@@ -11,6 +11,7 @@ import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.atividadesPendentes.adaptadores.OnAtividadePendenteListener;
 import com.vvm.sh.ui.atividadesPendentes.modelos.AtividadePendente;
+import com.vvm.sh.ui.atividadesPendentes.modelos.AtividadePendenteRegisto;
 import com.vvm.sh.ui.atividadesPendentes.modelos.AtividadePendenteResultado;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.FormacaoActivity;
 import com.vvm.sh.util.metodos.DatasUtil;
@@ -74,9 +75,9 @@ public class AtividadesPendentesActivity extends BaseDaggerActivity
 
 
     @Override
-    public void OnAtividadeClick(AtividadePendente atividade) {
+    public void OnAtividadeClick(AtividadePendenteRegisto atividade) {
 
-        DialogoAtividadePendente dialogo = DialogoAtividadePendente.newInstance(atividade.id, atividade.existeRelatorio());
+        DialogoAtividadePendente dialogo = DialogoAtividadePendente.newInstance(atividade.atividade.id, atividade.atividade.existeRelatorio());
         dialogo.show(getSupportFragmentManager(), "example dialog");
     }
 

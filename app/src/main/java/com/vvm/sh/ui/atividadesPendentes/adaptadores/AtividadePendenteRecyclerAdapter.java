@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.vvm.sh.R;
 import com.vvm.sh.databinding.ItemAtividadePendenteBinding;
 import com.vvm.sh.ui.atividadesPendentes.modelos.AtividadePendente;
+import com.vvm.sh.ui.atividadesPendentes.modelos.AtividadePendenteRegisto;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,11 +19,11 @@ import java.util.List;
 public class AtividadePendenteRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
 
-    private List<AtividadePendente> items = new ArrayList<>();
+    private List<AtividadePendenteRegisto> items = new ArrayList<>();
     private Context contexto;
     private OnAtividadePendenteListener listener;
 
-    public AtividadePendenteRecyclerAdapter(Context contexto, List<AtividadePendente> items, OnAtividadePendenteListener listener) {
+    public AtividadePendenteRecyclerAdapter(Context contexto, List<AtividadePendenteRegisto> items, OnAtividadePendenteListener listener) {
         this.items = items;
         this.contexto = contexto;
         this.listener = listener;
@@ -40,7 +41,7 @@ public class AtividadePendenteRecyclerAdapter extends RecyclerView.Adapter<Recyc
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
-        AtividadePendente registo = items.get(position);
+        AtividadePendenteRegisto registo = items.get(position);
         ((AtividadePendenteViewHolder)holder).binding.setAtividade(registo);
         ((AtividadePendenteViewHolder)holder).binding.setListener(listener);
         ((AtividadePendenteViewHolder)holder).binding.executePendingBindings();
@@ -53,7 +54,7 @@ public class AtividadePendenteRecyclerAdapter extends RecyclerView.Adapter<Recyc
     }
 
 
-    public void atualizar(List<AtividadePendente> items){
+    public void atualizar(List<AtividadePendenteRegisto> items){
         this.items.clear();
         this.items.addAll(items);
         notifyDataSetChanged();

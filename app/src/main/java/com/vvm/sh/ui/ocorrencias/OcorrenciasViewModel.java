@@ -204,4 +204,7 @@ public class OcorrenciasViewModel extends BaseViewModel {
 
     public void remover(int obterIdTarefa, int id) {
     }
+
+    public void obterHistorico(int anInt) {
+    }
 }

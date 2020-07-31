@@ -68,7 +68,7 @@
 
             tools:listitem="@layout/item_ocorrencia"/>
         <!--ocorrencias="@{viewmodel.ocorrencias}"
-            app:onItemClick="@{listener}" -->
+            item_ocorrencia -->
 
     </LinearLayout>
 

@@ -1,18 +1,51 @@
 package com.vvm.sh.ui.ocorrencias;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
 
 import com.vvm.sh.R;
+import com.vvm.sh.databinding.ActivityOcorrenciasHistoricoBinding;
+import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
+import com.vvm.sh.util.metodos.Preferencias;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
+import javax.inject.Inject;
+
 public class OcorrenciasHistoricoActivity extends BaseDaggerActivity {
+
+    private ActivityOcorrenciasHistoricoBinding activityOcorrenciasHistoricoBinding;
+
+
+    @Inject
+    ViewModelProviderFactory providerFactory;
+
+
+    private OcorrenciasViewModel viewModel;
 
 
     @Override
     protected void intActivity(Bundle savedInstanceState) {
+
+        viewModel = ViewModelProviders.of(this, providerFactory).get(OcorrenciasViewModel.class);
+
+        activityOcorrenciasHistoricoBinding = (ActivityOcorrenciasHistoricoBinding) activityBinding;
+        activityOcorrenciasHistoricoBinding.setLifecycleOwner(this);
+        activityOcorrenciasHistoricoBinding.setViewmodel(viewModel);
+
+
+        subscreverObservadores();
+
+        Bundle bundle = getIntent().getExtras();
+
+        if(bundle != null) {
+            viewModel.obterHistorico(bundle.getInt(getString(R.string.argumento_id)));
+        }
+        else{
+            finish();
+        }
 
     }
 
@@ -23,7 +56,7 @@ public class OcorrenciasHistoricoActivity extends BaseDaggerActivity {
 
     @Override
     protected BaseViewModel obterBaseViewModel() {
-        return null;
+        return viewModel;
     }
 
     @Override

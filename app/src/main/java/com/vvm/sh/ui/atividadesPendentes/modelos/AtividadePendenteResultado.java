@@ -9,6 +9,7 @@ import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 import com.vvm.sh.ui.agenda.modelos.Tarefa;
+import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.constantes.Sintaxe;
 
 import java.util.Date;
@@ -50,7 +51,7 @@ public class AtividadePendenteResultado {
     @Ignore
     public AtividadePendenteResultado(int id, int idAnomalia, String observacao) {
         this.id = id;
-        this.idEstado = 1;
+        this.idEstado = Identificadores.Estados.ESTADO_NAO_EXECUTADO;
         this.idAnomalia = idAnomalia;
         this.observacao = observacao;
     }
@@ -58,7 +59,7 @@ public class AtividadePendenteResultado {
     @Ignore
     public AtividadePendenteResultado(int id, String tempoExecucao, Date dataExecucao) {
         this.id = id;
-        this.idEstado = 2;
+        this.idEstado = Identificadores.Estados.ESTADO_EXECUTADO;
         this.tempoExecucao = tempoExecucao;
         this.dataExecucao = dataExecucao;
     }

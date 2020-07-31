@@ -6,6 +6,7 @@ import android.view.View;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.google.android.material.textfield.TextInputEditText;
@@ -17,8 +18,11 @@ import com.vvm.sh.databinding.DialogoAtividadePendenteNaoExecutadaBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerDialogoPersistenteFragment;
 import com.vvm.sh.ui.atividadesPendentes.adaptadores.OnAtividadePendenteListener;
+import com.vvm.sh.ui.atividadesPendentes.modelos.AtividadePendenteResultado;
 import com.vvm.sh.ui.opcoes.modelos.Tipo;
 import com.vvm.sh.util.BaseDialogoPersistenteFragment;
+import com.vvm.sh.util.MensagensUtil;
+import com.vvm.sh.util.Recurso;
 
 import org.angmarch.views.NiceSpinner;
 
@@ -74,7 +78,6 @@ public class DialogoAtividadePendenteNaoExecutada extends BaseDaggerDialogoPersi
     @Override
     protected void iniciarDialogo() {
 
-
         listener = (OnAtividadePendenteListener) getContext();
 
         viewModel = ViewModelProviders.of(this, providerFactory).get(AtividadesPendentesViewModel.class);
@@ -91,8 +94,6 @@ public class DialogoAtividadePendenteNaoExecutada extends BaseDaggerDialogoPersi
         else{
             terminarDialogo();
         }
-
-
     }
 
 
@@ -109,6 +110,25 @@ public class DialogoAtividadePendenteNaoExecutada extends BaseDaggerDialogoPersi
     @Override
     protected void subscreverObservadores() {
 
+        viewModel.observarMessagem().observe(this, new Observer<Recurso>() {
+            @Override
+            public void onChanged(Recurso recurso) {
+
+                switch (recurso.status){
+
+                    case SUCESSO:
+
+                        //TODO: Completar metodo
+                        MensagensUtil.sucesso();
+                        terminarDialogo();
+                        break;
+
+                    default:
+                        break;
+                }
+
+            }
+        });
     }
 
 
@@ -127,8 +147,8 @@ public class DialogoAtividadePendenteNaoExecutada extends BaseDaggerDialogoPersi
         int idAnomalia = ((Tipo)spnr_anomalias.getSelectedItem()).id;
         String observacao = binding.txtInpObservacao.getText().toString();
 
-        listener.OnGravarAtividadeNaoExecutada(idAtividade, idAnomalia, observacao);;
-        terminarDialogo();
+        AtividadePendenteResultado atividade = new AtividadePendenteResultado(idAtividade, idAnomalia, observacao);
+        viewModel.gravarAtividade(atividade);
     }
 
     @Override

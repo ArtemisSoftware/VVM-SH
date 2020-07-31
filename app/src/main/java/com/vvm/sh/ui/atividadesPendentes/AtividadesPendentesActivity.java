@@ -104,8 +104,7 @@ public class AtividadesPendentesActivity extends BaseDaggerActivity
     @Override
     public void OnGravarAtividadeNaoExecutada(int idAtividade, int idAnomalia, String observacao) {
 
-        AtividadePendenteResultado atividade = new AtividadePendenteResultado(idAtividade, idAnomalia, observacao);
-        viewModel.gravarAtividade(atividade);
+
     }
 
     @Override

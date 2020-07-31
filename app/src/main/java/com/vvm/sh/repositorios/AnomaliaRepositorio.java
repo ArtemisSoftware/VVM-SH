@@ -22,7 +22,7 @@ public class AnomaliaRepositorio {
     private final AnomaliaDao anomaliaDao;
     private final AnomaliaResultadoDao anomaliaResultadoDao;
     private final TipoDao tipoDao;
-    private final ResultadoDao resultadoDao;
+    public final ResultadoDao resultadoDao;
 
     public AnomaliaRepositorio(@NonNull AnomaliaDao anomaliaDao, @NonNull AnomaliaResultadoDao anomaliaResultadoDao,
                                @NonNull TipoDao tipoDao, @NonNull ResultadoDao resultadoDao) {

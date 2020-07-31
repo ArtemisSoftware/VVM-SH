@@ -2,7 +2,8 @@ package com.vvm.sh.util;
 
 public enum ResultadoId {
 
-    EMAIL(1);
+    EMAIL(1),
+    ANOMALIA_CLIENTE(2);
 
     private final int value;
 

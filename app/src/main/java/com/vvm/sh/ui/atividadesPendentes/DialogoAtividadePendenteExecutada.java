@@ -1,8 +1,10 @@
 package com.vvm.sh.ui.atividadesPendentes;
 
+import android.app.DatePickerDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.DatePicker;
 
 import androidx.lifecycle.ViewModelProviders;
 
@@ -17,6 +19,7 @@ import com.vvm.sh.ui.BaseDaggerDialogoPersistenteFragment;
 import com.vvm.sh.ui.atividadesPendentes.adaptadores.OnAtividadePendenteListener;
 import com.vvm.sh.util.BaseDialogoPersistenteFragment;
 import com.vvm.sh.util.constantes.Sintaxe;
+import com.vvm.sh.util.metodos.DatasUtil;
 
 import java.util.List;
 
@@ -26,7 +29,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 public class DialogoAtividadePendenteExecutada extends BaseDaggerDialogoPersistenteFragment
-        implements Validator.ValidationListener{
+        implements Validator.ValidationListener, DatePickerDialog.OnDateSetListener{
 
 
 
@@ -159,7 +162,13 @@ public class DialogoAtividadePendenteExecutada extends BaseDaggerDialogoPersiste
     @OnClick(R.id.crl_btn_data_execucao)
     public void crl_btn_data_execucao_OnClickListener(View view) {
 
+//        DatePickerDialog dialogo = DatasUtil.obterCalendarioAgenda();
+//        dialogo.show(getSupportFragmentManager(), "Datepickerdialog");
     }
 
 
+    @Override
+    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+
+    }
 }

@@ -124,6 +124,7 @@
     <string name="argumento_id">id</string>
     <string name="argumento_id_atividade">idAtividade</string>
     <string name="argumento_id_formando">idFormando</string>
+    <string name="argumento_descricao">descricao</string>
 
 
     <!--onboarding designs-->

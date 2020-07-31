@@ -4,6 +4,7 @@ import androidx.databinding.BindingAdapter;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.vvm.sh.ui.ocorrencias.adaptadores.OcorrenciaHistoricoRecyclerAdapter;
 import com.vvm.sh.ui.ocorrencias.adaptadores.OcorrenciaRecyclerAdapter;
 import com.vvm.sh.ui.ocorrencias.adaptadores.OcorrenciaRegistoRecyclerAdapter;
 import com.vvm.sh.ui.ocorrencias.adaptadores.OnOcorrenciaListener;
@@ -72,26 +73,26 @@ public class OcorrenciasBinding {
     @BindingAdapter({"historico"})
     public static void setHistorico(RecyclerView view, List<OcorrenciaHistorico> items) {
 
-//        if(items == null){
-//            return;
-//        }
-//
-//        RecyclerView.LayoutManager layoutManager = view.getLayoutManager();
-//
-//        if(layoutManager == null){
-//            view.setLayoutManager(new LinearLayoutManager(view.getContext()));
-//        }
-//
-//        OcorrenciaHistorico adapter = (OcorrenciaRecyclerAdapter) view.getAdapter();
-//
-//        if(adapter == null){
-//            adapter = new OcorrenciaRecyclerAdapter(view.getContext(), items);
-//
-//            view.setAdapter(adapter);
-//        }
-//        else{
-//            adapter.atualizar(items);
-//        }
+        if(items == null){
+            return;
+        }
+
+        RecyclerView.LayoutManager layoutManager = view.getLayoutManager();
+
+        if(layoutManager == null){
+            view.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        }
+
+        OcorrenciaHistoricoRecyclerAdapter adapter = (OcorrenciaHistoricoRecyclerAdapter) view.getAdapter();
+
+        if(adapter == null){
+            adapter = new OcorrenciaHistoricoRecyclerAdapter(view.getContext(), items);
+
+            view.setAdapter(adapter);
+        }
+        else{
+            adapter.atualizar(items);
+        }
     }
 
 }

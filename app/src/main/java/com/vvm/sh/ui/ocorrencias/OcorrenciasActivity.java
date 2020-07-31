@@ -86,6 +86,7 @@ public class OcorrenciasActivity extends BaseDaggerActivity
     public void OnOcorrenciaClick(Ocorrencia ocorrencia) {
 
         Intent intent = new Intent(this, OcorrenciasHistoricoActivity.class);
+        intent.putExtra(getString(R.string.argumento_descricao), ocorrencia.descricaoOcorrencia);
         intent.putExtra(getString(R.string.argumento_id), ocorrencia.id);
         startActivity(intent);
     }

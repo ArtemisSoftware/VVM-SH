@@ -10,6 +10,7 @@ import com.vvm.sh.ui.ocorrencias.modelos.OcorrenciaResultado;
 import com.vvm.sh.ui.opcoes.modelos.Tipo;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -26,7 +27,9 @@ public class OcorrenciasViewModel extends BaseViewModel {
     public MutableLiveData<List<Ocorrencia>> ocorrencias;
     public MutableLiveData<List<Tipo>> ocorrenciasGeral;
     public MutableLiveData<List<OcorrenciaRegisto>> ocorrenciasRegistos;
+
     public MutableLiveData<Tipo> ocorrencia;
+    public MutableLiveData<List<Tipo>> dias;
 
     public MutableLiveData<List<OcorrenciaHistorico>> historico;
 
@@ -38,6 +41,7 @@ public class OcorrenciasViewModel extends BaseViewModel {
         ocorrenciasGeral = new MutableLiveData<>();
         ocorrenciasRegistos = new MutableLiveData<>();
         ocorrencia = new MutableLiveData<>();
+        dias = new MutableLiveData<>();
         historico = new MutableLiveData<>();
     }
 
@@ -205,16 +209,9 @@ public class OcorrenciasViewModel extends BaseViewModel {
 
 
 
-
-    public void gravar(OcorrenciaResultado registo) {
-    }
-
-    public void obterOcorrencia(int idTarefa, int id) {
-
+    public void obterOcorrencia(int id) {
 
         showProgressBar(true);
-
-        //TODO: o identificador da tarefa deve fazer parte da query. Fazer quando as tabelas de resultado estiverem prontas
 
         ocorrenciaRepositorio.obterOcorrencia(id).toObservable()
                 .subscribeOn(Schedulers.io())
@@ -249,6 +246,77 @@ public class OcorrenciasViewModel extends BaseViewModel {
                 );
 
     }
+
+
+
+
+
+
+
+
+
+
+
+
+    public void gravar(OcorrenciaResultado registo) {
+    }
+
+    public void obterOcorrencia(int idTarefa, int id) {
+
+
+        showProgressBar(true);
+
+        //TODO: o identificador da tarefa deve fazer parte da query. Fazer quando as tabelas de resultado estiverem prontas
+
+        ocorrenciaRepositorio.obterOcorrencia(id).toObservable()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+
+                        new Observer<Tipo>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onNext(Tipo resultado) {
+
+                                ocorrencia.setValue(resultado);
+                                obterDias(resultado);
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+
+                            @Override
+                            public void onComplete() {
+                                showProgressBar(false);
+                            }
+                        }
+
+                );
+
+    }
+
+
+    private void obterDias(Tipo resultado){
+
+        String dias [] = resultado.detalhe.split(",");
+
+        List<Tipo> registos = new ArrayList<>();
+
+        for (int index = 0; index < dias.length; ++index) {
+            registos.add(new Tipo(index, dias[index]));
+        }
+
+        this.dias.setValue(registos);
+    }
+
 
     public void remover(int obterIdTarefa, int id) {
     }

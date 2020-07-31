@@ -23,6 +23,6 @@ public class TipoResultado {
     public int ativo;
 
     @SerializedName("detailData")
-    public boolean detalhe;
+    public String detalhe;
 
 }

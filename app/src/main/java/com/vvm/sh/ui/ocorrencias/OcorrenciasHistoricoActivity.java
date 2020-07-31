@@ -42,6 +42,7 @@ public class OcorrenciasHistoricoActivity extends BaseDaggerActivity {
 
         if(bundle != null) {
             viewModel.obterHistorico(bundle.getInt(getString(R.string.argumento_id)));
+            activityOcorrenciasHistoricoBinding.txtOcorrencia.setText((bundle.getString(getString(R.string.argumento_descricao))));
         }
         else{
             finish();

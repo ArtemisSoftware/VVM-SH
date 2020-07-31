@@ -8,6 +8,7 @@ import com.vvm.sh.baseDados.ResultadoDao;
 import com.vvm.sh.baseDados.TipoDao;
 import com.vvm.sh.ui.ocorrencias.modelos.Ocorrencia;
 import com.vvm.sh.ui.ocorrencias.modelos.OcorrenciaHistorico;
+import com.vvm.sh.ui.ocorrencias.modelos.OcorrenciaRegisto;
 import com.vvm.sh.ui.opcoes.modelos.Tipo;
 import com.vvm.sh.util.constantes.TiposConstantes;
 
@@ -40,19 +41,22 @@ public class OcorrenciaRepositorio {
         return ocorrenciaDao.obterOcorrencias(idTarefa);
     }
 
-
     public Flowable<List<OcorrenciaHistorico>> obterHistorico(int id) {
         return ocorrenciaHistoricoDao.obterHistorico(id);
     }
+
+    public Flowable<List<OcorrenciaRegisto>> obterRegistoOcorrencias(int idTarefa, int idOcorrencia) {
+        return ocorrenciaDao.obterOcorrencias(idTarefa, TiposConstantes.TIPIFICACAO_OCORRENCIA, idOcorrencia);
+    }
+
+
 
 
     public Flowable<List<Tipo>> obterOcorrencias() {
         return tipoDao.obterTipos(TiposConstantes.TIPIFICACAO_OCORRENCIA, "");
     }
 
-    public Flowable<List<Tipo>> obterRegistoOcorrencias(int idOcorrencia) {
-        return tipoDao.obterTipos(TiposConstantes.TIPIFICACAO_OCORRENCIA, idOcorrencia +"");
-    }
+
 
     public Flowable<Tipo> obterOcorrencia(int id) {
         return tipoDao.obterTipo(TiposConstantes.TIPIFICACAO_OCORRENCIA, id);

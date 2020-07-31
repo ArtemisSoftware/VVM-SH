@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.vvm.sh.repositorios.OcorrenciaRepositorio;
 import com.vvm.sh.ui.ocorrencias.modelos.Ocorrencia;
 import com.vvm.sh.ui.ocorrencias.modelos.OcorrenciaHistorico;
+import com.vvm.sh.ui.ocorrencias.modelos.OcorrenciaRegisto;
 import com.vvm.sh.ui.ocorrencias.modelos.OcorrenciaResultado;
 import com.vvm.sh.ui.opcoes.modelos.Tipo;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
@@ -24,7 +25,7 @@ public class OcorrenciasViewModel extends BaseViewModel {
 
     public MutableLiveData<List<Ocorrencia>> ocorrencias;
     public MutableLiveData<List<Tipo>> ocorrenciasGeral;
-    public MutableLiveData<List<Tipo>> ocorrenciasRegistos;
+    public MutableLiveData<List<OcorrenciaRegisto>> ocorrenciasRegistos;
     public MutableLiveData<Tipo> ocorrencia;
 
     public MutableLiveData<List<OcorrenciaHistorico>> historico;
@@ -85,8 +86,46 @@ public class OcorrenciasViewModel extends BaseViewModel {
     }
 
 
+    public void obterHistorico(int id) {
 
-    public void obterOcorrencias(){
+        showProgressBar(true);
+
+        ocorrenciaRepositorio.obterHistorico(id).toObservable()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+
+                        new Observer<List<OcorrenciaHistorico>>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onNext(List<OcorrenciaHistorico> resultado) {
+
+                                historico.setValue(resultado);
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+
+                            @Override
+                            public void onComplete() {
+                                showProgressBar(false);
+                            }
+                        }
+
+                );
+    }
+
+
+
+    public void obterRegistosOcorrencias(int idTarefa){
 
         showProgressBar(true);
 
@@ -107,6 +146,7 @@ public class OcorrenciasViewModel extends BaseViewModel {
 
                                 ocorrenciasGeral.setValue(resultado);
                                 showProgressBar(false);
+                                obterRegistosOcorrencias(idTarefa, resultado.get(0).id);
                             }
 
                             @Override
@@ -125,24 +165,25 @@ public class OcorrenciasViewModel extends BaseViewModel {
     }
 
 
-    public void obterRegistosOcorrencias(int id) {
+
+    public void obterRegistosOcorrencias(int idTarefa, int id) {
 
         showProgressBar(true);
 
-        ocorrenciaRepositorio.obterRegistoOcorrencias(id).toObservable()
+        ocorrenciaRepositorio.obterRegistoOcorrencias(idTarefa, id).toObservable()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
 
 
-                        new Observer<List<Tipo>>() {
+                        new Observer<List<OcorrenciaRegisto>>() {
                             @Override
                             public void onSubscribe(Disposable d) {
                                 disposables.add(d);
                             }
 
                             @Override
-                            public void onNext(List<Tipo> resultado) {
+                            public void onNext(List<OcorrenciaRegisto> resultado) {
 
                                 ocorrenciasRegistos.setValue(resultado);
                                 showProgressBar(false);
@@ -161,6 +202,9 @@ public class OcorrenciasViewModel extends BaseViewModel {
 
                 );
     }
+
+
+
 
     public void gravar(OcorrenciaResultado registo) {
     }
@@ -209,40 +253,4 @@ public class OcorrenciasViewModel extends BaseViewModel {
     public void remover(int obterIdTarefa, int id) {
     }
 
-    public void obterHistorico(int id) {
-
-        showProgressBar(true);
-
-        ocorrenciaRepositorio.obterHistorico(id).toObservable()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-
-
-                        new Observer<List<OcorrenciaHistorico>>() {
-                            @Override
-                            public void onSubscribe(Disposable d) {
-                                disposables.add(d);
-                            }
-
-                            @Override
-                            public void onNext(List<OcorrenciaHistorico> resultado) {
-
-                                historico.setValue(resultado);
-                                showProgressBar(false);
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-
-                            }
-
-                            @Override
-                            public void onComplete() {
-                                showProgressBar(false);
-                            }
-                        }
-
-                );
-    }
 }

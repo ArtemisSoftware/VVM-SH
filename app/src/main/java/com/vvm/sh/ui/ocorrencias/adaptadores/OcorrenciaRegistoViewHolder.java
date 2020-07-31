@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.vvm.sh.databinding.ItemOcorrenciaRegistoBinding;
 
-public class OcorrenciaRegistoViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, CheckBox.OnCheckedChangeListener{
+public class OcorrenciaRegistoViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener{
 
 
     public ItemOcorrenciaRegistoBinding binding;
@@ -24,21 +24,14 @@ public class OcorrenciaRegistoViewHolder extends RecyclerView.ViewHolder impleme
 
         this.listener = listener;
         itemView.setOnClickListener(this);
-
-
-        binding.checkBox.setOnCheckedChangeListener(this);
     }
 
 
 
     @Override
     public void onClick(View v) {
-        listener.OnOcorrenciaClick(binding.getTipo());
+        listener.OnOcorrenciaClick(binding.getOcorrencia());
     }
 
 
-    @Override
-    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        listener.OnOcorrenciaCheck(binding.getTipo(), isChecked);
-    }
 }

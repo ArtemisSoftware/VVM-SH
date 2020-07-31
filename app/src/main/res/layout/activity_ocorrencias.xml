@@ -9,6 +9,10 @@
         <import type="java.util.List"/>
 
         <variable
+            name="listener"
+            type="com.vvm.sh.ui.ocorrencias.adaptadores.OnOcorrenciaListener"/>
+
+        <variable
             name="viewmodel"
             type="com.vvm.sh.ui.ocorrencias.OcorrenciasViewModel"/>
 
@@ -72,9 +76,10 @@
                 android:id="@+id/rcl_registos"
                 style="@style/lista"
                 ocorrencias="@{viewmodel.ocorrencias}"
+                listener="@{listener}"
                 tools:listitem="@layout/item_ocorrencia"/>
             <!--
-                app:onItemClick="@{listener}" -->
+                 -->
 
         </LinearLayout>
 

@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.vvm.sh.R;
 import com.vvm.sh.databinding.ItemOcorrenciaRegistoBinding;
+import com.vvm.sh.ui.ocorrencias.modelos.OcorrenciaRegisto;
 import com.vvm.sh.ui.opcoes.modelos.Tipo;
 
 import java.util.ArrayList;
@@ -18,11 +19,11 @@ import java.util.List;
 public class OcorrenciaRegistoRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
 
-    private List<Tipo> items = new ArrayList<>();
+    private List<OcorrenciaRegisto> items = new ArrayList<>();
     private Context contexto;
     private OnOcorrenciaRegistoListener listener;
 
-    public OcorrenciaRegistoRecyclerAdapter(Context contexto, List<Tipo> items, OnOcorrenciaRegistoListener listener) {
+    public OcorrenciaRegistoRecyclerAdapter(Context contexto, List<OcorrenciaRegisto> items, OnOcorrenciaRegistoListener listener) {
         this.items = items;
         this.contexto = contexto;
         this.listener = listener;
@@ -40,8 +41,8 @@ public class OcorrenciaRegistoRecyclerAdapter extends RecyclerView.Adapter<Recyc
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
-        Tipo registo = items.get(position);
-        ((OcorrenciaRegistoViewHolder)holder).binding.setTipo(registo);
+        OcorrenciaRegisto registo = items.get(position);
+        ((OcorrenciaRegistoViewHolder)holder).binding.setOcorrencia(registo);
         ((OcorrenciaRegistoViewHolder)holder).binding.setListener(listener);
         ((OcorrenciaRegistoViewHolder)holder).binding.executePendingBindings();
 
@@ -53,7 +54,7 @@ public class OcorrenciaRegistoRecyclerAdapter extends RecyclerView.Adapter<Recyc
     }
 
 
-    public void atualizar(List<Tipo> items){
+    public void atualizar(List<OcorrenciaRegisto> items){
         this.items.clear();
         this.items.addAll(items);
         notifyDataSetChanged();

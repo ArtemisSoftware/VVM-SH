@@ -2,6 +2,8 @@ package com.vvm.sh.di.ocorrencias;
 
 import com.vvm.sh.baseDados.AtividadePendenteDao;
 import com.vvm.sh.baseDados.OcorrenciaDao;
+import com.vvm.sh.baseDados.OcorrenciaHistoricoDao;
+import com.vvm.sh.baseDados.ResultadoDao;
 import com.vvm.sh.baseDados.TipoDao;
 import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.repositorios.OcorrenciaRepositorio;
@@ -22,12 +24,23 @@ public class OcorrenciasModule {
         return dao;
     }
 
+    @OcorrenciasScope
+    @Provides
+    static OcorrenciaHistoricoDao provideOcorrenciaHistoricoDao(VvmshBaseDados vvmshBaseDados){
+
+        OcorrenciaHistoricoDao dao = vvmshBaseDados.obterOcorrenciaHistoricoDao();
+
+        //Timber.d("Providing NoteDao: " + dao);
+        return dao;
+    }
+
+
 
     @OcorrenciasScope
     @Provides
-    OcorrenciaRepositorio provideOcorrenciaRepositorio(OcorrenciaDao ocorrenciaDao, TipoDao tipoDao) {
+    OcorrenciaRepositorio provideOcorrenciaRepositorio(OcorrenciaDao ocorrenciaDao, OcorrenciaHistoricoDao ocorrenciaHistoricoDao, TipoDao tipoDao, ResultadoDao resultadoDao) {
 
-        OcorrenciaRepositorio repositorio = new OcorrenciaRepositorio(ocorrenciaDao, tipoDao);
+        OcorrenciaRepositorio repositorio = new OcorrenciaRepositorio(ocorrenciaDao, ocorrenciaHistoricoDao, tipoDao, resultadoDao);
 
         //Timber.d("Providing PokemonRepository: " + repository);
         return repositorio;

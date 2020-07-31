@@ -24,8 +24,10 @@ import com.vvm.sh.ui.atividadesPendentes.DialogoAtividadePendenteExecutada;
 import com.vvm.sh.ui.atividadesPendentes.DialogoAtividadePendenteNaoExecutada;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.FormandoActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.FormacaoActivity;
+import com.vvm.sh.ui.ocorrencias.OcorrenciasHistoricoActivity;
 import com.vvm.sh.ui.ocorrencias.OcorrenciasRegistoActivity;
 import com.vvm.sh.ui.ocorrencias.RegistarOcorrenciaActivity;
+import com.vvm.sh.ui.ocorrencias.modelos.OcorrenciaHistorico;
 import com.vvm.sh.ui.tarefa.DialogoEmail;
 import com.vvm.sh.ui.tarefa.TarefaActivity;
 import com.vvm.sh.ui.agenda.TrabalhoActivity;
@@ -152,7 +154,11 @@ public abstract class ActivityBuildersModule {
     )
     abstract RegistarOcorrenciaActivity contributeRegistarOcorrenciaActivity();
 
-
+    @OcorrenciasScope
+    @ContributesAndroidInjector(
+            modules = { OcorrenciasViewModelsModule.class, OcorrenciasModule.class }
+    )
+    abstract OcorrenciasHistoricoActivity contributeOcorrenciasHistoricoActivity();
 
 
 

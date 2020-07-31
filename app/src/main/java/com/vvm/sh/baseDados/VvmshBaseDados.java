@@ -18,6 +18,7 @@ import com.vvm.sh.ui.cliente.Cliente;
 import com.vvm.sh.ui.crossSelling.modelos.CrossSellingResultado;
 import com.vvm.sh.ui.ocorrencias.modelos.Ocorrencia;
 import com.vvm.sh.ui.ocorrencias.modelos.OcorrenciaHistorico;
+import com.vvm.sh.ui.ocorrencias.modelos.OcorrenciaResultado;
 import com.vvm.sh.ui.opcoes.modelos.Atualizacao;
 import com.vvm.sh.ui.opcoes.modelos.Tipo;
 import com.vvm.sh.ui.tarefa.modelos.EmailResultado;
@@ -34,7 +35,8 @@ import com.vvm.sh.ui.tarefa.modelos.EmailResultado;
                     //Resultado
 
                     EmailResultado.class, AnomaliaResultado.class, Formando.class, AcaoFormacao.class,
-                    AtividadePendenteResultado.class, CrossSellingResultado.class, Resultado.class
+                    AtividadePendenteResultado.class, CrossSellingResultado.class, OcorrenciaResultado.class,
+                    Resultado.class
             },
             version = BaseDadosContantes.VERSAO
 )

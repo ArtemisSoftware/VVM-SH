@@ -65,9 +65,9 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcl_registos"
             style="@style/lista"
-
-            tools:listitem="@layout/item_ocorrencia"/>
-        <!--ocorrencias="@{viewmodel.ocorrencias}"
+            historico="@{viewmodel.historico}"
+            tools:listitem="@layout/item_ocorrencia_historico"/>
+        <!--
             item_ocorrencia -->
 
     </LinearLayout>

@@ -45,6 +45,7 @@ public class OcorrenciasActivity extends BaseDaggerActivity
 
         activityOcorrenciasBinding = (ActivityOcorrenciasBinding) activityBinding;
         activityOcorrenciasBinding.setLifecycleOwner(this);
+        activityOcorrenciasBinding.setListener(this);
         activityOcorrenciasBinding.setViewmodel(viewModel);
 
 

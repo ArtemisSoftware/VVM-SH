@@ -20,23 +20,20 @@ public class OcorrenciaViewHolder extends RecyclerView.ViewHolder implements Vie
 
     public ItemOcorrenciaBinding binding;
 
-    private OnItemListener onItemListener;
+    private OnOcorrenciaListener onItemListener;
 
 
-    public OcorrenciaViewHolder(@NonNull View itemView/*, OnItemListener onItemListener*/) {
+    public OcorrenciaViewHolder(@NonNull View itemView, OnOcorrenciaListener onItemListener) {
         super(itemView);
         binding = DataBindingUtil.bind(itemView);
 
-        /*
         this.onItemListener = onItemListener;
         itemView.setOnClickListener(this);
-
-         */
     }
 
 
     @Override
     public void onClick(View v) {
-        onItemListener.onItemClick(getAdapterPosition());
+        onItemListener.OnOcorrenciaClick(binding.getOcorrencia());
     }
 }

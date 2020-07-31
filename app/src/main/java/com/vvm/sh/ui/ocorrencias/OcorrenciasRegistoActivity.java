@@ -22,6 +22,7 @@ import com.vvm.sh.ui.BaseActivity;
 import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.ocorrencias.adaptadores.OcorrenciaRecyclerAdapter;
 import com.vvm.sh.ui.ocorrencias.adaptadores.OnOcorrenciaRegistoListener;
+import com.vvm.sh.ui.ocorrencias.modelos.OcorrenciaRegisto;
 import com.vvm.sh.ui.opcoes.modelos.Tipo;
 import com.vvm.sh.util.adaptadores.Item;
 import com.vvm.sh.util.interfaces.OnCheckBoxItemListener;
@@ -72,7 +73,7 @@ public class OcorrenciasRegistoActivity extends BaseDaggerActivity
 
         subscreverObservadores();
 
-        viewModel.obterOcorrencias();
+        viewModel.obterRegistosOcorrencias(Preferencias.obterIdTarefa(this));
     }
 
     @Override
@@ -101,31 +102,24 @@ public class OcorrenciasRegistoActivity extends BaseDaggerActivity
 
         activityOcorrenciasRegistoBinding.txtDescricao.setVisibility(View.GONE);
         Tipo tipo = (Tipo) item;
-        viewModel.obterRegistosOcorrencias(tipo.id);
+        viewModel.obterRegistosOcorrencias(Preferencias.obterIdTarefa(this), tipo.id);
     }
 
     @Override
-    public void OnOcorrenciaClick(Tipo ocorrencia) {
+    public void OnOcorrenciaClick(OcorrenciaRegisto ocorrencia) {
 
-        activityOcorrenciasRegistoBinding.txtDescricao.setVisibility(View.VISIBLE);
-        activityOcorrenciasRegistoBinding.txtDescricao.setText(ocorrencia.codigo + " " + ocorrencia.descricao);
-        viewModel.obterRegistosOcorrencias(ocorrencia.id);
-    }
-
-    @Override
-    public void OnOcorrenciaCheck(Tipo ocorrencia, boolean selecionado) {
-
-        if(selecionado == true){
+        if(ocorrencia.itemRegisto() == true) {
             Intent intent = new Intent(this, RegistarOcorrenciaActivity.class);
             intent.putExtra(getString(R.string.argumento_id), ocorrencia.id);
             startActivityForResult(intent, 000000);
         }
-
-        else{
-
-            viewModel.remover(Preferencias.obterIdTarefa(this), ocorrencia.id);
+        else {
+            activityOcorrenciasRegistoBinding.txtDescricao.setVisibility(View.VISIBLE);
+            activityOcorrenciasRegistoBinding.txtDescricao.setText(ocorrencia.codigo + " " + ocorrencia.descricao);
+            viewModel.obterRegistosOcorrencias(Preferencias.obterIdTarefa(this), ocorrencia.id);
         }
     }
+
 
 
 //    @BindView(R.id.rcl_registos)

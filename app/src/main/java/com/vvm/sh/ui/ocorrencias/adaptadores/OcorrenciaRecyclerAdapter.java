@@ -20,10 +20,12 @@ public class OcorrenciaRecyclerAdapter extends RecyclerView.Adapter<RecyclerView
 
     private List<Ocorrencia> items = new ArrayList<>();
     private Context contexto;
+    private OnOcorrenciaListener onItemListener;
 
-    public OcorrenciaRecyclerAdapter(Context contexto, List<Ocorrencia> items) {
+    public OcorrenciaRecyclerAdapter(Context contexto, List<Ocorrencia> items, OnOcorrenciaListener onItemListener) {
         this.items = items;
         this.contexto = contexto;
+        this.onItemListener = onItemListener;
     }
 
 
@@ -32,7 +34,7 @@ public class OcorrenciaRecyclerAdapter extends RecyclerView.Adapter<RecyclerView
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         ItemOcorrenciaBinding binding = DataBindingUtil.inflate(LayoutInflater.from(contexto), R.layout.item_ocorrencia, parent, false);
-        return new OcorrenciaViewHolder(binding.getRoot());
+        return new OcorrenciaViewHolder(binding.getRoot(), onItemListener);
     }
 
     @Override

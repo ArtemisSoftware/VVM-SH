@@ -41,8 +41,6 @@ abstract public class TipoDao implements BaseDao<Tipo>{
     @Query("SELECT * FROM tipos WHERE tipo = :tipo AND idPai = '' AND ativo = 1")
     abstract public Flowable<List<Tipo>> obterCrossSellingProdutos(String tipo);
 
-    @Query("SELECT * FROM tipos WHERE tipo = :tipo AND idPai = :idProduto AND ativo = 1")
-    abstract public Flowable<List<Tipo>> obterCrossSelling(String tipo, String idProduto);
 
 
     @Query("SELECT * FROM tipos WHERE tipo = :tipo AND ativo = 1")

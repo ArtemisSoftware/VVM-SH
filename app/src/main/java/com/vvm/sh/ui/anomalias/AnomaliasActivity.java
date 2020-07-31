@@ -19,6 +19,7 @@ import com.vvm.sh.ui.BaseActivity;
 import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.anomalias.adaptadores.AnomaliaRecyclerAdapter;
 import com.vvm.sh.ui.anomalias.adaptadores.OnAnomaliasListener;
+import com.vvm.sh.ui.anomalias.modelos.AnomaliaRegistada;
 import com.vvm.sh.ui.opcoes.modelos.Tipo;
 import com.vvm.sh.util.adaptadores.Item;
 import com.vvm.sh.util.metodos.Preferencias;
@@ -110,9 +111,9 @@ public class AnomaliasActivity extends BaseDaggerActivity
     }
 
     @Override
-    public void onRemoverClick(int id) {
+    public void onRemoverClick(AnomaliaRegistada anomalia) {
 
-        viewModel.remover(id);
+        viewModel.remover(Preferencias.obterIdTarefa(this), anomalia);
     }
 
 

@@ -49,7 +49,7 @@ public class AnomaliaRegistadaViewHolder extends RecyclerView.ViewHolder impleme
                     break;
 
                 case 2:
-                    listener.onRemoverClick(binding.getAnomalia().id);
+                    listener.onRemoverClick(binding.getAnomalia());
                     break;
             }
             return true;

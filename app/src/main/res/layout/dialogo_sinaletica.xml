@@ -39,9 +39,9 @@
 
 
 
-        <org.angmarch.views.NiceSpinner
+        <com.jaredrummler.materialspinner.MaterialSpinner
             android:id="@+id/spnr_dimensao"
-            app:tipos="@{viewmodel.dimensoes}"
+            app:tipos_="@{viewmodel.dimensoes}"
             android:layout_width="400dp"
             app:popupTextAlignment="start"
             android:layout_height="wrap_content"
@@ -55,9 +55,9 @@
             style="@style/textoInput" />
 
 
-        <org.angmarch.views.NiceSpinner
+        <com.jaredrummler.materialspinner.MaterialSpinner
             android:id="@+id/spnr_tipos"
-            app:tipos="@{viewmodel.tipos}"
+            app:tipos_="@{viewmodel.tipos}"
             android:layout_width="400dp"
             app:popupTextAlignment="start"
             android:layout_height="wrap_content"

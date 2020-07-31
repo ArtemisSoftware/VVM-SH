@@ -318,9 +318,9 @@ public class AnomaliasViewModel extends BaseViewModel {
 
 
 
-    public void remover(int idAnomalia) {
+    public void remover(int idTarefa, AnomaliaRegistada anomalia) {
 
-        anomaliaRepositorio.remover(idAnomalia).toObservable()
+        anomaliaRepositorio.remover(anomalia.id).toObservable()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -349,5 +349,7 @@ public class AnomaliasViewModel extends BaseViewModel {
 
                 );
 
+        ResultadoAsyncTask servico = new ResultadoAsyncTask(vvmshBaseDados, anomaliaRepositorio.resultadoDao);
+        servico.execute(new Resultado(idTarefa, ResultadoId.ANOMALIA_CLIENTE));
     }
 }

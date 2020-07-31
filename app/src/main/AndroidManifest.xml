@@ -13,7 +13,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.opcoes.AtualizacaoAppActivity"></activity>
+        <activity android:name=".ui.ocorrencias.OcorrenciasHistoricoActivity"></activity>
+        <activity android:name=".ui.opcoes.AtualizacaoAppActivity" />
         <activity android:name=".ui.contaUtilizador.OpcoesAvancadasActivity" />
         <activity android:name=".ui.agenda.TrabalhoActivity" />
         <activity android:name=".ui.contaUtilizador.DefinicoesActivity" />

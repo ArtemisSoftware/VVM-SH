@@ -1,22 +1,14 @@
-<?xml version="1.0" encoding="utf-8"?>
-
 
 <layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <import type="java.util.List"/>
-        <import type="android.view.View"/>
 
         <variable
             name="viewmodel"
-            type="com.vvm.sh.ui.crossSelling.CrossSellingViewModel"/>
-
-        <variable
-            name="listener"
-            type="com.vvm.sh.ui.crossSelling.adaptadores.OnCrossSellingListener"/>
+            type="com.vvm.sh.ui.ocorrencias.OcorrenciasViewModel"/>
 
     </data>
 
@@ -29,60 +21,56 @@
         android:orientation="vertical"
         android:layout_centerHorizontal="true">
 
-
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content">
 
-            <com.jaredrummler.materialspinner.MaterialSpinner
-                android:id="@+id/spnr_area_recomendacao"
-                android:layout_width="600dp"
-                app:popupTextAlignment="start"
-                android:layout_height="wrap_content"
-                app:tipos_="@{viewmodel.produtos}"
+
+            <TextView
+                android:id="@+id/textview"
+                style="@style/titulo"
+                android:text="@string/historico_ocorrencia"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"/>
 
+
             <View
-                android:id="@+id/txt_data_s"
+                android:id="@+id/textview2"
                 android:layout_width="280dp"
                 android:layout_height="0.2dp"
                 android:layout_marginTop="8dp"
                 android:background="@color/cor_separador"
-                app:layout_constraintStart_toStartOf="@+id/spnr_area_recomendacao"
-                app:layout_constraintTop_toBottomOf="@+id/spnr_area_recomendacao" />
+                app:layout_constraintStart_toStartOf="@+id/textview"
+                app:layout_constraintTop_toBottomOf="@+id/textview" />
 
             <TextView
-                android:id="@+id/txt_sinaletica"
-                style="@style/textoNota"
-                android:layout_below="@+id/txt_data_s"
+                android:id="@+id/txt_estado"
+                style="@style/textoDetalhe"
+                android:text="@string/lorem_ipsum_texto_pequeno"
+                android:layout_below="@+id/textview2"
                 android:layout_alignParentRight="true"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="16dp"
-                android:text="@string/sinaletica"
-                android:visibility="@{viewmodel.sinaletica ? View.VISIBLE : View.INVISIBLE}"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/spnr_area_recomendacao"
-                app:layout_constraintTop_toBottomOf="@+id/txt_data_s" />
+                app:layout_constraintStart_toStartOf="@+id/textview"
+                app:layout_constraintTop_toBottomOf="@+id/textview2" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 
-
-        <!-- ..............lista............... -->
-
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcl_registos"
             style="@style/lista"
-            registos="@{viewmodel.crossSelling}"
-            checkBox="@{listener}"
-            tools:listitem="@layout/item_cross_selling"/>
+
+            tools:listitem="@layout/item_ocorrencia"/>
+        <!--ocorrencias="@{viewmodel.ocorrencias}"
+            app:onItemClick="@{listener}" -->
 
     </LinearLayout>
 
 </layout>
+

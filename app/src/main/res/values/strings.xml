@@ -109,7 +109,6 @@
     <string name="tipo_">Tipo:</string>
 
 
-
     <string name="validar_email_desbloquear">Valide o email para desbloquear a tarefa</string>
 
     <!-- CHAVES PREFERENCIAS -->
@@ -125,7 +124,6 @@
     <string name="argumento_id">id</string>
     <string name="argumento_id_atividade">idAtividade</string>
     <string name="argumento_id_formando">idFormando</string>
-
 
 
     <!--onboarding designs-->
@@ -227,5 +225,6 @@
     <string name="niss">Niss</string>
     <string name="naturalidade">Naturalidade</string>
     <string name="nacionalidade">Nacionalidade</string>
+    <string name="historico_ocorrencia">Histórico da Ocorrência</string>
 
 </resources>

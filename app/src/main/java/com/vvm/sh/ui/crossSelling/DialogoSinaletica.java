@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.os.Bundle;
 
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.vvm.sh.R;
@@ -11,8 +12,12 @@ import com.vvm.sh.databinding.DialogoSinaleticaBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.crossSelling.adaptadores.OnCrossSellingListener;
 import com.vvm.sh.ui.BaseDaggerDialogFragment;
+import com.vvm.sh.ui.crossSelling.modelos.CrossSellingResultado;
 import com.vvm.sh.ui.opcoes.modelos.Tipo;
+import com.vvm.sh.util.MensagensUtil;
+import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.constantes.Sintaxe;
+import com.vvm.sh.util.metodos.Preferencias;
 
 import javax.inject.Inject;
 
@@ -29,56 +34,26 @@ public class DialogoSinaletica extends BaseDaggerDialogFragment {
     private CrossSellingViewModel viewModel;
 
 
-    private OnCrossSellingListener listener;
 
     private static final String ARGUMENTO_ID_PRODUTO = "idProduto";
-
+    private static final String ARGUMENTO_ID = "id";
 
     public DialogoSinaletica() {
         // Empty constructor required for DialogFragment
     }
 
 
-    public static DialogoSinaletica newInstance(int idProduto) {
+    public static DialogoSinaletica newInstance(int idProduto, int id) {
         DialogoSinaletica frag = new DialogoSinaletica();
 
         Bundle args = new Bundle();
         args.putInt(ARGUMENTO_ID_PRODUTO, idProduto);
+        args.putInt(ARGUMENTO_ID, id);
         frag.setArguments(args);
         return frag;
     }
 
 
-
-//    @Override
-//    protected void initDialogo(AlertDialog.Builder builder) {
-//
-//        listener = (OnCrossSellingListener) getContext();
-
-//
-//        builder.setPositiveButton(Sintaxe.Opcoes.GRAVAR,  new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//
-//
-//
-//
-//
-//                listener.OnGravarSinaletica(idProduto, dimensao, tipo);
-//            }
-//        });
-//
-//        builder.setNegativeButton(Sintaxe.Opcoes.CANCELAR, new DialogInterface.OnClickListener() {
-//            @Override
-//            public void onClick(DialogInterface dialog, int which) {
-//                terminarDialogo();
-//            }
-//        });
-//
-//
-
-//
-//    }
 
     @Override
     protected void initDialogo(AlertDialog.Builder builder) {
@@ -90,7 +65,7 @@ public class DialogoSinaletica extends BaseDaggerDialogFragment {
 
 
         if(verificarArgumentos(ARGUMENTO_ID_PRODUTO) == true){
-            viewModel.obterProdutos();
+            viewModel.obterSinaletica();
         }
         else{
             terminarDialogo();
@@ -110,14 +85,38 @@ public class DialogoSinaletica extends BaseDaggerDialogFragment {
     @Override
     protected void subscreverObservadores() {
 
+        viewModel.observarMessagem().observe(this, new Observer<Recurso>() {
+            @Override
+            public void onChanged(Recurso recurso) {
+
+                switch (recurso.status){
+
+                    case SUCESSO:
+
+                        //TODO: Completar metodo
+                        MensagensUtil.sucesso();
+                        terminarDialogo();
+                        break;
+
+                    default:
+                        break;
+                }
+
+            }
+        });
     }
 
     @Override
     protected void clickPositivo() {
 
         int idProduto = getArguments().getInt(ARGUMENTO_ID_PRODUTO);
-        Tipo dimensao =  (Tipo) binding.spnrDimensao.getSelectedItem();
-        Tipo tipo =  (Tipo) binding.spnrTipos.getSelectedItem();
+        int id = getArguments().getInt(ARGUMENTO_ID);
+        Tipo dimensao =  (Tipo) binding.spnrDimensao.getItems().get(binding.spnrDimensao.getSelectedIndex());
+        Tipo tipo =  (Tipo) binding.spnrTipos.getItems().get(binding.spnrTipos.getSelectedIndex());
+
+        CrossSellingResultado registo = new CrossSellingResultado(Preferencias.obterIdTarefa(getContext()), idProduto, id, dimensao, tipo);
+
+        viewModel.gravar(registo);
     }
 
 

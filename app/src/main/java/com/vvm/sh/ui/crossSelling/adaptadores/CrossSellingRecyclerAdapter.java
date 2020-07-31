@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.vvm.sh.R;
 import com.vvm.sh.databinding.ItemCrossSellingBinding;
+import com.vvm.sh.ui.crossSelling.modelos.CrossSelling;
 import com.vvm.sh.ui.opcoes.modelos.Tipo;
 
 import java.util.ArrayList;
@@ -19,12 +20,12 @@ import java.util.List;
 public class CrossSellingRecyclerAdapter  extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
 
-    private List<Tipo> items = new ArrayList<>();
+    private List<CrossSelling> items = new ArrayList<>();
     private Context contexto;
     private OnCrossSellingListener onItemListener;
 
 
-    public CrossSellingRecyclerAdapter(Context contexto, List<Tipo> items, OnCrossSellingListener onItemListener) {
+    public CrossSellingRecyclerAdapter(Context contexto, List<CrossSelling> items, OnCrossSellingListener onItemListener) {
         this.items = items;
         this.contexto = contexto;
         this.onItemListener = onItemListener;
@@ -42,7 +43,7 @@ public class CrossSellingRecyclerAdapter  extends RecyclerView.Adapter<RecyclerV
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
-        Tipo registo = items.get(position);
+        CrossSelling registo = items.get(position);
         ((CrossSellingViewHolder)holder).binding.setCrossSelling(registo);
         ((CrossSellingViewHolder)holder).binding.setListener((OnCrossSellingListener) contexto);
 
@@ -57,7 +58,7 @@ public class CrossSellingRecyclerAdapter  extends RecyclerView.Adapter<RecyclerV
     }
 
 
-    public void atualizar(List<Tipo> items){
+    public void atualizar(List<CrossSelling> items){
         this.items.clear();
         this.items.addAll(items);
         notifyDataSetChanged();

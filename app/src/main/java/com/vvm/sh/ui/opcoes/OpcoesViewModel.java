@@ -83,9 +83,9 @@ public class OpcoesViewModel extends BaseViewModel {
 
                             @Override
                             public void onNext(List<Colecao> registos) {
-                                registos.add(new Colecao(TiposConstantes.CROSS_SELLING_DIMENSAO, 4, "2019-06-22"));
-                                registos.add(new Colecao(TiposConstantes.CROSS_SELLING_PRODUTOS, 4, "2019-06-22"));
-                                registos.add(new Colecao(TiposConstantes.CROSS_SELLING_TIPO, 4, "2019-06-22"));
+                                //registos.add(new Colecao(TiposConstantes.CROSS_SELLING_DIMENSAO, 4, "2019-06-22"));
+                                //registos.add(new Colecao(TiposConstantes.CROSS_SELLING_PRODUTOS, 4, "2019-06-22"));
+                                //registos.add(new Colecao(TiposConstantes.CROSS_SELLING_TIPO, 4, "2019-06-22"));
                                 //registos.add(new Colecao(TiposConstantes.TIPIFICACAO_OCORRENCIA, 4, "2019-06-22"));
                                 //registos.add(new Colecao(TiposConstantes.TIPOS_ANOMALIA, 4, "2019-06-22"));
                                 tipos.setValue(registos);

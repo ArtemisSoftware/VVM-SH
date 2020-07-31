@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.vvm.sh.ui.crossSelling.adaptadores.CrossSellingRecyclerAdapter;
 import com.vvm.sh.ui.crossSelling.adaptadores.OnCrossSellingListener;
+import com.vvm.sh.ui.crossSelling.modelos.CrossSelling;
 import com.vvm.sh.ui.opcoes.modelos.Tipo;
 
 import org.angmarch.views.NiceSpinner;
@@ -53,7 +54,7 @@ public class CrossSellingBinding {
 
 
     @BindingAdapter({"registos", "checkBox"})
-    public static void setRegistos(RecyclerView view, List<Tipo> items, OnCrossSellingListener listener) {
+    public static void setRegistos(RecyclerView view, List<CrossSelling> items, OnCrossSellingListener listener) {
 
         if(items == null){
             return;

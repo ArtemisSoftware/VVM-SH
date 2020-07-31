@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.vvm.sh.repositorios.OcorrenciaRepositorio;
 import com.vvm.sh.ui.ocorrencias.modelos.Ocorrencia;
+import com.vvm.sh.ui.ocorrencias.modelos.OcorrenciaHistorico;
 import com.vvm.sh.ui.ocorrencias.modelos.OcorrenciaResultado;
 import com.vvm.sh.ui.opcoes.modelos.Tipo;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
@@ -26,6 +27,8 @@ public class OcorrenciasViewModel extends BaseViewModel {
     public MutableLiveData<List<Tipo>> ocorrenciasRegistos;
     public MutableLiveData<Tipo> ocorrencia;
 
+    public MutableLiveData<List<OcorrenciaHistorico>> historico;
+
     @Inject
     public OcorrenciasViewModel(OcorrenciaRepositorio ocorrenciaRepositorio){
 
@@ -34,6 +37,7 @@ public class OcorrenciasViewModel extends BaseViewModel {
         ocorrenciasGeral = new MutableLiveData<>();
         ocorrenciasRegistos = new MutableLiveData<>();
         ocorrencia = new MutableLiveData<>();
+        historico = new MutableLiveData<>();
     }
 
 
@@ -205,6 +209,40 @@ public class OcorrenciasViewModel extends BaseViewModel {
     public void remover(int obterIdTarefa, int id) {
     }
 
-    public void obterHistorico(int anInt) {
+    public void obterHistorico(int id) {
+
+        showProgressBar(true);
+
+        ocorrenciaRepositorio.obterHistorico(id).toObservable()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+
+                        new Observer<List<OcorrenciaHistorico>>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onNext(List<OcorrenciaHistorico> resultado) {
+
+                                historico.setValue(resultado);
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+
+                            @Override
+                            public void onComplete() {
+                                showProgressBar(false);
+                            }
+                        }
+
+                );
     }
 }

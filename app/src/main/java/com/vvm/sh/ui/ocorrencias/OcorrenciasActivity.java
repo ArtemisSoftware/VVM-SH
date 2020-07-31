@@ -10,6 +10,9 @@ import com.vvm.sh.R;
 import com.vvm.sh.databinding.ActivityOcorrenciasBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
+import com.vvm.sh.ui.ocorrencias.adaptadores.OnOcorrenciaListener;
+import com.vvm.sh.ui.ocorrencias.modelos.Ocorrencia;
+import com.vvm.sh.ui.opcoes.modelos.Tipo;
 import com.vvm.sh.util.metodos.Preferencias;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
@@ -17,7 +20,8 @@ import javax.inject.Inject;
 
 import butterknife.OnClick;
 
-public class OcorrenciasActivity extends BaseDaggerActivity /*implements OnItemListener*/ {
+public class OcorrenciasActivity extends BaseDaggerActivity
+        implements OnOcorrenciaListener {
 
 
 
@@ -77,7 +81,13 @@ public class OcorrenciasActivity extends BaseDaggerActivity /*implements OnItemL
         startActivity(intent);
     }
 
+    @Override
+    public void OnOcorrenciaClick(Ocorrencia ocorrencia) {
 
+        Intent intent = new Intent(this, OcorrenciasHistoricoActivity.class);
+        intent.putExtra(getString(R.string.argumento_id), ocorrencia.id);
+        startActivity(intent);
+    }
 
 
 //
@@ -129,21 +139,7 @@ public class OcorrenciasActivity extends BaseDaggerActivity /*implements OnItemL
 //        rcl_registos.setAdapter(ocorrenciaRecyclerAdapter);
 //        rcl_registos.setLayoutManager(new LinearLayoutManager(this));
 //    }
-//
-//
-//    private void obterRegistos(){
-//
-//        //--TESTE (apagar quando houver dados)
-//
-//        List<Item> t1 = new ArrayList<>();
-////        t1.add(new Ocorrencia(1, "Ocorrencia numero 1", "Departamento norte", "12345235", "2020-02-20", "Marca 1", "estado 1"));
-////        t1.add(new Ocorrencia(2, "Ocorrencia numero 2", "Departamento sul", "674543", "2020-02-18", "Marca 20", "estado raly"));
-//
-//        //ocorrenciaRecyclerAdapter.renovarRegistos(t1);
-//
-//        //TODO: chamar metodo do viewmodel
-//    }
-//
+
 //    /**
 //     * Metodo que permite subscrever observadores
 //     */

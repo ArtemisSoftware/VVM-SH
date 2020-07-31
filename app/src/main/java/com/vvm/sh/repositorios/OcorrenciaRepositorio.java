@@ -3,8 +3,11 @@ package com.vvm.sh.repositorios;
 import androidx.annotation.NonNull;
 
 import com.vvm.sh.baseDados.OcorrenciaDao;
+import com.vvm.sh.baseDados.OcorrenciaHistoricoDao;
+import com.vvm.sh.baseDados.ResultadoDao;
 import com.vvm.sh.baseDados.TipoDao;
 import com.vvm.sh.ui.ocorrencias.modelos.Ocorrencia;
+import com.vvm.sh.ui.ocorrencias.modelos.OcorrenciaHistorico;
 import com.vvm.sh.ui.opcoes.modelos.Tipo;
 import com.vvm.sh.util.constantes.TiposConstantes;
 
@@ -15,10 +18,15 @@ import io.reactivex.Flowable;
 public class OcorrenciaRepositorio {
 
     private final OcorrenciaDao ocorrenciaDao;
+    private final OcorrenciaHistoricoDao ocorrenciaHistoricoDao;
     private final TipoDao tipoDao;
+    public final ResultadoDao resultadoDao;
 
-    public OcorrenciaRepositorio(@NonNull OcorrenciaDao ocorrenciaDao, TipoDao tipoDao) {
+    public OcorrenciaRepositorio(@NonNull OcorrenciaDao ocorrenciaDao, @NonNull OcorrenciaHistoricoDao ocorrenciaHistoricoDao,
+                                 @NonNull TipoDao tipoDao, @NonNull ResultadoDao resultadoDao) {
         this.ocorrenciaDao = ocorrenciaDao;
+        this.ocorrenciaHistoricoDao = ocorrenciaHistoricoDao;
+        this.resultadoDao = resultadoDao;
         this.tipoDao = tipoDao;
     }
 
@@ -31,6 +39,12 @@ public class OcorrenciaRepositorio {
     public Flowable<List<Ocorrencia>> obterOcorrencias(int idTarefa) {
         return ocorrenciaDao.obterOcorrencias(idTarefa);
     }
+
+
+    public Flowable<List<OcorrenciaHistorico>> obterHistorico(int id) {
+        return ocorrenciaHistoricoDao.obterHistorico(id);
+    }
+
 
     public Flowable<List<Tipo>> obterOcorrencias() {
         return tipoDao.obterTipos(TiposConstantes.TIPIFICACAO_OCORRENCIA, "");

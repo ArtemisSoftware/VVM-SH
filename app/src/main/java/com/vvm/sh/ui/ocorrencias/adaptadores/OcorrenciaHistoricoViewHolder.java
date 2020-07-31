@@ -1,4 +1,4 @@
-package com.vvm.sh.ui.ocorrencias;
+package com.vvm.sh.ui.ocorrencias.adaptadores;
 
 import android.view.View;
 import android.widget.TextView;

@@ -42,7 +42,7 @@ import butterknife.BindView;
 import butterknife.OnItemSelected;
 
 public class OcorrenciasRegistoActivity extends BaseDaggerActivity
-        implements OnOcorrenciaRegistoListener, MaterialSpinner.OnItemSelectedListener {
+        implements OnOcorrenciaRegistoListener, MaterialSpinner.OnItemSelectedListener, View.OnClickListener {
 
 
 
@@ -55,7 +55,7 @@ public class OcorrenciasRegistoActivity extends BaseDaggerActivity
 
     private OcorrenciasViewModel viewModel;
 
-
+    private List<OcorrenciaRegisto> caminho;
 
 
 
@@ -70,6 +70,10 @@ public class OcorrenciasRegistoActivity extends BaseDaggerActivity
         activityOcorrenciasRegistoBinding.setViewmodel(viewModel);
         activityOcorrenciasRegistoBinding.setListener(this);
         activityOcorrenciasRegistoBinding.spnrOcorrencias.setOnItemSelectedListener(this);
+
+        activityOcorrenciasRegistoBinding.txtDescricao.setOnClickListener(this);
+
+        caminho = new ArrayList<>();
 
         subscreverObservadores();
 
@@ -100,7 +104,9 @@ public class OcorrenciasRegistoActivity extends BaseDaggerActivity
     @Override
     public void onItemSelected(MaterialSpinner view, int position, long id, Object item) {
 
-        activityOcorrenciasRegistoBinding.txtDescricao.setVisibility(View.GONE);
+        caminho.clear();
+
+        activityOcorrenciasRegistoBinding.txtDescricao.setVisibility(View.INVISIBLE);
         Tipo tipo = (Tipo) item;
         viewModel.obterRegistosOcorrencias(Preferencias.obterIdTarefa(this), tipo.id);
     }
@@ -114,12 +120,42 @@ public class OcorrenciasRegistoActivity extends BaseDaggerActivity
             startActivityForResult(intent, 000000);
         }
         else {
+
+            caminho.add(ocorrencia);
+
             activityOcorrenciasRegistoBinding.txtDescricao.setVisibility(View.VISIBLE);
             activityOcorrenciasRegistoBinding.txtDescricao.setText(ocorrencia.codigo + " " + ocorrencia.descricao);
             viewModel.obterRegistosOcorrencias(Preferencias.obterIdTarefa(this), ocorrencia.id);
         }
     }
 
+    @Override
+    public void onRemoverClick(OcorrenciaRegisto ocorrencia) {
+        viewModel.remover(Preferencias.obterIdTarefa(this), ocorrencia.id);
+    }
+
+    @Override
+    public void onClick(View v) {
+
+        if(caminho.size() > 1) {
+
+            OcorrenciaRegisto ocorrencia = caminho.get(caminho.size() - 1);
+
+            activityOcorrenciasRegistoBinding.txtDescricao.setText(ocorrencia.codigo + " " + ocorrencia.descricao);
+            viewModel.obterRegistosOcorrencias(Preferencias.obterIdTarefa(this), ocorrencia.id);
+            caminho.remove(caminho.size() - 1);
+        }
+        else{
+            Tipo tipo = (Tipo) activityOcorrenciasRegistoBinding.spnrOcorrencias.getItems().get(activityOcorrenciasRegistoBinding.spnrOcorrencias.getSelectedIndex());
+            onItemSelected(activityOcorrenciasRegistoBinding.spnrOcorrencias, 0, 0, tipo);
+
+//            caminho.clear();
+//
+//            activityOcorrenciasRegistoBinding.txtDescricao.setVisibility(View.INVISIBLE);
+//            Tipo tipo = (Tipo) activityOcorrenciasRegistoBinding.spnrOcorrencias.getItems().get(activityOcorrenciasRegistoBinding.spnrOcorrencias.getSelectedIndex());
+//            viewModel.obterRegistosOcorrencias(Preferencias.obterIdTarefa(this), tipo.id);
+        }
+    }
 
 
 //    @BindView(R.id.rcl_registos)

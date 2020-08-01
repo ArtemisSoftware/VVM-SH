@@ -5,7 +5,8 @@ public enum ResultadoId {
     EMAIL(1),
     ANOMALIA_CLIENTE(2),
     ATIVIDADE_PENDENTE(3),
-    CROSS_SELLING(4);
+    CROSS_SELLING(4),
+    OCORRENCIA(5);
 
     private final int value;
 

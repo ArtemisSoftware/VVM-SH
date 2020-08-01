@@ -22,11 +22,22 @@ public class OcorrenciaRegistoRecyclerAdapter extends RecyclerView.Adapter<Recyc
     private List<OcorrenciaRegisto> items = new ArrayList<>();
     private Context contexto;
     private OnOcorrenciaRegistoListener listener;
+    private boolean visualizar;
+
+    public OcorrenciaRegistoRecyclerAdapter(Context contexto, List<OcorrenciaRegisto> items, OnOcorrenciaRegistoListener listener, boolean visualizar) {
+        this.items = items;
+        this.contexto = contexto;
+        this.listener = listener;
+
+        this.visualizar = visualizar;
+    }
+
 
     public OcorrenciaRegistoRecyclerAdapter(Context contexto, List<OcorrenciaRegisto> items, OnOcorrenciaRegistoListener listener) {
         this.items = items;
         this.contexto = contexto;
         this.listener = listener;
+        this.visualizar = false;
     }
 
 
@@ -35,7 +46,7 @@ public class OcorrenciaRegistoRecyclerAdapter extends RecyclerView.Adapter<Recyc
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         ItemOcorrenciaRegistoBinding binding = DataBindingUtil.inflate(LayoutInflater.from(contexto), R.layout.item_ocorrencia_registo, parent, false);
-        return new OcorrenciaRegistoViewHolder(binding.getRoot(), listener);
+        return new OcorrenciaRegistoViewHolder(binding.getRoot(), listener, this.visualizar);
     }
 
     @Override

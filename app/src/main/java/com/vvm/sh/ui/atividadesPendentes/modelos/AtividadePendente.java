@@ -67,7 +67,7 @@ public class AtividadePendente {
         this.dataProgramada = dataProgramada;
         this.descricao = descricao;
         this.servId = servId;
-        this.formacao = formacao;
+        this.formacao = /*formacao*/true; //TODO: a true para teste
     }
 
 

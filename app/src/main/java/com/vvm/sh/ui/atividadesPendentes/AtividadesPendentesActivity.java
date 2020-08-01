@@ -89,13 +89,6 @@ public class AtividadesPendentesActivity extends BaseDaggerActivity
     }
 
     @Override
-    public void OnGravarAtividadeExecutada(int idAtividade, String minutos, String data) {
-
-        AtividadePendenteResultado atividade = new AtividadePendenteResultado(idAtividade, minutos, DatasUtil.converterString(data, DatasUtil.FORMATO_YYYY_MM_DD));
-        //viewModel.gravarAtividade(atividade);
-    }
-
-    @Override
     public void OnConcluirAtividadeNaoExecutada(int idAtividade) {
 
         DialogoAtividadePendenteNaoExecutada dialogo = DialogoAtividadePendenteNaoExecutada.newInstance(idAtividade);

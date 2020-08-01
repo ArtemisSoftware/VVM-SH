@@ -7,4 +7,5 @@ public interface OnOcorrenciaRegistoListener {
 
     void OnOcorrenciaClick(OcorrenciaRegisto ocorrencia);
 
+    void onRemoverClick(OcorrenciaRegisto ocorrencia);
 }

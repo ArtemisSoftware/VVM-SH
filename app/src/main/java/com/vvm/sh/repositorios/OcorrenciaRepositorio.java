@@ -4,29 +4,36 @@ import androidx.annotation.NonNull;
 
 import com.vvm.sh.baseDados.OcorrenciaDao;
 import com.vvm.sh.baseDados.OcorrenciaHistoricoDao;
+import com.vvm.sh.baseDados.OcorrenciaResultadoDao;
 import com.vvm.sh.baseDados.ResultadoDao;
 import com.vvm.sh.baseDados.TipoDao;
 import com.vvm.sh.ui.ocorrencias.modelos.Ocorrencia;
 import com.vvm.sh.ui.ocorrencias.modelos.OcorrenciaHistorico;
 import com.vvm.sh.ui.ocorrencias.modelos.OcorrenciaRegisto;
+import com.vvm.sh.ui.ocorrencias.modelos.OcorrenciaResultado;
 import com.vvm.sh.ui.opcoes.modelos.Tipo;
 import com.vvm.sh.util.constantes.TiposConstantes;
 
 import java.util.List;
 
 import io.reactivex.Flowable;
+import io.reactivex.Maybe;
+import io.reactivex.Single;
 
 public class OcorrenciaRepositorio {
 
     private final OcorrenciaDao ocorrenciaDao;
     private final OcorrenciaHistoricoDao ocorrenciaHistoricoDao;
+    private final OcorrenciaResultadoDao ocorrenciaResultadoDao;
     private final TipoDao tipoDao;
     public final ResultadoDao resultadoDao;
 
     public OcorrenciaRepositorio(@NonNull OcorrenciaDao ocorrenciaDao, @NonNull OcorrenciaHistoricoDao ocorrenciaHistoricoDao,
+                                 @NonNull OcorrenciaResultadoDao ocorrenciaResultadoDao,
                                  @NonNull TipoDao tipoDao, @NonNull ResultadoDao resultadoDao) {
         this.ocorrenciaDao = ocorrenciaDao;
         this.ocorrenciaHistoricoDao = ocorrenciaHistoricoDao;
+        this.ocorrenciaResultadoDao = ocorrenciaResultadoDao;
         this.resultadoDao = resultadoDao;
         this.tipoDao = tipoDao;
     }
@@ -49,6 +56,27 @@ public class OcorrenciaRepositorio {
         return ocorrenciaDao.obterOcorrencias(idTarefa, TiposConstantes.TIPIFICACAO_OCORRENCIA, idOcorrencia);
     }
 
+    public Flowable<List<OcorrenciaRegisto>> obterRegistoOcorrencias(int idTarefa) {
+        return ocorrenciaDao.obterOcorrenciasRegistadas(idTarefa, TiposConstantes.TIPIFICACAO_OCORRENCIA);
+    }
+
+
+
+    public Single<OcorrenciaRegisto> obterResultadoOcorrencia(int idTarefa, int id){
+        return ocorrenciaDao.obterResultadoOcorrencia(idTarefa, TiposConstantes.TIPIFICACAO_OCORRENCIA, id);
+    }
+
+    public Single<Long> inserir(OcorrenciaResultado ocorrencia){
+        return ocorrenciaResultadoDao.inserir(ocorrencia);
+    }
+
+    public Single<Integer> atualizar(OcorrenciaResultado ocorrencia){
+        return ocorrenciaResultadoDao.atualizar(ocorrencia);
+    }
+
+    public Single<Integer> remover(int idTarefa, int id){
+        return ocorrenciaResultadoDao.remover(idTarefa, id);
+    }
 
 
 

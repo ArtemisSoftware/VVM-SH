@@ -1,6 +1,7 @@
 package com.vvm.sh.ui.ocorrencias;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
@@ -17,8 +18,11 @@ import com.vvm.sh.databinding.ActivityOcorrenciaRegistarBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseActivity;
 import com.vvm.sh.ui.BaseDaggerActivity;
+import com.vvm.sh.ui.ocorrencias.modelos.OcorrenciaRegisto;
 import com.vvm.sh.ui.ocorrencias.modelos.OcorrenciaResultado;
 import com.vvm.sh.ui.opcoes.modelos.Tipo;
+import com.vvm.sh.util.MensagensUtil;
+import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.metodos.Preferencias;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
@@ -76,6 +80,26 @@ public class RegistarOcorrenciaActivity extends BaseDaggerActivity {
     @Override
     protected void subscreverObservadores() {
 
+        viewModel.observarMessagem().observe(this, new Observer<Recurso>() {
+            @Override
+            public void onChanged(Recurso recurso) {
+
+                switch (recurso.status){
+
+                    case SUCESSO:
+
+                        //TODO: Completar metodo
+                        MensagensUtil.sucesso();
+                        finish();
+                        break;
+
+                    default:
+                        break;
+                }
+
+            }
+        });
+
     }
 
 
@@ -87,30 +111,36 @@ public class RegistarOcorrenciaActivity extends BaseDaggerActivity {
     @OnCheckedChanged(R.id.chk_box_fiscalizado)
     void chk_box_fiscalizado_Selected(CompoundButton button, boolean checked) {
 
-        if(checked == true){
+        OcorrenciaRegisto ocorrencia = viewModel.ocorrencia.getValue();
+
+        if(checked == true & ocorrencia.existeDetalhe() == true){
+            activityOcorrenciaRegistarBinding.spnrDias.setVisibility(View.VISIBLE);
+            activityOcorrenciaRegistarBinding.txtDias.setVisibility(View.VISIBLE);
+            activityOcorrenciaRegistarBinding.txtInpLytDias.setVisibility(View.GONE);
+        }
+        else if(checked == true & ocorrencia.existeDetalhe() == false){
             activityOcorrenciaRegistarBinding.spnrDias.setVisibility(View.GONE);
+            activityOcorrenciaRegistarBinding.txtDias.setVisibility(View.GONE);
             activityOcorrenciaRegistarBinding.txtInpLytDias.setVisibility(View.VISIBLE);
         }
         else{
-            activityOcorrenciaRegistarBinding.spnrDias.setVisibility(View.VISIBLE);
+            activityOcorrenciaRegistarBinding.spnrDias.setVisibility(View.GONE);
+            activityOcorrenciaRegistarBinding.txtDias.setVisibility(View.GONE);
             activityOcorrenciaRegistarBinding.txtInpLytDias.setVisibility(View.GONE);
         }
     }
 
 
     @OnClick(R.id.fab_gravar)
-    public void fab_calendario_OnClickListener(View view) {
+    public void fab_gravar_OnClickListener(View view) {
 
         OcorrenciaResultado ocorrencia;
         Bundle bundle = getIntent().getExtras();
         int id = bundle.getInt(getString(R.string.argumento_id));
 
-
-
         String dias = activityOcorrenciaRegistarBinding.txtInpDias.getText().toString();
         boolean fiscalizado = activityOcorrenciaRegistarBinding.chkBoxFiscalizado.isChecked();
         String observacao = activityOcorrenciaRegistarBinding.txtInpObservacao.getText().toString();
-
 
 
         if(fiscalizado == true){
@@ -119,8 +149,6 @@ public class RegistarOcorrenciaActivity extends BaseDaggerActivity {
         else{
 
             dias = ((Tipo) activityOcorrenciaRegistarBinding.spnrDias.getItems().get(activityOcorrenciaRegistarBinding.spnrDias.getSelectedIndex())).descricao;
-
-
             ocorrencia = new OcorrenciaResultado(Preferencias.obterIdTarefa(this), id, observacao, fiscalizado, dias);
         }
 

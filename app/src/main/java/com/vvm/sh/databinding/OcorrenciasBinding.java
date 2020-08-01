@@ -44,6 +44,34 @@ public class OcorrenciasBinding {
     }
 
 
+
+    @BindingAdapter({"registosOcorrencias"})
+    public static void setRegistosOcorrencias(RecyclerView view, List<OcorrenciaRegisto> items) {
+
+        if(items == null){
+            return;
+        }
+
+        RecyclerView.LayoutManager layoutManager = view.getLayoutManager();
+
+        if(layoutManager == null){
+            view.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        }
+
+        OcorrenciaRegistoRecyclerAdapter adapter = (OcorrenciaRegistoRecyclerAdapter) view.getAdapter();
+
+        if(adapter == null){
+            adapter = new OcorrenciaRegistoRecyclerAdapter(view.getContext(), items, null);
+
+            view.setAdapter(adapter);
+        }
+        else{
+            adapter.atualizar(items);
+        }
+    }
+
+
+
     @BindingAdapter({"registosOcorrencias", "onItemClick"})
     public static void setRegistosOcorrencias(RecyclerView view, List<OcorrenciaRegisto> items, OnOcorrenciaRegistoListener listener) {
 
@@ -68,6 +96,34 @@ public class OcorrenciasBinding {
             adapter.atualizar(items);
         }
     }
+
+
+
+    @BindingAdapter({"registosOcorrencias", "onItemClick", "visualizar"})
+    public static void setRegistosOcorrencias(RecyclerView view, List<OcorrenciaRegisto> items, OnOcorrenciaRegistoListener listener, boolean visualizar) {
+
+        if(items == null){
+            return;
+        }
+
+        RecyclerView.LayoutManager layoutManager = view.getLayoutManager();
+
+        if(layoutManager == null){
+            view.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        }
+
+        OcorrenciaRegistoRecyclerAdapter adapter = (OcorrenciaRegistoRecyclerAdapter) view.getAdapter();
+
+        if(adapter == null){
+            adapter = new OcorrenciaRegistoRecyclerAdapter(view.getContext(), items, listener, visualizar);
+
+            view.setAdapter(adapter);
+        }
+        else{
+            adapter.atualizar(items);
+        }
+    }
+
 
 
     @BindingAdapter({"historico"})

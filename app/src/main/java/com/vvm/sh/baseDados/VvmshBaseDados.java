@@ -87,6 +87,8 @@ public abstract class VvmshBaseDados extends RoomDatabase {
 
     public abstract FormandoDao obterFormandoDao();
 
+    public abstract OcorrenciaResultadoDao obterOcorrenciaResultadoDao();
+
     public abstract ResultadoDao obterResultadoDao();
 
     public abstract CrossSellingDao obterCrossSellingDao();

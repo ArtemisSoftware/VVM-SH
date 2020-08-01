@@ -5,6 +5,7 @@
 
     <data>
 
+        <import type="com.vvm.sh.util.metodos.DatasUtil"/>
 
         <variable
             name="viewmodel"
@@ -12,27 +13,25 @@
 
     </data>
 
-
-
-
     <LinearLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="16dp">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp">
 
 
 
         <com.google.android.material.textfield.TextInputLayout
             style="@style/parent.TextLayout"
             android:hint="@string/minutos"
-            android:layout_width="450dp"
+            android:layout_width="300dp"
             android:layout_marginTop="@dimen/signup_text_margin_top"
             app:errorEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/txt_inp_minutos"
                 style="@style/modifiedEditText"
+                android:text="@{viewmodel.atividadeResultado.tempoExecucao}"
                 android:inputType="number"
                 android:maxLines="1"/>
         </com.google.android.material.textfield.TextInputLayout>
@@ -47,13 +46,15 @@
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/parent.TextLayout"
                 android:hint="@string/data_execucao"
-                android:layout_width="450dp"
+                android:layout_width="300dp"
                 android:layout_marginTop="@dimen/signup_text_margin_top"
                 app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/txt_inp_data_execucao"
                     style="@style/modifiedEditText"
+                    android:enabled="false"
+                    android:text="@{DatasUtil.converterData(viewmodel.atividadeResultado.dataExecucao, DatasUtil.FORMATO_DD_MM_YYYY)}"
                     android:inputType="text"
                     android:maxLines="1"/>
             </com.google.android.material.textfield.TextInputLayout>

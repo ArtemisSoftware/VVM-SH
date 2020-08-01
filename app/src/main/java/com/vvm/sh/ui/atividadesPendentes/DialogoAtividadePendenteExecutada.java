@@ -1,11 +1,11 @@
 package com.vvm.sh.ui.atividadesPendentes;
 
-import android.app.DatePickerDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.DatePicker;
 
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.google.android.material.textfield.TextInputEditText;
@@ -17,9 +17,15 @@ import com.vvm.sh.databinding.DialogoAtividadePendenteExecutadaBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerDialogoPersistenteFragment;
 import com.vvm.sh.ui.atividadesPendentes.adaptadores.OnAtividadePendenteListener;
+import com.vvm.sh.ui.atividadesPendentes.modelos.AtividadePendenteResultado;
 import com.vvm.sh.util.BaseDialogoPersistenteFragment;
+import com.vvm.sh.util.MensagensUtil;
+import com.vvm.sh.util.Recurso;
+import com.vvm.sh.util.base.BaseDatePickerDialog;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.metodos.DatasUtil;
+import com.vvm.sh.util.metodos.Preferencias;
+import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import java.util.List;
 
@@ -92,7 +98,7 @@ public class DialogoAtividadePendenteExecutada extends BaseDaggerDialogoPersiste
             validador = new Validator(this);
             validador.setValidationListener(this);
 
-            viewModel.obterAtividadesExecutada(getArguments().getInt(ARGUMENTO_ID_ATIVIDADE));
+            viewModel.obterAtividade(getArguments().getInt(ARGUMENTO_ID_ATIVIDADE));
         }
         else{
             terminarDialogo();
@@ -115,6 +121,25 @@ public class DialogoAtividadePendenteExecutada extends BaseDaggerDialogoPersiste
     @Override
     protected void subscreverObservadores() {
 
+        viewModel.observarMessagem().observe(this, new Observer<Recurso>() {
+            @Override
+            public void onChanged(Recurso recurso) {
+
+                switch (recurso.status){
+
+                    case SUCESSO:
+
+                        //TODO: Completar metodo
+                        MensagensUtil.sucesso();
+                        terminarDialogo();
+                        break;
+
+                    default:
+                        break;
+                }
+
+            }
+        });
     }
 
 
@@ -122,6 +147,20 @@ public class DialogoAtividadePendenteExecutada extends BaseDaggerDialogoPersiste
     @Override
     protected void clickPositivo() {
         validador.validate();
+    }
+
+
+    //-------------------
+    //Eventos
+    //-------------------
+
+
+    @OnClick(R.id.crl_btn_data_execucao)
+    public void crl_btn_data_execucao_OnClickListener(View view) {
+
+
+        BaseDatePickerDialog dialogo = new BaseDatePickerDialog(this);
+        dialogo.obterDatePickerDialog().show(getActivity().getSupportFragmentManager(), "Datepickerdialog");
     }
 
 
@@ -133,8 +172,9 @@ public class DialogoAtividadePendenteExecutada extends BaseDaggerDialogoPersiste
         String minutos = txt_inp_minutos.getText().toString();
         String data = txt_inp_data_execucao.getText().toString();
 
-        listener.OnGravarAtividadeExecutada(idAtividade, minutos, data);
-        terminarDialogo();
+        AtividadePendenteResultado atividade = new AtividadePendenteResultado(idAtividade, minutos, DatasUtil.converterString(data, DatasUtil.FORMATO_DD_MM_YYYY));
+        viewModel.gravarAtividade(Preferencias.obterIdTarefa(getContext()), atividade);
+
     }
 
     @Override
@@ -153,22 +193,8 @@ public class DialogoAtividadePendenteExecutada extends BaseDaggerDialogoPersiste
     }
 
 
-
-    //-------------------
-    //Eventos
-    //-------------------
-
-
-    @OnClick(R.id.crl_btn_data_execucao)
-    public void crl_btn_data_execucao_OnClickListener(View view) {
-
-//        DatePickerDialog dialogo = DatasUtil.obterCalendarioAgenda();
-//        dialogo.show(getSupportFragmentManager(), "Datepickerdialog");
-    }
-
-
     @Override
-    public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-
+    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+        binding.txtInpDataExecucao.setText(DatasUtil.converterData(year, monthOfYear, dayOfMonth, DatasUtil.FORMATO_DD_MM_YYYY));
     }
 }

@@ -55,17 +55,19 @@
                     app:layout_constraintStart_toStartOf="@+id/textview"
                     app:layout_constraintTop_toBottomOf="@+id/textview" />
 
-                <TextView
-                    android:id="@+id/txt_estado"
-                    style="@style/textoNota"
-                    android:text="@string/lorem_ipsum_texto_pequeno"
+
+                <com.jaredrummler.materialspinner.MaterialSpinner
+                    android:id="@+id/spnr_estado"
+                    android:layout_width="300dp"
+                    android:layout_height="wrap_content"
                     android:layout_below="@+id/textview2"
-                    android:layout_alignParentRight="true"
+                    tipos_="@{viewmodel.estados}"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="16dp"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/textview"
-                    app:layout_constraintTop_toBottomOf="@+id/textview2" />
+                    app:layout_constraintTop_toBottomOf="@+id/textview2"/>
+
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -78,7 +80,17 @@
                 ocorrencias="@{viewmodel.ocorrencias}"
                 listener="@{listener}"
                 tools:listitem="@layout/item_ocorrencia"/>
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:visibility="gone"
+                android:id="@+id/rcl_registos_inseridos"
+                style="@style/lista"
+                registosOcorrencias="@{viewmodel.ocorrenciasInseridas}"
+                tools:listitem="@layout/item_ocorrencia_registo"/>
+
             <!--
+                onItemClick="@{listener}"
                  -->
 
         </LinearLayout>

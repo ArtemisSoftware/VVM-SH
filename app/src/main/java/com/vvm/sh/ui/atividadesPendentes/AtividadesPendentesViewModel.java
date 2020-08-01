@@ -248,8 +248,6 @@ public class AtividadesPendentesViewModel extends BaseViewModel {
 
 
 
-    public void obterAtividadesExecutada(int anInt) {
-    }
 
 
 }

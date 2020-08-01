@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.vvm.sh.R;
 import com.vvm.sh.databinding.ActivityOcorrenciasBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
@@ -21,7 +22,7 @@ import javax.inject.Inject;
 import butterknife.OnClick;
 
 public class OcorrenciasActivity extends BaseDaggerActivity
-        implements OnOcorrenciaListener {
+        implements MaterialSpinner.OnItemSelectedListener, OnOcorrenciaListener {
 
 
 
@@ -46,6 +47,7 @@ public class OcorrenciasActivity extends BaseDaggerActivity
         activityOcorrenciasBinding = (ActivityOcorrenciasBinding) activityBinding;
         activityOcorrenciasBinding.setLifecycleOwner(this);
         activityOcorrenciasBinding.setListener(this);
+        activityOcorrenciasBinding.spnrEstado.setOnItemSelectedListener(this);
         activityOcorrenciasBinding.setViewmodel(viewModel);
 
 
@@ -89,6 +91,21 @@ public class OcorrenciasActivity extends BaseDaggerActivity
         intent.putExtra(getString(R.string.argumento_descricao), ocorrencia.descricaoOcorrencia);
         intent.putExtra(getString(R.string.argumento_id), ocorrencia.id);
         startActivity(intent);
+    }
+
+    @Override
+    public void onItemSelected(MaterialSpinner view, int position, long id, Object item) {
+
+        Tipo tipo = (Tipo) item;
+
+        if(tipo.id == 1){
+            activityOcorrenciasBinding.rclRegistos.setVisibility(View.VISIBLE);
+            activityOcorrenciasBinding.rclRegistosInseridos.setVisibility(View.GONE);
+        }
+        else{
+            activityOcorrenciasBinding.rclRegistos.setVisibility(View.GONE);
+            activityOcorrenciasBinding.rclRegistosInseridos.setVisibility(View.VISIBLE);
+        }
     }
 
 

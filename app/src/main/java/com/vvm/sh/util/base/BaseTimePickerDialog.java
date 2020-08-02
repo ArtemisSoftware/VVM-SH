@@ -1,26 +1,35 @@
 package com.vvm.sh.util.base;
 
+import android.content.Context;
 import android.widget.TextView;
+
+import androidx.fragment.app.FragmentManager;
 
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
-public class BaseTimePickerDialog  extends TimePickerDialog {
+public class BaseTimePickerDialog  {
 
     private TextView txt;
-    private OnTimeSetListener listener;
+    private TimePickerDialog.OnTimeSetListener listener;
+    TimePickerDialog tdp;
 
     public BaseTimePickerDialog(TextView txt) {
 
 
-        listener = new OnTimeSetListener() {
+        listener = new TimePickerDialog.OnTimeSetListener() {
             @Override
             public void onTimeSet(TimePickerDialog view, int hourOfDay, int minute, int second) {
                 txt.setText(hourOfDay + ":" + minute);
             }
         };
 
-        this.setOnTimeSetListener(listener);
+        tdp = TimePickerDialog.newInstance(listener, true);
+
         this.txt = txt;
+    }
+
+    public void show(FragmentManager getSupportFragmentManager, String timepickerdialog){
+        tdp.show(getSupportFragmentManager, "Timepickerdialog");
     }
 
     //    private static int TIME_PICKER_INTERVAL = 5;

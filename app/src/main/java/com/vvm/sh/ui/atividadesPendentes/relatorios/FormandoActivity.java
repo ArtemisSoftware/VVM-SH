@@ -153,8 +153,33 @@ public class FormandoActivity extends BaseDaggerActivity implements Validator.Va
     }
 
 
+    //---------------------
+    //Metodos locais
+    //---------------------
+
+
+    /**
+     * Metodo que permite ativar a validacao de campos especificos
+     * @param ativar true para ativar ou false caso contrario
+     */
+    private void ativarValidacao(boolean ativar){
+
+        activityFormandoBinding.txtInpDataNascimento.setEnabled(ativar);
+    }
+
+
+    //---------------------
+    //Eventos
+    //---------------------
+
+
+
+
+
     @Override
     public void onValidationSucceeded() {
+
+        ativarValidacao(false);
 
         Bundle bundle = getIntent().getExtras();
         int idAtividade = bundle.getInt(getString(R.string.argumento_id_atividade));
@@ -198,6 +223,8 @@ public class FormandoActivity extends BaseDaggerActivity implements Validator.Va
                 ((TextInputEditText) view).setError(message);
             }
         }
+
+        ativarValidacao(false);
     }
 
 
@@ -209,6 +236,7 @@ public class FormandoActivity extends BaseDaggerActivity implements Validator.Va
 
     @OnClick(R.id.fab_gravar)
     public void fab_gravar_OnClickListener(View view) {
+        ativarValidacao(true);
         validador.validate();
     }
 

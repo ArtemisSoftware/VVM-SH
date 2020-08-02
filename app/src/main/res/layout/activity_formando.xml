@@ -96,20 +96,29 @@
                     </com.google.android.material.textfield.TextInputLayout>
 
 
-                    <com.jaredrummler.materialspinner.MaterialSpinner
-                        android:id="@+id/spnr_genero"
+                    <TextView
+                        android:id="@+id/textview31"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:text="@string/genero"
                         android:layout_marginTop="24dp"
                         app:layout_constraintStart_toStartOf="@+id/textView18"
-                        app:layout_constraintTop_toBottomOf="@+id/textview3" />
+                        app:layout_constraintTop_toBottomOf="@+id/textview3"
+                        style="@style/textoInput" />
+
+                    <com.jaredrummler.materialspinner.MaterialSpinner
+                        android:id="@+id/spnr_genero"
+                        android:layout_width="400dp"
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="@+id/textView18"
+                        app:layout_constraintTop_toBottomOf="@+id/textview31" />
 
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/textview4"
                         style="@style/parent.TextLayout"
                         android:hint="@string/bi_cartao_de_cidadao_"
-                        android:layout_width="450dp"
+                        android:layout_width="300dp"
                         android:layout_marginTop="24dp"
                         app:layout_constraintStart_toStartOf="@+id/textView18"
                         app:layout_constraintTop_toBottomOf="@+id/spnr_genero"
@@ -118,7 +127,7 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/txt_inp_identificacao"
                             style="@style/modifiedEditText"
-                            android:inputType="numberDecimal"
+                            android:inputType="number"
                             android:maxLines="1"/>
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -137,14 +146,15 @@
                         <com.google.android.material.textfield.TextInputLayout
                             style="@style/parent.TextLayout"
                             android:hint="@string/data_de_nascimento"
-                            android:layout_width="450dp"
+                            android:layout_width="300dp"
                             android:layout_marginTop="@dimen/signup_text_margin_top"
                             app:errorEnabled="true">
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/txt_inp_data_nascimento"
                                 style="@style/modifiedEditText"
-                                android:inputType="text"
+                                android:inputType="date"
+                                android:enabled="false"
                                 android:maxLines="1"/>
                         </com.google.android.material.textfield.TextInputLayout>
 
@@ -164,7 +174,7 @@
                         android:id="@+id/textview5"
                         style="@style/parent.TextLayout"
                         android:hint="@string/niss"
-                        android:layout_width="450dp"
+                        android:layout_width="300dp"
                         android:layout_marginTop="24dp"
                         app:layout_constraintStart_toStartOf="@+id/textView18"
                         app:layout_constraintTop_toBottomOf="@+id/linearlayout1"

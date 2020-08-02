@@ -33,6 +33,14 @@ public class FormacaoViewModel extends BaseViewModel {
         acaoFormacao = new MutableLiveData<>();
     }
 
+    public void obterAcaoFormacao(int idAtividade) {
+
+
+        //formacaoRepositorio.obterAcaoFormacao(idAtividade).
+
+
+    }
+
 
 
     /**
@@ -84,8 +92,7 @@ public class FormacaoViewModel extends BaseViewModel {
     public void obterFormando(int idFormando) {
     }
 
-    public void obterAcaoFormacao(int anInt) {
-    }
+
 
     public void gravar(AcaoFormacao registo) {
 

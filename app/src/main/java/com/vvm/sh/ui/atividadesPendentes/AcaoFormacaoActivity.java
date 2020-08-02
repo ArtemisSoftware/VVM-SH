@@ -26,6 +26,7 @@ import com.vvm.sh.ui.opcoes.modelos.Tipo;
 import com.vvm.sh.util.MensagensUtil;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.base.BaseDatePickerDialog;
+import com.vvm.sh.util.base.BaseTimePickerDialog;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.metodos.DatasUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
@@ -42,7 +43,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 public class AcaoFormacaoActivity extends BaseDaggerActivity
-        implements Validator.ValidationListener, DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
+        implements Validator.ValidationListener, DatePickerDialog.OnDateSetListener {
 
 
 
@@ -138,6 +139,22 @@ public class AcaoFormacaoActivity extends BaseDaggerActivity
 
 
     //----------------------
+    //Metodos locais
+    //----------------------
+
+
+    /**
+     * Metodo que permite ativar a validacao de campos especificos
+     * @param ativar true para ativar ou false caso contrario
+     */
+    private void ativarValidacao(boolean ativar){
+
+        activityAcaoFormacaoBinding.txtInpData.setEnabled(ativar);
+        activityAcaoFormacaoBinding.txtInpInicio.setEnabled(ativar);
+        activityAcaoFormacaoBinding.txtInpFim.setEnabled(ativar);
+    }
+
+    //----------------------
     //Eventos
     //----------------------
 
@@ -152,21 +169,23 @@ public class AcaoFormacaoActivity extends BaseDaggerActivity
     @OnClick(R.id.crl_btn_inicio)
     public void crl_btn_inicio_OnClickListener(View view) {
 
-        TimePickerDialog dialogo = new TimePickerDialog();
+        BaseTimePickerDialog dialogo = new BaseTimePickerDialog(activityAcaoFormacaoBinding.txtInpInicio);
         dialogo.show(getSupportFragmentManager(), "Timepickerdialog");
 
-//        TimePickerDialog picker = new TimePickerDialog(this, this);
-//        picker.show();
     }
 
     @OnClick(R.id.crl_btn_fim)
     public void crl_btn_fim_OnClickListener(View view) {
-        //MetodosDatas.escolherHora(arg0, txt_inp_fim, 1);
+
+        BaseTimePickerDialog dialogo = new BaseTimePickerDialog(activityAcaoFormacaoBinding.txtInpFim);
+        dialogo.show(getSupportFragmentManager(), "Timepickerdialog");
     }
 
 
     @OnClick(R.id.fab_gravar)
     public void fab_gravar_OnClickListener(View view) {
+
+        ativarValidacao(true);
         validador.validate();
     }
 
@@ -174,6 +193,7 @@ public class AcaoFormacaoActivity extends BaseDaggerActivity
     @Override
     public void onValidationSucceeded() {
 
+        ativarValidacao(false);
 
         //TODO:acrescentar esta validacao
         //valido = MetodosValidacao.validarHorario(txt_inp_inicio, txt_inp_fim) & valido;
@@ -205,6 +225,8 @@ public class AcaoFormacaoActivity extends BaseDaggerActivity
             }
 
         }
+
+        ativarValidacao(false);
     }
 
 
@@ -213,8 +235,4 @@ public class AcaoFormacaoActivity extends BaseDaggerActivity
         activityAcaoFormacaoBinding.txtInpData.setText(DatasUtil.converterData(year, monthOfYear, dayOfMonth, DatasUtil.FORMATO_DD_MM_YYYY));
     }
 
-    @Override
-    public void onTimeSet(TimePickerDialog view, int hourOfDay, int minute, int second) {
-
-    }
 }

@@ -10,6 +10,7 @@ public class TiposConstantes {
     public static final String CROSS_SELLING_TIPO = "GetCrossSellingTpTipo";
     public static final String TIPOS_ANOMALIA = "GetTiposAnomalia";
     public static final String TIPIFICACAO_OCORRENCIA = "GetTipificacoesOcorrencia_New";
+    public static final String CURSOS = "getCoursesInfo";
 
 
     //EmailResultado

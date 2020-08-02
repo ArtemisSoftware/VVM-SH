@@ -41,7 +41,7 @@
             android:layout_height="300dp"
             app:layout_scrollFlags="scroll|exitUntilCollapsed"
             app:contentScrim="?attr/colorPrimary"
-            app:title="@string/formacao"
+            app:title="@string/relatorio"
             app:expandedTitleTextAppearance="@android:color/transparent"
             android:fitsSystemWindows="true">
 

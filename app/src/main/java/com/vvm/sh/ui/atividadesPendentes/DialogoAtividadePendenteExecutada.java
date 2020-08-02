@@ -160,7 +160,6 @@ public class DialogoAtividadePendenteExecutada extends BaseDaggerDialogoPersiste
     @OnClick(R.id.crl_btn_data_execucao)
     public void crl_btn_data_execucao_OnClickListener(View view) {
 
-
         BaseDatePickerDialog dialogo = new BaseDatePickerDialog(this);
         dialogo.fixarLimiteInferior(Calendar.DATE, -1 * Identificadores.Dias.DIAS_ACTIVIDADES_EXECUTADA);
         dialogo.obterDatePickerDialog().show(getActivity().getSupportFragmentManager(), "Datepickerdialog");

@@ -48,7 +48,7 @@
             <ImageView
                 app:layout_collapseMode="parallax"
                 android:src="@drawable/formacao_banner"
-                android:contentDescription="@string/formacao"
+                android:contentDescription="@string/relatorio"
                 android:scaleType="centerCrop"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent" />

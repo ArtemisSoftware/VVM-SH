@@ -10,7 +10,9 @@ import com.vvm.sh.di.anomalias.AnomaliasViewModelsModule;
 import com.vvm.sh.di.atividadesPendentes.AtividadesPendentesModule;
 import com.vvm.sh.di.atividadesPendentes.AtividadesPendentesScope;
 import com.vvm.sh.di.atividadesPendentes.AtividadesPendentesViewModelsModule;
+import com.vvm.sh.di.atividadesPendentes.formacao.FormacaoModule;
 import com.vvm.sh.di.atividadesPendentes.formacao.FormacaoScope;
+import com.vvm.sh.di.atividadesPendentes.formacao.FormacaoViewModelsModule;
 import com.vvm.sh.di.ocorrencias.OcorrenciasModule;
 import com.vvm.sh.di.ocorrencias.OcorrenciasScope;
 import com.vvm.sh.di.ocorrencias.OcorrenciasViewModelsModule;
@@ -18,10 +20,13 @@ import com.vvm.sh.di.tarefa.TarefaModule;
 import com.vvm.sh.di.tarefa.TarefaScope;
 import com.vvm.sh.di.tarefa.TarefaViewModelsModule;
 import com.vvm.sh.ui.anomalias.DialogoAnomalia;
+import com.vvm.sh.ui.atividadesPendentes.AcaoFormacaoActivity;
 import com.vvm.sh.ui.atividadesPendentes.DialogoAtividadePendente;
 import com.vvm.sh.ui.atividadesPendentes.DialogoAtividadePendenteExecutada;
 import com.vvm.sh.ui.atividadesPendentes.DialogoAtividadePendenteNaoExecutada;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.FormacaoActivity;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.FormacaoViewModel;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.FormandoActivity;
 import com.vvm.sh.ui.ocorrencias.OcorrenciasHistoricoActivity;
 import com.vvm.sh.ui.ocorrencias.OcorrenciasRegistoActivity;
 import com.vvm.sh.ui.ocorrencias.RegistarOcorrenciaActivity;
@@ -192,21 +197,21 @@ public abstract class ActivityBuildersModule {
 
     @FormacaoScope
     @ContributesAndroidInjector(
-            modules = { AtividadesPendentesViewModelsModule.class, AtividadesPendentesModule.class }
+            modules = { FormacaoViewModelsModule.class, FormacaoModule.class }
     )
     abstract FormacaoActivity contributeFormacaoActivity();
-//
-//    @FormacaoScope
-//    @ContributesAndroidInjector(
-//            modules = { AtividadesPendentesViewModelsModule.class, AtividadesPendentesModule.class }
-//    )
-//    abstract FormandoActivity contributeFormandoActivity();
-//
-//    @FormacaoScope
-//    @ContributesAndroidInjector(
-//            modules = { AtividadesPendentesViewModelsModule.class, AtividadesPendentesModule.class }
-//    )
-//    abstract AcaoFormacaoActivity contributeAcaoFormacaoActivity();
+
+    @FormacaoScope
+    @ContributesAndroidInjector(
+            modules = { FormacaoViewModelsModule.class, FormacaoModule.class }
+    )
+    abstract FormandoActivity contributeFormandoActivity();
+
+    @FormacaoScope
+    @ContributesAndroidInjector(
+            modules = { FormacaoViewModelsModule.class, FormacaoModule.class }
+    )
+    abstract AcaoFormacaoActivity contributeAcaoFormacaoActivity();
 
 
 

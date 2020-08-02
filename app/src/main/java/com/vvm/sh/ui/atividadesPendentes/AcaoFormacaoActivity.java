@@ -1,12 +1,14 @@
 package com.vvm.sh.ui.atividadesPendentes;
 
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.mobsandgeeks.saripaar.ValidationError;
@@ -21,10 +23,16 @@ import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.AcaoFormacao;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.FormacaoViewModel;
 import com.vvm.sh.ui.opcoes.modelos.Tipo;
+import com.vvm.sh.util.MensagensUtil;
+import com.vvm.sh.util.Recurso;
+import com.vvm.sh.util.base.BaseDatePickerDialog;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.metodos.DatasUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
+import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
+import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -34,7 +42,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 public class AcaoFormacaoActivity extends BaseDaggerActivity
-        implements Validator.ValidationListener {
+        implements Validator.ValidationListener, DatePickerDialog.OnDateSetListener, TimePickerDialog.OnTimeSetListener {
 
 
 
@@ -107,6 +115,25 @@ public class AcaoFormacaoActivity extends BaseDaggerActivity
     @Override
     protected void subscreverObservadores() {
 
+        viewModel.observarMessagem().observe(this, new Observer<Recurso>() {
+            @Override
+            public void onChanged(Recurso recurso) {
+
+                switch (recurso.status){
+
+                    case SUCESSO:
+
+                        //TODO: Completar metodo
+                        MensagensUtil.sucesso();
+                        finish();
+                        break;
+
+                    default:
+                        break;
+                }
+
+            }
+        });
     }
 
 
@@ -117,13 +144,19 @@ public class AcaoFormacaoActivity extends BaseDaggerActivity
 
     @OnClick(R.id.crl_btn_data)
     public void crl_btn_data_OnClickListener(View view) {
-        //MetodosDatas.escolherData(view, txt_inp_data);
+
+        BaseDatePickerDialog dialogo = new BaseDatePickerDialog(this);
+        dialogo.obterDatePickerDialog().show(getSupportFragmentManager(), "Datepickerdialog");
     }
 
     @OnClick(R.id.crl_btn_inicio)
     public void crl_btn_inicio_OnClickListener(View view) {
 
-        //MetodosDatas.escolherHora(arg0, txt_inp_inicio, 1);
+        TimePickerDialog dialogo = new TimePickerDialog();
+        dialogo.show(getSupportFragmentManager(), "Timepickerdialog");
+
+//        TimePickerDialog picker = new TimePickerDialog(this, this);
+//        picker.show();
     }
 
     @OnClick(R.id.crl_btn_fim)
@@ -175,4 +208,13 @@ public class AcaoFormacaoActivity extends BaseDaggerActivity
     }
 
 
+    @Override
+    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+        activityAcaoFormacaoBinding.txtInpData.setText(DatasUtil.converterData(year, monthOfYear, dayOfMonth, DatasUtil.FORMATO_DD_MM_YYYY));
+    }
+
+    @Override
+    public void onTimeSet(TimePickerDialog view, int hourOfDay, int minute, int second) {
+
+    }
 }

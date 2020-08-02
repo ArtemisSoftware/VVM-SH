@@ -9,11 +9,13 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import dagger.Module;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
+@Module
 public class FormacaoViewModel extends BaseViewModel {
 
     private final FormacaoRepositorio formacaoRepositorio;
@@ -40,7 +42,7 @@ public class FormacaoViewModel extends BaseViewModel {
     public void obterFormandos(int idAtividade){
 
         showProgressBar(true);
-/*
+
         formacaoRepositorio.obterFormandos(idAtividade).toObservable()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -72,7 +74,7 @@ public class FormacaoViewModel extends BaseViewModel {
                         }
 
                 );
-*/
+
     }
 
 

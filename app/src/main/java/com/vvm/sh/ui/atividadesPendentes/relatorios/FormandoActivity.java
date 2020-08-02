@@ -1,20 +1,12 @@
 package com.vvm.sh.ui.atividadesPendentes.relatorios;
 
-import androidx.annotation.NonNull;
-import androidx.appcompat.app.ActionBar;
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.coordinatorlayout.widget.CoordinatorLayout;
-import androidx.fragment.app.Fragment;
-import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 
-import com.google.android.material.bottomnavigation.BottomNavigationView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
@@ -24,16 +16,17 @@ import com.vvm.sh.databinding.ActivityFormandoBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.AssinaturaActivity;
 import com.vvm.sh.ui.BaseDaggerActivity;
-import com.vvm.sh.ui.atividadesPendentes.relatorios.FormacaoViewModel;
-import com.vvm.sh.ui.atividadesPendentes.relatorios.Formando;
 import com.vvm.sh.ui.opcoes.modelos.Tipo;
-import com.vvm.sh.util.BottomNavigationBehavior;
 import com.vvm.sh.util.MensagensUtil;
 import com.vvm.sh.util.Recurso;
+import com.vvm.sh.util.base.BaseDatePickerDialog;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.metodos.DatasUtil;
+import com.vvm.sh.util.metodos.Preferencias;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
+import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -42,7 +35,8 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class FormandoActivity extends BaseDaggerActivity implements Validator.ValidationListener{
+public class FormandoActivity extends BaseDaggerActivity
+        implements Validator.ValidationListener, DatePickerDialog.OnDateSetListener{
 
 
     private ActivityFormandoBinding activityFormandoBinding;
@@ -95,7 +89,6 @@ public class FormandoActivity extends BaseDaggerActivity implements Validator.Va
 
         activityFormandoBinding = (ActivityFormandoBinding) activityBinding;
         activityFormandoBinding.setLifecycleOwner(this);
-        //activityFormandoBinding.setListener(this);
         activityFormandoBinding.setViewmodel(viewModel);
 
         subscreverObservadores();
@@ -105,10 +98,8 @@ public class FormandoActivity extends BaseDaggerActivity implements Validator.Va
         if(bundle != null) {
 
             int idFormando = bundle.getInt(getString(R.string.argumento_id_formando));
+            viewModel.obterFormando(idFormando);
 
-            if(idFormando != 0){
-                viewModel.obterFormando(idFormando);
-            }
         }
         else{
             finish();
@@ -196,19 +187,19 @@ public class FormandoActivity extends BaseDaggerActivity implements Validator.Va
         String nacionalidade = activityFormandoBinding.txtInpNacionalidade.getText().toString();
 
 
-        Formando formando;
+        FormandoResultado formando;
 
         int idFormando = bundle.getInt(getString(R.string.argumento_id_formando));
 
         if(idFormando == 0){
-            formando = new Formando(idAtividade, nome, identificacao, genero.codigo, niss, dataNascimento, naturalidade, nacionalidade);
+            formando = new FormandoResultado(idAtividade, nome, identificacao, genero.codigo, niss, dataNascimento, naturalidade, nacionalidade);
         }
         else{
-            formando = new Formando(idAtividade, idFormando, nome, identificacao, genero.codigo, niss, dataNascimento, naturalidade, nacionalidade);
+            formando = new FormandoResultado(idAtividade, idFormando, nome, identificacao, genero.codigo, niss, dataNascimento, naturalidade, nacionalidade);
         }
 
 
-        viewModel.gravar(formando);
+        viewModel.gravar(Preferencias.obterIdTarefa(this), formando);
     }
 
     @Override
@@ -232,6 +223,14 @@ public class FormandoActivity extends BaseDaggerActivity implements Validator.Va
     //-------------------
     //Eventos
     //-------------------
+
+
+    @OnClick(R.id.crl_btn_data)
+    public void crl_btn_data_OnClickListener(View view) {
+
+        BaseDatePickerDialog dialogo = new BaseDatePickerDialog(this);
+        dialogo.obterDatePickerDialog().show(getSupportFragmentManager(), "Datepickerdialog");
+    }
 
 
     @OnClick(R.id.fab_gravar)
@@ -258,4 +257,8 @@ public class FormandoActivity extends BaseDaggerActivity implements Validator.Va
 
     }
 
+    @Override
+    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+        activityFormandoBinding.txtInpDataNascimento.setText(DatasUtil.converterData(year, monthOfYear, dayOfMonth, DatasUtil.FORMATO_DD_MM_YYYY));
+    }
 }

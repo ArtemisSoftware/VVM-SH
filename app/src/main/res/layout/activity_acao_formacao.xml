@@ -174,7 +174,7 @@
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/txt_inp_inicio"
                                 style="@style/modifiedEditText"
-                                android:text="@{DatasUtil.converterData(viewmodel.acaoFormacao.resultado.data, DatasUtil.FORMATO_DD_MM_YYYY)}"
+                                android:text="@{DatasUtil.converterData(viewmodel.acaoFormacao.resultado.inicio, DatasUtil.HORA_FORMATO_HH_MM)}"
                                 android:enabled="false"
                                 android:inputType="text"
                                 android:maxLines="1"/>
@@ -212,7 +212,7 @@
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/txt_inp_fim"
-                                android:text="@{DatasUtil.converterData(viewmodel.acaoFormacao.resultado.data, DatasUtil.HORA_FORMATO_HH_MM)}"
+                                android:text="@{DatasUtil.converterData(viewmodel.acaoFormacao.resultado.termino, DatasUtil.HORA_FORMATO_HH_MM)}"
                                 style="@style/modifiedEditText"
                                 android:enabled="false"
                                 android:inputType="text"

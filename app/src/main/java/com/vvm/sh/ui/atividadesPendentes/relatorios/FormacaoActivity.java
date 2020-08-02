@@ -11,6 +11,7 @@ import com.vvm.sh.databinding.ActivityFormacaoBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.atividadesPendentes.AcaoFormacaoActivity;
+import com.vvm.sh.util.metodos.Preferencias;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import javax.inject.Inject;
@@ -84,7 +85,7 @@ public class FormacaoActivity extends BaseDaggerActivity
             bundleFormacao.putInt(getString(R.string.argumento_id_atividade), idAtividade);
 
             if(formando != null){
-                bundleFormacao.putInt(getString(R.string.argumento_id_formando), formando.id);
+                bundleFormacao.putInt(getString(R.string.argumento_id_formando), formando.resultado.id);
             }
 
             intent.putExtras(bundleFormacao);
@@ -99,8 +100,8 @@ public class FormacaoActivity extends BaseDaggerActivity
     @Override
     public void OnSelecionadoCheck(Formando formando, boolean selecionado) {
 
-        formando.selecionado = selecionado;
-        viewModel.gravar(formando);
+        formando.resultado.selecionado = selecionado;
+        viewModel.gravar(Preferencias.obterIdTarefa(this), formando.resultado);
     }
 
 
@@ -137,6 +138,8 @@ public class FormacaoActivity extends BaseDaggerActivity
         }
 
     }
+
+
 
 //
 //    @BindView(R.id.rcl_registos)
@@ -181,8 +184,8 @@ public class FormacaoActivity extends BaseDaggerActivity
 //
 //        List<Item> t1 = new ArrayList<>();
 //
-//        t1.add(new Formando(1, "Formando numero 1", "3564365", "12345235", 1, 1, 1));
-//        t1.add(new Formando(2, "Formando numenro 2", "87647836", "674543", 1, 0, 0));
+//        t1.add(new FormandoResultado(1, "FormandoResultado numero 1", "3564365", "12345235", 1, 1, 1));
+//        t1.add(new FormandoResultado(2, "FormandoResultado numenro 2", "87647836", "674543", 1, 0, 0));
 //
 //        formandoRecyclerAdapter.fixarRegistos(t1);
 //

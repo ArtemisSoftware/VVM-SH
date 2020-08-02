@@ -31,6 +31,7 @@ public class FormacaoViewModel extends BaseViewModel {
 
     public MutableLiveData<List<Formando>> formandos;
     public MutableLiveData<Formando> formando;
+
     public MutableLiveData<AcaoFormacao> acaoFormacao;
     public MutableLiveData<List<Tipo>> generos;
 
@@ -128,6 +129,93 @@ public class FormacaoViewModel extends BaseViewModel {
     }
 
 
+
+    public void gravar(int idTarefa, FormandoResultado formando) {
+
+        Observable<Integer> atividade = formacaoRepositorio.removerAtividade(formando.idAtividade).toObservable();
+
+        if(acaoFormacao.getValue() == null){
+            //inserir
+
+            Observable<Long> inserir = formacaoRepositorio.inserirFormando(formando).toObservable();
+
+
+            Observable.zip(inserir, atividade, new BiFunction<Long, Integer, Object>() {
+                @Override
+                public Object apply(Long aLong, Integer integer) throws Exception {
+                    return new Object();
+                }
+            })
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Observer<Object>() {
+                        @Override
+                        public void onSubscribe(Disposable d) {
+
+                        }
+
+                        @Override
+                        public void onNext(Object o) {
+                            messagemLiveData.setValue(Recurso.successo());
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+
+                        }
+
+                        @Override
+                        public void onComplete() {
+
+                        }
+                    });
+        }
+        else{
+            //editar
+
+            Observable<Integer> atualizar = formacaoRepositorio.atualizarFormando(formando).toObservable();
+
+
+            Observable.zip(atualizar, atividade, new BiFunction<Integer, Integer, Object>() {
+                @Override
+                public Object apply(Integer aLong, Integer integer) throws Exception {
+                    return new Object();
+                }
+            })
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(new Observer<Object>() {
+                        @Override
+                        public void onSubscribe(Disposable d) {
+
+                        }
+
+                        @Override
+                        public void onNext(Object o) {
+                            messagemLiveData.setValue(Recurso.successo());
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+
+                        }
+
+                        @Override
+                        public void onComplete() {
+
+                        }
+                    });
+
+        }
+
+
+        ResultadoAsyncTask servico = new ResultadoAsyncTask(vvmshBaseDados, formacaoRepositorio.resultadoDao);
+        servico.execute(new Resultado(idTarefa, ResultadoId.ATIVIDADE_PENDENTE));
+    }
+
+
+
+
     //--------------------
     //OBTER
     //--------------------
@@ -179,15 +267,58 @@ public class FormacaoViewModel extends BaseViewModel {
     }
 
 
-
-
-
     public void obterAcaoFormacao(int idAtividade) {
 
         obterCursos();
 
         obterAcaoFormacaoAtividade(idAtividade);
     }
+
+
+
+    public void obterFormando(int idFormando) {
+
+        obterGeneros();
+
+        showProgressBar(true);
+
+
+        formacaoRepositorio.obterFormando(idFormando).toObservable()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new Observer<Formando>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onNext(Formando resultado) {
+
+                                formando.setValue(resultado);
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+
+                            @Override
+                            public void onComplete() {
+                                showProgressBar(false);
+                            }
+                        }
+
+                );
+
+    }
+
+
+
+
 
 
 
@@ -282,11 +413,6 @@ public class FormacaoViewModel extends BaseViewModel {
 
 
 
-    public void gravar(Formando formando) {
-    }
-
-    public void obterFormando(int idFormando) {
-    }
 
 
 

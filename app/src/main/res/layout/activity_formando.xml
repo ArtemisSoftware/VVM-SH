@@ -109,6 +109,7 @@
                     <com.jaredrummler.materialspinner.MaterialSpinner
                         android:id="@+id/spnr_genero"
                         android:layout_width="400dp"
+                        tipos_="@{viewmodel.generos}"
                         android:layout_height="wrap_content"
                         app:layout_constraintStart_toStartOf="@+id/textView18"
                         app:layout_constraintTop_toBottomOf="@+id/textview31" />

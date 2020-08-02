@@ -3,22 +3,12 @@ package com.vvm.sh.ui.atividadesPendentes.relatorios;
 import android.view.View;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.vvm.sh.R;
 import com.vvm.sh.databinding.ItemFormandoBinding;
-import com.vvm.sh.ui.atividadesPendentes.relatorios.Formando;
-import com.vvm.sh.ui.atividadesPendentes.relatorios.OnFormacaoListener;
-import com.vvm.sh.util.adaptadores.Item;
-import com.vvm.sh.util.adaptadores.ItemViewHolder;
-import com.vvm.sh.util.interfaces.OnCheckBoxItemListener;
-import com.vvm.sh.util.interfaces.OnItemListener;
-
-import butterknife.BindView;
 
 public class FormandoViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, CheckBox.OnCheckedChangeListener {
 

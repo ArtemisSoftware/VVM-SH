@@ -36,7 +36,7 @@
                 style="@style/tituloCartao"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:text="@{formando.nome, default=nome}"
+                android:text="@{formando.resultado.nome, default=nome}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -52,7 +52,7 @@
                 android:id="@+id/textView3"
                 style="@style/textoDetalhe"
                 android:layout_marginStart="16dp"
-                android:text="@{formando.biCartaoCidadao, default=identificacao}"
+                android:text="@{formando.resultado.biCartaoCidadao, default=identificacao}"
                 app:layout_constraintStart_toEndOf="@+id/textView2"
                 app:layout_constraintTop_toTopOf="@+id/textView2" />
 

@@ -13,6 +13,7 @@ import com.vvm.sh.databinding.DialogoAtividadePendenteBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.atividadesPendentes.adaptadores.OnAtividadePendenteListener;
 import com.vvm.sh.ui.BaseDaggerDialogFragment;
+import com.vvm.sh.util.constantes.Identificadores;
 
 import javax.inject.Inject;
 
@@ -41,11 +42,11 @@ public class DialogoAtividadePendente extends BaseDaggerDialogFragment {
     }
 
 
-    public static DialogoAtividadePendente newInstance(int id, boolean relatorio) {
+    public static DialogoAtividadePendente newInstance(int id, int relatorio) {
         DialogoAtividadePendente frag = new DialogoAtividadePendente();
 
         Bundle args = new Bundle();
-        args.putBoolean(ARGUMENTO_RELATORIO, relatorio);
+        args.putInt(ARGUMENTO_RELATORIO, relatorio);
         args.putInt(ARGUMENTO_ID_ATIVIDADE, id);
         frag.setArguments(args);
         return frag;
@@ -100,7 +101,7 @@ public class DialogoAtividadePendente extends BaseDaggerDialogFragment {
      */
     private void formatarDialogo() {
 
-        if(getArguments().getBoolean(ARGUMENTO_RELATORIO) == false){
+        if(getArguments().getInt(ARGUMENTO_RELATORIO) == Identificadores.Estados.SEM_RELATORIO){
 
             binding.rdBtnRelatorio.setVisibility(View.GONE);
         }
@@ -108,12 +109,9 @@ public class DialogoAtividadePendente extends BaseDaggerDialogFragment {
 
 
 
-
-
-
     @OnClick({R.id.rd_btn_actividade_executada, R.id.rd_btn_actividade_nao_executada, R.id.rd_btn_relatorio})
     public void onRadioButtonClicked(RadioButton radioButton) {
-        // Is the button now checked?
+
         boolean checked = radioButton.isChecked();
 
         // Check which radio button was clicked
@@ -137,7 +135,7 @@ public class DialogoAtividadePendente extends BaseDaggerDialogFragment {
             case R.id.rd_btn_relatorio:
                 if (checked) {
                     // 2 clicked
-                    //--listener.iniciarRelatorio();
+                    listener.OnIniciarRelatorio(getArguments().getInt(ARGUMENTO_ID_ATIVIDADE), getArguments().getInt(ARGUMENTO_RELATORIO));
                     terminarDialogo();
                 }
                 break;

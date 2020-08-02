@@ -13,32 +13,40 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.vvm.sh.databinding.ItemOcorrenciaRegistoBinding;
 
-public class OcorrenciaRegistoViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnCreateContextMenuListener{
+public class OcorrenciaRegistoViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnCreateContextMenuListener, MenuItem.OnMenuItemClickListener{
 
 
     public ItemOcorrenciaRegistoBinding binding;
 
-    private OnOcorrenciaRegistoListener listener;
+    private OnOcorrenciaRegistoListener listenerRegisto;
+    private OnOcorrenciaListener listenerOcorrencia;
 
 
-    public OcorrenciaRegistoViewHolder(@NonNull View itemView, OnOcorrenciaRegistoListener listener, boolean visualizar) {
+    public OcorrenciaRegistoViewHolder(@NonNull View itemView, OnOcorrenciaRegistoListener listener) {
         super(itemView);
         binding = DataBindingUtil.bind(itemView);
 
-        this.listener = listener;
+        this.listenerRegisto = listener;
 
-        if(visualizar == false) {
-            itemView.setOnClickListener(this);
-        }
+        itemView.setOnClickListener(this);
         itemView.setOnCreateContextMenuListener(this);
+    }
 
+
+    public OcorrenciaRegistoViewHolder(@NonNull View itemView, OnOcorrenciaListener listener) {
+        super(itemView);
+        binding = DataBindingUtil.bind(itemView);
+
+        this.listenerOcorrencia = listener;
+
+        itemView.setOnCreateContextMenuListener(this);
     }
 
 
 
     @Override
     public void onClick(View v) {
-        listener.OnOcorrenciaClick(binding.getOcorrencia());
+        listenerRegisto.OnOcorrenciaClick(binding.getOcorrencia());
     }
 
 
@@ -47,26 +55,24 @@ public class OcorrenciaRegistoViewHolder extends RecyclerView.ViewHolder impleme
 
         menu.setHeaderTitle("Opções");
         MenuItem Delete = menu.add(Menu.NONE, 1, 1, "Remover");
-        Delete.setOnMenuItemClickListener(onEditMenu);
+        Delete.setOnMenuItemClickListener(this);
     }
 
 
-    private final MenuItem.OnMenuItemClickListener onEditMenu = new MenuItem.OnMenuItemClickListener() {
-        @Override
-        public boolean onMenuItemClick(MenuItem item) {
+    @Override
+    public boolean onMenuItemClick(MenuItem item) {
 
+        switch (item.getItemId()) {
+            case 1:
+                if(listenerRegisto != null) {
+                    listenerRegisto.onRemoverClick(binding.getOcorrencia());
+                }
+                else{
+                    listenerOcorrencia.onRemoverClick(binding.getOcorrencia());
+                }
+                break;
 
-            switch (item.getItemId()) {
-                case 1:
-                    listener.onRemoverClick(binding.getOcorrencia());
-                    break;
-
-            }
-            return true;
         }
-    };
-
-
-
-
+        return true;
+    }
 }

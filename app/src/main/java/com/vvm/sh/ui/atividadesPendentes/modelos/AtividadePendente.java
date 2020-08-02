@@ -10,6 +10,7 @@ import androidx.room.PrimaryKey;
 
 import com.vvm.sh.ui.agenda.modelos.Tarefa;
 import com.vvm.sh.util.adaptadores.Item;
+import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.metodos.DatasUtil;
 
@@ -112,7 +113,7 @@ public class AtividadePendente {
             return RELATORIO_FORMACAO;
         }
         else{
-            return -1;
+            return Identificadores.Estados.SEM_RELATORIO;
         }
     }
 

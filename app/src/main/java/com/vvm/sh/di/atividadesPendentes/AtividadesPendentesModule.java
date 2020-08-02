@@ -50,25 +50,4 @@ public class AtividadesPendentesModule {
     }
 
 
-//    @FormacaoScope
-//    @Provides
-//    static FormandoDao provideFormandoDao(VvmshBaseDados vvmshBaseDados){
-//
-//        FormandoDao dao = vvmshBaseDados.obterFormandoDao();
-//
-//        //Timber.d("Providing NoteDao: " + dao);
-//        return dao;
-//    }
-
-
-//    @FormacaoScope
-//    @Provides
-//    FormacaoRepositorio provideFormacaoRepositorio(FormandoDao formandoDao) {
-//
-//        FormacaoRepositorio repositorio = new FormacaoRepositorio(formandoDao);
-//
-//        //Timber.d("Providing PokemonRepository: " + repository);
-//        return repositorio;
-//    }
-
 }

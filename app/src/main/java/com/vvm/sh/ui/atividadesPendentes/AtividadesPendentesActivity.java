@@ -77,7 +77,7 @@ public class AtividadesPendentesActivity extends BaseDaggerActivity
     @Override
     public void OnAtividadeClick(AtividadePendenteRegisto atividade) {
 
-        DialogoAtividadePendente dialogo = DialogoAtividadePendente.newInstance(atividade.atividade.id, atividade.atividade.existeRelatorio());
+        DialogoAtividadePendente dialogo = DialogoAtividadePendente.newInstance(atividade.atividade.id, atividade.atividade.obterIdRelatorio());
         dialogo.show(getSupportFragmentManager(), "example dialog");
     }
 
@@ -97,11 +97,11 @@ public class AtividadesPendentesActivity extends BaseDaggerActivity
 
 
     @Override
-    public void OnIniciarRelatorio(AtividadePendente atividade) {
+    public void OnIniciarRelatorio(int idAtividade, int idRelatorio) {
 
         Intent intent = null;
 
-        switch (atividade.obterIdRelatorio()){
+        switch (idRelatorio){
 
             case AtividadePendente.RELATORIO_FORMACAO:
                 intent = new Intent(this, FormacaoActivity.class);
@@ -115,7 +115,7 @@ public class AtividadesPendentesActivity extends BaseDaggerActivity
 
         if(intent != null){
 
-            //TODO: Passar o identificador da atividade
+            intent.putExtra(getString(R.string.argumento_id_atividade), idAtividade);
             startActivity(intent);
         }
 

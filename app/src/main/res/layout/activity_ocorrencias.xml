@@ -87,11 +87,9 @@
                 android:id="@+id/rcl_registos_inseridos"
                 style="@style/lista"
                 registosOcorrencias="@{viewmodel.ocorrenciasInseridas}"
+                onItemClick="@{listener}"
                 tools:listitem="@layout/item_ocorrencia_registo"/>
 
-            <!--
-                onItemClick="@{listener}"
-                 -->
 
         </LinearLayout>
 

@@ -13,6 +13,7 @@ import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.ocorrencias.adaptadores.OnOcorrenciaListener;
 import com.vvm.sh.ui.ocorrencias.modelos.Ocorrencia;
+import com.vvm.sh.ui.ocorrencias.modelos.OcorrenciaRegisto;
 import com.vvm.sh.ui.opcoes.modelos.Tipo;
 import com.vvm.sh.util.metodos.Preferencias;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
@@ -94,6 +95,11 @@ public class OcorrenciasActivity extends BaseDaggerActivity
     }
 
     @Override
+    public void onRemoverClick(OcorrenciaRegisto ocorrencia) {
+        viewModel.remover(Preferencias.obterIdTarefa(this), ocorrencia.id);
+    }
+
+    @Override
     public void onItemSelected(MaterialSpinner view, int position, long id, Object item) {
 
         Tipo tipo = (Tipo) item;
@@ -109,100 +115,4 @@ public class OcorrenciasActivity extends BaseDaggerActivity
     }
 
 
-//
-//    @BindView(R.id.rcl_registos)
-//    RecyclerView rcl_registos;
-//
-////    @BindView(R.id.txt_historico)
-////    TextView txt_historico;
-////
-////    @BindView(R.id.txt_marca)
-////    TextView txt_marca;
-//
-//    @BindView(R.id.txt_estado)
-//    TextView txt_estado;
-//
-//
-////    @BindView(R.id.crs_historico)
-////    CardView crs_historico;
-//
-//    private OcorrenciaRecyclerAdapter ocorrenciaRecyclerAdapter;
-//
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_ocorrencias);
-//
-//        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-//        if(getSupportActionBar() != null)
-//            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//
-//        iniciarAtividade();
-//        obterRegistos();
-//    }
-//
-//
-//    //------------------------
-//    //Metodos locais
-//    //------------------------
-//
-//
-//    /**
-//     * Metodo que permite iniciar a atividade
-//     */
-//    private void iniciarAtividade(){
-//
-////        crs_historico.setVisibility(View.GONE);
-//        //ocorrenciaRecyclerAdapter = new OcorrenciaRecyclerAdapter(this);
-//        rcl_registos.setAdapter(ocorrenciaRecyclerAdapter);
-//        rcl_registos.setLayoutManager(new LinearLayoutManager(this));
-//    }
-
-//    /**
-//     * Metodo que permite subscrever observadores
-//     */
-//    private void subscreverObservadores(){
-//
-//
-//        //TODO: subscrever observadores do viewmodel
-//
-//    }
-//
-//
-
-//
-////    @OnClick(R.id.crl_img_regressar)
-//    public void crl_img_regressar_OnClickListener(View view) {
-//        obterRegistos();
-//    }
-//
-
-//
-//
-//    @Override
-//    public void onItemClick(int position) {
-//
-//        try {
-//
-//            //--TESTE (apagar quando houver dados)
-//
-////            Ocorrencia registo = (Ocorrencia) ocorrenciaRecyclerAdapter.obterRegisto(position);
-////
-////            crs_historico.setVisibility(View.VISIBLE);
-////            txt_historico.setText(registo.obterDescricao());
-////            txt_marca.setText(registo.obterMarca());
-////            txt_estado.setText(registo.obterSituacao());
-////
-////            List<Item> t1 = new ArrayList<>();
-////            t1.add(new Ocorrencia("2019-02-04", "Resolvido", "uma observação grande", "departamento interno"));
-////            t1.add(new Ocorrencia("2019-02-02", "Resolvido por enquanto", "uma observação pequena", "departamento externo"));
-////            ocorrenciaRecyclerAdapter.renovarRegistos(t1);
-//
-//            //TODO: chamar metodo do viewmodel
-//
-//        }
-//        catch(IndexOutOfBoundsException e){}
-//
-//    }
 }

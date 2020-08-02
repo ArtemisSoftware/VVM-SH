@@ -45,32 +45,6 @@ public class OcorrenciasBinding {
 
 
 
-    @BindingAdapter({"registosOcorrencias"})
-    public static void setRegistosOcorrencias(RecyclerView view, List<OcorrenciaRegisto> items) {
-
-        if(items == null){
-            return;
-        }
-
-        RecyclerView.LayoutManager layoutManager = view.getLayoutManager();
-
-        if(layoutManager == null){
-            view.setLayoutManager(new LinearLayoutManager(view.getContext()));
-        }
-
-        OcorrenciaRegistoRecyclerAdapter adapter = (OcorrenciaRegistoRecyclerAdapter) view.getAdapter();
-
-        if(adapter == null){
-            adapter = new OcorrenciaRegistoRecyclerAdapter(view.getContext(), items, null);
-
-            view.setAdapter(adapter);
-        }
-        else{
-            adapter.atualizar(items);
-        }
-    }
-
-
 
     @BindingAdapter({"registosOcorrencias", "onItemClick"})
     public static void setRegistosOcorrencias(RecyclerView view, List<OcorrenciaRegisto> items, OnOcorrenciaRegistoListener listener) {
@@ -99,8 +73,8 @@ public class OcorrenciasBinding {
 
 
 
-    @BindingAdapter({"registosOcorrencias", "onItemClick", "visualizar"})
-    public static void setRegistosOcorrencias(RecyclerView view, List<OcorrenciaRegisto> items, OnOcorrenciaRegistoListener listener, boolean visualizar) {
+    @BindingAdapter({"registosOcorrencias", "onItemClick"})
+    public static void setRegistosOcorrencias(RecyclerView view, List<OcorrenciaRegisto> items, OnOcorrenciaListener listener) {
 
         if(items == null){
             return;
@@ -115,7 +89,7 @@ public class OcorrenciasBinding {
         OcorrenciaRegistoRecyclerAdapter adapter = (OcorrenciaRegistoRecyclerAdapter) view.getAdapter();
 
         if(adapter == null){
-            adapter = new OcorrenciaRegistoRecyclerAdapter(view.getContext(), items, listener, visualizar);
+            adapter = new OcorrenciaRegistoRecyclerAdapter(view.getContext(), items, listener);
 
             view.setAdapter(adapter);
         }

@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.vvm.sh.R;
 import com.vvm.sh.databinding.ItemOcorrenciaRegistoBinding;
 import com.vvm.sh.ui.ocorrencias.modelos.OcorrenciaRegisto;
-import com.vvm.sh.ui.opcoes.modelos.Tipo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,23 +20,20 @@ public class OcorrenciaRegistoRecyclerAdapter extends RecyclerView.Adapter<Recyc
 
     private List<OcorrenciaRegisto> items = new ArrayList<>();
     private Context contexto;
-    private OnOcorrenciaRegistoListener listener;
-    private boolean visualizar;
-
-    public OcorrenciaRegistoRecyclerAdapter(Context contexto, List<OcorrenciaRegisto> items, OnOcorrenciaRegistoListener listener, boolean visualizar) {
-        this.items = items;
-        this.contexto = contexto;
-        this.listener = listener;
-
-        this.visualizar = visualizar;
-    }
+    private OnOcorrenciaRegistoListener listenerRegisto;
+    private OnOcorrenciaListener listenerOcorrencia;
 
 
     public OcorrenciaRegistoRecyclerAdapter(Context contexto, List<OcorrenciaRegisto> items, OnOcorrenciaRegistoListener listener) {
         this.items = items;
         this.contexto = contexto;
-        this.listener = listener;
-        this.visualizar = false;
+        this.listenerRegisto = listener;
+    }
+
+    public OcorrenciaRegistoRecyclerAdapter(Context contexto, List<OcorrenciaRegisto> items, OnOcorrenciaListener listener) {
+        this.items = items;
+        this.contexto = contexto;
+        this.listenerOcorrencia = listener;
     }
 
 
@@ -46,7 +42,14 @@ public class OcorrenciaRegistoRecyclerAdapter extends RecyclerView.Adapter<Recyc
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         ItemOcorrenciaRegistoBinding binding = DataBindingUtil.inflate(LayoutInflater.from(contexto), R.layout.item_ocorrencia_registo, parent, false);
-        return new OcorrenciaRegistoViewHolder(binding.getRoot(), listener, this.visualizar);
+
+        if(this.listenerRegisto != null) {
+
+            return new OcorrenciaRegistoViewHolder(binding.getRoot(), listenerRegisto);
+        }
+        else{
+            return new OcorrenciaRegistoViewHolder(binding.getRoot(), listenerOcorrencia);
+        }
     }
 
     @Override
@@ -54,7 +57,6 @@ public class OcorrenciaRegistoRecyclerAdapter extends RecyclerView.Adapter<Recyc
 
         OcorrenciaRegisto registo = items.get(position);
         ((OcorrenciaRegistoViewHolder)holder).binding.setOcorrencia(registo);
-        ((OcorrenciaRegistoViewHolder)holder).binding.setListener(listener);
         ((OcorrenciaRegistoViewHolder)holder).binding.executePendingBindings();
 
     }

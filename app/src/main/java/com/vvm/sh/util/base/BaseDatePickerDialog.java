@@ -22,4 +22,49 @@ public class BaseDatePickerDialog {
     public DatePickerDialog obterDatePickerDialog() {
         return datePickerDialog;
     }
+
+
+    public void fixarLimiteInferior(int tipo, int desvio){
+
+        Calendar dataMinima = Calendar.getInstance();
+        dataMinima.set(tipo, calcularDesvio(tipo, desvio));
+        datePickerDialog.setMinDate(dataMinima);
+
+        Calendar dataMaxima = Calendar.getInstance();
+        datePickerDialog.setMaxDate(dataMaxima);
+    }
+
+
+    private int calcularDesvio(int tipo, int desvio){
+
+        int resultado = 0;
+
+        switch (tipo){
+
+            case Calendar.YEAR:
+
+                resultado = ano + desvio;
+                break;
+
+            case Calendar.MONTH:
+
+                resultado = mes + desvio;
+                break;
+
+            case Calendar.DATE:
+
+                resultado = dia + desvio;
+                break;
+
+            default:
+                break;
+
+        }
+
+
+        return resultado;
+
+    }
+
+
 }

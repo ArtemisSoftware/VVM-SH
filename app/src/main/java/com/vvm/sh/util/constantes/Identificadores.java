@@ -15,6 +15,14 @@ public class Identificadores {
 
         public static final int ESTADO_EXECUTADO = 1;
         public static final int ESTADO_NAO_EXECUTADO = 2;
+        public static final int SEM_RELATORIO =   -1;
     }
 
+    public class Dias {
+
+        /**
+         * Intervalo de dias das atividades executadas
+         */
+        public static final int DIAS_ACTIVIDADES_EXECUTADA = 2;
+    }
 }

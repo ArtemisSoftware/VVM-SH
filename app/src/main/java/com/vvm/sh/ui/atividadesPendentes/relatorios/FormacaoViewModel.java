@@ -22,7 +22,7 @@ public class FormacaoViewModel extends BaseViewModel {
     public MutableLiveData<Formando> formando;
     public MutableLiveData<AcaoFormacao> acaoFormacao;
 
-    //--@Inject
+    @Inject
     public FormacaoViewModel(FormacaoRepositorio formacaoRepositorio){
 
         this.formacaoRepositorio = formacaoRepositorio;

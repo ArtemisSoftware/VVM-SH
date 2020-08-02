@@ -22,11 +22,13 @@ import com.vvm.sh.util.BaseDialogoPersistenteFragment;
 import com.vvm.sh.util.MensagensUtil;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.base.BaseDatePickerDialog;
+import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.metodos.DatasUtil;
 import com.vvm.sh.util.metodos.Preferencias;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
+import java.util.Calendar;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -160,6 +162,7 @@ public class DialogoAtividadePendenteExecutada extends BaseDaggerDialogoPersiste
 
 
         BaseDatePickerDialog dialogo = new BaseDatePickerDialog(this);
+        dialogo.fixarLimiteInferior(Calendar.DATE, -1 * Identificadores.Dias.DIAS_ACTIVIDADES_EXECUTADA);
         dialogo.obterDatePickerDialog().show(getActivity().getSupportFragmentManager(), "Datepickerdialog");
     }
 

@@ -14,9 +14,6 @@
             name="ocorrencia"
             type="com.vvm.sh.ui.ocorrencias.modelos.OcorrenciaRegisto" />
 
-        <variable
-            name="listener"
-            type="com.vvm.sh.ui.ocorrencias.adaptadores.OnOcorrenciaRegistoListener"/>
 
     </data>
 

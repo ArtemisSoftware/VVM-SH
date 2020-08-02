@@ -193,11 +193,11 @@ public abstract class ActivityBuildersModule {
 
 
 
-//    @FormacaoScope
-//    @ContributesAndroidInjector(
-//            modules = { AtividadesPendentesViewModelsModule.class, AtividadesPendentesModule.class }
-//    )
-//    abstract FormacaoActivity contributeFormacaoActivity();
+    @FormacaoScope
+    @ContributesAndroidInjector(
+            modules = { AtividadesPendentesViewModelsModule.class, AtividadesPendentesModule.class }
+    )
+    abstract FormacaoActivity contributeFormacaoActivity();
 //
 //    @FormacaoScope
 //    @ContributesAndroidInjector(

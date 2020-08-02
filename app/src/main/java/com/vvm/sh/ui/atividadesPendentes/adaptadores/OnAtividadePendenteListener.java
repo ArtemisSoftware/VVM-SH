@@ -13,6 +13,6 @@ public interface OnAtividadePendenteListener {
     void OnConcluirAtividadeNaoExecutada(int idAtividade);
 
 
-    void OnIniciarRelatorio(AtividadePendente atividade);
+    void OnIniciarRelatorio(int idAtividade, int idRelatorio);
 
 }

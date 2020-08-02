@@ -1,14 +1,7 @@
 package com.vvm.sh.di.atividadesPendentes.formacao;
 
-import com.vvm.sh.baseDados.AtividadePendenteDao;
-import com.vvm.sh.baseDados.AtividadePendenteResultadoDao;
 import com.vvm.sh.baseDados.FormandoDao;
-import com.vvm.sh.baseDados.ResultadoDao;
-import com.vvm.sh.baseDados.TipoDao;
 import com.vvm.sh.baseDados.VvmshBaseDados;
-import com.vvm.sh.di.atividadesPendentes.AtividadesPendentesScope;
-import com.vvm.sh.di.atividadesPendentes.FormacaoScope;
-import com.vvm.sh.repositorios.AtividadePendenteRepositorio;
 import com.vvm.sh.repositorios.FormacaoRepositorio;
 
 import dagger.Module;

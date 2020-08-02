@@ -1,4 +1,4 @@
-package com.vvm.sh.di.atividadesPendentes;
+package com.vvm.sh.di.atividadesPendentes.formacao;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;

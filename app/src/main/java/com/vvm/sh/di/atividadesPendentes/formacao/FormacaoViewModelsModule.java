@@ -1,4 +1,4 @@
-package com.vvm.sh.di.atividadesPendentes;
+package com.vvm.sh.di.atividadesPendentes.formacao;
 
 import androidx.lifecycle.ViewModel;
 
@@ -11,11 +11,10 @@ import dagger.Module;
 import dagger.multibindings.IntoMap;
 
 @Module
-public abstract class AtividadesPendentesViewModelsModule {
+public abstract class FormacaoViewModelsModule {
 
     @Binds
     @IntoMap
-    @ViewModelKey(AtividadesPendentesViewModel.class)
-    public abstract ViewModel bindAtividadesPendentesViewModel(AtividadesPendentesViewModel viewModel);
-
+    @ViewModelKey(FormacaoViewModel.class)
+    public abstract ViewModel bindFormacaoViewModel(FormacaoViewModel viewModel);
 }

@@ -7,6 +7,7 @@
 
         <import type="java.util.List"/>
         <import type="android.view.View"/>
+        <import type="com.vvm.sh.util.metodos.DatasUtil"/>
 
         <variable
             name="viewmodel"
@@ -159,7 +160,7 @@
                             android:id="@+id/textView22"
                             style="@style/subTituloDescritivo"
                             android:layout_marginStart="16dp"
-                            android:text="TextView"
+                            android:text="@{viewmodel.acaoFormacao.designacao}"
                             app:layout_constraintStart_toEndOf="@+id/textView21"
                             app:layout_constraintTop_toTopOf="@+id/textView21" />
 
@@ -169,17 +170,67 @@
                             android:layout_marginTop="8dp"
                             android:layout_marginBottom="16dp"
                             android:text="@string/local_"
-                            app:layout_constraintBottom_toBottomOf="parent"
                             app:layout_constraintStart_toStartOf="@+id/textView20"
-                            app:layout_constraintTop_toBottomOf="@+id/textView21" />
+                            app:layout_constraintTop_toBottomOf="@+id/textView21"
+                            app:layout_constraintVertical_bias="0.498" />
 
                         <TextView
                             android:id="@+id/textView24"
                             style="@style/subTituloDescritivo"
                             android:layout_marginStart="16dp"
-                            android:text="TextView"
+                            android:text="@{viewmodel.acaoFormacao.resultado.local}"
                             app:layout_constraintStart_toEndOf="@+id/textView23"
                             app:layout_constraintTop_toTopOf="@+id/textView23" />
+
+                        <TextView
+                            android:id="@+id/textView26"
+                            style="@style/subTituloDescritivo"
+                            android:layout_marginTop="8dp"
+                            android:layout_marginBottom="16dp"
+                            android:text="@string/data_"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="@+id/textView23"
+                            app:layout_constraintTop_toBottomOf="@+id/textView23" />
+
+                        <TextView
+                            android:id="@+id/textView27"
+                            style="@style/subTituloDescritivo"
+                            android:layout_marginStart="16dp"
+                            android:text="@{DatasUtil.converterData(viewmodel.acaoFormacao.resultado.data, DatasUtil.FORMATO_DD_MM_YYYY)}"
+                            app:layout_constraintStart_toEndOf="@+id/textView26"
+                            app:layout_constraintTop_toTopOf="@+id/textView26" />
+
+                        <TextView
+                            android:id="@+id/textView28"
+                            style="@style/subTituloDescritivo"
+                            android:layout_marginStart="16dp"
+                            android:text="@string/inicio"
+                            app:layout_constraintStart_toEndOf="@+id/textView27"
+                            app:layout_constraintTop_toTopOf="@+id/textView26" />
+
+                        <TextView
+                            android:id="@+id/textView29"
+                            style="@style/subTituloDescritivo"
+                            android:layout_marginStart="16dp"
+                            android:text="@{DatasUtil.converterData(viewmodel.acaoFormacao.resultado.inicio, DatasUtil.HORA_FORMATO_HH_MM)}"
+                            app:layout_constraintStart_toEndOf="@+id/textView28"
+                            app:layout_constraintTop_toTopOf="@+id/textView26" />
+
+                        <TextView
+                            android:id="@+id/textView30"
+                            style="@style/subTituloDescritivo"
+                            android:layout_marginStart="16dp"
+                            android:text="@string/fim"
+                            app:layout_constraintStart_toEndOf="@+id/textView29"
+                            app:layout_constraintTop_toTopOf="@+id/textView26" />
+
+                        <TextView
+                            android:id="@+id/textView31"
+                            style="@style/subTituloDescritivo"
+                            android:layout_marginStart="16dp"
+                            android:text="@{DatasUtil.converterData(viewmodel.acaoFormacao.resultado.termino, DatasUtil.HORA_FORMATO_HH_MM)}"
+                            app:layout_constraintStart_toEndOf="@+id/textView30"
+                            app:layout_constraintTop_toTopOf="@+id/textView26" />
                     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

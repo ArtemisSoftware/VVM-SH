@@ -3,7 +3,7 @@ package com.vvm.sh.databinding;
 import androidx.databinding.BindingAdapter;
 
 import com.jaredrummler.materialspinner.MaterialSpinner;
-import com.vvm.sh.ui.atividadesPendentes.relatorios.AcaoFormacao;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.AcaoFormacaoResultado;
 import com.vvm.sh.ui.opcoes.modelos.Tipo;
 
 import java.util.List;
@@ -12,7 +12,7 @@ public class FormacaoBinding {
 
 
     @BindingAdapter({"tipos_", "acaoFormacao"})
-    public static void setTipos_(MaterialSpinner view, List<Tipo> registos, AcaoFormacao resultado) {
+    public static void setTipos_(MaterialSpinner view, List<Tipo> registos, AcaoFormacaoResultado resultado) {
 
         if (registos == null)
             return;

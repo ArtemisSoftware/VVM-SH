@@ -11,7 +11,7 @@ import com.vvm.sh.ui.anomalias.modelos.AnomaliaResultado;
 import com.vvm.sh.ui.atividadesExecutadas.modelos.AtividadeExecutada;
 import com.vvm.sh.ui.atividadesPendentes.modelos.AtividadePendente;
 import com.vvm.sh.ui.atividadesPendentes.modelos.AtividadePendenteResultado;
-import com.vvm.sh.ui.atividadesPendentes.relatorios.AcaoFormacao;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.AcaoFormacaoResultado;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.Formando;
 import com.vvm.sh.ui.autenticacao.modelos.Utilizador;
 import com.vvm.sh.ui.cliente.Cliente;
@@ -34,7 +34,7 @@ import com.vvm.sh.ui.tarefa.modelos.EmailResultado;
 
                     //Resultado
 
-                    EmailResultado.class, AnomaliaResultado.class, Formando.class, AcaoFormacao.class,
+                    EmailResultado.class, AnomaliaResultado.class, Formando.class, AcaoFormacaoResultado.class,
                     AtividadePendenteResultado.class, CrossSellingResultado.class, OcorrenciaResultado.class,
                     Resultado.class
             },

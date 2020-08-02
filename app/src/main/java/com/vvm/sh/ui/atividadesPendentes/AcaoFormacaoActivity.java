@@ -1,26 +1,20 @@
 package com.vvm.sh.ui.atividadesPendentes;
 
-import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Spinner;
-import android.widget.TextView;
-import android.widget.TimePicker;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
-import com.mobsandgeeks.saripaar.annotation.Select;
 import com.vvm.sh.R;
 import com.vvm.sh.databinding.ActivityAcaoFormacaoBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
-import com.vvm.sh.ui.BaseActivity;
 import com.vvm.sh.ui.BaseDaggerActivity;
-import com.vvm.sh.ui.atividadesPendentes.relatorios.AcaoFormacao;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.AcaoFormacaoResultado;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.FormacaoViewModel;
 import com.vvm.sh.ui.opcoes.modelos.Tipo;
 import com.vvm.sh.util.MensagensUtil;
@@ -32,9 +26,7 @@ import com.vvm.sh.util.metodos.DatasUtil;
 import com.vvm.sh.util.metodos.Preferencias;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
-import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
-import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -208,7 +200,7 @@ public class AcaoFormacaoActivity extends BaseDaggerActivity
         Date inicio = DatasUtil.converterString(activityAcaoFormacaoBinding.txtInpData.getText().toString() + " " + activityAcaoFormacaoBinding.txtInpInicio.getText().toString(), DatasUtil.DATA_FORMATO_DD_MM_YYYY__HH_MM);
         Date fim = DatasUtil.converterString(activityAcaoFormacaoBinding.txtInpData.getText().toString() + " " + activityAcaoFormacaoBinding.txtInpFim.getText().toString(), DatasUtil.DATA_FORMATO_DD_MM_YYYY__HH_MM);
 
-        AcaoFormacao registo = new AcaoFormacao(idAtividade, designacao.id, local, data, inicio, fim);
+        AcaoFormacaoResultado registo = new AcaoFormacaoResultado(idAtividade, designacao.id, local, data, inicio, fim);
 
         viewModel.gravar(Preferencias.obterIdTarefa(this), registo);
     }

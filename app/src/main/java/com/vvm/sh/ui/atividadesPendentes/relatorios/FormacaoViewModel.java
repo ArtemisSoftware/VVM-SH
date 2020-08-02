@@ -6,6 +6,7 @@ import com.vvm.sh.repositorios.FormacaoRepositorio;
 import com.vvm.sh.servicos.ResultadoAsyncTask;
 import com.vvm.sh.ui.agenda.modelos.Resultado;
 import com.vvm.sh.ui.opcoes.modelos.Tipo;
+import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.ResultadoId;
 import com.vvm.sh.util.constantes.TiposConstantes;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
@@ -43,7 +44,7 @@ public class FormacaoViewModel extends BaseViewModel {
         generos = new MutableLiveData<>();
     }
 
-    public void gravar(int idTarefa, AcaoFormacao registo) {
+    public void gravar(int idTarefa, AcaoFormacaoResultado registo) {
 
         Observable<Integer> atividade = formacaoRepositorio.removerAtividade(registo.idAtividade).toObservable();
 
@@ -69,7 +70,7 @@ public class FormacaoViewModel extends BaseViewModel {
 
                 @Override
                 public void onNext(Object o) {
-
+                    messagemLiveData.setValue(Recurso.successo());
                 }
 
                 @Override
@@ -105,7 +106,7 @@ public class FormacaoViewModel extends BaseViewModel {
 
                 @Override
                 public void onNext(Object o) {
-
+                    messagemLiveData.setValue(Recurso.successo());
                 }
 
                 @Override
@@ -132,9 +133,67 @@ public class FormacaoViewModel extends BaseViewModel {
     //--------------------
 
 
+    /**
+     * Metodo que permite obter os formandos
+     * @param idAtividade o identificador da atividade
+     */
+    public void obterFormacao(int idAtividade){
+
+        obterAcaoFormacaoAtividade(idAtividade);
+
+        showProgressBar(true);
+
+
+        formacaoRepositorio.obterFormandos(idAtividade).toObservable()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+
+                        new Observer<List<Formando>>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onNext(List<Formando> resultado) {
+
+                                formandos.setValue(resultado);
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+
+                            @Override
+                            public void onComplete() {
+                                showProgressBar(false);
+                            }
+                        }
+
+                );
+
+    }
+
+
+
+
+
     public void obterAcaoFormacao(int idAtividade) {
 
         obterCursos();
+
+        obterAcaoFormacaoAtividade(idAtividade);
+    }
+
+
+
+
+
+    private void obterAcaoFormacaoAtividade(int idAtividade) {
 
         formacaoRepositorio.obterAcaoFormacao(idAtividade).toObservable()
                 .subscribeOn(Schedulers.io())
@@ -163,10 +222,7 @@ public class FormacaoViewModel extends BaseViewModel {
                             }
                         }
                 );
-
-
     }
-
 
 
     /**
@@ -224,48 +280,6 @@ public class FormacaoViewModel extends BaseViewModel {
     }
 
 
-
-    /**
-     * Metodo que permite obter os formandos
-     * @param idAtividade o identificador da atividade
-     */
-    public void obterFormandos(int idAtividade){
-
-        showProgressBar(true);
-
-        formacaoRepositorio.obterFormandos(idAtividade).toObservable()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-
-
-                        new Observer<List<Formando>>() {
-                            @Override
-                            public void onSubscribe(Disposable d) {
-                                disposables.add(d);
-                            }
-
-                            @Override
-                            public void onNext(List<Formando> resultado) {
-
-                                formandos.setValue(resultado);
-                                showProgressBar(false);
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-
-                            }
-
-                            @Override
-                            public void onComplete() {
-                                showProgressBar(false);
-                            }
-                        }
-
-                );
-
-    }
 
 
     public void gravar(Formando formando) {

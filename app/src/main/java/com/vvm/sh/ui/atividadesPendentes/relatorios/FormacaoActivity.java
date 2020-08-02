@@ -48,7 +48,7 @@ public class FormacaoActivity extends BaseDaggerActivity
         Bundle bundle = getIntent().getExtras();
 
         if(bundle != null) {
-            viewModel.obterFormandos(bundle.getInt(getString(R.string.argumento_id_atividade)));
+            viewModel.obterFormacao(bundle.getInt(getString(R.string.argumento_id_atividade)));
         }
         else{
             finish();

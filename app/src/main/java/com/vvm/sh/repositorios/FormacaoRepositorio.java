@@ -7,8 +7,8 @@ import com.vvm.sh.baseDados.AtividadePendenteResultadoDao;
 import com.vvm.sh.baseDados.FormandoDao;
 import com.vvm.sh.baseDados.ResultadoDao;
 import com.vvm.sh.baseDados.TipoDao;
-import com.vvm.sh.ui.agenda.modelos.Resultado;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.AcaoFormacao;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.AcaoFormacaoResultado;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.Formando;
 import com.vvm.sh.ui.opcoes.modelos.Tipo;
 import com.vvm.sh.util.constantes.TiposConstantes;
@@ -38,14 +38,15 @@ public class FormacaoRepositorio {
     }
 
     public Maybe<AcaoFormacao> obterAcaoFormacao(int idAtividade) {
-        return acaoFormacaoDao.obterAcaoFormacao(idAtividade);
+        return acaoFormacaoDao.obterAcaoFormacao(idAtividade, TiposConstantes.CURSOS);
     }
 
-    public Single<Long> inserirAcaoFormacao(AcaoFormacao acaoFormacao) {
+
+    public Single<Long> inserirAcaoFormacao(AcaoFormacaoResultado acaoFormacao) {
         return acaoFormacaoDao.inserir(acaoFormacao);
     }
 
-    public Single<Integer> atualizarAcaoFormacao(AcaoFormacao acaoFormacao) {
+    public Single<Integer> atualizarAcaoFormacao(AcaoFormacaoResultado acaoFormacao) {
         return acaoFormacaoDao.atualizar(acaoFormacao);
     }
 
@@ -71,4 +72,7 @@ public class FormacaoRepositorio {
     public Single<Integer> removerAtividade(int idAtividade) {
         return atividadePendenteResultadoDao.remover(idAtividade);
     }
+
+
+
 }

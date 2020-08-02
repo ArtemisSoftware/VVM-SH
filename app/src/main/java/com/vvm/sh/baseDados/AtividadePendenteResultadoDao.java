@@ -13,4 +13,8 @@ abstract public class AtividadePendenteResultadoDao implements BaseDao<Atividade
 
     @Query("SELECT * FROM atividadesPendentesResultado WHERE id = :id")
     abstract public Maybe<AtividadePendenteResultado> obterAtividade(int id);
+
+
+    @Query("DELETE FROM atividadesPendentesResultado WHERE id = :id")
+    abstract public Single<Integer> remover(int id);
 }

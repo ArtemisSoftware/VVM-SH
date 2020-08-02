@@ -29,6 +29,7 @@ import com.vvm.sh.util.base.BaseDatePickerDialog;
 import com.vvm.sh.util.base.BaseTimePickerDialog;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.metodos.DatasUtil;
+import com.vvm.sh.util.metodos.Preferencias;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
@@ -209,7 +210,7 @@ public class AcaoFormacaoActivity extends BaseDaggerActivity
 
         AcaoFormacao registo = new AcaoFormacao(idAtividade, designacao.id, local, data, inicio, fim);
 
-        viewModel.gravar(registo);
+        viewModel.gravar(Preferencias.obterIdTarefa(this), registo);
     }
 
     @Override

@@ -11,7 +11,7 @@ import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.vvm.sh.ui.opcoes.modelos.Tipo;
 import com.vvm.sh.ui.tarefa.adaptadores.OnTarefaListener;
 import com.vvm.sh.ui.tarefa.adaptadores.OpcaoClienteRecyclerAdapter;
-import com.vvm.sh.ui.tarefa.modelos.EmailResultado;
+import com.vvm.sh.baseDados.entidades.EmailResultado;
 import com.vvm.sh.ui.tarefa.modelos.OpcaoCliente;
 
 import java.util.List;

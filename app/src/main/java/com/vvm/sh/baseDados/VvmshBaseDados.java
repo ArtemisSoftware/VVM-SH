@@ -24,7 +24,7 @@ import com.vvm.sh.ui.ocorrencias.modelos.OcorrenciaHistorico;
 import com.vvm.sh.ui.ocorrencias.modelos.OcorrenciaResultado;
 import com.vvm.sh.ui.opcoes.modelos.Atualizacao;
 import com.vvm.sh.ui.opcoes.modelos.Tipo;
-import com.vvm.sh.ui.tarefa.modelos.EmailResultado;
+import com.vvm.sh.baseDados.entidades.EmailResultado;
 
 @Database(
             entities = {

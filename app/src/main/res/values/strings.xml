@@ -232,5 +232,6 @@
     <string name="completo">Completo</string>
     <string name="incompleto">Incompleto</string>
     <string name="agenda">Agenda</string>
+    <string name="anomalias_cliente">Anomalias Cliente</string>
 
 </resources>

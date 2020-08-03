@@ -4,7 +4,7 @@ import androidx.room.Dao;
 import androidx.room.Query;
 
 import com.vvm.sh.baseDados.entidades.Resultado;
-import com.vvm.sh.ui.tarefa.modelos.EmailResultado;
+import com.vvm.sh.baseDados.entidades.EmailResultado;
 
 import java.util.List;
 

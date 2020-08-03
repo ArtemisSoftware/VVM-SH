@@ -42,5 +42,6 @@ public class Identificadores {
 
     public class Resultados {
         public static final int ID_EMAIL = 1;
+        public static final int ID_ANOMALIA_CLIENTE = 2;
     }
 }

@@ -10,7 +10,7 @@ import com.vvm.sh.ui.agenda.modelos.TarefaDia;
 import com.vvm.sh.ui.atividadesExecutadas.modelos.AtividadeExecutada;
 import com.vvm.sh.ui.cliente.Cliente;
 import com.vvm.sh.ui.opcoes.modelos.Tipo;
-import com.vvm.sh.ui.tarefa.modelos.EmailResultado;
+import com.vvm.sh.baseDados.entidades.EmailResultado;
 import com.vvm.sh.ui.tarefa.modelos.OpcaoCliente;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.ResultadoId;

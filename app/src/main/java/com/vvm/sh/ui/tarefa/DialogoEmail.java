@@ -1,20 +1,15 @@
 package com.vvm.sh.ui.tarefa;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.google.android.material.textfield.TextInputEditText;
-import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.vvm.sh.R;
 import com.vvm.sh.databinding.DialogoEmailBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerDialogoPersistenteFragment;
 import com.vvm.sh.ui.opcoes.modelos.Tipo;
-import com.vvm.sh.ui.tarefa.adaptadores.OnTarefaListener;
-import com.vvm.sh.ui.tarefa.modelos.EmailResultado;
+import com.vvm.sh.baseDados.entidades.EmailResultado;
 import com.vvm.sh.util.MensagensUtil;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.constantes.Sintaxe;

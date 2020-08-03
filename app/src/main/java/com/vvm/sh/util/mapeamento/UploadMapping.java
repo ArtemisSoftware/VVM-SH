@@ -1,7 +1,7 @@
 package com.vvm.sh.util.mapeamento;
 
 import com.vvm.sh.api.Email;
-import com.vvm.sh.ui.tarefa.modelos.EmailResultado;
+import com.vvm.sh.baseDados.entidades.EmailResultado;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -15,5 +15,7 @@ public interface UploadMapping {
     @Mapping(source = "endereco", target = "email")
     @Mapping(source = "idAutorizacao", target = "estadoEmail")
     Email map(EmailResultado item);
+
+
 
 }

@@ -5,7 +5,7 @@ import androidx.annotation.NonNull;
 import com.vvm.sh.api.SegurancaAlimentarApi;
 import com.vvm.sh.baseDados.dao.UploadDao;
 import com.vvm.sh.baseDados.entidades.Resultado;
-import com.vvm.sh.ui.tarefa.modelos.EmailResultado;
+import com.vvm.sh.baseDados.entidades.EmailResultado;
 
 import java.util.List;
 

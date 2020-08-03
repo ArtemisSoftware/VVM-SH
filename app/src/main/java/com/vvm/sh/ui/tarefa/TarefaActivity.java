@@ -18,7 +18,6 @@ import com.vvm.sh.ui.cliente.InformacaoActivity;
 import com.vvm.sh.ui.crossSelling.CrossSellingActivity;
 import com.vvm.sh.ui.ocorrencias.OcorrenciasActivity;
 import com.vvm.sh.ui.tarefa.adaptadores.OnTarefaListener;
-import com.vvm.sh.ui.tarefa.modelos.EmailResultado;
 import com.vvm.sh.ui.tarefa.modelos.OpcaoCliente;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.constantes.Url;

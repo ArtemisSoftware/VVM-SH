@@ -434,7 +434,7 @@
                                 android:id="@+id/textView55"
                                 style="@style/textoDetalhe"
                                 android:layout_marginTop="16dp"
-                                android:text="@string/anomalias"
+                                android:text="@string/anomalias_cliente"
                                 app:layout_constraintEnd_toEndOf="@+id/circularImageView55"
                                 app:layout_constraintStart_toStartOf="@+id/circularImageView55"
                                 app:layout_constraintTop_toBottomOf="@+id/circularImageView55" />

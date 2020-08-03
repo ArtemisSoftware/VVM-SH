@@ -3,16 +3,19 @@ package com.vvm.sh.servicos;
 import android.database.sqlite.SQLiteConstraintException;
 import android.os.AsyncTask;
 
+import com.vvm.sh.api.Anomalia;
 import com.vvm.sh.api.DadosFormularios;
 import com.vvm.sh.api.Email;
 import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.baseDados.entidades.Resultado;
 import com.vvm.sh.repositorios.UploadRepositorio;
+import com.vvm.sh.ui.anomalias.modelos.AnomaliaResultado;
 import com.vvm.sh.util.mapeamento.ModelMapping;
 import com.vvm.sh.util.mapeamento.UploadMapping;
 
 import org.json.JSONArray;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.vvm.sh.util.constantes.Identificadores.Resultados.*;
@@ -59,7 +62,7 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Resultado>, Void, Void
 
                             case ID_ANOMALIA_CLIENTE:
 
-//                                dadosFormularios.fixarEmail(adicionarAnomaliaCliente(resultado.idTarefa));
+                                dadosFormularios.fixarAnomalias(adicionarAnomaliaCliente(resultado.idTarefa));
                                 break;
 
 
@@ -80,12 +83,17 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Resultado>, Void, Void
     }
 
 
-//    private Email adicionarAnomaliaCliente(int idTarefa) {
-//
-//        Email email = UploadMapping.INSTANCE.map(repositorio.obterEmail(idTarefa));
-//        return email;
-//    }
-//
+    private List<Anomalia> adicionarAnomaliaCliente(int idTarefa) {
+
+        List<Anomalia> registos = new ArrayList<>();
+
+        for (AnomaliaResultado item : repositorio.obterAnomalias(idTarefa)) {
+            registos.add(UploadMapping.INSTANCE.map(item));
+        }
+
+        return registos;
+    }
+
 
     private Email adicionarEmail(int idTarefa) {
 

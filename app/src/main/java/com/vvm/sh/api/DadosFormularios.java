@@ -12,6 +12,9 @@ public class DadosFormularios {
     @SerializedName("email")
     public EmailInfo email;
 
+    @SerializedName("RegistoAnomalias")
+    public AnomaliasClienteInfo anomaliasCliente;
+
 
     public DadosFormularios() {
 
@@ -34,8 +37,33 @@ public class DadosFormularios {
         }
     }
 
+
+
+    public class AnomaliasClienteInfo{
+
+        @SerializedName("dataRegisto")
+        public String dataRegisto;
+
+        @SerializedName("dados")
+        public List<Anomalia> dados;
+
+
+        public AnomaliasClienteInfo() {
+
+            this.dataRegisto = DatasUtil.obterDataAtual(DatasUtil.DATA_FORMATO_YYYY_MM_DD__HH_MM_SS);
+            this.dados = new ArrayList<>();
+        }
+    }
+
+
+
     public void fixarEmail(Email email){
         this.email.dados.add(email);
+    }
+
+
+    public void fixarAnomalias(List<Anomalia> anomalias){
+        this.anomaliasCliente.dados = anomalias;
     }
 
 }

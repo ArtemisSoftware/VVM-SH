@@ -70,7 +70,6 @@ public abstract class VvmshBaseDados extends RoomDatabase {
 
     public abstract ClienteDao obterClienteDao();
 
-    public abstract AnomaliaDao obterAnomaliaDao();
 
     public abstract AtividadePendenteDao obterAtividadePendenteDao();
 

@@ -5,6 +5,7 @@ import androidx.room.Query;
 
 import com.vvm.sh.baseDados.entidades.Resultado;
 import com.vvm.sh.baseDados.entidades.EmailResultado;
+import com.vvm.sh.ui.anomalias.modelos.AnomaliaResultado;
 
 import java.util.List;
 
@@ -24,5 +25,9 @@ abstract public class UploadDao {
 
     @Query("SELECT * FROM emailsResultado WHERE idTarefa = :idTarefa")
     abstract public EmailResultado obterEmail(int idTarefa);
+
+
+    @Query("SELECT * FROM anomaliasResultado WHERE idTarefa = :idTarefa")
+    abstract public List<AnomaliaResultado> obterAnomalias(int idTarefa);
 
 }

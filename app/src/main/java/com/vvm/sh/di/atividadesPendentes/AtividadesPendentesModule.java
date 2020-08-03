@@ -1,14 +1,11 @@
 package com.vvm.sh.di.atividadesPendentes;
 
-import com.vvm.sh.baseDados.AnomaliaDao;
 import com.vvm.sh.baseDados.AtividadePendenteDao;
 import com.vvm.sh.baseDados.AtividadePendenteResultadoDao;
-import com.vvm.sh.baseDados.FormandoDao;
 import com.vvm.sh.baseDados.ResultadoDao;
 import com.vvm.sh.baseDados.TipoDao;
 import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.repositorios.AtividadePendenteRepositorio;
-import com.vvm.sh.repositorios.FormacaoRepositorio;
 
 import dagger.Module;
 import dagger.Provides;

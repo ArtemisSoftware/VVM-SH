@@ -2,7 +2,6 @@ package com.vvm.sh.repositorios;
 
 import androidx.annotation.NonNull;
 
-import com.vvm.sh.baseDados.AnomaliaDao;
 import com.vvm.sh.baseDados.AnomaliaResultadoDao;
 import com.vvm.sh.baseDados.ResultadoDao;
 import com.vvm.sh.baseDados.TipoDao;
@@ -19,14 +18,13 @@ import io.reactivex.Single;
 
 public class AnomaliaRepositorio {
 
-    private final AnomaliaDao anomaliaDao;
     private final AnomaliaResultadoDao anomaliaResultadoDao;
     private final TipoDao tipoDao;
     public final ResultadoDao resultadoDao;
 
-    public AnomaliaRepositorio(@NonNull AnomaliaDao anomaliaDao, @NonNull AnomaliaResultadoDao anomaliaResultadoDao,
+    public AnomaliaRepositorio(@NonNull AnomaliaResultadoDao anomaliaResultadoDao,
                                @NonNull TipoDao tipoDao, @NonNull ResultadoDao resultadoDao) {
-        this.anomaliaDao = anomaliaDao;
+
         this.anomaliaResultadoDao = anomaliaResultadoDao;
         this.tipoDao = tipoDao;
         this.resultadoDao = resultadoDao;
@@ -47,7 +45,7 @@ public class AnomaliaRepositorio {
 
 
     public Flowable<List<Anomalia>> obterAnomalias(int idTarefa) {
-        return anomaliaDao.obterAnomalias(idTarefa);
+        return anomaliaResultadoDao.obterAnomalias(idTarefa);
     }
 
 

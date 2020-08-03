@@ -11,6 +11,6 @@ import java.util.List;
 abstract public class DownloadTrabalhoDao {
 
     @Insert
-    abstract public List<Long> inserir(List<Anomalia> registos);
+    abstract public List<Long> inserirAnomalias(List<Anomalia> registos);
 
 }

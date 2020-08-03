@@ -6,6 +6,7 @@ import com.vvm.sh.api.SegurancaAlimentarApi;
 import com.vvm.sh.baseDados.dao.UploadDao;
 import com.vvm.sh.baseDados.entidades.Resultado;
 import com.vvm.sh.baseDados.entidades.EmailResultado;
+import com.vvm.sh.ui.anomalias.modelos.AnomaliaResultado;
 
 import java.util.List;
 
@@ -31,6 +32,10 @@ public class UploadRepositorio {
 
     public EmailResultado obterEmail(int idTarefa){
         return uploadDao.obterEmail(idTarefa);
+    }
+
+    public List<AnomaliaResultado> obterAnomalias(int idTarefa){
+        return uploadDao.obterAnomalias(idTarefa);
     }
 
 }

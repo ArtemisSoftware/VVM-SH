@@ -4,13 +4,13 @@ import androidx.annotation.NonNull;
 
 import com.vvm.sh.api.SegurancaAlimentarApi;
 import com.vvm.sh.api.modelos.SessaoResposta;
-import com.vvm.sh.baseDados.AnomaliaDao;
 import com.vvm.sh.baseDados.AtividadeExecutadaDao;
 import com.vvm.sh.baseDados.AtividadePendenteDao;
 import com.vvm.sh.baseDados.ClienteDao;
 import com.vvm.sh.baseDados.OcorrenciaDao;
 import com.vvm.sh.baseDados.OcorrenciaHistoricoDao;
 import com.vvm.sh.baseDados.TarefaDao;
+import com.vvm.sh.baseDados.dao.DownloadTrabalhoDao;
 import com.vvm.sh.ui.agenda.modelos.Tarefa;
 import com.vvm.sh.ui.agenda.modelos.TarefaDia;
 import com.vvm.sh.ui.anomalias.modelos.Anomalia;
@@ -30,20 +30,20 @@ public class AgendaRepositorio {
     private final TarefaDao tarefaDao;
     private final AtividadeExecutadaDao atividadeExecutadaDao;
     private final ClienteDao clienteDao;
-    private final AnomaliaDao anomaliaDao;
     private final AtividadePendenteDao atividadePendenteDao;
     private final OcorrenciaDao ocorrenciaDao;
     private final OcorrenciaHistoricoDao ocorrenciaHistoricoDao;
+    private final DownloadTrabalhoDao downloadTrabalhoDao;
 
-    public AgendaRepositorio(@NonNull SegurancaAlimentarApi api,
+    public AgendaRepositorio(@NonNull SegurancaAlimentarApi api, @NonNull DownloadTrabalhoDao downloadTrabalhoDao,
                              @NonNull TarefaDao tarefaDao, @NonNull AtividadeExecutadaDao atividadeExecutadaDao,
-                             @NonNull ClienteDao clienteDao, @NonNull AnomaliaDao anomaliaDao, @NonNull AtividadePendenteDao atividadePendenteDao,
+                             @NonNull ClienteDao clienteDao, @NonNull AtividadePendenteDao atividadePendenteDao,
                              @NonNull OcorrenciaDao ocorrenciaDao, OcorrenciaHistoricoDao ocorrenciaHistoricoDao) {
         this.api = api;
+        this.downloadTrabalhoDao = downloadTrabalhoDao;
         this.tarefaDao = tarefaDao;
         this.atividadeExecutadaDao = atividadeExecutadaDao;
         this.clienteDao = clienteDao;
-        this.anomaliaDao = anomaliaDao;
         this.atividadePendenteDao = atividadePendenteDao;
         this.ocorrenciaDao = ocorrenciaDao;
         this.ocorrenciaHistoricoDao = ocorrenciaHistoricoDao;
@@ -77,7 +77,7 @@ public class AgendaRepositorio {
     }
 
     public void inserirAnomalias(List<Anomalia> anomalias){
-        anomaliaDao.inserir(anomalias);
+        downloadTrabalhoDao.inserirAnomalias(anomalias);
     }
 
     public void inserirAtividadesPendentes(List<AtividadePendente> atividades){

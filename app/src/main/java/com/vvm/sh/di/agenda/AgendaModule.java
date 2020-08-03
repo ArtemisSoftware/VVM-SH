@@ -2,7 +2,6 @@ package com.vvm.sh.di.agenda;
 
 
 import com.vvm.sh.api.SegurancaAlimentarApi;
-import com.vvm.sh.baseDados.AnomaliaDao;
 import com.vvm.sh.baseDados.AtividadeExecutadaDao;
 import com.vvm.sh.baseDados.AtividadePendenteDao;
 import com.vvm.sh.baseDados.ClienteDao;
@@ -10,8 +9,8 @@ import com.vvm.sh.baseDados.OcorrenciaDao;
 import com.vvm.sh.baseDados.OcorrenciaHistoricoDao;
 import com.vvm.sh.baseDados.TarefaDao;
 import com.vvm.sh.baseDados.VvmshBaseDados;
+import com.vvm.sh.baseDados.dao.DownloadTrabalhoDao;
 import com.vvm.sh.repositorios.AgendaRepositorio;
-import com.vvm.sh.ui.anomalias.modelos.Anomalia;
 
 import dagger.Module;
 import dagger.Provides;
@@ -54,16 +53,6 @@ public class AgendaModule {
     }
 
 
-    @AgendaScope
-    @Provides
-    static AnomaliaDao provideAnomaliaDao(VvmshBaseDados vvmshBaseDados){
-
-        AnomaliaDao dao = vvmshBaseDados.obterAnomaliaDao();
-
-        //Timber.d("Providing NoteDao: " + dao);
-        return dao;
-    }
-
 
     @AgendaScope
     @Provides
@@ -100,12 +89,23 @@ public class AgendaModule {
 
     @AgendaScope
     @Provides
-    AgendaRepositorio provideAgendaRepositorio(SegurancaAlimentarApi segurancaAlimentarApi,
+    static DownloadTrabalhoDao provideDownloadTrabalhoDao(VvmshBaseDados vvmshBaseDados){
+
+        DownloadTrabalhoDao dao = vvmshBaseDados.obterDownloadTrabalhoDao();
+
+        //Timber.d("Providing NoteDao: " + dao);
+        return dao;
+    }
+
+
+    @AgendaScope
+    @Provides
+    AgendaRepositorio provideAgendaRepositorio(SegurancaAlimentarApi segurancaAlimentarApi, DownloadTrabalhoDao downloadTrabalhoDao,
                                                TarefaDao tarefaDao, AtividadeExecutadaDao atividadeExecutadaDao,
-                                               ClienteDao clienteDao, AnomaliaDao anomaliaDao, AtividadePendenteDao atividadePendenteDao,
+                                               ClienteDao clienteDao, AtividadePendenteDao atividadePendenteDao,
                                                OcorrenciaDao ocorrenciaDao, OcorrenciaHistoricoDao ocorrenciaHistoricoDao) {
 
-        AgendaRepositorio repositorio = new AgendaRepositorio(segurancaAlimentarApi, tarefaDao, atividadeExecutadaDao, clienteDao, anomaliaDao, atividadePendenteDao, ocorrenciaDao, ocorrenciaHistoricoDao);
+        AgendaRepositorio repositorio = new AgendaRepositorio(segurancaAlimentarApi, downloadTrabalhoDao, tarefaDao, atividadeExecutadaDao, clienteDao, atividadePendenteDao, ocorrenciaDao, ocorrenciaHistoricoDao);
 
         //Timber.d("Providing PokemonRepository: " + repository);
         return repositorio;

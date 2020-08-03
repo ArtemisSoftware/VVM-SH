@@ -4,6 +4,7 @@ import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
 
+import com.vvm.sh.ui.anomalias.modelos.Anomalia;
 import com.vvm.sh.ui.anomalias.modelos.AnomaliaRegistada;
 import com.vvm.sh.ui.anomalias.modelos.AnomaliaResultado;
 
@@ -14,6 +15,10 @@ import io.reactivex.Single;
 
 @Dao
 abstract public class AnomaliaResultadoDao implements BaseDao<AnomaliaResultado>{
+
+
+    @Query("SELECT * FROM anomalias WHERE idTarefa = :idTarefa")
+    abstract public Flowable<List<Anomalia>> obterAnomalias(int idTarefa);
 
 
     @Query("SELECT * FROM anomaliasResultado WHERE idTarefa = :idTarefa")

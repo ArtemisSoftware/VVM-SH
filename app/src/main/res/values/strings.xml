@@ -228,5 +228,6 @@
     <string name="nacionalidade">Nacionalidade</string>
     <string name="historico_ocorrencia">Histórico da Ocorrência</string>
     <string name="relatorio">Relatório</string>
+    <string name="resultado_imagem">imagem</string>
 
 </resources>

@@ -29,4 +29,8 @@ public class Identificadores {
     public class App {
         public static final int APP_SA = 1;
     }
+
+    public class CodigoAtividade {
+        public static final int ASSINATURA = 1;
+    }
 }

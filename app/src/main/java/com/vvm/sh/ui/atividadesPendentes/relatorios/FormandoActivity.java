@@ -23,8 +23,10 @@ import com.vvm.sh.ui.opcoes.modelos.Tipo;
 import com.vvm.sh.util.MensagensUtil;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.base.BaseDatePickerDialog;
+import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.metodos.DatasUtil;
+import com.vvm.sh.util.metodos.ImagemUtil;
 import com.vvm.sh.util.metodos.Preferencias;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
@@ -102,7 +104,6 @@ public class FormandoActivity extends BaseDaggerActivity
 
             int idFormando = bundle.getInt(getString(R.string.argumento_id_formando));
             viewModel.obterFormando(idFormando);
-
         }
         else{
             finish();
@@ -167,9 +168,6 @@ public class FormandoActivity extends BaseDaggerActivity
     //---------------------
 
 
-
-
-
     @Override
     public void onValidationSucceeded() {
 
@@ -223,9 +221,6 @@ public class FormandoActivity extends BaseDaggerActivity
 
 
 
-    //-------------------
-    //Eventos
-    //-------------------
 
 
     @OnClick(R.id.crl_btn_data)
@@ -246,18 +241,8 @@ public class FormandoActivity extends BaseDaggerActivity
     @OnClick(R.id.img_assinatura)
     public void img_assinatura_OnClickListener(View view) {
 
-        //if( ((IndiceFormando_Activity) contexto).prontoAssinar() == true){
-
         Intent intent = new Intent(this, AssinaturaActivity.class);
-        //intent.putExtra(BundleIF.ID_TAREFA, acessoBDFormando.obterIdTarefa(idAtividade));
-        //intent.putExtra(BundleIF.ID_FORMANDO, idRelatorio);
-        //intent.putExtra(BundleIF.ORIGEM, IdentificadoresIF.ORIGEM_FORMANDO);
-       startActivityForResult(intent, /*CodigoAtividadeIF.REGISTO_ASSINATURA*/ 11);
-        /*}
-        else{
-            MetodosDialogo.dialogoAlerta(contexto, SintaxeIF.TITULO_ASSINATURA, "O relatório só pode ser assinado quando estiver completo.");
-        }*/
-
+        startActivityForResult(intent, Identificadores.CodigoAtividade.ASSINATURA);
     }
 
     @Override
@@ -271,14 +256,13 @@ public class FormandoActivity extends BaseDaggerActivity
         super.onActivityResult(requestCode, resultCode, data);
 
 
-        if (requestCode == 11) {
+        if (requestCode == Identificadores.CodigoAtividade.ASSINATURA) {
             if(resultCode == RESULT_OK){
-                byte[] byteArray = data.getByteArrayExtra("result");
 
 
+                Bitmap bitmap = ImagemUtil.converter(data.getByteArrayExtra(getString(R.string.resultado_imagem)));
 
-                Bitmap bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
-                activityFormandoBinding.imgAssinatura.setImageBitmap(Bitmap.createScaledBitmap(bmp, activityFormandoBinding.imgAssinatura.getWidth(),
+                activityFormandoBinding.imgAssinatura.setImageBitmap(Bitmap.createScaledBitmap(bitmap, activityFormandoBinding.imgAssinatura.getWidth(),
                         activityFormandoBinding.imgAssinatura.getHeight(), false));
 
             }

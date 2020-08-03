@@ -125,48 +125,6 @@ public class AgendaViewModel extends BaseViewModel {
     //----------------------
 
 
-    public void obterDadosUpload(String idUtilizador){
 
-//        showProgressBar(true);
-//
-//        agendaRepositorio.obterTrabalho(idUtilizador).toObservable()
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(
-//
-//
-//                        new Observer<SessaoResposta[]>() {
-//                            @Override
-//                            public void onSubscribe(Disposable d) {
-//
-//                            }
-//
-//                            @Override
-//                            public void onNext(SessaoResposta[] sessao) {
-
-
-                                List<Integer> resultado = new ArrayList<>();
-                                resultado.add(ResultadoId.EMAIL.getValue());
-
-                                DadosUploadAsyncTask servico = new DadosUploadAsyncTask(vvmshBaseDados, agendaRepositorio, idUtilizador);
-                                servico.execute(resultado);
-
-//                                showProgressBar(false);
-//                            }
-//
-//                            @Override
-//                            public void onError(Throwable e) {
-//
-//                            }
-//
-//                            @Override
-//                            public void onComplete() {
-//
-//                            }
-//                        }
-//
-//                );
-
-    }
 
 }

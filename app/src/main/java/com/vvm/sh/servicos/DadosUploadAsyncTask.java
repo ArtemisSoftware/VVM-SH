@@ -3,30 +3,36 @@ package com.vvm.sh.servicos;
 import android.database.sqlite.SQLiteConstraintException;
 import android.os.AsyncTask;
 
+import com.vvm.sh.api.Email;
 import com.vvm.sh.baseDados.VvmshBaseDados;
-import com.vvm.sh.repositorios.AgendaRepositorio;
+import com.vvm.sh.baseDados.entidades.Resultado;
+import com.vvm.sh.repositorios.UploadRepositorio;
+import com.vvm.sh.util.mapeamento.ModelMapping;
+import com.vvm.sh.util.mapeamento.UploadMapping;
 
 import java.util.List;
 
-public class DadosUploadAsyncTask  extends AsyncTask<List<Integer>, Void, Void> {
+import static com.vvm.sh.util.constantes.Identificadores.Resultados.*;
+
+public class DadosUploadAsyncTask  extends AsyncTask<List<Resultado>, Void, Void> {
 
     private String errorMessage, idUtilizador;
     private VvmshBaseDados vvmshBaseDados;
-    private AgendaRepositorio repositorio;
+    private UploadRepositorio repositorio;
 
-    public DadosUploadAsyncTask(VvmshBaseDados vvmshBaseDados, AgendaRepositorio repositorio, String idUtilizador){
+    public DadosUploadAsyncTask(VvmshBaseDados vvmshBaseDados, UploadRepositorio repositorio, String idUtilizador){
         this.vvmshBaseDados = vvmshBaseDados;
         this.repositorio = repositorio;
         this.idUtilizador = idUtilizador;
     }
 
     @Override
-    protected Void doInBackground(List<Integer>... resultados) {
+    protected Void doInBackground(List<Resultado>... resultados) {
 
         if(resultados[0] == null)
             return null;
 
-        List<Integer> resposta = resultados[0];
+        List<Resultado> resposta = resultados[0];
 
 
 
@@ -36,7 +42,25 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Integer>, Void, Void> 
 
                 try {
 
-                    //repositorio.obterEmail();
+                    for (Resultado resultado : resposta) {
+
+                        switch (resultado.id){
+
+                            case ID_EMAIL:
+
+                                adicionarEmail(resultado.idTarefa);
+                                break;
+
+
+                        }
+
+
+
+
+
+                    }
+
+
 
 
                 }
@@ -48,5 +72,18 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Integer>, Void, Void> 
 
 
         return null;
+    }
+
+    private void adicionarEmail(int idTarefa) {
+
+        Email email = UploadMapping.INSTANCE.map(repositorio.obterEmail(idTarefa));
+
+//        JSONArray jaGenerico = new JSONArray();
+//        jaGenerico.put(info);
+//
+//        jEMail.put(JsonEnvioIF.DATA_REGISTO, dataRegisto);
+//        jEMail.put(JsonEnvioIF.DADOS, jaGenerico);
+
+
     }
 }

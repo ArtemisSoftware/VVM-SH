@@ -1,8 +1,10 @@
 package com.vvm.sh.util;
 
+import com.vvm.sh.util.constantes.Identificadores;
+
 public enum ResultadoId {
 
-    EMAIL(1),
+    EMAIL(Identificadores.Resultados.ID_EMAIL),
     ANOMALIA_CLIENTE(2),
     ATIVIDADE_PENDENTE(3),
     CROSS_SELLING(4),

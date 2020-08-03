@@ -40,4 +40,7 @@ public class Identificadores {
         public static final int IMAGEM_ASSINATURA_FORMANDO = 1;
     }
 
+    public class Resultados {
+        public static final int ID_EMAIL = 1;
+    }
 }

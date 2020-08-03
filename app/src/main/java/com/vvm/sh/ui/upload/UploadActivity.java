@@ -10,6 +10,7 @@ import com.vvm.sh.databinding.ActivityUploadBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.agenda.AgendaViewModel;
+import com.vvm.sh.util.metodos.Preferencias;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import javax.inject.Inject;
@@ -24,7 +25,7 @@ public class UploadActivity extends BaseDaggerActivity {
     ViewModelProviderFactory providerFactory;
 
 
-    private AgendaViewModel viewModel;
+    private UploadViewModel viewModel;
 
 
 
@@ -32,7 +33,7 @@ public class UploadActivity extends BaseDaggerActivity {
     @Override
     protected void intActivity(Bundle savedInstanceState) {
 
-        viewModel = ViewModelProviders.of(this, providerFactory).get(AgendaViewModel.class);
+        viewModel = ViewModelProviders.of(this, providerFactory).get(UploadViewModel.class);
 
         activityUploadBinding = (ActivityUploadBinding) activityBinding;
         activityUploadBinding.setLifecycleOwner(this);
@@ -41,8 +42,7 @@ public class UploadActivity extends BaseDaggerActivity {
 
         subscreverObservadores();
 
-        //TODO: mudar o id utilizador
-        viewModel.obterDadosUpload("500005");
+        viewModel.obterDadosUpload(Preferencias.obterIdUtilizador(this));
     }
 
     @Override

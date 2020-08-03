@@ -3,8 +3,13 @@ package com.vvm.sh.repositorios;
 import androidx.annotation.NonNull;
 
 import com.vvm.sh.api.SegurancaAlimentarApi;
-import com.vvm.sh.baseDados.EmailDao;
 import com.vvm.sh.baseDados.dao.UploadDao;
+import com.vvm.sh.baseDados.entidades.Resultado;
+import com.vvm.sh.ui.tarefa.modelos.EmailResultado;
+
+import java.util.List;
+
+import io.reactivex.Maybe;
 
 public class UploadRepositorio {
 
@@ -18,4 +23,14 @@ public class UploadRepositorio {
         this.api = api;
         this.uploadDao = uploadDao;
     }
+
+    public Maybe<List<Resultado>> obterResultados(String idUtilizador){
+        return uploadDao.obterResultados(idUtilizador, false);
+    }
+
+
+    public EmailResultado obterEmail(int idTarefa){
+        return uploadDao.obterEmail(idTarefa);
+    }
+
 }

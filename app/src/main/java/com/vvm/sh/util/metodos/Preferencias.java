@@ -140,7 +140,7 @@ public class Preferencias {
         String pacote = contexto.getPackageName();
 
         SharedPreferences preferencias = contexto.getSharedPreferences(pacote, Context.MODE_PRIVATE);
-        return preferencias.getString(ID_UTILIZADOR, "10101");
+        return preferencias.getString(ID_UTILIZADOR, "12724"); //TODO: deve ser um id inválido
     }
 
 

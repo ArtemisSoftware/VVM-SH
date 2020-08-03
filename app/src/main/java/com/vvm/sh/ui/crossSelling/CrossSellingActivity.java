@@ -3,7 +3,6 @@ package com.vvm.sh.ui.crossSelling;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
-import android.view.View;
 
 import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.vvm.sh.R;
@@ -12,13 +11,10 @@ import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.crossSelling.adaptadores.OnCrossSellingListener;
 import com.vvm.sh.ui.crossSelling.modelos.CrossSelling;
-import com.vvm.sh.ui.crossSelling.modelos.CrossSellingResultado;
+import com.vvm.sh.baseDados.entidades.CrossSellingResultado;
 import com.vvm.sh.ui.opcoes.modelos.Tipo;
 import com.vvm.sh.util.metodos.Preferencias;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
-
-import org.angmarch.views.NiceSpinner;
-import org.angmarch.views.OnSpinnerItemSelectedListener;
 
 import javax.inject.Inject;
 

@@ -15,10 +15,14 @@ public class DadosFormularios {
     @SerializedName("RegistoAnomalias")
     public AnomaliasClienteInfo anomaliasCliente;
 
+    @SerializedName("CrossSelling")
+    public CrossSellingInfo crossSelling;
 
     public DadosFormularios() {
 
         email = new EmailInfo();
+        anomaliasCliente = new AnomaliasClienteInfo();
+        crossSelling = new CrossSellingInfo();
     }
 
     public class EmailInfo{
@@ -57,6 +61,24 @@ public class DadosFormularios {
 
 
 
+    public class CrossSellingInfo{
+
+        @SerializedName("dataRegisto")
+        public String dataRegisto;
+
+        @SerializedName("dados")
+        public List<CrossSelling> dados;
+
+
+        public CrossSellingInfo() {
+
+            this.dataRegisto = DatasUtil.obterDataAtual(DatasUtil.DATA_FORMATO_YYYY_MM_DD__HH_MM_SS);
+            this.dados = new ArrayList<>();
+        }
+    }
+
+
+
     public void fixarEmail(Email email){
         this.email.dados.add(email);
     }
@@ -66,4 +88,8 @@ public class DadosFormularios {
         this.anomaliasCliente.dados = anomalias;
     }
 
+
+    public void fixarCrossSelling(List<CrossSelling> crossSellings){
+        this.crossSelling.dados = crossSellings;
+    }
 }

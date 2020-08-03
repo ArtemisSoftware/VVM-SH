@@ -1,5 +1,8 @@
 package com.vvm.sh.ui.crossSelling.modelos;
 
+import androidx.room.Embedded;
+
+import com.vvm.sh.ui.opcoes.modelos.Tipo;
 import com.vvm.sh.util.adaptadores.Item;
 import com.vvm.sh.util.interfaces.CheckBoxIF;
 import com.vvm.sh.util.metodos.Conversor;

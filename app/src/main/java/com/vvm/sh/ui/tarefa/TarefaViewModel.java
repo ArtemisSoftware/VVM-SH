@@ -261,7 +261,7 @@ public class TarefaViewModel extends BaseViewModel {
 
 //        items.add(new OpcaoCliente(Identificadores.OpcoesCliente .OPCAO_INFORMACAO, "Informação"));
         items.add(OpcaoCliente.email());
-//        items.add(new OpcaoCliente(OpcaoCliente.OPCAO_CROSS_SELLING, "Cross Selling"));
+        items.add(OpcaoCliente.crossSelling());
 
         opcoesCliente.setValue(items);
 

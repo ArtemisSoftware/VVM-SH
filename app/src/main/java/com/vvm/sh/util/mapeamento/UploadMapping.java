@@ -1,7 +1,9 @@
 package com.vvm.sh.util.mapeamento;
 
 import com.vvm.sh.api.Anomalia;
+import com.vvm.sh.api.CrossSelling;
 import com.vvm.sh.api.Email;
+import com.vvm.sh.baseDados.entidades.CrossSellingResultado;
 import com.vvm.sh.baseDados.entidades.EmailResultado;
 import com.vvm.sh.ui.anomalias.modelos.AnomaliaResultado;
 
@@ -24,4 +26,7 @@ public interface UploadMapping {
     @Mapping(source = "observacao", target = "observacoes")
     Anomalia map(AnomaliaResultado item);
 
+
+
+    CrossSelling map(CrossSellingResultado item);
 }

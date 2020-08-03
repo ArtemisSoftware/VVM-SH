@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 
 import com.vvm.sh.api.SegurancaAlimentarApi;
 import com.vvm.sh.baseDados.dao.UploadDao;
+import com.vvm.sh.baseDados.entidades.CrossSellingResultado;
 import com.vvm.sh.baseDados.entidades.Resultado;
 import com.vvm.sh.baseDados.entidades.EmailResultado;
 import com.vvm.sh.ui.anomalias.modelos.AnomaliaResultado;
@@ -36,6 +37,10 @@ public class UploadRepositorio {
 
     public List<AnomaliaResultado> obterAnomalias(int idTarefa){
         return uploadDao.obterAnomalias(idTarefa);
+    }
+
+    public List<CrossSellingResultado> obterCrossSelling(int idTarefa){
+        return uploadDao.obterCrossSelling(idTarefa);
     }
 
 }

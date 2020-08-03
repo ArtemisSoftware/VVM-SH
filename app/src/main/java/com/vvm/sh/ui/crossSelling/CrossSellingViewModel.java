@@ -6,7 +6,8 @@ import com.vvm.sh.repositorios.CrossSellingRepositorio;
 import com.vvm.sh.servicos.ResultadoAsyncTask;
 import com.vvm.sh.baseDados.entidades.Resultado;
 import com.vvm.sh.ui.crossSelling.modelos.CrossSelling;
-import com.vvm.sh.ui.crossSelling.modelos.CrossSellingResultado;
+import com.vvm.sh.baseDados.entidades.CrossSellingResultado;
+import com.vvm.sh.ui.crossSelling.modelos.CrossSelling_;
 import com.vvm.sh.ui.opcoes.modelos.Tipo;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.ResultadoId;
@@ -43,13 +44,6 @@ public class CrossSellingViewModel extends BaseViewModel {
         sinaletica = new MutableLiveData<>();
         dimensoes = new MutableLiveData<>();
         tipos = new MutableLiveData<>();
-    }
-
-
-    public void gravar(String idTarefa, String idCrossSelling, String idDimensao, String idTipo){
-
-
-        //TODO: gravar crossSelling. Ter atenção que idDimensao e idTipo podem ser nulos
     }
 
 
@@ -124,6 +118,40 @@ public class CrossSellingViewModel extends BaseViewModel {
                                 crossSelling.setValue(tipos);
 
                                 sinaletica.setValue(Boolean.parseBoolean(produto.detalhe));
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+
+                            @Override
+                            public void onComplete() {
+                                showProgressBar(false);
+                            }
+                        }
+
+                );
+
+
+        crossSellingRepositorio.obterCrossSelling_(produto.id + "").toObservable()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new Observer<List<CrossSelling_>>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onNext(List<CrossSelling_> tipos) {
+
+                                //crossSelling.setValue(tipos);
+
+                                //sinaletica.setValue(Boolean.parseBoolean(produto.detalhe));
                                 showProgressBar(false);
                             }
 

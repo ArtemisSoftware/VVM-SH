@@ -4,9 +4,11 @@ import android.database.sqlite.SQLiteConstraintException;
 import android.os.AsyncTask;
 
 import com.vvm.sh.api.Anomalia;
+import com.vvm.sh.api.CrossSelling;
 import com.vvm.sh.api.DadosFormularios;
 import com.vvm.sh.api.Email;
 import com.vvm.sh.baseDados.VvmshBaseDados;
+import com.vvm.sh.baseDados.entidades.CrossSellingResultado;
 import com.vvm.sh.baseDados.entidades.Resultado;
 import com.vvm.sh.repositorios.UploadRepositorio;
 import com.vvm.sh.ui.anomalias.modelos.AnomaliaResultado;
@@ -66,6 +68,12 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Resultado>, Void, Void
                                 break;
 
 
+                            case ID_CROSS_SELLING:
+
+                                dadosFormularios.fixarCrossSelling(adicionarCrossSelling(resultado.idTarefa));
+                                break;
+
+
                             default:
                                 break;
                         }
@@ -81,6 +89,27 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Resultado>, Void, Void
 
         return null;
     }
+
+
+    private List<CrossSelling> adicionarCrossSelling(int idTarefa) {
+
+        List<CrossSelling> registos = new ArrayList<>();
+
+        for (CrossSellingResultado item : repositorio.obterCrossSelling(idTarefa)) {
+
+            CrossSelling registo = UploadMapping.INSTANCE.map(item);
+
+            if(registo.idDimensao.equals("0") == true){
+                registo.idDimensao = "";
+                registo.idTipo = "";
+            }
+
+            registos.add(registo);
+        }
+
+        return registos;
+    }
+
 
 
     private List<Anomalia> adicionarAnomaliaCliente(int idTarefa) {

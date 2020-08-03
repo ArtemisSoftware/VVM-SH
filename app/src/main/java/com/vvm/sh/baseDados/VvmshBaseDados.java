@@ -19,7 +19,7 @@ import com.vvm.sh.ui.atividadesPendentes.relatorios.AcaoFormacaoResultado;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.FormandoResultado;
 import com.vvm.sh.ui.autenticacao.modelos.Utilizador;
 import com.vvm.sh.ui.cliente.Cliente;
-import com.vvm.sh.ui.crossSelling.modelos.CrossSellingResultado;
+import com.vvm.sh.baseDados.entidades.CrossSellingResultado;
 import com.vvm.sh.ui.ocorrencias.modelos.Ocorrencia;
 import com.vvm.sh.ui.ocorrencias.modelos.OcorrenciaHistorico;
 import com.vvm.sh.ui.ocorrencias.modelos.OcorrenciaResultado;

@@ -3,6 +3,7 @@ package com.vvm.sh.baseDados.dao;
 import androidx.room.Dao;
 import androidx.room.Query;
 
+import com.vvm.sh.baseDados.entidades.CrossSellingResultado;
 import com.vvm.sh.baseDados.entidades.Resultado;
 import com.vvm.sh.baseDados.entidades.EmailResultado;
 import com.vvm.sh.ui.anomalias.modelos.AnomaliaResultado;
@@ -14,7 +15,7 @@ import io.reactivex.Maybe;
 @Dao
 abstract public class UploadDao {
 
-    //TODO: os dados necessitam do idutilizador + data
+    //TODO: obterResultados -> os dados necessitam do idutilizador + data
 
     @Query("SELECT res.* " +
             "FROM resultados as res " +
@@ -29,5 +30,9 @@ abstract public class UploadDao {
 
     @Query("SELECT * FROM anomaliasResultado WHERE idTarefa = :idTarefa")
     abstract public List<AnomaliaResultado> obterAnomalias(int idTarefa);
+
+
+    @Query("SELECT * FROM crossSellingResultado WHERE idTarefa = :idTarefa")
+    abstract public List<CrossSellingResultado> obterCrossSelling(int idTarefa);
 
 }

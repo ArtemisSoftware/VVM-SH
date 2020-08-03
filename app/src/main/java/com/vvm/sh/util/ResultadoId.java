@@ -6,9 +6,9 @@ public enum ResultadoId {
 
     EMAIL(Identificadores.Resultados.ID_EMAIL),
     ANOMALIA_CLIENTE(Identificadores.Resultados.ID_ANOMALIA_CLIENTE),
-    ATIVIDADE_PENDENTE(3),
-    CROSS_SELLING(4),
-    OCORRENCIA(5);
+    ATIVIDADE_PENDENTE(Identificadores.Resultados.ID_ATIVIDADE_PENDENTE),
+    CROSS_SELLING(Identificadores.Resultados.ID_ANOMALIA_CLIENTE),
+    OCORRENCIA(Identificadores.Resultados.ID_OCORRENCIA);
 
     private final int value;
 

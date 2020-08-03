@@ -1,7 +1,6 @@
 package com.vvm.sh.ui.crossSelling;
 
 import android.app.AlertDialog;
-import android.content.DialogInterface;
 import android.os.Bundle;
 
 import androidx.lifecycle.Observer;
@@ -10,13 +9,11 @@ import androidx.lifecycle.ViewModelProviders;
 import com.vvm.sh.R;
 import com.vvm.sh.databinding.DialogoSinaleticaBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
-import com.vvm.sh.ui.crossSelling.adaptadores.OnCrossSellingListener;
 import com.vvm.sh.ui.BaseDaggerDialogFragment;
-import com.vvm.sh.ui.crossSelling.modelos.CrossSellingResultado;
+import com.vvm.sh.baseDados.entidades.CrossSellingResultado;
 import com.vvm.sh.ui.opcoes.modelos.Tipo;
 import com.vvm.sh.util.MensagensUtil;
 import com.vvm.sh.util.Recurso;
-import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.metodos.Preferencias;
 
 import javax.inject.Inject;

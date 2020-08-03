@@ -45,20 +45,30 @@ public class Identificadores {
     public class Resultados {
         public static final int ID_EMAIL = 1;
         public static final int ID_ANOMALIA_CLIENTE = 2;
+        public static final int ID_ATIVIDADE_PENDENTE = 3;
+        public static final int ID_CROSS_SELLING = 4;
+        public static final int ID_OCORRENCIA = 5;
     }
 
     public class OpcoesCliente {
 
         public static final int OPCAO_INFORMACAO = 1;
+
         public static final int OPCAO_CROSS_SELLING = 2;
+        public static final String CROSS_SELLING = "Cross Selling";
+        public static final int ICON_CROSS_SELLING = R.drawable.ic_cross_selling;
+
         public static final int OPCAO_SINISTRALIDADE = 3;
         public static final int OPCAO_EXTINTORES = 4;
-        public static final int OPCAO_ANOMALIA = 6;
 
 
         public static final int OPCAO_EMAIL = 5;
         public static final String EMAIL = "email";
         public static final int EMAIL_ICON = R.drawable.ic_email_24dp;
+
+        public static final int OPCAO_ANOMALIA = 6;
+
+
     }
 
 

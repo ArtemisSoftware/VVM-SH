@@ -6,7 +6,8 @@ import com.vvm.sh.baseDados.CrossSellingDao;
 import com.vvm.sh.baseDados.ResultadoDao;
 import com.vvm.sh.baseDados.TipoDao;
 import com.vvm.sh.ui.crossSelling.modelos.CrossSelling;
-import com.vvm.sh.ui.crossSelling.modelos.CrossSellingResultado;
+import com.vvm.sh.baseDados.entidades.CrossSellingResultado;
+import com.vvm.sh.ui.crossSelling.modelos.CrossSelling_;
 import com.vvm.sh.util.constantes.TiposConstantes;
 import com.vvm.sh.ui.opcoes.modelos.Tipo;
 
@@ -38,6 +39,11 @@ public class CrossSellingRepositorio {
     public Flowable<List<CrossSelling>> obterCrossSelling(String idProduto){
         return crossSellingDao.obterCrossSelling(TiposConstantes.CROSS_SELLING_PRODUTOS, TiposConstantes.CROSS_SELLING_DIMENSAO, TiposConstantes.CROSS_SELLING_TIPO, idProduto);
     }
+
+    public Flowable<List<CrossSelling_>> obterCrossSelling_(String idProduto){
+        return crossSellingDao.obterCrossSelling_(TiposConstantes.CROSS_SELLING_PRODUTOS, TiposConstantes.CROSS_SELLING_DIMENSAO, TiposConstantes.CROSS_SELLING_TIPO, idProduto);
+    }
+
 
 
     public Single<Long> inserir(CrossSellingResultado registo){

@@ -1,4 +1,4 @@
-package com.vvm.sh.ui.crossSelling.modelos;
+package com.vvm.sh.baseDados.entidades;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;

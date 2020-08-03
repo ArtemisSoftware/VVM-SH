@@ -24,4 +24,7 @@ public class OpcaoCliente {
     public static OpcaoCliente email() {
         return new OpcaoCliente(OPCAO_EMAIL, EMAIL, EMAIL_ICON);
     }
+    public static OpcaoCliente crossSelling() {
+        return new OpcaoCliente(OPCAO_CROSS_SELLING, CROSS_SELLING, ICON_CROSS_SELLING);
+    }
 }

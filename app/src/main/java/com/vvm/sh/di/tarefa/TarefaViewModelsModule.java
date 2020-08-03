@@ -15,5 +15,5 @@ public abstract class TarefaViewModelsModule {
     @Binds
     @IntoMap
     @ViewModelKey(TarefaViewModel.class)
-    public abstract ViewModel bindTarefaViewModelModel(TarefaViewModel viewModel);
+    public abstract ViewModel bindTarefaViewModel(TarefaViewModel viewModel);
 }

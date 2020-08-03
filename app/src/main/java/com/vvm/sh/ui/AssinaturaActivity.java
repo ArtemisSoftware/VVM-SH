@@ -2,6 +2,7 @@ package com.vvm.sh.ui;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.View;
@@ -10,6 +11,8 @@ import android.widget.ImageView;
 
 import com.github.gcacace.signaturepad.views.SignaturePad;
 import com.vvm.sh.R;
+
+import java.io.ByteArrayOutputStream;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -83,6 +86,19 @@ public class AssinaturaActivity extends BaseActivity implements SignaturePad.OnS
     public void btn_gravar_OnClickListener(View view) {
 
         Bitmap signatureBitmap = sgn_pad_assinatura.getSignatureBitmap();
+
+        ByteArrayOutputStream stream = new ByteArrayOutputStream();
+        signatureBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
+        byte[] byteArray = stream.toByteArray();
+        signatureBitmap.recycle();
+
+
+        Intent returnIntent = new Intent();
+        returnIntent.putExtra("result",byteArray);
+        setResult(RESULT_OK,returnIntent);
+        finish();
+
+
         /*
         if (addJpgSignatureToGallery(signatureBitmap)) {
             Toast.makeText(MainActivity.this, "Signature saved into the Gallery", Toast.LENGTH_SHORT).show();

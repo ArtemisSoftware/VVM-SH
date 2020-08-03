@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.vvm.sh.repositorios.AnomaliaRepositorio;
 import com.vvm.sh.servicos.ResultadoAsyncTask;
-import com.vvm.sh.ui.agenda.modelos.Resultado;
+import com.vvm.sh.baseDados.entidades.Resultado;
 import com.vvm.sh.ui.anomalias.modelos.Anomalia;
 import com.vvm.sh.ui.anomalias.modelos.AnomaliaRegistada;
 import com.vvm.sh.ui.anomalias.modelos.AnomaliaResultado;

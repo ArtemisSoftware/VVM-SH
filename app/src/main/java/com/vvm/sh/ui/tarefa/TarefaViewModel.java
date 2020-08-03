@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.vvm.sh.repositorios.TarefaRepositorio;
 import com.vvm.sh.servicos.ResultadoAsyncTask;
-import com.vvm.sh.ui.agenda.modelos.Resultado;
+import com.vvm.sh.baseDados.entidades.Resultado;
 import com.vvm.sh.ui.agenda.modelos.Tarefa;
 import com.vvm.sh.ui.agenda.modelos.TarefaDia;
 import com.vvm.sh.ui.atividadesExecutadas.modelos.AtividadeExecutada;
@@ -22,7 +22,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;

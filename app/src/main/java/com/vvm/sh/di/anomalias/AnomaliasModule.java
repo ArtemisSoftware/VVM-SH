@@ -6,8 +6,6 @@ import com.vvm.sh.baseDados.ResultadoDao;
 import com.vvm.sh.baseDados.TipoDao;
 import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.repositorios.AnomaliaRepositorio;
-import com.vvm.sh.ui.agenda.modelos.Resultado;
-import com.vvm.sh.ui.opcoes.modelos.Tipo;
 
 import dagger.Module;
 import dagger.Provides;

@@ -4,7 +4,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.vvm.sh.repositorios.CrossSellingRepositorio;
 import com.vvm.sh.servicos.ResultadoAsyncTask;
-import com.vvm.sh.ui.agenda.modelos.Resultado;
+import com.vvm.sh.baseDados.entidades.Resultado;
 import com.vvm.sh.ui.crossSelling.modelos.CrossSelling;
 import com.vvm.sh.ui.crossSelling.modelos.CrossSellingResultado;
 import com.vvm.sh.ui.opcoes.modelos.Tipo;

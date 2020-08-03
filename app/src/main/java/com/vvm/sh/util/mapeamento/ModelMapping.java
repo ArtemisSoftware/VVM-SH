@@ -6,6 +6,7 @@ import com.vvm.sh.api.modelos.AtividadePendenteResposta;
 import com.vvm.sh.api.modelos.ClienteResultado;
 import com.vvm.sh.api.modelos.DadosResultado;
 import com.vvm.sh.api.modelos.OcorrenciaResposta;
+import com.vvm.sh.api.modelos.TarefaResultado;
 import com.vvm.sh.api.modelos.TipoResposta;
 import com.vvm.sh.api.modelos.TipoResultado;
 import com.vvm.sh.api.modelos.UtilizadorResultado;
@@ -64,7 +65,7 @@ public interface ModelMapping {
 
 
 
-    Cliente map(ClienteResultado item, DadosResultado itemd);
+    Cliente map(ClienteResultado cliente, DadosResultado dados, TarefaResultado tarefa);
 
 
     Anomalia map(AnomaliaResposta item);

@@ -32,6 +32,10 @@ public class Tarefa {
     @ColumnInfo(name = "data")
     public Date data;
 
+    @NonNull
+    @ColumnInfo(name = "app")
+    public int app;
+
 
     @Ignore
     public Tarefa() {
@@ -47,13 +51,13 @@ public class Tarefa {
     }
 
 
-
-    public Tarefa(int idTarefa, @NonNull String idUtilizador, @NonNull String ordem, @NonNull String prefixoCt, @NonNull Date data) {
+    public Tarefa(int idTarefa, @NonNull String idUtilizador, @NonNull String ordem, @NonNull String prefixoCt, @NonNull Date data, int app) {
         this.idTarefa = idTarefa;
         this.idUtilizador = idUtilizador;
         this.ordem = ordem;
         this.prefixoCt = prefixoCt;
         this.data = data;
+        this.app = app;
     }
 
     /**

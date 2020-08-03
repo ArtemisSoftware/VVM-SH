@@ -5,7 +5,7 @@ import android.os.AsyncTask;
 
 import com.vvm.sh.baseDados.ResultadoDao;
 import com.vvm.sh.baseDados.VvmshBaseDados;
-import com.vvm.sh.ui.agenda.modelos.Resultado;
+import com.vvm.sh.baseDados.entidades.Resultado;
 
 
 public class ResultadoAsyncTask extends AsyncTask<Resultado, Void, Void> {

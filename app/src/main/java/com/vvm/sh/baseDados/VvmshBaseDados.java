@@ -4,7 +4,8 @@ import androidx.room.Database;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
-import com.vvm.sh.ui.agenda.modelos.Resultado;
+import com.vvm.sh.baseDados.entidades.ImagemResultado;
+import com.vvm.sh.baseDados.entidades.Resultado;
 import com.vvm.sh.ui.agenda.modelos.Tarefa;
 import com.vvm.sh.ui.anomalias.modelos.Anomalia;
 import com.vvm.sh.ui.anomalias.modelos.AnomaliaResultado;
@@ -36,6 +37,7 @@ import com.vvm.sh.ui.tarefa.modelos.EmailResultado;
 
                     EmailResultado.class, AnomaliaResultado.class, FormandoResultado.class, AcaoFormacaoResultado.class,
                     AtividadePendenteResultado.class, CrossSellingResultado.class, OcorrenciaResultado.class,
+                    ImagemResultado.class,
                     Resultado.class
             },
             version = BaseDadosContantes.VERSAO

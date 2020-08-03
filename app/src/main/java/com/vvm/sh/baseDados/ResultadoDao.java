@@ -5,7 +5,7 @@ import androidx.room.Insert;
 import androidx.room.Transaction;
 import androidx.room.Update;
 
-import com.vvm.sh.ui.agenda.modelos.Resultado;
+import com.vvm.sh.baseDados.entidades.Resultado;
 
 @Dao
 abstract public class ResultadoDao implements BaseDao<Resultado>{

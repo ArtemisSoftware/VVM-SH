@@ -33,7 +33,7 @@ public class ImagemResultado {
     public int origem;
 
     @NonNull
-    @ColumnInfo(name = "data" , typeAffinity = ColumnInfo.BLOB)
+    @ColumnInfo(name = "imagem" , typeAffinity = ColumnInfo.BLOB)
     public byte[] imagem;
 
     public ImagemResultado(int idTarefa, int id, int origem, @NonNull byte[] imagem) {

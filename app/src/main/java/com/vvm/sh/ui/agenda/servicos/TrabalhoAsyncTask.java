@@ -10,6 +10,7 @@ import com.vvm.sh.api.modelos.ClienteResultado;
 import com.vvm.sh.api.modelos.DadosResultado;
 import com.vvm.sh.api.modelos.OcorrenciaResposta;
 import com.vvm.sh.api.modelos.SessaoResposta;
+import com.vvm.sh.api.modelos.TarefaResultado;
 import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.repositorios.AgendaRepositorio;
 import com.vvm.sh.ui.agenda.modelos.Tarefa;
@@ -19,6 +20,7 @@ import com.vvm.sh.ui.atividadesPendentes.modelos.AtividadePendente;
 import com.vvm.sh.ui.cliente.Cliente;
 import com.vvm.sh.ui.ocorrencias.modelos.Ocorrencia;
 import com.vvm.sh.ui.ocorrencias.modelos.OcorrenciaHistorico;
+import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.mapeamento.ModelMapping;
 import com.vvm.sh.util.metodos.DatasUtil;
 
@@ -62,7 +64,7 @@ public class TrabalhoAsyncTask extends AsyncTask<SessaoResposta, Void, Void> {
 
                         inserirAtividadesExecutadas(info.tarefas.atividadesExecutadas, idTarefa);
 
-                        inserirCliente(info.tarefas.cliente, info.tarefas.dados, idTarefa);
+                        inserirCliente(info.tarefas.cliente, info.tarefas.dados, info.tarefas, idTarefa);
 
                         inserirAnomalias(info.tarefas.anomalias, idTarefa);
 
@@ -157,9 +159,9 @@ public class TrabalhoAsyncTask extends AsyncTask<SessaoResposta, Void, Void> {
      * @param dados os dados da tarefa
      * @param idTarefa o identificador da tarefa
      */
-    private void inserirCliente(ClienteResultado cliente, DadosResultado dados, int idTarefa) {
+    private void inserirCliente(ClienteResultado cliente, DadosResultado dados, TarefaResultado tarefa, int idTarefa) {
 
-        Cliente registo = ModelMapping.INSTANCE.map(cliente,dados);
+        Cliente registo = ModelMapping.INSTANCE.map(cliente, dados, tarefa);
         registo.idTarefa = idTarefa;
 
         repositorio.inserirCliente(registo);
@@ -197,6 +199,7 @@ public class TrabalhoAsyncTask extends AsyncTask<SessaoResposta, Void, Void> {
         Tarefa tarefa = ModelMapping.INSTANCE.map(dados);
         tarefa.data = DatasUtil.converterString(data, DatasUtil.FORMATO_YYYY_MM_DD);
         tarefa.idUtilizador = idUtilizador;
+        tarefa.app = Identificadores.App.APP_SA; //TODO: mudar isto consoante SA ou SHT
 
         return (int) repositorio.inserirTarefa(tarefa);
     }

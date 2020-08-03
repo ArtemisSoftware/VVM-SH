@@ -25,4 +25,8 @@ public class Identificadores {
          */
         public static final int DIAS_ACTIVIDADES_EXECUTADA = 2;
     }
+
+    public class App {
+        public static final int APP_SA = 1;
+    }
 }

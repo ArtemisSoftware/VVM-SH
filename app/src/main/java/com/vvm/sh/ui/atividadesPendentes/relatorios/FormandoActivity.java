@@ -1,9 +1,12 @@
 package com.vvm.sh.ui.atividadesPendentes.relatorios;
 
+import androidx.annotation.Nullable;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
 import android.view.View;
 
@@ -260,5 +263,27 @@ public class FormandoActivity extends BaseDaggerActivity
     @Override
     public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
         activityFormandoBinding.txtInpDataNascimento.setText(DatasUtil.converterData(year, monthOfYear, dayOfMonth, DatasUtil.FORMATO_DD_MM_YYYY));
+    }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+
+        if (requestCode == 11) {
+            if(resultCode == RESULT_OK){
+                byte[] byteArray = data.getByteArrayExtra("result");
+
+
+
+                Bitmap bmp = BitmapFactory.decodeByteArray(byteArray, 0, byteArray.length);
+                activityFormandoBinding.imgAssinatura.setImageBitmap(Bitmap.createScaledBitmap(bmp, activityFormandoBinding.imgAssinatura.getWidth(),
+                        activityFormandoBinding.imgAssinatura.getHeight(), false));
+
+            }
+
+        }
+
     }
 }

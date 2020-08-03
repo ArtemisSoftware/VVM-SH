@@ -4,8 +4,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.vvm.sh.repositorios.AtividadePendenteRepositorio;
 import com.vvm.sh.servicos.ResultadoAsyncTask;
-import com.vvm.sh.ui.agenda.modelos.Resultado;
-import com.vvm.sh.ui.atividadesPendentes.modelos.AtividadePendente;
+import com.vvm.sh.baseDados.entidades.Resultado;
 import com.vvm.sh.ui.atividadesPendentes.modelos.AtividadePendenteRegisto;
 import com.vvm.sh.ui.atividadesPendentes.modelos.AtividadePendenteResultado;
 import com.vvm.sh.ui.opcoes.modelos.Tipo;

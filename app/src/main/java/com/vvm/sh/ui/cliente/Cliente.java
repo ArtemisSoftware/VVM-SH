@@ -152,21 +152,31 @@ public class Cliente {
     @ColumnInfo(name = "periodo")
     public String periodo;
 
+
+    @NonNull
+    @ColumnInfo(name = "saldoCartaoVm")
+    public String saldoCartaoVm;
+
+    @NonNull
+    @ColumnInfo(name = "notas")
+    public String notas;
+
+
+
     @Ignore
     public Cliente() {
 
     }
 
-
-    public Cliente(int idTarefa, @NonNull String nome, @NonNull String morada, @NonNull String localidade,
-                   @NonNull String codigoPostal, @NonNull String cpAlf, @NonNull String freguesia,
-                   @NonNull String nif, @NonNull String actividade, String actividade1, @NonNull String responsavel,
-                   @NonNull String telefone, @NonNull String telemovel, @NonNull String email,
-                   boolean emailAutenticado, @NonNull String cae, @NonNull String cae1, boolean moveLife,
-                   @NonNull String numeroAnalises, @NonNull String segmento, @NonNull String numeroCliente,
-                   @NonNull String servicoTp, @NonNull String servico, @NonNull String minutos, @NonNull Date ultimaVisita,
-                   @NonNull String contrato, @NonNull Date dataContrato, @NonNull String novo, @NonNull Date dataInsercao,
-                   @NonNull String minutosRealizados, @NonNull String periodo) {
+    public Cliente(int idTarefa,
+                   @NonNull String nome, @NonNull String morada, @NonNull String localidade, @NonNull String codigoPostal,
+                   @NonNull String cpAlf, @NonNull String freguesia, @NonNull String nif, @NonNull String actividade,
+                   String actividade1, @NonNull String responsavel, @NonNull String telefone, @NonNull String telemovel,
+                   @NonNull String email, boolean emailAutenticado, @NonNull String cae, @NonNull String cae1, boolean moveLife,
+                   @NonNull String numeroAnalises, @NonNull String segmento, @NonNull String numeroCliente, @NonNull String servicoTp,
+                   @NonNull String servico, @NonNull String minutos, @NonNull Date ultimaVisita, @NonNull String contrato, @NonNull Date dataContrato,
+                   @NonNull String novo, @NonNull Date dataInsercao, @NonNull String minutosRealizados, @NonNull String periodo,
+                   @NonNull String saldoCartaoVm, @NonNull String notas) {
         this.idTarefa = idTarefa;
         this.nome = nome;
         this.morada = morada;
@@ -198,6 +208,8 @@ public class Cliente {
         this.dataInsercao = dataInsercao;
         this.minutosRealizados = minutosRealizados;
         this.periodo = periodo;
+        this.saldoCartaoVm = saldoCartaoVm;
+        this.notas = notas;
     }
 
     /**

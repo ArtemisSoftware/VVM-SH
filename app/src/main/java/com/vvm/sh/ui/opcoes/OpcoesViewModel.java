@@ -39,10 +39,6 @@ public class OpcoesViewModel extends BaseViewModel {
 
 
     @Inject
-    VvmshBaseDados vvmshBaseDados;
-
-
-    @Inject
     public OpcoesViewModel(VersaoAppRepositorio versaoAppRepositorio, TiposRepositorio tiposRepositorio){
 
         this.versaoAppRepositorio = versaoAppRepositorio;

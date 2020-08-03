@@ -11,6 +11,7 @@ import android.widget.ImageView;
 
 import com.github.gcacace.signaturepad.views.SignaturePad;
 import com.vvm.sh.R;
+import com.vvm.sh.util.metodos.ImagemUtil;
 
 import java.io.ByteArrayOutputStream;
 
@@ -87,30 +88,10 @@ public class AssinaturaActivity extends BaseActivity implements SignaturePad.OnS
 
         Bitmap signatureBitmap = sgn_pad_assinatura.getSignatureBitmap();
 
-        ByteArrayOutputStream stream = new ByteArrayOutputStream();
-        signatureBitmap.compress(Bitmap.CompressFormat.PNG, 100, stream);
-        byte[] byteArray = stream.toByteArray();
-        signatureBitmap.recycle();
-
-
         Intent returnIntent = new Intent();
-        returnIntent.putExtra("result",byteArray);
+        returnIntent.putExtra(getString(R.string.resultado_imagem), ImagemUtil.converter(signatureBitmap));
         setResult(RESULT_OK,returnIntent);
         finish();
-
-
-        /*
-        if (addJpgSignatureToGallery(signatureBitmap)) {
-            Toast.makeText(MainActivity.this, "Signature saved into the Gallery", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(MainActivity.this, "Unable to store the signature", Toast.LENGTH_SHORT).show();
-        }
-        if (addSvgSignatureToGallery(mSignaturePad.getSignatureSvg())) {
-            Toast.makeText(MainActivity.this, "SVG Signature saved into the Gallery", Toast.LENGTH_SHORT).show();
-        } else {
-            Toast.makeText(MainActivity.this, "Unable to store the SVG signature", Toast.LENGTH_SHORT).show();
-        }
-        */
     }
 
 

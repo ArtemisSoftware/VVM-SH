@@ -7,11 +7,14 @@ import com.vvm.sh.baseDados.AtividadePendenteResultadoDao;
 import com.vvm.sh.baseDados.FormandoDao;
 import com.vvm.sh.baseDados.ResultadoDao;
 import com.vvm.sh.baseDados.TipoDao;
+import com.vvm.sh.baseDados.dao.ImagemResultadoDao;
+import com.vvm.sh.baseDados.entidades.ImagemResultado;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.AcaoFormacao;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.AcaoFormacaoResultado;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.Formando;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.FormandoResultado;
 import com.vvm.sh.ui.opcoes.modelos.Tipo;
+import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.constantes.TiposConstantes;
 
 import java.util.List;
@@ -25,15 +28,17 @@ public class FormacaoRepositorio {
     private final FormandoDao formandoDao;
     private final AcaoFormacaoDao acaoFormacaoDao;
     private final TipoDao tipoDao;
+    private final ImagemResultadoDao imagemResultadoDao;
     private final AtividadePendenteResultadoDao atividadePendenteResultadoDao;
     public final ResultadoDao resultadoDao;
 
     public FormacaoRepositorio(@NonNull FormandoDao formandoDao, @NonNull AcaoFormacaoDao acaoFormacaoDao,
-                               @NonNull AtividadePendenteResultadoDao atividadePendenteResultadoDao, @NonNull TipoDao tipoDao,
-                               @NonNull ResultadoDao resultadoDao) {
+                               @NonNull AtividadePendenteResultadoDao atividadePendenteResultadoDao, ImagemResultadoDao imagemResultadoDao,
+                               @NonNull TipoDao tipoDao, @NonNull ResultadoDao resultadoDao) {
         this.formandoDao = formandoDao;
         this.acaoFormacaoDao = acaoFormacaoDao;
         this.tipoDao = tipoDao;
+        this.imagemResultadoDao = imagemResultadoDao;
         this.atividadePendenteResultadoDao = atividadePendenteResultadoDao;
         this.resultadoDao = resultadoDao;
     }
@@ -66,6 +71,16 @@ public class FormacaoRepositorio {
 
     public Single<Integer> atualizarFormando(FormandoResultado formando) {
         return formandoDao.atualizar(formando);
+    }
+
+
+
+    public Single<Long> inserirAssinatura(ImagemResultado imagem) {
+        return imagemResultadoDao.inserir(imagem);
+    }
+
+    public Single<Integer> removerAssinatura(int idFormando) {
+        return imagemResultadoDao.remover(idFormando, Identificadores.Imagens.IMAGEM_ASSINATURA_FORMANDO);
     }
 
 

@@ -6,6 +6,7 @@ import com.vvm.sh.baseDados.FormandoDao;
 import com.vvm.sh.baseDados.ResultadoDao;
 import com.vvm.sh.baseDados.TipoDao;
 import com.vvm.sh.baseDados.VvmshBaseDados;
+import com.vvm.sh.baseDados.dao.ImagemResultadoDao;
 import com.vvm.sh.repositorios.FormacaoRepositorio;
 
 import dagger.Module;
@@ -51,10 +52,10 @@ public class FormacaoModule {
     @FormacaoScope
     @Provides
     FormacaoRepositorio provideFormacaoRepositorio(FormandoDao formandoDao, AcaoFormacaoDao acaoFormacaoDao,
-                                                   AtividadePendenteResultadoDao atividadePendenteResultadoDao, TipoDao tipoDao,
-                                                   ResultadoDao resultadoDao) {
+                                                   AtividadePendenteResultadoDao atividadePendenteResultadoDao, ImagemResultadoDao imagemResultadoDao,
+                                                   TipoDao tipoDao, ResultadoDao resultadoDao) {
 
-        FormacaoRepositorio repositorio = new FormacaoRepositorio(formandoDao, acaoFormacaoDao, atividadePendenteResultadoDao, tipoDao, resultadoDao);
+        FormacaoRepositorio repositorio = new FormacaoRepositorio(formandoDao, acaoFormacaoDao, atividadePendenteResultadoDao, imagemResultadoDao, tipoDao, resultadoDao);
 
         //Timber.d("Providing PokemonRepository: " + repository);
         return repositorio;

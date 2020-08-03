@@ -2,12 +2,14 @@ package com.vvm.sh.ui.atividadesPendentes.relatorios;
 
 import androidx.lifecycle.MutableLiveData;
 
+import com.vvm.sh.baseDados.entidades.ImagemResultado;
 import com.vvm.sh.repositorios.FormacaoRepositorio;
 import com.vvm.sh.servicos.ResultadoAsyncTask;
 import com.vvm.sh.baseDados.entidades.Resultado;
 import com.vvm.sh.ui.opcoes.modelos.Tipo;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.ResultadoId;
+import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.constantes.TiposConstantes;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
@@ -18,10 +20,12 @@ import javax.inject.Inject;
 
 import dagger.Module;
 import io.reactivex.Observable;
+import io.reactivex.ObservableSource;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.BiFunction;
+import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 @Module
@@ -44,6 +48,15 @@ public class FormacaoViewModel extends BaseViewModel {
         acaoFormacao = new MutableLiveData<>();
         generos = new MutableLiveData<>();
     }
+
+
+
+    //--------------------
+    //GRAVAR
+    //--------------------
+
+    
+
 
     public void gravar(int idTarefa, AcaoFormacaoResultado registo) {
 
@@ -130,14 +143,139 @@ public class FormacaoViewModel extends BaseViewModel {
 
 
 
-    public void gravar(int idTarefa, FormandoResultado registo) {
+    public void gravar(int idTarefa, FormandoResultado registo, byte [] imagem) {
+
+        if(formando.getValue() != null){
+            registo.selecionado = formando.getValue().resultado.selecionado;
+
+            if(imagem == null & formando.getValue().assinatura != null) {
+                imagem = formando.getValue().assinatura;
+            }
+        }
+
+
+        byte[] assinatura = imagem;
+
+        if(registo.id == 0) {
+
+            formacaoRepositorio.inserirFormando(registo).toObservable()
+                    .flatMap(new Function<Long, ObservableSource<?>>() {
+                        @Override
+                        public ObservableSource<?> apply(Long aLong) throws Exception {
+
+                            int idFormando = (int) (long) aLong;
+
+
+                            List<Observable<? extends Number>> ddd = new ArrayList<>();
+                            ddd.add(formacaoRepositorio.removerAssinatura(idFormando).toObservable());
+
+                            if(assinatura != null) {
+                                ImagemResultado imagemResultado = new ImagemResultado(idTarefa, idFormando, Identificadores.Imagens.IMAGEM_ASSINATURA_FORMANDO, assinatura);
+                                ddd.add(formacaoRepositorio.inserirAssinatura(imagemResultado).toObservable());
+                            }
+
+                            return Observable.merge(ddd);
+                        }
+                    })
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+
+                            new Observer<Object>() {
+                                @Override
+                                public void onSubscribe(Disposable d) {
+
+                                }
+
+                                @Override
+                                public void onNext(Object o) {
+                                    messagemLiveData.setValue(Recurso.successo());
+                                }
+
+                                @Override
+                                public void onError(Throwable e) {
+
+                                }
+
+                                @Override
+                                public void onComplete() {
+
+                                }
+                            }
+
+                    );
+
+        }
+        else{
+
+            formacaoRepositorio.atualizarFormando(registo).toObservable()
+                    .flatMap(new Function<Integer, ObservableSource<?>>() {
+                        @Override
+                        public ObservableSource<?> apply(Integer aLong) throws Exception {
+
+                            int idFormando = aLong;
+
+
+                            List<Observable<? extends Number>> ddd = new ArrayList<>();
+                            ddd.add(formacaoRepositorio.removerAssinatura(idFormando).toObservable());
+
+                            if(assinatura != null) {
+                                ImagemResultado imagemResultado = new ImagemResultado(idTarefa, idFormando, Identificadores.Imagens.IMAGEM_ASSINATURA_FORMANDO, assinatura);
+                                ddd.add(formacaoRepositorio.inserirAssinatura(imagemResultado).toObservable());
+                            }
+
+                            return Observable.merge(ddd);
+                        }
+                    })
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+
+                            new Observer<Object>() {
+                                @Override
+                                public void onSubscribe(Disposable d) {
+
+                                }
+
+                                @Override
+                                public void onNext(Object o) {
+                                    messagemLiveData.setValue(Recurso.successo());
+                                }
+
+                                @Override
+                                public void onError(Throwable e) {
+
+                                }
+
+                                @Override
+                                public void onComplete() {
+
+                                }
+                            }
+
+                    );
+        }
+
+
+        ResultadoAsyncTask servico = new ResultadoAsyncTask(vvmshBaseDados, formacaoRepositorio.resultadoDao);
+        servico.execute(new Resultado(idTarefa, ResultadoId.ATIVIDADE_PENDENTE));
+    }
+
+
+    public void gravar(int idTarefa, FormandoResultado registo){
+
 
         Observable<Integer> atividade = formacaoRepositorio.removerAtividade(registo.idAtividade).toObservable();
 
         if(registo.id == 0){
             //inserir
 
+
             Observable<Long> inserir = formacaoRepositorio.inserirFormando(registo).toObservable();
+
+
+
+
 
 
             Observable.zip(inserir, atividade, new BiFunction<Long, Integer, Object>() {
@@ -209,12 +347,10 @@ public class FormacaoViewModel extends BaseViewModel {
         }
 
 
-        ResultadoAsyncTask servico = new ResultadoAsyncTask(vvmshBaseDados, formacaoRepositorio.resultadoDao);
-        servico.execute(new Resultado(idTarefa, ResultadoId.ATIVIDADE_PENDENTE));
-    }
+    ResultadoAsyncTask servico = new ResultadoAsyncTask(vvmshBaseDados, formacaoRepositorio.resultadoDao);
+    servico.execute(new Resultado(idTarefa, ResultadoId.ATIVIDADE_PENDENTE));
 
-
-
+}
 
     //--------------------
     //OBTER

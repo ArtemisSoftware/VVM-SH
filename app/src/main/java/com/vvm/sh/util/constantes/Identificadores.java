@@ -33,4 +33,11 @@ public class Identificadores {
     public class CodigoAtividade {
         public static final int ASSINATURA = 1;
     }
+
+
+    public class Imagens{
+
+        public static final int IMAGEM_ASSINATURA_FORMANDO = 1;
+    }
+
 }

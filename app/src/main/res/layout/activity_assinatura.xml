@@ -45,7 +45,8 @@
                 <com.github.gcacace.signaturepad.views.SignaturePad
                     android:id="@+id/sgn_pad_assinatura"
                     android:layout_width="match_parent"
-                    android:layout_height="600dp"
+                    android:layout_height="300dp"
+                    android:background="@drawable/borda_imagem"
                     app:layout_constraintTop_toTopOf="parent" />
 
 
@@ -53,8 +54,12 @@
                     android:id="@+id/textview2"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:layout_marginTop="410dp"
+                    android:layout_marginStart="32dp"
+                    android:layout_marginTop="150dp"
+                    android:layout_marginEnd="32dp"
                     android:background="@color/cor_separador"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="@+id/sgn_pad_assinatura" />
 
                 <!--
@@ -68,6 +73,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dp"
+                    android:visibility="invisible"
                     android:text="@string/lorem_ipsum_texto"
                     android:textColor="@android:color/darker_gray"
                     app:layout_constraintTop_toBottomOf="@+id/sgn_pad_assinatura" />

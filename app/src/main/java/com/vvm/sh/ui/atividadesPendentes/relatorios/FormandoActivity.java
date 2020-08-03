@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.BitmapDrawable;
 import android.os.Bundle;
 import android.view.View;
 
@@ -15,6 +16,7 @@ import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.vvm.sh.R;
+import com.vvm.sh.baseDados.entidades.ImagemResultado;
 import com.vvm.sh.databinding.ActivityFormandoBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.AssinaturaActivity;
@@ -82,6 +84,7 @@ public class FormandoActivity extends BaseDaggerActivity
     TextInputEditText txt_inp_nacionalidade;
 
 
+    private boolean assinado = false;
 
 
     @Override
@@ -191,6 +194,7 @@ public class FormandoActivity extends BaseDaggerActivity
         FormandoResultado formando;
 
         int idFormando = bundle.getInt(getString(R.string.argumento_id_formando));
+        byte[] imagem = null;
 
         if(idFormando == 0){
             formando = new FormandoResultado(idAtividade, nome, identificacao, genero.codigo, niss, dataNascimento, naturalidade, nacionalidade);
@@ -200,8 +204,14 @@ public class FormandoActivity extends BaseDaggerActivity
         }
 
 
-        viewModel.gravar(Preferencias.obterIdTarefa(this), formando);
+        if(assinado == true){
+            imagem = ImagemUtil.converter(((BitmapDrawable) activityFormandoBinding.imgAssinatura.getDrawable()).getBitmap());
+        }
+
+
+        viewModel.gravar(Preferencias.obterIdTarefa(this), formando, imagem);
     }
+
 
     @Override
     public void onValidationFailed(List<ValidationError> errors) {
@@ -257,17 +267,16 @@ public class FormandoActivity extends BaseDaggerActivity
 
 
         if (requestCode == Identificadores.CodigoAtividade.ASSINATURA) {
-            if(resultCode == RESULT_OK){
 
+            if(resultCode == RESULT_OK){
 
                 Bitmap bitmap = ImagemUtil.converter(data.getByteArrayExtra(getString(R.string.resultado_imagem)));
 
                 activityFormandoBinding.imgAssinatura.setImageBitmap(Bitmap.createScaledBitmap(bitmap, activityFormandoBinding.imgAssinatura.getWidth(),
                         activityFormandoBinding.imgAssinatura.getHeight(), false));
 
+                assinado = true;
             }
-
         }
-
     }
 }

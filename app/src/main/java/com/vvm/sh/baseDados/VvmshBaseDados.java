@@ -5,6 +5,7 @@ import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
 import com.vvm.sh.baseDados.dao.ImagemResultadoDao;
+import com.vvm.sh.baseDados.dao.UploadDao;
 import com.vvm.sh.baseDados.entidades.ImagemResultado;
 import com.vvm.sh.baseDados.entidades.Resultado;
 import com.vvm.sh.ui.agenda.modelos.Tarefa;
@@ -100,4 +101,6 @@ public abstract class VvmshBaseDados extends RoomDatabase {
 
 
     public abstract ImagemResultadoDao obterImagemResultadoDao();
+
+    public abstract UploadDao obterUploadDao();
 }

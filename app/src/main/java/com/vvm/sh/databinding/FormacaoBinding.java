@@ -4,7 +4,10 @@ import androidx.databinding.BindingAdapter;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipDrawable;
 import com.jaredrummler.materialspinner.MaterialSpinner;
+import com.vvm.sh.R;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.AcaoFormacaoResultado;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.Formando;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.FormandoRecyclerAdapter;
@@ -81,6 +84,27 @@ public class FormacaoBinding {
         }
         else{
             adapter.atualizar(items);
+        }
+    }
+
+
+    @BindingAdapter({"estado"})
+    public static void setEstado(Chip view, boolean estado) {
+
+        ChipDrawable chipDrawable = (ChipDrawable) view.getChipDrawable();
+
+        if(estado == true){
+
+            view.setText(view.getContext().getString(R.string.completo));
+
+            chipDrawable.setChipBackgroundColorResource(R.color.bg_screen1);
+            view.setChipIcon(view.getContext().getResources().getDrawable(R.drawable.arrow));
+
+        }
+        else{
+            view.setText(view.getContext().getString(R.string.incompleto));
+            //view.setBackgroundColor(view.getContext().getResources().getColor(R.color.profilePrimaryDark));
+            chipDrawable.setChipBackgroundColorResource(R.color.profilePrimaryDark);
         }
     }
 

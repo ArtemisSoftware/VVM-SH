@@ -141,7 +141,10 @@
         <item name="windowNoTitle">true</item>
     </style>
 
+    <style name="temaDialogo" parent="Theme.AppCompat.Light.Dialog">
 
+        <item name="android:padding">16dp</item>
+    </style>
 
 
     <!--  #####################FINAL################### -->

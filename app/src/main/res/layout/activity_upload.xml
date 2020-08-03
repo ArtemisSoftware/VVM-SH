@@ -1,0 +1,147 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="java.util.List"/>
+
+
+        <variable
+            name="viewmodel"
+            type="com.vvm.sh.ui.agenda.AgendaViewModel"/>
+
+    </data>
+
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="84dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/atualicao_app" />
+
+<!--
+        <LinearLayout
+            android:id="@+id/linearLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="64dp"
+            android:orientation="vertical"
+            android:paddingLeft="32dp"
+            android:paddingBottom="8dp"
+            app:layout_constraintEnd_toEndOf="@+id/imageView"
+            app:layout_constraintStart_toStartOf="@+id/imageView"
+            app:layout_constraintTop_toBottomOf="@+id/imageView">
+
+
+            <TextView
+                style="@style/titulo"
+                android:text="@string/atualizacao" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="16dp">
+
+                <TextView
+                    style="@style/textoDetalhe"
+                    android:text="@string/versao_"/>
+
+                <TextView
+                    android:id="@+id/txt_versao_app"
+                    style="@style/textoDetalhe"
+                    android:layout_marginLeft="8dp"
+                    android:text="@{viewmodel.versaoApp.versao, default=0}"/>
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/txt_atualizacoes"
+                style="@style/textoDetalhe"
+                android:layout_marginTop="16dp"
+                android:layout_marginRight="20dp"
+                android:text="@{viewmodel.versaoApp.texto}"/>
+
+
+        </LinearLayout>
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/lnr_lyt_progresso"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/linearLayout"
+            android:visibility="@{viewmodel.versaoApp.atualizar ? View.VISIBLE : View.GONE}">
+
+            <ProgressBar
+                android:id="@+id/progressBar_progresso"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="400dp"
+                android:layout_height="wrap_content"
+                android:max="100"
+                android:progress="0"
+                app:layout_constraintBottom_toTopOf="@+id/button"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.19999999" />
+
+            <TextView
+                android:id="@+id/txt_titulo_progresso"
+                style="@style/textoDetalhe"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="64dp"
+                app:layout_constraintBottom_toTopOf="@+id/button"
+                app:layout_constraintStart_toStartOf="@+id/progressBar_progresso"
+                app:layout_constraintTop_toBottomOf="@+id/progressBar_progresso"
+                app:layout_constraintVertical_bias="0.07999998" />
+
+            <TextView
+                android:id="@+id/txt_progresso"
+                style="@style/textoDetalhe"
+                app:layout_constraintEnd_toEndOf="@+id/progressBar_progresso"
+                app:layout_constraintTop_toTopOf="@+id/txt_titulo_progresso" />
+
+            <Button
+                android:id="@+id/button"
+                style="@style/botaoOpcao"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
+                android:layout_marginBottom="32dp"
+                android:text="@string/cancelar"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                android:onClick="@{(view) -> activity.onCancelarClick(viewmodel.versaoApp)}" />
+
+            <Button
+                android:id="@+id/button2"
+                style="@style/botaoOpcao"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="32dp"
+                android:text="Iniciar atualização"
+                app:layout_constraintBottom_toBottomOf="@+id/button"
+                app:layout_constraintEnd_toEndOf="parent"
+                android:onClick="@{(view) -> activity.onAtualizarClick()}" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+-->
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</layout>

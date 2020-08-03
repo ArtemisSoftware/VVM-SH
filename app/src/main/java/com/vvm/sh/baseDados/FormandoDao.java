@@ -30,4 +30,5 @@ abstract public class FormandoDao implements BaseDao<FormandoResultado>{
             "ON frm_res.id = img.idImagem " +
             "WHERE id = :id")
     abstract public Maybe<Formando> obterFormando(int id);
+
 }

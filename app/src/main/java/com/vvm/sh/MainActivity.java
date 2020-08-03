@@ -4,14 +4,16 @@ import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 
 import com.vvm.sh.databinding.ActivityMainBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.agenda.AgendaViewModel;
 import com.vvm.sh.ui.opcoes.TiposActivity;
+import com.vvm.sh.ui.upload.UploadActivity;
 import com.vvm.sh.ui.tarefa.TarefaActivity;
-import com.vvm.sh.ui.agenda.TrabalhoActivity;
 import com.vvm.sh.ui.agenda.adaptadores.OnAgendaListener;
 import com.vvm.sh.ui.agenda.modelos.TarefaDia;
 import com.vvm.sh.util.metodos.DatasUtil;
@@ -41,6 +43,7 @@ public class MainActivity extends BaseDaggerActivity
     @Override
     protected void intActivity(Bundle savedInstanceState) {
 
+
         viewModel = ViewModelProviders.of(this, providerFactory).get(AgendaViewModel.class);
 
         activityMainBinding = (ActivityMainBinding) activityBinding;
@@ -49,6 +52,7 @@ public class MainActivity extends BaseDaggerActivity
         activityMainBinding.setListener(this);
         //activityTrabalhoBinding.setActivity(this);
 
+        setSupportActionBar(activityMainBinding.toolbar);
 
         activityMainBinding.txtData.setText(DatasUtil.obterDataAtual(DatasUtil.FORMATO_DD_MMMM_YYYY, DatasUtil.LOCAL_PORTUGAL));
 
@@ -287,22 +291,22 @@ public class MainActivity extends BaseDaggerActivity
 //    public void recarregarTarefa() {
 //
 //    }
-//
-//
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.menu_principal, menu);
-//        return true;
-//    }
-//
-//
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//
-//        Intent intent;
-//
-//        switch (item.getItemId()){
-//
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_principal, menu);
+        return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        Intent intent;
+
+        switch (item.getItemId()){
+
 //            case R.id.item_perfil:
 //
 //                intent = new Intent(this, PerfilActivity.class);
@@ -340,18 +344,20 @@ public class MainActivity extends BaseDaggerActivity
 //                intent = new Intent(this, AtualizacaoAppActivity.class);
 //                startActivity(intent);
 //                return true;
-//
-//
-//            case R.id.item_upload_dados:
-//
-//                return true;
-//
-//
-//            default:
-//                return super.onOptionsItemSelected(item);
-//        }
-//    }
-//
+
+
+            case R.id.item_upload_dados:
+
+                intent = new Intent(this, UploadActivity.class);
+                startActivity(intent);
+                return true;
+
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
 
 
 }

@@ -16,7 +16,7 @@ public class GeralBinding {
             return;
         }
 
-        view.setImageBitmap(Bitmap.createScaledBitmap(ImagemUtil.converter(imagem), 900, 600, false));
+        view.setImageBitmap(Bitmap.createScaledBitmap(ImagemUtil.converter(imagem), 900, 300, false));
 
     }
 
@@ -28,7 +28,7 @@ public class GeralBinding {
             return;
         }
 
-        view.setImageBitmap(Bitmap.createScaledBitmap(ImagemUtil.converter(imagem), 900, 600, false));
+        view.setImageBitmap(Bitmap.createScaledBitmap(ImagemUtil.converter(imagem), 900, 300, false));
 
     }
 

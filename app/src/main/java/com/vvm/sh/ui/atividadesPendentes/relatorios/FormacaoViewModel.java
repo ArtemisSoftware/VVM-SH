@@ -37,6 +37,7 @@ public class FormacaoViewModel extends BaseViewModel {
     public MutableLiveData<Formando> formando;
 
     public MutableLiveData<AcaoFormacao> acaoFormacao;
+    public MutableLiveData<Boolean> completudeFormacao;
     public MutableLiveData<List<Tipo>> generos;
 
     @Inject
@@ -47,6 +48,7 @@ public class FormacaoViewModel extends BaseViewModel {
         formando = new MutableLiveData<>();
         acaoFormacao = new MutableLiveData<>();
         generos = new MutableLiveData<>();
+        completudeFormacao = new MutableLiveData<>();
     }
 
 
@@ -363,6 +365,8 @@ public class FormacaoViewModel extends BaseViewModel {
      */
     public void obterFormacao(int idAtividade){
 
+        completudeFormacao.setValue(false);
+
         obterAcaoFormacaoAtividade(idAtividade);
 
         showProgressBar(true);
@@ -384,6 +388,40 @@ public class FormacaoViewModel extends BaseViewModel {
                             public void onNext(List<Formando> resultado) {
 
                                 formandos.setValue(resultado);
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+
+                            @Override
+                            public void onComplete() {
+                                showProgressBar(false);
+                            }
+                        }
+
+                );
+
+
+
+        formacaoRepositorio.obterValidadeFormacao(idAtividade).toObservable()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+
+                        new Observer<Integer>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onNext(Integer resultado) {
+
+                                completudeFormacao.setValue(resultado > 0);
                                 showProgressBar(false);
                             }
 

@@ -88,7 +88,7 @@ public class OpcoesViewModel extends BaseViewModel {
                                 //registos.add(new Colecao(TiposConstantes.CROSS_SELLING_TIPO, 4, "2019-06-22"));
                                 //registos.add(new Colecao(TiposConstantes.TIPIFICACAO_OCORRENCIA, 4, "2019-06-22"));
                                 //registos.add(new Colecao(TiposConstantes.TIPOS_ANOMALIA, 4, "2019-06-22"));
-                                registos.add(new Colecao(TiposConstantes.CURSOS, -1, "2019-06-22"));
+                                //registos.add(new Colecao(TiposConstantes.CURSOS, -1, "2019-06-22"));
                                 tipos.setValue(registos);
                                 showProgressBar(false);
                             }

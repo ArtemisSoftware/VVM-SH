@@ -55,6 +55,10 @@ public class FormacaoRepositorio {
         return acaoFormacaoDao.atualizar(acaoFormacao);
     }
 
+    public Flowable<Integer> obterValidadeFormacao(int idAtividade) {
+        return acaoFormacaoDao.obterValidadeFormacao(idAtividade);
+    }
+
 
 
     public Flowable<List<Formando>> obterFormandos(int idAtividade) {

@@ -249,4 +249,11 @@ public abstract class ActivityBuildersModule {
     abstract TiposActivity contributeTiposActivity();
 
 
+//    @OpcoesScope
+//    @ContributesAndroidInjector(
+//            modules = { AgendaViewModelsModule.class, AgendaModule.class }
+//    )
+//    abstract TiposActivity contributeTiposActivity();
+
+
 }

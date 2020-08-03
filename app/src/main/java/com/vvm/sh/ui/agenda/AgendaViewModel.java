@@ -5,10 +5,13 @@ import androidx.lifecycle.MutableLiveData;
 import com.vvm.sh.api.modelos.SessaoResposta;
 import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.repositorios.AgendaRepositorio;
+import com.vvm.sh.servicos.DadosUploadAsyncTask;
 import com.vvm.sh.ui.agenda.modelos.TarefaDia;
 import com.vvm.sh.ui.agenda.servicos.TrabalhoAsyncTask;
+import com.vvm.sh.util.ResultadoId;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -114,6 +117,56 @@ public class AgendaViewModel extends BaseViewModel {
                             }
                         }
                 );
+    }
+
+
+    //----------------------
+    //
+    //----------------------
+
+
+    public void obterDadosUpload(String idUtilizador){
+
+//        showProgressBar(true);
+//
+//        agendaRepositorio.obterTrabalho(idUtilizador).toObservable()
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(
+//
+//
+//                        new Observer<SessaoResposta[]>() {
+//                            @Override
+//                            public void onSubscribe(Disposable d) {
+//
+//                            }
+//
+//                            @Override
+//                            public void onNext(SessaoResposta[] sessao) {
+
+
+                                List<Integer> resultado = new ArrayList<>();
+                                resultado.add(ResultadoId.EMAIL.getValue());
+
+                                DadosUploadAsyncTask servico = new DadosUploadAsyncTask(vvmshBaseDados, agendaRepositorio, idUtilizador);
+                                servico.execute(resultado);
+
+//                                showProgressBar(false);
+//                            }
+//
+//                            @Override
+//                            public void onError(Throwable e) {
+//
+//                            }
+//
+//                            @Override
+//                            public void onComplete() {
+//
+//                            }
+//                        }
+//
+//                );
+
     }
 
 }

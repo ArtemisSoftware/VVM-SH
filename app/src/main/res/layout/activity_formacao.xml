@@ -247,7 +247,8 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rcl_registos"
                 style="@style/lista"
-
+                formandos="@{viewmodel.formandos}"
+                listener="@{listener}"
                 tools:listitem="@layout/item_formando"/>
 
             <!--

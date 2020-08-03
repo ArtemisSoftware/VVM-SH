@@ -7,6 +7,7 @@
 
         <import type="java.util.List"/>
         <import type="android.view.View"/>
+        <import type="com.vvm.sh.util.metodos.DatasUtil"/>
 
         <variable
             name="viewmodel"
@@ -91,6 +92,7 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/txt_inp_nome"
                             style="@style/modifiedEditText"
+                            android:text="@{viewmodel.formando.resultado.nome}"
                             android:inputType="text"
                             android:maxLines="1"/>
                     </com.google.android.material.textfield.TextInputLayout>
@@ -110,6 +112,7 @@
                         android:id="@+id/spnr_genero"
                         android:layout_width="400dp"
                         tipos_="@{viewmodel.generos}"
+                        genero="@{viewmodel.formando.resultado.sexo}"
                         android:layout_height="wrap_content"
                         app:layout_constraintStart_toStartOf="@+id/textView18"
                         app:layout_constraintTop_toBottomOf="@+id/textview31" />
@@ -129,6 +132,7 @@
                             android:id="@+id/txt_inp_identificacao"
                             style="@style/modifiedEditText"
                             android:inputType="number"
+                            android:text="@{viewmodel.formando.resultado.biCartaoCidadao}"
                             android:maxLines="1"/>
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -156,6 +160,7 @@
                                 style="@style/modifiedEditText"
                                 android:inputType="date"
                                 android:enabled="false"
+                                android:text="@{DatasUtil.converterData(viewmodel.formando.resultado.dataNascimento, DatasUtil.FORMATO_DD_MM_YYYY)}"
                                 android:maxLines="1"/>
                         </com.google.android.material.textfield.TextInputLayout>
 
@@ -185,6 +190,7 @@
                             android:id="@+id/txt_inp_niss"
                             style="@style/modifiedEditText"
                             android:inputType="number"
+                            android:text="@{viewmodel.formando.resultado.niss}"
                             android:maxLines="1"/>
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -205,6 +211,7 @@
                             android:id="@+id/txt_inp_naturalidade"
                             style="@style/modifiedEditText"
                             android:inputType="text"
+                            android:text="@{viewmodel.formando.resultado.naturalidade}"
                             android:maxLines="1"/>
                     </com.google.android.material.textfield.TextInputLayout>
 
@@ -223,6 +230,7 @@
                             android:id="@+id/txt_inp_nacionalidade"
                             style="@style/modifiedEditText"
                             android:inputType="text"
+                            android:text="@{viewmodel.formando.resultado.nacionalidade}"
                             android:maxLines="1"/>
                     </com.google.android.material.textfield.TextInputLayout>
 

@@ -130,14 +130,14 @@ public class FormacaoViewModel extends BaseViewModel {
 
 
 
-    public void gravar(int idTarefa, FormandoResultado formando) {
+    public void gravar(int idTarefa, FormandoResultado registo) {
 
-        Observable<Integer> atividade = formacaoRepositorio.removerAtividade(formando.idAtividade).toObservable();
+        Observable<Integer> atividade = formacaoRepositorio.removerAtividade(registo.idAtividade).toObservable();
 
-        if(acaoFormacao.getValue() == null){
+        if(registo.id == 0){
             //inserir
 
-            Observable<Long> inserir = formacaoRepositorio.inserirFormando(formando).toObservable();
+            Observable<Long> inserir = formacaoRepositorio.inserirFormando(registo).toObservable();
 
 
             Observable.zip(inserir, atividade, new BiFunction<Long, Integer, Object>() {
@@ -173,7 +173,7 @@ public class FormacaoViewModel extends BaseViewModel {
         else{
             //editar
 
-            Observable<Integer> atualizar = formacaoRepositorio.atualizarFormando(formando).toObservable();
+            Observable<Integer> atualizar = formacaoRepositorio.atualizarFormando(registo).toObservable();
 
 
             Observable.zip(atualizar, atividade, new BiFunction<Integer, Integer, Object>() {

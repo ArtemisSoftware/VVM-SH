@@ -97,6 +97,7 @@ public class FormandoResultado {
         this.dataNascimento = dataNascimento;
         this.naturalidade = naturalidade;
         this.nacionalidade = nacionalidade;
+        this.origem = Identificadores.Origens.ORIGEM_BD;
     }
 
 
@@ -115,6 +116,7 @@ public class FormandoResultado {
         this.dataNascimento = dataNascimento;
         this.naturalidade = naturalidade;
         this.nacionalidade = nacionalidade;
+        this.origem = Identificadores.Origens.ORIGEM_BD;
     }
 
 

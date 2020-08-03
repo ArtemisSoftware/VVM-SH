@@ -37,6 +37,27 @@ public class FormacaoBinding {
     }
 
 
+    @BindingAdapter({"tipos_", "genero"})
+    public static void setTipos_(MaterialSpinner view, List<Tipo> registos, String sexo) {
+
+        if (registos == null)
+            return;
+
+        view.setItems(registos);
+
+        if(sexo != null) {
+
+            for (int index = 0; index < registos.size(); ++index) {
+
+                if(registos.get(index).codigo.equals(sexo)){
+                    view.setSelectedIndex(index);
+                    break;
+                }
+            }
+        }
+    }
+
+
 
     @BindingAdapter({"formandos", "listener"})
     public static void setFormandos(RecyclerView view, List<Formando> items, OnFormacaoListener listener) {

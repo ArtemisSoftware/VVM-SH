@@ -31,7 +31,10 @@ public class FormandoViewHolder extends RecyclerView.ViewHolder implements View.
 
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-        this.listener.OnSelecionadoCheck(binding.getFormando(), isChecked);
+
+        if(binding.getFormando().resultado.selecionado != isChecked) {
+            this.listener.OnSelecionadoCheck(binding.getFormando(), isChecked);
+        }
     }
 
 

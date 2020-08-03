@@ -19,6 +19,7 @@ import com.vvm.sh.ui.crossSelling.CrossSellingActivity;
 import com.vvm.sh.ui.ocorrencias.OcorrenciasActivity;
 import com.vvm.sh.ui.tarefa.adaptadores.OnTarefaListener;
 import com.vvm.sh.ui.tarefa.modelos.OpcaoCliente;
+import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.constantes.Url;
 import com.vvm.sh.util.metodos.Preferencias;
@@ -92,12 +93,12 @@ public class TarefaActivity extends BaseDaggerActivity
 
         switch (opcao.id){
 
-            case OpcaoCliente.OPCAO_INFORMACAO:
+            case Identificadores.OpcoesCliente.OPCAO_INFORMACAO:
 
                 intent = new Intent(this, InformacaoActivity.class);
                 break;
 
-            case OpcaoCliente.OPCAO_CROSS_SELLING:
+            case Identificadores.OpcoesCliente.OPCAO_CROSS_SELLING:
 
                 intent = new Intent(this, CrossSellingActivity.class);
                 break;
@@ -112,7 +113,7 @@ public class TarefaActivity extends BaseDaggerActivity
 //                intent = new Intent(this, ExtintoresActivity.class);
 //                break;
 
-            case OpcaoCliente.OPCAO_EMAIL:
+            case Identificadores.OpcoesCliente.OPCAO_EMAIL:
 
                 DialogoEmail dialogo = new DialogoEmail();
                 dialogo.show(getSupportFragmentManager(), "example dialog");

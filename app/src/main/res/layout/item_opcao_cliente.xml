@@ -38,7 +38,7 @@
                 android:layout_width="64dp"
                 android:layout_height="64dp"
                 android:background="@drawable/cerclebackgroundpink"
-                android:src="@drawable/ic_lorem_ipsum_24dp"
+                imagem="@{opcao.icon}"
                 android:padding="10dp"/>
 
             <View

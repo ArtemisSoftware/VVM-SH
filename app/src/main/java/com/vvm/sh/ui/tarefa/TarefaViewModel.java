@@ -14,6 +14,7 @@ import com.vvm.sh.baseDados.entidades.EmailResultado;
 import com.vvm.sh.ui.tarefa.modelos.OpcaoCliente;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.ResultadoId;
+import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.constantes.TiposConstantes;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
@@ -258,9 +259,9 @@ public class TarefaViewModel extends BaseViewModel {
 
         List<OpcaoCliente> items = new ArrayList<>();
 
-        items.add(new OpcaoCliente(OpcaoCliente.OPCAO_INFORMACAO, "Informação"));
-        items.add(new OpcaoCliente(OpcaoCliente.OPCAO_EMAIL, "Email"));
-        items.add(new OpcaoCliente(OpcaoCliente.OPCAO_CROSS_SELLING, "Cross Selling"));
+//        items.add(new OpcaoCliente(Identificadores.OpcoesCliente .OPCAO_INFORMACAO, "Informação"));
+        items.add(OpcaoCliente.email());
+//        items.add(new OpcaoCliente(OpcaoCliente.OPCAO_CROSS_SELLING, "Cross Selling"));
 
         opcoesCliente.setValue(items);
 

@@ -1,5 +1,7 @@
 package com.vvm.sh.util.constantes;
 
+import com.vvm.sh.R;
+
 public class Identificadores {
 
     public static final String SEM_VALOR = "-1";
@@ -44,4 +46,20 @@ public class Identificadores {
         public static final int ID_EMAIL = 1;
         public static final int ID_ANOMALIA_CLIENTE = 2;
     }
+
+    public class OpcoesCliente {
+
+        public static final int OPCAO_INFORMACAO = 1;
+        public static final int OPCAO_CROSS_SELLING = 2;
+        public static final int OPCAO_SINISTRALIDADE = 3;
+        public static final int OPCAO_EXTINTORES = 4;
+        public static final int OPCAO_ANOMALIA = 6;
+
+
+        public static final int OPCAO_EMAIL = 5;
+        public static final String EMAIL = "email";
+        public static final int EMAIL_ICON = R.drawable.ic_email_24dp;
+    }
+
+
 }

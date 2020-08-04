@@ -18,11 +18,19 @@ public class DadosFormularios {
     @SerializedName("CrossSelling")
     public CrossSellingInfo crossSelling;
 
+    @SerializedName("RegistoOcorrencias")
+    public OcorrenciasInfo ocorrencias;
+
+
+
+
+
     public DadosFormularios() {
 
         email = new EmailInfo();
         anomaliasCliente = new AnomaliasClienteInfo();
         crossSelling = new CrossSellingInfo();
+        ocorrencias = new OcorrenciasInfo();
     }
 
     public class EmailInfo{
@@ -79,17 +87,37 @@ public class DadosFormularios {
 
 
 
+    public class OcorrenciasInfo{
+
+        @SerializedName("dataRegisto")
+        public String dataRegisto;
+
+        @SerializedName("dados")
+        public List<Ocorrencia> dados;
+
+
+        public OcorrenciasInfo() {
+
+            this.dataRegisto = DatasUtil.obterDataAtual(DatasUtil.DATA_FORMATO_YYYY_MM_DD__HH_MM_SS);
+            this.dados = new ArrayList<>();
+        }
+    }
+
+
+
     public void fixarEmail(Email email){
         this.email.dados.add(email);
     }
-
 
     public void fixarAnomalias(List<Anomalia> anomalias){
         this.anomaliasCliente.dados = anomalias;
     }
 
-
     public void fixarCrossSelling(List<CrossSelling> crossSellings){
         this.crossSelling.dados = crossSellings;
+    }
+
+    public void fixarOcorrencias(List<Ocorrencia> ocorrencias){
+        this.ocorrencias.dados = ocorrencias;
     }
 }

@@ -1,9 +1,10 @@
-package com.vvm.sh.baseDados;
+package com.vvm.sh.baseDados.dao;
 
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
 
+import com.vvm.sh.baseDados.BaseDao;
 import com.vvm.sh.ui.anomalias.modelos.Anomalia;
 import com.vvm.sh.ui.anomalias.modelos.AnomaliaRegistada;
 import com.vvm.sh.ui.anomalias.modelos.AnomaliaResultado;
@@ -14,7 +15,7 @@ import io.reactivex.Flowable;
 import io.reactivex.Single;
 
 @Dao
-abstract public class AnomaliaResultadoDao implements BaseDao<AnomaliaResultado>{
+abstract public class AnomaliaResultadoDao implements BaseDao<AnomaliaResultado> {
 
 
     @Query("SELECT * FROM anomalias WHERE idTarefa = :idTarefa")

@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.vvm.sh.R;
 import com.vvm.sh.databinding.ItemOcorrenciaBinding;
-import com.vvm.sh.ui.ocorrencias.modelos.Ocorrencia;
+import com.vvm.sh.baseDados.entidades.Ocorrencia;
 
 import java.util.ArrayList;
 import java.util.List;

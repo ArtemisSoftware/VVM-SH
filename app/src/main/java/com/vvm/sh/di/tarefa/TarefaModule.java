@@ -1,8 +1,7 @@
 package com.vvm.sh.di.tarefa;
 
 import com.vvm.sh.baseDados.AtividadeExecutadaDao;
-import com.vvm.sh.baseDados.ClienteDao;
-import com.vvm.sh.baseDados.EmailDao;
+import com.vvm.sh.baseDados.dao.EmailDao;
 import com.vvm.sh.baseDados.ResultadoDao;
 import com.vvm.sh.baseDados.TarefaDao;
 import com.vvm.sh.baseDados.VvmshBaseDados;

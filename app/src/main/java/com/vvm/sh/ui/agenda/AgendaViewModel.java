@@ -3,15 +3,11 @@ package com.vvm.sh.ui.agenda;
 import androidx.lifecycle.MutableLiveData;
 
 import com.vvm.sh.api.modelos.SessaoResposta;
-import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.repositorios.AgendaRepositorio;
-import com.vvm.sh.servicos.DadosUploadAsyncTask;
 import com.vvm.sh.ui.agenda.modelos.TarefaDia;
-import com.vvm.sh.ui.agenda.servicos.TrabalhoAsyncTask;
-import com.vvm.sh.util.ResultadoId;
+import com.vvm.sh.servicos.TrabalhoAsyncTask;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;

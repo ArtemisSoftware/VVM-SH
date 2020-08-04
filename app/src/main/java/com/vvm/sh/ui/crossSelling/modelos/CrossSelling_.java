@@ -19,9 +19,9 @@ public class CrossSelling_ {
     )
     public CrossSellingResultado resultado;
 
-    @ColumnInfo(name = "dimensao")
-    public String dimensao;
+//    @ColumnInfo(name = "dimensao")
+//    public String dimensao;
 
-    @ColumnInfo(name = "tipo")
-    public String tipoCrossSelling;
+//    @ColumnInfo(name = "tipoSinaletica")
+//    public String tipoSinaletica;
 }

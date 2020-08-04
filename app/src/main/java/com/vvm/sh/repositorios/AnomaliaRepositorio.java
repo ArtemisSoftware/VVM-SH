@@ -2,7 +2,7 @@ package com.vvm.sh.repositorios;
 
 import androidx.annotation.NonNull;
 
-import com.vvm.sh.baseDados.AnomaliaResultadoDao;
+import com.vvm.sh.baseDados.dao.AnomaliaResultadoDao;
 import com.vvm.sh.baseDados.ResultadoDao;
 import com.vvm.sh.baseDados.TipoDao;
 import com.vvm.sh.ui.anomalias.modelos.Anomalia;

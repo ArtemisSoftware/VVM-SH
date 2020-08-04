@@ -2,6 +2,7 @@ package com.vvm.sh.baseDados;
 
 import androidx.room.Dao;
 import androidx.room.Query;
+import androidx.room.Transaction;
 
 import com.vvm.sh.ui.crossSelling.modelos.CrossSelling;
 import com.vvm.sh.baseDados.entidades.CrossSellingResultado;
@@ -17,13 +18,14 @@ abstract public class CrossSellingDao implements BaseDao<CrossSellingResultado>{
 
 
 
-    @Query("SELECT tp.*, crs.*, dimensao, tipo " +
+    @Transaction
+    @Query("SELECT * " + //tp.* , crs.*, dimensao, tipoSinaletica
             "FROM tipos as tp " +
             "LEFT JOIN (SELECT idTarefa, id, idAreaRecomendacao, idDimensao, idTipo FROM crossSellingResultado) as crs ON tp.id = crs.id " +
-            "LEFT JOIN (SELECT id, descricao as dimensao FROM tipos WHERE tipo = :tipoDimensao) as tp_dimensao ON crs.idDimensao = tp_dimensao.id " +
-            "LEFT JOIN (SELECT id, descricao as tipo FROM tipos WHERE tipo = :tipoTipo) as tp_tipo ON crs.idTipo = tp_tipo.id " +
+//            "LEFT JOIN (SELECT id, descricao as dimensao FROM tipos WHERE tipo = :tipoDimensao) as tp_dimensao ON crs.idDimensao = tp_dimensao.id " +
+//            "LEFT JOIN (SELECT id, descricao as tipoSinaletica FROM tipos WHERE tipo = :tipoTipo) as tp_tipo ON crs.idTipo = tp_tipo.id " +
             "WHERE tp.tipo = :tipoProduto AND idPai = :idProduto AND ativo = 1")
-    abstract public Flowable<List<CrossSelling_>> obterCrossSelling_(String tipoProduto, String tipoDimensao, String tipoTipo, String idProduto);
+    abstract public Flowable<List<CrossSelling_>> obterCrossSelling_(String tipoProduto/*, String tipoDimensao, String tipoTipo*/, String idProduto);
 
 
     @Query("SELECT idTarefa, tp.id as id, descricao, idAreaRecomendacao, idDimensao, dimensao, idTipo, tp_tipo.tipo as tipo " +

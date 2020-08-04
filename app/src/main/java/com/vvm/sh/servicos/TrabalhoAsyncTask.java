@@ -1,4 +1,4 @@
-package com.vvm.sh.ui.agenda.servicos;
+package com.vvm.sh.servicos;
 
 import android.database.sqlite.SQLiteConstraintException;
 import android.os.AsyncTask;
@@ -18,8 +18,8 @@ import com.vvm.sh.ui.anomalias.modelos.Anomalia;
 import com.vvm.sh.ui.atividadesExecutadas.modelos.AtividadeExecutada;
 import com.vvm.sh.ui.atividadesPendentes.modelos.AtividadePendente;
 import com.vvm.sh.ui.cliente.Cliente;
-import com.vvm.sh.ui.ocorrencias.modelos.Ocorrencia;
-import com.vvm.sh.ui.ocorrencias.modelos.OcorrenciaHistorico;
+import com.vvm.sh.baseDados.entidades.Ocorrencia;
+import com.vvm.sh.baseDados.entidades.OcorrenciaHistorico;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.mapeamento.ModelMapping;
 import com.vvm.sh.util.metodos.DatasUtil;

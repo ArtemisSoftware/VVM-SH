@@ -41,7 +41,7 @@ public class CrossSellingRepositorio {
     }
 
     public Flowable<List<CrossSelling_>> obterCrossSelling_(String idProduto){
-        return crossSellingDao.obterCrossSelling_(TiposConstantes.CROSS_SELLING_PRODUTOS, TiposConstantes.CROSS_SELLING_DIMENSAO, TiposConstantes.CROSS_SELLING_TIPO, idProduto);
+        return crossSellingDao.obterCrossSelling_(TiposConstantes.CROSS_SELLING_PRODUTOS/*, TiposConstantes.CROSS_SELLING_DIMENSAO, TiposConstantes.CROSS_SELLING_TIPO*/, idProduto);
     }
 
 

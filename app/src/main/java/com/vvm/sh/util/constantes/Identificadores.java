@@ -56,7 +56,7 @@ public class Identificadores {
 
         public static final int OPCAO_CROSS_SELLING = 2;
         public static final String CROSS_SELLING = "Cross Selling";
-        public static final int ICON_CROSS_SELLING = R.drawable.ic_cross_selling;
+        public static final int ICON_CROSS_SELLING = R.drawable.ic_shopping_basket_24dp;
 
         public static final int OPCAO_SINISTRALIDADE = 3;
         public static final int OPCAO_EXTINTORES = 4;

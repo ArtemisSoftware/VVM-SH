@@ -8,6 +8,7 @@ import com.vvm.sh.baseDados.entidades.CrossSellingResultado;
 import com.vvm.sh.baseDados.entidades.Resultado;
 import com.vvm.sh.baseDados.entidades.EmailResultado;
 import com.vvm.sh.ui.anomalias.modelos.AnomaliaResultado;
+import com.vvm.sh.baseDados.entidades.OcorrenciaResultado;
 
 import java.util.List;
 
@@ -43,4 +44,7 @@ public class UploadRepositorio {
         return uploadDao.obterCrossSelling(idTarefa);
     }
 
+    public List<OcorrenciaResultado> obterOcorrencias(int idTarefa) {
+        return uploadDao.obterOcorrencias(idTarefa);
+    }
 }

@@ -1,6 +1,6 @@
 package com.vvm.sh.di.anomalias;
 
-import com.vvm.sh.baseDados.AnomaliaResultadoDao;
+import com.vvm.sh.baseDados.dao.AnomaliaResultadoDao;
 import com.vvm.sh.baseDados.ResultadoDao;
 import com.vvm.sh.baseDados.TipoDao;
 import com.vvm.sh.baseDados.VvmshBaseDados;

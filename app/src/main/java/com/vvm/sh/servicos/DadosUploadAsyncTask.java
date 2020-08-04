@@ -7,12 +7,13 @@ import com.vvm.sh.api.Anomalia;
 import com.vvm.sh.api.CrossSelling;
 import com.vvm.sh.api.DadosFormularios;
 import com.vvm.sh.api.Email;
+import com.vvm.sh.api.Ocorrencia;
 import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.baseDados.entidades.CrossSellingResultado;
 import com.vvm.sh.baseDados.entidades.Resultado;
 import com.vvm.sh.repositorios.UploadRepositorio;
 import com.vvm.sh.ui.anomalias.modelos.AnomaliaResultado;
-import com.vvm.sh.util.mapeamento.ModelMapping;
+import com.vvm.sh.baseDados.entidades.OcorrenciaResultado;
 import com.vvm.sh.util.mapeamento.UploadMapping;
 
 import org.json.JSONArray;
@@ -74,6 +75,12 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Resultado>, Void, Void
                                 break;
 
 
+                            case ID_OCORRENCIA:
+
+                                dadosFormularios.fixarOcorrencias(adicionarOcorrencias(resultado.idTarefa));
+                                break;
+
+
                             default:
                                 break;
                         }
@@ -89,6 +96,22 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Resultado>, Void, Void
 
         return null;
     }
+
+
+
+    private List<Ocorrencia> adicionarOcorrencias(int idTarefa) {
+
+        List<Ocorrencia> registos = new ArrayList<>();
+
+        for (OcorrenciaResultado item : repositorio.obterOcorrencias(idTarefa)) {
+
+            Ocorrencia registo = UploadMapping.INSTANCE.map(item);
+            registos.add(registo);
+        }
+
+        return registos;
+    }
+
 
 
     private List<CrossSelling> adicionarCrossSelling(int idTarefa) {

@@ -9,10 +9,9 @@ import com.vvm.sh.ui.ocorrencias.adaptadores.OcorrenciaRecyclerAdapter;
 import com.vvm.sh.ui.ocorrencias.adaptadores.OcorrenciaRegistoRecyclerAdapter;
 import com.vvm.sh.ui.ocorrencias.adaptadores.OnOcorrenciaListener;
 import com.vvm.sh.ui.ocorrencias.adaptadores.OnOcorrenciaRegistoListener;
-import com.vvm.sh.ui.ocorrencias.modelos.Ocorrencia;
-import com.vvm.sh.ui.ocorrencias.modelos.OcorrenciaHistorico;
+import com.vvm.sh.baseDados.entidades.Ocorrencia;
+import com.vvm.sh.baseDados.entidades.OcorrenciaHistorico;
 import com.vvm.sh.ui.ocorrencias.modelos.OcorrenciaRegisto;
-import com.vvm.sh.ui.opcoes.modelos.Tipo;
 
 import java.util.List;
 

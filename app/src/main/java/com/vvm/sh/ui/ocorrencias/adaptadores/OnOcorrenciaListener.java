@@ -1,8 +1,7 @@
 package com.vvm.sh.ui.ocorrencias.adaptadores;
 
-import com.vvm.sh.ui.ocorrencias.modelos.Ocorrencia;
+import com.vvm.sh.baseDados.entidades.Ocorrencia;
 import com.vvm.sh.ui.ocorrencias.modelos.OcorrenciaRegisto;
-import com.vvm.sh.ui.opcoes.modelos.Tipo;
 
 public interface OnOcorrenciaListener {
 

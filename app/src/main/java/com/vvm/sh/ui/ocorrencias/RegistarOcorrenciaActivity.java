@@ -1,25 +1,18 @@
 package com.vvm.sh.ui.ocorrencias;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.LinearLayout;
-import android.widget.Spinner;
 
-import com.google.android.material.textfield.TextInputEditText;
-import com.google.android.material.textfield.TextInputLayout;
 import com.vvm.sh.R;
 import com.vvm.sh.databinding.ActivityOcorrenciaRegistarBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
-import com.vvm.sh.ui.BaseActivity;
 import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.ocorrencias.modelos.OcorrenciaRegisto;
-import com.vvm.sh.ui.ocorrencias.modelos.OcorrenciaResultado;
+import com.vvm.sh.baseDados.entidades.OcorrenciaResultado;
 import com.vvm.sh.ui.opcoes.modelos.Tipo;
 import com.vvm.sh.util.MensagensUtil;
 import com.vvm.sh.util.Recurso;
@@ -28,7 +21,6 @@ import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import javax.inject.Inject;
 
-import butterknife.BindView;
 import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 

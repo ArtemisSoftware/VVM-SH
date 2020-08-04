@@ -4,7 +4,9 @@ import androidx.room.Database;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
+import com.vvm.sh.baseDados.dao.AnomaliaResultadoDao;
 import com.vvm.sh.baseDados.dao.DownloadTrabalhoDao;
+import com.vvm.sh.baseDados.dao.EmailDao;
 import com.vvm.sh.baseDados.dao.ImagemResultadoDao;
 import com.vvm.sh.baseDados.dao.UploadDao;
 import com.vvm.sh.baseDados.entidades.ImagemResultado;
@@ -20,9 +22,9 @@ import com.vvm.sh.ui.atividadesPendentes.relatorios.FormandoResultado;
 import com.vvm.sh.ui.autenticacao.modelos.Utilizador;
 import com.vvm.sh.ui.cliente.Cliente;
 import com.vvm.sh.baseDados.entidades.CrossSellingResultado;
-import com.vvm.sh.ui.ocorrencias.modelos.Ocorrencia;
-import com.vvm.sh.ui.ocorrencias.modelos.OcorrenciaHistorico;
-import com.vvm.sh.ui.ocorrencias.modelos.OcorrenciaResultado;
+import com.vvm.sh.baseDados.entidades.Ocorrencia;
+import com.vvm.sh.baseDados.entidades.OcorrenciaHistorico;
+import com.vvm.sh.baseDados.entidades.OcorrenciaResultado;
 import com.vvm.sh.ui.opcoes.modelos.Atualizacao;
 import com.vvm.sh.ui.opcoes.modelos.Tipo;
 import com.vvm.sh.baseDados.entidades.EmailResultado;
@@ -75,7 +77,6 @@ public abstract class VvmshBaseDados extends RoomDatabase {
 
     public abstract OcorrenciaDao obterOcorrenciaDao();
 
-    public abstract OcorrenciaHistoricoDao obterOcorrenciaHistoricoDao();
 
     public abstract DownloadTrabalhoDao obterDownloadTrabalhoDao();
 

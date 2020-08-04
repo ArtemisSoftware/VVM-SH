@@ -3,15 +3,15 @@ package com.vvm.sh.util.mapeamento;
 import com.vvm.sh.api.Anomalia;
 import com.vvm.sh.api.CrossSelling;
 import com.vvm.sh.api.Email;
+import com.vvm.sh.api.Ocorrencia;
 import com.vvm.sh.baseDados.entidades.CrossSellingResultado;
 import com.vvm.sh.baseDados.entidades.EmailResultado;
 import com.vvm.sh.ui.anomalias.modelos.AnomaliaResultado;
+import com.vvm.sh.baseDados.entidades.OcorrenciaResultado;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
-
-import java.util.List;
 
 @Mapper(uses= DataMapper.class)
 public interface UploadMapping {
@@ -29,4 +29,8 @@ public interface UploadMapping {
 
 
     CrossSelling map(CrossSellingResultado item);
+
+    @Mapping(source = "id", target = "idOcorrencia")
+    @Mapping(source = "observacao", target = "observacao")
+    Ocorrencia map(OcorrenciaResultado item);
 }

@@ -3,17 +3,26 @@ package com.vvm.sh.servicos;
 import android.database.sqlite.SQLiteConstraintException;
 import android.os.AsyncTask;
 
+import com.vvm.sh.api.AcaoFormacao;
 import com.vvm.sh.api.Anomalia;
+import com.vvm.sh.api.AtividadePendente;
+import com.vvm.sh.api.AtividadePendenteExecutada;
+import com.vvm.sh.api.AtividadePendenteNaoExecutada;
+import com.vvm.sh.api.AtividadePendenteResultado_;
 import com.vvm.sh.api.CrossSelling;
 import com.vvm.sh.api.DadosFormularios;
 import com.vvm.sh.api.Email;
+import com.vvm.sh.api.Formando;
 import com.vvm.sh.api.Ocorrencia;
 import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.baseDados.entidades.CrossSellingResultado;
+import com.vvm.sh.baseDados.entidades.FormandoResultado;
 import com.vvm.sh.baseDados.entidades.Resultado;
 import com.vvm.sh.repositorios.UploadRepositorio;
 import com.vvm.sh.ui.anomalias.modelos.AnomaliaResultado;
 import com.vvm.sh.baseDados.entidades.OcorrenciaResultado;
+import com.vvm.sh.ui.atividadesPendentes.modelos.AtividadePendenteResultado;
+import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.mapeamento.UploadMapping;
 
 import org.json.JSONArray;
@@ -81,10 +90,18 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Resultado>, Void, Void
                                 break;
 
 
+                            case ID_ATIVIDADE_PENDENTE:
+
+                                dadosFormularios.fixarAtividadesPendentes(adicionarAtividadesPendentes(resultado.idTarefa));
+                                break;
+
+
                             default:
                                 break;
                         }
                     }
+
+                    dadosFormularios.idUtilizador = idUtilizador;
 
                 }
                 catch(SQLiteConstraintException throwable){
@@ -97,6 +114,50 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Resultado>, Void, Void
         return null;
     }
 
+
+    private AcaoFormacao obterAcaoFormacao(int idAtividade){
+
+        AcaoFormacao acaoFormacao = UploadMapping.INSTANCE.map(repositorio.obterAcaoFormacao(idAtividade));
+
+        if(acaoFormacao == null){
+            return null;
+        }
+
+        List<Formando> registos = new ArrayList<>();
+
+        for (FormandoResultado item : repositorio.obterFormandos(idAtividade)) {
+            registos.add(UploadMapping.INSTANCE.map(item));
+        }
+
+        acaoFormacao.formandos = registos;
+        return acaoFormacao;
+    }
+
+
+    private List<AtividadePendente> adicionarAtividadesPendentes(int idTarefa) {
+
+        List<AtividadePendente> registos = new ArrayList<>();
+
+        for (AtividadePendenteResultado_ item : repositorio.obterAtividadesPendentes(idTarefa)) {
+
+            if(item.resultado.idEstado == Identificadores.Estados.ESTADO_EXECUTADO){
+
+                AtividadePendenteExecutada registo = UploadMapping.INSTANCE.mapeamento(item);
+
+                if(item.atividade.formacao == true){
+                    registo.formacao = obterAcaoFormacao(item.resultado.id);
+                }
+
+                registos.add(registo);
+            }
+            else {
+                AtividadePendenteNaoExecutada registo = UploadMapping.INSTANCE.map(item);
+                registos.add(registo);
+            }
+        }
+
+        return registos;
+    }
 
 
     private List<Ocorrencia> adicionarOcorrencias(int idTarefa) {

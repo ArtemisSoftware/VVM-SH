@@ -1,4 +1,4 @@
-package com.vvm.sh.ui.atividadesPendentes.relatorios;
+package com.vvm.sh.baseDados.entidades;
 
 import android.content.Context;
 import android.view.LayoutInflater;

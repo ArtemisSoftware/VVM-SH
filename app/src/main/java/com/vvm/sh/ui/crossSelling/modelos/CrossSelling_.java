@@ -12,13 +12,15 @@ public class CrossSelling_ {
     @Embedded
     public Tipo tipo;
 
-
+//    @Embedded
+//    public CrossSellingResultado resultado;
+//
     @Relation(
             parentColumn = "id",
             entityColumn = "id"
     )
     public CrossSellingResultado resultado;
-
+//
 //    @ColumnInfo(name = "dimensao")
 //    public String dimensao;
 

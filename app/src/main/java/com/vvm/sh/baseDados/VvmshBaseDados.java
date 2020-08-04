@@ -4,6 +4,7 @@ import androidx.room.Database;
 import androidx.room.RoomDatabase;
 import androidx.room.TypeConverters;
 
+import com.vvm.sh.baseDados.dao.AcaoFormacaoDao;
 import com.vvm.sh.baseDados.dao.AnomaliaResultadoDao;
 import com.vvm.sh.baseDados.dao.DownloadTrabalhoDao;
 import com.vvm.sh.baseDados.dao.EmailDao;
@@ -17,8 +18,8 @@ import com.vvm.sh.ui.anomalias.modelos.AnomaliaResultado;
 import com.vvm.sh.ui.atividadesExecutadas.modelos.AtividadeExecutada;
 import com.vvm.sh.ui.atividadesPendentes.modelos.AtividadePendente;
 import com.vvm.sh.ui.atividadesPendentes.modelos.AtividadePendenteResultado;
-import com.vvm.sh.ui.atividadesPendentes.relatorios.AcaoFormacaoResultado;
-import com.vvm.sh.ui.atividadesPendentes.relatorios.FormandoResultado;
+import com.vvm.sh.baseDados.entidades.AcaoFormacaoResultado;
+import com.vvm.sh.baseDados.entidades.FormandoResultado;
 import com.vvm.sh.ui.autenticacao.modelos.Utilizador;
 import com.vvm.sh.ui.cliente.Cliente;
 import com.vvm.sh.baseDados.entidades.CrossSellingResultado;

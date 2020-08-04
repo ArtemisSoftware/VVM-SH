@@ -2,6 +2,8 @@ package com.vvm.sh.ui.atividadesPendentes.relatorios;
 
 import androidx.lifecycle.MutableLiveData;
 
+import com.vvm.sh.baseDados.entidades.AcaoFormacaoResultado;
+import com.vvm.sh.baseDados.entidades.FormandoResultado;
 import com.vvm.sh.baseDados.entidades.ImagemResultado;
 import com.vvm.sh.repositorios.FormacaoRepositorio;
 import com.vvm.sh.servicos.ResultadoAsyncTask;

@@ -8,6 +8,8 @@ import java.util.List;
 
 public class DadosFormularios {
 
+    @SerializedName("idUtilizador")
+    public String idUtilizador;
 
     @SerializedName("email")
     public EmailInfo email;
@@ -21,7 +23,8 @@ public class DadosFormularios {
     @SerializedName("RegistoOcorrencias")
     public OcorrenciasInfo ocorrencias;
 
-
+    @SerializedName("ActividadesPendentes")
+    public AtividadesPendentesInfo atividadesPendentes;
 
 
 
@@ -31,7 +34,10 @@ public class DadosFormularios {
         anomaliasCliente = new AnomaliasClienteInfo();
         crossSelling = new CrossSellingInfo();
         ocorrencias = new OcorrenciasInfo();
+        atividadesPendentes = new AtividadesPendentesInfo();
     }
+
+
 
     public class EmailInfo{
 
@@ -43,13 +49,9 @@ public class DadosFormularios {
 
 
         public EmailInfo() {
-
-            this.dataRegisto = DatasUtil.obterDataAtual(DatasUtil.DATA_FORMATO_YYYY_MM_DD__HH_MM_SS);
             this.dados = new ArrayList<>();
         }
     }
-
-
 
     public class AnomaliasClienteInfo{
 
@@ -59,15 +61,10 @@ public class DadosFormularios {
         @SerializedName("dados")
         public List<Anomalia> dados;
 
-
         public AnomaliasClienteInfo() {
-
-            this.dataRegisto = DatasUtil.obterDataAtual(DatasUtil.DATA_FORMATO_YYYY_MM_DD__HH_MM_SS);
             this.dados = new ArrayList<>();
         }
     }
-
-
 
     public class CrossSellingInfo{
 
@@ -77,15 +74,10 @@ public class DadosFormularios {
         @SerializedName("dados")
         public List<CrossSelling> dados;
 
-
         public CrossSellingInfo() {
-
-            this.dataRegisto = DatasUtil.obterDataAtual(DatasUtil.DATA_FORMATO_YYYY_MM_DD__HH_MM_SS);
             this.dados = new ArrayList<>();
         }
     }
-
-
 
     public class OcorrenciasInfo{
 
@@ -95,10 +87,20 @@ public class DadosFormularios {
         @SerializedName("dados")
         public List<Ocorrencia> dados;
 
-
         public OcorrenciasInfo() {
+            this.dados = new ArrayList<>();
+        }
+    }
 
-            this.dataRegisto = DatasUtil.obterDataAtual(DatasUtil.DATA_FORMATO_YYYY_MM_DD__HH_MM_SS);
+    public class AtividadesPendentesInfo{
+
+        @SerializedName("dataRegisto")
+        public String dataRegisto;
+
+        @SerializedName("dados")
+        public List<AtividadePendente> dados;
+
+        public AtividadesPendentesInfo() {
             this.dados = new ArrayList<>();
         }
     }
@@ -106,18 +108,27 @@ public class DadosFormularios {
 
 
     public void fixarEmail(Email email){
+        this.email.dataRegisto = DatasUtil.obterDataAtual(DatasUtil.DATA_FORMATO_YYYY_MM_DD__HH_MM_SS);
         this.email.dados.add(email);
     }
 
     public void fixarAnomalias(List<Anomalia> anomalias){
+        this.anomaliasCliente.dataRegisto = DatasUtil.obterDataAtual(DatasUtil.DATA_FORMATO_YYYY_MM_DD__HH_MM_SS);
         this.anomaliasCliente.dados = anomalias;
     }
 
     public void fixarCrossSelling(List<CrossSelling> crossSellings){
+        this.crossSelling.dataRegisto = DatasUtil.obterDataAtual(DatasUtil.DATA_FORMATO_YYYY_MM_DD__HH_MM_SS);
         this.crossSelling.dados = crossSellings;
     }
 
     public void fixarOcorrencias(List<Ocorrencia> ocorrencias){
+        this.ocorrencias.dataRegisto = DatasUtil.obterDataAtual(DatasUtil.DATA_FORMATO_YYYY_MM_DD__HH_MM_SS);
         this.ocorrencias.dados = ocorrencias;
+    }
+
+    public void fixarAtividadesPendentes(List<AtividadePendente> atividadesPendentes) {
+        this.atividadesPendentes.dataRegisto = DatasUtil.obterDataAtual(DatasUtil.DATA_FORMATO_YYYY_MM_DD__HH_MM_SS);
+        this.atividadesPendentes.dados = atividadesPendentes;
     }
 }

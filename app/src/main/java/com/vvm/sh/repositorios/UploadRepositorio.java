@@ -2,13 +2,17 @@ package com.vvm.sh.repositorios;
 
 import androidx.annotation.NonNull;
 
+import com.vvm.sh.api.AtividadePendenteResultado_;
 import com.vvm.sh.api.SegurancaAlimentarApi;
 import com.vvm.sh.baseDados.dao.UploadDao;
 import com.vvm.sh.baseDados.entidades.CrossSellingResultado;
+import com.vvm.sh.baseDados.entidades.FormandoResultado;
 import com.vvm.sh.baseDados.entidades.Resultado;
 import com.vvm.sh.baseDados.entidades.EmailResultado;
 import com.vvm.sh.ui.anomalias.modelos.AnomaliaResultado;
 import com.vvm.sh.baseDados.entidades.OcorrenciaResultado;
+import com.vvm.sh.baseDados.entidades.AcaoFormacaoResultado;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.Formando;
 
 import java.util.List;
 
@@ -47,4 +51,18 @@ public class UploadRepositorio {
     public List<OcorrenciaResultado> obterOcorrencias(int idTarefa) {
         return uploadDao.obterOcorrencias(idTarefa);
     }
+
+
+    public List<AtividadePendenteResultado_> obterAtividadesPendentes(int idTarefa) {
+        return uploadDao.obterAtividadesPendentes(idTarefa);
+    }
+
+    public AcaoFormacaoResultado obterAcaoFormacao(int idAtividade) {
+        return uploadDao.obterAcaoFormacao(idAtividade);
+    }
+
+    public List<FormandoResultado> obterFormandos(int idAtividade) {
+        return uploadDao.obterFormandos(idAtividade);
+    }
+
 }

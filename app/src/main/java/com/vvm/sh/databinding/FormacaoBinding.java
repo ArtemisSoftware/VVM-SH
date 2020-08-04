@@ -8,7 +8,7 @@ import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipDrawable;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.vvm.sh.R;
-import com.vvm.sh.ui.atividadesPendentes.relatorios.AcaoFormacaoResultado;
+import com.vvm.sh.baseDados.entidades.AcaoFormacaoResultado;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.Formando;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.FormandoRecyclerAdapter;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.OnFormacaoListener;

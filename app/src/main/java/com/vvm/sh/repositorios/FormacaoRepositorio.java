@@ -2,7 +2,7 @@ package com.vvm.sh.repositorios;
 
 import androidx.annotation.NonNull;
 
-import com.vvm.sh.baseDados.AcaoFormacaoDao;
+import com.vvm.sh.baseDados.dao.AcaoFormacaoDao;
 import com.vvm.sh.baseDados.AtividadePendenteResultadoDao;
 import com.vvm.sh.baseDados.FormandoDao;
 import com.vvm.sh.baseDados.ResultadoDao;
@@ -10,9 +10,9 @@ import com.vvm.sh.baseDados.TipoDao;
 import com.vvm.sh.baseDados.dao.ImagemResultadoDao;
 import com.vvm.sh.baseDados.entidades.ImagemResultado;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.AcaoFormacao;
-import com.vvm.sh.ui.atividadesPendentes.relatorios.AcaoFormacaoResultado;
+import com.vvm.sh.baseDados.entidades.AcaoFormacaoResultado;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.Formando;
-import com.vvm.sh.ui.atividadesPendentes.relatorios.FormandoResultado;
+import com.vvm.sh.baseDados.entidades.FormandoResultado;
 import com.vvm.sh.ui.opcoes.modelos.Tipo;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.constantes.TiposConstantes;

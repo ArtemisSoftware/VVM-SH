@@ -2,12 +2,17 @@ package com.vvm.sh.baseDados.dao;
 
 import androidx.room.Dao;
 import androidx.room.Query;
+import androidx.room.Transaction;
 
+import com.vvm.sh.api.AtividadePendenteResultado_;
 import com.vvm.sh.baseDados.entidades.CrossSellingResultado;
+import com.vvm.sh.baseDados.entidades.FormandoResultado;
 import com.vvm.sh.baseDados.entidades.Resultado;
 import com.vvm.sh.baseDados.entidades.EmailResultado;
 import com.vvm.sh.ui.anomalias.modelos.AnomaliaResultado;
 import com.vvm.sh.baseDados.entidades.OcorrenciaResultado;
+import com.vvm.sh.baseDados.entidades.AcaoFormacaoResultado;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.Formando;
 
 import java.util.List;
 
@@ -39,5 +44,20 @@ abstract public class UploadDao {
 
     @Query("SELECT * FROM ocorrenciaResultado WHERE idTarefa = :idTarefa")
     abstract public List<OcorrenciaResultado> obterOcorrencias(int idTarefa);
+
+
+    @Transaction
+    @Query("SELECT * " +
+            "FROM atividadesPendentesResultado as at_pend_res " +
+            "LEFT JOIN (SELECT idTarefa, id as idAtividade FROM atividadesPendentes) as at_pend ON at_pend_res.id = at_pend.idAtividade " +
+            "WHERE at_pend.idTarefa = :idTarefa")
+    abstract public List<AtividadePendenteResultado_> obterAtividadesPendentes(int idTarefa);
+
+
+    @Query("SELECT * FROM acoesFormacaoResultado WHERE idAtividade = :idAtividade")
+    abstract public AcaoFormacaoResultado obterAcaoFormacao(int idAtividade);
+
+    @Query("SELECT * FROM formandosResultado WHERE idAtividade = :idAtividade AND selecionado = 1")
+    abstract public List<FormandoResultado> obterFormandos(int idAtividade);
 
 }

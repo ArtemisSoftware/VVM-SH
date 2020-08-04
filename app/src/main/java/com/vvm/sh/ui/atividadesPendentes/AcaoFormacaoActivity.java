@@ -14,7 +14,7 @@ import com.vvm.sh.R;
 import com.vvm.sh.databinding.ActivityAcaoFormacaoBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
-import com.vvm.sh.ui.atividadesPendentes.relatorios.AcaoFormacaoResultado;
+import com.vvm.sh.baseDados.entidades.AcaoFormacaoResultado;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.FormacaoViewModel;
 import com.vvm.sh.ui.opcoes.modelos.Tipo;
 import com.vvm.sh.util.MensagensUtil;

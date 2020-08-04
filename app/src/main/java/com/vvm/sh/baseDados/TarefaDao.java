@@ -17,8 +17,7 @@ import io.reactivex.Single;
 @Dao
 public abstract class TarefaDao implements BaseDao<Tarefa>{
 
-    @Insert
-    abstract public Long inserirRegisto(Tarefa tarefa);
+
 
 
     @Transaction

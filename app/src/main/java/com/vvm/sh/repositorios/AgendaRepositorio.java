@@ -8,6 +8,7 @@ import com.vvm.sh.baseDados.AtividadeExecutadaDao;
 import com.vvm.sh.baseDados.AtividadePendenteDao;
 import com.vvm.sh.baseDados.ClienteDao;
 import com.vvm.sh.baseDados.TarefaDao;
+import com.vvm.sh.baseDados.dao.AgendaDao;
 import com.vvm.sh.baseDados.dao.DownloadTrabalhoDao;
 import com.vvm.sh.baseDados.entidades.Tarefa;
 import com.vvm.sh.ui.agenda.modelos.TarefaDia;
@@ -20,23 +21,26 @@ import com.vvm.sh.baseDados.entidades.OcorrenciaHistorico;
 
 import java.util.List;
 
+import io.reactivex.Flowable;
 import io.reactivex.Single;
 
 public class AgendaRepositorio {
 
     private final SegurancaAlimentarApi api;
-    private final TarefaDao tarefaDao;
+    private final DownloadTrabalhoDao downloadTrabalhoDao;
+    private final AgendaDao agendaDao;
+
     private final AtividadeExecutadaDao atividadeExecutadaDao;
     private final ClienteDao clienteDao;
     private final AtividadePendenteDao atividadePendenteDao;
-    private final DownloadTrabalhoDao downloadTrabalhoDao;
 
     public AgendaRepositorio(@NonNull SegurancaAlimentarApi api, @NonNull DownloadTrabalhoDao downloadTrabalhoDao,
-                             @NonNull TarefaDao tarefaDao, @NonNull AtividadeExecutadaDao atividadeExecutadaDao,
+                             @NonNull AgendaDao agendaDao, @NonNull AtividadeExecutadaDao atividadeExecutadaDao,
                              @NonNull ClienteDao clienteDao, @NonNull AtividadePendenteDao atividadePendenteDao) {
         this.api = api;
         this.downloadTrabalhoDao = downloadTrabalhoDao;
-        this.tarefaDao = tarefaDao;
+        this.agendaDao = agendaDao;
+
         this.atividadeExecutadaDao = atividadeExecutadaDao;
         this.clienteDao = clienteDao;
         this.atividadePendenteDao = atividadePendenteDao;
@@ -52,13 +56,13 @@ public class AgendaRepositorio {
     }
 
 
-    public Single<List<TarefaDia>> obterTarefas(String idUtilizador, String data){
-        return tarefaDao.obterTarefasDia();
+    public Flowable<List<TarefaDia>> obterTarefas(String idUtilizador, String data){
+        return agendaDao.obterTarefasDia();
     }
 
 
     public long inserirTarefa(Tarefa tarefa){
-        return tarefaDao.inserirRegisto(tarefa);
+        return downloadTrabalhoDao.inserirRegisto(tarefa);
     }
 
     public void inserirAtividadesExecutadas(List<AtividadeExecutada> atividades){

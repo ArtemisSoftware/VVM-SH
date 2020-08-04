@@ -1,5 +1,7 @@
 package com.vvm.sh.util.constantes;
 
+import android.graphics.Color;
+
 import com.vvm.sh.R;
 
 public class Identificadores {
@@ -31,6 +33,8 @@ public class Identificadores {
 
     public class App {
         public static final int APP_SA = 1;
+        public static final String SA = "SA";
+        public static final int COR_SA = Color.GREEN;
     }
 
     public class CodigoAtividade {

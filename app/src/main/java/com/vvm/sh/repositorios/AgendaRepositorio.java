@@ -11,6 +11,7 @@ import com.vvm.sh.baseDados.TarefaDao;
 import com.vvm.sh.baseDados.dao.AgendaDao;
 import com.vvm.sh.baseDados.dao.DownloadTrabalhoDao;
 import com.vvm.sh.baseDados.entidades.Tarefa;
+import com.vvm.sh.ui.agenda.modelos.Marcacao;
 import com.vvm.sh.ui.agenda.modelos.TarefaDia;
 import com.vvm.sh.ui.anomalias.modelos.Anomalia;
 import com.vvm.sh.ui.atividadesExecutadas.modelos.AtividadeExecutada;
@@ -46,6 +47,18 @@ public class AgendaRepositorio {
         this.atividadePendenteDao = atividadePendenteDao;
     }
 
+
+
+    public Flowable<List<Marcacao>> obterMarcacoes(String idUtilizador, String data){
+        return agendaDao.obterMarcacoes();
+    }
+
+
+
+
+
+
+
     /**
      * Metodo que permite obter o trabalho do dia para um utilizador
      * @param idUtilizador o identificador do utilizador
@@ -56,9 +69,6 @@ public class AgendaRepositorio {
     }
 
 
-    public Flowable<List<TarefaDia>> obterTarefas(String idUtilizador, String data){
-        return agendaDao.obterTarefasDia();
-    }
 
 
     public long inserirTarefa(Tarefa tarefa){

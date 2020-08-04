@@ -1,9 +1,11 @@
 package com.vvm.sh.ui.agenda.adaptadores;
 
-import com.vvm.sh.ui.agenda.modelos.TarefaDia;
+import com.vvm.sh.ui.agenda.modelos.Marcacao;
 
 public interface OnAgendaListener {
 
-    void onItemClick(TarefaDia tarefa);
+    void onItemClick(Marcacao marcacao);
+
+    void onItemLongPress(Marcacao marcacao);
 
 }

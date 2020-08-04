@@ -4,6 +4,7 @@ import androidx.room.Dao;
 import androidx.room.Query;
 import androidx.room.Transaction;
 
+import com.vvm.sh.ui.agenda.modelos.Marcacao;
 import com.vvm.sh.ui.agenda.modelos.TarefaDia;
 
 import java.util.List;
@@ -16,7 +17,7 @@ public abstract class AgendaDao {
 
 
     @Transaction
-    @Query("SELECT * FROM tarefas ")
-    abstract public Flowable<List<TarefaDia>> obterTarefasDia();
+    @Query("SELECT * FROM tarefas  ")
+    abstract public Flowable<List<Marcacao>> obterMarcacoes();
 
 }

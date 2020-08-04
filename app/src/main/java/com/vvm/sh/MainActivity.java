@@ -11,6 +11,7 @@ import com.vvm.sh.databinding.ActivityMainBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.agenda.AgendaViewModel;
+import com.vvm.sh.ui.agenda.modelos.Marcacao;
 import com.vvm.sh.ui.opcoes.TiposActivity;
 import com.vvm.sh.ui.upload.UploadActivity;
 import com.vvm.sh.ui.tarefa.TarefaActivity;
@@ -70,7 +71,7 @@ public class MainActivity extends BaseDaggerActivity
         //Intent intent = new Intent(this, TrabalhoActivity.class);
         Intent intent = new Intent(this, TiposActivity.class);
         //startActivity(intent);
-        viewModel.obterTarefas("12724", "2020-07-21");
+        viewModel.obterMarcacoes("12724", "2020-07-21");
 
 
     }
@@ -97,14 +98,19 @@ public class MainActivity extends BaseDaggerActivity
 
 
     @Override
-    public void onItemClick(TarefaDia tarefaDia) {
+    public void onItemClick(Marcacao marcacao) {
 
-        Preferencias.fixarTarefa(this, tarefaDia.tarefa.idTarefa);
+        Preferencias.fixarTarefa(this, marcacao.tarefa.idTarefa);
 
         Intent intent = new Intent(this, TarefaActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    public void onItemLongPress(Marcacao marcacao) {
 
     }
+
 
 
     //------------------------
@@ -141,7 +147,7 @@ public class MainActivity extends BaseDaggerActivity
 //
 //
 //    private String data;
-//    private TarefaRecyclerAdapter tarefaRecyclerAdapter;
+//    private MarcacaoRecyclerAdapter tarefaRecyclerAdapter;
 //
 //
 //
@@ -174,46 +180,7 @@ public class MainActivity extends BaseDaggerActivity
 //    //------------------------
 //    //Metodos locais
 //    //------------------------
-//
-//
-//    /**
-//     * Metodo que permite iniciar a atividade
-//     */
-//    private void iniciarAtividade(){
-//
-//        txt_data.setText(DatasUtil.obterDataAtual(DatasUtil.FORMATO_DD_MMMM_YYYY, DatasUtil.LOCAL_PORTUGAL));
-//        data = DatasUtil.obterDataAtual(DatasUtil.FORMATO_YYYY_MM_DD);
-//
-//        tarefaRecyclerAdapter = new TarefaRecyclerAdapter(this, this);
-//        rcl_tarefas.setAdapter(tarefaRecyclerAdapter);
-//        rcl_tarefas.setLayoutManager(new LinearLayoutManager(this));
-//
-//    }
-//
-//
-//    private void obterRegistos(){
-//
-//        //--TESTE (apagar quando houver dados)
-//        List<Item> t1 = new ArrayList<>();
-//        t1.add(new Tarefa(1, "Tarefa numero 1", "SH"));
-//        t1.add(new Tarefa(2, "Tarefa numero 2", "SA"));
-//
-//        tarefaRecyclerAdapter.fixarRegistos(t1);
-//
-//        //TODO: chamar metodo do viewmodel
-//    }
-//
-//    /**
-//     * Metodo que permite subscrever observadores
-//     */
-//    private void subscreverObservadores(){
-//
-//
-//        //TODO: subscrever observadores do viewmodel
-//
-//    }
-//
-//
+
 //    /**
 //     * Metodo que permite terminar a sessao
 //     */
@@ -357,7 +324,6 @@ public class MainActivity extends BaseDaggerActivity
                 return super.onOptionsItemSelected(item);
         }
     }
-
 
 
 }

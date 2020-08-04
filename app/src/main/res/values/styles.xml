@@ -132,6 +132,17 @@
 
 
 
+    <style name="btnCalendario">
+        <item name="android:layout_width">64dip</item>
+        <item name="android:layout_height">64dip</item>
+        <item name="cb_color">@color/cor_botao_calendario</item>
+        <item name="cb_pressedRingWidth">8dip</item>
+        <item name="android:src">@drawable/ic_calendario</item>
+    </style>
+
+
+
+
     <style name="LoginTheme" parent="Theme.AppCompat.Light.DarkActionBar">
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>

@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.vvm.sh.api.modelos.SessaoResposta;
 import com.vvm.sh.repositorios.AgendaRepositorio;
+import com.vvm.sh.ui.agenda.modelos.Marcacao;
 import com.vvm.sh.ui.agenda.modelos.TarefaDia;
 import com.vvm.sh.servicos.TrabalhoAsyncTask;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
@@ -21,7 +22,7 @@ public class AgendaViewModel extends BaseViewModel {
 
     private final AgendaRepositorio agendaRepositorio;
 
-    public MutableLiveData<List<TarefaDia>> tarefas;
+    public MutableLiveData<List<Marcacao>> marcacoes;
 
 
 
@@ -30,8 +31,67 @@ public class AgendaViewModel extends BaseViewModel {
     public AgendaViewModel(AgendaRepositorio agendaRepositorio){
 
         this.agendaRepositorio = agendaRepositorio;
-        tarefas = new MutableLiveData<>();
+        marcacoes = new MutableLiveData<>();
     }
+
+
+    //---------------------
+    //OBTER
+    //---------------------
+
+
+
+
+    public void obterMarcacoes(String idUtilizador, String data){
+
+        //TODO: terminar metodo agendaRepositorio.obterTarefas. Parametros ainda não estão a ser usados
+
+        showProgressBar(true);
+
+        agendaRepositorio.obterMarcacoes(idUtilizador, data).toObservable()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new Observer<List<Marcacao>>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onNext(List<Marcacao> registos) {
+
+                                marcacoes.setValue(registos);
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onComplete() {
+                                showProgressBar(false);
+                            }
+                        }
+                );
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -79,41 +139,6 @@ public class AgendaViewModel extends BaseViewModel {
 
     }
 
-
-
-    public void obterTarefas(String idUtilizador, String data){
-
-        //TODO: terminar metodo agendaRepositorio.obterTarefas. Parametros ainda não estão a ser usados
-
-        agendaRepositorio.obterTarefas(idUtilizador, data).toObservable()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-
-                        new Observer<List<TarefaDia>>() {
-                            @Override
-                            public void onSubscribe(Disposable d) {
-
-                            }
-
-                            @Override
-                            public void onNext(List<TarefaDia> tarefaDias) {
-
-                                tarefas.setValue(tarefaDias);
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-
-                            }
-
-                            @Override
-                            public void onComplete() {
-
-                            }
-                        }
-                );
-    }
 
 
     //----------------------

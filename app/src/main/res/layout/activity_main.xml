@@ -45,7 +45,7 @@
                 android:layout_height="300dp"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
                 app:contentScrim="?attr/colorPrimary"
-                app:title="@string/relatorio"
+                app:title="@string/agenda"
                 app:expandedTitleTextAppearance="@android:color/transparent"
                 android:fitsSystemWindows="true">
 
@@ -125,6 +125,14 @@
                         app:layout_constraintStart_toStartOf="@+id/txt_data"
                         app:layout_constraintTop_toBottomOf="@+id/textview2" />
 
+                    <at.markushi.ui.CircleButton
+                        android:id="@+id/crl_btn_calendario"
+                        style="@style/btnCalendario"
+                        android:layout_marginStart="8dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/txt_data"
+                        app:layout_constraintStart_toEndOf="@+id/textview2"
+                        app:layout_constraintTop_toBottomOf="@+id/txt_data" />
+
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -133,9 +141,9 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rcl_registos"
                     style="@style/lista"
-                    tarefas="@{viewmodel.tarefas}"
+                    tarefas="@{viewmodel.marcacoes}"
                     app:onItemClick="@{listener}"
-                    tools:listitem="@layout/item_tarefa"/>
+                    tools:listitem="@layout/item_marcacao"/>
         <!--  -->
             </LinearLayout>
 

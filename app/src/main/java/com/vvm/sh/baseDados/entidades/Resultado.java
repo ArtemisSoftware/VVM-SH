@@ -6,7 +6,6 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Ignore;
 
-import com.vvm.sh.ui.agenda.modelos.Tarefa;
 import com.vvm.sh.util.ResultadoId;
 
 import static androidx.room.ForeignKey.CASCADE;

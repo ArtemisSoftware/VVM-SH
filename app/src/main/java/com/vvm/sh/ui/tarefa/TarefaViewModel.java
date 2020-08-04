@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.vvm.sh.repositorios.TarefaRepositorio;
 import com.vvm.sh.servicos.ResultadoAsyncTask;
 import com.vvm.sh.baseDados.entidades.Resultado;
-import com.vvm.sh.ui.agenda.modelos.Tarefa;
+import com.vvm.sh.baseDados.entidades.Tarefa;
 import com.vvm.sh.ui.agenda.modelos.TarefaDia;
 import com.vvm.sh.ui.atividadesExecutadas.modelos.AtividadeExecutada;
 import com.vvm.sh.ui.cliente.Cliente;
@@ -14,7 +14,6 @@ import com.vvm.sh.baseDados.entidades.EmailResultado;
 import com.vvm.sh.ui.tarefa.modelos.OpcaoCliente;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.ResultadoId;
-import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.constantes.TiposConstantes;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 

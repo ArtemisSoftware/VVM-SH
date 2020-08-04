@@ -7,8 +7,6 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Index;
 
-import com.vvm.sh.ui.agenda.modelos.Tarefa;
-
 import static androidx.room.ForeignKey.CASCADE;
 
 @Entity(tableName = "imagensResultado",

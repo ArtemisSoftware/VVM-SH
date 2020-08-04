@@ -10,7 +10,7 @@ import com.vvm.sh.api.modelos.TarefaResultado;
 import com.vvm.sh.api.modelos.TipoResposta;
 import com.vvm.sh.api.modelos.TipoResultado;
 import com.vvm.sh.api.modelos.UtilizadorResultado;
-import com.vvm.sh.ui.agenda.modelos.Tarefa;
+import com.vvm.sh.baseDados.entidades.Tarefa;
 import com.vvm.sh.ui.anomalias.modelos.Anomalia;
 import com.vvm.sh.ui.atividadesExecutadas.modelos.AtividadeExecutada;
 import com.vvm.sh.ui.atividadesPendentes.modelos.AtividadePendente;

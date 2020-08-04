@@ -9,10 +9,10 @@ import com.vvm.sh.baseDados.entidades.CrossSellingResultado;
 import com.vvm.sh.baseDados.entidades.FormandoResultado;
 import com.vvm.sh.baseDados.entidades.Resultado;
 import com.vvm.sh.baseDados.entidades.EmailResultado;
+import com.vvm.sh.baseDados.entidades.Tarefa;
 import com.vvm.sh.ui.anomalias.modelos.AnomaliaResultado;
 import com.vvm.sh.baseDados.entidades.OcorrenciaResultado;
 import com.vvm.sh.baseDados.entidades.AcaoFormacaoResultado;
-import com.vvm.sh.ui.atividadesPendentes.relatorios.Formando;
 
 import java.util.List;
 
@@ -59,5 +59,9 @@ abstract public class UploadDao {
 
     @Query("SELECT * FROM formandosResultado WHERE idAtividade = :idAtividade AND selecionado = 1")
     abstract public List<FormandoResultado> obterFormandos(int idAtividade);
+
+
+    @Query("SELECT * FROM tarefas WHERE idTarefa = :idTarefa")
+    abstract public Tarefa obterTarefa(int idTarefa);
 
 }

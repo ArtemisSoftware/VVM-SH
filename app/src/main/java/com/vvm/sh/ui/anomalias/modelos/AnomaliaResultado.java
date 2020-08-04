@@ -8,7 +8,7 @@ import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-import com.vvm.sh.ui.agenda.modelos.Tarefa;
+import com.vvm.sh.baseDados.entidades.Tarefa;
 
 import static androidx.room.ForeignKey.CASCADE;
 

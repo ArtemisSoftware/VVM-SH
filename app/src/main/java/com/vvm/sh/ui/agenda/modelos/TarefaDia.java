@@ -3,6 +3,7 @@ package com.vvm.sh.ui.agenda.modelos;
 import androidx.room.Embedded;
 import androidx.room.Relation;
 
+import com.vvm.sh.baseDados.entidades.Tarefa;
 import com.vvm.sh.ui.cliente.Cliente;
 import com.vvm.sh.baseDados.entidades.EmailResultado;
 import com.vvm.sh.util.constantes.Sintaxe;

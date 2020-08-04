@@ -9,9 +9,11 @@ import com.vvm.sh.api.CrossSelling;
 import com.vvm.sh.api.Email;
 import com.vvm.sh.api.Formando;
 import com.vvm.sh.api.Ocorrencia;
+import com.vvm.sh.api.Tarefa_;
 import com.vvm.sh.baseDados.entidades.CrossSellingResultado;
 import com.vvm.sh.baseDados.entidades.EmailResultado;
 import com.vvm.sh.baseDados.entidades.FormandoResultado;
+import com.vvm.sh.baseDados.entidades.Tarefa;
 import com.vvm.sh.ui.anomalias.modelos.AnomaliaResultado;
 import com.vvm.sh.baseDados.entidades.OcorrenciaResultado;
 import com.vvm.sh.baseDados.entidades.AcaoFormacaoResultado;
@@ -64,4 +66,7 @@ public interface UploadMapping {
     @Mapping(source = "sexo", target = "genero")
     @Mapping(source = "dataNascimento", target = "dataNascimento", dateFormat = DatasUtil.FORMATO_YYYY_MM_DD)
     Formando map(FormandoResultado obterFormandos);
+
+    @Mapping(source = "data", target = "data", dateFormat = DatasUtil.FORMATO_YYYY_MM_DD)
+    Tarefa_ map(Tarefa obterTarefa);
 }

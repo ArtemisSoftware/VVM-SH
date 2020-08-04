@@ -9,7 +9,7 @@ import com.vvm.sh.baseDados.AtividadePendenteDao;
 import com.vvm.sh.baseDados.ClienteDao;
 import com.vvm.sh.baseDados.TarefaDao;
 import com.vvm.sh.baseDados.dao.DownloadTrabalhoDao;
-import com.vvm.sh.ui.agenda.modelos.Tarefa;
+import com.vvm.sh.baseDados.entidades.Tarefa;
 import com.vvm.sh.ui.agenda.modelos.TarefaDia;
 import com.vvm.sh.ui.anomalias.modelos.Anomalia;
 import com.vvm.sh.ui.atividadesExecutadas.modelos.AtividadeExecutada;

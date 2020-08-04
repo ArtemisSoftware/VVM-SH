@@ -62,9 +62,11 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Resultado>, Void, Void
 
                     DadosFormularios dadosFormularios = new DadosFormularios();
 
+                    //TODO: isto tem que ser alterado o id da tarefa não pode ser obtido assim mas num objeto com os idsResultado associados a um idTarefa
+                    int idTarefa = -1;
 
                     for (Resultado resultado : resposta) {
-
+                        idTarefa = resultado.id;
                         switch (resultado.id){
 
                             case ID_EMAIL:
@@ -102,7 +104,7 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Resultado>, Void, Void
                     }
 
                     dadosFormularios.idUtilizador = idUtilizador;
-
+                    dadosFormularios.id = UploadMapping.INSTANCE.map(repositorio.obterTarefa(idTarefa));
                 }
                 catch(SQLiteConstraintException throwable){
                     errorMessage = throwable.getMessage();

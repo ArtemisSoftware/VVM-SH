@@ -8,11 +8,9 @@ import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-import com.vvm.sh.ui.agenda.modelos.Tarefa;
-import com.vvm.sh.util.adaptadores.Item;
+import com.vvm.sh.baseDados.entidades.Tarefa;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.constantes.Sintaxe;
-import com.vvm.sh.util.metodos.DatasUtil;
 
 import java.util.Date;
 

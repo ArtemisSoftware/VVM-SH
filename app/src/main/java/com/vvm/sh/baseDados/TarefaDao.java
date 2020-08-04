@@ -6,7 +6,7 @@ import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Transaction;
 
-import com.vvm.sh.ui.agenda.modelos.Tarefa;
+import com.vvm.sh.baseDados.entidades.Tarefa;
 import com.vvm.sh.ui.agenda.modelos.TarefaDia;
 
 import java.util.List;

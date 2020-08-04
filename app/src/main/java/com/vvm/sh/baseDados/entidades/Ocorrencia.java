@@ -8,12 +8,6 @@ import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-import com.vvm.sh.ui.agenda.modelos.Tarefa;
-import com.vvm.sh.util.adaptadores.Item;
-import com.vvm.sh.util.interfaces.CheckBoxIF;
-import com.vvm.sh.util.metodos.Conversor;
-import com.vvm.sh.util.metodos.DatasUtil;
-
 import java.util.Date;
 
 import static androidx.room.ForeignKey.CASCADE;

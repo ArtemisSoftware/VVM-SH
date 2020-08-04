@@ -11,6 +11,11 @@ public class DadosFormularios {
     @SerializedName("idUtilizador")
     public String idUtilizador;
 
+
+    @SerializedName("id")
+    public Tarefa_ id;
+
+
     @SerializedName("email")
     public EmailInfo email;
 

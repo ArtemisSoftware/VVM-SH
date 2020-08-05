@@ -61,11 +61,11 @@ public class OcorrenciaRepositorio {
      * @return uma lista
      */
     public Flowable<List<Ocore>> obterRegistoOcorrencias(int idTarefa, int idOcorrencia) {
-        return ocorrenciaResultadoDao.obterOcorrencias(/*idTarefa,*/ TiposConstantes.TIPIFICACAO_OCORRENCIA, idOcorrencia);
+        return ocorrenciaResultadoDao.obterOcorrencias(idTarefa, TiposConstantes.TIPIFICACAO_OCORRENCIA, idOcorrencia);
     }
 
     public Maybe<Ocore> obterRegistoOcorrencia(int idTarefa, int id){
-        return ocorrenciaResultadoDao.obterRegistoOcorrencia(/*idTarefa,*/ TiposConstantes.TIPIFICACAO_OCORRENCIA, id);
+        return ocorrenciaResultadoDao.obterRegistoOcorrencia(idTarefa, TiposConstantes.TIPIFICACAO_OCORRENCIA, id);
     }
 
 

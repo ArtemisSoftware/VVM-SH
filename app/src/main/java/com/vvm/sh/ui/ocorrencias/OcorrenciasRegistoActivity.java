@@ -106,7 +106,7 @@ public class OcorrenciasRegistoActivity extends BaseDaggerActivity
 
             activityOcorrenciasRegistoBinding.txtDescricao.setVisibility(View.VISIBLE);
             activityOcorrenciasRegistoBinding.txtDescricao.setText(ocorrencia.obterDescricao());
-            viewModel.obterRegistosOcorrencias(Preferencias.obterIdTarefa(this), ocorrencia.resultado.id);
+            viewModel.obterRegistosOcorrencias(Preferencias.obterIdTarefa(this), ocorrencia.tipo.id);
         }
     }
 

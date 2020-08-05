@@ -8,9 +8,9 @@
 
 <!--        <import type="com.vvm.sh.util.StringUtil"/>-->
 
-<!--        <variable-->
-<!--            name="tipo"-->
-<!--            type="com.vvm.sh.ui.contaUtilizador.Colecao" />-->
+        <variable
+            name="upload"
+            type="com.vvm.sh.ui.upload.modelos.Upload" />
 
 <!--        <variable-->
 <!--            name="listener"-->

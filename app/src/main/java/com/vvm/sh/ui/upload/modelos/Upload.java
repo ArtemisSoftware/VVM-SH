@@ -13,7 +13,7 @@ public class Upload {
     @Embedded
     public Tarefa tarefa;
 
-    @Relation(parentColumn = "idTarefa", entityColumn = "idTarefa", entity = Resultado.class)
+    @Relation(parentColumn = "idTarefa", entityColumn = "idTarefa")
     public List<Resultado> resultados;
 
 }

@@ -33,23 +33,39 @@ abstract public class OcorrenciaResultadoDao implements BaseDao<OcorrenciaResult
 
 
 
-
     @Transaction
-    @Query("SELECT * " + //,  IFNULL(ultimoRegisto, 0) as ultimoRegisto
+    @Query("SELECT tp.id as id, descricao, codigo, detalhe, idTarefa, ocr_res.id as idResultado,  IFNULL(ultimoRegisto, 0) as ultimoRegisto " + //,  IFNULL(ultimoRegisto, 0) as ultimoRegisto
             "FROM tipos as tp " +
-//            "LEFT JOIN (SELECT idPai, COUNT(id) as ultimoRegisto FROM tipos WHERE  tipo = :tipo AND ativo = 1 GROUP BY idPai) as tp_seguinte ON tp.id = tp_seguinte.idPai " +
-//            "LEFT JOIN (SELECT idTarefa, id, observacao, fiscalizado FROM ocorrenciaResultado WHERE idTarefa = :idTarefa) as ocr_res ON tp.id = ocr_res.id " +
+            "LEFT JOIN (SELECT idTarefa, id, observacao, fiscalizado FROM ocorrenciaResultado WHERE idTarefa = :idTarefa) as ocr_res ON tp.id = ocr_res.id " +
+            "LEFT JOIN (SELECT idPai, COUNT(id) as ultimoRegisto FROM tipos WHERE  tipo = :tipo AND ativo = 1 GROUP BY idPai) as tp_seguinte ON tp.id = tp_seguinte.idPai " +
             "WHERE  tipo = :tipo AND tp.idPai =:idOcorrencia AND ativo = 1 ")
-    abstract public Flowable<List<Ocore>> obterOcorrencias(/*int idTarefa, */String tipo, int idOcorrencia);
-
+    abstract public Flowable<List<Ocore>> obterOcorrencias(int idTarefa, String tipo, int idOcorrencia);
 
     @Transaction
-    @Query("SELECT * " + //,  IFNULL(ultimoRegisto, 0) as ultimoRegisto
+    @Query("SELECT tp.id as id, descricao, codigo, detalhe, idTarefa, ocr_res.id as idResultado,  IFNULL(ultimoRegisto, 0) as ultimoRegisto " + //,  IFNULL(ultimoRegisto, 0) as ultimoRegisto
             "FROM tipos as tp " +
-//            "LEFT JOIN (SELECT idPai, COUNT(id) as ultimoRegisto FROM tipos WHERE  tipo = :tipo GROUP BY idPai AND ativo = 1) as tp_seguinte ON tp.id = tp_seguinte.idPai " +
-//            "LEFT JOIN (SELECT idTarefa, id, observacao, fiscalizado FROM ocorrenciaResultado WHERE idTarefa = :idTarefa) as ocr_res ON tp.id = ocr_res.id " +
+            "LEFT JOIN (SELECT idTarefa, id, observacao, fiscalizado FROM ocorrenciaResultado WHERE idTarefa = :idTarefa) as ocr_res ON tp.id = ocr_res.id " +
+            "LEFT JOIN (SELECT idPai, COUNT(id) as ultimoRegisto FROM tipos WHERE  tipo = :tipo GROUP BY idPai AND ativo = 1) as tp_seguinte ON tp.id = tp_seguinte.idPai " +
             "WHERE  tipo = :tipo AND tp.id =:id AND ativo = 1 ")
-    abstract public Maybe<Ocore> obterRegistoOcorrencia(/*int idTarefa,*/ String tipo, int id);
+    abstract public Maybe<Ocore> obterRegistoOcorrencia(int idTarefa, String tipo, int id);
+
+
+//    @Transaction
+//    @Query("SELECT *,  IFNULL(ultimoRegisto, 0) as ultimoRegisto " + //,  IFNULL(ultimoRegisto, 0) as ultimoRegisto
+//            "FROM tipos as tp " +
+//            "LEFT JOIN (SELECT idTarefa, id, observacao, fiscalizado FROM ocorrenciaResultado WHERE idTarefa = :idTarefa) as ocr_res ON tp.id = ocr_res.id " +
+//            "LEFT JOIN (SELECT idPai, COUNT(id) as ultimoRegisto FROM tipos WHERE  tipo = :tipo AND ativo = 1 GROUP BY idPai) as tp_seguinte ON tp.id = tp_seguinte.idPai " +
+//            "WHERE  tipo = :tipo AND tp.idPai =:idOcorrencia AND ativo = 1 ")
+//    abstract public Flowable<List<Ocore>> obterOcorrencias(int idTarefa, String tipo, int idOcorrencia);
+//
+//
+//    @Transaction
+//    @Query("SELECT *,  IFNULL(ultimoRegisto, 0) as ultimoRegisto " + //,  IFNULL(ultimoRegisto, 0) as ultimoRegisto
+//            "FROM tipos as tp " +
+//            "LEFT JOIN (SELECT idTarefa, id, observacao, fiscalizado FROM ocorrenciaResultado WHERE idTarefa = :idTarefa) as ocr_res ON tp.id = ocr_res.id " +
+//            "LEFT JOIN (SELECT idPai, COUNT(id) as ultimoRegisto FROM tipos WHERE  tipo = :tipo GROUP BY idPai AND ativo = 1) as tp_seguinte ON tp.id = tp_seguinte.idPai " +
+//            "WHERE  tipo = :tipo AND tp.id =:id AND ativo = 1 ")
+//    abstract public Maybe<Ocore> obterRegistoOcorrencia(int idTarefa, String tipo, int id);
 
 
 

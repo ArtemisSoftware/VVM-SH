@@ -10,18 +10,33 @@ import com.vvm.sh.ui.opcoes.modelos.Tipo;
 
 public class Ocore {
 
-    @Embedded
-    public Tipo tipo;
-
-
-//    @Relation(
-//            parentColumn = "id",
-//            entityColumn = "id"
-//    )
     @Ignore
     public OcorrenciaResultado resultado;
 
     @Ignore
-    //@ColumnInfo(name = "ultimoRegisto")
+    public Tipo tipo;
+
     public int ultimoRegisto;
+
+    public int id, idResultado, idTarefa;
+    public String descricao, codigo, detalhe, observacao, dias;
+    public boolean fiscalizado;
+
+    public Ocore(int id, String descricao, String codigo, String detalhe, int idTarefa,
+                 int idResultado, String observacao, boolean fiscalizado, String dias, int ultimoRegisto) {
+        this.id = id;
+        this.descricao = descricao;
+        this.codigo = codigo;
+        this.detalhe = detalhe;
+        this.idResultado = idResultado;
+        this.observacao = observacao;
+        this.fiscalizado = fiscalizado;
+        this.dias = dias;
+        this.ultimoRegisto = ultimoRegisto;
+
+
+        tipo = new Tipo(id, descricao, codigo, "", 1, detalhe, "");
+        resultado = new OcorrenciaResultado(idTarefa, idResultado, observacao, fiscalizado, dias);
+
+    }
 }

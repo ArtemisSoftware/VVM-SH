@@ -26,6 +26,8 @@ public class OcorrenciaRegisto {
     public OcorrenciaRegisto() {
     }
 
+
+
     @Ignore
     public OcorrenciaRegisto(Ocore item) {
 
@@ -65,11 +67,21 @@ public class OcorrenciaRegisto {
 
 
     public boolean estadoFiscalizacao(){
+
+        if(resultado == null){
+            return false;
+        }
+
         return  resultado.fiscalizado;
     }
 
 
     public boolean existeResultado(){
+
+        if(resultado == null){
+            return false;
+        }
+
         return  resultado.id > 0;
     }
 }

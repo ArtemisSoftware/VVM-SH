@@ -13,6 +13,7 @@ import com.vvm.sh.baseDados.entidades.Tarefa;
 import com.vvm.sh.baseDados.entidades.AnomaliaResultado;
 import com.vvm.sh.baseDados.entidades.OcorrenciaResultado;
 import com.vvm.sh.baseDados.entidades.AcaoFormacaoResultado;
+import com.vvm.sh.ui.upload.modelos.Upload;
 
 import java.util.List;
 
@@ -30,7 +31,18 @@ abstract public class UploadDao {
     abstract public Maybe<List<Resultado>> obterResultados(String idUtilizador, boolean sincronizado);
 
 
+    @Transaction
+//    @Query("SELECT * " +
+//            "FROM tarefas as trf " +
+//            "LEFT JOIN (SELECT idTarefa, sincronizado FROM resultados) as res ON trf.idTarefa = res.idTarefa " +
+//            "WHERE idUtilizador = :idUtilizador AND sincronizado = :sincronizado ")
 
+    @Query("SELECT * " +
+            "FROM tarefas as trf " +
+            "LEFT JOIN (SELECT idTarefa, COUNT(sincronizado) as ct FROM resultados WHERE sincronizado = :sincronizado GROUP BY idTarefa) as res " +
+            "ON trf.idTarefa = res.idTarefa " +
+            "WHERE ct > 0 AND idUtilizador = :idUtilizador")
+    abstract public Maybe<List<Upload>> obterUploads(String idUtilizador, boolean sincronizado);
 
 
 

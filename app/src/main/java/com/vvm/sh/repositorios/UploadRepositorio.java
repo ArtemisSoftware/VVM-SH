@@ -13,6 +13,7 @@ import com.vvm.sh.baseDados.entidades.Tarefa;
 import com.vvm.sh.baseDados.entidades.AnomaliaResultado;
 import com.vvm.sh.baseDados.entidades.OcorrenciaResultado;
 import com.vvm.sh.baseDados.entidades.AcaoFormacaoResultado;
+import com.vvm.sh.ui.upload.modelos.Upload;
 
 import java.util.List;
 
@@ -33,6 +34,10 @@ public class UploadRepositorio {
 
     public Maybe<List<Resultado>> obterResultados(String idUtilizador){
         return uploadDao.obterResultados(idUtilizador, false);
+    }
+
+    public Maybe<List<Upload>> obterUploads(String idUtilizador){
+        return uploadDao.obterUploads(idUtilizador, false);
     }
 
 

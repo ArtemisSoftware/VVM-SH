@@ -265,7 +265,7 @@ public class MainActivity extends BaseDaggerActivity
 //
 //                intent = new Intent(this, PerfilActivity.class);
 //                startActivity(intent);
-//                return true;
+//                break;
 
             case R.id.item_definicoes:
 
@@ -278,24 +278,24 @@ public class MainActivity extends BaseDaggerActivity
 //
 //                DialogoOpcoesTrabalhoFragment dialogo = new DialogoOpcoesTrabalhoFragment();
 //                dialogo.show(getSupportFragmentManager(), "example dialog");
-//                return true;
+//                break;
 //
             case R.id.item_opcoes_avancadas:
 
                 intent = new Intent(this, OpcoesAvancadasActivity.class);
-                return true;
+                break;
 //
 //            case R.id.item_terminar_sessao:
 //
 //                terminarSessao();
-//                return true;
+//                break;
 //
 //
 //            case R.id.item_atualizar_app:
 //
 //                intent = new Intent(this, AtualizacaoAppActivity.class);
 //                startActivity(intent);
-//                return true;
+//                break;
 
 
             case R.id.item_upload_dados:

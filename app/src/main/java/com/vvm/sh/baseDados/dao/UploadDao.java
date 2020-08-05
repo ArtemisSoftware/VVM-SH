@@ -30,6 +30,16 @@ abstract public class UploadDao {
     abstract public Maybe<List<Resultado>> obterResultados(String idUtilizador, boolean sincronizado);
 
 
+
+
+
+
+    //-------------------
+    //RESULTADOS
+    //-------------------
+
+
+
     @Query("SELECT * FROM emailsResultado WHERE idTarefa = :idTarefa")
     abstract public EmailResultado obterEmail(int idTarefa);
 

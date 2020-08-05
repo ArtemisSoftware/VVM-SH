@@ -174,33 +174,4 @@ public class TarefaActivity extends BaseDaggerActivity
     }
 
 
-
-
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_tarefa);
-//
-//        Toolbar myToolbar = (Toolbar) findViewById(R.id.z_toolbar);
-//        setSupportActionBar(myToolbar);
-//
-//        getSupportActionBar().setHomeButtonEnabled(true);
-//        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//
-//        iniciarAtividade();
-//        subscreverObservadores();
-//        obterRegistos();
-//
-//    }
-
-
-
-//
-//
-
-
-
-
-
-    /*https://www.11zon.com/android/android_cardview.php*/
 }

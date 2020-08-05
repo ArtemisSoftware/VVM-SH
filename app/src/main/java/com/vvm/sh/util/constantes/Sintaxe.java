@@ -24,6 +24,10 @@ public class Sintaxe {
         public static final String AUTENTICADO = "(Autenticado)";
         public static final String NAO_AUTENTICADO = "(Não autenticado)";
         public static final String FORMACAO = "Formação";
+        public static final String SUCESSO = "Sucesso";
+        public static final String EDITAR = "Editar";
+        public static final String REMOVER = "Remover";
+        public static final String OPCOES = "Opções";
     }
 
     public class Opcoes{
@@ -39,6 +43,7 @@ public class Sintaxe {
 
         public static final String CONSULTAR = "Consultar";
         public static final String NOVOS_REGISTOS = "Novos registos";
+        public static final String OK = "Ok";
     }
 
     public class Codigos{
@@ -58,6 +63,8 @@ public class Sintaxe {
     public class Frases{
 
         public static final String CONTA_CORRENTE_NIF = "Conta corrente do nif ";
+        public static final String DADOS_GRAVADOS_SUCESSO = "Dados gravados com sucesso";
+        public static final String DADOS_EDITADOS_SUCESSO = "Dados editados com sucesso";
     }
 
 }

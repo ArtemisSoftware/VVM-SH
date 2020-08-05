@@ -15,6 +15,7 @@ import com.vvm.sh.R;
 import com.vvm.sh.databinding.ActivityBaseDaggerBinding;
 import com.vvm.sh.util.MensagensUtil;
 import com.vvm.sh.util.constantes.Sintaxe;
+import com.vvm.sh.util.interfaces.OnDialogoListener;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import butterknife.ButterKnife;
@@ -25,6 +26,10 @@ public abstract class BaseDaggerDialogFragment extends DaggerDialogFragment {
     protected ViewDataBinding activityBaseBinding;
 
     public MensagensUtil dialogo;
+
+    public OnDialogoListener listener;
+
+
 
     @NonNull
     @Override
@@ -61,6 +66,15 @@ public abstract class BaseDaggerDialogFragment extends DaggerDialogFragment {
         activityBaseBinding.setLifecycleOwner(this);
 
         dialogo = new MensagensUtil(getActivity());
+
+
+        listener = new OnDialogoListener() {
+            @Override
+            public void onTerminarDialogo() {
+                terminarDialogo();
+            }
+        };
+
         subscreverObservadores();
 
         return alertDialogBuilder.create();

@@ -7,8 +7,9 @@ import com.vvm.sh.servicos.ResultadoAsyncTask;
 import com.vvm.sh.baseDados.entidades.Resultado;
 import com.vvm.sh.baseDados.entidades.Ocorrencia;
 import com.vvm.sh.baseDados.entidades.OcorrenciaHistorico;
-import com.vvm.sh.ui.ocorrencias.modelos.OcorrenciaRegisto;
 import com.vvm.sh.baseDados.entidades.OcorrenciaResultado;
+import com.vvm.sh.ui.ocorrencias.modelos.Ocore;
+import com.vvm.sh.ui.ocorrencias.modelos.OcorrenciaRegisto;
 import com.vvm.sh.ui.opcoes.modelos.Tipo;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.ResultadoId;
@@ -32,10 +33,12 @@ public class OcorrenciasViewModel extends BaseViewModel {
 
     public MutableLiveData<List<Ocorrencia>> ocorrencias;
     public MutableLiveData<List<Tipo>> ocorrenciasGeral;
-    public MutableLiveData<List<OcorrenciaRegisto>> ocorrenciasRegistos;
     public MutableLiveData<List<OcorrenciaRegisto>> ocorrenciasInseridas;
 
+
+    public MutableLiveData<List<OcorrenciaRegisto>> ocorrenciasRegistos;
     public MutableLiveData<OcorrenciaRegisto> ocorrencia;
+
     public MutableLiveData<List<Tipo>> dias;
 
     public MutableLiveData<List<OcorrenciaHistorico>> historico;
@@ -55,9 +58,16 @@ public class OcorrenciasViewModel extends BaseViewModel {
         estados = new MutableLiveData<>();
     }
 
+
+    //-----------------------
+    //GRAVAR
+    //-----------------------
+
+
+
     public void gravar(OcorrenciaResultado registo) {
 
-        if(ocorrencia.getValue().idResultado == 0){
+        if(ocorrencia.getValue().resultado.id == 0){
 
             ocorrenciaRepositorio.inserir(registo).toObservable()
                     .subscribeOn(Schedulers.io())
@@ -130,6 +140,12 @@ public class OcorrenciasViewModel extends BaseViewModel {
 
 
 
+
+    //------------------------
+    //OBTER
+    //------------------------
+
+
     /**
      * Metodo que permite obter as ocorrencias associadas a uma tarefa
      * @param idTarefa o identificador da tarefa
@@ -161,6 +177,187 @@ public class OcorrenciasViewModel extends BaseViewModel {
 
                             @Override
                             public void onError(Throwable e) {
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onComplete() {
+                                showProgressBar(false);
+                            }
+                        }
+
+                );
+
+    }
+
+
+    /**
+     * Metodo que permite obter as ocorrencias inseridas
+     * @param idTarefa o identificador da tarefa
+     */
+    private void obterOcorrenciasInseridas(int idTarefa) {
+
+        showProgressBar(true);
+
+        ocorrenciaRepositorio.obterOcorrenciasRegistadas(idTarefa).toObservable()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new Observer<List<OcorrenciaRegisto>>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onNext(List<OcorrenciaRegisto> resultado) {
+
+                                ocorrenciasInseridas.setValue(resultado);
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onComplete() {
+                                showProgressBar(false);
+                            }
+                        }
+
+                );
+    }
+
+
+    /**
+     * Metodo que permite obter os registos de ocorrencias
+     * @param idTarefa o identificador da tarefa
+     */
+    public void obterRegistosOcorrencias(int idTarefa){
+
+        showProgressBar(true);
+
+        ocorrenciaRepositorio.obterOcorrencias().toObservable()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new Observer<List<Tipo>>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onNext(List<Tipo> resultado) {
+
+                                ocorrenciasGeral.setValue(resultado);
+                                showProgressBar(false);
+                                obterRegistosOcorrencias(idTarefa, resultado.get(0).id);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onComplete() {
+                                showProgressBar(false);
+                            }
+                        }
+
+                );
+
+    }
+
+
+    /**
+     * Metodo que permite obter os registos de ocorrencias
+     * @param idTarefa o identificador da tarefa
+     * @param id o identificador do grupo de ocorrencias
+     */
+    public void obterRegistosOcorrencias(int idTarefa, int id) {
+
+        showProgressBar(true);
+
+        ocorrenciaRepositorio.obterRegistoOcorrencias(idTarefa, id).toObservable()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new Observer<List<Ocore>>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onNext(List<Ocore> resultado) {
+
+
+                                List<OcorrenciaRegisto> lolo = new ArrayList<>();
+
+
+                                for(Ocore item : resultado){
+
+                                    lolo.add(new OcorrenciaRegisto(item));
+
+                                }
+
+
+                                ocorrenciasRegistos.setValue(lolo);
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+
+                            @Override
+                            public void onComplete() {
+                                showProgressBar(false);
+                            }
+                        }
+                );
+    }
+
+
+    /**
+     * Metodo que permite obter o registo de ocorrencia
+     * @param idTarefa o identificador da tarefa
+     * @param id o identificador do grupo de ocorrencias
+     */
+    public void obterOcorrencia(int idTarefa, int id) {
+
+        showProgressBar(true);
+
+        ocorrenciaRepositorio.obterRegistoOcorrencia(idTarefa, id).toObservable()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new Observer<Ocore>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onNext(Ocore resultado) {
+
+
+                                ocorrencia.setValue(new OcorrenciaRegisto(resultado));
+                                obterDias(resultado);
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
 
                             }
 
@@ -175,6 +372,10 @@ public class OcorrenciasViewModel extends BaseViewModel {
     }
 
 
+    /**
+     * Metodo que permite obter o historicao
+     * @param id o identificador da ocorrencia
+     */
     public void obterHistorico(int id) {
 
         showProgressBar(true);
@@ -200,7 +401,7 @@ public class OcorrenciasViewModel extends BaseViewModel {
 
                             @Override
                             public void onError(Throwable e) {
-
+                                showProgressBar(false);
                             }
 
                             @Override
@@ -214,38 +415,38 @@ public class OcorrenciasViewModel extends BaseViewModel {
 
 
 
-    public void obterRegistosOcorrencias(int idTarefa){
 
-        showProgressBar(true);
+    //---------------------
+    //REMOVER
+    //---------------------
 
-        ocorrenciaRepositorio.obterOcorrencias().toObservable()
+
+    /**
+     * Metodo que permite remover uma ocorrencia registada
+     * @param idTarefa o identificador da tarefa
+     * @param id o identificador da ocorrencia
+     */
+    public void remover(int idTarefa, int id) {
+
+        ocorrenciaRepositorio.remover(idTarefa, id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
 
-
-                        new Observer<List<Tipo>>() {
+                        new SingleObserver<Integer>() {
                             @Override
                             public void onSubscribe(Disposable d) {
                                 disposables.add(d);
                             }
 
                             @Override
-                            public void onNext(List<Tipo> resultado) {
+                            public void onSuccess(Integer integer) {
 
-                                ocorrenciasGeral.setValue(resultado);
-                                showProgressBar(false);
-                                obterRegistosOcorrencias(idTarefa, resultado.get(0).id);
                             }
 
                             @Override
                             public void onError(Throwable e) {
-
-                            }
-
-                            @Override
-                            public void onComplete() {
-                                showProgressBar(false);
+                                messagemLiveData.setValue(Recurso.erro(e.getMessage()));
                             }
                         }
 
@@ -255,134 +456,9 @@ public class OcorrenciasViewModel extends BaseViewModel {
 
 
 
-    public void obterRegistosOcorrencias(int idTarefa, int id) {
-
-        showProgressBar(true);
-
-        ocorrenciaRepositorio.obterRegistoOcorrencias(idTarefa, id).toObservable()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-
-
-                        new Observer<List<OcorrenciaRegisto>>() {
-                            @Override
-                            public void onSubscribe(Disposable d) {
-                                disposables.add(d);
-                            }
-
-                            @Override
-                            public void onNext(List<OcorrenciaRegisto> resultado) {
-
-                                ocorrenciasRegistos.setValue(resultado);
-                                showProgressBar(false);
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-
-                            }
-
-                            @Override
-                            public void onComplete() {
-                                showProgressBar(false);
-                            }
-                        }
-
-                );
-    }
-
-
-
-    private void obterOcorrenciasInseridas(int idTarefa) {
-
-        showProgressBar(true);
-
-        ocorrenciaRepositorio.obterRegistoOcorrencias(idTarefa).toObservable()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-
-
-                        new Observer<List<OcorrenciaRegisto>>() {
-                            @Override
-                            public void onSubscribe(Disposable d) {
-                                disposables.add(d);
-                            }
-
-                            @Override
-                            public void onNext(List<OcorrenciaRegisto> resultado) {
-
-                                ocorrenciasInseridas.setValue(resultado);
-                                showProgressBar(false);
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-
-                            }
-
-                            @Override
-                            public void onComplete() {
-                                showProgressBar(false);
-                            }
-                        }
-
-                );
-    }
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    public void obterOcorrencia(int idTarefa, int id) {
-
-
-        showProgressBar(true);
-
-        //TODO: o identificador da tarefa deve fazer parte da query. Fazer quando as tabelas de resultado estiverem prontas
-
-        ocorrenciaRepositorio.obterResultadoOcorrencia(idTarefa, id).toObservable()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-
-                        new Observer<OcorrenciaRegisto>() {
-                            @Override
-                            public void onSubscribe(Disposable d) {
-                                disposables.add(d);
-                            }
-
-                            @Override
-                            public void onNext(OcorrenciaRegisto resultado) {
-                                ocorrencia.setValue(resultado);
-                                obterDias(resultado);
-                                showProgressBar(false);
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-
-                            }
-
-                            @Override
-                            public void onComplete() {
-                                showProgressBar(false);
-                            }
-                        }
-
-                );
-
-    }
+    //------------------
+    //MISC
+    //------------------
 
 
     /**
@@ -391,16 +467,19 @@ public class OcorrenciasViewModel extends BaseViewModel {
     private void obterOpcoesRegistos() {
         List<Tipo> estado = new ArrayList<>();
 
-        estado.add(TiposConstantes.CONSULTAR);
-        estado.add(TiposConstantes.NOVOS_REGISTOS);
+        estado.add(TiposConstantes.OpcoesRegistos.CONSULTAR);
+        estado.add(TiposConstantes.OpcoesRegistos.NOVOS_REGISTOS);
         estados.setValue(estado);
     }
 
 
+    /**
+     * Metodo que permite obter as opções dos dias de ocorrencia
+     * @param resultado o registo
+     */
+    private void obterDias(Ocore resultado){
 
-    private void obterDias(OcorrenciaRegisto resultado){
-
-        String dias [] = resultado.detalhe.split(",");
+        String dias [] = resultado.tipo.detalhe.split(",");
 
         List<Tipo> registos = new ArrayList<>();
 
@@ -413,32 +492,6 @@ public class OcorrenciasViewModel extends BaseViewModel {
 
 
 
-    public void remover(int idTarefa, int id) {
 
-        ocorrenciaRepositorio.remover(idTarefa, id)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-
-                        new SingleObserver<Integer>() {
-                            @Override
-                            public void onSubscribe(Disposable d) {
-
-                            }
-
-                            @Override
-                            public void onSuccess(Integer integer) {
-
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-
-                            }
-                        }
-
-                );
-
-    }
 
 }

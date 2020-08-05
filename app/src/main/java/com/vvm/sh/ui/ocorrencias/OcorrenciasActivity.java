@@ -15,6 +15,7 @@ import com.vvm.sh.ui.ocorrencias.adaptadores.OnOcorrenciaListener;
 import com.vvm.sh.baseDados.entidades.Ocorrencia;
 import com.vvm.sh.ui.ocorrencias.modelos.OcorrenciaRegisto;
 import com.vvm.sh.ui.opcoes.modelos.Tipo;
+import com.vvm.sh.util.constantes.TiposConstantes;
 import com.vvm.sh.util.metodos.Preferencias;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
@@ -26,17 +27,13 @@ public class OcorrenciasActivity extends BaseDaggerActivity
         implements MaterialSpinner.OnItemSelectedListener, OnOcorrenciaListener {
 
 
-
     private ActivityOcorrenciasBinding activityOcorrenciasBinding;
-
 
     @Inject
     ViewModelProviderFactory providerFactory;
 
 
     private OcorrenciasViewModel viewModel;
-
-
 
 
 
@@ -96,7 +93,7 @@ public class OcorrenciasActivity extends BaseDaggerActivity
 
     @Override
     public void onRemoverClick(OcorrenciaRegisto ocorrencia) {
-        viewModel.remover(Preferencias.obterIdTarefa(this), ocorrencia.id);
+        viewModel.remover(Preferencias.obterIdTarefa(this), ocorrencia.resultado.id);
     }
 
     @Override
@@ -104,7 +101,7 @@ public class OcorrenciasActivity extends BaseDaggerActivity
 
         Tipo tipo = (Tipo) item;
 
-        if(tipo.id == 1){
+        if(tipo.id == TiposConstantes.OpcoesRegistos.CONSULTAR.id){
             activityOcorrenciasBinding.rclRegistos.setVisibility(View.VISIBLE);
             activityOcorrenciasBinding.rclRegistosInseridos.setVisibility(View.GONE);
         }

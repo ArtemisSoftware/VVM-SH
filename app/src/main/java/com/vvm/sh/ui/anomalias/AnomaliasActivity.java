@@ -22,6 +22,7 @@ import com.vvm.sh.ui.anomalias.adaptadores.OnAnomaliasListener;
 import com.vvm.sh.ui.anomalias.modelos.AnomaliaRegistada;
 import com.vvm.sh.ui.opcoes.modelos.Tipo;
 import com.vvm.sh.util.adaptadores.Item;
+import com.vvm.sh.util.constantes.TiposConstantes;
 import com.vvm.sh.util.metodos.Preferencias;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
@@ -92,7 +93,7 @@ public class AnomaliasActivity extends BaseDaggerActivity
     public void onItemSelected(MaterialSpinner view, int position, long id, Object item) {
         Tipo tipo = (Tipo) item;
 
-        if(tipo.id == 1){
+        if(tipo.id == TiposConstantes.OpcoesRegistos.CONSULTAR.id){
             viewModel.obterAnomaliasExistentes(Preferencias.obterIdTarefa(this));
             activityAnomaliasBinding.recyclerViewExistentes.setVisibility(View.VISIBLE);
             activityAnomaliasBinding.recyclerViewRegistados.setVisibility(View.GONE);
@@ -115,27 +116,6 @@ public class AnomaliasActivity extends BaseDaggerActivity
 
         viewModel.remover(Preferencias.obterIdTarefa(this), anomalia);
     }
-
-
-
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_anomalias);
-//
-//        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-//        if(getSupportActionBar() != null)
-//            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//
-//        iniciarAtividade();
-//        obterRegistos();
-//    }
-
-
-    //------------------------
-    //Metodos locais
-    //------------------------
 
 
 

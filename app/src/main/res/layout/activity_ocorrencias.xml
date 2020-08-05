@@ -20,78 +20,118 @@
 
 
 
-    <FrameLayout
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/appbar_layout_activity"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        tools:context=".ui.tarefa.TarefaActivity">
 
 
-        <LinearLayout
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/app_bar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            android:fitsSystemWindows="true">
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/banner_height"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                app:contentScrim="?attr/colorPrimary"
+                app:title="@string/ocorrencias"
+                app:expandedTitleTextAppearance="@android:color/transparent"
+                android:fitsSystemWindows="true">
+
+                <ImageView
+                    app:layout_collapseMode="parallax"
+                    android:src="@drawable/anomalias_banner"
+                    android:contentDescription="@string/ocorrencias"
+                    android:scaleType="centerCrop"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                    android:title="@string/ocorrencias"
+                    app:layout_collapseMode="pin"/>
+
+
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+
+
+
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_centerHorizontal="true">
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content">
-
-
-                <TextView
-                    android:id="@+id/textview"
-                    style="@style/titulo"
-                    android:text="@string/ocorrencias"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
-
-
-                <View
-                    android:id="@+id/textview2"
-                    android:layout_width="280dp"
-                    android:layout_height="0.2dp"
-                    android:layout_marginTop="8dp"
-                    android:background="@color/cor_separador"
-                    app:layout_constraintStart_toStartOf="@+id/textview"
-                    app:layout_constraintTop_toBottomOf="@+id/textview" />
-
-
-                <com.jaredrummler.materialspinner.MaterialSpinner
-                    android:id="@+id/spnr_estado"
-                    android:layout_width="300dp"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/textview2"
-                    tipos_="@{viewmodel.estados}"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="16dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/textview"
-                    app:layout_constraintTop_toBottomOf="@+id/textview2"/>
+            android:clipToPadding="false"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
 
 
-            </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_centerHorizontal="true">
 
 
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/rcl_registos"
-                style="@style/lista"
-                ocorrencias="@{viewmodel.ocorrencias}"
-                listener="@{listener}"
-                tools:listitem="@layout/item_ocorrencia"/>
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:visibility="gone"
-                android:id="@+id/rcl_registos_inseridos"
-                style="@style/lista"
-                registosOcorrencias="@{viewmodel.ocorrenciasInseridas}"
-                onItemClick="@{listener}"
-                tools:listitem="@layout/item_ocorrencia_registo"/>
+                    <com.jaredrummler.materialspinner.MaterialSpinner
+                        android:id="@+id/spnr_estado"
+                        tipos_="@{viewmodel.estados}"
+                        android:layout_width="300dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="16dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
 
-        </LinearLayout>
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rcl_registos"
+                    style="@style/lista"
+                    ocorrencias="@{viewmodel.ocorrencias}"
+                    listener="@{listener}"
+                    tools:listitem="@layout/item_ocorrencia"/>
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:visibility="gone"
+                    android:id="@+id/rcl_registos_inseridos"
+                    style="@style/lista"
+                    registosOcorrencias="@{viewmodel.ocorrenciasInseridas}"
+                    onItemClick="@{listener}"
+                    tools:listitem="@layout/item_ocorrencia_registo"/>
+
+            </LinearLayout>
+
+
+        </androidx.core.widget.NestedScrollView>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_adicionar"
@@ -102,6 +142,9 @@
             app:elevation="6dp"
             android:layout_margin="@dimen/fab_margin"
             app:pressedTranslationZ="12dp"/>
-    </FrameLayout>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
 </layout>
 

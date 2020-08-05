@@ -1,16 +1,15 @@
 package com.vvm.sh.ui.anomalias.modelos;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Embedded;
+
+import com.vvm.sh.baseDados.entidades.AnomaliaResultado;
+
 public class AnomaliaRegistada {
 
-    public int id;
-    public int idAnomalia;
-    public String descricao;
-    public String observacao;
+    @Embedded
+    public AnomaliaResultado resultado;
 
-    public AnomaliaRegistada(int id, int idAnomalia, String descricao, String observacao) {
-        this.id = id;
-        this.idAnomalia = idAnomalia;
-        this.descricao = descricao;
-        this.observacao = observacao;
-    }
+    @ColumnInfo(name = "descricao")
+    public String descricao;
 }

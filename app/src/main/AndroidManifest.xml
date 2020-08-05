@@ -36,7 +36,6 @@
             android:name=".ui.ocorrencias.RegistarOcorrenciaActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ui.ocorrencias.OcorrenciasRegistoActivity" />
-        <activity android:name=".ui.anomalias.RegistoAnomaliasActivity" />
         <activity
             android:name=".ui.anomalias.AnomaliasActivity"
             android:theme="@style/AppTheme.NoActionBar" />

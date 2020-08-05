@@ -4,17 +4,15 @@ import androidx.annotation.NonNull;
 
 import com.vvm.sh.api.AtividadePendenteResultado_;
 import com.vvm.sh.api.SegurancaAlimentarApi;
-import com.vvm.sh.api.Tarefa_;
 import com.vvm.sh.baseDados.dao.UploadDao;
 import com.vvm.sh.baseDados.entidades.CrossSellingResultado;
 import com.vvm.sh.baseDados.entidades.FormandoResultado;
 import com.vvm.sh.baseDados.entidades.Resultado;
 import com.vvm.sh.baseDados.entidades.EmailResultado;
 import com.vvm.sh.baseDados.entidades.Tarefa;
-import com.vvm.sh.ui.anomalias.modelos.AnomaliaResultado;
+import com.vvm.sh.baseDados.entidades.AnomaliaResultado;
 import com.vvm.sh.baseDados.entidades.OcorrenciaResultado;
 import com.vvm.sh.baseDados.entidades.AcaoFormacaoResultado;
-import com.vvm.sh.ui.atividadesPendentes.relatorios.Formando;
 
 import java.util.List;
 

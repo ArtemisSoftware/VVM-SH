@@ -5,12 +5,13 @@ import androidx.lifecycle.MutableLiveData;
 import com.vvm.sh.repositorios.AnomaliaRepositorio;
 import com.vvm.sh.servicos.ResultadoAsyncTask;
 import com.vvm.sh.baseDados.entidades.Resultado;
-import com.vvm.sh.ui.anomalias.modelos.Anomalia;
+import com.vvm.sh.baseDados.entidades.Anomalia;
 import com.vvm.sh.ui.anomalias.modelos.AnomaliaRegistada;
-import com.vvm.sh.ui.anomalias.modelos.AnomaliaResultado;
+import com.vvm.sh.baseDados.entidades.AnomaliaResultado;
 import com.vvm.sh.ui.opcoes.modelos.Tipo;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.ResultadoId;
+import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.constantes.TiposConstantes;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
@@ -32,7 +33,7 @@ public class AnomaliasViewModel extends BaseViewModel {
     public MutableLiveData<List<AnomaliaRegistada>> anomaliasResultados;
 
     public MutableLiveData<List<Tipo>> tiposAnomalias;
-    public MutableLiveData<AnomaliaResultado> anomaliaResultado;
+    public MutableLiveData<AnomaliaRegistada> anomaliaRegistada;
 
     public MutableLiveData<List<Tipo>> estados;
 
@@ -43,7 +44,7 @@ public class AnomaliasViewModel extends BaseViewModel {
         this.anomaliaRepositorio = anomaliaRepositorio;
         anomalias = new MutableLiveData<>();
         tiposAnomalias = new MutableLiveData<>();
-        anomaliaResultado = new MutableLiveData<>();
+        anomaliaRegistada = new MutableLiveData<>();
         anomaliasResultados = new MutableLiveData<>();
         estados = new MutableLiveData<>();
     }
@@ -54,7 +55,10 @@ public class AnomaliasViewModel extends BaseViewModel {
     //--------------------
 
 
-
+    /**
+     * Metodo que permite gravar uma anomalia
+     * @param anomalia os dados da anomalia
+     */
     public void gravar(AnomaliaResultado anomalia) {
 
         if (anomalia.id == 0) {
@@ -67,18 +71,17 @@ public class AnomaliasViewModel extends BaseViewModel {
                             new Observer<Long>() {
                                 @Override
                                 public void onSubscribe(Disposable d) {
-
+                                    disposables.add(d);
                                 }
 
                                 @Override
                                 public void onNext(Long aLong) {
-
-                                    messagemLiveData.setValue(Recurso.successo());
+                                    messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_GRAVADOS_SUCESSO));
                                 }
 
                                 @Override
                                 public void onError(Throwable e) {
-
+                                    messagemLiveData.setValue(Recurso.erro(e.getMessage()));
                                 }
 
                                 @Override
@@ -86,9 +89,7 @@ public class AnomaliasViewModel extends BaseViewModel {
 
                                 }
                             }
-
                     );
-
         }
         else {
             anomaliaRepositorio.atualizar(anomalia).toObservable()
@@ -99,17 +100,17 @@ public class AnomaliasViewModel extends BaseViewModel {
                             new Observer<Integer>() {
                                 @Override
                                 public void onSubscribe(Disposable d) {
-
+                                    disposables.add(d);
                                 }
 
                                 @Override
                                 public void onNext(Integer integer) {
-                                    messagemLiveData.setValue(Recurso.successo());
+                                    messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_EDITADOS_SUCESSO));
                                 }
 
                                 @Override
                                 public void onError(Throwable e) {
-
+                                    messagemLiveData.setValue(Recurso.erro(e.getMessage()));
                                 }
 
                                 @Override
@@ -134,7 +135,7 @@ public class AnomaliasViewModel extends BaseViewModel {
 
     /**
      * Metodo que permite obter as anomalias
-     * @param idTarefa o identificador do utilizador
+     * @param idTarefa o identificador da tarefa
      */
     public void obterAnomalias(int idTarefa){
 
@@ -142,6 +143,11 @@ public class AnomaliasViewModel extends BaseViewModel {
         obterAnomaliasExistentes(idTarefa);
     }
 
+
+    /**
+     * Metodo que permite obter as anomalias existentes
+     * @param idTarefa o identificador da tarefa
+     */
     public void obterAnomaliasExistentes(int idTarefa) {
 
         showProgressBar(true);
@@ -166,7 +172,7 @@ public class AnomaliasViewModel extends BaseViewModel {
 
                             @Override
                             public void onError(Throwable e) {
-
+                                showProgressBar(false);
                             }
 
                             @Override
@@ -179,6 +185,10 @@ public class AnomaliasViewModel extends BaseViewModel {
     }
 
 
+    /**
+     * Metodo que permite obter as anomalias registadas
+     * @param idTarefa o identificador da tarefa
+     */
     public void obterAnomaliasRegistadas(int idTarefa) {
 
         showProgressBar(true);
@@ -203,7 +213,7 @@ public class AnomaliasViewModel extends BaseViewModel {
 
                             @Override
                             public void onError(Throwable e) {
-
+                                showProgressBar(false);
                             }
 
                             @Override
@@ -216,8 +226,50 @@ public class AnomaliasViewModel extends BaseViewModel {
     }
 
 
+    /**
+     * Metodo que permite obter uma anomalia registada
+     * @param id o identificador da anomalia
+     */
+    public void obterAnomalia(int id){
+
+        obterTipos();
+
+        anomaliaRepositorio.obterAnomaliaRegistada(id).toObservable()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new Observer<AnomaliaRegistada>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onNext(AnomaliaRegistada registo) {
+                                anomaliaRegistada.setValue(registo);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+
+                            @Override
+                            public void onComplete() {
+
+                            }
+                        }
+
+                );
+
+    }
 
 
+
+    //--------------------
+    //MISC
+    //--------------------
 
 
     /**
@@ -226,47 +278,9 @@ public class AnomaliasViewModel extends BaseViewModel {
     private void obterOpcoesRegistos() {
         List<Tipo> estado = new ArrayList<>();
 
-        estado.add(TiposConstantes.CONSULTAR);
-        estado.add(TiposConstantes.NOVOS_REGISTOS);
+        estado.add(TiposConstantes.OpcoesRegistos.CONSULTAR);
+        estado.add(TiposConstantes.OpcoesRegistos.NOVOS_REGISTOS);
         estados.setValue(estado);
-    }
-
-
-    public void obterAnomalia(int id){
-
-        obterTipos();
-
-        if(id != 0){
-
-            anomaliaRepositorio.obterAnomaliaResultado(id).toObservable()
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(
-
-                            new Observer<AnomaliaResultado>() {
-                                @Override
-                                public void onSubscribe(Disposable d) {
-
-                                }
-
-                                @Override
-                                public void onNext(AnomaliaResultado registo) {
-                                    anomaliaResultado.setValue(registo);
-                                }
-
-                                @Override
-                                public void onError(Throwable e) {
-
-                                }
-
-                                @Override
-                                public void onComplete() {
-
-                                }
-                            }
-
-                    );
-        }
     }
 
 
@@ -298,7 +312,7 @@ public class AnomaliasViewModel extends BaseViewModel {
 
                             @Override
                             public void onError(Throwable e) {
-
+                                showProgressBar(false);
                             }
 
                             @Override
@@ -317,10 +331,14 @@ public class AnomaliasViewModel extends BaseViewModel {
     //--------------------
 
 
-
+    /**
+     * Metodo que permite remover uma anomalias
+     * @param idTarefa o identificador da tarefa
+     * @param anomalia os dados da anomalia
+     */
     public void remover(int idTarefa, AnomaliaRegistada anomalia) {
 
-        anomaliaRepositorio.remover(anomalia.id).toObservable()
+        anomaliaRepositorio.remover(anomalia.resultado.id).toObservable()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -328,7 +346,7 @@ public class AnomaliasViewModel extends BaseViewModel {
                         new Observer<Integer>() {
                             @Override
                             public void onSubscribe(Disposable d) {
-
+                                disposables.add(d);
                             }
 
                             @Override
@@ -338,7 +356,7 @@ public class AnomaliasViewModel extends BaseViewModel {
 
                             @Override
                             public void onError(Throwable e) {
-
+                                messagemLiveData.setValue(Recurso.erro(e.getMessage()));
                             }
 
                             @Override

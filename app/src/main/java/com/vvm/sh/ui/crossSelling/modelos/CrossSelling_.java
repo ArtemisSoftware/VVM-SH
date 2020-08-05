@@ -20,6 +20,10 @@ public class CrossSelling_ {
             entityColumn = "id"
     )
     public CrossSellingResultado resultado;
+
+
+
+
 //
 //    @ColumnInfo(name = "dimensao")
 //    public String dimensao;

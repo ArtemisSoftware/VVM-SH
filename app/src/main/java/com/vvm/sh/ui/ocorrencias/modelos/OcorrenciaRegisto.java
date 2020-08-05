@@ -1,26 +1,43 @@
 package com.vvm.sh.ui.ocorrencias.modelos;
 
+import androidx.room.ColumnInfo;
+import androidx.room.Embedded;
+import androidx.room.Ignore;
+import androidx.room.Relation;
+
+import com.vvm.sh.baseDados.entidades.OcorrenciaResultado;
+import com.vvm.sh.ui.opcoes.modelos.Tipo;
+
 public class OcorrenciaRegisto {
 
-    public int id, fiscalizado, ultimoRegisto, idResultado;
-    public String descricao, detalhe, observacao;
-    public String codigo;
-    //public boolean registo, selecionado;
+    @Embedded
+    public OcorrenciaResultado resultado;
 
-    public OcorrenciaRegisto(int id, String descricao, String codigo, String detalhe, String observacao, int fiscalizado, int ultimoRegisto,
-                             int idResultado) {
-        this.id = id;
-        this.descricao = descricao;
-        this.codigo = codigo;
-        this.detalhe = detalhe;
-        this.observacao = observacao;
-        this.fiscalizado = fiscalizado;
-        this.ultimoRegisto = ultimoRegisto;
-        this.idResultado = idResultado;
+    @Relation(
+            parentColumn = "id",
+            entityColumn = "id"
+    )
+    public Tipo tipo;
+
+
+    @ColumnInfo(name = "ultimoRegisto")
+    public int ultimoRegisto;
+
+    public OcorrenciaRegisto() {
     }
 
+    @Ignore
+    public OcorrenciaRegisto(Ocore item) {
+
+        this.resultado = item.resultado;
+        this.tipo = item.tipo;
+        this.ultimoRegisto = item.ultimoRegisto;
+
+    }
+
+
     public String obterDescricao(){
-        return codigo + " " + descricao;
+        return tipo.codigo + " " + tipo.descricao;
     }
 
     public boolean itemRegisto(){
@@ -28,7 +45,7 @@ public class OcorrenciaRegisto {
         if(ultimoRegisto == 0){
             return true;
         }
-        else if(detalhe.equals("") == true){
+        else if(tipo.detalhe.equals("") == true){
             return false;
         }
         else{
@@ -38,7 +55,7 @@ public class OcorrenciaRegisto {
 
     public boolean existeDetalhe(){
 
-        if(detalhe.equals("") == true){
+        if(tipo.detalhe.equals("") == true){
             return false;
         }
         else{
@@ -48,11 +65,11 @@ public class OcorrenciaRegisto {
 
 
     public boolean estadoFiscalizacao(){
-        return  fiscalizado > 0;
+        return  resultado.fiscalizado;
     }
 
 
     public boolean existeResultado(){
-        return  idResultado > 0;
+        return  resultado.id > 0;
     }
 }

@@ -35,7 +35,7 @@
             android:layout_height="wrap_content"
             android:hint="@string/anomalia"
             tipos_="@{viewmodel.tiposAnomalias}"
-            anomalia="@{viewmodel.anomaliaResultado}"
+            anomalia="@{viewmodel.anomaliaRegistada}"
             app:layout_constraintStart_toStartOf="@+id/textView18"
             app:layout_constraintTop_toBottomOf="@+id/chk_box_fiscalizado" />
 
@@ -44,13 +44,13 @@
             style="@style/parent.TextLayout"
             android:hint="@string/observacao"
             android:layout_width="match_parent"
-            android:layout_marginTop="@dimen/signup_text_margin_top"
+            android:layout_marginTop="@dimen/spacing_dialog_item"
             app:errorEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/txt_inp_observacao"
                 style="@style/modifiedEditText"
-                android:text="@{viewmodel.anomaliaResultado.observacao}"
+                android:text="@{viewmodel.anomaliaRegistada.resultado.observacao}"
                 android:gravity="top|left"
                 android:lines="5"
                 android:maxLines="5"/>

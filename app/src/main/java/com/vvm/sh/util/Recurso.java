@@ -33,6 +33,10 @@ public class Recurso <T> {
         return new Recurso<>(Status.SUCESSO, data, "");
     }
 
+    public static <T> Recurso<T> successo(@NonNull String messagem) {
+        return new Recurso<>(Status.SUCESSO, null, messagem);
+    }
+
     public static <T> Recurso<T> successo(@NonNull T data, @NonNull String messagem) {
         return new Recurso<>(Status.SUCESSO, data, messagem);
     }

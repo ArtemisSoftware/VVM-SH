@@ -30,16 +30,10 @@ public class TarefaViewModel extends BaseViewModel {
     private final TarefaRepositorio tarefaRepositorio;
 
     public MutableLiveData<TarefaDia> tarefaDia;
-    public MutableLiveData<EmailResultado> email;
     public MutableLiveData<List<AtividadeExecutada>> atividadesExecutadas;
     public MutableLiveData<List<OpcaoCliente>> opcoesCliente;
     public MutableLiveData<List<Tipo>> opcoesEmail;
 
-
-    /**
-     * Variavel que indica se a tarefa está validada
-     */
-    public MutableLiveData<Boolean> tarefaValidada;
 
 
     @Inject
@@ -47,12 +41,10 @@ public class TarefaViewModel extends BaseViewModel {
 
         this.tarefaRepositorio = tarefaRepositorio;
         tarefaDia = new MutableLiveData<>();
-        email = new MutableLiveData<>();
         opcoesCliente = new MutableLiveData<>();
         opcoesEmail = new MutableLiveData<>();
         atividadesExecutadas = new MutableLiveData<>();
 
-        tarefaValidada = new MutableLiveData<>();
     }
 
 
@@ -163,7 +155,6 @@ public class TarefaViewModel extends BaseViewModel {
                             public void onNext(TarefaDia registo) {
 
                                 tarefaDia.setValue(registo);
-                                email.setValue(registo.email);
                                 obterOpcoesCliente(registo.email);
                                 showProgressBar(false);
                             }
@@ -254,13 +245,6 @@ public class TarefaViewModel extends BaseViewModel {
         items.add(OpcaoCliente.crossSelling());
 
         opcoesCliente.setValue(items);
-
-        if(email == null){
-            tarefaValidada.setValue(false);
-        }
-        else{
-            tarefaValidada.setValue(true);
-        }
     }
 
 

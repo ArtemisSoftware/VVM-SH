@@ -48,7 +48,7 @@
             android:layout_height="wrap_content"
             android:text="@string/estado"
             style="@style/textoInput"
-            android:layout_marginTop="25dp" />
+            android:layout_marginTop="@dimen/spacing_dialog_item" />
 
 
         <com.jaredrummler.materialspinner.MaterialSpinner

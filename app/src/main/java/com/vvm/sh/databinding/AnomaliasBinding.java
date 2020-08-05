@@ -8,9 +8,9 @@ import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.vvm.sh.ui.anomalias.adaptadores.AnomaliaRecyclerAdapter;
 import com.vvm.sh.ui.anomalias.adaptadores.AnomaliaRegistadaRecyclerAdapter;
 import com.vvm.sh.ui.anomalias.adaptadores.OnAnomaliasListener;
-import com.vvm.sh.ui.anomalias.modelos.Anomalia;
+import com.vvm.sh.baseDados.entidades.Anomalia;
 import com.vvm.sh.ui.anomalias.modelos.AnomaliaRegistada;
-import com.vvm.sh.ui.anomalias.modelos.AnomaliaResultado;
+import com.vvm.sh.baseDados.entidades.AnomaliaResultado;
 import com.vvm.sh.ui.opcoes.modelos.Tipo;
 
 import java.util.List;
@@ -73,18 +73,18 @@ public class AnomaliasBinding {
 
 
     @BindingAdapter({"tipos_", "anomalia"})
-    public static void setTipos_(MaterialSpinner view, List<Tipo> registos, AnomaliaResultado resultado) {
+    public static void setTipos_(MaterialSpinner view, List<Tipo> registos, AnomaliaRegistada registo) {
 
         if (registos == null)
             return;
 
         view.setItems(registos);
 
-        if(resultado != null) {
+        if(registo != null) {
 
             for (int index = 0; index < registos.size(); ++index) {
 
-                if(registos.get(index).id == resultado.idAnomalia){
+                if(registos.get(index).id == registo.resultado.idAnomalia){
                     view.setSelectedIndex(index);
                     break;
                 }

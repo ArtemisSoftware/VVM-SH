@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.vvm.sh.R;
 import com.vvm.sh.databinding.ItemAnomaliaBinding;
-import com.vvm.sh.ui.anomalias.modelos.Anomalia;
+import com.vvm.sh.baseDados.entidades.Anomalia;
 
 import java.util.ArrayList;
 import java.util.List;

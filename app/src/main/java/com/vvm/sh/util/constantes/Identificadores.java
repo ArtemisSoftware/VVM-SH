@@ -70,7 +70,7 @@ public class Identificadores {
 
 
         public static final int OPCAO_EMAIL = 5;
-        public static final String EMAIL = "email";
+        public static final String EMAIL = "Email";
         public static final int ICON_EMAIL = R.drawable.ic_email_24dp;
 
         public static final int OPCAO_ANOMALIA = 6;

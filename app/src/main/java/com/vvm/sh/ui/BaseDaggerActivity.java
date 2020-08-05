@@ -7,6 +7,7 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.databinding.DataBindingUtil;
@@ -31,6 +32,7 @@ public abstract class BaseDaggerActivity extends DaggerAppCompatActivity {
 
     public MensagensUtil dialogo;
 
+    @Nullable
     @BindView(R.id.toolbar)
     Toolbar toolbar;
 

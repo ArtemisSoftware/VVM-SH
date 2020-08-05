@@ -14,6 +14,7 @@ import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.agenda.AgendaViewModel;
 import com.vvm.sh.ui.agenda.modelos.Marcacao;
 import com.vvm.sh.ui.contaUtilizador.DefinicoesActivity;
+import com.vvm.sh.ui.contaUtilizador.OpcoesAvancadasActivity;
 import com.vvm.sh.ui.opcoes.TiposActivity;
 import com.vvm.sh.ui.upload.UploadActivity;
 import com.vvm.sh.ui.tarefa.TarefaActivity;
@@ -279,11 +280,10 @@ public class MainActivity extends BaseDaggerActivity
 //                dialogo.show(getSupportFragmentManager(), "example dialog");
 //                return true;
 //
-//            case R.id.item_opcoes_avancadas:
-//
-//                intent = new Intent(this, OpcoesAvancadasActivity.class);
-//                startActivity(intent);
-//                return true;
+            case R.id.item_opcoes_avancadas:
+
+                intent = new Intent(this, OpcoesAvancadasActivity.class);
+                return true;
 //
 //            case R.id.item_terminar_sessao:
 //

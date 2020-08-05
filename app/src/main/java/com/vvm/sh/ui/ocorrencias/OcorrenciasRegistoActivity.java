@@ -1,45 +1,26 @@
 package com.vvm.sh.ui.ocorrencias;
 
 import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.ArrayAdapter;
-import android.widget.LinearLayout;
-import android.widget.Spinner;
-import android.widget.TextView;
 
 import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.vvm.sh.R;
-import com.vvm.sh.databinding.ActivityOcorrenciasBinding;
 import com.vvm.sh.databinding.ActivityOcorrenciasRegistoBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
-import com.vvm.sh.ui.BaseActivity;
 import com.vvm.sh.ui.BaseDaggerActivity;
-import com.vvm.sh.ui.ocorrencias.adaptadores.OcorrenciaRecyclerAdapter;
 import com.vvm.sh.ui.ocorrencias.adaptadores.OnOcorrenciaRegistoListener;
 import com.vvm.sh.ui.ocorrencias.modelos.OcorrenciaRegisto;
 import com.vvm.sh.ui.opcoes.modelos.Tipo;
-import com.vvm.sh.util.adaptadores.Item;
-import com.vvm.sh.util.interfaces.OnCheckBoxItemListener;
-import com.vvm.sh.util.interfaces.OnItemListener;
 import com.vvm.sh.util.metodos.Preferencias;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
-
-import org.angmarch.views.NiceSpinner;
-import org.angmarch.views.OnSpinnerItemSelectedListener;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
-
-import butterknife.BindView;
-import butterknife.OnItemSelected;
 
 public class OcorrenciasRegistoActivity extends BaseDaggerActivity
         implements OnOcorrenciaRegistoListener, MaterialSpinner.OnItemSelectedListener, View.OnClickListener {
@@ -116,22 +97,22 @@ public class OcorrenciasRegistoActivity extends BaseDaggerActivity
 
         if(ocorrencia.itemRegisto() == true) {
             Intent intent = new Intent(this, RegistarOcorrenciaActivity.class);
-            intent.putExtra(getString(R.string.argumento_id), ocorrencia.id);
-            startActivityForResult(intent, 000000);
+            intent.putExtra(getString(R.string.argumento_id), ocorrencia.resultado.id);
+            startActivity(intent);
         }
         else {
 
             caminho.add(ocorrencia);
 
             activityOcorrenciasRegistoBinding.txtDescricao.setVisibility(View.VISIBLE);
-            activityOcorrenciasRegistoBinding.txtDescricao.setText(ocorrencia.codigo + " " + ocorrencia.descricao);
-            viewModel.obterRegistosOcorrencias(Preferencias.obterIdTarefa(this), ocorrencia.id);
+            activityOcorrenciasRegistoBinding.txtDescricao.setText(ocorrencia.obterDescricao());
+            viewModel.obterRegistosOcorrencias(Preferencias.obterIdTarefa(this), ocorrencia.resultado.id);
         }
     }
 
     @Override
     public void onRemoverClick(OcorrenciaRegisto ocorrencia) {
-        viewModel.remover(Preferencias.obterIdTarefa(this), ocorrencia.id);
+        viewModel.remover(Preferencias.obterIdTarefa(this), ocorrencia.resultado.id);
     }
 
     @Override
@@ -141,8 +122,8 @@ public class OcorrenciasRegistoActivity extends BaseDaggerActivity
 
             OcorrenciaRegisto ocorrencia = caminho.get(caminho.size() - 1);
 
-            activityOcorrenciasRegistoBinding.txtDescricao.setText(ocorrencia.codigo + " " + ocorrencia.descricao);
-            viewModel.obterRegistosOcorrencias(Preferencias.obterIdTarefa(this), ocorrencia.id);
+            activityOcorrenciasRegistoBinding.txtDescricao.setText(ocorrencia.obterDescricao());
+            viewModel.obterRegistosOcorrencias(Preferencias.obterIdTarefa(this), ocorrencia.resultado.id);
             caminho.remove(caminho.size() - 1);
         }
         else{

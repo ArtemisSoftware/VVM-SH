@@ -81,9 +81,7 @@ public class DialogoEmail extends BaseDaggerDialogoPersistenteFragment {
 
                     case SUCESSO:
 
-                        //TODO: Completar metodo
-                        dialogo.sucesso("cccicicici");
-                        //terminarDialogo();
+                        dialogo.sucesso(listener);
                         break;
 
                     default:
@@ -120,7 +118,6 @@ public class DialogoEmail extends BaseDaggerDialogoPersistenteFragment {
      * Metodo que valida o email
      * @return true caso os dados sejam válidos e false caso contrário
      */
-
     private boolean validarEmail(){
 
         boolean valido = true;

@@ -4,7 +4,7 @@ import androidx.room.Dao;
 import androidx.room.Insert;
 
 import com.vvm.sh.baseDados.entidades.Tarefa;
-import com.vvm.sh.ui.anomalias.modelos.Anomalia;
+import com.vvm.sh.baseDados.entidades.Anomalia;
 import com.vvm.sh.baseDados.entidades.Ocorrencia;
 import com.vvm.sh.baseDados.entidades.OcorrenciaHistorico;
 import com.vvm.sh.baseDados.entidades.AtividadeExecutada;

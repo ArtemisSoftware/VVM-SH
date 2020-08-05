@@ -14,8 +14,8 @@ import com.vvm.sh.baseDados.dao.UploadDao;
 import com.vvm.sh.baseDados.entidades.ImagemResultado;
 import com.vvm.sh.baseDados.entidades.Resultado;
 import com.vvm.sh.baseDados.entidades.Tarefa;
-import com.vvm.sh.ui.anomalias.modelos.Anomalia;
-import com.vvm.sh.ui.anomalias.modelos.AnomaliaResultado;
+import com.vvm.sh.baseDados.entidades.Anomalia;
+import com.vvm.sh.baseDados.entidades.AnomaliaResultado;
 import com.vvm.sh.baseDados.entidades.AtividadeExecutada;
 import com.vvm.sh.ui.atividadesPendentes.modelos.AtividadePendente;
 import com.vvm.sh.ui.atividadesPendentes.modelos.AtividadePendenteResultado;
@@ -76,7 +76,6 @@ public abstract class VvmshBaseDados extends RoomDatabase {
 
     public abstract AtividadePendenteDao obterAtividadePendenteDao();
 
-    public abstract OcorrenciaDao obterOcorrenciaDao();
 
 
     public abstract DownloadTrabalhoDao obterDownloadTrabalhoDao();

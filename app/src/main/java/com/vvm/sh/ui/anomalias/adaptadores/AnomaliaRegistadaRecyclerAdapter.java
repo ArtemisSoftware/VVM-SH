@@ -9,9 +9,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.vvm.sh.R;
-import com.vvm.sh.databinding.ItemAnomaliaBinding;
 import com.vvm.sh.databinding.ItemAnomaliaRegistadaBinding;
-import com.vvm.sh.ui.anomalias.modelos.Anomalia;
 import com.vvm.sh.ui.anomalias.modelos.AnomaliaRegistada;
 
 import java.util.ArrayList;

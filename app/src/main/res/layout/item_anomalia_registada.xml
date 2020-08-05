@@ -54,7 +54,7 @@
                     android:id="@+id/textView2"
                     style="@style/textoDetalhe"
                     android:layout_marginLeft="8dp"
-                    android:text="@{anomalia.observacao, default=observacao}" />
+                    android:text="@{anomalia.resultado.observacao, default=observacao}" />
 
             </LinearLayout>
 

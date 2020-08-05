@@ -12,7 +12,7 @@
 
         <variable
             name="anomalia"
-            type="com.vvm.sh.ui.anomalias.modelos.Anomalia" />
+            type="com.vvm.sh.baseDados.entidades.Anomalia" />
 
     </data>
 
@@ -51,7 +51,7 @@
                     android:id="@+id/circleView1"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
-                    android:src="@drawable/ic_lorem_ipsum_24dp" />
+                    android:src="@drawable/ic_calendario" />
 
                 <TextView
                     android:id="@+id/txt_data"
@@ -77,7 +77,7 @@
                     android:id="@+id/circleView2"
                     android:layout_width="32dp"
                     android:layout_height="32dp"
-                    android:src="@drawable/ic_lorem_ipsum_24dp" />
+                    android:src="@drawable/ic_contactos_24dp" />
 
                 <TextView
                     android:id="@+id/text"

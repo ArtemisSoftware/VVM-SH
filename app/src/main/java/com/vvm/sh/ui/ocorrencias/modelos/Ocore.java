@@ -19,11 +19,11 @@ public class Ocore {
     public int ultimoRegisto;
 
     public int id, idResultado, idTarefa;
-    public String descricao, codigo, detalhe, observacao, dias;
+    public String descricao, codigo, detalhe, observacao;
     public boolean fiscalizado;
 
     public Ocore(int id, String descricao, String codigo, String detalhe, int idTarefa,
-                 int idResultado, String observacao, boolean fiscalizado, String dias, int ultimoRegisto) {
+                 int idResultado, String observacao, boolean fiscalizado, int ultimoRegisto) {
         this.id = id;
         this.descricao = descricao;
         this.codigo = codigo;
@@ -31,12 +31,11 @@ public class Ocore {
         this.idResultado = idResultado;
         this.observacao = observacao;
         this.fiscalizado = fiscalizado;
-        this.dias = dias;
         this.ultimoRegisto = ultimoRegisto;
 
 
         tipo = new Tipo(id, descricao, codigo, "", 1, detalhe, "");
-        resultado = new OcorrenciaResultado(idTarefa, idResultado, observacao, fiscalizado, dias);
+        resultado = new OcorrenciaResultado(idTarefa, idResultado, observacao, fiscalizado, "");
 
     }
 }

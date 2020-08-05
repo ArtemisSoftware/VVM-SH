@@ -341,17 +341,17 @@ public class OcorrenciasViewModel extends BaseViewModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
 
-                        new Observer<Ocore>() {
+                        new Observer<OcorrenciaRegisto>() {
                             @Override
                             public void onSubscribe(Disposable d) {
                                 disposables.add(d);
                             }
 
                             @Override
-                            public void onNext(Ocore resultado) {
+                            public void onNext(OcorrenciaRegisto resultado) {
 
 
-                                ocorrencia.setValue(new OcorrenciaRegisto(resultado));
+                                ocorrencia.setValue(resultado);
                                 obterDias(resultado);
                                 showProgressBar(false);
                             }
@@ -477,7 +477,7 @@ public class OcorrenciasViewModel extends BaseViewModel {
      * Metodo que permite obter as opções dos dias de ocorrencia
      * @param resultado o registo
      */
-    private void obterDias(Ocore resultado){
+    private void obterDias(OcorrenciaRegisto resultado){
 
         String dias [] = resultado.tipo.detalhe.split(",");
 

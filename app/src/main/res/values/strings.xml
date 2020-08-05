@@ -234,4 +234,9 @@
     <string name="agenda">Agenda</string>
     <string name="anomalias_cliente">Anomalias Cliente</string>
 
+    <string name="sincronizado">Sincronizado</string>
+    <string name="nao_sincronizado">Não sincronizado</string>
+    <string name="trancado">Trancado</string>
+    <string name="upload_dados">Upload de dados</string>
+
 </resources>

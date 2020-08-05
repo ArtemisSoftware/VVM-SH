@@ -130,4 +130,13 @@
 
     <color name="cor_texto_descritivo">#2B292B</color>
     <color name="cor_botao_calendario">#99CC00</color>
+
+    <color name="cor_sincronizado">#388E3C</color>
+    <color name="cor_nao_sincronizado">#fe485a</color>
+    <color name="cor_trancado">#0091EA</color>
+
+
+    <color name="cor_app_sa">#FF1565C0</color>
+
+
 </resources>

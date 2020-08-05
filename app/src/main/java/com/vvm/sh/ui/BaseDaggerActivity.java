@@ -7,14 +7,17 @@ import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
+import androidx.appcompat.widget.Toolbar;
 import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 
 import com.vvm.sh.R;
 import com.vvm.sh.databinding.ActivityBaseDaggerBinding;
+import com.vvm.sh.util.MensagensUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import dagger.android.support.DaggerAppCompatActivity;
 
@@ -26,7 +29,10 @@ public abstract class BaseDaggerActivity extends DaggerAppCompatActivity {
     public ProgressBar mProgressBar;
     //--public SweetAlertDialog dialog;
 
+    public MensagensUtil dialogo;
 
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,7 +49,28 @@ public abstract class BaseDaggerActivity extends DaggerAppCompatActivity {
 
         ButterKnife.bind(this);
 
+
+        if(toolbar != null) {
+
+            setSupportActionBar(toolbar);
+            if (getSupportActionBar() != null) {
+                getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+                getSupportActionBar().setDisplayShowHomeEnabled(true);
+
+                toolbar.setNavigationOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        finish();
+                    }
+                });
+            }
+        }
+
+        dialogo = new MensagensUtil(this);
+
+
         //--dialog = new SweetAlertDialog(this);
+
     }
 
 

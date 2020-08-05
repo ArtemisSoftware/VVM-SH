@@ -1,5 +1,7 @@
 package com.vvm.sh.ui.upload;
 
+import android.os.Handler;
+
 import androidx.lifecycle.MutableLiveData;
 
 import com.vvm.sh.baseDados.entidades.Resultado;
@@ -31,9 +33,7 @@ public class UploadViewModel extends BaseViewModel {
     }
 
 
-    public void obterDadosUpload(String idUtilizador){
-
-        showProgressBar(true);
+    public void obterDadosUpload(String idUtilizador, Handler handler){
 
         //TODO: os dados necessitam do idutilizador + data
 
@@ -52,7 +52,7 @@ public class UploadViewModel extends BaseViewModel {
                             public void onNext(List<Resultado> resultado) {
 
 
-                                DadosUploadAsyncTask servico = new DadosUploadAsyncTask(vvmshBaseDados, uploadRepositorio, idUtilizador);
+                                DadosUploadAsyncTask servico = new DadosUploadAsyncTask(vvmshBaseDados, handler, uploadRepositorio, idUtilizador);
                                 servico.execute(resultado);
                             }
 

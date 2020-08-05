@@ -22,15 +22,12 @@ import butterknife.BindView;
 public class DialogoEmail extends BaseDaggerDialogoPersistenteFragment {
 
 
-
     private DialogoEmailBinding binding;
-
 
     @Inject
     ViewModelProviderFactory providerFactory;
 
     private TarefaViewModel viewModel;
-
 
 
     @BindView(R.id.txt_inp_email)
@@ -85,8 +82,8 @@ public class DialogoEmail extends BaseDaggerDialogoPersistenteFragment {
                     case SUCESSO:
 
                         //TODO: Completar metodo
-                        MensagensUtil.sucesso();
-                        terminarDialogo();
+                        dialogo.sucesso("cccicicici");
+                        //terminarDialogo();
                         break;
 
                     default:

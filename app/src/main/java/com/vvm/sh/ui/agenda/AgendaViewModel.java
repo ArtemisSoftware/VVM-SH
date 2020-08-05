@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData;
 import com.vvm.sh.api.modelos.SessaoResposta;
 import com.vvm.sh.repositorios.AgendaRepositorio;
 import com.vvm.sh.ui.agenda.modelos.Marcacao;
-import com.vvm.sh.ui.agenda.modelos.TarefaDia;
 import com.vvm.sh.servicos.TrabalhoAsyncTask;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
@@ -23,7 +22,7 @@ public class AgendaViewModel extends BaseViewModel {
     private final AgendaRepositorio agendaRepositorio;
 
     public MutableLiveData<List<Marcacao>> marcacoes;
-
+    public MutableLiveData<Integer> completude;
 
 
 
@@ -32,6 +31,7 @@ public class AgendaViewModel extends BaseViewModel {
 
         this.agendaRepositorio = agendaRepositorio;
         marcacoes = new MutableLiveData<>();
+        completude = new MutableLiveData<>();
     }
 
 
@@ -42,9 +42,11 @@ public class AgendaViewModel extends BaseViewModel {
 
 
 
-    public void obterMarcacoes(String idUtilizador, String data){
+    public void obterMarcacoes(String idUtilizador, long data){
 
         //TODO: terminar metodo agendaRepositorio.obterTarefas. Parametros ainda não estão a ser usados
+
+        obterCompletude(idUtilizador, data);
 
         showProgressBar(true);
 
@@ -81,6 +83,41 @@ public class AgendaViewModel extends BaseViewModel {
 
 
 
+    private void obterCompletude(String idUtilizador, long data){
+
+        showProgressBar(true);
+
+        agendaRepositorio.obterCompletude(idUtilizador, data).toObservable()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new Observer<Integer>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onNext(Integer registos) {
+
+                                completude.setValue(registos);
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onComplete() {
+                                showProgressBar(false);
+                            }
+                        }
+                );
+
+    }
 
 
 

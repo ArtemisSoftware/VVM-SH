@@ -13,6 +13,7 @@ import androidx.databinding.ViewDataBinding;
 
 import com.vvm.sh.R;
 import com.vvm.sh.databinding.ActivityBaseDaggerBinding;
+import com.vvm.sh.util.MensagensUtil;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
@@ -23,7 +24,7 @@ public abstract class BaseDaggerDialogFragment extends DaggerDialogFragment {
 
     protected ViewDataBinding activityBaseBinding;
 
-
+    public MensagensUtil dialogo;
 
     @NonNull
     @Override
@@ -59,6 +60,7 @@ public abstract class BaseDaggerDialogFragment extends DaggerDialogFragment {
 
         activityBaseBinding.setLifecycleOwner(this);
 
+        dialogo = new MensagensUtil(getActivity());
         subscreverObservadores();
 
         return alertDialogBuilder.create();

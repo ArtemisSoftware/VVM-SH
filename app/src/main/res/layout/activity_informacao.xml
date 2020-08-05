@@ -45,9 +45,9 @@
                 android:layout_height="300dp"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
                 app:contentScrim="?attr/colorPrimary"
+                app:title="@string/cliente"
                 app:expandedTitleTextAppearance="@android:color/transparent"
-                android:fitsSystemWindows="true"
-                >
+                android:fitsSystemWindows="true">
 
                 <ImageView
                     app:layout_collapseMode="parallax"
@@ -92,7 +92,7 @@
                         style="@style/tituloCartao"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="16dp"
-                        android:text="@{StringUtil.formatarHtml(viewmodel.cliente.nome), default=cliente}"
+                        android:text="@{StringUtil.formatarHtml(viewmodel.tarefaDia.cliente.nome), default=cliente}"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -110,7 +110,7 @@
 
                         <TextView
                             style="@style/textoDescritivo"
-                            android:text="@{viewmodel.tarefa.obterMarcaOrdem(), default=ordem}" />
+                            android:text="@{viewmodel.tarefaDia.obterMarcaOrdem(), default=ordem}" />
 
                         <TextView
                             style="@style/subTituloDescritivo"
@@ -132,7 +132,7 @@
 
                         <TextView
                             style="@style/textoDescritivo"
-                            android:text="@{viewmodel.cliente.obterMorada(), default=morada}" />
+                            android:text="@{viewmodel.tarefaDia.obterMorada(), default=morada}" />
 
                         <TextView
                             style="@style/subTituloDescritivo"
@@ -152,7 +152,7 @@
 
                         <TextView
                             style="@style/textoDescritivo"
-                            android:text="@{viewmodel.cliente.nif, default=nif}" />
+                            android:text="@{viewmodel.tarefaDia.cliente.nif, default=nif}" />
 
                         <TextView
                             style="@style/subTituloDescritivo"
@@ -172,13 +172,13 @@
 
                         <TextView
                             style="@style/textoDescritivo"
-                            android:text="@{viewmodel.cliente.obterAtividade(), default=atividade}" />
+                            android:text="@{viewmodel.tarefaDia.obterAtividade(), default=atividade}" />
 
 
                         <TextView
                             style="@style/textoDescritivo"
-                            android:visibility="@{viewmodel.cliente.existeAtividade2() ? View.VISIBLE : View.GONE}"
-                            android:text="@{viewmodel.cliente.obterAtividade2(), default=atividade2}" />
+                            android:visibility="@{viewmodel.tarefaDia.existeAtividade2() ? View.VISIBLE : View.GONE}"
+                            android:text="@{viewmodel.tarefaDia.obterAtividade2(), default=atividade2}" />
 
 
                         <TextView
@@ -201,7 +201,7 @@
 
                         <TextView
                             style="@style/textoDescritivo"
-                            android:text="@{viewmodel.cliente.obterContactos(), default=contactos}" />
+                            android:text="@{viewmodel.tarefaDia.obterContactos(), default=contactos}" />
 
                         <TextView
                             style="@style/subTituloDescritivo"
@@ -221,7 +221,7 @@
 
                         <TextView
                             style="@style/textoDescritivo"
-                            android:text="@{viewmodel.cliente.obterServico(), default=servico}" />
+                            android:text="@{viewmodel.tarefaDia.obterServico(), default=servico}" />
 
                         <TextView
                             style="@style/subTituloDescritivo"
@@ -242,7 +242,7 @@
 
                         <TextView
                             style="@style/textoDescritivo"
-                            android:text="@{viewmodel.cliente.responsavel, default=responsavel}" />
+                            android:text="@{viewmodel.tarefaDia.cliente.responsavel, default=responsavel}" />
 
                         <TextView
                             style="@style/subTituloDescritivo"
@@ -262,7 +262,7 @@
 
                         <TextView
                             style="@style/textoDescritivo"
-                            android:text="@{viewmodel.cliente.numeroCliente, default=numerocliente}" />
+                            android:text="@{viewmodel.tarefaDia.cliente.numeroCliente, default=numerocliente}" />
 
                         <TextView
                             style="@style/subTituloDescritivo"
@@ -286,7 +286,7 @@
 
                         <TextView
                             style="@style/textoDescritivo"
-                            android:text="@{viewmodel.cliente.novo, default=novo}" />
+                            android:text="@{viewmodel.tarefaDia.cliente.novo, default=novo}" />
 
                         <TextView
                             style="@style/subTituloDescritivo"
@@ -308,13 +308,9 @@
                         app:layout_constraintStart_toStartOf="@+id/linearLayout111"
                         app:layout_constraintTop_toBottomOf="@+id/linearLayout111">
 
-                        <!-- TODO: falta saldo  -->
-
                         <TextView
                             style="@style/textoDescritivo"
-                            />
-
-                        <!-- android:text="@{viewmodel.cliente.telemovel, default=notas}" -->
+                            android:text="@{viewmodel.tarefaDia.cliente.saldoCartaoVm, default=saldo}"/>
 
                         <TextView
                             style="@style/subTituloDescritivo"
@@ -337,9 +333,8 @@
 
                         <TextView
                             style="@style/textoDescritivo"
-                             />
+                            android:text="@{viewmodel.tarefaDia.cliente.notas, default=notas}"/>
 
-                        <!-- android:text="@{viewmodel.cliente.telemovel, default=notas}" -->
 
                         <TextView
                             style="@style/subTituloDescritivo"
@@ -387,7 +382,7 @@
 
                         <TextView
                             style="@style/textoDescritivo"
-                            android:text="@{viewmodel.cliente.segmento, default=segmento}" />
+                            android:text="@{viewmodel.tarefaDia.cliente.segmento, default=segmento}" />
 
                         <TextView
                             style="@style/subTituloDescritivo"
@@ -477,171 +472,7 @@
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
-    <!--
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="vertical">
 
-                    <TextView
-                        android:padding="12dp"
-                        android:textSize="20sp"
-                        android:layout_marginTop="12dp"
-                        android:textStyle="bold"
-                        android:textColor="@color/colorPrimaryDark"
-                        android:text="@string/lorem_ipsum_titulo"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content" />
-
-                    <LinearLayout
-                        android:orientation="horizontal"
-                        android:padding="12dp"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content">
-
-                        <ImageView
-                            android:contentDescription="@string/app_name"
-                            android:src="@drawable/ic_lorem_ipsum_24dp"
-                            android:layout_weight="1"
-                            android:layout_width="0dp"
-                            android:layout_height="wrap_content" />
-
-                        <TextView
-                            android:layout_gravity="center_vertical"
-                            android:padding="12dp"
-                            android:textSize="14sp"
-                            android:textStyle="bold"
-                            android:textColor="@color/colorPrimary"
-                            android:text="@string/lorem_ipsum_titulo"
-                            android:layout_width="0dp"
-                            android:layout_weight="9"
-                            android:layout_height="wrap_content" />
-
-                    </LinearLayout>
-
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_centerInParent="true"
-                        android:layout_marginLeft="30dp"
-                        android:layout_marginRight="30dp"
-                        android:layout_marginTop="20dp"
-                        android:orientation="vertical">
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="EmailResultado"
-                                android:textColor="@color/headings"
-                                android:textSize="13sp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="sans-serif-light"
-                                android:text="joey@sharenofood.com"
-                                android:textColor="#000000"
-                                android:textSize="18sp" />
-
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="15dp"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Phone"
-                                android:textColor="@color/headings"
-                                android:textSize="13sp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="sans-serif-light"
-                                android:text="+1-202-555-0157"
-                                android:textColor="#000000"
-                                android:textSize="18sp" />
-
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="15dp"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Twitter"
-                                android:textColor="@color/headings"
-                                android:textSize="13sp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="sans-serif-light"
-                                android:text="@string/lorem_ipsum_texto"
-                                android:textColor="#000000"
-                                android:textSize="18sp" />
-
-
-                        </LinearLayout>
-
-                        <LinearLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:layout_marginTop="15dp"
-                            android:orientation="vertical">
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:text="Facebook"
-                                android:textColor="@color/headings"
-                                android:textSize="13sp" />
-
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:fontFamily="sans-serif-light"
-                                android:text="facebook.com/joeytrib"
-                                android:textColor="#000000"
-                                android:textSize="18sp" />
-
-
-                        </LinearLayout>
-
-
-                    </LinearLayout>
-
-
-
-                    <TextView
-                        android:padding="12dp"
-                        android:textSize="13sp"
-                        android:lineSpacingMultiplier="1.5"
-                        android:layout_marginTop="12dp"
-                        android:text="@string/lorem_ipsum_texto"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        />
-
-
-                </LinearLayout>
-
-    -->
             </androidx.cardview.widget.CardView>
 
         </androidx.core.widget.NestedScrollView>

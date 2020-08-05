@@ -60,11 +60,5 @@ public class Tarefa {
         this.app = app;
     }
 
-    /**
-     * Metodo que permite obter a marca e a ordem da tarefa
-     * @return a marca e a ordem
-     */
-    public String obterMarcaOrdem(){
-        return prefixoCt + " / " + ordem;
-    }
+
 }

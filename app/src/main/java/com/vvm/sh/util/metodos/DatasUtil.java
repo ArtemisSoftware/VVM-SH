@@ -78,6 +78,23 @@ public class DatasUtil {
         return data;
     }
 
+    public static long obterDataAtual(){
+
+        String data = obterDataAtual(FORMATO_DD_MMMM_YYYY);
+        SimpleDateFormat format = new SimpleDateFormat(FORMATO_DD_MMMM_YYYY);
+
+        try {
+            Date dataResultado = format.parse(data);
+            return dataResultado.getTime();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return 0;
+
+    }
+
+
 
     /**
      * Metodo que permite converter uma data numformato especifico para String
@@ -115,7 +132,7 @@ public class DatasUtil {
      * @param mesDoAno 0 - Janeiro , 1 - Fevereiro....
      * @param diaDoMes o dia do mes
      * @param formatoData o formato da dados (ex:dd/MM/yyyy)
-     * @return uma dados
+     * @return uma data
      */
     public static String converterData(int ano, int mesDoAno, int diaDoMes, String formatoData){
 
@@ -127,6 +144,30 @@ public class DatasUtil {
 
         return data;
     }
+
+
+    /**
+     * Metodo que permite obter uma dados
+     * @param ano
+     * @param mesDoAno 0 - Janeiro , 1 - Fevereiro....
+     * @param diaDoMes o dia do mes
+     * @return uma data
+     */
+    public static long converterData(int ano, int mesDoAno, int diaDoMes){
+
+        String data = converterData(ano, mesDoAno, diaDoMes, FORMATO_DD_MMMM_YYYY);
+        SimpleDateFormat format = new SimpleDateFormat(FORMATO_DD_MMMM_YYYY);
+
+        try {
+            Date dataResultado = format.parse(data);
+            return dataResultado.getTime();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return 0;
+    }
+
 
 
     /**

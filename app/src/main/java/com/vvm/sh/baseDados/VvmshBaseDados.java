@@ -16,13 +16,13 @@ import com.vvm.sh.baseDados.entidades.Resultado;
 import com.vvm.sh.baseDados.entidades.Tarefa;
 import com.vvm.sh.ui.anomalias.modelos.Anomalia;
 import com.vvm.sh.ui.anomalias.modelos.AnomaliaResultado;
-import com.vvm.sh.ui.atividadesExecutadas.modelos.AtividadeExecutada;
+import com.vvm.sh.baseDados.entidades.AtividadeExecutada;
 import com.vvm.sh.ui.atividadesPendentes.modelos.AtividadePendente;
 import com.vvm.sh.ui.atividadesPendentes.modelos.AtividadePendenteResultado;
 import com.vvm.sh.baseDados.entidades.AcaoFormacaoResultado;
 import com.vvm.sh.baseDados.entidades.FormandoResultado;
 import com.vvm.sh.ui.autenticacao.modelos.Utilizador;
-import com.vvm.sh.ui.cliente.Cliente;
+import com.vvm.sh.baseDados.entidades.Cliente;
 import com.vvm.sh.baseDados.entidades.CrossSellingResultado;
 import com.vvm.sh.baseDados.entidades.Ocorrencia;
 import com.vvm.sh.baseDados.entidades.OcorrenciaHistorico;
@@ -70,7 +70,6 @@ public abstract class VvmshBaseDados extends RoomDatabase {
 
     public abstract TarefaDao obterTarefaDao();
 
-    public abstract AtividadeExecutadaDao obterAtividadeExecutadaDao();
 
     public abstract ClienteDao obterClienteDao();
 

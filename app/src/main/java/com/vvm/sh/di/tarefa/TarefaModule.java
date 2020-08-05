@@ -1,6 +1,5 @@
 package com.vvm.sh.di.tarefa;
 
-import com.vvm.sh.baseDados.AtividadeExecutadaDao;
 import com.vvm.sh.baseDados.dao.EmailDao;
 import com.vvm.sh.baseDados.ResultadoDao;
 import com.vvm.sh.baseDados.TarefaDao;
@@ -13,15 +12,6 @@ import dagger.Provides;
 @Module
 public class TarefaModule {
 
-    @TarefaScope
-    @Provides
-    static AtividadeExecutadaDao provideAtividadeExecutadaDao(VvmshBaseDados vvmshBaseDados){
-
-        AtividadeExecutadaDao dao = vvmshBaseDados.obterAtividadeExecutadaDao();
-
-        //Timber.d("Providing NoteDao: " + dao);
-        return dao;
-    }
 
 
     @TarefaScope
@@ -48,9 +38,9 @@ public class TarefaModule {
 
     @TarefaScope
     @Provides
-    TarefaRepositorio provideTarefaRepositorio(AtividadeExecutadaDao atividadeExecutadaDao, TarefaDao tarefaDao, EmailDao emailDao, ResultadoDao resultadoDao) {
+    TarefaRepositorio provideTarefaRepositorio(TarefaDao tarefaDao, EmailDao emailDao, ResultadoDao resultadoDao) {
 
-        TarefaRepositorio repositorio = new TarefaRepositorio(tarefaDao, atividadeExecutadaDao, emailDao, resultadoDao);
+        TarefaRepositorio repositorio = new TarefaRepositorio(tarefaDao, emailDao, resultadoDao);
 
         //Timber.d("Providing PokemonRepository: " + repository);
         return repositorio;

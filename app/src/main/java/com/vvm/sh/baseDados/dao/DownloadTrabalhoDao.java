@@ -7,6 +7,7 @@ import com.vvm.sh.baseDados.entidades.Tarefa;
 import com.vvm.sh.ui.anomalias.modelos.Anomalia;
 import com.vvm.sh.baseDados.entidades.Ocorrencia;
 import com.vvm.sh.baseDados.entidades.OcorrenciaHistorico;
+import com.vvm.sh.baseDados.entidades.AtividadeExecutada;
 
 import java.util.List;
 
@@ -16,6 +17,10 @@ abstract public class DownloadTrabalhoDao {
 
     @Insert
     abstract public Long inserirRegisto(Tarefa tarefa);
+
+    @Insert
+    abstract public List<Long> inserirAtividadesExecutadas(List<AtividadeExecutada> registos);
+
 
 
     @Insert

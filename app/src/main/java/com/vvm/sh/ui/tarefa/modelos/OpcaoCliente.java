@@ -22,9 +22,12 @@ public class OpcaoCliente {
 
 
     public static OpcaoCliente email() {
-        return new OpcaoCliente(OPCAO_EMAIL, EMAIL, EMAIL_ICON);
+        return new OpcaoCliente(OPCAO_EMAIL, EMAIL, ICON_EMAIL);
     }
     public static OpcaoCliente crossSelling() {
         return new OpcaoCliente(OPCAO_CROSS_SELLING, CROSS_SELLING, ICON_CROSS_SELLING);
+    }
+    public static OpcaoCliente informacao() {
+        return new OpcaoCliente(OPCAO_INFORMACAO, INFORMACAO, ICON_INFORMACAO);
     }
 }

@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.vvm.sh.R;
 import com.vvm.sh.databinding.ItemAtividadeExecutadaBinding;
-import com.vvm.sh.ui.atividadesExecutadas.modelos.AtividadeExecutada;
+import com.vvm.sh.baseDados.entidades.AtividadeExecutada;
 
 import java.util.ArrayList;
 import java.util.List;

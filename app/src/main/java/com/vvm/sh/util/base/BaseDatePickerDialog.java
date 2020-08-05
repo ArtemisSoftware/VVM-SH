@@ -3,6 +3,8 @@ package com.vvm.sh.util.base;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import java.util.Calendar;
+import java.util.Date;
+import java.util.List;
 
 public class BaseDatePickerDialog {
 
@@ -32,6 +34,30 @@ public class BaseDatePickerDialog {
 
         Calendar dataMaxima = Calendar.getInstance();
         datePickerDialog.setMaxDate(dataMaxima);
+    }
+
+
+    public void realcarDias(List<Date> datas){
+
+        Calendar[] high = new Calendar[datas.size()];
+
+        for(int index = 0; index < datas.size(); ++index) {
+
+            Calendar calendar = Calendar.getInstance();
+            calendar.setTime(datas.get(index));
+
+
+            Calendar calendarff = Calendar.getInstance();
+            calendarff.set(Calendar.YEAR, calendar.get(Calendar.YEAR));
+            calendarff.set(Calendar.MONTH, calendar.get(Calendar.MONTH));
+            calendarff.set(Calendar.DAY_OF_WEEK, calendar.get(Calendar.DAY_OF_WEEK));
+
+            high[0] = calendarff;
+        }
+
+        datePickerDialog.setHighlightedDays(high);
+
+
     }
 
 

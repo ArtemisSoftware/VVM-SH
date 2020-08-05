@@ -2,6 +2,7 @@ package com.vvm.sh.servicos;
 
 import android.database.sqlite.SQLiteConstraintException;
 import android.os.AsyncTask;
+import android.os.Handler;
 
 import com.vvm.sh.api.AcaoFormacao;
 import com.vvm.sh.api.Anomalia;
@@ -22,6 +23,7 @@ import com.vvm.sh.repositorios.UploadRepositorio;
 import com.vvm.sh.ui.anomalias.modelos.AnomaliaResultado;
 import com.vvm.sh.baseDados.entidades.OcorrenciaResultado;
 import com.vvm.sh.ui.atividadesPendentes.modelos.AtividadePendenteResultado;
+import com.vvm.sh.util.AtualizacaoUI;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.mapeamento.UploadMapping;
 
@@ -39,10 +41,14 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Resultado>, Void, Void
     private UploadRepositorio repositorio;
     private JSONArray dadosTarefas = new JSONArray();
 
-    public DadosUploadAsyncTask(VvmshBaseDados vvmshBaseDados, UploadRepositorio repositorio, String idUtilizador){
+    private AtualizacaoUI atualizacaoUI;
+
+
+    public DadosUploadAsyncTask(VvmshBaseDados vvmshBaseDados, Handler handler, UploadRepositorio repositorio, String idUtilizador){
         this.vvmshBaseDados = vvmshBaseDados;
         this.repositorio = repositorio;
         this.idUtilizador = idUtilizador;
+        atualizacaoUI = new AtualizacaoUI(handler);
     }
 
     @Override
@@ -64,9 +70,14 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Resultado>, Void, Void
 
                     //TODO: isto tem que ser alterado o id da tarefa não pode ser obtido assim mas num objeto com os idsResultado associados a um idTarefa
                     int idTarefa = -1;
+                    int index = 0;
 
                     for (Resultado resultado : resposta) {
                         idTarefa = resultado.id;
+                        ++index;
+
+                        atualizacaoUI.atualizarUI(AtualizacaoUI.Codigo.PROCESSAMENTO_DADOS, resultado.id + " - lolo", index, resposta.size());
+
                         switch (resultado.id){
 
                             case ID_EMAIL:

@@ -5,10 +5,8 @@ import androidx.lifecycle.MutableLiveData;
 import com.vvm.sh.repositorios.TarefaRepositorio;
 import com.vvm.sh.servicos.ResultadoAsyncTask;
 import com.vvm.sh.baseDados.entidades.Resultado;
-import com.vvm.sh.baseDados.entidades.Tarefa;
-import com.vvm.sh.ui.agenda.modelos.TarefaDia;
-import com.vvm.sh.ui.atividadesExecutadas.modelos.AtividadeExecutada;
-import com.vvm.sh.ui.cliente.Cliente;
+import com.vvm.sh.ui.tarefa.modelos.TarefaDia;
+import com.vvm.sh.baseDados.entidades.AtividadeExecutada;
 import com.vvm.sh.ui.opcoes.modelos.Tipo;
 import com.vvm.sh.baseDados.entidades.EmailResultado;
 import com.vvm.sh.ui.tarefa.modelos.OpcaoCliente;
@@ -31,9 +29,7 @@ public class TarefaViewModel extends BaseViewModel {
 
     private final TarefaRepositorio tarefaRepositorio;
 
-    public MutableLiveData<Cliente> cliente;
     public MutableLiveData<TarefaDia> tarefaDia;
-    public MutableLiveData<Tarefa> tarefa;
     public MutableLiveData<EmailResultado> email;
     public MutableLiveData<List<AtividadeExecutada>> atividadesExecutadas;
     public MutableLiveData<List<OpcaoCliente>> opcoesCliente;
@@ -50,9 +46,7 @@ public class TarefaViewModel extends BaseViewModel {
     public TarefaViewModel(TarefaRepositorio tarefaRepositorio){
 
         this.tarefaRepositorio = tarefaRepositorio;
-        tarefa = new MutableLiveData<>();
         tarefaDia = new MutableLiveData<>();
-        cliente = new MutableLiveData<>();
         email = new MutableLiveData<>();
         opcoesCliente = new MutableLiveData<>();
         opcoesEmail = new MutableLiveData<>();
@@ -169,8 +163,6 @@ public class TarefaViewModel extends BaseViewModel {
                             public void onNext(TarefaDia registo) {
 
                                 tarefaDia.setValue(registo);
-                                tarefa.setValue(registo.tarefa);
-                                cliente.setValue(registo.cliente);
                                 email.setValue(registo.email);
                                 obterOpcoesCliente(registo.email);
                                 showProgressBar(false);
@@ -257,8 +249,7 @@ public class TarefaViewModel extends BaseViewModel {
     private void obterOpcoesCliente(EmailResultado email) {
 
         List<OpcaoCliente> items = new ArrayList<>();
-
-//        items.add(new OpcaoCliente(Identificadores.OpcoesCliente .OPCAO_INFORMACAO, "Informação"));
+        items.add(OpcaoCliente.informacao());
         items.add(OpcaoCliente.email());
         items.add(OpcaoCliente.crossSelling());
 
@@ -280,9 +271,9 @@ public class TarefaViewModel extends BaseViewModel {
 
         List<Tipo> items = new ArrayList<>();
 
-        items.add(TiposConstantes.EMAIL_CLIENTE_NAO_TEM_EMAIL);
-        items.add(TiposConstantes.EMAIL_AUTORIZADO);
-        items.add(TiposConstantes.EMAIL_NAO_AUTORIZADO);
+        items.add(TiposConstantes.Email.EMAIL_CLIENTE_NAO_TEM_EMAIL);
+        items.add(TiposConstantes.Email.EMAIL_AUTORIZADO);
+        items.add(TiposConstantes.Email.EMAIL_NAO_AUTORIZADO);
 
         opcoesEmail.setValue(items);
 

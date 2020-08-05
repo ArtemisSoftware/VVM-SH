@@ -4,7 +4,7 @@ import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
 
-import com.vvm.sh.ui.cliente.Cliente;
+import com.vvm.sh.baseDados.entidades.Cliente;
 
 import io.reactivex.Flowable;
 

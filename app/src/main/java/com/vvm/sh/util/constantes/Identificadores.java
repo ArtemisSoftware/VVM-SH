@@ -34,7 +34,7 @@ public class Identificadores {
     public class App {
         public static final int APP_SA = 1;
         public static final String SA = "SA";
-        public static final int COR_SA = Color.GREEN;
+        public static final int COR_SA = R.color.cor_app_sa;
     }
 
     public class CodigoAtividade {
@@ -58,6 +58,8 @@ public class Identificadores {
     public class OpcoesCliente {
 
         public static final int OPCAO_INFORMACAO = 1;
+        public static final String INFORMACAO = "Informação";
+        public static final int ICON_INFORMACAO = R.drawable.ic_informacao_24dp;
 
         public static final int OPCAO_CROSS_SELLING = 2;
         public static final String CROSS_SELLING = "Cross Selling";
@@ -69,12 +71,16 @@ public class Identificadores {
 
         public static final int OPCAO_EMAIL = 5;
         public static final String EMAIL = "email";
-        public static final int EMAIL_ICON = R.drawable.ic_email_24dp;
+        public static final int ICON_EMAIL = R.drawable.ic_email_24dp;
 
         public static final int OPCAO_ANOMALIA = 6;
-
-
     }
 
+
+    public class Sincronizacao {
+        public static final int SINCRONIZADO = 1;
+        public static final int NAO_SINCRONIZADO = 2;
+        public static final int TRANCADO = 3;
+    }
 
 }

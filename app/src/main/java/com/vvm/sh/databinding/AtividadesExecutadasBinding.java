@@ -4,7 +4,7 @@ import androidx.databinding.BindingAdapter;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.vvm.sh.ui.atividadesExecutadas.modelos.AtividadeExecutada;
+import com.vvm.sh.baseDados.entidades.AtividadeExecutada;
 import com.vvm.sh.ui.atividadesExecutadas.adaptadores.AtividadeExecutadaRecyclerAdapter;
 
 import java.util.List;

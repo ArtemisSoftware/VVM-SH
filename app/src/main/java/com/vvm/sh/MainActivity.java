@@ -6,25 +6,34 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
 
 import com.vvm.sh.databinding.ActivityMainBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.agenda.AgendaViewModel;
 import com.vvm.sh.ui.agenda.modelos.Marcacao;
+import com.vvm.sh.ui.contaUtilizador.DefinicoesActivity;
 import com.vvm.sh.ui.opcoes.TiposActivity;
 import com.vvm.sh.ui.upload.UploadActivity;
 import com.vvm.sh.ui.tarefa.TarefaActivity;
 import com.vvm.sh.ui.agenda.adaptadores.OnAgendaListener;
-import com.vvm.sh.ui.agenda.modelos.TarefaDia;
+import com.vvm.sh.util.base.BaseDatePickerDialog;
 import com.vvm.sh.util.metodos.DatasUtil;
 import com.vvm.sh.util.metodos.Preferencias;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
+import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
+
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.List;
 
 import javax.inject.Inject;
 
+import butterknife.OnClick;
+
 public class MainActivity extends BaseDaggerActivity
-        implements OnAgendaListener/*OnItemListener, OnItemLongListener,
+        implements OnAgendaListener, DatePickerDialog.OnDateSetListener/*OnItemListener, OnItemLongListener,
                    DatePickerDialog.OnDateSetListener,  DialogoOpcoesTrabalhoFragment.DialogoListener, DialogoOpcoesTarefaFragment.DialogoListener */{
 
 
@@ -55,7 +64,6 @@ public class MainActivity extends BaseDaggerActivity
 
         setSupportActionBar(activityMainBinding.toolbar);
 
-        activityMainBinding.txtData.setText(DatasUtil.obterDataAtual(DatasUtil.FORMATO_DD_MMMM_YYYY, DatasUtil.LOCAL_PORTUGAL));
 
         subscreverObservadores();
 
@@ -71,8 +79,12 @@ public class MainActivity extends BaseDaggerActivity
         //Intent intent = new Intent(this, TrabalhoActivity.class);
         Intent intent = new Intent(this, TiposActivity.class);
         //startActivity(intent);
-        viewModel.obterMarcacoes("12724", "2020-07-21");
 
+        activityMainBinding.txtData.setText(DatasUtil.obterDataAtual(DatasUtil.FORMATO_DD_MMMM_YYYY, DatasUtil.LOCAL_PORTUGAL));
+        //viewModel.obterMarcacoes(Preferencias.obterIdUtilizador(this), DatasUtil.obterDataAtual());
+
+        //TODO: data para teste
+        viewModel.obterMarcacoes(Preferencias.obterIdUtilizador(this), DatasUtil.converterData(2020, 6, 23));
 
     }
 
@@ -112,6 +124,25 @@ public class MainActivity extends BaseDaggerActivity
     }
 
 
+    @Override
+    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+        activityMainBinding.txtData.setText(DatasUtil.converterData(year, monthOfYear, dayOfMonth, DatasUtil.FORMATO_DD_MMMM_YYYY, DatasUtil.LOCAL_PORTUGAL));
+        viewModel.obterMarcacoes(Preferencias.obterIdUtilizador(this), DatasUtil.converterData(year, monthOfYear, dayOfMonth));
+    }
+
+
+    @OnClick(R.id.crl_btn_calendario)
+    public void crl_btn_calendario_OnClickListener(View view) {
+
+        BaseDatePickerDialog dialogo = new BaseDatePickerDialog(this);
+
+        List<Date> datas = new ArrayList<>();
+        datas.add(new Date());
+
+        dialogo.realcarDias(datas);
+        dialogo.obterDatePickerDialog().show(getSupportFragmentManager(), "Datepickerdialog");
+    }
+
 
     //------------------------
     //Metodos locais
@@ -137,19 +168,7 @@ public class MainActivity extends BaseDaggerActivity
 //
 //    @BindView(R.id.txt_estado)
 //    TextView txt_estado;
-//
-//    @BindView(R.id.fab_menu_agenda)
-//    FloatingActionMenu fab_menu_agenda;
-//
-//
-//    @BindView(R.id.rcl_tarefas)
-//    RecyclerView rcl_tarefas;
-//
-//
-//    private String data;
-//    private MarcacaoRecyclerAdapter tarefaRecyclerAdapter;
-//
-//
+
 //
 //    @Override
 //    protected void onCreate(Bundle savedInstanceState) {
@@ -206,41 +225,8 @@ public class MainActivity extends BaseDaggerActivity
 //        DialogoOpcoesTarefaFragment dialogo = new DialogoOpcoesTarefaFragment();
 //        dialogo.show(getSupportFragmentManager(), "dialogo_tarefa");
 //    }
-//
-//
-//    @OnClick(R.id.fab_calendario)
-//    public void fab_calendario_OnClickListener(View view) {
-//
-//        fab_menu_agenda.close(true);
-//
-//        DatePickerDialog dialogo = DatasUtil.obterCalendarioAgenda(this);
-//        dialogo.show(getSupportFragmentManager(), "Datepickerdialog");
-//    }
-//
-//
-//
-//    @Override
-//    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
-//
-//        txt_data.setText(DatasUtil.converterData(year, monthOfYear, dayOfMonth, DatasUtil.FORMATO_DD_MMMM_YYYY, DatasUtil.LOCAL_PORTUGAL));
-//
-//        data = DatasUtil.converterData(year, monthOfYear, dayOfMonth, DatasUtil.FORMATO_YYYY_MM_DD);
-//
-//
-//        //Toast.makeText(MainActivity.this, date, Toast.LENGTH_LONG).show();
-//
-//        //--TESTE (apagar quando houver dados)
-//        List<Item> t1 = new ArrayList<>();
-//        t1.add(new Tarefa(6, "Tarefa numero 5", "SH"));
-//        t1.add(new Tarefa(7, "Tarefa numero 65", "SA"));
-//        t1.add(new Tarefa(9, "Tarefa numero 65 Lda, filhos e cunhados", "SH"));
-//
-//        tarefaRecyclerAdapter.renovarRegistos(t1);
-//
-//        //TODO: chamar metodo do viewmodel
-//
-//    }
-//
+
+
 //
 //
 //    @Override
@@ -270,7 +256,7 @@ public class MainActivity extends BaseDaggerActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        Intent intent;
+        Intent intent = null;
 
         switch (item.getItemId()){
 
@@ -279,14 +265,13 @@ public class MainActivity extends BaseDaggerActivity
 //                intent = new Intent(this, PerfilActivity.class);
 //                startActivity(intent);
 //                return true;
-//
-//            case R.id.item_definicoes:
-//
-//                intent = new Intent(this, DefinicoesActivity.class);
-//                startActivity(intent);
-//                return true;
-//
-//
+
+            case R.id.item_definicoes:
+
+                intent = new Intent(this, DefinicoesActivity.class);
+                break;
+
+
 //            case R.id.item_opcoes_trabalho:
 //
 //
@@ -316,14 +301,21 @@ public class MainActivity extends BaseDaggerActivity
             case R.id.item_upload_dados:
 
                 intent = new Intent(this, UploadActivity.class);
-                startActivity(intent);
-                return true;
+                break;
 
 
             default:
-                return super.onOptionsItemSelected(item);
+                break;
         }
+
+
+        if(intent != null){
+            startActivity(intent);
+        }
+
+        return super.onOptionsItemSelected(item);
     }
+
 
 
 }

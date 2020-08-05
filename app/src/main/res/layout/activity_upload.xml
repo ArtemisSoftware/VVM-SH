@@ -30,7 +30,7 @@
             app:layout_constraintTop_toTopOf="parent"
             app:srcCompat="@drawable/atualicao_app" />
 
-<!--
+
         <LinearLayout
             android:id="@+id/linearLayout"
             android:layout_width="match_parent"
@@ -46,7 +46,7 @@
 
             <TextView
                 style="@style/titulo"
-                android:text="@string/atualizacao" />
+                android:text="@string/upload_dados" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -62,7 +62,9 @@
                     android:id="@+id/txt_versao_app"
                     style="@style/textoDetalhe"
                     android:layout_marginLeft="8dp"
-                    android:text="@{viewmodel.versaoApp.versao, default=0}"/>
+                    />
+
+                <!-- android:text="@{viewmodel.versaoApp.versao, default=0}"-->
             </LinearLayout>
 
             <TextView
@@ -70,9 +72,9 @@
                 style="@style/textoDetalhe"
                 android:layout_marginTop="16dp"
                 android:layout_marginRight="20dp"
-                android:text="@{viewmodel.versaoApp.texto}"/>
+                />
 
-
+            <!-- android:text="@{viewmodel.versaoApp.texto}"-->
         </LinearLayout>
 
 
@@ -82,7 +84,9 @@
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/linearLayout"
-            android:visibility="@{viewmodel.versaoApp.atualizar ? View.VISIBLE : View.GONE}">
+            >
+
+            <!-- android:visibility="@{viewmodel.versaoApp.atualizar ? View.VISIBLE : View.GONE}" -->
 
             <ProgressBar
                 android:id="@+id/progressBar_progresso"
@@ -123,7 +127,9 @@
                 android:text="@string/cancelar"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                android:onClick="@{(view) -> activity.onCancelarClick(viewmodel.versaoApp)}" />
+                 />
+
+            <!-- android:onClick="@{(view) -> activity.onCancelarClick(viewmodel.versaoApp)}" -->
 
             <Button
                 android:id="@+id/button2"
@@ -134,13 +140,13 @@
                 android:text="Iniciar atualização"
                 app:layout_constraintBottom_toBottomOf="@+id/button"
                 app:layout_constraintEnd_toEndOf="parent"
-                android:onClick="@{(view) -> activity.onAtualizarClick()}" />
+                 />
 
-
+            <!-- android:onClick="@{(view) -> activity.onAtualizarClick()}" -->
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
--->
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 

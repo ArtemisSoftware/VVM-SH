@@ -4,19 +4,16 @@ import androidx.annotation.NonNull;
 
 import com.vvm.sh.api.SegurancaAlimentarApi;
 import com.vvm.sh.api.modelos.SessaoResposta;
-import com.vvm.sh.baseDados.AtividadeExecutadaDao;
 import com.vvm.sh.baseDados.AtividadePendenteDao;
 import com.vvm.sh.baseDados.ClienteDao;
-import com.vvm.sh.baseDados.TarefaDao;
 import com.vvm.sh.baseDados.dao.AgendaDao;
 import com.vvm.sh.baseDados.dao.DownloadTrabalhoDao;
 import com.vvm.sh.baseDados.entidades.Tarefa;
 import com.vvm.sh.ui.agenda.modelos.Marcacao;
-import com.vvm.sh.ui.agenda.modelos.TarefaDia;
 import com.vvm.sh.ui.anomalias.modelos.Anomalia;
-import com.vvm.sh.ui.atividadesExecutadas.modelos.AtividadeExecutada;
+import com.vvm.sh.baseDados.entidades.AtividadeExecutada;
 import com.vvm.sh.ui.atividadesPendentes.modelos.AtividadePendente;
-import com.vvm.sh.ui.cliente.Cliente;
+import com.vvm.sh.baseDados.entidades.Cliente;
 import com.vvm.sh.baseDados.entidades.Ocorrencia;
 import com.vvm.sh.baseDados.entidades.OcorrenciaHistorico;
 
@@ -31,29 +28,29 @@ public class AgendaRepositorio {
     private final DownloadTrabalhoDao downloadTrabalhoDao;
     private final AgendaDao agendaDao;
 
-    private final AtividadeExecutadaDao atividadeExecutadaDao;
     private final ClienteDao clienteDao;
     private final AtividadePendenteDao atividadePendenteDao;
 
     public AgendaRepositorio(@NonNull SegurancaAlimentarApi api, @NonNull DownloadTrabalhoDao downloadTrabalhoDao,
-                             @NonNull AgendaDao agendaDao, @NonNull AtividadeExecutadaDao atividadeExecutadaDao,
+                             @NonNull AgendaDao agendaDao,
                              @NonNull ClienteDao clienteDao, @NonNull AtividadePendenteDao atividadePendenteDao) {
         this.api = api;
         this.downloadTrabalhoDao = downloadTrabalhoDao;
         this.agendaDao = agendaDao;
 
-        this.atividadeExecutadaDao = atividadeExecutadaDao;
         this.clienteDao = clienteDao;
         this.atividadePendenteDao = atividadePendenteDao;
     }
 
 
 
-    public Flowable<List<Marcacao>> obterMarcacoes(String idUtilizador, String data){
-        return agendaDao.obterMarcacoes();
+    public Flowable<List<Marcacao>> obterMarcacoes(String idUtilizador, long data){
+        return agendaDao.obterMarcacoes(data);
     }
 
-
+    public Flowable<Integer> obterCompletude(String idUtilizador, long data){
+        return agendaDao.obterCompletude(data);
+    }
 
 
 
@@ -76,7 +73,7 @@ public class AgendaRepositorio {
     }
 
     public void inserirAtividadesExecutadas(List<AtividadeExecutada> atividades){
-        atividadeExecutadaDao.inserir(atividades);
+        downloadTrabalhoDao.inserirAtividadesExecutadas(atividades);
     }
 
     public void inserirCliente(Cliente cliente){

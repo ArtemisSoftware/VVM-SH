@@ -1,6 +1,5 @@
 package com.vvm.sh.ui.anomalias.adaptadores;
 
-import com.vvm.sh.ui.agenda.modelos.TarefaDia;
 import com.vvm.sh.ui.anomalias.modelos.AnomaliaRegistada;
 
 public interface OnAnomaliasListener {

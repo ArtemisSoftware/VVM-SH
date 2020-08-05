@@ -46,7 +46,6 @@ public class AtividadesExecutadasActivity extends BaseDaggerActivity {
         activityAtividadesExecutadasBinding.setLifecycleOwner(this);
         activityAtividadesExecutadasBinding.setViewmodel(viewModel);
 
-
         subscreverObservadores();
 
         viewModel.obterAtividadesExecutadas(Preferencias.obterIdTarefa(this));

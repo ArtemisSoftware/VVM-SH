@@ -52,12 +52,6 @@ public class TarefaActivity extends BaseDaggerActivity
         activityTarefaBinding.setListener(this);
         activityTarefaBinding.setViewmodel(viewModel);
 
-
-        setSupportActionBar(activityTarefaBinding.toolbar);
-        if(getSupportActionBar() != null)
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
-
         subscreverObservadores();
 
         viewModel.obterTarefa(Preferencias.obterIdTarefa(this));
@@ -170,9 +164,9 @@ public class TarefaActivity extends BaseDaggerActivity
     @OnClick(R.id.crd_conta_corrente)
     public void crd_conta_corrente_OnClickListener(View view) {
 
-        String url = Url.URL_CONTA_CORRENTE + viewModel.cliente.getValue().nif;
+        String url = Url.URL_CONTA_CORRENTE + viewModel.tarefaDia.getValue().cliente.nif;
 
-        new FinestWebView.Builder(getApplicationContext()).titleDefault(Sintaxe.Frases.CONTA_CORRENTE_NIF + viewModel.cliente.getValue().nif)
+        new FinestWebView.Builder(getApplicationContext()).titleDefault(Sintaxe.Frases.CONTA_CORRENTE_NIF + viewModel.tarefaDia.getValue().cliente.nif)
                 .showMenuShareVia(false)
                 .showMenuCopyLink(false)
                 .showMenuOpenWith(false)

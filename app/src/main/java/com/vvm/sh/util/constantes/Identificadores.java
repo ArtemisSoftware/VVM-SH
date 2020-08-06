@@ -83,4 +83,10 @@ public class Identificadores {
         public static final int TRANCADO = 3;
     }
 
+
+    public class Relatorios {
+        public static final int ID_RELATORIO_FORMACAO = 1;
+        public static final String FORMACAO = "Formação";
+    }
+
 }

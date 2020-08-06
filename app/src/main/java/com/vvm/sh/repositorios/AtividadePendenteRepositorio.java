@@ -6,8 +6,8 @@ import com.vvm.sh.baseDados.dao.AtividadePendenteResultadoDao;
 import com.vvm.sh.baseDados.ResultadoDao;
 import com.vvm.sh.baseDados.TipoDao;
 import com.vvm.sh.ui.atividadesPendentes.modelos.AtividadePendenteRegisto;
-import com.vvm.sh.ui.atividadesPendentes.modelos.AtividadePendenteResultado;
-import com.vvm.sh.ui.opcoes.modelos.Tipo;
+import com.vvm.sh.baseDados.entidades.AtividadePendenteResultado;
+import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.util.constantes.TiposConstantes;
 
 import java.util.List;

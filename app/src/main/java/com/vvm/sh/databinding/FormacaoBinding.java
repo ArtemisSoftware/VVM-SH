@@ -12,7 +12,7 @@ import com.vvm.sh.baseDados.entidades.AcaoFormacaoResultado;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.Formando;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.FormandoRecyclerAdapter;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.OnFormacaoListener;
-import com.vvm.sh.ui.opcoes.modelos.Tipo;
+import com.vvm.sh.baseDados.entidades.Tipo;
 
 import java.util.List;
 
@@ -96,15 +96,14 @@ public class FormacaoBinding {
         if(estado == true){
 
             view.setText(view.getContext().getString(R.string.completo));
-
-            chipDrawable.setChipBackgroundColorResource(R.color.bg_screen1);
-            view.setChipIcon(view.getContext().getResources().getDrawable(R.drawable.arrow));
+            chipDrawable.setChipBackgroundColorResource(R.color.cor_completo);
+            view.setChipIcon(view.getContext().getResources().getDrawable(R.drawable.ic_executado_24dp));
 
         }
         else{
             view.setText(view.getContext().getString(R.string.incompleto));
-            //view.setBackgroundColor(view.getContext().getResources().getColor(R.color.profilePrimaryDark));
-            chipDrawable.setChipBackgroundColorResource(R.color.profilePrimaryDark);
+            chipDrawable.setChipBackgroundColorResource(R.color.cor_incompleto);
+            view.setChipIcon(view.getContext().getResources().getDrawable(R.drawable.ic_nao_executado_24dp));
         }
     }
 

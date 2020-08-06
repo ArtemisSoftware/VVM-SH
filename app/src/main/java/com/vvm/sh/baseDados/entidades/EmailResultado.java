@@ -6,8 +6,6 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Ignore;
 
-import com.vvm.sh.ui.opcoes.modelos.Tipo;
-
 import static androidx.room.ForeignKey.CASCADE;
 
 @Entity(tableName = "emailsResultado",

@@ -1,4 +1,4 @@
-package com.vvm.sh.ui.opcoes.servicos;
+package com.vvm.sh.servicos;
 
 import android.database.sqlite.SQLiteConstraintException;
 import android.os.AsyncTask;
@@ -8,7 +8,7 @@ import com.vvm.sh.api.modelos.TipoResultado;
 import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.repositorios.TiposRepositorio;
 import com.vvm.sh.baseDados.entidades.Atualizacao;
-import com.vvm.sh.ui.opcoes.modelos.Tipo;
+import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.util.mapeamento.ModelMapping;
 
 import java.util.ArrayList;

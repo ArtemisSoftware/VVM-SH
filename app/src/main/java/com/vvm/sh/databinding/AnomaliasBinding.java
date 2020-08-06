@@ -10,8 +10,7 @@ import com.vvm.sh.ui.anomalias.adaptadores.AnomaliaRegistadaRecyclerAdapter;
 import com.vvm.sh.ui.anomalias.adaptadores.OnAnomaliasListener;
 import com.vvm.sh.baseDados.entidades.Anomalia;
 import com.vvm.sh.ui.anomalias.modelos.AnomaliaRegistada;
-import com.vvm.sh.baseDados.entidades.AnomaliaResultado;
-import com.vvm.sh.ui.opcoes.modelos.Tipo;
+import com.vvm.sh.baseDados.entidades.Tipo;
 
 import java.util.List;
 

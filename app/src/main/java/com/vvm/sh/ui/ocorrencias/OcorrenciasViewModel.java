@@ -10,7 +10,7 @@ import com.vvm.sh.baseDados.entidades.OcorrenciaHistorico;
 import com.vvm.sh.baseDados.entidades.OcorrenciaResultado;
 import com.vvm.sh.ui.ocorrencias.modelos.Ocore;
 import com.vvm.sh.ui.ocorrencias.modelos.OcorrenciaRegisto;
-import com.vvm.sh.ui.opcoes.modelos.Tipo;
+import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.ResultadoId;
 import com.vvm.sh.util.constantes.TiposConstantes;

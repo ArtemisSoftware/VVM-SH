@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jaredrummler.materialspinner.MaterialSpinner;
-import com.vvm.sh.ui.opcoes.modelos.Tipo;
+import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.ui.tarefa.adaptadores.OnTarefaListener;
 import com.vvm.sh.ui.tarefa.adaptadores.OpcaoClienteRecyclerAdapter;
 import com.vvm.sh.baseDados.entidades.EmailResultado;

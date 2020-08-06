@@ -32,7 +32,12 @@ public class GeralBinding {
             return;
         }
 
-        view.setImageBitmap(Bitmap.createScaledBitmap(ImagemUtil.converter(imagem), 900, 300, false));
+        Bitmap bitmap = ImagemUtil.converter(imagem);
+
+        int width = bitmap.getWidth();
+        int height = bitmap.getHeight();
+
+        view.setImageBitmap(Bitmap.createScaledBitmap(ImagemUtil.converter(imagem), width, height, false));
 
     }
 

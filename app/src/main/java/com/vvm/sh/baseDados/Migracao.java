@@ -14,12 +14,43 @@ public class Migracao {
     public static final Migration[] obterMigracoes(){
 
         Migration migrations [] =  new Migration []{
-                MIGRACAO_1_2, MIGRACAO_2_3, MIGRACAO_3_4, MIGRACAO_4_5, MIGRACAO_5_6, MIGRACAO_6_7, MIGRACAO_7_8, MIGRACAO_8_9, MIGRACAO_9_10, MIGRACAO_10_11
+                MIGRACAO_1_2, MIGRACAO_2_3, MIGRACAO_3_4, MIGRACAO_4_5, MIGRACAO_5_6, MIGRACAO_6_7, MIGRACAO_7_8, MIGRACAO_8_9, MIGRACAO_9_10, MIGRACAO_10_11,
+                MIGRACAO_11_12
 
         };
 
         return migrations;
     }
+
+
+    public static final Migration MIGRACAO_11_12 = new Migration(11, 12) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            try {
+
+                database.execSQL("DROP TABLE IF EXISTS imagensResultado");
+                database.execSQL("DROP INDEX IF EXISTS index_imagensResultado_idTarefa");
+
+                database.execSQL("CREATE TABLE IF NOT EXISTS 'imagensResultado' ("
+                        + "'idTarefa' INTEGER NOT NULL , "
+                        + "'idImagem' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
+                        + "'id' INTEGER NOT NULL, "
+                        + "'origem' INTEGER NOT NULL, "
+                        + "'imagem' BLOB NOT NULL, "
+                        + "FOREIGN KEY (idTarefa) REFERENCES tarefas (idTarefa)  ON DELETE CASCADE) ");
+
+                database.execSQL("CREATE INDEX index_imagensResultado_idTarefa ON imagensResultado (idTarefa)");
+
+
+            }
+            catch(SQLException e){
+                Log.e("Migracao", "erro MIGRACAO_11_12: " + e.getMessage());
+                //Timber.e("erro MIGRACAO_2_3: " + e.getMessage());
+            }
+        }
+    };
+
+
 
 
     public static final Migration MIGRACAO_10_11 = new Migration(10, 11) {
@@ -40,12 +71,8 @@ public class Migracao {
 
                 database.execSQL("CREATE INDEX index_imagensResultado_idTarefa ON imagensResultado (idTarefa)");
 
-
-
                 database.execSQL("ALTER TABLE clientes ADD COLUMN saldoCartaoVm TEXT NOT NULL DEFAULT ''");
                 database.execSQL("ALTER TABLE clientes ADD COLUMN notas TEXT  NOT NULL DEFAULT ''");
-
-
 
             }
             catch(SQLException e){
@@ -54,8 +81,6 @@ public class Migracao {
             }
         }
     };
-
-
 
 
 

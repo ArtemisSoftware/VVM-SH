@@ -3,12 +3,9 @@ package com.vvm.sh.ui.opcoes;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.vvm.sh.R;
 import com.vvm.sh.databinding.ActivityTiposBinding;
@@ -21,7 +18,8 @@ import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import javax.inject.Inject;
 
-public class TiposActivity extends BaseDaggerActivity implements OnTipoListener {
+public class TiposActivity extends BaseDaggerActivity
+        implements OnTipoListener {
 
     private ActivityTiposBinding activityTiposBinding;
 
@@ -122,7 +120,7 @@ public class TiposActivity extends BaseDaggerActivity implements OnTipoListener 
 
             case R.id.item_recarregar_geral:
 
-                viewModel.lolo();
+                viewModel.recarregarTipos();
                 break;
 
             default:

@@ -16,6 +16,7 @@ import androidx.databinding.ViewDataBinding;
 import com.vvm.sh.R;
 import com.vvm.sh.databinding.ActivityBaseDaggerBinding;
 import com.vvm.sh.util.MensagensUtil;
+import com.vvm.sh.util.interfaces.OnActivityListener;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import butterknife.BindView;
@@ -31,6 +32,8 @@ public abstract class BaseDaggerActivity extends DaggerAppCompatActivity {
     //--public SweetAlertDialog dialog;
 
     public MensagensUtil dialogo;
+
+    public OnActivityListener listenerActivity;
 
     @Nullable
     @BindView(R.id.toolbar)

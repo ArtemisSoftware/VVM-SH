@@ -15,18 +15,8 @@ public class Formando {
     public byte[] assinatura;
 
 
-    /**
-     * Metodo que indica se os dados do formando estão completos
-     * @return true caso esteja completo ou false caso contrario
-     */
-    public boolean estado(){
+    @ColumnInfo(name = "completo")
+    public boolean completo;
 
-        if(resultado != null & assinatura != null){
-            return true;
-        }
-        else{
-            return false;
-        }
-    }
 
 }

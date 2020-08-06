@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.vvm.sh.R;
 import com.vvm.sh.databinding.ItemAtividadePendenteBinding;
-import com.vvm.sh.ui.atividadesPendentes.modelos.AtividadePendente;
 import com.vvm.sh.ui.atividadesPendentes.modelos.AtividadePendenteRegisto;
 
 import java.util.ArrayList;

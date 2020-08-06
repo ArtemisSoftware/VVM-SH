@@ -1,4 +1,4 @@
-package com.vvm.sh.ui.atividadesPendentes.modelos;
+package com.vvm.sh.baseDados.entidades;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
@@ -24,10 +24,6 @@ import static androidx.room.ForeignKey.CASCADE;
                 childColumns = "idTarefa",
                 onDelete = CASCADE))
 public class AtividadePendente {
-
-
-    public final static int RELATORIO_FORMACAO = 1;
-
 
 
     @NonNull
@@ -66,54 +62,9 @@ public class AtividadePendente {
         this.dataProgramada = dataProgramada;
         this.descricao = descricao;
         this.servId = servId;
-        this.formacao = /*formacao*/true; //TODO: a true para teste
+        this.formacao = formacao;
     }
 
-
-    /**
-     * Metodo que indica se existe um relatorio associado à atividade
-     * @return true caso exista ou false caso contrario
-     */
-    public boolean existeRelatorio(){
-
-        if(formacao == true){
-            return true;
-        }
-        else{
-            return false;
-        }
-    }
-
-
-    /**
-     * Metodo que devolve a descricao do relatorio
-     * @return uma descricao
-     */
-    public String obterRelatorio(){
-
-        if(formacao == true){
-            return Sintaxe.Palavras.FORMACAO;
-        }
-        else{
-            return "";
-        }
-    }
-
-
-    /**
-     * Metodo que permite obter o identificador do relatorio
-     * @return o identificador do relatorio
-     */
-    public int obterIdRelatorio(){
-
-
-        if(formacao == true){
-            return RELATORIO_FORMACAO;
-        }
-        else{
-            return Identificadores.Estados.SEM_RELATORIO;
-        }
-    }
 
 
 

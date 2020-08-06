@@ -8,7 +8,7 @@ import com.vvm.sh.baseDados.entidades.Resultado;
 import com.vvm.sh.ui.crossSelling.modelos.CrossSelling;
 import com.vvm.sh.baseDados.entidades.CrossSellingResultado;
 import com.vvm.sh.ui.crossSelling.modelos.CrossSelling_;
-import com.vvm.sh.ui.opcoes.modelos.Tipo;
+import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.ResultadoId;
 import com.vvm.sh.util.viewmodel.BaseViewModel;

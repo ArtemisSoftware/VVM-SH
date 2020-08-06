@@ -10,11 +10,9 @@ import com.vvm.sh.databinding.ActivityAtividadesPendentesBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.atividadesPendentes.adaptadores.OnAtividadePendenteListener;
-import com.vvm.sh.ui.atividadesPendentes.modelos.AtividadePendente;
 import com.vvm.sh.ui.atividadesPendentes.modelos.AtividadePendenteRegisto;
-import com.vvm.sh.ui.atividadesPendentes.modelos.AtividadePendenteResultado;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.FormacaoActivity;
-import com.vvm.sh.util.metodos.DatasUtil;
+import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.metodos.Preferencias;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
@@ -77,7 +75,7 @@ public class AtividadesPendentesActivity extends BaseDaggerActivity
     @Override
     public void OnAtividadeClick(AtividadePendenteRegisto atividade) {
 
-        DialogoAtividadePendente dialogo = DialogoAtividadePendente.newInstance(atividade.atividade.id, atividade.atividade.obterIdRelatorio());
+        DialogoAtividadePendente dialogo = DialogoAtividadePendente.newInstance(atividade.atividade.id, atividade.obterIdRelatorio());
         dialogo.show(getSupportFragmentManager(), "example dialog");
     }
 
@@ -103,7 +101,7 @@ public class AtividadesPendentesActivity extends BaseDaggerActivity
 
         switch (idRelatorio){
 
-            case AtividadePendente.RELATORIO_FORMACAO:
+            case Identificadores.Relatorios.ID_RELATORIO_FORMACAO:
                 intent = new Intent(this, FormacaoActivity.class);
                 break;
 

@@ -13,13 +13,13 @@ import com.vvm.sh.api.modelos.UtilizadorResultado;
 import com.vvm.sh.baseDados.entidades.Tarefa;
 import com.vvm.sh.baseDados.entidades.Anomalia;
 import com.vvm.sh.baseDados.entidades.AtividadeExecutada;
-import com.vvm.sh.ui.atividadesPendentes.modelos.AtividadePendente;
+import com.vvm.sh.baseDados.entidades.AtividadePendente;
 import com.vvm.sh.ui.autenticacao.modelos.Utilizador;
 import com.vvm.sh.baseDados.entidades.Cliente;
 import com.vvm.sh.baseDados.entidades.Ocorrencia;
 import com.vvm.sh.baseDados.entidades.OcorrenciaHistorico;
 import com.vvm.sh.baseDados.entidades.Atualizacao;
-import com.vvm.sh.ui.opcoes.modelos.Tipo;
+import com.vvm.sh.baseDados.entidades.Tipo;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;

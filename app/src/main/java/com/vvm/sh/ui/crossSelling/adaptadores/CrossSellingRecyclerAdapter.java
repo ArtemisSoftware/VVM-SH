@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.vvm.sh.R;
 import com.vvm.sh.databinding.ItemCrossSellingBinding;
 import com.vvm.sh.ui.crossSelling.modelos.CrossSelling;
-import com.vvm.sh.ui.opcoes.modelos.Tipo;
 
 import java.util.ArrayList;
 import java.util.List;

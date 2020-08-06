@@ -13,4 +13,7 @@ public class AcaoFormacao {
     @ColumnInfo(name = "designacao")
     public String designacao;
 
+    @ColumnInfo(name = "completo")
+    public boolean completo;
+
 }

@@ -4,14 +4,13 @@ import androidx.annotation.NonNull;
 
 import com.vvm.sh.baseDados.ResultadoDao;
 import com.vvm.sh.baseDados.TipoDao;
-import com.vvm.sh.baseDados.dao.AcaoFormacaoDao;
 import com.vvm.sh.baseDados.dao.OcorrenciaResultadoDao;
 import com.vvm.sh.baseDados.entidades.Ocorrencia;
 import com.vvm.sh.baseDados.entidades.OcorrenciaHistorico;
 import com.vvm.sh.baseDados.entidades.OcorrenciaResultado;
 import com.vvm.sh.ui.ocorrencias.modelos.Ocore;
 import com.vvm.sh.ui.ocorrencias.modelos.OcorrenciaRegisto;
-import com.vvm.sh.ui.opcoes.modelos.Tipo;
+import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.util.constantes.TiposConstantes;
 
 import java.util.List;

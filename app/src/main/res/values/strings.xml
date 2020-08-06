@@ -238,5 +238,8 @@
     <string name="nao_sincronizado">Não sincronizado</string>
     <string name="trancado">Trancado</string>
     <string name="upload_dados">Upload de dados</string>
+    <string name="executada">Executado</string>
+    <string name="nao_executado">Não executado</string>
+    <string name="Assinatura">Assinatura</string>
 
 </resources>

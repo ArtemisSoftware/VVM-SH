@@ -1,37 +1,20 @@
 package com.vvm.sh.ui.atividadesPendentes;
 
-import android.content.Context;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Spinner;
-import android.widget.TextView;
 
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
-import com.google.android.material.textfield.TextInputEditText;
-import com.mobsandgeeks.saripaar.ValidationError;
-import com.mobsandgeeks.saripaar.Validator;
-import com.mobsandgeeks.saripaar.annotation.Select;
 import com.vvm.sh.R;
 import com.vvm.sh.databinding.DialogoAtividadePendenteNaoExecutadaBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerDialogoPersistenteFragment;
-import com.vvm.sh.ui.atividadesPendentes.adaptadores.OnAtividadePendenteListener;
-import com.vvm.sh.ui.atividadesPendentes.modelos.AtividadePendenteResultado;
-import com.vvm.sh.ui.opcoes.modelos.Tipo;
-import com.vvm.sh.util.BaseDialogoPersistenteFragment;
-import com.vvm.sh.util.MensagensUtil;
+import com.vvm.sh.baseDados.entidades.AtividadePendenteResultado;
+import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.metodos.Preferencias;
 
-import org.angmarch.views.NiceSpinner;
-
-import java.util.List;
-
 import javax.inject.Inject;
-
-import butterknife.BindView;
 
 public class DialogoAtividadePendenteNaoExecutada extends BaseDaggerDialogoPersistenteFragment{
 

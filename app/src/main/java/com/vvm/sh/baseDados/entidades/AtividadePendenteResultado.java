@@ -1,4 +1,4 @@
-package com.vvm.sh.ui.atividadesPendentes.modelos;
+package com.vvm.sh.baseDados.entidades;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
@@ -7,6 +7,7 @@ import androidx.room.ForeignKey;
 import androidx.room.Ignore;
 import androidx.room.Index;
 
+import com.vvm.sh.baseDados.entidades.AtividadePendente;
 import com.vvm.sh.util.constantes.Identificadores;
 
 import java.util.Date;

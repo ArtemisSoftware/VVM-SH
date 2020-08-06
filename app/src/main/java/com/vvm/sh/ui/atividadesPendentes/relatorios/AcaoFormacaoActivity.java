@@ -1,4 +1,4 @@
-package com.vvm.sh.ui.atividadesPendentes;
+package com.vvm.sh.ui.atividadesPendentes.relatorios;
 
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -16,7 +16,7 @@ import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.baseDados.entidades.AcaoFormacaoResultado;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.FormacaoViewModel;
-import com.vvm.sh.ui.opcoes.modelos.Tipo;
+import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.util.MensagensUtil;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.base.BaseDatePickerDialog;

@@ -3,8 +3,8 @@ package com.vvm.sh.api;
 import androidx.room.Embedded;
 import androidx.room.Relation;
 
-import com.vvm.sh.ui.atividadesPendentes.modelos.AtividadePendente;
-import com.vvm.sh.ui.atividadesPendentes.modelos.AtividadePendenteResultado;
+import com.vvm.sh.baseDados.entidades.AtividadePendente;
+import com.vvm.sh.baseDados.entidades.AtividadePendenteResultado;
 
 public class AtividadePendenteResultado_ {
 

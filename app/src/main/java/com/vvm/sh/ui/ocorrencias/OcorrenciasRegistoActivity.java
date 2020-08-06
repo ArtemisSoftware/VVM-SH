@@ -13,7 +13,7 @@ import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.ocorrencias.adaptadores.OnOcorrenciaRegistoListener;
 import com.vvm.sh.ui.ocorrencias.modelos.OcorrenciaRegisto;
-import com.vvm.sh.ui.opcoes.modelos.Tipo;
+import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.util.metodos.Preferencias;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 

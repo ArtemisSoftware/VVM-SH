@@ -1,9 +1,7 @@
 package com.vvm.sh.ui.atividadesPendentes;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.view.View;
-import android.widget.DatePicker;
 
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -16,10 +14,7 @@ import com.vvm.sh.R;
 import com.vvm.sh.databinding.DialogoAtividadePendenteExecutadaBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerDialogoPersistenteFragment;
-import com.vvm.sh.ui.atividadesPendentes.adaptadores.OnAtividadePendenteListener;
-import com.vvm.sh.ui.atividadesPendentes.modelos.AtividadePendenteResultado;
-import com.vvm.sh.util.BaseDialogoPersistenteFragment;
-import com.vvm.sh.util.MensagensUtil;
+import com.vvm.sh.baseDados.entidades.AtividadePendenteResultado;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.base.BaseDatePickerDialog;
 import com.vvm.sh.util.constantes.Identificadores;

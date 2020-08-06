@@ -1,37 +1,24 @@
 package com.vvm.sh.ui.anomalias;
 
-import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
-import android.content.Intent;
 import android.os.Bundle;
-import android.view.MenuItem;
 import android.view.View;
 
 import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.vvm.sh.R;
 import com.vvm.sh.databinding.ActivityAnomaliasBinding;
-import com.vvm.sh.databinding.ActivityTrabalhoBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
-import com.vvm.sh.ui.BaseActivity;
 import com.vvm.sh.ui.BaseDaggerActivity;
-import com.vvm.sh.ui.anomalias.adaptadores.AnomaliaRecyclerAdapter;
 import com.vvm.sh.ui.anomalias.adaptadores.OnAnomaliasListener;
 import com.vvm.sh.ui.anomalias.modelos.AnomaliaRegistada;
-import com.vvm.sh.ui.opcoes.modelos.Tipo;
-import com.vvm.sh.util.adaptadores.Item;
+import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.util.constantes.TiposConstantes;
 import com.vvm.sh.util.metodos.Preferencias;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import javax.inject.Inject;
 
-import butterknife.BindView;
 import butterknife.OnClick;
 
 public class AnomaliasActivity extends BaseDaggerActivity

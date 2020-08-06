@@ -20,7 +20,7 @@ import com.vvm.sh.databinding.ActivityFormandoBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.AssinaturaActivity;
 import com.vvm.sh.ui.BaseDaggerActivity;
-import com.vvm.sh.ui.opcoes.modelos.Tipo;
+import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.util.MensagensUtil;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.base.BaseDatePickerDialog;
@@ -159,7 +159,6 @@ public class FormandoActivity extends BaseDaggerActivity
      * @param ativar true para ativar ou false caso contrario
      */
     private void ativarValidacao(boolean ativar){
-
         activityFormandoBinding.txtInpDataNascimento.setEnabled(ativar);
     }
 
@@ -205,7 +204,6 @@ public class FormandoActivity extends BaseDaggerActivity
         if(assinado == true){
             imagem = ImagemUtil.converter(((BitmapDrawable) activityFormandoBinding.imgAssinatura.getDrawable()).getBitmap());
         }
-
 
         viewModel.gravar(Preferencias.obterIdTarefa(this), formando, imagem);
     }
@@ -262,7 +260,6 @@ public class FormandoActivity extends BaseDaggerActivity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
 
         if (requestCode == Identificadores.CodigoAtividade.ASSINATURA) {
 

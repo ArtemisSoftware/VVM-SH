@@ -39,7 +39,7 @@
 
             <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:layout_width="match_parent"
-                android:layout_height="300dp"
+                android:layout_height="@dimen/banner_height"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
                 app:contentScrim="?attr/colorPrimary"
                 app:title="@string/relatorio"
@@ -95,7 +95,7 @@
 
                     <TextView
                         android:id="@+id/textview"
-                        style="@style/titulo"
+                        style="@style/tituloCartao"
                         android:text="@string/formacao"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="16dp"
@@ -117,7 +117,7 @@
                         android:id="@+id/chip"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        estado="@{viewmodel.completudeFormacao}"
+                        estado="@{viewmodel.acaoFormacao.completo}"
                         android:layout_marginTop="8dp"
                         android:layout_marginBottom="24dp"
                         app:layout_constraintStart_toStartOf="@+id/textview"
@@ -130,6 +130,7 @@
 
                     <androidx.cardview.widget.CardView
                         style="@style/cartao"
+                        android:visibility="@{viewmodel.acaoFormacao != null ? View.VISIBLE : View.GONE}"
                         android:layout_marginTop="16dp"
                         app:layout_constraintTop_toBottomOf="@+id/chip"
                         app:layout_constraintStart_toStartOf="@+id/textview">
@@ -316,7 +317,7 @@
                 android:id="@+id/fab_adicionar_formando"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_add_24dp"
+                android:src="@drawable/ic_acao_formacao"
                 app:fab_size="mini"
                 app:fab_label="@string/adicionar_formando" />
 
@@ -324,7 +325,7 @@
                 android:id="@+id/fab_adicionar_acao_formacao"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_add_24dp"
+                android:src="@drawable/ic_formandos_24dp"
                 app:fab_size="mini"
                 app:fab_label="@string/acao_formacao" />
 

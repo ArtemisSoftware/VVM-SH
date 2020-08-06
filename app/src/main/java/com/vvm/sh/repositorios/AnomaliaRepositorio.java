@@ -8,7 +8,7 @@ import com.vvm.sh.baseDados.TipoDao;
 import com.vvm.sh.baseDados.entidades.Anomalia;
 import com.vvm.sh.ui.anomalias.modelos.AnomaliaRegistada;
 import com.vvm.sh.baseDados.entidades.AnomaliaResultado;
-import com.vvm.sh.ui.opcoes.modelos.Tipo;
+import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.util.constantes.TiposConstantes;
 
 import java.util.List;

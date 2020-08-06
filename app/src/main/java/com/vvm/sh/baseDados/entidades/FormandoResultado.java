@@ -1,12 +1,6 @@
 package com.vvm.sh.baseDados.entidades;
 
-import android.content.Context;
-import android.view.LayoutInflater;
-import android.view.ViewGroup;
-
 import androidx.annotation.NonNull;
-import androidx.databinding.DataBindingUtil;
-import androidx.recyclerview.widget.RecyclerView;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
@@ -14,15 +8,10 @@ import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-import com.vvm.sh.R;
-import com.vvm.sh.databinding.ItemFormandoBinding;
-import com.vvm.sh.ui.atividadesPendentes.modelos.AtividadePendente;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.constantes.Sintaxe;
 
-import java.util.ArrayList;
 import java.util.Date;
-import java.util.List;
 
 import static androidx.room.ForeignKey.CASCADE;
 

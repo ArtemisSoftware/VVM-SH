@@ -6,7 +6,7 @@ import androidx.room.Ignore;
 import androidx.room.Relation;
 
 import com.vvm.sh.baseDados.entidades.OcorrenciaResultado;
-import com.vvm.sh.ui.opcoes.modelos.Tipo;
+import com.vvm.sh.baseDados.entidades.Tipo;
 
 public class OcorrenciaRegisto {
 

@@ -79,7 +79,7 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
 
                             ++index;
 
-                            atualizacaoUI.atualizarUI(AtualizacaoUI.Codigo.PROCESSAMENTO_DADOS, resultado.id + " - lolo", index, upload.resultados.size());
+                            atualizacaoUI.atualizarUI(AtualizacaoUI.Codigo.PROCESSAMENTO_DADOS, resultado.id + " - recarregarTipos", index, upload.resultados.size());
 
                             switch (resultado.id){
 

@@ -2,7 +2,6 @@ package com.vvm.sh.databinding;
 
 import android.text.Spannable;
 import android.text.SpannableString;
-import android.text.SpannableStringBuilder;
 
 import androidx.databinding.BindingAdapter;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -12,7 +11,7 @@ import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.vvm.sh.ui.crossSelling.adaptadores.CrossSellingRecyclerAdapter;
 import com.vvm.sh.ui.crossSelling.adaptadores.OnCrossSellingListener;
 import com.vvm.sh.ui.crossSelling.modelos.CrossSelling;
-import com.vvm.sh.ui.opcoes.modelos.Tipo;
+import com.vvm.sh.baseDados.entidades.Tipo;
 
 import org.angmarch.views.NiceSpinner;
 import org.angmarch.views.SpinnerTextFormatter;

@@ -90,11 +90,10 @@ public class DialogoAtividadePendente extends BaseDaggerDialogFragment {
 
     }
 
-    @Override
-    protected void clickPositivo() {
 
-    }
-
+    //-------------------------
+    //Metodos locais
+    //-------------------------
 
     /**
      * Metodo que permite formatar as opcoes do dialogo
@@ -106,6 +105,19 @@ public class DialogoAtividadePendente extends BaseDaggerDialogFragment {
             binding.rdBtnRelatorio.setVisibility(View.GONE);
         }
     }
+
+
+    //-------------------------
+    //EVENTOS
+    //-------------------------
+
+
+
+    @Override
+    protected void clickPositivo() {
+
+    }
+
 
 
 

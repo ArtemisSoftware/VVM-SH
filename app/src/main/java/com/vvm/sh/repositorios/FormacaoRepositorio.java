@@ -13,7 +13,7 @@ import com.vvm.sh.ui.atividadesPendentes.relatorios.AcaoFormacao;
 import com.vvm.sh.baseDados.entidades.AcaoFormacaoResultado;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.Formando;
 import com.vvm.sh.baseDados.entidades.FormandoResultado;
-import com.vvm.sh.ui.opcoes.modelos.Tipo;
+import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.constantes.TiposConstantes;
 
@@ -44,7 +44,7 @@ public class FormacaoRepositorio {
     }
 
     public Maybe<AcaoFormacao> obterAcaoFormacao(int idAtividade) {
-        return acaoFormacaoDao.obterAcaoFormacao(idAtividade, TiposConstantes.CURSOS);
+        return acaoFormacaoDao.obterAcaoFormacao(idAtividade, TiposConstantes.MetodosTipos.CURSOS);
     }
 
     public Single<Long> inserirAcaoFormacao(AcaoFormacaoResultado acaoFormacao) {
@@ -53,10 +53,6 @@ public class FormacaoRepositorio {
 
     public Single<Integer> atualizarAcaoFormacao(AcaoFormacaoResultado acaoFormacao) {
         return acaoFormacaoDao.atualizar(acaoFormacao);
-    }
-
-    public Flowable<Integer> obterValidadeFormacao(int idAtividade) {
-        return acaoFormacaoDao.obterValidadeFormacao(idAtividade);
     }
 
 
@@ -91,7 +87,7 @@ public class FormacaoRepositorio {
 
 
     public Flowable<List<Tipo>> obterCursos() {
-        return tipoDao.obterTipos(TiposConstantes.CURSOS);
+        return tipoDao.obterTipos(TiposConstantes.MetodosTipos.CURSOS);
     }
 
 

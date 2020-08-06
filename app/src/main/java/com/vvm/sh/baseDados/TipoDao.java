@@ -5,7 +5,7 @@ import androidx.room.Insert;
 import androidx.room.Query;
 
 import com.vvm.sh.ui.contaUtilizador.Colecao;
-import com.vvm.sh.ui.opcoes.modelos.Tipo;
+import com.vvm.sh.baseDados.entidades.Tipo;
 
 import java.util.List;
 

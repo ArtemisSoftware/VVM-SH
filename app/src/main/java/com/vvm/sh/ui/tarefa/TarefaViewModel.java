@@ -7,7 +7,7 @@ import com.vvm.sh.servicos.ResultadoAsyncTask;
 import com.vvm.sh.baseDados.entidades.Resultado;
 import com.vvm.sh.ui.tarefa.modelos.TarefaDia;
 import com.vvm.sh.baseDados.entidades.AtividadeExecutada;
-import com.vvm.sh.ui.opcoes.modelos.Tipo;
+import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.baseDados.entidades.EmailResultado;
 import com.vvm.sh.ui.tarefa.modelos.OpcaoCliente;
 import com.vvm.sh.util.Recurso;

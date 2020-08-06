@@ -7,8 +7,6 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Index;
 
-import com.vvm.sh.ui.atividadesPendentes.modelos.AtividadePendente;
-
 import java.util.Date;
 
 import static androidx.room.ForeignKey.CASCADE;

@@ -8,7 +8,7 @@ import com.vvm.sh.baseDados.AtualizacaoDao;
 import com.vvm.sh.baseDados.TipoDao;
 import com.vvm.sh.ui.contaUtilizador.Colecao;
 import com.vvm.sh.baseDados.entidades.Atualizacao;
-import com.vvm.sh.ui.opcoes.modelos.Tipo;
+import com.vvm.sh.baseDados.entidades.Tipo;
 
 import java.util.List;
 

@@ -7,15 +7,13 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.vvm.sh.api.modelos.TipoResposta;
 import com.vvm.sh.api.modelos.VersaoApp;
-import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.repositorios.TiposRepositorio;
 import com.vvm.sh.repositorios.VersaoAppRepositorio;
 import com.vvm.sh.servicos.ServicoDownloadApk;
 import com.vvm.sh.servicos.ServicoInstalacaoApk;
 import com.vvm.sh.ui.contaUtilizador.Colecao;
-import com.vvm.sh.ui.opcoes.servicos.AtualizarTipoAsyncTask;
+import com.vvm.sh.servicos.AtualizarTipoAsyncTask;
 import com.vvm.sh.util.Recurso;
-import com.vvm.sh.util.adaptadores.Item;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.constantes.TiposConstantes;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
@@ -27,7 +25,6 @@ import javax.inject.Inject;
 
 import io.reactivex.Observable;
 import io.reactivex.Observer;
-import io.reactivex.Single;
 import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -147,9 +144,12 @@ public class OpcoesViewModel extends BaseViewModel {
     }
 
 
+    /**
+     * Metodo que permite recarregar todos os tipos
+     */
+    public void recarregarTipos(){
 
-
-    public void lolo(){
+        showProgressBar(true);
 
         List<TipoResposta> respostas = new ArrayList<>();
         List<Observable<TipoResposta>> pedidos = new ArrayList<>();
@@ -165,25 +165,26 @@ public class OpcoesViewModel extends BaseViewModel {
                         new Observer<TipoResposta>() {
                             @Override
                             public void onSubscribe(Disposable d) {
-
+                                disposables.add(d);
                             }
 
                             @Override
                             public void onNext(TipoResposta tipoResposta) {
                                 respostas.add(tipoResposta);
-
-
                             }
 
                             @Override
                             public void onError(Throwable e) {
-
+                                showProgressBar(false);
+                                messagemLiveData.setValue(Recurso.erro(e.getMessage()));
                             }
 
                             @Override
                             public void onComplete() {
                                 AtualizarTipoAsyncTask servico = new AtualizarTipoAsyncTask(vvmshBaseDados, tiposRepositorio);
                                 servico.execute(respostas);
+
+                                showProgressBar(false);
                             }
                         }
 

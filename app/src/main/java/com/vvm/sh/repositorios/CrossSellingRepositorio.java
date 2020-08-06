@@ -9,7 +9,7 @@ import com.vvm.sh.ui.crossSelling.modelos.CrossSelling;
 import com.vvm.sh.baseDados.entidades.CrossSellingResultado;
 import com.vvm.sh.ui.crossSelling.modelos.CrossSelling_;
 import com.vvm.sh.util.constantes.TiposConstantes;
-import com.vvm.sh.ui.opcoes.modelos.Tipo;
+import com.vvm.sh.baseDados.entidades.Tipo;
 
 import java.util.List;
 

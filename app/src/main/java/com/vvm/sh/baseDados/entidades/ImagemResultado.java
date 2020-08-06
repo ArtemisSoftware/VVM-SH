@@ -6,12 +6,13 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Index;
+import androidx.room.PrimaryKey;
 
 import static androidx.room.ForeignKey.CASCADE;
 
 @Entity(tableName = "imagensResultado",
         indices = {@Index(value="idTarefa", unique = false) },
-        primaryKeys = {"id", "origem"},
+
         foreignKeys = @ForeignKey(entity = Tarefa.class,
                 parentColumns = "idTarefa",
                 childColumns = "idTarefa",
@@ -20,6 +21,10 @@ public class ImagemResultado {
 
     @NonNull
     public int idTarefa;
+
+    @NonNull
+    @PrimaryKey(autoGenerate = true)
+    public int idImagem;
 
 
     @NonNull
@@ -33,6 +38,7 @@ public class ImagemResultado {
     @NonNull
     @ColumnInfo(name = "imagem" , typeAffinity = ColumnInfo.BLOB)
     public byte[] imagem;
+
 
     public ImagemResultado(int idTarefa, int id, int origem, @NonNull byte[] imagem) {
         this.idTarefa = idTarefa;

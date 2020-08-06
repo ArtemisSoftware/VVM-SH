@@ -16,16 +16,21 @@
 
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="16dp">
+        style="@style/temaDialogo"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/anomalia"
+            style="@style/textoInput"
+            android:layout_marginTop="@dimen/spacing_dialog_item" />
 
 
         <com.jaredrummler.materialspinner.MaterialSpinner
             android:id="@+id/spnr_anomalias"
             tipos_="@{viewmodel.tiposAnomalias}"
-            atividade="@{viewmodel.atividadeResultado}"
+            atividade="@{viewmodel.atividade.resultado}"
             android:layout_width="400dp"
             android:layout_height="wrap_content"
             android:hint="@string/anomalia"/>
@@ -35,13 +40,13 @@
             style="@style/parent.TextLayout"
             android:hint="@string/observacao"
             android:layout_width="match_parent"
-            android:layout_marginTop="@dimen/signup_text_margin_top"
+            android:layout_marginTop="@dimen/spacing_dialog_item"
             app:errorEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/txt_inp_observacao"
                 style="@style/modifiedEditText"
-                android:text="@{viewmodel.atividadeResultado.observacao}"
+                android:text="@{viewmodel.atividade.resultado.observacao}"
                 android:gravity="top|left"
                 android:lines="5"
                 android:maxLines="5"/>

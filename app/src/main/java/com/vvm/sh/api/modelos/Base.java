@@ -15,4 +15,7 @@ public class Base<T> {
 
     @SerializedName(value="dadosAlterados", alternate={"Alterados", "UtilizadoresAlterados"})
     public List<T> dadosAlterados;
+
+    @SerializedName("metodo")
+    public String metodo;
 }

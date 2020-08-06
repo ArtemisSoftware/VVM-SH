@@ -7,14 +7,14 @@ import com.vvm.sh.api.modelos.TipoResposta;
 import com.vvm.sh.api.modelos.TipoResultado;
 import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.repositorios.TiposRepositorio;
-import com.vvm.sh.ui.opcoes.modelos.Atualizacao;
+import com.vvm.sh.baseDados.entidades.Atualizacao;
 import com.vvm.sh.ui.opcoes.modelos.Tipo;
 import com.vvm.sh.util.mapeamento.ModelMapping;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class AtualizarTipoAsyncTask extends AsyncTask<TipoResposta, Void, Void> {
+public class AtualizarTipoAsyncTask extends AsyncTask<List<TipoResposta>, Void, Void> {
 
     private String errorMessage;
     private VvmshBaseDados vvmshBaseDados;
@@ -27,24 +27,12 @@ public class AtualizarTipoAsyncTask extends AsyncTask<TipoResposta, Void, Void> 
 
 
     @Override
-    protected Void doInBackground(TipoResposta... tipoRespostas) {
+    protected Void doInBackground(List<TipoResposta>... tipoRespostas) {
 
         if(tipoRespostas[0] == null)
             return null;
 
-        TipoResposta resposta = tipoRespostas[0];
-
-        Atualizacao atualizacao = ModelMapping.INSTANCE.map(resposta);
-
-        List<Tipo> tipos = new ArrayList<>();
-
-        for (TipoResultado item : resposta.dadosNovos) {
-
-            Tipo resultado = ModelMapping.INSTANCE.map(item);
-            resultado.tipo = resposta.tipo;
-            tipos.add(resultado);
-        }
-
+        List<TipoResposta> respostas = tipoRespostas[0];
 
         this.vvmshBaseDados.runInTransaction(new Runnable(){
             @Override
@@ -52,7 +40,21 @@ public class AtualizarTipoAsyncTask extends AsyncTask<TipoResposta, Void, Void> 
 
                 try {
 
-                    repositorio.atualizarTipo(resposta.tipo, atualizacao, tipos);
+                    for(TipoResposta resposta : respostas){
+
+                        List<Tipo> tipos = new ArrayList<>();
+
+                        Atualizacao atualizacao = ModelMapping.INSTANCE.map(resposta);
+
+                        for (TipoResultado item : resposta.dadosNovos) {
+
+                            Tipo resultado = ModelMapping.INSTANCE.map(item, resposta);
+                            tipos.add(resultado);
+                        }
+
+                        repositorio.atualizarTipo(atualizacao, tipos);
+                    }
+
                 }
                 catch(SQLiteConstraintException throwable){
                     errorMessage = throwable.getMessage();

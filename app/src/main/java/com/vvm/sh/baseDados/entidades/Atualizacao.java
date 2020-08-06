@@ -1,4 +1,4 @@
-package com.vvm.sh.ui.opcoes.modelos;
+package com.vvm.sh.baseDados.entidades;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
@@ -14,10 +14,10 @@ public class Atualizacao {
 
     @PrimaryKey
     @NonNull
-    private String descricao;
+    public String descricao;
 
     @ColumnInfo(name = "seloTemporal")
-    private String seloTemporal;
+    public String seloTemporal;
 
 
     @Ignore

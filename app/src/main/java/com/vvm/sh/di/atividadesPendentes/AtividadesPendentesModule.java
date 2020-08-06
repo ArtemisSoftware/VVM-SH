@@ -1,7 +1,6 @@
 package com.vvm.sh.di.atividadesPendentes;
 
-import com.vvm.sh.baseDados.AtividadePendenteDao;
-import com.vvm.sh.baseDados.AtividadePendenteResultadoDao;
+import com.vvm.sh.baseDados.dao.AtividadePendenteResultadoDao;
 import com.vvm.sh.baseDados.ResultadoDao;
 import com.vvm.sh.baseDados.TipoDao;
 import com.vvm.sh.baseDados.VvmshBaseDados;
@@ -12,16 +11,6 @@ import dagger.Provides;
 
 @Module
 public class AtividadesPendentesModule {
-
-    @AtividadesPendentesScope
-    @Provides
-    static AtividadePendenteDao provideAtividadePendenteDao(VvmshBaseDados vvmshBaseDados){
-
-        AtividadePendenteDao dao = vvmshBaseDados.obterAtividadePendenteDao();
-
-        //Timber.d("Providing NoteDao: " + dao);
-        return dao;
-    }
 
 
     @AtividadesPendentesScope
@@ -37,10 +26,10 @@ public class AtividadesPendentesModule {
 
     @AtividadesPendentesScope
     @Provides
-    AtividadePendenteRepositorio provideAtividadePendenteRepositorio(AtividadePendenteDao atividadePendenteDao, AtividadePendenteResultadoDao atividadePendenteResultadoDao,
+    AtividadePendenteRepositorio provideAtividadePendenteRepositorio(AtividadePendenteResultadoDao atividadePendenteResultadoDao,
                                                                      TipoDao tipoDao, ResultadoDao resultadoDao) {
 
-        AtividadePendenteRepositorio repositorio = new AtividadePendenteRepositorio(atividadePendenteDao, atividadePendenteResultadoDao, tipoDao, resultadoDao);
+        AtividadePendenteRepositorio repositorio = new AtividadePendenteRepositorio(atividadePendenteResultadoDao, tipoDao, resultadoDao);
 
         //Timber.d("Providing PokemonRepository: " + repository);
         return repositorio;

@@ -2,13 +2,22 @@ package com.vvm.sh.baseDados.dao;
 
 import androidx.room.Dao;
 import androidx.room.Query;
+import androidx.room.Transaction;
 
 import com.vvm.sh.baseDados.BaseDao;
 import com.vvm.sh.baseDados.entidades.AcaoFormacaoResultado;
+import com.vvm.sh.baseDados.entidades.Ocorrencia;
+import com.vvm.sh.baseDados.entidades.OcorrenciaHistorico;
+import com.vvm.sh.baseDados.entidades.OcorrenciaResultado;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.AcaoFormacao;
+import com.vvm.sh.ui.ocorrencias.modelos.Ocore;
+import com.vvm.sh.ui.ocorrencias.modelos.OcorrenciaRegisto;
+
+import java.util.List;
 
 import io.reactivex.Flowable;
 import io.reactivex.Maybe;
+import io.reactivex.Single;
 
 @Dao
 abstract public class AcaoFormacaoDao implements BaseDao<AcaoFormacaoResultado> {

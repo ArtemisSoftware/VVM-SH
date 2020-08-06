@@ -30,7 +30,7 @@ public class DialogoAtividadePendente extends BaseDaggerDialogFragment {
     private AtividadesPendentesViewModel viewModel;
 
 
-    private OnAtividadePendenteListener listener;
+    private OnAtividadePendenteListener listenerAtividade;
 
 
 
@@ -58,7 +58,7 @@ public class DialogoAtividadePendente extends BaseDaggerDialogFragment {
     @Override
     protected void initDialogo(AlertDialog.Builder builder) {
 
-        listener = (OnAtividadePendenteListener) getContext();
+        listenerAtividade = (OnAtividadePendenteListener) getContext();
 
         viewModel = ViewModelProviders.of(this, providerFactory).get(AtividadesPendentesViewModel.class);
         binding = (DialogoAtividadePendenteBinding) activityBaseBinding;
@@ -120,14 +120,14 @@ public class DialogoAtividadePendente extends BaseDaggerDialogFragment {
             case R.id.rd_btn_actividade_executada:
                 if (checked) {
                     // 1 clicked
-                    listener.OnConcluirAtividadeExecutada(getArguments().getInt(ARGUMENTO_ID_ATIVIDADE));
+                    listenerAtividade.OnConcluirAtividadeExecutada(getArguments().getInt(ARGUMENTO_ID_ATIVIDADE));
                     terminarDialogo();
                 }
                 break;
             case R.id.rd_btn_actividade_nao_executada:
                 if (checked) {
                     // 2 clicked
-                    listener.OnConcluirAtividadeNaoExecutada(getArguments().getInt(ARGUMENTO_ID_ATIVIDADE));
+                    listenerAtividade.OnConcluirAtividadeNaoExecutada(getArguments().getInt(ARGUMENTO_ID_ATIVIDADE));
                     terminarDialogo();
                 }
                 break;
@@ -135,7 +135,7 @@ public class DialogoAtividadePendente extends BaseDaggerDialogFragment {
             case R.id.rd_btn_relatorio:
                 if (checked) {
                     // 2 clicked
-                    listener.OnIniciarRelatorio(getArguments().getInt(ARGUMENTO_ID_ATIVIDADE), getArguments().getInt(ARGUMENTO_RELATORIO));
+                    listenerAtividade.OnIniciarRelatorio(getArguments().getInt(ARGUMENTO_ID_ATIVIDADE), getArguments().getInt(ARGUMENTO_RELATORIO));
                     terminarDialogo();
                 }
                 break;

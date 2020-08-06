@@ -14,7 +14,9 @@ import com.vvm.sh.servicos.ServicoDownloadApk;
 import com.vvm.sh.servicos.ServicoInstalacaoApk;
 import com.vvm.sh.ui.contaUtilizador.Colecao;
 import com.vvm.sh.ui.opcoes.servicos.AtualizarTipoAsyncTask;
+import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.adaptadores.Item;
+import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.constantes.TiposConstantes;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
@@ -23,7 +25,9 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import io.reactivex.Observable;
 import io.reactivex.Observer;
+import io.reactivex.Single;
 import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -79,19 +83,14 @@ public class OpcoesViewModel extends BaseViewModel {
 
                             @Override
                             public void onNext(List<Colecao> registos) {
-                                //registos.add(new Colecao(TiposConstantes.CROSS_SELLING_DIMENSAO, 4, "2019-06-22"));
-                                //registos.add(new Colecao(TiposConstantes.CROSS_SELLING_PRODUTOS, 4, "2019-06-22"));
-                                //registos.add(new Colecao(TiposConstantes.CROSS_SELLING_TIPO, 4, "2019-06-22"));
-                                //registos.add(new Colecao(TiposConstantes.TIPIFICACAO_OCORRENCIA, 4, "2019-06-22"));
-                                //registos.add(new Colecao(TiposConstantes.TIPOS_ANOMALIA, 4, "2019-06-22"));
-                                //registos.add(new Colecao(TiposConstantes.CURSOS, -1, "2019-06-22"));
+
                                 tipos.setValue(registos);
                                 showProgressBar(false);
                             }
 
                             @Override
                             public void onError(Throwable e) {
-
+                                showProgressBar(false);
                             }
 
                             @Override
@@ -128,11 +127,14 @@ public class OpcoesViewModel extends BaseViewModel {
                             @Override
                             public void onSuccess(TipoResposta tipoResposta) {
 
-                                tipoResposta.tipo = metodo;
+                                List<TipoResposta> respostas = new ArrayList<>();
+                                respostas.add(tipoResposta);
+
                                 AtualizarTipoAsyncTask servico = new AtualizarTipoAsyncTask(vvmshBaseDados, tiposRepositorio);
-                                servico.execute(tipoResposta);
+                                servico.execute(respostas);
 
                                 showProgressBar(false);
+                                messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.TIPO_ATUALIZADO_SUCESSO + metodo));
                             }
 
                             @Override
@@ -141,14 +143,53 @@ public class OpcoesViewModel extends BaseViewModel {
                                 showProgressBar(false);
                             }
                         }
-
-
                 );
     }
 
 
 
 
+    public void lolo(){
+
+        List<TipoResposta> respostas = new ArrayList<>();
+        List<Observable<TipoResposta>> pedidos = new ArrayList<>();
+
+        for(String metodo : TiposConstantes.MetodosTipos.TIPOS){
+            pedidos.add(tiposRepositorio.obterTipo(metodo).toObservable());
+        }
+
+        Observable.concat(pedidos)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        new Observer<TipoResposta>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+
+                            }
+
+                            @Override
+                            public void onNext(TipoResposta tipoResposta) {
+                                respostas.add(tipoResposta);
+
+
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+
+                            @Override
+                            public void onComplete() {
+                                AtualizarTipoAsyncTask servico = new AtualizarTipoAsyncTask(vvmshBaseDados, tiposRepositorio);
+                                servico.execute(respostas);
+                            }
+                        }
+
+                );
+
+    }
 
 
     //------------------

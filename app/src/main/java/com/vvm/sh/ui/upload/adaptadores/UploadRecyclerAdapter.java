@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.vvm.sh.R;
 import com.vvm.sh.databinding.ItemOcorrenciaBinding;
 import com.vvm.sh.baseDados.entidades.Ocorrencia;
+import com.vvm.sh.databinding.ItemUploadBinding;
 import com.vvm.sh.ui.upload.modelos.Upload;
 
 import java.util.ArrayList;
@@ -32,7 +33,7 @@ public class UploadRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        ItemOcorrenciaBinding binding = DataBindingUtil.inflate(LayoutInflater.from(contexto), R.layout.item_ocorrencia, parent, false);
+        ItemUploadBinding binding = DataBindingUtil.inflate(LayoutInflater.from(contexto), R.layout.item_upload, parent, false);
         return new UploadViewHolder(binding.getRoot());
     }
 

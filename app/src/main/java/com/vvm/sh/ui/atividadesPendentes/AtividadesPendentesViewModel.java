@@ -10,6 +10,7 @@ import com.vvm.sh.ui.atividadesPendentes.modelos.AtividadePendenteResultado;
 import com.vvm.sh.ui.opcoes.modelos.Tipo;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.ResultadoId;
+import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import java.util.List;
@@ -26,7 +27,7 @@ public class AtividadesPendentesViewModel extends BaseViewModel {
     private final AtividadePendenteRepositorio atividadePendenteRepositorio;
 
     public MutableLiveData<List<AtividadePendenteRegisto>> atividades;
-    public MutableLiveData<AtividadePendenteResultado> atividadeResultado;
+    public MutableLiveData<AtividadePendenteRegisto> atividade;
 
     public MutableLiveData<List<Tipo>> tiposAnomalias;
 
@@ -36,7 +37,7 @@ public class AtividadesPendentesViewModel extends BaseViewModel {
 
         this.atividadePendenteRepositorio = atividadePendenteRepositorio;
         atividades = new MutableLiveData<>();
-        atividadeResultado = new MutableLiveData<>();
+        atividade = new MutableLiveData<>();
         tiposAnomalias = new MutableLiveData<>();
     }
 
@@ -46,9 +47,14 @@ public class AtividadesPendentesViewModel extends BaseViewModel {
     //------------------
 
 
+    /**
+     * Metodo que permite gravar uma atividade
+     * @param idTarefa o identificador da tarefa
+     * @param atividade os dados da atividade
+     */
     public void gravarAtividade(int idTarefa, AtividadePendenteResultado atividade) {
 
-        if(atividadeResultado.getValue() == null){
+        if(this.atividade.getValue() == null){
 
             atividadePendenteRepositorio.inserir(atividade).toObservable()
                     .subscribeOn(Schedulers.io())
@@ -58,18 +64,17 @@ public class AtividadesPendentesViewModel extends BaseViewModel {
                             new Observer<Long>() {
                                 @Override
                                 public void onSubscribe(Disposable d) {
-
+                                    disposables.add(d);
                                 }
 
                                 @Override
                                 public void onNext(Long aLong) {
-
-                                    messagemLiveData.setValue(Recurso.successo());
+                                    messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_GRAVADOS_SUCESSO));
                                 }
 
                                 @Override
                                 public void onError(Throwable e) {
-
+                                    messagemLiveData.setValue(Recurso.erro(e.getMessage()));
                                 }
 
                                 @Override
@@ -89,18 +94,17 @@ public class AtividadesPendentesViewModel extends BaseViewModel {
                             new Observer<Integer>() {
                                 @Override
                                 public void onSubscribe(Disposable d) {
-
+                                    disposables.add(d);
                                 }
 
                                 @Override
                                 public void onNext(Integer aLong) {
-
-                                    messagemLiveData.setValue(Recurso.successo());
+                                    messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_EDITADOS_SUCESSO));
                                 }
 
                                 @Override
                                 public void onError(Throwable e) {
-
+                                    messagemLiveData.setValue(Recurso.erro(e.getMessage()));
                                 }
 
                                 @Override
@@ -154,7 +158,7 @@ public class AtividadesPendentesViewModel extends BaseViewModel {
 
                             @Override
                             public void onError(Throwable e) {
-
+                                showProgressBar(false);
                             }
 
                             @Override
@@ -168,7 +172,10 @@ public class AtividadesPendentesViewModel extends BaseViewModel {
     }
 
 
-
+    /**
+     * Metodo que permite obter uma atividade pendente
+     * @param id o identificador da atividade
+     */
     public void obterAtividade(int id){
 
         obterTipos();
@@ -178,15 +185,15 @@ public class AtividadesPendentesViewModel extends BaseViewModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
 
-                        new Observer<AtividadePendenteResultado>() {
+                        new Observer<AtividadePendenteRegisto>() {
                             @Override
                             public void onSubscribe(Disposable d) {
-
+                                disposables.add(d);
                             }
 
                             @Override
-                            public void onNext(AtividadePendenteResultado registo) {
-                                atividadeResultado.setValue(registo);
+                            public void onNext(AtividadePendenteRegisto registo) {
+                                atividade.setValue(registo);
                             }
 
                             @Override
@@ -232,7 +239,7 @@ public class AtividadesPendentesViewModel extends BaseViewModel {
 
                             @Override
                             public void onError(Throwable e) {
-
+                                showProgressBar(false);
                             }
 
                             @Override

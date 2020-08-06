@@ -55,7 +55,7 @@ public class UploadBinding {
         String texto = "";
 
         for(Resultado resultado : items){
-            texto += resultado.id + "\n";
+            texto += resultado.id  + "\n";
         }
 
         view.setText(texto);

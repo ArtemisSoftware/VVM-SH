@@ -45,7 +45,7 @@ public class UploadActivity extends BaseDaggerActivity {
 
         subscreverObservadores();
 
-        viewModel.obterUpload(Preferencias.obterIdUtilizador(this));
+        viewModel.obterUpload(Preferencias.obterIdUtilizador(this), handlerNotificacoesUI);
         //viewModel.obterDadosUpload(Preferencias.obterIdUtilizador(this), handlerNotificacoesUI);
     }
 

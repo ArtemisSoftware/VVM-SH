@@ -14,10 +14,8 @@
     </data>
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:padding="16dp">
+        style="@style/temaDialogo"
+        android:orientation="vertical">
 
 
 
@@ -31,7 +29,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/txt_inp_minutos"
                 style="@style/modifiedEditText"
-                android:text="@{viewmodel.atividadeResultado.tempoExecucao}"
+                android:text="@{viewmodel.atividade.resultado.tempoExecucao}"
                 android:inputType="number"
                 android:maxLines="1"/>
         </com.google.android.material.textfield.TextInputLayout>
@@ -41,20 +39,20 @@
             android:orientation="horizontal"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:gravity="center_vertical">
+            android:gravity="center_vertical"
+            android:layout_marginTop="@dimen/spacing_dialog_item">
 
             <com.google.android.material.textfield.TextInputLayout
                 style="@style/parent.TextLayout"
                 android:hint="@string/data_execucao"
                 android:layout_width="300dp"
-                android:layout_marginTop="@dimen/signup_text_margin_top"
                 app:errorEnabled="true">
 
                 <com.google.android.material.textfield.TextInputEditText
                     android:id="@+id/txt_inp_data_execucao"
                     style="@style/modifiedEditText"
                     android:enabled="false"
-                    android:text="@{DatasUtil.converterData(viewmodel.atividadeResultado.dataExecucao, DatasUtil.FORMATO_DD_MM_YYYY)}"
+                    android:text="@{DatasUtil.converterData(viewmodel.atividade.resultado.dataExecucao, DatasUtil.FORMATO_DD_MM_YYYY)}"
                     android:inputType="text"
                     android:maxLines="1"/>
             </com.google.android.material.textfield.TextInputLayout>
@@ -62,11 +60,7 @@
 
             <at.markushi.ui.CircleButton
                 android:id="@+id/crl_btn_data_execucao"
-                android:layout_width="64dip"
-                android:layout_height="64dip"
-                android:src="@drawable/ic_lorem_ipsum_24dp"
-                app:cb_color="#99CC00"
-                app:cb_pressedRingWidth="8dip" />
+                style="@style/btnCalendario" />
 
         </LinearLayout>
 

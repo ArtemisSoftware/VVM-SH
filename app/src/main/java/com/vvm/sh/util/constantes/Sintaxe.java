@@ -28,6 +28,12 @@ public class Sintaxe {
         public static final String EDITAR = "Editar";
         public static final String REMOVER = "Remover";
         public static final String OPCOES = "Opções";
+        public static final String EMAIL = "Email";
+        public static final String ANOMALIA_CLIENTE = "Anomalia cliente";
+        public static final String ATIVIDADE_PENDENTE = "Atividades pendentes";
+        public static final String CROSS_SELLING = "Cross Selling";
+        public static final String OCORRENCIA = "Ocorrencia";
+        public static final String ATUALIZACAO = "Atualização";
     }
 
     public class Opcoes{
@@ -65,6 +71,7 @@ public class Sintaxe {
         public static final String CONTA_CORRENTE_NIF = "Conta corrente do nif ";
         public static final String DADOS_GRAVADOS_SUCESSO = "Dados gravados com sucesso";
         public static final String DADOS_EDITADOS_SUCESSO = "Dados editados com sucesso";
+        public static final String TIPO_ATUALIZADO_SUCESSO = "Tipo atualizado com sucesso.\nTipo: ";
     }
 
 }

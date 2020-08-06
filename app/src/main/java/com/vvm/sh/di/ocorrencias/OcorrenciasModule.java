@@ -1,9 +1,10 @@
 package com.vvm.sh.di.ocorrencias;
 
-import com.vvm.sh.baseDados.OcorrenciaResultadoDao;
 import com.vvm.sh.baseDados.ResultadoDao;
 import com.vvm.sh.baseDados.TipoDao;
 import com.vvm.sh.baseDados.VvmshBaseDados;
+import com.vvm.sh.baseDados.dao.AcaoFormacaoDao;
+import com.vvm.sh.baseDados.dao.OcorrenciaResultadoDao;
 import com.vvm.sh.repositorios.OcorrenciaRepositorio;
 
 import dagger.Module;

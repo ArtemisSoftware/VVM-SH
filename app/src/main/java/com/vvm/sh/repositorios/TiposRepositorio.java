@@ -7,13 +7,12 @@ import com.vvm.sh.api.modelos.TipoResposta;
 import com.vvm.sh.baseDados.AtualizacaoDao;
 import com.vvm.sh.baseDados.TipoDao;
 import com.vvm.sh.ui.contaUtilizador.Colecao;
-import com.vvm.sh.ui.opcoes.modelos.Atualizacao;
+import com.vvm.sh.baseDados.entidades.Atualizacao;
 import com.vvm.sh.ui.opcoes.modelos.Tipo;
 
 import java.util.List;
 
 import io.reactivex.Flowable;
-import io.reactivex.Maybe;
 import io.reactivex.Single;
 
 public class TiposRepositorio {
@@ -42,14 +41,18 @@ public class TiposRepositorio {
     }
 
 
+
+
     /**
-     * Metodo que permite atualizar um tipo
-     * @param tipo o nome do tipo
+     * Metodo que permite atualizar um tipo<br>
+     *     1->Remover a atualizacao e os dados<br>
+     *     2->Inserir novo timestamp<br>
+     *     3->inserir novos dados
      * @param atualizacao os dados da atualizacao
      * @param tipos os dados do tipo
      */
-    public void atualizarTipo(String tipo, Atualizacao atualizacao, List<Tipo> tipos){
-        atualizacaoDao.remover(tipo);
+    public void atualizarTipo(Atualizacao atualizacao, List<Tipo> tipos){
+        atualizacaoDao.remover(atualizacao.descricao);
         atualizacaoDao.inserirRegisto(atualizacao);
         tipoDao.inserir(tipos);
     }

@@ -105,9 +105,12 @@ public class DialogoAtividadePendenteNaoExecutada extends BaseDaggerDialogoPersi
 
                     case SUCESSO:
 
-                        //TODO: Completar metodo
-                        MensagensUtil.sucesso();
-                        terminarDialogo();
+                        dialogo.sucesso(recurso.messagem, listener);
+                        break;
+
+                    case ERRO:
+
+                        dialogo.erro(recurso.messagem);
                         break;
 
                     default:

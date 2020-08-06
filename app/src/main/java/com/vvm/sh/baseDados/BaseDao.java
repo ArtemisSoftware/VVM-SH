@@ -7,6 +7,8 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Transaction;
 import androidx.room.Update;
 
+import java.util.List;
+
 import io.reactivex.Single;
 
 @Dao
@@ -24,7 +26,7 @@ public interface BaseDao<T> {
     Single<Integer> atualizar(T entity);
 
     @Update(onConflict = OnConflictStrategy.IGNORE)
-    void atualizar(T... entity);
+    Single<Integer> atualizar(T... entity);
 
 
     @Delete

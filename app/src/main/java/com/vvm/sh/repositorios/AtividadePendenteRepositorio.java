@@ -2,11 +2,9 @@ package com.vvm.sh.repositorios;
 
 import androidx.annotation.NonNull;
 
-import com.vvm.sh.baseDados.AtividadePendenteDao;
-import com.vvm.sh.baseDados.AtividadePendenteResultadoDao;
+import com.vvm.sh.baseDados.dao.AtividadePendenteResultadoDao;
 import com.vvm.sh.baseDados.ResultadoDao;
 import com.vvm.sh.baseDados.TipoDao;
-import com.vvm.sh.ui.atividadesPendentes.modelos.AtividadePendente;
 import com.vvm.sh.ui.atividadesPendentes.modelos.AtividadePendenteRegisto;
 import com.vvm.sh.ui.atividadesPendentes.modelos.AtividadePendenteResultado;
 import com.vvm.sh.ui.opcoes.modelos.Tipo;
@@ -20,15 +18,14 @@ import io.reactivex.Single;
 
 public class AtividadePendenteRepositorio {
 
-    private final AtividadePendenteDao atividadePendenteDao;
+
     private final AtividadePendenteResultadoDao atividadePendenteResultadoDao;
     private final TipoDao tipoDao;
     public final ResultadoDao resultadoDao;
 
-    public AtividadePendenteRepositorio(@NonNull AtividadePendenteDao atividadePendenteDao, @NonNull AtividadePendenteResultadoDao atividadePendenteResultadoDao,
+    public AtividadePendenteRepositorio(@NonNull AtividadePendenteResultadoDao atividadePendenteResultadoDao,
                                         @NonNull TipoDao tipoDao, @NonNull ResultadoDao resultadoDao) {
 
-        this.atividadePendenteDao = atividadePendenteDao;
         this.atividadePendenteResultadoDao = atividadePendenteResultadoDao;
         this.tipoDao = tipoDao;
         this.resultadoDao = resultadoDao;
@@ -36,7 +33,7 @@ public class AtividadePendenteRepositorio {
 
 
     public Flowable<List<AtividadePendenteRegisto>> obterAtividades(int idTarefa) {
-        return atividadePendenteDao.obterAtividades(idTarefa);
+        return atividadePendenteResultadoDao.obterAtividades(idTarefa);
     }
 
     public Single<Long> inserir(AtividadePendenteResultado atividade) {
@@ -53,7 +50,7 @@ public class AtividadePendenteRepositorio {
     }
 
 
-    public Maybe<AtividadePendenteResultado> obterAtividadeResultado(int id) {
+    public Maybe<AtividadePendenteRegisto> obterAtividadeResultado(int id) {
         return atividadePendenteResultadoDao.obterAtividade(id);
     }
 }

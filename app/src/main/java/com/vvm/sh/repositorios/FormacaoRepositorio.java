@@ -3,7 +3,7 @@ package com.vvm.sh.repositorios;
 import androidx.annotation.NonNull;
 
 import com.vvm.sh.baseDados.dao.AcaoFormacaoDao;
-import com.vvm.sh.baseDados.AtividadePendenteResultadoDao;
+import com.vvm.sh.baseDados.dao.AtividadePendenteResultadoDao;
 import com.vvm.sh.baseDados.FormandoDao;
 import com.vvm.sh.baseDados.ResultadoDao;
 import com.vvm.sh.baseDados.TipoDao;

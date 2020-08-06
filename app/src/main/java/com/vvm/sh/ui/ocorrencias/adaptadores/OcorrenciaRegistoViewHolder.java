@@ -12,6 +12,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.vvm.sh.databinding.ItemOcorrenciaRegistoBinding;
+import com.vvm.sh.util.constantes.Sintaxe;
 
 public class OcorrenciaRegistoViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnCreateContextMenuListener, MenuItem.OnMenuItemClickListener{
 
@@ -53,8 +54,8 @@ public class OcorrenciaRegistoViewHolder extends RecyclerView.ViewHolder impleme
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
 
-        menu.setHeaderTitle("Opções");
-        MenuItem Delete = menu.add(Menu.NONE, 1, 1, "Remover");
+        menu.setHeaderTitle(Sintaxe.Palavras.OPCOES);
+        MenuItem Delete = menu.add(Menu.NONE, 1, 1, Sintaxe.Palavras.REMOVER);
         Delete.setOnMenuItemClickListener(this);
     }
 

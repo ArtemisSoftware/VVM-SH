@@ -49,7 +49,6 @@ public class DialogoAtividadePendenteExecutada extends BaseDaggerDialogoPersiste
     private AtividadesPendentesViewModel viewModel;
 
 
-    private OnAtividadePendenteListener listener;
 
 
     private Validator validador;
@@ -88,8 +87,6 @@ public class DialogoAtividadePendenteExecutada extends BaseDaggerDialogoPersiste
 
     @Override
     protected void iniciarDialogo() {
-
-        listener = (OnAtividadePendenteListener) getContext();
 
         viewModel = ViewModelProviders.of(this, providerFactory).get(AtividadesPendentesViewModel.class);
         binding = (DialogoAtividadePendenteExecutadaBinding) activityBaseBinding;
@@ -131,9 +128,12 @@ public class DialogoAtividadePendenteExecutada extends BaseDaggerDialogoPersiste
 
                     case SUCESSO:
 
-                        //TODO: Completar metodo
-                        MensagensUtil.sucesso();
-                        terminarDialogo();
+                        dialogo.sucesso(recurso.messagem, listener);
+                        break;
+
+                    case ERRO:
+
+                        dialogo.erro(recurso.messagem);
                         break;
 
                     default:
@@ -148,8 +148,27 @@ public class DialogoAtividadePendenteExecutada extends BaseDaggerDialogoPersiste
 
     @Override
     protected void clickPositivo() {
+        ativarValidacao(true);
         validador.validate();
     }
+
+
+
+    //---------------------
+    //Metodos locais
+    //---------------------
+
+
+    /**
+     * Metodo que permite ativar a validacao de campos especificos
+     * @param ativar true para ativar ou false caso contrario
+     */
+    private void ativarValidacao(boolean ativar){
+
+        binding.txtInpDataExecucao.setEnabled(ativar);
+    }
+
+
 
 
     //-------------------
@@ -169,6 +188,8 @@ public class DialogoAtividadePendenteExecutada extends BaseDaggerDialogoPersiste
 
     @Override
     public void onValidationSucceeded() {
+
+        ativarValidacao(false);
 
         int idAtividade = getArguments().getInt(ARGUMENTO_ID_ATIVIDADE);
         String minutos = txt_inp_minutos.getText().toString();
@@ -192,6 +213,8 @@ public class DialogoAtividadePendenteExecutada extends BaseDaggerDialogoPersiste
             }
 
         }
+
+        ativarValidacao(false);
     }
 
 

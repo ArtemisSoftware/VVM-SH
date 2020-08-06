@@ -41,7 +41,7 @@
                 android:id="@+id/rd_btn_relatorio"
                 android:layout_width="wrap_content"
                 android:layout_height="50dp"
-                android:text="@string/relatorio_" />
+                android:text="@string/relatorio" />
 
         </RadioGroup>
 

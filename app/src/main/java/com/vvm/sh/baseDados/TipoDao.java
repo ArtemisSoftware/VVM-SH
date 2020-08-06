@@ -5,14 +5,11 @@ import androidx.room.Insert;
 import androidx.room.Query;
 
 import com.vvm.sh.ui.contaUtilizador.Colecao;
-import com.vvm.sh.ui.opcoes.modelos.Atualizacao;
 import com.vvm.sh.ui.opcoes.modelos.Tipo;
 
 import java.util.List;
 
-import io.reactivex.Completable;
 import io.reactivex.Flowable;
-import io.reactivex.Maybe;
 
 @Dao
 abstract public class TipoDao implements BaseDao<Tipo>{

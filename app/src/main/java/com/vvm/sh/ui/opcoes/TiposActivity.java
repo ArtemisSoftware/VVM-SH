@@ -1,9 +1,12 @@
 package com.vvm.sh.ui.opcoes;
 
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.ContextMenu;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
@@ -12,6 +15,8 @@ import com.vvm.sh.databinding.ActivityTiposBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.opcoes.adaptadores.OnTipoListener;
+import com.vvm.sh.util.Recurso;
+import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import javax.inject.Inject;
@@ -42,6 +47,7 @@ public class TiposActivity extends BaseDaggerActivity implements OnTipoListener 
         subscreverObservadores();
 
         viewModel.obterTipos();
+
     }
 
     @Override
@@ -58,7 +64,28 @@ public class TiposActivity extends BaseDaggerActivity implements OnTipoListener 
     @Override
     protected void subscreverObservadores() {
 
-        //TODO: subscrever observadores do viewmodel
+        viewModel.observarMessagem().observe(this, new Observer<Recurso>() {
+            @Override
+            public void onChanged(Recurso recurso) {
+
+                switch (recurso.status){
+
+                    case SUCESSO:
+
+                        dialogo.sucesso(Sintaxe.Palavras.ATUALIZACAO, recurso.messagem);
+                        break;
+
+                    case ERRO:
+
+                        dialogo.erro(recurso.messagem);
+                        break;
+
+                    default:
+                        break;
+                }
+
+            }
+        });
     }
 
     //------------------------
@@ -79,34 +106,30 @@ public class TiposActivity extends BaseDaggerActivity implements OnTipoListener 
     }
 
 
+
     @Override
-    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo)
-    {
-        super.onCreateContextMenu(menu, v, menuInfo);
-
-/*
-        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) menuInfo;
-        String titulo = colecaoRecyclerAdapter.obterRegisto(info.position).obterDescricao();
-        menu.setHeaderTitle(titulo);
-
-        menu.add(Menu.NONE, 1, Menu.NONE, getString(R.string.recarregar_tipo));
-        */
-
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_tipos, menu);
+        return true;
     }
 
+
     @Override
-    public boolean onContextItemSelected(MenuItem item){
+    public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()){
 
-            case 1:
+
+            case R.id.item_recarregar_geral:
+
+                viewModel.lolo();
                 break;
 
             default:
                 break;
         }
 
-        return true;
+        return super.onOptionsItemSelected(item);
     }
 
 

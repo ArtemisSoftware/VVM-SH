@@ -18,7 +18,7 @@ import com.vvm.sh.ui.autenticacao.modelos.Utilizador;
 import com.vvm.sh.baseDados.entidades.Cliente;
 import com.vvm.sh.baseDados.entidades.Ocorrencia;
 import com.vvm.sh.baseDados.entidades.OcorrenciaHistorico;
-import com.vvm.sh.ui.opcoes.modelos.Atualizacao;
+import com.vvm.sh.baseDados.entidades.Atualizacao;
 import com.vvm.sh.ui.opcoes.modelos.Tipo;
 
 import org.mapstruct.Mapper;
@@ -30,18 +30,19 @@ public interface ModelMapping {
 
     static final ModelMapping INSTANCE = Mappers.getMapper( ModelMapping.class );
 
-    @Mapping(source = "tipo", target = "descricao")
+    @Mapping(source = "metodo", target = "descricao")
     @Mapping(source = "seloTemporal", target = "seloTemporal")
     Atualizacao map(TipoResposta item);
 
 
-    @Mapping(source = "id", target = "id")
-    @Mapping(source = "descricao", target = "descricao")
-    @Mapping(source = "codigo", target = "codigo")
-    @Mapping(source = "idPai", target = "idPai")
-    @Mapping(source = "ativo", target = "ativo")
-    @Mapping(source = "detalhe", target = "detalhe")
-    Tipo map(TipoResultado item);
+    @Mapping(source = "item.id", target = "id")
+    @Mapping(source = "item.descricao", target = "descricao")
+    @Mapping(source = "item.codigo", target = "codigo")
+    @Mapping(source = "item.idPai", target = "idPai")
+    @Mapping(source = "item.ativo", target = "ativo")
+    @Mapping(source = "item.detalhe", target = "detalhe")
+    @Mapping(source = "resposta.metodo", target = "tipo")
+    Tipo map(TipoResultado item, TipoResposta resposta);
 
 
     @Mapping(source = "id", target = "id")
@@ -76,9 +77,5 @@ public interface ModelMapping {
 
     OcorrenciaHistorico map(OcorrenciaResposta.OcorrenciaHistoricoResultado item);
 
-/*
-    @Mapping(source = "id", target = "number")
-    PokemonResponse map(Pokemon item);
-    */
 
 }

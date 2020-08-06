@@ -22,6 +22,7 @@ import com.vvm.sh.baseDados.entidades.Resultado;
 import com.vvm.sh.repositorios.UploadRepositorio;
 import com.vvm.sh.baseDados.entidades.AnomaliaResultado;
 import com.vvm.sh.baseDados.entidades.OcorrenciaResultado;
+import com.vvm.sh.ui.upload.modelos.Upload;
 import com.vvm.sh.util.AtualizacaoUI;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.mapeamento.UploadMapping;
@@ -33,7 +34,7 @@ import java.util.List;
 
 import static com.vvm.sh.util.constantes.Identificadores.Resultados.*;
 
-public class DadosUploadAsyncTask  extends AsyncTask<List<Resultado>, Void, Void> {
+public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
 
     private String errorMessage, idUtilizador;
     private VvmshBaseDados vvmshBaseDados;
@@ -51,12 +52,12 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Resultado>, Void, Void
     }
 
     @Override
-    protected Void doInBackground(List<Resultado>... resultados) {
+    protected Void doInBackground(List<Upload>... resultados) {
 
         if(resultados[0] == null)
             return null;
 
-        List<Resultado> resposta = resultados[0];
+        List<Upload> resposta = resultados[0];
 
 
         this.vvmshBaseDados.runInTransaction(new Runnable(){
@@ -65,56 +66,64 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Resultado>, Void, Void
 
                 try {
 
-                    DadosFormularios dadosFormularios = new DadosFormularios();
+                    int posicao = 0;
 
-                    //TODO: isto tem que ser alterado o id da tarefa não pode ser obtido assim mas num objeto com os idsResultado associados a um idTarefa
-                    int idTarefa = -1;
-                    int index = 0;
+                    for(Upload upload : resposta) {
 
-                    for (Resultado resultado : resposta) {
-                        idTarefa = resultado.id;
-                        ++index;
+                        ++posicao;
+                        DadosFormularios dadosFormularios = new DadosFormularios();
 
-                        atualizacaoUI.atualizarUI(AtualizacaoUI.Codigo.PROCESSAMENTO_DADOS, resultado.id + " - lolo", index, resposta.size());
+                        int index = 0;
 
-                        switch (resultado.id){
+                        for (Resultado resultado : upload.resultados) {
 
-                            case ID_EMAIL:
+                            ++index;
 
-                                dadosFormularios.fixarEmail(adicionarEmail(resultado.idTarefa));
-                                break;
+                            atualizacaoUI.atualizarUI(AtualizacaoUI.Codigo.PROCESSAMENTO_DADOS, resultado.id + " - lolo", index, upload.resultados.size());
 
-                            case ID_ANOMALIA_CLIENTE:
+                            switch (resultado.id){
 
-                                dadosFormularios.fixarAnomalias(adicionarAnomaliaCliente(resultado.idTarefa));
-                                break;
+                                case ID_EMAIL:
 
+                                    dadosFormularios.fixarEmail(adicionarEmail(resultado.idTarefa));
+                                    break;
 
-                            case ID_CROSS_SELLING:
+                                case ID_ANOMALIA_CLIENTE:
 
-                                dadosFormularios.fixarCrossSelling(adicionarCrossSelling(resultado.idTarefa));
-                                break;
+                                    dadosFormularios.fixarAnomalias(adicionarAnomaliaCliente(resultado.idTarefa));
+                                    break;
 
 
-                            case ID_OCORRENCIA:
+                                case ID_CROSS_SELLING:
 
-                                dadosFormularios.fixarOcorrencias(adicionarOcorrencias(resultado.idTarefa));
-                                break;
-
-
-                            case ID_ATIVIDADE_PENDENTE:
-
-                                dadosFormularios.fixarAtividadesPendentes(adicionarAtividadesPendentes(resultado.idTarefa));
-                                break;
+                                    dadosFormularios.fixarCrossSelling(adicionarCrossSelling(resultado.idTarefa));
+                                    break;
 
 
-                            default:
-                                break;
+                                case ID_OCORRENCIA:
+
+                                    dadosFormularios.fixarOcorrencias(adicionarOcorrencias(resultado.idTarefa));
+                                    break;
+
+
+                                case ID_ATIVIDADE_PENDENTE:
+
+                                    dadosFormularios.fixarAtividadesPendentes(adicionarAtividadesPendentes(resultado.idTarefa));
+                                    break;
+
+
+                                default:
+                                    break;
+                            }
                         }
+
+                        dadosFormularios.idUtilizador = idUtilizador;
+                        dadosFormularios.id = UploadMapping.INSTANCE.map(repositorio.obterTarefa(upload.tarefa.idTarefa));
+
+                        atualizacaoUI.atualizarUI(AtualizacaoUI.Codigo.PROCESSAMENTO_DADOS, upload.tarefa.idTarefa + " - res", posicao, resposta.size());
                     }
 
-                    dadosFormularios.idUtilizador = idUtilizador;
-                    dadosFormularios.id = UploadMapping.INSTANCE.map(repositorio.obterTarefa(idTarefa));
+
                 }
                 catch(SQLiteConstraintException throwable){
                     errorMessage = throwable.getMessage();

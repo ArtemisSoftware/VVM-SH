@@ -5,6 +5,7 @@ import androidx.room.Query;
 import androidx.room.Transaction;
 
 import com.vvm.sh.api.AtividadePendenteResultado_;
+import com.vvm.sh.baseDados.BaseDao;
 import com.vvm.sh.baseDados.entidades.CrossSellingResultado;
 import com.vvm.sh.baseDados.entidades.FormandoResultado;
 import com.vvm.sh.baseDados.entidades.Resultado;
@@ -20,7 +21,7 @@ import java.util.List;
 import io.reactivex.Maybe;
 
 @Dao
-abstract public class UploadDao {
+abstract public class UploadDao implements BaseDao<Resultado> {
 
     //TODO: obterResultados -> os dados necessitam do idutilizador + data
 
@@ -31,12 +32,13 @@ abstract public class UploadDao {
     abstract public Maybe<List<Resultado>> obterResultados(String idUtilizador, boolean sincronizado);
 
 
-    @Transaction
+    //@Transaction
 //    @Query("SELECT * " +
 //            "FROM tarefas as trf " +
 //            "LEFT JOIN (SELECT idTarefa, sincronizado FROM resultados) as res ON trf.idTarefa = res.idTarefa " +
 //            "WHERE idUtilizador = :idUtilizador AND sincronizado = :sincronizado ")
 
+    @Transaction
     @Query("SELECT * " +
             "FROM tarefas as trf " +
             "LEFT JOIN (SELECT idTarefa, COUNT(sincronizado) as ct FROM resultados WHERE sincronizado = :sincronizado GROUP BY idTarefa) as res " +

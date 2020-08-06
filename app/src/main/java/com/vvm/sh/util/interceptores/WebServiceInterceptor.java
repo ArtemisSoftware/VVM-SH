@@ -21,15 +21,23 @@ public class WebServiceInterceptor implements Interceptor {
 
 
         Request pedido   = chain.request();
+
+        String metodo = "";
+        try {
+
+            metodo  = pedido.url().pathSegments().get(2);
+        }
+        catch(IndexOutOfBoundsException e){}
+
         Response resposta = chain.proceed(pedido);
         ResponseBody corpo = resposta.body();
 
 
-        //String dadosResposta = corpo.string();
+
 
 
         MediaType contentType = corpo.contentType();
-        ResponseBody body = ResponseBody.create(obterJSON(corpo.string()),contentType);
+        ResponseBody body = ResponseBody.create(obterJSON(corpo.string(), metodo),contentType);
         return resposta.newBuilder().body(body).build();
     }
 
@@ -40,7 +48,7 @@ public class WebServiceInterceptor implements Interceptor {
      * @param respostaWS resposta recebida do web service
      * @return um objecto com os dados
      */
-    private String obterJSON(String respostaWS){
+    private String obterJSON(String respostaWS, String metodo){
 
 
 //        try {
@@ -51,8 +59,20 @@ public class WebServiceInterceptor implements Interceptor {
                 inicio = respostaWS.indexOf( '{' );
             }
 
+
             int fim = respostaWS.indexOf( "</string>" );
             //return respostaWS.substring(inicio + 1, fim - 1);
+
+
+        try {
+            JSONObject resposta = new JSONObject(respostaWS.substring(inicio, fim));
+            resposta.put("metodo", metodo);
+            return resposta.toString();
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
         return respostaWS.substring(inicio, fim);
 
 //        }

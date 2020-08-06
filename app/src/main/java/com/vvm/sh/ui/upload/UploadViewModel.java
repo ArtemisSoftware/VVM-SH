@@ -37,7 +37,7 @@ public class UploadViewModel extends BaseViewModel {
     }
 
 
-    public void obterUpload(String idUtilizador){
+    public void obterUpload(String idUtilizador, Handler handler){
 
         //TODO: os dados necessitam do idutilizador + data
 
@@ -56,44 +56,6 @@ public class UploadViewModel extends BaseViewModel {
                             public void onNext(List<Upload> resultado) {
 
                                 uploads.setValue(resultado);
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-
-                            }
-
-                            @Override
-                            public void onComplete() {
-
-                            }
-                        }
-
-                );
-    }
-
-
-
-
-
-    public void obterDadosUpload(String idUtilizador, Handler handler){
-
-        //TODO: os dados necessitam do idutilizador + data
-
-        uploadRepositorio.obterResultados(idUtilizador).toObservable()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-
-                        new Observer<List<Resultado>>() {
-                            @Override
-                            public void onSubscribe(Disposable d) {
-
-                            }
-
-                            @Override
-                            public void onNext(List<Resultado> resultado) {
-
 
                                 DadosUploadAsyncTask servico = new DadosUploadAsyncTask(vvmshBaseDados, handler, uploadRepositorio, idUtilizador);
                                 servico.execute(resultado);
@@ -112,4 +74,39 @@ public class UploadViewModel extends BaseViewModel {
 
                 );
     }
+
+
+    public void sincronizar(){
+
+        uploadRepositorio.sincronizar(uploads.getValue()).toObservable()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new Observer<Integer>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+
+                            }
+
+                            @Override
+                            public void onNext(Integer integers) {
+
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+
+                            @Override
+                            public void onComplete() {
+
+                            }
+                        }
+
+                );
+    }
+
+
 }

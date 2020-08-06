@@ -4,7 +4,6 @@ import androidx.annotation.NonNull;
 
 import com.vvm.sh.api.SegurancaAlimentarApi;
 import com.vvm.sh.api.modelos.SessaoResposta;
-import com.vvm.sh.baseDados.AtividadePendenteDao;
 import com.vvm.sh.baseDados.ClienteDao;
 import com.vvm.sh.baseDados.dao.AgendaDao;
 import com.vvm.sh.baseDados.dao.DownloadTrabalhoDao;
@@ -29,17 +28,15 @@ public class AgendaRepositorio {
     private final AgendaDao agendaDao;
 
     private final ClienteDao clienteDao;
-    private final AtividadePendenteDao atividadePendenteDao;
 
     public AgendaRepositorio(@NonNull SegurancaAlimentarApi api, @NonNull DownloadTrabalhoDao downloadTrabalhoDao,
                              @NonNull AgendaDao agendaDao,
-                             @NonNull ClienteDao clienteDao, @NonNull AtividadePendenteDao atividadePendenteDao) {
+                             @NonNull ClienteDao clienteDao) {
         this.api = api;
         this.downloadTrabalhoDao = downloadTrabalhoDao;
         this.agendaDao = agendaDao;
 
         this.clienteDao = clienteDao;
-        this.atividadePendenteDao = atividadePendenteDao;
     }
 
 
@@ -85,7 +82,7 @@ public class AgendaRepositorio {
     }
 
     public void inserirAtividadesPendentes(List<AtividadePendente> atividades){
-        atividadePendenteDao.inserir(atividades);
+        downloadTrabalhoDao.inserirAtividadesPendentes(atividades);
     }
 
     public long inserirOcorrencia(Ocorrencia ocorrencia){

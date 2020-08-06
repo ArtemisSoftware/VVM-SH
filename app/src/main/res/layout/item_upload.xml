@@ -6,24 +6,20 @@
 
     <data>
 
-<!--        <import type="com.vvm.sh.util.StringUtil"/>-->
+
+        <import type="com.vvm.sh.util.metodos.DatasUtil"/>
+        <import type="com.vvm.sh.util.StringUtil"/>
 
         <variable
             name="upload"
             type="com.vvm.sh.ui.upload.modelos.Upload" />
 
-<!--        <variable-->
-<!--            name="listener"-->
-<!--            type="com.vvm.sh.ui.opcoes.adaptadores.OnTipoListener"/>-->
 
     </data>
 
 
     <androidx.cardview.widget.CardView
         style="@style/cartao">
-
-        <!-- android:onClick="@{() -> listener.showNoteDialog(note) }" -->
-
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -35,7 +31,7 @@
                 style="@style/tituloCartao"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-
+                android:text="@{StringUtil.formatarHtml(upload.cliente.nome), default=cliente}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -44,7 +40,7 @@
             <TextView
                 android:id="@+id/textView2"
                 style="@style/textoDetalhe"
-                android:layout_marginTop="18dp"
+                android:layout_marginTop="16dp"
                 android:text="@string/ordem_"
                 app:layout_constraintStart_toStartOf="@+id/textView"
                 app:layout_constraintTop_toBottomOf="@+id/textView" />
@@ -53,11 +49,9 @@
                 android:id="@+id/textView3"
                 style="@style/textoDetalhe"
                 android:layout_marginStart="16dp"
-
+                android:text="@{upload.tarefa.ordem, default=0}"
                 app:layout_constraintStart_toEndOf="@+id/textView2"
                 app:layout_constraintTop_toTopOf="@+id/textView2" />
-
-            <!-- android:text="@{StringUtil.converterString(tipo.obterNumeroRegistos()), default=0}" -->
 
             <TextView
                 android:id="@+id/textView4"
@@ -70,14 +64,16 @@
             <TextView
                 android:id="@+id/textView5"
                 style="@style/textoDetalhe"
-
+                android:text="@{DatasUtil.converterData(upload.tarefa.data, DatasUtil.FORMATO_DD_MM_YYYY), default=data}"
                 app:layout_constraintStart_toStartOf="@+id/textView3"
                 app:layout_constraintTop_toTopOf="@+id/textView4" />
 
-            <!-- android:text="@{tipo.obterSeloTemporal(), default=0}" -->
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip"
+                app:chipIcon="@drawable/ic_sincronizado_24dp"
+                android:text="@string/nao_sincronizado"
+                app:chipBackgroundColor="@color/cor_nao_sincronizado"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
@@ -92,7 +88,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="24dp"
                 android:layout_marginBottom="16dp"
-                android:text="TextView"
+                textoUpload="@{upload.resultados}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/textView"
                 app:layout_constraintTop_toBottomOf="@+id/textView4" />

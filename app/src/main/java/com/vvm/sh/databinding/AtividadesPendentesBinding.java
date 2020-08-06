@@ -69,7 +69,7 @@ public class AtividadesPendentesBinding {
     }
 
 
-    @BindingAdapter({"atividadeResultado"})
+    @BindingAdapter({"atividade"})
     public static void setImagem(ImageView view, AtividadePendenteResultado atividadeResultado) {
 
         if (atividadeResultado == null) {

@@ -3,6 +3,7 @@ package com.vvm.sh.ui.upload.modelos;
 import androidx.room.Embedded;
 import androidx.room.Relation;
 
+import com.vvm.sh.baseDados.entidades.Cliente;
 import com.vvm.sh.baseDados.entidades.Resultado;
 import com.vvm.sh.baseDados.entidades.Tarefa;
 
@@ -16,4 +17,6 @@ public class Upload {
     @Relation(parentColumn = "idTarefa", entityColumn = "idTarefa")
     public List<Resultado> resultados;
 
+    @Relation(parentColumn = "idTarefa", entityColumn = "idTarefa")
+    public Cliente cliente;
 }

@@ -15,9 +15,11 @@ import com.vvm.sh.baseDados.entidades.OcorrenciaResultado;
 import com.vvm.sh.baseDados.entidades.AcaoFormacaoResultado;
 import com.vvm.sh.ui.upload.modelos.Upload;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Maybe;
+import io.reactivex.Single;
 
 public class UploadRepositorio {
 
@@ -39,6 +41,27 @@ public class UploadRepositorio {
     public Maybe<List<Upload>> obterUploads(String idUtilizador){
         return uploadDao.obterUploads(idUtilizador, false);
     }
+
+
+    public Single<Integer> sincronizar(List<Upload> uploads){
+
+        List<Resultado> resultados = new ArrayList<>();
+
+        for(int index = 0; index < uploads.size(); ++index){
+
+            for(int posicao = 0; posicao < uploads.get(index).resultados.size(); ++posicao){
+
+                Resultado item = uploads.get(index).resultados.get(posicao);
+                item.sincronizado = true;
+                resultados.add(item);
+            }
+        }
+
+        Resultado registos[] = (Resultado[]) resultados.toArray();
+
+        return uploadDao.atualizar(registos);
+    }
+
 
 
     public EmailResultado obterEmail(int idTarefa){

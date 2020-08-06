@@ -8,6 +8,7 @@ import com.vvm.sh.baseDados.entidades.Anomalia;
 import com.vvm.sh.baseDados.entidades.Ocorrencia;
 import com.vvm.sh.baseDados.entidades.OcorrenciaHistorico;
 import com.vvm.sh.baseDados.entidades.AtividadeExecutada;
+import com.vvm.sh.ui.atividadesPendentes.modelos.AtividadePendente;
 
 import java.util.List;
 
@@ -20,6 +21,9 @@ abstract public class DownloadTrabalhoDao {
 
     @Insert
     abstract public List<Long> inserirAtividadesExecutadas(List<AtividadeExecutada> registos);
+
+    @Insert
+    abstract public List<Long> inserirAtividadesPendentes(List<AtividadePendente> registos);
 
 
 

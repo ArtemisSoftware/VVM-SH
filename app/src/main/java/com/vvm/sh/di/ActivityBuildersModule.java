@@ -19,9 +19,9 @@ import com.vvm.sh.di.ocorrencias.OcorrenciasViewModelsModule;
 import com.vvm.sh.di.tarefa.TarefaModule;
 import com.vvm.sh.di.tarefa.TarefaScope;
 import com.vvm.sh.di.tarefa.TarefaViewModelsModule;
-import com.vvm.sh.di.upload.UploadModule;
-import com.vvm.sh.di.upload.UploadScope;
-import com.vvm.sh.di.upload.UploadViewModelsModule;
+import com.vvm.sh.di.transferencias.TransferenciasModule;
+import com.vvm.sh.di.transferencias.TransferenciasScope;
+import com.vvm.sh.di.transferencias.TransferenciasViewModelsModule;
 import com.vvm.sh.ui.anomalias.DialogoAnomalia;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.AcaoFormacaoActivity;
 import com.vvm.sh.ui.atividadesPendentes.DialogoAtividadePendente;
@@ -34,7 +34,7 @@ import com.vvm.sh.ui.ocorrencias.OcorrenciasRegistoActivity;
 import com.vvm.sh.ui.ocorrencias.RegistarOcorrenciaActivity;
 import com.vvm.sh.ui.tarefa.DialogoEmail;
 import com.vvm.sh.ui.tarefa.TarefaActivity;
-import com.vvm.sh.ui.agenda.TrabalhoActivity;
+import com.vvm.sh.ui.transferencias.DownloadTrabalhoActivity;
 import com.vvm.sh.ui.anomalias.AnomaliasActivity;
 import com.vvm.sh.ui.atividadesExecutadas.AtividadesExecutadasActivity;
 import com.vvm.sh.ui.atividadesPendentes.AtividadesPendentesActivity;
@@ -54,7 +54,7 @@ import com.vvm.sh.ui.crossSelling.DialogoSinaletica;
 import com.vvm.sh.ui.ocorrencias.OcorrenciasActivity;
 import com.vvm.sh.ui.opcoes.TiposActivity;
 import com.vvm.sh.ui.opcoes.AtualizacaoAppActivity;
-import com.vvm.sh.ui.upload.UploadActivity;
+import com.vvm.sh.ui.transferencias.UploadTrabalhoActivity;
 
 import dagger.Module;
 import dagger.android.ContributesAndroidInjector;
@@ -79,12 +79,6 @@ public abstract class ActivityBuildersModule {
     )
     abstract MainActivity contributeMainActivity();
 
-
-    @AgendaScope
-    @ContributesAndroidInjector(
-            modules = { AgendaViewModelsModule.class, AgendaModule.class }
-    )
-    abstract TrabalhoActivity contributeTrabalhoActivity();
 
 
 
@@ -252,11 +246,18 @@ public abstract class ActivityBuildersModule {
     abstract TiposActivity contributeTiposActivity();
 
 
-    @UploadScope
+    @TransferenciasScope
     @ContributesAndroidInjector(
-            modules = { UploadViewModelsModule.class, UploadModule.class }
+            modules = { TransferenciasViewModelsModule.class, TransferenciasModule.class }
     )
-    abstract UploadActivity contributeUploadActivity();
+    abstract UploadTrabalhoActivity contributeUploadActivity();
+
+
+    @TransferenciasScope
+    @ContributesAndroidInjector(
+            modules = { TransferenciasViewModelsModule.class, TransferenciasModule.class }
+    )
+    abstract DownloadTrabalhoActivity contributeTrabalhoActivity();
 
 
 }

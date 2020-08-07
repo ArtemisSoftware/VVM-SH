@@ -1,4 +1,4 @@
-package com.vvm.sh.ui.upload.adaptadores;
+package com.vvm.sh.ui.transferencias.adaptadores;
 
 import android.view.View;
 

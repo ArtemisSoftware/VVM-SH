@@ -12,7 +12,7 @@
 
         <variable
             name="pendencia"
-            type="com.vvm.sh.ui.upload.modelos.Pendencia" />
+            type="com.vvm.sh.ui.transferencias.modelos.Pendencia" />
 
 
     </data>

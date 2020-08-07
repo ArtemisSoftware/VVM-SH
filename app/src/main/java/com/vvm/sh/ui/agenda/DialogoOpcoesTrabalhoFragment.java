@@ -4,9 +4,11 @@ import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 
+import com.vvm.sh.ui.BaseDialogFragment;
 import com.vvm.sh.ui.BaseDialogoOpcoesFragment;
 
 public class DialogoOpcoesTrabalhoFragment extends BaseDialogoOpcoesFragment {
+
 
 
     private DialogoListener listener;
@@ -15,7 +17,7 @@ public class DialogoOpcoesTrabalhoFragment extends BaseDialogoOpcoesFragment {
     @Override
     protected String[] obterOpcoes() {
 
-        String opcoes [] = { "Validar dados", "Recarregar trabalho do dia", "Reenviar dados" };
+        String opcoes [] = { "Recarregar trabalho do dia", "Reenviar dados" };
         return opcoes;
     }
 
@@ -30,20 +32,14 @@ public class DialogoOpcoesTrabalhoFragment extends BaseDialogoOpcoesFragment {
                 switch (item) {
 
 
-                    case 0: //validar dados
-
-                        //MetodosDialogo.dialogoValidacaoDados(contexto, ((MenuLateral_Agenda) menuLateral).obterData());
-                        break;
-
-
-                    case 1: //recarregar trabalho do dia
+                    case 0: //recarregar trabalho do dia
 
                         listener.recarregarTrabalho();
                         //recarregarTrabalho(((MenuLateral_Agenda) menuLateral).obterData() /*"2019-01-17"*/);
                         break;
 
 
-                    case 2: //reenviar trabalho do dia
+                    case 1: //reenviar trabalho do dia
 
                         listener.reUploadDados();
                         //reUploadDados(((MenuLateral_Agenda) menuLateral).obterData());

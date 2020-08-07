@@ -11,8 +11,6 @@ import io.reactivex.Flowable;
 @Dao
 abstract public class ClienteDao  implements BaseDao<Cliente>{
 
-    @Insert
-    abstract public void inserirRegisto(Cliente registo);
 
 
     @Query("SELECT * FROM clientes WHERE idTarefa = :idTarefa")

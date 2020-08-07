@@ -13,11 +13,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.upload.UploadActivity"></activity>
+        <activity android:name=".ui.transferencias.UploadTrabalhoActivity"></activity>
         <activity android:name=".ui.ocorrencias.OcorrenciasHistoricoActivity" />
         <activity android:name=".ui.opcoes.AtualizacaoAppActivity" />
         <activity android:name=".ui.contaUtilizador.OpcoesAvancadasActivity" />
-        <activity android:name=".ui.agenda.TrabalhoActivity" />
+        <activity android:name=".ui.transferencias.DownloadTrabalhoActivity" />
         <activity android:name=".ui.contaUtilizador.DefinicoesActivity" />
         <activity
             android:name=".ui.AssinaturaActivity"

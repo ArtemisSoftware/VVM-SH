@@ -6,19 +6,25 @@ import androidx.databinding.BindingAdapter;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.google.android.material.chip.Chip;
-import com.google.android.material.chip.ChipDrawable;
-import com.vvm.sh.R;
 import com.vvm.sh.baseDados.entidades.Resultado;
-import com.vvm.sh.ui.upload.adaptadores.UploadRecyclerAdapter;
-import com.vvm.sh.ui.upload.modelos.Upload;
+import com.vvm.sh.ui.transferencias.adaptadores.PendenciaRecyclerAdapter;
+import com.vvm.sh.ui.transferencias.adaptadores.UploadRecyclerAdapter;
+import com.vvm.sh.ui.transferencias.modelos.Pendencia;
+import com.vvm.sh.ui.transferencias.modelos.Upload;
+import com.vvm.sh.util.Recurso;
 
 import java.util.List;
 
 public class UploadBinding {
 
     @BindingAdapter({"uploads"})
-    public static void setUploads(RecyclerView view, List<Upload> items) {
+    public static void setUploads(RecyclerView view, Recurso recurso) {
+
+        if(recurso == null){
+            return;
+        }
+
+        List<Upload> items = (List<Upload>) recurso.dados;
 
         if(items == null){
             return;
@@ -44,6 +50,38 @@ public class UploadBinding {
     }
 
 
+    @BindingAdapter({"pendencias"})
+    public static void setPendencias(RecyclerView view, Recurso recurso) {
+
+
+        if(recurso == null){
+            return;
+        }
+
+        List<Pendencia> items = (List<Pendencia>) recurso.dados;
+
+        if(items == null){
+            return;
+        }
+
+        RecyclerView.LayoutManager layoutManager = view.getLayoutManager();
+
+        if(layoutManager == null){
+            view.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        }
+
+        PendenciaRecyclerAdapter adapter = (PendenciaRecyclerAdapter) view.getAdapter();
+
+        if(adapter == null){
+            adapter = new PendenciaRecyclerAdapter(view.getContext(), items);
+
+            view.setAdapter(adapter);
+        }
+        else{
+            adapter.atualizar(items);
+        }
+
+    }
 
     @BindingAdapter({"textoUpload"})
     public static void setTextoUpload(TextView view, List<Resultado> items) {

@@ -24,7 +24,7 @@
 
         <variable
             name="viewmodel"
-            type="com.vvm.sh.ui.agenda.AgendaViewModel"/>
+            type="com.vvm.sh.ui.transferencias.TransferenciasViewModel"/>
 
     </data>
 

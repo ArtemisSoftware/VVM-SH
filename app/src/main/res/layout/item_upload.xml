@@ -12,7 +12,7 @@
 
         <variable
             name="upload"
-            type="com.vvm.sh.ui.upload.modelos.Upload" />
+            type="com.vvm.sh.ui.transferencias.modelos.Upload" />
 
 
     </data>

@@ -8,11 +8,10 @@ import com.vvm.sh.baseDados.dao.AcaoFormacaoDao;
 import com.vvm.sh.baseDados.dao.AgendaDao;
 import com.vvm.sh.baseDados.dao.AnomaliaResultadoDao;
 import com.vvm.sh.baseDados.dao.AtividadePendenteResultadoDao;
-import com.vvm.sh.baseDados.dao.DownloadTrabalhoDao;
 import com.vvm.sh.baseDados.dao.EmailDao;
 import com.vvm.sh.baseDados.dao.ImagemResultadoDao;
 import com.vvm.sh.baseDados.dao.OcorrenciaResultadoDao;
-import com.vvm.sh.baseDados.dao.UploadDao;
+import com.vvm.sh.baseDados.dao.TransferenciasDao;
 import com.vvm.sh.baseDados.entidades.ImagemResultado;
 import com.vvm.sh.baseDados.entidades.Resultado;
 import com.vvm.sh.baseDados.entidades.Tarefa;
@@ -73,10 +72,6 @@ public abstract class VvmshBaseDados extends RoomDatabase {
     public abstract TarefaDao obterTarefaDao();
 
 
-    public abstract ClienteDao obterClienteDao();
-
-
-    public abstract DownloadTrabalhoDao obterDownloadTrabalhoDao();
 
     //---------------------
     //Resultados
@@ -101,7 +96,7 @@ public abstract class VvmshBaseDados extends RoomDatabase {
 
     public abstract ImagemResultadoDao obterImagemResultadoDao();
 
-    public abstract UploadDao obterUploadDao();
+    public abstract TransferenciasDao obterTransferenciasDao();
 
 
     //---------------------

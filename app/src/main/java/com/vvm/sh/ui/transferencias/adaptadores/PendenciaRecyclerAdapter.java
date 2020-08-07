@@ -1,4 +1,4 @@
-package com.vvm.sh.ui.upload.adaptadores;
+package com.vvm.sh.ui.transferencias.adaptadores;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,9 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.vvm.sh.R;
 import com.vvm.sh.databinding.ItemPendenciaBinding;
-import com.vvm.sh.databinding.ItemUploadBinding;
-import com.vvm.sh.ui.upload.modelos.Pendencia;
-import com.vvm.sh.ui.upload.modelos.Upload;
+import com.vvm.sh.ui.transferencias.modelos.Pendencia;
 
 import java.util.ArrayList;
 import java.util.List;

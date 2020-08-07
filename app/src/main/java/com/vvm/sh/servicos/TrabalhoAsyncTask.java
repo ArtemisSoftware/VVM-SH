@@ -12,7 +12,6 @@ import com.vvm.sh.api.modelos.OcorrenciaResposta;
 import com.vvm.sh.api.modelos.SessaoResposta;
 import com.vvm.sh.api.modelos.TarefaResultado;
 import com.vvm.sh.baseDados.VvmshBaseDados;
-import com.vvm.sh.repositorios.AgendaRepositorio;
 import com.vvm.sh.baseDados.entidades.Tarefa;
 import com.vvm.sh.baseDados.entidades.Anomalia;
 import com.vvm.sh.baseDados.entidades.AtividadeExecutada;
@@ -20,6 +19,7 @@ import com.vvm.sh.baseDados.entidades.AtividadePendente;
 import com.vvm.sh.baseDados.entidades.Cliente;
 import com.vvm.sh.baseDados.entidades.Ocorrencia;
 import com.vvm.sh.baseDados.entidades.OcorrenciaHistorico;
+import com.vvm.sh.repositorios.TransferenciasRepositorio;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.mapeamento.ModelMapping;
 import com.vvm.sh.util.metodos.DatasUtil;
@@ -31,9 +31,9 @@ public class TrabalhoAsyncTask extends AsyncTask<SessaoResposta, Void, Void> {
 
     private String errorMessage, idUtilizador;
     private VvmshBaseDados vvmshBaseDados;
-    private AgendaRepositorio repositorio;
+    private TransferenciasRepositorio repositorio;
 
-    public TrabalhoAsyncTask(VvmshBaseDados vvmshBaseDados, AgendaRepositorio repositorio, String idUtilizador){
+    public TrabalhoAsyncTask(VvmshBaseDados vvmshBaseDados, TransferenciasRepositorio repositorio, String idUtilizador){
         this.vvmshBaseDados = vvmshBaseDados;
         this.repositorio = repositorio;
         this.idUtilizador = idUtilizador;

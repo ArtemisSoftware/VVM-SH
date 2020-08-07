@@ -1,4 +1,4 @@
-package com.vvm.sh.ui.upload.adaptadores;
+package com.vvm.sh.ui.transferencias.adaptadores;
 
 import android.view.View;
 
@@ -7,7 +7,6 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.vvm.sh.databinding.ItemPendenciaBinding;
-import com.vvm.sh.databinding.ItemUploadBinding;
 
 public class PendenciaViewHolder extends RecyclerView.ViewHolder {
 

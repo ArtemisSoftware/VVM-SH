@@ -1,56 +1,39 @@
 package com.vvm.sh.baseDados.dao;
 
 import androidx.room.Dao;
+import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Transaction;
 
 import com.vvm.sh.api.AtividadePendenteResultado_;
 import com.vvm.sh.baseDados.BaseDao;
+import com.vvm.sh.baseDados.entidades.Anomalia;
+import com.vvm.sh.baseDados.entidades.AtividadeExecutada;
+import com.vvm.sh.baseDados.entidades.AtividadePendente;
 import com.vvm.sh.baseDados.entidades.Cliente;
 import com.vvm.sh.baseDados.entidades.CrossSellingResultado;
 import com.vvm.sh.baseDados.entidades.FormandoResultado;
+import com.vvm.sh.baseDados.entidades.Ocorrencia;
+import com.vvm.sh.baseDados.entidades.OcorrenciaHistorico;
 import com.vvm.sh.baseDados.entidades.Resultado;
 import com.vvm.sh.baseDados.entidades.EmailResultado;
 import com.vvm.sh.baseDados.entidades.Tarefa;
 import com.vvm.sh.baseDados.entidades.AnomaliaResultado;
 import com.vvm.sh.baseDados.entidades.OcorrenciaResultado;
 import com.vvm.sh.baseDados.entidades.AcaoFormacaoResultado;
-import com.vvm.sh.ui.upload.modelos.Pendencia;
-import com.vvm.sh.ui.upload.modelos.Upload;
+import com.vvm.sh.ui.transferencias.modelos.Pendencia;
+import com.vvm.sh.ui.transferencias.modelos.Upload;
 
 import java.util.List;
 
 import io.reactivex.Maybe;
 
 @Dao
-abstract public class UploadDao implements BaseDao<Resultado> {
-
-    //TODO: obterResultados -> os dados necessitam do idutilizador + data
-
-    @Query("SELECT res.* " +
-            "FROM resultados as res " +
-            "LEFT JOIN (SELECT idTarefa, idUtilizador FROM tarefas) as trf ON res.idTarefa = trf.idTarefa " +
-            "WHERE idUtilizador = :idUtilizador AND sincronizado = :sincronizado ")
-    abstract public Maybe<List<Resultado>> obterResultados(String idUtilizador, boolean sincronizado);
+abstract public class TransferenciasDao implements BaseDao<Resultado> {
 
 
-    //@Transaction
-//    @Query("SELECT * " +
-//            "FROM tarefas as trf " +
-//            "LEFT JOIN (SELECT idTarefa, sincronizado FROM resultados) as res ON trf.idTarefa = res.idTarefa " +
-//            "WHERE idUtilizador = :idUtilizador AND sincronizado = :sincronizado ")
 
     @Transaction
-    @Query("SELECT * " +
-            "FROM tarefas as trf " +
-            "LEFT JOIN (SELECT idTarefa, COUNT(sincronizado) as ct FROM resultados WHERE sincronizado = :sincronizado GROUP BY idTarefa) as res " +
-            "ON trf.idTarefa = res.idTarefa " +
-            "WHERE ct > 0 AND idUtilizador = :idUtilizador")
-    abstract public Maybe<List<Upload>> obterUploads(String idUtilizador, boolean sincronizado);
-
-//SELECT idTarefa, atp.id as id, COUNT(*) as ct_atp, IFNULL(ct_atp_res, 0) as ct_atp_res FROM atividadesPendentes as atp LEFT JOIN (SELECT id, COUNT(*) as ct_atp_res FROM atividadesPendentesResultado) as atp_res ON atp.id = atp_res.id GROUP BY idTarefa
-
-
     @Query("SELECT * " +
             "FROM clientes as cl " +
             "LEFT JOIN(" +
@@ -60,7 +43,7 @@ abstract public class UploadDao implements BaseDao<Resultado> {
             "WHERE cl.idTarefa IN (SELECT idTarefa FROM tarefas WHERE idUtilizador =:idUtilizador) AND ct_atp_res = 0")
     abstract public Maybe<List<Pendencia>> obterPendencias(String idUtilizador);
 
-
+    @Transaction
     @Query("SELECT * " +
             "FROM clientes as cl " +
             "LEFT JOIN(" +
@@ -69,6 +52,29 @@ abstract public class UploadDao implements BaseDao<Resultado> {
             ") as pend ON cl.idTarefa = pend.idTarefa " +
             "WHERE cl.idTarefa IN (SELECT idTarefa FROM tarefas WHERE idUtilizador =:idUtilizador AND data =:data) AND ct_atp_res = 0")
     abstract public Maybe<List<Pendencia>> obterPendencias(String idUtilizador, long data);
+
+
+
+
+
+
+    @Transaction
+    @Query("SELECT * " +
+            "FROM tarefas as trf " +
+            "LEFT JOIN (SELECT idTarefa, COUNT(sincronizado) as ct FROM resultados WHERE sincronizado = :sincronizado GROUP BY idTarefa) as res " +
+            "ON trf.idTarefa = res.idTarefa " +
+            "WHERE ct > 0 AND idUtilizador = :idUtilizador")
+    abstract public Maybe<List<Upload>> obterUploads(String idUtilizador, boolean sincronizado);
+
+
+    @Transaction
+    @Query("SELECT * " +
+            "FROM tarefas as trf " +
+            "LEFT JOIN (SELECT idTarefa, COUNT(sincronizado) as ct FROM resultados WHERE sincronizado = :sincronizado GROUP BY idTarefa) as res " +
+            "ON trf.idTarefa = res.idTarefa " +
+            "WHERE ct > 0 AND idUtilizador = :idUtilizador AND data = :data")
+    abstract public Maybe<List<Upload>> obterUploads(String idUtilizador, long data, boolean sincronizado);
+
 
     //-------------------
     //RESULTADOS
@@ -110,4 +116,34 @@ abstract public class UploadDao implements BaseDao<Resultado> {
     @Query("SELECT * FROM tarefas WHERE idTarefa = :idTarefa")
     abstract public Tarefa obterTarefa(int idTarefa);
 
+
+    //-------------------
+    //TRABALHO
+    //-------------------
+
+
+    @Insert
+    abstract public Long inserirRegisto(Tarefa tarefa);
+
+    @Insert
+    abstract public void inserirRegisto(Cliente registo);
+
+
+    @Insert
+    abstract public List<Long> inserirAtividadesExecutadas(List<AtividadeExecutada> registos);
+
+    @Insert
+    abstract public List<Long> inserirAtividadesPendentes(List<AtividadePendente> registos);
+
+
+
+    @Insert
+    abstract public List<Long> inserirAnomalias(List<Anomalia> registos);
+
+
+    @Insert
+    abstract public Long inserirRegisto(Ocorrencia registo);
+
+    @Insert
+    abstract public List<Long> inserir(List<OcorrenciaHistorico> registos);
 }

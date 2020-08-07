@@ -127,6 +127,23 @@ public class DatasUtil {
     }
 
 
+    public static long converterDataLong(String data, String formato){
+
+        SimpleDateFormat format = new SimpleDateFormat(formato);
+
+        try {
+            Date dataResultado = format.parse(data);
+            return dataResultado.getTime();
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return 0;
+
+    }
+
+
+
     /**
      * Metodo que permite obter uma dados
      * @param ano

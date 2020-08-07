@@ -1,11 +1,8 @@
 package com.vvm.sh.di.agenda;
 
 
-import com.vvm.sh.api.SegurancaAlimentarApi;
-import com.vvm.sh.baseDados.ClienteDao;
 import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.baseDados.dao.AgendaDao;
-import com.vvm.sh.baseDados.dao.DownloadTrabalhoDao;
 import com.vvm.sh.repositorios.AgendaRepositorio;
 
 import dagger.Module;
@@ -17,15 +14,6 @@ public class AgendaModule {
 
     @AgendaScope
     @Provides
-    static DownloadTrabalhoDao provideDownloadTrabalhoDao(VvmshBaseDados vvmshBaseDados){
-
-        DownloadTrabalhoDao dao = vvmshBaseDados.obterDownloadTrabalhoDao();
-        return dao;
-    }
-
-
-    @AgendaScope
-    @Provides
     static AgendaDao provideAgendaDao(VvmshBaseDados vvmshBaseDados){
 
         AgendaDao dao = vvmshBaseDados.obterAgendaDao();
@@ -33,29 +21,11 @@ public class AgendaModule {
     }
 
 
-
-
     @AgendaScope
     @Provides
-    static ClienteDao provideClienteDao(VvmshBaseDados vvmshBaseDados){
+    AgendaRepositorio provideAgendaRepositorio(AgendaDao agendaDao) {
 
-        ClienteDao dao = vvmshBaseDados.obterClienteDao();
-
-        //Timber.d("Providing NoteDao: " + dao);
-        return dao;
-    }
-
-
-
-
-
-    @AgendaScope
-    @Provides
-    AgendaRepositorio provideAgendaRepositorio(SegurancaAlimentarApi segurancaAlimentarApi, DownloadTrabalhoDao downloadTrabalhoDao,
-                                               AgendaDao agendaDao,
-                                               ClienteDao clienteDao) {
-
-        AgendaRepositorio repositorio = new AgendaRepositorio(segurancaAlimentarApi, downloadTrabalhoDao, agendaDao, clienteDao);
+        AgendaRepositorio repositorio = new AgendaRepositorio(agendaDao);
 
         //Timber.d("Providing PokemonRepository: " + repository);
         return repositorio;

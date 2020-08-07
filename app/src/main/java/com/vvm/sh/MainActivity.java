@@ -13,11 +13,12 @@ import com.vvm.sh.databinding.ActivityMainBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.agenda.AgendaViewModel;
+import com.vvm.sh.ui.agenda.DialogoOpcoesTrabalhoFragment;
 import com.vvm.sh.ui.agenda.modelos.Marcacao;
 import com.vvm.sh.ui.contaUtilizador.DefinicoesActivity;
 import com.vvm.sh.ui.contaUtilizador.OpcoesAvancadasActivity;
 import com.vvm.sh.ui.opcoes.TiposActivity;
-import com.vvm.sh.ui.upload.UploadActivity;
+import com.vvm.sh.ui.transferencias.UploadTrabalhoActivity;
 import com.vvm.sh.ui.tarefa.TarefaActivity;
 import com.vvm.sh.ui.agenda.adaptadores.OnAgendaListener;
 import com.vvm.sh.util.Recurso;
@@ -27,7 +28,6 @@ import com.vvm.sh.util.metodos.Preferencias;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -36,8 +36,9 @@ import javax.inject.Inject;
 import butterknife.OnClick;
 
 public class MainActivity extends BaseDaggerActivity
-        implements OnAgendaListener, DatePickerDialog.OnDateSetListener/*OnItemListener, OnItemLongListener,
-                   DatePickerDialog.OnDateSetListener,  DialogoOpcoesTrabalhoFragment.DialogoListener, DialogoOpcoesTarefaFragment.DialogoListener */{
+        implements OnAgendaListener, DatePickerDialog.OnDateSetListener,
+        DialogoOpcoesTrabalhoFragment.DialogoListener/*OnItemListener, OnItemLongListener,
+                   DialogoOpcoesTrabalhoFragment.DialogoListener, DialogoOpcoesTarefaFragment.DialogoListener */{
 
 
 
@@ -71,7 +72,7 @@ public class MainActivity extends BaseDaggerActivity
         subscreverObservadores();
 
 
-        //TODO: verificar se deve chamar a TrabalhoActivity ou carregar os dados da bd
+        //TODO: verificar se deve chamar a DownloadTrabalhoActivity ou carregar os dados da bd
 
         //viewModel.obterTrabalho("12724");
 
@@ -79,7 +80,7 @@ public class MainActivity extends BaseDaggerActivity
 
         //Intent intent = new Intent(this, AutenticacaoActivity.class);
 //        //intent.putExtra(AppConstants.PICTURE, pictureRecyclerAdapter.getSelectedPicture(position).getId());
-        //Intent intent = new Intent(this, TrabalhoActivity.class);
+        //Intent intent = new Intent(this, DownloadTrabalhoActivity.class);
         Intent intent = new Intent(this, TiposActivity.class);
         //startActivity(intent);
 
@@ -222,7 +223,7 @@ public class MainActivity extends BaseDaggerActivity
 //
 //        //Intent intent = new Intent(this, AutenticacaoActivity.class);
 //        //intent.putExtra(AppConstants.PICTURE, pictureRecyclerAdapter.getSelectedPicture(position).getId());
-//        Intent intent = new Intent(this, TrabalhoActivity.class);
+//        Intent intent = new Intent(this, DownloadTrabalhoActivity.class);
 //        startActivity(intent);
 //    }
 //
@@ -258,18 +259,20 @@ public class MainActivity extends BaseDaggerActivity
 //    }
 
 
-//
-//
-//    @Override
-//    public void recarregarTrabalho() {
-//
-//    }
-//
-//    @Override
-//    public void reUploadDados() {
-//
-//    }
-//
+
+
+    @Override
+    public void recarregarTrabalho() {
+
+    }
+
+    @Override
+    public void reUploadDados() {
+        Intent intent = new Intent(this, UploadTrabalhoActivity.class);
+        intent.putExtra(getString(R.string.argumento_data), DatasUtil.converterDataLong(activityMainBinding.txtData.getText().toString(), DatasUtil.FORMATO_DD_MMMM_YYYY));
+        startActivity(intent);
+    }
+
 //
 //    @Override
 //    public void recarregarTarefa() {
@@ -303,13 +306,13 @@ public class MainActivity extends BaseDaggerActivity
                 break;
 
 
-//            case R.id.item_opcoes_trabalho:
-//
-//
-//                DialogoOpcoesTrabalhoFragment dialogo = new DialogoOpcoesTrabalhoFragment();
-//                dialogo.show(getSupportFragmentManager(), "example dialog");
-//                break;
-//
+            case R.id.item_opcoes_trabalho:
+
+
+                DialogoOpcoesTrabalhoFragment dialogo = new DialogoOpcoesTrabalhoFragment();
+                dialogo.show(getSupportFragmentManager(), "example dialog");
+                break;
+
             case R.id.item_opcoes_avancadas:
 
                 intent = new Intent(this, OpcoesAvancadasActivity.class);
@@ -330,7 +333,7 @@ public class MainActivity extends BaseDaggerActivity
 
             case R.id.item_upload_dados:
 
-                intent = new Intent(this, UploadActivity.class);
+                intent = new Intent(this, UploadTrabalhoActivity.class);
                 break;
 
 

@@ -1,6 +1,5 @@
-package com.vvm.sh.ui.agenda;
+package com.vvm.sh.ui.transferencias;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
@@ -9,11 +8,12 @@ import com.vvm.sh.R;
 import com.vvm.sh.databinding.ActivityTrabalhoBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
+import com.vvm.sh.ui.agenda.AgendaViewModel;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import javax.inject.Inject;
 
-public class TrabalhoActivity extends BaseDaggerActivity {
+public class DownloadTrabalhoActivity extends BaseDaggerActivity {
 
 
     private ActivityTrabalhoBinding activityTrabalhoBinding;
@@ -22,14 +22,14 @@ public class TrabalhoActivity extends BaseDaggerActivity {
     ViewModelProviderFactory providerFactory;
 
 
-    private AgendaViewModel viewModel;
+    private TransferenciasViewModel viewModel;
 
 
 
     @Override
     protected void intActivity(Bundle savedInstanceState) {
 
-        viewModel = ViewModelProviders.of(this, providerFactory).get(AgendaViewModel.class);
+        viewModel = ViewModelProviders.of(this, providerFactory).get(TransferenciasViewModel.class);
 
         activityTrabalhoBinding = (ActivityTrabalhoBinding) activityBinding;
         activityTrabalhoBinding.setLifecycleOwner(this);
@@ -38,7 +38,7 @@ public class TrabalhoActivity extends BaseDaggerActivity {
 
         subscreverObservadores();
 
-        viewModel.obterTrabalho("12724");
+        //viewModel.obterTrabalho(Preferencias.obterIdUtilizador(this));
     }
 
     @Override

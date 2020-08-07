@@ -19,10 +19,10 @@ import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.baseDados.entidades.CrossSellingResultado;
 import com.vvm.sh.baseDados.entidades.FormandoResultado;
 import com.vvm.sh.baseDados.entidades.Resultado;
-import com.vvm.sh.repositorios.UploadRepositorio;
+import com.vvm.sh.repositorios.TransferenciasRepositorio;
 import com.vvm.sh.baseDados.entidades.AnomaliaResultado;
 import com.vvm.sh.baseDados.entidades.OcorrenciaResultado;
-import com.vvm.sh.ui.upload.modelos.Upload;
+import com.vvm.sh.ui.transferencias.modelos.Upload;
 import com.vvm.sh.util.AtualizacaoUI;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.mapeamento.UploadMapping;
@@ -38,13 +38,13 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
 
     private String errorMessage, idUtilizador;
     private VvmshBaseDados vvmshBaseDados;
-    private UploadRepositorio repositorio;
+    private TransferenciasRepositorio repositorio;
     private JSONArray dadosTarefas = new JSONArray();
 
     private AtualizacaoUI atualizacaoUI;
 
 
-    public DadosUploadAsyncTask(VvmshBaseDados vvmshBaseDados, Handler handler, UploadRepositorio repositorio, String idUtilizador){
+    public DadosUploadAsyncTask(VvmshBaseDados vvmshBaseDados, Handler handler, TransferenciasRepositorio repositorio, String idUtilizador){
         this.vvmshBaseDados = vvmshBaseDados;
         this.repositorio = repositorio;
         this.idUtilizador = idUtilizador;

@@ -1,4 +1,4 @@
-package com.vvm.sh.di.upload;
+package com.vvm.sh.di.transferencias;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;
@@ -9,5 +9,5 @@ import javax.inject.Scope;
 @Scope
 @Documented
 @Retention(RetentionPolicy.RUNTIME)
-public @interface UploadScope {
+public @interface TransferenciasScope {
 }

@@ -243,5 +243,7 @@
     <string name="Assinatura">Assinatura</string>
     <string name="ver_pendencias">Ver pendencias</string>
     <string name="tarefas_pendentes">Tarefas pendentes</string>
+    <string name="argumento_data">data</string>
+    <string name="tarefas_upload">Tarefas para upload</string>
 
 </resources>

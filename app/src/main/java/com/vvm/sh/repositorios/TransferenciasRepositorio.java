@@ -4,17 +4,24 @@ import androidx.annotation.NonNull;
 
 import com.vvm.sh.api.AtividadePendenteResultado_;
 import com.vvm.sh.api.SegurancaAlimentarApi;
-import com.vvm.sh.baseDados.dao.UploadDao;
+import com.vvm.sh.api.modelos.SessaoResposta;
+import com.vvm.sh.baseDados.dao.TransferenciasDao;
+import com.vvm.sh.baseDados.entidades.Anomalia;
+import com.vvm.sh.baseDados.entidades.AtividadeExecutada;
+import com.vvm.sh.baseDados.entidades.AtividadePendente;
+import com.vvm.sh.baseDados.entidades.Cliente;
 import com.vvm.sh.baseDados.entidades.CrossSellingResultado;
 import com.vvm.sh.baseDados.entidades.FormandoResultado;
+import com.vvm.sh.baseDados.entidades.Ocorrencia;
+import com.vvm.sh.baseDados.entidades.OcorrenciaHistorico;
 import com.vvm.sh.baseDados.entidades.Resultado;
 import com.vvm.sh.baseDados.entidades.EmailResultado;
 import com.vvm.sh.baseDados.entidades.Tarefa;
 import com.vvm.sh.baseDados.entidades.AnomaliaResultado;
 import com.vvm.sh.baseDados.entidades.OcorrenciaResultado;
 import com.vvm.sh.baseDados.entidades.AcaoFormacaoResultado;
-import com.vvm.sh.ui.upload.modelos.Pendencia;
-import com.vvm.sh.ui.upload.modelos.Upload;
+import com.vvm.sh.ui.transferencias.modelos.Pendencia;
+import com.vvm.sh.ui.transferencias.modelos.Upload;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -22,31 +29,61 @@ import java.util.List;
 import io.reactivex.Maybe;
 import io.reactivex.Single;
 
-public class UploadRepositorio {
+public class TransferenciasRepositorio {
 
 
     private final SegurancaAlimentarApi api;
 
-    private final UploadDao uploadDao;
+    private final TransferenciasDao uploadDao;
 
 
-    public UploadRepositorio(@NonNull SegurancaAlimentarApi api, @NonNull UploadDao uploadDao) {
+    public TransferenciasRepositorio(@NonNull SegurancaAlimentarApi api, @NonNull TransferenciasDao uploadDao) {
         this.api = api;
         this.uploadDao = uploadDao;
     }
 
-    public Maybe<List<Resultado>> obterResultados(String idUtilizador){
-        return uploadDao.obterResultados(idUtilizador, false);
+
+
+
+
+    /**
+     * Metodo que permite obter o trabalho do dia para um utilizador
+     * @param idUtilizador o identificador do utilizador
+     * @return o trabalho
+     */
+    public Single<SessaoResposta[]> obterTrabalho(String idUtilizador) {
+        return api.obterTrabalho(idUtilizador);
     }
 
-    public Maybe<List<Upload>> obterUploads(String idUtilizador){
-        return uploadDao.obterUploads(idUtilizador, false);
-    }
+
+
+
+
+
 
 
     public Maybe<List<Pendencia>> obterPendencias(String idUtilizador){
         return uploadDao.obterPendencias(idUtilizador);
     }
+
+    public Maybe<List<Pendencia>> obterPendencias(String idUtilizador, long data){
+        return uploadDao.obterPendencias(idUtilizador, data);
+    }
+
+
+    public Maybe<List<Upload>> obterUploads(String idUtilizador){
+        return uploadDao.obterUploads(idUtilizador, false);
+    }
+
+    public Maybe<List<Upload>> obterUploads(String idUtilizador, long data){
+        return uploadDao.obterUploads(idUtilizador, data, false);
+    }
+
+
+
+
+
+
 
 
 
@@ -103,4 +140,43 @@ public class UploadRepositorio {
     public Tarefa obterTarefa(int idTarefa) {
         return uploadDao.obterTarefa(idTarefa);
     }
+
+
+    //---------------------------
+    //DOWNLOAD
+    //---------------------------
+
+
+
+
+    public long inserirTarefa(Tarefa tarefa){
+        return uploadDao.inserirRegisto(tarefa);
+    }
+
+    public void inserirAtividadesExecutadas(List<AtividadeExecutada> atividades){
+        uploadDao.inserirAtividadesExecutadas(atividades);
+    }
+
+    public void inserirCliente(Cliente cliente){
+        uploadDao.inserirRegisto(cliente);
+    }
+
+    public void inserirAnomalias(List<Anomalia> anomalias){
+        uploadDao.inserirAnomalias(anomalias);
+    }
+
+    public void inserirAtividadesPendentes(List<AtividadePendente> atividades){
+        uploadDao.inserirAtividadesPendentes(atividades);
+    }
+
+    public long inserirOcorrencia(Ocorrencia ocorrencia){
+        return uploadDao.inserirRegisto(ocorrencia);
+    }
+
+    public void inserirHistoricoOcorrencias(List<OcorrenciaHistorico> historico){
+        uploadDao.inserir(historico);
+    }
+
+
+
 }

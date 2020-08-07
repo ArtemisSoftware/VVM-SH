@@ -1,7 +1,7 @@
 package com.vvm.sh.ui.cliente.extintores;
 
 import com.vvm.sh.util.adaptadores.Item;
-import com.vvm.sh.util.metodos.Conversor;
+import com.vvm.sh.util.metodos.ConversorUtil;
 import com.vvm.sh.util.metodos.DatasUtil;
 
 public class Extintor extends Item /*ItemFormulario*/{
@@ -17,7 +17,7 @@ public class Extintor extends Item /*ItemFormulario*/{
 
         this.dataValidade = dataValidade;
 
-        this.novaDataValidade = Conversor.converter_Integer_Para_Boolean(novaDataValidade);
+        this.novaDataValidade = ConversorUtil.converter_Integer_Para_Boolean(novaDataValidade);
         this.endereco = endereco;
         this.quantidade = quantidade;
     }

@@ -129,6 +129,7 @@
 
 
                     <androidx.cardview.widget.CardView
+                        android:id="@+id/card_acao_formacao"
                         style="@style/cartao"
                         android:visibility="@{viewmodel.acaoFormacao != null ? View.VISIBLE : View.GONE}"
                         android:layout_marginTop="16dp"
@@ -268,7 +269,7 @@
 
 
         <com.github.clans.fab.FloatingActionMenu
-            android:id="@+id/menu"
+            android:id="@+id/fab_menu"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
@@ -309,15 +310,14 @@
             app:menu_labels_style="@style/textoDetalhe"
             app:menu_labels_position="left"
             app:menu_openDirection="up"
-            app:menu_backgroundColor="@android:color/transparent"
-            app:menu_fab_label="your_label_here">
+            app:menu_backgroundColor="@android:color/transparent">
 
 
             <com.github.clans.fab.FloatingActionButton
                 android:id="@+id/fab_adicionar_formando"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_acao_formacao"
+                android:src="@drawable/ic_formandos_24dp"
                 app:fab_size="mini"
                 app:fab_label="@string/adicionar_formando" />
 
@@ -325,7 +325,7 @@
                 android:id="@+id/fab_adicionar_acao_formacao"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_formandos_24dp"
+                android:src="@drawable/ic_acao_formacao"
                 app:fab_size="mini"
                 app:fab_label="@string/acao_formacao" />
 

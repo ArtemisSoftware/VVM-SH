@@ -7,10 +7,10 @@ import com.vvm.sh.servicos.ResultadoAsyncTask;
 import com.vvm.sh.baseDados.entidades.Resultado;
 import com.vvm.sh.ui.crossSelling.modelos.CrossSelling;
 import com.vvm.sh.baseDados.entidades.CrossSellingResultado;
-import com.vvm.sh.ui.crossSelling.modelos.CrossSelling_;
 import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.ResultadoId;
+import com.vvm.sh.util.metodos.ConversorUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import java.util.List;
@@ -48,220 +48,14 @@ public class CrossSellingViewModel extends BaseViewModel {
 
 
 
-    /**
-     * Metodo que permite obter os produtos existentes
-     */
-    public void obterProdutos(){
-
-        showProgressBar(true);
-
-        crossSellingRepositorio.obterProdutos().toObservable()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-
-
-                        new Observer<List<Tipo>>() {
-                            @Override
-                            public void onSubscribe(Disposable d) {
-                                disposables.add(d);
-                            }
-
-                            @Override
-                            public void onNext(List<Tipo> tipos) {
-
-                                produtos.setValue(tipos);
-                                sinaletica.setValue(Boolean.parseBoolean(tipos.get(0).detalhe));
-                                showProgressBar(false);
-                                obterCrossSelling(tipos.get(0));
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-
-                            }
-
-                            @Override
-                            public void onComplete() {
-                                showProgressBar(false);
-                            }
-                        }
-
-                );
-
-    }
-
-
+    //---------------------------
+    //GRAVAR
+    //---------------------------
 
     /**
-     * Metodo que permite obter o cross selling de um produto
-     * @param produto os dados do produto
+     * Metodo que permite gravar um registo
+     * @param registo os dados do registo
      */
-    public void obterCrossSelling(Tipo produto){
-
-        showProgressBar(true);
-
-        crossSellingRepositorio.obterCrossSelling(produto.id + "").toObservable()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-
-                        new Observer<List<CrossSelling>>() {
-                            @Override
-                            public void onSubscribe(Disposable d) {
-                                disposables.add(d);
-                            }
-
-                            @Override
-                            public void onNext(List<CrossSelling> tipos) {
-
-                                crossSelling.setValue(tipos);
-
-                                sinaletica.setValue(Boolean.parseBoolean(produto.detalhe));
-                                showProgressBar(false);
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-
-                            }
-
-                            @Override
-                            public void onComplete() {
-                                showProgressBar(false);
-                            }
-                        }
-
-                );
-
-
-        crossSellingRepositorio.obterCrossSelling_(produto.id + "").toObservable()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-
-                        new Observer<List<CrossSelling_>>() {
-                            @Override
-                            public void onSubscribe(Disposable d) {
-                                disposables.add(d);
-                            }
-
-                            @Override
-                            public void onNext(List<CrossSelling_> tipos) {
-
-                                //crossSelling.setValue(tipos);
-
-                                //sinaletica.setValue(Boolean.parseBoolean(produto.detalhe));
-                                showProgressBar(false);
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-
-                            }
-
-                            @Override
-                            public void onComplete() {
-                                showProgressBar(false);
-                            }
-                        }
-
-                );
-
-    }
-
-
-
-    public void obterSinaletica(){
-        obterDimensoes();
-        obterTipos();
-    }
-
-
-    /**
-     * Metodo que permite obter as dimensões
-     */
-    public void obterDimensoes(){
-
-        showProgressBar(true);
-
-        crossSellingRepositorio.obterDimensoes().toObservable()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-
-                        new Observer<List<Tipo>>() {
-                            @Override
-                            public void onSubscribe(Disposable d) {
-                                disposables.add(d);
-                            }
-
-                            @Override
-                            public void onNext(List<Tipo> tipos) {
-
-                                dimensoes.setValue(tipos);
-                                showProgressBar(false);
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-
-                            }
-
-                            @Override
-                            public void onComplete() {
-                                showProgressBar(false);
-                            }
-                        }
-
-                );
-
-    }
-
-    /**
-     * Metodo que permite obter os tipos
-     */
-    public void obterTipos(){
-
-        showProgressBar(true);
-
-        crossSellingRepositorio.obterTipos().toObservable()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-
-                        new Observer<List<Tipo>>() {
-                            @Override
-                            public void onSubscribe(Disposable d) {
-                                disposables.add(d);
-                            }
-
-                            @Override
-                            public void onNext(List<Tipo> registos) {
-
-                                tipos.setValue(registos);
-                                showProgressBar(false);
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-
-                            }
-
-                            @Override
-                            public void onComplete() {
-                                showProgressBar(false);
-                            }
-                        }
-
-                );
-
-    }
-
-
-
-
-
     public void gravar(CrossSellingResultado registo) {
 
         crossSellingRepositorio.inserir(registo).toObservable()
@@ -298,6 +92,198 @@ public class CrossSellingViewModel extends BaseViewModel {
         ResultadoAsyncTask servico = new ResultadoAsyncTask(vvmshBaseDados, crossSellingRepositorio.resultadoDao);
         servico.execute(new Resultado(registo.idTarefa, ResultadoId.CROSS_SELLING));
     }
+
+
+    //----------------------
+    //OBTER
+    //----------------------
+
+
+    /**
+     * Metodo que permite obter os produtos existentes
+     */
+    public void obterProdutos(){
+
+        showProgressBar(true);
+
+        crossSellingRepositorio.obterProdutos().toObservable()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new Observer<List<Tipo>>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onNext(List<Tipo> tipos) {
+
+                                produtos.setValue(tipos);
+                                sinaletica.setValue(ConversorUtil.converter_String_Para_Boolean(tipos.get(0).detalhe));
+                                showProgressBar(false);
+                                obterCrossSelling(tipos.get(0));
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onComplete() {
+                                showProgressBar(false);
+                            }
+                        }
+
+                );
+    }
+
+
+
+    /**
+     * Metodo que permite obter o cross selling de um produto
+     * @param produto os dados do produto
+     */
+    public void obterCrossSelling(Tipo produto){
+
+        showProgressBar(true);
+
+        crossSellingRepositorio.obterCrossSelling(produto.id + "").toObservable()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new Observer<List<CrossSelling>>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onNext(List<CrossSelling> tipos) {
+
+                                crossSelling.setValue(tipos);
+
+                                sinaletica.setValue(ConversorUtil.converter_String_Para_Boolean(produto.detalhe));
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onComplete() {
+                                showProgressBar(false);
+                            }
+                        }
+
+                );
+
+    }
+
+
+    //---------------------------
+    //MISC
+    //---------------------------
+
+
+    public void obterSinaletica(){
+        obterDimensoes();
+        obterTipos();
+    }
+
+
+    /**
+     * Metodo que permite obter as dimensões
+     */
+    private void obterDimensoes(){
+
+        showProgressBar(true);
+
+        crossSellingRepositorio.obterDimensoes().toObservable()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new Observer<List<Tipo>>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onNext(List<Tipo> tipos) {
+
+                                dimensoes.setValue(tipos);
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onComplete() {
+                                showProgressBar(false);
+                            }
+                        }
+
+                );
+
+    }
+
+
+    /**
+     * Metodo que permite obter os tipos
+     */
+    private void obterTipos(){
+
+        showProgressBar(true);
+
+        crossSellingRepositorio.obterTipos().toObservable()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new Observer<List<Tipo>>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onNext(List<Tipo> registos) {
+
+                                tipos.setValue(registos);
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onComplete() {
+                                showProgressBar(false);
+                            }
+                        }
+
+                );
+
+    }
+
+
+
+    //---------------------------
+    //REMOVER
+    //---------------------------
+
 
     public void remover(CrossSelling crossSelling) {
 

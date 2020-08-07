@@ -2,6 +2,7 @@ package com.vvm.sh.util.metodos;
 
 import android.app.Activity;
 import android.content.Context;
+import android.widget.TextView;
 
 import com.vvm.sh.util.constantes.AppConfig;
 import com.vvm.sh.util.constantes.Sintaxe;
@@ -297,6 +298,34 @@ public class DatasUtil {
 */
 
         return dpd;
+    }
+
+    /**
+     * Metodo que permite validar um horario
+     * @param txt_hora_inicio
+     * @param txt_hora_fim
+     * @return true caso o horario seja valido ou false caso contrario
+     */
+    public static boolean validarHorario(TextView txt_hora_inicio, TextView txt_hora_fim) {
+
+        String pattern = HORA_FORMATO_HH_MM;
+        SimpleDateFormat sdf = new SimpleDateFormat(pattern);
+
+        try {
+
+            Date inicio = sdf.parse(txt_hora_inicio.getText().toString());
+            Date fim = sdf.parse(txt_hora_fim.getText().toString());
+
+            if(inicio.before(fim)) {
+                return true;
+            } else {
+                return false;
+            }
+        } catch (ParseException e){
+            e.printStackTrace();
+        }
+
+        return false;
     }
 
 

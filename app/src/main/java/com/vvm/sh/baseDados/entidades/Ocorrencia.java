@@ -130,7 +130,7 @@ public class Ocorrencia  {
 //
 //        this.dias = dias;
 //        this.observacao = observacao;
-//        this.fiscalizado = Conversor.converter_Integer_Para_Boolean(fiscalizado);
+//        this.fiscalizado = ConversorUtil.converter_Integer_Para_Boolean(fiscalizado);
 //        this.tipo = TIPO_NOVA_OCORRENCIA;
 //    }
 //
@@ -160,7 +160,7 @@ public class Ocorrencia  {
 //    public Ocorrencia(int id, String descricao, String codigo, int opcao, int selecionado) {
 //        super(id, descricao);
 //        this.codigo = codigo;
-//        this.selecionado = Conversor.converter_Integer_Para_Boolean(selecionado);
+//        this.selecionado = ConversorUtil.converter_Integer_Para_Boolean(selecionado);
 //
 //        if(opcao == 1) {
 //            this.tipo = TIPO_TIPIFICACAO;

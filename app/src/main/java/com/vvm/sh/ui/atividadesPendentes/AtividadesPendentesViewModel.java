@@ -54,7 +54,7 @@ public class AtividadesPendentesViewModel extends BaseViewModel {
      */
     public void gravarAtividade(int idTarefa, AtividadePendenteResultado atividade) {
 
-        if(this.atividade.getValue() == null){
+        if(this.atividade.getValue().resultado == null){
 
             atividadePendenteRepositorio.inserir(atividade).toObservable()
                     .subscribeOn(Schedulers.io())

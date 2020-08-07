@@ -6,6 +6,7 @@ import androidx.room.Transaction;
 
 import com.vvm.sh.api.AtividadePendenteResultado_;
 import com.vvm.sh.baseDados.BaseDao;
+import com.vvm.sh.baseDados.entidades.Cliente;
 import com.vvm.sh.baseDados.entidades.CrossSellingResultado;
 import com.vvm.sh.baseDados.entidades.FormandoResultado;
 import com.vvm.sh.baseDados.entidades.Resultado;
@@ -14,6 +15,7 @@ import com.vvm.sh.baseDados.entidades.Tarefa;
 import com.vvm.sh.baseDados.entidades.AnomaliaResultado;
 import com.vvm.sh.baseDados.entidades.OcorrenciaResultado;
 import com.vvm.sh.baseDados.entidades.AcaoFormacaoResultado;
+import com.vvm.sh.ui.upload.modelos.Pendencia;
 import com.vvm.sh.ui.upload.modelos.Upload;
 
 import java.util.List;
@@ -46,7 +48,27 @@ abstract public class UploadDao implements BaseDao<Resultado> {
             "WHERE ct > 0 AND idUtilizador = :idUtilizador")
     abstract public Maybe<List<Upload>> obterUploads(String idUtilizador, boolean sincronizado);
 
+//SELECT idTarefa, atp.id as id, COUNT(*) as ct_atp, IFNULL(ct_atp_res, 0) as ct_atp_res FROM atividadesPendentes as atp LEFT JOIN (SELECT id, COUNT(*) as ct_atp_res FROM atividadesPendentesResultado) as atp_res ON atp.id = atp_res.id GROUP BY idTarefa
 
+
+    @Query("SELECT * " +
+            "FROM clientes as cl " +
+            "LEFT JOIN(" +
+            "SELECT idTarefa, atp.id as id, COUNT(*) as ct_atp, IFNULL(ct_atp_res, 0) as ct_atp_res FROM atividadesPendentes as atp " +
+            "LEFT JOIN (SELECT id, COUNT(*) as ct_atp_res FROM atividadesPendentesResultado) as atp_res ON atp.id = atp_res.id GROUP BY idTarefa " +
+            ") as pend ON cl.idTarefa = pend.idTarefa " +
+            "WHERE cl.idTarefa IN (SELECT idTarefa FROM tarefas WHERE idUtilizador =:idUtilizador) AND ct_atp_res = 0")
+    abstract public Maybe<List<Pendencia>> obterPendencias(String idUtilizador);
+
+
+    @Query("SELECT * " +
+            "FROM clientes as cl " +
+            "LEFT JOIN(" +
+            "SELECT idTarefa, atp.id as id, COUNT(*) as ct_atp, IFNULL(ct_atp_res, 0) as ct_atp_res FROM atividadesPendentes as atp " +
+            "LEFT JOIN (SELECT id, COUNT(*) as ct_atp_res FROM atividadesPendentesResultado) as atp_res ON atp.id = atp_res.id GROUP BY idTarefa " +
+            ") as pend ON cl.idTarefa = pend.idTarefa " +
+            "WHERE cl.idTarefa IN (SELECT idTarefa FROM tarefas WHERE idUtilizador =:idUtilizador AND data =:data) AND ct_atp_res = 0")
+    abstract public Maybe<List<Pendencia>> obterPendencias(String idUtilizador, long data);
 
     //-------------------
     //RESULTADOS

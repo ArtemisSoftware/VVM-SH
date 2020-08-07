@@ -1,6 +1,6 @@
 package com.vvm.sh.util.metodos;
 
-public class Conversor {
+public class ConversorUtil {
 
     /**
      * Metodo que permite converter um inteiro para booleano
@@ -18,4 +18,10 @@ public class Conversor {
             return false;
         }
     }
+
+    public static boolean converter_String_Para_Boolean(String valor){
+
+        return Boolean.parseBoolean(valor);
+    }
+
 }

@@ -38,7 +38,7 @@ abstract public class AcaoFormacaoDao implements BaseDao<AcaoFormacaoResultado> 
             "GROUP BY frm_res.idAtividade " +
             ") as frm ON acs_form.idAtividade = frm.idAtividade " +
             "WHERE acs_form.idAtividade = :idAtividade")
-    abstract public Maybe<AcaoFormacao> obterAcaoFormacao(int idAtividade, String tipo);
+    abstract public Flowable<AcaoFormacao> obterAcaoFormacao(int idAtividade, String tipo);
 
 
 

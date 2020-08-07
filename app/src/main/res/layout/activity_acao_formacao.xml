@@ -88,10 +88,10 @@
 
                     <com.jaredrummler.materialspinner.MaterialSpinner
                         android:id="@+id/spnr_designacao"
-                        android:layout_width="300dp"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:hint="@string/designacao"
-                        tipos_="@{viewmodel.generos}"
+                        tipos_="@{viewmodel.tiposCursos}"
                         acaoFormacao ="@{viewmodel.acaoFormacao.resultado}"
                         app:layout_constraintStart_toStartOf="@+id/textView18"
                         app:layout_constraintTop_toBottomOf="@+id/textview21" />
@@ -245,7 +245,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
             android:layout_margin="@dimen/fab_margin"
-            android:src="@android:drawable/ic_dialog_email" />
+            android:src="@drawable/ic_gravar_24dp" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

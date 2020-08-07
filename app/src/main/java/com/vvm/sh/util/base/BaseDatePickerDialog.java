@@ -26,6 +26,11 @@ public class BaseDatePickerDialog {
     }
 
 
+    /**
+     * Metodo que permite fixar o limite inferior da calendario fixando o limite maximo no dia atual
+     * @param tipo o campo a alterar(dia, mes, ano)
+     * @param desvio o limite
+     */
     public void fixarLimiteInferior(int tipo, int desvio){
 
         Calendar dataMinima = Calendar.getInstance();
@@ -37,7 +42,15 @@ public class BaseDatePickerDialog {
     }
 
 
+    /**
+     * Metodo que permite realçar os dias do calendario
+     * @param datas uma lista de datas
+     */
     public void realcarDias(List<Date> datas){
+
+        if(datas.size() == 0)
+            return;
+
 
         Calendar[] high = new Calendar[datas.size()];
 
@@ -50,9 +63,9 @@ public class BaseDatePickerDialog {
             Calendar calendarff = Calendar.getInstance();
             calendarff.set(Calendar.YEAR, calendar.get(Calendar.YEAR));
             calendarff.set(Calendar.MONTH, calendar.get(Calendar.MONTH));
-            calendarff.set(Calendar.DAY_OF_WEEK, calendar.get(Calendar.DAY_OF_WEEK));
+            calendarff.set(Calendar.DAY_OF_MONTH, calendar.get(Calendar.DAY_OF_MONTH));
 
-            high[0] = calendarff;
+            high[index] = calendarff;
         }
 
         datePickerDialog.setHighlightedDays(high);

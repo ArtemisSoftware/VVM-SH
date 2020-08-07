@@ -56,7 +56,9 @@
         <activity
             android:name=".ui.atividadesPendentes.AtividadesPendentesActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ui.crossSelling.CrossSellingActivity" />
+        <activity
+            android:name=".ui.crossSelling.CrossSellingActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".ui.atividadesExecutadas.AtividadesExecutadasActivity"
             android:theme="@style/AppTheme.NoActionBar" />

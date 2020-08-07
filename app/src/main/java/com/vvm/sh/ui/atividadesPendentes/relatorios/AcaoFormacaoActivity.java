@@ -117,15 +117,15 @@ public class AcaoFormacaoActivity extends BaseDaggerActivity
 
                     case SUCESSO:
 
-                        //TODO: Completar metodo
-                        MensagensUtil.sucesso();
-                        finish();
+                        dialogo.sucesso(recurso.messagem, listenerActivity);
                         break;
 
-                    default:
+                    case ERRO:
+
+                        dialogo.erro(recurso.messagem);
                         break;
+
                 }
-
             }
         });
     }
@@ -188,21 +188,26 @@ public class AcaoFormacaoActivity extends BaseDaggerActivity
 
         ativarValidacao(false);
 
-        //TODO:acrescentar esta validacao
-        //valido = MetodosValidacao.validarHorario(txt_inp_inicio, txt_inp_fim) & valido;
 
-        Bundle bundle = getIntent().getExtras();
-        int idAtividade = bundle.getInt(getString(R.string.argumento_id_atividade));
+        if(DatasUtil.validarHorario(activityAcaoFormacaoBinding.txtInpInicio, activityAcaoFormacaoBinding.txtInpFim) == true) {
 
-        Tipo designacao = (Tipo) activityAcaoFormacaoBinding.spnrDesignacao.getItems().get(activityAcaoFormacaoBinding.spnrDesignacao.getSelectedIndex());
-        String local = activityAcaoFormacaoBinding.txtInpLocal.getText().toString();
-        Date data = DatasUtil.converterString(activityAcaoFormacaoBinding.txtInpData.getText().toString(), DatasUtil.FORMATO_DD_MM_YYYY);
-        Date inicio = DatasUtil.converterString(activityAcaoFormacaoBinding.txtInpData.getText().toString() + " " + activityAcaoFormacaoBinding.txtInpInicio.getText().toString(), DatasUtil.DATA_FORMATO_DD_MM_YYYY__HH_MM);
-        Date fim = DatasUtil.converterString(activityAcaoFormacaoBinding.txtInpData.getText().toString() + " " + activityAcaoFormacaoBinding.txtInpFim.getText().toString(), DatasUtil.DATA_FORMATO_DD_MM_YYYY__HH_MM);
+            Bundle bundle = getIntent().getExtras();
+            int idAtividade = bundle.getInt(getString(R.string.argumento_id_atividade));
 
-        AcaoFormacaoResultado registo = new AcaoFormacaoResultado(idAtividade, designacao.id, local, data, inicio, fim);
+            Tipo designacao = (Tipo) activityAcaoFormacaoBinding.spnrDesignacao.getItems().get(activityAcaoFormacaoBinding.spnrDesignacao.getSelectedIndex());
+            String local = activityAcaoFormacaoBinding.txtInpLocal.getText().toString();
+            Date data = DatasUtil.converterString(activityAcaoFormacaoBinding.txtInpData.getText().toString(), DatasUtil.FORMATO_DD_MM_YYYY);
+            Date inicio = DatasUtil.converterString(activityAcaoFormacaoBinding.txtInpData.getText().toString() + " " + activityAcaoFormacaoBinding.txtInpInicio.getText().toString(), DatasUtil.DATA_FORMATO_DD_MM_YYYY__HH_MM);
+            Date fim = DatasUtil.converterString(activityAcaoFormacaoBinding.txtInpData.getText().toString() + " " + activityAcaoFormacaoBinding.txtInpFim.getText().toString(), DatasUtil.DATA_FORMATO_DD_MM_YYYY__HH_MM);
 
-        viewModel.gravar(Preferencias.obterIdTarefa(this), registo);
+            AcaoFormacaoResultado registo = new AcaoFormacaoResultado(idAtividade, designacao.id, local, data, inicio, fim);
+
+            viewModel.gravar(Preferencias.obterIdTarefa(this), registo);
+        }
+        else{
+            activityAcaoFormacaoBinding.txtInpInicio.setError(Sintaxe.Alertas.HORARIO_INVALIDO);
+            activityAcaoFormacaoBinding.txtInpFim.setError(Sintaxe.Alertas.HORARIO_INVALIDO);
+        }
     }
 
     @Override
@@ -216,7 +221,6 @@ public class AcaoFormacaoActivity extends BaseDaggerActivity
             if (view instanceof TextInputEditText) {
                 ((TextInputEditText) view).setError(message);
             }
-
         }
 
         ativarValidacao(false);

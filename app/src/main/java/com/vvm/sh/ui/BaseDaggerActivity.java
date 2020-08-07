@@ -2,21 +2,17 @@ package com.vvm.sh.ui;
 
 import android.os.Bundle;
 import android.view.View;
-import android.view.WindowManager;
-import android.widget.FrameLayout;
-import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.widget.Toolbar;
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 
 import com.vvm.sh.R;
 import com.vvm.sh.databinding.ActivityBaseDaggerBinding;
 import com.vvm.sh.util.MensagensUtil;
-import com.vvm.sh.util.interfaces.OnActivityListener;
+import com.vvm.sh.util.interfaces.OnDialogoListener;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import butterknife.BindView;
@@ -33,7 +29,7 @@ public abstract class BaseDaggerActivity extends DaggerAppCompatActivity {
 
     public MensagensUtil dialogo;
 
-    public OnActivityListener listenerActivity;
+    protected OnDialogoListener listenerActivity;
 
     @Nullable
     @BindView(R.id.toolbar)
@@ -72,6 +68,14 @@ public abstract class BaseDaggerActivity extends DaggerAppCompatActivity {
         }
 
         dialogo = new MensagensUtil(this);
+
+
+        listenerActivity = new OnDialogoListener() {
+            @Override
+            public void onTerminarDialogo() {
+                finish();
+            }
+        };
 
 
         //--dialog = new SweetAlertDialog(this);

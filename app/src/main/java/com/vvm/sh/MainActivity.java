@@ -1,5 +1,6 @@
 package com.vvm.sh;
 
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
@@ -19,6 +20,7 @@ import com.vvm.sh.ui.opcoes.TiposActivity;
 import com.vvm.sh.ui.upload.UploadActivity;
 import com.vvm.sh.ui.tarefa.TarefaActivity;
 import com.vvm.sh.ui.agenda.adaptadores.OnAgendaListener;
+import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.base.BaseDatePickerDialog;
 import com.vvm.sh.util.metodos.DatasUtil;
 import com.vvm.sh.util.metodos.Preferencias;
@@ -102,6 +104,28 @@ public class MainActivity extends BaseDaggerActivity
     @Override
     protected void subscreverObservadores() {
 
+        viewModel.observarDatas().observe(this, new Observer<Recurso>() {
+            @Override
+            public void onChanged(Recurso recurso) {
+
+                switch (recurso.status){
+
+                    case SUCESSO:
+
+                        dialogoDatas((List<Date>) recurso.dados);
+                        break;
+
+                    case ERRO:
+
+                        dialogo.erro(recurso.messagem);
+                        break;
+
+                    default:
+                        break;
+                }
+
+            }
+        });
     }
 
 
@@ -134,21 +158,27 @@ public class MainActivity extends BaseDaggerActivity
 
     @OnClick(R.id.crl_btn_calendario)
     public void crl_btn_calendario_OnClickListener(View view) {
-
-        BaseDatePickerDialog dialogo = new BaseDatePickerDialog(this);
-
-        List<Date> datas = new ArrayList<>();
-        datas.add(new Date());
-
-        dialogo.realcarDias(datas);
-        dialogo.obterDatePickerDialog().show(getSupportFragmentManager(), "Datepickerdialog");
+        viewModel.obterDatas(Preferencias.obterIdUtilizador(this));
     }
+
+
 
 
     //------------------------
     //Metodos locais
     //------------------------
 
+
+    /**
+     * Metodo que inicia o dialogo das datas
+     * @param datas uma lista de datas
+     */
+    private void dialogoDatas(List<Date> datas) {
+
+        BaseDatePickerDialog dialogo = new BaseDatePickerDialog(this);
+        dialogo.realcarDias(datas);
+        dialogo.obterDatePickerDialog().show(getSupportFragmentManager(), "Datepickerdialog");
+    }
 
 //    /**
 //     * Metodo que permite iniciar a atividade

@@ -6,8 +6,10 @@ import com.vvm.sh.api.modelos.SessaoResposta;
 import com.vvm.sh.repositorios.AgendaRepositorio;
 import com.vvm.sh.ui.agenda.modelos.Marcacao;
 import com.vvm.sh.servicos.TrabalhoAsyncTask;
+import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -23,7 +25,7 @@ public class AgendaViewModel extends BaseViewModel {
 
     public MutableLiveData<List<Marcacao>> marcacoes;
     public MutableLiveData<Integer> completude;
-
+    public MutableLiveData<Recurso> datas;
 
 
     @Inject
@@ -32,6 +34,12 @@ public class AgendaViewModel extends BaseViewModel {
         this.agendaRepositorio = agendaRepositorio;
         marcacoes = new MutableLiveData<>();
         completude = new MutableLiveData<>();
+        datas = new MutableLiveData<>();
+    }
+
+
+    public MutableLiveData<Recurso> observarDatas(){
+        return datas;
     }
 
 
@@ -40,11 +48,12 @@ public class AgendaViewModel extends BaseViewModel {
     //---------------------
 
 
-
-
+    /**
+     * Metodo que permite obter as marcacoes
+     * @param idUtilizador o identificador do utilizador
+     * @param data a data das marcacoes
+     */
     public void obterMarcacoes(String idUtilizador, long data){
-
-        //TODO: terminar metodo agendaRepositorio.obterTarefas. Parametros ainda não estão a ser usados
 
         obterCompletude(idUtilizador, data);
 
@@ -118,6 +127,45 @@ public class AgendaViewModel extends BaseViewModel {
                 );
 
     }
+
+
+
+    public void obterDatas(String idUtilizador){
+
+        showProgressBar(true);
+
+        agendaRepositorio.obterDatas(idUtilizador).toObservable()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new Observer<List<Date>>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onNext(List<Date> registos) {
+
+                                datas.setValue(Recurso.successo(registos));
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onComplete() {
+                                showProgressBar(false);
+                            }
+                        }
+                );
+
+    }
+
 
 
 

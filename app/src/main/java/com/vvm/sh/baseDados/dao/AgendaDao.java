@@ -7,6 +7,7 @@ import androidx.room.Transaction;
 import com.vvm.sh.ui.agenda.modelos.Marcacao;
 import com.vvm.sh.util.constantes.Identificadores;
 
+import java.util.Date;
 import java.util.List;
 
 import io.reactivex.Flowable;
@@ -37,5 +38,6 @@ public abstract class AgendaDao {
             "LIMIT 1 ")
     abstract public Flowable<Integer> obterCompletude(long data);
 
-
+    @Query("SELECT DISTINCT data FROM tarefas WHERE idUtilizador = :idUtilizador ")
+    abstract public Flowable<List<Date>> obterDatas(String idUtilizador);
 }

@@ -63,6 +63,7 @@ public class Sintaxe {
     public class Alertas{
 
         public static final String PREENCHIMENTO_OBRIGATORIO = "Campo de preenchimento obrigatório";
+        public static final String HORARIO_INVALIDO = "Horário inválido";
 
     }
 

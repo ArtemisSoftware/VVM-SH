@@ -245,13 +245,14 @@
 
                     <ImageView
                         android:id="@+id/img_assinatura"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="470dp"
+                        android:layout_height="200dp"
                         android:layout_marginTop="8dp"
                         android:layout_marginBottom="16dp"
                         android:background="@drawable/borda_imagem"
                         imagem="@{viewmodel.formando.assinatura}"
                         omissao="@{R.drawable.img_adicionar_assinatura}"
+                        android:src="@drawable/img_adicionar_assinatura"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="@+id/textView18"
                         app:layout_constraintTop_toBottomOf="@+id/textview8" />

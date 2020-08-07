@@ -43,7 +43,7 @@ public class FormacaoRepositorio {
         this.resultadoDao = resultadoDao;
     }
 
-    public Maybe<AcaoFormacao> obterAcaoFormacao(int idAtividade) {
+    public Flowable<AcaoFormacao> obterAcaoFormacao(int idAtividade) {
         return acaoFormacaoDao.obterAcaoFormacao(idAtividade, TiposConstantes.MetodosTipos.CURSOS);
     }
 

@@ -106,11 +106,7 @@
 
                         android:text="@string/gravar" />
 
-                    <android.support.design.button.MaterialButton
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="YOUR TEXT"
-                        android:textSize="18sp" />
+
 
                 </LinearLayout>
 

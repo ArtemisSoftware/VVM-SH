@@ -128,19 +128,16 @@ public class FormandoActivity extends BaseDaggerActivity
             @Override
             public void onChanged(Recurso recurso) {
 
-
                 switch (recurso.status){
 
                     case SUCESSO:
 
-                        //TODO: mensagem de sucesso
-                        MensagensUtil.sucesso();
-                        finish();
+                        dialogo.sucesso(recurso.messagem, listenerActivity);
                         break;
 
                     case ERRO:
 
-                        //TODO: mensagem de erro
+                        dialogo.erro(recurso.messagem);
                         break;
 
                 }

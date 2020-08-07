@@ -79,7 +79,8 @@ public class UploadActivity extends BaseDaggerActivity {
                         activityUploadBinding.txtSubTitulo.setText(getString(R.string.tarefas_pendentes));
                         activityUploadBinding.lnrLytProgresso.setVisibility(View.GONE);
                         activityUploadBinding.btnUpload.setVisibility(View.GONE);
-                        dialogo.alerta("Pendencias", "Existem tarefas pedentes.\nNão é possível realizar o upload dos dados.\n\n\nPor favor dê baixa de pelo menos uma atividade pendentes nas tarefas apresentadas");
+                        activityUploadBinding.rclRegistosPendencias.setVisibility(View.VISIBLE);
+                        dialogo.alerta("Pendencias", "Existem tarefas pedentes.\r\nNão é possível realizar o upload dos dados.\n\n\nPor favor dê baixa de pelo menos uma atividade pendentes nas tarefas apresentadas");
                         break;
 
                     case ERRO:

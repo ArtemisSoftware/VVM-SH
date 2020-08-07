@@ -145,14 +145,25 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:verticalSpacing="24dp"
-            android:visibility="visible"
+            android:visibility="gone"
             app:layout_constraintEnd_toEndOf="@+id/imageView"
             app:layout_constraintStart_toStartOf="@+id/card"
             app:layout_constraintTop_toBottomOf="@+id/txt_sub_titulo"
             app:uploads="@{viewmodel.uploads}"
             tools:listitem="@layout/item_upload" />
 
-
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcl_registos_pendencias"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="16dp"
+            android:verticalSpacing="24dp"
+            android:visibility="gone"
+            app:layout_constraintEnd_toEndOf="@+id/imageView"
+            app:layout_constraintStart_toStartOf="@+id/card"
+            app:layout_constraintTop_toBottomOf="@+id/txt_sub_titulo"
+            app:pendencias="@{viewmodel.pendencias}"
+            tools:listitem="@layout/item_pendencia" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -88,6 +88,18 @@ public class MensagensUtil {
         //TODO: escrever mensagem + delegate
     }
 
+
+
+    public void alerta(String titulo, String mensagem) {
+
+        dialogo.changeAlertType(SweetAlertDialog.WARNING_TYPE);
+
+        dialogo.setTitleText(titulo)
+                .setContentText(mensagem)
+                .show();
+    }
+
+
 //
 //// 1. Success message
 //new SweetAlertDialog(MainActivity.this)

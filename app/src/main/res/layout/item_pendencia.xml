@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="java.util.List"/>
+        <import type="com.vvm.sh.util.StringUtil"/>
+        <import type="com.vvm.sh.util.metodos.DatasUtil"/>
+
+        <variable
+            name="pendencia"
+            type="com.vvm.sh.ui.upload.modelos.Pendencia" />
+
+
+    </data>
+
+
+    <androidx.cardview.widget.CardView
+        style="@style/cartao">
+
+        <!-- android:onClick="@{() -> listener.showNoteDialog(note) }" -->
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <ImageView
+                android:id="@+id/imageView5"
+                empresa="@{pendencia.tarefa.app}"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/textView4"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textView"
+                app:srcCompat="@mipmap/ic_launcher" />
+
+
+            <TextView
+                android:id="@+id/textView"
+                style="@style/tituloCartao"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="16dp"
+                android:text="@{StringUtil.formatarHtml(pendencia.cliente.nome), default=cliente}"
+                app:layout_constraintStart_toEndOf="@+id/imageView5"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <TextView
+                android:id="@+id/textView4"
+                style="@style/textoDetalhe"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:text="@{DatasUtil.converterData(pendencia.tarefa.data, DatasUtil.FORMATO_DD_MM_YYYY), default=data}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/textView"
+                app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+</layout>
+
+
+
+

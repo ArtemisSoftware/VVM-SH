@@ -242,5 +242,6 @@
     <string name="nao_executado">Não executado</string>
     <string name="Assinatura">Assinatura</string>
     <string name="ver_pendencias">Ver pendencias</string>
+    <string name="tarefas_pendentes">Tarefas pendentes</string>
 
 </resources>

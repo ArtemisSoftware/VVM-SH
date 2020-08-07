@@ -1,11 +1,13 @@
 package com.vvm.sh.ui.upload;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.view.View;
 
 import com.vvm.sh.R;
 import com.vvm.sh.databinding.ActivityUploadBinding;
@@ -13,9 +15,12 @@ import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.agenda.AgendaViewModel;
 import com.vvm.sh.util.AtualizacaoUI;
+import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.metodos.Preferencias;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -45,7 +50,8 @@ public class UploadActivity extends BaseDaggerActivity {
 
         subscreverObservadores();
 
-        viewModel.obterUpload(Preferencias.obterIdUtilizador(this), handlerNotificacoesUI);
+        viewModel.obterPendencias(Preferencias.obterIdUtilizador(this), handlerNotificacoesUI);
+        //viewModel.obterUpload(Preferencias.obterIdUtilizador(this), handlerNotificacoesUI);
         //viewModel.obterDadosUpload(Preferencias.obterIdUtilizador(this), handlerNotificacoesUI);
     }
 
@@ -61,6 +67,32 @@ public class UploadActivity extends BaseDaggerActivity {
 
     @Override
     protected void subscreverObservadores() {
+
+        viewModel.observarPendencias().observe(this, new Observer<Recurso>() {
+            @Override
+            public void onChanged(Recurso recurso) {
+
+                switch (recurso.status){
+
+                    case SUCESSO:
+
+                        activityUploadBinding.txtSubTitulo.setText(getString(R.string.tarefas_pendentes));
+                        activityUploadBinding.lnrLytProgresso.setVisibility(View.GONE);
+                        activityUploadBinding.btnUpload.setVisibility(View.GONE);
+                        dialogo.alerta("Pendencias", "Existem tarefas pedentes.\nNão é possível realizar o upload dos dados.\n\n\nPor favor dê baixa de pelo menos uma atividade pendentes nas tarefas apresentadas");
+                        break;
+
+                    case ERRO:
+
+                        dialogo.erro(recurso.messagem);
+                        break;
+
+                    default:
+                        break;
+                }
+
+            }
+        });
 
     }
 

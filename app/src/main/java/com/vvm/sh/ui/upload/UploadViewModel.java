@@ -7,7 +7,9 @@ import androidx.lifecycle.MutableLiveData;
 import com.vvm.sh.baseDados.entidades.Resultado;
 import com.vvm.sh.repositorios.UploadRepositorio;
 import com.vvm.sh.servicos.DadosUploadAsyncTask;
+import com.vvm.sh.ui.upload.modelos.Pendencia;
 import com.vvm.sh.ui.upload.modelos.Upload;
+import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.ResultadoId;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
@@ -27,19 +29,30 @@ public class UploadViewModel extends BaseViewModel {
 
 
     public MutableLiveData<List<Upload>> uploads;
-
+    public MutableLiveData<Recurso> pendencias;
 
     @Inject
     public UploadViewModel(UploadRepositorio uploadRepositorio){
 
         this.uploadRepositorio = uploadRepositorio;
         this.uploads = new MutableLiveData<>();
+        this.pendencias = new MutableLiveData<>();
     }
+
+    public MutableLiveData<Recurso> observarPendencias(){
+        return pendencias;
+    }
+
+
+
+
 
 
     public void obterUpload(String idUtilizador, Handler handler){
 
         //TODO: os dados necessitam do idutilizador + data
+
+        showProgressBar(true);
 
         uploadRepositorio.obterUploads(idUtilizador).toObservable()
                 .subscribeOn(Schedulers.io())
@@ -56,6 +69,7 @@ public class UploadViewModel extends BaseViewModel {
                             public void onNext(List<Upload> resultado) {
 
                                 uploads.setValue(resultado);
+                                showProgressBar(false);
 
                                 DadosUploadAsyncTask servico = new DadosUploadAsyncTask(vvmshBaseDados, handler, uploadRepositorio, idUtilizador);
                                 servico.execute(resultado);
@@ -63,12 +77,12 @@ public class UploadViewModel extends BaseViewModel {
 
                             @Override
                             public void onError(Throwable e) {
-
+                                showProgressBar(false);
                             }
 
                             @Override
                             public void onComplete() {
-
+                                showProgressBar(false);
                             }
                         }
 
@@ -107,6 +121,49 @@ public class UploadViewModel extends BaseViewModel {
 
                 );
     }
+
+
+
+
+
+
+    public void obterPendencias(String idUtilizador, Handler handler){
+
+        //TODO: os dados necessitam do idutilizador + data
+
+        showProgressBar(true);
+
+        uploadRepositorio.obterPendencias(idUtilizador).toObservable()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new Observer<List<Pendencia>>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onNext(List<Pendencia> registos) {
+                                pendencias.setValue(Recurso.successo(registos));
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onComplete() {
+                                showProgressBar(false);
+                            }
+                        }
+
+                );
+    }
+
+
 
 
 }

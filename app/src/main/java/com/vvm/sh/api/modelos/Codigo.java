@@ -7,4 +7,7 @@ public class Codigo {
     @SerializedName("codigo")
     public int codigo;
 
+    @SerializedName("mensagem")
+    public String mensagem;
+
 }

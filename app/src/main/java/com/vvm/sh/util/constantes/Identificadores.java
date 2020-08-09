@@ -89,4 +89,12 @@ public class Identificadores {
         public static final String FORMACAO = "Formação";
     }
 
+    public class CodigosWs {
+
+        public static final int CODIGO_100 = 100;
+        public static final String MSG_100 = "Sucesso no envio de dados";
+
+        public static final int CODIGO_101 = 101;
+        public static final String MSG_101 = "Não existe trabalho para download";
+    }
 }

@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.vvm.sh.api.modelos.Codigo;
 import com.vvm.sh.baseDados.entidades.Tarefa;
+import com.vvm.sh.util.constantes.Identificadores;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
@@ -16,6 +17,7 @@ import okhttp3.MediaType;
 import okhttp3.Request;
 import okhttp3.Response;
 import okhttp3.ResponseBody;
+import static com.vvm.sh.util.constantes.Identificadores.CodigosWs.*;
 
 public class WebServiceInterceptor implements Interceptor {
 
@@ -100,6 +102,23 @@ public class WebServiceInterceptor implements Interceptor {
     }
 
     private void validarCodigo(Codigo codigo) {
+
+        switch (codigo.codigo){
+
+
+            case CODIGO_100:
+
+
+                break;
+
+            case CODIGO_101:
+
+
+                break;
+
+        }
+
+
 
 
         throw new NullPointerException("lolo");

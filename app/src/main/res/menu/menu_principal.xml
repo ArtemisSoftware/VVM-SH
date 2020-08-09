@@ -30,4 +30,9 @@
         app:showAsAction="always"
         android:icon="@drawable/ic_upload_24dp"/>
 
+    <item  android:id="@+id/item_download_dados"
+        android:title="@string/download_trabalho"
+        app:showAsAction="always"
+        android:icon="@drawable/ic_file_download_24dp"/>
+
 </menu>

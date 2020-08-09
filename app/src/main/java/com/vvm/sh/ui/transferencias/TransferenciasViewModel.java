@@ -240,8 +240,8 @@ public class TransferenciasViewModel extends BaseViewModel {
                             public void onNext(SessaoResposta[] sessao) {
 
 
-                                TrabalhoAsyncTask servico = new TrabalhoAsyncTask(vvmshBaseDados, transferenciasRepositorio, idUtilizador);
-                                servico.execute(sessao[0]);
+                                //TrabalhoAsyncTask servico = new TrabalhoAsyncTask(vvmshBaseDados, transferenciasRepositorio, idUtilizador);
+                                //servico.execute(sessao[0]);
 
                                 showProgressBar(false);
                             }

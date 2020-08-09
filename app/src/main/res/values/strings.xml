@@ -45,6 +45,9 @@
     <string name="dias">Dias</string>
     <string name="dias_">Dias:</string>
     <string name="dimensao_">Dimensão:</string>
+    <string name="recarregar_trabalho">Recarregar trabalho do dia</string>
+    <string name="download">Download</string>
+    <string name="download_trabalho">Download do trabalho</string>
     <string name="download_trabalho_dia_">Download do trabalho do dia:</string>
 
 

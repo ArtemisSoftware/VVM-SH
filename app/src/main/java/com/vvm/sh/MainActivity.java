@@ -18,6 +18,7 @@ import com.vvm.sh.ui.agenda.modelos.Marcacao;
 import com.vvm.sh.ui.contaUtilizador.DefinicoesActivity;
 import com.vvm.sh.ui.contaUtilizador.OpcoesAvancadasActivity;
 import com.vvm.sh.ui.opcoes.TiposActivity;
+import com.vvm.sh.ui.transferencias.DownloadTrabalhoActivity;
 import com.vvm.sh.ui.transferencias.UploadTrabalhoActivity;
 import com.vvm.sh.ui.tarefa.TarefaActivity;
 import com.vvm.sh.ui.agenda.adaptadores.OnAgendaListener;
@@ -329,6 +330,12 @@ public class MainActivity extends BaseDaggerActivity
 //                intent = new Intent(this, AtualizacaoAppActivity.class);
 //                startActivity(intent);
 //                break;
+
+
+            case R.id.item_download_dados:
+
+                intent = new Intent(this, DownloadTrabalhoActivity.class);
+                break;
 
 
             case R.id.item_upload_dados:

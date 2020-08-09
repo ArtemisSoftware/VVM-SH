@@ -62,7 +62,7 @@ public class UploadTrabalhoActivity extends BaseDaggerActivity {
             viewModel.obterPendencias(Preferencias.obterIdUtilizador(this), bundle.getLong(getString(R.string.argumento_data)));
         }
         else {
-
+            activityUploadBinding.txtData.setVisibility(View.GONE);
             viewModel.obterPendencias(Preferencias.obterIdUtilizador(this));
             //viewModel.obterUpload(Preferencias.obterIdUtilizador(this), handlerNotificacoesUI);
             //viewModel.obterDadosUpload(Preferencias.obterIdUtilizador(this), handlerNotificacoesUI);
@@ -131,6 +131,11 @@ public class UploadTrabalhoActivity extends BaseDaggerActivity {
 
     }
 
+
+    //----------------------
+    //Metodos locais
+    //----------------------
+
     private void formatarUploads(List<Upload> registos) {
 
         if(registos.size() == 0) {
@@ -151,6 +156,11 @@ public class UploadTrabalhoActivity extends BaseDaggerActivity {
         }
     }
 
+
+    /**
+     * Metodo que permite formatar as pendencias
+     * @param registos os registos pendentes
+     */
     private void formatarPendencias(List<Pendencia> registos) {
 
         if(registos.size() == 0) {
@@ -173,6 +183,26 @@ public class UploadTrabalhoActivity extends BaseDaggerActivity {
             dialogo.alerta("Pendencias", "Existem tarefas pedentes.\r\nNão é possível realizar o upload dos dados.\r\n\r\nPor favor dê baixa de pelo menos uma atividade pendentes nas tarefas apresentadas");
 
         }
+    }
+
+
+
+
+    /**
+     * Metodo que permite apresentar o progresso da execucao de um servico
+     * @param comunicado os dados da execucao
+     */
+    private void imprimirProgresso(AtualizacaoUI.Comunicado comunicado){
+
+        if(comunicado.obterLimite() != Sintaxe.SEM_REGISTO){
+            if(activityUploadBinding.progressBarProgresso.getMax() != comunicado.obterLimite()){
+                activityUploadBinding.progressBarProgresso.setMax(comunicado.obterLimite());
+            }
+        }
+
+        activityUploadBinding.txtProgresso.setText(comunicado.obterPosicao() + "/" + comunicado.obterLimite());
+        activityUploadBinding.txtTituloProgresso.setText(comunicado.obterMensagem());
+        activityUploadBinding.progressBarProgresso.setProgress(comunicado.obterPosicao());
     }
 
 
@@ -208,29 +238,6 @@ public class UploadTrabalhoActivity extends BaseDaggerActivity {
         }
     };
 
-
-
-    //----------------------
-    //Metodos locais
-    //----------------------
-
-
-    /**
-     * Metodo que permite apresentar o progresso da execucao de um servico
-     * @param comunicado os dados da execucao
-     */
-    private void imprimirProgresso(AtualizacaoUI.Comunicado comunicado){
-
-        if(comunicado.obterLimite() != Sintaxe.SEM_REGISTO){
-            if(activityUploadBinding.progressBarProgresso.getMax() != comunicado.obterLimite()){
-                activityUploadBinding.progressBarProgresso.setMax(comunicado.obterLimite());
-            }
-        }
-
-        activityUploadBinding.txtProgresso.setText(comunicado.obterPosicao() + "/" + comunicado.obterLimite());
-        activityUploadBinding.txtTituloProgresso.setText(comunicado.obterMensagem());
-        activityUploadBinding.progressBarProgresso.setProgress(comunicado.obterPosicao());
-    }
 
 
 

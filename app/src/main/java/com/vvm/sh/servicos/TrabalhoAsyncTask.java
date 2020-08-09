@@ -57,7 +57,6 @@ public class TrabalhoAsyncTask extends AsyncTask<SessaoResposta, Void, Void> {
 
                 try {
 
-
                     for (SessaoResposta.TrabalhoInfo info : trabalho) {
 
                         int idTarefa = inserirTarefa (info.tarefas.dados, data);

@@ -34,12 +34,12 @@ public class TransferenciasRepositorio {
 
     private final SegurancaAlimentarApi api;
 
-    private final TransferenciasDao uploadDao;
+    private final TransferenciasDao transferenciasDao;
 
 
-    public TransferenciasRepositorio(@NonNull SegurancaAlimentarApi api, @NonNull TransferenciasDao uploadDao) {
+    public TransferenciasRepositorio(@NonNull SegurancaAlimentarApi api, @NonNull TransferenciasDao transferenciasDao) {
         this.api = api;
-        this.uploadDao = uploadDao;
+        this.transferenciasDao = transferenciasDao;
     }
 
 
@@ -63,20 +63,20 @@ public class TransferenciasRepositorio {
 
 
     public Maybe<List<Pendencia>> obterPendencias(String idUtilizador){
-        return uploadDao.obterPendencias(idUtilizador);
+        return transferenciasDao.obterPendencias(idUtilizador);
     }
 
     public Maybe<List<Pendencia>> obterPendencias(String idUtilizador, long data){
-        return uploadDao.obterPendencias(idUtilizador, data);
+        return transferenciasDao.obterPendencias(idUtilizador, data);
     }
 
 
     public Maybe<List<Upload>> obterUploads(String idUtilizador){
-        return uploadDao.obterUploads(idUtilizador, false);
+        return transferenciasDao.obterUploads(idUtilizador, false);
     }
 
     public Maybe<List<Upload>> obterUploads(String idUtilizador, long data){
-        return uploadDao.obterUploads(idUtilizador, data, false);
+        return transferenciasDao.obterUploads(idUtilizador, data, false);
     }
 
 
@@ -103,42 +103,42 @@ public class TransferenciasRepositorio {
 
         Resultado registos[] = (Resultado[]) resultados.toArray();
 
-        return uploadDao.atualizar(registos);
+        return transferenciasDao.atualizar(registos);
     }
 
 
 
     public EmailResultado obterEmail(int idTarefa){
-        return uploadDao.obterEmail(idTarefa);
+        return transferenciasDao.obterEmail(idTarefa);
     }
 
     public List<AnomaliaResultado> obterAnomalias(int idTarefa){
-        return uploadDao.obterAnomalias(idTarefa);
+        return transferenciasDao.obterAnomalias(idTarefa);
     }
 
     public List<CrossSellingResultado> obterCrossSelling(int idTarefa){
-        return uploadDao.obterCrossSelling(idTarefa);
+        return transferenciasDao.obterCrossSelling(idTarefa);
     }
 
     public List<OcorrenciaResultado> obterOcorrencias(int idTarefa) {
-        return uploadDao.obterOcorrencias(idTarefa);
+        return transferenciasDao.obterOcorrencias(idTarefa);
     }
 
 
     public List<AtividadePendenteResultado_> obterAtividadesPendentes(int idTarefa) {
-        return uploadDao.obterAtividadesPendentes(idTarefa);
+        return transferenciasDao.obterAtividadesPendentes(idTarefa);
     }
 
     public AcaoFormacaoResultado obterAcaoFormacao(int idAtividade) {
-        return uploadDao.obterAcaoFormacao(idAtividade);
+        return transferenciasDao.obterAcaoFormacao(idAtividade);
     }
 
     public List<FormandoResultado> obterFormandos(int idAtividade) {
-        return uploadDao.obterFormandos(idAtividade);
+        return transferenciasDao.obterFormandos(idAtividade);
     }
 
     public Tarefa obterTarefa(int idTarefa) {
-        return uploadDao.obterTarefa(idTarefa);
+        return transferenciasDao.obterTarefa(idTarefa);
     }
 
 
@@ -150,31 +150,31 @@ public class TransferenciasRepositorio {
 
 
     public long inserirTarefa(Tarefa tarefa){
-        return uploadDao.inserirRegisto(tarefa);
+        return transferenciasDao.inserirRegisto(tarefa);
     }
 
     public void inserirAtividadesExecutadas(List<AtividadeExecutada> atividades){
-        uploadDao.inserirAtividadesExecutadas(atividades);
+        transferenciasDao.inserirAtividadesExecutadas(atividades);
     }
 
     public void inserirCliente(Cliente cliente){
-        uploadDao.inserirRegisto(cliente);
+        transferenciasDao.inserirRegisto(cliente);
     }
 
     public void inserirAnomalias(List<Anomalia> anomalias){
-        uploadDao.inserirAnomalias(anomalias);
+        transferenciasDao.inserirAnomalias(anomalias);
     }
 
     public void inserirAtividadesPendentes(List<AtividadePendente> atividades){
-        uploadDao.inserirAtividadesPendentes(atividades);
+        transferenciasDao.inserirAtividadesPendentes(atividades);
     }
 
     public long inserirOcorrencia(Ocorrencia ocorrencia){
-        return uploadDao.inserirRegisto(ocorrencia);
+        return transferenciasDao.inserirRegisto(ocorrencia);
     }
 
     public void inserirHistoricoOcorrencias(List<OcorrenciaHistorico> historico){
-        uploadDao.inserir(historico);
+        transferenciasDao.inserir(historico);
     }
 
 

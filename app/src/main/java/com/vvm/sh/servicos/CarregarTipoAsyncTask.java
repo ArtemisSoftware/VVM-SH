@@ -2,6 +2,7 @@ package com.vvm.sh.servicos;
 
 import android.database.sqlite.SQLiteConstraintException;
 import android.os.AsyncTask;
+import android.os.Handler;
 
 import com.vvm.sh.api.modelos.TipoResposta;
 import com.vvm.sh.api.modelos.TipoResultado;
@@ -9,6 +10,7 @@ import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.baseDados.entidades.Atualizacao;
 import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.repositorios.TiposRepositorio;
+import com.vvm.sh.util.AtualizacaoUI;
 import com.vvm.sh.util.mapeamento.ModelMapping;
 
 import java.util.ArrayList;
@@ -20,9 +22,16 @@ public class CarregarTipoAsyncTask extends AsyncTask<List<TipoResposta>, Void, V
     private VvmshBaseDados vvmshBaseDados;
     private TiposRepositorio repositorio;
 
-    public CarregarTipoAsyncTask(VvmshBaseDados vvmshBaseDados, TiposRepositorio repositorio){
+
+    /**
+     * Permite enviar mensagens para fora do servico
+     */
+    private AtualizacaoUI atualizacaoUI;
+
+    public CarregarTipoAsyncTask(VvmshBaseDados vvmshBaseDados, Handler handler, TiposRepositorio repositorio){
         this.vvmshBaseDados = vvmshBaseDados;
         this.repositorio = repositorio;
+        atualizacaoUI = new AtualizacaoUI(handler);
     }
 
 
@@ -40,6 +49,9 @@ public class CarregarTipoAsyncTask extends AsyncTask<List<TipoResposta>, Void, V
 
                 try {
 
+
+                    int index = 0;
+
                     for(TipoResposta resposta : respostas){
 
                         List<Tipo> dadosNovos = new ArrayList<>();
@@ -56,7 +68,11 @@ public class CarregarTipoAsyncTask extends AsyncTask<List<TipoResposta>, Void, V
                         }
 
                         repositorio.carregarTipo(atualizacao, dadosNovos, dadosAlterados);
+
+                        atualizacaoUI.atualizarUI(AtualizacaoUI.Codigo.PROCESSAMENTO_DADOS, atualizacao.descricao, ++index, respostas.size());
                     }
+
+                    atualizacaoUI.atualizarUI(AtualizacaoUI.Codigo.PROCESSAMENTO_TIPOS_CONCLUIDO, "Concluido", index, respostas.size());
 
                 }
                 catch(SQLiteConstraintException throwable){

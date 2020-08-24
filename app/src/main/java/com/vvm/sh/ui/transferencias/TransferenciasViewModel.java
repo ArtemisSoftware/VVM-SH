@@ -12,6 +12,7 @@ import com.vvm.sh.api.modelos.TipoResposta;
 import com.vvm.sh.baseDados.entidades.Atualizacao;
 import com.vvm.sh.repositorios.TiposRepositorio;
 import com.vvm.sh.repositorios.TransferenciasRepositorio;
+import com.vvm.sh.servicos.CarregarTipoAsyncTask;
 import com.vvm.sh.servicos.DadosUploadAsyncTask;
 import com.vvm.sh.ui.transferencias.modelos.Pendencia;
 import com.vvm.sh.ui.transferencias.modelos.Upload;
@@ -26,11 +27,18 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import io.reactivex.CompletableObserver;
+import io.reactivex.CompletableSource;
+import io.reactivex.MaybeObserver;
+import io.reactivex.MaybeSource;
 import io.reactivex.Observable;
+import io.reactivex.ObservableSource;
 import io.reactivex.Observer;
+import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Function;
+import io.reactivex.functions.Predicate;
 import io.reactivex.schedulers.Schedulers;
 
 public class TransferenciasViewModel extends BaseViewModel {
@@ -244,7 +252,7 @@ public class TransferenciasViewModel extends BaseViewModel {
                         new Observer<SessaoResposta[]>() {
                             @Override
                             public void onSubscribe(Disposable d) {
-
+                                disposables.add(d);
                             }
 
                             @Override
@@ -259,6 +267,8 @@ public class TransferenciasViewModel extends BaseViewModel {
 
                             @Override
                             public void onError(Throwable e) {
+
+                                showProgressBar(false);
 
                                 Gson gson = new GsonBuilder().create();
                                 Codigo codigo = gson.fromJson(e.getMessage(), Codigo.class);
@@ -283,11 +293,10 @@ public class TransferenciasViewModel extends BaseViewModel {
     //------------------------
 
 
-    public void obterTipos(){
+    public void obterTipos(Handler handlerUI){
 
 
-        tiposRepositorio.obterAtualizacoes().toObservable()
-
+        tiposRepositorio.obterAtualizacoes()
                 .map(new Function<List<Atualizacao>, List<Atualizacao>>() {
                     @Override
                     public List<Atualizacao> apply(List<Atualizacao> atualizacoes) throws Exception {
@@ -309,38 +318,19 @@ public class TransferenciasViewModel extends BaseViewModel {
                         return atualizacoes;
                     }
                 })
-                .flatMap(new Function<List<Atualizacao>, Observable<Object>>() {
-                    @Override
-                    public Observable<Object> apply(List<Atualizacao> atualizacoes) throws Exception {
-
-                        List<Observable<? extends TipoResposta>> observables = new ArrayList<>();
-
-                        for(Atualizacao atualizacao : atualizacoes){
-                            observables.add(tiposRepositorio.obterTipo(atualizacao.descricao, atualizacao.seloTemporal).toObservable());
-                        }
-
-                        return Observable.zip(observables, new Function<Object[], Object>() {
-                            @Override
-                            public Object apply(Object[] objects) throws Exception {
-                                return objects;
-                            }
-                        });
-
-                    }
-                })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
 
-                        new Observer<Object>() {
+                        new MaybeObserver<List<Atualizacao>>() {
                             @Override
                             public void onSubscribe(Disposable d) {
-
+                                disposables.add(d);
                             }
 
                             @Override
-                            public void onNext(Object o) {
-
+                            public void onSuccess(List<Atualizacao> atualizacoes) {
+                                carregarTipos(atualizacoes, handlerUI);
                             }
 
                             @Override
@@ -353,10 +343,109 @@ public class TransferenciasViewModel extends BaseViewModel {
 
                             }
                         }
+
                 );
+
+
 
 
     }
 
 
+
+    private void carregarTipos(List<Atualizacao> atualizacoes, Handler handlerUI){
+
+        showProgressBar(true);
+
+        List<TipoResposta> respostas = new ArrayList<>();
+        List<Observable<TipoResposta>> pedidos = new ArrayList<>();
+
+        for(Atualizacao atualizacao : atualizacoes){
+            pedidos.add(tiposRepositorio.obterTipo(atualizacao.descricao, atualizacao.seloTemporal).toObservable());
+        }
+
+        Observable.concat(pedidos)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        new Observer<TipoResposta>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onNext(TipoResposta tipoResposta) {
+                                respostas.add(tipoResposta);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                showProgressBar(false);
+                                //messagemLiveData.setValue(Recurso.erro(e.getMessage()));
+                            }
+
+                            @Override
+                            public void onComplete() {
+
+                                CarregarTipoAsyncTask servico = new CarregarTipoAsyncTask(vvmshBaseDados, handlerUI, tiposRepositorio);
+                                servico.execute(respostas);
+                                showProgressBar(false);
+                            }
+                        }
+
+                );
+
+    }
+
+
+
+
+
+    /**
+     * Metodo que permite recarregar todos os tipos
+     */
+    private void recarregarTipos(){
+
+        showProgressBar(true);
+
+        List<TipoResposta> respostas = new ArrayList<>();
+        List<Observable<TipoResposta>> pedidos = new ArrayList<>();
+
+        for(String metodo : TiposConstantes.MetodosTipos.TIPOS){
+            pedidos.add(tiposRepositorio.obterTipo(metodo).toObservable());
+        }
+
+        Observable.concat(pedidos)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        new Observer<TipoResposta>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onNext(TipoResposta tipoResposta) {
+                                respostas.add(tipoResposta);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                showProgressBar(false);
+                                messagemLiveData.setValue(Recurso.erro(e.getMessage()));
+                            }
+
+                            @Override
+                            public void onComplete() {
+
+
+                                showProgressBar(false);
+                            }
+                        }
+
+                );
+
+    }
 }

@@ -11,7 +11,7 @@ import com.vvm.sh.repositorios.TiposRepositorio;
 import com.vvm.sh.repositorios.VersaoAppRepositorio;
 import com.vvm.sh.servicos.ServicoDownloadApk;
 import com.vvm.sh.servicos.ServicoInstalacaoApk;
-import com.vvm.sh.ui.contaUtilizador.Colecao;
+import com.vvm.sh.ui.opcoes.modelos.Colecao;
 import com.vvm.sh.servicos.AtualizarTipoAsyncTask;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.constantes.Sintaxe;

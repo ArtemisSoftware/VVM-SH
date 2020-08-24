@@ -62,6 +62,7 @@ public class AtualizacaoUI {
     public enum Codigo {
         CONCLUIR_PEDIDO_VERSAO_APP,
         PROCESSAMENTO_DADOS,
+        PROCESSAMENTO_TIPOS_CONCLUIDO,
         CONCLUIR_DOWNLOAD_APK,
         ERRO_DOWNLOAD_APK,
         ERRO_INSTALACAO_APK

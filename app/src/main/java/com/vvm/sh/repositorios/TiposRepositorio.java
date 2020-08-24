@@ -6,13 +6,14 @@ import com.vvm.sh.api.SegurancaAlimentarApi;
 import com.vvm.sh.api.modelos.TipoResposta;
 import com.vvm.sh.baseDados.AtualizacaoDao;
 import com.vvm.sh.baseDados.TipoDao;
-import com.vvm.sh.ui.contaUtilizador.Colecao;
+import com.vvm.sh.ui.opcoes.modelos.Colecao;
 import com.vvm.sh.baseDados.entidades.Atualizacao;
 import com.vvm.sh.baseDados.entidades.Tipo;
 
 import java.util.List;
 
 import io.reactivex.Flowable;
+import io.reactivex.Maybe;
 import io.reactivex.Single;
 
 public class TiposRepositorio {
@@ -34,10 +35,14 @@ public class TiposRepositorio {
         return tipoDao.obterTipos();
     }
 
-    public Flowable<List<Atualizacao>> obterAtualizacoes() {
+
+    /**
+     * Metodo que permite obter as atualizacoes
+     * @return uma lista de atualizacoes
+     */
+    public Maybe<List<Atualizacao>> obterAtualizacoes() {
         return atualizacaoDao.obterAtualizacoes();
     }
-
 
     /**
      * Metodo que permite obter um tipo a partir do web service
@@ -85,7 +90,18 @@ public class TiposRepositorio {
      * @param dadosAlteradaos os dados a alterar
      */
     public void carregarTipo(Atualizacao atualizacao, List<Tipo> dadosNovos, List<Tipo> dadosAlteradaos){
-        atualizacaoDao.inserirRegisto(atualizacao);
+
+
+        if(dadosNovos.size() == 0){
+            atualizacaoDao.atualizarRegisto(atualizacao);
+        }
+        else if(dadosNovos.size() != 0 & dadosAlteradaos.size() == 0){
+            atualizacaoDao.inserirRegisto(atualizacao);
+        }
+        else{
+            atualizacaoDao.atualizarRegisto(atualizacao);
+        }
+
         tipoDao.inserir(dadosNovos);
         tipoDao.atualizar(dadosAlteradaos);
     }

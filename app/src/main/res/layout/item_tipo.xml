@@ -11,7 +11,7 @@
 
         <variable
             name="tipo"
-            type="com.vvm.sh.ui.contaUtilizador.Colecao" />
+            type="com.vvm.sh.ui.opcoes.modelos.Colecao" />
 
         <variable
             name="listener"

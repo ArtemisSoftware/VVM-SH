@@ -4,8 +4,7 @@ import androidx.databinding.BindingAdapter;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.vvm.sh.ui.contaUtilizador.Colecao;
-import com.vvm.sh.ui.opcoes.TiposActivity;
+import com.vvm.sh.ui.opcoes.modelos.Colecao;
 import com.vvm.sh.ui.opcoes.adaptadores.OnTipoListener;
 import com.vvm.sh.ui.opcoes.adaptadores.TipoRecyclerAdapter;
 

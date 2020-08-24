@@ -1,6 +1,8 @@
 package com.vvm.sh.util.excepcoes;
 
-public class RespostaWsInvalidaException extends Exception{
+import java.io.IOException;
+
+public class RespostaWsInvalidaException extends IOException {
 
     public RespostaWsInvalidaException(String errorMessage) {
         super(errorMessage);

@@ -3,6 +3,7 @@ package com.vvm.sh.baseDados;
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import com.vvm.sh.ui.contaUtilizador.Colecao;
 import com.vvm.sh.baseDados.entidades.Tipo;
@@ -17,6 +18,10 @@ abstract public class TipoDao implements BaseDao<Tipo>{
 
     @Insert
     abstract public List<Long> inserir(List<Tipo> tipo);
+
+    @Update
+    abstract public List<Integer> atualizar(List<Tipo> tipo);
+
 
 /*
     @Query("SELECT descricao, numeroRegistos, seloTemporal " +

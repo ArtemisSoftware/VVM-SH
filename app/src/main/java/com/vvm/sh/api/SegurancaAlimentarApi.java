@@ -19,6 +19,9 @@ public interface SegurancaAlimentarApi {
     @GET("{metodo}?dataT=")
     Single<TipoResposta> obterTipo(@Path("metodo") String metodo);
 
+    @GET("{metodo}")
+    Single<TipoResposta> obterTipo(@Path("metodo") String metodo, @Query("dataT") String seloTemporal);
+
     @GET("Obter_Actualizacoes")
     Single<VersaoApp> obterAtualizacao();
 

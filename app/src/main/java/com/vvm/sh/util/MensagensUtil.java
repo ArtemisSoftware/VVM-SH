@@ -69,11 +69,37 @@ public class MensagensUtil {
 
         dialogo.changeAlertType(SweetAlertDialog.ERROR_TYPE);
 
-        dialogo.setTitleText(Sintaxe.Palavras.SUCESSO)
-                .setTitleText("Oops...")
+        dialogo.setTitleText("Oops...")
                 .setContentText(mensagem)
                 .show();
     }
+
+    public void erro(String titulo, String mensagem) {
+
+        dialogo.changeAlertType(SweetAlertDialog.ERROR_TYPE);
+
+        dialogo.setTitleText(titulo)
+                .setContentText(mensagem)
+                .show();
+    }
+
+    public void erro(String titulo, String mensagem, OnDialogoListener listener) {
+
+        dialogo.changeAlertType(SweetAlertDialog.ERROR_TYPE);
+        dialogo.setTitleText(titulo)
+                .setContentText(mensagem)
+                .setConfirmText(Sintaxe.Opcoes.OK)
+                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sDialog) {
+                        sDialog.dismissWithAnimation();
+                        listener.onTerminarDialogo();
+                    }
+                });
+
+        dialogo.show();
+    }
+
 
 
     public static void sucesso(){

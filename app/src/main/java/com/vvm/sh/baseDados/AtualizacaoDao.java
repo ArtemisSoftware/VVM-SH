@@ -6,6 +6,10 @@ import androidx.room.Query;
 
 import com.vvm.sh.baseDados.entidades.Atualizacao;
 
+import java.util.List;
+
+import io.reactivex.Flowable;
+
 @Dao
 abstract public class AtualizacaoDao implements BaseDao<Atualizacao>{
 
@@ -15,5 +19,9 @@ abstract public class AtualizacaoDao implements BaseDao<Atualizacao>{
 
     @Query("DELETE FROM atualizacoes WHERE descricao = :descricao ")
     abstract public void remover(String descricao);
+
+
+    @Query("SELECT * FROM atualizacoes ")
+    abstract public Flowable<List<Atualizacao>> obterAtualizacoes();
 
 }

@@ -5,10 +5,12 @@ import androidx.annotation.NonNull;
 import com.vvm.sh.api.AtividadePendenteResultado_;
 import com.vvm.sh.api.SegurancaAlimentarApi;
 import com.vvm.sh.api.modelos.SessaoResposta;
+import com.vvm.sh.baseDados.AtualizacaoDao;
 import com.vvm.sh.baseDados.dao.TransferenciasDao;
 import com.vvm.sh.baseDados.entidades.Anomalia;
 import com.vvm.sh.baseDados.entidades.AtividadeExecutada;
 import com.vvm.sh.baseDados.entidades.AtividadePendente;
+import com.vvm.sh.baseDados.entidades.Atualizacao;
 import com.vvm.sh.baseDados.entidades.Cliente;
 import com.vvm.sh.baseDados.entidades.CrossSellingResultado;
 import com.vvm.sh.baseDados.entidades.FormandoResultado;
@@ -26,6 +28,7 @@ import com.vvm.sh.ui.transferencias.modelos.Upload;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.Flowable;
 import io.reactivex.Maybe;
 import io.reactivex.Single;
 

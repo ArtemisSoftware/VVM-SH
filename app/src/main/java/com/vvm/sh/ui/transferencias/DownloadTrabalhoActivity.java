@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.vvm.sh.R;
+import com.vvm.sh.api.modelos.Codigo;
 import com.vvm.sh.databinding.ActivityTrabalhoBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
@@ -45,20 +46,19 @@ public class DownloadTrabalhoActivity extends BaseDaggerActivity {
         //activityTrabalhoBinding.setActivity(this);
 
         subscreverObservadores();
+        viewModel.obterTipos();
 
-
-        Bundle bundle = getIntent().getExtras();
-
-        if(bundle != null){
-            activityTrabalhoBinding.txtTitulo.setText(getString(R.string.recarregar_trabalho));
-            activityTrabalhoBinding.txtData.setVisibility(View.VISIBLE);
-            activityTrabalhoBinding.txtData.setText(DatasUtil.converterData(bundle.getLong(getString(R.string.argumento_data)), DatasUtil.FORMATO_DD_MM_YYYY));
-            viewModel.obterPendencias(Preferencias.obterIdUtilizador(this), bundle.getLong(getString(R.string.argumento_data)));
-        }
-        else {
-            activityTrabalhoBinding.txtData.setVisibility(View.GONE);
-            viewModel.obterPendencias(Preferencias.obterIdUtilizador(this));
-        }
+//        Bundle bundle = getIntent().getExtras();
+//
+//        if(bundle != null){
+//            activityTrabalhoBinding.txtTitulo.setText(getString(R.string.recarregar_trabalho));
+//            activityTrabalhoBinding.txtData.setText(DatasUtil.converterData(bundle.getLong(getString(R.string.argumento_data)), DatasUtil.FORMATO_DD_MM_YYYY));
+//            viewModel.obterPendencias(Preferencias.obterIdUtilizador(this), bundle.getLong(getString(R.string.argumento_data)));
+//        }
+//        else {
+//            activityTrabalhoBinding.txtData.setText(DatasUtil.obterDataAtual(DatasUtil.FORMATO_DD_MM_YYYY));
+//            viewModel.obterPendencias(Preferencias.obterIdUtilizador(this));
+//        }
 
     }
 
@@ -74,6 +74,32 @@ public class DownloadTrabalhoActivity extends BaseDaggerActivity {
 
     @Override
     protected void subscreverObservadores() {
+
+
+        viewModel.observarMessagem().observe(this, new Observer<Recurso>() {
+            @Override
+            public void onChanged(Recurso recurso) {
+
+                switch (recurso.status){
+
+                    case SUCESSO:
+
+
+                        break;
+
+                    case ERRO:
+
+                        dialogo.erro(recurso.messagem, ((Codigo)recurso.dados).mensagem, listenerActivity);
+                        break;
+
+                    default:
+                        break;
+                }
+
+            }
+        });
+
+
 
         viewModel.observarPendencias().observe(this, new Observer<Recurso>() {
             @Override
@@ -124,11 +150,11 @@ public class DownloadTrabalhoActivity extends BaseDaggerActivity {
             }
         }
         else{
-            viewModel.obterTrabalho(Preferencias.obterIdUtilizador(this));
-//            activityTrabalhoBinding.txtSubTitulo.setText(getString(R.string.tarefas_pendentes));
-//            activityTrabalhoBinding.lnrLytProgresso.setVisibility(View.GONE);
-//            activityTrabalhoBinding.rclRegistosPendencias.setVisibility(View.VISIBLE);
-//            dialogo.alerta("Pendencias", "Existem tarefas pedentes.\r\nNão é possível realizar o upload dos dados.\r\n\r\nPor favor dê baixa de pelo menos uma atividade pendentes nas tarefas apresentadas");
+
+            activityTrabalhoBinding.txtSubTitulo.setText(getString(R.string.tarefas_pendentes));
+            activityTrabalhoBinding.txtSubTitulo.setVisibility(View.VISIBLE);
+            activityTrabalhoBinding.rclRegistosPendencias.setVisibility(View.VISIBLE);
+            dialogo.alerta(getString(R.string.pendencias), getString(R.string.pendencias_download));
 
         }
     }

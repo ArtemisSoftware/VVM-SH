@@ -5,6 +5,7 @@ import com.google.gson.GsonBuilder;
 import com.vvm.sh.api.modelos.Codigo;
 import com.vvm.sh.baseDados.entidades.Tarefa;
 import com.vvm.sh.util.constantes.Identificadores;
+import com.vvm.sh.util.excepcoes.RespostaWsInvalidaException;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
@@ -55,7 +56,7 @@ public class WebServiceInterceptor implements Interceptor {
      * @param respostaWS resposta recebida do web service
      * @return um objecto com os dados
      */
-    private String obterJSON(String respostaWS, String metodo){
+    private String obterJSON(String respostaWS, String metodo) throws RespostaWsInvalidaException {
 
 
 
@@ -101,27 +102,34 @@ public class WebServiceInterceptor implements Interceptor {
 //        return dados;
     }
 
-    private void validarCodigo(Codigo codigo) {
+    private void validarCodigo(Codigo codigo) throws RespostaWsInvalidaException {
 
         switch (codigo.codigo){
 
 
             case CODIGO_100:
 
-
+                codigo.mensagem = MSG_100;
                 break;
 
             case CODIGO_101:
 
+                codigo.mensagem = MSG_101;
+                break;
 
+
+            default:
                 break;
 
         }
 
 
+        if(codigo.mensagem != null) {
 
+            Gson gson = new GsonBuilder().create();
 
-        throw new NullPointerException("lolo");
+            throw new RespostaWsInvalidaException(gson.toJson(codigo, Codigo.class));
+        }
     }
 
 

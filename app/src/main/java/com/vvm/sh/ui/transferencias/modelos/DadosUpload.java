@@ -7,12 +7,16 @@ import com.vvm.sh.api.Imagem;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.UUID;
 
 public class DadosUpload {
 
     public int idBloco;
     public String idUtilizador;
     public String versao;
+
+    public String idUpload;
+
     public HashMap<Integer, List<Imagem>> imagens;
     public List<DadosFormulario> dados;
 
@@ -22,6 +26,7 @@ public class DadosUpload {
         this.dados = new ArrayList<>();
         this.imagens = new HashMap<>();
         this.idUtilizador = idUtilizador;
+        this.idUpload = UUID.randomUUID().toString();
 
         this.versao = BuildConfig.VERSION_NAME;
     }
@@ -39,4 +44,8 @@ public class DadosUpload {
         this.imagens.put(idBloco, imagens);
         ++idBloco;
     }
+
+
+
+
 }

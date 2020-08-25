@@ -156,7 +156,7 @@ public class TransferenciasViewModel extends BaseViewModel {
             registoImagem.dadosImagens = dadosUpload.imagens.get(index);
             String imagens = gson.toJson(registoImagem);
 
-            //observables.add(transferenciasRepositorio.submeterImagens(imagens, dadosUpload.idUtilizador,dados ))
+            observables.add(transferenciasRepositorio.submeterImagens(imagens, dadosUpload.idUtilizador, dadosUpload.idUpload, dadosUpload.idBloco + "", "" ).toObservable());
 
 
         }

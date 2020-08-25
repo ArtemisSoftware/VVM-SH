@@ -277,7 +277,11 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
     }
 
 
-
+    /**
+     * Metodo que permite obter o cross Selling
+     * @param idTarefa o identficador da tarefa
+     * @return o cross selling
+     */
     private List<CrossSelling> adicionarCrossSelling(int idTarefa) {
 
         List<CrossSelling> registos = new ArrayList<>();

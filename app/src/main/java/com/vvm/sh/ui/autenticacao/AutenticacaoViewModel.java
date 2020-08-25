@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.vvm.sh.api.modelos.UtilizadorResposta;
 import com.vvm.sh.api.modelos.UtilizadorResultado;
 import com.vvm.sh.repositorios.AutenticacaoRepositorio;
-import com.vvm.sh.ui.autenticacao.modelos.Utilizador;
+import com.vvm.sh.baseDados.entidades.Utilizador;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.mapeamento.ModelMapping;
 import com.vvm.sh.util.Recurso;

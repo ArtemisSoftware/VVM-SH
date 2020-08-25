@@ -5,7 +5,7 @@ import android.text.SpannableString;
 
 import androidx.databinding.BindingAdapter;
 
-import com.vvm.sh.ui.autenticacao.modelos.Utilizador;
+import com.vvm.sh.baseDados.entidades.Utilizador;
 
 import org.angmarch.views.NiceSpinner;
 import org.angmarch.views.SpinnerTextFormatter;

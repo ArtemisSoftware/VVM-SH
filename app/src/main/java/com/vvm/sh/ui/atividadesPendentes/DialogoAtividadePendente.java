@@ -107,9 +107,10 @@ public class DialogoAtividadePendente extends BaseDaggerDialogFragment {
             binding.rdBtnRelatorio.setVisibility(View.GONE);
         }
         else{
-            if(getArguments().getBoolean(ARGUMENTO_RELATORIO_COMPLETO) == false){
-                binding.rdBtnActividadeExecutada.setVisibility(View.GONE);
-            }
+
+//            if(getArguments().getBoolean(ARGUMENTO_RELATORIO_COMPLETO) == false){
+//                binding.rdBtnActividadeExecutada.setVisibility(View.GONE);
+//            }
         }
     }
 

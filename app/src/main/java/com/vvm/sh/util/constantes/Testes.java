@@ -1,6 +1,6 @@
 package com.vvm.sh.util.constantes;
 
-import com.vvm.sh.ui.autenticacao.modelos.Utilizador;
+import com.vvm.sh.baseDados.entidades.Utilizador;
 
 import java.util.ArrayList;
 import java.util.List;

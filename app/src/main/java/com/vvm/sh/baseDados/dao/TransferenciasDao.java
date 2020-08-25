@@ -6,6 +6,7 @@ import androidx.room.Query;
 import androidx.room.Transaction;
 
 import com.vvm.sh.api.AtividadePendenteResultado_;
+import com.vvm.sh.api.FormandoResultado_;
 import com.vvm.sh.baseDados.BaseDao;
 import com.vvm.sh.baseDados.entidades.Anomalia;
 import com.vvm.sh.baseDados.entidades.AtividadeExecutada;
@@ -23,6 +24,7 @@ import com.vvm.sh.baseDados.entidades.OcorrenciaResultado;
 import com.vvm.sh.baseDados.entidades.AcaoFormacaoResultado;
 import com.vvm.sh.ui.transferencias.modelos.Pendencia;
 import com.vvm.sh.ui.transferencias.modelos.Upload;
+import com.vvm.sh.util.constantes.Identificadores;
 
 import java.util.List;
 
@@ -109,8 +111,12 @@ abstract public class TransferenciasDao implements BaseDao<Resultado> {
     @Query("SELECT * FROM acoesFormacaoResultado WHERE idAtividade = :idAtividade")
     abstract public AcaoFormacaoResultado obterAcaoFormacao(int idAtividade);
 
-    @Query("SELECT * FROM formandosResultado WHERE idAtividade = :idAtividade AND selecionado = 1")
-    abstract public List<FormandoResultado> obterFormandos(int idAtividade);
+    @Query("SELECT * " +
+            "FROM formandosResultado as frm_res " +
+            "LEFT JOIN (SELECT id, idImagem FROM imagensResultado WHERE origem = " + Identificadores.Imagens.IMAGEM_ASSINATURA_FORMANDO + ") as img " +
+            "ON frm_res.id = img.id " +
+            "WHERE idAtividade = :idAtividade AND selecionado = 1")
+    abstract public List<FormandoResultado_> obterFormandos(int idAtividade);
 
 
     @Query("SELECT * FROM tarefas WHERE idTarefa = :idTarefa")

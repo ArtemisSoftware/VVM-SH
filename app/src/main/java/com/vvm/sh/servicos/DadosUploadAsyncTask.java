@@ -14,6 +14,7 @@ import com.vvm.sh.api.CrossSelling;
 import com.vvm.sh.api.DadosFormularios;
 import com.vvm.sh.api.Email;
 import com.vvm.sh.api.Formando;
+import com.vvm.sh.api.FormandoResultado_;
 import com.vvm.sh.api.Ocorrencia;
 import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.baseDados.entidades.CrossSellingResultado;
@@ -40,6 +41,7 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
     private VvmshBaseDados vvmshBaseDados;
     private TransferenciasRepositorio repositorio;
     private JSONArray dadosTarefas = new JSONArray();
+    private List<Integer> idImagens;
 
     private AtualizacaoUI atualizacaoUI;
 
@@ -48,6 +50,7 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
         this.vvmshBaseDados = vvmshBaseDados;
         this.repositorio = repositorio;
         this.idUtilizador = idUtilizador;
+        this.idImagens = new ArrayList<>();
         atualizacaoUI = new AtualizacaoUI(handler);
     }
 
@@ -124,6 +127,9 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
                     }
 
 
+                    
+                    obterImagens();
+                    
                 }
                 catch(SQLiteConstraintException throwable){
                     errorMessage = throwable.getMessage();
@@ -135,7 +141,15 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
         return null;
     }
 
+    private void obterImagens() {
+    }
 
+
+    /**
+     * Metodo que permite obter a acao de formacao
+     * @param idAtividade o identificador da atividade
+     * @return uma acao de formacao
+     */
     private AcaoFormacao obterAcaoFormacao(int idAtividade){
 
         AcaoFormacao acaoFormacao = UploadMapping.INSTANCE.map(repositorio.obterAcaoFormacao(idAtividade));
@@ -146,8 +160,14 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
 
         List<Formando> registos = new ArrayList<>();
 
-        for (FormandoResultado item : repositorio.obterFormandos(idAtividade)) {
-            registos.add(UploadMapping.INSTANCE.map(item));
+        for (FormandoResultado_ item : repositorio.obterFormandos(idAtividade)) {
+
+            Formando registo = UploadMapping.INSTANCE.map(item.resultado);
+            registo.album = new ArrayList<>();
+            registo.album.add(item.idImagem + "");
+            registos.add(registo);
+
+            idImagens.add(item.idImagem);
         }
 
         acaoFormacao.formandos = registos;
@@ -155,6 +175,11 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
     }
 
 
+    /**
+     * Metodo que permite obter as atividades pendentes
+     * @param idTarefa o identificador da tarefa
+     * @return uma lista de atividades
+     */
     private List<AtividadePendente> adicionarAtividadesPendentes(int idTarefa) {
 
         List<AtividadePendente> registos = new ArrayList<>();
@@ -165,9 +190,9 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
 
                 AtividadePendenteExecutada registo = UploadMapping.INSTANCE.mapeamento(item);
 
-                if(item.atividade.formacao == true){
+                //if(item.atividade.formacao == true){
                     registo.formacao = obterAcaoFormacao(item.resultado.id);
-                }
+                //}
 
                 registos.add(registo);
             }
@@ -229,9 +254,15 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
     }
 
 
+    /**
+     * Metodo que permite adicionar um email
+     * @param idTarefa o identificador da tarefa
+     * @return os dados do email
+     */
     private Email adicionarEmail(int idTarefa) {
 
         Email email = UploadMapping.INSTANCE.map(repositorio.obterEmail(idTarefa));
         return email;
     }
+
 }

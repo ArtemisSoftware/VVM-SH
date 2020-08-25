@@ -3,10 +3,9 @@ package com.vvm.sh.baseDados;
 import androidx.room.Dao;
 import androidx.room.Query;
 
-import com.vvm.sh.ui.autenticacao.modelos.Utilizador;
+import com.vvm.sh.baseDados.entidades.Utilizador;
 
 import io.reactivex.Completable;
-import io.reactivex.Maybe;
 import io.reactivex.Single;
 
 @Dao

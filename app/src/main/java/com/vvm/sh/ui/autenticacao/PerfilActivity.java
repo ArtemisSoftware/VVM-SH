@@ -1,27 +1,19 @@
 package com.vvm.sh.ui.autenticacao;
 
 import android.os.Bundle;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.vvm.sh.R;
-import com.vvm.sh.databinding.ActivityAutenticacaoBinding;
 import com.vvm.sh.databinding.ActivityPerfilBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
-import com.vvm.sh.ui.autenticacao.modelos.Utilizador;
-import com.vvm.sh.ui.BaseActivity;
-import com.vvm.sh.util.MensagensUtil;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.metodos.Preferencias;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import javax.inject.Inject;
-
-import butterknife.BindView;
 
 public class PerfilActivity extends BaseDaggerActivity {
 

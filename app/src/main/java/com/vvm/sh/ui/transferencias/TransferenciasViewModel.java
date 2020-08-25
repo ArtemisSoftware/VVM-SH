@@ -74,8 +74,11 @@ public class TransferenciasViewModel extends BaseViewModel {
     //------------------------
 
 
-
-
+    /**
+     * Metodo que permite obter os dados para upload
+     * @param idUtilizador o identificador do utilizador
+     * @param handler
+     */
     public void obterUpload(String idUtilizador, Handler handler){
         Observable<List<Upload>> observable = transferenciasRepositorio.obterUploads(idUtilizador).toObservable();
         obterUpload(observable, idUtilizador, handler);

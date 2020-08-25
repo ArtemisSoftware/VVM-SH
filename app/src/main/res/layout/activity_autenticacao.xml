@@ -9,7 +9,7 @@
     <data>
 
         <import type="java.util.List"/>
-        <import type="com.vvm.sh.ui.autenticacao.modelos.Utilizador"/>
+        <import type="com.vvm.sh.baseDados.entidades.Utilizador"/>
 
         <variable
             name="utilizadoresTestes"

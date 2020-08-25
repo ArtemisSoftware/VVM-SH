@@ -2,18 +2,14 @@ package com.vvm.sh.api;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
+
 public class Formando {
 
 
-    //TODO: completar o genero e o album
+    //TODO: completar o album
 
-//
-//					if(cursor.getString(cursor.getColumnIndex("sexo")).equals(SintaxeIF.F) || cursor.getString(cursor.getColumnIndex("sexo")).equals(SintaxeIF.FEMININO)){
-//        formando.put(JsonEnvioIF.GENERO, SintaxeIF.F);
-//    }
-//					else{
-//        formando.put(JsonEnvioIF.GENERO, SintaxeIF.M);
-//    }
+
 
 //					jAlbum.put(cursor.getInt(cursor.getColumnIndex("idRegisto")));
 //					formando.put(JsonEnvioIF.ALBUM, jAlbum);
@@ -39,4 +35,7 @@ public class Formando {
 
     @SerializedName("genero")
     public String genero;
+
+    @SerializedName("Album")
+    public ArrayList<String> album;
 }

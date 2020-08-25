@@ -3,6 +3,7 @@ package com.vvm.sh.repositorios;
 import androidx.annotation.NonNull;
 
 import com.vvm.sh.api.AtividadePendenteResultado_;
+import com.vvm.sh.api.FormandoResultado_;
 import com.vvm.sh.api.SegurancaAlimentarApi;
 import com.vvm.sh.api.modelos.SessaoResposta;
 import com.vvm.sh.baseDados.AtualizacaoDao;
@@ -128,18 +129,41 @@ public class TransferenciasRepositorio {
     }
 
 
+    /**
+     * Metodo que permite obter as atividades pendentes
+     * @param idTarefa o identificador da tarefa
+     * @return uma lista de atividades pendentes
+     */
     public List<AtividadePendenteResultado_> obterAtividadesPendentes(int idTarefa) {
         return transferenciasDao.obterAtividadesPendentes(idTarefa);
     }
 
+
+    /**
+     * Metodo que permite obter a acao de formacao
+     * @param idAtividade o identificador da atividade
+     * @return uma acao de formacao
+     */
     public AcaoFormacaoResultado obterAcaoFormacao(int idAtividade) {
         return transferenciasDao.obterAcaoFormacao(idAtividade);
     }
 
-    public List<FormandoResultado> obterFormandos(int idAtividade) {
+
+    /**
+     * Metodo que permite obter os formandos da atividade
+     * @param idAtividade o identificador da atividade
+     * @return uma lista de formandos
+     */
+    public List<FormandoResultado_> obterFormandos(int idAtividade) {
         return transferenciasDao.obterFormandos(idAtividade);
     }
 
+
+    /**
+     * Metodo que permite obter uma tarefa
+     * @param idTarefa o identificador da tarefa
+     * @return os dados da tarefa
+     */
     public Tarefa obterTarefa(int idTarefa) {
         return transferenciasDao.obterTarefa(idTarefa);
     }
@@ -150,8 +174,11 @@ public class TransferenciasRepositorio {
     //---------------------------
 
 
-
-
+    /**
+     * Metodo que permite inserir uma tarefa
+     * @param tarefa os dados da tarefa
+     * @return o resultado da insercao
+     */
     public long inserirTarefa(Tarefa tarefa){
         return transferenciasDao.inserirRegisto(tarefa);
     }

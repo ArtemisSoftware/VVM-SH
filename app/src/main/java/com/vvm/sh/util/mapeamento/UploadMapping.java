@@ -8,6 +8,7 @@ import com.vvm.sh.api.AtividadePendenteResultado_;
 import com.vvm.sh.api.CrossSelling;
 import com.vvm.sh.api.Email;
 import com.vvm.sh.api.Formando;
+import com.vvm.sh.api.FormandoResultado_;
 import com.vvm.sh.api.Ocorrencia;
 import com.vvm.sh.api.Tarefa_;
 import com.vvm.sh.baseDados.entidades.CrossSellingResultado;
@@ -58,12 +59,13 @@ public interface UploadMapping {
     @Mapping(source = "data", target = "data", dateFormat = DatasUtil.FORMATO_YYYY_MM_DD)
     @Mapping(source = "inicio", target = "inicio", dateFormat = DatasUtil.HORA_FORMATO_HH_MM)
     @Mapping(source = "termino", target = "termino", dateFormat = DatasUtil.HORA_FORMATO_HH_MM)
-    AcaoFormacao map(AcaoFormacaoResultado obterAcaoFormacao);
+    AcaoFormacao map(AcaoFormacaoResultado item);
 
     @Mapping(source = "sexo", target = "genero")
     @Mapping(source = "dataNascimento", target = "dataNascimento", dateFormat = DatasUtil.FORMATO_YYYY_MM_DD)
-    Formando map(FormandoResultado obterFormandos);
+    Formando map(FormandoResultado item);
 
+    @Mapping(source = "prefixoCt", target = "prefixoCT")
     @Mapping(source = "data", target = "data", dateFormat = DatasUtil.FORMATO_YYYY_MM_DD)
-    Tarefa_ map(Tarefa obterTarefa);
+    Tarefa_ map(Tarefa item);
 }

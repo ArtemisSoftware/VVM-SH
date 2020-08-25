@@ -2,6 +2,7 @@ package com.vvm.sh.util.metodos;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.util.Base64;
 
 import java.io.ByteArrayOutputStream;
 
@@ -15,6 +16,21 @@ public class ImagemUtil {
     public static Bitmap converter(byte[] imagem){
 
         return BitmapFactory.decodeByteArray(imagem, 0, imagem.length);
+    }
+
+
+    /**
+     * Metodo que converte um byte[] para string
+     * @param imagem a imagem a converter
+     * @return uma string representativa do byte[]
+     */
+    public static String converterByteArray(byte[] imagem){
+
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        converter(imagem).compress(Bitmap.CompressFormat.PNG,100, byteArrayOutputStream);
+        byte [] dados = byteArrayOutputStream.toByteArray();
+        String resultado = Base64.encodeToString(dados, Base64.DEFAULT);
+        return resultado;
     }
 
 

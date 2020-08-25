@@ -26,7 +26,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
-@Mapper//(uses= DataMapper.class)
+//@Mapper//(uses= DataMapper.class)
+@Mapper(uses= ImagemMapper.class)
 public interface UploadMapping {
 
     static final UploadMapping INSTANCE = Mappers.getMapper( UploadMapping.class );
@@ -73,5 +74,6 @@ public interface UploadMapping {
 
 
     @Mapping(source = "idImagem", target = "idFoto")
+    @Mapping(source = "imagem", target = "foto")
     Imagem map(ImagemResultado item);
 }

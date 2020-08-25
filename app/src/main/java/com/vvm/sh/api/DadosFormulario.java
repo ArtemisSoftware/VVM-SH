@@ -6,7 +6,7 @@ import com.vvm.sh.util.metodos.DatasUtil;
 import java.util.ArrayList;
 import java.util.List;
 
-public class DadosFormularios {
+public class DadosFormulario {
 
     @SerializedName("idUtilizador")
     public String idUtilizador;
@@ -33,7 +33,7 @@ public class DadosFormularios {
 
 
 
-    public DadosFormularios() {
+    public DadosFormulario() {
 
         email = new EmailInfo();
         anomaliasCliente = new AnomaliasClienteInfo();

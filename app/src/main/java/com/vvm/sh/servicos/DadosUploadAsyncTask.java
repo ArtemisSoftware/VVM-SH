@@ -11,7 +11,7 @@ import com.vvm.sh.api.AtividadePendenteExecutada;
 import com.vvm.sh.api.AtividadePendenteNaoExecutada;
 import com.vvm.sh.api.AtividadePendenteResultado_;
 import com.vvm.sh.api.CrossSelling;
-import com.vvm.sh.api.DadosFormularios;
+import com.vvm.sh.api.DadosFormulario;
 import com.vvm.sh.api.Email;
 import com.vvm.sh.api.Formando;
 import com.vvm.sh.api.FormandoResultado_;
@@ -19,7 +19,6 @@ import com.vvm.sh.api.Imagem;
 import com.vvm.sh.api.Ocorrencia;
 import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.baseDados.entidades.CrossSellingResultado;
-import com.vvm.sh.baseDados.entidades.FormandoResultado;
 import com.vvm.sh.baseDados.entidades.ImagemResultado;
 import com.vvm.sh.baseDados.entidades.Resultado;
 import com.vvm.sh.repositorios.TransferenciasRepositorio;
@@ -102,7 +101,7 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
         for(Upload upload : resposta) {
 
             ++posicao;
-            DadosFormularios dadosFormularios = new DadosFormularios();
+            DadosFormulario dadosFormulario = new DadosFormulario();
 
             int index = 0;
 
@@ -116,30 +115,30 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
 
                     case ID_EMAIL:
 
-                        dadosFormularios.fixarEmail(adicionarEmail(resultado.idTarefa));
+                        dadosFormulario.fixarEmail(adicionarEmail(resultado.idTarefa));
                         break;
 
                     case ID_ANOMALIA_CLIENTE:
 
-                        dadosFormularios.fixarAnomalias(adicionarAnomaliaCliente(resultado.idTarefa));
+                        dadosFormulario.fixarAnomalias(adicionarAnomaliaCliente(resultado.idTarefa));
                         break;
 
 
                     case ID_CROSS_SELLING:
 
-                        dadosFormularios.fixarCrossSelling(adicionarCrossSelling(resultado.idTarefa));
+                        dadosFormulario.fixarCrossSelling(adicionarCrossSelling(resultado.idTarefa));
                         break;
 
 
                     case ID_OCORRENCIA:
 
-                        dadosFormularios.fixarOcorrencias(adicionarOcorrencias(resultado.idTarefa));
+                        dadosFormulario.fixarOcorrencias(adicionarOcorrencias(resultado.idTarefa));
                         break;
 
 
                     case ID_ATIVIDADE_PENDENTE:
 
-                        dadosFormularios.fixarAtividadesPendentes(adicionarAtividadesPendentes(resultado.idTarefa));
+                        dadosFormulario.fixarAtividadesPendentes(adicionarAtividadesPendentes(resultado.idTarefa));
                         break;
 
 
@@ -148,10 +147,10 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
                 }
             }
 
-            dadosFormularios.idUtilizador = idUtilizador;
-            dadosFormularios.id = UploadMapping.INSTANCE.map(repositorio.obterTarefa(upload.tarefa.idTarefa));
+            dadosFormulario.idUtilizador = idUtilizador;
+            dadosFormulario.id = UploadMapping.INSTANCE.map(repositorio.obterTarefa(upload.tarefa.idTarefa));
 
-            dadosUpload.fixarDados(dadosFormularios);
+            dadosUpload.fixarDados(dadosFormulario);
 
             atualizacaoUI.atualizarUI(AtualizacaoUI.Codigo.PROCESSAMENTO_DADOS, upload.tarefa.idTarefa + " - res", posicao, resposta.size());
         }

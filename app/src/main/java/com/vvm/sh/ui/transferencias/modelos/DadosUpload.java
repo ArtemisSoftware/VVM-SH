@@ -1,7 +1,7 @@
 package com.vvm.sh.ui.transferencias.modelos;
 
 import com.vvm.sh.BuildConfig;
-import com.vvm.sh.api.DadosFormularios;
+import com.vvm.sh.api.DadosFormulario;
 import com.vvm.sh.api.Imagem;
 
 import java.util.ArrayList;
@@ -10,10 +10,10 @@ import java.util.List;
 
 public class DadosUpload {
 
-    private int idBloco;
+    public int idBloco;
     public String versao;
     public HashMap<Integer, List<Imagem>> imagens;
-    public List<DadosFormularios> dados;
+    public List<DadosFormulario> dados;
 
     public DadosUpload() {
 
@@ -24,7 +24,7 @@ public class DadosUpload {
         this.versao = BuildConfig.VERSION_NAME;
     }
 
-    public void fixarDados(DadosFormularios dado) {
+    public void fixarDados(DadosFormulario dado) {
         this.dados.add(dado);
     }
 

@@ -5,6 +5,7 @@ import com.vvm.sh.api.Anomalia;
 import com.vvm.sh.api.AtividadePendenteExecutada;
 import com.vvm.sh.api.AtividadePendenteNaoExecutada;
 import com.vvm.sh.api.AtividadePendenteResultado_;
+import com.vvm.sh.api.BlocoDados;
 import com.vvm.sh.api.CrossSelling;
 import com.vvm.sh.api.Email;
 import com.vvm.sh.api.Formando;
@@ -20,6 +21,7 @@ import com.vvm.sh.baseDados.entidades.Tarefa;
 import com.vvm.sh.baseDados.entidades.AnomaliaResultado;
 import com.vvm.sh.baseDados.entidades.OcorrenciaResultado;
 import com.vvm.sh.baseDados.entidades.AcaoFormacaoResultado;
+import com.vvm.sh.ui.transferencias.modelos.DadosUpload;
 import com.vvm.sh.util.metodos.DatasUtil;
 
 import org.mapstruct.Mapper;
@@ -76,4 +78,9 @@ public interface UploadMapping {
     @Mapping(source = "idImagem", target = "idFoto")
     @Mapping(source = "imagem", target = "foto")
     Imagem map(ImagemResultado item);
+
+    @Mapping(source = "dados", target = "dadosFormulario")
+    @Mapping(source = "versao", target = "versaoApp")
+    @Mapping(source = "idBloco", target = "numeroFicheiroImagens")
+    BlocoDados map(DadosUpload dadosUpload);
 }

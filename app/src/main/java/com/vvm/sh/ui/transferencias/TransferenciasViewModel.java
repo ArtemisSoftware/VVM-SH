@@ -6,6 +6,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.vvm.sh.api.BlocoDados;
 import com.vvm.sh.api.modelos.Codigo;
 import com.vvm.sh.api.modelos.SessaoResposta;
 import com.vvm.sh.api.modelos.TipoResposta;
@@ -19,6 +20,7 @@ import com.vvm.sh.ui.transferencias.modelos.Pendencia;
 import com.vvm.sh.ui.transferencias.modelos.Upload;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.constantes.TiposConstantes;
+import com.vvm.sh.util.mapeamento.UploadMapping;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import java.util.ArrayList;
@@ -136,6 +138,10 @@ public class TransferenciasViewModel extends BaseViewModel {
 
     public void upload(DadosUpload dadosUpload) {
 
+
+        BlocoDados registo = UploadMapping.INSTANCE.map(dadosUpload);
+        Gson gson = new Gson();
+        String jsonInString = gson.toJson(registo);
     }
 
 

@@ -14,6 +14,7 @@ import com.vvm.sh.repositorios.TiposRepositorio;
 import com.vvm.sh.repositorios.TransferenciasRepositorio;
 import com.vvm.sh.servicos.CarregarTipoAsyncTask;
 import com.vvm.sh.servicos.DadosUploadAsyncTask;
+import com.vvm.sh.ui.transferencias.modelos.DadosUpload;
 import com.vvm.sh.ui.transferencias.modelos.Pendencia;
 import com.vvm.sh.ui.transferencias.modelos.Upload;
 import com.vvm.sh.util.Recurso;
@@ -132,7 +133,17 @@ public class TransferenciasViewModel extends BaseViewModel {
     }
 
 
-    public void sincronizar(){
+
+    public void upload(DadosUpload dadosUpload) {
+
+    }
+
+
+
+
+
+
+        public void sincronizar(){
 
         transferenciasRepositorio.sincronizar((List<Upload>) uploads.getValue().dados).toObservable()
                 .subscribeOn(Schedulers.io())

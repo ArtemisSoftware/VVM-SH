@@ -12,6 +12,7 @@ import com.vvm.sh.R;
 import com.vvm.sh.databinding.ActivityUploadBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
+import com.vvm.sh.ui.transferencias.modelos.DadosUpload;
 import com.vvm.sh.ui.transferencias.modelos.Pendencia;
 import com.vvm.sh.ui.transferencias.modelos.Upload;
 import com.vvm.sh.util.AtualizacaoUI;
@@ -54,21 +55,26 @@ public class UploadTrabalhoActivity extends BaseDaggerActivity {
 
         subscreverObservadores();
 
-        viewModel.obterUpload(Preferencias.obterIdUtilizador(this), handlerNotificacoesUI);
 
-//        Bundle bundle = getIntent().getExtras();
-//
-//        if(bundle != null){
-//            activityUploadBinding.txtData.setVisibility(View.VISIBLE);
-//            activityUploadBinding.txtData.setText(DatasUtil.converterData(bundle.getLong(getString(R.string.argumento_data)), DatasUtil.FORMATO_DD_MM_YYYY));
-//            viewModel.obterPendencias(Preferencias.obterIdUtilizador(this), bundle.getLong(getString(R.string.argumento_data)));
-//        }
-//        else {
-//            activityUploadBinding.txtData.setVisibility(View.GONE);
-//            viewModel.obterPendencias(Preferencias.obterIdUtilizador(this));
-//            //viewModel.obterUpload(Preferencias.obterIdUtilizador(this), handlerNotificacoesUI);
-//            //viewModel.obterDadosUpload(Preferencias.obterIdUtilizador(this), handlerNotificacoesUI);
-//        }
+
+        Bundle bundle = getIntent().getExtras();
+
+        if(bundle != null){
+            activityUploadBinding.txtData.setVisibility(View.VISIBLE);
+            activityUploadBinding.txtData.setText(DatasUtil.converterData(bundle.getLong(getString(R.string.argumento_data)), DatasUtil.FORMATO_DD_MM_YYYY));
+            viewModel.obterPendencias(Preferencias.obterIdUtilizador(this), bundle.getLong(getString(R.string.argumento_data)));
+        }
+        else {
+            activityUploadBinding.txtData.setVisibility(View.GONE);
+            //--viewModel.obterPendencias(Preferencias.obterIdUtilizador(this));
+            viewModel.obterUpload(Preferencias.obterIdUtilizador(this), handlerNotificacoesUI);
+
+
+
+
+            //viewModel.obterUpload(Preferencias.obterIdUtilizador(this), handlerNotificacoesUI);
+            //viewModel.obterDadosUpload(Preferencias.obterIdUtilizador(this), handlerNotificacoesUI);
+        }
     }
 
     @Override
@@ -224,6 +230,12 @@ public class UploadTrabalhoActivity extends BaseDaggerActivity {
                 case PROCESSAMENTO_DADOS:
 
                     imprimirProgresso(comunicado);
+                    break;
+
+
+                case PROCESSAMENTO_UPLOAD_CONCLUIDO:
+
+                    viewModel.upload((DadosUpload) comunicado.objeto);
                     break;
 
 

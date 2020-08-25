@@ -42,6 +42,15 @@ public class AtualizacaoUI {
     }
 
 
+    public void atualizarUI(Codigo codigo, Object dados){
+
+        if(handler != null){
+            Message msg = handler.obtainMessage();
+            msg.obj = new Comunicado(codigo, dados);
+            handler.sendMessage(msg);
+        }
+    }
+
     /**
      * Metodo que permite enviar para o UI uma mensagem
      * @param codigo o codigo da atualizacaoUI
@@ -63,6 +72,7 @@ public class AtualizacaoUI {
         CONCLUIR_PEDIDO_VERSAO_APP,
         PROCESSAMENTO_DADOS,
         PROCESSAMENTO_TIPOS_CONCLUIDO,
+        PROCESSAMENTO_UPLOAD_CONCLUIDO,
         CONCLUIR_DOWNLOAD_APK,
         ERRO_DOWNLOAD_APK,
         ERRO_INSTALACAO_APK
@@ -74,6 +84,7 @@ public class AtualizacaoUI {
         private Codigo codigo;
         private String mensagem, dados;
         private int posicao, limite;
+        public Object objeto;
 
         public Comunicado(Codigo codigo){
 
@@ -85,6 +96,13 @@ public class AtualizacaoUI {
             this.codigo = codigo;
             this.dados = dados;
         }
+
+        public Comunicado(Codigo codigo, Object objeto){
+
+            this.codigo = codigo;
+            this.objeto = objeto;
+        }
+
 
         public Comunicado(Codigo codigo, String mensagem, int posicao, int limite){
 

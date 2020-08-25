@@ -25,8 +25,10 @@ import com.vvm.sh.baseDados.entidades.Resultado;
 import com.vvm.sh.repositorios.TransferenciasRepositorio;
 import com.vvm.sh.baseDados.entidades.AnomaliaResultado;
 import com.vvm.sh.baseDados.entidades.OcorrenciaResultado;
+import com.vvm.sh.ui.transferencias.modelos.DadosUpload;
 import com.vvm.sh.ui.transferencias.modelos.Upload;
 import com.vvm.sh.util.AtualizacaoUI;
+import com.vvm.sh.util.constantes.AppConfig;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.mapeamento.UploadMapping;
 
@@ -44,6 +46,7 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
     private TransferenciasRepositorio repositorio;
     private JSONArray dadosTarefas = new JSONArray();
     private List<Integer> idImagens;
+    private DadosUpload dadosUpload;
 
     private AtualizacaoUI atualizacaoUI;
 
@@ -53,6 +56,7 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
         this.repositorio = repositorio;
         this.idUtilizador = idUtilizador;
         this.idImagens = new ArrayList<>();
+        this.dadosUpload = new DadosUpload();
         atualizacaoUI = new AtualizacaoUI(handler);
     }
 
@@ -71,66 +75,10 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
 
                 try {
 
-                    int posicao = 0;
-
-                    for(Upload upload : resposta) {
-
-                        ++posicao;
-                        DadosFormularios dadosFormularios = new DadosFormularios();
-
-                        int index = 0;
-
-                        for (Resultado resultado : upload.resultados) {
-
-                            ++index;
-
-                            atualizacaoUI.atualizarUI(AtualizacaoUI.Codigo.PROCESSAMENTO_DADOS, resultado.id + " - recarregarTipos", index, upload.resultados.size());
-
-                            switch (resultado.id){
-
-                                case ID_EMAIL:
-
-                                    dadosFormularios.fixarEmail(adicionarEmail(resultado.idTarefa));
-                                    break;
-
-                                case ID_ANOMALIA_CLIENTE:
-
-                                    dadosFormularios.fixarAnomalias(adicionarAnomaliaCliente(resultado.idTarefa));
-                                    break;
-
-
-                                case ID_CROSS_SELLING:
-
-                                    dadosFormularios.fixarCrossSelling(adicionarCrossSelling(resultado.idTarefa));
-                                    break;
-
-
-                                case ID_OCORRENCIA:
-
-                                    dadosFormularios.fixarOcorrencias(adicionarOcorrencias(resultado.idTarefa));
-                                    break;
-
-
-                                case ID_ATIVIDADE_PENDENTE:
-
-                                    dadosFormularios.fixarAtividadesPendentes(adicionarAtividadesPendentes(resultado.idTarefa));
-                                    break;
-
-
-                                default:
-                                    break;
-                            }
-                        }
-
-                        dadosFormularios.idUtilizador = idUtilizador;
-                        dadosFormularios.id = UploadMapping.INSTANCE.map(repositorio.obterTarefa(upload.tarefa.idTarefa));
-
-                        atualizacaoUI.atualizarUI(AtualizacaoUI.Codigo.PROCESSAMENTO_DADOS, upload.tarefa.idTarefa + " - res", posicao, resposta.size());
-                    }
-
-
-                    
+                    obterDados(resposta);
                     obterImagens();
+
+                    atualizacaoUI.atualizarUI(AtualizacaoUI.Codigo.PROCESSAMENTO_UPLOAD_CONCLUIDO, dadosUpload);
                     
                 }
                 catch(SQLiteConstraintException throwable){
@@ -143,6 +91,76 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
         return null;
     }
 
+    /**
+     * Metodo que permite obter os dados
+     * @param resposta
+     */
+    private void obterDados(List<Upload> resposta) {
+
+        int posicao = 0;
+
+        for(Upload upload : resposta) {
+
+            ++posicao;
+            DadosFormularios dadosFormularios = new DadosFormularios();
+
+            int index = 0;
+
+            for (Resultado resultado : upload.resultados) {
+
+                ++index;
+
+                atualizacaoUI.atualizarUI(AtualizacaoUI.Codigo.PROCESSAMENTO_DADOS, resultado.id + " - recarregarTipos", index, upload.resultados.size());
+
+                switch (resultado.id){
+
+                    case ID_EMAIL:
+
+                        dadosFormularios.fixarEmail(adicionarEmail(resultado.idTarefa));
+                        break;
+
+                    case ID_ANOMALIA_CLIENTE:
+
+                        dadosFormularios.fixarAnomalias(adicionarAnomaliaCliente(resultado.idTarefa));
+                        break;
+
+
+                    case ID_CROSS_SELLING:
+
+                        dadosFormularios.fixarCrossSelling(adicionarCrossSelling(resultado.idTarefa));
+                        break;
+
+
+                    case ID_OCORRENCIA:
+
+                        dadosFormularios.fixarOcorrencias(adicionarOcorrencias(resultado.idTarefa));
+                        break;
+
+
+                    case ID_ATIVIDADE_PENDENTE:
+
+                        dadosFormularios.fixarAtividadesPendentes(adicionarAtividadesPendentes(resultado.idTarefa));
+                        break;
+
+
+                    default:
+                        break;
+                }
+            }
+
+            dadosFormularios.idUtilizador = idUtilizador;
+            dadosFormularios.id = UploadMapping.INSTANCE.map(repositorio.obterTarefa(upload.tarefa.idTarefa));
+
+            dadosUpload.fixarDados(dadosFormularios);
+
+            atualizacaoUI.atualizarUI(AtualizacaoUI.Codigo.PROCESSAMENTO_DADOS, upload.tarefa.idTarefa + " - res", posicao, resposta.size());
+        }
+    }
+
+
+    /**
+     * Metodo que permite obter as imagens
+     */
     private void obterImagens() {
 
         List<Imagem> registos = new ArrayList<>();
@@ -151,10 +169,38 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
 
             Imagem registo = UploadMapping.INSTANCE.map(imagem);
             registos.add(registo);
-
         }
 
+
+        int totalBytesBoco = 0;
+        List<Imagem> jaBloco =  new ArrayList<>();
+
+        for (int index = 0; index < registos.size(); ++index) {
+
+            Imagem imagem = registos.get(index);
+
+            int numeroBytes = imagem.foto.length();
+            totalBytesBoco += numeroBytes;
+
+            if (totalBytesBoco > AppConfig.LIMITE_BYTES_FICHEIRO_JSON) {
+
+                dadosUpload.fixarImagens(jaBloco);
+                atualizacaoUI.atualizarUI(AtualizacaoUI.Codigo.PROCESSAMENTO_DADOS, "Bloco de imagem " + dadosUpload.imagens.size() + "(" + totalBytesBoco + ")", index + 1, registos.size());
+
+                jaBloco = new ArrayList<>();
+                totalBytesBoco = 0;
+            }
+
+            jaBloco.add(imagem);
+
+            if (index + 1 >= registos.size()) {
+                dadosUpload.fixarImagens(jaBloco);
+                atualizacaoUI.atualizarUI(AtualizacaoUI.Codigo.PROCESSAMENTO_DADOS, "Bloco de imagem " + dadosUpload.imagens.size() + "(" + totalBytesBoco + ")", index + 1, registos.size());
+            }
+        }
     }
+
+
 
 
     /**
@@ -253,7 +299,11 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
     }
 
 
-
+    /**
+     * Metodo que permite adicionar as anomalias de um cliente
+     * @param idTarefa o identificador da tarefa
+     * @return os dados das anomalias
+     */
     private List<Anomalia> adicionarAnomaliaCliente(int idTarefa) {
 
         List<Anomalia> registos = new ArrayList<>();

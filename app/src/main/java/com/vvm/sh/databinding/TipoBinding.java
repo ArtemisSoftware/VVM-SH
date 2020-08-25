@@ -7,6 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.vvm.sh.ui.opcoes.modelos.Colecao;
 import com.vvm.sh.ui.opcoes.adaptadores.OnTipoListener;
 import com.vvm.sh.ui.opcoes.adaptadores.TipoRecyclerAdapter;
+import com.vvm.sh.ui.opcoes.modelos.ResumoTipo;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ public class TipoBinding {
 
 
     @BindingAdapter({"tipos", "onLongClick"})
-    public static void setTipos(RecyclerView view, List<Colecao> items, OnTipoListener listener) {
+    public static void setTipos(RecyclerView view, List<ResumoTipo> items, OnTipoListener listener) {
 
         if(items == null){
             return;

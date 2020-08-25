@@ -35,6 +35,7 @@ public class DialogoAtividadePendente extends BaseDaggerDialogFragment {
 
 
     private static final String ARGUMENTO_RELATORIO = "relatorio";
+    private static final String ARGUMENTO_RELATORIO_COMPLETO = "relatorio_completo";
     private static final String ARGUMENTO_ID_ATIVIDADE = "id";
 
     public DialogoAtividadePendente() {
@@ -42,12 +43,13 @@ public class DialogoAtividadePendente extends BaseDaggerDialogFragment {
     }
 
 
-    public static DialogoAtividadePendente newInstance(int id, int relatorio) {
+    public static DialogoAtividadePendente newInstance(int id, int relatorio, boolean relatorioCompleto) {
         DialogoAtividadePendente frag = new DialogoAtividadePendente();
 
         Bundle args = new Bundle();
         args.putInt(ARGUMENTO_RELATORIO, relatorio);
         args.putInt(ARGUMENTO_ID_ATIVIDADE, id);
+        args.putBoolean(ARGUMENTO_RELATORIO_COMPLETO, relatorioCompleto);
         frag.setArguments(args);
         return frag;
     }
@@ -103,6 +105,11 @@ public class DialogoAtividadePendente extends BaseDaggerDialogFragment {
         if(getArguments().getInt(ARGUMENTO_RELATORIO) == Identificadores.Estados.SEM_RELATORIO){
 
             binding.rdBtnRelatorio.setVisibility(View.GONE);
+        }
+        else{
+            if(getArguments().getBoolean(ARGUMENTO_RELATORIO_COMPLETO) == false){
+                binding.rdBtnActividadeExecutada.setVisibility(View.GONE);
+            }
         }
     }
 

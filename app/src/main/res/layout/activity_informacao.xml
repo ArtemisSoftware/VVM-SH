@@ -352,12 +352,9 @@
                         app:layout_constraintStart_toStartOf="@+id/linearLayout12"
                         app:layout_constraintTop_toBottomOf="@+id/linearLayout12">
 
-                        <!-- TODO: falta o numero de anomalias  -->
-
-
                         <TextView
                             style="@style/textoDescritivo"
-                             />
+                            android:text="@{StringUtil.converterString(viewmodel.tarefaDia.anomalias), default=0}"/>
 
                         <!-- android:text="@{viewmodel.cliente.anomalias, default=anomalias}" -->
 

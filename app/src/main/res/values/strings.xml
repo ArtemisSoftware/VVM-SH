@@ -171,7 +171,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="genero">Género</string>
     <string name="minutos">Minutos</string>
-    <string name="concluir_atividade">Concluir atvidade</string>
+    <string name="concluir_atividade">Concluir atividade</string>
     <string name="utilizadores_teste">Utilizadores de teste</string>
     <string name="identificador">Identificador</string>
     <string name="palavra_chave">Palavra-chave</string>
@@ -233,6 +233,7 @@
     <string name="relatorio">Relatório</string>
     <string name="resultado_imagem">imagem</string>
     <string name="completo">Completo</string>
+    <string name="dados_completos">Dados completos</string>
     <string name="incompleto">Incompleto</string>
     <string name="agenda">Agenda</string>
     <string name="anomalias_cliente">Anomalias Cliente</string>
@@ -250,5 +251,6 @@
     <string name="tarefas_upload">Tarefas para upload</string>
     <string name="pendencias">Pendencias</string>
     <string name="pendencias_download">Existem tarefas pedentes. Não é possível realizar o download dos dados. Por favor dê baixa de pelo menos uma atividade pendentes nas tarefas apresentadas</string>
+    <string name="participante">Participante</string>
 
 </resources>

@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.vvm.sh.R;
 import com.vvm.sh.databinding.ItemTipoBinding;
 import com.vvm.sh.ui.opcoes.modelos.Colecao;
+import com.vvm.sh.ui.opcoes.modelos.ResumoTipo;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,11 +19,11 @@ import java.util.List;
 public class TipoRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
 
-    private List<Colecao> items = new ArrayList<>();
+    private List<ResumoTipo> items = new ArrayList<>();
     private Context contexto;
     private OnTipoListener onItemLongListener;
 
-    public TipoRecyclerAdapter(Context contexto, List<Colecao> items, OnTipoListener onItemLongListener) {
+    public TipoRecyclerAdapter(Context contexto, List<ResumoTipo> items, OnTipoListener onItemLongListener) {
         this.items = items;
         this.contexto = contexto;
         this.onItemLongListener = onItemLongListener;
@@ -40,7 +41,7 @@ public class TipoRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
-        Colecao registo = items.get(position);
+        ResumoTipo registo = items.get(position);
         ((TipoViewHolder)holder).binding.setTipo(registo);
         ((TipoViewHolder)holder).binding.setListener((OnTipoListener) contexto);
 
@@ -55,7 +56,7 @@ public class TipoRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
     }
 
 
-    public void atualizar(List<Colecao> items){
+    public void atualizar(List<ResumoTipo> items){
         this.items.clear();
         this.items.addAll(items);
         notifyDataSetChanged();

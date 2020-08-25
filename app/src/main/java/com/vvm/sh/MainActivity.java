@@ -13,10 +13,12 @@ import com.vvm.sh.databinding.ActivityMainBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.agenda.AgendaViewModel;
+import com.vvm.sh.ui.agenda.DialogoCalendario;
 import com.vvm.sh.ui.agenda.DialogoOpcoesTrabalhoFragment;
 import com.vvm.sh.ui.agenda.modelos.Marcacao;
 import com.vvm.sh.ui.contaUtilizador.DefinicoesActivity;
 import com.vvm.sh.ui.contaUtilizador.OpcoesAvancadasActivity;
+import com.vvm.sh.ui.contaUtilizador.PerfilActivity;
 import com.vvm.sh.ui.opcoes.TiposActivity;
 import com.vvm.sh.ui.transferencias.DownloadTrabalhoActivity;
 import com.vvm.sh.ui.transferencias.UploadTrabalhoActivity;
@@ -177,8 +179,8 @@ public class MainActivity extends BaseDaggerActivity
      */
     private void dialogoDatas(List<Date> datas) {
 
-        BaseDatePickerDialog dialogo = new BaseDatePickerDialog(this);
-        dialogo.realcarDias(datas);
+        DialogoCalendario dialogo = new DialogoCalendario(this, datas);
+        //dialogo.realcarDias(datas);
         dialogo.obterDatePickerDialog().show(getSupportFragmentManager(), "Datepickerdialog");
     }
 
@@ -295,11 +297,11 @@ public class MainActivity extends BaseDaggerActivity
 
         switch (item.getItemId()){
 
-//            case R.id.item_perfil:
-//
-//                intent = new Intent(this, PerfilActivity.class);
-//                startActivity(intent);
-//                break;
+            case R.id.item_perfil:
+
+                intent = new Intent(this, PerfilActivity.class);
+                startActivity(intent);
+                break;
 
             case R.id.item_definicoes:
 

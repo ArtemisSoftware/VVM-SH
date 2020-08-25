@@ -1,5 +1,7 @@
 package com.vvm.sh.databinding;
 
+import android.view.View;
+
 import androidx.databinding.BindingAdapter;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -95,7 +97,7 @@ public class FormacaoBinding {
 
         if(estado == true){
 
-            view.setText(view.getContext().getString(R.string.completo));
+            view.setText(view.getContext().getString(R.string.dados_completos));
             chipDrawable.setChipBackgroundColorResource(R.color.cor_completo);
             view.setChipIcon(view.getContext().getResources().getDrawable(R.drawable.ic_executado_24dp));
 
@@ -104,6 +106,23 @@ public class FormacaoBinding {
             view.setText(view.getContext().getString(R.string.incompleto));
             chipDrawable.setChipBackgroundColorResource(R.color.cor_incompleto);
             view.setChipIcon(view.getContext().getResources().getDrawable(R.drawable.ic_nao_executado_24dp));
+        }
+    }
+
+    @BindingAdapter({"participar"})
+    public static void setParticipante(Chip view, boolean participar) {
+
+        ChipDrawable chipDrawable = (ChipDrawable) view.getChipDrawable();
+
+        view.setText(view.getContext().getString(R.string.participante));
+        chipDrawable.setChipBackgroundColorResource(R.color.cor_participante);
+        view.setChipIcon(view.getContext().getResources().getDrawable(R.drawable.ic_participante_24dp));
+
+        if(participar == true){
+            view.setVisibility(View.VISIBLE);
+        }
+        else{
+            view.setVisibility(View.GONE);
         }
     }
 

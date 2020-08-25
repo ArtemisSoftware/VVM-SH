@@ -1,5 +1,6 @@
 package com.vvm.sh.ui.tarefa.modelos;
 
+import androidx.room.ColumnInfo;
 import androidx.room.Embedded;
 import androidx.room.Relation;
 
@@ -28,6 +29,8 @@ public class TarefaDia {
     public EmailResultado email;
 
 
+    @ColumnInfo(name = "anomalias")
+    public int anomalias;
 
     /**
      * Metodo que permite obter a marca e a ordem da tarefa
@@ -42,7 +45,7 @@ public class TarefaDia {
      * @return a morada
      */
     public String obterMorada(){
-        return cliente.morada + "          CP:" + cliente.codigoPostal + " " + cliente.freguesia;
+        return cliente.morada + "\n" + cliente.codigoPostal + " " + cliente.freguesia;
     }
 
 

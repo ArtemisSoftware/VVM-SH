@@ -73,12 +73,10 @@
                         app:layout_constraintTop_toBottomOf="@+id/textView18" />
 
 
-                    <!-- TODO: deve aparecer codigo + descricao-->
-
                     <TextView
                         android:id="@+id/textView19"
                         style="@style/textoDetalhe"
-                        android:layout_marginTop="32dp"
+                        android:layout_marginTop="8dp"
                         android:text="@{viewmodel.ocorrencia.obterDescricao(), default=ocorrencia}"
                         app:layout_constraintStart_toStartOf="@+id/textView18"
                         app:layout_constraintTop_toBottomOf="@+id/textview2" />
@@ -170,7 +168,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
             android:layout_margin="@dimen/fab_margin"
-            android:src="@android:drawable/ic_dialog_email" />
+            android:src="@drawable/ic_gravar_24dp" />
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
 

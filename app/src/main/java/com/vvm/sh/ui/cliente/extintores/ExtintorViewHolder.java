@@ -57,7 +57,7 @@ public class ExtintorViewHolder extends ItemViewHolder implements View.OnClickLi
             img_data_validade.setVisibility(View.GONE);
         }
 
-        //TODO: a imagem deve mudar consoante a validade. Calendario cinzento ou colorido
+        //TODO: a imagem deve mudar consoante a validade. DialogoCalendario cinzento ou colorido
 
         /*
         if(registo.obterValidade() == true){

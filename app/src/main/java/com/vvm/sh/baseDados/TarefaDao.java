@@ -18,7 +18,9 @@ public abstract class TarefaDao implements BaseDao<Tarefa>{
 
 
     @Transaction
-    @Query("SELECT * FROM tarefas WHERE idTarefa = :idTarefa ")
+    @Query("SELECT *, IFNULL(ct_anomalias, 0) as anomalias FROM tarefas as trf " +
+            "LEFT JOIN (SELECT idTarefa, COUNT(id) as ct_anomalias FROM anomaliasResultado GROUP BY idTarefa) as anm ON trf.idTarefa = anm.idTarefa " +
+            "WHERE trf.idTarefa = :idTarefa ")
     abstract public Flowable<TarefaDia> obterTarefaDia(int idTarefa);
 
 

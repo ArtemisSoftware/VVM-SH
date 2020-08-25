@@ -9,6 +9,7 @@ import com.vvm.sh.baseDados.TipoDao;
 import com.vvm.sh.ui.opcoes.modelos.Colecao;
 import com.vvm.sh.baseDados.entidades.Atualizacao;
 import com.vvm.sh.baseDados.entidades.Tipo;
+import com.vvm.sh.ui.opcoes.modelos.ResumoTipo;
 
 import java.util.List;
 
@@ -31,8 +32,12 @@ public class TiposRepositorio {
     }
 
 
-    public Flowable<List<Colecao>> obterTipos() {
-        return tipoDao.obterTipos();
+    /**
+     * Metodo que permite obter o resumo dos tipos
+     * @return uma lista
+     */
+    public Flowable<List<ResumoTipo>> obterResumoTipos() {
+        return tipoDao.obterResumoTipos();
     }
 
 

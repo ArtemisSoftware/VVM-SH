@@ -147,5 +147,6 @@
     <color name="cor_incompleto">#fe485a</color>
     <color name="cor_pendente">#FBC02D</color>
 
+    <color name="cor_participante">#3797CF</color>
 
 </resources>

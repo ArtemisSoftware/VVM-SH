@@ -7,6 +7,7 @@ import androidx.room.Update;
 
 import com.vvm.sh.ui.opcoes.modelos.Colecao;
 import com.vvm.sh.baseDados.entidades.Tipo;
+import com.vvm.sh.ui.opcoes.modelos.ResumoTipo;
 
 import java.util.List;
 
@@ -28,14 +29,14 @@ abstract public class TipoDao implements BaseDao<Tipo>{
             "FROM atualizacoes as atl " +
             "LEFT JOIN (SELECT tipo, COUNT(id) as numeroRegistos FROM tipos GROUP BY tipo) as tp ON atl.descricao = tp.tipo " +
             "ORDER BY descricao ASC")
-    abstract public Maybe<List<Colecao>> obterTipos();
+    abstract public Maybe<List<Colecao>> obterResumoTipos();
 */
 
     @Query("SELECT descricao, numeroRegistos, seloTemporal " +
             "FROM atualizacoes as atl " +
             "LEFT JOIN (SELECT tipo, COUNT(id) as numeroRegistos FROM tipos WHERE ativo = 1 GROUP BY tipo) as tp ON atl.descricao = tp.tipo " +
             "ORDER BY descricao ASC")
-    abstract public Flowable<List<Colecao>> obterTipos();
+    abstract public Flowable<List<ResumoTipo>> obterResumoTipos();
 
 
 

@@ -67,7 +67,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.tarefa.TarefaActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -80,7 +81,7 @@
         <activity
             android:name="com.thefinestartist.finestwebview.FinestWebViewActivity"
             android:configChanges="keyboardHidden|orientation|screenSize"
-            android:screenOrientation="sensor"
+            android:screenOrientation="landscape"
             android:theme="@style/FinestWebViewTheme.Light" />
     </application>
 

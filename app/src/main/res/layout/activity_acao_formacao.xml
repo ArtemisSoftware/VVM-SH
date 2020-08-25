@@ -148,8 +148,8 @@
                             android:id="@+id/crl_btn_data"
                             android:layout_width="64dip"
                             android:layout_height="64dip"
-                            android:src="@drawable/ic_lorem_ipsum_24dp"
-                            app:cb_color="#99CC00"
+                            android:src="@drawable/ic_calendario"
+                            app:cb_color="@color/cor_botao_calendario"
                             app:cb_pressedRingWidth="8dip" />
 
                     </LinearLayout>
@@ -185,8 +185,8 @@
                             android:id="@+id/crl_btn_inicio"
                             android:layout_width="64dip"
                             android:layout_height="64dip"
-                            android:src="@drawable/ic_lorem_ipsum_24dp"
-                            app:cb_color="#99CC00"
+                            android:src="@drawable/ic_relogio_24dp"
+                            app:cb_color="@color/cor_botao_calendario"
                             app:cb_pressedRingWidth="8dip" />
 
                     </LinearLayout>
@@ -224,8 +224,8 @@
                             android:id="@+id/crl_btn_fim"
                             android:layout_width="64dip"
                             android:layout_height="64dip"
-                            android:src="@drawable/ic_lorem_ipsum_24dp"
-                            app:cb_color="#99CC00"
+                            android:src="@drawable/ic_relogio_24dp"
+                            app:cb_color="@color/cor_botao_calendario"
                             app:cb_pressedRingWidth="8dip" />
 
                     </LinearLayout>

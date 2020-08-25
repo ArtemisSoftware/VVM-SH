@@ -23,7 +23,7 @@ public class TipoViewHolder extends RecyclerView.ViewHolder implements View.OnLo
 
     @Override
     public boolean onLongClick(View v) {
-        onItemLongListener.OnTipoLongPressListener(binding.getTipo().obterDescricao());//onItemLongClick(/*getAdapterPosition()*/);
+        onItemLongListener.OnTipoLongPressListener(binding.getTipo().atualizacao.descricao);//onItemLongClick(/*getAdapterPosition()*/);
         return true;
     }
 

@@ -13,6 +13,7 @@ import com.vvm.sh.servicos.ServicoDownloadApk;
 import com.vvm.sh.servicos.ServicoInstalacaoApk;
 import com.vvm.sh.ui.opcoes.modelos.Colecao;
 import com.vvm.sh.servicos.AtualizarTipoAsyncTask;
+import com.vvm.sh.ui.opcoes.modelos.ResumoTipo;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.constantes.TiposConstantes;
@@ -36,7 +37,7 @@ public class OpcoesViewModel extends BaseViewModel {
     private final VersaoAppRepositorio versaoAppRepositorio;
     private final TiposRepositorio tiposRepositorio;
     public MutableLiveData<VersaoApp> versaoApp;
-    public MutableLiveData<List<Colecao>> tipos;
+    public MutableLiveData<List<ResumoTipo>> tipos;
 
 
     @Inject
@@ -67,19 +68,19 @@ public class OpcoesViewModel extends BaseViewModel {
 
         showProgressBar(true);
 
-        tiposRepositorio.obterTipos().toObservable()
+        tiposRepositorio.obterResumoTipos().toObservable()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
 
-                        new Observer<List<Colecao>>() {
+                        new Observer<List<ResumoTipo>>() {
                             @Override
                             public void onSubscribe(Disposable d) {
                                 disposables.add(d);
                             }
 
                             @Override
-                            public void onNext(List<Colecao> registos) {
+                            public void onNext(List<ResumoTipo> registos) {
 
                                 tipos.setValue(registos);
                                 showProgressBar(false);

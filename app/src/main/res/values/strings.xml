@@ -253,5 +253,6 @@
     <string name="pendencias_download">Existem tarefas pedentes. Não é possível realizar o download dos dados. Por favor dê baixa de pelo menos uma atividade pendentes nas tarefas apresentadas</string>
     <string name="participante">Participante</string>
     <string name="area">Area</string>
+    <string name="erro">Erro</string>
 
 </resources>

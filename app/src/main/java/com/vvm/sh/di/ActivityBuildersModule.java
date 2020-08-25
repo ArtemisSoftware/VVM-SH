@@ -29,6 +29,7 @@ import com.vvm.sh.ui.atividadesPendentes.DialogoAtividadePendenteExecutada;
 import com.vvm.sh.ui.atividadesPendentes.DialogoAtividadePendenteNaoExecutada;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.FormacaoActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.FormandoActivity;
+import com.vvm.sh.ui.autenticacao.PerfilActivity;
 import com.vvm.sh.ui.ocorrencias.OcorrenciasHistoricoActivity;
 import com.vvm.sh.ui.ocorrencias.OcorrenciasRegistoActivity;
 import com.vvm.sh.ui.ocorrencias.RegistarOcorrenciaActivity;
@@ -68,7 +69,11 @@ public abstract class ActivityBuildersModule {
     )
     abstract AutenticacaoActivity contributeAutenticacaoActivity();
 
-
+    @AutenticacaoScope
+    @ContributesAndroidInjector(
+            modules = { AutenticacaoViewModelsModule.class, AutenticacaoModule.class }
+    )
+    abstract PerfilActivity contributePerfilActivity();
 
 
 

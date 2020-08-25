@@ -6,6 +6,7 @@ import com.vvm.sh.api.modelos.UtilizadorResposta;
 import com.vvm.sh.api.modelos.UtilizadorResultado;
 import com.vvm.sh.repositorios.AutenticacaoRepositorio;
 import com.vvm.sh.ui.autenticacao.modelos.Utilizador;
+import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.mapeamento.ModelMapping;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
@@ -14,6 +15,7 @@ import javax.inject.Inject;
 
 import io.reactivex.ObservableSource;
 import io.reactivex.Observer;
+import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Function;
@@ -144,30 +146,25 @@ public class AutenticacaoViewModel extends BaseViewModel {
 
         showProgressBar(true);
 
-        autenticacaoRepositorio.obterUtilizador(idUtilizador).toObservable()
+        autenticacaoRepositorio.obterUtilizador(idUtilizador)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
 
-                        new Observer<Utilizador>() {
+                        new SingleObserver<Utilizador>() {
                             @Override
                             public void onSubscribe(Disposable d) {
 
                             }
 
                             @Override
-                            public void onNext(Utilizador utilizador) {
+                            public void onSuccess(Utilizador utilizador) {
 
                             }
 
                             @Override
                             public void onError(Throwable e) {
-
-                            }
-
-                            @Override
-                            public void onComplete() {
-
+                                messagemLiveData.setValue(Recurso.erro(Sintaxe.Alertas.DADOS_INEXISTENTES));
                             }
                         }
                 );

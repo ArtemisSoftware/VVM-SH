@@ -64,6 +64,7 @@ public class Sintaxe {
 
         public static final String PREENCHIMENTO_OBRIGATORIO = "Campo de preenchimento obrigatório";
         public static final String HORARIO_INVALIDO = "Horário inválido";
+        public static final String DADOS_INEXISTENTES = "Não existem dados";
 
     }
 

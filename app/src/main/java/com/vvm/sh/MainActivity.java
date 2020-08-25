@@ -83,7 +83,6 @@ public class MainActivity extends BaseDaggerActivity
         //Intent intent = new Intent(this, AutenticacaoActivity.class);
 //        //intent.putExtra(AppConstants.PICTURE, pictureRecyclerAdapter.getSelectedPicture(position).getId());
         //Intent intent = new Intent(this, DownloadTrabalhoActivity.class);
-        Intent intent = new Intent(this, TiposActivity.class);
         //startActivity(intent);
 
         activityMainBinding.txtData.setText(DatasUtil.obterDataAtual(DatasUtil.FORMATO_DD_MMMM_YYYY, DatasUtil.LOCAL_PORTUGAL));
@@ -299,7 +298,6 @@ public class MainActivity extends BaseDaggerActivity
             case R.id.item_perfil:
 
                 intent = new Intent(this, PerfilActivity.class);
-                startActivity(intent);
                 break;
 
             case R.id.item_definicoes:

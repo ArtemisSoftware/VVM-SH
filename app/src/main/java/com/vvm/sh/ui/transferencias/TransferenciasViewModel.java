@@ -75,6 +75,7 @@ public class TransferenciasViewModel extends BaseViewModel {
 
 
 
+
     public void obterUpload(String idUtilizador, Handler handler){
         Observable<List<Upload>> observable = transferenciasRepositorio.obterUploads(idUtilizador).toObservable();
         obterUpload(observable, idUtilizador, handler);

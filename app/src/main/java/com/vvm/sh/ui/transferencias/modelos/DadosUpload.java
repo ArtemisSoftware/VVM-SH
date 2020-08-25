@@ -11,15 +11,17 @@ import java.util.List;
 public class DadosUpload {
 
     public int idBloco;
+    public String idUtilizador;
     public String versao;
     public HashMap<Integer, List<Imagem>> imagens;
     public List<DadosFormulario> dados;
 
-    public DadosUpload() {
+    public DadosUpload(String idUtilizador) {
 
         this.idBloco = 0;
         this.dados = new ArrayList<>();
         this.imagens = new HashMap<>();
+        this.idUtilizador = idUtilizador;
 
         this.versao = BuildConfig.VERSION_NAME;
     }

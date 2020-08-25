@@ -5,16 +5,14 @@ import androidx.annotation.NonNull;
 import com.vvm.sh.api.AtividadePendenteResultado_;
 import com.vvm.sh.api.FormandoResultado_;
 import com.vvm.sh.api.SegurancaAlimentarApi;
+import com.vvm.sh.api.modelos.Codigo;
 import com.vvm.sh.api.modelos.SessaoResposta;
-import com.vvm.sh.baseDados.AtualizacaoDao;
 import com.vvm.sh.baseDados.dao.TransferenciasDao;
 import com.vvm.sh.baseDados.entidades.Anomalia;
 import com.vvm.sh.baseDados.entidades.AtividadeExecutada;
 import com.vvm.sh.baseDados.entidades.AtividadePendente;
-import com.vvm.sh.baseDados.entidades.Atualizacao;
 import com.vvm.sh.baseDados.entidades.Cliente;
 import com.vvm.sh.baseDados.entidades.CrossSellingResultado;
-import com.vvm.sh.baseDados.entidades.FormandoResultado;
 import com.vvm.sh.baseDados.entidades.ImagemResultado;
 import com.vvm.sh.baseDados.entidades.Ocorrencia;
 import com.vvm.sh.baseDados.entidades.OcorrenciaHistorico;
@@ -30,7 +28,6 @@ import com.vvm.sh.ui.transferencias.modelos.Upload;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.reactivex.Flowable;
 import io.reactivex.Maybe;
 import io.reactivex.Single;
 
@@ -61,6 +58,30 @@ public class TransferenciasRepositorio {
     }
 
 
+    /**
+     * Metodo que permite submeter os dados para o web service
+     * @param dados os dados a submeter
+     * @param idUtilizador o identificador do utilizador
+     * @return um codigo com o resultado da submissao
+     */
+    public Single<Codigo> submeterDados(String dados, String idUtilizador) {
+        return api.submeterDados(dados, idUtilizador);
+    }
+
+    /**
+     * Metodo que permite submeter as imagens para o web service
+     * @param dados os dados a submeter
+     * @param idUtilizador o identificador do utilizador
+     * @param id o identificador unico do bloco de imagens
+     * @param numeroFicheiro o numero total de ficheiros que irão ser submetidos
+     * @param messageDigest o messageDigest
+     * @return um codigo com o resultado da submissao
+     */
+    public Single<Codigo> submeterImagens(String dados, String idUtilizador, String id, String numeroFicheiro, String messageDigest) {
+        return api.submeterImagens(dados, idUtilizador, id, numeroFicheiro, messageDigest);
+    }
+
+
 
 
 
@@ -76,10 +97,22 @@ public class TransferenciasRepositorio {
     }
 
 
+    /**
+     * Metodo que permite obter os dados para upload
+     * @param idUtilizador o identificador do utilizador
+     * @return uma lista de uploads
+     */
     public Maybe<List<Upload>> obterUploads(String idUtilizador){
         return transferenciasDao.obterUploads(idUtilizador, false);
     }
 
+
+    /**
+     *
+     * @param idUtilizador
+     * @param data
+     * @return
+     */
     public Maybe<List<Upload>> obterUploads(String idUtilizador, long data){
         return transferenciasDao.obterUploads(idUtilizador, data, false);
     }

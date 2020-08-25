@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.vvm.sh.api.BlocoDados;
+import com.vvm.sh.api.BlocoImagens;
 import com.vvm.sh.api.modelos.Codigo;
 import com.vvm.sh.api.modelos.SessaoResposta;
 import com.vvm.sh.api.modelos.TipoResposta;
@@ -40,6 +41,7 @@ import io.reactivex.Observer;
 import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.BiFunction;
 import io.reactivex.functions.Function;
 import io.reactivex.functions.Predicate;
 import io.reactivex.schedulers.Schedulers;
@@ -138,10 +140,41 @@ public class TransferenciasViewModel extends BaseViewModel {
 
     public void upload(DadosUpload dadosUpload) {
 
-
-        BlocoDados registo = UploadMapping.INSTANCE.map(dadosUpload);
         Gson gson = new Gson();
-        String jsonInString = gson.toJson(registo);
+
+
+        BlocoDados registoDados = UploadMapping.INSTANCE.map(dadosUpload);
+        String dados = gson.toJson(registoDados);
+
+        List<Observable<Codigo>> observables = new ArrayList<>();
+
+
+        for(int index = 0; index < dadosUpload.idBloco; ++index){
+
+
+            BlocoImagens registoImagem = new BlocoImagens();
+            registoImagem.dadosImagens = dadosUpload.imagens.get(index);
+            String imagens = gson.toJson(registoImagem);
+
+            //observables.add(transferenciasRepositorio.submeterImagens(imagens, dadosUpload.idUtilizador,dados ))
+
+
+        }
+
+
+        Observable<Integer> inserirFormando = null;// = formacaoRepositorio.inserirFormando(registo).toObservable();
+
+        List<Observable<Integer>> lolo = new ArrayList<>();
+        lolo.add(inserirFormando);
+
+        Observable<Object> observable = Observable.zip(lolo, new Function<Object[], Object>() {
+            @Override
+            public Object apply(Object[] objects) throws Exception {
+                return null;
+            }
+        });
+
+
     }
 
 

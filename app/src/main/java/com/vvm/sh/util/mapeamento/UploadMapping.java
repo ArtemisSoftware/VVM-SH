@@ -6,6 +6,7 @@ import com.vvm.sh.api.AtividadePendenteExecutada;
 import com.vvm.sh.api.AtividadePendenteNaoExecutada;
 import com.vvm.sh.api.AtividadePendenteResultado_;
 import com.vvm.sh.api.BlocoDados;
+import com.vvm.sh.api.BlocoImagens;
 import com.vvm.sh.api.CrossSelling;
 import com.vvm.sh.api.Email;
 import com.vvm.sh.api.Formando;
@@ -83,4 +84,6 @@ public interface UploadMapping {
     @Mapping(source = "versao", target = "versaoApp")
     @Mapping(source = "idBloco", target = "numeroFicheiroImagens")
     BlocoDados map(DadosUpload dadosUpload);
+
+
 }

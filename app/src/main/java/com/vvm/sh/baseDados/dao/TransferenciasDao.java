@@ -14,6 +14,7 @@ import com.vvm.sh.baseDados.entidades.AtividadePendente;
 import com.vvm.sh.baseDados.entidades.Cliente;
 import com.vvm.sh.baseDados.entidades.CrossSellingResultado;
 import com.vvm.sh.baseDados.entidades.FormandoResultado;
+import com.vvm.sh.baseDados.entidades.ImagemResultado;
 import com.vvm.sh.baseDados.entidades.Ocorrencia;
 import com.vvm.sh.baseDados.entidades.OcorrenciaHistorico;
 import com.vvm.sh.baseDados.entidades.Resultado;
@@ -121,6 +122,11 @@ abstract public class TransferenciasDao implements BaseDao<Resultado> {
 
     @Query("SELECT * FROM tarefas WHERE idTarefa = :idTarefa")
     abstract public Tarefa obterTarefa(int idTarefa);
+
+
+    @Query("SELECT * FROM imagensResultado WHERE idImagem IN(:ids)")
+    abstract public List<ImagemResultado> obterImagens(List<Integer> ids);
+
 
 
     //-------------------

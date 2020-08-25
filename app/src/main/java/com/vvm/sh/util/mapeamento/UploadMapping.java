@@ -9,11 +9,13 @@ import com.vvm.sh.api.CrossSelling;
 import com.vvm.sh.api.Email;
 import com.vvm.sh.api.Formando;
 import com.vvm.sh.api.FormandoResultado_;
+import com.vvm.sh.api.Imagem;
 import com.vvm.sh.api.Ocorrencia;
 import com.vvm.sh.api.Tarefa_;
 import com.vvm.sh.baseDados.entidades.CrossSellingResultado;
 import com.vvm.sh.baseDados.entidades.EmailResultado;
 import com.vvm.sh.baseDados.entidades.FormandoResultado;
+import com.vvm.sh.baseDados.entidades.ImagemResultado;
 import com.vvm.sh.baseDados.entidades.Tarefa;
 import com.vvm.sh.baseDados.entidades.AnomaliaResultado;
 import com.vvm.sh.baseDados.entidades.OcorrenciaResultado;
@@ -68,4 +70,8 @@ public interface UploadMapping {
     @Mapping(source = "prefixoCt", target = "prefixoCT")
     @Mapping(source = "data", target = "data", dateFormat = DatasUtil.FORMATO_YYYY_MM_DD)
     Tarefa_ map(Tarefa item);
+
+
+    @Mapping(source = "idImagem", target = "idFoto")
+    Imagem map(ImagemResultado item);
 }

@@ -15,6 +15,7 @@ import com.vvm.sh.baseDados.entidades.Atualizacao;
 import com.vvm.sh.baseDados.entidades.Cliente;
 import com.vvm.sh.baseDados.entidades.CrossSellingResultado;
 import com.vvm.sh.baseDados.entidades.FormandoResultado;
+import com.vvm.sh.baseDados.entidades.ImagemResultado;
 import com.vvm.sh.baseDados.entidades.Ocorrencia;
 import com.vvm.sh.baseDados.entidades.OcorrenciaHistorico;
 import com.vvm.sh.baseDados.entidades.Resultado;
@@ -166,6 +167,16 @@ public class TransferenciasRepositorio {
      */
     public Tarefa obterTarefa(int idTarefa) {
         return transferenciasDao.obterTarefa(idTarefa);
+    }
+
+
+    /**
+     * Metodo que permite obter as imagens
+     * @param ids os identificadores das imagens
+     * @return uma lista de imagens
+     */
+    public List<ImagemResultado> obterImagens(List<Integer> ids) {
+        return transferenciasDao.obterImagens(ids);
     }
 
 

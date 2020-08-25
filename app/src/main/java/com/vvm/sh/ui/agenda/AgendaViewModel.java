@@ -129,7 +129,10 @@ public class AgendaViewModel extends BaseViewModel {
     }
 
 
-
+    /**
+     * Metodo que permite obter as datas nas quais existe trabalho
+     * @param idUtilizador o identificador do utilizador
+     */
     public void obterDatas(String idUtilizador){
 
         showProgressBar(true);

@@ -23,7 +23,7 @@
             android:name=".ui.AssinaturaActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ui.opcoes.TiposActivity" />
-        <activity android:name=".ui.contaUtilizador.PerfilActivity" />
+        <activity android:name=".ui.autenticacao.PerfilActivity" />
         <activity android:name=".ui.autenticacao.AutenticacaoActivity" />
         <activity android:name=".apresentacao.ApresentacaoActivity" />
         <activity android:name=".carregamentos.CarregamentoTiposActivity" />

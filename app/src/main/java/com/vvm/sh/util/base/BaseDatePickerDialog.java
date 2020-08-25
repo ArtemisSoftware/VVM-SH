@@ -48,6 +48,9 @@ public class BaseDatePickerDialog {
      */
     public void fixarLimites(List<Date> datas){
 
+        if(datas.size() == 0)
+            return;
+
         Date limiteInferior = datas.get(0);
         Date limiteSuperior = datas.get(datas.size() -1);
 
@@ -59,8 +62,6 @@ public class BaseDatePickerDialog {
         dataMaxima.setTime(limiteSuperior);
         datePickerDialog.setMaxDate(dataMaxima);
     }
-
-
 
 
 
@@ -94,6 +95,12 @@ public class BaseDatePickerDialog {
     }
 
 
+    /**
+     * Metodo que permite calcular o desvio do limite no dialogo
+     * @param tipo o campo a alterar (dia - Calendar.DATE, mes - Calendar.MONTH, ano - Calendar.YEAR)
+     * @param desvio o valor a desviar
+     * @return um desvio
+     */
     private int calcularDesvio(int tipo, int desvio){
 
         int resultado = 0;

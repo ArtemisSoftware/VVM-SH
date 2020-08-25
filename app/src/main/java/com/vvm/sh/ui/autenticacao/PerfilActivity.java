@@ -1,4 +1,4 @@
-package com.vvm.sh.ui.contaUtilizador;
+package com.vvm.sh.ui.autenticacao;
 
 import android.os.Bundle;
 import android.widget.ImageView;
@@ -19,11 +19,11 @@ public class PerfilActivity extends BaseActivity {
     @BindView(R.id.txt_nome)
     TextView txt_nome;
 
-    @BindView(R.id.txt_numero)
-    TextView txt_numero;
-
-    @BindView(R.id.txt_cap)
-    TextView txt_cap;
+//    @BindView(R.id.txt_numero)
+//    TextView txt_numero;
+//
+//    @BindView(R.id.txt_cap)
+//    TextView txt_cap;
 
 
     @Override

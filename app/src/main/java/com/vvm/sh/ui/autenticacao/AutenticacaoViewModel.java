@@ -1,5 +1,7 @@
 package com.vvm.sh.ui.autenticacao;
 
+import androidx.lifecycle.MutableLiveData;
+
 import com.vvm.sh.api.modelos.UtilizadorResposta;
 import com.vvm.sh.api.modelos.UtilizadorResultado;
 import com.vvm.sh.repositorios.AutenticacaoRepositorio;
@@ -22,11 +24,14 @@ public class AutenticacaoViewModel extends BaseViewModel {
 
     private final AutenticacaoRepositorio autenticacaoRepositorio;
 
+    public MutableLiveData<Utilizador> utilizador;
+
 
     @Inject
     public AutenticacaoViewModel(AutenticacaoRepositorio autenticacaoRepositorio){
 
         this.autenticacaoRepositorio = autenticacaoRepositorio;
+        utilizador = new MutableLiveData<>();
     }
 
 
@@ -39,8 +44,7 @@ public class AutenticacaoViewModel extends BaseViewModel {
 
         showProgressBar(true);
 
-        autenticacaoRepositorio.obterUtilizadores()
-                .toObservable()
+        autenticacaoRepositorio.obterUtilizadores().toObservable()
                 .map(new Function<UtilizadorResposta, Object>() {
                     @Override
                     public UtilizadorResultado apply(UtilizadorResposta resposta) throws Exception {
@@ -124,6 +128,51 @@ public class AutenticacaoViewModel extends BaseViewModel {
         }
 
         return null;
+    }
+
+
+    //-----------------------
+    //OBTER
+    //-----------------------
+
+
+    /**
+     * Metodo que permite obter os dados do utilizador
+     * @param idUtilizador o identificador do utilizador
+     */
+    public void obterUtilizador(String idUtilizador){
+
+        showProgressBar(true);
+
+        autenticacaoRepositorio.obterUtilizador(idUtilizador).toObservable()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new Observer<Utilizador>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+
+                            }
+
+                            @Override
+                            public void onNext(Utilizador utilizador) {
+
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+
+                            @Override
+                            public void onComplete() {
+
+                            }
+                        }
+                );
+
+
     }
 
 

@@ -10,6 +10,9 @@ public class BaseDatePickerDialog {
 
     int ano, mes, dia;
     private DatePickerDialog datePickerDialog;
+    protected Calendar limiteInferior, limiteSuperior;
+
+
 
     public BaseDatePickerDialog(DatePickerDialog.OnDateSetListener listener) {
 
@@ -39,6 +42,9 @@ public class BaseDatePickerDialog {
 
         Calendar dataMaxima = Calendar.getInstance();
         datePickerDialog.setMaxDate(dataMaxima);
+
+        limiteInferior = dataMinima;
+        limiteSuperior = dataMaxima;
     }
 
 
@@ -51,16 +57,39 @@ public class BaseDatePickerDialog {
         if(datas.size() == 0)
             return;
 
-        Date limiteInferior = datas.get(0);
-        Date limiteSuperior = datas.get(datas.size() -1);
+        Date dataLimiteInferior = datas.get(0);
+        Date dataLimiteSuperior = datas.get(datas.size() -1);
 
         Calendar dataMinima = Calendar.getInstance();
-        dataMinima.setTime(limiteInferior);
+        dataMinima.setTime(dataLimiteInferior);
         datePickerDialog.setMinDate(dataMinima);
 
         Calendar dataMaxima = Calendar.getInstance();
-        dataMaxima.setTime(limiteSuperior);
+        dataMaxima.setTime(dataLimiteSuperior);
         datePickerDialog.setMaxDate(dataMaxima);
+
+        limiteInferior = dataMinima;
+        limiteSuperior = dataMaxima;
+    }
+
+
+    /**
+     * Metodo que permite desativar os dias não contidos na lista de datas
+     * @param datas a lista de datas a manter
+     */
+    public void desativarDias(List<Date> datas){
+
+        if(limiteInferior == null || limiteSuperior == null)
+            return;
+
+        for (Calendar loopdate = limiteInferior; limiteInferior.before(limiteSuperior); limiteInferior.add(Calendar.DATE, 1), loopdate = limiteInferior) {
+
+            if(datas.contains(loopdate.getTime()) == false){
+                Calendar[] disabledDays =  new Calendar[1];
+                disabledDays[0] = loopdate;
+                datePickerDialog.setDisabledDays(disabledDays);
+            }
+        }
     }
 
 

@@ -148,5 +148,6 @@
     <color name="cor_pendente">#FBC02D</color>
 
     <color name="cor_participante">#3797CF</color>
+    <color name="cor_alerta_medio">#ededed</color>
 
 </resources>

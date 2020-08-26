@@ -34,6 +34,7 @@ public class Sintaxe {
         public static final String CROSS_SELLING = "Cross Selling";
         public static final String OCORRENCIA = "Ocorrencia";
         public static final String ATUALIZACAO = "Atualização";
+        public static final String DOWNLOAD = "Download";
     }
 
     public class Opcoes{
@@ -72,6 +73,7 @@ public class Sintaxe {
 
         public static final String CONTA_CORRENTE_NIF = "Conta corrente do nif ";
         public static final String DADOS_GRAVADOS_SUCESSO = "Dados gravados com sucesso";
+        public static final String DADOS_ENVIADOS_SUCESSO = "Dados enviados com sucesso";
         public static final String DADOS_EDITADOS_SUCESSO = "Dados editados com sucesso";
         public static final String TIPO_ATUALIZADO_SUCESSO = "Tipo atualizado com sucesso.\nTipo: ";
     }

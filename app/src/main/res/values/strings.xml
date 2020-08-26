@@ -254,5 +254,10 @@
     <string name="participante">Participante</string>
     <string name="area">Area</string>
     <string name="erro">Erro</string>
+    <string name="trabalho_nao_descarregado">Trabalho não descarregado</string>
+    <string name="recarregar_tarefa">Recarregar tarefa</string>
+    <string name="perder_dados_tarefa">Ao recarregar a tarefa irá perder todos os dados gravados</string>
+    <string name="argumento_tarefa">tarefa</string>
+    <string name="argumento_recarregar_tarefa">recarregar_tarefa</string>
 
 </resources>

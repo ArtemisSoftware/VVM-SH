@@ -96,5 +96,8 @@ public class Identificadores {
 
         public static final int CODIGO_101 = 101;
         public static final String MSG_101 = "Não existe trabalho para download";
+
+        public static final int CODIGO_400 = 400;
+        public static final String MSG_400 = "Ocorreu um erro.";
     }
 }

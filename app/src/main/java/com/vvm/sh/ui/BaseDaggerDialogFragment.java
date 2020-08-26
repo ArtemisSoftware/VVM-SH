@@ -70,7 +70,7 @@ public abstract class BaseDaggerDialogFragment extends DaggerDialogFragment {
 
         listener = new OnDialogoListener() {
             @Override
-            public void onTerminarDialogo() {
+            public void onExecutar() {
                 terminarDialogo();
             }
         };

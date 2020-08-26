@@ -7,6 +7,7 @@ import com.vvm.sh.repositorios.AgendaRepositorio;
 import com.vvm.sh.ui.agenda.modelos.Marcacao;
 import com.vvm.sh.servicos.TrabalhoAsyncTask;
 import com.vvm.sh.util.Recurso;
+import com.vvm.sh.util.metodos.DatasUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import java.util.Date;
@@ -150,6 +151,12 @@ public class AgendaViewModel extends BaseViewModel {
 
                             @Override
                             public void onNext(List<Date> registos) {
+
+
+                                Date dataHoje = DatasUtil.converterString(DatasUtil.obterDataAtual(DatasUtil.FORMATO_YYYY_MM_DD), DatasUtil.FORMATO_YYYY_MM_DD);
+
+                                if(registos.contains(dataHoje) == false)
+                                    registos.add(dataHoje);
 
                                 datas.setValue(Recurso.successo(registos));
                                 showProgressBar(false);

@@ -12,5 +12,6 @@ public class DialogoCalendario extends BaseDatePickerDialog {
         super(listener);
 
         fixarLimites(datas);
+        desativarDias(datas);
     }
 }

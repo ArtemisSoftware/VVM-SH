@@ -25,6 +25,7 @@ import com.vvm.sh.ui.transferencias.UploadTrabalhoActivity;
 import com.vvm.sh.ui.tarefa.TarefaActivity;
 import com.vvm.sh.ui.agenda.adaptadores.OnAgendaListener;
 import com.vvm.sh.util.Recurso;
+import com.vvm.sh.util.interfaces.OnDialogoListener;
 import com.vvm.sh.util.metodos.DatasUtil;
 import com.vvm.sh.util.metodos.Preferencias;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
@@ -39,8 +40,7 @@ import butterknife.OnClick;
 
 public class MainActivity extends BaseDaggerActivity
         implements OnAgendaListener, DatePickerDialog.OnDateSetListener,
-        DialogoOpcoesTrabalhoFragment.DialogoListener/*OnItemListener, OnItemLongListener,
-                   DialogoOpcoesTrabalhoFragment.DialogoListener, DialogoOpcoesTarefaFragment.DialogoListener */{
+        DialogoOpcoesTrabalhoFragment.DialogoListener{
 
 
 
@@ -148,6 +148,18 @@ public class MainActivity extends BaseDaggerActivity
     @Override
     public void onItemLongPress(Marcacao marcacao) {
 
+        OnDialogoListener listener = new OnDialogoListener() {
+            @Override
+            public void onExecutar() {
+                Intent intent = new Intent(MainActivity.this, DownloadTrabalhoActivity.class);
+                intent.putExtra(getString(R.string.argumento_tarefa), marcacao.tarefa);
+                intent.putExtra(getString(R.string.argumento_recarregar_tarefa), true);
+                startActivity(intent);
+            }
+        };
+
+        dialogo.alerta(getString(R.string.recarregar_tarefa), getString(R.string.perder_dados_tarefa), listener);
+
     }
 
 
@@ -163,7 +175,12 @@ public class MainActivity extends BaseDaggerActivity
         viewModel.obterDatas(Preferencias.obterIdUtilizador(this));
     }
 
+    @OnClick(R.id.btn_download_on_demand)
+    public void btn_download_on_demand_OnClickListener(View view) {
 
+        Intent intent = new Intent(this, DownloadTrabalhoActivity.class);
+        startActivity(intent);
+    }
 
 
     //------------------------
@@ -178,7 +195,6 @@ public class MainActivity extends BaseDaggerActivity
     private void dialogoDatas(List<Date> datas) {
 
         DialogoCalendario dialogo = new DialogoCalendario(this, datas);
-        //dialogo.realcarDias(datas);
         dialogo.obterDatePickerDialog().show(getSupportFragmentManager(), "Datepickerdialog");
     }
 
@@ -264,7 +280,9 @@ public class MainActivity extends BaseDaggerActivity
 
     @Override
     public void recarregarTrabalho() {
-
+        Intent intent = new Intent(this, DownloadTrabalhoActivity.class);
+        intent.putExtra(getString(R.string.argumento_data), DatasUtil.converterDataLong(activityMainBinding.txtData.getText().toString(), DatasUtil.FORMATO_DD_MMMM_YYYY));
+        startActivity(intent);
     }
 
     @Override

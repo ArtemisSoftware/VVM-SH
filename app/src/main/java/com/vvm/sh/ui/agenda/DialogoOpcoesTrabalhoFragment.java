@@ -35,14 +35,12 @@ public class DialogoOpcoesTrabalhoFragment extends BaseDialogoOpcoesFragment {
                     case 0: //recarregar trabalho do dia
 
                         listener.recarregarTrabalho();
-                        //recarregarTrabalho(((MenuLateral_Agenda) menuLateral).obterData() /*"2019-01-17"*/);
                         break;
 
 
                     case 1: //reenviar trabalho do dia
 
                         listener.reUploadDados();
-                        //reUploadDados(((MenuLateral_Agenda) menuLateral).obterData());
                         break;
 
                     default:

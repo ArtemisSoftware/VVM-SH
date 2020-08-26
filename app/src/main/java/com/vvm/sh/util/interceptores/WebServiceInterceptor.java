@@ -117,6 +117,11 @@ public class WebServiceInterceptor implements Interceptor {
                 codigo.mensagem = MSG_101;
                 break;
 
+            case CODIGO_400:
+
+                codigo.mensagem = MSG_400;
+                break;
+
 
             default:
                 break;

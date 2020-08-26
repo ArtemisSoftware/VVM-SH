@@ -1,6 +1,7 @@
 package com.vvm.sh.baseDados.dao;
 
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Transaction;
@@ -158,4 +159,8 @@ abstract public class TransferenciasDao implements BaseDao<Resultado> {
 
     @Insert
     abstract public List<Long> inserir(List<OcorrenciaHistorico> registos);
+
+
+    @Query("DELETE FROM tarefas WHERE idTarefa = :idTarefa")
+    abstract public void removerTarefa(int idTarefa);
 }

@@ -6,21 +6,27 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.himanshurawat.hasher.HashType;
+import com.himanshurawat.hasher.Hasher;
 import com.vvm.sh.api.BlocoDados;
 import com.vvm.sh.api.BlocoImagens;
 import com.vvm.sh.api.modelos.Codigo;
 import com.vvm.sh.api.modelos.SessaoResposta;
 import com.vvm.sh.api.modelos.TipoResposta;
 import com.vvm.sh.baseDados.entidades.Atualizacao;
+import com.vvm.sh.baseDados.entidades.Tarefa;
 import com.vvm.sh.repositorios.TiposRepositorio;
 import com.vvm.sh.repositorios.TransferenciasRepositorio;
 import com.vvm.sh.servicos.CarregarTipoAsyncTask;
 import com.vvm.sh.servicos.DadosUploadAsyncTask;
+import com.vvm.sh.servicos.RecarregarTarefaAsyncTask;
 import com.vvm.sh.ui.transferencias.modelos.DadosUpload;
 import com.vvm.sh.ui.transferencias.modelos.Pendencia;
 import com.vvm.sh.ui.transferencias.modelos.Upload;
 import com.vvm.sh.util.Recurso;
+import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.constantes.TiposConstantes;
+import com.vvm.sh.util.excepcoes.RespostaWsInvalidaException;
 import com.vvm.sh.util.mapeamento.UploadMapping;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
@@ -140,34 +146,72 @@ public class TransferenciasViewModel extends BaseViewModel {
 
     public void upload(DadosUpload dadosUpload) {
 
+        showProgressBar(true);
+
+
         Gson gson = new Gson();
-
-
         BlocoDados registoDados = UploadMapping.INSTANCE.map(dadosUpload);
         String dados = gson.toJson(registoDados);
+        String messageDigest = Hasher.Companion.hash(dados, HashType.MD5);
 
+        //TODO: descomentar quando tiver um exemplo para o meu utilizador
+
+//        transferenciasRepositorio.submeterDados(dados, dadosUpload.idUtilizador, dadosUpload.idUpload, messageDigest)
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(
+//
+//                        new SingleObserver<Codigo>() {
+//                            @Override
+//                            public void onSubscribe(Disposable d) {
+//
+//                            }
+//
+//                            @Override
+//                            public void onSuccess(Codigo codigo) {
+//uploadImagens(dadosUpload)
+//                            }
+//
+//                            @Override
+//                            public void onError(Throwable e) {
+//showProgressBar(false);
+        //messagemLiveData.setValue(Recurso.erro(codigo, "Download"));
+//                            }
+//                        }
+//
+//                );
+
+
+
+
+
+    }
+
+
+    private void uploadImagens(DadosUpload dadosUpload){
+
+        if(dadosUpload.idBloco == 0){
+
+            sincronizar();
+            return;
+        }
+
+
+        Gson gson = new Gson();
         List<Observable<Codigo>> observables = new ArrayList<>();
 
 
         for(int index = 0; index < dadosUpload.idBloco; ++index){
 
-
             BlocoImagens registoImagem = new BlocoImagens();
             registoImagem.dadosImagens = dadosUpload.imagens.get(index);
             String imagens = gson.toJson(registoImagem);
+            String messageDigest = Hasher.Companion.hash(imagens, HashType.MD5);
 
-            observables.add(transferenciasRepositorio.submeterImagens(imagens, dadosUpload.idUtilizador, dadosUpload.idUpload, dadosUpload.idBloco + "", "" ).toObservable());
-
-
+            observables.add(transferenciasRepositorio.submeterImagens(imagens, dadosUpload.idUtilizador, dadosUpload.idUpload, dadosUpload.idBloco + "", messageDigest).toObservable());
         }
 
-
-        Observable<Integer> inserirFormando = null;// = formacaoRepositorio.inserirFormando(registo).toObservable();
-
-        List<Observable<Integer>> lolo = new ArrayList<>();
-        lolo.add(inserirFormando);
-
-        Observable<Object> observable = Observable.zip(lolo, new Function<Object[], Object>() {
+        Observable<Object> observable = Observable.zip(observables, new Function<Object[], Object>() {
             @Override
             public Object apply(Object[] objects) throws Exception {
                 return null;
@@ -180,34 +224,28 @@ public class TransferenciasViewModel extends BaseViewModel {
 
 
 
+    public void sincronizar(){
 
-
-        public void sincronizar(){
-
-        transferenciasRepositorio.sincronizar((List<Upload>) uploads.getValue().dados).toObservable()
+        transferenciasRepositorio.sincronizar((List<Upload>) uploads.getValue().dados)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
 
-                        new Observer<Integer>() {
+                        new SingleObserver<Integer>() {
                             @Override
                             public void onSubscribe(Disposable d) {
 
                             }
 
                             @Override
-                            public void onNext(Integer integers) {
-
+                            public void onSuccess(Integer integer) {
+                                messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_ENVIADOS_SUCESSO));
+                                showProgressBar(false);
                             }
 
                             @Override
                             public void onError(Throwable e) {
-
-                            }
-
-                            @Override
-                            public void onComplete() {
-
+                                showProgressBar(false);
                             }
                         }
 
@@ -228,6 +266,7 @@ public class TransferenciasViewModel extends BaseViewModel {
         Observable<List<Pendencia>> observable = transferenciasRepositorio.obterPendencias(idUtilizador).toObservable();
         obterPendencias(observable);
     }
+
 
     /**
      * Metodo que permite obter as pendencias
@@ -324,10 +363,131 @@ public class TransferenciasViewModel extends BaseViewModel {
 
                                 showProgressBar(false);
 
-                                Gson gson = new GsonBuilder().create();
-                                Codigo codigo = gson.fromJson(e.getMessage(), Codigo.class);
+                                if (e instanceof RespostaWsInvalidaException){
 
-                                messagemLiveData.setValue(Recurso.erro(codigo, "Download"));
+                                    showProgressBar(false);
+
+                                    Gson gson = new GsonBuilder().create();
+                                    Codigo codigo = gson.fromJson(e.getMessage(), Codigo.class);
+
+                                    messagemLiveData.setValue(Recurso.erro(codigo, "Download"));
+                                }
+                            }
+
+                            @Override
+                            public void onComplete() {
+
+                            }
+                        }
+
+                );
+
+    }
+
+
+
+    /**
+     * Metodo que permite obter o trabalho de um dia especifico
+     * @param idUtilizador o identificador do utilizador
+     * @param data a data do trabalho
+     */
+    public void obterTrabalho(String idUtilizador, String data){
+
+        showProgressBar(true);
+
+        transferenciasRepositorio.obterTrabalho(idUtilizador, data).toObservable()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+
+                        new Observer<SessaoResposta[]>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onNext(SessaoResposta[] sessao) {
+
+
+                                //TrabalhoAsyncTask servico = new TrabalhoAsyncTask(vvmshBaseDados, transferenciasRepositorio, idUtilizador);
+                                //servico.execute(sessao[0]);
+
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                                showProgressBar(false);
+
+                                if (e instanceof RespostaWsInvalidaException){
+
+                                    Gson gson = new GsonBuilder().create();
+                                    Codigo codigo = gson.fromJson(e.getMessage(), Codigo.class);
+
+                                    messagemLiveData.setValue(Recurso.erro(codigo, Sintaxe.Palavras.DOWNLOAD));
+                                }
+
+
+
+                            }
+
+                            @Override
+                            public void onComplete() {
+
+                            }
+                        }
+
+                );
+
+    }
+
+
+
+    /**
+     * Metodo que permite recarregar uma tarefa
+     * @param tarefa os dados da tarefa a recarregar
+     */
+    public void recarregarTarefa(Tarefa tarefa){
+
+        showProgressBar(true);
+
+        transferenciasRepositorio.obterTrabalho(tarefa.idUtilizador).toObservable()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new Observer<SessaoResposta[]>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onNext(SessaoResposta[] sessao) {
+
+                                RecarregarTarefaAsyncTask servico = new RecarregarTarefaAsyncTask(vvmshBaseDados, transferenciasRepositorio, tarefa);
+                                servico.execute(sessao[0]);
+
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                                showProgressBar(false);
+
+                                if (e instanceof RespostaWsInvalidaException){
+
+                                    showProgressBar(false);
+
+                                    Gson gson = new GsonBuilder().create();
+                                    Codigo codigo = gson.fromJson(e.getMessage(), Codigo.class);
+
+                                    messagemLiveData.setValue(Recurso.erro(codigo, "Download"));
+                                }
                             }
 
                             @Override

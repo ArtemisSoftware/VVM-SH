@@ -1,5 +1,8 @@
 package com.vvm.sh.baseDados.entidades;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
@@ -9,7 +12,7 @@ import androidx.room.PrimaryKey;
 import java.util.Date;
 
 @Entity(tableName = "tarefas")
-public class Tarefa {
+public class Tarefa implements Parcelable {
 
 
     @NonNull
@@ -61,4 +64,40 @@ public class Tarefa {
     }
 
 
+
+
+    @Ignore
+    protected Tarefa(Parcel in) {
+        idTarefa = in.readInt();
+        idUtilizador = in.readString();
+        ordem = in.readString();
+        prefixoCt = in.readString();
+        app = in.readInt();
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(idTarefa);
+        dest.writeString(idUtilizador);
+        dest.writeString(ordem);
+        dest.writeString(prefixoCt);
+        dest.writeInt(app);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<Tarefa> CREATOR = new Creator<Tarefa>() {
+        @Override
+        public Tarefa createFromParcel(Parcel in) {
+            return new Tarefa(in);
+        }
+
+        @Override
+        public Tarefa[] newArray(int size) {
+            return new Tarefa[size];
+        }
+    };
 }

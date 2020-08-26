@@ -10,6 +10,7 @@ import android.view.View;
 
 import com.vvm.sh.R;
 import com.vvm.sh.api.modelos.Codigo;
+import com.vvm.sh.baseDados.entidades.Tarefa;
 import com.vvm.sh.databinding.ActivityDownloadTrabalhoBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
@@ -53,9 +54,18 @@ public class DownloadTrabalhoActivity extends BaseDaggerActivity {
         Bundle bundle = getIntent().getExtras();
 
         if(bundle != null){
-            activityDownloadTrabalhoBinding.txtTitulo.setText(getString(R.string.recarregar_trabalho));
-            activityDownloadTrabalhoBinding.txtData.setText(DatasUtil.converterData(bundle.getLong(getString(R.string.argumento_data)), DatasUtil.FORMATO_DD_MM_YYYY));
-            viewModel.obterPendencias(Preferencias.obterIdUtilizador(this), bundle.getLong(getString(R.string.argumento_data)));
+
+            if(bundle.getBoolean(getString(R.string.argumento_recarregar_tarefa)) == true){
+
+                activityDownloadTrabalhoBinding.txtTitulo.setText(getString(R.string.recarregar_tarefa));
+                viewModel.recarregarTarefa((Tarefa) bundle.get(getString(R.string.argumento_tarefa)));
+            }
+            else {
+                activityDownloadTrabalhoBinding.txtTitulo.setText(getString(R.string.recarregar_trabalho));
+                activityDownloadTrabalhoBinding.txtData.setText(DatasUtil.converterData(bundle.getLong(getString(R.string.argumento_data)), DatasUtil.FORMATO_DD_MM_YYYY));
+                viewModel.obterTrabalho(Preferencias.obterIdUtilizador(this), DatasUtil.converterData(bundle.getLong(getString(R.string.argumento_data)), DatasUtil.FORMATO_YYYY_MM_DD));
+                //viewModel.obterPendencias(Preferencias.obterIdUtilizador(this), bundle.getLong(getString(R.string.argumento_data)));
+            }
         }
         else {
             activityDownloadTrabalhoBinding.txtData.setText(DatasUtil.obterDataAtual(DatasUtil.FORMATO_DD_MM_YYYY));

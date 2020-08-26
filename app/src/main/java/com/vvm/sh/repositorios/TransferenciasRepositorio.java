@@ -45,8 +45,9 @@ public class TransferenciasRepositorio {
     }
 
 
-
-
+    //---------------------------
+    //API
+    //---------------------------
 
     /**
      * Metodo que permite obter o trabalho do dia para um utilizador
@@ -59,13 +60,26 @@ public class TransferenciasRepositorio {
 
 
     /**
+     * Metodo que permite obter o trabalho de um dia especifico para um utilizador
+     * @param idUtilizador o identificador do utilizador
+     * @param data da data do dia (YYYY-mm-dd)
+     * @return o trabalho do dia
+     */
+    public Single<SessaoResposta[]> obterTrabalho(String idUtilizador, String data) {
+        return api.obterTrabalho(idUtilizador, data);
+    }
+
+
+    /**
      * Metodo que permite submeter os dados para o web service
      * @param dados os dados a submeter
      * @param idUtilizador o identificador do utilizador
+     * @param id o identificador unico do bloco de imagens
+     * @param messageDigest o messageDigest
      * @return um codigo com o resultado da submissao
      */
-    public Single<Codigo> submeterDados(String dados, String idUtilizador) {
-        return api.submeterDados(dados, idUtilizador);
+    public Single<Codigo> submeterDados(String dados, String idUtilizador, String id, String messageDigest) {
+        return api.submeterDados(dados, idUtilizador, id, messageDigest);
     }
 
     /**
@@ -158,6 +172,12 @@ public class TransferenciasRepositorio {
         return transferenciasDao.obterCrossSelling(idTarefa);
     }
 
+
+    /**
+     * Metodo que permite obter as ocorrencias
+     * @param idTarefa o identificador da tarefa
+     * @return uma lista de ocorrencias
+     */
     public List<OcorrenciaResultado> obterOcorrencias(int idTarefa) {
         return transferenciasDao.obterOcorrencias(idTarefa);
     }
@@ -243,14 +263,27 @@ public class TransferenciasRepositorio {
         transferenciasDao.inserirAtividadesPendentes(atividades);
     }
 
+
+    /**
+     * Metodo que permite inserir o historico de ocorrencias
+     * @param ocorrencia
+     * @return
+     */
     public long inserirOcorrencia(Ocorrencia ocorrencia){
         return transferenciasDao.inserirRegisto(ocorrencia);
     }
 
+
+    /**
+     * Metodo que permite inserir o historico de ocorrencias
+     * @param historico uma lista de historicos
+     */
     public void inserirHistoricoOcorrencias(List<OcorrenciaHistorico> historico){
         transferenciasDao.inserir(historico);
     }
 
 
-
+    public void eliminarTarefa(int idTarefa) {
+        transferenciasDao.removerTarefa(idTarefa);
+    }
 }

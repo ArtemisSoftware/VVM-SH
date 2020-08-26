@@ -40,8 +40,9 @@ public interface SegurancaAlimentarApi {
     Single<SessaoResposta[]> obterTrabalho(@Query("strUser") String idUtilizador, @Query("strDia") String data);
 
 
-    @POST("ProcessWork")
-    Single<Codigo> submeterDados(@Query("strJsonString") String dados, @Query("user") String idUtilizador);
+    @POST("ProcessWorkUpdate")
+    Single<Codigo> submeterDados(@Query("strJsonString") String dados, @Query("user") String idUtilizador,
+                                 @Query("idUnico") String id, @Query("MessageDigest") String messageDigest);
 
     @POST("ProcessarFotos")
     Single<Codigo> submeterImagens(@Query("strJsonString") String dados, @Query("user") String idUtilizador,

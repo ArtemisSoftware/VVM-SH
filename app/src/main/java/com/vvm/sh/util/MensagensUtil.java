@@ -38,7 +38,7 @@ public class MensagensUtil {
                     @Override
                     public void onClick(SweetAlertDialog sDialog) {
                         sDialog.dismissWithAnimation();
-                        listener.onTerminarDialogo();
+                        listener.onExecutar();
                     }
                 });
 
@@ -56,8 +56,9 @@ public class MensagensUtil {
                 .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                     @Override
                     public void onClick(SweetAlertDialog sDialog) {
-                        sDialog.dismissWithAnimation();
-                        listener.onTerminarDialogo();
+                        //sDialog.dismissWithAnimation();
+                        sDialog.dismiss();
+                        listener.onExecutar();
                     }
                 });
 
@@ -92,8 +93,9 @@ public class MensagensUtil {
                 .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
                     @Override
                     public void onClick(SweetAlertDialog sDialog) {
-                        sDialog.dismissWithAnimation();
-                        listener.onTerminarDialogo();
+//                        sDialog.dismissWithAnimation();
+                        sDialog.dismiss();
+                        listener.onExecutar();
                     }
                 });
 
@@ -125,6 +127,24 @@ public class MensagensUtil {
                 .show();
     }
 
+
+    public void alerta(String titulo, String mensagem, OnDialogoListener listener) {
+
+        dialogo.changeAlertType(SweetAlertDialog.WARNING_TYPE);
+        dialogo.setTitleText(titulo)
+                .setContentText(mensagem)
+                .setConfirmText(Sintaxe.Opcoes.OK)
+                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sDialog) {
+                        //sDialog.dismissWithAnimation();
+                        sDialog.dismiss();
+                        listener.onExecutar();
+                    }
+                });
+
+        dialogo.show();
+    }
 
 //
 //// 1. Success message

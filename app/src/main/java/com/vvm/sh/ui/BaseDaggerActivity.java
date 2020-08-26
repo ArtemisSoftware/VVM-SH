@@ -72,7 +72,7 @@ public abstract class BaseDaggerActivity extends DaggerAppCompatActivity {
 
         listenerActivity = new OnDialogoListener() {
             @Override
-            public void onTerminarDialogo() {
+            public void onExecutar() {
                 finish();
             }
         };

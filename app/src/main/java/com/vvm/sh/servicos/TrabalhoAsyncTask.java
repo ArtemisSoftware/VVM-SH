@@ -31,7 +31,7 @@ public class TrabalhoAsyncTask extends AsyncTask<SessaoResposta, Void, Void> {
 
     private String errorMessage, idUtilizador;
     private VvmshBaseDados vvmshBaseDados;
-    private TransferenciasRepositorio repositorio;
+    protected TransferenciasRepositorio repositorio;
 
     public TrabalhoAsyncTask(VvmshBaseDados vvmshBaseDados, TransferenciasRepositorio repositorio, String idUtilizador){
         this.vvmshBaseDados = vvmshBaseDados;
@@ -57,20 +57,7 @@ public class TrabalhoAsyncTask extends AsyncTask<SessaoResposta, Void, Void> {
 
                 try {
 
-                    for (SessaoResposta.TrabalhoInfo info : trabalho) {
-
-                        int idTarefa = inserirTarefa (info.tarefas.dados, data);
-
-                        inserirAtividadesExecutadas(info.tarefas.atividadesExecutadas, idTarefa);
-
-                        inserirCliente(info.tarefas.cliente, info.tarefas.dados, info.tarefas, idTarefa);
-
-                        inserirAnomalias(info.tarefas.anomalias, idTarefa);
-
-                        inserirOcorrencias(info.tarefas.ocorrencias, idTarefa);
-
-                        inserirAtividadesPendentes(info.tarefas.atividadesPendentes, idTarefa);
-                    }
+                    inserirTrabalho(trabalho, data);
 
                 }
                 catch(SQLiteConstraintException throwable){
@@ -80,6 +67,42 @@ public class TrabalhoAsyncTask extends AsyncTask<SessaoResposta, Void, Void> {
         });
 
         return null;
+    }
+
+
+    /**
+     * Metodo que permite inserir as tarefas existentes no trabalho
+     * @param trabalho os dados do trabalho
+     * @param data a data do trabalho
+     */
+    protected void inserirTrabalho(List<SessaoResposta.TrabalhoInfo> trabalho, String data) {
+
+        for (SessaoResposta.TrabalhoInfo tarefa : trabalho) {
+            inserirTarefas(data, tarefa);
+        }
+
+        //TODO:deve atualizar o UI
+    }
+
+
+    /**
+     * Metodo que permite inserir uma tarefa
+     * @param data a data do trabalho
+     * @param info os dados da tarefa
+     */
+    protected void inserirTarefas(String data, SessaoResposta.TrabalhoInfo info) {
+
+        int idTarefa = inserirTarefa (info.tarefas.dados, data);
+
+        inserirAtividadesExecutadas(info.tarefas.atividadesExecutadas, idTarefa);
+
+        inserirCliente(info.tarefas.cliente, info.tarefas.dados, info.tarefas, idTarefa);
+
+        inserirAnomalias(info.tarefas.anomalias, idTarefa);
+
+        inserirOcorrencias(info.tarefas.ocorrencias, idTarefa);
+
+        inserirAtividadesPendentes(info.tarefas.atividadesPendentes, idTarefa);
     }
 
 
@@ -127,7 +150,6 @@ public class TrabalhoAsyncTask extends AsyncTask<SessaoResposta, Void, Void> {
 
             repositorio.inserirHistoricoOcorrencias(registos);
         }
-
     }
 
 
@@ -148,7 +170,6 @@ public class TrabalhoAsyncTask extends AsyncTask<SessaoResposta, Void, Void> {
         }
 
         repositorio.inserirAnomalias(registos);
-
     }
 
 

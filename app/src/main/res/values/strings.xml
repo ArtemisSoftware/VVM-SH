@@ -125,6 +125,7 @@
     <!-- ARGUMENTOS DO BUNDLE -->
 
     <string name="argumento_id">id</string>
+    <string name="argumento_id_tipo">idTipo</string>
     <string name="argumento_id_atividade">idAtividade</string>
     <string name="argumento_id_formando">idFormando</string>
     <string name="argumento_descricao">descricao</string>
@@ -259,5 +260,6 @@
     <string name="perder_dados_tarefa">Ao recarregar a tarefa irá perder todos os dados gravados</string>
     <string name="argumento_tarefa">tarefa</string>
     <string name="argumento_recarregar_tarefa">recarregar_tarefa</string>
+    <string name="registar_ocorrencia">Registar ocorrência</string>
 
 </resources>

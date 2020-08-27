@@ -57,4 +57,9 @@ public class Utilizador {
     public  String obterIniciais(){
         return nome.replaceAll("^\\s*([a-zA-Z]).*\\s+([a-zA-Z])\\S+$", "$1$2").toUpperCase();
     }
+
+    @Override
+    public String toString() {
+        return id + " - " + nome;
+    }
 }

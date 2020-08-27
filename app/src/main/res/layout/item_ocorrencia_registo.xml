@@ -29,7 +29,7 @@
 
             <TextView
                 android:id="@+id/textView25"
-                style="@style/textoDescritivo"
+                style="@style/textoDetalhe"
                 android:text="@{ocorrencia.obterDescricao(), default=descricao}"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"

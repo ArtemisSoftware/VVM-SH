@@ -8,7 +8,7 @@ import com.vvm.sh.baseDados.entidades.Resultado;
 import com.vvm.sh.baseDados.entidades.Ocorrencia;
 import com.vvm.sh.baseDados.entidades.OcorrenciaHistorico;
 import com.vvm.sh.baseDados.entidades.OcorrenciaResultado;
-import com.vvm.sh.ui.ocorrencias.modelos.Ocore;
+import com.vvm.sh.ui.ocorrencias.modelos.OcorrenciaBase;
 import com.vvm.sh.ui.ocorrencias.modelos.OcorrenciaRegisto;
 import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.util.Recurso;
@@ -289,20 +289,20 @@ public class OcorrenciasViewModel extends BaseViewModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
 
-                        new Observer<List<Ocore>>() {
+                        new Observer<List<OcorrenciaBase>>() {
                             @Override
                             public void onSubscribe(Disposable d) {
                                 disposables.add(d);
                             }
 
                             @Override
-                            public void onNext(List<Ocore> resultado) {
+                            public void onNext(List<OcorrenciaBase> resultado) {
 
 
                                 List<OcorrenciaRegisto> lolo = new ArrayList<>();
 
 
-                                for(Ocore item : resultado){
+                                for(OcorrenciaBase item : resultado){
 
                                     lolo.add(new OcorrenciaRegisto(item));
 
@@ -315,7 +315,7 @@ public class OcorrenciasViewModel extends BaseViewModel {
 
                             @Override
                             public void onError(Throwable e) {
-
+                                showProgressBar(false);
                             }
 
                             @Override
@@ -331,26 +331,27 @@ public class OcorrenciasViewModel extends BaseViewModel {
      * Metodo que permite obter o registo de ocorrencia
      * @param idTarefa o identificador da tarefa
      * @param id o identificador do grupo de ocorrencias
+     * @param idTipo o identificador do tipo de ocorrencia
      */
-    public void obterOcorrencia(int idTarefa, int id) {
+    public void obterOcorrencia(int idTarefa, int id, int idTipo) {
 
         showProgressBar(true);
 
-        ocorrenciaRepositorio.obterRegistoOcorrencia(idTarefa, id).toObservable()
+        ocorrenciaRepositorio.obterRegistoOcorrencia(idTarefa, id, idTipo)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
 
-                        new Observer<OcorrenciaRegisto>() {
+                        new SingleObserver<OcorrenciaBase>() {
                             @Override
                             public void onSubscribe(Disposable d) {
                                 disposables.add(d);
                             }
 
                             @Override
-                            public void onNext(OcorrenciaRegisto resultado) {
+                            public void onSuccess(OcorrenciaBase ocorrenciaBase) {
 
-
+                                OcorrenciaRegisto resultado = new OcorrenciaRegisto(ocorrenciaBase);
                                 ocorrencia.setValue(resultado);
                                 obterDias(resultado);
                                 showProgressBar(false);
@@ -358,11 +359,6 @@ public class OcorrenciasViewModel extends BaseViewModel {
 
                             @Override
                             public void onError(Throwable e) {
-
-                            }
-
-                            @Override
-                            public void onComplete() {
                                 showProgressBar(false);
                             }
                         }

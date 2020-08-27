@@ -28,7 +28,7 @@
 
             <TextView
                 android:id="@+id/textview"
-                style="@style/titulo"
+                style="@style/tituloCartao"
                 android:text="@string/historico_ocorrencia"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"

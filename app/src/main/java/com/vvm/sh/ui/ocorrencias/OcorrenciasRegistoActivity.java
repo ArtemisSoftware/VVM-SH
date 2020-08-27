@@ -98,6 +98,7 @@ public class OcorrenciasRegistoActivity extends BaseDaggerActivity
         if(ocorrencia.itemRegisto() == true) {
             Intent intent = new Intent(this, RegistarOcorrenciaActivity.class);
             intent.putExtra(getString(R.string.argumento_id), ocorrencia.resultado.id);
+            intent.putExtra(getString(R.string.argumento_id_tipo), ocorrencia.tipo.id);
             startActivity(intent);
         }
         else {

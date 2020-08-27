@@ -5,7 +5,7 @@ import androidx.room.Ignore;
 import com.vvm.sh.baseDados.entidades.OcorrenciaResultado;
 import com.vvm.sh.baseDados.entidades.Tipo;
 
-public class Ocore {
+public class OcorrenciaBase {
 
     @Ignore
     public OcorrenciaResultado resultado;
@@ -19,8 +19,8 @@ public class Ocore {
     public String descricao, codigo, detalhe, observacao;
     public boolean fiscalizado;
 
-    public Ocore(int id, String descricao, String codigo, String detalhe, int idTarefa,
-                 int idResultado, String observacao, boolean fiscalizado, int ultimoRegisto) {
+    public OcorrenciaBase(int id, String descricao, String codigo, String detalhe, int idTarefa,
+                          int idResultado, String observacao, boolean fiscalizado, int ultimoRegisto) {
         this.id = id;
         this.descricao = descricao;
         this.codigo = codigo;

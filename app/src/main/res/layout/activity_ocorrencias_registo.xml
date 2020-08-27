@@ -37,7 +37,7 @@ xmlns:tools="http://schemas.android.com/tools">
 
         <TextView
             android:id="@+id/textview"
-            style="@style/titulo"
+            style="@style/tituloCartao"
             android:text="@string/ocorrencias"
             android:layout_marginStart="16dp"
             android:layout_marginTop="16dp"

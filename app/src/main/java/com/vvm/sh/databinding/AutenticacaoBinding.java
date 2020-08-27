@@ -5,6 +5,7 @@ import android.text.SpannableString;
 
 import androidx.databinding.BindingAdapter;
 
+import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.vvm.sh.baseDados.entidades.Utilizador;
 
 import org.angmarch.views.NiceSpinner;
@@ -15,23 +16,13 @@ import java.util.List;
 public class AutenticacaoBinding {
 
     @BindingAdapter({"utilizadores"})
-    public static void setUtilizadores(NiceSpinner view, List<Utilizador> registos) {
+    public static void setUtilizadores(MaterialSpinner view, List<Utilizador> registos) {
+
 
         if (registos == null)
             return;
 
-
-        SpinnerTextFormatter textFormatter = new SpinnerTextFormatter<Utilizador>() {
-            @Override
-            public Spannable format(Utilizador utilizador) {
-
-                return new SpannableString(utilizador.id + " - " + utilizador.nome);
-            }
-        };
-
-        view.setSpinnerTextFormatter(textFormatter);
-        view.setSelectedTextFormatter(textFormatter);
-        view.attachDataSource(registos);
+        view.setItems(registos);
     }
 
 }

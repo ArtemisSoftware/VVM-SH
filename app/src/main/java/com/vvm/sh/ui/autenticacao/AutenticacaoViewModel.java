@@ -2,6 +2,8 @@ package com.vvm.sh.ui.autenticacao;
 
 import androidx.lifecycle.MutableLiveData;
 
+import com.himanshurawat.hasher.HashType;
+import com.himanshurawat.hasher.Hasher;
 import com.vvm.sh.api.modelos.UtilizadorResposta;
 import com.vvm.sh.api.modelos.UtilizadorResultado;
 import com.vvm.sh.repositorios.AutenticacaoRepositorio;
@@ -93,9 +95,7 @@ public class AutenticacaoViewModel extends BaseViewModel {
                             @Override
                             public void onError(Throwable e) {
 
-                                //TODO: adicionar mensagem de erro
-
-                                messagemLiveData.setValue(Recurso.erro("Erro na autenticação"));
+                                messagemLiveData.setValue(Recurso.erro(Sintaxe.Alertas.ERRO_AUTENTICACAO));
                                 showProgressBar(false);
                             }
 
@@ -121,9 +121,9 @@ public class AutenticacaoViewModel extends BaseViewModel {
 
         for (UtilizadorResultado registo : resposta.dadosNovos) {
 
-            //TODO: adicionar a verificacao da palavra chave
+            String messageDigest = Hasher.Companion.hash(palavraChave, HashType.MD5);
 
-            if(registo.id.equals(idUtilizador) == true & registo.ativo == true){
+            if(registo.id.equals(idUtilizador) == true & registo.ativo == true & registo.palavraChave.equals(messageDigest) == true){
 
                 return registo;
             }
@@ -154,22 +154,21 @@ public class AutenticacaoViewModel extends BaseViewModel {
                         new SingleObserver<Utilizador>() {
                             @Override
                             public void onSubscribe(Disposable d) {
-
+                                disposables.add(d);
                             }
 
                             @Override
                             public void onSuccess(Utilizador utilizador) {
-
+                                showProgressBar(false);
                             }
 
                             @Override
                             public void onError(Throwable e) {
                                 messagemLiveData.setValue(Recurso.erro(Sintaxe.Alertas.DADOS_INEXISTENTES));
+                                showProgressBar(false);
                             }
                         }
                 );
-
-
     }
 
 

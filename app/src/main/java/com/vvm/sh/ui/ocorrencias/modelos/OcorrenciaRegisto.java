@@ -29,7 +29,7 @@ public class OcorrenciaRegisto {
 
 
     @Ignore
-    public OcorrenciaRegisto(Ocore item) {
+    public OcorrenciaRegisto(OcorrenciaBase item) {
 
         this.resultado = item.resultado;
         this.tipo = item.tipo;

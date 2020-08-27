@@ -52,7 +52,7 @@ public class RegistarOcorrenciaActivity extends BaseDaggerActivity {
         Bundle bundle = getIntent().getExtras();
 
         if(bundle != null) {
-            viewModel.obterOcorrencia(Preferencias.obterIdTarefa(this), bundle.getInt(getString(R.string.argumento_id)));
+            viewModel.obterOcorrencia(Preferencias.obterIdTarefa(this), bundle.getInt(getString(R.string.argumento_id)), bundle.getInt(getString(R.string.argumento_id_tipo)));
         }
         else{
             finish();
@@ -128,7 +128,7 @@ public class RegistarOcorrenciaActivity extends BaseDaggerActivity {
 
         OcorrenciaResultado ocorrencia;
         Bundle bundle = getIntent().getExtras();
-        int id = bundle.getInt(getString(R.string.argumento_id));
+        int id = bundle.getInt(getString(R.string.argumento_id_tipo));
 
         String dias = activityOcorrenciaRegistarBinding.txtInpDias.getText().toString();
         boolean fiscalizado = activityOcorrenciaRegistarBinding.chkBoxFiscalizado.isChecked();

@@ -5,11 +5,13 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.google.android.material.textfield.TextInputEditText;
+import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
@@ -37,14 +39,8 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 
-public class AutenticacaoActivity extends BaseDaggerActivity implements Validator.ValidationListener, OnSpinnerItemSelectedListener {
-
-/*
-    @BindView(R.id.spnr_utilizadores_teste)
-    SpinnerComboBox spnr_utilizadores_teste;
-
-*/
-
+public class AutenticacaoActivity extends BaseDaggerActivity
+        implements Validator.ValidationListener, MaterialSpinner.OnItemSelectedListener {
 
 
     @NotEmpty(message = "Preenchimento obrigatório")
@@ -85,7 +81,7 @@ public class AutenticacaoActivity extends BaseDaggerActivity implements Validato
         activityAutenticacaoBinding.setActivity(this);
 
         activityAutenticacaoBinding.setUtilizadoresTestes(Testes.obterUtilizadores());
-        activityAutenticacaoBinding.niceSpinner.setOnSpinnerItemSelectedListener(this);
+        activityAutenticacaoBinding.spnrUtilizadorTeste.setOnItemSelectedListener(this);
 
         subscreverObservadores();
 
@@ -123,8 +119,8 @@ public class AutenticacaoActivity extends BaseDaggerActivity implements Validato
 
                     case ERRO:
 
-                        //TODO: mensagem de erro
                         activityAutenticacaoBinding.crlBtnAutenticacao.setEnabled(false);
+                        dialogo.erro(getString(R.string.erro), recurso.messagem);
                         break;
 
                 }
@@ -190,17 +186,15 @@ public class AutenticacaoActivity extends BaseDaggerActivity implements Validato
         }
     }
 
-
-
-
     @Override
-    public void onItemSelected(NiceSpinner parent, View view, int position, long id) {
+    public void onItemSelected(MaterialSpinner view, int position, long id, Object item) {
+        Utilizador utilizador = (Utilizador)item;
 
-        Utilizador item = (Utilizador)parent.getItemAtPosition(position);
-
-        txt_inp_identificador.setText(item.id);
-        txt_inp_palavra_chave.setText(item.palavraChave);
+        txt_inp_identificador.setText(utilizador.id);
+        txt_inp_palavra_chave.setText(utilizador.palavraChave);
     }
+
+
 
 
 
@@ -237,6 +231,7 @@ public class AutenticacaoActivity extends BaseDaggerActivity implements Validato
                 return super.onOptionsItemSelected(item);
         }
     }
+
 
 
 }

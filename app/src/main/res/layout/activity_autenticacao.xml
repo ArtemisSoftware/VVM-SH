@@ -88,12 +88,13 @@
                         android:text="@string/utilizadores_teste" />
 
 
-                    <org.angmarch.views.NiceSpinner
-                        android:id="@+id/nice_spinner"
+                    <com.jaredrummler.materialspinner.MaterialSpinner
+                        android:id="@+id/spnr_utilizador_teste"
+                        app:utilizadores="@{utilizadoresTestes}"
                         android:layout_width="450dp"
                         android:layout_height="wrap_content"
                         app:popupTextAlignment="start"
-                        app:utilizadores="@{utilizadoresTestes}" />
+                        android:hint="@string/utilizadores_teste"/>
 
                 </LinearLayout>
 

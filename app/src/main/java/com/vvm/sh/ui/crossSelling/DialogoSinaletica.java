@@ -12,7 +12,7 @@ import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerDialogFragment;
 import com.vvm.sh.baseDados.entidades.CrossSellingResultado;
 import com.vvm.sh.baseDados.entidades.Tipo;
-import com.vvm.sh.util.MensagensUtil;
+import com.vvm.sh.util.metodos.MensagensUtil;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.metodos.Preferencias;
 

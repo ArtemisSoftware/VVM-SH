@@ -11,12 +11,9 @@ import androidx.annotation.Nullable;
 import androidx.databinding.DataBindingUtil;
 import androidx.databinding.ViewDataBinding;
 
-import com.vvm.sh.R;
-import com.vvm.sh.databinding.ActivityBaseDaggerBinding;
-import com.vvm.sh.util.MensagensUtil;
+import com.vvm.sh.util.metodos.MensagensUtil;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.interfaces.OnDialogoListener;
-import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import butterknife.ButterKnife;
 import dagger.android.support.DaggerDialogFragment;

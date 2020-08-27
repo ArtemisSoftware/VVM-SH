@@ -10,7 +10,7 @@ import com.vvm.sh.R;
 import com.vvm.sh.api.modelos.VersaoApp;
 import com.vvm.sh.util.AtualizacaoUI;
 import com.vvm.sh.util.constantes.Sintaxe;
-import com.vvm.sh.util.metodos.Diretorias;
+import com.vvm.sh.util.metodos.DiretoriasUtil;
 
 import java.io.File;
 
@@ -46,11 +46,11 @@ public class ServicoDownloadApk extends Servico {
         String nomeFicheiro = Download_Uri.toString().split("/")[Download_Uri.toString().split("/").length - 1];
         //--LOG--LogApp_v4.obterInstancia(FONTE, LogIF.ID_LOG_GERAL).adicionarTexto("Nome ficheiro:" + nomeFicheiro);
 
-        File ficheiro = new File(Diretorias.obterCaminho(Diretorias.DOWNLOAD), nomeFicheiro);
+        File ficheiro = new File(DiretoriasUtil.obterCaminho(DiretoriasUtil.DOWNLOAD), nomeFicheiro);
         versaoApp.fixarFicheiro(ficheiro);
 
 
-        if(Diretorias.verificarDiretoria(ficheiro) == true) {
+        if(DiretoriasUtil.verificarDiretoria(ficheiro) == true) {
 
             if (ficheiro.exists()) {
 
@@ -61,7 +61,7 @@ public class ServicoDownloadApk extends Servico {
             DownloadManager.Request pedido = new DownloadManager.Request(Uri.parse(versaoApp.obterUrlDownload()));
             pedido.setDescription(versaoApp.obterTexto());
             pedido.setTitle(contexto.getString(R.string.atualizacao_v) + versaoApp.obterVersao());
-            pedido.setDestinationInExternalPublicDir("/" + Diretorias.DOWNLOAD, nomeFicheiro);
+            pedido.setDestinationInExternalPublicDir("/" + DiretoriasUtil.DOWNLOAD, nomeFicheiro);
             pedido.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI);
             pedido.setAllowedOverRoaming(false);
 

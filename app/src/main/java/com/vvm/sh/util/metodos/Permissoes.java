@@ -1,5 +1,6 @@
 package com.vvm.sh.util.metodos;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
@@ -16,10 +17,14 @@ import com.karumi.dexter.Dexter;
 import com.karumi.dexter.MultiplePermissionsReport;
 import com.karumi.dexter.PermissionToken;
 import com.karumi.dexter.listener.DexterError;
+import com.karumi.dexter.listener.PermissionDeniedResponse;
+import com.karumi.dexter.listener.PermissionGrantedResponse;
 import com.karumi.dexter.listener.PermissionRequest;
 import com.karumi.dexter.listener.PermissionRequestErrorListener;
 import com.karumi.dexter.listener.multi.MultiplePermissionsListener;
+import com.karumi.dexter.listener.single.PermissionListener;
 import com.vvm.sh.R;
+import com.vvm.sh.util.interfaces.OnPermissaoConcedidaListener;
 
 import java.util.List;
 
@@ -38,6 +43,49 @@ public class Permissoes {
             Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE
     };
 */
+
+
+    public static void pedirPermissaoApp(final Activity contexto, String permissao, OnPermissaoConcedidaListener listener){
+
+
+        Dexter.withActivity(contexto)
+                .withPermission(permissao)
+                .withListener(
+                        new PermissionListener() {
+                            @Override
+                            public void onPermissionGranted(PermissionGrantedResponse response) {
+                                listener.executar();
+                            }
+
+                            @Override
+                            public void onPermissionDenied(PermissionDeniedResponse response) {
+                                dialogoPermissoes(contexto);
+                            }
+
+                            @Override
+                            public void onPermissionRationaleShouldBeShown(PermissionRequest permission, PermissionToken token) {
+                                token.continuePermissionRequest();
+                            }
+                        }
+
+                ).
+                withErrorListener(new PermissionRequestErrorListener() {
+                    @Override
+                    public void onError(DexterError error) {
+                        Flashbar flashbar = new Flashbar.Builder(contexto)
+                                .gravity(Flashbar.Gravity.BOTTOM)
+                                .title("Erro nas permissoes")
+                                .duration(4000)
+                                .message(error.name())
+                                .backgroundColorRes(R.color.colorPrimaryDark)
+                                .build();
+                        flashbar.show();
+
+                    }
+                })
+                .onSameThread()
+                .check();
+    }
 
     /**
      * Metodo que permite pedir as permissões da app

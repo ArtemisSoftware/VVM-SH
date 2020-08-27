@@ -7,7 +7,7 @@ import android.os.Environment;
 
 import java.io.File;
 
-public class Diretorias {
+public class DiretoriasUtil {
 
     public static final String DIRETORIA = "vvmsh";
     public static final String DOWNLOAD = DIRETORIA + "/" + "Download";
@@ -36,7 +36,7 @@ public class Diretorias {
      * @param nomeDiretoria nome da directoria que se pretende criar
      * @return true caso a diretoria seja criada com sucesso ou false caso contrario
      */
-    private static boolean criarDirectoria(String nomeDiretoria){
+    public static boolean criarDirectoria(String nomeDiretoria){
 
         File diretoria = new File(obterCaminho(nomeDiretoria));
 

@@ -110,7 +110,7 @@
 
     <string name="tarefa_bloqueada">Tarefa bloqueada</string>
     <string name="tipo_">Tipo:</string>
-
+    <string name="tipos">Tipos</string>
 
     <string name="validar_email_desbloquear">Valide o email para desbloquear a tarefa</string>
 
@@ -261,5 +261,8 @@
     <string name="argumento_tarefa">tarefa</string>
     <string name="argumento_recarregar_tarefa">recarregar_tarefa</string>
     <string name="registar_ocorrencia">Registar ocorrência</string>
+    <string name="gerir_tipos">Gerir tipos</string>
+    <string name="exportar_base_dados">Exportar base dados</string>
+    <string name="dados">Dados</string>
 
 </resources>

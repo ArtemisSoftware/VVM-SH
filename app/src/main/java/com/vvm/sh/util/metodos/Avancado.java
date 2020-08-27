@@ -29,7 +29,7 @@ public class Avancado {
             if (sd.canWrite()) {
 
                 String caminhoBdAtual = "//dados//" + contexto.getPackageName() + "//databases//" + BaseDados.NOME + "";
-                String caminhoBdCopia = Diretorias.BASE_DADOS + "/" + BaseDados.NOME + "__" + nomeCopia + BaseDados.EXTENSAO;
+                String caminhoBdCopia = DiretoriasUtil.BASE_DADOS + "/" + BaseDados.NOME + "__" + nomeCopia + BaseDados.EXTENSAO;
                 File bdAtual = new File(data, caminhoBdAtual);
                 File bdCopia = new File(sd, caminhoBdCopia);
 

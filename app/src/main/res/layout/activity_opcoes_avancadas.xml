@@ -15,192 +15,276 @@
         android:padding="30dp">
 
         <TextView
-            style="@style/viewParent.headerText"
+            style="@style/tituloCartao"
             android:text="@string/opcoes_avancadas" />
 
 
-
-
-        <TextView
-            style="@style/viewParent.headerText.settingsMiniTitle"
-            android:text="Log"/>
-
-
-        <View
-            android:layout_width="300dp"
-            android:layout_height="0.5dp"
-            android:layout_marginTop="19dp"
-            android:layout_marginBottom="1dp"
-            android:background="#c0c0c0"/>
-
-        <LinearLayout
+        <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:foreground="?android:attr/selectableItemBackground"
-            android:orientation="horizontal"
-            android:background="#fff"
-            android:outlineProvider="bounds"
-            android:layout_marginTop="10dp"
-            android:elevation="0.2dp"
-            android:padding="10dp"
-            android:gravity="center_vertical">
+            android:layout_height="500dp"
+            android:layout_marginTop="32dp">
 
-            <Spinner
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
-
-
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="12dp"
-                android:text="@string/lorem_ipsum_texto_pequeno"
-                />
-        </LinearLayout>
-
-
-
-        <TextView
-            style="@style/viewParent.headerText.settingsMiniTitle"
-            android:text="Tipos"/>
-
-        <View
-            android:layout_width="300dp"
-            android:layout_height="0.5dp"
-            android:layout_marginTop="19dp"
-            android:layout_marginBottom="1dp"
-            android:background="#c0c0c0"/>
-
-        <LinearLayout
-            android:id="@+id/lnr_lyt_tipos"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:foreground="?android:attr/selectableItemBackground"
-            android:orientation="horizontal"
-            android:background="#fff"
-            android:outlineProvider="bounds"
-            android:layout_marginTop="10dp"
-            android:elevation="0.2dp"
-            android:padding="10dp"
-            android:gravity="center_vertical">
 
             <TextView
+                android:id="@+id/textview"
+                style="@style/tituloCartao"
+                android:text="@string/tipos"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"/>
+
+
+            <View
+                android:id="@+id/textview2"
+                android:layout_width="280dp"
+                android:layout_height="0.2dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/cor_separador"
+                app:layout_constraintStart_toStartOf="@+id/textview"
+                app:layout_constraintTop_toBottomOf="@+id/textview" />
+
+
+            <LinearLayout
+                android:id="@+id/lnr_lyt_tipos"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:text="Gerir tipos"
+                android:layout_height="60dp"
+                android:layout_marginTop="16dp"
+                android:background="@color/whiteCardColor"
+                android:elevation="0.2dp"
+                android:foreground="?android:attr/selectableItemBackground"
                 android:gravity="center_vertical"
-                android:drawableRight="@drawable/ic_lorem_ipsum_24dp"/>
-        </LinearLayout>
+                android:orientation="horizontal"
+                android:outlineProvider="bounds"
+                android:padding="10dp"
+                app:layout_constraintStart_toStartOf="@+id/textview"
+                app:layout_constraintTop_toBottomOf="@+id/textview2">
 
+                <TextView
+                    style="@style/textoDetalhe"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:drawableRight="@drawable/ic_seta_direita_24dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/gerir_tipos" />
+            </LinearLayout>
 
-
-        <TextView
-            style="@style/viewParent.headerText.settingsMiniTitle"
-            android:text="Dados"/>
-
-        <View
-            android:layout_width="300dp"
-            android:layout_height="0.5dp"
-            android:layout_marginTop="19dp"
-            android:layout_marginBottom="1dp"
-            android:background="#c0c0c0"/>
-
-
-        <LinearLayout
-            android:id="@+id/lnr_lyt_exportar_bd"
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:foreground="?android:attr/selectableItemBackground"
-            android:orientation="horizontal"
-            android:layout_marginTop="10dp"
-            android:background="#fff"
-            android:elevation="0.2dp"
-            android:padding="10dp"
-            android:gravity="center_vertical">
 
             <TextView
+                android:id="@+id/textview3"
+                style="@style/tituloCartao"
+                android:layout_marginTop="32dp"
+                android:text="@string/dados"
+                app:layout_constraintStart_toStartOf="@+id/textview"
+                app:layout_constraintTop_toBottomOf="@+id/lnr_lyt_tipos" />
+
+
+            <View
+                android:id="@+id/textview4"
+                android:layout_width="280dp"
+                android:layout_height="0.2dp"
+                android:layout_marginTop="8dp"
+                android:background="@color/cor_separador"
+                app:layout_constraintStart_toStartOf="@+id/textview"
+                app:layout_constraintTop_toBottomOf="@+id/textview3" />
+
+
+            <LinearLayout
+                android:id="@+id/lnr_lyt_exportar_bd"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:text="Exportar base dados"
+                android:layout_height="60dp"
+                android:layout_marginTop="16dp"
+                android:background="#fff"
+                android:elevation="0.2dp"
+                android:foreground="?android:attr/selectableItemBackground"
                 android:gravity="center_vertical"
-                android:drawableRight="@drawable/ic_lorem_ipsum_24dp"/>
-        </LinearLayout>
+                android:orientation="horizontal"
+                android:padding="10dp"
+                app:layout_constraintStart_toStartOf="@+id/textview"
+                app:layout_constraintTop_toBottomOf="@+id/textview4">
+
+                <TextView
+                    style="@style/textoDetalhe"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical"
+                    android:text="@string/exportar_base_dados" />
+            </LinearLayout>
 
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:foreground="?android:attr/selectableItemBackground"
-            android:background="#fff"
-            android:elevation="0.2dp"
-            android:layout_marginTop="10dp"
-            android:padding="10dp"
-            android:orientation="horizontal"
-            android:gravity="center_vertical">
-
-            <TextView
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:text="Importar base dados"
+                android:layout_height="60dp"
+                android:layout_marginTop="16dp"
+                android:background="#fff"
+                android:elevation="0.2dp"
+                android:foreground="?android:attr/selectableItemBackground"
                 android:gravity="center_vertical"
-                android:drawableRight="@drawable/ic_lorem_ipsum_24dp"/>
-        </LinearLayout>
+                android:orientation="horizontal"
+                android:padding="10dp"
+                app:layout_constraintStart_toStartOf="@+id/textview"
+                app:layout_constraintTop_toBottomOf="@+id/lnr_lyt_exportar_bd">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:drawableRight="@drawable/ic_lorem_ipsum_24dp"
+                    android:gravity="center_vertical"
+                    android:text="Importar base dados" />
+            </LinearLayout>
 
 
-        <TextView
-            style="@style/viewParent.headerText.settingsMiniTitle"
-            android:text="Teste"/>
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-        <View
-            android:layout_width="300dp"
-            android:layout_height="0.5dp"
-            android:layout_marginTop="19dp"
-            android:layout_marginBottom="1dp"
-            android:background="#c0c0c0"/>
+<!--        <TextView-->
+<!--            style="@style/viewParent.headerText.settingsMiniTitle"-->
+<!--            android:text="Log"/>-->
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:foreground="?android:attr/selectableItemBackground"
-            android:orientation="horizontal"
-            android:background="#fff"
-            android:elevation="0.2dp"
-            android:layout_marginTop="10dp"
-            android:padding="10dp"
-            android:gravity="center_vertical">
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:text="Email"
-                android:gravity="center_vertical"
-                android:drawableRight="@drawable/ic_lorem_ipsum_24dp"/>
-        </LinearLayout>
+<!--        <View-->
+<!--            android:layout_width="300dp"-->
+<!--            android:layout_height="0.5dp"-->
+<!--            android:layout_marginTop="19dp"-->
+<!--            android:layout_marginBottom="1dp"-->
+<!--            android:background="#c0c0c0"/>-->
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="60dp"
-            android:foreground="?android:attr/selectableItemBackground"
-            android:orientation="horizontal"
-            android:background="#fff"
-            android:elevation="0.2dp"
-            android:layout_marginTop="10dp"
-            android:padding="10dp"
-            android:gravity="center_vertical">
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="60dp"-->
+<!--            android:foreground="?android:attr/selectableItemBackground"-->
+<!--            android:orientation="horizontal"-->
+<!--            android:background="#fff"-->
+<!--            android:outlineProvider="bounds"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:elevation="0.2dp"-->
+<!--            android:padding="10dp"-->
+<!--            android:gravity="center_vertical">-->
 
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_vertical"
-                android:text="Pdf"
-                android:gravity="center_vertical"
-                android:drawableRight="@drawable/ic_lorem_ipsum_24dp"/>
-        </LinearLayout>
+<!--            <Spinner-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"/>-->
+
+
+<!--            <Button-->
+<!--                android:layout_width="wrap_content"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_marginLeft="12dp"-->
+<!--                android:text="@string/lorem_ipsum_texto_pequeno"-->
+<!--                />-->
+<!--        </LinearLayout>-->
+
+
+
+<!--        <TextView-->
+<!--            style="@style/viewParent.headerText.settingsMiniTitle"-->
+<!--            android:text="Dados"/>-->
+
+<!--        <View-->
+<!--            android:layout_width="300dp"-->
+<!--            android:layout_height="0.5dp"-->
+<!--            android:layout_marginTop="19dp"-->
+<!--            android:layout_marginBottom="1dp"-->
+<!--            android:background="#c0c0c0"/>-->
+
+
+<!--        <LinearLayout-->
+<!--            android:id="@+id/lnr_lyt_exportar_bd"-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="60dp"-->
+<!--            android:foreground="?android:attr/selectableItemBackground"-->
+<!--            android:orientation="horizontal"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:background="#fff"-->
+<!--            android:elevation="0.2dp"-->
+<!--            android:padding="10dp"-->
+<!--            android:gravity="center_vertical">-->
+
+<!--            <TextView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_gravity="center_vertical"-->
+<!--                android:text="Exportar base dados"-->
+<!--                android:gravity="center_vertical"-->
+<!--                android:drawableRight="@drawable/ic_lorem_ipsum_24dp"/>-->
+<!--        </LinearLayout>-->
+
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="60dp"-->
+<!--            android:foreground="?android:attr/selectableItemBackground"-->
+<!--            android:background="#fff"-->
+<!--            android:elevation="0.2dp"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:padding="10dp"-->
+<!--            android:orientation="horizontal"-->
+<!--            android:gravity="center_vertical">-->
+
+<!--            <TextView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_gravity="center_vertical"-->
+<!--                android:text="Importar base dados"-->
+<!--                android:gravity="center_vertical"-->
+<!--                android:drawableRight="@drawable/ic_lorem_ipsum_24dp"/>-->
+<!--        </LinearLayout>-->
+
+
+<!--        <TextView-->
+<!--            style="@style/viewParent.headerText.settingsMiniTitle"-->
+<!--            android:text="Teste"/>-->
+
+
+<!--        <View-->
+<!--            android:layout_width="300dp"-->
+<!--            android:layout_height="0.5dp"-->
+<!--            android:layout_marginTop="19dp"-->
+<!--            android:layout_marginBottom="1dp"-->
+<!--            android:background="#c0c0c0"/>-->
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="60dp"-->
+<!--            android:foreground="?android:attr/selectableItemBackground"-->
+<!--            android:orientation="horizontal"-->
+<!--            android:background="#fff"-->
+<!--            android:elevation="0.2dp"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:padding="10dp"-->
+<!--            android:gravity="center_vertical">-->
+
+<!--            <TextView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_gravity="center_vertical"-->
+<!--                android:text="Email"-->
+<!--                android:gravity="center_vertical"-->
+<!--                android:drawableRight="@drawable/ic_lorem_ipsum_24dp"/>-->
+<!--        </LinearLayout>-->
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:layout_height="60dp"-->
+<!--            android:foreground="?android:attr/selectableItemBackground"-->
+<!--            android:orientation="horizontal"-->
+<!--            android:background="#fff"-->
+<!--            android:elevation="0.2dp"-->
+<!--            android:layout_marginTop="10dp"-->
+<!--            android:padding="10dp"-->
+<!--            android:gravity="center_vertical">-->
+
+<!--            <TextView-->
+<!--                android:layout_width="match_parent"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:layout_gravity="center_vertical"-->
+<!--                android:text="Pdf"-->
+<!--                android:gravity="center_vertical"-->
+<!--                android:drawableRight="@drawable/ic_lorem_ipsum_24dp"/>-->
+<!--        </LinearLayout>-->
 
 
     </LinearLayout>

@@ -34,6 +34,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.BindView;
+import butterknife.OnClick;
 
 public class AutenticacaoActivity extends BaseDaggerActivity
         implements Validator.ValidationListener, MaterialSpinner.OnItemSelectedListener {
@@ -115,7 +116,7 @@ public class AutenticacaoActivity extends BaseDaggerActivity
 
                     case ERRO:
 
-                        activityAutenticacaoBinding.crlBtnAutenticacao.setEnabled(false);
+                        activityAutenticacaoBinding.crlBtnAutenticacao.setEnabled(true);
                         dialogo.erro(getString(R.string.erro), recurso.messagem);
                         break;
 
@@ -153,8 +154,8 @@ public class AutenticacaoActivity extends BaseDaggerActivity
     //--------------------
 
 
-    public void onAutenticarClick() {
-
+    @OnClick(R.id.crl_btn_autenticacao)
+    public void crl_btn_autenticacao_OnClickListener(View view) {
         activityAutenticacaoBinding.crlBtnAutenticacao.setEnabled(false);
         validador.validate();
     }

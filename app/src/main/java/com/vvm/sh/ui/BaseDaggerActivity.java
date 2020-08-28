@@ -39,6 +39,8 @@ public abstract class BaseDaggerActivity extends DaggerAppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        dialogo = new MensagensUtil(this);
+
         activityBaseBinding = DataBindingUtil.setContentView(this, R.layout.activity_base_dagger);
         activityBinding = DataBindingUtil.inflate(getLayoutInflater(), obterLayout(), activityBaseBinding.activityContent, false);
 
@@ -66,9 +68,6 @@ public abstract class BaseDaggerActivity extends DaggerAppCompatActivity {
                 });
             }
         }
-
-        dialogo = new MensagensUtil(this);
-
 
         listenerActivity = new OnDialogoListener() {
             @Override

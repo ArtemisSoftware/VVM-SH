@@ -14,6 +14,7 @@ import com.vvm.sh.R;
 import com.vvm.sh.util.metodos.DatasUtil;
 
 import java.io.File;
+import java.util.List;
 
 public class DefinicoesPreferenceFragment extends PreferenceFragmentCompat {
 
@@ -27,19 +28,26 @@ public class DefinicoesPreferenceFragment extends PreferenceFragmentCompat {
         try {
 
             PackageManager manager = getActivity().getPackageManager();
-            PackageInfo info = manager.getPackageInfo(getActivity().getPackageName(), PackageManager.GET_ACTIVITIES);
-            PermissionInfo[] permissoes = info.permissions;
+            PackageInfo info = manager.getPackageInfo(getActivity().getPackageName(), PackageManager.GET_PERMISSIONS);
+            String[] permissoes = info.requestedPermissions;
 
             if(permissoes != null){
                 if(permissoes.length > 0){
-                    ((Preference) findPreference(getString(R.string.key_permissoes))).setSummary("fksdjghksdfj  sdfsadfa  dhsdgh");
+
+                    String registos = "";
+
+                    for (String item : permissoes) {
+                        registos += item + "\n";
+                    }
+
+                    ((Preference) findPreference(getString(R.string.key_permissoes))).setSummary(registos);
                 }
                 else{
-                    ((Preference) findPreference(getString(R.string.key_permissoes))).setSummary("Não existem permissões atribuidas");
+                    ((Preference) findPreference(getString(R.string.key_permissoes))).setSummary(getString(R.string.sem_permissoes));
                 }
             }
             else{
-                ((Preference) findPreference(getString(R.string.key_permissoes))).setSummary("Não existem permissões atribuidas");
+                ((Preference) findPreference(getString(R.string.key_permissoes))).setSummary(getString(R.string.sem_permissoes));
             }
 
             ApplicationInfo appInfo = manager.getApplicationInfo(info.packageName, 0);

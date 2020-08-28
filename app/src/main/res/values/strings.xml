@@ -267,5 +267,6 @@
     <string name="erro_permissoes">Erro nas permissões</string>
     <string name="importar_base_dados">Importar base dados</string>
     <string name="importar">Importar</string>
+    <string name="sem_permissoes">Não existem permissões atribuidas</string>
 
 </resources>

@@ -84,7 +84,7 @@ public class MainActivity extends BaseDaggerActivity
 
         //TODO: verificar se deve chamar a DownloadTrabalhoActivity ou carregar os dados da bd
 
-        //--iniciarSessao();
+        iniciarSessao();
 
         //Intent intent = new Intent(this, AutenticacaoActivity.class);
 //        //intent.putExtra(AppConstants.PICTURE, pictureRecyclerAdapter.getSelectedPicture(position).getId());
@@ -93,8 +93,8 @@ public class MainActivity extends BaseDaggerActivity
 
 
         //TODO: data para teste
-        activityMainBinding.txtData.setText(DatasUtil.converterData(2020, 6, 23, DatasUtil.FORMATO_DD_MMMM_YYYY, DatasUtil.LOCAL_PORTUGAL));
-        viewModel.obterMarcacoes(PreferenciasUtil.obterIdUtilizador(this), DatasUtil.converterData(2020, 6, 23));
+        //activityMainBinding.txtData.setText(DatasUtil.converterData(2020, 6, 23, DatasUtil.FORMATO_DD_MMMM_YYYY, DatasUtil.LOCAL_PORTUGAL));
+        //viewModel.obterMarcacoes(PreferenciasUtil.obterIdUtilizador(this), DatasUtil.converterData(2020, 6, 23));
 
     }
 
@@ -249,9 +249,10 @@ public class MainActivity extends BaseDaggerActivity
 
         PreferenciasUtil.eliminarDadosUtilizador(this);
 
+        finish();
         Intent intent = new Intent(this, AutenticacaoActivity.class);
         startActivity(intent);
-        finish();
+
     }
 
 

@@ -9,6 +9,7 @@ import com.vvm.sh.api.modelos.UtilizadorResultado;
 import com.vvm.sh.repositorios.AutenticacaoRepositorio;
 import com.vvm.sh.baseDados.entidades.Utilizador;
 import com.vvm.sh.util.constantes.Sintaxe;
+import com.vvm.sh.util.excepcoes.UtilizadorException;
 import com.vvm.sh.util.mapeamento.ModelMapping;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
@@ -56,12 +57,10 @@ public class AutenticacaoViewModel extends BaseViewModel {
                         UtilizadorResultado resultado = autenticarUtilizador(resposta, idUtilizador, palavraChave);
 
                         if(resultado == null){
-                            //TODO: criar excepcao
-                            throw new Exception("lololololo");
+                            throw new UtilizadorException(Sintaxe.Alertas.ERRO_AUTENTICACAO);
                         }
 
                         return resultado;
-
                     }
                 })
 
@@ -95,7 +94,7 @@ public class AutenticacaoViewModel extends BaseViewModel {
                             @Override
                             public void onError(Throwable e) {
 
-                                messagemLiveData.setValue(Recurso.erro(Sintaxe.Alertas.ERRO_AUTENTICACAO));
+                                messagemLiveData.setValue(Recurso.erro(e.getMessage()));
                                 showProgressBar(false);
                             }
 

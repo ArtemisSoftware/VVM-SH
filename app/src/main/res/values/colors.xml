@@ -120,6 +120,8 @@
 
     <!--...................-->
 
+    <color name="cor_fundo_layout">#FCFCFC</color>
+
 
     <color name="cor_branco">#fff</color>
     <color name="cor_preto">#000</color>
@@ -149,5 +151,11 @@
 
     <color name="cor_participante">#3797CF</color>
     <color name="cor_alerta_medio">#ededed</color>
+
+    <color name="cor_texto_branco">#fff</color>
+
+    <color name="branco">#fff</color>
+
+
 
 </resources>

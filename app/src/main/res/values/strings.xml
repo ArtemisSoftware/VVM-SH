@@ -265,5 +265,7 @@
     <string name="exportar_base_dados">Exportar base dados</string>
     <string name="dados">Dados</string>
     <string name="erro_permissoes">Erro nas permissões</string>
+    <string name="importar_base_dados">Importar base dados</string>
+    <string name="importar">Importar</string>
 
 </resources>

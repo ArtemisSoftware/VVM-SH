@@ -5,11 +5,15 @@ import android.os.Environment;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.vvm.sh.baseDados.BaseDadosContantes;
+import com.vvm.sh.util.constantes.Sintaxe;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.nio.channels.FileChannel;
+import java.util.ArrayList;
+import java.util.List;
 
 public class Avancado {
 
@@ -41,49 +45,77 @@ public class Avancado {
                     origem.close();
                     destino.close();
 
-                    MensagensUtil.snack(atividade, "Exportar bd - " + caminhoBdCopia);
+                    MensagensUtil.snack(atividade, Sintaxe.Alertas.SUCESSO_EXPORTAR_BD + caminhoBdCopia);
                 }
             }
         }
         catch (Exception e) {
-            MensagensUtil.snack(atividade, "Exportar bd - " +  e.toString());
+            MensagensUtil.snack(atividade, Sintaxe.Alertas.ERRO_EXPORTAR_BD + e.getMessage());
         }
 
     }
+
 
 
     /**
-     * MEtodo que permite importar uma nova base de dados de forma a substituir a atual
+     * Metodo que permite importar uma nova base de dados de forma a substituir a atual
+     * @param atividade
+     * @param nomeCopia o nome da base de dados a copiar
      */
-    /*
-    public static void importarBaseDados(Context contexto, String nomeCopia){
+    public static void importarBaseDados(Activity atividade, String nomeCopia){
 
-        GestorBaseDados gestor = new GestorBaseDados(contexto);
-        gestor.apagarDadosBaseDados();
+        File novaBd = new File(Environment.getExternalStorageDirectory(), DiretoriasUtil.BASE_DADOS + File.separator + nomeCopia);
+        File bdAtual = new File("/data/data/" + atividade.getPackageName() + "//databases//" + BaseDadosContantes.NOME);
 
-        String mensagem = "Importar bd - ";
-        String novaBd = Environment.getExternalStorageDirectory() + "/" + AppConfigIF.DIRETORIA_BASE_DADOS_ + "/" + nomeCopia;
+        if (novaBd.exists()) {
 
-        File dados = Environment.getDataDirectory();
-        String caminhoBdAtual = "//dados//" + contexto.getPackageName() + "//databases//" + AtualizacaoIF.BASE_DADOS_NOME + "";
-        File bdAtual = new File(dados, caminhoBdAtual);
+            FileChannel canalPartida = null;
+            FileChannel canalChegada = null;
 
-        try {
-            gestor.importarBaseDados(novaBd, bdAtual);
+            try {
+                try {
+                    canalPartida = new FileInputStream(novaBd).getChannel();
+                    canalChegada = new FileOutputStream (bdAtual).getChannel();
+                    canalPartida.transferTo(0, canalPartida.size(), canalChegada);
 
-            if(AppConfigIF.VERSAO_TESTE){
-                mensagem += novaBd.toString() + " <" + novaBd.length() + ">";
+                    MensagensUtil.snack(atividade, Sintaxe.Alertas.SUCESSO_IMPORTAR_BD);
+                }
+                finally {
+                    try {
+                        if (canalPartida != null) {
+                            canalPartida.close();
+                        }
+                    } finally {
+                        if (canalChegada != null) {
+                            canalChegada.close();
+                        }
+                    }
+                }
             }
-            else{
-                mensagem +=  nomeCopia + " <" + novaBd.length() + ">";
+            catch (Exception e) {
+                MensagensUtil.snack(atividade, Sintaxe.Alertas.ERRO_IMPORTAR_BD + e.getMessage());
             }
         }
-        catch (IOException e) {
-            mensagem += e.toString();
-        }
-
-        MetodosMensagens.gerarToast(contexto, mensagem);
     }
-*/
+
+
+
+    /**
+     * Metodo que permite obter uma lista de ficheiros de base de dados existentes
+     * @return uma lista de ficheiros de base de dados existentes
+     */
+    public static List<String> obterFicheirosBds(){
+
+        List<String> ficheirosBd = new ArrayList<>();
+
+        File directoria = new File(Environment.getExternalStorageDirectory(), DiretoriasUtil.BASE_DADOS);
+        File ficheiros[] = directoria.listFiles();
+
+        for (File ficheiro : ficheiros) {
+            ficheirosBd.add(ficheiro.getName());
+        }
+
+        return ficheirosBd;
+    }
 
 }

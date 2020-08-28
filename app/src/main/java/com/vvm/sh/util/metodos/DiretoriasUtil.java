@@ -143,9 +143,6 @@ public class DiretoriasUtil {
         if(diretoria.contains("/storage/emulated/0/") == true){
             return diretoria;
         }
-
-        String rootDir = Environment.getRootDirectory().getAbsolutePath();
-        //return Environment.getDataDirectory().getAbsolutePath().toString() + "/storage/emulated/0/" + diretoria;
         return Environment.getExternalStorageDirectory().toString() + "/" + diretoria;
     }
 

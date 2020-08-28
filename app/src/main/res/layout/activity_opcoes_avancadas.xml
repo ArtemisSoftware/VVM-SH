@@ -6,14 +6,13 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".ui.contaUtilizador.OpcoesAvancadasActivity"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    >
+    android:layout_height="match_parent">
 
 <ScrollView
 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/contentBodyColor">
+    android:background="@color/cor_fundo_layout">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -57,7 +56,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginTop="16dp"
-                android:background="@color/whiteCardColor"
+                android:background="@color/branco"
                 android:elevation="0.2dp"
                 android:foreground="?android:attr/selectableItemBackground"
                 android:gravity="center_vertical"
@@ -102,7 +101,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginTop="16dp"
-                android:background="#fff"
+                android:background="@color/branco"
                 android:elevation="0.2dp"
                 android:foreground="?android:attr/selectableItemBackground"
                 android:gravity="center_vertical"
@@ -125,9 +124,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginTop="16dp"
-                android:background="#fff"
+                android:background="@color/branco"
                 android:elevation="0.2dp"
-                android:foreground="?android:attr/selectableItemBackground"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 android:padding="10dp"
@@ -135,12 +133,28 @@
                 app:layout_constraintTop_toBottomOf="@+id/lnr_lyt_exportar_bd">
 
                 <TextView
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    style="@style/textoDetalhe"
                     android:layout_gravity="center_vertical"
-                    android:drawableRight="@drawable/ic_lorem_ipsum_24dp"
                     android:gravity="center_vertical"
-                    android:text="Importar base dados" />
+                    android:text="@string/importar_base_dados" />
+
+                <com.jaredrummler.materialspinner.MaterialSpinner
+                    android:id="@+id/spnr_ficheiros_bd"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginLeft="16dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"/>
+
+                <com.google.android.material.button.MaterialButton
+                    android:id="@+id/btn_importar_bd"
+                    android:enabled="false"
+                    style="?attr/borderlessButtonStyle"
+                    android:layout_marginLeft="16dp"
+                    android:backgroundTint="@color/cor_botao"
+                    android:textColor="@color/cor_texto_branco"
+                    android:layout_width="wrap_content"
+                    android:layout_height="52dp"
+                    android:text="@string/importar" />
             </LinearLayout>
 
 

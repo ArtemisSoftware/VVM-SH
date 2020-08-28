@@ -264,5 +264,6 @@
     <string name="gerir_tipos">Gerir tipos</string>
     <string name="exportar_base_dados">Exportar base dados</string>
     <string name="dados">Dados</string>
+    <string name="erro_permissoes">Erro nas permissões</string>
 
 </resources>

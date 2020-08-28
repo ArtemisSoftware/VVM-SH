@@ -45,8 +45,13 @@ public class Permissoes {
 */
 
 
+    /**
+     * Metodo que permite pedir/verificar se uma permissão esta concedida
+     * @param contexto
+     * @param permissao o nome da permissao a pedir
+     * @param listener interface a executar quando a permissao é concedida
+     */
     public static void pedirPermissaoApp(final Activity contexto, String permissao, OnPermissaoConcedidaListener listener){
-
 
         Dexter.withActivity(contexto)
                 .withPermission(permissao)
@@ -67,9 +72,8 @@ public class Permissoes {
                                 token.continuePermissionRequest();
                             }
                         }
-
-                ).
-                withErrorListener(new PermissionRequestErrorListener() {
+                )
+                .withErrorListener(new PermissionRequestErrorListener() {
                     @Override
                     public void onError(DexterError error) {
                         Flashbar flashbar = new Flashbar.Builder(contexto)
@@ -86,6 +90,8 @@ public class Permissoes {
                 .onSameThread()
                 .check();
     }
+
+
 
     /**
      * Metodo que permite pedir as permissões da app
@@ -128,7 +134,7 @@ public class Permissoes {
                     public void onError(DexterError error) {
                         Flashbar flashbar = new Flashbar.Builder(contexto)
                                 .gravity(Flashbar.Gravity.BOTTOM)
-                                .title("Erro nas permissoes")
+                                .title(contexto.getString(R.string.erro_permissoes))
                                 .duration(4000)
                                 .message(error.name())
                                 .backgroundColorRes(R.color.colorPrimaryDark)
@@ -168,7 +174,6 @@ public class Permissoes {
         builder.show();
 
     }
-
 
 
 

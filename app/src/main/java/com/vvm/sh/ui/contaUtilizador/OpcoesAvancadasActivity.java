@@ -50,4 +50,8 @@ public class OpcoesAvancadasActivity extends BaseActivity {
         Permissoes.pedirPermissaoApp(this, Manifest.permission.WRITE_EXTERNAL_STORAGE, listener);
 
     }
+
+    public View getView() {
+        return findViewById(android.R.id.content);
+    }
 }

@@ -1,7 +1,10 @@
 package com.vvm.sh.util.metodos;
 
+import android.app.Activity;
 import android.content.Context;
+import android.view.View;
 
+import com.google.android.material.snackbar.Snackbar;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.interfaces.OnDialogoListener;
 
@@ -203,6 +206,15 @@ public class MensagensUtil {
 //            .show();
 
 
+    /**
+     * Metodo que permite criar uma mensagem snack
+     * @param atividade a atividade onde deve aparecer a mensagem
+     * @param mensagem a mensagem a figurar
+     */
+    public static void snack(Activity atividade, String mensagem){
 
+        View layout = atividade.findViewById(android.R.id.content);
+        Snackbar.make(layout, mensagem, Snackbar.LENGTH_LONG).show();
+    }
 
 }

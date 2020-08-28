@@ -1,5 +1,6 @@
 package com.vvm.sh.util.metodos;
 
+import android.app.Activity;
 import android.content.Context;
 import android.net.Uri;
 import android.os.Build;
@@ -11,7 +12,7 @@ public class DiretoriasUtil {
 
     public static final String DIRETORIA = "vvmsh";
     public static final String DOWNLOAD = DIRETORIA + "/" + "Download";
-    public static final String BASE_DADOS = DIRETORIA + "/" + "BaseDados";
+    public static final String BASE_DADOS = DIRETORIA + File.separator + "BaseDados";
     public static final String DIRETORIA_IMAGENS = DIRETORIA + "/" + "Imagens";
     public static final String DIRETORIA_PDF = DIRETORIA + "/" + "Pdf";
     public static final String DIRETORIA_LOG = DIRETORIA + "/" + "Logs";
@@ -57,6 +58,42 @@ public class DiretoriasUtil {
 
         return resultado;
     }
+
+
+    public static boolean criarDirectoria(Activity atividade, String nomeDiretoria){
+
+        File diretoria = obterCaminho(atividade, nomeDiretoria);
+        //--LOG--String mensagemLog;
+        boolean resultado = false;
+
+        if (diretoria.exists() == false) { // se a directoria não existe deve ser criada
+
+            resultado = diretoria.mkdirs();
+            //--LOG--mensagemLog = "Directoria :<" + diretoria.getPath() + "> não existe. Criada: " + resultado;
+        }
+        else{
+            resultado = true;
+            //--LOG--mensagemLog = "Directoria :<" + diretoria.getPath() + "> já existe.";
+        }
+
+        //--LOG--LogApp_v4.obterInstancia(FONTE, LogIF.ID_LOG_GERAL).adicionarTexto(mensagemLog);
+
+        return resultado;
+    }
+
+    /**
+     * Metodo que permite obter o caminho completo para uma diretoria
+     * @param diretoria a diretoria pretendida
+     * @return um caminho
+     */
+    public static  File obterCaminho(Activity atividade, String diretoria){
+        return atividade.getExternalFilesDir(diretoria);
+    }
+
+
+
+
+
 
 
     /**
@@ -107,8 +144,9 @@ public class DiretoriasUtil {
             return diretoria;
         }
 
-        return Environment.getDataDirectory().getAbsolutePath().toString() + "/storage/emulated/0/" + diretoria;
-        //return Environment.getExternalStorageDirectory().toString() + "/" + diretoria;
+        String rootDir = Environment.getRootDirectory().getAbsolutePath();
+        //return Environment.getDataDirectory().getAbsolutePath().toString() + "/storage/emulated/0/" + diretoria;
+        return Environment.getExternalStorageDirectory().toString() + "/" + diretoria;
     }
 
 }

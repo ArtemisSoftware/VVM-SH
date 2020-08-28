@@ -1,9 +1,10 @@
 package com.vvm.sh.util.metodos;
 
-import android.content.Context;
+import android.app.Activity;
 import android.os.Environment;
 
-import com.vvm.sh.util.constantes.BaseDados;
+import com.google.android.material.snackbar.Snackbar;
+import com.vvm.sh.baseDados.BaseDadosContantes;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -15,40 +16,39 @@ public class Avancado {
 
     /**
      * Metodo que permite exportar a base de dados da aplicação
+     * @param atividade
      */
-    public static void exportarBaseDados(Context contexto) {
+    public static void exportarBaseDados(Activity atividade) {
 
-        String mensagem = "Exportar bd - ";
-
-        String nomeCopia = Preferencias.obterIdUtilizador(contexto) + "_" + DatasUtil.obterDataAtual(DatasUtil.FORMATO_DD_MM_YYYY) + "_" + BaseDados.VERSAO;
+        String nomeCopia = BaseDadosContantes.NOME + "__" + Preferencias.obterIdUtilizador(atividade) + "_" + DatasUtil.obterDataAtual(DatasUtil.FORMATO_DD_MM_YYYY) + "_" + BaseDadosContantes.VERSAO + BaseDadosContantes.EXTENSAO;
 
         try {
-            File sd = Environment.getExternalStorageDirectory();
-            File data = Environment.getDataDirectory();
+            File storageDirectory = Environment.getExternalStorageDirectory();
 
-            if (sd.canWrite()) {
+            if (storageDirectory.canWrite()) {
 
-                String caminhoBdAtual = "//dados//" + contexto.getPackageName() + "//databases//" + BaseDados.NOME + "";
-                String caminhoBdCopia = DiretoriasUtil.BASE_DADOS + "/" + BaseDados.NOME + "__" + nomeCopia + BaseDados.EXTENSAO;
-                File bdAtual = new File(data, caminhoBdAtual);
-                File bdCopia = new File(sd, caminhoBdCopia);
+                String caminhoBdAtual = "/data/data/" + atividade.getPackageName() + "//databases//" + BaseDadosContantes.NOME;
+                File bdAtual = new File(caminhoBdAtual);
 
-                if (bdAtual.exists()) {
+                String caminhoBdCopia = DiretoriasUtil.BASE_DADOS + File.separator + nomeCopia;
+                File bdCopia = new File(storageDirectory, caminhoBdCopia);
+                boolean copiaCriada = bdCopia.createNewFile();
+
+                if (bdAtual.exists() & copiaCriada) {
                     FileChannel origem = new FileInputStream(bdAtual).getChannel();
                     FileChannel destino = new FileOutputStream(bdCopia).getChannel();
                     destino.transferFrom(origem, 0, origem.size());
                     origem.close();
                     destino.close();
 
-                    mensagem += BaseDados.NOME + "__" + nomeCopia;
+                    MensagensUtil.snack(atividade, "Exportar bd - " + caminhoBdCopia);
                 }
             }
         }
         catch (Exception e) {
-            mensagem += e.toString();
+            MensagensUtil.snack(atividade, "Exportar bd - " +  e.toString());
         }
 
-        //--MetodosDialogo.gerarToast(contexto, mensagem);
     }
 
 

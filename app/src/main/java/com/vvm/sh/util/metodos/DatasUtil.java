@@ -346,6 +346,19 @@ public class DatasUtil {
     }
 
 
+    /**
+     * Metdo que permite  validar a data de autenticacao
+     * @param dataAutenticacao a data de autenticacao a validar
+     * @return true caso a data seja válida ou false caso contrário
+     */
+    public static boolean validarSessao(long dataAutenticacao) {
+
+        if(obterDataAtual() > dataAutenticacao){
+            return false;
+        }
+
+        return true;
+    }
 
 
     /**

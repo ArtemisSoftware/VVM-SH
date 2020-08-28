@@ -5,7 +5,7 @@ import android.content.SharedPreferences;
 
 import com.vvm.sh.BuildConfig;
 
-public class Preferencias {
+public class PreferenciasUtil {
 
 
     private static final String PRIMEIRA_UTILIZACAO = "primeira_utilizacao";
@@ -14,6 +14,8 @@ public class Preferencias {
     private static final String ID_TAREFA = "id_tarefa";
     private static final String DATA_VALIDADE_AUTENTICACAO = "validade_autenticacao";
     private static final String TOKEN = "token";
+
+    private static final String PREFERENCIAS_UTILIZADOR [] = { ID_UTILIZADOR, ID_TAREFA, DATA_VALIDADE_AUTENTICACAO, TOKEN };
 
 
     /**
@@ -144,6 +146,19 @@ public class Preferencias {
     }
 
 
+    /**
+     * Metodo que permite obter a data de término da validade da autenticacao
+     * @param contexto
+     * @return uma data
+     */
+    public static long obterDataValidadeAutenticacao(Context contexto) {
+
+        String pacote = contexto.getPackageName();
+
+        SharedPreferences preferencias = contexto.getSharedPreferences(pacote, Context.MODE_PRIVATE);
+        return preferencias.getLong(DATA_VALIDADE_AUTENTICACAO, 0L);
+    }
+
 
     /**
      * Metodo que permite obter o token do utilizador
@@ -172,8 +187,9 @@ public class Preferencias {
         SharedPreferences preferencias = contexto.getSharedPreferences(pacote, Context.MODE_PRIVATE);
         SharedPreferences.Editor editor = preferencias.edit();
 
-        editor.remove(ID_UTILIZADOR);
-        editor.remove(TOKEN);
+        for (String item : PREFERENCIAS_UTILIZADOR) {
+            editor.remove(item);
+        }
         editor.apply();
     }
 

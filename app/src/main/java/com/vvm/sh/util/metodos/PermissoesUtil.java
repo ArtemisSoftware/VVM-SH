@@ -28,7 +28,7 @@ import com.vvm.sh.util.interfaces.OnPermissaoConcedidaListener;
 
 import java.util.List;
 
-public class Permissoes {
+public class PermissoesUtil {
 
     private static final String[] PERMISSOES_APP = new String[]{
             /*

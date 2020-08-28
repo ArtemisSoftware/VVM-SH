@@ -9,7 +9,7 @@ import com.vvm.sh.databinding.ActivityInformacaoBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.tarefa.TarefaViewModel;
-import com.vvm.sh.util.metodos.Preferencias;
+import com.vvm.sh.util.metodos.PreferenciasUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import javax.inject.Inject;
@@ -40,7 +40,7 @@ public class InformacaoActivity extends BaseDaggerActivity {
 
         subscreverObservadores();
 
-        viewModel.obterTarefa(Preferencias.obterIdTarefa(this));
+        viewModel.obterTarefa(PreferenciasUtil.obterIdTarefa(this));
 
     }
 

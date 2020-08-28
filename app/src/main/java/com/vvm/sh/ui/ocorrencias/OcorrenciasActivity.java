@@ -16,7 +16,7 @@ import com.vvm.sh.baseDados.entidades.Ocorrencia;
 import com.vvm.sh.ui.ocorrencias.modelos.OcorrenciaRegisto;
 import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.util.constantes.TiposConstantes;
-import com.vvm.sh.util.metodos.Preferencias;
+import com.vvm.sh.util.metodos.PreferenciasUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import javax.inject.Inject;
@@ -51,7 +51,7 @@ public class OcorrenciasActivity extends BaseDaggerActivity
 
         subscreverObservadores();
 
-        viewModel.obterOcorrencias(Preferencias.obterIdTarefa(this));
+        viewModel.obterOcorrencias(PreferenciasUtil.obterIdTarefa(this));
     }
 
     @Override
@@ -93,7 +93,7 @@ public class OcorrenciasActivity extends BaseDaggerActivity
 
     @Override
     public void onRemoverClick(OcorrenciaRegisto ocorrencia) {
-        viewModel.remover(Preferencias.obterIdTarefa(this), ocorrencia.resultado.id);
+        viewModel.remover(PreferenciasUtil.obterIdTarefa(this), ocorrencia.resultado.id);
     }
 
     @Override

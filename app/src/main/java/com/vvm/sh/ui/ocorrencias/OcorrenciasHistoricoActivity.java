@@ -1,6 +1,5 @@
 package com.vvm.sh.ui.ocorrencias;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
@@ -9,7 +8,6 @@ import com.vvm.sh.R;
 import com.vvm.sh.databinding.ActivityOcorrenciasHistoricoBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
-import com.vvm.sh.util.metodos.Preferencias;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import javax.inject.Inject;

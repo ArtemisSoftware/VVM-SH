@@ -14,7 +14,7 @@ import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.ocorrencias.adaptadores.OnOcorrenciaRegistoListener;
 import com.vvm.sh.ui.ocorrencias.modelos.OcorrenciaRegisto;
 import com.vvm.sh.baseDados.entidades.Tipo;
-import com.vvm.sh.util.metodos.Preferencias;
+import com.vvm.sh.util.metodos.PreferenciasUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import java.util.ArrayList;
@@ -58,7 +58,7 @@ public class OcorrenciasRegistoActivity extends BaseDaggerActivity
 
         subscreverObservadores();
 
-        viewModel.obterRegistosOcorrencias(Preferencias.obterIdTarefa(this));
+        viewModel.obterRegistosOcorrencias(PreferenciasUtil.obterIdTarefa(this));
     }
 
     @Override
@@ -89,7 +89,7 @@ public class OcorrenciasRegistoActivity extends BaseDaggerActivity
 
         activityOcorrenciasRegistoBinding.txtDescricao.setVisibility(View.INVISIBLE);
         Tipo tipo = (Tipo) item;
-        viewModel.obterRegistosOcorrencias(Preferencias.obterIdTarefa(this), tipo.id);
+        viewModel.obterRegistosOcorrencias(PreferenciasUtil.obterIdTarefa(this), tipo.id);
     }
 
     @Override
@@ -107,13 +107,13 @@ public class OcorrenciasRegistoActivity extends BaseDaggerActivity
 
             activityOcorrenciasRegistoBinding.txtDescricao.setVisibility(View.VISIBLE);
             activityOcorrenciasRegistoBinding.txtDescricao.setText(ocorrencia.obterDescricao());
-            viewModel.obterRegistosOcorrencias(Preferencias.obterIdTarefa(this), ocorrencia.tipo.id);
+            viewModel.obterRegistosOcorrencias(PreferenciasUtil.obterIdTarefa(this), ocorrencia.tipo.id);
         }
     }
 
     @Override
     public void onRemoverClick(OcorrenciaRegisto ocorrencia) {
-        viewModel.remover(Preferencias.obterIdTarefa(this), ocorrencia.resultado.id);
+        viewModel.remover(PreferenciasUtil.obterIdTarefa(this), ocorrencia.resultado.id);
     }
 
     @Override
@@ -124,7 +124,7 @@ public class OcorrenciasRegistoActivity extends BaseDaggerActivity
             OcorrenciaRegisto ocorrencia = caminho.get(caminho.size() - 1);
 
             activityOcorrenciasRegistoBinding.txtDescricao.setText(ocorrencia.obterDescricao());
-            viewModel.obterRegistosOcorrencias(Preferencias.obterIdTarefa(this), ocorrencia.resultado.id);
+            viewModel.obterRegistosOcorrencias(PreferenciasUtil.obterIdTarefa(this), ocorrencia.resultado.id);
             caminho.remove(caminho.size() - 1);
         }
         else{

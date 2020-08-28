@@ -19,7 +19,7 @@ import com.vvm.sh.util.AtualizacaoUI;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.metodos.DatasUtil;
-import com.vvm.sh.util.metodos.Preferencias;
+import com.vvm.sh.util.metodos.PreferenciasUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import java.util.List;
@@ -62,18 +62,18 @@ public class UploadTrabalhoActivity extends BaseDaggerActivity {
         if(bundle != null){
             activityUploadBinding.txtData.setVisibility(View.VISIBLE);
             activityUploadBinding.txtData.setText(DatasUtil.converterData(bundle.getLong(getString(R.string.argumento_data)), DatasUtil.FORMATO_DD_MM_YYYY));
-            viewModel.obterPendencias(Preferencias.obterIdUtilizador(this), bundle.getLong(getString(R.string.argumento_data)));
+            viewModel.obterPendencias(PreferenciasUtil.obterIdUtilizador(this), bundle.getLong(getString(R.string.argumento_data)));
         }
         else {
             activityUploadBinding.txtData.setVisibility(View.GONE);
-            //--viewModel.obterPendencias(Preferencias.obterIdUtilizador(this));
-            viewModel.obterUpload(Preferencias.obterIdUtilizador(this), handlerNotificacoesUI);
+            //--viewModel.obterPendencias(PreferenciasUtil.obterIdUtilizador(this));
+            viewModel.obterUpload(PreferenciasUtil.obterIdUtilizador(this), handlerNotificacoesUI);
 
 
 
 
-            //viewModel.obterUpload(Preferencias.obterIdUtilizador(this), handlerNotificacoesUI);
-            //viewModel.obterDadosUpload(Preferencias.obterIdUtilizador(this), handlerNotificacoesUI);
+            //viewModel.obterUpload(PreferenciasUtil.obterIdUtilizador(this), handlerNotificacoesUI);
+            //viewModel.obterDadosUpload(PreferenciasUtil.obterIdUtilizador(this), handlerNotificacoesUI);
         }
     }
 
@@ -176,10 +176,10 @@ public class UploadTrabalhoActivity extends BaseDaggerActivity {
             Bundle bundle = getIntent().getExtras();
 
             if(bundle != null){
-                viewModel.obterUpload(Preferencias.obterIdUtilizador(this), bundle.getLong(getString(R.string.argumento_data)), handlerNotificacoesUI);
+                viewModel.obterUpload(PreferenciasUtil.obterIdUtilizador(this), bundle.getLong(getString(R.string.argumento_data)), handlerNotificacoesUI);
             }
             else{
-                viewModel.obterUpload(Preferencias.obterIdUtilizador(this), handlerNotificacoesUI);
+                viewModel.obterUpload(PreferenciasUtil.obterIdUtilizador(this), handlerNotificacoesUI);
             }
         }
         else{

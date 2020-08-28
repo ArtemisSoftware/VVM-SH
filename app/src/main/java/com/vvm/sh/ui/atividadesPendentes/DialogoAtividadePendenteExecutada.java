@@ -20,7 +20,7 @@ import com.vvm.sh.util.base.BaseDatePickerDialog;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.metodos.DatasUtil;
-import com.vvm.sh.util.metodos.Preferencias;
+import com.vvm.sh.util.metodos.PreferenciasUtil;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import java.util.Calendar;
@@ -191,7 +191,7 @@ public class DialogoAtividadePendenteExecutada extends BaseDaggerDialogoPersiste
         String data = txt_inp_data_execucao.getText().toString();
 
         AtividadePendenteResultado atividade = new AtividadePendenteResultado(idAtividade, minutos, DatasUtil.converterString(data, DatasUtil.FORMATO_DD_MM_YYYY));
-        viewModel.gravarAtividade(Preferencias.obterIdTarefa(getContext()), atividade);
+        viewModel.gravarAtividade(PreferenciasUtil.obterIdTarefa(getContext()), atividade);
 
     }
 

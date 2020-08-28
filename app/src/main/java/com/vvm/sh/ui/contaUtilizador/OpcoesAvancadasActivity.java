@@ -12,9 +12,9 @@ import com.vvm.sh.R;
 import com.vvm.sh.ui.BaseActivity;
 import com.vvm.sh.ui.opcoes.TiposActivity;
 import com.vvm.sh.util.interfaces.OnPermissaoConcedidaListener;
-import com.vvm.sh.util.metodos.Avancado;
+import com.vvm.sh.util.metodos.BaseDadosUtil;
 import com.vvm.sh.util.metodos.DiretoriasUtil;
-import com.vvm.sh.util.metodos.Permissoes;
+import com.vvm.sh.util.metodos.PermissoesUtil;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -33,7 +33,7 @@ public class OpcoesAvancadasActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_opcoes_avancadas);
 
-        spnr_ficheiros_bd.setItems(Avancado.obterFicheirosBds());
+        spnr_ficheiros_bd.setItems(BaseDadosUtil.obterFicheirosBds());
 
         if(spnr_ficheiros_bd.getItems().size() > 0){
             btn_importar_bd.setEnabled(true);
@@ -57,14 +57,14 @@ public class OpcoesAvancadasActivity extends BaseActivity {
             public void executar() {
 
                 if(DiretoriasUtil.criarDirectoria(DiretoriasUtil.BASE_DADOS) == true){
-                    Avancado.exportarBaseDados(OpcoesAvancadasActivity.this);
-                    spnr_ficheiros_bd.setItems(Avancado.obterFicheirosBds());
+                    BaseDadosUtil.exportarBaseDados(OpcoesAvancadasActivity.this);
+                    spnr_ficheiros_bd.setItems(BaseDadosUtil.obterFicheirosBds());
                     btn_importar_bd.setEnabled(true);
                 }
             }
         };
 
-        Permissoes.pedirPermissaoApp(this, Manifest.permission.WRITE_EXTERNAL_STORAGE, listener);
+        PermissoesUtil.pedirPermissaoApp(this, Manifest.permission.WRITE_EXTERNAL_STORAGE, listener);
     }
 
     @OnClick(R.id.btn_importar_bd)
@@ -73,7 +73,7 @@ public class OpcoesAvancadasActivity extends BaseActivity {
         OnPermissaoConcedidaListener listener = new OnPermissaoConcedidaListener() {
             @Override
             public void executar() {
-                Avancado.importarBaseDados(OpcoesAvancadasActivity.this, (String) spnr_ficheiros_bd.getItems().get(spnr_ficheiros_bd.getSelectedIndex()));
+                BaseDadosUtil.importarBaseDados(OpcoesAvancadasActivity.this, (String) spnr_ficheiros_bd.getItems().get(spnr_ficheiros_bd.getSelectedIndex()));
 
                 if(Build.VERSION.SDK_INT>=16 && Build.VERSION.SDK_INT<21){
                     finishAffinity();
@@ -84,7 +84,7 @@ public class OpcoesAvancadasActivity extends BaseActivity {
             }
         };
 
-        Permissoes.pedirPermissaoApp(this, Manifest.permission.WRITE_EXTERNAL_STORAGE, listener);
+        PermissoesUtil.pedirPermissaoApp(this, Manifest.permission.WRITE_EXTERNAL_STORAGE, listener);
     }
 
 

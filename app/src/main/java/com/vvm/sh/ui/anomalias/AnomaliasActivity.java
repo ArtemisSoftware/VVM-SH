@@ -14,7 +14,7 @@ import com.vvm.sh.ui.anomalias.adaptadores.OnAnomaliasListener;
 import com.vvm.sh.ui.anomalias.modelos.AnomaliaRegistada;
 import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.util.constantes.TiposConstantes;
-import com.vvm.sh.util.metodos.Preferencias;
+import com.vvm.sh.util.metodos.PreferenciasUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import javax.inject.Inject;
@@ -50,7 +50,7 @@ public class AnomaliasActivity extends BaseDaggerActivity
 
         subscreverObservadores();
 
-        viewModel.obterAnomalias(Preferencias.obterIdTarefa(this));
+        viewModel.obterAnomalias(PreferenciasUtil.obterIdTarefa(this));
     }
 
     @Override
@@ -81,12 +81,12 @@ public class AnomaliasActivity extends BaseDaggerActivity
         Tipo tipo = (Tipo) item;
 
         if(tipo.id == TiposConstantes.OpcoesRegistos.CONSULTAR.id){
-            viewModel.obterAnomaliasExistentes(Preferencias.obterIdTarefa(this));
+            viewModel.obterAnomaliasExistentes(PreferenciasUtil.obterIdTarefa(this));
             activityAnomaliasBinding.recyclerViewExistentes.setVisibility(View.VISIBLE);
             activityAnomaliasBinding.recyclerViewRegistados.setVisibility(View.GONE);
         }
         else{
-            viewModel.obterAnomaliasRegistadas(Preferencias.obterIdTarefa(this));
+            viewModel.obterAnomaliasRegistadas(PreferenciasUtil.obterIdTarefa(this));
             activityAnomaliasBinding.recyclerViewExistentes.setVisibility(View.GONE);
             activityAnomaliasBinding.recyclerViewRegistados.setVisibility(View.VISIBLE);
         }
@@ -101,7 +101,7 @@ public class AnomaliasActivity extends BaseDaggerActivity
     @Override
     public void onRemoverClick(AnomaliaRegistada anomalia) {
 
-        viewModel.remover(Preferencias.obterIdTarefa(this), anomalia);
+        viewModel.remover(PreferenciasUtil.obterIdTarefa(this), anomalia);
     }
 
 

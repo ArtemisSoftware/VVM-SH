@@ -10,7 +10,7 @@ import com.vvm.sh.R;
 import com.vvm.sh.databinding.ActivityFormacaoBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
-import com.vvm.sh.util.metodos.Preferencias;
+import com.vvm.sh.util.metodos.PreferenciasUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import javax.inject.Inject;
@@ -100,7 +100,7 @@ public class FormacaoActivity extends BaseDaggerActivity
     public void OnSelecionadoCheck(Formando formando, boolean selecionado) {
 
         formando.resultado.selecionado = selecionado;
-        viewModel.gravar(Preferencias.obterIdTarefa(this), formando.resultado);
+        viewModel.gravar(PreferenciasUtil.obterIdTarefa(this), formando.resultado);
     }
 
 

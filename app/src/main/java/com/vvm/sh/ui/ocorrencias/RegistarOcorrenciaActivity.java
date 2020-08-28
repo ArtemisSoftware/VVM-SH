@@ -16,7 +16,7 @@ import com.vvm.sh.ui.ocorrencias.modelos.OcorrenciaRegisto;
 import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.util.metodos.MensagensUtil;
 import com.vvm.sh.util.Recurso;
-import com.vvm.sh.util.metodos.Preferencias;
+import com.vvm.sh.util.metodos.PreferenciasUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import javax.inject.Inject;
@@ -52,7 +52,7 @@ public class RegistarOcorrenciaActivity extends BaseDaggerActivity {
         Bundle bundle = getIntent().getExtras();
 
         if(bundle != null) {
-            viewModel.obterOcorrencia(Preferencias.obterIdTarefa(this), bundle.getInt(getString(R.string.argumento_id)), bundle.getInt(getString(R.string.argumento_id_tipo)));
+            viewModel.obterOcorrencia(PreferenciasUtil.obterIdTarefa(this), bundle.getInt(getString(R.string.argumento_id)), bundle.getInt(getString(R.string.argumento_id_tipo)));
         }
         else{
             finish();
@@ -136,12 +136,12 @@ public class RegistarOcorrenciaActivity extends BaseDaggerActivity {
 
 
         if(fiscalizado == true){
-            ocorrencia = new OcorrenciaResultado(Preferencias.obterIdTarefa(this), id, observacao, fiscalizado, dias);
+            ocorrencia = new OcorrenciaResultado(PreferenciasUtil.obterIdTarefa(this), id, observacao, fiscalizado, dias);
         }
         else{
 
             dias = ((Tipo) activityOcorrenciaRegistarBinding.spnrDias.getItems().get(activityOcorrenciaRegistarBinding.spnrDias.getSelectedIndex())).descricao;
-            ocorrencia = new OcorrenciaResultado(Preferencias.obterIdTarefa(this), id, observacao, fiscalizado, dias);
+            ocorrencia = new OcorrenciaResultado(PreferenciasUtil.obterIdTarefa(this), id, observacao, fiscalizado, dias);
         }
 
 

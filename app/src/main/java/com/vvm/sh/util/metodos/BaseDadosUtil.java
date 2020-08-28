@@ -3,19 +3,17 @@ package com.vvm.sh.util.metodos;
 import android.app.Activity;
 import android.os.Environment;
 
-import com.google.android.material.snackbar.Snackbar;
 import com.vvm.sh.baseDados.BaseDadosContantes;
 import com.vvm.sh.util.constantes.Sintaxe;
 
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Avancado {
+public class BaseDadosUtil {
 
 
     /**
@@ -24,7 +22,7 @@ public class Avancado {
      */
     public static void exportarBaseDados(Activity atividade) {
 
-        String nomeCopia = BaseDadosContantes.NOME + "__" + Preferencias.obterIdUtilizador(atividade) + "_" + DatasUtil.obterDataAtual(DatasUtil.FORMATO_DD_MM_YYYY) + "_" + BaseDadosContantes.VERSAO + BaseDadosContantes.EXTENSAO;
+        String nomeCopia = BaseDadosContantes.NOME + "__" + PreferenciasUtil.obterIdUtilizador(atividade) + "_" + DatasUtil.obterDataAtual(DatasUtil.FORMATO_DD_MM_YYYY) + "_" + BaseDadosContantes.VERSAO + BaseDadosContantes.EXTENSAO;
 
         try {
             File storageDirectory = Environment.getExternalStorageDirectory();

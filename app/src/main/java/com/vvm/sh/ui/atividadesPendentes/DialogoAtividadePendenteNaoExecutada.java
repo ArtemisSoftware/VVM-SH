@@ -12,7 +12,7 @@ import com.vvm.sh.ui.BaseDaggerDialogoPersistenteFragment;
 import com.vvm.sh.baseDados.entidades.AtividadePendenteResultado;
 import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.util.Recurso;
-import com.vvm.sh.util.metodos.Preferencias;
+import com.vvm.sh.util.metodos.PreferenciasUtil;
 
 import javax.inject.Inject;
 
@@ -113,7 +113,7 @@ public class DialogoAtividadePendenteNaoExecutada extends BaseDaggerDialogoPersi
         String observacao = binding.txtInpObservacao.getText().toString();
 
         AtividadePendenteResultado atividade = new AtividadePendenteResultado(idAtividade, idAnomalia, observacao);
-        viewModel.gravarAtividade(Preferencias.obterIdTarefa(getContext()), atividade);
+        viewModel.gravarAtividade(PreferenciasUtil.obterIdTarefa(getContext()), atividade);
     }
 
 }

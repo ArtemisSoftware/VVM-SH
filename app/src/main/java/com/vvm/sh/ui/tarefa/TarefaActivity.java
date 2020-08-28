@@ -22,7 +22,7 @@ import com.vvm.sh.ui.tarefa.modelos.OpcaoCliente;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.constantes.Url;
-import com.vvm.sh.util.metodos.Preferencias;
+import com.vvm.sh.util.metodos.PreferenciasUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import javax.inject.Inject;
@@ -54,7 +54,7 @@ public class TarefaActivity extends BaseDaggerActivity
 
         subscreverObservadores();
 
-        viewModel.obterTarefa(Preferencias.obterIdTarefa(this));
+        viewModel.obterTarefa(PreferenciasUtil.obterIdTarefa(this));
     }
 
     @Override

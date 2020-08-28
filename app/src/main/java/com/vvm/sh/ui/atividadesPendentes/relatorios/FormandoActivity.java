@@ -27,7 +27,7 @@ import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.metodos.DatasUtil;
 import com.vvm.sh.util.metodos.ImagemUtil;
-import com.vvm.sh.util.metodos.Preferencias;
+import com.vvm.sh.util.metodos.PreferenciasUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
@@ -201,7 +201,7 @@ public class FormandoActivity extends BaseDaggerActivity
             imagem = ImagemUtil.converter(((BitmapDrawable) activityFormandoBinding.imgAssinatura.getDrawable()).getBitmap());
         }
 
-        viewModel.gravar(Preferencias.obterIdTarefa(this), formando, imagem);
+        viewModel.gravar(PreferenciasUtil.obterIdTarefa(this), formando, imagem);
     }
 
 

@@ -13,7 +13,7 @@ import com.vvm.sh.ui.BaseDaggerDialogoPersistenteFragment;
 import com.vvm.sh.baseDados.entidades.AnomaliaResultado;
 import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.util.Recurso;
-import com.vvm.sh.util.metodos.Preferencias;
+import com.vvm.sh.util.metodos.PreferenciasUtil;
 
 import javax.inject.Inject;
 
@@ -117,10 +117,10 @@ public class DialogoAnomalia extends BaseDaggerDialogoPersistenteFragment{
         AnomaliaResultado anomalia;
 
         if(getArguments() != null) {
-            anomalia = new AnomaliaResultado(Preferencias.obterIdTarefa(getContext()), getArguments().getInt(ARGUMENTO_ID), tipo.id, binding.txtInpObservacao.getText().toString());
+            anomalia = new AnomaliaResultado(PreferenciasUtil.obterIdTarefa(getContext()), getArguments().getInt(ARGUMENTO_ID), tipo.id, binding.txtInpObservacao.getText().toString());
         }
         else{
-            anomalia = new AnomaliaResultado(Preferencias.obterIdTarefa(getContext()), tipo.id, binding.txtInpObservacao.getText().toString());
+            anomalia = new AnomaliaResultado(PreferenciasUtil.obterIdTarefa(getContext()), tipo.id, binding.txtInpObservacao.getText().toString());
         }
 
         viewModel.gravar(anomalia);

@@ -12,7 +12,7 @@ import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.baseDados.entidades.EmailResultado;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.constantes.Sintaxe;
-import com.vvm.sh.util.metodos.Preferencias;
+import com.vvm.sh.util.metodos.PreferenciasUtil;
 
 import javax.inject.Inject;
 
@@ -54,7 +54,7 @@ public class DialogoEmail extends BaseDaggerDialogoPersistenteFragment {
         binding = (DialogoEmailBinding) activityBaseBinding;
         binding.setViewmodel(viewModel);
 
-        viewModel.obterEmail(Preferencias.obterIdTarefa(getContext()));
+        viewModel.obterEmail(PreferenciasUtil.obterIdTarefa(getContext()));
     }
 
 
@@ -100,7 +100,7 @@ public class DialogoEmail extends BaseDaggerDialogoPersistenteFragment {
             String endereco = binding.txtInpEmail.getText().toString();
             Tipo autorizacao = (Tipo) binding.spnrEmail.getItems().get(binding.spnrEmail.getSelectedIndex());
 
-            EmailResultado email = new EmailResultado(Preferencias.obterIdTarefa(getContext()), endereco, autorizacao);
+            EmailResultado email = new EmailResultado(PreferenciasUtil.obterIdTarefa(getContext()), endereco, autorizacao);
 
             viewModel.gravarEmail(email);
         }

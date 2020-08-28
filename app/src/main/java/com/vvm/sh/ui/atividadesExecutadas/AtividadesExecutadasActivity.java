@@ -1,27 +1,18 @@
 package com.vvm.sh.ui.atividadesExecutadas;
 
-import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.DividerItemDecoration;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
-import android.widget.LinearLayout;
 
 import com.vvm.sh.R;
 import com.vvm.sh.databinding.ActivityAtividadesExecutadasBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
-import com.vvm.sh.ui.BaseActivity;
 import com.vvm.sh.ui.BaseDaggerActivity;
-import com.vvm.sh.ui.atividadesExecutadas.adaptadores.AtividadeExecutadaRecyclerAdapter;
 import com.vvm.sh.ui.tarefa.TarefaViewModel;
-import com.vvm.sh.util.metodos.Preferencias;
+import com.vvm.sh.util.metodos.PreferenciasUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import javax.inject.Inject;
-
-import butterknife.BindView;
 
 public class AtividadesExecutadasActivity extends BaseDaggerActivity {
 
@@ -48,7 +39,7 @@ public class AtividadesExecutadasActivity extends BaseDaggerActivity {
 
         subscreverObservadores();
 
-        viewModel.obterAtividadesExecutadas(Preferencias.obterIdTarefa(this));
+        viewModel.obterAtividadesExecutadas(PreferenciasUtil.obterIdTarefa(this));
 
 
     }

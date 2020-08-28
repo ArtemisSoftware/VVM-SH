@@ -13,7 +13,7 @@ import com.vvm.sh.ui.atividadesPendentes.adaptadores.OnAtividadePendenteListener
 import com.vvm.sh.ui.atividadesPendentes.modelos.AtividadePendenteRegisto;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.FormacaoActivity;
 import com.vvm.sh.util.constantes.Identificadores;
-import com.vvm.sh.util.metodos.Preferencias;
+import com.vvm.sh.util.metodos.PreferenciasUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import javax.inject.Inject;
@@ -48,7 +48,7 @@ public class AtividadesPendentesActivity extends BaseDaggerActivity
 
         subscreverObservadores();
 
-        viewModel.obterAtividades(Preferencias.obterIdTarefa(this));
+        viewModel.obterAtividades(PreferenciasUtil.obterIdTarefa(this));
     }
 
     @Override

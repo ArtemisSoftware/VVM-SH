@@ -14,7 +14,7 @@ import com.vvm.sh.baseDados.entidades.CrossSellingResultado;
 import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.util.metodos.MensagensUtil;
 import com.vvm.sh.util.Recurso;
-import com.vvm.sh.util.metodos.Preferencias;
+import com.vvm.sh.util.metodos.PreferenciasUtil;
 
 import javax.inject.Inject;
 
@@ -111,7 +111,7 @@ public class DialogoSinaletica extends BaseDaggerDialogFragment {
         Tipo dimensao =  (Tipo) binding.spnrDimensao.getItems().get(binding.spnrDimensao.getSelectedIndex());
         Tipo tipo =  (Tipo) binding.spnrTipos.getItems().get(binding.spnrTipos.getSelectedIndex());
 
-        CrossSellingResultado registo = new CrossSellingResultado(Preferencias.obterIdTarefa(getContext()), idProduto, id, dimensao, tipo);
+        CrossSellingResultado registo = new CrossSellingResultado(PreferenciasUtil.obterIdTarefa(getContext()), idProduto, id, dimensao, tipo);
 
         viewModel.gravar(registo);
     }

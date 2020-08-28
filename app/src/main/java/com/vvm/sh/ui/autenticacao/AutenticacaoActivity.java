@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.AdapterView;
 
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
@@ -26,12 +25,9 @@ import com.vvm.sh.ui.opcoes.AtualizacaoAppActivity;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.constantes.Testes;
-import com.vvm.sh.util.metodos.Permissoes;
-import com.vvm.sh.util.metodos.Preferencias;
+import com.vvm.sh.util.metodos.PermissoesUtil;
+import com.vvm.sh.util.metodos.PreferenciasUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
-
-import org.angmarch.views.NiceSpinner;
-import org.angmarch.views.OnSpinnerItemSelectedListener;
 
 import java.util.List;
 
@@ -85,7 +81,7 @@ public class AutenticacaoActivity extends BaseDaggerActivity
 
         subscreverObservadores();
 
-        Permissoes.pedirPermissoesApp(this);
+        PermissoesUtil.pedirPermissoesApp(this);
     }
 
 
@@ -140,7 +136,7 @@ public class AutenticacaoActivity extends BaseDaggerActivity
      */
     private void iniciarApp(){
 
-        Preferencias.fixarDadosUtilizador(this, activityAutenticacaoBinding.txtInpIdentificador.getText().toString());
+        PreferenciasUtil.fixarDadosUtilizador(this, activityAutenticacaoBinding.txtInpIdentificador.getText().toString());
 
         activityAutenticacaoBinding.crlBtnAutenticacao.setEnabled(true);
         activityAutenticacaoBinding.txtInpIdentificador.setText(Sintaxe.SEM_TEXTO);

@@ -35,6 +35,7 @@ public class Sintaxe {
         public static final String OCORRENCIA = "Ocorrencia";
         public static final String ATUALIZACAO = "Atualização";
         public static final String DOWNLOAD = "Download";
+        public static final String SESSAO = "Sessão";
     }
 
     public class Opcoes{
@@ -71,6 +72,7 @@ public class Sintaxe {
         public static final String ERRO_IMPORTAR_BD = "Erro ao importar base de dados: " ;
         public static final String ERRO_EXPORTAR_BD = "Erro ao exportar bd: ";
         public static final String SUCESSO_EXPORTAR_BD = "Base de dados exportada com sucesso: ";
+        public static final String SESSAO_EXPIRADA = "A sua sessão expirou";
     }
 
     public class Frases{

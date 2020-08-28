@@ -3,11 +3,16 @@ package com.vvm.sh;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.app.AlarmManager;
+import android.app.PendingIntent;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Toast;
 
 import com.vvm.sh.databinding.ActivityMainBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
@@ -16,21 +21,24 @@ import com.vvm.sh.ui.agenda.AgendaViewModel;
 import com.vvm.sh.ui.agenda.DialogoCalendario;
 import com.vvm.sh.ui.agenda.DialogoOpcoesTrabalhoFragment;
 import com.vvm.sh.ui.agenda.modelos.Marcacao;
+import com.vvm.sh.ui.autenticacao.AutenticacaoActivity;
 import com.vvm.sh.ui.contaUtilizador.DefinicoesActivity;
 import com.vvm.sh.ui.contaUtilizador.OpcoesAvancadasActivity;
 import com.vvm.sh.ui.autenticacao.PerfilActivity;
-import com.vvm.sh.ui.opcoes.TiposActivity;
 import com.vvm.sh.ui.transferencias.DownloadTrabalhoActivity;
 import com.vvm.sh.ui.transferencias.UploadTrabalhoActivity;
 import com.vvm.sh.ui.tarefa.TarefaActivity;
 import com.vvm.sh.ui.agenda.adaptadores.OnAgendaListener;
 import com.vvm.sh.util.Recurso;
+import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.interfaces.OnDialogoListener;
 import com.vvm.sh.util.metodos.DatasUtil;
-import com.vvm.sh.util.metodos.Preferencias;
+import com.vvm.sh.util.metodos.MensagensUtil;
+import com.vvm.sh.util.metodos.PreferenciasUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
+import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 
@@ -76,22 +84,20 @@ public class MainActivity extends BaseDaggerActivity
 
         //TODO: verificar se deve chamar a DownloadTrabalhoActivity ou carregar os dados da bd
 
-        //viewModel.obterTrabalho("12724");
-
-
+        //--iniciarSessao();
 
         //Intent intent = new Intent(this, AutenticacaoActivity.class);
 //        //intent.putExtra(AppConstants.PICTURE, pictureRecyclerAdapter.getSelectedPicture(position).getId());
         //Intent intent = new Intent(this, DownloadTrabalhoActivity.class);
         //startActivity(intent);
 
-        activityMainBinding.txtData.setText(DatasUtil.obterDataAtual(DatasUtil.FORMATO_DD_MMMM_YYYY, DatasUtil.LOCAL_PORTUGAL));
-        //viewModel.obterMarcacoes(Preferencias.obterIdUtilizador(this), DatasUtil.obterDataAtual());
 
         //TODO: data para teste
-        viewModel.obterMarcacoes(Preferencias.obterIdUtilizador(this), DatasUtil.converterData(2020, 6, 23));
+        activityMainBinding.txtData.setText(DatasUtil.converterData(2020, 6, 23, DatasUtil.FORMATO_DD_MMMM_YYYY, DatasUtil.LOCAL_PORTUGAL));
+        viewModel.obterMarcacoes(PreferenciasUtil.obterIdUtilizador(this), DatasUtil.converterData(2020, 6, 23));
 
     }
+
 
     @Override
     protected int obterLayout() {
@@ -139,7 +145,7 @@ public class MainActivity extends BaseDaggerActivity
     @Override
     public void onItemClick(Marcacao marcacao) {
 
-        Preferencias.fixarTarefa(this, marcacao.tarefa.idTarefa);
+        PreferenciasUtil.fixarTarefa(this, marcacao.tarefa.idTarefa);
 
         Intent intent = new Intent(this, TarefaActivity.class);
         startActivity(intent);
@@ -166,13 +172,13 @@ public class MainActivity extends BaseDaggerActivity
     @Override
     public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
         activityMainBinding.txtData.setText(DatasUtil.converterData(year, monthOfYear, dayOfMonth, DatasUtil.FORMATO_DD_MMMM_YYYY, DatasUtil.LOCAL_PORTUGAL));
-        viewModel.obterMarcacoes(Preferencias.obterIdUtilizador(this), DatasUtil.converterData(year, monthOfYear, dayOfMonth));
+        viewModel.obterMarcacoes(PreferenciasUtil.obterIdUtilizador(this), DatasUtil.converterData(year, monthOfYear, dayOfMonth));
     }
 
 
     @OnClick(R.id.crl_btn_calendario)
     public void crl_btn_calendario_OnClickListener(View view) {
-        viewModel.obterDatas(Preferencias.obterIdUtilizador(this));
+        viewModel.obterDatas(PreferenciasUtil.obterIdUtilizador(this));
     }
 
     @OnClick(R.id.btn_download_on_demand)
@@ -197,6 +203,57 @@ public class MainActivity extends BaseDaggerActivity
         DialogoCalendario dialogo = new DialogoCalendario(this, datas);
         dialogo.obterDatePickerDialog().show(getSupportFragmentManager(), "Datepickerdialog");
     }
+
+
+    /**
+     * Metodo que permite validar a sessao
+     * @return true caso a sessao seja válida ou false caso contrario
+     */
+    private boolean validarSessao() {
+
+        OnDialogoListener listener = new OnDialogoListener() {
+            @Override
+            public void onExecutar() {
+                terminarSessao();
+            }
+        };
+
+        if(DatasUtil.validarSessao(PreferenciasUtil.obterDataValidadeAutenticacao(this)) == false){
+            dialogo.alerta(Sintaxe.Palavras.SESSAO, Sintaxe.Alertas.SESSAO_EXPIRADA, listener);
+            return false;
+        }
+
+        return true;
+    }
+
+
+    /**
+     * Metodo que permite iniciar a sessao
+     */
+    private void iniciarSessao(){
+
+        if(validarSessao() == false){
+            terminarSessao();
+        }
+        else{
+            activityMainBinding.txtData.setText(DatasUtil.obterDataAtual(DatasUtil.FORMATO_DD_MMMM_YYYY, DatasUtil.LOCAL_PORTUGAL));
+            viewModel.obterMarcacoes(PreferenciasUtil.obterIdUtilizador(this), DatasUtil.obterDataAtual());
+        }
+    }
+
+
+    /**
+     * Metodo que permite terminar a sessao
+     */
+    private void terminarSessao(){
+
+        PreferenciasUtil.eliminarDadosUtilizador(this);
+
+        Intent intent = new Intent(this, AutenticacaoActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
 
 //    /**
 //     * Metodo que permite iniciar a atividade
@@ -243,38 +300,6 @@ public class MainActivity extends BaseDaggerActivity
 //        Intent intent = new Intent(this, DownloadTrabalhoActivity.class);
 //        startActivity(intent);
 //    }
-//
-//
-//    //------------------------
-//    //Metodos locais
-//    //------------------------
-
-//    /**
-//     * Metodo que permite terminar a sessao
-//     */
-//    private void terminarSessao(){
-//
-//        Preferencias.eliminarDadosUtilizador(this);
-//
-//        //TODO: apagar dados da bd - chamar viewmodel
-//        finish();
-//    }
-//
-//    //---------------------
-//    //Eventos
-//    //---------------------
-//
-//
-
-//
-//
-//    @Override
-//    public void onItemLongClick(int posicao) {
-//
-//        DialogoOpcoesTarefaFragment dialogo = new DialogoOpcoesTarefaFragment();
-//        dialogo.show(getSupportFragmentManager(), "dialogo_tarefa");
-//    }
-
 
 
 
@@ -326,22 +351,23 @@ public class MainActivity extends BaseDaggerActivity
 
             case R.id.item_opcoes_trabalho:
 
-
                 DialogoOpcoesTrabalhoFragment dialogo = new DialogoOpcoesTrabalhoFragment();
                 dialogo.show(getSupportFragmentManager(), "example dialog");
                 break;
+
 
             case R.id.item_opcoes_avancadas:
 
                 intent = new Intent(this, OpcoesAvancadasActivity.class);
                 break;
-//
-//            case R.id.item_terminar_sessao:
-//
-//                terminarSessao();
-//                break;
-//
-//
+
+
+            case R.id.item_terminar_sessao:
+
+                terminarSessao();
+                break;
+
+
 //            case R.id.item_atualizar_app:
 //
 //                intent = new Intent(this, AtualizacaoAppActivity.class);
@@ -371,6 +397,13 @@ public class MainActivity extends BaseDaggerActivity
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        validarSessao();
     }
 
 

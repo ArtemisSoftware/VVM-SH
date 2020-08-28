@@ -13,7 +13,7 @@ import com.vvm.sh.ui.crossSelling.adaptadores.OnCrossSellingListener;
 import com.vvm.sh.ui.crossSelling.modelos.CrossSelling;
 import com.vvm.sh.baseDados.entidades.CrossSellingResultado;
 import com.vvm.sh.baseDados.entidades.Tipo;
-import com.vvm.sh.util.metodos.Preferencias;
+import com.vvm.sh.util.metodos.PreferenciasUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import javax.inject.Inject;
@@ -90,7 +90,7 @@ public class CrossSellingActivity extends BaseDaggerActivity
         if(selecao == true & sinaletica == false){
 
 
-            CrossSellingResultado registo = new CrossSellingResultado(Preferencias.obterIdTarefa(this), area.id, crossSelling.id);
+            CrossSellingResultado registo = new CrossSellingResultado(PreferenciasUtil.obterIdTarefa(this), area.id, crossSelling.id);
             viewModel.gravar(registo);
         }
         else if(selecao == true & sinaletica == true){

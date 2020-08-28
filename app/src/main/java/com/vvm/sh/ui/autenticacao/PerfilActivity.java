@@ -10,7 +10,7 @@ import com.vvm.sh.databinding.ActivityPerfilBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.util.Recurso;
-import com.vvm.sh.util.metodos.Preferencias;
+import com.vvm.sh.util.metodos.PreferenciasUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import javax.inject.Inject;
@@ -39,7 +39,7 @@ public class PerfilActivity extends BaseDaggerActivity {
 
         subscreverObservadores();
 
-        viewModel.obterUtilizador(Preferencias.obterIdUtilizador(this));
+        viewModel.obterUtilizador(PreferenciasUtil.obterIdUtilizador(this));
 
     }
 

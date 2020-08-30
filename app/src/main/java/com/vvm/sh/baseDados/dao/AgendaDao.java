@@ -17,13 +17,11 @@ public abstract class AgendaDao {
 
 
     @Transaction
-    @Query("SELECT * FROM tarefas WHERE data = :data ")
-    abstract public Flowable<List<Marcacao>> obterMarcacoes(long data);
+    @Query("SELECT * FROM tarefas WHERE data = :data AND idUtilizador = :idUtilizador")
+    abstract public Flowable<List<Marcacao>> obterMarcacoes(String idUtilizador, long data);
 
 
-    //TODO: completar a query com a data e o id do Utilizador
-
-    @Query("SELECT  " + /*data,*/
+    @Query("SELECT  " +
             "CASE WHEN sincronizado != 1 THEN " + Identificadores.Sincronizacao.NAO_SINCRONIZADO + " " +
             "WHEN data = date('now') AND sincronizado = 1 THEN  " + Identificadores.Sincronizacao.SINCRONIZADO + "  " +
             "WHEN data < date('now') AND sincronizado = 1 THEN  " + Identificadores.Sincronizacao.TRANCADO + "  " +
@@ -34,9 +32,9 @@ public abstract class AgendaDao {
             "LEFT JOIN (SELECT idTarefa, sincronizado FROM resultados) as res ON trf.idTarefa = res.idTarefa " +
             "GROUP BY data, idUtilizador" +
             ") as datas " +
-            "WHERE data = :data " +
+            "WHERE data = :data AND idUtilizador = :idUtilizador " +
             "LIMIT 1 ")
-    abstract public Flowable<Integer> obterCompletude(long data);
+    abstract public Flowable<Integer> obterCompletude(String idUtilizador, long data);
 
     @Query("SELECT DISTINCT data FROM tarefas WHERE idUtilizador = :idUtilizador ")
     abstract public Flowable<List<Date>> obterDatas(String idUtilizador);

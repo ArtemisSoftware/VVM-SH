@@ -157,7 +157,8 @@ public class AutenticacaoViewModel extends BaseViewModel {
                             }
 
                             @Override
-                            public void onSuccess(Utilizador utilizador) {
+                            public void onSuccess(Utilizador resultado) {
+                                utilizador.setValue(resultado);
                                 showProgressBar(false);
                             }
 

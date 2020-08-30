@@ -12,9 +12,11 @@ import com.amulyakhare.textdrawable.TextDrawable;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipDrawable;
 import com.vvm.sh.R;
+import com.vvm.sh.ui.agenda.AgendaViewModel;
 import com.vvm.sh.ui.agenda.adaptadores.MarcacaoRecyclerAdapter;
 import com.vvm.sh.ui.agenda.adaptadores.OnAgendaListener;
 import com.vvm.sh.ui.agenda.modelos.Marcacao;
+import com.vvm.sh.util.constantes.Identificadores;
 
 import static com.vvm.sh.util.constantes.Identificadores.App.*;
 import static com.vvm.sh.util.constantes.Identificadores.Sincronizacao.*;
@@ -50,6 +52,8 @@ public class AgendaBinding {
     }
 
 
+
+
     @BindingAdapter({"empresa"})
     public static void setEmpresa(ImageView view, int empresa) {
 
@@ -83,10 +87,12 @@ public class AgendaBinding {
 
 
 
+
+
     @BindingAdapter({"sincronizado"})
     public static void setSincronizacao(Chip view, int sincronizado) {
 
-        if(sincronizado == 0){
+        if(sincronizado == 0 || sincronizado == SEM_SINCRONIZACAO){
             view.setVisibility(View.INVISIBLE);
             return;
         }

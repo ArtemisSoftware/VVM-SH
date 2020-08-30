@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.SharedPreferences;
 
 import com.vvm.sh.BuildConfig;
+import com.vvm.sh.util.constantes.Identificadores;
 
 public class PreferenciasUtil {
 
@@ -12,10 +13,11 @@ public class PreferenciasUtil {
     private static final String VERSAO_APP = "versao_app";
     private static final String ID_UTILIZADOR = "id_utilizador";
     private static final String ID_TAREFA = "id_tarefa";
+    private static final String TAREFA_ATIVA = "tarefa_ativa";
     private static final String DATA_VALIDADE_AUTENTICACAO = "validade_autenticacao";
     private static final String TOKEN = "token";
 
-    private static final String PREFERENCIAS_UTILIZADOR [] = { ID_UTILIZADOR, ID_TAREFA, DATA_VALIDADE_AUTENTICACAO, TOKEN };
+    private static final String PREFERENCIAS_UTILIZADOR [] = { ID_UTILIZADOR, ID_TAREFA, TAREFA_ATIVA, DATA_VALIDADE_AUTENTICACAO, TOKEN };
 
 
     /**
@@ -52,18 +54,23 @@ public class PreferenciasUtil {
     }
 
 
+
     /**
      * Metodo que permite fixar a tarefa em curso
      * @param contexto
      * @param idTarefa o identificador da tarefa
+     * @param ativo indica se a agenda está ativa para edicao
      */
-    public static void fixarTarefa(Context contexto, int idTarefa){
+    public static void fixarTarefa(Context contexto, int idTarefa, boolean ativo){
 
         String pacote = contexto.getPackageName();
 
         SharedPreferences preferencias = contexto.getSharedPreferences(pacote, Context.MODE_PRIVATE); // 0 - for private mode
         SharedPreferences.Editor editor = preferencias.edit();
         editor.putInt(ID_TAREFA, idTarefa);
+        editor.putInt(TAREFA_ATIVA, idTarefa);
+        editor.putBoolean(TAREFA_ATIVA, ativo);
+
         editor.commit();
     }
 

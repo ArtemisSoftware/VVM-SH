@@ -81,6 +81,7 @@ public class Identificadores {
         public static final int SINCRONIZADO = 1;
         public static final int NAO_SINCRONIZADO = 2;
         public static final int TRANCADO = 3;
+        public static final int SEM_SINCRONIZACAO = 4;
     }
 
 

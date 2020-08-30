@@ -20,23 +20,33 @@ public class AgendaRepositorio {
     }
 
 
-
+    /**
+     * Metodo que permite obter as marcações do de um dia
+     * @param idUtilizador o identificador do utilizador
+     * @param data a data das marcacaoes
+     * @return uma lista de marcacaoes
+     */
     public Flowable<List<Marcacao>> obterMarcacoes(String idUtilizador, long data){
-        //TODO: terminar metodo agendaRepositorio.obterTarefas. Parametros ainda não estão a ser usados
-
-        return agendaDao.obterMarcacoes(data);
+        return agendaDao.obterMarcacoes(idUtilizador, data);
     }
 
+    /**
+     * Metodo que permite obter a completude de um dia
+     * @param idUtilizador o identificador do utilizador
+     * @param data a data a validar
+     * @return o estado da completude
+     */
     public Flowable<Integer> obterCompletude(String idUtilizador, long data){
-        //TODO: terminar metodo agendaRepositorio.obterTarefas. Parametros ainda não estão a ser usados
-
-        return agendaDao.obterCompletude(data);
+        return agendaDao.obterCompletude(idUtilizador, data);
     }
 
 
+    /**
+     * Metodo que permite obter a  lista de datas com tarefas
+     * @param idUtilizador  o identificador do utilizador
+     * @return uma lista de datas
+     */
     public Flowable<List<Date>> obterDatas(String idUtilizador){
-        //TODO: terminar metodo agendaRepositorio.obterTarefas. Parametros ainda não estão a ser usados
-
         return agendaDao.obterDatas(idUtilizador);
     }
 

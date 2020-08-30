@@ -62,6 +62,7 @@ public class MainActivity extends BaseDaggerActivity
     private AgendaViewModel viewModel;
 
 
+    private boolean completude;
 
 
     @Override
@@ -77,24 +78,11 @@ public class MainActivity extends BaseDaggerActivity
         //activityTrabalhoBinding.setActivity(this);
 
         setSupportActionBar(activityMainBinding.toolbar);
-
+        completude = false;
 
         subscreverObservadores();
 
-
-        //TODO: verificar se deve chamar a DownloadTrabalhoActivity ou carregar os dados da bd
-
         iniciarSessao();
-
-        //Intent intent = new Intent(this, AutenticacaoActivity.class);
-//        //intent.putExtra(AppConstants.PICTURE, pictureRecyclerAdapter.getSelectedPicture(position).getId());
-        //Intent intent = new Intent(this, DownloadTrabalhoActivity.class);
-        //startActivity(intent);
-
-
-        //TODO: data para teste
-        //activityMainBinding.txtData.setText(DatasUtil.converterData(2020, 6, 23, DatasUtil.FORMATO_DD_MMMM_YYYY, DatasUtil.LOCAL_PORTUGAL));
-        //viewModel.obterMarcacoes(PreferenciasUtil.obterIdUtilizador(this), DatasUtil.converterData(2020, 6, 23));
 
     }
 
@@ -134,6 +122,26 @@ public class MainActivity extends BaseDaggerActivity
 
             }
         });
+
+
+        viewModel.observarCompletude().observe(this, new Observer<Recurso>() {
+            @Override
+            public void onChanged(Recurso recurso) {
+
+                switch (recurso.status){
+
+                    case SUCESSO:
+
+                        completude = (boolean )recurso.dados;
+                        break;
+
+
+                    default:
+                        break;
+                }
+
+            }
+        });
     }
 
 
@@ -145,7 +153,7 @@ public class MainActivity extends BaseDaggerActivity
     @Override
     public void onItemClick(Marcacao marcacao) {
 
-        PreferenciasUtil.fixarTarefa(this, marcacao.tarefa.idTarefa);
+        PreferenciasUtil.fixarTarefa(this, marcacao.tarefa.idTarefa, completude);
 
         Intent intent = new Intent(this, TarefaActivity.class);
         startActivity(intent);
@@ -252,8 +260,10 @@ public class MainActivity extends BaseDaggerActivity
         finish();
         Intent intent = new Intent(this, AutenticacaoActivity.class);
         startActivity(intent);
-
     }
+
+
+
 
 
 //    /**

@@ -7,34 +7,42 @@ import com.vvm.sh.repositorios.AgendaRepositorio;
 import com.vvm.sh.ui.agenda.modelos.Marcacao;
 import com.vvm.sh.servicos.TrabalhoAsyncTask;
 import com.vvm.sh.util.Recurso;
+import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.metodos.DatasUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
 
+import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.BiFunction;
 import io.reactivex.schedulers.Schedulers;
 
 public class AgendaViewModel extends BaseViewModel {
 
     private final AgendaRepositorio agendaRepositorio;
 
+    public MutableLiveData<Agenda> agenda;
+
     public MutableLiveData<List<Marcacao>> marcacoes;
     public MutableLiveData<Integer> completude;
     public MutableLiveData<Recurso> datas;
-
+    public MutableLiveData<Recurso> completude_;
 
     @Inject
     public AgendaViewModel(AgendaRepositorio agendaRepositorio){
 
         this.agendaRepositorio = agendaRepositorio;
+        agenda = new MutableLiveData<>();
         marcacoes = new MutableLiveData<>();
         completude = new MutableLiveData<>();
+        completude_ = new MutableLiveData<>();
         datas = new MutableLiveData<>();
     }
 
@@ -43,6 +51,10 @@ public class AgendaViewModel extends BaseViewModel {
         return datas;
     }
 
+
+    public MutableLiveData<Recurso> observarCompletude(){
+        return completude_;
+    }
 
     //---------------------
     //OBTER
@@ -56,25 +68,34 @@ public class AgendaViewModel extends BaseViewModel {
      */
     public void obterMarcacoes(String idUtilizador, long data){
 
-        obterCompletude(idUtilizador, data);
+        agenda.setValue(new Agenda());
 
-        showProgressBar(true);
+        Observable<Agenda> observables = Observable.zip(
+                agendaRepositorio.obterMarcacoes(idUtilizador, data).toObservable(),
+                agendaRepositorio.obterCompletude(idUtilizador, data).toObservable(),
 
-        agendaRepositorio.obterMarcacoes(idUtilizador, data).toObservable()
+                new BiFunction<List<Marcacao>, Integer, Agenda>() {
+                    @Override
+                    public Agenda apply(List<Marcacao> marcacaos, Integer completude) throws Exception {
+                        return new Agenda(marcacaos, completude);
+                    }
+                });
+
+
+        observables
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
 
-                        new Observer<List<Marcacao>>() {
+                        new Observer<Agenda>() {
                             @Override
                             public void onSubscribe(Disposable d) {
                                 disposables.add(d);
                             }
 
                             @Override
-                            public void onNext(List<Marcacao> registos) {
-
-                                marcacoes.setValue(registos);
+                            public void onNext(Agenda resultado) {
+                                agenda.setValue(resultado);
                                 showProgressBar(false);
                             }
 
@@ -88,7 +109,43 @@ public class AgendaViewModel extends BaseViewModel {
                                 showProgressBar(false);
                             }
                         }
+
                 );
+
+//
+//        obterCompletude(idUtilizador, data);
+//
+//        showProgressBar(true);
+//
+//        agendaRepositorio.obterMarcacoes(idUtilizador, data).toObservable()
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(
+//
+//                        new Observer<List<Marcacao>>() {
+//                            @Override
+//                            public void onSubscribe(Disposable d) {
+//                                disposables.add(d);
+//                            }
+//
+//                            @Override
+//                            public void onNext(List<Marcacao> registos) {
+//
+//                                marcacoes.setValue(registos);
+//                                showProgressBar(false);
+//                            }
+//
+//                            @Override
+//                            public void onError(Throwable e) {
+//                                showProgressBar(false);
+//                            }
+//
+//                            @Override
+//                            public void onComplete() {
+//                                showProgressBar(false);
+//                            }
+//                        }
+//                );
     }
 
 
@@ -176,6 +233,36 @@ public class AgendaViewModel extends BaseViewModel {
 
     }
 
+
+
+    public class Agenda{
+
+        public List<Marcacao> marcacaos;
+        public int completude;
+
+        public Agenda() {
+            this.marcacaos = new ArrayList<>();
+            this.completude = Identificadores.Sincronizacao.SEM_SINCRONIZACAO;
+        }
+
+        public Agenda(List<Marcacao> marcacaos, int completude) {
+            this.marcacaos = marcacaos;
+            this.completude = completude;
+        }
+
+        /**
+         * Metodo que permite obter a completude da agenda
+         * @return
+         */
+        public boolean obterCompletude(){
+            if(completude == Identificadores.Sincronizacao.TRANCADO){
+                return false;
+            }
+            else{
+                return true;
+            }
+        }
+    }
 
 
 }

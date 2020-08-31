@@ -1,7 +1,7 @@
 package com.vvm.sh.util.constantes;
 
-import com.vvm.sh.apresentacao.modelos.Introducao;
-import com.vvm.sh.apresentacao.modelos.IntroducaoFactory;
+import com.vvm.sh.ui.apresentacao.modelos.Introducao;
+import com.vvm.sh.ui.apresentacao.modelos.IntroducaoFactory;
 
 import static com.vvm.sh.util.constantes.Identificadores.ApresentacaoApp.*;
 

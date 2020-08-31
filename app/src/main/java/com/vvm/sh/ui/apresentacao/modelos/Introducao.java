@@ -1,4 +1,4 @@
-package com.vvm.sh.apresentacao.modelos;
+package com.vvm.sh.ui.apresentacao.modelos;
 
 public class Introducao {
 

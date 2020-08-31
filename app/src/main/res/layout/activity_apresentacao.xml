@@ -27,9 +27,9 @@
 
         <at.markushi.ui.CircleButton
             android:id="@+id/crl_saltar"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            app:cb_color="@color/cor_tabelas__"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            app:cb_color="@color/cor_btn_apresentacao"
             android:src="@drawable/ic_appintro_skip"/>
 
         <LinearLayout
@@ -45,9 +45,9 @@
 
         <at.markushi.ui.CircleButton
             android:id="@+id/crl_prosseguir"
-            android:layout_width="80dp"
-            android:layout_height="80dp"
-            app:cb_color="@color/cor_tabelas__"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            app:cb_color="@color/cor_btn_apresentacao"
             android:src="@drawable/ic_appintro_arrow"/>
 
 

@@ -1,4 +1,4 @@
-package com.vvm.sh.apresentacao;
+package com.vvm.sh.ui.apresentacao;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
@@ -9,14 +9,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.vvm.sh.R;
-import com.vvm.sh.apresentacao.modelos.Apresentacao;
-import com.vvm.sh.apresentacao.modelos.Atualizacao;
-import com.vvm.sh.apresentacao.modelos.Correcao;
-import com.vvm.sh.apresentacao.modelos.Funcionalidade;
-import com.vvm.sh.apresentacao.modelos.Introducao;
-import com.vvm.sh.apresentacao.modelos.IntroducaoFactory;
+import com.vvm.sh.ui.apresentacao.modelos.Introducao;
+import com.vvm.sh.ui.apresentacao.modelos.IntroducaoFactory;
 import com.vvm.sh.util.constantes.Apresentacoes;
-import com.vvm.sh.util.constantes.Sintaxe;
 
 import at.markushi.ui.CircleButton;
 import butterknife.BindView;
@@ -73,7 +68,6 @@ public class ApresentacaoActivity extends AppCompatActivity implements ViewPager
         primeiraUtilizacao = false;//preferenceManager.setFirstTimeLaunch(false, versao atual);
 
         if(primeiraUtilizacao == true){
-
             iniciarApresentacao(Apresentacoes.PAGINAS_BOAS_VINDAS);
         }
         else{

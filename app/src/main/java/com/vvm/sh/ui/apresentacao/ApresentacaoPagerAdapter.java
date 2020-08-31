@@ -1,4 +1,4 @@
-package com.vvm.sh.apresentacao;
+package com.vvm.sh.ui.apresentacao;
 
 import android.app.Activity;
 import android.content.Context;
@@ -12,7 +12,7 @@ import androidx.viewpager.widget.PagerAdapter;
 
 import com.vvm.sh.BuildConfig;
 import com.vvm.sh.R;
-import com.vvm.sh.apresentacao.modelos.Introducao;
+import com.vvm.sh.ui.apresentacao.modelos.Introducao;
 
 public class ApresentacaoPagerAdapter extends PagerAdapter {
 
@@ -35,6 +35,9 @@ public class ApresentacaoPagerAdapter extends PagerAdapter {
         container.addView(view);
 
         //((RelativeLayout) view.findViewById(R.id.rlt_lyt_content)).setBackgroundColor(contexto.getResources().getColor(paginas[position].obterCorFundo()));
+
+        //TODO: nao gosto de como aparece o conteudo do txt_sub_titulo
+
         ((TextView) view.findViewById(R.id.txt_sub_titulo)).setText(BuildConfig.VERSION_NAME);
         ((TextView) view.findViewById(R.id.txt_titulo)).setText(paginas[position].obterTitulo());
         ((ImageView) view.findViewById(R.id.img_logo)).setImageDrawable(contexto.getDrawable(paginas[position].obterImagem()));

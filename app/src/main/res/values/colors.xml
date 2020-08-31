@@ -152,6 +152,9 @@
     <color name="cor_participante">#3797CF</color>
     <color name="cor_alerta_medio">#ededed</color>
 
+
+    <color name="cor_btn_apresentacao">#FF0D47A1</color>
+
     <color name="cor_texto_branco">#fff</color>
 
     <color name="branco">#fff</color>

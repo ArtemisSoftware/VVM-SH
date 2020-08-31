@@ -5,9 +5,6 @@ import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.Button;
-import android.widget.ImageButton;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -16,14 +13,17 @@ import com.vvm.sh.apresentacao.modelos.Apresentacao;
 import com.vvm.sh.apresentacao.modelos.Atualizacao;
 import com.vvm.sh.apresentacao.modelos.Correcao;
 import com.vvm.sh.apresentacao.modelos.Funcionalidade;
-import com.vvm.sh.util.Introducao;
-import com.vvm.sh.util.IntroducaoFactory;
+import com.vvm.sh.apresentacao.modelos.Introducao;
+import com.vvm.sh.apresentacao.modelos.IntroducaoFactory;
+import com.vvm.sh.util.constantes.Apresentacoes;
+import com.vvm.sh.util.constantes.Sintaxe;
 
+import at.markushi.ui.CircleButton;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class ApresentacaoActivity extends AppCompatActivity {
+public class ApresentacaoActivity extends AppCompatActivity implements ViewPager.OnPageChangeListener {
 
     @BindView(R.id.view_pager_conteudo)
     ViewPager view_pager_conteudo;
@@ -31,16 +31,12 @@ public class ApresentacaoActivity extends AppCompatActivity {
     @BindView(R.id.lnr_lyt_apresentacao)
     LinearLayout lnr_lyt_apresentacao;
 
-    @BindView(R.id.lnr_lyt_iniciar)
-    LinearLayout lnr_lyt_iniciar;
-
     @BindView(R.id.lnr_lyt_progresso)
     LinearLayout lnr_lyt_progresso;
 
 
-
-    @BindView(R.id.img_saltar)
-    ImageView img_saltar;
+    @BindView(R.id.crl_saltar)
+    CircleButton crl_saltar;
 
 
 
@@ -60,8 +56,6 @@ public class ApresentacaoActivity extends AppCompatActivity {
 
         ButterKnife.bind(this);
 
-        subscreverObservadores();
-
         obterApresentacao();
     }
 
@@ -72,48 +66,20 @@ public class ApresentacaoActivity extends AppCompatActivity {
 
 
     /**
-     * Metodo que permite subscrever observadores
-     */
-    private void subscreverObservadores(){
-
-
-        //TODO: subscrever observadores do viewmodel
-
-    }
-
-
-    /**
      * Metodo que permite obter as paginas necessárias para realizar a apresentacao
      */
     private void obterApresentacao(){
 
-        primeiraUtilizacao = true;//preferenceManager.setFirstTimeLaunch(false, versao atual);
+        primeiraUtilizacao = false;//preferenceManager.setFirstTimeLaunch(false, versao atual);
 
         if(primeiraUtilizacao == true){
 
-            lnr_lyt_iniciar.setVisibility(View.VISIBLE);
-
-            Introducao[] paginas = new Introducao[]{
-                    new Apresentacao(-1, "Empresa","Bem vindo a app vvm.sh."),
-            };
-
-            iniciarApresentacao(paginas);
+            iniciarApresentacao(Apresentacoes.PAGINAS_BOAS_VINDAS);
         }
         else{
 
             lnr_lyt_apresentacao.setVisibility(View.VISIBLE);
-
-            //TODO: chamar metodo do viewmodel para obter apresentacao
-
-            Introducao[] paginas = new Introducao[]{
-
-                    new Correcao("Correção da  funcionalidade abc"),
-                    new Funcionalidade("Adicionada a funcionalidade 1"),
-                    new Atualizacao("Atualizado o funcionamento da funcionalidade 0"),
-
-            };
-
-            iniciarApresentacao(paginas);
+            iniciarApresentacao(Apresentacoes.PAGINAS_ATUALIZACAO);
         }
     }
 
@@ -129,7 +95,7 @@ public class ApresentacaoActivity extends AppCompatActivity {
         this.paginas = paginas;
         apresentacaoViewPagerAdapter = new ApresentacaoPagerAdapter(this, this.paginas);
         view_pager_conteudo.setAdapter(apresentacaoViewPagerAdapter);
-        view_pager_conteudo.addOnPageChangeListener(viewPagerPageChangeListener);
+        view_pager_conteudo.addOnPageChangeListener(this);
         registarProgresso(0);
     }
 
@@ -178,8 +144,15 @@ public class ApresentacaoActivity extends AppCompatActivity {
     //-------------------
 
 
-    @OnClick(R.id.img_prosseguir)
-    public void img_prosseguir_ButtonClick(View view) {
+    @OnClick({R.id.crl_saltar})
+    public void crl_saltar_ButtonClick(View view) {
+        iniciarApp();
+    }
+
+
+
+    @OnClick({R.id.crl_prosseguir})
+    public void crl_prosseguir_ButtonClick(View view) {
 
         int index = view_pager_conteudo.getCurrentItem() + 1;
 
@@ -192,36 +165,29 @@ public class ApresentacaoActivity extends AppCompatActivity {
     }
 
 
-    @OnClick({R.id.img_saltar, R.id.btn_iniciar})
-    public void iniciarButtonClick(View view) {
-        iniciarApp();
+    @Override
+    public void onPageSelected(int position) {
+        registarProgresso(position);
+
+        if (position == paginas.length - 1) {
+            crl_saltar.setVisibility(View.INVISIBLE);
+        }
+        else {
+            crl_saltar.setVisibility(View.VISIBLE);
+        }
     }
 
 
-    ViewPager.OnPageChangeListener viewPagerPageChangeListener = new ViewPager.OnPageChangeListener() {
 
-        @Override
-        public void onPageSelected(int position) {
-            registarProgresso(position);
+    @Override
+    public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+    }
 
 
-            if (position == paginas.length - 1) {
-                img_saltar.setVisibility(View.INVISIBLE);
-            }
-            else {
-                img_saltar.setVisibility(View.VISIBLE);
-            }
-        }
 
-        @Override
-        public void onPageScrolled(int arg0, float arg1, int arg2) {
+    @Override
+    public void onPageScrollStateChanged(int state) {
 
-        }
-
-        @Override
-        public void onPageScrollStateChanged(int arg0) {
-
-        }
-    };
-
+    }
 }

@@ -163,7 +163,6 @@ public class AutenticacaoActivity extends BaseDaggerActivity
 
     @Override
     public void onValidationSucceeded() {
-
         viewModel.autenticar(activityAutenticacaoBinding.txtInpIdentificador.getText().toString(), activityAutenticacaoBinding.txtInpPalavraChave.getText().toString());
     }
 

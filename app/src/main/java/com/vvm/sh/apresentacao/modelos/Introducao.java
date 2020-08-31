@@ -1,6 +1,6 @@
-package com.vvm.sh.util;
+package com.vvm.sh.apresentacao.modelos;
 
-public abstract class Introducao {
+public class Introducao {
 
 
     public static final int TIPO_ATUALIZACAO = 1;
@@ -14,10 +14,10 @@ public abstract class Introducao {
 
 
 
-    private String titulo;
-    protected int imagem, corFundo;
-    protected String texto;
-    private int tipo;
+    public String titulo;
+    public int imagem, corFundo;
+    public String texto;
+    public int tipo;
 
     public Introducao(int tipo, String titulo, String texto){
 
@@ -25,6 +25,14 @@ public abstract class Introducao {
         this.texto = texto;
         this.titulo = titulo;
     }
+
+    public Introducao(String titulo, String texto, int imagem){
+
+        this.imagem = imagem;
+        this.texto = texto;
+        this.titulo = titulo;
+    }
+
 
 
     public int obterTipo() {

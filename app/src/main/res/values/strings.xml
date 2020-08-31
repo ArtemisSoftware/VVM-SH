@@ -1,5 +1,6 @@
 <resources>
-    <string name="app_name">vvmsh</string>
+    <string name="app_name">Vvmsh</string>
+    <string name="app_title">VivaMais SH</string>
 
     <!-- texto de teste -->
     <string name="lorem_ipsum_titulo">Lorem ipsum dolor sit amet</string>

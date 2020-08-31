@@ -24,10 +24,13 @@
         android:layout_weight="1.6"
         android:gravity="center">
 
-        <ImageButton
-            android:id="@+id/img_saltar"
-            style="@style/AppIntro2ButtonStyleCompat"
-            app:srcCompat="@drawable/ic_appintro_fab_skip" />
+
+        <at.markushi.ui.CircleButton
+            android:id="@+id/crl_saltar"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            app:cb_color="@color/cor_tabelas__"
+            android:src="@drawable/ic_appintro_skip"/>
 
         <LinearLayout
             android:id="@+id/lnr_lyt_progresso"
@@ -39,37 +42,17 @@
             android:orientation="horizontal"
             android:layoutDirection="ltr"/>
 
-        <ImageButton
-            android:id="@+id/img_prosseguir"
-            style="@style/AppIntro2ButtonStyleCompat"
-            app:srcCompat="@drawable/ic_appintro_fab_next" />
 
-    </LinearLayout>
-
-
-
-
-    <LinearLayout
-        android:id="@+id/lnr_lyt_iniciar"
-        android:visibility="visible"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:orientation="horizontal"
-        android:layout_weight="1.6"
-        android:gravity="center">
-
-
-        <Button
-            android:id="@+id/btn_iniciar"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="LOGIN"
-            android:textSize="20dp"/>
-
+        <at.markushi.ui.CircleButton
+            android:id="@+id/crl_prosseguir"
+            android:layout_width="80dp"
+            android:layout_height="80dp"
+            app:cb_color="@color/cor_tabelas__"
+            android:src="@drawable/ic_appintro_arrow"/>
 
 
     </LinearLayout>
+
 
 
 

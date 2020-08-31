@@ -6,13 +6,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import androidx.viewpager.widget.PagerAdapter;
 
+import com.vvm.sh.BuildConfig;
 import com.vvm.sh.R;
-import com.vvm.sh.util.Introducao;
+import com.vvm.sh.apresentacao.modelos.Introducao;
 
 public class ApresentacaoPagerAdapter extends PagerAdapter {
 
@@ -35,8 +35,9 @@ public class ApresentacaoPagerAdapter extends PagerAdapter {
         container.addView(view);
 
         //((RelativeLayout) view.findViewById(R.id.rlt_lyt_content)).setBackgroundColor(contexto.getResources().getColor(paginas[position].obterCorFundo()));
+        ((TextView) view.findViewById(R.id.txt_sub_titulo)).setText(BuildConfig.VERSION_NAME);
         ((TextView) view.findViewById(R.id.txt_titulo)).setText(paginas[position].obterTitulo());
-        //((ImageView) view.findViewById(R.id.img_logo)).setImageDrawable(contexto.getDrawable(paginas[position].obterImagem()));
+        ((ImageView) view.findViewById(R.id.img_logo)).setImageDrawable(contexto.getDrawable(paginas[position].obterImagem()));
         ((TextView) view.findViewById(R.id.txt_texto)).setText(paginas[position].obterTexto());
 
         return view;

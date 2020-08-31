@@ -14,6 +14,7 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.Toast;
 
+import com.vvm.sh.apresentacao.ApresentacaoActivity;
 import com.vvm.sh.databinding.ActivityMainBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
@@ -82,7 +83,10 @@ public class MainActivity extends BaseDaggerActivity
 
         subscreverObservadores();
 
-        iniciarSessao();
+        //--iniciarSessao();
+
+        Intent intent = new Intent(this, ApresentacaoActivity.class);
+        startActivity(intent);
 
     }
 
@@ -172,7 +176,9 @@ public class MainActivity extends BaseDaggerActivity
             }
         };
 
-        dialogo.alerta(getString(R.string.recarregar_tarefa), getString(R.string.perder_dados_tarefa), listener);
+        if(PreferenciasUtil.obterCompletudeAgenda(this) == true) {
+            dialogo.alerta(getString(R.string.recarregar_tarefa), getString(R.string.perder_dados_tarefa), listener);
+        }
 
     }
 

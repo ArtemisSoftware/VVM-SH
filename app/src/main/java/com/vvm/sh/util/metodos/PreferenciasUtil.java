@@ -168,6 +168,20 @@ public class PreferenciasUtil {
 
 
     /**
+     * Metodo que permite obter a completude da agenda atual
+     * @param contexto
+     * @return true caso a agenda esteja ativa para edição ou false caso contrário
+     */
+    public static boolean obterCompletudeAgenda(Context contexto) {
+
+        String pacote = contexto.getPackageName();
+
+        SharedPreferences preferencias = contexto.getSharedPreferences(pacote, Context.MODE_PRIVATE);
+        return preferencias.getBoolean(TAREFA_ATIVA, true);
+    }
+
+
+    /**
      * Metodo que permite obter o token do utilizador
      * @param contexto
      * @return o token do utilizador

@@ -101,4 +101,18 @@ public class Identificadores {
         public static final int CODIGO_400 = 400;
         public static final String MSG_400 = "Ocorreu um erro.";
     }
+
+
+    public class ApresentacaoApp {
+
+        public static final int TIPO_APRESENTACAO = 0;
+        public static final int TIPO_ATUALIZACAO = 1;
+        public static final String ATUALIZACAO = "Atualização";
+
+        public static final int TIPO_CORRECAO = 2;
+        public static final String CORRECAO = "Correção";
+
+        public static final int TIPO_FUNCIONALIDADE = 3;
+        public static final String FUNCIONALIDADE = "Funcionalidade";
+    }
 }

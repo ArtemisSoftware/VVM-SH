@@ -30,13 +30,41 @@ import java.util.List;
 
 public class PermissoesUtil {
 
+
+    private static final String[] PERMISSOES_ESCRITA_LEITURA = new String[]{
+            Manifest.permission.READ_EXTERNAL_STORAGE,
+            Manifest.permission.WRITE_EXTERNAL_STORAGE
+    };
+
+
+    /**
+     * Metodo que permite pedir as permissoes de escrita e leitura
+     * @param contexto
+     * @param listener interface a executar quando a permissao é concedida
+     */
+    public static void pedirPermissoesEscritaLeitura(final Activity contexto, OnPermissaoConcedidaListener listener) {
+        pedirPermissoesApp(contexto, PERMISSOES_ESCRITA_LEITURA, listener);
+    }
+
+
+
     private static final String[] PERMISSOES_APP = new String[]{
-            /*
+
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
-            Manifest.permission.ACCESS_FINE_LOCATION
-            */
+            //Manifest.permission.ACCESS_FINE_LOCATION
+
     };
+
+
+    /**
+     * Metodo que permite pedir as permissões da app
+     * @param contexto
+     */
+    public static void pedirPermissoesApp(final Activity contexto) {
+        pedirPermissoesApp(contexto, PERMISSOES_APP, null);
+    }
+
 
 /*
     private static final String[] IMAGE_PERMISSIONS = new String[]{
@@ -45,13 +73,20 @@ public class PermissoesUtil {
 */
 
 
+
+
+
+
+
+
+
     /**
      * Metodo que permite pedir/verificar se uma permissão esta concedida
      * @param contexto
      * @param permissao o nome da permissao a pedir
      * @param listener interface a executar quando a permissao é concedida
      */
-    public static void pedirPermissaoApp(final Activity contexto, String permissao, OnPermissaoConcedidaListener listener){
+    private static void pedirPermissaoApp(final Activity contexto, String permissao, OnPermissaoConcedidaListener listener){
 
         Dexter.withActivity(contexto)
                 .withPermission(permissao)
@@ -59,7 +94,9 @@ public class PermissoesUtil {
                         new PermissionListener() {
                             @Override
                             public void onPermissionGranted(PermissionGrantedResponse response) {
-                                listener.executar();
+                                if(listener != null) {
+                                    listener.executar();
+                                }
                             }
 
                             @Override
@@ -92,23 +129,26 @@ public class PermissoesUtil {
     }
 
 
-
     /**
-     * Metodo que permite pedir as permissões da app
+     * Metodo que permite pedir/verificar se um conjunto de permissões foi concedida
      * @param contexto
+     * @param permissoes a lista de permissoes
+     * @param listener interface a executar quando a permissao é concedida
      */
-    public static void pedirPermissoesApp(final Activity contexto) {
+    private static void pedirPermissoesApp(final Activity contexto, String[] permissoes, OnPermissaoConcedidaListener listener) {
 
         Dexter.withActivity(contexto)
-                .withPermissions(PERMISSOES_APP)
+                .withPermissions(permissoes)
                 .withListener(new MultiplePermissionsListener() {
                     @Override
                     public void onPermissionsChecked(MultiplePermissionsReport report) {
 
                         // check if all permissions are granted
                         if (report.areAllPermissionsGranted()) {
-                            //--Snackbar.make(contexto.getCurrentFocus(), "Welcome to AndroidHive", Snackbar.LENGTH_LONG).show();
-                            //--Toast.makeText(context, "All permissions are granted!", Toast.LENGTH_SHORT).show();
+
+                            if(listener != null) {
+                                listener.executar();
+                            }
                         }
 
                         // check for permanent denial of any permission
@@ -117,9 +157,7 @@ public class PermissoesUtil {
                             dialogoPermissoes(contexto);
                         }
                         else {
-
-                            //--Snackbar.make(coordinatorLayout, "Welcome to AndroidHive", Snackbar.LENGTH_LONG).show();
-                            //--Toast.makeText(context, "All permissions are not granted..", Toast.LENGTH_SHORT).show();
+                            dialogoPermissoes(contexto);
                         }
                     }
 
@@ -146,6 +184,9 @@ public class PermissoesUtil {
                 .onSameThread()
                 .check();
     }
+
+
+
 
 
     /**

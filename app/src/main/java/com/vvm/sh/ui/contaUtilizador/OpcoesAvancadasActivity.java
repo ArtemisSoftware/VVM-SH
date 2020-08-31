@@ -64,7 +64,7 @@ public class OpcoesAvancadasActivity extends BaseActivity {
             }
         };
 
-        PermissoesUtil.pedirPermissaoApp(this, Manifest.permission.WRITE_EXTERNAL_STORAGE, listener);
+        PermissoesUtil.pedirPermissoesEscritaLeitura(this, listener);
     }
 
     @OnClick(R.id.btn_importar_bd)
@@ -84,7 +84,7 @@ public class OpcoesAvancadasActivity extends BaseActivity {
             }
         };
 
-        PermissoesUtil.pedirPermissaoApp(this, Manifest.permission.WRITE_EXTERNAL_STORAGE, listener);
+        PermissoesUtil.pedirPermissoesEscritaLeitura(this, listener);
     }
 
 

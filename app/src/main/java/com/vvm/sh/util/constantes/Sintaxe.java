@@ -36,6 +36,10 @@ public class Sintaxe {
         public static final String ATUALIZACAO = "Atualização";
         public static final String DOWNLOAD = "Download";
         public static final String SESSAO = "Sessão";
+        public static final String APRESENTACAO = "Apresentação";
+        public static final String CORRECAO = "Correção";
+        public static final String FUNCIONALIDADE = "Funcionalidade";
+
     }
 
     public class Opcoes{

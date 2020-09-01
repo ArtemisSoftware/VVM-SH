@@ -29,7 +29,7 @@ import java.util.List;
 
 public class TrabalhoAsyncTask extends AsyncTask<SessaoResposta, Void, Void> {
 
-    private String errorMessage, idUtilizador;
+    protected String errorMessage, idUtilizador;
     private VvmshBaseDados vvmshBaseDados;
     protected TransferenciasRepositorio repositorio;
 

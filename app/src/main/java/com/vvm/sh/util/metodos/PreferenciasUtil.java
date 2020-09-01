@@ -1,9 +1,12 @@
 package com.vvm.sh.util.metodos;
 
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 
 import com.vvm.sh.BuildConfig;
+import com.vvm.sh.MainActivity;
+import com.vvm.sh.ui.apresentacao.ApresentacaoActivity;
 import com.vvm.sh.util.constantes.Identificadores;
 
 public class PreferenciasUtil {
@@ -75,6 +78,20 @@ public class PreferenciasUtil {
     }
 
 
+    /**
+     * Metodo que permite fixar a versao da app
+     * @param contexto
+     */
+    public static void fixarVersao(Context contexto) {
+
+        String pacote = contexto.getPackageName();
+
+        SharedPreferences preferencias = contexto.getSharedPreferences(pacote, Context.MODE_PRIVATE); // 0 - for private mode
+        SharedPreferences.Editor editor = preferencias.edit();
+        editor.putString(VERSAO_APP, BuildConfig.VERSION_NAME);
+
+        editor.commit();
+    }
 
 
     /**
@@ -111,16 +128,20 @@ public class PreferenciasUtil {
     /**
      * Metodo que permite indetificar se é necessario realizar a apresentacao da versão da app
      * @param contexto
-     * @return true caso seja necessário ou false caso contrario
      */
-    public static boolean realizarApresentacaoApp(Context contexto) {
+    public static void realizarApresentacaoApp(Context contexto) {
 
         String pacote = contexto.getPackageName();
 
         SharedPreferences preferencias = contexto.getSharedPreferences(pacote, Context.MODE_PRIVATE);
         String versao = preferencias.getString(VERSAO_APP, "0.0.0");
 
-        return !(BuildConfig.VERSION_NAME.equals(versao));
+        if(BuildConfig.VERSION_NAME.equals(versao) == false){
+
+            PreferenciasUtil.fixarVersao(contexto);
+            Intent intent = new Intent(contexto, ApresentacaoActivity.class);
+            contexto.startActivity(intent);
+        }
     }
 
 
@@ -213,6 +234,7 @@ public class PreferenciasUtil {
         }
         editor.apply();
     }
+
 
 
 }

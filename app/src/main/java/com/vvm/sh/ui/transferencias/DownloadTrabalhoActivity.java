@@ -18,6 +18,7 @@ import com.vvm.sh.ui.transferencias.modelos.Pendencia;
 import com.vvm.sh.util.AtualizacaoUI;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.constantes.Sintaxe;
+import com.vvm.sh.util.interfaces.OnDialogoListener;
 import com.vvm.sh.util.metodos.DatasUtil;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
@@ -107,7 +108,6 @@ public class DownloadTrabalhoActivity extends BaseDaggerActivity {
                     default:
                         break;
                 }
-
             }
         });
 
@@ -131,7 +131,6 @@ public class DownloadTrabalhoActivity extends BaseDaggerActivity {
                     default:
                         break;
                 }
-
             }
         });
 
@@ -173,7 +172,15 @@ public class DownloadTrabalhoActivity extends BaseDaggerActivity {
         Bundle bundle = getIntent().getExtras();
 
         if(bundle != null){
-            //--viewModel.obterUpload(PreferenciasUtil.obterIdUtilizador(this), bundle.getLong(getString(R.string.argumento_data)), handlerNotificacoesUI);
+
+            OnDialogoListener listener = new OnDialogoListener() {
+                @Override
+                public void onExecutar() {
+                    viewModel.obterUpload(PreferenciasUtil.obterIdUtilizador(getApplication()), bundle.getLong(getString(R.string.argumento_data)), handlerNotificacoesUI);
+                }
+            };
+
+            dialogo.alerta_OpcaoCancelar(getString(R.string.recarregar_trabalho), getString(R.string.recarregar_trabalho_perder_dados), listener);
         }
         else{
             viewModel.obterTrabalho(PreferenciasUtil.obterIdUtilizador(this));

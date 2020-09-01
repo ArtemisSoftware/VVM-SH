@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -11,7 +12,9 @@ import android.widget.TextView;
 import com.vvm.sh.R;
 import com.vvm.sh.ui.apresentacao.modelos.Introducao;
 import com.vvm.sh.ui.apresentacao.modelos.IntroducaoFactory;
+import com.vvm.sh.util.constantes.AppConfig;
 import com.vvm.sh.util.constantes.Apresentacoes;
+import com.vvm.sh.util.metodos.PreferenciasUtil;
 
 import at.markushi.ui.CircleButton;
 import butterknife.BindView;
@@ -41,7 +44,7 @@ public class ApresentacaoActivity extends AppCompatActivity implements ViewPager
 
     private Introducao[] paginas;
 
-    boolean primeiraUtilizacao;
+    private Handler handler;
 
 
     @Override
@@ -65,10 +68,21 @@ public class ApresentacaoActivity extends AppCompatActivity implements ViewPager
      */
     private void obterApresentacao(){
 
-        primeiraUtilizacao = false;//preferenceManager.setFirstTimeLaunch(false, versao atual);
+        if(PreferenciasUtil.obterPrimeiraUtilizacao(this) == true){
 
-        if(primeiraUtilizacao == true){
+            PreferenciasUtil.fixarPrimeiraUtilizacao(this, false);
+
             iniciarApresentacao(Apresentacoes.PAGINAS_BOAS_VINDAS);
+
+            handler = new Handler();
+            handler.postDelayed(new Runnable() {
+                @Override
+                public void run() {
+
+                    terminarApresentacao();
+                }
+            }, AppConfig.TEMPO_SPLASH);
+
         }
         else{
 
@@ -117,17 +131,10 @@ public class ApresentacaoActivity extends AppCompatActivity implements ViewPager
     }
 
 
-
-
-    private void iniciarApp() {
-
-        //preferenceManager.setFirstTimeLaunch(false, versao atual);
-
-        if(primeiraUtilizacao == true){
-
-            //startActivity(new Intent(MainScreen.this, MainActivity.class));
-        }
-
+    /**
+     * Metodo que permite terminar a apresentacao
+     */
+    private void terminarApresentacao() {
         finish();
     }
 
@@ -140,7 +147,7 @@ public class ApresentacaoActivity extends AppCompatActivity implements ViewPager
 
     @OnClick({R.id.crl_saltar})
     public void crl_saltar_ButtonClick(View view) {
-        iniciarApp();
+        terminarApresentacao();
     }
 
 
@@ -154,7 +161,7 @@ public class ApresentacaoActivity extends AppCompatActivity implements ViewPager
             view_pager_conteudo.setCurrentItem(index);
         }
         else {
-            iniciarApp();
+            terminarApresentacao();
         }
     }
 

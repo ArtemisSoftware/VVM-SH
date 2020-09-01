@@ -39,9 +39,9 @@ public class ApresentacaoPagerAdapter extends PagerAdapter {
         //TODO: nao gosto de como aparece o conteudo do txt_sub_titulo
 
         ((TextView) view.findViewById(R.id.txt_sub_titulo)).setText(BuildConfig.VERSION_NAME);
-        ((TextView) view.findViewById(R.id.txt_titulo)).setText(paginas[position].obterTitulo());
-        ((ImageView) view.findViewById(R.id.img_logo)).setImageDrawable(contexto.getDrawable(paginas[position].obterImagem()));
-        ((TextView) view.findViewById(R.id.txt_texto)).setText(paginas[position].obterTexto());
+        ((TextView) view.findViewById(R.id.txt_titulo)).setText(paginas[position].titulo);
+        ((ImageView) view.findViewById(R.id.img_logo)).setImageDrawable(contexto.getDrawable(paginas[position].imagem));
+        ((TextView) view.findViewById(R.id.txt_texto)).setText(paginas[position].texto);
 
         return view;
     }

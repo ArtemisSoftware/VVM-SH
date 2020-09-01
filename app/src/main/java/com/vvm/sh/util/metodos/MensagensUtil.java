@@ -149,6 +149,39 @@ public class MensagensUtil {
         dialogo.show();
     }
 
+
+    /**
+     * Metodo que cria um dialogo que permite cancelar a acao proposta no dialogo
+     * @param titulo o titulo do dialogo
+     * @param mensagem a mensagem do dialogo
+     * @param listener
+     */
+    public void alerta_OpcaoCancelar(String titulo, String mensagem, OnDialogoListener listener) {
+
+        dialogo.changeAlertType(SweetAlertDialog.WARNING_TYPE);
+        dialogo.setTitleText(titulo)
+                .setContentText(mensagem)
+                .setCancelText(Sintaxe.Opcoes.CANCELAR)
+                .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sDialog) {
+                        sDialog.dismiss();
+                    }
+                })
+                .setConfirmText(Sintaxe.Opcoes.OK)
+                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sDialog) {
+                        //sDialog.dismissWithAnimation();
+                        sDialog.dismiss();
+                        listener.onExecutar();
+                    }
+                });
+
+        dialogo.show();
+    }
+
+
 //
 //// 1. Success message
 //new SweetAlertDialog(MainActivity.this)

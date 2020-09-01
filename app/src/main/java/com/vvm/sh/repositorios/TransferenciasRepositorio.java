@@ -266,8 +266,8 @@ public class TransferenciasRepositorio {
 
     /**
      * Metodo que permite inserir o historico de ocorrencias
-     * @param ocorrencia
-     * @return
+     * @param ocorrencia os dados da ocorrencia
+     * @return o identificador da ocorrencia
      */
     public long inserirOcorrencia(Ocorrencia ocorrencia){
         return transferenciasDao.inserirRegisto(ocorrencia);
@@ -283,7 +283,21 @@ public class TransferenciasRepositorio {
     }
 
 
+    /**
+     * Metodo que permite eliminar uma tarefa
+     * @param idTarefa o identificador da tarefa
+     */
     public void eliminarTarefa(int idTarefa) {
         transferenciasDao.removerTarefa(idTarefa);
     }
+
+    /**
+     * Metodo que permite eliminar o trabalho
+     * @param idUtilizador o identificador do utilizador
+     * @param data a data do trabalho
+     */
+    public void eliminarTrabalho(String idUtilizador, long data) {
+        transferenciasDao.removerTrabalho(idUtilizador, data);
+    }
+
 }

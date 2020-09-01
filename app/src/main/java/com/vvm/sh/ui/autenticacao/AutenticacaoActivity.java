@@ -20,6 +20,7 @@ import com.vvm.sh.databinding.ActivityAutenticacaoBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.baseDados.entidades.Utilizador;
+import com.vvm.sh.ui.apresentacao.ApresentacaoActivity;
 import com.vvm.sh.ui.contaUtilizador.DefinicoesActivity;
 import com.vvm.sh.ui.opcoes.AtualizacaoAppActivity;
 import com.vvm.sh.util.Recurso;
@@ -83,6 +84,8 @@ public class AutenticacaoActivity extends BaseDaggerActivity
         subscreverObservadores();
 
         PermissoesUtil.pedirPermissoesApp(this);
+        PreferenciasUtil.realizarApresentacaoApp(this);
+
     }
 
 

@@ -163,4 +163,9 @@ abstract public class TransferenciasDao implements BaseDao<Resultado> {
 
     @Query("DELETE FROM tarefas WHERE idTarefa = :idTarefa")
     abstract public void removerTarefa(int idTarefa);
+
+
+    @Query("DELETE FROM tarefas WHERE idTarefa IN(SELECT idTarefa FROM tarefas WHERE idUtilizador = :idUtilizador AND data = :data)")
+    abstract public void removerTrabalho(String idUtilizador, long data);
+
 }

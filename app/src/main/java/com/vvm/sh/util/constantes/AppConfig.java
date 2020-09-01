@@ -16,4 +16,7 @@ public class AppConfig {
     public static final int DIAS_VALIDADE_AUTENTICACAO = 1;
 
     public static final long LIMITE_BYTES_FICHEIRO_JSON = 3000000;
+
+
+    public static final long TEMPO_SPLASH = 4000;
 }

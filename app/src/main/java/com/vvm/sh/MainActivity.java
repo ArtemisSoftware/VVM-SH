@@ -76,10 +76,7 @@ public class MainActivity extends BaseDaggerActivity
 
         subscreverObservadores();
 
-        //--iniciarSessao();
-
-        Intent intent = new Intent(this, ApresentacaoActivity.class);
-        startActivity(intent);
+        iniciarSessao();
 
     }
 
@@ -243,6 +240,9 @@ public class MainActivity extends BaseDaggerActivity
             terminarSessao();
         }
         else{
+
+            PreferenciasUtil.realizarApresentacaoApp(this);
+
             activityMainBinding.txtData.setText(DatasUtil.obterDataAtual(DatasUtil.FORMATO_DD_MMMM_YYYY, DatasUtil.LOCAL_PORTUGAL));
             viewModel.obterMarcacoes(PreferenciasUtil.obterIdUtilizador(this), DatasUtil.obterDataAtual());
         }

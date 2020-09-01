@@ -59,12 +59,12 @@ public class DownloadTrabalhoActivity extends BaseDaggerActivity {
             if(bundle.getBoolean(getString(R.string.argumento_recarregar_tarefa)) == true){
 
                 activityDownloadTrabalhoBinding.txtTitulo.setText(getString(R.string.recarregar_tarefa));
-                viewModel.recarregarTarefa((Tarefa) bundle.get(getString(R.string.argumento_tarefa)));
+                viewModel.recarregarTarefa((Tarefa) bundle.get(getString(R.string.argumento_tarefa)), handlerNotificacoesUI);
             }
             else {
-                activityDownloadTrabalhoBinding.txtTitulo.setText(getString(R.string.recarregar_trabalho));
+                activityDownloadTrabalhoBinding.txtTitulo.setText(getString(R.string.recarregar_trabalho_dia));
                 activityDownloadTrabalhoBinding.txtData.setText(DatasUtil.converterData(bundle.getLong(getString(R.string.argumento_data)), DatasUtil.FORMATO_DD_MM_YYYY));
-                viewModel.obterTrabalho(PreferenciasUtil.obterIdUtilizador(this), DatasUtil.converterData(bundle.getLong(getString(R.string.argumento_data)), DatasUtil.FORMATO_YYYY_MM_DD));
+                viewModel.obterTrabalho(PreferenciasUtil.obterIdUtilizador(this), DatasUtil.converterData(bundle.getLong(getString(R.string.argumento_data)), DatasUtil.FORMATO_YYYY_MM_DD), handlerNotificacoesUI);
                 //viewModel.obterPendencias(PreferenciasUtil.obterIdUtilizador(this), bundle.getLong(getString(R.string.argumento_data)));
             }
         }
@@ -180,13 +180,29 @@ public class DownloadTrabalhoActivity extends BaseDaggerActivity {
                 }
             };
 
-            dialogo.alerta_OpcaoCancelar(getString(R.string.recarregar_trabalho), getString(R.string.recarregar_trabalho_perder_dados), listener);
+            dialogo.alerta_OpcaoCancelar(getString(R.string.recarregar_trabalho_dia), getString(R.string.recarregar_trabalho_perder_dados), listener);
         }
         else{
-            viewModel.obterTrabalho(PreferenciasUtil.obterIdUtilizador(this));
+            viewModel.obterTrabalho(PreferenciasUtil.obterIdUtilizador(this), handlerNotificacoesUI);
         }
     }
 
+
+    /**
+     * Metodo que permite terminar o download
+     */
+    private void terminarDownload() {
+
+        OnDialogoListener listener = new OnDialogoListener() {
+            @Override
+            public void onExecutar() {
+                finish();
+            }
+        };
+
+        dialogo.sucesso(getString(R.string.dados_descarregados_sucesso), listener);
+
+    }
 
 
     //----------------------------------------
@@ -212,6 +228,12 @@ public class DownloadTrabalhoActivity extends BaseDaggerActivity {
                     obterTrabalho();
                     break;
 
+
+                case PROCESSAMENTO_DOWNLOAD_CONCLUIDO:
+
+                    terminarDownload();
+                    break;
+
                 default:
                     //TODO: alerta de erro
 
@@ -224,6 +246,7 @@ public class DownloadTrabalhoActivity extends BaseDaggerActivity {
             super.handleMessage(msg);
         }
     };
+
 
 
 

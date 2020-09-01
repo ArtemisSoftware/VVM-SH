@@ -10,6 +10,9 @@ public class SessaoResposta {
     public List<Sessao> sessoes;
 
 
+    @SerializedName("metodo")
+    public String metodo;
+
     public class Sessao {
 
         @SerializedName("Data")

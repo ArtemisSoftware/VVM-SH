@@ -56,6 +56,8 @@ public class AgendaViewModel extends BaseViewModel {
         return completude_;
     }
 
+
+
     //---------------------
     //OBTER
     //---------------------
@@ -96,6 +98,7 @@ public class AgendaViewModel extends BaseViewModel {
                             @Override
                             public void onNext(Agenda resultado) {
                                 agenda.setValue(resultado);
+                                completude_.setValue(Recurso.successo(resultado.completude));
                                 showProgressBar(false);
                             }
 

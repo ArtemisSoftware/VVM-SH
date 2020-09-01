@@ -66,8 +66,8 @@ public class UploadTrabalhoActivity extends BaseDaggerActivity {
         }
         else {
             activityUploadBinding.txtData.setVisibility(View.GONE);
-            //--viewModel.obterPendencias(PreferenciasUtil.obterIdUtilizador(this));
-            viewModel.obterUpload(PreferenciasUtil.obterIdUtilizador(this), handlerNotificacoesUI);
+            viewModel.obterPendencias(PreferenciasUtil.obterIdUtilizador(this));
+            //viewModel.obterUpload(PreferenciasUtil.obterIdUtilizador(this), handlerNotificacoesUI);
 
 
 

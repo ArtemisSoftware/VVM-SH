@@ -33,11 +33,11 @@ public interface SegurancaAlimentarApi {
 
 
     @GET("GetDados")
-    Single<SessaoResposta[]> obterTrabalho(@Query("strUser") String idUtilizador);
+    Single<SessaoResposta> obterTrabalho(@Query("strUser") String idUtilizador);
 
 
     @GET("GetDadosDia")
-    Single<SessaoResposta[]> obterTrabalho(@Query("strUser") String idUtilizador, @Query("strDia") String data);
+    Single<SessaoResposta> obterTrabalho(@Query("strUser") String idUtilizador, @Query("strDia") String data);
 
 
     @POST("ProcessWorkUpdate")

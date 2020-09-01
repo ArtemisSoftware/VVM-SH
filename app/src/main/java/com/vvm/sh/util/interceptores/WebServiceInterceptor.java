@@ -27,7 +27,6 @@ public class WebServiceInterceptor implements Interceptor {
     @Override
     public Response intercept(@NotNull Chain chain) throws IOException {
 
-
         Request pedido   = chain.request();
 
         String metodo = "";
@@ -39,9 +38,6 @@ public class WebServiceInterceptor implements Interceptor {
 
         Response resposta = chain.proceed(pedido);
         ResponseBody corpo = resposta.body();
-
-
-
 
 
         MediaType contentType = corpo.contentType();
@@ -58,20 +54,25 @@ public class WebServiceInterceptor implements Interceptor {
      */
     private String obterJSON(String respostaWS, String metodo) throws RespostaWsInvalidaException {
 
-
+        Gson gson = new GsonBuilder().create();
+        String dados = null;
 
         try {
 
             int inicio = respostaWS.indexOf(">[");
+            int fim = 0;
 
             if(inicio == -1){
                 inicio = respostaWS.indexOf( '{' );
+                fim = respostaWS.indexOf( "</string>" );
+            }
+            else{
+                inicio += 2;
+                fim = respostaWS.indexOf( "]</string>" );
             }
 
-            int fim = respostaWS.indexOf( "</string>" );
             String conteudo = respostaWS.substring(inicio, fim);
 
-            Gson gson = new GsonBuilder().create();
             Codigo codigo = gson.fromJson(conteudo, Codigo.class);
 
             validarCodigo(codigo);
@@ -83,29 +84,25 @@ public class WebServiceInterceptor implements Interceptor {
 
         }
         catch (JSONException e) {
-            e.printStackTrace();
+            Codigo codigo = new Codigo(ID_500, e.getMessage());
+            throw new RespostaWsInvalidaException(gson.toJson(codigo, Codigo.class));
+        }
+        catch (NullPointerException | StringIndexOutOfBoundsException e) {
+            descodificarErro(respostaWS, e.getMessage());
         }
 
-
-        return "respostaWS.substring(inicio, fim)";
-
-//        }
-//
-//        catch (NullPointerException e) {
-//            dados = descodificarErro(respostaWS);
-//        }
-//        catch (StringIndexOutOfBoundsException e) {
-//            dados = descodificarErro(respostaWS);
-//        }
-//
-//
-//        return dados;
+        return dados;
     }
 
+
+    /**
+     * Metodo que permite validar o código da resposta do web service
+     * @param codigo codigo a validar
+     * @throws RespostaWsInvalidaException
+     */
     private void validarCodigo(Codigo codigo) throws RespostaWsInvalidaException {
 
         switch (codigo.codigo){
-
 
             case CODIGO_100:
 
@@ -122,77 +119,64 @@ public class WebServiceInterceptor implements Interceptor {
                 codigo.mensagem = MSG_400;
                 break;
 
-
             default:
                 break;
-
         }
-
 
         if(codigo.mensagem != null) {
 
             Gson gson = new GsonBuilder().create();
-
             throw new RespostaWsInvalidaException(gson.toJson(codigo, Codigo.class));
         }
     }
 
 
+
     /**
-     * Metodo que permite descodificar erros n?o declarados
-     * @param respostaWS a mensagem recebida de uma comunica??o
-     * @return um codigo de erro n?o declarado
+     * Metodo que permite descodificar erros não declarados
+     * @param respostaWS a mensagem recebida de uma comunicacão
+     * @param subMensagem mensagem extra a figurar
+     * @throws RespostaWsInvalidaException
      */
-    private static JSONObject descodificarErro(String respostaWS){
+    private static void descodificarErro(String respostaWS, String subMensagem) throws RespostaWsInvalidaException {
 
-        JSONObject resposta = new JSONObject();
+        Gson gson = new GsonBuilder().create();
+        Codigo codigo = new Codigo();
 
-//        try {
-//
-//            if(respostaWS.equals(WebServiceComIF.MSG_501) == true){ //Connection reset by peer
-//                resposta.put(JsonIF.codigo, WebServiceComIF.CODIGO_501);
-//            }
-//
-//            else if(respostaWS.contains("Connect to") == true){ //Connect to ip timed out
-//                resposta.put(JsonIF.codigo, WebServiceComIF.CODIGO_502);
-//            }
-//
-//            else if(respostaWS.contains("HTTP Error 503. The service is unavailable.") == true){ //servidor indispon?vel
-//                resposta.put(JsonIF.codigo, WebServiceComIF.CODIGO_505);
-//            }
-//
-//            else if(respostaWS.contains("<html>") == true || respostaWS.contains("<!DOCTYPE HTML>") == true){ //html
-//                resposta.put(JsonIF.codigo, WebServiceComIF.CODIGO_503);
-//            }
-//
-//
-//            else if(respostaWS.equals("null")){ //null
-//                resposta.put(JsonIF.codigo, WebServiceComIF.CODIGO_504);
-//            }
-//
-//
-//            else{ //n?o identificado
-//                resposta.put(JsonIF.codigo, WebServiceComIF.CODIGO_500);
-//            }
-//        }
-//        catch (JSONException e) {
-//            try {
-//                resposta.put(JsonIF.codigo, WebServiceComIF.CODIGO_500);
-//            }
-//            catch (JSONException e1) {
-//                e1.printStackTrace();
-//            }
-//        }
-//        catch (NullPointerException e) {
-//            try {
-//                resposta.put(JsonIF.codigo, WebServiceComIF.CODIGO_500);
-//            }
-//            catch (JSONException e1) {
-//                e1.printStackTrace();
-//            }
-//        }
+        try {
 
-        return resposta;
+            if(respostaWS.equals(MSG_501) == true){ //Connection reset by peer
+                codigo = new Codigo(ID_501, MSG_501);
+            }
+
+            else if(respostaWS.contains("Connect to") == true){ //Connect to ip timed out
+                codigo = new Codigo(ID_502, MSG_502);
+            }
+
+            else if(respostaWS.contains("HTTP Error 503. The service is unavailable.") == true){ //servidor indisponivel
+                codigo = new Codigo(ID_503, MSG_503);
+            }
+
+            else if(respostaWS.contains("<html>") == true || respostaWS.contains("<!DOCTYPE HTML>") == true){ //html
+                codigo = new Codigo(ID_503, MSG_503);
+            }
+
+            else if(respostaWS.equals("null")){ //null
+                codigo = new Codigo(ID_504, MSG_504);
+            }
+
+            else{ //nao identificado
+                codigo = new Codigo(ID_500, MSG_500 + "\n " + subMensagem);
+            }
+
+            throw new RespostaWsInvalidaException(gson.toJson(codigo, Codigo.class));
+
+        }
+        catch (NullPointerException e) {
+            codigo = new Codigo(ID_500, MSG_500 + "\n " + e.getMessage());
+            throw new RespostaWsInvalidaException(gson.toJson(codigo, Codigo.class));
+        }
+
     }
 
 

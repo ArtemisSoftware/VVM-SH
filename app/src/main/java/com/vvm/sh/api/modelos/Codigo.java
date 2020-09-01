@@ -10,4 +10,12 @@ public class Codigo {
     @SerializedName("mensagem")
     public String mensagem;
 
+
+    public Codigo() {
+    }
+
+    public Codigo(int codigo, String mensagem) {
+        this.codigo = codigo;
+        this.mensagem = mensagem;
+    }
 }

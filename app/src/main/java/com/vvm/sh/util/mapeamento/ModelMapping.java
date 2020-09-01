@@ -65,7 +65,7 @@ public interface ModelMapping {
     AtividadeExecutada map(AtividadeExecutadasResultado item);
 
 
-
+    @Mapping( source = "cliente.email", target = "email", defaultValue = "")
     Cliente map(ClienteResultado cliente, DadosResultado dados, TarefaResultado tarefa);
 
 

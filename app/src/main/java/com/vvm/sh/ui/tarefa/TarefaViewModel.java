@@ -155,7 +155,7 @@ public class TarefaViewModel extends BaseViewModel {
                             public void onNext(TarefaDia registo) {
 
                                 tarefaDia.setValue(registo);
-                                obterOpcoesCliente(registo.email);
+                                obterOpcoesCliente();
                                 showProgressBar(false);
                             }
 
@@ -170,8 +170,6 @@ public class TarefaViewModel extends BaseViewModel {
                             }
                         }
                 );
-
-
     }
 
 
@@ -235,9 +233,8 @@ public class TarefaViewModel extends BaseViewModel {
 
     /**
      * Metodo que permite obter os dados do cliente
-     * @param email os dados do email
      */
-    private void obterOpcoesCliente(EmailResultado email) {
+    private void obterOpcoesCliente() {
 
         List<OpcaoCliente> items = new ArrayList<>();
         items.add(OpcaoCliente.informacao());

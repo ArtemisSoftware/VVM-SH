@@ -54,7 +54,7 @@ public class TransferenciasRepositorio {
      * @param idUtilizador o identificador do utilizador
      * @return o trabalho
      */
-    public Single<SessaoResposta[]> obterTrabalho(String idUtilizador) {
+    public Single<SessaoResposta> obterTrabalho(String idUtilizador) {
         return api.obterTrabalho(idUtilizador);
     }
 
@@ -65,7 +65,7 @@ public class TransferenciasRepositorio {
      * @param data da data do dia (YYYY-mm-dd)
      * @return o trabalho do dia
      */
-    public Single<SessaoResposta[]> obterTrabalho(String idUtilizador, String data) {
+    public Single<SessaoResposta> obterTrabalho(String idUtilizador, String data) {
         return api.obterTrabalho(idUtilizador, data);
     }
 

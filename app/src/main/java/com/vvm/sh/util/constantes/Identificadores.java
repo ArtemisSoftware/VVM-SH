@@ -3,6 +3,7 @@ package com.vvm.sh.util.constantes;
 import android.graphics.Color;
 
 import com.vvm.sh.R;
+import com.vvm.sh.api.modelos.Codigo;
 
 public class Identificadores {
 
@@ -100,6 +101,31 @@ public class Identificadores {
 
         public static final int CODIGO_400 = 400;
         public static final String MSG_400 = "Ocorreu um erro.";
+
+        public static final int CODIGO_401 = 401;
+        public static final String MSG_401 = "Ocorreu um erro na ligação à base de dados";
+
+        public static final int CODIGO_402 = 402;
+        public static final String MSG_402 = "A integridade dos dados enviados foi comprometida";
+
+
+        public static final int ID_500 = 500;
+        public static final String MSG_500 = "Erro desconhecido";
+
+        public static final int ID_501 = 501;
+        public static final String MSG_501 = "Connection reset by peer";
+
+        public static final int ID_502 = 502;
+        public static final String MSG_502 = "Connection to ip timed out";
+
+        public static final int ID_503 = 503;
+        public static final String MSG_503 = "Rede paga.";
+
+        public static final int ID_504 = 504;
+        public static final String MSG_504 = "Resposta inválida do servidor";
+
+        public static final int ID_505 = 505;
+        public static final String MSG_505 = "Servidor em manutenção.";
     }
 
 

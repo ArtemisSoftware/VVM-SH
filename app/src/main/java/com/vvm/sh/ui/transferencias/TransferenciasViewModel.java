@@ -20,6 +20,8 @@ import com.vvm.sh.repositorios.TransferenciasRepositorio;
 import com.vvm.sh.servicos.CarregarTipoAsyncTask;
 import com.vvm.sh.servicos.DadosUploadAsyncTask;
 import com.vvm.sh.servicos.RecarregarTarefaAsyncTask;
+import com.vvm.sh.servicos.RecarregarTrabalhoAsyncTask;
+import com.vvm.sh.servicos.TrabalhoAsyncTask;
 import com.vvm.sh.ui.transferencias.modelos.DadosUpload;
 import com.vvm.sh.ui.transferencias.modelos.Pendencia;
 import com.vvm.sh.ui.transferencias.modelos.Upload;
@@ -28,6 +30,7 @@ import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.constantes.TiposConstantes;
 import com.vvm.sh.util.excepcoes.RespostaWsInvalidaException;
 import com.vvm.sh.util.mapeamento.UploadMapping;
+import com.vvm.sh.util.metodos.DatasUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import java.util.ArrayList;
@@ -332,7 +335,7 @@ public class TransferenciasViewModel extends BaseViewModel {
      * Metodo que permite obter o trabalho do dia
      * @param idUtilizador o identificador do utilizador
      */
-    public void obterTrabalho(String idUtilizador){
+    public void obterTrabalho(String idUtilizador, Handler handler){
 
         showProgressBar(true);
 
@@ -342,18 +345,17 @@ public class TransferenciasViewModel extends BaseViewModel {
                 .subscribe(
 
 
-                        new Observer<SessaoResposta[]>() {
+                        new Observer<SessaoResposta>() {
                             @Override
                             public void onSubscribe(Disposable d) {
                                 disposables.add(d);
                             }
 
                             @Override
-                            public void onNext(SessaoResposta[] sessao) {
+                            public void onNext(SessaoResposta sessao) {
 
-
-                                //TrabalhoAsyncTask servico = new TrabalhoAsyncTask(vvmshBaseDados, transferenciasRepositorio, idUtilizador);
-                                //servico.execute(sessao[0]);
+                                TrabalhoAsyncTask servico = new TrabalhoAsyncTask(vvmshBaseDados, transferenciasRepositorio, handler, idUtilizador);
+                                servico.execute(sessao);
 
                                 showProgressBar(false);
                             }
@@ -391,7 +393,7 @@ public class TransferenciasViewModel extends BaseViewModel {
      * @param idUtilizador o identificador do utilizador
      * @param data a data do trabalho
      */
-    public void obterTrabalho(String idUtilizador, String data){
+    public void obterTrabalho(String idUtilizador, String data, Handler handler){
 
         showProgressBar(true);
 
@@ -400,19 +402,17 @@ public class TransferenciasViewModel extends BaseViewModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
 
-
-                        new Observer<SessaoResposta[]>() {
+                        new Observer<SessaoResposta>() {
                             @Override
                             public void onSubscribe(Disposable d) {
                                 disposables.add(d);
                             }
 
                             @Override
-                            public void onNext(SessaoResposta[] sessao) {
+                            public void onNext(SessaoResposta sessao) {
 
-
-                                //TrabalhoAsyncTask servico = new TrabalhoAsyncTask(vvmshBaseDados, transferenciasRepositorio, idUtilizador);
-                                //servico.execute(sessao[0]);
+                                RecarregarTrabalhoAsyncTask servico = new RecarregarTrabalhoAsyncTask(vvmshBaseDados, transferenciasRepositorio, handler, idUtilizador, DatasUtil.converterDataLong(data, DatasUtil.FORMATO_YYYY_MM_DD));
+                                servico.execute(sessao);
 
                                 showProgressBar(false);
                             }
@@ -429,9 +429,6 @@ public class TransferenciasViewModel extends BaseViewModel {
 
                                     messagemLiveData.setValue(Recurso.erro(codigo, Sintaxe.Palavras.DOWNLOAD));
                                 }
-
-
-
                             }
 
                             @Override
@@ -450,7 +447,7 @@ public class TransferenciasViewModel extends BaseViewModel {
      * Metodo que permite recarregar uma tarefa
      * @param tarefa os dados da tarefa a recarregar
      */
-    public void recarregarTarefa(Tarefa tarefa){
+    public void recarregarTarefa(Tarefa tarefa, Handler handler){
 
         showProgressBar(true);
 
@@ -459,17 +456,17 @@ public class TransferenciasViewModel extends BaseViewModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
 
-                        new Observer<SessaoResposta[]>() {
+                        new Observer<SessaoResposta>() {
                             @Override
                             public void onSubscribe(Disposable d) {
                                 disposables.add(d);
                             }
 
                             @Override
-                            public void onNext(SessaoResposta[] sessao) {
+                            public void onNext(SessaoResposta sessao) {
 
-                                RecarregarTarefaAsyncTask servico = new RecarregarTarefaAsyncTask(vvmshBaseDados, transferenciasRepositorio, tarefa);
-                                servico.execute(sessao[0]);
+                                RecarregarTarefaAsyncTask servico = new RecarregarTarefaAsyncTask(vvmshBaseDados, transferenciasRepositorio, handler, tarefa);
+                                servico.execute(sessao);
 
                                 showProgressBar(false);
                             }
@@ -486,7 +483,7 @@ public class TransferenciasViewModel extends BaseViewModel {
                                     Gson gson = new GsonBuilder().create();
                                     Codigo codigo = gson.fromJson(e.getMessage(), Codigo.class);
 
-                                    messagemLiveData.setValue(Recurso.erro(codigo, "Download"));
+                                    messagemLiveData.setValue(Recurso.erro(codigo, Sintaxe.Palavras.DOWNLOAD));
                                 }
                             }
 

@@ -9,7 +9,6 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.vvm.sh.ui.apresentacao.ApresentacaoActivity;
 import com.vvm.sh.databinding.ActivityMainBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
@@ -21,6 +20,7 @@ import com.vvm.sh.ui.autenticacao.AutenticacaoActivity;
 import com.vvm.sh.ui.contaUtilizador.DefinicoesActivity;
 import com.vvm.sh.ui.contaUtilizador.OpcoesAvancadasActivity;
 import com.vvm.sh.ui.autenticacao.PerfilActivity;
+import com.vvm.sh.ui.opcoes.AtualizacaoAppActivity;
 import com.vvm.sh.ui.transferencias.DownloadTrabalhoActivity;
 import com.vvm.sh.ui.transferencias.UploadTrabalhoActivity;
 import com.vvm.sh.ui.tarefa.TarefaActivity;
@@ -126,7 +126,7 @@ public class MainActivity extends BaseDaggerActivity
 
                     case SUCESSO:
 
-                        completude = (boolean )recurso.dados;
+                        PreferenciasUtil.fixarCompletudeAgenda(MainActivity.this, (Integer)recurso.dados);
                         break;
 
 
@@ -138,59 +138,6 @@ public class MainActivity extends BaseDaggerActivity
         });
     }
 
-
-    //---------------------
-    //Eventos
-    //---------------------
-
-
-    @Override
-    public void onItemClick(Marcacao marcacao) {
-
-        PreferenciasUtil.fixarTarefa(this, marcacao.tarefa.idTarefa, completude);
-
-        Intent intent = new Intent(this, TarefaActivity.class);
-        startActivity(intent);
-    }
-
-    @Override
-    public void onItemLongPress(Marcacao marcacao) {
-
-        OnDialogoListener listener = new OnDialogoListener() {
-            @Override
-            public void onExecutar() {
-                Intent intent = new Intent(MainActivity.this, DownloadTrabalhoActivity.class);
-                intent.putExtra(getString(R.string.argumento_tarefa), marcacao.tarefa);
-                intent.putExtra(getString(R.string.argumento_recarregar_tarefa), true);
-                startActivity(intent);
-            }
-        };
-
-        if(PreferenciasUtil.obterCompletudeAgenda(this) == true) {
-            dialogo.alerta(getString(R.string.recarregar_tarefa), getString(R.string.perder_dados_tarefa), listener);
-        }
-
-    }
-
-
-    @Override
-    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
-        activityMainBinding.txtData.setText(DatasUtil.converterData(year, monthOfYear, dayOfMonth, DatasUtil.FORMATO_DD_MMMM_YYYY, DatasUtil.LOCAL_PORTUGAL));
-        viewModel.obterMarcacoes(PreferenciasUtil.obterIdUtilizador(this), DatasUtil.converterData(year, monthOfYear, dayOfMonth));
-    }
-
-
-    @OnClick(R.id.crl_btn_calendario)
-    public void crl_btn_calendario_OnClickListener(View view) {
-        viewModel.obterDatas(PreferenciasUtil.obterIdUtilizador(this));
-    }
-
-    @OnClick(R.id.btn_download_on_demand)
-    public void btn_download_on_demand_OnClickListener(View view) {
-
-        Intent intent = new Intent(this, DownloadTrabalhoActivity.class);
-        startActivity(intent);
-    }
 
 
     //------------------------
@@ -265,59 +212,83 @@ public class MainActivity extends BaseDaggerActivity
 
 
 
-//    /**
-//     * Metodo que permite iniciar a atividade
-//     */
-//    private void iniciarAtividade(){
-//
-//
-//        data = DatasUtil.obterDataAtual(DatasUtil.FORMATO_YYYY_MM_DD);
-//
-//    }
+    //---------------------
+    //Eventos
+    //---------------------
 
 
+    @Override
+    public void onItemClick(Marcacao marcacao) {
+
+        PreferenciasUtil.fixarTarefa(this, marcacao.tarefa.idTarefa);
+
+        Intent intent = new Intent(this, TarefaActivity.class);
+        startActivity(intent);
+    }
+
+    @Override
+    public void onItemLongPress(Marcacao marcacao) {
+
+        if(PreferenciasUtil.obterCompletudeAgenda(MainActivity.this) == false){
+            return;
+        }
+
+        OnDialogoListener listener = new OnDialogoListener() {
+            @Override
+            public void onExecutar() {
+                Intent intent = new Intent(MainActivity.this, DownloadTrabalhoActivity.class);
+                intent.putExtra(getString(R.string.argumento_tarefa), marcacao.tarefa);
+                intent.putExtra(getString(R.string.argumento_recarregar_tarefa), true);
+                startActivity(intent);
+            }
+        };
+
+        if(PreferenciasUtil.obterCompletudeAgenda(this) == true) {
+            dialogo.alerta(getString(R.string.recarregar_tarefa), getString(R.string.perder_dados_tarefa), listener);
+        }
+
+    }
 
 
-//
-//    @BindView(R.id.txt_data)
-//    TextView txt_data;
-//
-//    @BindView(R.id.txt_estado)
-//    TextView txt_estado;
+    @Override
+    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+        activityMainBinding.txtData.setText(DatasUtil.converterData(year, monthOfYear, dayOfMonth, DatasUtil.FORMATO_DD_MMMM_YYYY, DatasUtil.LOCAL_PORTUGAL));
+        viewModel.obterMarcacoes(PreferenciasUtil.obterIdUtilizador(this), DatasUtil.converterData(year, monthOfYear, dayOfMonth));
+    }
 
-//
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_main);
-//
-//
-//        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
-//
-//        setSupportActionBar(toolbar);
-//        getSupportActionBar().setTitle(null);
-//
-//
-//        //Intent intent = new Intent(this, ApresentacaoActivity.class);
-//        //startActivity(intent);
-//
-//        iniciarAtividade();
-//        subscreverObservadores();
-//        obterRegistos();
-//
-//        //Intent intent = new Intent(this, AutenticacaoActivity.class);
-//        //intent.putExtra(AppConstants.PICTURE, pictureRecyclerAdapter.getSelectedPicture(position).getId());
-//        Intent intent = new Intent(this, DownloadTrabalhoActivity.class);
-//        startActivity(intent);
-//    }
+
+    @OnClick(R.id.crl_btn_calendario)
+    public void crl_btn_calendario_OnClickListener(View view) {
+        viewModel.obterDatas(PreferenciasUtil.obterIdUtilizador(this));
+    }
+
+    @OnClick(R.id.btn_download_on_demand)
+    public void btn_download_on_demand_OnClickListener(View view) {
+
+        Intent intent = new Intent(this, DownloadTrabalhoActivity.class);
+        startActivity(intent);
+    }
+
+
 
 
 
     @Override
     public void recarregarTrabalho() {
-        Intent intent = new Intent(this, DownloadTrabalhoActivity.class);
-        intent.putExtra(getString(R.string.argumento_data), DatasUtil.converterDataLong(activityMainBinding.txtData.getText().toString(), DatasUtil.FORMATO_DD_MMMM_YYYY));
-        startActivity(intent);
+
+        OnDialogoListener listener = new OnDialogoListener() {
+            @Override
+            public void onExecutar() {
+
+                Intent intent = new Intent(MainActivity.this, DownloadTrabalhoActivity.class);
+                intent.putExtra(getString(R.string.argumento_data), DatasUtil.converterDataLong(activityMainBinding.txtData.getText().toString(), DatasUtil.FORMATO_DD_MMMM_YYYY));
+                startActivity(intent);
+            }
+        };
+
+        if(PreferenciasUtil.obterCompletudeAgenda(this) == true) {
+            dialogo.alerta_OpcaoCancelar(getString(R.string.recarregar_trabalho), getString(R.string.recarregar_trabalho_perder_dados), listener);
+        }
     }
 
     @Override
@@ -327,16 +298,12 @@ public class MainActivity extends BaseDaggerActivity
         startActivity(intent);
     }
 
-//
-//    @Override
-//    public void recarregarTarefa() {
-//
-//    }
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_principal, menu);
+
         return true;
     }
 
@@ -378,16 +345,9 @@ public class MainActivity extends BaseDaggerActivity
                 break;
 
 
-//            case R.id.item_atualizar_app:
-//
-//                intent = new Intent(this, AtualizacaoAppActivity.class);
-//                startActivity(intent);
-//                break;
+            case R.id.item_atualizar_app:
 
-
-            case R.id.item_download_dados:
-
-                intent = new Intent(this, DownloadTrabalhoActivity.class);
+                intent = new Intent(this, AtualizacaoAppActivity.class);
                 break;
 
 

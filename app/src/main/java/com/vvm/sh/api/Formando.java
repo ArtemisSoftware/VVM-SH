@@ -6,15 +6,6 @@ import java.util.ArrayList;
 
 public class Formando {
 
-
-    //TODO: completar o album
-
-
-
-//					jAlbum.put(cursor.getInt(cursor.getColumnIndex("idRegisto")));
-//					formando.put(JsonEnvioIF.ALBUM, jAlbum);
-
-
     @SerializedName("nome")
     public String nome;
 

@@ -1,11 +1,13 @@
 package com.vvm.sh.servicos;
 
 import android.os.AsyncTask;
+import android.os.Handler;
 
 import com.vvm.sh.api.modelos.SessaoResposta;
 import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.baseDados.entidades.Tarefa;
 import com.vvm.sh.repositorios.TransferenciasRepositorio;
+import com.vvm.sh.util.AtualizacaoUI;
 
 import java.util.List;
 
@@ -13,8 +15,8 @@ public class RecarregarTarefaAsyncTask extends TrabalhoAsyncTask {
 
     private Tarefa tarefa;
 
-    public RecarregarTarefaAsyncTask(VvmshBaseDados vvmshBaseDados, TransferenciasRepositorio repositorio, Tarefa tarefa) {
-        super(vvmshBaseDados, repositorio, tarefa.idUtilizador);
+    public RecarregarTarefaAsyncTask(VvmshBaseDados vvmshBaseDados, TransferenciasRepositorio repositorio, Handler handler, Tarefa tarefa) {
+        super(vvmshBaseDados, repositorio, handler, tarefa.idUtilizador);
 
         this.tarefa = tarefa;
     }
@@ -31,7 +33,7 @@ public class RecarregarTarefaAsyncTask extends TrabalhoAsyncTask {
             }
         }
 
-        //TODO:deve atualizar o UI
+        atualizacaoUI.atualizarUI(AtualizacaoUI.Codigo.PROCESSAMENTO_DOWNLOAD_CONCLUIDO);
     }
 
 }

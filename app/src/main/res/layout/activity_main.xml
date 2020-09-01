@@ -154,16 +154,17 @@
                 <TextView
                     style="@style/textoDetalhe"
                     android:text="@string/trabalho_nao_descarregado"
-                    android:layout_marginTop="16dp"/>
+                    android:layout_marginTop="32dp"/>
 
                 <com.google.android.material.button.MaterialButton
                     android:id="@+id/btn_download_on_demand"
                     style="?attr/borderlessButtonStyle"
                     android:backgroundTint="@color/cor_botao"
                     android:textColor="@color/cor_texto_branco"
-                    android:layout_marginTop="16dp"
+                    android:layout_marginTop="32dp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    app:icon="@drawable/ic_file_download_24dp"
                     android:text="@string/download_trabalho" />
 
             </LinearLayout>

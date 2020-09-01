@@ -46,7 +46,8 @@
     <string name="dias">Dias</string>
     <string name="dias_">Dias:</string>
     <string name="dimensao_">Dimensão:</string>
-    <string name="recarregar_trabalho">Recarregar trabalho do dia</string>
+    <string name="recarregar_trabalho_dia">Recarregar trabalho do dia</string>
+    <string name="recarregar_trabalho">Recarregar trabalho</string>
     <string name="download">Download</string>
     <string name="download_trabalho">Download do trabalho</string>
     <string name="download_trabalho_dia_">Download do trabalho do dia:</string>
@@ -270,5 +271,7 @@
     <string name="importar">Importar</string>
     <string name="sem_permissoes">Não existem permissões atribuidas</string>
     <string name="recarregar_trabalho_perder_dados">Ao recarregar o trabalho irá perder todos os dados gravados. Deseja continuar?</string>
+    <string name="reenviar_dados">Reenviar dados</string>
+    <string name="dados_descarregados_sucesso">Dados descarregados com sucesso</string>
 
 </resources>

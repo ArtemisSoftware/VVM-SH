@@ -19,5 +19,5 @@ public class AtividadePendenteResposta {
     public String dataProgramada;
 
     @SerializedName("formacao")
-    public boolean formacao;
+    public int formacao;
 }

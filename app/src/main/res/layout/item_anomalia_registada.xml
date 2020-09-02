@@ -8,6 +8,10 @@
 
     <data>
 
+        <import type="com.vvm.sh.BuildConfig"/>
+        <import type="com.vvm.sh.util.StringUtil"/>
+        <import type="android.view.View"/>
+
         <variable
             name="anomalia"
             type="com.vvm.sh.ui.anomalias.modelos.AnomaliaRegistada" />
@@ -38,7 +42,7 @@
                 android:id="@+id/linearLayout4"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="@dimen/distancia_vertical_titulo"
                 android:layout_marginBottom="16dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
@@ -47,7 +51,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView">
 
                 <TextView
-                    style="@style/subTituloDescritivo"
+                    style="@style/textoDetalhe"
                     android:text="@string/observacao_" />
 
                 <TextView
@@ -57,6 +61,17 @@
                     android:text="@{anomalia.resultado.observacao, default=observacao}" />
 
             </LinearLayout>
+
+            <TextView
+                android:id="@+id/textView38"
+                android:text="@{StringUtil.converterString(anomalia.resultado.id), default=id}"
+                android:visibility="@{BuildConfig.DEBUG ? View.VISIBLE : View.GONE}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     </androidx.cardview.widget.CardView>

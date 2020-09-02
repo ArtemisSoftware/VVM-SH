@@ -2,6 +2,7 @@ package com.vvm.sh.ui.atividadesPendentes.relatorios;
 
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -10,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.vvm.sh.R;
 import com.vvm.sh.databinding.ItemFormandoBinding;
+import com.vvm.sh.util.metodos.PreferenciasUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,6 +45,11 @@ public class FormandoRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.V
         ((FormandoViewHolder)holder).binding.setFormando(registo);
 
         ((FormandoViewHolder)holder).binding.executePendingBindings();
+
+        if(PreferenciasUtil.agendaEditavel(contexto) == false){
+            ((FormandoViewHolder)holder).binding.chkSelecionado.setVisibility(View.GONE);
+        }
+
     }
 
     @Override

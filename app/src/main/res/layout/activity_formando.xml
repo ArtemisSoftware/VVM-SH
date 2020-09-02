@@ -14,6 +14,11 @@
             name="viewmodel"
             type="com.vvm.sh.ui.atividadesPendentes.relatorios.FormacaoViewModel"/>
 
+
+        <variable
+            name="bloquear"
+            type="Boolean"/>
+
     </data>
 
 
@@ -245,6 +250,7 @@
 
                     <ImageView
                         android:id="@+id/img_assinatura"
+                        android:enabled="@{bloquear}"
                         android:layout_width="470dp"
                         android:layout_height="200dp"
                         android:layout_marginTop="8dp"
@@ -267,6 +273,7 @@
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_gravar"
+            android:enabled="@{bloquear}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"

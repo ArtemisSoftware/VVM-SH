@@ -8,8 +8,10 @@
 
 
     <data>
+        <import type="com.vvm.sh.BuildConfig"/>
         <import type="android.view.View"/>
         <import type="com.vvm.sh.util.metodos.DatasUtil"/>
+        <import type="com.vvm.sh.util.StringUtil"/>
 
         <variable
             name="listener"
@@ -44,7 +46,7 @@
             <TextView
                 android:id="@+id/textView2"
                 style="@style/textoDetalhe"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="@dimen/distancia_vertical_titulo"
                 android:layout_marginBottom="16dp"
                 android:text="@{DatasUtil.converterData(atividade.atividade.dataProgramada, DatasUtil.FORMATO_DD_MM_YYYY), default=data}"
                 app:layout_constraintBottom_toBottomOf="parent"
@@ -93,7 +95,7 @@
                 android:layout_marginBottom="16dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
-                android:visibility="@{atividade.existeRelatorio() ? View.VISIBLE : View.GONE}"
+                android:visibility="@{atividade.possuiRelatorio ? View.VISIBLE : View.GONE}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/textView2"
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout1"
@@ -108,13 +110,13 @@
                     android:id="@+id/textView4"
                     style="@style/textoDetalhe"
                     android:layout_marginLeft="8dp"
-                    android:text="@{atividade.obterRelatorio(), default=relatorio}" />
+                    android:text="@{atividade.nomeRelatorio, default=relatorio}" />
                 <!-- android:text="@{anomalia.tipo, default=relatorio}" -->
 
 
                 <de.hdodenhof.circleimageview.CircleImageView
                     android:id="@+id/profile_image"
-                    completudeRelatorio="@{atividade}"
+                    completudeRelatorio="@{atividade.relatorioCompleto}"
                     android:layout_width="19dp"
                     android:layout_height="19dp"
                     android:layout_marginLeft="8dp" />
@@ -151,6 +153,17 @@
                 app:layout_constraintStart_toEndOf="@+id/textView"
                 app:layout_constraintTop_toTopOf="@+id/textView"
                 app:srcCompat="@drawable/ic_relatorio" />
+
+            <TextView
+                android:id="@+id/textView35"
+                android:text="@{StringUtil.converterString(atividade.atividade.id), default=id}"
+                android:visibility="@{BuildConfig.DEBUG ? View.VISIBLE : View.GONE}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
 
             <!--  -->
         </androidx.constraintlayout.widget.ConstraintLayout>

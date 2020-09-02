@@ -4,6 +4,9 @@ import androidx.annotation.NonNull;
 
 import com.vvm.sh.util.adaptadores.Item;
 import com.vvm.sh.util.constantes.Identificadores;
+
+import java.util.Objects;
+
 import static com.vvm.sh.util.constantes.Identificadores.OpcoesCliente.*;
 
 public class OpcaoCliente {
@@ -29,5 +32,18 @@ public class OpcaoCliente {
     }
     public static OpcaoCliente informacao() {
         return new OpcaoCliente(OPCAO_INFORMACAO, INFORMACAO, ICON_INFORMACAO);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        OpcaoCliente that = (OpcaoCliente) o;
+        return id == that.id;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id);
     }
 }

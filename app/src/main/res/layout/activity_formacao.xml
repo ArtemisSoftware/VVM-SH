@@ -4,7 +4,8 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
+        <import type="com.vvm.sh.BuildConfig"/>
+        <import type="com.vvm.sh.util.StringUtil"/>
         <import type="java.util.List"/>
         <import type="android.view.View"/>
         <import type="com.vvm.sh.util.metodos.DatasUtil"/>
@@ -16,6 +17,10 @@
         <variable
             name="listener"
             type="com.vvm.sh.ui.atividadesPendentes.relatorios.OnFormacaoListener"/>
+
+        <variable
+            name="bloquear"
+            type="Boolean"/>
 
     </data>
 
@@ -155,15 +160,15 @@
 
                             <TextView
                                 android:id="@+id/textView21"
-                                style="@style/subTituloDescritivo"
-                                android:layout_marginTop="16dp"
+                                style="@style/textoDetalhe"
+                                android:layout_marginTop="@dimen/distancia_vertical_titulo"
                                 android:text="@string/designacao_"
                                 app:layout_constraintStart_toStartOf="@+id/textView20"
                                 app:layout_constraintTop_toBottomOf="@+id/textView20" />
 
                             <TextView
                                 android:id="@+id/textView22"
-                                style="@style/subTituloDescritivo"
+                                style="@style/textoDetalhe"
                                 android:layout_marginStart="16dp"
                                 android:text="@{viewmodel.acaoFormacao.designacao}"
                                 app:layout_constraintStart_toEndOf="@+id/textView21"
@@ -171,7 +176,7 @@
 
                             <TextView
                                 android:id="@+id/textView23"
-                                style="@style/subTituloDescritivo"
+                                style="@style/textoDetalhe"
                                 android:layout_marginTop="8dp"
                                 android:layout_marginBottom="16dp"
                                 android:text="@string/local_"
@@ -181,7 +186,7 @@
 
                             <TextView
                                 android:id="@+id/textView24"
-                                style="@style/subTituloDescritivo"
+                                style="@style/textoDetalhe"
                                 android:layout_marginStart="16dp"
                                 android:text="@{viewmodel.acaoFormacao.resultado.local}"
                                 app:layout_constraintStart_toEndOf="@+id/textView23"
@@ -189,7 +194,7 @@
 
                             <TextView
                                 android:id="@+id/textView26"
-                                style="@style/subTituloDescritivo"
+                                style="@style/textoDetalhe"
                                 android:layout_marginTop="8dp"
                                 android:layout_marginBottom="16dp"
                                 android:text="@string/data_"
@@ -199,7 +204,7 @@
 
                             <TextView
                                 android:id="@+id/textView27"
-                                style="@style/subTituloDescritivo"
+                                style="@style/textoDetalhe"
                                 android:layout_marginStart="16dp"
                                 android:text="@{DatasUtil.converterData(viewmodel.acaoFormacao.resultado.data, DatasUtil.FORMATO_DD_MM_YYYY)}"
                                 app:layout_constraintStart_toEndOf="@+id/textView26"
@@ -207,7 +212,7 @@
 
                             <TextView
                                 android:id="@+id/textView28"
-                                style="@style/subTituloDescritivo"
+                                style="@style/textoDetalhe"
                                 android:layout_marginStart="16dp"
                                 android:text="@string/inicio"
                                 app:layout_constraintStart_toEndOf="@+id/textView27"
@@ -215,7 +220,7 @@
 
                             <TextView
                                 android:id="@+id/textView29"
-                                style="@style/subTituloDescritivo"
+                                style="@style/textoDetalhe"
                                 android:layout_marginStart="16dp"
                                 android:text="@{DatasUtil.converterData(viewmodel.acaoFormacao.resultado.inicio, DatasUtil.HORA_FORMATO_HH_MM)}"
                                 app:layout_constraintStart_toEndOf="@+id/textView28"
@@ -223,7 +228,7 @@
 
                             <TextView
                                 android:id="@+id/textView30"
-                                style="@style/subTituloDescritivo"
+                                style="@style/textoDetalhe"
                                 android:layout_marginStart="16dp"
                                 android:text="@string/fim"
                                 app:layout_constraintStart_toEndOf="@+id/textView29"
@@ -231,11 +236,22 @@
 
                             <TextView
                                 android:id="@+id/textView31"
-                                style="@style/subTituloDescritivo"
+                                style="@style/textoDetalhe"
                                 android:layout_marginStart="16dp"
                                 android:text="@{DatasUtil.converterData(viewmodel.acaoFormacao.resultado.termino, DatasUtil.HORA_FORMATO_HH_MM)}"
                                 app:layout_constraintStart_toEndOf="@+id/textView30"
                                 app:layout_constraintTop_toTopOf="@+id/textView26" />
+
+                            <TextView
+                                android:id="@+id/textView36"
+                                android:text="@{StringUtil.converterString(viewmodel.acaoFormacao.resultado.idAtividade), default=id}"
+                                android:visibility="@{BuildConfig.DEBUG ? View.VISIBLE : View.GONE}"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="8dp"
+                                android:layout_marginBottom="8dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent" />
                         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
@@ -270,6 +286,7 @@
 
         <com.github.clans.fab.FloatingActionMenu
             android:id="@+id/fab_menu"
+            android:enabled="@{bloquear}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"

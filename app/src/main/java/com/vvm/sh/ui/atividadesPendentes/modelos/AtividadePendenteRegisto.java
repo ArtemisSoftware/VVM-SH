@@ -38,62 +38,6 @@ public class AtividadePendenteRegisto {
 
 
 
-
-
-    /**
-     * Metodo que indica se existe um relatorio associado à atividade
-     * @return true caso exista ou false caso contrario
-     */
-    public boolean existeRelatorio(){
-
-        if(atividade.formacao == true){
-            return true;
-        }
-        else{
-            return true; //TODO: para teste. Mudar para false quando acabar os testes
-        }
-    }
-
-
-    /**
-     * Metodo que devolve a descricao do relatorio
-     * @return uma descricao
-     */
-    public String obterRelatorio(){
-
-        if(atividade.formacao == true){
-            return Sintaxe.Palavras.FORMACAO;
-        }
-        else{
-            return "";
-        }
-    }
-
-
-    /**
-     * Metodo que permite obter o identificador do relatorio
-     * @return o identificador do relatorio
-     */
-    public int obterIdRelatorio(){
-
-        if(atividade.formacao == true){
-            return Identificadores.Relatorios.ID_RELATORIO_FORMACAO;
-        }
-        else{
-            return Identificadores.Relatorios.ID_RELATORIO_FORMACAO; //TODO: para teste. Mudar para Identificadores.Estados.SEM_RELATORIO quando acabar os testes
-        }
-    }
-
-
-    /**
-     * Metodo que indica se existe um resultado
-     * @return true caso exista
-     */
-    public boolean obterCompletudeResultatorio(){
-        return true; //TODO por logica aqui
-    }
-
-
     /**
      * Metodo que indica se existe um resultado
      * @return true caso exista

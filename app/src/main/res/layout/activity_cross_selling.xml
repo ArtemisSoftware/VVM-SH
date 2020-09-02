@@ -95,7 +95,7 @@
 
                     <com.jaredrummler.materialspinner.MaterialSpinner
                         android:id="@+id/spnr_area_recomendacao"
-                        android:layout_width="wrap_content"
+                        android:layout_width="450dp"
                         app:popupTextAlignment="start"
                         android:layout_height="wrap_content"
                         app:tipos_="@{viewmodel.produtos}"

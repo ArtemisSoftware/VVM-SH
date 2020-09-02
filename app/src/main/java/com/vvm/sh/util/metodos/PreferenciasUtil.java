@@ -218,7 +218,7 @@ public class PreferenciasUtil {
      * @param contexto
      * @return true caso a agenda esteja ativa para edição ou false caso contrário
      */
-    public static boolean obterCompletudeAgenda(Context contexto) {
+    public static boolean agendaEditavel(Context contexto) {
 
         String pacote = contexto.getPackageName();
 

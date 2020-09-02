@@ -47,6 +47,7 @@ public class AnomaliasActivity extends BaseDaggerActivity
         activityAnomaliasBinding.setListener(this);
 
         activityAnomaliasBinding.spnrEstado.setOnItemSelectedListener(this);
+        activityAnomaliasBinding.setBloquear(PreferenciasUtil.agendaEditavel(this));
 
         subscreverObservadores();
 
@@ -67,6 +68,12 @@ public class AnomaliasActivity extends BaseDaggerActivity
     protected void subscreverObservadores() {
 
     }
+
+
+
+    //------------------------
+    //EVENTOS
+    //------------------------
 
 
     @OnClick(R.id.fab_adicionar)
@@ -100,7 +107,6 @@ public class AnomaliasActivity extends BaseDaggerActivity
 
     @Override
     public void onRemoverClick(AnomaliaRegistada anomalia) {
-
         viewModel.remover(PreferenciasUtil.obterIdTarefa(this), anomalia);
     }
 

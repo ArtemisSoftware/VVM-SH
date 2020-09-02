@@ -104,11 +104,14 @@ public class FormandoActivity extends BaseDaggerActivity
 
             int idFormando = bundle.getInt(getString(R.string.argumento_id_formando));
             viewModel.obterFormando(idFormando);
+            activityFormandoBinding.setBloquear(PreferenciasUtil.agendaEditavel(this));
         }
         else{
             finish();
         }
     }
+
+
 
     @Override
     protected int obterLayout() {

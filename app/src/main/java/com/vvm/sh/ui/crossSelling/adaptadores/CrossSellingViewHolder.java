@@ -28,7 +28,7 @@ public class CrossSellingViewHolder extends RecyclerView.ViewHolder implements C
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
 
-        if(binding.getCrossSelling().possuiSinaletica() != isChecked) {
+        if(binding.getCrossSelling().possuiSinaletica != isChecked) {
 
             onItemListener.onItemChecked(binding.getCrossSelling(), isChecked);
         }

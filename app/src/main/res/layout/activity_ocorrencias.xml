@@ -16,6 +16,10 @@
             name="viewmodel"
             type="com.vvm.sh.ui.ocorrencias.OcorrenciasViewModel"/>
 
+
+        <variable
+            name="bloquear"
+            type="Boolean"/>
     </data>
 
 
@@ -47,7 +51,7 @@
 
                 <ImageView
                     app:layout_collapseMode="parallax"
-                    android:src="@drawable/anomalias_banner"
+                    android:src="@drawable/ocorrencias_banner"
                     android:contentDescription="@string/ocorrencias"
                     android:scaleType="centerCrop"
                     android:layout_width="match_parent"
@@ -135,6 +139,7 @@
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_adicionar"
+            android:enabled="@{bloquear}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:src="@drawable/ic_add_24dp"

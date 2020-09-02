@@ -9,6 +9,8 @@
 
     <data>
 
+        <import type="com.vvm.sh.BuildConfig"/>
+        <import type="com.vvm.sh.util.StringUtil"/>
         <import type="android.view.View"/>
 
         <variable
@@ -19,6 +21,9 @@
             name="listener"
             type="com.vvm.sh.ui.crossSelling.adaptadores.OnCrossSellingListener"/>
 
+        <variable
+            name="bloquear"
+            type="Boolean"/>
     </data>
 
 
@@ -35,12 +40,14 @@
 
             <CheckBox
                 android:id="@+id/chk_box_item"
+                style="@style/textoDetalhe"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:text="@{crossSelling.descricao, default=descricao}"
-                android:checked="@{crossSelling.obterSelecao()}"
+                android:enabled="@{bloquear}"
+                android:text="@{crossSelling.tipo.descricao, default=descricao}"
+                android:checked="@{crossSelling.selecionado}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -49,7 +56,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
-                android:visibility="@{crossSelling.possuiSinaletica() ? View.VISIBLE : View.GONE}"
+                android:visibility="@{crossSelling.possuiSinaletica ? View.VISIBLE : View.GONE}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/chk_box_item"
                 app:layout_constraintTop_toBottomOf="@+id/chk_box_item">
@@ -83,7 +90,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:text="@{crossSelling.dimensao, default=dimensao}"
+                    android:text="@{crossSelling.dimensaoSinaletica, default=dimensao}"
                     app:layout_constraintStart_toEndOf="@+id/textView9"
                     app:layout_constraintTop_toTopOf="@+id/textView9" />
 
@@ -93,10 +100,21 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
-                    android:text="@{crossSelling.tipo, default=tipo}"
+                    android:text="@{crossSelling.tipoSinaletica, default=tipo}"
                     app:layout_constraintStart_toEndOf="@+id/textView10"
                     app:layout_constraintTop_toTopOf="@+id/textView10" />
             </androidx.constraintlayout.widget.ConstraintLayout>
+
+            <TextView
+                android:id="@+id/textView39"
+                android:text="@{StringUtil.converterString(crossSelling.tipo.id), default=id}"
+                android:visibility="@{BuildConfig.DEBUG ? View.VISIBLE : View.GONE}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -104,70 +122,3 @@
 
 
 </layout>
-
-<!--
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
-    android:layout_width="fill_parent"
-    android:layout_height="wrap_content"
-    android:padding="8dp" >
-
-    <LinearLayout android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:orientation="vertical" >
-
-        <CheckBox android:id="@+id/chk_box_produto"
-            android:text="@string/lorem_ipsum_texto"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:focusable="false"
-            android:focusableInTouchMode="false" />
-
-    </LinearLayout>
-
-    <RelativeLayout
-        android:id="@+id/rlt_lyt_sinaletica"
-        android:layout_width="fill_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:orientation="horizontal" >
-
-        <LinearLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_alignParentEnd="true"
-            android:gravity="center_vertical">
-
-
-            <TextView android:text="@string/dimensao_"
-                style="@style/txt_rotulo"
-                android:layout_width="wrap_content"/>
-
-            <TextView android:id="@+id/txt_dimensao"
-                android:text="@string/lorem_ipsum_numero"
-                style="@style/txt_texto"
-                android:layout_marginLeft="12dp"/>
-
-
-            <TextView android:text="@string/tipo_"
-                style="@style/txt_rotulo"
-                android:layout_width="wrap_content"
-                android:layout_marginLeft="60dp"/>
-
-            <TextView android:id="@+id/txt_tipo"
-                android:text="@string/lorem_ipsum_texto_pequeno"
-                style="@style/txt_texto"
-                android:layout_marginLeft="12dp"/>
-
-
-        </LinearLayout>
-
-    </RelativeLayout>
-
-
-
-
-</LinearLayout>
-
--->

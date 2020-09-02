@@ -10,8 +10,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.vvm.sh.ui.crossSelling.adaptadores.CrossSellingRecyclerAdapter;
 import com.vvm.sh.ui.crossSelling.adaptadores.OnCrossSellingListener;
-import com.vvm.sh.ui.crossSelling.modelos.CrossSelling;
 import com.vvm.sh.baseDados.entidades.Tipo;
+import com.vvm.sh.ui.crossSelling.modelos.CrossSelling;
 
 import org.angmarch.views.NiceSpinner;
 import org.angmarch.views.SpinnerTextFormatter;

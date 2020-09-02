@@ -75,7 +75,7 @@ public class AtividadesPendentesActivity extends BaseDaggerActivity
     @Override
     public void OnAtividadeClick(AtividadePendenteRegisto atividade) {
 
-        DialogoAtividadePendente dialogo = DialogoAtividadePendente.newInstance(atividade.atividade.id, atividade.obterIdRelatorio(), atividade.relatorioCompleto);
+        DialogoAtividadePendente dialogo = DialogoAtividadePendente.newInstance(atividade.atividade.id, atividade.idRelatorio, atividade.relatorioCompleto);
         dialogo.show(getSupportFragmentManager(), "example dialog");
     }
 

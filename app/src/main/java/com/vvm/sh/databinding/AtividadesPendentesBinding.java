@@ -118,17 +118,17 @@ public class AtividadesPendentesBinding {
 
 
     @BindingAdapter({"completudeRelatorio"})
-    public static void setCompletudeRelatorio(CircleImageView view, AtividadePendenteRegisto atividade) {
+    public static void setCompletudeRelatorio(CircleImageView view, boolean relatorioCompleto) {
 
 
-        if(atividade.obterCompletudeResultatorio() == true){
+        if(relatorioCompleto == true){
 
             view.setCircleBackgroundColorResource(R.color.cor_completo);
             view.setImageResource(R.drawable.ic_executado_24dp);
         }
         else{
             view.setCircleBackgroundColorResource(R.color.cor_pendente);
-            view.setImageResource(R.drawable.ic_executado_24dp);
+            view.setImageResource(R.drawable.ic_nao_executado_24dp);
         }
     }
 

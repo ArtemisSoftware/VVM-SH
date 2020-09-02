@@ -49,6 +49,7 @@ public class FormacaoActivity extends BaseDaggerActivity
 
         if(bundle != null) {
             viewModel.obterFormacao(bundle.getInt(getString(R.string.argumento_id_atividade)));
+            activityFormacaoBinding.setBloquear(PreferenciasUtil.agendaEditavel(this));
         }
         else{
             finish();
@@ -69,6 +70,12 @@ public class FormacaoActivity extends BaseDaggerActivity
     protected void subscreverObservadores() {
 
     }
+
+
+    //-------------------
+    //Eventos
+    //-------------------
+
 
     @Override
     public void OnFormandoClick(Formando formando) {
@@ -104,10 +111,6 @@ public class FormacaoActivity extends BaseDaggerActivity
     }
 
 
-
-    //-------------------
-    //Eventos
-    //-------------------
 
 
     @OnClick({R.id.fab_adicionar_formando})

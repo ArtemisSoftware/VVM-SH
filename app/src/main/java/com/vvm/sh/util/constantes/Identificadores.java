@@ -20,7 +20,7 @@ public class Identificadores {
 
         public static final int ESTADO_EXECUTADO = 1;
         public static final int ESTADO_NAO_EXECUTADO = 2;
-        public static final int SEM_RELATORIO =   -1;
+        public static final int SEM_RELATORIO = 0;
         public static final String ST = "ST";
     }
 

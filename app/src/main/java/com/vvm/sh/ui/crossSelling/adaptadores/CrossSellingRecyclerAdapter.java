@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.vvm.sh.R;
 import com.vvm.sh.databinding.ItemCrossSellingBinding;
 import com.vvm.sh.ui.crossSelling.modelos.CrossSelling;
+import com.vvm.sh.util.metodos.PreferenciasUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,7 +46,7 @@ public class CrossSellingRecyclerAdapter  extends RecyclerView.Adapter<RecyclerV
         CrossSelling registo = items.get(position);
         ((CrossSellingViewHolder)holder).binding.setCrossSelling(registo);
         ((CrossSellingViewHolder)holder).binding.setListener((OnCrossSellingListener) contexto);
-
+        ((CrossSellingViewHolder)holder).binding.setBloquear(PreferenciasUtil.agendaEditavel(contexto));
         ((CrossSellingViewHolder)holder).binding.executePendingBindings();
 
 

@@ -41,7 +41,7 @@
                 android:id="@+id/linearLayout1"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="@dimen/distancia_vertical_titulo"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
                 app:layout_constraintStart_toStartOf="@+id/textView"
@@ -49,8 +49,8 @@
 
                 <ImageView
                     android:id="@+id/circleView1"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:src="@drawable/ic_calendario" />
 
                 <TextView
@@ -75,8 +75,8 @@
 
                 <ImageView
                     android:id="@+id/circleView2"
-                    android:layout_width="32dp"
-                    android:layout_height="32dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:src="@drawable/ic_contactos_24dp" />
 
                 <TextView
@@ -100,7 +100,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
 
                 <TextView
-                    style="@style/subTituloDescritivo"
+                    style="@style/textoDetalhe"
                     android:text="@string/tipo_"/>
 
                 <TextView
@@ -125,7 +125,7 @@
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout3">
 
                 <TextView
-                    style="@style/subTituloDescritivo"
+                    style="@style/textoDetalhe"
                     android:text="@string/observacao_" />
 
                 <TextView

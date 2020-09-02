@@ -12,6 +12,7 @@ import com.vvm.sh.api.modelos.DadosResultado;
 import com.vvm.sh.api.modelos.OcorrenciaResposta;
 import com.vvm.sh.api.modelos.SessaoResposta;
 import com.vvm.sh.api.modelos.TarefaResultado;
+import com.vvm.sh.baseDados.Conversor;
 import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.baseDados.entidades.Tarefa;
 import com.vvm.sh.baseDados.entidades.Anomalia;
@@ -24,6 +25,7 @@ import com.vvm.sh.repositorios.TransferenciasRepositorio;
 import com.vvm.sh.util.AtualizacaoUI;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.mapeamento.ModelMapping;
+import com.vvm.sh.util.metodos.ConversorUtil;
 import com.vvm.sh.util.metodos.DatasUtil;
 
 import java.util.ArrayList;
@@ -134,6 +136,7 @@ public class TrabalhoAsyncTask extends AsyncTask<SessaoResposta, Void, Void> {
         for(AtividadePendenteResposta atividadePendenteResposta : atividadesPendentes){
 
             AtividadePendente registo = ModelMapping.INSTANCE.map(atividadePendenteResposta);
+            registo.formacao = ConversorUtil.converter_Integer_Para_Boolean(atividadePendenteResposta.formacao);
             registo.idTarefa = idTarefa;
             registos.add(registo);
         }

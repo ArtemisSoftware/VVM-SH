@@ -13,6 +13,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.vvm.sh.databinding.ItemOcorrenciaRegistoBinding;
 import com.vvm.sh.util.constantes.Sintaxe;
+import com.vvm.sh.util.metodos.PreferenciasUtil;
 
 public class OcorrenciaRegistoViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnCreateContextMenuListener, MenuItem.OnMenuItemClickListener{
 
@@ -30,7 +31,10 @@ public class OcorrenciaRegistoViewHolder extends RecyclerView.ViewHolder impleme
         this.listenerRegisto = listener;
 
         itemView.setOnClickListener(this);
-        itemView.setOnCreateContextMenuListener(this);
+
+        if(PreferenciasUtil.agendaEditavel(itemView.getContext()) == true) {
+            itemView.setOnCreateContextMenuListener(this);
+        }
     }
 
 
@@ -40,7 +44,9 @@ public class OcorrenciaRegistoViewHolder extends RecyclerView.ViewHolder impleme
 
         this.listenerOcorrencia = listener;
 
-        itemView.setOnCreateContextMenuListener(this);
+        if(PreferenciasUtil.agendaEditavel(itemView.getContext()) == true) {
+            itemView.setOnCreateContextMenuListener(this);
+        }
     }
 
 

@@ -14,6 +14,7 @@ import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.atividadesPendentes.adaptadores.OnAtividadePendenteListener;
 import com.vvm.sh.ui.BaseDaggerDialogFragment;
 import com.vvm.sh.util.constantes.Identificadores;
+import com.vvm.sh.util.metodos.PreferenciasUtil;
 
 import javax.inject.Inject;
 
@@ -103,15 +104,22 @@ public class DialogoAtividadePendente extends BaseDaggerDialogFragment {
     private void formatarDialogo() {
 
         if(getArguments().getInt(ARGUMENTO_RELATORIO) == Identificadores.Estados.SEM_RELATORIO){
-
             binding.rdBtnRelatorio.setVisibility(View.GONE);
         }
         else{
 
-//            if(getArguments().getBoolean(ARGUMENTO_RELATORIO_COMPLETO) == false){
-//                binding.rdBtnActividadeExecutada.setVisibility(View.GONE);
-//            }
+            if(getArguments().getBoolean(ARGUMENTO_RELATORIO_COMPLETO) == false){
+                binding.rdBtnActividadeExecutada.setVisibility(View.GONE);
+            }
         }
+
+        if(PreferenciasUtil.agendaEditavel(getContext()) == false){
+            binding.rdBtnActividadeExecutada.setVisibility(View.GONE);
+            binding.rdBtnActividadeNaoExecutada.setVisibility(View.GONE);
+
+            //TODO: completar com uma opcao de detalhe criada dinamica
+        }
+
     }
 
 

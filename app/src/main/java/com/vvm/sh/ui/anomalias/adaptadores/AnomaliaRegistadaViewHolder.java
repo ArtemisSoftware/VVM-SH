@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.vvm.sh.databinding.ItemAnomaliaBinding;
 import com.vvm.sh.databinding.ItemAnomaliaRegistadaBinding;
 import com.vvm.sh.util.constantes.Sintaxe;
+import com.vvm.sh.util.metodos.PreferenciasUtil;
 
 public class AnomaliaRegistadaViewHolder extends RecyclerView.ViewHolder implements View.OnCreateContextMenuListener, MenuItem.OnMenuItemClickListener {
 
@@ -24,7 +25,9 @@ public class AnomaliaRegistadaViewHolder extends RecyclerView.ViewHolder impleme
         binding = DataBindingUtil.bind(itemView);
         this.listener = listener;
 
-        itemView.setOnCreateContextMenuListener(this);
+        if(PreferenciasUtil.agendaEditavel(itemView.getContext()) == true) {
+            itemView.setOnCreateContextMenuListener(this);
+        }
     }
 
     @Override

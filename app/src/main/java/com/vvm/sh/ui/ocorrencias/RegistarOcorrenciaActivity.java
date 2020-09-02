@@ -53,6 +53,7 @@ public class RegistarOcorrenciaActivity extends BaseDaggerActivity {
 
         if(bundle != null) {
             viewModel.obterOcorrencia(PreferenciasUtil.obterIdTarefa(this), bundle.getInt(getString(R.string.argumento_id)), bundle.getInt(getString(R.string.argumento_id_tipo)));
+            activityOcorrenciaRegistarBinding.setBloquear(PreferenciasUtil.agendaEditavel(this));
         }
         else{
             finish();

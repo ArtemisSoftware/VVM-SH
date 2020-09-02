@@ -15,6 +15,10 @@
             name="viewmodel"
             type="com.vvm.sh.ui.atividadesPendentes.relatorios.FormacaoViewModel"/>
 
+        <variable
+            name="bloquear"
+            type="Boolean"/>
+
     </data>
 
 
@@ -241,6 +245,7 @@
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_gravar"
+            android:enabled="@{bloquear}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"

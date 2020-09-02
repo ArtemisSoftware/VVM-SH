@@ -12,6 +12,7 @@ import com.vvm.sh.ui.opcoes.modelos.ResumoTipo;
 import java.util.List;
 
 import io.reactivex.Flowable;
+import io.reactivex.Single;
 
 @Dao
 abstract public class TipoDao implements BaseDao<Tipo>{
@@ -42,7 +43,7 @@ abstract public class TipoDao implements BaseDao<Tipo>{
 
 
     @Query("SELECT * FROM tipos WHERE tipo = :tipo AND idPai = '' AND ativo = 1")
-    abstract public Flowable<List<Tipo>> obterCrossSellingProdutos(String tipo);
+    abstract public Single<List<Tipo>> obterCrossSellingProdutos(String tipo);
 
 
 

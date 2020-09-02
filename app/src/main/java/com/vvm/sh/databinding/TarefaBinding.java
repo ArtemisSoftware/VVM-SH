@@ -13,7 +13,9 @@ import com.vvm.sh.ui.tarefa.adaptadores.OnTarefaListener;
 import com.vvm.sh.ui.tarefa.adaptadores.OpcaoClienteRecyclerAdapter;
 import com.vvm.sh.baseDados.entidades.EmailResultado;
 import com.vvm.sh.ui.tarefa.modelos.OpcaoCliente;
+import com.vvm.sh.util.metodos.PreferenciasUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class TarefaBinding {
@@ -32,6 +34,11 @@ public class TarefaBinding {
         }
 
         OpcaoClienteRecyclerAdapter adapter = (OpcaoClienteRecyclerAdapter) view.getAdapter();
+        
+        if(PreferenciasUtil.agendaEditavel(view.getContext()) == false){
+            items.remove(OpcaoCliente.email());
+        }
+        
 
         if(adapter == null){
             adapter = new OpcaoClienteRecyclerAdapter(view.getContext(), items, listener);

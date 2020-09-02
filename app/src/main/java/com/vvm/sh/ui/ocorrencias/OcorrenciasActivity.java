@@ -48,6 +48,8 @@ public class OcorrenciasActivity extends BaseDaggerActivity
         activityOcorrenciasBinding.spnrEstado.setOnItemSelectedListener(this);
         activityOcorrenciasBinding.setViewmodel(viewModel);
 
+        activityOcorrenciasBinding.setBloquear(PreferenciasUtil.agendaEditavel(this));
+
 
         subscreverObservadores();
 

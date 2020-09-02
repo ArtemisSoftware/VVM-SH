@@ -229,7 +229,7 @@ public class MainActivity extends BaseDaggerActivity
     @Override
     public void onItemLongPress(Marcacao marcacao) {
 
-        if(PreferenciasUtil.obterCompletudeAgenda(MainActivity.this) == false){
+        if(PreferenciasUtil.agendaEditavel(MainActivity.this) == false){
             return;
         }
 
@@ -243,7 +243,7 @@ public class MainActivity extends BaseDaggerActivity
             }
         };
 
-        if(PreferenciasUtil.obterCompletudeAgenda(this) == true) {
+        if(PreferenciasUtil.agendaEditavel(this) == true) {
             dialogo.alerta(getString(R.string.recarregar_tarefa), getString(R.string.perder_dados_tarefa), listener);
         }
 
@@ -286,7 +286,7 @@ public class MainActivity extends BaseDaggerActivity
             }
         };
 
-        if(PreferenciasUtil.obterCompletudeAgenda(this) == true) {
+        if(PreferenciasUtil.agendaEditavel(this) == true) {
             dialogo.alerta_OpcaoCancelar(getString(R.string.recarregar_trabalho), getString(R.string.recarregar_trabalho_perder_dados), listener);
         }
     }

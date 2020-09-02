@@ -71,6 +71,7 @@ public interface ModelMapping {
 
     Anomalia map(AnomaliaResposta item);
 
+    @Mapping(target = "formacao", ignore = true)
     AtividadePendente map(AtividadePendenteResposta item);
 
     Ocorrencia map(OcorrenciaResposta item);

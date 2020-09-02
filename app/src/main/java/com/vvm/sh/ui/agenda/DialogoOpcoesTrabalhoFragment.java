@@ -17,7 +17,7 @@ public class DialogoOpcoesTrabalhoFragment extends BaseDialogoOpcoesFragment {
     @Override
     protected String[] obterOpcoes() {
 
-        if(PreferenciasUtil.obterCompletudeAgenda(getActivity()) == false){
+        if(PreferenciasUtil.agendaEditavel(getActivity()) == false){
             return  new String[]{ getString(R.string.reenviar_dados) };
         }
         else{

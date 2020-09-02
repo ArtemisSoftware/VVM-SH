@@ -88,6 +88,7 @@ public class AcaoFormacaoActivity extends BaseDaggerActivity
         if(bundle != null) {
 
             viewModel.obterAcaoFormacao(bundle.getInt(getString(R.string.argumento_id_atividade)));
+            activityAcaoFormacaoBinding.setBloquear(PreferenciasUtil.agendaEditavel(this));
         }
         else{
             finish();

@@ -12,6 +12,7 @@ import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerDialogFragment;
 import com.vvm.sh.baseDados.entidades.CrossSellingResultado;
 import com.vvm.sh.baseDados.entidades.Tipo;
+import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.metodos.MensagensUtil;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
@@ -90,18 +91,21 @@ public class DialogoSinaletica extends BaseDaggerDialogFragment {
 
                     case SUCESSO:
 
-                        //TODO: Completar metodo
-                        MensagensUtil.sucesso();
-                        terminarDialogo();
+                        dialogo.sucesso(Sintaxe.Frases.DADOS_GRAVADOS_SUCESSO, listener);
                         break;
 
                     default:
                         break;
                 }
-
             }
         });
     }
+
+
+    //----------------------
+    //EVENTOS
+    //----------------------
+
 
     @Override
     protected void clickPositivo() {

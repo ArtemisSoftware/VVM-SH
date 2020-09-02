@@ -10,9 +10,9 @@ import com.vvm.sh.databinding.ActivityCrossSellingBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.crossSelling.adaptadores.OnCrossSellingListener;
-import com.vvm.sh.ui.crossSelling.modelos.CrossSelling;
 import com.vvm.sh.baseDados.entidades.CrossSellingResultado;
 import com.vvm.sh.baseDados.entidades.Tipo;
+import com.vvm.sh.ui.crossSelling.modelos.CrossSelling;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
@@ -47,7 +47,7 @@ public class CrossSellingActivity extends BaseDaggerActivity
 
         subscreverObservadores();
 
-        viewModel.obterProdutos();
+        viewModel.obterProdutos(PreferenciasUtil.obterIdTarefa(this));
     }
 
     @Override
@@ -76,7 +76,7 @@ public class CrossSellingActivity extends BaseDaggerActivity
     public void onItemSelected(MaterialSpinner view, int position, long id, Object item) {
 
         Tipo tipo = (Tipo) item;
-        viewModel.obterCrossSelling(tipo);
+        viewModel.obterCrossSelling(PreferenciasUtil.obterIdTarefa(this), tipo);
     }
 
 
@@ -90,12 +90,12 @@ public class CrossSellingActivity extends BaseDaggerActivity
         if(selecao == true & sinaletica == false){
 
 
-            CrossSellingResultado registo = new CrossSellingResultado(PreferenciasUtil.obterIdTarefa(this), area.id, crossSelling.id);
+            CrossSellingResultado registo = new CrossSellingResultado(PreferenciasUtil.obterIdTarefa(this), area.id, crossSelling.tipo.id);
             viewModel.gravar(registo);
         }
         else if(selecao == true & sinaletica == true){
 
-            DialogoSinaletica dialogo = DialogoSinaletica.newInstance(area.id, crossSelling.id);
+            DialogoSinaletica dialogo = DialogoSinaletica.newInstance(area.id, crossSelling.tipo.id);
             dialogo.show(getSupportFragmentManager(), "example dialog");
         }
         else{

@@ -5,8 +5,12 @@ import android.view.View;
 import androidx.lifecycle.MutableLiveData;
 import androidx.lifecycle.ViewModel;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.vvm.sh.api.modelos.Codigo;
 import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.util.Recurso;
+import com.vvm.sh.util.excepcoes.RespostaWsInvalidaException;
 
 import javax.inject.Inject;
 
@@ -46,6 +50,23 @@ public abstract class BaseViewModel extends ViewModel {
     }
 
 
+    /**
+     * Metodo que permite formatar um erro
+     * @param e
+     */
+    protected void formatarErro(Throwable e){
+
+        if (e instanceof RespostaWsInvalidaException){
+
+            Gson gson = new GsonBuilder().create();
+            Codigo codigo = gson.fromJson(e.getMessage(), Codigo.class);
+
+            messagemLiveData.setValue(Recurso.erro(codigo, "Upload"));
+        }
+        else {
+            messagemLiveData.setValue(Recurso.erro(e.getMessage()));
+        }
+    }
 
     @Override
     protected void onCleared() {

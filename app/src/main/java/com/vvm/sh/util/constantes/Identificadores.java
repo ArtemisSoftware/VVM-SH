@@ -105,7 +105,7 @@ public class Identificadores {
         public static final int CODIGO_401 = 401;
         public static final String MSG_401 = "Ocorreu um erro na ligação à base de dados";
 
-        public static final int CODIGO_402 = 402;
+        public static final int ID_402 = 402;
         public static final String MSG_402 = "A integridade dos dados enviados foi comprometida";
 
 
@@ -126,6 +126,11 @@ public class Identificadores {
 
         public static final int ID_505 = 505;
         public static final String MSG_505 = "Servidor em manutenção.";
+
+
+        public static final int ID_600 = 600;
+        public static final String MSG_600 = "Erro no upload de dados";
+
     }
 
 

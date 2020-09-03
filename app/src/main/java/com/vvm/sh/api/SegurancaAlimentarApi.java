@@ -7,6 +7,8 @@ import com.vvm.sh.api.modelos.UtilizadorResposta;
 import com.vvm.sh.api.modelos.VersaoApp;
 
 import io.reactivex.Single;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
@@ -40,11 +42,33 @@ public interface SegurancaAlimentarApi {
     Single<SessaoResposta> obterTrabalho(@Query("strUser") String idUtilizador, @Query("strDia") String data);
 
 
+    @FormUrlEncoded
     @POST("ProcessWorkUpdate")
-    Single<Codigo> submeterDados(@Query("strJsonString") String dados, @Query("user") String idUtilizador,
-                                 @Query("idUnico") String id, @Query("MessageDigest") String messageDigest);
+    Single<Codigo> submeterDados(
+            @Field("strJsonString") String dados,
+            @Field("user") String idUtilizador,
+            @Field("idUnico") String id,
+            @Field("MessageDigest") String messageDigest
+    );
 
+
+    @FormUrlEncoded
     @POST("ProcessarFotos")
-    Single<Codigo> submeterImagens(@Query("strJsonString") String dados, @Query("user") String idUtilizador,
-                                   @Query("idUnico") String id, @Query("numeroFicheiro") String numeroFicheiro, @Query("MessageDigest") String messageDigest);
+    Single<Codigo> submeterImagens(
+            @Field("strJsonString") String dados,
+            @Field("user") String idUtilizador,
+            @Field("idUnico") String id,
+            @Field("numeroFicheiro") String numeroFicheiro,
+            @Field("MessageDigest") String messageDigest
+    );
+
+
+
+//    @POST("ProcessWorkUpdate")
+//    Single<Codigo> submeterDados(@Query("strJsonString") String dados, @Query("user") String idUtilizador,
+//                                 @Query("idUnico") String id, @Query("MessageDigest") String messageDigest);
+
+//    @POST("ProcessarFotos")
+//    Single<Codigo> submeterImagens(@Query("strJsonString") String dados, @Query("user") String idUtilizador,
+//                                   @Query("idUnico") String id, @Query("numeroFicheiro") String numeroFicheiro, @Query("MessageDigest") String messageDigest);
 }

@@ -332,6 +332,7 @@
 
             <com.github.clans.fab.FloatingActionButton
                 android:id="@+id/fab_adicionar_formando"
+                android:enabled="@{bloquear}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_formandos_24dp"
@@ -340,6 +341,7 @@
 
             <com.github.clans.fab.FloatingActionButton
                 android:id="@+id/fab_adicionar_acao_formacao"
+                android:enabled="@{bloquear}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_acao_formacao"

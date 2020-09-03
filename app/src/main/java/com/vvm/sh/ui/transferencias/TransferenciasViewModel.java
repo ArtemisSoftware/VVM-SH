@@ -26,6 +26,7 @@ import com.vvm.sh.ui.transferencias.modelos.DadosUpload;
 import com.vvm.sh.ui.transferencias.modelos.Pendencia;
 import com.vvm.sh.ui.transferencias.modelos.Upload;
 import com.vvm.sh.util.Recurso;
+import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.constantes.TiposConstantes;
 import com.vvm.sh.util.excepcoes.RespostaWsInvalidaException;
@@ -127,8 +128,10 @@ public class TransferenciasViewModel extends BaseViewModel {
                                 uploads.setValue(Recurso.successo(resultado));
                                 showProgressBar(false);
 
-                                DadosUploadAsyncTask servico = new DadosUploadAsyncTask(vvmshBaseDados, handler, transferenciasRepositorio, idUtilizador);
-                                servico.execute(resultado);
+                                if(resultado.size() != 0) {
+                                    DadosUploadAsyncTask servico = new DadosUploadAsyncTask(vvmshBaseDados, handler, transferenciasRepositorio, idUtilizador);
+                                    servico.execute(resultado);
+                                }
                             }
 
                             @Override
@@ -146,51 +149,50 @@ public class TransferenciasViewModel extends BaseViewModel {
     }
 
 
-
+    /**
+     * Metodo que permite realizar o upload dos dados
+     * @param dadosUpload os dados a enviar
+     */
     public void upload(DadosUpload dadosUpload) {
 
         showProgressBar(true);
-
 
         Gson gson = new Gson();
         BlocoDados registoDados = UploadMapping.INSTANCE.map(dadosUpload);
         String dados = gson.toJson(registoDados);
         String messageDigest = Hasher.Companion.hash(dados, HashType.MD5);
 
-        //TODO: descomentar quando tiver um exemplo para o meu utilizador
 
-//        transferenciasRepositorio.submeterDados(dados, dadosUpload.idUtilizador, dadosUpload.idUpload, messageDigest)
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(
-//
-//                        new SingleObserver<Codigo>() {
-//                            @Override
-//                            public void onSubscribe(Disposable d) {
-//
-//                            }
-//
-//                            @Override
-//                            public void onSuccess(Codigo codigo) {
-//uploadImagens(dadosUpload)
-//                            }
-//
-//                            @Override
-//                            public void onError(Throwable e) {
-//showProgressBar(false);
-        //messagemLiveData.setValue(Recurso.erro(codigo, "Download"));
-//                            }
-//                        }
-//
-//                );
+        transferenciasRepositorio.submeterDados(dados, dadosUpload.idUtilizador, dadosUpload.idUpload, messageDigest)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
 
+                        new SingleObserver<Codigo>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
 
+                            }
 
+                            @Override
+                            public void onSuccess(Codigo codigo) {
+                                uploadImagens(dadosUpload);
+                            }
 
-
+                            @Override
+                            public void onError(Throwable e) {
+                                showProgressBar(false);
+                                formatarErro(e);
+                            }
+                        }
+                );
     }
 
 
+    /**
+     * Metodo que permite realizar o upload das imagens
+     * @param dadosUpload os dados a enviar
+     */
     private void uploadImagens(DadosUpload dadosUpload){
 
         if(dadosUpload.idBloco == 0){
@@ -198,7 +200,6 @@ public class TransferenciasViewModel extends BaseViewModel {
             sincronizar();
             return;
         }
-
 
         Gson gson = new Gson();
         List<Observable<Codigo>> observables = new ArrayList<>();
@@ -214,20 +215,67 @@ public class TransferenciasViewModel extends BaseViewModel {
             observables.add(transferenciasRepositorio.submeterImagens(imagens, dadosUpload.idUtilizador, dadosUpload.idUpload, dadosUpload.idBloco + "", messageDigest).toObservable());
         }
 
-        Observable<Object> observable = Observable.zip(observables, new Function<Object[], Object>() {
+        Observable<Codigo> observable = Observable.zip(observables, new Function<Object[], Codigo>() {
             @Override
-            public Object apply(Object[] objects) throws Exception {
-                return null;
+            public Codigo apply(Object[] codigos) throws Exception {
+
+                boolean valido = true;
+
+                for (Object item : codigos) {
+
+                    if(((Codigo) item).codigo != Identificadores.CodigosWs.CODIGO_100){
+                        valido = false;
+                        break;
+                    }
+                }
+
+                if(valido == true){
+                    return new Codigo(Identificadores.CodigosWs.CODIGO_100, Identificadores.CodigosWs.MSG_100);
+                }
+                else{
+                    Codigo codigo = new Codigo(Identificadores.CodigosWs.ID_600, Identificadores.CodigosWs.MSG_600);
+                    throw new RespostaWsInvalidaException(gson.toJson(codigo, Codigo.class));
+                }
             }
         });
 
 
+        observable
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new Observer<Codigo>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+
+                            }
+
+                            @Override
+                            public void onNext(Codigo o) {
+                                sincronizar();
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                showProgressBar(false);
+                                formatarErro(e);
+                            }
+
+                            @Override
+                            public void onComplete() {
+                                showProgressBar(false);
+                            }
+                        }
+
+                );
     }
 
 
-
-
-    public void sincronizar(){
+    /**
+     * Metodo que permite sincronizar os dados
+     */
+    private void sincronizar(){
 
         transferenciasRepositorio.sincronizar((List<Upload>) uploads.getValue().dados)
                 .subscribeOn(Schedulers.io())
@@ -249,6 +297,7 @@ public class TransferenciasViewModel extends BaseViewModel {
                             @Override
                             public void onError(Throwable e) {
                                 showProgressBar(false);
+                                formatarErro(e);
                             }
                         }
 
@@ -288,7 +337,6 @@ public class TransferenciasViewModel extends BaseViewModel {
      * @param observable
      */
     private void obterPendencias(Observable<List<Pendencia>> observable){
-
 
         showProgressBar(true);
 

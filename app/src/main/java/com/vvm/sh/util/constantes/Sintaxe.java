@@ -39,6 +39,7 @@ public class Sintaxe {
         public static final String APRESENTACAO = "Apresentação";
         public static final String CORRECAO = "Correção";
         public static final String FUNCIONALIDADE = "Funcionalidade";
+        public static final String UPLOAD = "Upload";
 
     }
 
@@ -56,6 +57,7 @@ public class Sintaxe {
         public static final String CONSULTAR = "Consultar";
         public static final String NOVOS_REGISTOS = "Novos registos";
         public static final String OK = "Ok";
+        public static final String ERRO = "Erro";
     }
 
     public class Codigos{

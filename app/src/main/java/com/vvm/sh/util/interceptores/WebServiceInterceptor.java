@@ -104,10 +104,10 @@ public class WebServiceInterceptor implements Interceptor {
 
         switch (codigo.codigo){
 
-            case CODIGO_100:
-
-                codigo.mensagem = MSG_100;
-                break;
+//            case CODIGO_100:
+//
+//                codigo.mensagem = MSG_100;
+//                break;
 
             case CODIGO_101:
 
@@ -117,6 +117,11 @@ public class WebServiceInterceptor implements Interceptor {
             case CODIGO_400:
 
                 codigo.mensagem = MSG_400;
+                break;
+
+            case ID_402:
+
+                codigo.mensagem = MSG_402;
                 break;
 
             default:

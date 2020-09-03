@@ -40,7 +40,7 @@
             <TextView
                 android:id="@+id/textView2"
                 style="@style/textoDetalhe"
-                android:layout_marginTop="16dp"
+                android:layout_marginTop="@dimen/distancia_vertical_titulo"
                 android:text="@string/ordem_"
                 app:layout_constraintStart_toStartOf="@+id/textView"
                 app:layout_constraintTop_toBottomOf="@+id/textView" />

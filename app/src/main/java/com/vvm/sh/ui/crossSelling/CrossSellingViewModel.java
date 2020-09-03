@@ -185,10 +185,10 @@ public class CrossSellingViewModel extends BaseViewModel {
     //---------------------------
 
 
+    /**
+     * Metodo que permite obter os dados da sinaletica (dimensoes + tipos
+     */
     public void obterSinaletica(){
-        //obterDimensoes();
-        //obterTipos();
-
 
         Observable<Sinaletica> observables = Observable.zip(crossSellingRepositorio.obterDimensoes().toObservable(), crossSellingRepositorio.obterTipos().toObservable(),
                 new BiFunction<List<Tipo>, List<Tipo>, Sinaletica>() {
@@ -203,6 +203,7 @@ public class CrossSellingViewModel extends BaseViewModel {
             }
         });
 
+        showProgressBar(true);
 
         observables
                 .subscribeOn(Schedulers.io())
@@ -224,50 +225,6 @@ public class CrossSellingViewModel extends BaseViewModel {
 
                             @Override
                             public void onError(Throwable e) {
-
-                            }
-
-                            @Override
-                            public void onComplete() {
-
-                            }
-                        }
-                );
-
-        showProgressBar(true);
-
-
-    }
-
-
-
-    /**
-     * Metodo que permite obter as dimensões
-     */
-    private void obterDimensoes(){
-
-        showProgressBar(true);
-
-        crossSellingRepositorio.obterDimensoes().toObservable()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-
-                        new Observer<List<Tipo>>() {
-                            @Override
-                            public void onSubscribe(Disposable d) {
-                                disposables.add(d);
-                            }
-
-                            @Override
-                            public void onNext(List<Tipo> tipos) {
-
-                                dimensoes.setValue(tipos);
-                                showProgressBar(false);
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
                                 showProgressBar(false);
                             }
 
@@ -276,52 +233,9 @@ public class CrossSellingViewModel extends BaseViewModel {
                                 showProgressBar(false);
                             }
                         }
-
                 );
 
     }
-
-
-    /**
-     * Metodo que permite obter os tipos
-     */
-    private void obterTipos(){
-
-        showProgressBar(true);
-
-        crossSellingRepositorio.obterTipos().toObservable()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-
-                        new Observer<List<Tipo>>() {
-                            @Override
-                            public void onSubscribe(Disposable d) {
-                                disposables.add(d);
-                            }
-
-                            @Override
-                            public void onNext(List<Tipo> registos) {
-
-                                tipos.setValue(registos);
-                                showProgressBar(false);
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-                                showProgressBar(false);
-                            }
-
-                            @Override
-                            public void onComplete() {
-                                showProgressBar(false);
-                            }
-                        }
-
-                );
-
-    }
-
 
 
     //---------------------------
@@ -329,6 +243,10 @@ public class CrossSellingViewModel extends BaseViewModel {
     //---------------------------
 
 
+    /**
+     * Metodo que permite remover um registo
+     * @param crossSelling os dados do registo
+     */
     public void remover(CrossSelling crossSelling) {
 
         crossSellingRepositorio.remover(crossSelling).toObservable()
@@ -367,7 +285,7 @@ public class CrossSellingViewModel extends BaseViewModel {
     }
 
 
-    public class Sinaletica{
+    private class Sinaletica{
 
         List<Tipo> dimensoes;
         List<Tipo> tipos;

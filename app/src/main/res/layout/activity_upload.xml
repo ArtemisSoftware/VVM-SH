@@ -18,7 +18,8 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:padding="10dp">
 
         <com.google.android.material.card.MaterialCardView
             android:id="@+id/card"
@@ -47,14 +48,16 @@
                     <ImageView
                         android:layout_width="match_parent"
                         android:layout_height="134dp"
-                        app:srcCompat="@drawable/atualicao_app"
+                        app:srcCompat="@drawable/ic_upload"
+                        android:tint="@color/cor_tabelas"
                         android:scaleType="fitCenter"/>
 
 
                     <!-- Title, secondary and supporting text -->
                     <TextView
+                        android:id="@+id/txt_titulo"
                         style="@style/titulo"
-                        android:layout_marginTop="16dp"
+                        android:layout_marginTop="30dp"
                         android:text="@string/upload_dados" />
 
 
@@ -109,22 +112,7 @@
 
                 </LinearLayout>
 
-                <!-- Buttons -->
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
-                    android:orientation="horizontal">
 
-                    <com.google.android.material.button.MaterialButton
-                        android:id="@+id/btn_upload"
-                        style="?attr/borderlessButtonStyle"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginEnd="8dp"
-                        android:text="@string/upload" />
-
-                </LinearLayout>
 
             </LinearLayout>
 

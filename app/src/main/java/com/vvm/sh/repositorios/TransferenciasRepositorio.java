@@ -96,12 +96,11 @@ public class TransferenciasRepositorio {
     }
 
 
-
-
-
-
-
-
+    /**
+     * Metodo que permite obter todas as pendencias
+     * @param idUtilizador o identificador do utilizador
+     * @return uma lista de pendencias
+     */
     public Maybe<List<Pendencia>> obterPendencias(String idUtilizador){
         return transferenciasDao.obterPendencias(idUtilizador);
     }
@@ -122,13 +121,14 @@ public class TransferenciasRepositorio {
 
 
     /**
-     *
-     * @param idUtilizador
-     * @param data
-     * @return
+     * Metodo que permite obter os dados para upload de um dia especifico.
+     * Serão selecionados os dados já sincronizados e não sincronizados
+     * @param idUtilizador o identificador do utilizador
+     * @param data a data dos dados
+     * @return uma lista de uploads
      */
     public Maybe<List<Upload>> obterUploads(String idUtilizador, long data){
-        return transferenciasDao.obterUploads(idUtilizador, data, false);
+        return transferenciasDao.obterUploads(idUtilizador, data);
     }
 
 
@@ -153,7 +153,12 @@ public class TransferenciasRepositorio {
             }
         }
 
-        Resultado registos[] = (Resultado[]) resultados.toArray();
+        Resultado registos[] = new Resultado[resultados.size()];
+
+        for(int index = 0; index < resultados.size(); ++index){
+            registos[index] = resultados.get(index);
+        }
+
 
         return transferenciasDao.atualizar(registos);
     }

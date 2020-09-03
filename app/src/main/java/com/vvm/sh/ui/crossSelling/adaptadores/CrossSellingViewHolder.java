@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.vvm.sh.databinding.ItemCrossSellingBinding;
 
-public class CrossSellingViewHolder extends RecyclerView.ViewHolder implements CheckBox.OnCheckedChangeListener {
+public class CrossSellingViewHolder extends RecyclerView.ViewHolder implements CheckBox.OnClickListener {
 
 
     ItemCrossSellingBinding binding;
@@ -21,16 +21,12 @@ public class CrossSellingViewHolder extends RecyclerView.ViewHolder implements C
         binding = DataBindingUtil.bind(itemView);
 
         this.onItemListener = onItemListener;
-        binding.chkBoxItem.setOnCheckedChangeListener(this);
+        binding.chkBoxItem.setOnClickListener(this);
     }
 
 
     @Override
-    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-
-        if(binding.getCrossSelling().possuiSinaletica != isChecked) {
-
-            onItemListener.onItemChecked(binding.getCrossSelling(), isChecked);
-        }
+    public void onClick(View v) {
+        onItemListener.onItemChecked(binding.getCrossSelling(), ((CheckBox) v).isChecked());
     }
 }

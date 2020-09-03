@@ -19,4 +19,5 @@ public class AppConfig {
 
 
     public static final long TEMPO_SPLASH = 4000;
+    public static final long TEMPO_CONSULTA_UPLOAD = 3200;
 }

@@ -3,6 +3,9 @@ package com.vvm.sh.util;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.constantes.Sintaxe;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public enum ResultadoId {
 
     EMAIL(Identificadores.Resultados.ID_EMAIL, Sintaxe.Palavras.EMAIL),
@@ -27,4 +30,30 @@ public enum ResultadoId {
     public int getValue() { return value; }
 
     public String obterDescricao() { return descricao; }
+
+    @Override
+    public String toString() {
+        return value + ". " + descricao;
+    }
+
+
+    public static String obterDescricao(int id) {
+
+        List<ResultadoId> registos = new ArrayList<>();
+        registos.add(EMAIL);
+        registos.add(ANOMALIA_CLIENTE);
+        registos.add(ATIVIDADE_PENDENTE);
+        registos.add(CROSS_SELLING);
+        registos.add(OCORRENCIA);
+
+
+        for (ResultadoId item: registos) {
+
+            if(item.value == id){
+                return item.toString();
+            }
+        }
+
+        return id + ". Sem descricao" ;
+    }
 }

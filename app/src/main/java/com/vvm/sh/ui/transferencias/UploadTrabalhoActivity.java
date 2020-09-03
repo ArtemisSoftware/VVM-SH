@@ -9,6 +9,7 @@ import android.os.Message;
 import android.view.View;
 
 import com.vvm.sh.R;
+import com.vvm.sh.api.modelos.Codigo;
 import com.vvm.sh.databinding.ActivityUploadBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
@@ -17,7 +18,9 @@ import com.vvm.sh.ui.transferencias.modelos.Pendencia;
 import com.vvm.sh.ui.transferencias.modelos.Upload;
 import com.vvm.sh.util.AtualizacaoUI;
 import com.vvm.sh.util.Recurso;
+import com.vvm.sh.util.constantes.AppConfig;
 import com.vvm.sh.util.constantes.Sintaxe;
+import com.vvm.sh.util.interfaces.OnDialogoListener;
 import com.vvm.sh.util.metodos.DatasUtil;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
@@ -43,7 +46,6 @@ public class UploadTrabalhoActivity extends BaseDaggerActivity {
 
 
 
-
     @Override
     protected void intActivity(Bundle savedInstanceState) {
 
@@ -60,6 +62,7 @@ public class UploadTrabalhoActivity extends BaseDaggerActivity {
         Bundle bundle = getIntent().getExtras();
 
         if(bundle != null){
+            activityUploadBinding.txtTitulo.setText(getString(R.string.reupload_dados));
             activityUploadBinding.txtData.setVisibility(View.VISIBLE);
             activityUploadBinding.txtData.setText(DatasUtil.converterData(bundle.getLong(getString(R.string.argumento_data)), DatasUtil.FORMATO_DD_MM_YYYY));
             viewModel.obterPendencias(PreferenciasUtil.obterIdUtilizador(this), bundle.getLong(getString(R.string.argumento_data)));
@@ -67,13 +70,6 @@ public class UploadTrabalhoActivity extends BaseDaggerActivity {
         else {
             activityUploadBinding.txtData.setVisibility(View.GONE);
             viewModel.obterPendencias(PreferenciasUtil.obterIdUtilizador(this));
-            //viewModel.obterUpload(PreferenciasUtil.obterIdUtilizador(this), handlerNotificacoesUI);
-
-
-
-
-            //viewModel.obterUpload(PreferenciasUtil.obterIdUtilizador(this), handlerNotificacoesUI);
-            //viewModel.obterDadosUpload(PreferenciasUtil.obterIdUtilizador(this), handlerNotificacoesUI);
         }
     }
 
@@ -137,6 +133,30 @@ public class UploadTrabalhoActivity extends BaseDaggerActivity {
             }
         });
 
+
+        viewModel.observarMessagem().observe(this, new Observer<Recurso>() {
+            @Override
+            public void onChanged(Recurso recurso) {
+
+                switch (recurso.status){
+
+                    case SUCESSO:
+
+                        dialogo.sucesso(recurso.messagem, listenerActivity);
+                        break;
+
+                    case ERRO:
+
+                        dialogo.erro(((Codigo)recurso.dados).mensagem);
+                        break;
+
+                    default:
+                        break;
+                }
+
+            }
+        });
+
     }
 
 
@@ -148,9 +168,15 @@ public class UploadTrabalhoActivity extends BaseDaggerActivity {
 
         if(registos.size() == 0) {
 
-            dialogo.alerta("Upload", "Não existem dados para upload");
+            OnDialogoListener listener = new OnDialogoListener() {
+                @Override
+                public void onExecutar() {
+                    finish();
+                }
+            };
+
+            dialogo.alerta(getString(R.string.upload), "Não existem dados para upload", listener);
             activityUploadBinding.txtSubTitulo.setVisibility(View.GONE);
-            activityUploadBinding.btnUpload.setVisibility(View.GONE);
             activityUploadBinding.lnrLytProgresso.setVisibility(View.GONE);
 
         }
@@ -158,7 +184,6 @@ public class UploadTrabalhoActivity extends BaseDaggerActivity {
 
             activityUploadBinding.txtSubTitulo.setText(getString(R.string.tarefas_upload));
             activityUploadBinding.lnrLytProgresso.setVisibility(View.VISIBLE);
-            activityUploadBinding.btnUpload.setVisibility(View.VISIBLE);
             activityUploadBinding.rclRegistos.setVisibility(View.VISIBLE);
 
         }
@@ -186,7 +211,6 @@ public class UploadTrabalhoActivity extends BaseDaggerActivity {
 
             activityUploadBinding.txtSubTitulo.setText(getString(R.string.tarefas_pendentes));
             activityUploadBinding.lnrLytProgresso.setVisibility(View.GONE);
-            activityUploadBinding.btnUpload.setVisibility(View.GONE);
             activityUploadBinding.rclRegistosPendencias.setVisibility(View.VISIBLE);
             dialogo.alerta("Pendencias", "Existem tarefas pedentes.\r\nNão é possível realizar o upload dos dados.\r\n\r\nPor favor dê baixa de pelo menos uma atividade pendentes nas tarefas apresentadas");
 
@@ -214,6 +238,20 @@ public class UploadTrabalhoActivity extends BaseDaggerActivity {
     }
 
 
+    private void uploadDados(DadosUpload dadosUpload){
+
+        Handler handler = new Handler();
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+
+                //--viewModel.upload(dadosUpload);
+            }
+        }, AppConfig.TEMPO_CONSULTA_UPLOAD);
+
+    }
+
+
     //----------------------------------------
     //HANDLER (notificacoes para o ui)
     //----------------------------------------
@@ -235,7 +273,7 @@ public class UploadTrabalhoActivity extends BaseDaggerActivity {
 
                 case PROCESSAMENTO_UPLOAD_CONCLUIDO:
 
-                    viewModel.upload((DadosUpload) comunicado.objeto);
+                    uploadDados((DadosUpload) comunicado.objeto);
                     break;
 
 
@@ -253,11 +291,5 @@ public class UploadTrabalhoActivity extends BaseDaggerActivity {
     };
 
 
-
-
-    @OnClick(R.id.btn_upload)
-    public void btn_upload_OnClickListener(View view) {
-
-    }
 
 }

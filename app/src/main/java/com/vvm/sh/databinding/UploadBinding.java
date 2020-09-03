@@ -12,6 +12,7 @@ import com.vvm.sh.ui.transferencias.adaptadores.UploadRecyclerAdapter;
 import com.vvm.sh.ui.transferencias.modelos.Pendencia;
 import com.vvm.sh.ui.transferencias.modelos.Upload;
 import com.vvm.sh.util.Recurso;
+import com.vvm.sh.util.ResultadoId;
 
 import java.util.List;
 
@@ -93,7 +94,7 @@ public class UploadBinding {
         String texto = "";
 
         for(Resultado resultado : items){
-            texto += resultado.id  + "\n";
+            texto += ResultadoId.obterDescricao(resultado.id).toString()  + "\n";
         }
 
         view.setText(texto);

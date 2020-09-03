@@ -73,7 +73,7 @@ public class MensagensUtil {
 
         dialogo.changeAlertType(SweetAlertDialog.ERROR_TYPE);
 
-        dialogo.setTitleText("Oops...")
+        dialogo.setTitleText(Sintaxe.Opcoes.ERRO)
                 .setContentText(mensagem)
                 .show();
     }

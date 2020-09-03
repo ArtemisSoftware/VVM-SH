@@ -37,24 +37,30 @@ abstract public class TransferenciasDao implements BaseDao<Resultado> {
 
 
 
-    @Transaction
-    @Query("SELECT * " +
-            "FROM clientes as cl " +
-            "LEFT JOIN(" +
-            "SELECT idTarefa, atp.id as id, COUNT(*) as ct_atp, IFNULL(ct_atp_res, 0) as ct_atp_res FROM atividadesPendentes as atp " +
-            "LEFT JOIN (SELECT id, COUNT(*) as ct_atp_res FROM atividadesPendentesResultado) as atp_res ON atp.id = atp_res.id GROUP BY idTarefa " +
-            ") as pend ON cl.idTarefa = pend.idTarefa " +
-            "WHERE cl.idTarefa IN (SELECT idTarefa FROM tarefas WHERE idUtilizador =:idUtilizador) AND ct_atp_res = 0")
-    abstract public Maybe<List<Pendencia>> obterPendencias(String idUtilizador);
 
     @Transaction
     @Query("SELECT * " +
             "FROM clientes as cl " +
-            "LEFT JOIN(" +
-            "SELECT idTarefa, atp.id as id, COUNT(*) as ct_atp, IFNULL(ct_atp_res, 0) as ct_atp_res FROM atividadesPendentes as atp " +
-            "LEFT JOIN (SELECT id, COUNT(*) as ct_atp_res FROM atividadesPendentesResultado) as atp_res ON atp.id = atp_res.id GROUP BY idTarefa " +
+            "LEFT JOIN (" +
+            "SELECT idTarefa, IFNULL(SUM(ct_atp_res), 0) as ct_realizado FROM (" +
+            "SELECT * FROM atividadesPendentes as atp " +
+            "LEFT JOIN (SELECT id, COUNT(*) as ct_atp_res FROM atividadesPendentesResultado GROUP BY id) as atp_res ON atp.id = atp_res.id" +
+            ") as pend GROUP BY idTarefa" +
             ") as pend ON cl.idTarefa = pend.idTarefa " +
-            "WHERE cl.idTarefa IN (SELECT idTarefa FROM tarefas WHERE idUtilizador =:idUtilizador AND data =:data) AND ct_atp_res = 0")
+            "WHERE cl.idTarefa IN (SELECT idTarefa FROM tarefas WHERE idUtilizador =:idUtilizador) AND ct_realizado = 0")
+    abstract public Maybe<List<Pendencia>> obterPendencias(String idUtilizador);
+
+
+    @Transaction
+    @Query("SELECT * " +
+            "FROM clientes as cl " +
+            "LEFT JOIN (" +
+            "SELECT idTarefa, IFNULL(SUM(ct_atp_res), 0) as ct_realizado FROM (" +
+            "SELECT * FROM atividadesPendentes as atp " +
+            "LEFT JOIN (SELECT id, COUNT(*) as ct_atp_res FROM atividadesPendentesResultado GROUP BY id) as atp_res ON atp.id = atp_res.id" +
+            ") as pend GROUP BY idTarefa" +
+            ") as pend ON cl.idTarefa = pend.idTarefa " +
+            "WHERE cl.idTarefa IN (SELECT idTarefa FROM tarefas WHERE idUtilizador =:idUtilizador AND data =:data) AND ct_realizado = 0")
     abstract public Maybe<List<Pendencia>> obterPendencias(String idUtilizador, long data);
 
 
@@ -74,10 +80,10 @@ abstract public class TransferenciasDao implements BaseDao<Resultado> {
     @Transaction
     @Query("SELECT * " +
             "FROM tarefas as trf " +
-            "LEFT JOIN (SELECT idTarefa, COUNT(sincronizado) as ct FROM resultados WHERE sincronizado = :sincronizado GROUP BY idTarefa) as res " +
+            "LEFT JOIN (SELECT idTarefa, COUNT(sincronizado) as ct FROM resultados GROUP BY idTarefa) as res " +
             "ON trf.idTarefa = res.idTarefa " +
             "WHERE ct > 0 AND idUtilizador = :idUtilizador AND data = :data")
-    abstract public Maybe<List<Upload>> obterUploads(String idUtilizador, long data, boolean sincronizado);
+    abstract public Maybe<List<Upload>> obterUploads(String idUtilizador, long data);
 
 
     //-------------------

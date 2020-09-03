@@ -6,6 +6,9 @@ import androidx.databinding.BindingAdapter;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipDrawable;
+import com.vvm.sh.R;
 import com.vvm.sh.baseDados.entidades.Resultado;
 import com.vvm.sh.ui.transferencias.adaptadores.PendenciaRecyclerAdapter;
 import com.vvm.sh.ui.transferencias.adaptadores.UploadRecyclerAdapter;
@@ -13,6 +16,7 @@ import com.vvm.sh.ui.transferencias.modelos.Pendencia;
 import com.vvm.sh.ui.transferencias.modelos.Upload;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.ResultadoId;
+import com.vvm.sh.util.constantes.Identificadores;
 
 import java.util.List;
 
@@ -84,6 +88,7 @@ public class UploadBinding {
 
     }
 
+
     @BindingAdapter({"textoUpload"})
     public static void setTextoUpload(TextView view, List<Resultado> items) {
 
@@ -99,5 +104,28 @@ public class UploadBinding {
 
         view.setText(texto);
     }
+
+
+
+
+    @BindingAdapter({"sincronizacao"})
+    public static void setSincronizacao(Chip view, int sincronizacao) {
+
+        ChipDrawable chipDrawable = (ChipDrawable) view.getChipDrawable();
+
+        if(sincronizacao == Identificadores.Sincronizacao.SINCRONIZADO){
+
+            view.setText(view.getContext().getString(R.string.sincronizado));
+            chipDrawable.setChipBackgroundColorResource(R.color.cor_sincronizado);
+            view.setChipIcon(view.getContext().getResources().getDrawable(R.drawable.ic_sincronizado_24dp));
+
+        }
+        else{
+            view.setText(view.getContext().getString(R.string.nao_sincronizado));
+            chipDrawable.setChipBackgroundColorResource(R.color.cor_nao_sincronizado);
+            view.setChipIcon(view.getContext().getResources().getDrawable(R.drawable.ic_sincronizado_24dp));
+        }
+    }
+
 
 }

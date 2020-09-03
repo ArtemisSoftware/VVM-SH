@@ -69,7 +69,7 @@ abstract public class TransferenciasDao implements BaseDao<Resultado> {
 
 
     @Transaction
-    @Query("SELECT * " +
+    @Query("SELECT *,  " + Identificadores.Sincronizacao.NAO_SINCRONIZADO + " as sincronizado " +
             "FROM tarefas as trf " +
             "LEFT JOIN (SELECT idTarefa, COUNT(sincronizado) as ct FROM resultados WHERE sincronizado = :sincronizado GROUP BY idTarefa) as res " +
             "ON trf.idTarefa = res.idTarefa " +
@@ -77,13 +77,24 @@ abstract public class TransferenciasDao implements BaseDao<Resultado> {
     abstract public Maybe<List<Upload>> obterUploads(String idUtilizador, boolean sincronizado);
 
 
+
     @Transaction
-    @Query("SELECT * " +
-            "FROM tarefas as trf " +
-            "LEFT JOIN (SELECT idTarefa, COUNT(sincronizado) as ct FROM resultados GROUP BY idTarefa) as res " +
-            "ON trf.idTarefa = res.idTarefa " +
-            "WHERE ct > 0 AND idUtilizador = :idUtilizador AND data = :data")
+    @Query("SELECT *, " +
+            "CASE " +
+            "WHEN IFNULL(ct_sinc_total, 0) = 0 THEN " + Identificadores.Sincronizacao.NAO_SINCRONIZADO + " " +
+            "WHEN IFNULL(ct_sinc, 0) = IFNULL(ct_sinc_total, 0) THEN " + Identificadores.Sincronizacao.SINCRONIZADO + " " +
+            "ELSE  " + Identificadores.Sincronizacao.NAO_SINCRONIZADO + " END as sincronizado " +
+            "FROM tarefas  as trf " +
+            "LEFT JOIN (SELECT idTarefa, COUNT(sincronizado) as ct_sinc_total FROM resultados GROUP BY idTarefa) as res_sinc_total " +
+            "ON trf.idTarefa = res_sinc_total.idTarefa " +
+            "LEFT JOIN (SELECT idTarefa, COUNT(sincronizado) as ct_sinc FROM resultados WHERE sincronizado = "+ Identificadores.Sincronizacao.SINCRONIZADO +" GROUP BY idTarefa) as res_sinc " +
+            "ON trf.idTarefa = res_sinc.idTarefa " +
+            "WHERE ct_sinc_total > 0 AND idUtilizador = :idUtilizador AND data = :data")
     abstract public Maybe<List<Upload>> obterUploads(String idUtilizador, long data);
+
+
+
+
 
 
     //-------------------

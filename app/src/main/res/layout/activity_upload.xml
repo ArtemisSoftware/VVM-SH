@@ -30,91 +30,97 @@
             app:cardElevation="0dp"
             app:layout_constraintTop_toTopOf="parent">
 
-            <LinearLayout
+
+            <androidx.constraintlayout.widget.ConstraintLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:gravity="center">
+                android:padding="16dp">
 
 
-                <LinearLayout
+                <ImageView
+                    android:id="@+id/imageView7"
+                    android:layout_width="134dp"
+                    android:layout_height="134dp"
+                    android:layout_marginTop="16dp"
+                    android:scaleType="fitCenter"
+                    android:tint="@color/cor_tabelas"
+                    app:layout_constraintEnd_toEndOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"
+                    app:srcCompat="@drawable/ic_upload" />
+
+                <TextView
+                    android:id="@+id/txt_titulo"
+                    style="@style/titulo"
+                    android:layout_marginTop="20dp"
+                    android:text="@string/upload_dados"
+                    app:layout_constraintEnd_toEndOf="@+id/imageView7"
+                    app:layout_constraintStart_toStartOf="@+id/imageView7"
+                    app:layout_constraintTop_toBottomOf="@+id/imageView7" />
+
+
+                <TextView
+                    android:id="@+id/txt_data"
+                    style="@style/textoDetalhe"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/data"
+                    app:layout_constraintEnd_toEndOf="@+id/imageView7"
+                    app:layout_constraintStart_toStartOf="@+id/imageView7"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_titulo" />
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/lnr_lyt_progresso"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="vertical"
-                    android:gravity="center"
-                    android:padding="16dp">
+                    android:layout_marginTop="24dp"
+                    android:layout_marginBottom="8dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintEnd_toEndOf="@+id/imageView7"
+                    app:layout_constraintStart_toStartOf="@+id/imageView7"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_data">
 
-                    <!-- Media -->
-                    <ImageView
-                        android:layout_width="match_parent"
-                        android:layout_height="134dp"
-                        app:srcCompat="@drawable/ic_upload"
-                        android:tint="@color/cor_tabelas"
-                        android:scaleType="fitCenter"/>
+                    <!-- android:visibility="@{viewmodel.versaoApp.atualizar ? View.VISIBLE : View.GONE}" -->
 
-
-                    <!-- Title, secondary and supporting text -->
-                    <TextView
-                        android:id="@+id/txt_titulo"
-                        style="@style/titulo"
-                        android:layout_marginTop="30dp"
-                        android:text="@string/upload_dados" />
-
-
-                    <TextView
-                        android:id="@+id/txt_data"
-                        android:layout_marginTop="8dp"
-                        style="@style/textoDetalhe"
-                        android:text="@string/data"/>
-
-
-                    <androidx.constraintlayout.widget.ConstraintLayout
-                        android:id="@+id/lnr_lyt_progresso"
-                        android:layout_width="match_parent"
+                    <ProgressBar
+                        android:id="@+id/progressBar_progresso"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="500dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="24dp">
+                        android:max="100"
+                        android:progress="0"
+                        app:layout_constraintBottom_toTopOf="@+id/button"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.19999999" />
 
-                        <!-- android:visibility="@{viewmodel.versaoApp.atualizar ? View.VISIBLE : View.GONE}" -->
+                    <TextView
+                        android:id="@+id/txt_titulo_progresso"
+                        style="@style/textoDetalhe"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="64dp"
+                        app:layout_constraintBottom_toTopOf="@+id/button"
+                        app:layout_constraintStart_toStartOf="@+id/progressBar_progresso"
+                        app:layout_constraintTop_toBottomOf="@+id/progressBar_progresso"
+                        app:layout_constraintVertical_bias="0.07999998" />
 
-                        <ProgressBar
-                            android:id="@+id/progressBar_progresso"
-                            style="?android:attr/progressBarStyleHorizontal"
-                            android:layout_width="500dp"
-                            android:layout_height="wrap_content"
-                            android:max="100"
-                            android:progress="0"
-                            app:layout_constraintBottom_toTopOf="@+id/button"
-                            app:layout_constraintEnd_toEndOf="parent"
-                            app:layout_constraintStart_toStartOf="parent"
-                            app:layout_constraintTop_toTopOf="parent"
-                            app:layout_constraintVertical_bias="0.19999999" />
-
-                        <TextView
-                            android:id="@+id/txt_titulo_progresso"
-                            style="@style/textoDetalhe"
-                            android:layout_marginTop="8dp"
-                            android:layout_marginBottom="64dp"
-                            app:layout_constraintBottom_toTopOf="@+id/button"
-                            app:layout_constraintStart_toStartOf="@+id/progressBar_progresso"
-                            app:layout_constraintTop_toBottomOf="@+id/progressBar_progresso"
-                            app:layout_constraintVertical_bias="0.07999998" />
-
-                        <TextView
-                            android:id="@+id/txt_progresso"
-                            style="@style/textoDetalhe"
-                            app:layout_constraintEnd_toEndOf="@+id/progressBar_progresso"
-                            app:layout_constraintTop_toTopOf="@+id/txt_titulo_progresso" />
+                    <TextView
+                        android:id="@+id/txt_progresso"
+                        style="@style/textoDetalhe"
+                        app:layout_constraintEnd_toEndOf="@+id/progressBar_progresso"
+                        app:layout_constraintTop_toTopOf="@+id/txt_titulo_progresso" />
 
 
-                    </androidx.constraintlayout.widget.ConstraintLayout>
+                </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 
-                </LinearLayout>
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 
-            </LinearLayout>
+
 
         </com.google.android.material.card.MaterialCardView>
 

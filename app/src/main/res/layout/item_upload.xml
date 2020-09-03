@@ -71,9 +71,7 @@
 
             <com.google.android.material.chip.Chip
                 android:id="@+id/chip"
-                app:chipIcon="@drawable/ic_sincronizado_24dp"
-                android:text="@string/nao_sincronizado"
-                app:chipBackgroundColor="@color/cor_nao_sincronizado"
+                sincronizado="@{upload.sincronizado}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"

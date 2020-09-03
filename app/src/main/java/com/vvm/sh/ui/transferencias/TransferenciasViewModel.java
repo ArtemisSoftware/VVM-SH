@@ -96,22 +96,49 @@ public class TransferenciasViewModel extends BaseViewModel {
      */
     public void obterUpload(String idUtilizador, Handler handler){
         Observable<List<Upload>> observable = transferenciasRepositorio.obterUploads(idUtilizador).toObservable();
-        obterUpload(observable, idUtilizador, handler);
+        obterUpload(observable, idUtilizador, handler, false);
     }
 
+
+    /**
+     * Metodo que permite obter os dados para upload de uma data
+     * @param idUtilizador o identificador do utilizador
+     * @param data a data dos dados
+     * @param handler
+     */
     public void obterUpload(String idUtilizador, long data, Handler handler){
         Observable<List<Upload>> observable = transferenciasRepositorio.obterUploads(idUtilizador, data).toObservable();
-        obterUpload(observable, idUtilizador, handler);
+        obterUpload(observable, idUtilizador, handler, true);
     }
 
 
-
-
-    private void obterUpload(Observable<List<Upload>> observable, String idUtilizador, Handler handler){
+    /**
+     * Metodo que permite obter os dados para upload
+     * @param observable
+     * @param idUtilizador o identificador do utilizador
+     * @param handler
+     * @param reupload true caso seja um reupload ou false caso contrario
+     */
+    private void obterUpload(Observable<List<Upload>> observable, String idUtilizador, Handler handler, boolean reupload){
 
         showProgressBar(true);
 
         observable
+                .map(new Function<List<Upload>, List<Upload>>() {
+                    @Override
+                    public List<Upload> apply(List<Upload> uploads) throws Exception {
+
+                        List<Upload> registos = new ArrayList<>();
+
+                        for (Upload item : uploads) {
+                            item.filtrarResultados(reupload);
+                            registos.add(item);
+                        }
+
+
+                        return registos;
+                    }
+                })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -144,7 +171,6 @@ public class TransferenciasViewModel extends BaseViewModel {
                                 showProgressBar(false);
                             }
                         }
-
                 );
     }
 
@@ -303,6 +329,7 @@ public class TransferenciasViewModel extends BaseViewModel {
 
                 );
     }
+
 
 
     //-----------------------

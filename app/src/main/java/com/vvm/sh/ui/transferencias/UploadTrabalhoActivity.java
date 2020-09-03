@@ -238,6 +238,10 @@ public class UploadTrabalhoActivity extends BaseDaggerActivity {
     }
 
 
+    /**
+     * Metodo que permite realizar o upload dos dados
+     * @param dadosUpload dados para upload
+     */
     private void uploadDados(DadosUpload dadosUpload){
 
         Handler handler = new Handler();

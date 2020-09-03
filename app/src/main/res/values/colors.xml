@@ -134,7 +134,7 @@
     <color name="cor_botao_calendario">#99CC00</color>
     <color name="cor_botao">#3395ff</color>
 
-    <color name="cor_sincronizado">#388E3C</color>
+    <color name="cor_sincronizado">#15D2A7</color>
     <color name="cor_nao_sincronizado">#fe485a</color>
     <color name="cor_trancado">#FFA000</color>
 
@@ -142,7 +142,7 @@
     <color name="cor_app_sa">#FF1565C0</color>
 
 
-    <color name="cor_executado">#81C784</color>
+    <color name="cor_executado">#39DB80</color>
     <color name="cor_nao_executado">#fe485a</color>
 
     <color name="cor_completo">#20d2bb</color>

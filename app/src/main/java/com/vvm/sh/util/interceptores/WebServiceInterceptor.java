@@ -33,9 +33,9 @@ public class WebServiceInterceptor implements Interceptor {
         int app = 0;
 
         try {
-
-            metodo  = pedido.url().pathSegments().get(2);
-
+//pedido.header("Static-Header1");
+            metodo  =  pedido.url().pathSegments().get(2);
+            //app = pedido.header("Static-Header1")
             if(SegurancaAlimentarApi.URL_BASE.contains(pedido.url().pathSegments().get(0)) == true){
                 app = Identificadores.App.APP_SA;
             }

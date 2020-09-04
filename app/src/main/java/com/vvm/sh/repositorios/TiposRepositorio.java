@@ -55,7 +55,7 @@ public class TiposRepositorio {
      * @return os dados de um tipo
      */
     public Single<TipoResposta> obterTipo(String metodo) {
-        return api.obterTipo(metodo);
+        return api.obterTipo(SegurancaAlimentarApi.HEADER_TIPO, metodo);
     }
 
 

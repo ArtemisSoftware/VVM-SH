@@ -91,4 +91,9 @@ public class Sintaxe {
         public static final String TIPO_ATUALIZADO_SUCESSO = "Tipo atualizado com sucesso.\nTipo: ";
     }
 
+    public class API {
+        public static final String API = "Api";
+        public static final String NOME_API = "Api-name";
+        public static final String METODO_INTERNO = "Internal-method";
+    }
 }

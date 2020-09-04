@@ -5,11 +5,18 @@ import com.vvm.sh.api.modelos.SessaoResposta;
 import com.vvm.sh.api.modelos.TipoResposta;
 import com.vvm.sh.api.modelos.UtilizadorResposta;
 import com.vvm.sh.api.modelos.VersaoApp;
+import com.vvm.sh.util.constantes.Identificadores;
+import com.vvm.sh.util.constantes.Sintaxe;
+
+import java.util.HashMap;
+import java.util.Map;
 
 import io.reactivex.Single;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.HeaderMap;
+import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
@@ -18,13 +25,25 @@ public interface SegurancaAlimentarApi {
 
     String URL_BASE = "http://www.vivamais.com/tablet_hsa_ws/service.asmx/";
 
+    Map<String, String> HEADER  = new HashMap<String, String>() {{
+        put(Sintaxe.API.API, Identificadores.App.APP_SA + "");
+        put(Sintaxe.API.NOME_API, SegurancaAlimentarApi.class.getName());
+    }};
+
+    Map<String, String> HEADER_TIPO  = new HashMap<String, String>() {{
+        put(Sintaxe.API.API, Identificadores.App.APP_SA + "");
+        put(Sintaxe.API.NOME_API, SegurancaAlimentarApi.class.getName());
+        put(Sintaxe.API.METODO_INTERNO, "tipo");
+    }};
 
 
     @GET("{metodo}?dataT=")
-    Single<TipoResposta> obterTipo(@Path("metodo") String metodo);
+    Single<TipoResposta> obterTipo(@HeaderMap Map<String, String> headers, @Path("metodo") String metodo);
+
 
     @GET("{metodo}")
     Single<TipoResposta> obterTipo(@Path("metodo") String metodo, @Query("dataT") String seloTemporal);
+
 
     @GET("Obter_Actualizacoes")
     Single<VersaoApp> obterAtualizacao();

@@ -1,7 +1,7 @@
 package com.vvm.sh.util.metodos;
 
 import com.vvm.sh.util.constantes.Identificadores;
-import com.vvm.sh.util.constantes.Sintaxe;
+import com.vvm.sh.util.excepcoes.TipoInexistenteException;
 
 public class TiposUtil {
 
@@ -47,11 +47,9 @@ public class TiposUtil {
 
 
 
-    public static String obterMetodo(String descricao){
-
+    public static String obterMetodo(String descricao) throws TipoInexistenteException {
 
         String metodo = "";
-
 
         switch (descricao){
 
@@ -86,16 +84,12 @@ public class TiposUtil {
                 metodo = MetodosTipos.CURSOS;
                 break;
 
-                default:
-                    //throw new TipoInexistenteException(descricao);
-                    break;
+            default:
+                throw new TipoInexistenteException(descricao);
 
         }
 
-
         return metodo;
-
-
     }
 
 

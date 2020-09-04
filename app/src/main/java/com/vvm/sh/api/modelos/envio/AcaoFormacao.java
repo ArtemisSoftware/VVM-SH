@@ -1,6 +1,7 @@
-package com.vvm.sh.api;
+package com.vvm.sh.api.modelos.envio;
 
 import com.google.gson.annotations.SerializedName;
+import com.vvm.sh.api.modelos.envio.Formando;
 import com.vvm.sh.util.constantes.Identificadores;
 
 import java.util.List;

@@ -49,7 +49,7 @@ public class OcorrenciaRepositorio {
      * @return uma lista
      */
     public Flowable<List<Tipo>> obterOcorrencias() {
-        return tipoDao.obterTipos(TiposConstantes.TIPIFICACAO_OCORRENCIA, "");
+        return tipoDao.obterTipos(TiposConstantes.MetodosTipos.TIPIFICACAO_OCORRENCIA, "");
     }
 
 
@@ -137,7 +137,7 @@ public class OcorrenciaRepositorio {
 
 
     public Flowable<Tipo> obterOcorrencia(int id) {
-        return tipoDao.obterTipo(TiposConstantes.TIPIFICACAO_OCORRENCIA, id);
+        return tipoDao.obterTipo(TiposConstantes.MetodosTipos.TIPIFICACAO_OCORRENCIA, id);
     }
 
 }

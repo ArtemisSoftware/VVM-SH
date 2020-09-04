@@ -1,4 +1,4 @@
-package com.vvm.sh.api;
+package com.vvm.sh.api.modelos.envio;
 
 import com.google.gson.annotations.SerializedName;
 

@@ -1,8 +1,8 @@
-package com.vvm.sh.api.modelos;
+package com.vvm.sh.api.modelos.pedido;
 
 import com.google.gson.annotations.SerializedName;
 
-public class DadosResultado {
+public class IDados {
 
     @SerializedName("Ordem")
     public String ordem;

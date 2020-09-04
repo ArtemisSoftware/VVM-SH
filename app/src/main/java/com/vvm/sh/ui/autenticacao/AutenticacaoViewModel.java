@@ -10,7 +10,7 @@ import com.vvm.sh.repositorios.AutenticacaoRepositorio;
 import com.vvm.sh.baseDados.entidades.Utilizador;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.excepcoes.UtilizadorException;
-import com.vvm.sh.util.mapeamento.ModelMapping;
+import com.vvm.sh.util.mapeamento.DownloadMapping;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
@@ -68,7 +68,7 @@ public class AutenticacaoViewModel extends BaseViewModel {
                     @Override
                     public ObservableSource<?> apply(Object o) throws Exception {
 
-                        Utilizador utilizador = ModelMapping.INSTANCE.map((UtilizadorResultado) o);
+                        Utilizador utilizador = DownloadMapping.INSTANCE.map((UtilizadorResultado) o);
                         return autenticacaoRepositorio.inserir(utilizador).toObservable();
 
                     }

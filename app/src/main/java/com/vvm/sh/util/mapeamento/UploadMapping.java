@@ -1,18 +1,16 @@
 package com.vvm.sh.util.mapeamento;
 
-import com.vvm.sh.api.AcaoFormacao;
-import com.vvm.sh.api.Anomalia;
-import com.vvm.sh.api.AtividadePendenteExecutada;
-import com.vvm.sh.api.AtividadePendenteNaoExecutada;
+import com.vvm.sh.api.modelos.envio.AcaoFormacao;
+import com.vvm.sh.api.modelos.envio.Anomalia;
+import com.vvm.sh.api.modelos.envio.AtividadePendenteExecutada;
+import com.vvm.sh.api.modelos.envio.AtividadePendenteNaoExecutada;
 import com.vvm.sh.api.AtividadePendenteResultado_;
 import com.vvm.sh.api.BlocoDados;
-import com.vvm.sh.api.BlocoImagens;
-import com.vvm.sh.api.CrossSelling;
-import com.vvm.sh.api.Email;
-import com.vvm.sh.api.Formando;
-import com.vvm.sh.api.FormandoResultado_;
-import com.vvm.sh.api.Imagem;
-import com.vvm.sh.api.Ocorrencia;
+import com.vvm.sh.api.modelos.envio.CrossSelling;
+import com.vvm.sh.api.modelos.envio.Email;
+import com.vvm.sh.api.modelos.envio.Formando;
+import com.vvm.sh.api.modelos.envio.Imagem;
+import com.vvm.sh.api.modelos.envio.Ocorrencia;
 import com.vvm.sh.api.Tarefa_;
 import com.vvm.sh.baseDados.entidades.CrossSellingResultado;
 import com.vvm.sh.baseDados.entidades.EmailResultado;

@@ -1,4 +1,4 @@
-package com.vvm.sh.api.modelos;
+package com.vvm.sh.api.modelos.pedido;
 
 
 import com.google.gson.annotations.SerializedName;
@@ -6,7 +6,7 @@ import com.google.gson.annotations.SerializedName;
 /**
  * Classe que representa uma atividade pendente proveniente do web service
  */
-public class AtividadePendenteResposta {
+public class IAtividadePendente {
 
 
     @SerializedName("ServID")

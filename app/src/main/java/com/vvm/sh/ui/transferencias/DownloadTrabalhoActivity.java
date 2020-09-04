@@ -9,7 +9,7 @@ import android.os.Message;
 import android.view.View;
 
 import com.vvm.sh.R;
-import com.vvm.sh.api.modelos.Codigo;
+import com.vvm.sh.api.modelos.pedido.Codigo;
 import com.vvm.sh.baseDados.entidades.Tarefa;
 import com.vvm.sh.databinding.ActivityDownloadTrabalhoBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;

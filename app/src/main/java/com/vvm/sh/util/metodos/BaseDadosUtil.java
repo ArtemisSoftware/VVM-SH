@@ -11,6 +11,8 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.nio.channels.FileChannel;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 import java.util.List;
 
 public class BaseDadosUtil {
@@ -20,9 +22,10 @@ public class BaseDadosUtil {
      * Metodo que permite exportar a base de dados da aplicação
      * @param atividade
      */
-    public static void exportarBaseDados(Activity atividade) {
+    public static File exportarBaseDados(Activity atividade) {
 
-        String nomeCopia = BaseDadosContantes.NOME + "__" + PreferenciasUtil.obterIdUtilizador(atividade) + "_" + DatasUtil.obterDataAtual(DatasUtil.FORMATO_DD_MM_YYYY) + "_" + BaseDadosContantes.VERSAO + BaseDadosContantes.EXTENSAO;
+
+        String nomeCopia = BaseDadosContantes.NOME + "__" + PreferenciasUtil.obterIdUtilizador(atividade) + "_vdb_" + BaseDadosContantes.VERSAO + "__" + DatasUtil.obterDataAtual(DatasUtil.FORMATO_FICHEIRO_BD)  + BaseDadosContantes.EXTENSAO;
 
         try {
             File storageDirectory = Environment.getExternalStorageDirectory();
@@ -44,6 +47,8 @@ public class BaseDadosUtil {
                     destino.close();
 
                     MensagensUtil.snack(atividade, Sintaxe.Alertas.SUCESSO_EXPORTAR_BD + caminhoBdCopia);
+
+                    return bdCopia;
                 }
             }
         }
@@ -51,6 +56,7 @@ public class BaseDadosUtil {
             MensagensUtil.snack(atividade, Sintaxe.Alertas.ERRO_EXPORTAR_BD + e.getMessage());
         }
 
+        return null;
     }
 
 
@@ -108,6 +114,12 @@ public class BaseDadosUtil {
 
         File directoria = new File(Environment.getExternalStorageDirectory(), DiretoriasUtil.BASE_DADOS);
         File ficheiros[] = directoria.listFiles();
+
+        Arrays.sort(ficheiros, new Comparator<File>(){
+            public int compare(File f1, File f2) {
+                return Long.valueOf(f2.lastModified()).compareTo(f1.lastModified());
+            }
+        });
 
         for (File ficheiro : ficheiros) {
             ficheirosBd.add(ficheiro.getName());

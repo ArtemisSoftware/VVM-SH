@@ -1,4 +1,4 @@
-package com.vvm.sh.api.modelos;
+package com.vvm.sh.api.modelos.pedido;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -8,7 +8,7 @@ import java.util.List;
 /**
  * Classe que representa uma ocorrencia do web service
  */
-public class OcorrenciaResposta {
+public class IOcorrencia {
 
     @SerializedName("ID")
     public String idOcorrencia;
@@ -51,11 +51,11 @@ public class OcorrenciaResposta {
 
 
     @SerializedName("Historico")
-    public List<OcorrenciaHistoricoResultado> historico;
+    public List<IOcorrenciaHistorico> historico;
 
 
 
-    public class OcorrenciaHistoricoResultado{
+    public class IOcorrenciaHistorico {
 
         @SerializedName("Data")
         public String data;

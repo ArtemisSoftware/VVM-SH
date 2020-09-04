@@ -1,9 +1,6 @@
 package com.vvm.sh.util.constantes;
 
-import android.graphics.Color;
-
 import com.vvm.sh.R;
-import com.vvm.sh.api.modelos.Codigo;
 
 public class Identificadores {
 
@@ -93,7 +90,7 @@ public class Identificadores {
 
     public class CodigosWs {
 
-        public static final int CODIGO_100 = 100;
+        public static final int ID_100 = 100;
         public static final String MSG_100 = "Sucesso no envio de dados";
 
         public static final int CODIGO_101 = 101;

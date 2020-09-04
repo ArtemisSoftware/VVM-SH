@@ -48,7 +48,7 @@ public class AnomaliaRepositorio {
      * @return uma lista de registos
      */
     public Flowable<List<AnomaliaRegistada>> obterAnomaliasRegistadas(int idTarefa) {
-        return anomaliaResultadoDao.obterAnomaliasRegistadas(idTarefa, TiposConstantes.TIPOS_ANOMALIA);
+        return anomaliaResultadoDao.obterAnomaliasRegistadas(idTarefa, TiposConstantes.MetodosTipos.TIPOS_ANOMALIA);
     }
 
 
@@ -58,7 +58,7 @@ public class AnomaliaRepositorio {
      * @return uma anomalia
      */
     public Maybe<AnomaliaRegistada> obterAnomaliaRegistada(int id) {
-        return anomaliaResultadoDao.obterAnomaliasRegistada(id, TiposConstantes.TIPOS_ANOMALIA);
+        return anomaliaResultadoDao.obterAnomaliasRegistada(id, TiposConstantes.MetodosTipos.TIPOS_ANOMALIA);
     }
 
 
@@ -85,7 +85,7 @@ public class AnomaliaRepositorio {
 
 
     public Flowable<List<Tipo>> obterTiposAnomalias(){
-        return tipoDao.obterTipos(TiposConstantes.TIPOS_ANOMALIA);
+        return tipoDao.obterTipos(TiposConstantes.MetodosTipos.TIPOS_ANOMALIA);
     }
 
 

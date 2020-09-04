@@ -1,4 +1,4 @@
-package com.vvm.sh.api.modelos;
+package com.vvm.sh.api.modelos.pedido;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Classe que representa uma tarefa proveniente do web service
  */
-public class TarefaResultado {
+public class ITarefa {
 
     @SerializedName("SaldoCartaoVM")
     public String saldoCartaoVm;
@@ -17,22 +17,22 @@ public class TarefaResultado {
     public String notas;
 
     @SerializedName("ActivExecutadas")
-    public List<AtividadeExecutadasResultado> atividadesExecutadas;
+    public List<IAtividadeExecutada> atividadesExecutadas;
 
     @SerializedName("Ocorrencias")
-    public List<OcorrenciaResposta> ocorrencias;
+    public List<IOcorrencia> ocorrencias;
 
 
     @SerializedName("Anomalias")
-    public List<AnomaliaResposta> anomalias;
+    public List<IAnomalia> anomalias;
 
     @SerializedName("ActivPendentes")
-    public List<AtividadePendenteResposta> atividadesPendentes;
+    public List<IAtividadePendente> atividadesPendentes;
 
 
     @SerializedName("Dados")
-    public DadosResultado dados;
+    public IDados dados;
 
     @SerializedName("Cliente")
-    public ClienteResultado cliente;
+    public ICliente cliente;
 }

@@ -9,7 +9,7 @@ import android.os.Message;
 import android.view.View;
 
 import com.vvm.sh.R;
-import com.vvm.sh.api.modelos.Codigo;
+import com.vvm.sh.api.modelos.pedido.Codigo;
 import com.vvm.sh.databinding.ActivityUploadBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
@@ -28,8 +28,6 @@ import com.vvm.sh.util.viewmodel.BaseViewModel;
 import java.util.List;
 
 import javax.inject.Inject;
-
-import butterknife.OnClick;
 
 public class UploadTrabalhoActivity extends BaseDaggerActivity {
 
@@ -164,6 +162,11 @@ public class UploadTrabalhoActivity extends BaseDaggerActivity {
     //Metodos locais
     //----------------------
 
+
+    /**
+     * Metodo que permite formatar os dados do upload
+     * @param registos os registos de upload
+     */
     private void formatarUploads(List<Upload> registos) {
 
         if(registos.size() == 0) {
@@ -175,17 +178,15 @@ public class UploadTrabalhoActivity extends BaseDaggerActivity {
                 }
             };
 
-            dialogo.alerta(getString(R.string.upload), "Não existem dados para upload", listener);
+            dialogo.alerta(getString(R.string.upload), getString(R.string.upload_dados_inexistentes), listener);
             activityUploadBinding.txtSubTitulo.setVisibility(View.GONE);
             activityUploadBinding.lnrLytProgresso.setVisibility(View.GONE);
-
         }
         else{
 
             activityUploadBinding.txtSubTitulo.setText(getString(R.string.tarefas_upload));
             activityUploadBinding.lnrLytProgresso.setVisibility(View.VISIBLE);
             activityUploadBinding.rclRegistos.setVisibility(View.VISIBLE);
-
         }
     }
 
@@ -212,7 +213,7 @@ public class UploadTrabalhoActivity extends BaseDaggerActivity {
             activityUploadBinding.txtSubTitulo.setText(getString(R.string.tarefas_pendentes));
             activityUploadBinding.lnrLytProgresso.setVisibility(View.GONE);
             activityUploadBinding.rclRegistosPendencias.setVisibility(View.VISIBLE);
-            dialogo.alerta("Pendencias", "Existem tarefas pedentes.\r\nNão é possível realizar o upload dos dados.\r\n\r\nPor favor dê baixa de pelo menos uma atividade pendentes nas tarefas apresentadas");
+            dialogo.alerta(getString(R.string.pendencias), getString(R.string.pendencias_tarefas_upload));
 
         }
     }
@@ -249,6 +250,7 @@ public class UploadTrabalhoActivity extends BaseDaggerActivity {
             @Override
             public void run() {
 
+                //TODO: comentado por causa de testes
                 //--viewModel.upload(dadosUpload);
             }
         }, AppConfig.TEMPO_CONSULTA_UPLOAD);

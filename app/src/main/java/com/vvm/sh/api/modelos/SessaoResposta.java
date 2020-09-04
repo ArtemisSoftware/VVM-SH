@@ -1,6 +1,7 @@
 package com.vvm.sh.api.modelos;
 
 import com.google.gson.annotations.SerializedName;
+import com.vvm.sh.api.modelos.pedido.ITarefa;
 
 import java.util.List;
 
@@ -12,6 +13,10 @@ public class SessaoResposta {
 
     @SerializedName("metodo")
     public String metodo;
+
+
+    @SerializedName("app")
+    public String app;
 
     public class Sessao {
 
@@ -26,6 +31,6 @@ public class SessaoResposta {
     public class TrabalhoInfo{
 
         @SerializedName("Trabalho")
-        public TarefaResultado tarefas;
+        public ITarefa tarefas;
     }
 }

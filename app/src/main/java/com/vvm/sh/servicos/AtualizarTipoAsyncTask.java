@@ -9,7 +9,7 @@ import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.repositorios.TiposRepositorio;
 import com.vvm.sh.baseDados.entidades.Atualizacao;
 import com.vvm.sh.baseDados.entidades.Tipo;
-import com.vvm.sh.util.mapeamento.ModelMapping;
+import com.vvm.sh.util.mapeamento.DownloadMapping;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -44,11 +44,11 @@ public class AtualizarTipoAsyncTask extends AsyncTask<List<TipoResposta>, Void, 
 
                         List<Tipo> tipos = new ArrayList<>();
 
-                        Atualizacao atualizacao = ModelMapping.INSTANCE.map(resposta);
+                        Atualizacao atualizacao = DownloadMapping.INSTANCE.map(resposta);
 
                         for (TipoResultado item : resposta.dadosNovos) {
 
-                            Tipo resultado = ModelMapping.INSTANCE.map(item, resposta);
+                            Tipo resultado = DownloadMapping.INSTANCE.map(item, resposta);
                             tipos.add(resultado);
                         }
 

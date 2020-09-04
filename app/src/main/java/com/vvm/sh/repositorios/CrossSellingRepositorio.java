@@ -49,15 +49,15 @@ public class CrossSellingRepositorio {
     }
 
     public Single<List<Tipo>> obterProdutos(){
-        return tipoDao.obterCrossSellingProdutos(TiposConstantes.CROSS_SELLING_PRODUTOS);
+        return tipoDao.obterCrossSellingProdutos(TiposConstantes.MetodosTipos.CROSS_SELLING_PRODUTOS);
     }
 
     public Flowable<List<Tipo>> obterDimensoes(){
-        return tipoDao.obterTipos(TiposConstantes.CROSS_SELLING_DIMENSAO);
+        return tipoDao.obterTipos(TiposConstantes.MetodosTipos.CROSS_SELLING_DIMENSAO);
     }
 
     public Flowable<List<Tipo>> obterTipos(){
-        return tipoDao.obterTipos(TiposConstantes.CROSS_SELLING_TIPO);
+        return tipoDao.obterTipos(TiposConstantes.MetodosTipos.CROSS_SELLING_TIPO);
     }
 
 }

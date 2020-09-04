@@ -4,19 +4,19 @@ import android.database.sqlite.SQLiteConstraintException;
 import android.os.AsyncTask;
 import android.os.Handler;
 
-import com.vvm.sh.api.AcaoFormacao;
-import com.vvm.sh.api.Anomalia;
-import com.vvm.sh.api.AtividadePendente;
-import com.vvm.sh.api.AtividadePendenteExecutada;
-import com.vvm.sh.api.AtividadePendenteNaoExecutada;
+import com.vvm.sh.api.modelos.envio.AcaoFormacao;
+import com.vvm.sh.api.modelos.envio.Anomalia;
+import com.vvm.sh.api.modelos.envio.AtividadePendente;
+import com.vvm.sh.api.modelos.envio.AtividadePendenteExecutada;
+import com.vvm.sh.api.modelos.envio.AtividadePendenteNaoExecutada;
 import com.vvm.sh.api.AtividadePendenteResultado_;
-import com.vvm.sh.api.CrossSelling;
-import com.vvm.sh.api.DadosFormulario;
-import com.vvm.sh.api.Email;
-import com.vvm.sh.api.Formando;
+import com.vvm.sh.api.modelos.envio.CrossSelling;
+import com.vvm.sh.api.modelos.envio.DadosFormulario;
+import com.vvm.sh.api.modelos.envio.Email;
+import com.vvm.sh.api.modelos.envio.Formando;
 import com.vvm.sh.api.FormandoResultado_;
-import com.vvm.sh.api.Imagem;
-import com.vvm.sh.api.Ocorrencia;
+import com.vvm.sh.api.modelos.envio.Imagem;
+import com.vvm.sh.api.modelos.envio.Ocorrencia;
 import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.baseDados.entidades.CrossSellingResultado;
 import com.vvm.sh.baseDados.entidades.ImagemResultado;
@@ -115,30 +115,30 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
 
                     case ID_EMAIL:
 
-                        dadosFormulario.fixarEmail(adicionarEmail(resultado.idTarefa));
+                        dadosFormulario.fixarEmail(obterEmail(resultado.idTarefa));
                         break;
 
                     case ID_ANOMALIA_CLIENTE:
 
-                        dadosFormulario.fixarAnomalias(adicionarAnomaliaCliente(resultado.idTarefa));
+                        dadosFormulario.fixarAnomalias(obterAnomaliaCliente(resultado.idTarefa));
                         break;
 
 
                     case ID_CROSS_SELLING:
 
-                        dadosFormulario.fixarCrossSelling(adicionarCrossSelling(resultado.idTarefa));
+                        dadosFormulario.fixarCrossSelling(obterCrossSelling(resultado.idTarefa));
                         break;
 
 
                     case ID_OCORRENCIA:
 
-                        dadosFormulario.fixarOcorrencias(adicionarOcorrencias(resultado.idTarefa));
+                        dadosFormulario.fixarOcorrencias(obterOcorrencias(resultado.idTarefa));
                         break;
 
 
                     case ID_ATIVIDADE_PENDENTE:
 
-                        dadosFormulario.fixarAtividadesPendentes(adicionarAtividadesPendentes(resultado.idTarefa));
+                        dadosFormulario.fixarAtividadesPendentes(obterAtividadesPendentes(resultado.idTarefa));
                         break;
 
 
@@ -237,7 +237,7 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
      * @param idTarefa o identificador da tarefa
      * @return uma lista de atividades
      */
-    private List<AtividadePendente> adicionarAtividadesPendentes(int idTarefa) {
+    private List<AtividadePendente> obterAtividadesPendentes(int idTarefa) {
 
         List<AtividadePendente> registos = new ArrayList<>();
 
@@ -247,9 +247,9 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
 
                 AtividadePendenteExecutada registo = UploadMapping.INSTANCE.mapeamento(item);
 
-                //if(item.atividade.formacao == true){
+                if(item.atividade.formacao == true){
                     registo.formacao = obterAcaoFormacao(item.resultado.id);
-                //}
+                }
 
                 registos.add(registo);
             }
@@ -263,7 +263,12 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
     }
 
 
-    private List<Ocorrencia> adicionarOcorrencias(int idTarefa) {
+    /**
+     * Metodo que permite obter as ocorrencias
+     * @param idTarefa o identficador da tarefa
+     * @return as ocorrencias
+     */
+    private List<Ocorrencia> obterOcorrencias(int idTarefa) {
 
         List<Ocorrencia> registos = new ArrayList<>();
 
@@ -282,7 +287,7 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
      * @param idTarefa o identficador da tarefa
      * @return o cross selling
      */
-    private List<CrossSelling> adicionarCrossSelling(int idTarefa) {
+    private List<CrossSelling> obterCrossSelling(int idTarefa) {
 
         List<CrossSelling> registos = new ArrayList<>();
 
@@ -303,11 +308,11 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
 
 
     /**
-     * Metodo que permite adicionar as anomalias de um cliente
+     * Metodo que permite obter as anomalias de um cliente
      * @param idTarefa o identificador da tarefa
      * @return os dados das anomalias
      */
-    private List<Anomalia> adicionarAnomaliaCliente(int idTarefa) {
+    private List<Anomalia> obterAnomaliaCliente(int idTarefa) {
 
         List<Anomalia> registos = new ArrayList<>();
 
@@ -320,11 +325,11 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
 
 
     /**
-     * Metodo que permite adicionar um email
+     * Metodo que permite obter um email
      * @param idTarefa o identificador da tarefa
      * @return os dados do email
      */
-    private Email adicionarEmail(int idTarefa) {
+    private Email obterEmail(int idTarefa) {
 
         Email email = UploadMapping.INSTANCE.map(repositorio.obterEmail(idTarefa));
         return email;

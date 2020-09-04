@@ -1,11 +1,11 @@
-package com.vvm.sh.api.modelos;
+package com.vvm.sh.api.modelos.pedido;
 
 import com.google.gson.annotations.SerializedName;
 
 /**
  * Classe que representa uma anomalia proveniente do web service
  */
-public class AnomaliaResposta {
+public class IAnomalia {
 
     @SerializedName("Data")
     public String data;

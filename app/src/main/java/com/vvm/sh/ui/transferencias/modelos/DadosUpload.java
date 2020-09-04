@@ -1,8 +1,8 @@
 package com.vvm.sh.ui.transferencias.modelos;
 
 import com.vvm.sh.BuildConfig;
-import com.vvm.sh.api.DadosFormulario;
-import com.vvm.sh.api.Imagem;
+import com.vvm.sh.api.modelos.envio.DadosFormulario;
+import com.vvm.sh.api.modelos.envio.Imagem;
 
 import java.util.ArrayList;
 import java.util.HashMap;

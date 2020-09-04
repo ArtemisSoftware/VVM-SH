@@ -1,11 +1,11 @@
-package com.vvm.sh.api.modelos;
+package com.vvm.sh.api.modelos.pedido;
 
 import com.google.gson.annotations.SerializedName;
 
 /**
  * Classe que representa uma atividade executada proveniente do web service
  */
-public class AtividadeExecutadasResultado {
+public class IAtividadeExecutada {
 
 
     @SerializedName("Ordem")

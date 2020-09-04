@@ -5,6 +5,10 @@ import com.vvm.sh.ui.apresentacao.modelos.IntroducaoFactory;
 
 import static com.vvm.sh.util.constantes.Identificadores.ApresentacaoApp.*;
 
+
+/**
+ * Classe que contem as apresentações que devem aparecer quando a app é atualizada
+ */
 public class Apresentacoes {
 
     public static final Introducao[] PAGINAS_ATUALIZACAO = new Introducao[]{

@@ -63,7 +63,6 @@ public class CrossSellingActivity extends BaseDaggerActivity
     @Override
     protected void subscreverObservadores() {
 
-        //TODO: subscrever observadores do viewmodel
     }
 
 

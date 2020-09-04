@@ -4,15 +4,14 @@ import android.database.sqlite.SQLiteConstraintException;
 import android.os.AsyncTask;
 import android.os.Handler;
 
-import com.vvm.sh.api.modelos.AnomaliaResposta;
-import com.vvm.sh.api.modelos.AtividadeExecutadasResultado;
-import com.vvm.sh.api.modelos.AtividadePendenteResposta;
-import com.vvm.sh.api.modelos.ClienteResultado;
-import com.vvm.sh.api.modelos.DadosResultado;
-import com.vvm.sh.api.modelos.OcorrenciaResposta;
+import com.vvm.sh.api.modelos.pedido.IAtividadeExecutada;
+import com.vvm.sh.api.modelos.pedido.IAnomalia;
+import com.vvm.sh.api.modelos.pedido.IAtividadePendente;
+import com.vvm.sh.api.modelos.pedido.ICliente;
+import com.vvm.sh.api.modelos.pedido.ITarefa;
+import com.vvm.sh.api.modelos.pedido.IDados;
+import com.vvm.sh.api.modelos.pedido.IOcorrencia;
 import com.vvm.sh.api.modelos.SessaoResposta;
-import com.vvm.sh.api.modelos.TarefaResultado;
-import com.vvm.sh.baseDados.Conversor;
 import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.baseDados.entidades.Tarefa;
 import com.vvm.sh.baseDados.entidades.Anomalia;
@@ -24,7 +23,7 @@ import com.vvm.sh.baseDados.entidades.OcorrenciaHistorico;
 import com.vvm.sh.repositorios.TransferenciasRepositorio;
 import com.vvm.sh.util.AtualizacaoUI;
 import com.vvm.sh.util.constantes.Identificadores;
-import com.vvm.sh.util.mapeamento.ModelMapping;
+import com.vvm.sh.util.mapeamento.DownloadMapping;
 import com.vvm.sh.util.metodos.ConversorUtil;
 import com.vvm.sh.util.metodos.DatasUtil;
 
@@ -90,14 +89,6 @@ public class TrabalhoAsyncTask extends AsyncTask<SessaoResposta, Void, Void> {
             atualizacaoUI.atualizarUI(AtualizacaoUI.Codigo.PROCESSAMENTO_DADOS, "Tarefa " + (index + 1), (index + 1), trabalho.size());
         }
 
-//        int index = 0;
-//
-//        for (SessaoResposta.TrabalhoInfo tarefa : trabalho) {
-//            inserirTarefas(data, tarefa);
-//
-//            atualizacaoUI.atualizarUI(AtualizacaoUI.Codigo.PROCESSAMENTO_DADOS, "Tarefa " + index, index,  trabalho.size());
-//        }
-
         atualizacaoUI.atualizarUI(AtualizacaoUI.Codigo.PROCESSAMENTO_DOWNLOAD_CONCLUIDO);
 
     }
@@ -129,14 +120,14 @@ public class TrabalhoAsyncTask extends AsyncTask<SessaoResposta, Void, Void> {
      * @param atividadesPendentes os dados das atividades pendentes
      * @param idTarefa o identificador da tarefa
      */
-    private void inserirAtividadesPendentes(List<AtividadePendenteResposta> atividadesPendentes, int idTarefa) {
+    private void inserirAtividadesPendentes(List<IAtividadePendente> atividadesPendentes, int idTarefa) {
 
         List<AtividadePendente> registos = new ArrayList<>();
 
-        for(AtividadePendenteResposta atividadePendenteResposta : atividadesPendentes){
+        for(IAtividadePendente IAtividadePendente : atividadesPendentes){
 
-            AtividadePendente registo = ModelMapping.INSTANCE.map(atividadePendenteResposta);
-            registo.formacao = ConversorUtil.converter_Integer_Para_Boolean(atividadePendenteResposta.formacao);
+            AtividadePendente registo = DownloadMapping.INSTANCE.map(IAtividadePendente);
+            registo.formacao = ConversorUtil.converter_Integer_Para_Boolean(IAtividadePendente.formacao);
             registo.idTarefa = idTarefa;
             registos.add(registo);
         }
@@ -150,19 +141,19 @@ public class TrabalhoAsyncTask extends AsyncTask<SessaoResposta, Void, Void> {
      * @param ocorrencias os dados das ocorrencias
      * @param idTarefa o identificador da tarefa
      */
-    private void inserirOcorrencias(List<OcorrenciaResposta> ocorrencias, int idTarefa) {
+    private void inserirOcorrencias(List<IOcorrencia> ocorrencias, int idTarefa) {
 
-        for(OcorrenciaResposta ocorrenciaResultado : ocorrencias){
+        for(IOcorrencia ocorrenciaResultado : ocorrencias){
 
-            Ocorrencia registo = ModelMapping.INSTANCE.map(ocorrenciaResultado);
+            Ocorrencia registo = DownloadMapping.INSTANCE.map(ocorrenciaResultado);
             registo.idTarefa = idTarefa;
             int idOcorrencia = (int) repositorio.inserirOcorrencia(registo);
 
             List<OcorrenciaHistorico> registos = new ArrayList<>();
 
-            for(OcorrenciaResposta.OcorrenciaHistoricoResultado ocorrenciaHistoricoResultado : ocorrenciaResultado.historico){
+            for(IOcorrencia.IOcorrenciaHistorico IOcorrenciaHistorico : ocorrenciaResultado.historico){
 
-                OcorrenciaHistorico item = ModelMapping.INSTANCE.map(ocorrenciaHistoricoResultado);
+                OcorrenciaHistorico item = DownloadMapping.INSTANCE.map(IOcorrenciaHistorico);
                 item.idOcorrencia = idOcorrencia;
                 registos.add(item);
             }
@@ -177,13 +168,13 @@ public class TrabalhoAsyncTask extends AsyncTask<SessaoResposta, Void, Void> {
      * @param anomalias uma lista de anomalias
      * @param idTarefa o identificador da tarefa
      */
-    private void inserirAnomalias(List<AnomaliaResposta> anomalias, int idTarefa) {
+    private void inserirAnomalias(List<IAnomalia> anomalias, int idTarefa) {
 
         List<Anomalia> registos = new ArrayList<>();
 
-        for(AnomaliaResposta anomaliaResultado : anomalias){
+        for(IAnomalia anomaliaResultado : anomalias){
 
-            Anomalia registo = ModelMapping.INSTANCE.map(anomaliaResultado);
+            Anomalia registo = DownloadMapping.INSTANCE.map(anomaliaResultado);
             registo.idTarefa = idTarefa;
             registos.add(registo);
         }
@@ -198,9 +189,9 @@ public class TrabalhoAsyncTask extends AsyncTask<SessaoResposta, Void, Void> {
      * @param dados os dados da tarefa
      * @param idTarefa o identificador da tarefa
      */
-    private void inserirCliente(ClienteResultado cliente, DadosResultado dados, TarefaResultado tarefa, int idTarefa) {
+    private void inserirCliente(ICliente cliente, IDados dados, ITarefa tarefa, int idTarefa) {
 
-        Cliente registo = ModelMapping.INSTANCE.map(cliente, dados, tarefa);
+        Cliente registo = DownloadMapping.INSTANCE.map(cliente, dados, tarefa);
         registo.idTarefa = idTarefa;
 
         repositorio.inserirCliente(registo);
@@ -212,13 +203,13 @@ public class TrabalhoAsyncTask extends AsyncTask<SessaoResposta, Void, Void> {
      * @param atividades lista de atividades executadas
      * @param idTarefa o identificador da tarefa
      */
-    private void inserirAtividadesExecutadas(List<AtividadeExecutadasResultado> atividades, int idTarefa) {
+    private void inserirAtividadesExecutadas(List<IAtividadeExecutada> atividades, int idTarefa) {
 
         List<AtividadeExecutada> atividadesExecutadas = new ArrayList<>();
 
-        for(AtividadeExecutadasResultado atividadeExecutadasResultado : atividades){
+        for(IAtividadeExecutada IAtividadeExecutada : atividades){
 
-            AtividadeExecutada atividadeExecutada = ModelMapping.INSTANCE.map(atividadeExecutadasResultado);
+            AtividadeExecutada atividadeExecutada = DownloadMapping.INSTANCE.map(IAtividadeExecutada);
             atividadeExecutada.idTarefa = idTarefa;
             atividadesExecutadas.add(atividadeExecutada);
         }
@@ -233,9 +224,9 @@ public class TrabalhoAsyncTask extends AsyncTask<SessaoResposta, Void, Void> {
      * @param data a data (yyyy-MM-dd)
      * @return o identificador da tarefa inserida
      */
-    private int inserirTarefa(DadosResultado dados, String data){
+    private int inserirTarefa(IDados dados, String data){
 
-        Tarefa tarefa = ModelMapping.INSTANCE.map(dados);
+        Tarefa tarefa = DownloadMapping.INSTANCE.map(dados);
         tarefa.data = DatasUtil.converterString(data, DatasUtil.FORMATO_YYYY_MM_DD);
         tarefa.idUtilizador = idUtilizador;
         tarefa.app = Identificadores.App.APP_SA; //TODO: mudar isto consoante SA ou SHT

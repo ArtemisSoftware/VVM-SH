@@ -46,7 +46,7 @@ public class AtividadePendenteRepositorio {
     }
 
     public Flowable<List<Tipo>> obterTiposAnomalias(){
-        return tipoDao.obterTipos(TiposConstantes.TIPOS_ANOMALIA);
+        return tipoDao.obterTipos(TiposConstantes.MetodosTipos.TIPOS_ANOMALIA);
     }
 
 

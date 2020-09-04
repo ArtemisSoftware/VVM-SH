@@ -5,7 +5,7 @@ import androidx.annotation.NonNull;
 import com.vvm.sh.api.AtividadePendenteResultado_;
 import com.vvm.sh.api.FormandoResultado_;
 import com.vvm.sh.api.SegurancaAlimentarApi;
-import com.vvm.sh.api.modelos.Codigo;
+import com.vvm.sh.api.modelos.pedido.Codigo;
 import com.vvm.sh.api.modelos.SessaoResposta;
 import com.vvm.sh.baseDados.dao.TransferenciasDao;
 import com.vvm.sh.baseDados.entidades.Anomalia;

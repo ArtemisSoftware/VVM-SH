@@ -1,12 +1,12 @@
 package com.vvm.sh.util.mapeamento;
 
-import com.vvm.sh.api.modelos.AnomaliaResposta;
-import com.vvm.sh.api.modelos.AtividadeExecutadasResultado;
-import com.vvm.sh.api.modelos.AtividadePendenteResposta;
-import com.vvm.sh.api.modelos.ClienteResultado;
-import com.vvm.sh.api.modelos.DadosResultado;
-import com.vvm.sh.api.modelos.OcorrenciaResposta;
-import com.vvm.sh.api.modelos.TarefaResultado;
+import com.vvm.sh.api.modelos.pedido.IAtividadeExecutada;
+import com.vvm.sh.api.modelos.pedido.IAnomalia;
+import com.vvm.sh.api.modelos.pedido.IAtividadePendente;
+import com.vvm.sh.api.modelos.pedido.ICliente;
+import com.vvm.sh.api.modelos.pedido.ITarefa;
+import com.vvm.sh.api.modelos.pedido.IDados;
+import com.vvm.sh.api.modelos.pedido.IOcorrencia;
 import com.vvm.sh.api.modelos.TipoResposta;
 import com.vvm.sh.api.modelos.TipoResultado;
 import com.vvm.sh.api.modelos.UtilizadorResultado;
@@ -26,9 +26,9 @@ import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 @Mapper(uses= DataMapper.class)
-public interface ModelMapping {
+public interface DownloadMapping {
 
-    static final ModelMapping INSTANCE = Mappers.getMapper( ModelMapping.class );
+    static final DownloadMapping INSTANCE = Mappers.getMapper( DownloadMapping.class );
 
     @Mapping(source = "metodo", target = "descricao")
     @Mapping(source = "seloTemporal", target = "seloTemporal")
@@ -54,7 +54,7 @@ public interface ModelMapping {
 
     @Mapping(source = "ordem", target = "ordem")
     @Mapping(source = "prefixoCt", target = "prefixoCt")
-    Tarefa map(DadosResultado item);
+    Tarefa map(IDados item);
 
 
     @Mapping(source = "ordem", target = "ordem")
@@ -62,21 +62,21 @@ public interface ModelMapping {
     @Mapping(source = "descricao", target = "descricao")
     @Mapping(source = "dataProgramada", target = "dataProgramada")
     @Mapping(source = "dataExecucao", target = "dataExecucao")
-    AtividadeExecutada map(AtividadeExecutadasResultado item);
+    AtividadeExecutada map(IAtividadeExecutada item);
 
 
     @Mapping( source = "cliente.email", target = "email", defaultValue = "")
-    Cliente map(ClienteResultado cliente, DadosResultado dados, TarefaResultado tarefa);
+    Cliente map(ICliente cliente, IDados dados, ITarefa tarefa);
 
 
-    Anomalia map(AnomaliaResposta item);
+    Anomalia map(IAnomalia item);
 
     @Mapping(target = "formacao", ignore = true)
-    AtividadePendente map(AtividadePendenteResposta item);
+    AtividadePendente map(IAtividadePendente item);
 
-    Ocorrencia map(OcorrenciaResposta item);
+    Ocorrencia map(IOcorrencia item);
 
-    OcorrenciaHistorico map(OcorrenciaResposta.OcorrenciaHistoricoResultado item);
+    OcorrenciaHistorico map(IOcorrencia.IOcorrenciaHistorico item);
 
 
 }

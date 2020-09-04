@@ -2,6 +2,7 @@ package com.vvm.sh.ui.contaUtilizador;
 
 import android.Manifest;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
@@ -15,6 +16,8 @@ import com.vvm.sh.util.interfaces.OnPermissaoConcedidaListener;
 import com.vvm.sh.util.metodos.BaseDadosUtil;
 import com.vvm.sh.util.metodos.DiretoriasUtil;
 import com.vvm.sh.util.metodos.PermissoesUtil;
+
+import java.io.File;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -57,9 +60,29 @@ public class OpcoesAvancadasActivity extends BaseActivity {
             public void executar() {
 
                 if(DiretoriasUtil.criarDirectoria(DiretoriasUtil.BASE_DADOS) == true){
-                    BaseDadosUtil.exportarBaseDados(OpcoesAvancadasActivity.this);
+                    File ficheiroBd = BaseDadosUtil.exportarBaseDados(OpcoesAvancadasActivity.this);
                     spnr_ficheiros_bd.setItems(BaseDadosUtil.obterFicheirosBds());
                     btn_importar_bd.setEnabled(true);
+
+
+                    try {
+
+                        if(ficheiroBd == null)
+                            return;
+
+
+                        //TODO: File provider implementar
+                        Intent sharingIntent = new Intent(Intent.ACTION_SEND);
+                        Uri screenshotUri = DiretoriasUtil.obterUri(OpcoesAvancadasActivity.this, ficheiroBd);
+                        sharingIntent.setType("*/*");
+                        sharingIntent.putExtra(Intent.EXTRA_STREAM, screenshotUri);
+                        startActivity(Intent.createChooser(sharingIntent, "Partilhar via"));
+
+                    }
+                    catch(Exception e){
+                        e.getMessage();
+                    }
+
                 }
             }
         };

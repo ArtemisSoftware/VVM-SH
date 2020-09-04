@@ -7,7 +7,7 @@ import androidx.lifecycle.ViewModel;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.vvm.sh.api.modelos.Codigo;
+import com.vvm.sh.api.modelos.pedido.Codigo;
 import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.excepcoes.RespostaWsInvalidaException;

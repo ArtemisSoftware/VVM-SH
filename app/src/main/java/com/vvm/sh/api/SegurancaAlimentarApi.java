@@ -1,6 +1,6 @@
 package com.vvm.sh.api;
 
-import com.vvm.sh.api.modelos.Codigo;
+import com.vvm.sh.api.modelos.pedido.Codigo;
 import com.vvm.sh.api.modelos.SessaoResposta;
 import com.vvm.sh.api.modelos.TipoResposta;
 import com.vvm.sh.api.modelos.UtilizadorResposta;

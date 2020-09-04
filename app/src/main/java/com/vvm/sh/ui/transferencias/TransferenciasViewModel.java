@@ -10,7 +10,7 @@ import com.himanshurawat.hasher.HashType;
 import com.himanshurawat.hasher.Hasher;
 import com.vvm.sh.api.BlocoDados;
 import com.vvm.sh.api.BlocoImagens;
-import com.vvm.sh.api.modelos.Codigo;
+import com.vvm.sh.api.modelos.pedido.Codigo;
 import com.vvm.sh.api.modelos.SessaoResposta;
 import com.vvm.sh.api.modelos.TipoResposta;
 import com.vvm.sh.baseDados.entidades.Atualizacao;
@@ -41,19 +41,13 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import io.reactivex.CompletableObserver;
-import io.reactivex.CompletableSource;
 import io.reactivex.MaybeObserver;
-import io.reactivex.MaybeSource;
 import io.reactivex.Observable;
-import io.reactivex.ObservableSource;
 import io.reactivex.Observer;
 import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.BiFunction;
 import io.reactivex.functions.Function;
-import io.reactivex.functions.Predicate;
 import io.reactivex.schedulers.Schedulers;
 
 public class TransferenciasViewModel extends BaseViewModel {
@@ -249,14 +243,14 @@ public class TransferenciasViewModel extends BaseViewModel {
 
                 for (Object item : codigos) {
 
-                    if(((Codigo) item).codigo != Identificadores.CodigosWs.CODIGO_100){
+                    if(((Codigo) item).codigo != Identificadores.CodigosWs.ID_100){
                         valido = false;
                         break;
                     }
                 }
 
                 if(valido == true){
-                    return new Codigo(Identificadores.CodigosWs.CODIGO_100, Identificadores.CodigosWs.MSG_100);
+                    return new Codigo(Identificadores.CodigosWs.ID_100, Identificadores.CodigosWs.MSG_100);
                 }
                 else{
                     Codigo codigo = new Codigo(Identificadores.CodigosWs.ID_600, Identificadores.CodigosWs.MSG_600);

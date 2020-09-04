@@ -2,8 +2,8 @@ package com.vvm.sh.util.interceptores;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.vvm.sh.api.modelos.Codigo;
-import com.vvm.sh.baseDados.entidades.Tarefa;
+import com.vvm.sh.api.SegurancaAlimentarApi;
+import com.vvm.sh.api.modelos.pedido.Codigo;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.excepcoes.RespostaWsInvalidaException;
 
@@ -30,9 +30,16 @@ public class WebServiceInterceptor implements Interceptor {
         Request pedido   = chain.request();
 
         String metodo = "";
+        int app = 0;
+
         try {
 
             metodo  = pedido.url().pathSegments().get(2);
+
+            if(SegurancaAlimentarApi.URL_BASE.contains(pedido.url().pathSegments().get(0)) == true){
+                app = Identificadores.App.APP_SA;
+            }
+
         }
         catch(IndexOutOfBoundsException e){}
 
@@ -41,7 +48,7 @@ public class WebServiceInterceptor implements Interceptor {
 
 
         MediaType contentType = corpo.contentType();
-        ResponseBody body = ResponseBody.create(obterJSON(corpo.string(), metodo),contentType);
+        ResponseBody body = ResponseBody.create(obterJSON(corpo.string(), metodo, app),contentType);
         return resposta.newBuilder().body(body).build();
     }
 
@@ -52,7 +59,7 @@ public class WebServiceInterceptor implements Interceptor {
      * @param respostaWS resposta recebida do web service
      * @return um objecto com os dados
      */
-    private String obterJSON(String respostaWS, String metodo) throws RespostaWsInvalidaException {
+    private String obterJSON(String respostaWS, String metodo, int app) throws RespostaWsInvalidaException {
 
         Gson gson = new GsonBuilder().create();
         String dados = null;
@@ -80,6 +87,7 @@ public class WebServiceInterceptor implements Interceptor {
 
             JSONObject resposta = new JSONObject(conteudo);
             resposta.put("metodo", metodo);
+            resposta.put("app", metodo);
             return resposta.toString();
 
         }
@@ -104,7 +112,7 @@ public class WebServiceInterceptor implements Interceptor {
 
         switch (codigo.codigo){
 
-//            case CODIGO_100:
+//            case ID_100:
 //
 //                codigo.mensagem = MSG_100;
 //                break;

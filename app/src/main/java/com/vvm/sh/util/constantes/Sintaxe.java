@@ -89,6 +89,12 @@ public class Sintaxe {
         public static final String DADOS_ENVIADOS_SUCESSO = "Dados enviados com sucesso";
         public static final String DADOS_EDITADOS_SUCESSO = "Dados editados com sucesso";
         public static final String TIPO_ATUALIZADO_SUCESSO = "Tipo atualizado com sucesso.\nTipo: ";
+        public static final String DOWNLOAD_FALHOU = "Download falhou.";
+        public static final String DOWNLOAD_PARADO = "Download parado.";
+        public static final String DOWNLOAD_PENDENTE = "Download pendente";
+        public static final String DOWNLOAD_EM_CURSO = "Download em curso.";
+        public static final String DOWNLOAD_COMPLETO = "Download completo";
+        public static final String DOWNLOAD_INDEFINIDO = "Download com estado indefinido";
     }
 
     public class API {

@@ -86,11 +86,6 @@ public class TiposActivity extends BaseDaggerActivity
         });
     }
 
-    //------------------------
-    //Metodos locais
-    //------------------------
-
-
 
 
     //---------------------

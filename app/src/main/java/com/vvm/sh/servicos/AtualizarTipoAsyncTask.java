@@ -42,15 +42,8 @@ public class AtualizarTipoAsyncTask extends AsyncTask<List<TipoResposta>, Void, 
 
                     for(TipoResposta resposta : respostas){
 
-                        List<Tipo> tipos = new ArrayList<>();
-
                         Atualizacao atualizacao = DownloadMapping.INSTANCE.map(resposta);
-
-                        for (TipoResultado item : resposta.dadosNovos) {
-
-                            Tipo resultado = DownloadMapping.INSTANCE.map(item, resposta);
-                            tipos.add(resultado);
-                        }
+                        List<Tipo> tipos = obterTipos(resposta);
 
                         repositorio.atualizarTipo(atualizacao, tipos);
                     }
@@ -63,5 +56,24 @@ public class AtualizarTipoAsyncTask extends AsyncTask<List<TipoResposta>, Void, 
         });
 
         return null;
+    }
+
+
+    /**
+     * Metodo que permite obter os tipos
+     * @param resposta os dados dos tipos
+     * @return uma lista de tipos
+     */
+    private List<Tipo> obterTipos(TipoResposta resposta) {
+
+        List<Tipo> tipos = new ArrayList<>();
+
+        for (TipoResultado item : resposta.dadosNovos) {
+
+            Tipo resultado = DownloadMapping.INSTANCE.map(item, resposta);
+            tipos.add(resultado);
+        }
+
+        return tipos;
     }
 }

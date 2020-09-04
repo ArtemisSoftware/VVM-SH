@@ -15,6 +15,7 @@ import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.util.AtualizacaoUI;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.metodos.Notificacao;
+import com.vvm.sh.util.metodos.PreferenciasUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import javax.inject.Inject;
@@ -43,7 +44,7 @@ public class AtualizacaoAppActivity extends BaseDaggerActivity {
 
         subscreverObservadores();
 
-        viewModel.obterAtualizacao();
+        viewModel.obterAtualizacao(PreferenciasUtil.obterIdUtilizador(this));
     }
 
     @Override
@@ -59,7 +60,6 @@ public class AtualizacaoAppActivity extends BaseDaggerActivity {
     @Override
     protected void subscreverObservadores() {
 
-        //TODO: subscrever observadores do viewmodel
     }
 
 
@@ -153,7 +153,7 @@ public class AtualizacaoAppActivity extends BaseDaggerActivity {
     public void onCancelarClick(VersaoApp versaoApp) {
 
         if(versaoApp.atualizar() == true) {
-            Notificacao.notificarAtualizacaoApp(getApplication(), versaoApp.obterVersao());
+            Notificacao.notificarAtualizacaoApp(getApplication(), versaoApp.versao);
         }
 
         finish();

@@ -2,7 +2,7 @@ package com.vvm.sh.di.atividadesPendentes.formacao;
 
 import com.vvm.sh.baseDados.dao.AcaoFormacaoDao;
 import com.vvm.sh.baseDados.dao.AtividadePendenteResultadoDao;
-import com.vvm.sh.baseDados.FormandoDao;
+import com.vvm.sh.baseDados.dao.FormandoDao;
 import com.vvm.sh.baseDados.ResultadoDao;
 import com.vvm.sh.baseDados.TipoDao;
 import com.vvm.sh.baseDados.VvmshBaseDados;

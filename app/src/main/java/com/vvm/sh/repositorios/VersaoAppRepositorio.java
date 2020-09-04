@@ -20,7 +20,7 @@ public class VersaoAppRepositorio {
 
 
     public Single<VersaoApp> obterAtualizacao() {
-        return api.obterAtualizacao();
+        return api.obterAtualizacao(SegurancaAlimentarApi.HEADER);
     }
 
 

@@ -5,7 +5,9 @@ import com.google.gson.GsonBuilder;
 import com.vvm.sh.api.SegurancaAlimentarApi;
 import com.vvm.sh.api.modelos.pedido.Codigo;
 import com.vvm.sh.util.constantes.Identificadores;
+import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.excepcoes.RespostaWsInvalidaException;
+import com.vvm.sh.util.metodos.TiposUtil;
 
 import org.jetbrains.annotations.NotNull;
 import org.json.JSONException;
@@ -27,39 +29,29 @@ public class WebServiceInterceptor implements Interceptor {
     @Override
     public Response intercept(@NotNull Chain chain) throws IOException {
 
-        Request pedido   = chain.request();
+        Request pedido = chain.request();
 
-        String metodo = "";
-        int app = 0;
-
-        try {
-//pedido.header("Static-Header1");
-            metodo  =  pedido.url().pathSegments().get(2);
-            //app = pedido.header("Static-Header1")
-            if(SegurancaAlimentarApi.URL_BASE.contains(pedido.url().pathSegments().get(0)) == true){
-                app = Identificadores.App.APP_SA;
-            }
-
-        }
-        catch(IndexOutOfBoundsException e){}
+        String metodo = TiposUtil.obterMetodo(pedido.url().pathSegments(), pedido.header(Sintaxe.API.METODO_INTERNO));
+        int api = Integer.parseInt(pedido.header(Sintaxe.API.API));
 
         Response resposta = chain.proceed(pedido);
         ResponseBody corpo = resposta.body();
 
-
         MediaType contentType = corpo.contentType();
-        ResponseBody body = ResponseBody.create(obterJSON(corpo.string(), metodo, app),contentType);
+        ResponseBody body = ResponseBody.create(obterJSON(corpo.string(), metodo, api),contentType);
         return resposta.newBuilder().body(body).build();
     }
-
 
 
     /**
      * Metodo que obtem o json da resposta do web service
      * @param respostaWS resposta recebida do web service
-     * @return um objecto com os dados
+     * @param metodo o metodo associado ao pedido
+     * @param api o identificador da api
+     * @return  um objecto com os dados
+     * @throws RespostaWsInvalidaException
      */
-    private String obterJSON(String respostaWS, String metodo, int app) throws RespostaWsInvalidaException {
+    private String obterJSON(String respostaWS, String metodo, int api) throws RespostaWsInvalidaException {
 
         Gson gson = new GsonBuilder().create();
         String dados = null;
@@ -87,7 +79,8 @@ public class WebServiceInterceptor implements Interceptor {
 
             JSONObject resposta = new JSONObject(conteudo);
             resposta.put("metodo", metodo);
-            resposta.put("app", metodo);
+            resposta.put("app", api);
+            resposta.put("api", api);
             return resposta.toString();
 
         }

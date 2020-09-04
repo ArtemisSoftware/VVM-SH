@@ -26,6 +26,12 @@ public class Utilizador {
     @ColumnInfo(name = "email")
     public String email;
 
+
+//    @NonNull
+//    @ColumnInfo(name = "api")
+//    public int api;
+
+
     @Ignore
     public String palavraChave;
 
@@ -33,11 +39,12 @@ public class Utilizador {
     public Utilizador() {}
 
 
-    public Utilizador(String id, String area, String nome, String email) {
+    public Utilizador(String id, String area, String nome, String email/*, int api*/) {
         this.id = id;
         this.area = area;
         this.nome = nome;
         this.email = email;
+        //this.api = api;
     }
 
     @Ignore
@@ -50,13 +57,6 @@ public class Utilizador {
     }
 
 
-    /**
-     * Metodo que permite obter as inicias do utilizador
-     * @return as iniciais
-     */
-    public  String obterIniciais(){
-        return nome.replaceAll("^\\s*([a-zA-Z]).*\\s+([a-zA-Z])\\S+$", "$1$2").toUpperCase();
-    }
 
     @Override
     public String toString() {

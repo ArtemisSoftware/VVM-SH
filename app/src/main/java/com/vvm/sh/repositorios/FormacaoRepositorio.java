@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 
 import com.vvm.sh.baseDados.dao.AcaoFormacaoDao;
 import com.vvm.sh.baseDados.dao.AtividadePendenteResultadoDao;
-import com.vvm.sh.baseDados.FormandoDao;
+import com.vvm.sh.baseDados.dao.FormandoDao;
 import com.vvm.sh.baseDados.ResultadoDao;
 import com.vvm.sh.baseDados.TipoDao;
 import com.vvm.sh.baseDados.dao.ImagemResultadoDao;
@@ -15,7 +15,7 @@ import com.vvm.sh.ui.atividadesPendentes.relatorios.Formando;
 import com.vvm.sh.baseDados.entidades.FormandoResultado;
 import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.util.constantes.Identificadores;
-import com.vvm.sh.util.constantes.TiposConstantes;
+import com.vvm.sh.util.metodos.TiposUtil;
 
 import java.util.List;
 
@@ -44,7 +44,7 @@ public class FormacaoRepositorio {
     }
 
     public Flowable<AcaoFormacao> obterAcaoFormacao(int idAtividade) {
-        return acaoFormacaoDao.obterAcaoFormacao(idAtividade, TiposConstantes.MetodosTipos.CURSOS);
+        return acaoFormacaoDao.obterAcaoFormacao(idAtividade, TiposUtil.MetodosTipos.CURSOS);
     }
 
     public Single<Long> inserirAcaoFormacao(AcaoFormacaoResultado acaoFormacao) {
@@ -87,7 +87,7 @@ public class FormacaoRepositorio {
 
 
     public Flowable<List<Tipo>> obterCursos() {
-        return tipoDao.obterTipos(TiposConstantes.MetodosTipos.CURSOS);
+        return tipoDao.obterTipos(TiposUtil.MetodosTipos.CURSOS);
     }
 
 

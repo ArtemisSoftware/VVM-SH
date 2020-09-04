@@ -66,7 +66,7 @@ public class TiposRepositorio {
      * @return os dados de um tipo
      */
     public Single<TipoResposta> obterTipo(String metodo, String seloTemporal) {
-        return api.obterTipo(metodo, seloTemporal);
+        return api.obterTipo(SegurancaAlimentarApi.HEADER_TIPO, metodo, seloTemporal);
     }
 
 

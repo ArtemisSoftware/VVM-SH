@@ -41,9 +41,10 @@ public class VersaoApp {
 
 
     @Expose(serialize = false)
-    private String urlDownload;
+    public String urlDownload;
 
-    private File ficheiro;
+    @Expose(serialize = false)
+    public File ficheiro;
 
 
     public VersaoApp(String versaoTeste, String textoTeste, String versaoProducao, String textoProducao,
@@ -109,22 +110,8 @@ public class VersaoApp {
     }
 
 
-    /**
-     * Metodo que permite obter a versão para a qual a aplicação será atualizada
-     * @return a versao
-     */
-    public String obterVersao(){
-        return versao;
-    }
 
 
-    /**
-     * Metodo que permite obter o texto de atualização
-     * @return o texto
-     */
-    public String obterTexto(){
-        return texto;
-    }
 
 
     /**
@@ -135,14 +122,6 @@ public class VersaoApp {
         return atualizar;
     }
 
-
-    /**
-     * Metodo que permite obter o url para download da versao
-     * @return o url
-     */
-    public String obterUrlDownload(){
-        return urlDownload;
-    }
 
 
     /**

@@ -15,12 +15,59 @@ public class Migracao {
 
         Migration migrations [] =  new Migration []{
                 MIGRACAO_1_2, MIGRACAO_2_3, MIGRACAO_3_4, MIGRACAO_4_5, MIGRACAO_5_6, MIGRACAO_6_7, MIGRACAO_7_8, MIGRACAO_8_9, MIGRACAO_9_10, MIGRACAO_10_11,
-                MIGRACAO_11_12
+                MIGRACAO_11_12/*, MIGRACAO_12_13*/
 
         };
 
         return migrations;
     }
+
+
+
+
+    public static final Migration MIGRACAO_12_13 = new Migration(12, 13) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            try {
+
+
+                database.execSQL("ALTER TABLE utilizadores ADD COLUMN api INTEGER NOT NULL DEFAULT " + Identificadores.App.APP_SA + "");
+
+                database.execSQL("ALTER TABLE tipos ADD COLUMN api INTEGER PRIMARY KEY DEFAULT " + Identificadores.App.APP_SA + "");
+
+
+
+
+
+                database.execSQL(" ALTER TABLE tarefas RENAME TO tmp");
+
+                database.execSQL("CREATE TABLE IF NOT EXISTS 'tarefas' ("
+                        + "'idTarefa' INTEGER PRIMARY KEY NOT NULL, "
+                        + "'idUtilizador' TEXT NOT NULL, "
+                        + "'ordem' TEXT NOT NULL, "
+                        + "'prefixoCt' TEXT NOT NULL, "
+                        + "'data' INTEGER NOT NULL, "
+                        + "'api' INTEGER NOT NULL) ");
+
+                database.execSQL(" INSERT INTO tarefas(idTarefa, idUtilizador, ordem, prefixoCt, data, api) "
+                        + "SELECT idTarefa, idUtilizador, ordem, prefixoCt, data , " + Identificadores.App.APP_SA + " as api FROM tmp");
+
+                database.execSQL("DROP TABLE tmp");
+
+
+            }
+            catch(SQLException e){
+                Log.e("Migracao", "erro MIGRACAO_12_13: " + e.getMessage());
+                //Timber.e("erro MIGRACAO_2_3: " + e.getMessage());
+            }
+        }
+    };
+
+
+
+
+
+
 
 
     public static final Migration MIGRACAO_11_12 = new Migration(11, 12) {

@@ -1,9 +1,14 @@
 package com.vvm.sh.util.metodos;
 
 import com.vvm.sh.util.constantes.Identificadores;
+import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.excepcoes.TipoInexistenteException;
 
+import java.util.List;
+
 public class TiposUtil {
+
+
 
 
     private static class MetodosTiposSA{
@@ -45,52 +50,117 @@ public class TiposUtil {
     }
 
 
-
-
-    public static String obterMetodo(String descricao) throws TipoInexistenteException {
+    /**
+     * Metodo que permite obter o metodo do tipo associado caso exista ou apenas o metodo
+     * @param pathSegments
+     * @param header os dados do header
+     * @return um metodo
+     * @throws TipoInexistenteException
+     */
+    public static String obterMetodo(List<String> pathSegments, String header) throws TipoInexistenteException{
 
         String metodo = "";
 
-        switch (descricao){
+        try {
+
+            if(header == null){
+                metodo  = pathSegments.get(2);
+            }
+            else if(header.equals("tipo") == true){
+
+                metodo  = pathSegments.get(2);
 
 
-            case MetodosTiposSA.CROSS_SELLING_PRODUTOS:
+                switch (metodo){
 
-                metodo = MetodosTipos.CROSS_SELLING_PRODUTOS;
-                break;
+                    case MetodosTiposSA.CROSS_SELLING_PRODUTOS:
 
-            case MetodosTiposSA.CROSS_SELLING_DIMENSAO:
+                        metodo = MetodosTipos.CROSS_SELLING_PRODUTOS;
+                        break;
 
-                metodo = MetodosTipos.CROSS_SELLING_DIMENSAO;
-                break;
+                    case MetodosTiposSA.CROSS_SELLING_DIMENSAO:
 
-            case MetodosTiposSA.CROSS_SELLING_TIPO:
+                        metodo = MetodosTipos.CROSS_SELLING_DIMENSAO;
+                        break;
 
-                metodo = MetodosTipos.CROSS_SELLING_TIPO;
-                break;
+                    case MetodosTiposSA.CROSS_SELLING_TIPO:
 
-            case MetodosTiposSA.TIPOS_ANOMALIA:
+                        metodo = MetodosTipos.CROSS_SELLING_TIPO;
+                        break;
 
-                metodo = MetodosTipos.ANOMALIAS;
-                break;
+                    case MetodosTiposSA.TIPOS_ANOMALIA:
 
-            case MetodosTiposSA.TIPIFICACAO_OCORRENCIA:
+                        metodo = MetodosTipos.ANOMALIAS;
+                        break;
 
-                metodo = MetodosTipos.TIPIFICACAO_OCORRENCIA;
-                break;
+                    case MetodosTiposSA.TIPIFICACAO_OCORRENCIA:
 
-            case MetodosTiposSA.CURSOS:
+                        metodo = MetodosTipos.TIPIFICACAO_OCORRENCIA;
+                        break;
 
-                metodo = MetodosTipos.CURSOS;
-                break;
+                    case MetodosTiposSA.CURSOS:
 
-            default:
-                throw new TipoInexistenteException(descricao);
+                        metodo = MetodosTipos.CURSOS;
+                        break;
 
+                    default:
+                        throw new TipoInexistenteException(metodo);
+
+                }
+            }
         }
+        catch(IndexOutOfBoundsException e){}
 
         return metodo;
     }
+
+
+    public static String [] obterMetodos(String descricao){
+
+        String metodos [] = new String []{};
+
+
+        switch (descricao){
+
+            case MetodosTipos.CROSS_SELLING_PRODUTOS:
+
+                metodos = new String [] { MetodosTiposSA.CROSS_SELLING_PRODUTOS };
+                break;
+
+            case MetodosTipos.CROSS_SELLING_DIMENSAO:
+
+                metodos = new String [] { MetodosTiposSA.CROSS_SELLING_DIMENSAO };
+                break;
+
+            case MetodosTipos.CROSS_SELLING_TIPO:
+
+                metodos = new String [] { MetodosTiposSA.CROSS_SELLING_TIPO };
+                break;
+
+            case MetodosTipos.ANOMALIAS:
+
+                metodos = new String [] { MetodosTiposSA.TIPOS_ANOMALIA };
+                break;
+
+            case MetodosTipos.TIPIFICACAO_OCORRENCIA:
+
+                metodos = new String [] { MetodosTiposSA.TIPIFICACAO_OCORRENCIA };
+                break;
+
+            case MetodosTipos.CURSOS:
+
+                metodos = new String [] { MetodosTiposSA.CURSOS };
+                break;
+
+            default:
+                //throw new TipoInexistenteException(metodo);
+                break;
+        }
+
+
+        return metodos;
+    }
+
 
 
     /**
@@ -110,6 +180,22 @@ public class TiposUtil {
         }
 
     }
+
+//
+//    public static String[] obterMetodos(){
+//
+//
+//        String TIPOS [] = MetodosTiposSA.TIPOS
+//
+//        if(api == Identificadores.App.APP_SA){
+//            return MetodosTiposSA.TIPOS;
+//        }
+//        else{
+//            //TODO: POR aqui lista de SHT
+//            return new String []{};
+//        }
+//
+//    }
 
 
 }

@@ -123,6 +123,8 @@ public class DiretoriasUtil {
         Uri uri;
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+
+            //TODO: fazer file provider
             uri = null;//FileProvider.getUriForFile(contexto, BuildConfig.APPLICATION_ID + ".provider", ficheiro);
         }
         else{

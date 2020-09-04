@@ -40,6 +40,11 @@ public class Tarefa implements Parcelable {
     public int app;
 
 
+    //    @NonNull
+//    @ColumnInfo(name = "api")
+//    public int api;
+
+
     @Ignore
     public Tarefa() {
 
@@ -54,13 +59,14 @@ public class Tarefa implements Parcelable {
     }
 
 
-    public Tarefa(int idTarefa, @NonNull String idUtilizador, @NonNull String ordem, @NonNull String prefixoCt, @NonNull Date data, int app) {
+    public Tarefa(int idTarefa, @NonNull String idUtilizador, @NonNull String ordem, @NonNull String prefixoCt, @NonNull Date data, int app/*, int api*/) {
         this.idTarefa = idTarefa;
         this.idUtilizador = idUtilizador;
         this.ordem = ordem;
         this.prefixoCt = prefixoCt;
         this.data = data;
         this.app = app;
+        //this.api = api;
     }
 
 

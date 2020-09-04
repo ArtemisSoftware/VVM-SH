@@ -1,8 +1,9 @@
-package com.vvm.sh.baseDados;
+package com.vvm.sh.baseDados.dao;
 
 import androidx.room.Dao;
 import androidx.room.Query;
 
+import com.vvm.sh.baseDados.BaseDao;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.Formando;
 import com.vvm.sh.baseDados.entidades.FormandoResultado;
 import com.vvm.sh.util.constantes.Identificadores;
@@ -13,7 +14,7 @@ import io.reactivex.Flowable;
 import io.reactivex.Maybe;
 
 @Dao
-abstract public class FormandoDao implements BaseDao<FormandoResultado>{
+abstract public class FormandoDao implements BaseDao<FormandoResultado> {
 
 
     @Query("SELECT *," +

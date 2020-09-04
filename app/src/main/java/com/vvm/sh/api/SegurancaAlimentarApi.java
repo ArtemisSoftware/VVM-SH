@@ -42,11 +42,11 @@ public interface SegurancaAlimentarApi {
 
 
     @GET("{metodo}")
-    Single<TipoResposta> obterTipo(@Path("metodo") String metodo, @Query("dataT") String seloTemporal);
+    Single<TipoResposta> obterTipo(@HeaderMap Map<String, String> headers, @Path("metodo") String metodo, @Query("dataT") String seloTemporal);
 
 
     @GET("Obter_Actualizacoes")
-    Single<VersaoApp> obterAtualizacao();
+    Single<VersaoApp> obterAtualizacao(@HeaderMap Map<String, String> headers);
 
 
     @GET("GetUtilizadores?dataT=")

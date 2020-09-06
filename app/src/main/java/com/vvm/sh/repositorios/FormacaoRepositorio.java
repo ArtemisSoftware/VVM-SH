@@ -3,11 +3,11 @@ package com.vvm.sh.repositorios;
 import androidx.annotation.NonNull;
 
 import com.vvm.sh.baseDados.dao.AcaoFormacaoDao;
-import com.vvm.sh.baseDados.dao.AtividadePendenteResultadoDao;
+import com.vvm.sh.baseDados.dao.AtividadePendenteDao;
 import com.vvm.sh.baseDados.dao.FormandoDao;
 import com.vvm.sh.baseDados.dao.ResultadoDao;
-import com.vvm.sh.baseDados.TipoDao;
-import com.vvm.sh.baseDados.dao.ImagemResultadoDao;
+import com.vvm.sh.baseDados.dao.TipoDao;
+import com.vvm.sh.baseDados.dao.ImagemDao;
 import com.vvm.sh.baseDados.entidades.ImagemResultado;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.AcaoFormacao;
 import com.vvm.sh.baseDados.entidades.AcaoFormacaoResultado;
@@ -28,18 +28,18 @@ public class FormacaoRepositorio {
     private final FormandoDao formandoDao;
     private final AcaoFormacaoDao acaoFormacaoDao;
     private final TipoDao tipoDao;
-    private final ImagemResultadoDao imagemResultadoDao;
-    private final AtividadePendenteResultadoDao atividadePendenteResultadoDao;
+    private final ImagemDao imagemDao;
+    private final AtividadePendenteDao atividadePendenteDao;
     public final ResultadoDao resultadoDao;
 
     public FormacaoRepositorio(@NonNull FormandoDao formandoDao, @NonNull AcaoFormacaoDao acaoFormacaoDao,
-                               @NonNull AtividadePendenteResultadoDao atividadePendenteResultadoDao, ImagemResultadoDao imagemResultadoDao,
+                               @NonNull AtividadePendenteDao atividadePendenteDao, ImagemDao imagemDao,
                                @NonNull TipoDao tipoDao, @NonNull ResultadoDao resultadoDao) {
         this.formandoDao = formandoDao;
         this.acaoFormacaoDao = acaoFormacaoDao;
         this.tipoDao = tipoDao;
-        this.imagemResultadoDao = imagemResultadoDao;
-        this.atividadePendenteResultadoDao = atividadePendenteResultadoDao;
+        this.imagemDao = imagemDao;
+        this.atividadePendenteDao = atividadePendenteDao;
         this.resultadoDao = resultadoDao;
     }
 
@@ -76,11 +76,11 @@ public class FormacaoRepositorio {
 
 
     public Single<Long> inserirAssinatura(ImagemResultado imagem) {
-        return imagemResultadoDao.inserir(imagem);
+        return imagemDao.inserir(imagem);
     }
 
     public Single<Integer> removerAssinatura(int idFormando) {
-        return imagemResultadoDao.remover(idFormando, Identificadores.Imagens.IMAGEM_ASSINATURA_FORMANDO);
+        return imagemDao.remover(idFormando, Identificadores.Imagens.IMAGEM_ASSINATURA_FORMANDO);
     }
 
 
@@ -92,7 +92,7 @@ public class FormacaoRepositorio {
 
 
     public Single<Integer> removerAtividade(int idAtividade) {
-        return atividadePendenteResultadoDao.remover(idAtividade);
+        return atividadePendenteDao.remover(idAtividade);
     }
 
 

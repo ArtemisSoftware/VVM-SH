@@ -8,7 +8,7 @@
     <data>
 <!--
         <import type="java.util.List"/>
-        <import type="com.vvm.sh.util.StringUtil"/>
+        <import type="com.vvm.sh.util.metodos.StringUtil"/>
 
 
 -->

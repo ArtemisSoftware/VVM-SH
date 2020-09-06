@@ -1,10 +1,11 @@
-package com.vvm.sh.baseDados;
+package com.vvm.sh.baseDados.dao;
 
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
+import com.vvm.sh.baseDados.BaseDao;
 import com.vvm.sh.ui.opcoes.modelos.Colecao;
 import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.ui.opcoes.modelos.ResumoTipo;
@@ -15,7 +16,7 @@ import io.reactivex.Flowable;
 import io.reactivex.Single;
 
 @Dao
-abstract public class TipoDao implements BaseDao<Tipo>{
+abstract public class TipoDao implements BaseDao<Tipo> {
 
 
     @Insert

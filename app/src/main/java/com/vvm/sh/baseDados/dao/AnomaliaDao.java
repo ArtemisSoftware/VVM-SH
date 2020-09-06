@@ -15,7 +15,7 @@ import io.reactivex.Maybe;
 import io.reactivex.Single;
 
 @Dao
-abstract public class AnomaliaResultadoDao implements BaseDao<AnomaliaResultado> {
+abstract public class AnomaliaDao implements BaseDao<AnomaliaResultado> {
 
 
     @Query("SELECT * FROM anomalias WHERE idTarefa = :idTarefa")

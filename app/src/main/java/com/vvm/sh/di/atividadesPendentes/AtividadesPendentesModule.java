@@ -1,8 +1,8 @@
 package com.vvm.sh.di.atividadesPendentes;
 
-import com.vvm.sh.baseDados.dao.AtividadePendenteResultadoDao;
+import com.vvm.sh.baseDados.dao.AtividadePendenteDao;
 import com.vvm.sh.baseDados.dao.ResultadoDao;
-import com.vvm.sh.baseDados.TipoDao;
+import com.vvm.sh.baseDados.dao.TipoDao;
 import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.repositorios.AtividadePendenteRepositorio;
 
@@ -15,9 +15,9 @@ public class AtividadesPendentesModule {
 
     @AtividadesPendentesScope
     @Provides
-    static AtividadePendenteResultadoDao provideAtividadePendenteResultadoDao(VvmshBaseDados vvmshBaseDados){
+    static AtividadePendenteDao provideAtividadePendenteResultadoDao(VvmshBaseDados vvmshBaseDados){
 
-        AtividadePendenteResultadoDao dao = vvmshBaseDados.obterAtividadePendenteResultadoDao();
+        AtividadePendenteDao dao = vvmshBaseDados.obterAtividadePendenteDao();
 
         //Timber.d("Providing NoteDao: " + dao);
         return dao;
@@ -26,10 +26,10 @@ public class AtividadesPendentesModule {
 
     @AtividadesPendentesScope
     @Provides
-    AtividadePendenteRepositorio provideAtividadePendenteRepositorio(AtividadePendenteResultadoDao atividadePendenteResultadoDao,
+    AtividadePendenteRepositorio provideAtividadePendenteRepositorio(AtividadePendenteDao atividadePendenteDao,
                                                                      TipoDao tipoDao, ResultadoDao resultadoDao) {
 
-        AtividadePendenteRepositorio repositorio = new AtividadePendenteRepositorio(atividadePendenteResultadoDao, tipoDao, resultadoDao);
+        AtividadePendenteRepositorio repositorio = new AtividadePendenteRepositorio(atividadePendenteDao, tipoDao, resultadoDao);
 
         //Timber.d("Providing PokemonRepository: " + repository);
         return repositorio;

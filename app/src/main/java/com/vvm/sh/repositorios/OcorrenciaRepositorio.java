@@ -2,9 +2,9 @@ package com.vvm.sh.repositorios;
 
 import androidx.annotation.NonNull;
 
+import com.vvm.sh.baseDados.dao.OcorrenciaDao;
 import com.vvm.sh.baseDados.dao.ResultadoDao;
-import com.vvm.sh.baseDados.TipoDao;
-import com.vvm.sh.baseDados.dao.OcorrenciaResultadoDao;
+import com.vvm.sh.baseDados.dao.TipoDao;
 import com.vvm.sh.baseDados.entidades.Ocorrencia;
 import com.vvm.sh.baseDados.entidades.OcorrenciaHistorico;
 import com.vvm.sh.baseDados.entidades.OcorrenciaResultado;
@@ -20,14 +20,14 @@ import io.reactivex.Single;
 
 public class OcorrenciaRepositorio {
 
-    private final OcorrenciaResultadoDao ocorrenciaResultadoDao;
+    private final OcorrenciaDao ocorrenciaDao;
     private final TipoDao tipoDao;
     public final ResultadoDao resultadoDao;
 
-    public OcorrenciaRepositorio(@NonNull OcorrenciaResultadoDao ocorrenciaResultadoDao,
+    public OcorrenciaRepositorio(@NonNull OcorrenciaDao ocorrenciaDao,
                                  @NonNull TipoDao tipoDao, @NonNull ResultadoDao resultadoDao) {
 
-        this.ocorrenciaResultadoDao = ocorrenciaResultadoDao;
+        this.ocorrenciaDao = ocorrenciaDao;
         this.resultadoDao = resultadoDao;
         this.tipoDao = tipoDao;
     }
@@ -40,7 +40,7 @@ public class OcorrenciaRepositorio {
      * @return uma lista de registos
      */
     public Flowable<List<Ocorrencia>> obterOcorrencias(int idTarefa) {
-        return ocorrenciaResultadoDao.obterOcorrencias(idTarefa);
+        return ocorrenciaDao.obterOcorrencias(idTarefa);
     }
 
 
@@ -61,7 +61,7 @@ public class OcorrenciaRepositorio {
      * @return uma lista
      */
     public Flowable<List<OcorrenciaBase>> obterRegistoOcorrencias(int idTarefa, int idOcorrencia) {
-        return ocorrenciaResultadoDao.obterOcorrencias(idTarefa, TiposConstantes.MetodosTipos.TIPIFICACAO_OCORRENCIA, idOcorrencia);
+        return ocorrenciaDao.obterOcorrencias(idTarefa, TiposConstantes.MetodosTipos.TIPIFICACAO_OCORRENCIA, idOcorrencia);
     }
 
 
@@ -71,7 +71,7 @@ public class OcorrenciaRepositorio {
      * @return uma lista de registos
      */
     public Flowable<List<OcorrenciaRegisto>> obterOcorrenciasRegistadas(int idTarefa) {
-        return ocorrenciaResultadoDao.obterOcorrenciasRegistadas(idTarefa, TiposConstantes.MetodosTipos.TIPIFICACAO_OCORRENCIA);
+        return ocorrenciaDao.obterOcorrenciasRegistadas(idTarefa, TiposConstantes.MetodosTipos.TIPIFICACAO_OCORRENCIA);
     }
 
 
@@ -83,13 +83,13 @@ public class OcorrenciaRepositorio {
      * @return uma ocorrencia
      */
     public Single<OcorrenciaBase> obterRegistoOcorrencia(int idTarefa, int id, int idTipo){
-        return ocorrenciaResultadoDao.obterOcorrenciaRegistada(idTarefa, TiposConstantes.MetodosTipos.TIPIFICACAO_OCORRENCIA, id, idTipo);
+        return ocorrenciaDao.obterOcorrenciaRegistada(idTarefa, TiposConstantes.MetodosTipos.TIPIFICACAO_OCORRENCIA, id, idTipo);
     }
 
 
 
     public Single<Integer> remover(int idTarefa, int id){
-        return ocorrenciaResultadoDao.remover(idTarefa, id);
+        return ocorrenciaDao.remover(idTarefa, id);
     }
 
 
@@ -99,7 +99,7 @@ public class OcorrenciaRepositorio {
      * @return uma lista de historico
      */
     public Flowable<List<OcorrenciaHistorico>> obterHistorico(int id) {
-        return ocorrenciaResultadoDao.obterHistorico(id);
+        return ocorrenciaDao.obterHistorico(id);
     }
 
     //-----
@@ -121,11 +121,11 @@ public class OcorrenciaRepositorio {
 
 
     public Single<Long> inserir(OcorrenciaResultado ocorrencia){
-        return ocorrenciaResultadoDao.inserir(ocorrencia);
+        return ocorrenciaDao.inserir(ocorrencia);
     }
 
     public Single<Integer> atualizar(OcorrenciaResultado ocorrencia){
-        return ocorrenciaResultadoDao.atualizar(ocorrencia);
+        return ocorrenciaDao.atualizar(ocorrencia);
     }
 
 

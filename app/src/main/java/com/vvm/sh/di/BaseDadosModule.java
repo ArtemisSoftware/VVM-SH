@@ -6,10 +6,10 @@ import androidx.room.Room;
 
 import com.vvm.sh.baseDados.BaseDadosContantes;
 import com.vvm.sh.baseDados.Migracao;
+import com.vvm.sh.baseDados.dao.ImagemDao;
 import com.vvm.sh.baseDados.dao.ResultadoDao;
-import com.vvm.sh.baseDados.TipoDao;
+import com.vvm.sh.baseDados.dao.TipoDao;
 import com.vvm.sh.baseDados.VvmshBaseDados;
-import com.vvm.sh.baseDados.dao.ImagemResultadoDao;
 
 import javax.inject.Singleton;
 
@@ -52,9 +52,9 @@ public class BaseDadosModule {
 
     @Singleton
     @Provides
-    static ImagemResultadoDao provideImagemResultadoDao(VvmshBaseDados vvmshBaseDados){
+    static ImagemDao provideImagemResultadoDao(VvmshBaseDados vvmshBaseDados){
 
-        ImagemResultadoDao dao = vvmshBaseDados.obterImagemResultadoDao();
+        ImagemDao dao = vvmshBaseDados.obterImagemDao();
 
         //Timber.d("Providing NoteDao: " + dao);
         return dao;

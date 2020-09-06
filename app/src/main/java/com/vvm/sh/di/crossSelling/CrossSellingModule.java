@@ -2,7 +2,7 @@ package com.vvm.sh.di.crossSelling;
 
 import com.vvm.sh.baseDados.dao.CrossSellingDao;
 import com.vvm.sh.baseDados.dao.ResultadoDao;
-import com.vvm.sh.baseDados.TipoDao;
+import com.vvm.sh.baseDados.dao.TipoDao;
 import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.repositorios.CrossSellingRepositorio;
 

@@ -1,9 +1,9 @@
 package com.vvm.sh.di.ocorrencias;
 
+import com.vvm.sh.baseDados.dao.OcorrenciaDao;
 import com.vvm.sh.baseDados.dao.ResultadoDao;
-import com.vvm.sh.baseDados.TipoDao;
+import com.vvm.sh.baseDados.dao.TipoDao;
 import com.vvm.sh.baseDados.VvmshBaseDados;
-import com.vvm.sh.baseDados.dao.OcorrenciaResultadoDao;
 import com.vvm.sh.repositorios.OcorrenciaRepositorio;
 
 import dagger.Module;
@@ -17,9 +17,9 @@ public class OcorrenciasModule {
 
     @OcorrenciasScope
     @Provides
-    static OcorrenciaResultadoDao provideOcorrenciaResultado(VvmshBaseDados vvmshBaseDados){
+    static OcorrenciaDao provideOcorrenciaResultado(VvmshBaseDados vvmshBaseDados){
 
-        OcorrenciaResultadoDao dao = vvmshBaseDados.obterOcorrenciaResultadoDao();
+        OcorrenciaDao dao = vvmshBaseDados.obterOcorrenciaDao();
 
         //Timber.d("Providing NoteDao: " + dao);
         return dao;
@@ -28,9 +28,9 @@ public class OcorrenciasModule {
 
     @OcorrenciasScope
     @Provides
-    OcorrenciaRepositorio provideOcorrenciaRepositorio(OcorrenciaResultadoDao ocorrenciaResultadoDao, TipoDao tipoDao, ResultadoDao resultadoDao) {
+    OcorrenciaRepositorio provideOcorrenciaRepositorio(OcorrenciaDao ocorrenciaDao, TipoDao tipoDao, ResultadoDao resultadoDao) {
 
-        OcorrenciaRepositorio repositorio = new OcorrenciaRepositorio(ocorrenciaResultadoDao, tipoDao, resultadoDao);
+        OcorrenciaRepositorio repositorio = new OcorrenciaRepositorio(ocorrenciaDao, tipoDao, resultadoDao);
 
         //Timber.d("Providing PokemonRepository: " + repository);
         return repositorio;

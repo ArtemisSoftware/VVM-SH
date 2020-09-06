@@ -8,7 +8,7 @@
 
 
         <import type="com.vvm.sh.util.metodos.DatasUtil"/>
-        <import type="com.vvm.sh.util.StringUtil"/>
+        <import type="com.vvm.sh.util.metodos.StringUtil"/>
 
         <variable
             name="upload"

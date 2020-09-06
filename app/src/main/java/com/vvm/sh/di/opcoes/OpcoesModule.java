@@ -2,7 +2,7 @@ package com.vvm.sh.di.opcoes;
 
 import com.vvm.sh.api.SegurancaAlimentarApi;
 import com.vvm.sh.baseDados.dao.AtualizacaoDao;
-import com.vvm.sh.baseDados.TipoDao;
+import com.vvm.sh.baseDados.dao.TipoDao;
 import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.repositorios.TiposRepositorio;
 import com.vvm.sh.repositorios.VersaoAppRepositorio;

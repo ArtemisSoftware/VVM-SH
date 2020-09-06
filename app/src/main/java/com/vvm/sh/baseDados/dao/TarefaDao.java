@@ -1,10 +1,11 @@
-package com.vvm.sh.baseDados;
+package com.vvm.sh.baseDados.dao;
 
 
 import androidx.room.Dao;
 import androidx.room.Query;
 import androidx.room.Transaction;
 
+import com.vvm.sh.baseDados.BaseDao;
 import com.vvm.sh.baseDados.entidades.Tarefa;
 import com.vvm.sh.baseDados.entidades.AtividadeExecutada;
 import com.vvm.sh.ui.tarefa.modelos.TarefaDia;
@@ -14,7 +15,7 @@ import java.util.List;
 import io.reactivex.Flowable;
 
 @Dao
-public abstract class TarefaDao implements BaseDao<Tarefa>{
+public abstract class TarefaDao implements BaseDao<Tarefa> {
 
 
     @Transaction

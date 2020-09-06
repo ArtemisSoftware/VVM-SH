@@ -9,7 +9,7 @@ import com.vvm.sh.baseDados.entidades.ImagemResultado;
 import io.reactivex.Single;
 
 @Dao
-abstract public class ImagemResultadoDao implements BaseDao<ImagemResultado> {
+abstract public class ImagemDao implements BaseDao<ImagemResultado> {
 
 
     @Query("DELETE FROM imagensResultado WHERE id = :id AND origem = :origem")

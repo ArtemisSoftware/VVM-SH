@@ -5,7 +5,7 @@
 
     <data>
         <import type="com.vvm.sh.BuildConfig"/>
-        <import type="com.vvm.sh.util.StringUtil"/>
+        <import type="com.vvm.sh.util.metodos.StringUtil"/>
         <import type="java.util.List"/>
         <import type="android.view.View"/>
         <import type="com.vvm.sh.util.metodos.DatasUtil"/>

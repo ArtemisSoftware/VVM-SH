@@ -16,7 +16,7 @@ import io.reactivex.Maybe;
 import io.reactivex.Single;
 
 @Dao
-abstract public class AtividadePendenteResultadoDao implements BaseDao<AtividadePendenteResultado> {
+abstract public class AtividadePendenteDao implements BaseDao<AtividadePendenteResultado> {
 
 
     @Transaction

@@ -4,7 +4,7 @@ import androidx.annotation.NonNull;
 
 import com.vvm.sh.baseDados.dao.CrossSellingDao;
 import com.vvm.sh.baseDados.dao.ResultadoDao;
-import com.vvm.sh.baseDados.TipoDao;
+import com.vvm.sh.baseDados.dao.TipoDao;
 import com.vvm.sh.baseDados.entidades.CrossSellingResultado;
 import com.vvm.sh.ui.crossSelling.modelos.CrossSelling;
 import com.vvm.sh.util.constantes.TiposConstantes;

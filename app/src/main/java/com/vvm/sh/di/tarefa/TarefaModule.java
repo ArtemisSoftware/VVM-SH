@@ -2,7 +2,7 @@ package com.vvm.sh.di.tarefa;
 
 import com.vvm.sh.baseDados.dao.EmailDao;
 import com.vvm.sh.baseDados.dao.ResultadoDao;
-import com.vvm.sh.baseDados.TarefaDao;
+import com.vvm.sh.baseDados.dao.TarefaDao;
 import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.repositorios.TarefaRepositorio;
 

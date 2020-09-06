@@ -5,7 +5,7 @@ import androidx.annotation.NonNull;
 import com.vvm.sh.api.SegurancaAlimentarApi;
 import com.vvm.sh.api.modelos.TipoResposta;
 import com.vvm.sh.baseDados.dao.AtualizacaoDao;
-import com.vvm.sh.baseDados.TipoDao;
+import com.vvm.sh.baseDados.dao.TipoDao;
 import com.vvm.sh.baseDados.entidades.Atualizacao;
 import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.ui.opcoes.modelos.ResumoTipo;

@@ -6,15 +6,16 @@ import androidx.room.TypeConverters;
 
 import com.vvm.sh.baseDados.dao.AcaoFormacaoDao;
 import com.vvm.sh.baseDados.dao.AgendaDao;
-import com.vvm.sh.baseDados.dao.AnomaliaResultadoDao;
-import com.vvm.sh.baseDados.dao.AtividadePendenteResultadoDao;
+import com.vvm.sh.baseDados.dao.AnomaliaDao;
+import com.vvm.sh.baseDados.dao.AtividadePendenteDao;
 import com.vvm.sh.baseDados.dao.AtualizacaoDao;
 import com.vvm.sh.baseDados.dao.CrossSellingDao;
 import com.vvm.sh.baseDados.dao.EmailDao;
 import com.vvm.sh.baseDados.dao.FormandoDao;
-import com.vvm.sh.baseDados.dao.ImagemResultadoDao;
-import com.vvm.sh.baseDados.dao.OcorrenciaResultadoDao;
+import com.vvm.sh.baseDados.dao.ImagemDao;
+import com.vvm.sh.baseDados.dao.OcorrenciaDao;
 import com.vvm.sh.baseDados.dao.ResultadoDao;
+import com.vvm.sh.baseDados.dao.TarefaDao;
 import com.vvm.sh.baseDados.dao.TransferenciasDao;
 import com.vvm.sh.baseDados.dao.UtilizadorDao;
 import com.vvm.sh.baseDados.entidades.ImagemResultado;
@@ -27,6 +28,7 @@ import com.vvm.sh.baseDados.entidades.AtividadePendente;
 import com.vvm.sh.baseDados.entidades.AtividadePendenteResultado;
 import com.vvm.sh.baseDados.entidades.AcaoFormacaoResultado;
 import com.vvm.sh.baseDados.entidades.FormandoResultado;
+import com.vvm.sh.baseDados.dao.TipoDao;
 import com.vvm.sh.baseDados.entidades.Utilizador;
 import com.vvm.sh.baseDados.entidades.Cliente;
 import com.vvm.sh.baseDados.entidades.CrossSellingResultado;
@@ -84,13 +86,13 @@ public abstract class VvmshBaseDados extends RoomDatabase {
 
     public abstract EmailDao obterEmailDao();
 
-    public abstract AnomaliaResultadoDao obterAnomaliaResultadoDao();
+    public abstract AnomaliaDao obterAnomaliaDao();
 
-    public abstract AtividadePendenteResultadoDao obterAtividadePendenteResultadoDao();
+    public abstract AtividadePendenteDao obterAtividadePendenteDao();
 
     public abstract FormandoDao obterFormandoDao();
 
-    public abstract OcorrenciaResultadoDao obterOcorrenciaResultadoDao();
+    public abstract OcorrenciaDao obterOcorrenciaDao();
 
     public abstract ResultadoDao obterResultadoDao();
 
@@ -99,7 +101,7 @@ public abstract class VvmshBaseDados extends RoomDatabase {
     public abstract AcaoFormacaoDao obterAcaoFormacaoDao();
 
 
-    public abstract ImagemResultadoDao obterImagemResultadoDao();
+    public abstract ImagemDao obterImagemDao();
 
     public abstract TransferenciasDao obterTransferenciasDao();
 

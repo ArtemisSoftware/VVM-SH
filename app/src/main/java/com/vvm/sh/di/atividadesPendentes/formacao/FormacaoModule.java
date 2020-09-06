@@ -1,12 +1,12 @@
 package com.vvm.sh.di.atividadesPendentes.formacao;
 
 import com.vvm.sh.baseDados.dao.AcaoFormacaoDao;
-import com.vvm.sh.baseDados.dao.AtividadePendenteResultadoDao;
+import com.vvm.sh.baseDados.dao.AtividadePendenteDao;
 import com.vvm.sh.baseDados.dao.FormandoDao;
+import com.vvm.sh.baseDados.dao.ImagemDao;
 import com.vvm.sh.baseDados.dao.ResultadoDao;
-import com.vvm.sh.baseDados.TipoDao;
+import com.vvm.sh.baseDados.dao.TipoDao;
 import com.vvm.sh.baseDados.VvmshBaseDados;
-import com.vvm.sh.baseDados.dao.ImagemResultadoDao;
 import com.vvm.sh.repositorios.FormacaoRepositorio;
 
 import dagger.Module;
@@ -41,9 +41,9 @@ public class FormacaoModule {
 
     @FormacaoScope
     @Provides
-    static AtividadePendenteResultadoDao provideAtividadePendenteResultadoDao(VvmshBaseDados vvmshBaseDados){
+    static AtividadePendenteDao provideAtividadePendenteResultadoDao(VvmshBaseDados vvmshBaseDados){
 
-        AtividadePendenteResultadoDao dao = vvmshBaseDados.obterAtividadePendenteResultadoDao();
+        AtividadePendenteDao dao = vvmshBaseDados.obterAtividadePendenteDao();
 
         //Timber.d("Providing NoteDao: " + dao);
         return dao;
@@ -52,10 +52,10 @@ public class FormacaoModule {
     @FormacaoScope
     @Provides
     FormacaoRepositorio provideFormacaoRepositorio(FormandoDao formandoDao, AcaoFormacaoDao acaoFormacaoDao,
-                                                   AtividadePendenteResultadoDao atividadePendenteResultadoDao, ImagemResultadoDao imagemResultadoDao,
+                                                   AtividadePendenteDao atividadePendenteDao, ImagemDao imagemDao,
                                                    TipoDao tipoDao, ResultadoDao resultadoDao) {
 
-        FormacaoRepositorio repositorio = new FormacaoRepositorio(formandoDao, acaoFormacaoDao, atividadePendenteResultadoDao, imagemResultadoDao, tipoDao, resultadoDao);
+        FormacaoRepositorio repositorio = new FormacaoRepositorio(formandoDao, acaoFormacaoDao, atividadePendenteDao, imagemDao, tipoDao, resultadoDao);
 
         //Timber.d("Providing PokemonRepository: " + repository);
         return repositorio;

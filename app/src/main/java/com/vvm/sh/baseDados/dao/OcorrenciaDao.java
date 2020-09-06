@@ -18,7 +18,7 @@ import io.reactivex.Maybe;
 import io.reactivex.Single;
 
 @Dao
-abstract public class OcorrenciaResultadoDao implements BaseDao<OcorrenciaResultado> {
+abstract public class OcorrenciaDao implements BaseDao<OcorrenciaResultado> {
 
     @Query("SELECT * FROM ocorrencias WHERE idTarefa = :idTarefa")
     abstract public Flowable<List<Ocorrencia>> obterOcorrencias(int idTarefa);

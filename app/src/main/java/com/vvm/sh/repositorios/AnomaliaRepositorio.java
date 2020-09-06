@@ -2,9 +2,9 @@ package com.vvm.sh.repositorios;
 
 import androidx.annotation.NonNull;
 
-import com.vvm.sh.baseDados.dao.AnomaliaResultadoDao;
+import com.vvm.sh.baseDados.dao.AnomaliaDao;
 import com.vvm.sh.baseDados.dao.ResultadoDao;
-import com.vvm.sh.baseDados.TipoDao;
+import com.vvm.sh.baseDados.dao.TipoDao;
 import com.vvm.sh.baseDados.entidades.Anomalia;
 import com.vvm.sh.ui.anomalias.modelos.AnomaliaRegistada;
 import com.vvm.sh.baseDados.entidades.AnomaliaResultado;
@@ -19,14 +19,14 @@ import io.reactivex.Single;
 
 public class AnomaliaRepositorio {
 
-    private final AnomaliaResultadoDao anomaliaResultadoDao;
+    private final AnomaliaDao anomaliaDao;
     private final TipoDao tipoDao;
     public final ResultadoDao resultadoDao;
 
-    public AnomaliaRepositorio(@NonNull AnomaliaResultadoDao anomaliaResultadoDao,
+    public AnomaliaRepositorio(@NonNull AnomaliaDao anomaliaDao,
                                @NonNull TipoDao tipoDao, @NonNull ResultadoDao resultadoDao) {
 
-        this.anomaliaResultadoDao = anomaliaResultadoDao;
+        this.anomaliaDao = anomaliaDao;
         this.tipoDao = tipoDao;
         this.resultadoDao = resultadoDao;
     }
@@ -38,7 +38,7 @@ public class AnomaliaRepositorio {
      * @return uma lista de registos
      */
     public Flowable<List<Anomalia>> obterAnomalias(int idTarefa) {
-        return anomaliaResultadoDao.obterAnomalias(idTarefa);
+        return anomaliaDao.obterAnomalias(idTarefa);
     }
 
 
@@ -48,7 +48,7 @@ public class AnomaliaRepositorio {
      * @return uma lista de registos
      */
     public Flowable<List<AnomaliaRegistada>> obterAnomaliasRegistadas(int idTarefa) {
-        return anomaliaResultadoDao.obterAnomaliasRegistadas(idTarefa, TiposConstantes.MetodosTipos.TIPOS_ANOMALIA);
+        return anomaliaDao.obterAnomaliasRegistadas(idTarefa, TiposConstantes.MetodosTipos.TIPOS_ANOMALIA);
     }
 
 
@@ -58,7 +58,7 @@ public class AnomaliaRepositorio {
      * @return uma anomalia
      */
     public Maybe<AnomaliaRegistada> obterAnomaliaRegistada(int id) {
-        return anomaliaResultadoDao.obterAnomaliasRegistada(id, TiposConstantes.MetodosTipos.TIPOS_ANOMALIA);
+        return anomaliaDao.obterAnomaliasRegistada(id, TiposConstantes.MetodosTipos.TIPOS_ANOMALIA);
     }
 
 
@@ -68,7 +68,7 @@ public class AnomaliaRepositorio {
      * @return o resultado da remocao
      */
     public Single<Integer> remover(int id) {
-        return anomaliaResultadoDao.remover(id);
+        return anomaliaDao.remover(id);
     }
 
 
@@ -76,11 +76,11 @@ public class AnomaliaRepositorio {
 
 
     public Single<Long> inserir(AnomaliaResultado anomalia) {
-        return anomaliaResultadoDao.inserir(anomalia);
+        return anomaliaDao.inserir(anomalia);
     }
 
     public Single<Integer> atualizar(AnomaliaResultado anomalia) {
-        return anomaliaResultadoDao.atualizar(anomalia);
+        return anomaliaDao.atualizar(anomalia);
     }
 
 

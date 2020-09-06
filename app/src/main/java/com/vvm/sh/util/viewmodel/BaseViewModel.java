@@ -11,6 +11,7 @@ import com.vvm.sh.api.modelos.pedido.Codigo;
 import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.excepcoes.RespostaWsInvalidaException;
+import com.vvm.sh.util.excepcoes.TipoInexistenteException;
 
 import javax.inject.Inject;
 
@@ -62,6 +63,10 @@ public abstract class BaseViewModel extends ViewModel {
             Codigo codigo = gson.fromJson(e.getMessage(), Codigo.class);
 
             messagemLiveData.setValue(Recurso.erro(codigo, "Upload"));
+        }
+        else if (e instanceof TipoInexistenteException){
+
+            messagemLiveData.setValue(Recurso.erro(e.getMessage(), "Tipos"));
         }
         else {
             messagemLiveData.setValue(Recurso.erro(e.getMessage()));

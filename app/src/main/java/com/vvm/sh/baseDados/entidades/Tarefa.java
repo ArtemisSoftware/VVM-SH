@@ -35,14 +35,11 @@ public class Tarefa implements Parcelable {
     @ColumnInfo(name = "data")
     public Date data;
 
+
+
     @NonNull
-    @ColumnInfo(name = "app")
-    public int app;
-
-
-    //    @NonNull
-//    @ColumnInfo(name = "api")
-//    public int api;
+    @ColumnInfo(name = "api")
+    public int api;
 
 
     @Ignore
@@ -59,14 +56,13 @@ public class Tarefa implements Parcelable {
     }
 
 
-    public Tarefa(int idTarefa, @NonNull String idUtilizador, @NonNull String ordem, @NonNull String prefixoCt, @NonNull Date data, int app/*, int api*/) {
+    public Tarefa(int idTarefa, @NonNull String idUtilizador, @NonNull String ordem, @NonNull String prefixoCt, @NonNull Date data, int api) {
         this.idTarefa = idTarefa;
         this.idUtilizador = idUtilizador;
         this.ordem = ordem;
         this.prefixoCt = prefixoCt;
         this.data = data;
-        this.app = app;
-        //this.api = api;
+        this.api = api;
     }
 
 
@@ -78,7 +74,7 @@ public class Tarefa implements Parcelable {
         idUtilizador = in.readString();
         ordem = in.readString();
         prefixoCt = in.readString();
-        app = in.readInt();
+        api = in.readInt();
     }
 
     @Override
@@ -87,7 +83,7 @@ public class Tarefa implements Parcelable {
         dest.writeString(idUtilizador);
         dest.writeString(ordem);
         dest.writeString(prefixoCt);
-        dest.writeInt(app);
+        dest.writeInt(api);
     }
 
     @Override

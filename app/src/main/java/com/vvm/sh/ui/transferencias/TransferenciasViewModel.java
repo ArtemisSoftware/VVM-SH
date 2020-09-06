@@ -330,6 +330,8 @@ public class TransferenciasViewModel extends BaseViewModel {
     //PENDENCIAS
     //-----------------------
 
+
+
     /**
      * Metodo que permite obter as pendencias
      * @param idUtilizador o identificador do utilizador

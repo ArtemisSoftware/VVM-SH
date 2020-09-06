@@ -124,6 +124,7 @@ public class AutenticacaoViewModel extends BaseViewModel {
 
             if(registo.id.equals(idUtilizador) == true & registo.ativo == true & registo.palavraChave.equals(messageDigest) == true){
 
+                registo.api = resposta.api;
                 return registo;
             }
         }

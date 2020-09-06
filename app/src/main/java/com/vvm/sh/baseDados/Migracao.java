@@ -15,7 +15,7 @@ public class Migracao {
 
         Migration migrations [] =  new Migration []{
                 MIGRACAO_1_2, MIGRACAO_2_3, MIGRACAO_3_4, MIGRACAO_4_5, MIGRACAO_5_6, MIGRACAO_6_7, MIGRACAO_7_8, MIGRACAO_8_9, MIGRACAO_9_10, MIGRACAO_10_11,
-                MIGRACAO_11_12/*, MIGRACAO_12_13*/
+                MIGRACAO_11_12, MIGRACAO_12_13
 
         };
 
@@ -33,7 +33,35 @@ public class Migracao {
 
                 database.execSQL("ALTER TABLE utilizadores ADD COLUMN api INTEGER NOT NULL DEFAULT " + Identificadores.App.APP_SA + "");
 
-                database.execSQL("ALTER TABLE tipos ADD COLUMN api INTEGER PRIMARY KEY DEFAULT " + Identificadores.App.APP_SA + "");
+
+
+                database.execSQL(" ALTER TABLE tipos RENAME TO tmp");
+
+                database.execSQL("CREATE TABLE IF NOT EXISTS 'tipos' ("
+                        + "'id' INTEGER NOT NULL, "
+                        + "'tipo' TEXT NOT NULL, "
+                        + "'descricao' TEXT NOT NULL, "
+                        + "'codigo' TEXT NOT NULL, "
+                        + "'idPai' TEXT NOT NULL, "
+                        + "'ativo' INTEGER NOT NULL, "
+                        + "'detalhe' TEXT NOT NULL, "
+                        + "'api' INTEGER NOT NULL, "
+                        + "PRIMARY KEY (id, tipo, api), "
+                        + "FOREIGN KEY (tipo) REFERENCES atualizacoes (descricao)  ON DELETE CASCADE) ");
+
+                //database.execSQL("CREATE INDEX index_tipos_tipo ON tipos (tipo)");
+
+                database.execSQL(" INSERT INTO tipos(id, tipo, descricao, codigo, idPai, ativo, detalhe, api) "
+                        + "SELECT id, tipo, descricao, codigo, idPai, ativo, cast(detalhe as text) as detalhe , " + Identificadores.App.APP_SA + " as api FROM tmp");
+
+                database.execSQL("DROP TABLE tmp");
+
+                database.execSQL("DROP INDEX IF EXISTS index_tipos_tipo");
+                database.execSQL("CREATE INDEX index_tipos_tipo ON tipos (tipo)");
+
+
+
+
 
 
 

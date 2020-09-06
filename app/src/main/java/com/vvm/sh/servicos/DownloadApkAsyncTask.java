@@ -74,7 +74,7 @@ public class DownloadApkAsyncTask extends AsyncTask<VersaoApp, Void, Void> {
 
     /**
      * Metodo que permite inicar as variaveis necessarias ao download do novo apk
-     * @param versaoApp os dados da versao da app
+     * @param versaoApp os dados da versao da api
      */
     private void initVariaveisDownload(VersaoApp versaoApp) {
 

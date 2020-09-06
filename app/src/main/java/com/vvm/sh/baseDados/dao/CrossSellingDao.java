@@ -1,9 +1,10 @@
-package com.vvm.sh.baseDados;
+package com.vvm.sh.baseDados.dao;
 
 import androidx.room.Dao;
 import androidx.room.Query;
 import androidx.room.Transaction;
 
+import com.vvm.sh.baseDados.BaseDao;
 import com.vvm.sh.baseDados.entidades.CrossSellingResultado;
 import com.vvm.sh.ui.crossSelling.modelos.CrossSelling;
 import com.vvm.sh.util.constantes.TiposConstantes;
@@ -14,7 +15,7 @@ import io.reactivex.Flowable;
 import io.reactivex.Single;
 
 @Dao
-abstract public class CrossSellingDao implements BaseDao<CrossSellingResultado>{
+abstract public class CrossSellingDao implements BaseDao<CrossSellingResultado> {
 
 
 

@@ -115,6 +115,11 @@ public class TiposUtil {
     }
 
 
+    /**
+     * Metodo que permite obter os metodos associados a um tipo
+     * @param descricao a descricao do tipo
+     * @return uma lista de metodos
+     */
     public static String [] obterMetodos(String descricao){
 
         String metodos [] = new String []{};

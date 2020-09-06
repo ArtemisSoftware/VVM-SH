@@ -5,7 +5,7 @@ import androidx.annotation.NonNull;
 import com.vvm.sh.api.SegurancaAlimentarApi;
 import com.vvm.sh.api.modelos.UtilizadorResposta;
 import com.vvm.sh.baseDados.entidades.Utilizador;
-import com.vvm.sh.baseDados.UtilizadorDao;
+import com.vvm.sh.baseDados.dao.UtilizadorDao;
 
 import io.reactivex.Single;
 
@@ -27,7 +27,7 @@ public class AutenticacaoRepositorio {
      * @return os utilizadores
      */
     public Single<UtilizadorResposta> obterUtilizadores() {
-        return api.obterUtilizadores();
+        return api.obterUtilizadores(api.HEADER);
     }
 
 

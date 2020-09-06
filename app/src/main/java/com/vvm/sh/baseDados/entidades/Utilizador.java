@@ -27,9 +27,9 @@ public class Utilizador {
     public String email;
 
 
-//    @NonNull
-//    @ColumnInfo(name = "api")
-//    public int api;
+    @NonNull
+    @ColumnInfo(name = "api")
+    public int api;
 
 
     @Ignore
@@ -39,12 +39,12 @@ public class Utilizador {
     public Utilizador() {}
 
 
-    public Utilizador(String id, String area, String nome, String email/*, int api*/) {
+    public Utilizador(String id, String area, String nome, String email, int api) {
         this.id = id;
         this.area = area;
         this.nome = nome;
         this.email = email;
-        //this.api = api;
+        this.api = api;
     }
 
     @Ignore

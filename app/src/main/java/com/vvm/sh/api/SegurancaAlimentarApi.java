@@ -50,7 +50,7 @@ public interface SegurancaAlimentarApi {
 
 
     @GET("GetUtilizadores?dataT=")
-    Single<UtilizadorResposta> obterUtilizadores();
+    Single<UtilizadorResposta> obterUtilizadores(@HeaderMap Map<String, String> headers);
 
 
     @GET("GetDados")

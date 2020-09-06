@@ -14,7 +14,7 @@ import dagger.android.DaggerApplication;
 public class App extends DaggerApplication {
 
     public static final int ATUALIZACAO_APP_ID = 1;
-    public static final String CANAL_ATUALIZACAO_APP_ID = "Atualização app";
+    public static final String CANAL_ATUALIZACAO_APP_ID = "Atualização api";
 
 
     @Override
@@ -42,7 +42,7 @@ public class App extends DaggerApplication {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
-            NotificationChannel canalAtualizacao = new NotificationChannel(CANAL_ATUALIZACAO_APP_ID, "Canal atualização app", NotificationManager.IMPORTANCE_HIGH);
+            NotificationChannel canalAtualizacao = new NotificationChannel(CANAL_ATUALIZACAO_APP_ID, "Canal atualização api", NotificationManager.IMPORTANCE_HIGH);
             canalAtualizacao.setDescription("Canal de notificações para a atualização da aplicação");
 
             NotificationManager manager = getSystemService(NotificationManager.class);

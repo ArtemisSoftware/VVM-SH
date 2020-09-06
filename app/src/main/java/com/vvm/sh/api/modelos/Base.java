@@ -19,7 +19,7 @@ public class Base<T> {
     @SerializedName("metodo")
     public String metodo;
 
-    @SerializedName("app")
-    public int app;
+    @SerializedName("api")
+    public int api;
 
 }

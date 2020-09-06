@@ -58,7 +58,7 @@ public class PermissoesUtil {
 
 
     /**
-     * Metodo que permite pedir as permissões da app
+     * Metodo que permite pedir as permissões da api
      * @param contexto
      */
     public static void pedirPermissoesApp(final Activity contexto) {

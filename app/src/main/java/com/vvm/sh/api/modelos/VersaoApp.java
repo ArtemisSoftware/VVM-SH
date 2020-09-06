@@ -114,26 +114,17 @@ public class VersaoApp {
 
 
 
-    /**
-     * Metodo que indica se a aplicação pode atualizar
-     * @return true caso possa atualizar ou false caso contrario
-     */
-    public boolean atualizar(){
-        return atualizar;
-    }
-
-
 
     /**
-     * Metodo que permite fixar o ficheiro da versao da app
-     * @param ficheiro o ficheiro da versao da app
+     * Metodo que permite fixar o ficheiro da versao da api
+     * @param ficheiro o ficheiro da versao da api
      */
     public void fixarFicheiro(File ficheiro){
         this.ficheiro = ficheiro;
     }
 
     /**
-     * Metodo que permite obter o ficheiro da versao da app
+     * Metodo que permite obter o ficheiro da versao da api
      * @return um ficheiro
      */
     public File obterFicheiro(){

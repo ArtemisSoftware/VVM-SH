@@ -7,7 +7,7 @@ import static com.vvm.sh.util.constantes.Identificadores.ApresentacaoApp.*;
 
 
 /**
- * Classe que contem as apresentações que devem aparecer quando a app é atualizada
+ * Classe que contem as apresentações que devem aparecer quando a api é atualizada
  */
 public class Apresentacoes {
 
@@ -22,7 +22,7 @@ public class Apresentacoes {
 
 
 
-    private static final Introducao BOAS_VINDAS = IntroducaoFactory.obterIntroducao(TIPO_APRESENTACAO, "Bem vindo a app vvm.sh.\n\nApp para o registo de auditorias de segurança alimentar");
+    private static final Introducao BOAS_VINDAS = IntroducaoFactory.obterIntroducao(TIPO_APRESENTACAO, "Bem vindo a api vvm.sh.\n\nApp para o registo de auditorias de segurança alimentar");
 
 
     public static final Introducao[] PAGINAS_BOAS_VINDAS = new Introducao[]{ BOAS_VINDAS };

@@ -3,7 +3,7 @@ package com.vvm.sh.servicos;
 import android.database.sqlite.SQLiteConstraintException;
 import android.os.AsyncTask;
 
-import com.vvm.sh.baseDados.ResultadoDao;
+import com.vvm.sh.baseDados.dao.ResultadoDao;
 import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.baseDados.entidades.Resultado;
 

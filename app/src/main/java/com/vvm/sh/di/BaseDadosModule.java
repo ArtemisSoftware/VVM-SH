@@ -6,7 +6,7 @@ import androidx.room.Room;
 
 import com.vvm.sh.baseDados.BaseDadosContantes;
 import com.vvm.sh.baseDados.Migracao;
-import com.vvm.sh.baseDados.ResultadoDao;
+import com.vvm.sh.baseDados.dao.ResultadoDao;
 import com.vvm.sh.baseDados.TipoDao;
 import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.baseDados.dao.ImagemResultadoDao;

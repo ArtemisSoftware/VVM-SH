@@ -23,9 +23,9 @@ public class PreferenciasUtil {
 
 
     /**
-     * Metodo que permite fixar os dados da primeira utilizacao da app
+     * Metodo que permite fixar os dados da primeira utilizacao da api
      * @param contexto
-     * @param primeiraUtilizacao boolean que indica se é a primeira utilizacao da app
+     * @param primeiraUtilizacao boolean que indica se é a primeira utilizacao da api
      */
     public static void fixarPrimeiraUtilizacao(Context contexto, boolean primeiraUtilizacao){
 
@@ -77,7 +77,7 @@ public class PreferenciasUtil {
 
 
     /**
-     * Metodo que permite fixar a versao da app
+     * Metodo que permite fixar a versao da api
      * @param contexto
      */
     public static void fixarVersao(Context contexto) {
@@ -124,7 +124,7 @@ public class PreferenciasUtil {
 
 
     /**
-     * Metodo que permite indetificar se é necessario realizar a apresentacao da versão da app
+     * Metodo que permite indetificar se é necessario realizar a apresentacao da versão da api
      * @param contexto
      */
     public static void realizarApresentacaoApp(Context contexto) {

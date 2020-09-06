@@ -26,4 +26,8 @@ public class UtilizadorResultado {
     @SerializedName("Email")
     public String email;
 
+
+    @SerializedName("api")
+    public int api;
+
 }

@@ -1,7 +1,7 @@
 package com.vvm.sh.di.autenticacao;
 
 import com.vvm.sh.api.SegurancaAlimentarApi;
-import com.vvm.sh.baseDados.UtilizadorDao;
+import com.vvm.sh.baseDados.dao.UtilizadorDao;
 import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.repositorios.AutenticacaoRepositorio;
 

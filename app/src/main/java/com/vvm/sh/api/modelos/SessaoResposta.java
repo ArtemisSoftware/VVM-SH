@@ -15,8 +15,8 @@ public class SessaoResposta {
     public String metodo;
 
 
-    @SerializedName("app")
-    public String app;
+    @SerializedName("api")
+    public int api;
 
     public class Sessao {
 

@@ -1,14 +1,15 @@
-package com.vvm.sh.baseDados;
+package com.vvm.sh.baseDados.dao;
 
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Transaction;
 import androidx.room.Update;
 
+import com.vvm.sh.baseDados.BaseDao;
 import com.vvm.sh.baseDados.entidades.Resultado;
 
 @Dao
-abstract public class ResultadoDao implements BaseDao<Resultado>{
+abstract public class ResultadoDao implements BaseDao<Resultado> {
 
 
     @Insert

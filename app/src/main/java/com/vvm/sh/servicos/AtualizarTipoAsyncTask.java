@@ -40,6 +40,7 @@ public class AtualizarTipoAsyncTask extends AsyncTask<List<TipoResposta>, Void, 
 
                 try {
 
+                    //TODO: verificar a api
                     for(TipoResposta resposta : respostas){
 
                         Atualizacao atualizacao = DownloadMapping.INSTANCE.map(resposta);

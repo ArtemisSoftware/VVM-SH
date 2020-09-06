@@ -36,6 +36,7 @@ public class TrabalhoAsyncTask extends AsyncTask<SessaoResposta, Void, Void> {
     private VvmshBaseDados vvmshBaseDados;
     protected TransferenciasRepositorio repositorio;
     protected AtualizacaoUI atualizacaoUI;
+    private int api;
 
     public TrabalhoAsyncTask(VvmshBaseDados vvmshBaseDados, TransferenciasRepositorio repositorio, Handler handler, String idUtilizador){
         this.vvmshBaseDados = vvmshBaseDados;
@@ -53,6 +54,7 @@ public class TrabalhoAsyncTask extends AsyncTask<SessaoResposta, Void, Void> {
 
         SessaoResposta resposta = sessaoRespostas[0];
 
+        api = resposta.api;
         String data = resposta.sessoes.get(0).data;
         List<SessaoResposta.TrabalhoInfo> trabalho = resposta.sessoes.get(0).trabalho;
 
@@ -229,7 +231,7 @@ public class TrabalhoAsyncTask extends AsyncTask<SessaoResposta, Void, Void> {
         Tarefa tarefa = DownloadMapping.INSTANCE.map(dados);
         tarefa.data = DatasUtil.converterString(data, DatasUtil.FORMATO_YYYY_MM_DD);
         tarefa.idUtilizador = idUtilizador;
-        tarefa.app = Identificadores.App.APP_SA; //TODO: mudar isto consoante SA ou SHT
+        tarefa.api = api;
 
         return (int) repositorio.inserirTarefa(tarefa);
     }

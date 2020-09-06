@@ -79,7 +79,7 @@ public class WebServiceInterceptor implements Interceptor {
 
             JSONObject resposta = new JSONObject(conteudo);
             resposta.put("metodo", metodo);
-            resposta.put("app", api);
+            resposta.put("api", api);
             resposta.put("api", api);
             return resposta.toString();
 

@@ -14,7 +14,10 @@ import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.util.AtualizacaoUI;
 import com.vvm.sh.util.constantes.Sintaxe;
+import com.vvm.sh.util.interfaces.OnPermissaoConcedidaListener;
+import com.vvm.sh.util.metodos.DiretoriasUtil;
 import com.vvm.sh.util.metodos.Notificacao;
+import com.vvm.sh.util.metodos.PermissoesUtil;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
@@ -91,7 +94,7 @@ public class AtualizacaoAppActivity extends BaseDaggerActivity {
                 case ERRO_DOWNLOAD_APK:
                 case ERRO_INSTALACAO_APK:
 
-                    relatorioErro(comunicado);
+                    dialogo.erro(comunicado.obterDados());
                     break;
 
                 default:
@@ -128,22 +131,9 @@ public class AtualizacaoAppActivity extends BaseDaggerActivity {
 
         activityAtualizacaoAppBinding.txtProgresso.setText(comunicado.obterPosicao() + "/" + comunicado.obterLimite());
         activityAtualizacaoAppBinding.txtTituloProgresso.setText(comunicado.obterMensagem());
-
+        activityAtualizacaoAppBinding.progressBarProgresso.setProgress(comunicado.obterPosicao());
     }
 
-
-    /**
-     * Metodo que permite apresentar um relatorio de erro
-     * @param comunicado
-     */
-    private void relatorioErro(AtualizacaoUI.Comunicado comunicado){
-
-        //TODO: alerta de erro
-
-        //--Alerta de erro
-        //if(comunicado.obterMensagem() != null)
-        //--AlertaUI.erro(dialogo, comunicado.obterMensagem())
-    }
 
     //----------------------
     //Eventos
@@ -152,7 +142,7 @@ public class AtualizacaoAppActivity extends BaseDaggerActivity {
 
     public void onCancelarClick(VersaoApp versaoApp) {
 
-        if(versaoApp.atualizar() == true) {
+        if(versaoApp.atualizar == true) {
             Notificacao.notificarAtualizacaoApp(getApplication(), versaoApp.versao);
         }
 
@@ -166,7 +156,18 @@ public class AtualizacaoAppActivity extends BaseDaggerActivity {
         activityAtualizacaoAppBinding.txtTituloProgresso.setText(Sintaxe.SEM_TEXTO);
         activityAtualizacaoAppBinding.txtProgresso.setText(Sintaxe.SEM_TEXTO);
 
-        viewModel.downloadApp(this, handlerNotificacoesUI);
+
+        OnPermissaoConcedidaListener listener = new OnPermissaoConcedidaListener() {
+            @Override
+            public void executar() {
+
+                if(DiretoriasUtil.criarDirectoria(DiretoriasUtil.DOWNLOAD) == true){
+                    viewModel.downloadApp(AtualizacaoAppActivity.this, handlerNotificacoesUI);
+                }
+            }
+        };
+
+        PermissoesUtil.pedirPermissoesEscritaLeitura(this, listener);
     }
 
 }

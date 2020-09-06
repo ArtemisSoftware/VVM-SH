@@ -3,7 +3,7 @@ package com.vvm.sh.repositorios;
 import androidx.annotation.NonNull;
 
 import com.vvm.sh.baseDados.dao.EmailDao;
-import com.vvm.sh.baseDados.ResultadoDao;
+import com.vvm.sh.baseDados.dao.ResultadoDao;
 import com.vvm.sh.baseDados.TarefaDao;
 import com.vvm.sh.ui.tarefa.modelos.TarefaDia;
 import com.vvm.sh.baseDados.entidades.AtividadeExecutada;

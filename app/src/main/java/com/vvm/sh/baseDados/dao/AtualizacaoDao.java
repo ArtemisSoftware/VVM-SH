@@ -1,10 +1,11 @@
-package com.vvm.sh.baseDados;
+package com.vvm.sh.baseDados.dao;
 
 import androidx.room.Dao;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
+import com.vvm.sh.baseDados.BaseDao;
 import com.vvm.sh.baseDados.entidades.Atualizacao;
 
 import java.util.List;
@@ -13,7 +14,7 @@ import io.reactivex.Flowable;
 import io.reactivex.Maybe;
 
 @Dao
-abstract public class AtualizacaoDao implements BaseDao<Atualizacao>{
+abstract public class AtualizacaoDao implements BaseDao<Atualizacao> {
 
 
     @Insert

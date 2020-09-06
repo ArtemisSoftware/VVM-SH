@@ -1,7 +1,7 @@
 package com.vvm.sh.di.atividadesPendentes;
 
 import com.vvm.sh.baseDados.dao.AtividadePendenteResultadoDao;
-import com.vvm.sh.baseDados.ResultadoDao;
+import com.vvm.sh.baseDados.dao.ResultadoDao;
 import com.vvm.sh.baseDados.TipoDao;
 import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.repositorios.AtividadePendenteRepositorio;

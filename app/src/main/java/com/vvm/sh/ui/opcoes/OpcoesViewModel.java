@@ -210,7 +210,7 @@ public class OpcoesViewModel extends BaseViewModel {
 
 
     /**
-     * Metodo que permite obter a atualizacao da app
+     * Metodo que permite obter a atualizacao da api
      */
     public void obterAtualizacao(String idUtilizador) {
 

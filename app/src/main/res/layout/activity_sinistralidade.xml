@@ -93,10 +93,10 @@
                         app:layout_constraintTop_toBottomOf="@+id/textview2">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/txt_inp_nome"
+                            android:id="@+id/txt_inp_acidentes_trabalho"
                             style="@style/modifiedEditText"
 
-                            android:inputType="numberDecimal"
+                            android:inputType="number"
                             android:maxLines="1"/>
 
                         <!-- android:text="@{viewmodel.formando.resultado.nome}" -->
@@ -115,7 +115,7 @@
                         app:errorEnabled="true">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/txt_inp_identificacao"
+                            android:id="@+id/txt_inp_dias_perdidos"
                             style="@style/modifiedEditText"
                             android:inputType="numberDecimal"
 
@@ -138,11 +138,12 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/txt_inp_total_trabalhadores"
                             style="@style/modifiedEditText"
-                            android:inputType="numberDecimal"
+                            android:inputType="number"
 
                             android:maxLines="1"/>
                         <!-- android:text="@{viewmodel.formando.resultado.nome}" -->
                     </com.google.android.material.textfield.TextInputLayout>
+
 
 
 
@@ -203,6 +204,7 @@
                             android:id="@+id/txt_inp_total_horas_trabalhadas"
                             style="@style/modifiedEditText"
                             android:inputType="numberDecimal"
+                            android:enabled="false"
 
                             android:maxLines="1"/>
                         <!-- android:text="@{viewmodel.formando.resultado.nome}" -->

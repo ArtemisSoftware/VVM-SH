@@ -92,7 +92,7 @@ public class OpcaoClienteRecyclerAdapter extends RecyclerView.Adapter<RecyclerVi
 //
 //        this.registos.add(new OpcaoCliente(OPCAO_INFORMACAO, "Informação"));
 //        this.registos.add(new OpcaoCliente(OPCAO_CROSS_SELLING, "Cross Selling"));
-//        this.registos.add(new OpcaoCliente(OPCAO_SINISTRALIDADE, "Sinistralidade"));
+//        this.registos.add(new OpcaoCliente(OPCAO_SINISTRALIDADE, "SinistralidadeResultado"));
 //        this.registos.add(new OpcaoCliente(OPCAO_EXTINTORES, "Extintores"));
 //
 //        this.registos.add(new OpcaoCliente(OPCAO_ANOMALIA, "Registo de anomalia"));

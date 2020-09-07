@@ -71,7 +71,6 @@ public interface DownloadMapping {
 
     Anomalia map(IAnomalia item);
 
-    @Mapping(target = "formacao", ignore = true)
     AtividadePendente map(IAtividadePendente item);
 
     Ocorrencia map(IOcorrencia item);

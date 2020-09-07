@@ -15,12 +15,49 @@ public class Migracao {
 
         Migration migrations [] =  new Migration []{
                 MIGRACAO_1_2, MIGRACAO_2_3, MIGRACAO_3_4, MIGRACAO_4_5, MIGRACAO_5_6, MIGRACAO_6_7, MIGRACAO_7_8, MIGRACAO_8_9, MIGRACAO_9_10, MIGRACAO_10_11,
-                MIGRACAO_11_12, MIGRACAO_12_13
+                MIGRACAO_11_12, MIGRACAO_12_13, MIGRACAO_13_14
 
         };
 
         return migrations;
     }
+
+
+    public static final Migration MIGRACAO_13_14 = new Migration(13, 14) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            try {
+
+
+                database.execSQL(" ALTER TABLE atividadesPendentes RENAME TO tmp");
+
+                database.execSQL("CREATE TABLE IF NOT EXISTS 'atividadesPendentes' ("
+                        + "'idTarefa' INTEGER NOT NULL, "
+                        + "'id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
+                        + "'dataProgramada' INTEGER NOT NULL, "
+                        + "'descricao' TEXT NOT NULL, "
+                        + "'servId' TEXT NOT NULL , "
+                        + "'idRelatorio' INTEGER NOT NULL , "
+                        + "FOREIGN KEY (idTarefa) REFERENCES tarefas (idTarefa)  ON DELETE CASCADE)  ");
+
+
+                database.execSQL(" INSERT INTO atividadesPendentes(idTarefa, id, dataProgramada, descricao, servId, idRelatorio) "
+                        + "SELECT idTarefa, id, dataProgramada, descricao, servId, formacao as idRelatorio FROM tmp");
+
+                database.execSQL("DROP TABLE tmp");
+
+                database.execSQL("DROP INDEX IF EXISTS index_atividadesPendentes_idTarefa");
+                database.execSQL("CREATE INDEX index_atividadesPendentes_idTarefa ON atividadesPendentes (idTarefa)");
+
+
+            }
+            catch(SQLException e){
+                Log.e("Migracao", "erro MIGRACAO_13_14: " + e.getMessage());
+                //Timber.e("erro MIGRACAO_2_3: " + e.getMessage());
+            }
+        }
+    };
+
 
 
 

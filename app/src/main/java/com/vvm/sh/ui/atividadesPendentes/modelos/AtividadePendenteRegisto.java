@@ -23,9 +23,6 @@ public class AtividadePendenteRegisto {
     public AtividadePendenteResultado resultado;
 
 
-    @ColumnInfo(name = "idRelatorio")
-    public int idRelatorio;
-
     @ColumnInfo(name = "nomeRelatorio")
     public String nomeRelatorio;
 

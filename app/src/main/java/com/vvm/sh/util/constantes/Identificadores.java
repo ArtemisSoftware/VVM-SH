@@ -84,6 +84,9 @@ public class Identificadores {
 
 
     public class Relatorios {
+
+        public static final int SEM_RELATORIO = 0;
+
         public static final int ID_RELATORIO_FORMACAO = 1;
         public static final String FORMACAO = "Formação";
     }

@@ -126,10 +126,10 @@ public class TrabalhoAsyncTask extends AsyncTask<SessaoResposta, Void, Void> {
 
         List<AtividadePendente> registos = new ArrayList<>();
 
-        for(IAtividadePendente IAtividadePendente : atividadesPendentes){
+        for(IAtividadePendente atividadePendente : atividadesPendentes){
 
-            AtividadePendente registo = DownloadMapping.INSTANCE.map(IAtividadePendente);
-            registo.formacao = ConversorUtil.converter_Integer_Para_Boolean(IAtividadePendente.formacao);
+            AtividadePendente registo = DownloadMapping.INSTANCE.map(atividadePendente);
+            registo.idRelatorio = obterIdRelatorioAtividadePendente(atividadePendente);
             registo.idTarefa = idTarefa;
             registos.add(registo);
         }
@@ -234,6 +234,22 @@ public class TrabalhoAsyncTask extends AsyncTask<SessaoResposta, Void, Void> {
         tarefa.api = api;
 
         return (int) repositorio.inserirTarefa(tarefa);
+    }
+
+
+    /**
+     * Metodo que permite obter o identificador do relatorio da atividade pendente
+     * @param atividadePendente os dados da atividade pendente
+     * @return um identificador
+     */
+    private int obterIdRelatorioAtividadePendente(IAtividadePendente atividadePendente){
+
+        if(ConversorUtil.converter_Integer_Para_Boolean(atividadePendente.formacao) == true){
+            return Identificadores.Relatorios.ID_RELATORIO_FORMACAO;
+        }
+
+        return Identificadores.Relatorios.SEM_RELATORIO;
+
     }
 
 

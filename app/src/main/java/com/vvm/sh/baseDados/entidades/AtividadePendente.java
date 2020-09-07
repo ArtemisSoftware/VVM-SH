@@ -45,11 +45,10 @@ public class AtividadePendente {
     @ColumnInfo(name = "servId")
     public String servId;
 
+
     @NonNull
-    @ColumnInfo(name = "formacao")
-    public boolean formacao;
-
-
+    @ColumnInfo(name = "idRelatorio")
+    public int idRelatorio;
 
 
     @Ignore
@@ -57,12 +56,12 @@ public class AtividadePendente {
     }
 
 
-    public AtividadePendente(int idTarefa, @NonNull Date dataProgramada, @NonNull String descricao, @NonNull String servId, boolean formacao) {
+    public AtividadePendente(int idTarefa, @NonNull Date dataProgramada, @NonNull String descricao, @NonNull String servId, int idRelatorio) {
         this.idTarefa = idTarefa;
         this.dataProgramada = dataProgramada;
         this.descricao = descricao;
         this.servId = servId;
-        this.formacao = formacao;
+        this.idRelatorio = idRelatorio;
     }
 
 

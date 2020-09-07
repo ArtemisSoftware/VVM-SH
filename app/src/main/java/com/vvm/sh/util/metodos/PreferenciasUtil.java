@@ -220,6 +220,10 @@ public class PreferenciasUtil {
      */
     public static boolean agendaEditavel(Context contexto) {
 
+        if(BuildConfig.DEBUG){
+            return true;
+        }
+
         String pacote = contexto.getPackageName();
 
         SharedPreferences preferencias = contexto.getSharedPreferences(pacote, Context.MODE_PRIVATE);

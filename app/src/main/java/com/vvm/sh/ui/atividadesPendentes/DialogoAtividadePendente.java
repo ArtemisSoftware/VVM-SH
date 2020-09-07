@@ -116,8 +116,9 @@ public class DialogoAtividadePendente extends BaseDaggerDialogFragment {
         if(PreferenciasUtil.agendaEditavel(getContext()) == false){
             binding.rdBtnActividadeExecutada.setVisibility(View.GONE);
             binding.rdBtnActividadeNaoExecutada.setVisibility(View.GONE);
-
-            //TODO: completar com uma opcao de detalhe criada dinamica
+        }
+        else{
+            binding.rdBtnDetalhe.setVisibility(View.GONE);
         }
 
     }

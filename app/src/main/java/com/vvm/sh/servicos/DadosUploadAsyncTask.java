@@ -247,7 +247,7 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
 
                 AtividadePendenteExecutada registo = UploadMapping.INSTANCE.mapeamento(item);
 
-                if(item.atividade.formacao == true){
+                if(item.atividade.idRelatorio == Identificadores.Relatorios.ID_RELATORIO_FORMACAO){
                     registo.formacao = obterAcaoFormacao(item.resultado.id);
                 }
 

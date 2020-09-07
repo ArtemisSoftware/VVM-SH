@@ -22,16 +22,13 @@ abstract public class AtividadePendenteDao implements BaseDao<AtividadePendenteR
     @Transaction
     @Query("SELECT *, " +
 
-            "CASE WHEN formacao = 1 THEN  " + Identificadores.Relatorios.ID_RELATORIO_FORMACAO + " "+
-            "ELSE 0 END as idRelatorio, " +
-
-            "CASE WHEN formacao = 1 THEN  '" + Identificadores.Relatorios.FORMACAO + "' "+
+            "CASE WHEN idRelatorio = 1 THEN  '" + Identificadores.Relatorios.FORMACAO + "' "+
             "ELSE '' END as nomeRelatorio, " +
 
-            "CASE WHEN formacao = 1 THEN  1 " +
+            "CASE WHEN idRelatorio > 0 THEN  1 " +
             "ELSE 0 END as possuiRelatorio, " +
 
-            "CASE WHEN formacao = 1 AND IFNULL(ct_formando, 0) > 0 THEN  1 " +
+            "CASE WHEN idRelatorio = " + Identificadores.Relatorios.ID_RELATORIO_FORMACAO + " AND IFNULL(ct_formando, 0) > 0 THEN  1 " +
             "ELSE 0 END as relatorioCompleto " +
 
             "FROM atividadesPendentes atp " +
@@ -46,16 +43,13 @@ abstract public class AtividadePendenteDao implements BaseDao<AtividadePendenteR
     @Transaction
     @Query("SELECT *, " +
 
-            "CASE WHEN formacao = 1 THEN  " + Identificadores.Relatorios.ID_RELATORIO_FORMACAO + " "+
-            "ELSE 0 END as idRelatorio, " +
-
-            "CASE WHEN formacao = 1 THEN  '" + Identificadores.Relatorios.FORMACAO + "' "+
+            "CASE WHEN idRelatorio = 1 THEN  '" + Identificadores.Relatorios.FORMACAO + "' "+
             "ELSE '' END as nomeRelatorio, " +
 
-            "CASE WHEN formacao = 1 THEN  1 " +
+            "CASE WHEN idRelatorio > 0 THEN  1 " +
             "ELSE 0 END as possuiRelatorio, " +
 
-            "CASE WHEN formacao = 1 AND IFNULL(ct_formando, 0) > 0 THEN  1 " +
+            "CASE WHEN idRelatorio = " + Identificadores.Relatorios.ID_RELATORIO_FORMACAO + " AND IFNULL(ct_formando, 0) > 0 THEN  1 " +
             "ELSE 0 END as relatorioCompleto " +
 
             "FROM atividadesPendentes atp " +

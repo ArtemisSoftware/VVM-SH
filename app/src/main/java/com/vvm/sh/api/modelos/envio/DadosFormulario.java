@@ -1,12 +1,6 @@
 package com.vvm.sh.api.modelos.envio;
 
 import com.google.gson.annotations.SerializedName;
-import com.vvm.sh.api.Tarefa_;
-import com.vvm.sh.api.modelos.envio.Anomalia;
-import com.vvm.sh.api.modelos.envio.AtividadePendente;
-import com.vvm.sh.api.modelos.envio.CrossSelling;
-import com.vvm.sh.api.modelos.envio.Email;
-import com.vvm.sh.api.modelos.envio.Ocorrencia;
 import com.vvm.sh.util.metodos.DatasUtil;
 
 import java.util.ArrayList;
@@ -19,7 +13,7 @@ public class DadosFormulario {
 
 
     @SerializedName("id")
-    public Tarefa_ id;
+    public Sessao id;
 
 
     @SerializedName("email")

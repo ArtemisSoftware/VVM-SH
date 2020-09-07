@@ -4,8 +4,8 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.himanshurawat.hasher.HashType;
 import com.himanshurawat.hasher.Hasher;
-import com.vvm.sh.api.modelos.UtilizadorResposta;
-import com.vvm.sh.api.modelos.UtilizadorResultado;
+import com.vvm.sh.api.modelos.pedido.IUtilizador;
+import com.vvm.sh.api.modelos.pedido.IUtilizadorListagem;
 import com.vvm.sh.repositorios.AutenticacaoRepositorio;
 import com.vvm.sh.baseDados.entidades.Utilizador;
 import com.vvm.sh.util.constantes.Sintaxe;
@@ -50,11 +50,11 @@ public class AutenticacaoViewModel extends BaseViewModel {
         showProgressBar(true);
 
         autenticacaoRepositorio.obterUtilizadores().toObservable()
-                .map(new Function<UtilizadorResposta, Object>() {
+                .map(new Function<IUtilizadorListagem, Object>() {
                     @Override
-                    public UtilizadorResultado apply(UtilizadorResposta resposta) throws Exception {
+                    public IUtilizador apply(IUtilizadorListagem resposta) throws Exception {
 
-                        UtilizadorResultado resultado = autenticarUtilizador(resposta, idUtilizador, palavraChave);
+                        IUtilizador resultado = autenticarUtilizador(resposta, idUtilizador, palavraChave);
 
                         if(resultado == null){
                             throw new UtilizadorException(Sintaxe.Alertas.ERRO_AUTENTICACAO);
@@ -68,7 +68,7 @@ public class AutenticacaoViewModel extends BaseViewModel {
                     @Override
                     public ObservableSource<?> apply(Object o) throws Exception {
 
-                        Utilizador utilizador = DownloadMapping.INSTANCE.map((UtilizadorResultado) o);
+                        Utilizador utilizador = DownloadMapping.INSTANCE.map((IUtilizador) o);
                         return autenticacaoRepositorio.inserir(utilizador).toObservable();
 
                     }
@@ -116,9 +116,9 @@ public class AutenticacaoViewModel extends BaseViewModel {
      * @param palavraChave a palavra chave do utilizador
      * @return um utilizador
      */
-    private UtilizadorResultado autenticarUtilizador(UtilizadorResposta resposta, String idUtilizador, String palavraChave){
+    private IUtilizador autenticarUtilizador(IUtilizadorListagem resposta, String idUtilizador, String palavraChave){
 
-        for (UtilizadorResultado registo : resposta.dadosNovos) {
+        for (IUtilizador registo : resposta.dadosNovos) {
 
             String messageDigest = Hasher.Companion.hash(palavraChave, HashType.MD5);
 

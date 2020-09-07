@@ -2,11 +2,11 @@ package com.vvm.sh.repositorios;
 
 import androidx.annotation.NonNull;
 
-import com.vvm.sh.api.AtividadePendenteResultado_;
-import com.vvm.sh.api.FormandoResultado_;
+import com.vvm.sh.api.modelos.bd.AtividadePendenteBd;
+import com.vvm.sh.api.modelos.bd.FormandoBd;
 import com.vvm.sh.api.SegurancaAlimentarApi;
+import com.vvm.sh.api.modelos.pedido.ISessao;
 import com.vvm.sh.api.modelos.pedido.Codigo;
-import com.vvm.sh.api.modelos.SessaoResposta;
 import com.vvm.sh.baseDados.dao.TransferenciasDao;
 import com.vvm.sh.baseDados.entidades.Anomalia;
 import com.vvm.sh.baseDados.entidades.AtividadeExecutada;
@@ -54,7 +54,7 @@ public class TransferenciasRepositorio {
      * @param idUtilizador o identificador do utilizador
      * @return o trabalho
      */
-    public Single<SessaoResposta> obterTrabalho(String idUtilizador) {
+    public Single<ISessao> obterTrabalho(String idUtilizador) {
         return api.obterTrabalho(idUtilizador);
     }
 
@@ -65,7 +65,7 @@ public class TransferenciasRepositorio {
      * @param data da data do dia (YYYY-mm-dd)
      * @return o trabalho do dia
      */
-    public Single<SessaoResposta> obterTrabalho(String idUtilizador, String data) {
+    public Single<ISessao> obterTrabalho(String idUtilizador, String data) {
         return api.obterTrabalho(idUtilizador, data);
     }
 
@@ -193,7 +193,7 @@ public class TransferenciasRepositorio {
      * @param idTarefa o identificador da tarefa
      * @return uma lista de atividades pendentes
      */
-    public List<AtividadePendenteResultado_> obterAtividadesPendentes(int idTarefa) {
+    public List<AtividadePendenteBd> obterAtividadesPendentes(int idTarefa) {
         return transferenciasDao.obterAtividadesPendentes(idTarefa);
     }
 
@@ -213,7 +213,7 @@ public class TransferenciasRepositorio {
      * @param idAtividade o identificador da atividade
      * @return uma lista de formandos
      */
-    public List<FormandoResultado_> obterFormandos(int idAtividade) {
+    public List<FormandoBd> obterFormandos(int idAtividade) {
         return transferenciasDao.obterFormandos(idAtividade);
     }
 

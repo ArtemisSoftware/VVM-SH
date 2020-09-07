@@ -2,10 +2,8 @@ package com.vvm.sh.ui.agenda;
 
 import androidx.lifecycle.MutableLiveData;
 
-import com.vvm.sh.api.modelos.SessaoResposta;
 import com.vvm.sh.repositorios.AgendaRepositorio;
 import com.vvm.sh.ui.agenda.modelos.Marcacao;
-import com.vvm.sh.servicos.TrabalhoAsyncTask;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.metodos.DatasUtil;

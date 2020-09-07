@@ -4,8 +4,8 @@ import android.database.sqlite.SQLiteConstraintException;
 import android.os.AsyncTask;
 import android.os.Handler;
 
-import com.vvm.sh.api.modelos.TipoResposta;
-import com.vvm.sh.api.modelos.TipoResultado;
+import com.vvm.sh.api.modelos.pedido.ITipo;
+import com.vvm.sh.api.modelos.pedido.ITipoListagem;
 import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.baseDados.entidades.Atualizacao;
 import com.vvm.sh.baseDados.entidades.Tipo;
@@ -16,7 +16,7 @@ import com.vvm.sh.util.mapeamento.DownloadMapping;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CarregarTipoAsyncTask extends AsyncTask<List<TipoResposta>, Void, Void> {
+public class CarregarTipoAsyncTask extends AsyncTask<List<ITipoListagem>, Void, Void> {
 
     private String errorMessage;
     private VvmshBaseDados vvmshBaseDados;
@@ -36,12 +36,12 @@ public class CarregarTipoAsyncTask extends AsyncTask<List<TipoResposta>, Void, V
 
 
     @Override
-    protected Void doInBackground(List<TipoResposta>... tipoRespostas) {
+    protected Void doInBackground(List<ITipoListagem>... tipoRespostas) {
 
         if(tipoRespostas[0] == null)
             return null;
 
-        List<TipoResposta> respostas = tipoRespostas[0];
+        List<ITipoListagem> respostas = tipoRespostas[0];
 
         this.vvmshBaseDados.runInTransaction(new Runnable(){
             @Override
@@ -52,18 +52,18 @@ public class CarregarTipoAsyncTask extends AsyncTask<List<TipoResposta>, Void, V
 
                     int index = 0;
 
-                    for(TipoResposta resposta : respostas){
+                    for(ITipoListagem resposta : respostas){
 
                         List<Tipo> dadosNovos = new ArrayList<>();
                         List<Tipo> dadosAlterados = new ArrayList<>();
 
                         Atualizacao atualizacao = DownloadMapping.INSTANCE.map(resposta);
 
-                        for (TipoResultado item : resposta.dadosNovos) {
+                        for (ITipo item : resposta.dadosNovos) {
                             dadosNovos.add(DownloadMapping.INSTANCE.map(item, resposta));
                         }
 
-                        for (TipoResultado item : resposta.dadosAlterados) {
+                        for (ITipo item : resposta.dadosAlterados) {
                             dadosAlterados.add(DownloadMapping.INSTANCE.map(item, resposta));
                         }
 

@@ -2,7 +2,7 @@ package com.vvm.sh.servicos;
 
 import android.os.Handler;
 
-import com.vvm.sh.api.modelos.SessaoResposta;
+import com.vvm.sh.api.modelos.pedido.ISessao;
 import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.repositorios.TransferenciasRepositorio;
 import com.vvm.sh.util.AtualizacaoUI;
@@ -21,7 +21,7 @@ public class RecarregarTrabalhoAsyncTask extends TrabalhoAsyncTask {
 
 
     @Override
-    protected void inserirTrabalho(List<SessaoResposta.TrabalhoInfo> trabalho, String data) {
+    protected void inserirTrabalho(List<ISessao.TrabalhoInfo> trabalho, String data) {
 
         repositorio.eliminarTrabalho(idUtilizador, dataTrabalho);
 
@@ -31,7 +31,7 @@ public class RecarregarTrabalhoAsyncTask extends TrabalhoAsyncTask {
             atualizacaoUI.atualizarUI(AtualizacaoUI.Codigo.PROCESSAMENTO_DADOS, "Tarefa " + (index + 1), (index + 1), trabalho.size());
         }
 
-//        for (SessaoResposta.TrabalhoInfo tarefa : trabalho) {
+//        for (ISessao.TrabalhoInfo tarefa : trabalho) {
 //            inserirTarefas(data, tarefa);
 //        }
 

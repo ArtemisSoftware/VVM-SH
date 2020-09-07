@@ -1,11 +1,12 @@
-package com.vvm.sh.api.modelos;
+package com.vvm.sh.api.modelos.pedido;
 
 import com.google.gson.annotations.SerializedName;
+import com.vvm.sh.api.modelos.Base;
 import com.vvm.sh.api.modelos.pedido.ITarefa;
 
 import java.util.List;
 
-public class SessaoResposta extends Base{
+public class ISessao extends Base {
 
     @SerializedName("Sessoes")
     public List<Sessao> sessoes;

@@ -1,5 +1,8 @@
 package com.vvm.sh.util.mapeamento;
 
+import com.vvm.sh.api.modelos.pedido.ITipo;
+import com.vvm.sh.api.modelos.pedido.ITipoListagem;
+import com.vvm.sh.api.modelos.pedido.IUtilizador;
 import com.vvm.sh.api.modelos.pedido.IAtividadeExecutada;
 import com.vvm.sh.api.modelos.pedido.IAnomalia;
 import com.vvm.sh.api.modelos.pedido.IAtividadePendente;
@@ -7,9 +10,6 @@ import com.vvm.sh.api.modelos.pedido.ICliente;
 import com.vvm.sh.api.modelos.pedido.ITarefa;
 import com.vvm.sh.api.modelos.pedido.IDados;
 import com.vvm.sh.api.modelos.pedido.IOcorrencia;
-import com.vvm.sh.api.modelos.TipoResposta;
-import com.vvm.sh.api.modelos.TipoResultado;
-import com.vvm.sh.api.modelos.UtilizadorResultado;
 import com.vvm.sh.baseDados.entidades.Tarefa;
 import com.vvm.sh.baseDados.entidades.Anomalia;
 import com.vvm.sh.baseDados.entidades.AtividadeExecutada;
@@ -32,7 +32,7 @@ public interface DownloadMapping {
 
     @Mapping(source = "metodo", target = "descricao")
     @Mapping(source = "seloTemporal", target = "seloTemporal")
-    Atualizacao map(TipoResposta item);
+    Atualizacao map(ITipoListagem item);
 
 
     @Mapping(source = "item.id", target = "id")
@@ -42,14 +42,14 @@ public interface DownloadMapping {
     @Mapping(source = "item.ativo", target = "ativo")
     @Mapping(source = "item.detalhe", target = "detalhe")
     @Mapping(source = "resposta.metodo", target = "tipo")
-    Tipo map(TipoResultado item, TipoResposta resposta);
+    Tipo map(ITipo item, ITipoListagem resposta);
 
 
     @Mapping(source = "id", target = "id")
     @Mapping(source = "area", target = "area")
     @Mapping(source = "nome", target = "nome")
     @Mapping(source = "email", target = "email")
-    Utilizador map(UtilizadorResultado item);
+    Utilizador map(IUtilizador item);
 
 
     @Mapping(source = "ordem", target = "ordem")

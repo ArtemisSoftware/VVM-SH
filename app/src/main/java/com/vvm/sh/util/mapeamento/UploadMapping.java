@@ -1,17 +1,17 @@
 package com.vvm.sh.util.mapeamento;
 
+import com.vvm.sh.api.modelos.bd.AtividadePendenteBd;
+import com.vvm.sh.api.modelos.envio.Sessao;
 import com.vvm.sh.api.modelos.envio.AcaoFormacao;
 import com.vvm.sh.api.modelos.envio.Anomalia;
 import com.vvm.sh.api.modelos.envio.AtividadePendenteExecutada;
 import com.vvm.sh.api.modelos.envio.AtividadePendenteNaoExecutada;
-import com.vvm.sh.api.AtividadePendenteResultado_;
 import com.vvm.sh.api.BlocoDados;
 import com.vvm.sh.api.modelos.envio.CrossSelling;
 import com.vvm.sh.api.modelos.envio.Email;
 import com.vvm.sh.api.modelos.envio.Formando;
 import com.vvm.sh.api.modelos.envio.Imagem;
 import com.vvm.sh.api.modelos.envio.Ocorrencia;
-import com.vvm.sh.api.Tarefa_;
 import com.vvm.sh.baseDados.entidades.CrossSellingResultado;
 import com.vvm.sh.baseDados.entidades.EmailResultado;
 import com.vvm.sh.baseDados.entidades.FormandoResultado;
@@ -52,12 +52,12 @@ public interface UploadMapping {
     @Mapping(source = "atividade.servId", target = "servId")
     @Mapping(source = "resultado.idAnomalia", target = "idAnomalia")
     @Mapping(source = "resultado.observacao", target = "observacao")
-    AtividadePendenteNaoExecutada map(AtividadePendenteResultado_ item);
+    AtividadePendenteNaoExecutada map(AtividadePendenteBd item);
 
     @Mapping(source = "atividade.servId", target = "servId")
     @Mapping(source = "resultado.tempoExecucao", target = "tempoExecucao")
     @Mapping(source = "resultado.dataExecucao", target = "dataExecucao", dateFormat = DatasUtil.FORMATO_YYYY_MM_DD)
-    AtividadePendenteExecutada mapeamento(AtividadePendenteResultado_ item);
+    AtividadePendenteExecutada mapeamento(AtividadePendenteBd item);
 
 
     @Mapping(source = "data", target = "data", dateFormat = DatasUtil.FORMATO_YYYY_MM_DD)
@@ -71,7 +71,7 @@ public interface UploadMapping {
 
     @Mapping(source = "prefixoCt", target = "prefixoCT")
     @Mapping(source = "data", target = "data", dateFormat = DatasUtil.FORMATO_YYYY_MM_DD)
-    Tarefa_ map(Tarefa item);
+    Sessao map(Tarefa item);
 
 
     @Mapping(source = "idImagem", target = "idFoto")

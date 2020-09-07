@@ -3,6 +3,7 @@ package com.vvm.sh.servicos;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Handler;
 
 import com.vvm.sh.api.modelos.VersaoApp;
@@ -10,29 +11,38 @@ import com.vvm.sh.util.AtualizacaoUI;
 import com.vvm.sh.util.constantes.AppConfig;
 import com.vvm.sh.util.metodos.DiretoriasUtil;
 
-public class ServicoInstalacaoApk extends Servico {
+public class InstalarApkAsyncTask extends AsyncTask<VersaoApp, Void, Void> {
+
 
     private Context contexto;
-    private Uri uri;
 
-    public ServicoInstalacaoApk(Context contexto, Handler handler, VersaoApp versaoApp) {
-        super(handler);
+    /**
+     * Permite enviar mensagens para fora do servico
+     */
+    private AtualizacaoUI atualizacaoUI;
+
+
+
+    public InstalarApkAsyncTask(Context contexto, Handler handler) {
 
         this.contexto = contexto;
-
-        //File ficheiro = new File(Environment.getExternalStorageDirectory().toString() + "/" + DiretoriasUtil.DOWNLOAD, nomeFicheiro);
-        //--LOG--LogApp_v4.obterInstancia(FONTE, LogIF.ID_LOG_GERAL).adicionarTexto("Caminho para o novo apk: "+ file.getAbsolutePath());
-
-        uri = DiretoriasUtil.obterUri(contexto, versaoApp.obterFicheiro());
+        atualizacaoUI = new AtualizacaoUI(handler);
     }
 
-
     @Override
-    protected void executar() {
+    protected Void doInBackground(VersaoApp... versaoApps) {
 
-        //--LOG--LogApp_v4.obterInstancia(FONTE, LogIF.ID_LOG_GERAL).adicionarTexto("Download da nova versão da aplicacao completo. A iniciar a instalação....");
+
+        if(versaoApps[0] == null)
+            return null;
+
+        VersaoApp versaoApp = versaoApps[0];
+
 
         atualizacaoUI.atualizarUI(AtualizacaoUI.Codigo.PROCESSAMENTO_DADOS, "Instalacão", 50, 100);
+
+
+        Uri uri = DiretoriasUtil.obterUri(contexto, versaoApp.ficheiro);
 
         Intent intent = new Intent(Intent.ACTION_VIEW);
         intent.setDataAndType(uri, AppConfig.MIME_VERSAO_APP);
@@ -45,15 +55,9 @@ public class ServicoInstalacaoApk extends Servico {
         catch(Exception e){
             atualizacaoUI.atualizarUI(AtualizacaoUI.Codigo.ERRO_INSTALACAO_APK, e.getMessage());
         }
-    }
 
 
-    //----------------------
-    //
-    //----------------------
 
-    @Override
-    protected void terminarExecucao() {
-
+        return null;
     }
 }

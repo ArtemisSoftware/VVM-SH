@@ -3,7 +3,7 @@ package com.vvm.sh.repositorios;
 import androidx.annotation.NonNull;
 
 import com.vvm.sh.api.SegurancaAlimentarApi;
-import com.vvm.sh.api.modelos.UtilizadorResposta;
+import com.vvm.sh.api.modelos.pedido.IUtilizadorListagem;
 import com.vvm.sh.baseDados.entidades.Utilizador;
 import com.vvm.sh.baseDados.dao.UtilizadorDao;
 
@@ -26,7 +26,7 @@ public class AutenticacaoRepositorio {
      * Metodo que permite obter os utilizadores existentes no ws
      * @return os utilizadores
      */
-    public Single<UtilizadorResposta> obterUtilizadores() {
+    public Single<IUtilizadorListagem> obterUtilizadores() {
         return api.obterUtilizadores(api.HEADER);
     }
 

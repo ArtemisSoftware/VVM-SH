@@ -9,12 +9,12 @@ import com.vvm.sh.api.modelos.envio.Anomalia;
 import com.vvm.sh.api.modelos.envio.AtividadePendente;
 import com.vvm.sh.api.modelos.envio.AtividadePendenteExecutada;
 import com.vvm.sh.api.modelos.envio.AtividadePendenteNaoExecutada;
-import com.vvm.sh.api.AtividadePendenteResultado_;
+import com.vvm.sh.api.modelos.bd.AtividadePendenteBd;
 import com.vvm.sh.api.modelos.envio.CrossSelling;
 import com.vvm.sh.api.modelos.envio.DadosFormulario;
 import com.vvm.sh.api.modelos.envio.Email;
 import com.vvm.sh.api.modelos.envio.Formando;
-import com.vvm.sh.api.FormandoResultado_;
+import com.vvm.sh.api.modelos.bd.FormandoBd;
 import com.vvm.sh.api.modelos.envio.Imagem;
 import com.vvm.sh.api.modelos.envio.Ocorrencia;
 import com.vvm.sh.baseDados.VvmshBaseDados;
@@ -217,7 +217,7 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
 
         List<Formando> registos = new ArrayList<>();
 
-        for (FormandoResultado_ item : repositorio.obterFormandos(idAtividade)) {
+        for (FormandoBd item : repositorio.obterFormandos(idAtividade)) {
 
             Formando registo = UploadMapping.INSTANCE.map(item.resultado);
             registo.album = new ArrayList<>();
@@ -241,7 +241,7 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
 
         List<AtividadePendente> registos = new ArrayList<>();
 
-        for (AtividadePendenteResultado_ item : repositorio.obterAtividadesPendentes(idTarefa)) {
+        for (AtividadePendenteBd item : repositorio.obterAtividadesPendentes(idTarefa)) {
 
             if(item.resultado.idEstado == Identificadores.Estados.ESTADO_EXECUTADO){
 

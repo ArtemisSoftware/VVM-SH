@@ -1,9 +1,9 @@
 package com.vvm.sh.api;
 
+import com.vvm.sh.api.modelos.pedido.ITipoListagem;
+import com.vvm.sh.api.modelos.pedido.ISessao;
 import com.vvm.sh.api.modelos.pedido.Codigo;
-import com.vvm.sh.api.modelos.SessaoResposta;
-import com.vvm.sh.api.modelos.TipoResposta;
-import com.vvm.sh.api.modelos.UtilizadorResposta;
+import com.vvm.sh.api.modelos.pedido.IUtilizadorListagem;
 import com.vvm.sh.api.modelos.VersaoApp;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.constantes.Sintaxe;
@@ -16,7 +16,6 @@ import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.HeaderMap;
-import retrofit2.http.Headers;
 import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
@@ -38,11 +37,11 @@ public interface SegurancaAlimentarApi {
 
 
     @GET("{metodo}?dataT=")
-    Single<TipoResposta> obterTipo(@HeaderMap Map<String, String> headers, @Path("metodo") String metodo);
+    Single<ITipoListagem> obterTipo(@HeaderMap Map<String, String> headers, @Path("metodo") String metodo);
 
 
     @GET("{metodo}")
-    Single<TipoResposta> obterTipo(@HeaderMap Map<String, String> headers, @Path("metodo") String metodo, @Query("dataT") String seloTemporal);
+    Single<ITipoListagem> obterTipo(@HeaderMap Map<String, String> headers, @Path("metodo") String metodo, @Query("dataT") String seloTemporal);
 
 
     @GET("Obter_Actualizacoes")
@@ -50,15 +49,15 @@ public interface SegurancaAlimentarApi {
 
 
     @GET("GetUtilizadores?dataT=")
-    Single<UtilizadorResposta> obterUtilizadores(@HeaderMap Map<String, String> headers);
+    Single<IUtilizadorListagem> obterUtilizadores(@HeaderMap Map<String, String> headers);
 
 
     @GET("GetDados")
-    Single<SessaoResposta> obterTrabalho(@Query("strUser") String idUtilizador);
+    Single<ISessao> obterTrabalho(@Query("strUser") String idUtilizador);
 
 
     @GET("GetDadosDia")
-    Single<SessaoResposta> obterTrabalho(@Query("strUser") String idUtilizador, @Query("strDia") String data);
+    Single<ISessao> obterTrabalho(@Query("strUser") String idUtilizador, @Query("strDia") String data);
 
 
     @FormUrlEncoded

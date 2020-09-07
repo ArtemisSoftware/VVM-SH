@@ -1,9 +1,8 @@
 package com.vvm.sh.servicos;
 
-import android.os.AsyncTask;
 import android.os.Handler;
 
-import com.vvm.sh.api.modelos.SessaoResposta;
+import com.vvm.sh.api.modelos.pedido.ISessao;
 import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.baseDados.entidades.Tarefa;
 import com.vvm.sh.repositorios.TransferenciasRepositorio;
@@ -22,9 +21,9 @@ public class RecarregarTarefaAsyncTask extends TrabalhoAsyncTask {
     }
 
     @Override
-    protected void inserirTrabalho(List<SessaoResposta.TrabalhoInfo> trabalho, String data) {
+    protected void inserirTrabalho(List<ISessao.TrabalhoInfo> trabalho, String data) {
 
-        for (SessaoResposta.TrabalhoInfo tarefa : trabalho) {
+        for (ISessao.TrabalhoInfo tarefa : trabalho) {
 
             if(tarefa.tarefas.dados.prefixoCt.equals(this.tarefa.prefixoCt) == true || tarefa.tarefas.dados.ordem.equals(this.tarefa.ordem) == true){
 

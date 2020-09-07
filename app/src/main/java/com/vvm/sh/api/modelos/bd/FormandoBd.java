@@ -1,11 +1,11 @@
-package com.vvm.sh.api;
+package com.vvm.sh.api.modelos.bd;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Embedded;
 
 import com.vvm.sh.baseDados.entidades.FormandoResultado;
 
-public class FormandoResultado_ {
+public class FormandoBd {
 
     @Embedded
     public FormandoResultado resultado;

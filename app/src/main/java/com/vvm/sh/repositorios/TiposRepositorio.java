@@ -3,7 +3,7 @@ package com.vvm.sh.repositorios;
 import androidx.annotation.NonNull;
 
 import com.vvm.sh.api.SegurancaAlimentarApi;
-import com.vvm.sh.api.modelos.TipoResposta;
+import com.vvm.sh.api.modelos.pedido.ITipoListagem;
 import com.vvm.sh.baseDados.dao.AtualizacaoDao;
 import com.vvm.sh.baseDados.dao.TipoDao;
 import com.vvm.sh.baseDados.entidades.Atualizacao;
@@ -53,7 +53,7 @@ public class TiposRepositorio {
      * @param metodo o nome do metodo associado ao tipo
      * @return os dados de um tipo
      */
-    public Single<TipoResposta> obterTipo(String metodo) {
+    public Single<ITipoListagem> obterTipo(String metodo) {
         return api.obterTipo(SegurancaAlimentarApi.HEADER_TIPO, metodo);
     }
 
@@ -64,7 +64,7 @@ public class TiposRepositorio {
      * @param seloTemporal o selo temporal do ultimo pedido (ex: 2020-08-06 11:34:21.696)
      * @return os dados de um tipo
      */
-    public Single<TipoResposta> obterTipo(String metodo, String seloTemporal) {
+    public Single<ITipoListagem> obterTipo(String metodo, String seloTemporal) {
         return api.obterTipo(SegurancaAlimentarApi.HEADER_TIPO, metodo, seloTemporal);
     }
 

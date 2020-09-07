@@ -5,12 +5,12 @@ import android.os.Handler;
 
 import androidx.lifecycle.MutableLiveData;
 
-import com.vvm.sh.api.modelos.TipoResposta;
+import com.vvm.sh.api.modelos.pedido.ITipoListagem;
 import com.vvm.sh.api.modelos.VersaoApp;
 import com.vvm.sh.repositorios.TiposRepositorio;
 import com.vvm.sh.repositorios.VersaoAppRepositorio;
 import com.vvm.sh.servicos.DownloadApkAsyncTask;
-import com.vvm.sh.servicos.ServicoInstalacaoApk;
+import com.vvm.sh.servicos.InstalarApkAsyncTask;
 import com.vvm.sh.servicos.AtualizarTipoAsyncTask;
 import com.vvm.sh.ui.opcoes.modelos.ResumoTipo;
 import com.vvm.sh.util.Recurso;
@@ -111,8 +111,8 @@ public class OpcoesViewModel extends BaseViewModel {
 
         showProgressBar(true);
 
-        List<Observable<TipoResposta>> pedidos = new ArrayList<>();
-        List<TipoResposta> respostas = new ArrayList<>();
+        List<Observable<ITipoListagem>> pedidos = new ArrayList<>();
+        List<ITipoListagem> respostas = new ArrayList<>();
 
         for(String metodo : TiposUtil.obterMetodos(descricao)){
 
@@ -124,15 +124,15 @@ public class OpcoesViewModel extends BaseViewModel {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        new Observer<TipoResposta>() {
+                        new Observer<ITipoListagem>() {
                             @Override
                             public void onSubscribe(Disposable d) {
                                 disposables.add(d);
                             }
 
                             @Override
-                            public void onNext(TipoResposta tipoResposta) {
-                                respostas.add(tipoResposta);
+                            public void onNext(ITipoListagem iTipoListagem) {
+                                respostas.add(iTipoListagem);
                             }
 
                             @Override
@@ -160,8 +160,8 @@ public class OpcoesViewModel extends BaseViewModel {
 
         showProgressBar(true);
 
-        List<TipoResposta> respostas = new ArrayList<>();
-        List<Observable<TipoResposta>> pedidos = new ArrayList<>();
+        List<ITipoListagem> respostas = new ArrayList<>();
+        List<Observable<ITipoListagem>> pedidos = new ArrayList<>();
 
         //TODO: fazer algo parecido para SHT
         for(String metodo : TiposUtil.obterMetodos(Identificadores.App.APP_SA)){
@@ -172,15 +172,15 @@ public class OpcoesViewModel extends BaseViewModel {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        new Observer<TipoResposta>() {
+                        new Observer<ITipoListagem>() {
                             @Override
                             public void onSubscribe(Disposable d) {
                                 disposables.add(d);
                             }
 
                             @Override
-                            public void onNext(TipoResposta tipoResposta) {
-                                respostas.add(tipoResposta);
+                            public void onNext(ITipoListagem iTipoListagem) {
+                                respostas.add(iTipoListagem);
                             }
 
                             @Override
@@ -270,7 +270,7 @@ public class OpcoesViewModel extends BaseViewModel {
      */
     public void instalarApp(Context contexto, Handler handler) {
 
-        ServicoInstalacaoApk servico = new ServicoInstalacaoApk(contexto, handler, versaoApp.getValue());
-        servico.execute();
+        InstalarApkAsyncTask servico = new InstalarApkAsyncTask(contexto, handler);
+        servico.execute(versaoApp.getValue());
     }
 }

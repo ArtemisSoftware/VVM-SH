@@ -1,20 +1,18 @@
 package com.vvm.sh.baseDados.dao;
 
 import androidx.room.Dao;
-import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Transaction;
 
-import com.vvm.sh.api.AtividadePendenteResultado_;
-import com.vvm.sh.api.FormandoResultado_;
+import com.vvm.sh.api.modelos.bd.AtividadePendenteBd;
+import com.vvm.sh.api.modelos.bd.FormandoBd;
 import com.vvm.sh.baseDados.BaseDao;
 import com.vvm.sh.baseDados.entidades.Anomalia;
 import com.vvm.sh.baseDados.entidades.AtividadeExecutada;
 import com.vvm.sh.baseDados.entidades.AtividadePendente;
 import com.vvm.sh.baseDados.entidades.Cliente;
 import com.vvm.sh.baseDados.entidades.CrossSellingResultado;
-import com.vvm.sh.baseDados.entidades.FormandoResultado;
 import com.vvm.sh.baseDados.entidades.ImagemResultado;
 import com.vvm.sh.baseDados.entidades.Ocorrencia;
 import com.vvm.sh.baseDados.entidades.OcorrenciaHistorico;
@@ -124,7 +122,7 @@ abstract public class TransferenciasDao implements BaseDao<Resultado> {
             "FROM atividadesPendentesResultado as at_pend_res " +
             "LEFT JOIN (SELECT idTarefa, id as idAtividade FROM atividadesPendentes) as at_pend ON at_pend_res.id = at_pend.idAtividade " +
             "WHERE at_pend.idTarefa = :idTarefa")
-    abstract public List<AtividadePendenteResultado_> obterAtividadesPendentes(int idTarefa);
+    abstract public List<AtividadePendenteBd> obterAtividadesPendentes(int idTarefa);
 
 
     @Query("SELECT * FROM acoesFormacaoResultado WHERE idAtividade = :idAtividade")
@@ -135,7 +133,7 @@ abstract public class TransferenciasDao implements BaseDao<Resultado> {
             "LEFT JOIN (SELECT id, idImagem FROM imagensResultado WHERE origem = " + Identificadores.Imagens.IMAGEM_ASSINATURA_FORMANDO + ") as img " +
             "ON frm_res.id = img.id " +
             "WHERE idAtividade = :idAtividade AND selecionado = 1")
-    abstract public List<FormandoResultado_> obterFormandos(int idAtividade);
+    abstract public List<FormandoBd> obterFormandos(int idAtividade);
 
 
     @Query("SELECT * FROM tarefas WHERE idTarefa = :idTarefa")

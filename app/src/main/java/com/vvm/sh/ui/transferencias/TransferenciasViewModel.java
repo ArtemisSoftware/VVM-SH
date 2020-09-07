@@ -10,9 +10,9 @@ import com.himanshurawat.hasher.HashType;
 import com.himanshurawat.hasher.Hasher;
 import com.vvm.sh.api.BlocoDados;
 import com.vvm.sh.api.BlocoImagens;
+import com.vvm.sh.api.modelos.pedido.ITipoListagem;
 import com.vvm.sh.api.modelos.pedido.Codigo;
-import com.vvm.sh.api.modelos.SessaoResposta;
-import com.vvm.sh.api.modelos.TipoResposta;
+import com.vvm.sh.api.modelos.pedido.ISessao;
 import com.vvm.sh.baseDados.entidades.Atualizacao;
 import com.vvm.sh.baseDados.entidades.Tarefa;
 import com.vvm.sh.repositorios.TiposRepositorio;
@@ -416,14 +416,14 @@ public class TransferenciasViewModel extends BaseViewModel {
                 .subscribe(
 
 
-                        new Observer<SessaoResposta>() {
+                        new Observer<ISessao>() {
                             @Override
                             public void onSubscribe(Disposable d) {
                                 disposables.add(d);
                             }
 
                             @Override
-                            public void onNext(SessaoResposta sessao) {
+                            public void onNext(ISessao sessao) {
 
                                 TrabalhoAsyncTask servico = new TrabalhoAsyncTask(vvmshBaseDados, transferenciasRepositorio, handler, idUtilizador);
                                 servico.execute(sessao);
@@ -473,14 +473,14 @@ public class TransferenciasViewModel extends BaseViewModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
 
-                        new Observer<SessaoResposta>() {
+                        new Observer<ISessao>() {
                             @Override
                             public void onSubscribe(Disposable d) {
                                 disposables.add(d);
                             }
 
                             @Override
-                            public void onNext(SessaoResposta sessao) {
+                            public void onNext(ISessao sessao) {
 
                                 RecarregarTrabalhoAsyncTask servico = new RecarregarTrabalhoAsyncTask(vvmshBaseDados, transferenciasRepositorio, handler, idUtilizador, DatasUtil.converterDataLong(data, DatasUtil.FORMATO_YYYY_MM_DD));
                                 servico.execute(sessao);
@@ -527,14 +527,14 @@ public class TransferenciasViewModel extends BaseViewModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
 
-                        new Observer<SessaoResposta>() {
+                        new Observer<ISessao>() {
                             @Override
                             public void onSubscribe(Disposable d) {
                                 disposables.add(d);
                             }
 
                             @Override
-                            public void onNext(SessaoResposta sessao) {
+                            public void onNext(ISessao sessao) {
 
                                 RecarregarTarefaAsyncTask servico = new RecarregarTarefaAsyncTask(vvmshBaseDados, transferenciasRepositorio, handler, tarefa);
                                 servico.execute(sessao);
@@ -639,8 +639,8 @@ public class TransferenciasViewModel extends BaseViewModel {
 
         showProgressBar(true);
 
-        List<TipoResposta> respostas = new ArrayList<>();
-        List<Observable<TipoResposta>> pedidos = new ArrayList<>();
+        List<ITipoListagem> respostas = new ArrayList<>();
+        List<Observable<ITipoListagem>> pedidos = new ArrayList<>();
 
         for(Atualizacao atualizacao : atualizacoes){
             pedidos.add(tiposRepositorio.obterTipo(atualizacao.descricao, atualizacao.seloTemporal).toObservable());
@@ -650,15 +650,15 @@ public class TransferenciasViewModel extends BaseViewModel {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        new Observer<TipoResposta>() {
+                        new Observer<ITipoListagem>() {
                             @Override
                             public void onSubscribe(Disposable d) {
                                 disposables.add(d);
                             }
 
                             @Override
-                            public void onNext(TipoResposta tipoResposta) {
-                                respostas.add(tipoResposta);
+                            public void onNext(ITipoListagem iTipoListagem) {
+                                respostas.add(iTipoListagem);
                             }
 
                             @Override
@@ -691,8 +691,8 @@ public class TransferenciasViewModel extends BaseViewModel {
 
         showProgressBar(true);
 
-        List<TipoResposta> respostas = new ArrayList<>();
-        List<Observable<TipoResposta>> pedidos = new ArrayList<>();
+        List<ITipoListagem> respostas = new ArrayList<>();
+        List<Observable<ITipoListagem>> pedidos = new ArrayList<>();
 
         for(String metodo : TiposConstantes.MetodosTipos.TIPOS){
             pedidos.add(tiposRepositorio.obterTipo(metodo).toObservable());
@@ -702,15 +702,15 @@ public class TransferenciasViewModel extends BaseViewModel {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        new Observer<TipoResposta>() {
+                        new Observer<ITipoListagem>() {
                             @Override
                             public void onSubscribe(Disposable d) {
                                 disposables.add(d);
                             }
 
                             @Override
-                            public void onNext(TipoResposta tipoResposta) {
-                                respostas.add(tipoResposta);
+                            public void onNext(ITipoListagem iTipoListagem) {
+                                respostas.add(iTipoListagem);
                             }
 
                             @Override

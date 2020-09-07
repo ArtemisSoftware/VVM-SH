@@ -11,7 +11,7 @@ import com.vvm.sh.api.modelos.pedido.ICliente;
 import com.vvm.sh.api.modelos.pedido.ITarefa;
 import com.vvm.sh.api.modelos.pedido.IDados;
 import com.vvm.sh.api.modelos.pedido.IOcorrencia;
-import com.vvm.sh.api.modelos.SessaoResposta;
+import com.vvm.sh.api.modelos.pedido.ISessao;
 import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.baseDados.entidades.Tarefa;
 import com.vvm.sh.baseDados.entidades.Anomalia;
@@ -30,7 +30,7 @@ import com.vvm.sh.util.metodos.DatasUtil;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TrabalhoAsyncTask extends AsyncTask<SessaoResposta, Void, Void> {
+public class TrabalhoAsyncTask extends AsyncTask<ISessao, Void, Void> {
 
     protected String errorMessage, idUtilizador;
     private VvmshBaseDados vvmshBaseDados;
@@ -47,16 +47,16 @@ public class TrabalhoAsyncTask extends AsyncTask<SessaoResposta, Void, Void> {
 
 
     @Override
-    protected Void doInBackground(SessaoResposta... sessaoRespostas) {
+    protected Void doInBackground(ISessao... sessoes) {
 
-        if(sessaoRespostas[0] == null)
+        if(sessoes[0] == null)
             return null;
 
-        SessaoResposta resposta = sessaoRespostas[0];
+        ISessao resposta = sessoes[0];
 
         api = resposta.api;
         String data = resposta.sessoes.get(0).data;
-        List<SessaoResposta.TrabalhoInfo> trabalho = resposta.sessoes.get(0).trabalho;
+        List<ISessao.TrabalhoInfo> trabalho = resposta.sessoes.get(0).trabalho;
 
         this.vvmshBaseDados.runInTransaction(new Runnable(){
             @Override
@@ -82,7 +82,7 @@ public class TrabalhoAsyncTask extends AsyncTask<SessaoResposta, Void, Void> {
      * @param trabalho os dados do trabalho
      * @param data a data do trabalho
      */
-    protected void inserirTrabalho(List<SessaoResposta.TrabalhoInfo> trabalho, String data) {
+    protected void inserirTrabalho(List<ISessao.TrabalhoInfo> trabalho, String data) {
 
 
         for(int index = 0; index < trabalho.size(); ++index){
@@ -101,7 +101,7 @@ public class TrabalhoAsyncTask extends AsyncTask<SessaoResposta, Void, Void> {
      * @param data a data do trabalho
      * @param info os dados da tarefa
      */
-    protected void inserirTarefas(String data, SessaoResposta.TrabalhoInfo info) {
+    protected void inserirTarefas(String data, ISessao.TrabalhoInfo info) {
 
         int idTarefa = inserirTarefa (info.tarefas.dados, data);
 

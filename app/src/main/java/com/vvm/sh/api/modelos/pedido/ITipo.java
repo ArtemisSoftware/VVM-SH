@@ -1,11 +1,11 @@
-package com.vvm.sh.api.modelos;
+package com.vvm.sh.api.modelos.pedido;
 
 import com.google.gson.annotations.SerializedName;
 
 /**
  * Classe que representa um tipo proveniente do web service
  */
-public class TipoResultado {
+public class ITipo {
 
     @SerializedName("Id")
     public String id;

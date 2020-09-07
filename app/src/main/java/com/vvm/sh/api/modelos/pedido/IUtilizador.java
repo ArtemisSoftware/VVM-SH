@@ -1,11 +1,11 @@
-package com.vvm.sh.api.modelos;
+package com.vvm.sh.api.modelos.pedido;
 
 import com.google.gson.annotations.SerializedName;
 
 /**
  * Classe que representa um utilizador proveniente do web service
  */
-public class UtilizadorResultado {
+public class IUtilizador {
 
     @SerializedName("Area")
     public String area;

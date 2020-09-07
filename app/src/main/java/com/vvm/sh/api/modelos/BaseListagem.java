@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class BaseListagem<T> {
+public class BaseListagem<T> extends Base{
 
     @SerializedName("TimeStamp")
     public String seloTemporal;

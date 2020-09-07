@@ -9,6 +9,7 @@
         <import type="java.util.List"/>
         <import type="com.vvm.sh.R"/>
         <import type="android.view.View"/>
+        <import type="com.vvm.sh.util.metodos.StringUtil"/>
         <import type="com.vvm.sh.util.metodos.DatasUtil"/>
 
         <variable
@@ -95,11 +96,10 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/txt_inp_acidentes_trabalho"
                             style="@style/modifiedEditText"
-
+                            android:text="@{StringUtil.converterString(viewmodel.sinistralidade.acidentesComBaixa)}"
                             android:inputType="number"
                             android:maxLines="1"/>
 
-                        <!-- android:text="@{viewmodel.formando.resultado.nome}" -->
                     </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -118,9 +118,8 @@
                             android:id="@+id/txt_inp_dias_perdidos"
                             style="@style/modifiedEditText"
                             android:inputType="numberDecimal"
-
+                            android:text="@{viewmodel.sinistralidade.diasUteisPerdidos}"
                             android:maxLines="1"/>
-                        <!-- android:text="@{viewmodel.formando.resultado.nome}" -->
                     </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -139,9 +138,8 @@
                             android:id="@+id/txt_inp_total_trabalhadores"
                             style="@style/modifiedEditText"
                             android:inputType="number"
-
+                            android:text="@{viewmodel.sinistralidade.totalTrabalhadores}"
                             android:maxLines="1"/>
-                        <!-- android:text="@{viewmodel.formando.resultado.nome}" -->
                     </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -161,9 +159,8 @@
                             android:id="@+id/txt_inp_horas_ano_trabalhador"
                             style="@style/modifiedEditText"
                             android:inputType="numberDecimal"
-
+                            android:text="@{viewmodel.sinistralidade.horasAnoTrabalhadores}"
                             android:maxLines="1"/>
-                        <!-- android:text="@{viewmodel.formando.resultado.nome}" -->
                     </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -182,9 +179,8 @@
                             android:id="@+id/txt_inp_faltas"
                             style="@style/modifiedEditText"
                             android:inputType="numberDecimal"
-
+                            android:text="@{viewmodel.sinistralidade.faltas}"
                             android:maxLines="1"/>
-                        <!-- android:text="@{viewmodel.formando.resultado.nome}" -->
                     </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -205,9 +201,7 @@
                             style="@style/modifiedEditText"
                             android:inputType="numberDecimal"
                             android:enabled="false"
-
                             android:maxLines="1"/>
-                        <!-- android:text="@{viewmodel.formando.resultado.nome}" -->
                     </com.google.android.material.textfield.TextInputLayout>
 
 

@@ -2,6 +2,7 @@ package com.vvm.sh.ui.tarefa;
 
 import androidx.lifecycle.MutableLiveData;
 
+import com.vvm.sh.baseDados.entidades.SinistralidadeResultado;
 import com.vvm.sh.repositorios.TarefaRepositorio;
 import com.vvm.sh.servicos.ResultadoAsyncTask;
 import com.vvm.sh.baseDados.entidades.Resultado;
@@ -34,6 +35,7 @@ public class TarefaViewModel extends BaseViewModel {
     public MutableLiveData<List<OpcaoCliente>> opcoesCliente;
     public MutableLiveData<List<Tipo>> opcoesEmail;
 
+    public MutableLiveData<SinistralidadeResultado> sinistralidade;
 
 
     @Inject
@@ -44,6 +46,7 @@ public class TarefaViewModel extends BaseViewModel {
         opcoesCliente = new MutableLiveData<>();
         opcoesEmail = new MutableLiveData<>();
         atividadesExecutadas = new MutableLiveData<>();
+        sinistralidade = new MutableLiveData<>();
 
     }
 
@@ -225,6 +228,13 @@ public class TarefaViewModel extends BaseViewModel {
     }
 
 
+    /**
+     * Metodo que permite obter a sinistralidade
+     * @param idTarefa o identificador da tarefa
+     */
+    public void obterSinistralidade(int idTarefa) {
+    }
+
 
     //--------------------
     //Misc
@@ -259,7 +269,6 @@ public class TarefaViewModel extends BaseViewModel {
         opcoesEmail.setValue(items);
 
     }
-
 
 
 

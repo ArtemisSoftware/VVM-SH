@@ -31,7 +31,7 @@ import butterknife.OnTextChanged;
 
 
 public class SinistralidadeActivity extends BaseDaggerActivity
-        /*implements Validator.ValidationListener*/ {
+        implements Validator.ValidationListener {
 
 
     private ActivitySinistralidadeBinding activitySinistralidadeBinding;
@@ -42,6 +42,16 @@ public class SinistralidadeActivity extends BaseDaggerActivity
 
 
     private TarefaViewModel viewModel;
+
+
+    @DecimalMin(value = 4.0, message = "N.º de horas * Homem trabalhadas inválido")
+    @NotEmpty(message = "Preenchimento obrigatório")
+    @BindView(R.id.txt_inp_horas_ano_trabalhador)
+    TextInputEditText txt_inp_horas_ano_trabalhador;
+
+
+    private Validator validador;
+
 
     @Override
     protected void intActivity(Bundle savedInstanceState) {
@@ -54,7 +64,7 @@ public class SinistralidadeActivity extends BaseDaggerActivity
 
         subscreverObservadores();
 
-        //--viewModel.obterSinistralidade(PreferenciasUtil.obterIdTarefa(this));
+        viewModel.obterSinistralidade(PreferenciasUtil.obterIdTarefa(this));
     }
 
     @Override
@@ -73,95 +83,63 @@ public class SinistralidadeActivity extends BaseDaggerActivity
     }
 
 
-//
-//    @BindView(R.id.txt_inp_acidentes_trabalho)
-//    TextInputEditText txt_inp_acidentes_trabalho;
-//
-//    @BindView(R.id.txt_inp_dias_perdidos)
-//    TextInputEditText txt_inp_dias_perdidos;
-//
-//    @BindView(R.id.txt_inp_total_trabalhadores)
-//    TextInputEditText txt_inp_total_trabalhadores;
-//
-//    @DecimalMin(value = 4.0, message = "N.º de horas * Homem trabalhadas inválido")
-//    @NotEmpty(message = "Preenchimento obrigatório")
-//    @BindView(R.id.txt_inp_horas_ano_trabalhador)
-//    TextInputEditText txt_inp_horas_ano_trabalhador;
-//
-//    @BindView(R.id.txt_inp_faltas)
-//    TextInputEditText txt_inp_faltas;
-//
-//
-//
-//    @BindView(R.id.txt_inp_total_horas_trabalhadas)
-//    TextInputEditText txt_inp_total_horas_trabalhadas;
-//
-//    @BindView(R.id.txt_inp_frequencia)
-//    TextInputEditText txt_inp_frequencia;
-//
-//    @BindView(R.id.txt_inp_incidencia)
-//    TextInputEditText txt_inp_incidencia;
-//
-//    @BindView(R.id.txt_inp_gravidade)
-//    TextInputEditText txt_inp_gravidade;
-//
-//    @BindView(R.id.txt_inp_avaliacao_gravidade)
-//    TextInputEditText txt_inp_avaliacao_gravidade;
-//
-//
-//    private Validator validador;
-//
-//
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_sinistralidade);
-//
-//        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-//        if(getSupportActionBar() != null)
-//            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//
-//        // Validation
-//        validador = new Validator(this);
-//        validador.setValidationListener(this);
-//
-//        subscreverObservadores();
-//        obterRegistos();
-//    }
-//
-//    //------------------------
-//    //Metodos locais
-//    //------------------------
-//
-//
-//    private void obterRegistos(){
-//
-//        //--TESTE (apagar quando houver dados)
-//
-//        SinistralidadeResultado t1 = new SinistralidadeResultado("1","2","3", "4","5");
-//        txt_inp_acidentes_trabalho.setText(t1.obterAcidentesComBaixa());
-//
-//        //TODO: chamar metodo do viewmodel
-//    }
-//
-//    /**
-//     * Metodo que permite subscrever observadores
-//     */
-//    private void subscreverObservadores(){
-//
-//        //TODO: subscrever observadores do viewmodel
-//    }
-//
-//
-//    /**
-//     * Metodo que permite calcular os indices
-//     */
-//    private void calculoIndices(){
-//
-//        DecimalFormat formatoDecimal = new DecimalFormat("##.00");
-//        double totalHorasTrabalhadas = 0, horasAnoTrabalhador, faltasHora, acidentesComBaixa, diasUteisPerdidos;
-//        int totalTrabalhadores;
+    //----------------------
+    //Metodos locais
+    //----------------------
+
+
+    /**
+     * Metodo que permite calcular os indices
+     */
+    private void calculoIndices(){
+
+        DecimalFormat formatoDecimal = new DecimalFormat("##.00");
+        double totalHorasTrabalhadas = 0, horasAnoTrabalhador, faltasHora, acidentesComBaixa, diasUteisPerdidos;
+        int totalTrabalhadores;
+
+        activitySinistralidadeBinding.txtInpTotalHorasTrabalhadas.setText(getString(R.string.sem_dados));
+        activitySinistralidadeBinding.txtInpFrequencia.setText(getString(R.string.sem_dados));
+        activitySinistralidadeBinding.txtInpIncidencia.setText(getString(R.string.sem_dados));
+        activitySinistralidadeBinding.txtInpGravidade.setText(getString(R.string.sem_dados));
+        activitySinistralidadeBinding.txtInpAvaliacaoGravidade.setText(getString(R.string.sem_dados));
+
+        try{
+            acidentesComBaixa = Double.parseDouble(activitySinistralidadeBinding.txtInpAcidentesTrabalho.getText().toString());
+            diasUteisPerdidos = Double.parseDouble(activitySinistralidadeBinding.txtInpDiasPerdidos.getText().toString());
+            horasAnoTrabalhador = Double.parseDouble(txt_inp_horas_ano_trabalhador.getText().toString());
+            totalTrabalhadores = Integer.parseInt(activitySinistralidadeBinding.txtInpTotalTrabalhadores.getText().toString());
+            faltasHora = Double.parseDouble(activitySinistralidadeBinding.txtInpFaltas.getText().toString());
+
+            totalHorasTrabalhadas = (horasAnoTrabalhador * totalTrabalhadores) - faltasHora;
+
+            activitySinistralidadeBinding.txtInpTotalHorasTrabalhadas.setText(totalHorasTrabalhadas + "");
+
+            activitySinistralidadeBinding.txtInpFrequencia.setText(formatoDecimal.format((acidentesComBaixa * 1000000) / totalHorasTrabalhadas));
+
+            activitySinistralidadeBinding.txtInpIncidencia.setText(formatoDecimal.format((acidentesComBaixa * 1000) / totalTrabalhadores));
+
+            activitySinistralidadeBinding.txtInpGravidade.setText(formatoDecimal.format((diasUteisPerdidos * 1000000) / totalHorasTrabalhadas));
+
+
+            double indiceGravidade = Double.parseDouble(activitySinistralidadeBinding.txtInpGravidade.getText().toString().replaceAll(",","."));
+            double indiceFrequencia = Double.parseDouble(activitySinistralidadeBinding.txtInpFrequencia.getText().toString().replaceAll(",","."));
+
+            activitySinistralidadeBinding.txtInpAvaliacaoGravidade.setText(formatoDecimal.format((indiceGravidade * 1000) / indiceFrequencia));
+
+        }
+        catch(NumberFormatException | ArithmeticException e){
+            acidentesComBaixa = 0;
+        }
+
+
+
+
+
+
+
+
+
+        //----------
 //
 //        try{
 //            acidentesComBaixa = Double.parseDouble(txt_inp_acidentes_trabalho.getText().toString());
@@ -255,44 +233,53 @@ public class SinistralidadeActivity extends BaseDaggerActivity
 //        catch(NumberFormatException | ArithmeticException w){
 //            txt_inp_avaliacao_gravidade.setText(getString(R.string.sem_dados));
 //        }
-//
-//    }
-//
-//
-//    //----------------------
-//    //Eventos
-//    //----------------------
-//
-//
-//    @OnClick(R.id.fab_gravar)
-//    public void fab_calendario_OnClickListener(View view) {
-//        validador.validate();
-//    }
-//
-//
-//    @OnTextChanged(value =  {R.id.txt_inp_acidentes_trabalho, R.id.txt_inp_dias_perdidos, R.id.txt_inp_total_trabalhadores, R.id.txt_inp_horas_ano_trabalhador, R.id.txt_inp_faltas})
-//    void TextWatcher_CalculoIndices(CharSequence s, int start, int before, int count) {
-//        calculoIndices();
-//    }
-//
-//
-//    @Override
-//    public void onValidationSucceeded() {
-//
-//    }
-//
-//    @Override
-//    public void onValidationFailed(List<ValidationError> errors) {
-//
-//        for (ValidationError error : errors) {
-//            View view = error.getView();
-//            String message = error.getCollatedErrorMessage(this);
-//
-//            // Display error messages ;)
-//            if (view instanceof TextInputEditText) {
-//                ((TextInputEditText) view).setError(message);
-//            }
-//        }
-//    }
+
+    }
+
+
+
+    //-----------------------
+    //EVENTOS
+    //-----------------------
+
+
+    @OnClick(R.id.fab_gravar)
+    public void fab_calendario_OnClickListener(View view) {
+        validador.validate();
+    }
+
+
+
+    @OnTextChanged(value = {
+            R.id.txt_inp_acidentes_trabalho, R.id.txt_inp_dias_perdidos, R.id.txt_inp_total_trabalhadores,
+            R.id.txt_inp_horas_ano_trabalhador, R.id.txt_inp_faltas
+    })
+    void TextWatcher_CalculoIndices(CharSequence s, int start, int before, int count) {
+        calculoIndices();
+    }
+
+
+
+    @Override
+    public void onValidationSucceeded() {
+
+    }
+
+    @Override
+    public void onValidationFailed(List<ValidationError> errors) {
+
+        for (ValidationError error : errors) {
+            View view = error.getView();
+            String message = error.getCollatedErrorMessage(this);
+
+            // Display error messages ;)
+            if (view instanceof TextInputEditText) {
+                ((TextInputEditText) view).setError(message);
+            }
+        }
+    }
+
+
+
 
 }

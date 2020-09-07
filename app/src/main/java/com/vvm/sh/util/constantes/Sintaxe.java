@@ -74,10 +74,10 @@ public class Sintaxe {
         public static final String HORARIO_INVALIDO = "Horário inválido";
         public static final String DADOS_INEXISTENTES = "Não existem dados";
         public static final String ERRO_AUTENTICACAO = "Erro na autenticação";
-        public static final String SUCESSO_IMPORTAR_BD = "Base de dados importada com sucesso";
+        public static final String SUCESSO_IMPORTAR_BD = "BaseListagem de dados importada com sucesso";
         public static final String ERRO_IMPORTAR_BD = "Erro ao importar base de dados: " ;
         public static final String ERRO_EXPORTAR_BD = "Erro ao exportar bd: ";
-        public static final String SUCESSO_EXPORTAR_BD = "Base de dados exportada com sucesso: ";
+        public static final String SUCESSO_EXPORTAR_BD = "BaseListagem de dados exportada com sucesso: ";
         public static final String SESSAO_EXPIRADA = "A sua sessão expirou";
         public static final String TIPO_NAO_REGISTADO = "O tipo não se encontra registado: ";
     }

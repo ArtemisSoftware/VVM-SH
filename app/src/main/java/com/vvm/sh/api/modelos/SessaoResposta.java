@@ -5,18 +5,11 @@ import com.vvm.sh.api.modelos.pedido.ITarefa;
 
 import java.util.List;
 
-public class SessaoResposta {
+public class SessaoResposta extends Base{
 
     @SerializedName("Sessoes")
     public List<Sessao> sessoes;
 
-
-    @SerializedName("metodo")
-    public String metodo;
-
-
-    @SerializedName("api")
-    public int api;
 
     public class Sessao {
 

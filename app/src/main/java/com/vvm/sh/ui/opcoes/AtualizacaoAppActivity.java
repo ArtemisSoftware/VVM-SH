@@ -5,7 +5,6 @@ import androidx.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
-import android.view.View;
 
 import com.vvm.sh.R;
 import com.vvm.sh.api.modelos.VersaoApp;
@@ -16,7 +15,7 @@ import com.vvm.sh.util.AtualizacaoUI;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.interfaces.OnPermissaoConcedidaListener;
 import com.vvm.sh.util.metodos.DiretoriasUtil;
-import com.vvm.sh.util.metodos.Notificacao;
+import com.vvm.sh.util.metodos.NotificacaoUtil;
 import com.vvm.sh.util.metodos.PermissoesUtil;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
@@ -143,7 +142,7 @@ public class AtualizacaoAppActivity extends BaseDaggerActivity {
     public void onCancelarClick(VersaoApp versaoApp) {
 
         if(versaoApp.atualizar == true) {
-            Notificacao.notificarAtualizacaoApp(getApplication(), versaoApp.versao);
+            NotificacaoUtil.notificarAtualizacaoApp(getApplication(), versaoApp.versao);
         }
 
         finish();

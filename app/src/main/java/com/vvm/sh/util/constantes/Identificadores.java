@@ -135,12 +135,14 @@ public class Identificadores {
 
         public static final int TIPO_APRESENTACAO = 0;
         public static final int TIPO_ATUALIZACAO = 1;
-        public static final String ATUALIZACAO = "Atualização";
-
         public static final int TIPO_CORRECAO = 2;
-        public static final String CORRECAO = "Correção";
-
         public static final int TIPO_FUNCIONALIDADE = 3;
-        public static final String FUNCIONALIDADE = "Funcionalidade";
     }
+
+    public class Notificacoes {
+
+        public static final int ID_ATUALIZACAO_APP = 1;
+        public static final String CANAL_ATUALIZACAO_APP = "Atualização app";
+    }
+
 }

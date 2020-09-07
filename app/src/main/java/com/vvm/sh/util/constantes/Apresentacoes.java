@@ -22,7 +22,7 @@ public class Apresentacoes {
 
 
 
-    private static final Introducao BOAS_VINDAS = IntroducaoFactory.obterIntroducao(TIPO_APRESENTACAO, "Bem vindo a api vvm.sh.\n\nApp para o registo de auditorias de segurança alimentar");
+    private static final Introducao BOAS_VINDAS = IntroducaoFactory.obterIntroducao(TIPO_APRESENTACAO, "Bem vindo a app vvm.sh.\n\nApp para o registo de auditorias de segurança alimentar");
 
 
     public static final Introducao[] PAGINAS_BOAS_VINDAS = new Introducao[]{ BOAS_VINDAS };

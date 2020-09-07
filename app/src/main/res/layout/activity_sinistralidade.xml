@@ -1,229 +1,349 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-<androidx.coordinatorlayout.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    tools:context=".ui.cliente.SinistralidadeActivity">
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <com.google.android.material.appbar.AppBarLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
+    <data>
 
-        <androidx.appcompat.widget.Toolbar
-            android:id="@+id/toolbar"
-            android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay" />
+        <import type="java.util.List"/>
+        <import type="com.vvm.sh.R"/>
+        <import type="android.view.View"/>
+        <import type="com.vvm.sh.util.metodos.DatasUtil"/>
 
-    </com.google.android.material.appbar.AppBarLayout>
+        <variable
+            name="viewmodel"
+            type="com.vvm.sh.ui.tarefa.TarefaViewModel"/>
 
 
-    <androidx.core.widget.NestedScrollView
+        <variable
+            name="bloquear"
+            type="Boolean"/>
+
+    </data>
+
+
+
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="@dimen/activity_vertical_margin"
-        android:paddingLeft="@dimen/activity_horizontal_margin"
-        android:paddingRight="@dimen/activity_horizontal_margin"
-        android:paddingTop="@dimen/activity_vertical_margin"
-        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+        android:fitsSystemWindows="true">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/AppTheme.AppBarOverlay">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+        </com.google.android.material.appbar.AppBarLayout>
 
 
-        <LinearLayout
+        <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="15dp"
-                android:layout_marginBottom="5dp"
-                android:text="@string/indices_de_sinistralidade_ano"
-                android:textSize="25sp"
-                android:textStyle="bold" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
-
-
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/parent.TextLayout"
-                android:hint="@string/n_de_acidentes_de_trabalho"
-                android:layout_width="450dp"
-                android:layout_marginTop="@dimen/signup_text_margin_top"
-                app:errorEnabled="true">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/txt_inp_acidentes_trabalho"
-                    style="@style/modifiedEditText"
-                    android:inputType="numberDecimal"
-                    android:maxLines="1"/>
-            </com.google.android.material.textfield.TextInputLayout>
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
 
 
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/parent.TextLayout"
-                android:hint="@string/n_de_dias_perdidos"
-                android:layout_width="450dp"
-                android:layout_marginTop="@dimen/signup_text_margin_top"
-                app:errorEnabled="true">
+                    <TextView
+                        android:id="@+id/textView18"
+                        style="@style/tituloCartao"
+                        android:text="@string/indices_de_sinistralidade_ano"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/txt_inp_dias_perdidos"
-                    style="@style/modifiedEditText"
-                    android:inputType="numberDecimal"
-                    android:maxLines="1"/>
-            </com.google.android.material.textfield.TextInputLayout>
-
-
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/parent.TextLayout"
-                android:hint="@string/n_total_de_trabalhadores"
-                android:layout_width="450dp"
-                android:layout_marginTop="@dimen/signup_text_margin_top"
-                app:errorEnabled="true">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/txt_inp_total_trabalhadores"
-                    style="@style/modifiedEditText"
-                    android:inputType="number"
-                    android:maxLines="1"/>
-            </com.google.android.material.textfield.TextInputLayout>
-
-
-            <com.google.android.material.textfield.TextInputLayout
-                style="@style/parent.TextLayout"
-                android:hint="@string/n_horas_ano_trabalhador"
-                android:layout_width="450dp"
-                android:layout_marginTop="@dimen/signup_text_margin_top"
-                app:errorEnabled="true">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/txt_inp_horas_ano_trabalhador"
-                    style="@style/modifiedEditText"
-                    android:inputType="numberDecimal"
-                    android:maxLines="1"/>
-            </com.google.android.material.textfield.TextInputLayout>
-
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:hint="@string/n_de_faltas_horas"
-                style="@style/parent.TextLayout"
-                android:layout_width="450dp"
-                android:layout_marginTop="@dimen/signup_text_margin_top"
-                app:errorEnabled="true">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/txt_inp_faltas"
-                    style="@style/modifiedEditText"
-                    android:inputType="numberDecimal"
-                    android:maxLines="1"/>
-            </com.google.android.material.textfield.TextInputLayout>
-
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:hint="@string/n_total_de_horas_trabalhadas"
-                style="@style/parent.TextLayout"
-                android:layout_width="450dp"
-                android:layout_marginTop="@dimen/signup_text_margin_top">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/txt_inp_total_horas_trabalhadas"
-                    style="@style/modifiedEditText"
-                    android:inputType="text"
-                    android:enabled="false"
-                    android:maxLines="1"/>
-            </com.google.android.material.textfield.TextInputLayout>
+                    <View
+                        android:id="@+id/textview2"
+                        android:layout_width="280dp"
+                        android:layout_height="0.2dp"
+                        android:layout_marginTop="8dp"
+                        android:background="@color/cor_separador"
+                        app:layout_constraintStart_toStartOf="@+id/textView18"
+                        app:layout_constraintTop_toBottomOf="@+id/textView18" />
 
 
 
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/textview3"
+                        style="@style/parent.TextLayout"
+                        android:hint="@string/n_de_acidentes_de_trabalho"
+                        android:layout_width="300dp"
+                        app:errorEnabled="true"
+                        android:layout_marginTop="32dp"
+                        app:layout_constraintStart_toStartOf="@+id/textView18"
+                        app:layout_constraintTop_toBottomOf="@+id/textview2">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="30dp"
-                android:layout_marginBottom="5dp"
-                android:text="@string/indices"
-                android:textSize="25sp"
-                android:textStyle="bold" />
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/txt_inp_nome"
+                            style="@style/modifiedEditText"
 
+                            android:inputType="numberDecimal"
+                            android:maxLines="1"/>
 
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:hint="@string/frequencia"
-                style="@style/parent.TextLayout"
-                android:layout_width="200dp"
-                android:layout_marginTop="@dimen/signup_text_margin_top">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/txt_inp_frequencia"
-                    style="@style/modifiedEditText"
-                    android:inputType="text"
-                    android:enabled="false"
-                    android:maxLines="1"/>
-            </com.google.android.material.textfield.TextInputLayout>
-
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:hint="@string/incidencia"
-                style="@style/parent.TextLayout"
-                android:layout_width="200dp"
-                android:layout_marginTop="@dimen/signup_text_margin_top">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/txt_inp_incidencia"
-                    style="@style/modifiedEditText"
-                    android:inputType="text"
-                    android:enabled="false"
-                    android:maxLines="1"/>
-            </com.google.android.material.textfield.TextInputLayout>
-
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:hint="@string/gravidade"
-                style="@style/parent.TextLayout"
-                android:layout_width="200dp"
-                android:layout_marginTop="@dimen/signup_text_margin_top">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/txt_inp_gravidade"
-                    style="@style/modifiedEditText"
-                    android:inputType="text"
-                    android:enabled="false"
-                    android:maxLines="1"/>
-            </com.google.android.material.textfield.TextInputLayout>
-
-
-            <com.google.android.material.textfield.TextInputLayout
-                android:hint="@string/av_gravidade"
-                style="@style/parent.TextLayout"
-                android:layout_width="200dp"
-                android:layout_marginTop="@dimen/signup_text_margin_top">
-
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/txt_inp_avaliacao_gravidade"
-                    style="@style/modifiedEditText"
-                    android:inputType="text"
-                    android:enabled="false"
-                    android:maxLines="1"/>
-            </com.google.android.material.textfield.TextInputLayout>
+                        <!-- android:text="@{viewmodel.formando.resultado.nome}" -->
+                    </com.google.android.material.textfield.TextInputLayout>
 
 
 
-        </LinearLayout>
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/textview4"
+                        style="@style/parent.TextLayout"
+                        android:hint="@string/n_de_dias_perdidos"
+                        android:layout_width="300dp"
+                        android:layout_marginTop="24dp"
+                        app:layout_constraintStart_toStartOf="@+id/textView18"
+                        app:layout_constraintTop_toBottomOf="@+id/textview3"
+                        app:errorEnabled="true">
 
-    </androidx.core.widget.NestedScrollView>
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/txt_inp_identificacao"
+                            style="@style/modifiedEditText"
+                            android:inputType="numberDecimal"
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab_gravar"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        android:src="@android:drawable/ic_dialog_email" />
+                            android:maxLines="1"/>
+                        <!-- android:text="@{viewmodel.formando.resultado.nome}" -->
+                    </com.google.android.material.textfield.TextInputLayout>
 
-</androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/textview5"
+                        style="@style/parent.TextLayout"
+                        android:hint="@string/n_total_de_trabalhadores"
+                        android:layout_width="300dp"
+                        android:layout_marginTop="24dp"
+                        app:layout_constraintStart_toStartOf="@+id/textView18"
+                        app:layout_constraintTop_toBottomOf="@+id/textview4"
+                        app:errorEnabled="true">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/txt_inp_total_trabalhadores"
+                            style="@style/modifiedEditText"
+                            android:inputType="numberDecimal"
+
+                            android:maxLines="1"/>
+                        <!-- android:text="@{viewmodel.formando.resultado.nome}" -->
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/textview6"
+                        style="@style/parent.TextLayout"
+                        android:hint="@string/n_horas_ano_trabalhador"
+                        android:layout_width="300dp"
+                        android:layout_marginTop="24dp"
+                        app:layout_constraintStart_toStartOf="@+id/textView18"
+                        app:layout_constraintTop_toBottomOf="@+id/textview5"
+                        app:errorEnabled="true">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/txt_inp_horas_ano_trabalhador"
+                            style="@style/modifiedEditText"
+                            android:inputType="numberDecimal"
+
+                            android:maxLines="1"/>
+                        <!-- android:text="@{viewmodel.formando.resultado.nome}" -->
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/textview7"
+                        style="@style/parent.TextLayout"
+                        android:hint="@string/n_de_faltas_horas"
+                        android:layout_width="300dp"
+                        android:layout_marginTop="24dp"
+                        app:layout_constraintStart_toStartOf="@+id/textView18"
+                        app:layout_constraintTop_toBottomOf="@+id/textview6"
+                        app:errorEnabled="true">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/txt_inp_faltas"
+                            style="@style/modifiedEditText"
+                            android:inputType="numberDecimal"
+
+                            android:maxLines="1"/>
+                        <!-- android:text="@{viewmodel.formando.resultado.nome}" -->
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/textview8"
+                        style="@style/parent.TextLayout"
+                        android:hint="@string/n_total_de_horas_trabalhadas"
+                        android:layout_width="300dp"
+                        android:layout_marginTop="24dp"
+                        app:layout_constraintStart_toStartOf="@+id/textView18"
+                        app:layout_constraintTop_toBottomOf="@+id/textview7"
+                        app:errorEnabled="true">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/txt_inp_total_horas_trabalhadas"
+                            style="@style/modifiedEditText"
+                            android:inputType="numberDecimal"
+
+                            android:maxLines="1"/>
+                        <!-- android:text="@{viewmodel.formando.resultado.nome}" -->
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
+
+                    <TextView
+                        android:id="@+id/textView9"
+                        style="@style/tituloCartao"
+                        android:layout_marginTop="24dp"
+                        android:text="@string/indices"
+                        app:layout_constraintStart_toStartOf="@+id/textView18"
+                        app:layout_constraintTop_toBottomOf="@+id/textview8" />
+
+                    <View
+                        android:id="@+id/textview10"
+                        android:layout_width="280dp"
+                        android:layout_height="0.2dp"
+                        android:layout_marginTop="8dp"
+                        android:background="@color/cor_separador"
+                        app:layout_constraintStart_toStartOf="@+id/textView18"
+                        app:layout_constraintTop_toBottomOf="@+id/textView9" />
+
+
+
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/textview11"
+                        style="@style/parent.TextLayout"
+                        android:hint="@string/frequencia"
+                        android:layout_width="300dp"
+                        android:layout_marginTop="24dp"
+                        app:layout_constraintStart_toStartOf="@+id/textView18"
+                        app:layout_constraintTop_toBottomOf="@+id/textview10"
+                        app:errorEnabled="true">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/txt_inp_frequencia"
+                            style="@style/modifiedEditText"
+                            android:inputType="numberDecimal"
+                            android:enabled="false"
+
+                            android:maxLines="1"/>
+                        <!-- android:text="@{viewmodel.formando.resultado.nome}" -->
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/textview12"
+                        style="@style/parent.TextLayout"
+                        android:hint="@string/incidencia"
+                        android:layout_width="300dp"
+                        android:layout_marginTop="24dp"
+                        app:layout_constraintStart_toStartOf="@+id/textView18"
+                        app:layout_constraintTop_toBottomOf="@+id/textview11"
+                        app:errorEnabled="true">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/txt_inp_incidencia"
+                            style="@style/modifiedEditText"
+                            android:inputType="numberDecimal"
+                            android:enabled="false"
+
+                            android:maxLines="1"/>
+                        <!-- android:text="@{viewmodel.formando.resultado.nome}" -->
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/textview13"
+                        style="@style/parent.TextLayout"
+                        android:hint="@string/gravidade"
+                        android:layout_width="300dp"
+                        android:layout_marginTop="24dp"
+                        app:layout_constraintStart_toStartOf="@+id/textView18"
+                        app:layout_constraintTop_toBottomOf="@+id/textview12"
+                        app:errorEnabled="true">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/txt_inp_gravidade"
+                            style="@style/modifiedEditText"
+                            android:inputType="numberDecimal"
+                            android:enabled="false"
+
+                            android:maxLines="1"/>
+                        <!-- android:text="@{viewmodel.formando.resultado.nome}" -->
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/textview14"
+                        style="@style/parent.TextLayout"
+                        android:hint="@string/av_gravidade"
+                        android:layout_width="300dp"
+                        android:layout_marginTop="24dp"
+                        app:layout_constraintStart_toStartOf="@+id/textView18"
+                        app:layout_constraintTop_toBottomOf="@+id/textview13"
+                        app:errorEnabled="true">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/txt_inp_avaliacao_gravidade"
+                            style="@style/modifiedEditText"
+                            android:inputType="numberDecimal"
+                            android:enabled="false"
+
+                            android:maxLines="1"/>
+                        <!-- android:text="@{viewmodel.formando.resultado.nome}" -->
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_gravar"
+            android:enabled="@{bloquear}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="@dimen/fab_margin"
+            android:src="@drawable/ic_gravar_24dp" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+</layout>
+
+
+
+
+
+

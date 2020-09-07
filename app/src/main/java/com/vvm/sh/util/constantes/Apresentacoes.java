@@ -11,6 +11,9 @@ import static com.vvm.sh.util.constantes.Identificadores.ApresentacaoApp.*;
  */
 public class Apresentacoes {
 
+    /**
+     * Paginas referentes à ultima atualizacao da app
+     */
     public static final Introducao[] PAGINAS_ATUALIZACAO = new Introducao[]{
 
             IntroducaoFactory.obterIntroducao(TIPO_CORRECAO, "Correção da  funcionalidade abc \nCorreção da  funcionalidade com muito esforco e suor da minha cara, nem tomei banho"),

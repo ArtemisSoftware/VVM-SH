@@ -47,7 +47,5 @@ public class TiposConstantes {
     }
 
 
-    public static final Tipo CONSULTAR = new Tipo(1, Sintaxe.Opcoes.CONSULTAR);
-    public static final Tipo NOVOS_REGISTOS = new Tipo(2, Sintaxe.Opcoes.NOVOS_REGISTOS);
 
 }

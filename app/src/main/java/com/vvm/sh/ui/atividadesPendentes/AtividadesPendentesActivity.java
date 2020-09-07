@@ -95,6 +95,21 @@ public class AtividadesPendentesActivity extends BaseDaggerActivity
 
 
     @Override
+    public void OnDetalhe(int idAtividade) {
+
+        for(AtividadePendenteRegisto item: viewModel.atividades.getValue()){
+
+            if(item.atividade.id == idAtividade){
+                DialogoDetalheAtividadePendente dialogo = DialogoDetalheAtividadePendente.newInstance(item.resultado);
+                dialogo.show(getSupportFragmentManager(), "example dialog");
+
+                break;
+            }
+        }
+    }
+
+
+    @Override
     public void OnIniciarRelatorio(int idAtividade, int idRelatorio) {
 
         Intent intent = null;
@@ -118,6 +133,7 @@ public class AtividadesPendentesActivity extends BaseDaggerActivity
         }
 
     }
+
 
 
 

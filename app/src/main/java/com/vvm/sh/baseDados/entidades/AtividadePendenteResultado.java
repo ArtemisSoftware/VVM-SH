@@ -1,5 +1,8 @@
 package com.vvm.sh.baseDados.entidades;
 
+import android.os.Parcel;
+import android.os.Parcelable;
+
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
@@ -21,7 +24,7 @@ import static androidx.room.ForeignKey.CASCADE;
                 parentColumns = "id",
                 childColumns = "id",
                 onDelete = CASCADE))
-public class AtividadePendenteResultado {
+public class AtividadePendenteResultado implements Parcelable {
 
 
 
@@ -74,4 +77,42 @@ public class AtividadePendenteResultado {
         this.idAnomalia = idAnomalia;
         this.observacao = observacao;
     }
+
+    protected AtividadePendenteResultado(Parcel in) {
+        id = in.readInt();
+        idEstado = in.readInt();
+        tempoExecucao = in.readString();
+        idAnomalia = in.readInt();
+        observacao = in.readString();
+    }
+
+
+
+
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(id);
+        dest.writeInt(idEstado);
+        dest.writeString(tempoExecucao);
+        dest.writeInt(idAnomalia);
+        dest.writeString(observacao);
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    public static final Creator<AtividadePendenteResultado> CREATOR = new Creator<AtividadePendenteResultado>() {
+        @Override
+        public AtividadePendenteResultado createFromParcel(Parcel in) {
+            return new AtividadePendenteResultado(in);
+        }
+
+        @Override
+        public AtividadePendenteResultado[] newArray(int size) {
+            return new AtividadePendenteResultado[size];
+        }
+    };
 }

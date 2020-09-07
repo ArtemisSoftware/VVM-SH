@@ -168,6 +168,15 @@ public class DialogoAtividadePendente extends BaseDaggerDialogFragment {
                 }
                 break;
 
+
+            case R.id.rd_btn_detalhe:
+                if (checked) {
+                    // 2 clicked
+                    listenerAtividade.OnDetalhe(getArguments().getInt(ARGUMENTO_ID_ATIVIDADE));
+                    terminarDialogo();
+                }
+                break;
+
             default:
                 break;
         }

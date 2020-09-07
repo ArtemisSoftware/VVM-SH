@@ -276,5 +276,7 @@
     <string name="reupload_dados">Reupload de dados</string>
     <string name="pendencias_tarefas_upload">Existem tarefas pedentes.Não é possível realizar o upload dos dados. Por favor dê baixa de pelo menos uma atividade pendentes nas tarefas apresentadas</string>
     <string name="upload_dados_inexistentes">Não existem dados para upload</string>
+    <string name="sem_detalhe">Não existem detalhes</string>
+    <string name="detalhe">Detalhe</string>
 
 </resources>

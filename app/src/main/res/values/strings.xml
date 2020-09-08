@@ -278,5 +278,6 @@
     <string name="upload_dados_inexistentes">Não existem dados para upload</string>
     <string name="sem_detalhe">Não existem detalhes</string>
     <string name="detalhe">Detalhe</string>
+    <string name="data_validade_">Data de validade:</string>
 
 </resources>

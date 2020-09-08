@@ -19,7 +19,7 @@ public class ExtintorRecyclerAdapter extends ItemRecyclerAdapter {
 
     @Override
     protected int obterLayout(int viewType) {
-        return R.layout.extintor_list_card_item;
+        return R.layout.item_extintor;
     }
 
     @Override

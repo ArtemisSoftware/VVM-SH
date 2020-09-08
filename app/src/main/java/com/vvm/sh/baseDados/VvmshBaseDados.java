@@ -14,6 +14,7 @@ import com.vvm.sh.baseDados.dao.EmailDao;
 import com.vvm.sh.baseDados.dao.FormandoDao;
 import com.vvm.sh.baseDados.dao.ImagemDao;
 import com.vvm.sh.baseDados.dao.OcorrenciaDao;
+import com.vvm.sh.baseDados.dao.ParqueExtintorDao;
 import com.vvm.sh.baseDados.dao.ResultadoDao;
 import com.vvm.sh.baseDados.dao.SinistralidadeDao;
 import com.vvm.sh.baseDados.dao.TarefaDao;
@@ -108,6 +109,8 @@ public abstract class VvmshBaseDados extends RoomDatabase {
     public abstract CrossSellingDao obterCrossSellingDao();
 
     public abstract AcaoFormacaoDao obterAcaoFormacaoDao();
+
+    public abstract ParqueExtintorDao obterParqueExtintorDao();
 
 
     public abstract ImagemDao obterImagemDao();

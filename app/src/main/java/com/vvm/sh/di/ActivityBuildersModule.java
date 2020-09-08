@@ -31,6 +31,7 @@ import com.vvm.sh.ui.atividadesPendentes.relatorios.FormacaoActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.FormandoActivity;
 import com.vvm.sh.ui.autenticacao.PerfilActivity;
 import com.vvm.sh.ui.cliente.SinistralidadeActivity;
+import com.vvm.sh.ui.cliente.extintores.ExtintoresActivity;
 import com.vvm.sh.ui.ocorrencias.OcorrenciasHistoricoActivity;
 import com.vvm.sh.ui.ocorrencias.OcorrenciasRegistoActivity;
 import com.vvm.sh.ui.ocorrencias.RegistarOcorrenciaActivity;
@@ -123,7 +124,11 @@ public abstract class ActivityBuildersModule {
     )
     abstract SinistralidadeActivity contributeSinistralidadeActivity();
 
-
+    @TarefaScope
+    @ContributesAndroidInjector(
+            modules = { TarefaViewModelsModule.class, TarefaModule.class }
+    )
+    abstract ExtintoresActivity contributeExtintoresActivity();
 
 
 

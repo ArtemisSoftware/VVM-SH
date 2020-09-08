@@ -10,6 +10,8 @@ public class Identificadores {
     public class Origens{
 
         public static final int ORIGEM_BD = 1;
+        public static final int ORIGEM_MORADA = 2;
+        public static final int ORIGEM_MORADA_EXTINTOR = 3;
     }
 
 
@@ -76,6 +78,8 @@ public class Identificadores {
         public static final int ICON_SINISTRALIDADE = R.drawable.ic_sinistralidade;
 
         public static final int OPCAO_EXTINTORES = 4;
+        public static final String EXTINTORES = "Parque extintores";
+        public static final int ICON_EXTINTORES= R.drawable.ic_extintor;
 
 
         public static final int OPCAO_EMAIL = 5;

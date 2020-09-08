@@ -1,6 +1,7 @@
 package com.vvm.sh.di.tarefa;
 
 import com.vvm.sh.baseDados.dao.EmailDao;
+import com.vvm.sh.baseDados.dao.ParqueExtintorDao;
 import com.vvm.sh.baseDados.dao.ResultadoDao;
 import com.vvm.sh.baseDados.dao.SinistralidadeDao;
 import com.vvm.sh.baseDados.dao.TarefaDao;
@@ -48,9 +49,18 @@ public class TarefaModule {
 
     @TarefaScope
     @Provides
-    TarefaRepositorio provideTarefaRepositorio(TarefaDao tarefaDao, EmailDao emailDao, SinistralidadeDao sinistralidadeDao, ResultadoDao resultadoDao) {
+    static ParqueExtintorDao provideParqueExtintorDao(VvmshBaseDados vvmshBaseDados){
 
-        TarefaRepositorio repositorio = new TarefaRepositorio(tarefaDao, emailDao, sinistralidadeDao, resultadoDao);
+        ParqueExtintorDao dao = vvmshBaseDados.obterParqueExtintorDao();
+        return dao;
+    }
+
+    @TarefaScope
+    @Provides
+    TarefaRepositorio provideTarefaRepositorio(TarefaDao tarefaDao, EmailDao emailDao, SinistralidadeDao sinistralidadeDao,
+                                               ParqueExtintorDao parqueExtintorDao, ResultadoDao resultadoDao) {
+
+        TarefaRepositorio repositorio = new TarefaRepositorio(tarefaDao, emailDao, sinistralidadeDao, parqueExtintorDao, resultadoDao);
 
         //Timber.d("Providing PokemonRepository: " + repository);
         return repositorio;

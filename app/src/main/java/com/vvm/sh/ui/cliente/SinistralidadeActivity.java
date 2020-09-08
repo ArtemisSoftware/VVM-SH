@@ -1,5 +1,6 @@
 package com.vvm.sh.ui.cliente;
 
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
@@ -17,6 +18,7 @@ import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseActivity;
 import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.tarefa.TarefaViewModel;
+import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
@@ -85,6 +87,25 @@ public class SinistralidadeActivity extends BaseDaggerActivity
     @Override
     protected void subscreverObservadores() {
 
+        viewModel.observarMessagem().observe(this, new Observer<Recurso>() {
+            @Override
+            public void onChanged(Recurso recurso) {
+
+                switch (recurso.status){
+
+                    case SUCESSO:
+
+                        dialogo.sucesso(recurso.messagem, listenerActivity);
+                        break;
+
+                    case ERRO:
+
+                        dialogo.erro(recurso.messagem);
+                        break;
+
+                }
+            }
+        });
     }
 
 

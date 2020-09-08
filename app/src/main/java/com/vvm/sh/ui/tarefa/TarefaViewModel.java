@@ -13,6 +13,7 @@ import com.vvm.sh.baseDados.entidades.EmailResultado;
 import com.vvm.sh.ui.tarefa.modelos.OpcaoCliente;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.ResultadoId;
+import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.constantes.TiposConstantes;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
@@ -23,6 +24,7 @@ import javax.inject.Inject;
 
 import io.reactivex.MaybeObserver;
 import io.reactivex.Observer;
+import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
@@ -132,11 +134,57 @@ public class TarefaViewModel extends BaseViewModel {
 
     public void gravarSinistralidade(SinistralidadeResultado sinistralidade) {
 
+        showProgressBar(true);
+
         if(this.sinistralidade.getValue() == null){
-//inserir
+            tarefaRepositorio.inserir(sinistralidade)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+                            new SingleObserver<Long>() {
+                                @Override
+                                public void onSubscribe(Disposable d) {
+                                    disposables.add(d);
+                                }
+
+                                @Override
+                                public void onSuccess(Long aLong) {
+                                    messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_GRAVADOS_SUCESSO));
+                                    showProgressBar(false);
+                                }
+
+                                @Override
+                                public void onError(Throwable e) {
+                                    messagemLiveData.setValue(Recurso.erro(e.getMessage()));
+                                    showProgressBar(false);
+                                }
+                            }
+                    );
         }
         else{
-//atualizar
+            tarefaRepositorio.atualizar(sinistralidade)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+                            new SingleObserver<Integer>() {
+                                @Override
+                                public void onSubscribe(Disposable d) {
+                                    disposables.add(d);
+                                }
+
+                                @Override
+                                public void onSuccess(Integer integer) {
+                                    messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_EDITADOS_SUCESSO));
+                                    showProgressBar(false);
+                                }
+
+                                @Override
+                                public void onError(Throwable e) {
+                                    messagemLiveData.setValue(Recurso.erro(e.getMessage()));
+                                    showProgressBar(false);
+                                }
+                            }
+                    );
         }
 
         gravarResultado(tarefaRepositorio.resultadoDao, sinistralidade.idTarefa, ResultadoId.SINISTRALIDADE);
@@ -246,6 +294,8 @@ public class TarefaViewModel extends BaseViewModel {
      */
     public void obterSinistralidade(int idTarefa) {
 
+        showProgressBar(true);
+
         tarefaRepositorio.obterSinistralidade(idTarefa)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -254,22 +304,23 @@ public class TarefaViewModel extends BaseViewModel {
                         new MaybeObserver<SinistralidadeResultado>() {
                             @Override
                             public void onSubscribe(Disposable d) {
-
+                                disposables.add(d);
                             }
 
                             @Override
                             public void onSuccess(SinistralidadeResultado sinistralidadeResultado) {
-
+                                sinistralidade.setValue(sinistralidadeResultado);
+                                showProgressBar(false);
                             }
 
                             @Override
                             public void onError(Throwable e) {
-
+                                showProgressBar(false);
                             }
 
                             @Override
                             public void onComplete() {
-
+                                showProgressBar(false);
                             }
                         }
                 );

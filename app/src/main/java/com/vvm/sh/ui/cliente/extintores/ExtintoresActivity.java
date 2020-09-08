@@ -2,6 +2,7 @@ package com.vvm.sh.ui.cliente.extintores;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -9,14 +10,20 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.vvm.sh.R;
+import com.vvm.sh.databinding.ActivityExtintoresBinding;
+import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseActivity;
 import com.vvm.sh.ui.BaseDaggerActivity;
+import com.vvm.sh.ui.tarefa.TarefaViewModel;
 import com.vvm.sh.util.adaptadores.Item;
 import com.vvm.sh.util.interfaces.OnItemListener;
+import com.vvm.sh.util.metodos.PreferenciasUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
@@ -24,10 +31,31 @@ import butterknife.OnClick;
 public class ExtintoresActivity extends BaseDaggerActivity {
 
 
+    private ActivityExtintoresBinding activityExtintoresBinding;
+
+
+    @Inject
+    ViewModelProviderFactory providerFactory;
+
+
+    private TarefaViewModel viewModel;
+
+
 
     @Override
     protected void intActivity(Bundle savedInstanceState) {
 
+        viewModel = ViewModelProviders.of(this, providerFactory).get(TarefaViewModel.class);
+
+        activityExtintoresBinding = (ActivityExtintoresBinding) activityBinding;
+        activityExtintoresBinding.setLifecycleOwner(this);
+        activityExtintoresBinding.setViewmodel(viewModel);
+        activityExtintoresBinding.setBloquear(PreferenciasUtil.agendaEditavel(this));
+
+        subscreverObservadores();
+
+
+        //--viewModel.obterExtintores(PreferenciasUtil.obterIdTarefa(this));
     }
 
     @Override
@@ -37,7 +65,7 @@ public class ExtintoresActivity extends BaseDaggerActivity {
 
     @Override
     protected BaseViewModel obterBaseViewModel() {
-        return null;
+        return viewModel;
     }
 
     @Override

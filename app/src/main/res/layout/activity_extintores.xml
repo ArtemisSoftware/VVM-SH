@@ -10,15 +10,15 @@
         <import type="java.util.List"/>
         <import type="android.view.View"/>
         <import type="com.vvm.sh.util.metodos.DatasUtil"/>
-<!--
-        <variable
-            name="viewmodel"
-            type="com.vvm.sh.ui.atividadesPendentes.relatorios.FormacaoViewModel"/>
 
         <variable
-            name="listener"
-            type="com.vvm.sh.ui.atividadesPendentes.relatorios.OnFormacaoListener"/>
--->
+            name="viewmodel"
+            type="com.vvm.sh.ui.tarefa.TarefaViewModel"/>
+        <!--
+                <variable
+                    name="listener"
+                    type="com.vvm.sh.ui.atividadesPendentes.relatorios.OnFormacaoListener"/>
+        -->
         <variable
             name="bloquear"
             type="Boolean"/>

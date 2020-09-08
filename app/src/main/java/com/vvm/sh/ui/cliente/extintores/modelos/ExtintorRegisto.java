@@ -25,4 +25,7 @@ public class ExtintorRegisto {
     @ColumnInfo(name = "morada")
     public String morada;
 
+    @ColumnInfo(name = "extintor")
+    public String extintor;
+
 }

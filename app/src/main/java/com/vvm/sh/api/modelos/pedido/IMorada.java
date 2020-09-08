@@ -3,9 +3,9 @@ package com.vvm.sh.api.modelos.pedido;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Classe que representa uma morada do extintor do web service
+ * Classe que representa uma morada do web service
  */
-public class IMoradaExtintor {
+public class IMorada {
 
     @SerializedName("ID")
     public int id;

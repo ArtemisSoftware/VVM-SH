@@ -41,7 +41,7 @@ public class ITarefa {
     public List<IParqueExtintor> parqueExtintores;
 
     @SerializedName("MoradasExtintores")
-    public List<IMoradaExtintor> moradasExtintores;
+    public List<IMorada> moradasExtintores;
 
     @SerializedName("TiposExtintor")
     public List<ITipoExtintor> tiposExtintor;

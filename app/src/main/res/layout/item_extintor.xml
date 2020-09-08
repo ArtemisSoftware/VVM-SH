@@ -10,15 +10,15 @@
         <import type="com.vvm.sh.BuildConfig"/>
         <import type="com.vvm.sh.util.metodos.StringUtil"/>
         <import type="android.view.View"/>
-<!--
-        <variable
-            name="formando"
-            type="com.vvm.sh.ui.atividadesPendentes.relatorios.Formando" />
 
         <variable
-            name="listener"
-            type="com.vvm.sh.ui.atividadesPendentes.relatorios.OnFormacaoListener"/>
--->
+            name="extintor"
+            type="com.vvm.sh.ui.cliente.extintores.Extintor" />
+        <!--
+                <variable
+                    name="listener"
+                    type="com.vvm.sh.ui.atividadesPendentes.relatorios.OnFormacaoListener"/>
+        -->
     </data>
 
 

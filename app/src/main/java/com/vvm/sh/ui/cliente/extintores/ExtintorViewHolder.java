@@ -24,7 +24,7 @@ public class ExtintorViewHolder extends RecyclerView.ViewHolder implements View.
     //--private OnFormacaoListener listener;
 
 
-    public ExtintorViewHolder(@NonNull View itemView, OnItemListener onItemListener) {
+    public ExtintorViewHolder(@NonNull View itemView/*, OnItemListener onItemListener*/) {
         super(itemView);
 
         binding = DataBindingUtil.bind(itemView);

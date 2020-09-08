@@ -14,7 +14,7 @@ public class IParqueExtintor {
     public String contrato;
 
     @SerializedName("IdTipoExtintor")
-    public String IdTipoExtintor;
+    public String idTipoExtintor;
 
     @SerializedName("Quantidade")
     public int quantidade;

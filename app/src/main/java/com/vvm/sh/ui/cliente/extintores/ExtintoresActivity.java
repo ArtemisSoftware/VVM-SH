@@ -2,6 +2,7 @@ package com.vvm.sh.ui.cliente.extintores;
 
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.Toolbar;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -15,6 +16,7 @@ import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseActivity;
 import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.tarefa.TarefaViewModel;
+import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.adaptadores.Item;
 import com.vvm.sh.util.interfaces.OnItemListener;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
@@ -55,7 +57,7 @@ public class ExtintoresActivity extends BaseDaggerActivity {
         subscreverObservadores();
 
 
-        //--viewModel.obterExtintores(PreferenciasUtil.obterIdTarefa(this));
+        viewModel.obterExtintores(PreferenciasUtil.obterIdTarefa(this));
     }
 
     @Override
@@ -71,6 +73,25 @@ public class ExtintoresActivity extends BaseDaggerActivity {
     @Override
     protected void subscreverObservadores() {
 
+        viewModel.observarMessagem().observe(this, new Observer<Recurso>() {
+            @Override
+            public void onChanged(Recurso recurso) {
+
+                switch (recurso.status){
+
+                    case SUCESSO:
+
+                        dialogo.sucesso(recurso.messagem);
+                        break;
+
+                    case ERRO:
+
+                        dialogo.erro(recurso.messagem);
+                        break;
+
+                }
+            }
+        });
     }
 
 //    @BindView(R.id.rcl_registos)

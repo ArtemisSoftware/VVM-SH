@@ -24,8 +24,17 @@ public class MensagensUtil {
 
         dialogo.changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
 
+        dialogo.setTitleText(titulo)
+                .setContentText(mensagem)
+                .show();
+    }
+
+
+    public void sucesso(String mensagem) {
+
+        dialogo.changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
+
         dialogo.setTitleText(Sintaxe.Palavras.SUCESSO)
-                .setTitleText(titulo)
                 .setContentText(mensagem)
                 .show();
     }

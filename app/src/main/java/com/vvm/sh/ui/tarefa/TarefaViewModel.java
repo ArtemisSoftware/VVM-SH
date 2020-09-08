@@ -6,6 +6,7 @@ import com.vvm.sh.baseDados.entidades.SinistralidadeResultado;
 import com.vvm.sh.repositorios.TarefaRepositorio;
 import com.vvm.sh.servicos.ResultadoAsyncTask;
 import com.vvm.sh.baseDados.entidades.Resultado;
+import com.vvm.sh.ui.cliente.extintores.modelos.ExtintorRegisto;
 import com.vvm.sh.ui.tarefa.modelos.TarefaDia;
 import com.vvm.sh.baseDados.entidades.AtividadeExecutada;
 import com.vvm.sh.baseDados.entidades.Tipo;
@@ -39,6 +40,7 @@ public class TarefaViewModel extends BaseViewModel {
     public MutableLiveData<List<Tipo>> opcoesEmail;
 
     public MutableLiveData<SinistralidadeResultado> sinistralidade;
+    public MutableLiveData<List<ExtintorRegisto>> extintores;
 
 
     @Inject
@@ -50,6 +52,7 @@ public class TarefaViewModel extends BaseViewModel {
         opcoesEmail = new MutableLiveData<>();
         atividadesExecutadas = new MutableLiveData<>();
         sinistralidade = new MutableLiveData<>();
+        extintores = new MutableLiveData<>();
 
     }
 
@@ -327,6 +330,42 @@ public class TarefaViewModel extends BaseViewModel {
     }
 
 
+    public void obterExtintores(int idTarefa) {
+
+        showProgressBar(true);
+
+        tarefaRepositorio.obterExtintores(idTarefa).toObservable()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new Observer<List<ExtintorRegisto>>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onNext(List<ExtintorRegisto> registos) {
+                                extintores.setValue(registos);
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onComplete() {
+                                showProgressBar(false);
+                            }
+                        }
+                );
+    }
+
+
+
     //--------------------
     //Misc
     //--------------------
@@ -361,6 +400,7 @@ public class TarefaViewModel extends BaseViewModel {
         opcoesEmail.setValue(items);
 
     }
+
 
 
 }

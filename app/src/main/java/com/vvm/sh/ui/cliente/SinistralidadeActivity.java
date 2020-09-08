@@ -1,6 +1,5 @@
 package com.vvm.sh.ui.cliente;
 
-import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
@@ -12,6 +11,7 @@ import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.DecimalMin;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.vvm.sh.R;
+import com.vvm.sh.baseDados.entidades.SinistralidadeResultado;
 import com.vvm.sh.databinding.ActivitySinistralidadeBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseActivity;
@@ -61,10 +61,15 @@ public class SinistralidadeActivity extends BaseDaggerActivity
         activitySinistralidadeBinding = (ActivitySinistralidadeBinding) activityBinding;
         activitySinistralidadeBinding.setLifecycleOwner(this);
         activitySinistralidadeBinding.setViewmodel(viewModel);
+        activitySinistralidadeBinding.setBloquear(PreferenciasUtil.agendaEditavel(this));
 
         subscreverObservadores();
 
+        validador = new Validator(this);
+        validador.setValidationListener(this);
+
         viewModel.obterSinistralidade(PreferenciasUtil.obterIdTarefa(this));
+
     }
 
     @Override
@@ -128,111 +133,12 @@ public class SinistralidadeActivity extends BaseDaggerActivity
 
         }
         catch(NumberFormatException | ArithmeticException e){
-            acidentesComBaixa = 0;
+            activitySinistralidadeBinding.txtInpTotalHorasTrabalhadas.setText(getString(R.string.sem_dados));
+            activitySinistralidadeBinding.txtInpFrequencia.setText(getString(R.string.sem_dados));
+            activitySinistralidadeBinding.txtInpIncidencia.setText(getString(R.string.sem_dados));
+            activitySinistralidadeBinding.txtInpGravidade.setText(getString(R.string.sem_dados));
+            activitySinistralidadeBinding.txtInpAvaliacaoGravidade.setText(getString(R.string.sem_dados));
         }
-
-
-
-
-
-
-
-
-
-        //----------
-//
-//        try{
-//            acidentesComBaixa = Double.parseDouble(txt_inp_acidentes_trabalho.getText().toString());
-//        }
-//        catch(NumberFormatException e){
-//            acidentesComBaixa = 0;
-//        }
-//
-//
-//        try{
-//            diasUteisPerdidos = Double.parseDouble(txt_inp_dias_perdidos.getText().toString());
-//        }
-//        catch(NumberFormatException e){
-//            diasUteisPerdidos = 0;
-//        }
-//
-//
-//        try{
-//            horasAnoTrabalhador = Double.parseDouble(txt_inp_horas_ano_trabalhador.getText().toString());
-//        }
-//        catch(NumberFormatException e){
-//            horasAnoTrabalhador = 0;
-//        }
-//
-//
-//        try{
-//            totalTrabalhadores = Integer.parseInt(txt_inp_total_trabalhadores.getText().toString());
-//        }
-//        catch(NumberFormatException e){
-//            totalTrabalhadores = 0;
-//        }
-//
-//
-//        try{
-//            faltasHora = Double.parseDouble(txt_inp_faltas.getText().toString());
-//        }
-//        catch(NumberFormatException e){
-//            faltasHora = 0;
-//        }
-//
-//
-//        totalHorasTrabalhadas = (horasAnoTrabalhador * totalTrabalhadores) - faltasHora;
-//
-//        txt_inp_total_horas_trabalhadas.setText(totalHorasTrabalhadas + "");
-//
-//
-//
-//        //---------Indices
-//
-//
-//        //iFrequencia
-//
-//        if(totalHorasTrabalhadas != 0){
-//            txt_inp_frequencia.setText(formatoDecimal.format((acidentesComBaixa * 1000000) / totalHorasTrabalhadas));
-//        }
-//        else{
-//            txt_inp_frequencia.setText(getString(R.string.sem_dados));
-//        }
-//
-//
-//        //incidencia
-//
-//        if(totalTrabalhadores != 0){
-//            txt_inp_incidencia.setText(formatoDecimal.format((acidentesComBaixa * 1000) / totalTrabalhadores));
-//        }
-//        else{
-//            txt_inp_incidencia.setText(getString(R.string.sem_dados));
-//        }
-//
-//
-//        //iGravidade
-//
-//        if(totalHorasTrabalhadas != 0){
-//            txt_inp_gravidade.setText(formatoDecimal.format((diasUteisPerdidos * 1000000) / totalHorasTrabalhadas));
-//        }
-//        else{
-//            txt_inp_gravidade.setText(getString(R.string.sem_dados));
-//        }
-//
-//
-//        //IndAVGravidade
-//
-//        try{
-//
-//            double indiceGravidade = Double.parseDouble(txt_inp_gravidade.getText().toString().replaceAll(",","."));
-//            double indiceFrequencia = Double.parseDouble(txt_inp_frequencia.getText().toString().replaceAll(",","."));
-//
-//            txt_inp_avaliacao_gravidade.setText(formatoDecimal.format((indiceGravidade * 1000) / indiceFrequencia));
-//
-//        }
-//        catch(NumberFormatException | ArithmeticException w){
-//            txt_inp_avaliacao_gravidade.setText(getString(R.string.sem_dados));
-//        }
 
     }
 
@@ -262,6 +168,16 @@ public class SinistralidadeActivity extends BaseDaggerActivity
 
     @Override
     public void onValidationSucceeded() {
+
+        int acidentesComBaixa = Integer.parseInt(activitySinistralidadeBinding.txtInpAcidentesTrabalho.getText().toString());
+        double diasUteisPerdidos = Double.parseDouble(activitySinistralidadeBinding.txtInpDiasPerdidos.getText().toString());
+        int totalTrabalhadores = Integer.parseInt(activitySinistralidadeBinding.txtInpTotalTrabalhadores.getText().toString());
+        double horasAnoTrabalhador = Double.parseDouble(txt_inp_horas_ano_trabalhador.getText().toString());
+        double faltasHora = Double.parseDouble(activitySinistralidadeBinding.txtInpFaltas.getText().toString());
+
+        SinistralidadeResultado sinistralidade = new SinistralidadeResultado(PreferenciasUtil.obterIdTarefa(this), acidentesComBaixa, diasUteisPerdidos, totalTrabalhadores, horasAnoTrabalhador, faltasHora);
+
+        viewModel.gravarSinistralidade(sinistralidade);
 
     }
 

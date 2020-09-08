@@ -58,6 +58,7 @@ public class Identificadores {
         public static final int ID_ATIVIDADE_PENDENTE = 3;
         public static final int ID_CROSS_SELLING = 4;
         public static final int ID_OCORRENCIA = 5;
+        public static final int ID_SINISTRALIDADE = 6;
     }
 
     public class OpcoesCliente {
@@ -71,6 +72,9 @@ public class Identificadores {
         public static final int ICON_CROSS_SELLING = R.drawable.ic_shopping_basket_24dp;
 
         public static final int OPCAO_SINISTRALIDADE = 3;
+        public static final String SINISTRALIDADE = "Sinistralidade";
+        public static final int ICON_SINISTRALIDADE = R.drawable.ic_sinistralidade;
+
         public static final int OPCAO_EXTINTORES = 4;
 
 

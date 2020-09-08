@@ -21,6 +21,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import io.reactivex.MaybeObserver;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -123,12 +124,23 @@ public class TarefaViewModel extends BaseViewModel {
                     );
         }
 
+        gravarResultado(tarefaRepositorio.resultadoDao, email.idTarefa, ResultadoId.EMAIL);
 
-        ResultadoAsyncTask servico = new ResultadoAsyncTask(vvmshBaseDados, tarefaRepositorio.resultadoDao);
-        servico.execute(new Resultado(email.idTarefa, ResultadoId.EMAIL));
     }
 
 
+
+    public void gravarSinistralidade(SinistralidadeResultado sinistralidade) {
+
+        if(this.sinistralidade.getValue() == null){
+//inserir
+        }
+        else{
+//atualizar
+        }
+
+        gravarResultado(tarefaRepositorio.resultadoDao, sinistralidade.idTarefa, ResultadoId.SINISTRALIDADE);
+    }
 
     //--------------------
     //OBTER
@@ -233,6 +245,34 @@ public class TarefaViewModel extends BaseViewModel {
      * @param idTarefa o identificador da tarefa
      */
     public void obterSinistralidade(int idTarefa) {
+
+        tarefaRepositorio.obterSinistralidade(idTarefa)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new MaybeObserver<SinistralidadeResultado>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+
+                            }
+
+                            @Override
+                            public void onSuccess(SinistralidadeResultado sinistralidadeResultado) {
+
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+
+                            @Override
+                            public void onComplete() {
+
+                            }
+                        }
+                );
     }
 
 
@@ -250,6 +290,7 @@ public class TarefaViewModel extends BaseViewModel {
         items.add(OpcaoCliente.informacao());
         items.add(OpcaoCliente.email());
         items.add(OpcaoCliente.crossSelling());
+        items.add(OpcaoCliente.sinistralidade());
 
         opcoesCliente.setValue(items);
     }
@@ -269,7 +310,6 @@ public class TarefaViewModel extends BaseViewModel {
         opcoesEmail.setValue(items);
 
     }
-
 
 
 }

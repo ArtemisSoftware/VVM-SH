@@ -24,6 +24,14 @@ public class OpcaoCliente {
         this.app = Identificadores.App.APP;
     }
 
+    public OpcaoCliente(int id, String descricao, int icon, int app) {
+        this.id = id;
+        this.descricao = descricao;
+        this.icon = icon;
+        this.ativo = false;
+        this.app = app;
+    }
+
 
     public static OpcaoCliente email() {
         return new OpcaoCliente(OPCAO_EMAIL, EMAIL, ICON_EMAIL);
@@ -33,6 +41,9 @@ public class OpcaoCliente {
     }
     public static OpcaoCliente informacao() {
         return new OpcaoCliente(OPCAO_INFORMACAO, INFORMACAO, ICON_INFORMACAO);
+    }
+    public static OpcaoCliente sinistralidade() {
+        return new OpcaoCliente(OPCAO_SINISTRALIDADE, SINISTRALIDADE, ICON_SINISTRALIDADE, Identificadores.App.APP_ST);
     }
 
     @Override

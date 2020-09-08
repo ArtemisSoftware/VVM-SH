@@ -9,7 +9,11 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.vvm.sh.api.modelos.pedido.Codigo;
 import com.vvm.sh.baseDados.VvmshBaseDados;
+import com.vvm.sh.baseDados.dao.ResultadoDao;
+import com.vvm.sh.baseDados.entidades.Resultado;
+import com.vvm.sh.servicos.ResultadoAsyncTask;
 import com.vvm.sh.util.Recurso;
+import com.vvm.sh.util.ResultadoId;
 import com.vvm.sh.util.excepcoes.RespostaWsInvalidaException;
 import com.vvm.sh.util.excepcoes.TipoInexistenteException;
 
@@ -44,6 +48,21 @@ public abstract class BaseViewModel extends ViewModel {
     public MutableLiveData<Recurso> observarMessagem(){
         return messagemLiveData;
     }
+
+
+    /**
+     * Metodo que permite gravar o resultado de forma aos dados poderem ser enviados para o ws
+     * @param resultadoDao
+     * @param idTarefa o identificador da tarefa
+     * @param idResultado o identificador do resultado
+     */
+    protected void gravarResultado(ResultadoDao resultadoDao, int idTarefa, ResultadoId idResultado){
+
+        ResultadoAsyncTask servico = new ResultadoAsyncTask(vvmshBaseDados, resultadoDao);
+        servico.execute(new Resultado(idTarefa, idResultado));
+    }
+
+
 
 
     protected void showProgressBar(boolean visible) {

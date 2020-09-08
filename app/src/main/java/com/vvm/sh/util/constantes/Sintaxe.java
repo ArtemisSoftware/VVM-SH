@@ -41,6 +41,7 @@ public class Sintaxe {
         public static final String FUNCIONALIDADE = "Funcionalidade";
         public static final String UPLOAD = "Upload";
 
+        public static final String SINISTRALIDADE = "Sinistralidade";
     }
 
     public class Opcoes{

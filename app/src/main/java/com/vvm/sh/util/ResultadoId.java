@@ -16,7 +16,9 @@ public enum ResultadoId {
 
     CROSS_SELLING(Identificadores.Resultados.ID_CROSS_SELLING, Sintaxe.Palavras.CROSS_SELLING),
 
-    OCORRENCIA(Identificadores.Resultados.ID_OCORRENCIA, Sintaxe.Palavras.OCORRENCIA);
+    OCORRENCIA(Identificadores.Resultados.ID_OCORRENCIA, Sintaxe.Palavras.OCORRENCIA),
+
+    SINISTRALIDADE(Identificadores.Resultados.ID_SINISTRALIDADE, Sintaxe.Palavras.SINISTRALIDADE);
 
 
     private final int value;

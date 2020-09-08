@@ -47,4 +47,12 @@ public class SinistralidadeResultado {
     public double faltas;
 
 
+    public SinistralidadeResultado(int idTarefa, int acidentesComBaixa, double diasUteisPerdidos, int totalTrabalhadores, double horasAnoTrabalhadores, double faltas) {
+        this.idTarefa = idTarefa;
+        this.acidentesComBaixa = acidentesComBaixa;
+        this.diasUteisPerdidos = diasUteisPerdidos;
+        this.totalTrabalhadores = totalTrabalhadores;
+        this.horasAnoTrabalhadores = horasAnoTrabalhadores;
+        this.faltas = faltas;
+    }
 }

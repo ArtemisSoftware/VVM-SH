@@ -15,12 +15,40 @@ public class Migracao {
 
         Migration migrations [] =  new Migration []{
                 MIGRACAO_1_2, MIGRACAO_2_3, MIGRACAO_3_4, MIGRACAO_4_5, MIGRACAO_5_6, MIGRACAO_6_7, MIGRACAO_7_8, MIGRACAO_8_9, MIGRACAO_9_10, MIGRACAO_10_11,
-                MIGRACAO_11_12, MIGRACAO_12_13, MIGRACAO_13_14
+                MIGRACAO_11_12, MIGRACAO_12_13, MIGRACAO_13_14, MIGRACAO_14_15
 
         };
 
         return migrations;
     }
+
+
+
+    public static final Migration MIGRACAO_14_15 = new Migration(14, 15) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            try {
+
+                database.execSQL("CREATE TABLE IF NOT EXISTS 'sinistralidadesResultado' ("
+                        + "'idTarefa' INTEGER NOT NULL , "
+                        + "'acidentesComBaixa' INTEGER NOT NULL, "
+                        + "'diasUteisPerdidos' REAL NOT NULL, "
+                        + "'totalTrabalhadores' INTEGER NOT NULL, "
+                        + "'horasAnoTrabalhadores' REAL NOT NULL, "
+                        + "'faltas' REAL NOT NULL, "
+                        + "PRIMARY KEY (idTarefa), "
+                        + "FOREIGN KEY (idTarefa) REFERENCES tarefas (idTarefa)  ON DELETE CASCADE) ");
+
+
+            }
+            catch(SQLException e){
+                Log.e("Migracao", "erro MIGRACAO_14_15: " + e.getMessage());
+                //Timber.e("erro MIGRACAO_2_3: " + e.getMessage());
+            }
+        }
+    };
+
+
 
 
     public static final Migration MIGRACAO_13_14 = new Migration(13, 14) {

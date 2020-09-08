@@ -16,6 +16,15 @@ public class StringUtil {
         return valor + "";
     }
 
+    /**
+     * Metodo que permite converter um inteiro para String
+     * @param valor o valor a converter
+     * @return o valor convertido
+     */
+    public static String converterString(double valor){
+        return valor + "";
+    }
+
 
     /**
      * Metodo que permite formatar uma string com caracters html

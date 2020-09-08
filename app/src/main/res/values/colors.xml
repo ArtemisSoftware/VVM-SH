@@ -140,6 +140,7 @@
 
 
     <color name="cor_app_sa">#FF1565C0</color>
+    <color name="cor_app_sht">#7200CA</color>
 
 
     <color name="cor_executado">#39DB80</color>

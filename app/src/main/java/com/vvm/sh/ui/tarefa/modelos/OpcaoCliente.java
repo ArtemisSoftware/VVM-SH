@@ -12,7 +12,7 @@ import static com.vvm.sh.util.constantes.Identificadores.OpcoesCliente.*;
 public class OpcaoCliente {
 
 
-    public int id, icon;
+    public int id, icon, app;
     public String descricao, detalhe;
     public boolean ativo;
 
@@ -21,6 +21,7 @@ public class OpcaoCliente {
         this.descricao = descricao;
         this.icon = icon;
         this.ativo = false;
+        this.app = Identificadores.App.APP;
     }
 
 

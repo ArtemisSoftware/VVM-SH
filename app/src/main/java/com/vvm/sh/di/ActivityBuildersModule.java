@@ -30,6 +30,7 @@ import com.vvm.sh.ui.atividadesPendentes.DialogoAtividadePendenteNaoExecutada;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.FormacaoActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.FormandoActivity;
 import com.vvm.sh.ui.autenticacao.PerfilActivity;
+import com.vvm.sh.ui.cliente.SinistralidadeActivity;
 import com.vvm.sh.ui.ocorrencias.OcorrenciasHistoricoActivity;
 import com.vvm.sh.ui.ocorrencias.OcorrenciasRegistoActivity;
 import com.vvm.sh.ui.ocorrencias.RegistarOcorrenciaActivity;
@@ -116,7 +117,11 @@ public abstract class ActivityBuildersModule {
     abstract DialogoEmail contributeDialogoEmail();
 
 
-
+    @TarefaScope
+    @ContributesAndroidInjector(
+            modules = { TarefaViewModelsModule.class, TarefaModule.class }
+    )
+    abstract SinistralidadeActivity contributeSinistralidadeActivity();
 
 
 

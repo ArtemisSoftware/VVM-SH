@@ -15,11 +15,13 @@ import com.vvm.sh.baseDados.dao.FormandoDao;
 import com.vvm.sh.baseDados.dao.ImagemDao;
 import com.vvm.sh.baseDados.dao.OcorrenciaDao;
 import com.vvm.sh.baseDados.dao.ResultadoDao;
+import com.vvm.sh.baseDados.dao.SinistralidadeDao;
 import com.vvm.sh.baseDados.dao.TarefaDao;
 import com.vvm.sh.baseDados.dao.TransferenciasDao;
 import com.vvm.sh.baseDados.dao.UtilizadorDao;
 import com.vvm.sh.baseDados.entidades.ImagemResultado;
 import com.vvm.sh.baseDados.entidades.Resultado;
+import com.vvm.sh.baseDados.entidades.SinistralidadeResultado;
 import com.vvm.sh.baseDados.entidades.Tarefa;
 import com.vvm.sh.baseDados.entidades.Anomalia;
 import com.vvm.sh.baseDados.entidades.AnomaliaResultado;
@@ -52,7 +54,7 @@ import com.vvm.sh.baseDados.entidades.EmailResultado;
 
                     EmailResultado.class, AnomaliaResultado.class, FormandoResultado.class, AcaoFormacaoResultado.class,
                     AtividadePendenteResultado.class, CrossSellingResultado.class, OcorrenciaResultado.class,
-                    ImagemResultado.class,
+                    ImagemResultado.class, SinistralidadeResultado.class,
                     Resultado.class
             },
             version = BaseDadosContantes.VERSAO
@@ -102,6 +104,8 @@ public abstract class VvmshBaseDados extends RoomDatabase {
 
 
     public abstract ImagemDao obterImagemDao();
+
+    public abstract SinistralidadeDao obterSinistralidadeDao();
 
     public abstract TransferenciasDao obterTransferenciasDao();
 

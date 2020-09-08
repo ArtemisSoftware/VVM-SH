@@ -1,4 +1,4 @@
-package com.vvm.sh.ui.cliente.extintores;
+package com.vvm.sh.ui.cliente.extintores.adaptadores;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -19,12 +19,12 @@ public class ExtintorRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.V
 
     private List<ExtintorRegisto> items = new ArrayList<>();
     private Context contexto;
-    //--private OnFormacaoListener listener;
+    private OnExtintoresListener listener;
 
-    public ExtintorRecyclerAdapter(Context contexto, List<ExtintorRegisto> items/*, OnFormacaoListener listener*/) {
+    public ExtintorRecyclerAdapter(Context contexto, List<ExtintorRegisto> items, OnExtintoresListener listener) {
         this.items = items;
         this.contexto = contexto;
-        //--this.listener = listener;
+        this.listener = listener;
     }
 
 
@@ -33,7 +33,7 @@ public class ExtintorRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.V
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         ItemExtintorBinding binding = DataBindingUtil.inflate(LayoutInflater.from(contexto), R.layout.item_extintor, parent, false);
-        return new ExtintorViewHolder(binding.getRoot()/*, listener*/);
+        return new ExtintorViewHolder(binding.getRoot(), listener);
     }
 
     @Override

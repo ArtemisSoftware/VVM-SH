@@ -14,11 +14,11 @@
         <variable
             name="viewmodel"
             type="com.vvm.sh.ui.tarefa.TarefaViewModel"/>
-        <!--
-                <variable
-                    name="listener"
-                    type="com.vvm.sh.ui.atividadesPendentes.relatorios.OnFormacaoListener"/>
-        -->
+
+            <variable
+                name="listener"
+                type="com.vvm.sh.ui.cliente.extintores.adaptadores.OnExtintoresListener"/>
+
         <variable
             name="bloquear"
             type="Boolean"/>

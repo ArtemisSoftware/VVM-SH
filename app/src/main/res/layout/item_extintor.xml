@@ -14,11 +14,11 @@
         <variable
             name="extintor"
             type="com.vvm.sh.ui.cliente.extintores.modelos.ExtintorRegisto" />
-        <!--
-                <variable
-                    name="listener"
-                    type="com.vvm.sh.ui.atividadesPendentes.relatorios.OnFormacaoListener"/>
-        -->
+
+        <variable
+            name="listener"
+            type="com.vvm.sh.ui.cliente.extintores.adaptadores.OnExtintoresListener"/>
+
     </data>
 
 
@@ -36,7 +36,7 @@
                 style="@style/tituloCartao"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:text="@{formando.resultado.nome, default=nome}"
+                android:text="@{extintor.extintor, default=nome}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -87,15 +87,14 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_lorem_ipsum_24dp" />
+                    android:src="@drawable/ic_localizacao_24dp" />
 
 
                 <TextView
                     style="@style/textoDetalhe"
-                    android:layout_marginLeft="12dp"
-                    android:text="quantidade" />
+                    android:text="@{extintor.morada, default=morada}"
+                    android:layout_marginLeft="12dp" />
 
-                <!-- android:text="@{DatasUtil.converterData(ocorrencia.dataEntrada, DatasUtil.FORMATO_DD_MM_YYYY), default=data}"  -->
             </LinearLayout>
 
 
@@ -118,10 +117,9 @@
 
                 <TextView
                     style="@style/textoDetalhe"
-                    android:layout_marginLeft="4dp"
-                    android:text="quantidade" />
+                    android:text="@{StringUtil.converterString(extintor.parqueExtintor.quantidade), default=quantidade}"
+                    android:layout_marginLeft="12dp" />
 
-                <!-- android:text="@{DatasUtil.converterData(ocorrencia.dataEntrada, DatasUtil.FORMATO_DD_MM_YYYY), default=data}"  -->
             </LinearLayout>
 
             <ImageView

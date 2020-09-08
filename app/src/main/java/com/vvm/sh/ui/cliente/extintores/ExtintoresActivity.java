@@ -15,6 +15,8 @@ import com.vvm.sh.databinding.ActivityExtintoresBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseActivity;
 import com.vvm.sh.ui.BaseDaggerActivity;
+import com.vvm.sh.ui.cliente.extintores.adaptadores.OnExtintoresListener;
+import com.vvm.sh.ui.cliente.extintores.modelos.ExtintorRegisto;
 import com.vvm.sh.ui.tarefa.TarefaViewModel;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.adaptadores.Item;
@@ -30,7 +32,8 @@ import javax.inject.Inject;
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class ExtintoresActivity extends BaseDaggerActivity {
+public class ExtintoresActivity extends BaseDaggerActivity
+    implements OnExtintoresListener {
 
 
     private ActivityExtintoresBinding activityExtintoresBinding;
@@ -52,6 +55,7 @@ public class ExtintoresActivity extends BaseDaggerActivity {
         activityExtintoresBinding = (ActivityExtintoresBinding) activityBinding;
         activityExtintoresBinding.setLifecycleOwner(this);
         activityExtintoresBinding.setViewmodel(viewModel);
+        activityExtintoresBinding.setListener(this);
         activityExtintoresBinding.setBloquear(PreferenciasUtil.agendaEditavel(this));
 
         subscreverObservadores();
@@ -92,6 +96,18 @@ public class ExtintoresActivity extends BaseDaggerActivity {
                 }
             }
         });
+    }
+
+
+
+    //---------------------
+    //Eventos
+    //---------------------
+
+
+    @Override
+    public void OnExtintorClick(ExtintorRegisto registo) {
+
     }
 
 //    @BindView(R.id.rcl_registos)

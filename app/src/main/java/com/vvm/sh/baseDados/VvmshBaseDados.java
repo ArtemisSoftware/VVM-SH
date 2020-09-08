@@ -20,6 +20,9 @@ import com.vvm.sh.baseDados.dao.TarefaDao;
 import com.vvm.sh.baseDados.dao.TransferenciasDao;
 import com.vvm.sh.baseDados.dao.UtilizadorDao;
 import com.vvm.sh.baseDados.entidades.ImagemResultado;
+import com.vvm.sh.baseDados.entidades.Morada;
+import com.vvm.sh.baseDados.entidades.ParqueExtintor;
+import com.vvm.sh.baseDados.entidades.ParqueExtintorResultado;
 import com.vvm.sh.baseDados.entidades.Resultado;
 import com.vvm.sh.baseDados.entidades.SinistralidadeResultado;
 import com.vvm.sh.baseDados.entidades.Tarefa;
@@ -31,6 +34,7 @@ import com.vvm.sh.baseDados.entidades.AtividadePendenteResultado;
 import com.vvm.sh.baseDados.entidades.AcaoFormacaoResultado;
 import com.vvm.sh.baseDados.entidades.FormandoResultado;
 import com.vvm.sh.baseDados.dao.TipoDao;
+import com.vvm.sh.baseDados.entidades.TipoExtintor;
 import com.vvm.sh.baseDados.entidades.Utilizador;
 import com.vvm.sh.baseDados.entidades.Cliente;
 import com.vvm.sh.baseDados.entidades.CrossSellingResultado;
@@ -49,12 +53,15 @@ import com.vvm.sh.baseDados.entidades.EmailResultado;
                     //Trabalho
 
                     Cliente.class, AtividadeExecutada.class, Anomalia.class, AtividadePendente.class, Ocorrencia.class, OcorrenciaHistorico.class,
+                    Morada.class,
+                    ParqueExtintor.class, TipoExtintor.class,
 
                     //Resultado
 
                     EmailResultado.class, AnomaliaResultado.class, FormandoResultado.class, AcaoFormacaoResultado.class,
                     AtividadePendenteResultado.class, CrossSellingResultado.class, OcorrenciaResultado.class,
                     ImagemResultado.class, SinistralidadeResultado.class,
+                    ParqueExtintorResultado.class,
                     Resultado.class
             },
             version = BaseDadosContantes.VERSAO

@@ -9,7 +9,7 @@ import androidx.room.Index;
 import static androidx.room.ForeignKey.CASCADE;
 
 @Entity(tableName = "tiposExtintor",
-        indices = {@Index(value="descricao", unique = false) },
+        indices = {@Index(value="idTarefa", unique = false) },
         primaryKeys = {"idTarefa","id"},
         foreignKeys = @ForeignKey(entity = Tarefa.class,
                 parentColumns = "idTarefa",

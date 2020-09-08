@@ -2,7 +2,6 @@ package com.vvm.sh.ui.cliente.extintores;
 
 import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -11,20 +10,18 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.vvm.sh.R;
 import com.vvm.sh.databinding.ItemExtintorBinding;
-import com.vvm.sh.util.adaptadores.ItemRecyclerAdapter;
-import com.vvm.sh.util.adaptadores.ItemViewHolder;
-import com.vvm.sh.util.interfaces.OnItemListener;
+import com.vvm.sh.ui.cliente.extintores.modelos.ExtintorRegisto;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class ExtintorRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
-    private List<Extintor> items = new ArrayList<>();
+    private List<ExtintorRegisto> items = new ArrayList<>();
     private Context contexto;
     //--private OnFormacaoListener listener;
 
-    public ExtintorRecyclerAdapter(Context contexto, List<Extintor> items/*, OnFormacaoListener listener*/) {
+    public ExtintorRecyclerAdapter(Context contexto, List<ExtintorRegisto> items/*, OnFormacaoListener listener*/) {
         this.items = items;
         this.contexto = contexto;
         //--this.listener = listener;
@@ -42,7 +39,7 @@ public class ExtintorRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.V
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
-        Extintor registo = items.get(position);
+        ExtintorRegisto registo = items.get(position);
         ((ExtintorViewHolder)holder).binding.setExtintor(registo);
         ((ExtintorViewHolder)holder).binding.executePendingBindings();
 
@@ -54,7 +51,7 @@ public class ExtintorRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.V
     }
 
 
-    public void atualizar(List<Extintor> items){
+    public void atualizar(List<ExtintorRegisto> items){
         this.items.clear();
         this.items.addAll(items);
         notifyDataSetChanged();

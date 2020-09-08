@@ -46,10 +46,10 @@ public class ParqueExtintor {
     public Date dataValidade;
 
     @ColumnInfo(name = "idMorada")
-    public int idMorada;
+    public String idMorada;
 
 
-    public ParqueExtintor(int idTarefa, String idServico, String contrato, String idExtintor, int quantidade, Date dataValidade, int idMorada) {
+    public ParqueExtintor(int idTarefa, String idServico, String contrato, String idExtintor, int quantidade, Date dataValidade, String idMorada) {
         this.idTarefa = idTarefa;
         this.idServico = idServico;
         this.contrato = contrato;

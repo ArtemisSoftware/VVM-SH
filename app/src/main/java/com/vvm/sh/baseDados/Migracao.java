@@ -15,12 +15,78 @@ public class Migracao {
 
         Migration migrations [] =  new Migration []{
                 MIGRACAO_1_2, MIGRACAO_2_3, MIGRACAO_3_4, MIGRACAO_4_5, MIGRACAO_5_6, MIGRACAO_6_7, MIGRACAO_7_8, MIGRACAO_8_9, MIGRACAO_9_10, MIGRACAO_10_11,
-                MIGRACAO_11_12, MIGRACAO_12_13, MIGRACAO_13_14, MIGRACAO_14_15
+                MIGRACAO_11_12, MIGRACAO_12_13, MIGRACAO_13_14, MIGRACAO_14_15, MIGRACAO_15_16
 
         };
 
         return migrations;
     }
+
+
+    public static final Migration MIGRACAO_15_16 = new Migration(15, 16) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            try {
+
+                database.execSQL("CREATE TABLE IF NOT EXISTS 'parqueExtintores' ("
+                        + "'idTarefa' INTEGER NOT NULL , "
+                        + "'id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
+                        + "'idServico' TEXT NOT NULL, "
+                        + "'contrato' TEXT NOT NULL, "
+                        + "'idExtintor' TEXT NOT NULL, "
+                        + "'quantidade' INTEGER NOT NULL, "
+                        + "'dataValidade' INTEGER NOT NULL, "
+                        + "'idMorada' TEXT NOT NULL, "
+                        + "FOREIGN KEY (idTarefa) REFERENCES tarefas (idTarefa)  ON DELETE CASCADE) ");
+
+                database.execSQL("CREATE INDEX index_parqueExtintores_idTarefa ON tarefas (idTarefa)");
+
+
+
+                database.execSQL("CREATE TABLE IF NOT EXISTS 'parqueExtintoresResultado' ("
+                        + "'id' INTEGER NOT NULL , "
+                        + "'valido' INTEGER NOT NULL, "
+                        + "'dataValidade' INTEGER NOT NULL, "
+                        + "PRIMARY KEY (id), "
+                        + "FOREIGN KEY (id) REFERENCES parqueExtintores (id)  ON DELETE CASCADE) ");
+
+
+
+
+                database.execSQL("CREATE TABLE IF NOT EXISTS 'tiposExtintor' ("
+                        + "'idTarefa' INTEGER NOT NULL , "
+                        + "'id' TEXT NOT NULL, "
+                        + "'descricao' TEXT NOT NULL, "
+                        + "PRIMARY KEY (idTarefa, id), "
+                        + "FOREIGN KEY (idTarefa) REFERENCES tarefas (idTarefa)  ON DELETE CASCADE) ");
+
+                database.execSQL("CREATE INDEX index_tiposExtintor_idTarefa ON tarefas (idTarefa)");
+
+
+                database.execSQL("CREATE TABLE IF NOT EXISTS 'moradas' ("
+                        + "'idTarefa' INTEGER NOT NULL , "
+                        + "'id' TEXT NOT NULL , "
+                        + "'tipo' INTEGER NOT NULL, "
+                        + "'endereco' TEXT NOT NULL, "
+                        + "'cp4' TEXT NOT NULL, "
+                        + "'localidade' TEXT NOT NULL, "
+                        + "PRIMARY KEY (idTarefa, id, tipo), "
+                        + "FOREIGN KEY (idTarefa) REFERENCES tarefas (idTarefa)  ON DELETE CASCADE) ");
+
+                database.execSQL("CREATE INDEX index_moradas_idTarefa ON tarefas (idTarefa)");
+            }
+            catch(SQLException e){
+                Log.e("Migracao", "erro MIGRACAO_14_15: " + e.getMessage());
+                //Timber.e("erro MIGRACAO_2_3: " + e.getMessage());
+            }
+        }
+    };
+
+
+
+
+
+
 
 
 

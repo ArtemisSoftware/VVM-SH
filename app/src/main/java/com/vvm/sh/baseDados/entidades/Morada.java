@@ -25,7 +25,7 @@ public class Morada {
 
 
     @NonNull
-    public String tipo;
+    public int tipo;
 
 
 
@@ -41,7 +41,7 @@ public class Morada {
     public String localidade;
 
 
-    public Morada(int idTarefa, @NonNull String id, @NonNull String tipo, @NonNull String endereco, @NonNull String cp4, @NonNull String localidade) {
+    public Morada(int idTarefa, @NonNull String id, @NonNull int tipo, @NonNull String endereco, @NonNull String cp4, @NonNull String localidade) {
         this.idTarefa = idTarefa;
         this.id = id;
         this.tipo = tipo;

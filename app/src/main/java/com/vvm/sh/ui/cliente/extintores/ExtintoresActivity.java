@@ -115,8 +115,8 @@ public class ExtintoresActivity extends BaseDaggerActivity {
 //        //--TESTE (apagar quando houver dados)
 //
 //        List<Item> t1 = new ArrayList<>();
-//        t1.add(new Extintor(1, "Extintor grande", "2", "Rua de baixo", "2020-03-04", 1, 1));
-//        t1.add(new Extintor(2, "Extintor pequeno", "7", "Rua de cima", "2020-03-07", 0, 0));
+//        t1.add(new ExtintorRegisto(1, "ExtintorRegisto grande", "2", "Rua de baixo", "2020-03-04", 1, 1));
+//        t1.add(new ExtintorRegisto(2, "ExtintorRegisto pequeno", "7", "Rua de cima", "2020-03-07", 0, 0));
 //
 //        extintorRecyclerAdapter.fixarRegistos(t1);
 //
@@ -206,7 +206,7 @@ public class ExtintoresActivity extends BaseDaggerActivity {
 //
 //        MetodosDialogo.dialogo(contexto, vista, SintaxeIF.TITULO_DATA_VALIDADE, metodoGravar).show();
 //
-//        MetodosDatas.fixarData_DatePicker(((DatePicker) vista.findViewById(R.id.pick_data_validade)), ((Extintor) adaptador.obterRegistoSelecionado()).obterDataValidade(DataIF.FORMATO_YYYY_MM_DD));
+//        MetodosDatas.fixarData_DatePicker(((DatePicker) vista.findViewById(R.id.pick_data_validade)), ((ExtintorRegisto) adaptador.obterRegistoSelecionado()).obterDataValidade(DataIF.FORMATO_YYYY_MM_DD));
 //    }
 //*/
 }

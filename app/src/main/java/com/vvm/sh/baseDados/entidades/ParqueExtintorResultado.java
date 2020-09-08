@@ -11,21 +11,16 @@ import java.util.Date;
 
 import static androidx.room.ForeignKey.CASCADE;
 
-@Entity(tableName = "extintoresResultado",
-        indices = {@Index(value="idTarefa", unique = false) },
+@Entity(tableName = "parqueExtintoresResultado",
+        primaryKeys = {"id"},
 
-
-        foreignKeys = @ForeignKey(entity = Tarefa.class,
-                parentColumns = "idTarefa",
-                childColumns = "idTarefa",
+        foreignKeys = @ForeignKey(entity = ParqueExtintor.class,
+                parentColumns = "id",
+                childColumns = "id",
                 onDelete = CASCADE))
-public class ExtintorResultado {
+public class ParqueExtintorResultado {
 
     @NonNull
-    public int idTarefa;
-
-    @NonNull
-    @PrimaryKey(autoGenerate = true)
     public int id;
 
     @ColumnInfo(name = "valido")
@@ -35,8 +30,8 @@ public class ExtintorResultado {
     public Date dataValidade;
 
 
-    public ExtintorResultado(int idTarefa, boolean valido, Date dataValidade) {
-        this.idTarefa = idTarefa;
+    public ParqueExtintorResultado(int id, boolean valido, Date dataValidade) {
+        this.id = id;
         this.valido = valido;
         this.dataValidade = dataValidade;
     }

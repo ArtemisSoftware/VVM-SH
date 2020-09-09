@@ -1,5 +1,6 @@
 package com.vvm.sh.ui.tarefa.quadroPessoal;
 
+import com.vvm.sh.R;
 import com.vvm.sh.ui.BaseDaggerDialogoPersistenteFragment;
 
 public class DialogoColaborador extends BaseDaggerDialogoPersistenteFragment {
@@ -14,12 +15,12 @@ public class DialogoColaborador extends BaseDaggerDialogoPersistenteFragment {
 
     @Override
     protected int obterLayout() {
-        return 0;
+        return R.layout.dialogo_colaborador;
     }
 
     @Override
     protected int obterTitulo() {
-        return 0;
+        return R.string.colaborador;
     }
 
     @Override

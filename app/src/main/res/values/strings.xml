@@ -284,5 +284,10 @@
     <string name="posto_">Posto:</string>
     <string name="categoria_profissional_">Categoria Profissional:</string>
     <string name="posto">Posto</string>
+    <string name="colaborador">Colaborador</string>
+    <string name="data_de_admissao">Data de admissão</string>
+    <string name="data_de_admissao_funcao">Data de admissão de função</string>
+    <string name="profissao">Profissão</string>
+    <string name="categoria_profissional">Categoria Profissional</string>
 
 </resources>

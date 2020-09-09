@@ -188,16 +188,6 @@ dependencies {
     implementation "com.github.markushi:circlebutton:$circlebutton_version"
 
 
-
-
-
-
-
-
-
-
-
-
     def flashbar_version = "1.0.3"
     implementation "com.andrognito.flashbar:flashbar:$flashbar_version"
 

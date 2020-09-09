@@ -19,6 +19,8 @@
 
     <dimen name="spacing_dialog_item">25dp</dimen>
 
+    <dimen name="distancia_vertical_formulario">24dp</dimen>
+
     <!--  #####################FINAL################### -->
 
     <!-- Apresentacao -->

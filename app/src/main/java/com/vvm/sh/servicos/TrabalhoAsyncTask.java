@@ -8,11 +8,16 @@ import com.vvm.sh.api.modelos.pedido.IAtividadeExecutada;
 import com.vvm.sh.api.modelos.pedido.IAnomalia;
 import com.vvm.sh.api.modelos.pedido.IAtividadePendente;
 import com.vvm.sh.api.modelos.pedido.ICliente;
+import com.vvm.sh.api.modelos.pedido.IMorada;
+import com.vvm.sh.api.modelos.pedido.IParqueExtintor;
 import com.vvm.sh.api.modelos.pedido.ITarefa;
 import com.vvm.sh.api.modelos.pedido.IDados;
 import com.vvm.sh.api.modelos.pedido.IOcorrencia;
 import com.vvm.sh.api.modelos.pedido.ISessao;
+import com.vvm.sh.api.modelos.pedido.ITipoExtintor;
 import com.vvm.sh.baseDados.VvmshBaseDados;
+import com.vvm.sh.baseDados.entidades.Morada;
+import com.vvm.sh.baseDados.entidades.ParqueExtintor;
 import com.vvm.sh.baseDados.entidades.Tarefa;
 import com.vvm.sh.baseDados.entidades.Anomalia;
 import com.vvm.sh.baseDados.entidades.AtividadeExecutada;
@@ -20,6 +25,7 @@ import com.vvm.sh.baseDados.entidades.AtividadePendente;
 import com.vvm.sh.baseDados.entidades.Cliente;
 import com.vvm.sh.baseDados.entidades.Ocorrencia;
 import com.vvm.sh.baseDados.entidades.OcorrenciaHistorico;
+import com.vvm.sh.baseDados.entidades.TipoExtintor;
 import com.vvm.sh.repositorios.TransferenciasRepositorio;
 import com.vvm.sh.util.AtualizacaoUI;
 import com.vvm.sh.util.constantes.Identificadores;
@@ -114,9 +120,65 @@ public class TrabalhoAsyncTask extends AsyncTask<ISessao, Void, Void> {
         inserirOcorrencias(info.tarefas.ocorrencias, idTarefa);
 
         inserirAtividadesPendentes(info.tarefas.atividadesPendentes, idTarefa);
+
+        inserirMoradas(info.tarefas.moradas, info.tarefas.moradasExtintores, idTarefa);
+
+        inserirParqueExtintores(info.tarefas.parqueExtintores, info.tarefas.tiposExtintor, idTarefa);
+
+    }
+
+    private void inserirParqueExtintores(List<IParqueExtintor> parqueExtintores, List<ITipoExtintor> tiposExtintor, int idTarefa) {
+
+        List<TipoExtintor> registos = new ArrayList<>();
+
+        for(ITipoExtintor item : tiposExtintor){
+
+            TipoExtintor registo = DownloadMapping.INSTANCE.map(item);
+            registo.idTarefa = idTarefa;
+            registos.add(registo);
+        }
+
+        repositorio.inserirTipoExtintor(registos);
+
+
+        List<ParqueExtintor> registosExtintores = new ArrayList<>();
+
+        for(IParqueExtintor item : parqueExtintores){
+
+            ParqueExtintor registo = DownloadMapping.INSTANCE.map(item);
+            registo.idTarefa = idTarefa;
+            registosExtintores.add(registo);
+        }
+
+        //--repositorio.inserirParqueExtintores(registosExtintores);
+
     }
 
 
+    private void inserirMoradas(List<IMorada> moradas, List<IMorada> moradasExtintores, int idTarefa) {
+
+        List<Morada> registos = new ArrayList<>();
+
+        for(IMorada morada : moradas){
+
+            Morada registo = DownloadMapping.INSTANCE.map(morada);
+            registo.tipo = Identificadores.Origens.ORIGEM_MORADA;
+            registo.idTarefa = idTarefa;
+            registos.add(registo);
+        }
+
+        for(IMorada morada : moradasExtintores){
+
+            Morada registo = DownloadMapping.INSTANCE.map(morada);
+            registo.tipo = Identificadores.Origens.ORIGEM_MORADA_EXTINTOR;
+            registo.idTarefa = idTarefa;
+            registos.add(registo);
+        }
+        
+
+        //--repositorio.inserirMoradas(registos);
+    }
+    
     /**
      * Metodo que permite inserir as atividades pendentes
      * @param atividadesPendentes os dados das atividades pendentes

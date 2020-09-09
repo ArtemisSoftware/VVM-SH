@@ -14,14 +14,17 @@ import com.vvm.sh.baseDados.entidades.AtividadePendente;
 import com.vvm.sh.baseDados.entidades.Cliente;
 import com.vvm.sh.baseDados.entidades.CrossSellingResultado;
 import com.vvm.sh.baseDados.entidades.ImagemResultado;
+import com.vvm.sh.baseDados.entidades.Morada;
 import com.vvm.sh.baseDados.entidades.Ocorrencia;
 import com.vvm.sh.baseDados.entidades.OcorrenciaHistorico;
+import com.vvm.sh.baseDados.entidades.ParqueExtintor;
 import com.vvm.sh.baseDados.entidades.Resultado;
 import com.vvm.sh.baseDados.entidades.EmailResultado;
 import com.vvm.sh.baseDados.entidades.Tarefa;
 import com.vvm.sh.baseDados.entidades.AnomaliaResultado;
 import com.vvm.sh.baseDados.entidades.OcorrenciaResultado;
 import com.vvm.sh.baseDados.entidades.AcaoFormacaoResultado;
+import com.vvm.sh.baseDados.entidades.TipoExtintor;
 import com.vvm.sh.ui.transferencias.modelos.Pendencia;
 import com.vvm.sh.ui.transferencias.modelos.Upload;
 
@@ -289,6 +292,33 @@ public class TransferenciasRepositorio {
 
 
     /**
+     * Metodo que permite inserir as moradas
+     * @param registos os dados a inserir
+     */
+    public void inserirMoradas(List<Morada> registos) {
+        transferenciasDao.inserirMoradas(registos);
+    }
+
+
+    /**
+     * Metodo que permite inserir os tipos extintores
+     * @param registos os dados a inserir
+     */
+    public void inserirTipoExtintor(List<TipoExtintor> registos) {
+        transferenciasDao.inserirTipoExtintor(registos);
+    }
+
+    /**
+     * Metodo que permite inserir o parque extintor
+     * @param registos os dados a inserir
+     */
+    public void inserirParqueExtintores(List<ParqueExtintor> registos) {
+        transferenciasDao.inserirParqueExtintores(registos);
+    }
+
+
+
+    /**
      * Metodo que permite eliminar uma tarefa
      * @param idTarefa o identificador da tarefa
      */
@@ -304,5 +334,6 @@ public class TransferenciasRepositorio {
     public void eliminarTrabalho(String idUtilizador, long data) {
         transferenciasDao.removerTrabalho(idUtilizador, data);
     }
+
 
 }

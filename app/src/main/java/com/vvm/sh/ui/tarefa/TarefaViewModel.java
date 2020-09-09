@@ -2,6 +2,7 @@ package com.vvm.sh.ui.tarefa;
 
 import androidx.lifecycle.MutableLiveData;
 
+import com.vvm.sh.baseDados.entidades.ParqueExtintorResultado;
 import com.vvm.sh.baseDados.entidades.SinistralidadeResultado;
 import com.vvm.sh.repositorios.TarefaRepositorio;
 import com.vvm.sh.servicos.ResultadoAsyncTask;
@@ -19,15 +20,18 @@ import com.vvm.sh.util.constantes.TiposConstantes;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
 
 import io.reactivex.MaybeObserver;
+import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.BiFunction;
 import io.reactivex.schedulers.Schedulers;
 
 public class TarefaViewModel extends BaseViewModel {
@@ -134,7 +138,10 @@ public class TarefaViewModel extends BaseViewModel {
     }
 
 
-
+    /**
+     * Metodo que permite gravar uma sinistralidade
+     * @param sinistralidade os dados a gravar
+     */
     public void gravarSinistralidade(SinistralidadeResultado sinistralidade) {
 
         showProgressBar(true);
@@ -192,6 +199,124 @@ public class TarefaViewModel extends BaseViewModel {
 
         gravarResultado(tarefaRepositorio.resultadoDao, sinistralidade.idTarefa, ResultadoId.SINISTRALIDADE);
     }
+
+
+
+
+    /**
+     * Metodo que permite gravar um extintor
+     * @param registo os dados do extintor
+     * @param data a nova data de validade do extintor
+     */
+    public void gravarExtintor(ExtintorRegisto registo, Date data) {
+
+        ParqueExtintorResultado resultado = new ParqueExtintorResultado(registo.parqueExtintor.id, data);
+
+        if(registo.resultado == null){
+
+            tarefaRepositorio.inserir(resultado)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+
+                            new SingleObserver<Long>() {
+                                @Override
+                                public void onSubscribe(Disposable d) {
+
+                                }
+
+                                @Override
+                                public void onSuccess(Long aLong) {
+                                    messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_GRAVADOS_SUCESSO));
+                                }
+
+                                @Override
+                                public void onError(Throwable e) {
+
+                                }
+                            }
+
+                    );
+        }
+        else{
+            tarefaRepositorio.atualizar(resultado)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+
+                            new SingleObserver<Integer>() {
+                                @Override
+                                public void onSubscribe(Disposable d) {
+
+                                }
+
+                                @Override
+                                public void onSuccess(Integer integer) {
+                                    messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_EDITADOS_SUCESSO));
+                                }
+
+                                @Override
+                                public void onError(Throwable e) {
+
+                                }
+                            }
+
+                    );
+        }
+
+        gravarResultado(tarefaRepositorio.resultadoDao, registo.parqueExtintor.idTarefa, ResultadoId.PARQUE_EXTINTOR);
+    }
+
+
+    /**
+     * Metodo que permite validar os extintores
+     * @param idTarefa o identificador da tarefa
+     */
+    public void validarExtintores(int idTarefa) {
+
+        Observable<Object> observables = Observable.zip(
+                tarefaRepositorio.inserirValicao(idTarefa),
+                tarefaRepositorio.atualizarValidacao(idTarefa),
+                new BiFunction<Integer, Integer, Object>() {
+                    @Override
+                    public Object apply(Integer integer, Integer integer2) throws Exception {
+                        return null;
+                    }
+                });
+
+        observables
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new Observer<Object>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+
+                            }
+
+                            @Override
+                            public void onNext(Object o) {
+                                messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_VALIDADOS_SUCESSO));
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+
+                            @Override
+                            public void onComplete() {
+
+                            }
+                        }
+                );
+
+        gravarResultado(tarefaRepositorio.resultadoDao, idTarefa, ResultadoId.PARQUE_EXTINTOR);
+    }
+
+
+
 
     //--------------------
     //OBTER
@@ -332,6 +457,8 @@ public class TarefaViewModel extends BaseViewModel {
 
     public void obterExtintores(int idTarefa) {
 
+        //TODO: fazer zip disto?
+
         showProgressBar(true);
 
         tarefaRepositorio.obterExtintores(idTarefa).toObservable()
@@ -362,8 +489,37 @@ public class TarefaViewModel extends BaseViewModel {
                             }
                         }
                 );
-    }
 
+
+        tarefaRepositorio.obterEstatisticaExtintores(idTarefa)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new Observer<Integer>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+
+                            }
+
+                            @Override
+                            public void onNext(Integer integer) {
+
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+
+                            @Override
+                            public void onComplete() {
+
+                            }
+                        }
+                );
+
+    }
 
 
     //--------------------
@@ -400,7 +556,6 @@ public class TarefaViewModel extends BaseViewModel {
         opcoesEmail.setValue(items);
 
     }
-
 
 
 }

@@ -144,6 +144,17 @@ public class DatasUtil {
     }
 
 
+    public static Date converterData_Date(int ano, int mesDoAno, int diaDoMes){
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(ano, mesDoAno, diaDoMes);
+
+        SimpleDateFormat format = new SimpleDateFormat(FORMATO_YYYY_MM_DD);
+        String data = format.format(calendar.getTime());
+
+        return converterString(data,FORMATO_YYYY_MM_DD);
+    }
+
 
     /**
      * Metodo que permite obter uma dados

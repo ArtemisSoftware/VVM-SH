@@ -1,6 +1,9 @@
 package com.vvm.sh.util.mapeamento;
 
+import com.vvm.sh.api.modelos.pedido.IMorada;
+import com.vvm.sh.api.modelos.pedido.IParqueExtintor;
 import com.vvm.sh.api.modelos.pedido.ITipo;
+import com.vvm.sh.api.modelos.pedido.ITipoExtintor;
 import com.vvm.sh.api.modelos.pedido.ITipoListagem;
 import com.vvm.sh.api.modelos.pedido.IUtilizador;
 import com.vvm.sh.api.modelos.pedido.IAtividadeExecutada;
@@ -10,10 +13,13 @@ import com.vvm.sh.api.modelos.pedido.ICliente;
 import com.vvm.sh.api.modelos.pedido.ITarefa;
 import com.vvm.sh.api.modelos.pedido.IDados;
 import com.vvm.sh.api.modelos.pedido.IOcorrencia;
+import com.vvm.sh.baseDados.entidades.Morada;
+import com.vvm.sh.baseDados.entidades.ParqueExtintor;
 import com.vvm.sh.baseDados.entidades.Tarefa;
 import com.vvm.sh.baseDados.entidades.Anomalia;
 import com.vvm.sh.baseDados.entidades.AtividadeExecutada;
 import com.vvm.sh.baseDados.entidades.AtividadePendente;
+import com.vvm.sh.baseDados.entidades.TipoExtintor;
 import com.vvm.sh.baseDados.entidades.Utilizador;
 import com.vvm.sh.baseDados.entidades.Cliente;
 import com.vvm.sh.baseDados.entidades.Ocorrencia;
@@ -77,5 +83,10 @@ public interface DownloadMapping {
 
     OcorrenciaHistorico map(IOcorrencia.IOcorrenciaHistorico item);
 
+    Morada map(IMorada item);
+
+    TipoExtintor map(ITipoExtintor item);
+
+    ParqueExtintor map(IParqueExtintor item);
 
 }

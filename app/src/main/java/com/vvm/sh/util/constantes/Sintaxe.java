@@ -42,6 +42,7 @@ public class Sintaxe {
         public static final String UPLOAD = "Upload";
 
         public static final String SINISTRALIDADE = "Sinistralidade";
+        public static final String PARQUE_EXTINTOR = "Parque extintor";
     }
 
     public class Opcoes{
@@ -96,6 +97,7 @@ public class Sintaxe {
         public static final String DOWNLOAD_EM_CURSO = "Download em curso.";
         public static final String DOWNLOAD_COMPLETO = "Download completo";
         public static final String DOWNLOAD_INDEFINIDO = "Download com estado indefinido";
+        public static final String DADOS_VALIDADOS_SUCESSO = "Dados validados com sucesso";
     }
 
     public class API {

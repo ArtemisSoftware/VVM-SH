@@ -29,6 +29,7 @@ public class Identificadores {
          * Intervalo de dias das atividades executadas
          */
         public static final int DIAS_ACTIVIDADES_EXECUTADA = 2;
+        public static final int UM_ANO = 365;
     }
 
     public class App {
@@ -61,6 +62,7 @@ public class Identificadores {
         public static final int ID_CROSS_SELLING = 4;
         public static final int ID_OCORRENCIA = 5;
         public static final int ID_SINISTRALIDADE = 6;
+        public static final int ID_PARQUE_EXTINTOR = 7;
     }
 
     public class OpcoesCliente {

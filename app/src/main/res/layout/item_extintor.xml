@@ -55,7 +55,8 @@
                     android:id="@+id/circleView1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/ic_calendario" />
+                    android:src="@drawable/ic_calendario"
+                    valido="@{extintor}"/>
 
                 <TextView
                     android:text="@string/data_validade_"
@@ -68,7 +69,7 @@
                     android:id="@+id/txt_data"
                     style="@style/textoDetalhe"
                     android:layout_marginLeft="12dp"
-                    />
+                    extintor="@{extintor}"/>
 
                 <!-- android:text="@{DatasUtil.converterData(ocorrencia.dataEntrada, DatasUtil.FORMATO_DD_MM_YYYY), default=data}"  -->
             </LinearLayout>

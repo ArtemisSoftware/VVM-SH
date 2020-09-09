@@ -18,7 +18,9 @@ public enum ResultadoId {
 
     OCORRENCIA(Identificadores.Resultados.ID_OCORRENCIA, Sintaxe.Palavras.OCORRENCIA),
 
-    SINISTRALIDADE(Identificadores.Resultados.ID_SINISTRALIDADE, Sintaxe.Palavras.SINISTRALIDADE);
+    SINISTRALIDADE(Identificadores.Resultados.ID_SINISTRALIDADE, Sintaxe.Palavras.SINISTRALIDADE),
+
+    PARQUE_EXTINTOR(Identificadores.Resultados.ID_PARQUE_EXTINTOR, Sintaxe.Palavras.PARQUE_EXTINTOR);
 
 
     private final int value;
@@ -47,6 +49,9 @@ public enum ResultadoId {
         registos.add(ATIVIDADE_PENDENTE);
         registos.add(CROSS_SELLING);
         registos.add(OCORRENCIA);
+
+        registos.add(SINISTRALIDADE);
+        registos.add(PARQUE_EXTINTOR);
 
 
         for (ResultadoId item: registos) {

@@ -49,6 +49,27 @@ public class BaseDatePickerDialog {
 
 
     /**
+     * Metodo que permite fixar o limite superior da calendario <b>fixando o limite maximo no dia atual</b>
+     * @param tipo o campo a alterar (dia - Calendar.DATE, mes - Calendar.MONTH, ano - Calendar.YEAR)
+     * @param desvio o limite
+     */
+    public void fixarLimiteSuperior(int tipo, int desvio){
+
+        Calendar dataMinima = Calendar.getInstance();
+        datePickerDialog.setMinDate(dataMinima);
+
+        Calendar dataMaxima = Calendar.getInstance();
+        dataMaxima.set(tipo, calcularDesvio(tipo, desvio));
+        datePickerDialog.setMinDate(dataMinima);
+
+
+        limiteInferior = dataMinima;
+        limiteSuperior = dataMaxima;
+    }
+
+
+
+    /**
      * Metodo que permite fixar o limite inferior e superior da calendario
      * @param datas uma lista de datas que devem estar ordenados
      */

@@ -37,6 +37,10 @@ public class ITarefa {
     public ICliente cliente;
 
 
+    @SerializedName("Moradas")
+    public List<IMorada> moradas;
+
+
     @SerializedName("ParqueExtintores")
     public List<IParqueExtintor> parqueExtintores;
 

@@ -15,9 +15,13 @@
             name="viewmodel"
             type="com.vvm.sh.ui.tarefa.TarefaViewModel"/>
 
-            <variable
-                name="listener"
-                type="com.vvm.sh.ui.cliente.extintores.adaptadores.OnExtintoresListener"/>
+        <variable
+            name="estatistica"
+            type="Integer"/>
+
+        <variable
+            name="listener"
+            type="com.vvm.sh.ui.cliente.extintores.adaptadores.OnExtintoresListener"/>
 
         <variable
             name="bloquear"
@@ -121,6 +125,7 @@
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chip"
+                        estatistica="@{estatistica}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         app:chipIcon="@drawable/ic_extintor"
@@ -142,13 +147,13 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rcl_registos"
                     style="@style/lista"
-
-
+                    extintores="@{viewmodel.extintores}"
+                    listener="@{listener}"
                     tools:listitem="@layout/item_extintor"/>
 
                 <!--
                formandos="@{viewmodel.formandos}"
-listener="@{listener}"
+
                      -->
 
             </LinearLayout>
@@ -157,13 +162,13 @@ listener="@{listener}"
         </androidx.core.widget.NestedScrollView>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_gravar"
+            android:id="@+id/fab_validar"
             android:enabled="@{bloquear}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="bottom|end"
             android:layout_margin="@dimen/fab_margin"
-            android:src="@drawable/ic_gravar_24dp" />
+            android:src="@drawable/ic_validacao_extintores_24dp" />
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 </layout>

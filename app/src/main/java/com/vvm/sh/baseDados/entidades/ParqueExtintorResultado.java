@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
@@ -33,6 +34,14 @@ public class ParqueExtintorResultado {
     public ParqueExtintorResultado(int id, boolean valido, Date dataValidade) {
         this.id = id;
         this.valido = valido;
+        this.dataValidade = dataValidade;
+    }
+
+
+    @Ignore
+    public ParqueExtintorResultado(int id, Date dataValidade) {
+        this.id = id;
+        this.valido = true;
         this.dataValidade = dataValidade;
     }
 }

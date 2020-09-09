@@ -18,6 +18,7 @@ import java.util.List;
 
 import io.reactivex.Flowable;
 import io.reactivex.Maybe;
+import io.reactivex.Observable;
 import io.reactivex.Single;
 
 public class TarefaRepositorio {
@@ -147,5 +148,23 @@ public class TarefaRepositorio {
         return parqueExtintorDao.obterExtintores(idTarefa);
     }
 
+
+    /**
+     * Metodo que permite obter o numero de extintores validados
+     * @param idTarefa o identificador da tarefa
+     * @return um numero
+     */
+    public Observable<Integer> obterEstatisticaExtintores(int idTarefa) {
+        return parqueExtintorDao.obterNumeroValidados(idTarefa);
+    }
+
+
+    public Observable<Integer> inserirValicao(int idTarefa) {
+        return parqueExtintorDao.inserirValicao(idTarefa);
+    }
+
+    public Observable<Integer> atualizarValidacao(int idTarefa) {
+        return parqueExtintorDao.atualizarValidacao(idTarefa);
+    }
 
 }

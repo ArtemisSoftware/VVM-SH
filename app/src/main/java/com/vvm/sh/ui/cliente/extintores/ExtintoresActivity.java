@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.vvm.sh.R;
+import com.vvm.sh.baseDados.entidades.ParqueExtintorResultado;
 import com.vvm.sh.databinding.ActivityExtintoresBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseActivity;
@@ -20,11 +21,16 @@ import com.vvm.sh.ui.cliente.extintores.modelos.ExtintorRegisto;
 import com.vvm.sh.ui.tarefa.TarefaViewModel;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.adaptadores.Item;
+import com.vvm.sh.util.base.BaseDatePickerDialog;
+import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.interfaces.OnItemListener;
+import com.vvm.sh.util.metodos.DatasUtil;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
+import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -33,7 +39,7 @@ import butterknife.BindView;
 import butterknife.OnClick;
 
 public class ExtintoresActivity extends BaseDaggerActivity
-    implements OnExtintoresListener {
+    implements OnExtintoresListener, DatePickerDialog.OnDateSetListener {
 
 
     private ActivityExtintoresBinding activityExtintoresBinding;
@@ -46,6 +52,8 @@ public class ExtintoresActivity extends BaseDaggerActivity
     private TarefaViewModel viewModel;
 
 
+    private ExtintorRegisto selecionado;
+
 
     @Override
     protected void intActivity(Bundle savedInstanceState) {
@@ -56,6 +64,7 @@ public class ExtintoresActivity extends BaseDaggerActivity
         activityExtintoresBinding.setLifecycleOwner(this);
         activityExtintoresBinding.setViewmodel(viewModel);
         activityExtintoresBinding.setListener(this);
+        activityExtintoresBinding.setEstatistica(0);
         activityExtintoresBinding.setBloquear(PreferenciasUtil.agendaEditavel(this));
 
         subscreverObservadores();
@@ -108,90 +117,29 @@ public class ExtintoresActivity extends BaseDaggerActivity
     @Override
     public void OnExtintorClick(ExtintorRegisto registo) {
 
+        selecionado = registo;
+
+        BaseDatePickerDialog dialogo = new BaseDatePickerDialog(this);
+        dialogo.fixarLimiteSuperior(Calendar.DATE, Identificadores.Dias.UM_ANO);
+        dialogo.obterDatePickerDialog().show(getSupportFragmentManager(), "Datepickerdialog");
     }
 
-//    @BindView(R.id.rcl_registos)
-//    RecyclerView rcl_registos;
-//
-//    private ExtintorRecyclerAdapter extintorRecyclerAdapter;
-//
-//
-//    @Override
-//    protected void onCreate(Bundle savedInstanceState) {
-//        super.onCreate(savedInstanceState);
-//        setContentView(R.layout.activity_extintores);
-//
-//        Toolbar toolbar = (Toolbar)findViewById(R.id.toolbar);
-//        setSupportActionBar(toolbar);
-//        if(getSupportActionBar() != null)
-//            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-//
-//        iniciarAtividade();
-//        obterRegistos();
-//    }
-//
-//
-//    //------------------------
-//    //Metodos locais
-//    //------------------------
-//
-//
-//    /**
-//     * Metodo que permite iniciar a atividade
-//     */
-//    private void iniciarAtividade(){
-//
-//        extintorRecyclerAdapter = new ExtintorRecyclerAdapter(this);
-//        rcl_registos.setAdapter(extintorRecyclerAdapter);
-//        rcl_registos.setLayoutManager(new LinearLayoutManager(this));
-//    }
-//
-//
-//    private void obterRegistos(){
-//
-//        //--TESTE (apagar quando houver dados)
-//
-//        List<Item> t1 = new ArrayList<>();
-//        t1.add(new ExtintorRegisto(1, "ExtintorRegisto grande", "2", "Rua de baixo", "2020-03-04", 1, 1));
-//        t1.add(new ExtintorRegisto(2, "ExtintorRegisto pequeno", "7", "Rua de cima", "2020-03-07", 0, 0));
-//
-//        extintorRecyclerAdapter.fixarRegistos(t1);
-//
-//        //TODO: chamar metodo do viewmodel
-//    }
-//
-//    /**
-//     * Metodo que permite subscrever observadores
-//     */
-//    private void subscreverObservadores(){
-//
-//
-//        //TODO: subscrever observadores do viewmodel
-//
-//    }
-//
-//
+    @OnClick(R.id.fab_validar)
+    public void fab_validar_OnClickListener(View view) {
+        viewModel.validarExtintores(PreferenciasUtil.obterIdTarefa(this));
+    }
+
+    @Override
+    public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+
+        viewModel.gravarExtintor(selecionado, DatasUtil.converterData_Date(year, monthOfYear, dayOfMonth));
+    }
+
+
 //    //---------------------
 //    //Eventos
 //    //---------------------
-//
-//
-//    @OnClick(R.id.fab_validar)
-//    public void fab_validar_OnClickListener(View view) {
-//        //Intent intent = new Intent(this, TarefaActivity.class);
-//        //intent.putExtra(AppConstants.PICTURE, pictureRecyclerAdapter.getSelectedPicture(position).getId());
-//        //startActivity(intent);
-//    }
-//
-//
-//    @Override
-//    public void onItemClick(int position) {
-//
-//
-//
-//    }
-//
-//
+
 //
 //    /**
 //     * Meodo que inicializa o diálogo

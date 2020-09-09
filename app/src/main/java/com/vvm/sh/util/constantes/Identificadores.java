@@ -12,6 +12,7 @@ public class Identificadores {
         public static final int ORIGEM_BD = 1;
         public static final int ORIGEM_MORADA = 2;
         public static final int ORIGEM_MORADA_EXTINTOR = 3;
+        public static final int ORIGEM_WS = 4;
     }
 
 

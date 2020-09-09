@@ -18,8 +18,12 @@ import static androidx.room.ForeignKey.CASCADE;
                 onDelete = CASCADE))
 public class ColaboradorResultado {
 
+
     @NonNull
-    public String id;
+    public int idTarefa;
+
+    @NonNull
+    public int id;
 
 
     @ColumnInfo(name = "nome")

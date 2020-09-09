@@ -40,6 +40,10 @@ public class ITarefa {
     @SerializedName("Moradas")
     public List<IMorada> moradas;
 
+    @SerializedName("QuadroPessoal")
+    public List<IColaborador> quadroPessoal;
+
+
 
     @SerializedName("ParqueExtintores")
     public List<IParqueExtintor> parqueExtintores;

@@ -15,11 +15,14 @@ import com.vvm.sh.baseDados.dao.FormandoDao;
 import com.vvm.sh.baseDados.dao.ImagemDao;
 import com.vvm.sh.baseDados.dao.OcorrenciaDao;
 import com.vvm.sh.baseDados.dao.ParqueExtintorDao;
+import com.vvm.sh.baseDados.dao.QuadroPessoalDao;
 import com.vvm.sh.baseDados.dao.ResultadoDao;
 import com.vvm.sh.baseDados.dao.SinistralidadeDao;
 import com.vvm.sh.baseDados.dao.TarefaDao;
 import com.vvm.sh.baseDados.dao.TransferenciasDao;
 import com.vvm.sh.baseDados.dao.UtilizadorDao;
+import com.vvm.sh.baseDados.entidades.Colaborador;
+import com.vvm.sh.baseDados.entidades.ColaboradorResultado;
 import com.vvm.sh.baseDados.entidades.ImagemResultado;
 import com.vvm.sh.baseDados.entidades.Morada;
 import com.vvm.sh.baseDados.entidades.ParqueExtintor;
@@ -55,14 +58,14 @@ import com.vvm.sh.baseDados.entidades.EmailResultado;
 
                     Cliente.class, AtividadeExecutada.class, Anomalia.class, AtividadePendente.class, Ocorrencia.class, OcorrenciaHistorico.class,
                     Morada.class,
-                    ParqueExtintor.class, TipoExtintor.class,
+                    ParqueExtintor.class, TipoExtintor.class, Colaborador.class,
 
                     //Resultado
 
                     EmailResultado.class, AnomaliaResultado.class, FormandoResultado.class, AcaoFormacaoResultado.class,
                     AtividadePendenteResultado.class, CrossSellingResultado.class, OcorrenciaResultado.class,
                     ImagemResultado.class, SinistralidadeResultado.class,
-                    ParqueExtintorResultado.class,
+                    ParqueExtintorResultado.class, ColaboradorResultado.class,
                     Resultado.class
             },
             version = BaseDadosContantes.VERSAO
@@ -115,9 +118,14 @@ public abstract class VvmshBaseDados extends RoomDatabase {
 
     public abstract ImagemDao obterImagemDao();
 
+
     public abstract SinistralidadeDao obterSinistralidadeDao();
 
+    public abstract QuadroPessoalDao obterQuadroPessoalDao();
+
+
     public abstract TransferenciasDao obterTransferenciasDao();
+
 
 
     //---------------------

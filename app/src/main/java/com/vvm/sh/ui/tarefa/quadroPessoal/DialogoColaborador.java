@@ -1,9 +1,32 @@
 package com.vvm.sh.ui.tarefa.quadroPessoal;
 
+import android.os.Bundle;
+
+import androidx.lifecycle.Observer;
+
 import com.vvm.sh.R;
 import com.vvm.sh.ui.BaseDaggerDialogoPersistenteFragment;
+import com.vvm.sh.util.Recurso;
 
 public class DialogoColaborador extends BaseDaggerDialogoPersistenteFragment {
+
+
+    private static final String ARGUMENTO_ID= "id";
+
+
+    public DialogoColaborador() {
+        // Empty constructor required for DialogFragment
+    }
+
+
+    public static DialogoColaborador newInstance(int id) {
+        DialogoColaborador fragmento = new DialogoColaborador();
+
+        Bundle args = new Bundle();
+        args.putInt(ARGUMENTO_ID, id);
+        fragmento.setArguments(args);
+        return fragmento;
+    }
 
 
 
@@ -11,6 +34,13 @@ public class DialogoColaborador extends BaseDaggerDialogoPersistenteFragment {
     @Override
     protected void iniciarDialogo() {
 
+        if(verificarArgumentos(ARGUMENTO_ID) == true){
+
+            //--viewModel.obterDadosAtualizacao(getArguments().getInt(ARGUMENTO_ID));
+        }
+        else{
+            terminarDialogo();
+        }
     }
 
     @Override
@@ -26,10 +56,39 @@ public class DialogoColaborador extends BaseDaggerDialogoPersistenteFragment {
     @Override
     protected void subscreverObservadores() {
 
+//        viewModel.observarMessagem().observe(this, new Observer<Recurso>() {
+//            @Override
+//            public void onChanged(Recurso recurso) {
+//
+//                switch (recurso.status){
+//
+//                    case SUCESSO:
+//
+//                        dialogo.sucesso(recurso.messagem, listener);
+//                        break;
+//
+//                    case ERRO:
+//
+//                        dialogo.erro(recurso.messagem);
+//                        break;
+//
+//                    default:
+//                        break;
+//                }
+//
+//            }
+//        });
     }
 
     @Override
     protected void clickPositivo() {
+
+//        int idAtividade = getArguments().getInt(ARGUMENTO_ID_ATIVIDADE);
+//        int idAnomalia = ((Tipo) binding.spnrAnomalias.getItems().get(binding.spnrAnomalias.getSelectedIndex())).id;
+//        String observacao = binding.txtInpObservacao.getText().toString();
+//
+//        AtividadePendenteResultado atividade = new AtividadePendenteResultado(idAtividade, idAnomalia, observacao);
+//        viewModel.gravarAtividade(PreferenciasUtil.obterIdTarefa(getContext()), atividade);
 
     }
 }

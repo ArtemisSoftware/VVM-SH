@@ -281,5 +281,7 @@
     <string name="data_validade_">Data de validade:</string>
     <string name="parque_extintores">Parque Extintores</string>
     <string name="extintores">Extintores</string>
+    <string name="posto_">Posto:</string>
+    <string name="categoria_profissional_">Categoria Profissional:</string>
 
 </resources>

@@ -24,14 +24,12 @@ public class ColaboradorRegisto {
         this.estado = estado;
         this.nacionalidade = nacionalidade;
 
-//        super(id, nome);
 //
 
 //        gerarSituacao(situacao);
 //        this.situacao = situacao;
 //
 //        this.origem = origem;
-//        this.idColaborador = idColaborador;
 //        this.posto = posto;
 //
 //        if(origem == IdentificadoresIF.ORIGEM_DADOS_WS){
@@ -45,11 +43,9 @@ public class ColaboradorRegisto {
 //        this.dataAdmissao = MetodosDatas.converterData(dataAdmissao, DataIF.DATA_FORMATO_DD_MM_YYYY);
 //        this.dataAdmissaoFuncao = MetodosDatas.converterData(dataAdmissaoFuncao, DataIF.DATA_FORMATO_DD_MM_YYYY);
 //
-//        this.genero = genero;
 //        this.categoriaProfissional = categoriaProfissional;
 //        this.idCategoriaProfissional = idCategoriaProfissional;
 //        this.profissao = profissao;
-//        this.nacionalidade = nacionalidade;
     }
 //
 //    /**

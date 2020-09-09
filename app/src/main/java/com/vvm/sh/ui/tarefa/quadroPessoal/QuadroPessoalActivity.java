@@ -8,7 +8,7 @@ import com.vvm.sh.R;
 import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
-public class ColaboradorActivity extends BaseDaggerActivity {
+public class QuadroPessoalActivity extends BaseDaggerActivity {
 
 
     @Override
@@ -18,7 +18,7 @@ public class ColaboradorActivity extends BaseDaggerActivity {
 
     @Override
     protected int obterLayout() {
-        return R.layout.activity_colaborador;
+        return R.layout.activity_quadro_pessoal;
     }
 
     @Override

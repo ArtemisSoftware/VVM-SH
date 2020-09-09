@@ -289,5 +289,7 @@
     <string name="data_de_admissao_funcao">Data de admissão de função</string>
     <string name="profissao">Profissão</string>
     <string name="categoria_profissional">Categoria Profissional</string>
+    <string name="quadro_pessoal">Quadro Pessoal</string>
+    <string name="colaboradores">Colaboradores</string>
 
 </resources>

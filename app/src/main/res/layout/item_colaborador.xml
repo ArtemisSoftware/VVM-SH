@@ -13,12 +13,12 @@
 
         <variable
             name="colaborador"
-            type="com.vvm.sh.ui.tarefa.quadroPessoal.ColaboradorRegisto" />
-<!--
+            type="com.vvm.sh.ui.quadroPessoal.ColaboradorRegisto" />
+
         <variable
             name="listener"
-            type="com.vvm.sh.ui.cliente.extintores.adaptadores.OnExtintoresListener"/>
--->
+            type="com.vvm.sh.ui.quadroPessoal.OnColaboradorListener"/>
+
     </data>
 
 

@@ -3,9 +3,21 @@ package com.vvm.sh.ui.quadroPessoal;
 import android.os.Bundle;
 
 import com.vvm.sh.R;
+import com.vvm.sh.databinding.DialogoColaboradorBinding;
+import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerDialogoPersistenteFragment;
 
+import javax.inject.Inject;
+
 public class DialogoColaborador extends BaseDaggerDialogoPersistenteFragment {
+
+
+    private DialogoColaboradorBinding dialogoColaboradorBinding;
+
+    @Inject
+    ViewModelProviderFactory providerFactory;
+
+    private QuadroPessoalViewModel viewModel;
 
 
     private static final String ARGUMENTO_ID= "id";

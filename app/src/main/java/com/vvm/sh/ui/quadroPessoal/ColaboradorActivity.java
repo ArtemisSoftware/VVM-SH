@@ -9,16 +9,28 @@ import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.vvm.sh.R;
 import com.vvm.sh.baseDados.entidades.ColaboradorResultado;
+import com.vvm.sh.databinding.ActivityColaboradorBinding;
+import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
 public class ColaboradorActivity extends BaseDaggerActivity
         implements Validator.ValidationListener{
+
+
+    private ActivityColaboradorBinding activityColaboradorBinding;
+
+    @Inject
+    ViewModelProviderFactory providerFactory;
+
+    private QuadroPessoalViewModel viewModel;
 
 
     @NotEmpty(message = "Preenchimento obrigatório")

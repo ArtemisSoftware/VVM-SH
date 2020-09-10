@@ -292,5 +292,9 @@
     <string name="categoria_profissional">Categoria Profissional</string>
     <string name="quadro_pessoal">Quadro Pessoal</string>
     <string name="colaboradores">Colaboradores</string>
+    <string name="editar">Editar</string>
+    <string name="demitir">Demitir</string>
+    <string name="readmitir">Readmitir</string>
+    <string name="remover">Remover</string>
 
 </resources>

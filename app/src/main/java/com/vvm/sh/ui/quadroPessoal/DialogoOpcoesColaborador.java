@@ -9,6 +9,7 @@ import android.widget.RadioButton;
 import com.vvm.sh.R;
 import com.vvm.sh.databinding.DialogoOpcoesColaboradorBinding;
 import com.vvm.sh.ui.BaseDaggerDialogFragment;
+import com.vvm.sh.ui.quadroPessoal.adaptadores.OnOpcoesColaboradorListener;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
 
@@ -24,7 +25,7 @@ public class DialogoOpcoesColaborador extends BaseDaggerDialogFragment {
     private static final String ARGUMENTO_ID = "id";
 
 
-    //--private OnOpcoesColaboradorListener listenerOpcoes;
+    private OnOpcoesColaboradorListener listenerOpcoes;
 
 
 
@@ -48,7 +49,7 @@ public class DialogoOpcoesColaborador extends BaseDaggerDialogFragment {
     protected void initDialogo(AlertDialog.Builder builder) {
 
 
-        //--listenerOpcoes = (OnOpcoesColaboradorListener) getContext();
+        listenerOpcoes = (OnOpcoesColaboradorListener) getContext();
 
         binding = (DialogoOpcoesColaboradorBinding) activityBaseBinding;
 
@@ -123,25 +124,35 @@ public class DialogoOpcoesColaborador extends BaseDaggerDialogFragment {
         // Check which radio button was clicked
         switch (radioButton.getId()) {
 
-            case R.id.rd_btn_actividade_executada:
+            case R.id.rd_btn_editar:
                 if (checked) {
 
-                    //--listenerOpcoes.OnConcluirAtividadeExecutada(getArguments().getInt(ARGUMENTO_ID_ATIVIDADE));
-                    terminarDialogo();
-                }
-                break;
-            case R.id.rd_btn_actividade_nao_executada:
-                if (checked) {
-
-                    //--listenerOpcoes.OnConcluirAtividadeNaoExecutada(getArguments().getInt(ARGUMENTO_ID_ATIVIDADE));
+                    listenerOpcoes.OnEditarColaborador(getArguments().getInt(ARGUMENTO_ID));
                     terminarDialogo();
                 }
                 break;
 
-            case R.id.rd_btn_relatorio:
+            case R.id.rd_btn_demitir:
                 if (checked) {
 
-                    //--listenerOpcoes.OnIniciarRelatorio(getArguments().getInt(ARGUMENTO_ID_ATIVIDADE));
+                    listenerOpcoes.OnDemitirColaborador(getArguments().getInt(ARGUMENTO_ID));
+                    terminarDialogo();
+                }
+                break;
+
+            case R.id.rd_btn_readmitir:
+                if (checked) {
+
+                    listenerOpcoes.OnReademitirColaborador(getArguments().getInt(ARGUMENTO_ID));
+                    terminarDialogo();
+                }
+                break;
+
+
+            case R.id.rd_btn_remover:
+                if (checked) {
+
+                    listenerOpcoes.OnRemoverColaborador(getArguments().getInt(ARGUMENTO_ID));
                     terminarDialogo();
                 }
                 break;
@@ -150,7 +161,7 @@ public class DialogoOpcoesColaborador extends BaseDaggerDialogFragment {
             case R.id.rd_btn_detalhe:
                 if (checked) {
 
-                    //--listenerOpcoes.OnDetalhe(getArguments().getInt(ARGUMENTO_ID_ATIVIDADE));
+                    listenerOpcoes.OnDetalheColaborador(getArguments().getInt(ARGUMENTO_ID));
                     terminarDialogo();
                 }
                 break;

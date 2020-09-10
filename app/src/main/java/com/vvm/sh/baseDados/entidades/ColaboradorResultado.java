@@ -25,7 +25,6 @@ public class ColaboradorResultado {
     @NonNull
     public int id;
 
-    @NonNull
     @ColumnInfo(name = "nome")
     public String nome;
 
@@ -35,7 +34,6 @@ public class ColaboradorResultado {
     @ColumnInfo(name = "estado")
     public String estado;
 
-    @NonNull
     @ColumnInfo(name = "dataNascimento")
     public Date dataNascimento;
 
@@ -48,11 +46,9 @@ public class ColaboradorResultado {
 
 
 
-    @NonNull
     @ColumnInfo(name = "dataAdmissao")
     public Date dataAdmissao;
 
-    @NonNull
     @ColumnInfo(name = "dataAdmissaoFuncao")
     public Date dataAdmissaoFuncao;
 
@@ -65,6 +61,7 @@ public class ColaboradorResultado {
     @ColumnInfo(name = "posto")
     public String posto;
 
+    @NonNull
     @ColumnInfo(name = "origem")
     public int origem;
 

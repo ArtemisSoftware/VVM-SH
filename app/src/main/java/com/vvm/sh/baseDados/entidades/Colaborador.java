@@ -53,7 +53,6 @@ public class Colaborador {
     @ColumnInfo(name = "dataNascimento")
     public Date dataNascimento;
 
-    @NonNull
     @ColumnInfo(name = "nacionalidade")
     public String nacionalidade;
 

@@ -9,6 +9,7 @@ import com.vvm.sh.databinding.ActivityQuadroPessoalBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.quadroPessoal.adaptadores.OnColaboradorListener;
+import com.vvm.sh.ui.quadroPessoal.adaptadores.OnOpcoesColaboradorListener;
 import com.vvm.sh.ui.quadroPessoal.modelos.ColaboradorRegisto;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
@@ -16,7 +17,7 @@ import com.vvm.sh.util.viewmodel.BaseViewModel;
 import javax.inject.Inject;
 
 public class QuadroPessoalActivity extends BaseDaggerActivity
-    implements OnColaboradorListener {
+    implements OnColaboradorListener, OnOpcoesColaboradorListener {
 
 
     private ActivityQuadroPessoalBinding activityQuadroPessoalBinding;
@@ -59,8 +60,34 @@ public class QuadroPessoalActivity extends BaseDaggerActivity
 
     }
 
+
     @Override
     public void OnColaboradorClick(ColaboradorRegisto registo) {
+
+    }
+
+    @Override
+    public void OnEditarColaborador(int id) {
+
+    }
+
+    @Override
+    public void OnDemitirColaborador(int id) {
+
+    }
+
+    @Override
+    public void OnReademitirColaborador(int id) {
+
+    }
+
+    @Override
+    public void OnRemoverColaborador(int id) {
+
+    }
+
+    @Override
+    public void OnDetalheColaborador(int id) {
 
     }
 }

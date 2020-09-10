@@ -74,6 +74,43 @@ public class Migracao {
                         + "FOREIGN KEY (idTarefa) REFERENCES tarefas (idTarefa)  ON DELETE CASCADE) ");
 
                 database.execSQL("CREATE INDEX index_moradas_idTarefa ON tarefas (idTarefa)");
+
+
+
+                database.execSQL("CREATE TABLE IF NOT EXISTS 'colaboradores' ("
+                        + "'idTarefa' INTEGER NOT NULL , "
+                        + "'id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
+                        + "'idColaborador' TEXT NOT NULL, "
+                        + "'nome' TEXT NOT NULL, "
+                        + "'estado' TEXT NOT NULL, "
+                        + "'idMorada' TEXT NOT NULL, "
+                        + "'sexo' TEXT NOT NULL, "
+                        + "'dataNascimento' INTEGER NOT NULL, "
+                        + "'nacionalidade' TEXT, "
+                        + "FOREIGN KEY (idTarefa) REFERENCES tarefas (idTarefa)  ON DELETE CASCADE) ");
+
+                database.execSQL("CREATE INDEX index_colaboradores_idTarefa ON tarefas (idTarefa)");
+
+                database.execSQL("CREATE TABLE IF NOT EXISTS 'colaboradoresResultado' ("
+                        + "'idTarefa' INTEGER NOT NULL , "
+                        + "'id' INTEGER NOT NULL, "
+                        + "'nome' TEXT , "
+                        + "'estado' TEXT , "
+                        + "'idMorada' TEXT , "
+                        + "'sexo' TEXT , "
+                        + "'dataNascimento' INTEGER , "
+                        + "'nacionalidade' TEXT, "
+                        + "'dataAdmissao' INTEGER , "
+                        + "'dataAdmissaoFuncao' INTEGER , "
+                        + "'idCategoriaProfissional' INTEGER , "
+                        + "'profissao' TEXT , "
+                        + "'posto' TEXT , "
+                        + "'origem' INTEGER NOT NULL, "
+                        + "PRIMARY KEY (id), "
+                        + "FOREIGN KEY (id) REFERENCES colaboradores (id)  ON DELETE CASCADE) ");
+
+
+
             }
             catch(SQLException e){
                 Log.e("Migracao", "erro MIGRACAO_14_15: " + e.getMessage());

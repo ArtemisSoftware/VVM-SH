@@ -24,9 +24,9 @@ public class QuadroPessoalModule {
 
 //    @QuadroPessoalScope
 //    @Provides
-//    QuadroPessoalRepositorio provideTarefaRepositorio(QuadroPessoalDao quadroPessoalDao, ResultadoDao resultadoDao) {
+//    QuadroPessoalRepositorio provideTarefaRepositorio(QuadroPessoalDao quadroPessoalDao, TipoDao tipoDao, ResultadoDao resultadoDao) {
 //
-//        QuadroPessoalRepositorio repositorio = new QuadroPessoalRepositorio(quadroPessoalDao, resultadoDao);
+//        QuadroPessoalRepositorio repositorio = new QuadroPessoalRepositorio(quadroPessoalDao, tipoDao, resultadoDao);
 //
 //        //Timber.d("Providing PokemonRepository: " + repository);
 //        return repositorio;

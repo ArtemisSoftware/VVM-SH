@@ -12,6 +12,7 @@ import com.vvm.sh.baseDados.entidades.Anomalia;
 import com.vvm.sh.baseDados.entidades.AtividadeExecutada;
 import com.vvm.sh.baseDados.entidades.AtividadePendente;
 import com.vvm.sh.baseDados.entidades.Cliente;
+import com.vvm.sh.baseDados.entidades.Colaborador;
 import com.vvm.sh.baseDados.entidades.CrossSellingResultado;
 import com.vvm.sh.baseDados.entidades.ImagemResultado;
 import com.vvm.sh.baseDados.entidades.Morada;
@@ -189,6 +190,12 @@ abstract public class TransferenciasDao implements BaseDao<Resultado> {
     @Insert
     abstract public List<Long> inserirParqueExtintores(List<ParqueExtintor> registos);
 
+    @Insert
+    abstract public List<Long>  inserirQuadroPessoal(List<Colaborador> registos);
+
+
+
+
 
 
     @Query("DELETE FROM tarefas WHERE idTarefa = :idTarefa")
@@ -197,5 +204,6 @@ abstract public class TransferenciasDao implements BaseDao<Resultado> {
 
     @Query("DELETE FROM tarefas WHERE idTarefa IN(SELECT idTarefa FROM tarefas WHERE idUtilizador = :idUtilizador AND data = :data)")
     abstract public void removerTrabalho(String idUtilizador, long data);
+
 
 }

@@ -12,6 +12,7 @@ import com.vvm.sh.baseDados.entidades.Anomalia;
 import com.vvm.sh.baseDados.entidades.AtividadeExecutada;
 import com.vvm.sh.baseDados.entidades.AtividadePendente;
 import com.vvm.sh.baseDados.entidades.Cliente;
+import com.vvm.sh.baseDados.entidades.Colaborador;
 import com.vvm.sh.baseDados.entidades.CrossSellingResultado;
 import com.vvm.sh.baseDados.entidades.ImagemResultado;
 import com.vvm.sh.baseDados.entidades.Morada;
@@ -317,6 +318,13 @@ public class TransferenciasRepositorio {
     }
 
 
+    /**
+     * Metodo que permite inserir o quadro pessoal
+     * @param registos os dados a inserir
+     */
+    public void inserirQuadroPessoal(List<Colaborador> registos) {
+        transferenciasDao.inserirQuadroPessoal(registos);
+    }
 
     /**
      * Metodo que permite eliminar uma tarefa
@@ -334,6 +342,7 @@ public class TransferenciasRepositorio {
     public void eliminarTrabalho(String idUtilizador, long data) {
         transferenciasDao.removerTrabalho(idUtilizador, data);
     }
+
 
 
 }

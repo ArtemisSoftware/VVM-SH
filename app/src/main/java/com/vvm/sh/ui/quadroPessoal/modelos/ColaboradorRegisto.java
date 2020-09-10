@@ -3,14 +3,15 @@ package com.vvm.sh.ui.quadroPessoal.modelos;
 public class ColaboradorRegisto {
 
 
-    public int id;
+    public int id, origem;
     public String nome, idMorada, morada, sexo, estado, nacionalidade;
     public long dataNascimento;
     //private String idMorada, morada, idColaborador, posto, dataNascimento, dataAdmissao, dataAdmissaoFuncao, genero, categoriaProfissional, idCategoriaProfissional, situacao, profissao, nacionalidade;
     //private int imagemSituacao, origem, corOrigem;
 
     public ColaboradorRegisto(int id, String nome, String idMorada, String morada, String sexo, long dataNascimento, String estado, String nacionalidade,
-                              String situacao, int origem, String posto,
+                              int origem,
+                              String situacao, String posto,
                        String dataAdmissao, String dataAdmissaoFuncao, String categoriaProfissional, String idCategoriaProfissional,
                        String profissao){
 
@@ -23,6 +24,7 @@ public class ColaboradorRegisto {
         this.dataNascimento = dataNascimento;
         this.estado = estado;
         this.nacionalidade = nacionalidade;
+        this.origem = origem;
 
 //
 

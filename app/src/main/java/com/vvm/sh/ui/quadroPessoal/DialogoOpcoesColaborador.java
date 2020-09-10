@@ -127,7 +127,7 @@ public class DialogoOpcoesColaborador extends BaseDaggerDialogFragment {
             case R.id.rd_btn_editar:
                 if (checked) {
 
-                    listenerOpcoes.OnEditarColaborador(getArguments().getInt(ARGUMENTO_ID));
+                    listenerOpcoes.OnEditarColaborador(getArguments().getInt(ARGUMENTO_ID), getArguments().getInt(ARGUMENTO_ORIGEM));
                     terminarDialogo();
                 }
                 break;

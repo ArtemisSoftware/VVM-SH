@@ -1,6 +1,8 @@
 package com.vvm.sh.ui.quadroPessoal;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.lifecycle.ViewModelProviders;
 
@@ -11,10 +13,13 @@ import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.quadroPessoal.adaptadores.OnColaboradorListener;
 import com.vvm.sh.ui.quadroPessoal.adaptadores.OnOpcoesColaboradorListener;
 import com.vvm.sh.ui.quadroPessoal.modelos.ColaboradorRegisto;
+import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import javax.inject.Inject;
+
+import butterknife.OnClick;
 
 public class QuadroPessoalActivity extends BaseDaggerActivity
     implements OnColaboradorListener, OnOpcoesColaboradorListener {
@@ -64,11 +69,22 @@ public class QuadroPessoalActivity extends BaseDaggerActivity
     @Override
     public void OnColaboradorClick(ColaboradorRegisto registo) {
 
+        DialogoOpcoesColaborador dialogo = DialogoOpcoesColaborador.newInstance(registo.id, registo.origem);
+        dialogo.show(getSupportFragmentManager(), "example dialog");
     }
 
     @Override
-    public void OnEditarColaborador(int id) {
+    public void OnEditarColaborador(int id, int origem) {
 
+        if(origem == Identificadores.Origens.ORIGEM_BD){
+
+        }
+        else {
+
+            Intent intent = new Intent(this, ColaboradorActivity.class);
+            intent.putExtra(getString(R.string.argumento_id), id);
+            startActivity(intent);
+        }
     }
 
     @Override
@@ -89,5 +105,18 @@ public class QuadroPessoalActivity extends BaseDaggerActivity
     @Override
     public void OnDetalheColaborador(int id) {
 
+    }
+
+
+    //----------------------
+    //EVENTOS
+    //----------------------
+
+
+    @OnClick({R.id.fab_adicionar})
+    public void fab_adicionar_OnClickListener(View view) {
+
+        Intent intent =  new Intent(this, ColaboradorActivity.class);
+        startActivity(intent);
     }
 }

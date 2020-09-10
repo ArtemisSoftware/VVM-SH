@@ -8,6 +8,7 @@ import com.vvm.sh.api.modelos.pedido.IAtividadeExecutada;
 import com.vvm.sh.api.modelos.pedido.IAnomalia;
 import com.vvm.sh.api.modelos.pedido.IAtividadePendente;
 import com.vvm.sh.api.modelos.pedido.ICliente;
+import com.vvm.sh.api.modelos.pedido.IColaborador;
 import com.vvm.sh.api.modelos.pedido.IMorada;
 import com.vvm.sh.api.modelos.pedido.IParqueExtintor;
 import com.vvm.sh.api.modelos.pedido.ITarefa;
@@ -16,6 +17,7 @@ import com.vvm.sh.api.modelos.pedido.IOcorrencia;
 import com.vvm.sh.api.modelos.pedido.ISessao;
 import com.vvm.sh.api.modelos.pedido.ITipoExtintor;
 import com.vvm.sh.baseDados.VvmshBaseDados;
+import com.vvm.sh.baseDados.entidades.Colaborador;
 import com.vvm.sh.baseDados.entidades.Morada;
 import com.vvm.sh.baseDados.entidades.ParqueExtintor;
 import com.vvm.sh.baseDados.entidades.Tarefa;
@@ -125,6 +127,23 @@ public class TrabalhoAsyncTask extends AsyncTask<ISessao, Void, Void> {
 
         inserirParqueExtintores(info.tarefas.parqueExtintores, info.tarefas.tiposExtintor, idTarefa);
 
+        inserirQuadroPessoal(info.tarefas.quadroPessoal, idTarefa);
+
+    }
+
+    private void inserirQuadroPessoal(List<IColaborador> quadroPessoal, int idTarefa) {
+
+        List<Colaborador> registos = new ArrayList<>();
+
+        for(IColaborador item : quadroPessoal){
+
+            Colaborador registo = DownloadMapping.INSTANCE.map(item);
+            registo.idTarefa = idTarefa;
+            registos.add(registo);
+        }
+
+        //--repositorio.inserirQuadroPessoal(registos);
+
     }
 
     private void inserirParqueExtintores(List<IParqueExtintor> parqueExtintores, List<ITipoExtintor> tiposExtintor, int idTarefa) {
@@ -138,7 +157,7 @@ public class TrabalhoAsyncTask extends AsyncTask<ISessao, Void, Void> {
             registos.add(registo);
         }
 
-        repositorio.inserirTipoExtintor(registos);
+        //--repositorio.inserirTipoExtintor(registos);
 
 
         List<ParqueExtintor> registosExtintores = new ArrayList<>();

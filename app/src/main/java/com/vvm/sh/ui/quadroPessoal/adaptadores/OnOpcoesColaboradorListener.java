@@ -2,7 +2,7 @@ package com.vvm.sh.ui.quadroPessoal.adaptadores;
 
 public interface OnOpcoesColaboradorListener {
 
-    void OnEditarColaborador(int id);
+    void OnEditarColaborador(int id, int origem);
 
     void OnDemitirColaborador(int id);
 

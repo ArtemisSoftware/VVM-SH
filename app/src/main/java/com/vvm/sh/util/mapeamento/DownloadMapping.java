@@ -1,5 +1,6 @@
 package com.vvm.sh.util.mapeamento;
 
+import com.vvm.sh.api.modelos.pedido.IColaborador;
 import com.vvm.sh.api.modelos.pedido.IMorada;
 import com.vvm.sh.api.modelos.pedido.IParqueExtintor;
 import com.vvm.sh.api.modelos.pedido.ITipo;
@@ -13,6 +14,7 @@ import com.vvm.sh.api.modelos.pedido.ICliente;
 import com.vvm.sh.api.modelos.pedido.ITarefa;
 import com.vvm.sh.api.modelos.pedido.IDados;
 import com.vvm.sh.api.modelos.pedido.IOcorrencia;
+import com.vvm.sh.baseDados.entidades.Colaborador;
 import com.vvm.sh.baseDados.entidades.Morada;
 import com.vvm.sh.baseDados.entidades.ParqueExtintor;
 import com.vvm.sh.baseDados.entidades.Tarefa;
@@ -89,4 +91,5 @@ public interface DownloadMapping {
 
     ParqueExtintor map(IParqueExtintor item);
 
+    Colaborador map(IColaborador item);
 }

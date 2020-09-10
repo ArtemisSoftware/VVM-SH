@@ -1,4 +1,4 @@
-package com.vvm.sh.ui.quadroPessoal;
+package com.vvm.sh.ui.quadroPessoal.adaptadores;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.vvm.sh.R;
 import com.vvm.sh.databinding.ItemColaboradorBinding;
+import com.vvm.sh.ui.quadroPessoal.modelos.ColaboradorRegisto;
 
 import java.util.ArrayList;
 import java.util.List;

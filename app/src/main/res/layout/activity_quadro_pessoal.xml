@@ -10,19 +10,16 @@
         <import type="java.util.List"/>
         <import type="android.view.View"/>
         <import type="com.vvm.sh.util.metodos.DatasUtil"/>
-<!--
-        <variable
-            name="viewmodel"
-            type="com.vvm.sh.ui.tarefa.TarefaViewModel"/>
 
         <variable
-            name="estatistica"
-            type="Integer"/>
+            name="viewmodel"
+            type="com.vvm.sh.ui.quadroPessoal.QuadroPessoalViewModel"/>
+
 
         <variable
             name="listener"
-            type="com.vvm.sh.ui.cliente.extintores.adaptadores.OnExtintoresListener"/>
--->
+            type="com.vvm.sh.ui.quadroPessoal.adaptadores.OnColaboradorListener"/>
+
         <variable
             name="bloquear"
             type="Boolean"/>
@@ -136,14 +133,10 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rcl_registos"
                     style="@style/lista"
-
+                    colaboradores="@{viewmodel.colaboradores}"
+                    listener="@{listener}"
                     tools:listitem="@layout/item_colaborador"/>
 
-                <!--
-               extintores="@{viewmodel.extintores}"
-                    listener="@{listener}"
-
-                     -->
 
             </LinearLayout>
 

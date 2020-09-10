@@ -1,4 +1,4 @@
-package com.vvm.sh.ui.quadroPessoal;
+package com.vvm.sh.ui.quadroPessoal.adaptadores;
 
 import android.view.View;
 

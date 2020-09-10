@@ -3,6 +3,7 @@ package com.vvm.sh.ui.quadroPessoal;
 import androidx.lifecycle.MutableLiveData;
 
 import com.vvm.sh.repositorios.QuadroPessoalRepositorio;
+import com.vvm.sh.ui.quadroPessoal.modelos.ColaboradorRegisto;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import java.util.List;

@@ -301,5 +301,6 @@
     <string name="numero_serie">Numero de série</string>
     <string name="termino">Término</string>
     <string name="nebulosidade">Nebulosidade</string>
+    <string name="registos_inexistentes">Registos inexistentes</string>
 
 </resources>

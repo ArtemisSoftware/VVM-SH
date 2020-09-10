@@ -6,14 +6,15 @@ import androidx.room.Transaction;
 
 import com.vvm.sh.baseDados.BaseDao;
 import com.vvm.sh.baseDados.entidades.ColaboradorResultado;
-import com.vvm.sh.ui.cliente.extintores.modelos.ExtintorRegisto;
-import com.vvm.sh.ui.tarefa.quadroPessoal.ColaboradorRegisto;
+import com.vvm.sh.baseDados.entidades.Morada;
+import com.vvm.sh.ui.quadroPessoal.ColaboradorRegisto;
 import com.vvm.sh.util.constantes.Identificadores;
 
 import java.util.List;
 
 import io.reactivex.Flowable;
 import io.reactivex.Maybe;
+import io.reactivex.Observable;
 import io.reactivex.Single;
 
 @Dao
@@ -68,7 +69,7 @@ abstract public class QuadroPessoalDao implements BaseDao<ColaboradorResultado> 
             "FROM colaboradoresResultado WHERE origem = " + Identificadores.Origens.ORIGEM_BD + " " +
             ") " +
             "WHERE idTarefa = :idTarefa")
-    abstract public Flowable<List<ColaboradorRegisto>> obterQuadroPessoal(int idTarefa);
+    abstract public Observable<List<ColaboradorRegisto>> obterQuadroPessoal(int idTarefa);
 
 
     @Transaction
@@ -88,5 +89,11 @@ abstract public class QuadroPessoalDao implements BaseDao<ColaboradorResultado> 
 
     @Query("DELETE FROM colaboradoresResultado WHERE id = :id")
     abstract public Single<Integer> removerColaborador(int id);
+
+
+
+    @Query("SELECT * FROM moradas WHERE idTarefa =:idTarefa AND tipo = " + Identificadores.Origens.ORIGEM_MORADA +"")
+    abstract public Maybe<List<Morada>> obterMoradas(int idTarefa);
+
 
 }

@@ -15,8 +15,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.tarefa.quadroPessoal.QuadroPessoalActivity"></activity>
-        <activity android:name=".ui.tarefa.quadroPessoal.ColaboradorActivity" />
+        <activity android:name=".ui.quadroPessoal.QuadroPessoalActivity"></activity>
+        <activity android:name=".ui.quadroPessoal.ColaboradorActivity" />
         <activity android:name=".ui.transferencias.UploadTrabalhoActivity" />
         <activity android:name=".ui.ocorrencias.OcorrenciasHistoricoActivity" />
         <activity android:name=".ui.opcoes.AtualizacaoAppActivity" />

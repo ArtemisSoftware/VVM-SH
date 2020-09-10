@@ -5,15 +5,18 @@ import androidx.annotation.NonNull;
 import com.vvm.sh.baseDados.dao.QuadroPessoalDao;
 import com.vvm.sh.baseDados.dao.ResultadoDao;
 import com.vvm.sh.baseDados.dao.TipoDao;
-import com.vvm.sh.ui.tarefa.quadroPessoal.ColaboradorRegisto;
+import com.vvm.sh.baseDados.entidades.ColaboradorResultado;
+import com.vvm.sh.baseDados.entidades.Morada;
+import com.vvm.sh.ui.quadroPessoal.ColaboradorRegisto;
 
 import java.util.List;
 
 import io.reactivex.Flowable;
 import io.reactivex.Maybe;
+import io.reactivex.Observable;
 import io.reactivex.Single;
 
-public class QuadroPessoalRepositorio {
+public class QuadroPessoalRepositorio implements Repositorio<ColaboradorResultado>{
 
     private final QuadroPessoalDao quadroPessoalDao;
     private final TipoDao tipoDao;
@@ -33,7 +36,7 @@ public class QuadroPessoalRepositorio {
      * @param idTarefa o identificador da tarefa
      * @return uma lista de registos
      */
-    public Flowable<List<ColaboradorRegisto>> obterQuadroPessoal(int idTarefa) {
+    public Observable<List<ColaboradorRegisto>> obterQuadroPessoal(int idTarefa) {
         return quadroPessoalDao.obterQuadroPessoal(idTarefa);
     }
 
@@ -55,5 +58,31 @@ public class QuadroPessoalRepositorio {
      */
     public Single<Integer> remover(int id){
         return quadroPessoalDao.removerColaborador(id);
+    }
+
+
+    /**
+     * Metodo que permite obter as moradas
+     * @param idTarefa o identificador da tarefa
+     * @return uma lista de moradas
+     */
+    public Maybe<List<Morada>> obterMoradas(int idTarefa){
+        return quadroPessoalDao.obterMoradas(idTarefa);
+    }
+
+
+    @Override
+    public Single<Long> inserir(ColaboradorResultado item) {
+        return quadroPessoalDao.inserir(item);
+    }
+
+    @Override
+    public Single<Integer> atualizar(ColaboradorResultado item) {
+        return quadroPessoalDao.atualizar(item);
+    }
+
+    @Override
+    public Single<Integer> remover(ColaboradorResultado item) {
+        return quadroPessoalDao.remover(item);
     }
 }

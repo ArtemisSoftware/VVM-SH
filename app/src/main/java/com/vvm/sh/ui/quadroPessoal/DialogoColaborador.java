@@ -1,12 +1,9 @@
-package com.vvm.sh.ui.tarefa.quadroPessoal;
+package com.vvm.sh.ui.quadroPessoal;
 
 import android.os.Bundle;
 
-import androidx.lifecycle.Observer;
-
 import com.vvm.sh.R;
 import com.vvm.sh.ui.BaseDaggerDialogoPersistenteFragment;
-import com.vvm.sh.util.Recurso;
 
 public class DialogoColaborador extends BaseDaggerDialogoPersistenteFragment {
 

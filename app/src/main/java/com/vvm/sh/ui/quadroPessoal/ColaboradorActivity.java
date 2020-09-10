@@ -1,7 +1,4 @@
-package com.vvm.sh.ui.tarefa.quadroPessoal;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
+package com.vvm.sh.ui.quadroPessoal;
 
 import android.os.Bundle;
 import android.view.View;
@@ -9,13 +6,10 @@ import android.view.View;
 import com.google.android.material.textfield.TextInputEditText;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
-import com.mobsandgeeks.saripaar.annotation.DecimalMin;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.vvm.sh.R;
 import com.vvm.sh.baseDados.entidades.ColaboradorResultado;
 import com.vvm.sh.ui.BaseDaggerActivity;
-import com.vvm.sh.util.Recurso;
-import com.vvm.sh.util.metodos.PreferenciasUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import java.util.List;

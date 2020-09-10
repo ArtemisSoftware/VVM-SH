@@ -1,4 +1,4 @@
-package com.vvm.sh.ui.tarefa.quadroPessoal;
+package com.vvm.sh.ui.quadroPessoal;
 
 public class ColaboradorRegisto {
 

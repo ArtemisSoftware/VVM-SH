@@ -1,6 +1,4 @@
-package com.vvm.sh.ui.tarefa.quadroPessoal;
-
-import androidx.appcompat.app.AppCompatActivity;
+package com.vvm.sh.ui.quadroPessoal;
 
 import android.os.Bundle;
 

@@ -6,11 +6,11 @@ import android.os.Bundle;
 
 import com.vvm.sh.R;
 
-public class AvaliacaoIluminacaoActivity extends AppCompatActivity {
+public class AvaliacoesIluminacaoActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_avaliacao_iluminacao);
+        setContentView(R.layout.activity_avaliacoes_iluminacao);
     }
 }

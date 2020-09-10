@@ -302,5 +302,13 @@
     <string name="termino">Término</string>
     <string name="nebulosidade">Nebulosidade</string>
     <string name="registos_inexistentes">Registos inexistentes</string>
+    <string name="avaliacao_iluminacao">Avaliação de Iluminação</string>
+    <string name="areaPostoTrabalho">Área / Posto de Trabalho</string>
+    <string name="descricaoArea">Descrição da área</string>
+    <string name="categorias_profissionais">Categorias Profissionais</string>
+    <string name="nomeTrabalhador">Nome do trabalhador</string>
+    <string name="tipoIluminacao">Tipo de Iluminação</string>
+    <string name="emedioLx">Emédio(Lx)</string>
+    <string name="eLx">E(Lx)</string>
 
 </resources>

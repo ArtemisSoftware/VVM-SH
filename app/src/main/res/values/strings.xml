@@ -310,5 +310,8 @@
     <string name="tipoIluminacao">Tipo de Iluminação</string>
     <string name="emedioLx">Emédio(Lx)</string>
     <string name="eLx">E(Lx)</string>
+    <string name="iluminacao">Iluminação</string>
+    <string name="avaliacoes">Avaliações</string>
+    <string name="medida_recomendada">Medida recomendada</string>
 
 </resources>

@@ -296,5 +296,10 @@
     <string name="demitir">Demitir</string>
     <string name="readmitir">Readmitir</string>
     <string name="remover">Remover</string>
+    <string name="equipamento_">Equipamento:</string>
+    <string name="marca">Marca</string>
+    <string name="numero_serie">Numero de série</string>
+    <string name="termino">Término</string>
+    <string name="nebulosidade">Nebulosidade</string>
 
 </resources>

@@ -1,0 +1,319 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="java.util.List"/>
+        <import type="com.vvm.sh.R"/>
+        <import type="android.view.View"/>
+        <import type="com.vvm.sh.util.metodos.DatasUtil"/>
+
+        <variable
+            name="viewmodel"
+            type="com.vvm.sh.ui.atividadesPendentes.relatorios.FormacaoViewModel"/>
+
+
+        <variable
+            name="bloquear"
+            type="Boolean"/>
+
+    </data>
+
+
+
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/AppTheme.AppBarOverlay">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                    <TextView
+                        android:id="@+id/textView18"
+                        style="@style/tituloCartao"
+                        android:text="@string/geral"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <View
+                        android:id="@+id/textview2"
+                        android:layout_width="280dp"
+                        android:layout_height="0.2dp"
+                        android:layout_marginTop="8dp"
+                        android:background="@color/cor_separador"
+                        app:layout_constraintStart_toStartOf="@+id/textView18"
+                        app:layout_constraintTop_toBottomOf="@+id/textView18" />
+
+
+
+                    <LinearLayout
+                        android:id="@+id/linearlayout0"
+                        android:orientation="horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:layout_marginTop="24dp"
+                        app:layout_constraintStart_toStartOf="@+id/textView18"
+                        app:layout_constraintTop_toBottomOf="@+id/textview2">
+
+                        <TextView android:text="@string/equipamento_"
+                            style="@style/textoDetalhe"/>
+
+                        <TextView android:id="@+id/txt_equipamento"
+                            style="@style/textoDetalhe"
+                            android:layout_marginLeft="12dp"/>
+
+
+                    </LinearLayout>
+
+
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/textview3"
+                        style="@style/parent.TextLayout"
+                        android:hint="@string/marca"
+                        android:layout_width="450dp"
+                        app:errorEnabled="true"
+                        android:layout_marginTop="@dimen/distancia_vertical_formulario"
+                        app:layout_constraintStart_toStartOf="@+id/textView18"
+                        app:layout_constraintTop_toBottomOf="@+id/linearlayout0">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/txt_inp_marca"
+                            style="@style/modifiedEditText"
+                            android:maxLength="20"
+                            android:inputType="text"
+                            android:maxLines="1"/>
+
+                        <!--  android:text="@{viewmodel.formando.resultado.nome}" -->
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/textview33"
+                        style="@style/parent.TextLayout"
+                        android:hint="@string/numero_serie"
+                        android:layout_width="450dp"
+                        app:errorEnabled="true"
+                        android:layout_marginTop="@dimen/distancia_vertical_formulario"
+                        app:layout_constraintStart_toStartOf="@+id/textView18"
+                        app:layout_constraintTop_toBottomOf="@+id/textview3">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/txt_inp_numero_serie"
+                            style="@style/modifiedEditText"
+                            android:maxLength="15"
+                            android:inputType="text"
+                            android:maxLines="1"/>
+
+                        <!--  android:text="@{viewmodel.formando.resultado.nome}" -->
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+
+                    <LinearLayout
+                        android:id="@+id/linearlayout1"
+                        android:orientation="horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:layout_marginTop="@dimen/distancia_vertical_formulario"
+                        app:layout_constraintStart_toStartOf="@+id/textView18"
+                        app:layout_constraintTop_toBottomOf="@+id/textview33">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/parent.TextLayout"
+                            android:hint="@string/data"
+                            android:layout_width="300dp"
+                            android:layout_marginTop="@dimen/signup_text_margin_top"
+                            app:errorEnabled="true">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/txt_inp_data"
+                                style="@style/modifiedEditText"
+                                android:inputType="date"
+                                android:enabled="false"
+
+                                android:maxLines="1"/>
+
+                            <!-- android:text="@{DatasUtil.converterData(viewmodel.formando.resultado.dataNascimento, DatasUtil.FORMATO_DD_MM_YYYY)}"
+                                 -->
+
+                        </com.google.android.material.textfield.TextInputLayout>
+
+
+                        <at.markushi.ui.CircleButton
+                            android:id="@+id/crl_btn_data"
+                            android:layout_width="64dip"
+                            android:layout_height="64dip"
+                            android:src="@drawable/ic_calendario"
+                            app:cb_color="#99CC00"
+                            app:cb_pressedRingWidth="8dip" />
+
+                    </LinearLayout>
+
+
+
+                    <LinearLayout
+                        android:id="@+id/linearlayout2"
+                        android:orientation="horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:layout_marginTop="@dimen/distancia_vertical_formulario"
+                        app:layout_constraintStart_toStartOf="@+id/textView18"
+                        app:layout_constraintTop_toBottomOf="@+id/linearlayout1">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/parent.TextLayout"
+                            android:hint="@string/inicio"
+                            android:layout_width="300dp"
+                            android:layout_marginTop="@dimen/signup_text_margin_top"
+                            app:errorEnabled="true">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/txt_inp_inicio"
+                                style="@style/modifiedEditText"
+                                android:inputType="date"
+                                android:enabled="false"
+                                android:maxLines="1"/>
+
+                            <!-- android:text="@{DatasUtil.converterData(viewmodel.formando.resultado.dataNascimento, DatasUtil.FORMATO_DD_MM_YYYY)}"
+                                 -->
+                        </com.google.android.material.textfield.TextInputLayout>
+
+
+                        <at.markushi.ui.CircleButton
+                            android:id="@+id/crl_btn_inicio"
+                            android:layout_width="64dip"
+                            android:layout_height="64dip"
+                            android:src="@drawable/ic_relogio_24dp"
+                            app:cb_color="#99CC00"
+                            app:cb_pressedRingWidth="8dip" />
+
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:id="@+id/linearlayout3"
+                        android:orientation="horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:layout_marginTop="@dimen/distancia_vertical_formulario"
+                        app:layout_constraintStart_toStartOf="@+id/textView18"
+                        app:layout_constraintTop_toBottomOf="@+id/linearlayout2">
+
+                        <com.google.android.material.textfield.TextInputLayout
+                            style="@style/parent.TextLayout"
+                            android:hint="@string/termino"
+                            android:layout_width="300dp"
+                            android:layout_marginTop="@dimen/signup_text_margin_top"
+                            app:errorEnabled="true">
+
+                            <com.google.android.material.textfield.TextInputEditText
+                                android:id="@+id/txt_inp_termino"
+                                style="@style/modifiedEditText"
+                                android:inputType="date"
+                                android:enabled="false"
+                                android:maxLines="1"/>
+
+                            <!-- android:text="@{DatasUtil.converterData(viewmodel.formando.resultado.dataNascimento, DatasUtil.FORMATO_DD_MM_YYYY)}"
+                                 -->
+                        </com.google.android.material.textfield.TextInputLayout>
+
+
+                        <at.markushi.ui.CircleButton
+                            android:id="@+id/crl_btn_termino"
+                            android:layout_width="64dip"
+                            android:layout_height="64dip"
+                            android:src="@drawable/ic_relogio_24dp"
+                            app:cb_color="#99CC00"
+                            app:cb_pressedRingWidth="8dip" />
+
+                    </LinearLayout>
+
+
+
+
+                    <TextView
+                        android:id="@+id/textview31"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:text="@string/nebulosidade"
+                        android:layout_marginTop="24dp"
+                        app:layout_constraintStart_toStartOf="@+id/textView18"
+                        app:layout_constraintTop_toBottomOf="@+id/linearlayout3"
+                        style="@style/textoInput" />
+
+                    <com.jaredrummler.materialspinner.MaterialSpinner
+                        android:id="@+id/spnr_nebulosidade"
+                        android:layout_width="400dp"
+
+                        android:layout_height="wrap_content"
+                        app:layout_constraintStart_toStartOf="@+id/textView18"
+                        app:layout_constraintTop_toBottomOf="@+id/textview31" />
+
+                    <!--
+                                            tipos_="@{viewmodel.generos}"
+                        genero="@{viewmodel.formando.resultado.sexo}"
+                    -->
+
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_gravar"
+            android:enabled="@{bloquear}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="@dimen/fab_margin"
+            android:src="@drawable/ic_gravar_24dp" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+</layout>

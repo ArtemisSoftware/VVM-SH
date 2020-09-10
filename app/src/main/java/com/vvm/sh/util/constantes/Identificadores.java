@@ -107,6 +107,12 @@ public class Identificadores {
 
         public static final int ID_RELATORIO_FORMACAO = 1;
         public static final String FORMACAO = "Formação";
+
+        public static final int ID_RELATORIO_ILUMINACAO = 2;
+        public static final String ILUMINACAO = "Iluminação";
+
+        public static final int ID_RELATORIO_TERMICO = 3;
+        public static final String TERMICO = "Térmico";
     }
 
     public class CodigosWs {

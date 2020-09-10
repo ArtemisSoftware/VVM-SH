@@ -325,8 +325,14 @@ public class TrabalhoAsyncTask extends AsyncTask<ISessao, Void, Void> {
      */
     private int obterIdRelatorioAtividadePendente(IAtividadePendente atividadePendente){
 
-        if(ConversorUtil.converter_Integer_Para_Boolean(atividadePendente.formacao) == true){
+        if(atividadePendente.formacao == 1){
             return Identificadores.Relatorios.ID_RELATORIO_FORMACAO;
+        }
+        else if(atividadePendente.relatorioIluminacao == 1){
+            return Identificadores.Relatorios.ID_RELATORIO_ILUMINACAO;
+        }
+        if(atividadePendente.relatorioTermico == 1){
+            return Identificadores.Relatorios.ID_RELATORIO_TERMICO;
         }
 
         return Identificadores.Relatorios.SEM_RELATORIO;

@@ -20,4 +20,10 @@ public class IAtividadePendente {
 
     @SerializedName("formacao")
     public int formacao;
+
+    @SerializedName("relatorioIluminacao")
+    public int relatorioIluminacao;
+
+    @SerializedName("relatorioTermico")
+    public int relatorioTermico;
 }

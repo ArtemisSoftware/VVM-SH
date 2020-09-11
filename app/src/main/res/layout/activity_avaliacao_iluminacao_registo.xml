@@ -12,7 +12,7 @@
 
         <variable
             name="viewmodel"
-            type="com.vvm.sh.ui.atividadesPendentes.relatorios.FormacaoViewModel"/>
+            type="com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.AvaliacaoAmbientalViewModel"/>
 
 
         <variable
@@ -121,11 +121,12 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/txt_inp_descricao_area"
                             style="@style/modifiedEditText"
+                            android:text="@{viewmodel.avaliacao.anexoArea}"
                             android:maxLength="250"
                             android:inputType="text"
                             android:maxLines="1"/>
 
-                        <!--  android:text="@{viewmodel.formando.resultado.nome}" -->
+                        <!--   -->
                     </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -158,18 +159,18 @@
 
 
                             <TextView
-                                android:id="@+id/textview34"
+                                android:id="@+id/txt_categorias_profissionais"
                                 android:text="@string/categorias_profissionais"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                style="@style/textoInput" />
+                                style="@style/textoDetalhe" />
 
 
                         </LinearLayout>
 
 
                         <at.markushi.ui.CircleButton
-                            android:id="@+id/crl_btn_data"
+                            android:id="@+id/crl_btn_pesquisar"
                             android:layout_width="64dip"
                             android:layout_height="64dip"
                             android:src="@drawable/ic_calendario"
@@ -201,11 +202,12 @@
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/txt_inp_nome"
+                            android:text="@{viewmodel.avaliacao.nome}"
                             style="@style/modifiedEditText"
                             android:inputType="text"
                             android:maxLines="1"/>
 
-                        <!--  android:text="@{viewmodel.formando.resultado.nome}" -->
+                        <!--   -->
                     </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -255,7 +257,7 @@
                         android:id="@+id/textview33"
                         style="@style/parent.TextLayout"
                         android:hint="@string/emedioLx"
-                        android:layout_width="450dp"
+                        android:layout_width="250dp"
                         app:errorEnabled="true"
                         android:layout_marginTop="@dimen/distancia_vertical_formulario"
                         app:layout_constraintStart_toStartOf="@+id/textView18"
@@ -264,13 +266,25 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/txt_inp_emedio_lx"
                             style="@style/modifiedEditText"
+                            android:text="@{viewmodel.avaliacao.emedioLx}"
                             android:maxLength="15"
                             android:inputType="number"
                             android:maxLines="1"/>
 
-                        <!--  android:text="@{viewmodel.formando.resultado.nome}" -->
                     </com.google.android.material.textfield.TextInputLayout>
 
+
+                    <TextView
+                        android:id="@+id/txt_nivel_dificiente"
+                        style="@style/textoDetalhe"
+                        android:layout_marginStart="16dp"
+                        android:background="@color/cor_vermelho"
+                        android:text="@string/nivelDeficiente"
+                        android:textColor="@color/white"
+                        android:visibility="gone"
+                        app:layout_constraintBottom_toBottomOf="@+id/textview33"
+                        app:layout_constraintStart_toEndOf="@+id/textview33"
+                        app:layout_constraintTop_toTopOf="@+id/textview33" />
 
 
 

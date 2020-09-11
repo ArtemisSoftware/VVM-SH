@@ -31,6 +31,7 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
 
     public MutableLiveData<RelatorioAmbientalResultado> geral;
     public MutableLiveData<List<AvaliacaoAmbientalResultado>> avaliacoes;
+    public MutableLiveData<AvaliacaoAmbientalResultado> avaliacao;
 
     public MutableLiveData<List<Tipo>> generos;
     public MutableLiveData<List<Tipo>> nebulosidades;
@@ -41,6 +42,7 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
         this.avaliacaoAmbientalRepositorio = avaliacaoAmbientalRepositorio;
         geral = new MutableLiveData<>();
         avaliacoes = new MutableLiveData<>();
+        avaliacao = new MutableLiveData<>();
 
         generos = new MutableLiveData<>();
         nebulosidades = new MutableLiveData<>();
@@ -107,6 +109,31 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
     }
 
 
+    public void gravar(AvaliacaoAmbientalResultado registo, List<Integer> categoriasProfissionais, boolean nivel) {
+/*
+        if(idAvaliacao.equals(AppIF.SEM_DADOS) == true){
+            idAvaliacao = inserirAvaliacao(idRelatorio, idArea, anexoArea, nome,
+                    sexo, idTipoIluminacao, emedioLx, idElx, elxArea, elx,
+                    homens, mulheres, temperatura, humidadeRelativa);
+        }
+        else{
+            atualizarAvaliacao(idAvaliacao, idArea, anexoArea, nome,
+                    sexo, idTipoIluminacao, emedioLx, idElx, elxArea, elx,
+                    homens, mulheres, temperatura, humidadeRelativa);
+        }
+
+
+        gravarCategoriasProfissionais_(Integer.parseInt(origem), idAvaliacao, categoriasProfissionais, homens, mulheres);
+
+
+        if(nivel == true){
+            removerMedidas(idAvaliacao);
+        }
+
+        abaterAtividadePendente(idAtividade);
+        gravarResultado();
+*/
+    }
 
     //--------------------
     //OBTER
@@ -243,4 +270,45 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
 
                 );
     }
+
+
+    /**
+     * Metodo que permite obter uma avaliacao
+     * @param id o identificador da avaliacao
+     */
+    public void obterAvalicao(int id) {
+
+        showProgressBar(true);
+
+        avaliacaoAmbientalRepositorio.obterAvaliacao(id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new MaybeObserver<AvaliacaoAmbientalResultado>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+
+                            }
+
+                            @Override
+                            public void onSuccess(AvaliacaoAmbientalResultado resultado) {
+                                avaliacao.setValue(resultado);
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+
+                            @Override
+                            public void onComplete() {
+
+                            }
+                        }
+                );
+    }
+
+
 }

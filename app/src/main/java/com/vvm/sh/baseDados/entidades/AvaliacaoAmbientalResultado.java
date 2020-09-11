@@ -31,7 +31,7 @@ public class AvaliacaoAmbientalResultado {
     //TODO:Verificar
 
     @NonNull
-    public String idArea;
+    public int idArea;
 
     @NonNull
     public String anexoArea;
@@ -40,22 +40,22 @@ public class AvaliacaoAmbientalResultado {
     public String nome;
 
     @NonNull
-    public String sexo;
+    public int sexo;
 
     @NonNull
-    public String tipoIluminacao;
+    public int tipoIluminacao;
 
     @NonNull
     public String emedioLx;
 
     @NonNull
-    public String eLxArea;
+    public int eLxArea;
 
     @NonNull
     public String eLx;
 
     @NonNull
-    public String idElx;
+    public int idElx;
 
     @NonNull
     public String temperatura;
@@ -71,5 +71,20 @@ public class AvaliacaoAmbientalResultado {
     public int mulheres;
 
 
+    public AvaliacaoAmbientalResultado(int idRelatorio,
+                                       @NonNull int idArea, @NonNull String anexoArea, @NonNull String nome,
+                                       @NonNull int sexo, @NonNull int tipoIluminacao,
+                                       @NonNull String emedioLx, @NonNull int eLxArea, @NonNull int idElx, @NonNull String eLx) {
+        this.idRelatorio = idRelatorio;
+        this.idArea = idArea;
+        this.anexoArea = anexoArea;
+        this.nome = nome;
+        this.sexo = sexo;
+        this.tipoIluminacao = tipoIluminacao;
+        this.emedioLx = emedioLx;
+        this.eLxArea = eLxArea;
+        this.idElx = idElx;
+        this.eLx = eLx;
 
+    }
 }

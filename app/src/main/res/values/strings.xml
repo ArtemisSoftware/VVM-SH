@@ -317,5 +317,6 @@
     <string name="temperatura_humidade">Temperatura e humidade</string>
     <string name="termohigrometro">Termohigrómetro</string>
     <string name="luxometro">Luxómetro</string>
+    <string name="nivelDeficiente">Nível deficiente</string>
 
 </resources>

@@ -68,6 +68,16 @@ public class AvaliacaoAmbientalRepositorio {
     }
 
 
+    /**
+     * Metodo que permite obter uma avaliacao
+     * @param id o identificador da avaliacao
+     * @return um registo
+     */
+    public Maybe<AvaliacaoAmbientalResultado> obterAvaliacao(int id) {
+        return avaliacaoAmbientalDao.obterAvaliacao(id);
+    }
+
+
 
     /**
      * Metodo que permite obter o identificador do relatorio

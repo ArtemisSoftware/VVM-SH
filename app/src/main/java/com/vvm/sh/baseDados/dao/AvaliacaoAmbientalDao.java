@@ -38,7 +38,7 @@ abstract public class AvaliacaoAmbientalDao {
 
 
     @Query("SELECT * FROM avaliacoesAmbientaisResultado WHERE id = :id")
-    abstract public Maybe<RelatorioAmbientalResultado> obterAvaliacao(int id);
+    abstract public Maybe<AvaliacaoAmbientalResultado> obterAvaliacao(int id);
 
 
 

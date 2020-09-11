@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.vvm.sh.R;
+import com.vvm.sh.baseDados.entidades.AvaliacaoAmbientalResultado;
 import com.vvm.sh.databinding.ActivityAvaliacoesAmbientaisBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
@@ -19,7 +20,8 @@ import javax.inject.Inject;
 
 import butterknife.OnClick;
 
-public class AvaliacoesAmbientaisActivity extends BaseDaggerActivity {
+public class AvaliacoesAmbientaisActivity extends BaseDaggerActivity
+        implements OnAvaliacaoAmbientalListener{
 
 
     private ActivityAvaliacoesAmbientaisBinding activityAvaliacoesAmbientaisBinding;
@@ -81,6 +83,48 @@ public class AvaliacoesAmbientaisActivity extends BaseDaggerActivity {
     //EVENTOS
     //--------------------
 
+    @Override
+    public void OnAvaliacaoClick(AvaliacaoAmbientalResultado registo) {
+
+        Intent intent = null;
+
+        Bundle bundle = getIntent().getExtras();
+
+        if(bundle != null) {
+
+            int tipo = bundle.getInt(getString(R.string.argumento_tipo_relatorio));
+
+            switch (tipo){
+
+                case Identificadores.Relatorios.ID_RELATORIO_ILUMINACAO:
+
+                    intent = new Intent(this, AvaliacaoIluminacaoRegistoActivity.class);
+                    break;
+
+                case Identificadores.Relatorios.ID_RELATORIO_TERMICO:
+
+                    break;
+
+                default:
+                    finish();
+                    break;
+
+            }
+
+
+            if(intent != null) {
+
+                bundle.putInt(getString(R.string.argumento_id), registo.id);
+                intent.putExtras(bundle);
+                startActivity(intent);
+            }
+        }
+        else{
+            finish();
+        }
+
+    }
+
 
     @OnClick({R.id.fab_adicionar})
     public void fab_adicionar_OnClickListener(View view) {
@@ -121,6 +165,7 @@ public class AvaliacoesAmbientaisActivity extends BaseDaggerActivity {
             finish();
         }
     }
+
 
 
 }

@@ -35,6 +35,7 @@ import com.vvm.sh.ui.atividadesPendentes.DialogoAtividadePendenteExecutada;
 import com.vvm.sh.ui.atividadesPendentes.DialogoAtividadePendenteNaoExecutada;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.FormacaoActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.FormandoActivity;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.AvaliacoesAmbientaisActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.RelatorioAvaliacaoAmbientalActivity;
 import com.vvm.sh.ui.autenticacao.PerfilActivity;
 import com.vvm.sh.ui.cliente.SinistralidadeActivity;
@@ -289,6 +290,14 @@ public abstract class ActivityBuildersModule {
             modules = { AvaliacaoAmbientalViewModelsModule.class, AvaliacaoAmbientalModule.class }
     )
     abstract RelatorioAvaliacaoAmbientalActivity contributeRelatorioAvaliacaoAmbientalActivity();
+
+
+    @AvaliacaoAmbientalScope
+    @ContributesAndroidInjector(
+            modules = { AvaliacaoAmbientalViewModelsModule.class, AvaliacaoAmbientalModule.class }
+    )
+    abstract AvaliacoesAmbientaisActivity contributeAvaliacoesAmbientaisActivity();
+
 
 
 

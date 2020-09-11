@@ -40,13 +40,7 @@ public class TiposRepositorio {
     }
 
 
-    /**
-     * Metodo que permite obter as atualizacoes
-     * @return uma lista de atualizacoes
-     */
-    public Maybe<List<Atualizacao>> obterAtualizacoes() {
-        return atualizacaoDao.obterAtualizacoes();
-    }
+
 
     /**
      * Metodo que permite obter um tipo a partir do web service
@@ -66,6 +60,16 @@ public class TiposRepositorio {
      */
     public Single<ITipoListagem> obterTipo(String metodo, String seloTemporal) {
         return api.obterTipo(SegurancaAlimentarApi.HEADER_TIPO, metodo, seloTemporal);
+    }
+
+
+
+    /**
+     * Metodo que permite obter as atualizacoes
+     * @return uma lista de atualizacoes
+     */
+    public Maybe<List<Atualizacao>> obterAtualizacoes() {
+        return atualizacaoDao.obterAtualizacoes();
     }
 
 

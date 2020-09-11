@@ -220,7 +220,7 @@ public class MainActivity extends BaseDaggerActivity
     @Override
     public void onItemClick(Marcacao marcacao) {
 
-        PreferenciasUtil.fixarTarefa(this, marcacao.tarefa.idTarefa);
+        PreferenciasUtil.fixarTarefa(this, marcacao.tarefa);
 
         Intent intent = new Intent(this, TarefaActivity.class);
         startActivity(intent);

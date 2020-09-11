@@ -10,6 +10,7 @@ import com.vvm.sh.baseDados.dao.ImagemDao;
 import com.vvm.sh.baseDados.dao.ResultadoDao;
 import com.vvm.sh.baseDados.dao.TipoDao;
 import com.vvm.sh.baseDados.VvmshBaseDados;
+import com.vvm.sh.util.metodos.PreferenciasUtil;
 
 import javax.inject.Singleton;
 
@@ -60,4 +61,14 @@ public class BaseDadosModule {
         return dao;
     }
 
+
+    @Singleton
+    @Provides
+    static int provideIdApi(Application application){
+
+        int idApi = PreferenciasUtil.obterIdApi(application.getApplicationContext());
+
+        //Timber.d("Providing NoteDao: " + dao);
+        return idApi;
+    }
 }

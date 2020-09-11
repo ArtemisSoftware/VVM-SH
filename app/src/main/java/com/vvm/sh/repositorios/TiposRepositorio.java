@@ -73,6 +73,16 @@ public class TiposRepositorio {
     }
 
 
+    public Flowable<List<Tipo>> obterTipos(String metodo, int api) {
+        return tipoDao.obterTipos(metodo, api);
+    }
+
+
+    public Flowable<List<Tipo>> obterTipos(String metodo, List<Integer> registos, int api) {
+        return tipoDao.obterTipos(metodo, registos, api);
+    }
+
+
     /**
      * Metodo que permite atualizar um tipo<br>
      *     1->Remover a atualizacao e os dados<br>

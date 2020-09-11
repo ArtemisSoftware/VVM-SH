@@ -132,7 +132,7 @@
     <string name="argumento_id_formando">idFormando</string>
     <string name="argumento_id_colaborador">idColaborador</string>
     <string name="argumento_descricao">descricao</string>
-
+    <string name="argumento_tipo_relatorio">tipoRelatorio</string>
 
     <!--onboarding designs-->
     <string name="onboardingWelcomeContent">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </string>

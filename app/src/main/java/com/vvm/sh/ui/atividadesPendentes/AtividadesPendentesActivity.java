@@ -12,6 +12,7 @@ import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.atividadesPendentes.adaptadores.OnAtividadePendenteListener;
 import com.vvm.sh.ui.atividadesPendentes.modelos.AtividadePendenteRegisto;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.FormacaoActivity;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.RelatorioIluminacaoActivity;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
@@ -119,6 +120,15 @@ public class AtividadesPendentesActivity extends BaseDaggerActivity
             case Identificadores.Relatorios.ID_RELATORIO_FORMACAO:
                 intent = new Intent(this, FormacaoActivity.class);
                 break;
+
+
+            case Identificadores.Relatorios.ID_RELATORIO_ILUMINACAO:
+            case Identificadores.Relatorios.ID_RELATORIO_TERMICO:
+                intent = new Intent(this, RelatorioIluminacaoActivity.class);
+                intent.putExtra(getString(R.string.argumento_tipo_relatorio), idRelatorio);
+                break;
+
+
 
             default:
                 break;

@@ -9,6 +9,7 @@ import com.vvm.sh.baseDados.dao.AgendaDao;
 import com.vvm.sh.baseDados.dao.AnomaliaDao;
 import com.vvm.sh.baseDados.dao.AtividadePendenteDao;
 import com.vvm.sh.baseDados.dao.AtualizacaoDao;
+import com.vvm.sh.baseDados.dao.AvaliacaoAmbientalDao;
 import com.vvm.sh.baseDados.dao.CrossSellingDao;
 import com.vvm.sh.baseDados.dao.EmailDao;
 import com.vvm.sh.baseDados.dao.FormandoDao;
@@ -113,7 +114,6 @@ public abstract class VvmshBaseDados extends RoomDatabase {
 
     public abstract AcaoFormacaoDao obterAcaoFormacaoDao();
 
-    public abstract ParqueExtintorDao obterParqueExtintorDao();
 
 
     public abstract ImagemDao obterImagemDao();
@@ -122,6 +122,10 @@ public abstract class VvmshBaseDados extends RoomDatabase {
     public abstract SinistralidadeDao obterSinistralidadeDao();
 
     public abstract QuadroPessoalDao obterQuadroPessoalDao();
+
+    public abstract AvaliacaoAmbientalDao obterAvaliacaoAmbientalDao();
+
+
 
 
     public abstract TransferenciasDao obterTransferenciasDao();

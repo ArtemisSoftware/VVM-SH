@@ -12,7 +12,7 @@
 
         <variable
             name="viewmodel"
-            type="com.vvm.sh.ui.atividadesPendentes.relatorios.FormacaoViewModel"/>
+            type="com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.AvaliacaoAmbientalViewModel"/>
 
 
         <variable
@@ -87,7 +87,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
-                        android:layout_marginTop="24dp"
+                        android:layout_marginTop="@dimen/distancia_vertical_formulario"
                         app:layout_constraintStart_toStartOf="@+id/textView18"
                         app:layout_constraintTop_toBottomOf="@+id/textview2">
 
@@ -116,12 +116,12 @@
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/txt_inp_marca"
+                            android:text="@{viewmodel.geral.marca}"
                             style="@style/modifiedEditText"
                             android:maxLength="20"
                             android:inputType="text"
                             android:maxLines="1"/>
 
-                        <!--  android:text="@{viewmodel.formando.resultado.nome}" -->
                     </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -137,12 +137,12 @@
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/txt_inp_numero_serie"
+                            android:text="@{viewmodel.geral.numeroSerie}"
                             style="@style/modifiedEditText"
                             android:maxLength="15"
                             android:inputType="text"
                             android:maxLines="1"/>
 
-                        <!--  android:text="@{viewmodel.formando.resultado.nome}" -->
                     </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -169,11 +169,9 @@
                                 style="@style/modifiedEditText"
                                 android:inputType="date"
                                 android:enabled="false"
-
+                                android:text="@{DatasUtil.converterData(viewmodel.geral.data, DatasUtil.FORMATO_DD_MM_YYYY)}"
                                 android:maxLines="1"/>
 
-                            <!-- android:text="@{DatasUtil.converterData(viewmodel.formando.resultado.dataNascimento, DatasUtil.FORMATO_DD_MM_YYYY)}"
-                                 -->
 
                         </com.google.android.material.textfield.TextInputLayout>
 
@@ -209,13 +207,13 @@
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/txt_inp_inicio"
+                                android:text="@{DatasUtil.converterData(viewmodel.geral.inicio, DatasUtil.HORA_FORMATO_HH_MM)}"
                                 style="@style/modifiedEditText"
                                 android:inputType="date"
                                 android:enabled="false"
                                 android:maxLines="1"/>
 
-                            <!-- android:text="@{DatasUtil.converterData(viewmodel.formando.resultado.dataNascimento, DatasUtil.FORMATO_DD_MM_YYYY)}"
-                                 -->
+
                         </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -249,13 +247,12 @@
 
                             <com.google.android.material.textfield.TextInputEditText
                                 android:id="@+id/txt_inp_termino"
+                                android:text="@{DatasUtil.converterData(viewmodel.geral.termino, DatasUtil.HORA_FORMATO_HH_MM)}"
                                 style="@style/modifiedEditText"
                                 android:inputType="date"
                                 android:enabled="false"
                                 android:maxLines="1"/>
 
-                            <!-- android:text="@{DatasUtil.converterData(viewmodel.formando.resultado.dataNascimento, DatasUtil.FORMATO_DD_MM_YYYY)}"
-                                 -->
                         </com.google.android.material.textfield.TextInputLayout>
 
 

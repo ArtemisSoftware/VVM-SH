@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
@@ -33,7 +34,6 @@ public class RelatorioAmbientalResultado {
     public int tipo;
 
 
-    //TODO:Verificar
 
     @NonNull
     public String marca;
@@ -53,7 +53,23 @@ public class RelatorioAmbientalResultado {
     @NonNull
     public int idNebulosidade;
 
+
+    //TODO:Verificar
+
     @NonNull
     public String medidaRecomendada;
 
+
+    @Ignore
+    public RelatorioAmbientalResultado(int idAtividade, int tipo, @NonNull String marca, @NonNull String numeroSerie,
+                                       @NonNull Date data, @NonNull Date inicio, @NonNull Date termino, Tipo nebulosidade) {
+        this.idAtividade = idAtividade;
+        this.tipo = tipo;
+        this.marca = marca;
+        this.numeroSerie = numeroSerie;
+        this.data = data;
+        this.inicio = inicio;
+        this.termino = termino;
+        this.idNebulosidade = nebulosidade.id;
+    }
 }

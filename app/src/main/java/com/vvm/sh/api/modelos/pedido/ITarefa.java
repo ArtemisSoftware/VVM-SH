@@ -56,7 +56,6 @@ public class ITarefa {
     @SerializedName("AvaliacaoRiscosAnterior")
     public List<IAvaliacaoRiscosAnterior> avaliacaoRiscosAnterior;
 
-
     @SerializedName("Plano_Accao")
     public IPlanoAcao planoAcao;
 }

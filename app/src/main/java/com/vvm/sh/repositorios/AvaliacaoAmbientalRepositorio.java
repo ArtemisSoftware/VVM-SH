@@ -8,6 +8,7 @@ import com.vvm.sh.baseDados.dao.TipoDao;
 import com.vvm.sh.baseDados.entidades.RelatorioAmbientalResultado;
 
 import io.reactivex.Maybe;
+import io.reactivex.Single;
 
 public class AvaliacaoAmbientalRepositorio {
 
@@ -21,6 +22,24 @@ public class AvaliacaoAmbientalRepositorio {
         this.avaliacaoAmbientalDao = avaliacaoAmbientalDao;
         this.tipoDao = tipoDao;
         this.resultadoDao = resultadoDao;
+    }
+
+    /**
+     * Metodo que permite inserir um registo
+     * @param registo os dados a inserir
+     * @return o resultado da insercao
+     */
+    public Single<Long> inserir(RelatorioAmbientalResultado registo){
+        return avaliacaoAmbientalDao.inserir(registo);
+    }
+
+    /**
+     * Metodo que permite atualizar um registo
+     * @param registo os dados a inserir
+     * @return o resultado da insercao
+     */
+    public Single<Integer> atualizar(RelatorioAmbientalResultado registo){
+        return avaliacaoAmbientalDao.atualizar(registo);
     }
 
 

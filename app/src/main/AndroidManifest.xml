@@ -17,7 +17,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".ui.atividadesPendentes.relatorios.avaliacaoAmbiental.RelatorioAvaliacaoAmbientalActivity"></activity>
         <activity android:name=".ui.atividadesPendentes.relatorios.avaliacaoAmbiental.AvaliacaoIluminacaoRegistoActivity" />
-        <activity android:name=".ui.atividadesPendentes.relatorios.avaliacaoAmbiental.AvaliacoesIluminacaoActivity" />
+        <activity android:name=".ui.atividadesPendentes.relatorios.avaliacaoAmbiental.AvaliacoesAmbientaisActivity" />
         <activity android:name=".ui.atividadesPendentes.relatorios.avaliacaoAmbiental.AvaliacaoGeralActivity" />
         <activity android:name=".ui.quadroPessoal.QuadroPessoalActivity" />
         <activity android:name=".ui.quadroPessoal.ColaboradorActivity" />

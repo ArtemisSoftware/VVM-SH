@@ -1,7 +1,10 @@
 package com.vvm.sh.baseDados.dao;
 
 import androidx.room.Dao;
+import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
+import androidx.room.Update;
 
 import com.vvm.sh.baseDados.entidades.AvaliacaoAmbientalResultado;
 import com.vvm.sh.baseDados.entidades.RelatorioAmbientalResultado;
@@ -10,13 +13,23 @@ import java.util.List;
 
 import io.reactivex.Flowable;
 import io.reactivex.Maybe;
+import io.reactivex.Single;
 
 @Dao
 abstract public class AvaliacaoAmbientalDao {
 
 
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    abstract public Single<Long> inserir(RelatorioAmbientalResultado registo);
+
+    @Update(onConflict = OnConflictStrategy.IGNORE)
+    abstract public Single<Integer> atualizar(RelatorioAmbientalResultado registo);
+
     @Query("SELECT * FROM relatorioAmbientalResultado WHERE idAtividade = :idAtividade AND tipo = :tipo")
     abstract public Maybe<RelatorioAmbientalResultado> obterGeral(int idAtividade, int tipo);
+
+
+
 
 
     @Query("SELECT * FROM avaliacoesAmbientaisResultado WHERE idRelatorio = :idRelatorio")
@@ -27,6 +40,10 @@ abstract public class AvaliacaoAmbientalDao {
     abstract public Maybe<RelatorioAmbientalResultado> obterAvaliacao(int id);
 
 
+
+    //--------------
+    //Validacao
+    //--------------
 
     @Query("SELECT id FROM relatorioAmbientalResultado WHERE idAtividade = :idAtividade AND tipo = :tipo")
     abstract public Maybe<Integer> obterIdRelatorio(int idAtividade, int tipo);

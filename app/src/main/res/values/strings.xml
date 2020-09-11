@@ -133,6 +133,7 @@
     <string name="argumento_id_colaborador">idColaborador</string>
     <string name="argumento_descricao">descricao</string>
     <string name="argumento_tipo_relatorio">tipoRelatorio</string>
+    <string name="argumento_id_relatorio">idRelatorio</string>
 
     <!--onboarding designs-->
     <string name="onboardingWelcomeContent">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. </string>
@@ -314,5 +315,7 @@
     <string name="avaliacoes">Avaliações</string>
     <string name="medida_recomendada">Medida recomendada</string>
     <string name="temperatura_humidade">Temperatura e humidade</string>
+    <string name="termohigrometro">Termohigrómetro</string>
+    <string name="luxometro">Luxómetro</string>
 
 </resources>

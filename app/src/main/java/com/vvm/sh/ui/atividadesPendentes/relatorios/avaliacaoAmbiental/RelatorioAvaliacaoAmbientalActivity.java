@@ -1,6 +1,5 @@
 package com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
@@ -12,7 +11,6 @@ import com.vvm.sh.databinding.ActivityRelatorioAvaliacaoAmbientalBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.util.constantes.Identificadores;
-import com.vvm.sh.util.metodos.PreferenciasUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import javax.inject.Inject;

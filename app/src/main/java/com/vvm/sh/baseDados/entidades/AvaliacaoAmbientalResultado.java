@@ -2,8 +2,20 @@ package com.vvm.sh.baseDados.entidades;
 
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
+import androidx.room.Entity;
+import androidx.room.ForeignKey;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
+import static androidx.room.ForeignKey.CASCADE;
+
+@Entity(tableName = "avaliacoesAmbientaisResultado",
+        indices = {@Index(value="idAtividade", unique = false) },
+
+        foreignKeys = @ForeignKey(entity = RelatorioAmbientalResultado.class,
+                parentColumns = "id",
+                childColumns = "idRelatorio",
+                onDelete = CASCADE))
 public class AvaliacaoAmbientalResultado {
 
 

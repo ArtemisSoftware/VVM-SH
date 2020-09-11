@@ -9,15 +9,19 @@
         <variable
             name="listener"
             type="com.vvm.sh.ui.ocorrencias.adaptadores.OnOcorrenciaListener"/>
-
+-->
         <variable
             name="viewmodel"
-            type="com.vvm.sh.ui.ocorrencias.OcorrenciasViewModel"/>
--->
+            type="com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.AvaliacaoAmbientalViewModel"/>
+
 
         <variable
             name="bloquear"
             type="Boolean"/>
+
+        <variable
+            name="tipo"
+            type="Integer"/>
     </data>
 
 

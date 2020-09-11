@@ -5,9 +5,13 @@ import androidx.annotation.NonNull;
 import com.vvm.sh.baseDados.dao.AvaliacaoAmbientalDao;
 import com.vvm.sh.baseDados.dao.ResultadoDao;
 import com.vvm.sh.baseDados.dao.TipoDao;
+import com.vvm.sh.baseDados.entidades.AvaliacaoAmbientalResultado;
 import com.vvm.sh.baseDados.entidades.RelatorioAmbientalResultado;
 
+import java.util.List;
+
 import io.reactivex.Maybe;
+import io.reactivex.Observable;
 import io.reactivex.Single;
 
 public class AvaliacaoAmbientalRepositorio {
@@ -52,6 +56,17 @@ public class AvaliacaoAmbientalRepositorio {
     public Maybe<RelatorioAmbientalResultado> obterGeral(int idAtividade, int tipo) {
         return avaliacaoAmbientalDao.obterGeral(idAtividade, tipo);
     }
+
+
+    /**
+     * Metodo que permite obter as avaliacoes
+     * @param idRelatorio o identificador do relatorio
+     * @return uma lista de registos
+     */
+    public Observable<List<AvaliacaoAmbientalResultado>> obterAvaliacoes(int idRelatorio) {
+        return avaliacaoAmbientalDao.obterAvaliacoes(idRelatorio);
+    }
+
 
 
     /**

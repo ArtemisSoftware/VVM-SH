@@ -2,10 +2,12 @@ package com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental;
 
 import androidx.lifecycle.MutableLiveData;
 
+import com.vvm.sh.baseDados.entidades.AvaliacaoAmbientalResultado;
 import com.vvm.sh.baseDados.entidades.RelatorioAmbientalResultado;
 import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.repositorios.AvaliacaoAmbientalRepositorio;
 import com.vvm.sh.util.Recurso;
+import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
@@ -28,15 +30,20 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
 
 
     public MutableLiveData<RelatorioAmbientalResultado> geral;
+    public MutableLiveData<List<AvaliacaoAmbientalResultado>> avaliacoes;
 
     public MutableLiveData<List<Tipo>> generos;
+    public MutableLiveData<List<Tipo>> nebulosidades;
 
     @Inject
     public AvaliacaoAmbientalViewModel(AvaliacaoAmbientalRepositorio avaliacaoAmbientalRepositorio){
 
         this.avaliacaoAmbientalRepositorio = avaliacaoAmbientalRepositorio;
         geral = new MutableLiveData<>();
+        avaliacoes = new MutableLiveData<>();
+
         generos = new MutableLiveData<>();
+        nebulosidades = new MutableLiveData<>();
 
     }
 
@@ -188,7 +195,6 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
 
                             @Override
                             public void onComplete() {
-
                                 showProgressBar(false);
                             }
                         }
@@ -196,5 +202,45 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
     }
 
 
+    /**
+     * Metodo que permite obter as avaliacoes
+     * @param id o identificador do relatorio
+     */
+    public void obterAvalicoes(int id) {
 
+        showProgressBar(true);
+
+        avaliacaoAmbientalRepositorio.obterAvaliacoes(id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new Observer<List<AvaliacaoAmbientalResultado>>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+
+                            }
+
+                            @Override
+                            public void onNext(List<AvaliacaoAmbientalResultado> resultado) {
+
+                                avaliacoes.setValue(resultado);
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onComplete() {
+
+                                showProgressBar(false);
+                            }
+                        }
+
+                );
+    }
 }

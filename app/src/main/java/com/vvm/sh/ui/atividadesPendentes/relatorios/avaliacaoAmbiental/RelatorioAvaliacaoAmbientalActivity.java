@@ -112,7 +112,6 @@ public class RelatorioAvaliacaoAmbientalActivity extends BaseDaggerActivity {
     //--------------------
 
 
-
     @OnClick({R.id.card_geral})
     public void card_geral_OnClickListener(View view) {
 
@@ -129,6 +128,20 @@ public class RelatorioAvaliacaoAmbientalActivity extends BaseDaggerActivity {
         }
     }
 
+    @OnClick({R.id.card_avaliacoes})
+    public void card_avaliacoes_OnClickListener(View view) {
 
+        Intent intent = new Intent(this, AvaliacoesAmbientaisActivity.class);
+        Bundle bundle = getIntent().getExtras();
 
+        if(bundle != null) {
+
+            bundle.putInt(getString(R.string.argumento_id_relatorio), 11); //TODO: meter o id do relatorio
+            intent.putExtras(bundle);
+            startActivity(intent);
+        }
+        else{
+            finish();
+        }
+    }
 }

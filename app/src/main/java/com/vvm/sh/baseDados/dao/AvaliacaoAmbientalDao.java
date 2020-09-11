@@ -13,6 +13,7 @@ import java.util.List;
 
 import io.reactivex.Flowable;
 import io.reactivex.Maybe;
+import io.reactivex.Observable;
 import io.reactivex.Single;
 
 @Dao
@@ -33,7 +34,7 @@ abstract public class AvaliacaoAmbientalDao {
 
 
     @Query("SELECT * FROM avaliacoesAmbientaisResultado WHERE idRelatorio = :idRelatorio")
-    abstract public Flowable<List<AvaliacaoAmbientalResultado>> obterAvaliacoes(int idRelatorio);
+    abstract public Observable<List<AvaliacaoAmbientalResultado>> obterAvaliacoes(int idRelatorio);
 
 
     @Query("SELECT * FROM avaliacoesAmbientaisResultado WHERE id = :id")

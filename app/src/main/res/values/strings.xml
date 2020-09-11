@@ -206,6 +206,7 @@
     <string name="atualizar_app">Atualizar App</string>
     <string name="opcoes_trabalho">Opções de trabalho</string>
     <string name="registos">registos</string>
+    <string name="_registos">Registos</string>
     <string name="ordem_">Ordem:</string>
     <string name="marca_ordem">Marca / Ordem</string>
     <string name="saldo_cartao_vivamais">Saldo no cartão vivamais</string>
@@ -318,5 +319,8 @@
     <string name="termohigrometro">Termohigrómetro</string>
     <string name="luxometro">Luxómetro</string>
     <string name="nivelDeficiente">Nível deficiente</string>
+    <string name="pesquisa">Pesquisa</string>
+    <string name="descricao">Descrição</string>
+    <string name="registos_selecionados">Registos selecionados</string>
 
 </resources>

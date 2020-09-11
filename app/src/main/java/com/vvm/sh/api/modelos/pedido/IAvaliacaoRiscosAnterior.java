@@ -20,9 +20,9 @@ public class IAvaliacaoRiscosAnterior {
 
 //    @SerializedName("Vulnerabilidades")
 //    public List<IVulnerabilidade> vulnerabilidades;
-//
-//    @SerializedName("Checklist")
-//    public List<IChecklist> checklist;
+
+    @SerializedName("Checklist")
+    public List<IChecklist> checklist;
 //
 //    @SerializedName("RelatorioPlanoAcao")
 //    public List<ILevantamentoRisco> relatorioPlanoAcao;
@@ -87,5 +87,135 @@ public class IAvaliacaoRiscosAnterior {
 
         @SerializedName("idsMedidasPlanoAcao")
         public List<String> idsMedidasPlanoAcao;
+    }
+
+
+    public class IChecklist{
+
+        @SerializedName("idChecklist")
+        public String idChecklist;
+
+        @SerializedName("versaoChecklist")
+        public String versaoChecklist;
+
+        @SerializedName("dadosChecklist")
+        public List<IArea> areas;
+
+    }
+
+    public class IArea{
+
+        @SerializedName("area")
+        public String area;
+
+        @SerializedName("descricaoArea")
+        public String descricao;
+
+        @SerializedName("idArea")
+        public String id;
+
+        @SerializedName("dadosArea")
+        public List<ISeccao> seccoes;
+
+    }
+
+
+    public class ISeccao{
+
+        @SerializedName("idSeccao")
+        public String id;
+
+        @SerializedName("dados")
+        public List<IItem> itens;
+
+    }
+
+
+    public class IItem{
+
+        @SerializedName("idItem")
+        public String id;
+
+        @SerializedName("resposta")
+        public String resposta;
+
+        @SerializedName("nr")
+        public String nr;
+
+        @SerializedName("idUT1")
+        public String idUT1;
+
+        @SerializedName("idCategoriasRiscoUT_1")
+        public String idCategoriasRiscoUT_1;
+
+        @SerializedName("localRiscoA_ut_1")
+        public boolean localRiscoA_ut_1;
+
+        @SerializedName("localRiscoB_ut_1")
+        public boolean localRiscoB_ut_1;
+
+        @SerializedName("localRiscoC_ut_1")
+        public boolean localRiscoC_ut_1;
+
+        @SerializedName("localRiscoD_ut_1")
+        public boolean localRiscoD_ut_1;
+
+        @SerializedName("localRiscoE_ut_1")
+        public boolean localRiscoE_ut_1;
+
+        @SerializedName("localRiscoF_ut_1")
+        public boolean localRiscoF_ut_1;
+
+
+        @SerializedName("idUT2")
+        public String idUT2;
+
+        @SerializedName("idCategoriasRiscoUT_2")
+        public String idCategoriasRiscoUT_2;
+
+        @SerializedName("localRiscoA_ut_2")
+        public boolean localRiscoA_ut_2;
+
+        @SerializedName("localRiscoB_ut_2")
+        public boolean localRiscoB_ut_2;
+
+        @SerializedName("localRiscoC_ut_2")
+        public boolean localRiscoC_ut_2;
+
+        @SerializedName("localRiscoD_ut_2")
+        public boolean localRiscoD_ut_2;
+
+        @SerializedName("localRiscoE_ut_2")
+        public boolean localRiscoE_ut_2;
+
+        @SerializedName("localRiscoF_ut_2")
+        public boolean localRiscoF_ut_2;
+
+
+
+/*
+                "ci": "",
+                "qsi": "",
+                "rai": "",
+                "h": "",
+                "si": "",
+                "dataCarregamento": "",
+                "idTipoExtintor": "",
+                "dataValidade": "",
+                "codigoExtintor": "",
+                "iluminacaoNatural": "",
+                "postoMedicao": "",
+                "normaIluminacao": "",
+                "medidasTermicas": [],
+                "humRel": "",
+                "postoTrabalho": "",
+                "medidasIluminacao": [],
+                "iluminacaoArtificial": "",
+                "iluminacaoMista": "",
+                "tempOper": "",
+                "nomeTrabalhador": "",
+                "fotos": []
+        */
+
     }
 }

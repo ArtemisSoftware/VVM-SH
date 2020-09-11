@@ -33,4 +33,26 @@ public class AvaliacaoAmbientalRepositorio {
     public Maybe<RelatorioAmbientalResultado> obterGeral(int idAtividade, int tipo) {
         return avaliacaoAmbientalDao.obterGeral(idAtividade, tipo);
     }
+
+
+    /**
+     * Metodo que permite obter o identificador do relatorio
+     * @param idAtividade o identificador da atividade
+     * @param tipo o tipo de relatorio
+     * @return o identificador
+     */
+    public Maybe<Integer> obterIdRelatorio(int idAtividade, int tipo) {
+        return avaliacaoAmbientalDao.obterIdRelatorio(idAtividade, tipo);
+    }
+
+
+    /**
+     * Metodo que indica a validade dos dados gerais
+     * @param idAtividade o identificador da atividade
+     * @param tipo o tipo de relatorio
+     * @return true caso seja valido ou false caso contrario
+     */
+    public Maybe<Boolean> obterValidadeGeral(int idAtividade, int tipo) {
+        return avaliacaoAmbientalDao.obterValidadeGeral(idAtividade, tipo);
+    }
 }

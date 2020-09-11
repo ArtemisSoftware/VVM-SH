@@ -28,6 +28,9 @@ abstract public class AvaliacaoAmbientalDao {
 
 
 
+    @Query("SELECT id FROM relatorioAmbientalResultado WHERE idAtividade = :idAtividade AND tipo = :tipo")
+    abstract public Maybe<Integer> obterIdRelatorio(int idAtividade, int tipo);
+
     @Query("SELECT " +
             "CASE WHEN marca IS NULL OR numeroSerie IS NULL OR data IS NULL THEN 0 ELSE 1 " +
             "END as valido " +

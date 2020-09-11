@@ -313,5 +313,6 @@
     <string name="iluminacao">Iluminação</string>
     <string name="avaliacoes">Avaliações</string>
     <string name="medida_recomendada">Medida recomendada</string>
+    <string name="temperatura_humidade">Temperatura e humidade</string>
 
 </resources>

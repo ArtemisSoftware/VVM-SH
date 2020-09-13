@@ -78,9 +78,29 @@ public class TiposRepositorio {
     }
 
 
-    public Flowable<List<Tipo>> obterTipos(String metodo, List<Integer> registos, int api) {
-        return tipoDao.obterTipos(metodo, registos, api);
+    /**
+     * Metodo que permite obter uma lista de tipo excluido determinados registos
+     * @param metodo o nome do metodo associado ao tipo
+     * @param registos os registos a excluir
+     * @param api o identificador da api
+     * @return uma lista de registos
+     */
+    public Flowable<List<Tipo>> obterTipos_Excluir(String metodo, List<Integer> registos, int api) {
+        return tipoDao.obterTipos_Excluir(metodo, registos, api);
     }
+
+
+    /**
+     * Metodo que permite obter uma lista de tipos apenas com base em registos especificos
+     * @param metodo o nome do metodo associado ao tipo
+     * @param registos os registos a incluir
+     * @param api o identificador da api
+     * @return uma lista de registos
+     */
+    public Flowable<List<Tipo>> obterTipos_Incluir(String metodo, List<Integer> registos, int api) {
+        return tipoDao.obterTipos_Incluir(metodo, registos, api);
+    }
+
 
 
     /**

@@ -19,6 +19,9 @@ import com.vvm.sh.di.atividadesPendentes.formacao.FormacaoViewModelsModule;
 import com.vvm.sh.di.ocorrencias.OcorrenciasModule;
 import com.vvm.sh.di.ocorrencias.OcorrenciasScope;
 import com.vvm.sh.di.ocorrencias.OcorrenciasViewModelsModule;
+import com.vvm.sh.di.pesquisa.PesquisaModule;
+import com.vvm.sh.di.pesquisa.PesquisaScope;
+import com.vvm.sh.di.pesquisa.PesquisaViewModelsModule;
 import com.vvm.sh.di.quadroPessoal.QuadroPessoalModule;
 import com.vvm.sh.di.quadroPessoal.QuadroPessoalScope;
 import com.vvm.sh.di.quadroPessoal.QuadroPessoalViewModelsModule;
@@ -44,6 +47,7 @@ import com.vvm.sh.ui.cliente.extintores.ExtintoresActivity;
 import com.vvm.sh.ui.ocorrencias.OcorrenciasHistoricoActivity;
 import com.vvm.sh.ui.ocorrencias.OcorrenciasRegistoActivity;
 import com.vvm.sh.ui.ocorrencias.RegistarOcorrenciaActivity;
+import com.vvm.sh.ui.pesquisa.PesquisaActivity;
 import com.vvm.sh.ui.quadroPessoal.ColaboradorActivity;
 import com.vvm.sh.ui.quadroPessoal.DialogoColaborador;
 import com.vvm.sh.ui.quadroPessoal.QuadroPessoalActivity;
@@ -305,6 +309,20 @@ public abstract class ActivityBuildersModule {
             modules = { AvaliacaoAmbientalViewModelsModule.class, AvaliacaoAmbientalModule.class }
     )
     abstract AvaliacaoIluminacaoRegistoActivity contributeAvaliacaoIluminacaoRegistoActivity();
+
+
+
+
+
+
+    @PesquisaScope
+    @ContributesAndroidInjector(
+            modules = { PesquisaViewModelsModule.class, PesquisaModule.class }
+    )
+    abstract PesquisaActivity contributePesquisaActivity();
+
+
+
 
 
 

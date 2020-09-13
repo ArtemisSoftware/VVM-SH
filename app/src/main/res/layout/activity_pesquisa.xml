@@ -9,11 +9,11 @@
         <import type="com.vvm.sh.R"/>
         <import type="android.view.View"/>
         <import type="com.vvm.sh.util.metodos.DatasUtil"/>
-<!--
+
         <variable
             name="viewmodel"
-            type=""/>
--->
+            type="com.vvm.sh.ui.pesquisa.PesquisaViewModel"/>
+
 
         <variable
             name="bloquear"

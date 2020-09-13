@@ -38,20 +38,8 @@ public class AssinaturaActivity extends BaseActivity implements SignaturePad.OnS
         //--verifyStoragePermissions(this);
         sgn_pad_assinatura.setOnSignedListener(this);
 
-        subscreverObservadores();
     }
 
-
-
-    /**
-     * Metodo que permite subscrever observadores
-     */
-    private void subscreverObservadores(){
-
-
-        //TODO: subscrever observadores do viewmodel
-
-    }
 
 
     @Override

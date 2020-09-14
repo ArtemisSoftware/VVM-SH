@@ -7,6 +7,7 @@ import com.vvm.sh.baseDados.dao.ResultadoDao;
 import com.vvm.sh.baseDados.dao.TipoDao;
 import com.vvm.sh.baseDados.entidades.AvaliacaoAmbientalResultado;
 import com.vvm.sh.baseDados.entidades.RelatorioAmbientalResultado;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.AvaliacaoAmbiental;
 import com.vvm.sh.util.constantes.Identificadores;
 
 import java.util.List;
@@ -71,18 +72,31 @@ public class AvaliacaoAmbientalRepositorio {
             return avaliacaoAmbientalDao.obterMedidaRecomendadaIluminacao(idAtividade, tipo);
         }
         else{
-            //TODO: mudar isto
-            return avaliacaoAmbientalDao.obterMedidaRecomendadaIluminacao(idAtividade, tipo);
+            return avaliacaoAmbientalDao.obterMedidaRecomendadaTermico(idAtividade, tipo);
         }
     }
 
 
+
     /**
-     * Metodo que permite obter a validade das avaliacoes
-     * @param idAtividade o identificador da atividade
+     * Metodo que permite obter as avaliacoes
+     * @param idRelatorio o identificador do relatorio
      * @param tipo o tipo de relatorio
-     * @return true caso seja valido ou false caso contrario
+     * @return os registos
      */
+    public Observable<List<AvaliacaoAmbiental>> obterAvaliacoes(int idRelatorio, int tipo) {
+
+        if(tipo == Identificadores.Relatorios.ID_RELATORIO_ILUMINACAO) {
+
+            return avaliacaoAmbientalDao.obterAvaliacoesIluminacao(idRelatorio);
+        }
+        else{
+            return avaliacaoAmbientalDao.obterAvaliacoesTemperaturaHumidade(idRelatorio);
+        }
+    }
+
+
+
     public Maybe<Boolean> obterValidadeAvaliacoes(int idAtividade, int tipo) {
 
         if(tipo == Identificadores.Relatorios.ID_RELATORIO_ILUMINACAO) {
@@ -90,12 +104,9 @@ public class AvaliacaoAmbientalRepositorio {
             return avaliacaoAmbientalDao.obterValidadeAvaliacoesIluminacao(idAtividade, tipo);
         }
         else{
-            //TODO: mudar isto
-            return avaliacaoAmbientalDao.obterValidadeAvaliacoesIluminacao(idAtividade, tipo);
+            return avaliacaoAmbientalDao.obterValidadeAvaliacoesTemperaturaHumidade(idAtividade, tipo);
         }
     }
-
-
 
 
     /**

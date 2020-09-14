@@ -80,12 +80,14 @@ public class AvaliacoesAmbientaisActivity extends BaseDaggerActivity
 
 
     //--------------------
-    //EVENTOS
+    //Metodos locais
     //--------------------
 
-    @Override
-    public void OnAvaliacaoClick(AvaliacaoAmbientalResultado registo) {
 
+    /**
+     * Metodo que permite iniciar a avaliação
+     */
+    private void iniciarAvaliacao() {
         Intent intent = null;
 
         Bundle bundle = getIntent().getExtras();
@@ -103,6 +105,7 @@ public class AvaliacoesAmbientaisActivity extends BaseDaggerActivity
 
                 case Identificadores.Relatorios.ID_RELATORIO_TERMICO:
 
+                    intent = new Intent(this, AvaliacaoTemperaturaHumidadeRegistoActivity.class);
                     break;
 
                 default:
@@ -111,10 +114,8 @@ public class AvaliacoesAmbientaisActivity extends BaseDaggerActivity
 
             }
 
-
             if(intent != null) {
 
-                bundle.putInt(getString(R.string.argumento_id), registo.id);
                 intent.putExtras(bundle);
                 startActivity(intent);
             }
@@ -122,6 +123,22 @@ public class AvaliacoesAmbientaisActivity extends BaseDaggerActivity
         else{
             finish();
         }
+    }
+
+
+
+
+
+    //--------------------
+    //EVENTOS
+    //--------------------
+
+    @Override
+    public void OnAvaliacaoClick(AvaliacaoAmbientalResultado registo) {
+
+
+        Bundle bundle = getIntent().getExtras();
+        bundle.putInt(getString(R.string.argumento_id), registo.id);
 
     }
 
@@ -129,41 +146,7 @@ public class AvaliacoesAmbientaisActivity extends BaseDaggerActivity
     @OnClick({R.id.fab_adicionar})
     public void fab_adicionar_OnClickListener(View view) {
 
-        Intent intent = null;
-
-        Bundle bundle = getIntent().getExtras();
-
-        if(bundle != null) {
-
-            int tipo = bundle.getInt(getString(R.string.argumento_tipo_relatorio));
-
-            switch (tipo){
-
-                case Identificadores.Relatorios.ID_RELATORIO_ILUMINACAO:
-
-                    intent = new Intent(this, AvaliacaoIluminacaoRegistoActivity.class);
-                    break;
-
-                case Identificadores.Relatorios.ID_RELATORIO_TERMICO:
-
-                    break;
-
-                default:
-                    finish();
-                    break;
-
-            }
-
-
-            if(intent != null) {
-
-                intent.putExtras(bundle);
-                startActivity(intent);
-            }
-        }
-        else{
-            finish();
-        }
+        iniciarAvaliacao();
     }
 
 

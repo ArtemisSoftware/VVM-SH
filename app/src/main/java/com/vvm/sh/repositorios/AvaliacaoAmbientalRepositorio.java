@@ -3,9 +3,11 @@ package com.vvm.sh.repositorios;
 import androidx.annotation.NonNull;
 
 import com.vvm.sh.baseDados.dao.AvaliacaoAmbientalDao;
+import com.vvm.sh.baseDados.dao.CategoriaProfissionalDao;
 import com.vvm.sh.baseDados.dao.ResultadoDao;
 import com.vvm.sh.baseDados.dao.TipoDao;
 import com.vvm.sh.baseDados.entidades.AvaliacaoAmbientalResultado;
+import com.vvm.sh.baseDados.entidades.CategoriaProfissionalResultado;
 import com.vvm.sh.baseDados.entidades.RelatorioAmbientalResultado;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.AvaliacaoAmbiental;
 import com.vvm.sh.util.constantes.Identificadores;
@@ -19,13 +21,15 @@ import io.reactivex.Single;
 public class AvaliacaoAmbientalRepositorio {
 
     private final AvaliacaoAmbientalDao avaliacaoAmbientalDao;
+    private final CategoriaProfissionalDao categoriaProfissionalDao;
     private final TipoDao tipoDao;
     public final ResultadoDao resultadoDao;
 
-    public AvaliacaoAmbientalRepositorio(@NonNull AvaliacaoAmbientalDao avaliacaoAmbientalDao,
+    public AvaliacaoAmbientalRepositorio(@NonNull AvaliacaoAmbientalDao avaliacaoAmbientalDao, @NonNull CategoriaProfissionalDao categoriaProfissionalDao,
                                          @NonNull TipoDao tipoDao, @NonNull ResultadoDao resultadoDao) {
 
         this.avaliacaoAmbientalDao = avaliacaoAmbientalDao;
+        this.categoriaProfissionalDao = categoriaProfissionalDao;
         this.tipoDao = tipoDao;
         this.resultadoDao = resultadoDao;
     }
@@ -108,6 +112,16 @@ public class AvaliacaoAmbientalRepositorio {
         }
     }
 
+
+    public Observable<List<CategoriaProfissionalResultado>> obterCategoriasProfissionais(int id, int tipo){
+        if(tipo == Identificadores.Relatorios.ID_RELATORIO_ILUMINACAO) {
+
+            return categoriaProfissionalDao.obterCategoriasProfissionais(id, Identificadores.Origens.ORIGEM_RELATORIO_ILUMINACAO);
+        }
+        else{
+            return categoriaProfissionalDao.obterCategoriasProfissionais(id, Identificadores.Origens.ORIGEM_RELATORIO_TEMPERATURA_HUMIDADE);
+        }
+    }
 
     /**
      * Metodo que permite obter as avaliacoes

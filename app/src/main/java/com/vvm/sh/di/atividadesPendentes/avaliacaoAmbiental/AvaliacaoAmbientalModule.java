@@ -2,6 +2,7 @@ package com.vvm.sh.di.atividadesPendentes.avaliacaoAmbiental;
 
 import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.baseDados.dao.AvaliacaoAmbientalDao;
+import com.vvm.sh.baseDados.dao.CategoriaProfissionalDao;
 import com.vvm.sh.baseDados.dao.ResultadoDao;
 import com.vvm.sh.baseDados.dao.TipoDao;
 import com.vvm.sh.repositorios.AvaliacaoAmbientalRepositorio;
@@ -25,12 +26,24 @@ public class AvaliacaoAmbientalModule {
     }
 
 
+
     @AvaliacaoAmbientalScope
     @Provides
-    AvaliacaoAmbientalRepositorio provideAtividadePendenteRepositorio(AvaliacaoAmbientalDao avaliacaoAmbientalDao,
+    static CategoriaProfissionalDao provideCategoriaProfissionalDao(VvmshBaseDados vvmshBaseDados){
+
+        CategoriaProfissionalDao dao = vvmshBaseDados.obterCategoriaProfissionalDao();
+
+        //Timber.d("Providing NoteDao: " + dao);
+        return dao;
+    }
+
+
+    @AvaliacaoAmbientalScope
+    @Provides
+    AvaliacaoAmbientalRepositorio provideAtividadePendenteRepositorio(AvaliacaoAmbientalDao avaliacaoAmbientalDao, CategoriaProfissionalDao categoriaProfissionalDao,
                                                                       TipoDao tipoDao, ResultadoDao resultadoDao) {
 
-        AvaliacaoAmbientalRepositorio repositorio = new AvaliacaoAmbientalRepositorio(avaliacaoAmbientalDao, tipoDao, resultadoDao);
+        AvaliacaoAmbientalRepositorio repositorio = new AvaliacaoAmbientalRepositorio(avaliacaoAmbientalDao, categoriaProfissionalDao, tipoDao, resultadoDao);
 
         //Timber.d("Providing PokemonRepository: " + repository);
         return repositorio;

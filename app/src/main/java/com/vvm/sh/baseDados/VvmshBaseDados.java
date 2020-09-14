@@ -10,6 +10,7 @@ import com.vvm.sh.baseDados.dao.AnomaliaDao;
 import com.vvm.sh.baseDados.dao.AtividadePendenteDao;
 import com.vvm.sh.baseDados.dao.AtualizacaoDao;
 import com.vvm.sh.baseDados.dao.AvaliacaoAmbientalDao;
+import com.vvm.sh.baseDados.dao.CategoriaProfissionalDao;
 import com.vvm.sh.baseDados.dao.CrossSellingDao;
 import com.vvm.sh.baseDados.dao.EmailDao;
 import com.vvm.sh.baseDados.dao.FormandoDao;
@@ -66,7 +67,7 @@ import com.vvm.sh.baseDados.entidades.EmailResultado;
                     EmailResultado.class, AnomaliaResultado.class, FormandoResultado.class, AcaoFormacaoResultado.class,
                     AtividadePendenteResultado.class, CrossSellingResultado.class, OcorrenciaResultado.class,
                     ImagemResultado.class, SinistralidadeResultado.class,
-                    ParqueExtintorResultado.class, ColaboradorResultado.class,
+                    ParqueExtintorResultado.class, ColaboradorResultado.class, AvaliacaoAmbientalDao.class, CategoriaProfissionalDao.class,
                     Resultado.class
             },
             version = BaseDadosContantes.VERSAO
@@ -125,7 +126,7 @@ public abstract class VvmshBaseDados extends RoomDatabase {
 
     public abstract AvaliacaoAmbientalDao obterAvaliacaoAmbientalDao();
 
-
+    public abstract CategoriaProfissionalDao obterCategoriaProfissionalDao();
 
 
     public abstract TransferenciasDao obterTransferenciasDao();

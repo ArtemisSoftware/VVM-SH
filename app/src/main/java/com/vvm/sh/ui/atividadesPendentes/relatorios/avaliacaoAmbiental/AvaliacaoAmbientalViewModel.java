@@ -18,11 +18,13 @@ import javax.inject.Inject;
 
 import io.reactivex.MaybeObserver;
 import io.reactivex.Observable;
+import io.reactivex.ObservableSource;
 import io.reactivex.Observer;
 import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.BiFunction;
+import io.reactivex.functions.Function;
 import io.reactivex.functions.Function3;
 import io.reactivex.functions.Function4;
 import io.reactivex.schedulers.Schedulers;
@@ -252,10 +254,37 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
         showProgressBar(true);
 
         avaliacaoAmbientalRepositorio.obterAvaliacoes(id)
+                .map(new Function<List<AvaliacaoAmbientalResultado>, Object>() {
+                    @Override
+                    public  Observable<AvaliacaoAmbientalResultado> apply(List<AvaliacaoAmbientalResultado> avaliacaoAmbientalResultados) throws Exception {
+                        return Observable.fromIterable(avaliacaoAmbientalResultados);
+                    }
+                })
+                .flatMap(new Function<Object, ObservableSource<?>>() {
+                    @Override
+                    public ObservableSource<?> apply(Object o) throws Exception {
+
+/*
+                        Observable<Object> observables = Observable.zip(
+                                avaliacaoAmbientalRepositorio.obterIdRelatorio(idAtividade, tipo).toObservable(),
+                                avaliacaoAmbientalRepositorio.obterValidadeGeral(idAtividade, tipo).toObservable(),
+                                new Function4<Integer, Boolean, Boolean, String, Object>() {
+                                    @Override
+                                    public Object apply(Integer integer, Boolean validadeGeral, Boolean validadeAvalicoes, String medida) throws Exception {
+                                        return null;
+                                    }
+                                }
+                        );
+                        */
+
+
+                        return null;
+                    }
+                })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-
+/*
                         new Observer<List<AvaliacaoAmbientalResultado>>() {
                             @Override
                             public void onSubscribe(Disposable d) {
@@ -281,7 +310,7 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
                                 showProgressBar(false);
                             }
                         }
-
+*/
                 );
     }
 

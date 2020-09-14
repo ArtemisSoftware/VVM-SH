@@ -55,7 +55,7 @@ public class AvaliacoesAmbientaisActivity extends BaseDaggerActivity
             int tipo = bundle.getInt(getString(R.string.argumento_tipo_relatorio));
 
             activityAvaliacoesAmbientaisBinding.setTipo(tipo);
-            viewModel.obterAvalicoes(id);
+            viewModel.obterAvalicoes(id, tipo);
         }
         else{
             finish();

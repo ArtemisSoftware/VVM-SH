@@ -58,4 +58,8 @@ public class ITarefa {
 
     @SerializedName("Plano_Accao")
     public IPlanoAcao planoAcao;
+
+    @SerializedName("RelatorioAvaliacaoRiscos")
+    public IRelatorioAvaliacaoRiscos relatorioAvaliacaoRiscos;
+
 }

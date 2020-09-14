@@ -140,17 +140,6 @@ public class AvaliacaoAmbientalRepositorio {
     }
 
 
-    /**
-     * Metodo que permite obter as avaliacoes
-     * @param idRelatorio o identificador do relatorio
-     * @return uma lista de registos
-     */
-    public Observable<List<AvaliacaoAmbientalResultado>> obterAvaliacoes(int idRelatorio) {
-        return avaliacaoAmbientalDao.obterAvaliacoes(idRelatorio);
-    }
-
-
-
 
 
 

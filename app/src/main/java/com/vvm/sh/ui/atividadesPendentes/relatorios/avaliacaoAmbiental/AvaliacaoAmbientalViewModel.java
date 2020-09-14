@@ -255,11 +255,12 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
 
         showProgressBar(true);
 
-        avaliacaoAmbientalRepositorio.obterAvaliacoes(id)
-                .map(new Function<List<AvaliacaoAmbientalResultado>, Object>() {
+
+        avaliacaoAmbientalRepositorio.obterAvaliacoes(id, tipo)
+                .map(new Function<List<AvaliacaoAmbiental>, Object>() {
                     @Override
-                    public  Observable<AvaliacaoAmbientalResultado> apply(List<AvaliacaoAmbientalResultado> avaliacaoAmbientalResultados) throws Exception {
-                        return Observable.fromIterable(avaliacaoAmbientalResultados);
+                    public Object apply(List<AvaliacaoAmbiental> resultados) throws Exception {
+                        return Observable.fromIterable(resultados);
                     }
                 })
                 .flatMap(new Function<Object, ObservableSource<?>>() {

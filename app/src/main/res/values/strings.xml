@@ -334,5 +334,9 @@
     <string name="numeroMulheres_">Número de mulheres</string>
     <string name="temperatura_c">Temperatura (º C)</string>
     <string name="humidadeRelativa_percentagem">Humidade Relativa (%)</string>
+    <string name="tipoIluminacao_">Tipo de Iluminação:</string>
+    <string name="emedioLx_">Emédio(Lx):</string>
+    <string name="eLx_">E(Lx):</string>
+    <string name="nomeTrabalhador_">Nome do trabalhador:</string>
 
 </resources>

@@ -54,7 +54,7 @@ abstract public class AvaliacaoAmbientalDao {
 
 
 /*
-    String query = "SELECT idAvaliacao, area , anexoArea, IFNULL(numeroCategoriasProfissionais, 0) as numeroCategoriasProfissionais, IFNULL(numeroMedidas, 0) as numeroMedidas, ";
+    String query = "SELECT idAvaliacao,  anexoArea, IFNULL(numeroCategoriasProfissionais, 0) as numeroCategoriasProfissionais, IFNULL(numeroMedidas, 0) as numeroMedidas, ";
     query += "nome, sexo, tp_iluminacao.tipoIluminacao as tipoIluminacao, emedioLx, idElx, eLxArea, eLx, local_geral || ' -> ' || local_especifico as local, ";
     query += "idArea, av_am_res.tipoIluminacao as idTipoIluminacao,   ";
 
@@ -90,7 +90,9 @@ abstract public class AvaliacaoAmbientalDao {
 
             "CASE WHEN  CAST(emedioLx AS INTEGER) <  (CAST(eLx AS INTEGER) - ((10 * CAST(eLx AS INTEGER)) / 100)) THEN 1  " +
             "ELSE 0 END as necessitaMedidas " +
-            "" +
+
+            //--"area, local_geral || ' -> ' || local_especifico as local" +
+
             "FROM avaliacoesAmbientaisResultado " +
             "WHERE idRelatorio = :idRelatorio")
     abstract public Observable<List<AvaliacaoAmbiental>> obterAvaliacoesIluminacao(int idRelatorio);

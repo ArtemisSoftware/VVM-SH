@@ -15,4 +15,11 @@ public class AvaliacaoAmbiental {
 
     @ColumnInfo(name = "valido")
     public boolean valido;
+
+
+    @ColumnInfo(name = "area")
+    public String area;
+
+    @ColumnInfo(name = "local")
+    public String local;
 }

@@ -3,6 +3,8 @@ package com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental;
 import androidx.lifecycle.MutableLiveData;
 
 import com.vvm.sh.baseDados.entidades.AvaliacaoAmbientalResultado;
+import com.vvm.sh.baseDados.entidades.CategoriaProfissionalResultado;
+import com.vvm.sh.baseDados.entidades.MedidaResultado;
 import com.vvm.sh.baseDados.entidades.RelatorioAmbientalResultado;
 import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.repositorios.AvaliacaoAmbientalRepositorio;
@@ -249,7 +251,7 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
      * Metodo que permite obter as avaliacoes
      * @param id o identificador do relatorio
      */
-    public void obterAvalicoes(int id) {
+    public void obterAvalicoes(int id, int tipo) {
 
         showProgressBar(true);
 
@@ -264,53 +266,49 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
                     @Override
                     public ObservableSource<?> apply(Object o) throws Exception {
 
-/*
+
                         Observable<Object> observables = Observable.zip(
-                                avaliacaoAmbientalRepositorio.obterIdRelatorio(idAtividade, tipo).toObservable(),
-                                avaliacaoAmbientalRepositorio.obterValidadeGeral(idAtividade, tipo).toObservable(),
-                                new Function4<Integer, Boolean, Boolean, String, Object>() {
+                                avaliacaoAmbientalRepositorio.obterCategoriasProfissionais(id, tipo),
+                                avaliacaoAmbientalRepositorio.obterMedidas(id, tipo),
+                                new BiFunction<List<CategoriaProfissionalResultado>, List<MedidaResultado>, Object>() {
                                     @Override
-                                    public Object apply(Integer integer, Boolean validadeGeral, Boolean validadeAvalicoes, String medida) throws Exception {
-                                        return null;
+                                    public Object apply(List<CategoriaProfissionalResultado> categoriaProfissionalResultados, List<MedidaResultado> medidaResultados) throws Exception {
+                                        return 1;
                                     }
                                 }
                         );
-                        */
 
 
-                        return null;
+
+                        return observables;
                     }
                 })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-/*
-                        new Observer<List<AvaliacaoAmbientalResultado>>() {
+
+                        new Observer<Object>() {
                             @Override
                             public void onSubscribe(Disposable d) {
 
                             }
 
                             @Override
-                            public void onNext(List<AvaliacaoAmbientalResultado> resultado) {
+                            public void onNext(Object o) {
 
-                                avaliacoes.setValue(resultado);
-                                showProgressBar(false);
                             }
 
                             @Override
                             public void onError(Throwable e) {
 
-                                showProgressBar(false);
                             }
 
                             @Override
                             public void onComplete() {
 
-                                showProgressBar(false);
                             }
                         }
-*/
+
                 );
     }
 

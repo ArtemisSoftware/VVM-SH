@@ -4,10 +4,12 @@ import androidx.annotation.NonNull;
 
 import com.vvm.sh.baseDados.dao.AvaliacaoAmbientalDao;
 import com.vvm.sh.baseDados.dao.CategoriaProfissionalDao;
+import com.vvm.sh.baseDados.dao.MedidaDao;
 import com.vvm.sh.baseDados.dao.ResultadoDao;
 import com.vvm.sh.baseDados.dao.TipoDao;
 import com.vvm.sh.baseDados.entidades.AvaliacaoAmbientalResultado;
 import com.vvm.sh.baseDados.entidades.CategoriaProfissionalResultado;
+import com.vvm.sh.baseDados.entidades.MedidaResultado;
 import com.vvm.sh.baseDados.entidades.RelatorioAmbientalResultado;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.AvaliacaoAmbiental;
 import com.vvm.sh.util.constantes.Identificadores;
@@ -22,14 +24,17 @@ public class AvaliacaoAmbientalRepositorio {
 
     private final AvaliacaoAmbientalDao avaliacaoAmbientalDao;
     private final CategoriaProfissionalDao categoriaProfissionalDao;
+    private final MedidaDao medidaDao;
     private final TipoDao tipoDao;
     public final ResultadoDao resultadoDao;
 
     public AvaliacaoAmbientalRepositorio(@NonNull AvaliacaoAmbientalDao avaliacaoAmbientalDao, @NonNull CategoriaProfissionalDao categoriaProfissionalDao,
+                                         @NonNull MedidaDao medidaDao,
                                          @NonNull TipoDao tipoDao, @NonNull ResultadoDao resultadoDao) {
 
         this.avaliacaoAmbientalDao = avaliacaoAmbientalDao;
         this.categoriaProfissionalDao = categoriaProfissionalDao;
+        this.medidaDao = medidaDao;
         this.tipoDao = tipoDao;
         this.resultadoDao = resultadoDao;
     }
@@ -122,6 +127,18 @@ public class AvaliacaoAmbientalRepositorio {
             return categoriaProfissionalDao.obterCategoriasProfissionais(id, Identificadores.Origens.ORIGEM_RELATORIO_TEMPERATURA_HUMIDADE);
         }
     }
+
+
+    public Observable<List<MedidaResultado>> obterMedidas(int id, int tipo){
+        if(tipo == Identificadores.Relatorios.ID_RELATORIO_ILUMINACAO) {
+
+            return medidaDao.obterMedidas(id, Identificadores.Origens.ORIGEM_RELATORIO_ILUMINACAO);
+        }
+        else{
+            return medidaDao.obterMedidas(id, Identificadores.Origens.ORIGEM_RELATORIO_TEMPERATURA_HUMIDADE);
+        }
+    }
+
 
     /**
      * Metodo que permite obter as avaliacoes

@@ -143,6 +143,15 @@
     </style>
 
 
+    <style name="btnLimpar">
+        <item name="android:layout_width">64dip</item>
+        <item name="android:layout_height">64dip</item>
+        <item name="cb_color">@color/md_purple_100</item>
+        <item name="cb_pressedRingWidth">8dip</item>
+        <item name="android:src">@drawable/ic_lorem_ipsum_24dp</item>
+    </style>
+
+
     <style name="btnCircular" >
         <item name="android:background">@drawable/ic_appintro_ripple</item>
 <!--        <item name="android:layout_height">@dimen/appintro2_fab_size</item>-->

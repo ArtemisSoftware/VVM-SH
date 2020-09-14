@@ -1,9 +1,11 @@
 package com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.TextView;
@@ -19,9 +21,13 @@ import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.databinding.ActivityAvaliacaoIluminacaoRegistoBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
+import com.vvm.sh.ui.pesquisa.Pesquisa;
+import com.vvm.sh.ui.pesquisa.PesquisaActivity;
 import com.vvm.sh.util.Recurso;
+import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
+import com.vvm.sh.util.metodos.TiposUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import java.util.ArrayList;
@@ -293,10 +299,17 @@ public class AvaliacaoIluminacaoRegistoActivity extends BaseDaggerActivity
 
 
 
-    @OnClick(R.id.crl_btn_pesquisar)
-    public void crl_btn_pesquisar_OnClickListener(View view) {
+    @OnClick(R.id.crl_btn_pesquisar_categorias_profissionais)
+    public void crl_btn_pesquisar_categorias_profissionais_OnClickListener(View view) {
 
+        Pesquisa pesquisa = new Pesquisa(true, TiposUtil.MetodosTipos.CATEGORIAS_PROFISSIONAIS, viewModel.obterRegistosSelecionados());
 
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(getString(R.string.argumento_configuracao_pesquisa), pesquisa);
+
+        Intent intent = new Intent(this, PesquisaActivity.class);
+        intent.putExtras(bundle);
+        startActivityForResult(intent, Identificadores.CodigoAtividade.ASSINATURA);
     }
 
     @OnClick(R.id.fab_gravar)
@@ -345,4 +358,22 @@ public class AvaliacaoIluminacaoRegistoActivity extends BaseDaggerActivity
             }
         }
     }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == Identificadores.CodigoAtividade.PESQUISA) {
+
+            if(resultCode == RESULT_OK){
+
+                ArrayList<Integer> resultado = data.getIntegerArrayListExtra(getString(R.string.resultado_pesquisa));
+
+                viewModel.fixarCategoriasProfissionais(resultado);
+            }
+        }
+    }
+
+
 }

@@ -30,9 +30,14 @@ public class Pesquisa implements Parcelable {
         this.registosSelecionados = registosSelecionados;
     }
 
+
+
     protected Pesquisa(Parcel in) {
         escolhaMultipla = in.readByte() != 0;
         metodo = in.readString();
+
+        registosSelecionados = new ArrayList<>();
+        in.readList(registosSelecionados, ArrayList.class.getClassLoader());
     }
 
     @Override

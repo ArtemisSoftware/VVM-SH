@@ -30,6 +30,18 @@ public class TiposUtil {
     }
 
 
+    private static class MetodosTiposSH{
+
+        public static final String CATEGORIAS_PROFISSIONAIS = "";
+
+
+        public static final String TIPOS [] = new String []{
+
+                CATEGORIAS_PROFISSIONAIS
+        };
+    }
+
+
 
     public static class MetodosTipos{
 
@@ -39,6 +51,10 @@ public class TiposUtil {
         public static final String ANOMALIAS = "Anomalias";
         public static final String TIPIFICACAO_OCORRENCIA = "Tipificacoes_Ocorrencia";
         public static final String CURSOS = "Cursos";
+
+        public static final String CATEGORIAS_PROFISSIONAIS = "";
+
+
 
         public static final String TIPOS [] = new String []{
 

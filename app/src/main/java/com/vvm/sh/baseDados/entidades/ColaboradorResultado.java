@@ -22,6 +22,7 @@ public class ColaboradorResultado {
     @NonNull
     public int idTarefa;
 
+    //TODO: isto pode dar problemas
     @NonNull
     public int id;
 

@@ -11,6 +11,7 @@ import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -31,10 +32,14 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
 
     public MutableLiveData<RelatorioAmbientalResultado> geral;
     public MutableLiveData<List<AvaliacaoAmbientalResultado>> avaliacoes;
-    public MutableLiveData<AvaliacaoAmbientalResultado> avaliacao;
+
 
     public MutableLiveData<List<Tipo>> generos;
     public MutableLiveData<List<Tipo>> nebulosidades;
+
+    public MutableLiveData<AvaliacaoAmbientalResultado> avaliacao;
+    //--public MutableLiveData<CategoriaProfissionalResultado> categoriasProfissionais;
+
 
     @Inject
     public AvaliacaoAmbientalViewModel(AvaliacaoAmbientalRepositorio avaliacaoAmbientalRepositorio){
@@ -46,7 +51,7 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
 
         generos = new MutableLiveData<>();
         nebulosidades = new MutableLiveData<>();
-
+        //---categoriasProfissionais = new MutableLiveData<>();
     }
 
 
@@ -308,6 +313,33 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
                             }
                         }
                 );
+    }
+
+
+
+    public void fixarCategoriasProfissionais(ArrayList<Integer> resultado) {
+
+        //--avaliacaoAmbientalRepositorio.obterTipos_Incluir(resultado);
+    }
+
+
+
+
+
+
+    /**
+     * Metodo que permite obter os registos selecionados
+     * @return uma lista de resultados
+     */
+    public ArrayList<Integer> obterRegistosSelecionados(){
+
+        ArrayList<Integer> resultado = new ArrayList<>();
+
+//        for (Tipo item : categoriasProfissionais.getValue()) {
+//            resultado.add(item.id);
+//        }
+
+        return resultado;
     }
 
 

@@ -48,6 +48,7 @@ public class Identificadores {
 
     public class CodigoAtividade {
         public static final int ASSINATURA = 1;
+        public static final int PESQUISA = 2;
     }
 
 

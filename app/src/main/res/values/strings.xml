@@ -312,6 +312,7 @@
     <string name="termino">Término</string>
     <string name="nebulosidade">Nebulosidade</string>
     <string name="registos_inexistentes">Registos inexistentes</string>
+    <string name="registos_nao_selecionados">Não existem registos selecionados</string>
     <string name="avaliacao_iluminacao">Avaliação de Iluminação</string>
     <string name="areaPostoTrabalho">Área / Posto de Trabalho</string>
     <string name="descricaoArea">Descrição da área</string>

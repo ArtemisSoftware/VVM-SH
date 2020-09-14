@@ -33,6 +33,8 @@ public class PesquisaActivity extends BaseDaggerActivity
 
     private PesquisaViewModel viewModel;
 
+    private Pesquisa pesquisa;
+
 
     @Override
     protected void intActivity(Bundle savedInstanceState) {
@@ -42,14 +44,15 @@ public class PesquisaActivity extends BaseDaggerActivity
         activityPesquisaBinding = (ActivityPesquisaBinding) activityBinding;
         activityPesquisaBinding.setLifecycleOwner(this);
         activityPesquisaBinding.setViewmodel(viewModel);
-        //--activityPesquisaBinding.setListener(this);
+        activityPesquisaBinding.setListener(this);
 
 
         Bundle bundle = getIntent().getExtras();
 
         if(bundle != null) {
 
-            Pesquisa pesquisa = bundle.getParcelable(getString(R.string.argumento_configuracao_pesquisa));
+            pesquisa = bundle.getParcelable(getString(R.string.argumento_configuracao_pesquisa));
+            activityPesquisaBinding.setPesquisa(pesquisa);
             viewModel.obterRegistos(pesquisa.metodo, pesquisa.registosSelecionados);
         }
         else{
@@ -73,15 +76,29 @@ public class PesquisaActivity extends BaseDaggerActivity
     }
 
 
+    //--------------------
+    //Metodos locais
+    //--------------------
+
 
     @Override
     public void OnSelecionarClick(Tipo registo) {
 
+        if(pesquisa.escolhaMultipla == true) {
+            pesquisa.registosSelecionados.add(registo.id);
+        }
+        else{
+            pesquisa.registosSelecionados.clear();
+            pesquisa.registosSelecionados.add(registo.id);
+        }
+        viewModel.obterRegistos(pesquisa.metodo, pesquisa.registosSelecionados);
     }
 
     @Override
     public void OnRemoverSelecao(Tipo registo) {
 
+        pesquisa.registosSelecionados.remove(registo.id);
+        viewModel.obterRegistos(pesquisa.metodo, pesquisa.registosSelecionados);
     }
 
 
@@ -89,14 +106,30 @@ public class PesquisaActivity extends BaseDaggerActivity
     //EVENTOS
     //-----------------------
 
+    @OnClick(R.id.crl_btn_limpar)
+    public void crl_btn_limpar_OnClickListener(View view) {
+
+        pesquisa.registosSelecionados.clear();
+        viewModel.obterRegistos(pesquisa.metodo, pesquisa.registosSelecionados);
+    }
+
+
 
     @OnClick(R.id.btn_gravar)
     public void btn_gravar_OnClickListener(View view) {
 
-        Intent returnIntent = new Intent();
-        returnIntent.putIntegerArrayListExtra(getString(R.string.resultado_pesquisa), viewModel.obterRegistosSelecionados());
-        setResult(RESULT_OK, returnIntent);
-        finish();
+        if(pesquisa.registosSelecionados.size() > 0) {
+
+            Intent returnIntent = new Intent();
+            returnIntent.putIntegerArrayListExtra(getString(R.string.resultado_pesquisa), (ArrayList<Integer>) pesquisa.registosSelecionados);
+            setResult(RESULT_OK, returnIntent);
+            finish();
+        }
+        else{
+
+            dialogo.alerta(getString(R.string.pesquisa), getString(R.string.registos_nao_selecionados));
+
+        }
     }
 
 

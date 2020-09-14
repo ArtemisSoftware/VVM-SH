@@ -16,6 +16,14 @@
 
 
         <variable
+            name="listener"
+            type="com.vvm.sh.ui.pesquisa.OnPesquisaListener"/>
+
+        <variable
+            name="pesquisa"
+            type="com.vvm.sh.ui.pesquisa.Pesquisa"/>
+
+        <variable
             name="bloquear"
             type="Boolean"/>
 
@@ -70,6 +78,15 @@
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
+                    <TextView
+                        android:id="@+id/txt_pesquisa"
+                        style="@style/textoDetalhe"
+                        android:layout_marginStart="16dp"
+                        android:text="@{pesquisa.metodo, default=metodo}"
+                        app:layout_constraintBottom_toBottomOf="@+id/textView18"
+                        app:layout_constraintStart_toEndOf="@+id/textView18"
+                        app:layout_constraintTop_toTopOf="@+id/textView18" />
+
                     <View
                         android:id="@+id/textview2"
                         android:layout_width="280dp"
@@ -80,27 +97,34 @@
                         app:layout_constraintTop_toBottomOf="@+id/textView18" />
 
 
-
-
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/textview3"
                         style="@style/parent.TextLayout"
-                        android:hint="@string/descricao"
-                        android:layout_width="450dp"
-                        app:errorEnabled="true"
+                        android:layout_width="350dp"
                         android:layout_marginTop="@dimen/distancia_vertical_formulario"
+                        android:hint="@string/descricao"
+                        app:errorEnabled="true"
                         app:layout_constraintStart_toStartOf="@+id/textView18"
                         app:layout_constraintTop_toBottomOf="@+id/textview2">
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/txt_inp_pesquisa"
                             style="@style/modifiedEditText"
-                            android:maxLength="250"
                             android:inputType="text"
-                            android:maxLines="1"/>
+                            android:maxLength="170"
+                            android:maxLines="1" />
 
                         <!--   -->
                     </com.google.android.material.textfield.TextInputLayout>
+
+
+                    <at.markushi.ui.CircleButton
+                        android:id="@+id/crl_btn_limpar"
+                        style="@style/btnLimpar"
+                        android:layout_marginStart="16dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/textview3"
+                        app:layout_constraintStart_toEndOf="@+id/textview3"
+                        app:layout_constraintTop_toTopOf="@+id/textview3" />
 
 
 

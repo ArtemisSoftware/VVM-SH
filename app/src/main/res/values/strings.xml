@@ -338,5 +338,9 @@
     <string name="emedioLx_">Emédio(Lx):</string>
     <string name="eLx_">E(Lx):</string>
     <string name="nomeTrabalhador_">Nome do trabalhador:</string>
+    <string name="homens_">Homens:</string>
+    <string name="mulheres_">Mulheres:</string>
+    <string name="temperatura_c_">Temperatura (º C):</string>
+    <string name="humidadeRelativa_percentagem_">Humidade Relativa (%):</string>
 
 </resources>

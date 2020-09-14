@@ -16,17 +16,35 @@ public class IAvaliacaoRiscosAnterior {
     public List<ILevantamentoRisco> levantamentosRisco;
 
 
-    //TODO: Completar
-
-//    @SerializedName("Vulnerabilidades")
-//    public List<IVulnerabilidade> vulnerabilidades;
+    @SerializedName("Vulnerabilidades")
+    public List<IVulnerabilidade> vulnerabilidades;
 
     @SerializedName("Checklist")
     public List<IChecklist> checklist;
-//
-//    @SerializedName("RelatorioPlanoAcao")
-//    public List<ILevantamentoRisco> relatorioPlanoAcao;
-//
+
+    @SerializedName("RelatorioPlanoAcao")
+    public List<ILevantamentoRisco> relatorioPlanoAcao;
+
+
+
+    public class IVulnerabilidade{
+
+        @SerializedName("idVulnerabilidade")
+        public int id;
+
+        @SerializedName("quantidadeMulheres")
+        public int mulheres;
+
+        @SerializedName("quantidadeHomens")
+        public int homens;
+
+        @SerializedName("categoriasProfissionaisHomens")
+        public List<String> categoriasProfissionaisHomens;
+
+        @SerializedName("categoriasProfissionaisMulheres")
+        public List<String> categoriasProfissionaisMulheres;
+    }
+
 
 
     public class ILevantamentoRisco{

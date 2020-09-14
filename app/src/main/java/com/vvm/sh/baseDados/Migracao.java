@@ -111,6 +111,63 @@ public class Migracao {
 
 
 
+
+                database.execSQL("CREATE TABLE IF NOT EXISTS 'medidasResultado' ("
+                        + "'id' INTEGER NOT NULL, "
+                        + "'idMedida' INTEGER NOT NULL, "
+                        + "'origem' INTEGER NOT NULL, "
+                        + "PRIMARY KEY (id, idMedida, origem)) ");
+
+                database.execSQL("CREATE TABLE IF NOT EXISTS 'categoriasProfissionaisResultado' ("
+                        + "'id' INTEGER NOT NULL, "
+                        + "'idCategoriaProfissional' INTEGER NOT NULL, "
+                        + "'idRegisto' INTEGER NOT NULL, "
+                        + "'origem' INTEGER NOT NULL, "
+                        + "'homens' REAL , "
+                        + "'mulheres' REAL , "
+                        + "PRIMARY KEY (id)) ");
+
+
+
+
+
+                database.execSQL("CREATE TABLE IF NOT EXISTS 'relatorioAmbientalResultado' ("
+                        + "'idAtividade' INTEGER NOT NULL, "
+                        + "'id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
+                        + "'tipo' INTEGER NOT NULL, "
+
+
+
+                        //falta
+                        + "FOREIGN KEY (idAtividade) REFERENCES atividadesPendentes (id)  ON DELETE CASCADE) ");
+
+                database.execSQL("CREATE INDEX index_atividadesPendentes_idAtividade ON atividadesPendentes (id)");
+
+
+
+                database.execSQL("CREATE TABLE IF NOT EXISTS 'avaliacoesAmbientaisResultado' ("
+                        + "'idRelatorio' INTEGER NOT NULL, "
+                        + "'id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
+                        + "'idArea' INTEGER NOT NULL, "
+                        + "'anexoArea' TEXT, "
+
+                        + "'nome' TEXT, "
+                        + "'sexo' INTEGER , "
+                        + "'tipoIluminacao' INTEGER, "
+                        + "'emedioLx' INTEGER, "
+                        + "'eLxArea' INTEGER , "
+                        + "'idElx' INTEGER, "
+                        + "'eLx' TEXT, "
+
+                        + "'temperatura' REAL , "
+                        + "'humidadeRelativa' REAL , "
+                        + "'homens' INTEGER , "
+                        + "'mulheres' INTEGER  "
+                        + ") ");
+
+
+
+
             }
             catch(SQLException e){
                 Log.e("Migracao", "erro MIGRACAO_14_15: " + e.getMessage());

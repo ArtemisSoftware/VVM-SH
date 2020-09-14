@@ -23,6 +23,8 @@ import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.BiFunction;
+import io.reactivex.functions.Function3;
+import io.reactivex.functions.Function4;
 import io.reactivex.schedulers.Schedulers;
 
 public class AvaliacaoAmbientalViewModel extends BaseViewModel {
@@ -155,12 +157,15 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
         Observable<Object> observables = Observable.zip(
                 avaliacaoAmbientalRepositorio.obterIdRelatorio(idAtividade, tipo).toObservable(),
                 avaliacaoAmbientalRepositorio.obterValidadeGeral(idAtividade, tipo).toObservable(),
-                new BiFunction<Integer, Boolean, Object>() {
+                avaliacaoAmbientalRepositorio.obterValidadeAvaliacoes(idAtividade, tipo).toObservable(),
+                avaliacaoAmbientalRepositorio.obterMedidaRecomendada(idAtividade, tipo),
+                new Function4<Integer, Boolean, Boolean, String, Object>() {
                     @Override
-                    public Object apply(Integer integer, Boolean aBoolean) throws Exception {
+                    public Object apply(Integer integer, Boolean validadeGeral, Boolean validadeAvalicoes, String medida) throws Exception {
                         return null;
                     }
-                });
+                }
+        );
 
 
         observables

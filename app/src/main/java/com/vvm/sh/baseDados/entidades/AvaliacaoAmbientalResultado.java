@@ -28,47 +28,42 @@ public class AvaliacaoAmbientalResultado {
     public int id;
 
 
-    //TODO:Verificar
-
     @NonNull
     public int idArea;
 
-    @NonNull
+
     public String anexoArea;
 
-    @NonNull
+
+
+    //iluminacao
+
     public String nome;
 
-    @NonNull
     public int sexo;
 
-    @NonNull
     public int tipoIluminacao;
 
-    @NonNull
-    public String emedioLx;
+    public int emedioLx;
 
-    @NonNull
     public int eLxArea;
 
-    @NonNull
     public String eLx;
 
-    @NonNull
     public int idElx;
 
-    @NonNull
-    public String temperatura;
 
-    @NonNull
-    public String humidadeRelativa;
+    //temperatura e humidade
 
-    @NonNull
+
+    public double temperatura;
+
+    public double humidadeRelativa;
+
     public int homens;
 
-
-    @NonNull
     public int mulheres;
+
 
 
     public AvaliacaoAmbientalResultado(int idRelatorio,
@@ -81,7 +76,7 @@ public class AvaliacaoAmbientalResultado {
         this.nome = nome;
         this.sexo = sexo;
         this.tipoIluminacao = tipoIluminacao;
-        this.emedioLx = emedioLx;
+        this.emedioLx = Integer.parseInt(emedioLx);
         this.eLxArea = eLxArea;
         this.idElx = idElx;
         this.eLx = eLx;

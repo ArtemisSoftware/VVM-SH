@@ -13,6 +13,10 @@ public class Identificadores {
         public static final int ORIGEM_MORADA = 2;
         public static final int ORIGEM_MORADA_EXTINTOR = 3;
         public static final int ORIGEM_WS = 4;
+
+        public static final int ORIGEM_RELATORIO_ILUMINACAO = 5;
+        public static final int ORIGEM_RELATORIO_TEMPERATURA_HUMIDADE = 6;
+        public static final int ORIGEM_LEVANTAMENTO_RISCO = 7;
     }
 
 

@@ -7,6 +7,7 @@ import com.vvm.sh.baseDados.dao.ResultadoDao;
 import com.vvm.sh.baseDados.dao.TipoDao;
 import com.vvm.sh.baseDados.entidades.AvaliacaoAmbientalResultado;
 import com.vvm.sh.baseDados.entidades.RelatorioAmbientalResultado;
+import com.vvm.sh.util.constantes.Identificadores;
 
 import java.util.List;
 
@@ -57,6 +58,45 @@ public class AvaliacaoAmbientalRepositorio {
         return avaliacaoAmbientalDao.obterGeral(idAtividade, tipo);
     }
 
+    /**
+     * Metodo que permite obter a medida recomendada
+     * @param idAtividade o identificador da atividade
+     * @param tipo o tipo de relatorio
+     * @return a medida
+     */
+    public Observable<String> obterMedidaRecomendada(int idAtividade, int tipo) {
+
+        if(tipo == Identificadores.Relatorios.ID_RELATORIO_ILUMINACAO) {
+
+            return avaliacaoAmbientalDao.obterMedidaRecomendadaIluminacao(idAtividade, tipo);
+        }
+        else{
+            //TODO: mudar isto
+            return avaliacaoAmbientalDao.obterMedidaRecomendadaIluminacao(idAtividade, tipo);
+        }
+    }
+
+
+    /**
+     * Metodo que permite obter a validade das avaliacoes
+     * @param idAtividade o identificador da atividade
+     * @param tipo o tipo de relatorio
+     * @return true caso seja valido ou false caso contrario
+     */
+    public Maybe<Boolean> obterValidadeAvaliacoes(int idAtividade, int tipo) {
+
+        if(tipo == Identificadores.Relatorios.ID_RELATORIO_ILUMINACAO) {
+
+            return avaliacaoAmbientalDao.obterValidadeAvaliacoesIluminacao(idAtividade, tipo);
+        }
+        else{
+            //TODO: mudar isto
+            return avaliacaoAmbientalDao.obterValidadeAvaliacoesIluminacao(idAtividade, tipo);
+        }
+    }
+
+
+
 
     /**
      * Metodo que permite obter as avaliacoes
@@ -66,6 +106,10 @@ public class AvaliacaoAmbientalRepositorio {
     public Observable<List<AvaliacaoAmbientalResultado>> obterAvaliacoes(int idRelatorio) {
         return avaliacaoAmbientalDao.obterAvaliacoes(idRelatorio);
     }
+
+
+
+
 
 
     /**

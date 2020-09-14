@@ -137,11 +137,8 @@
     <string name="argumento_configuracao_pesquisa">configuracaoPesquisa</string>
 
 
-
     <string name="resultado_imagem">imagem</string>
     <string name="resultado_pesquisa">pesquisa</string>
-
-
 
 
     <!--onboarding designs-->
@@ -332,5 +329,10 @@
     <string name="descricao">Descrição</string>
     <string name="registos_selecionados">Registos selecionados</string>
     <string name="medidas_recomendadas">Medidas recomendadas</string>
+    <string name="avaliacao_temperatura_humidade">Avaliação de temperatura e humidade</string>
+    <string name="numeroHomens_">Número de homens</string>
+    <string name="numeroMulheres_">Número de mulheres</string>
+    <string name="temperatura_c">Temperatura (º C)</string>
+    <string name="humidadeRelativa_percentagem">Humidade Relativa (%)</string>
 
 </resources>

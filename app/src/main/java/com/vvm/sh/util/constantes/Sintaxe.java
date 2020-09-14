@@ -82,6 +82,7 @@ public class Sintaxe {
         public static final String SUCESSO_EXPORTAR_BD = "BaseListagem de dados exportada com sucesso: ";
         public static final String SESSAO_EXPIRADA = "A sua sessão expirou";
         public static final String TIPO_NAO_REGISTADO = "O tipo não se encontra registado: ";
+        public static final String VALOR_INVALIDO = "Valor inválido";
     }
 
     public class Frases{

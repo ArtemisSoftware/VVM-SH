@@ -244,9 +244,9 @@
                         app:layout_constraintTop_toBottomOf="@+id/textview36">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/txt_inp_emedio_lx"
+                            android:id="@+id/txt_inp_temperatura"
                             style="@style/modifiedEditText"
-                            android:text="@{viewmodel.avaliacao.temperatura}"
+                            android:text="@{StringUtil.converterString(viewmodel.avaliacao.temperatura)}"
                             android:maxLength="15"
                             android:inputType="numberDecimal"
                             android:maxLines="1"/>
@@ -285,7 +285,7 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/txt_inp_humidade_relativa"
                             style="@style/modifiedEditText"
-                            android:text="@{viewmodel.avaliacao.humidadeRelativa}"
+                            android:text="@{StringUtil.converterString(viewmodel.avaliacao.humidadeRelativa)}"
                             android:maxLength="15"
                             android:inputType="numberDecimal"
                             android:maxLines="1"/>

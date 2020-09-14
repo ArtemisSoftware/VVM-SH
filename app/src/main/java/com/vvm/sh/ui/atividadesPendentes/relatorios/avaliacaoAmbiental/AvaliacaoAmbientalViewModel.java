@@ -142,6 +142,10 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
 */
     }
 
+    public void gravar(AvaliacaoAmbientalResultado registo, List<Integer> categoriasProfissionais, boolean nivelHumidade, boolean nivelTemperatura) {
+    }
+
+
     //--------------------
     //OBTER
     //--------------------
@@ -346,6 +350,7 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
 
         return resultado;
     }
+
 
 
 }

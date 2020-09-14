@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
@@ -66,6 +67,7 @@ public class AvaliacaoAmbientalResultado {
 
 
 
+    @Ignore
     public AvaliacaoAmbientalResultado(int idRelatorio,
                                        @NonNull int idArea, @NonNull String anexoArea, @NonNull String nome,
                                        @NonNull int sexo, @NonNull int tipoIluminacao,
@@ -81,5 +83,18 @@ public class AvaliacaoAmbientalResultado {
         this.idElx = idElx;
         this.eLx = eLx;
 
+    }
+
+    @Ignore
+    public AvaliacaoAmbientalResultado(int idRealtorio, int idArea, String anexoArea, int homens, int mulheres, double temperatura, double humidadeRelativa) {
+
+        this.idRelatorio = idRelatorio;
+        this.idArea = idArea;
+        this.anexoArea = anexoArea;
+
+        this.homens = homens;
+        this.mulheres = mulheres;
+        this.temperatura = temperatura;
+        this.humidadeRelativa = humidadeRelativa;
     }
 }

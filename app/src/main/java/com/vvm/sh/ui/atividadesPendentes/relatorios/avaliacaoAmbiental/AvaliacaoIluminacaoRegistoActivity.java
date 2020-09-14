@@ -324,6 +324,7 @@ public class AvaliacaoIluminacaoRegistoActivity extends BaseDaggerActivity
 
         Bundle bundle = getIntent().getExtras();
         int idRealtorio = bundle.getInt(getString(R.string.argumento_id_relatorio));
+
         Tipo area = (Tipo) activityAvaliacaoIluminacaoRegistoBinding.spnrAreaPostoTrabalho.getItems().get(activityAvaliacaoIluminacaoRegistoBinding.spnrAreaPostoTrabalho.getSelectedIndex());
         String anexoArea = activityAvaliacaoIluminacaoRegistoBinding.txtInpDescricaoArea.getText().toString();
         String nome = activityAvaliacaoIluminacaoRegistoBinding.txtInpNome.getText().toString();

@@ -331,5 +331,6 @@
     <string name="pesquisa">Pesquisa</string>
     <string name="descricao">Descrição</string>
     <string name="registos_selecionados">Registos selecionados</string>
+    <string name="medidas_recomendadas">Medidas recomendadas</string>
 
 </resources>

@@ -2,6 +2,7 @@ package com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos;
 
 import androidx.lifecycle.MutableLiveData;
 
+import com.vvm.sh.baseDados.entidades.CategoriaProfissionalResultado;
 import com.vvm.sh.baseDados.entidades.LevantamentoRiscoResultado;
 import com.vvm.sh.repositorios.LevantamentoRepositorio;
 import com.vvm.sh.util.Recurso;
@@ -27,12 +28,15 @@ public class LevantamentosViewModel extends BaseViewModel {
     public MutableLiveData<List<LevantamentoRiscoResultado>> levantamentos;
     public MutableLiveData<LevantamentoRiscoResultado> levantamento;
 
+    public MutableLiveData<List<CategoriaProfissionalResultado>> categoriasProfissionais;
 
     @Inject
     public LevantamentosViewModel(LevantamentoRepositorio levantamentoRepositorio){
 
         this.levantamentoRepositorio = levantamentoRepositorio;
         levantamentos = new MutableLiveData<>();
+        levantamento = new MutableLiveData<>();
+        categoriasProfissionais = new MutableLiveData<>();
 
     }
 
@@ -178,6 +182,39 @@ public class LevantamentosViewModel extends BaseViewModel {
 
                             }
                         }
+                );
+    }
+
+    public void obterCategoriasProfissionais(int id) {
+
+        levantamentoRepositorio.obterCategoriasProfissionais(id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new Observer<List<CategoriaProfissionalResultado>>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+
+                            }
+
+                            @Override
+                            public void onNext(List<CategoriaProfissionalResultado> registos) {
+
+                                categoriasProfissionais.setValue(registos);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+
+                            @Override
+                            public void onComplete() {
+
+                            }
+                        }
+
                 );
     }
 }

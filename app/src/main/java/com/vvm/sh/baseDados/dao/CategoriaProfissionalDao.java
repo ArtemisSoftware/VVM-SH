@@ -19,8 +19,8 @@ abstract public class CategoriaProfissionalDao implements BaseDao<CategoriaProfi
     @Transaction
     @Query("SELECT * "+
             "FROM categoriasProfissionaisResultado cat_prof_res " +
-            "LEFT JOIN (SELECT id, descricao FROM tipos WHERE tipo = '" + TiposUtil.MetodosTipos.CATEGORIAS_PROFISSIONAIS + "' AND ativo = 1) as tp_profissao " +
-            "ON tp_profissao.id = cat_prof_res.id " +
+            //--"LEFT JOIN (SELECT id, descricao FROM tipos WHERE tipo = '" + TiposUtil.MetodosTipos.CATEGORIAS_PROFISSIONAIS + "' AND ativo = 1) as tp_profissao " +
+            //--"ON tp_profissao.id = cat_prof_res.id " +
             "WHERE idRegisto = :id AND origem = :origem ")
     abstract public Observable<List<CategoriaProfissionalResultado>> obterCategoriasProfissionais(int id, int origem);
 

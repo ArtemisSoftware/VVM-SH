@@ -351,5 +351,6 @@
     <string name="riscos">Riscos</string>
     <string name="tarefa">Tarefa</string>
     <string name="perigo">Perigo</string>
+    <string name="clicar_completar_registo">Clicar para completar o registo</string>
 
 </resources>

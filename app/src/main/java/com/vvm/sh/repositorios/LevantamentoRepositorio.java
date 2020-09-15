@@ -6,7 +6,9 @@ import com.vvm.sh.baseDados.dao.CategoriaProfissionalDao;
 import com.vvm.sh.baseDados.dao.LevantamentoDao;
 import com.vvm.sh.baseDados.dao.ResultadoDao;
 import com.vvm.sh.baseDados.dao.TipoDao;
+import com.vvm.sh.baseDados.entidades.CategoriaProfissionalResultado;
 import com.vvm.sh.baseDados.entidades.LevantamentoRiscoResultado;
+import com.vvm.sh.util.constantes.Identificadores;
 
 import java.util.List;
 
@@ -72,4 +74,12 @@ public class LevantamentoRepositorio {
         return levantamentoDao.obterLevantamento(id);
     }
 
+    /**
+     * Metodo que permite obter as categorias profissionais
+     * @param id o identificador do registo ao qual as categorias profissionais pertencem
+     * @return os registos
+     */
+    public Observable<List<CategoriaProfissionalResultado>> obterCategoriasProfissionais(int id){
+        return categoriaProfissionalDao.obterCategoriasProfissionais(id, Identificadores.Origens.ORIGEM_LEVANTAMENTO_RISCO) ;
+    }
 }

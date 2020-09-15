@@ -17,6 +17,8 @@ public class Identificadores {
         public static final int ORIGEM_RELATORIO_ILUMINACAO = 5;
         public static final int ORIGEM_RELATORIO_TEMPERATURA_HUMIDADE = 6;
         public static final int ORIGEM_LEVANTAMENTO_RISCO = 7;
+
+
     }
 
 

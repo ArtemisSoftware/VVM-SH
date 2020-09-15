@@ -11,9 +11,12 @@ import androidx.databinding.ViewDataBinding;
 
 import com.vvm.sh.R;
 import com.vvm.sh.databinding.ActivityBaseDaggerBinding;
+import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.util.metodos.MensagensUtil;
 import com.vvm.sh.util.interfaces.OnDialogoListener;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -24,8 +27,12 @@ public abstract class BaseDaggerActivity extends DaggerAppCompatActivity {
     private ActivityBaseDaggerBinding activityBaseBinding;
     protected ViewDataBinding activityBinding;
 
+
+    @Inject
+    public ViewModelProviderFactory providerFactory_;
+
+
     public ProgressBar mProgressBar;
-    //--public SweetAlertDialog dialog;
 
     public MensagensUtil dialogo;
 

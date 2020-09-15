@@ -8,6 +8,7 @@ import com.vvm.sh.baseDados.entidades.LevantamentoRiscoResultado;
 
 import java.util.List;
 
+import io.reactivex.Maybe;
 import io.reactivex.Observable;
 
 @Dao
@@ -16,5 +17,10 @@ abstract public class LevantamentoDao implements BaseDao<LevantamentoRiscoResult
 
     @Query("SELECT * FROM levantamentosRiscoResultado  WHERE idAtividade = :idAtividade")
     abstract public Observable<List<LevantamentoRiscoResultado>> obterLevantamentos(int idAtividade);
+
+
+    @Query("SELECT * FROM levantamentosRiscoResultado  WHERE id = :id")
+    abstract public Maybe<LevantamentoRiscoResultado> obterLevantamento(int id);
+
 
 }

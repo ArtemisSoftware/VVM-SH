@@ -116,4 +116,13 @@ public class LevantamentosActivity extends BaseDaggerActivity {
         initLevantamento(null);
     }
 
+    @OnClick({R.id.crd_perigo_tarefa})
+    public void crd_perigo_tarefa_OnClickListener(View view) {
+
+        Bundle bundle = getIntent().getExtras();
+
+        Intent intent = new Intent(this, PerigoTarefaActivity.class);
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
 }

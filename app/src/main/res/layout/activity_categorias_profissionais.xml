@@ -62,7 +62,7 @@
             style="@style/lista"
             android:visibility="gone"
 
-            tools:listitem="@layout/item_ocorrencia"/>
+            tools:listitem="@layout/item_categoria_profissional"/>
 
         <!--
         android:visibility="@{viewmodel.agenda.marcacaos.size() > 0 ? View.VISIBLE : View.GONE}"

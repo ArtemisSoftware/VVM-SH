@@ -6,13 +6,15 @@ import androidx.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 
 import com.vvm.sh.R;
+import com.vvm.sh.baseDados.entidades.CategoriaProfissionalResultado;
 import com.vvm.sh.databinding.ActivityCategoriasProfissionaisBinding;
 import com.vvm.sh.databinding.ActivityPerigoTarefaBinding;
 import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
-public class CategoriasProfissionaisActivity extends BaseDaggerActivity {
+public class CategoriasProfissionaisActivity extends BaseDaggerActivity
+        implements OnLevantamentoListener.OnCategoriaProfissionalListener{
 
 
     private ActivityCategoriasProfissionaisBinding activityCategoriasProfissionaisBinding;
@@ -59,6 +61,11 @@ public class CategoriasProfissionaisActivity extends BaseDaggerActivity {
 
     @Override
     protected void subscreverObservadores() {
+
+    }
+
+    @Override
+    public void OnCategoriaProfissionalClick(CategoriaProfissionalResultado registo) {
 
     }
 }

@@ -354,5 +354,20 @@
     <string name="clicar_completar_registo">Clicar para completar o registo</string>
     <string name="numero_homens">Número de Homens</string>
     <string name="numero_mulheres">Número de mulheres</string>
+    <string name="risco">Risco</string>
+    <string name="risco_especifico">Risco específico</string>
+    <string name="consequencias">Consequências</string>
 
+
+    <string name="nd_">ND: </string>
+    <string name="ne_">NE: </string>
+    <string name="np_">NP: </string>
+    <string name="np">NP </string>
+    <string name="nc_">NC: </string>
+    <string name="nr_">NR: </string>
+    <string name="ni_">NI: </string>
+    <string name="ni">NI </string>
+    <string name="medidas_existentes">Medidas existentes</string>
+    <string name="fotografias_">Fotografias:</string>
+    <string name="limite1Fotografia">(Limite de 1 fotografia)</string>
 </resources>

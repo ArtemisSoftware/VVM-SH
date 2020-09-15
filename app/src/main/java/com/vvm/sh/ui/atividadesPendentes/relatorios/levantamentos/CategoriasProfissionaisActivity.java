@@ -77,7 +77,9 @@ public class CategoriasProfissionaisActivity extends BaseDaggerActivity
 
     @Override
     public void OnCategoriaProfissionalClick(CategoriaProfissionalResultado registo) {
-//dialogo
+
+        DialogoCategoriasProfissionais dialogo = DialogoCategoriasProfissionais.newInstance(registo);
+        dialogo.show(getSupportFragmentManager(), "Dialogo");
     }
 
 

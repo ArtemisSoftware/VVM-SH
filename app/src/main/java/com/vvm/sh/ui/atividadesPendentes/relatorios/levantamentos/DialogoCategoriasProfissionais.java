@@ -36,13 +36,13 @@ public class DialogoCategoriasProfissionais extends BaseDaggerDialogoPersistente
     }
 
 
-    public static DialogoCategoriasProfissionais newInstance(int id, int homens, int mulheres) {
+    public static DialogoCategoriasProfissionais newInstance(CategoriaProfissionalResultado registo) {
         DialogoCategoriasProfissionais fragmento = new DialogoCategoriasProfissionais();
 
         Bundle args = new Bundle();
-        args.putInt(ARGUMENTO_ID, id);
-        args.putInt(ARGUMENTO_HOMENS, homens);
-        args.putInt(ARGUMENTO_MULHERES, mulheres);
+        args.putInt(ARGUMENTO_ID, registo.id);
+        args.putInt(ARGUMENTO_HOMENS, registo.homens);
+        args.putInt(ARGUMENTO_MULHERES, registo.mulheres);
         fragmento.setArguments(args);
         return fragmento;
     }
@@ -60,8 +60,8 @@ public class DialogoCategoriasProfissionais extends BaseDaggerDialogoPersistente
 
         if(verificarArgumentos(ARGUMENTO_ID) == true){
 
-            binding.txtInpHomens.setText(getArguments().getInt(ARGUMENTO_HOMENS));
-            binding.txtInpMulheres.setText(getArguments().getInt(ARGUMENTO_MULHERES));
+            binding.txtInpHomens.setText(getArguments().getInt(ARGUMENTO_HOMENS) + "");
+            binding.txtInpMulheres.setText(getArguments().getInt(ARGUMENTO_MULHERES) + "");
         }
         else{
             terminarDialogo();

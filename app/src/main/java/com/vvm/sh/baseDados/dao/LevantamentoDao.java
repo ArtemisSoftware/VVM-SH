@@ -33,4 +33,17 @@ abstract public class LevantamentoDao implements BaseDao<LevantamentoRiscoResult
 //    query += "WHERE lvr_res.idLevantamento = ?   ";
 
 
+
+//    String query = "SELECT CASE WHEN COUNT(VALIDO) = SUM(VALIDO) AND COUNT(VALIDO) > 0 THEN 1 ELSE 0 END valido   ";
+//    query += "FROM(          ";
+//    query += "SELECT CASE WHEN (homens = 0 AND mulheres = 0) OR (homens IS NULL AND mulheres IS NULL) THEN 0 ELSE 1 END as valido, id, origem          ";
+//    query += "FROM categoriasProfissionais_resultado            ";
+//    query += ") as resultado          ";
+//    query += "WHERE origem = ? AND id = ?		          ";
+//
+//    String argumentos [] = {
+//            IdentificadoresIF.ORIGEM_LEVANTAMENTO_RISCO + "", idLevantamento
+//    };
+
+
 }

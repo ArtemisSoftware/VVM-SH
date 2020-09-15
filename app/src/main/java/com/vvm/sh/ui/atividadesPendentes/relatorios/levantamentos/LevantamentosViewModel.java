@@ -105,6 +105,44 @@ public class LevantamentosViewModel extends BaseViewModel {
     }
 
 
+    /**
+     * Metodo que permite atualizar uma categoria profissional
+     * @param registo os dados a atualizar
+     */
+    public void atualizarCategoriaProfissional(CategoriaProfissionalResultado registo) {
+
+        levantamentoRepositorio.atualizar(registo).toObservable()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new Observer<Integer>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+
+                            }
+
+                            @Override
+                            public void onNext(Integer integer) {
+                                messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_EDITADOS_SUCESSO));
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                messagemLiveData.setValue(Recurso.erro(e.getMessage()));
+                            }
+
+                            @Override
+                            public void onComplete() {
+
+                            }
+                        }
+                );
+
+        //TODO: remover atividade pendente + adicionar resultado
+    }
+
+
     //--------------------
     //OBTER
     //--------------------
@@ -234,4 +272,6 @@ public class LevantamentosViewModel extends BaseViewModel {
         return registos;
 
     }
+
+
 }

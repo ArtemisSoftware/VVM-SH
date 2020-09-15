@@ -3,6 +3,7 @@ package com.vvm.sh.baseDados.entidades;
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
@@ -31,4 +32,11 @@ public class CategoriaProfissionalResultado {
 
     public int mulheres;
 
+
+    @Ignore
+    public CategoriaProfissionalResultado(int id, int homens, int mulheres) {
+        this.id = id;
+        this.homens = homens;
+        this.mulheres = mulheres;
+    }
 }

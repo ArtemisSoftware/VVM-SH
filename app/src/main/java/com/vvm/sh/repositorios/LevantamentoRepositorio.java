@@ -57,6 +57,17 @@ public class LevantamentoRepositorio {
 
 
     /**
+     * Metodo que permite atualizar um registo
+     * @param registo os dados
+     * @return o resultado da operação
+     */
+    public Single<Integer> atualizar(CategoriaProfissionalResultado registo){
+        return categoriaProfissionalDao.atualizar(registo);
+    }
+
+
+
+    /**
      * Metodo que permite obter os levantamentos
      * @param idAtividade o identificador da atividade
      * @return uma lista de registos

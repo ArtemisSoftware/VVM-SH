@@ -1,17 +1,28 @@
 package com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos;
 
+import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 
 import com.vvm.sh.R;
 import com.vvm.sh.baseDados.entidades.CategoriaProfissionalResultado;
 import com.vvm.sh.databinding.ActivityCategoriasProfissionaisBinding;
 import com.vvm.sh.databinding.ActivityPerigoTarefaBinding;
 import com.vvm.sh.ui.BaseDaggerActivity;
+import com.vvm.sh.ui.pesquisa.Pesquisa;
+import com.vvm.sh.ui.pesquisa.PesquisaActivity;
+import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
+import com.vvm.sh.util.metodos.TiposUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
+
+import java.util.ArrayList;
+
+import butterknife.OnClick;
 
 public class CategoriasProfissionaisActivity extends BaseDaggerActivity
         implements OnLevantamentoListener.OnCategoriaProfissionalListener{
@@ -66,6 +77,41 @@ public class CategoriasProfissionaisActivity extends BaseDaggerActivity
 
     @Override
     public void OnCategoriaProfissionalClick(CategoriaProfissionalResultado registo) {
+//dialogo
+    }
 
+
+    //-----------------------
+    //EVENTOS
+    //-----------------------
+
+    @OnClick({R.id.fab_adicionar})
+    public void fab_adicionar_levantamento_OnClickListener(View view) {
+
+        Pesquisa pesquisa = new Pesquisa(true, TiposUtil.MetodosTipos.CATEGORIAS_PROFISSIONAIS, viewModel.obterRegistosSelecionados());
+
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(getString(R.string.argumento_configuracao_pesquisa), pesquisa);
+
+        Intent intent = new Intent(this, PesquisaActivity.class);
+        intent.putExtras(bundle);
+        startActivityForResult(intent, Identificadores.CodigoAtividade.PESQUISA);
+    }
+
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == Identificadores.CodigoAtividade.PESQUISA) {
+
+            if(resultCode == RESULT_OK){
+
+                ArrayList<Integer> resultado = data.getIntegerArrayListExtra(getString(R.string.resultado_pesquisa));
+
+                //--viewModel.fixarCategoriasProfissionais(resultado);
+            }
+        }
     }
 }

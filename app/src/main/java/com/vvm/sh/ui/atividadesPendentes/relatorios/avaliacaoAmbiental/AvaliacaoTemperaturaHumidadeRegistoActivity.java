@@ -267,7 +267,7 @@ public class AvaliacaoTemperaturaHumidadeRegistoActivity extends BaseDaggerActiv
 
         Intent intent = new Intent(this, PesquisaActivity.class);
         intent.putExtras(bundle);
-        startActivityForResult(intent, Identificadores.CodigoAtividade.ASSINATURA);
+        startActivityForResult(intent, Identificadores.CodigoAtividade.PESQUISA);
     }
 
 

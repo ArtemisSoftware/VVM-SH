@@ -352,5 +352,7 @@
     <string name="tarefa">Tarefa</string>
     <string name="perigo">Perigo</string>
     <string name="clicar_completar_registo">Clicar para completar o registo</string>
+    <string name="numero_homens">Número de Homens</string>
+    <string name="numero_mulheres">Número de mulheres</string>
 
 </resources>

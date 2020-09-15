@@ -9,6 +9,7 @@ import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -216,5 +217,21 @@ public class LevantamentosViewModel extends BaseViewModel {
                         }
 
                 );
+    }
+
+    public List<Integer> obterRegistosSelecionados() {
+
+
+        List<Integer> registos = new ArrayList<>();
+
+
+        for (CategoriaProfissionalResultado item : categoriasProfissionais.getValue()) {
+
+            registos.add(item.idCategoriaProfissional);
+        }
+
+
+        return registos;
+
     }
 }

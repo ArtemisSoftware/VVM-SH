@@ -309,7 +309,7 @@ public class AvaliacaoIluminacaoRegistoActivity extends BaseDaggerActivity
 
         Intent intent = new Intent(this, PesquisaActivity.class);
         intent.putExtras(bundle);
-        startActivityForResult(intent, Identificadores.CodigoAtividade.ASSINATURA);
+        startActivityForResult(intent, Identificadores.CodigoAtividade.PESQUISA);
     }
 
     @OnClick(R.id.fab_gravar)

@@ -131,6 +131,7 @@
     <string name="argumento_id_atividade">idAtividade</string>
     <string name="argumento_id_formando">idFormando</string>
     <string name="argumento_id_colaborador">idColaborador</string>
+    <string name="argumento_id_levantamento">idLevantamento</string>
     <string name="argumento_descricao">descricao</string>
     <string name="argumento_tipo_relatorio">tipoRelatorio</string>
     <string name="argumento_id_relatorio">idRelatorio</string>
@@ -370,4 +371,5 @@
     <string name="medidas_existentes">Medidas existentes</string>
     <string name="fotografias_">Fotografias:</string>
     <string name="limite1Fotografia">(Limite de 1 fotografia)</string>
+    <string name="nenhuma_medida_selecionada">Nenhuma medida selecionada</string>
 </resources>

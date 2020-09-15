@@ -16,6 +16,9 @@ import com.vvm.sh.di.atividadesPendentes.avaliacaoAmbiental.AvaliacaoAmbientalVi
 import com.vvm.sh.di.atividadesPendentes.formacao.FormacaoModule;
 import com.vvm.sh.di.atividadesPendentes.formacao.FormacaoScope;
 import com.vvm.sh.di.atividadesPendentes.formacao.FormacaoViewModelsModule;
+import com.vvm.sh.di.atividadesPendentes.levantamentos.LevantamentosModule;
+import com.vvm.sh.di.atividadesPendentes.levantamentos.LevantamentosScope;
+import com.vvm.sh.di.atividadesPendentes.levantamentos.LevantamentosViewModelsModule;
 import com.vvm.sh.di.ocorrencias.OcorrenciasModule;
 import com.vvm.sh.di.ocorrencias.OcorrenciasScope;
 import com.vvm.sh.di.ocorrencias.OcorrenciasViewModelsModule;
@@ -41,6 +44,7 @@ import com.vvm.sh.ui.atividadesPendentes.relatorios.FormandoActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.AvaliacaoIluminacaoRegistoActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.AvaliacoesAmbientaisActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.RelatorioAvaliacaoAmbientalActivity;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.LevantamentosActivity;
 import com.vvm.sh.ui.autenticacao.PerfilActivity;
 import com.vvm.sh.ui.cliente.SinistralidadeActivity;
 import com.vvm.sh.ui.cliente.extintores.ExtintoresActivity;
@@ -309,6 +313,19 @@ public abstract class ActivityBuildersModule {
             modules = { AvaliacaoAmbientalViewModelsModule.class, AvaliacaoAmbientalModule.class }
     )
     abstract AvaliacaoIluminacaoRegistoActivity contributeAvaliacaoIluminacaoRegistoActivity();
+
+
+
+    //----------------------
+    //Levantamentos
+    //----------------------
+
+
+    @LevantamentosScope
+    @ContributesAndroidInjector(
+            modules = { LevantamentosViewModelsModule.class, LevantamentosModule.class }
+    )
+    abstract LevantamentosActivity contributeLevantamentosActivity();
 
 
 

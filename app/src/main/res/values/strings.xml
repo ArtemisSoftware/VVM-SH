@@ -342,5 +342,14 @@
     <string name="mulheres_">Mulheres:</string>
     <string name="temperatura_c_">Temperatura (º C):</string>
     <string name="humidadeRelativa_percentagem_">Humidade Relativa (%):</string>
+    <string name="adicionar_avalicao_riscos">Adicionar avaliação de riscos</string>
+    <string name="levantamento_numero_">Levantamento Nº</string>
+    <string name="listagem_levantamentos">Listagem de levantamentos</string>
+    <string name="perigo_tarefa">Perigo e Tarefa</string>
+    <string name="perigo_">Perigo:</string>
+    <string name="tarefa_">Tarefa:</string>
+    <string name="riscos">Riscos</string>
+    <string name="tarefa">Tarefa</string>
+    <string name="perigo">Perigo</string>
 
 </resources>

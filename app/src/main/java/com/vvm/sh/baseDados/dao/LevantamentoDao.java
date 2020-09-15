@@ -23,4 +23,14 @@ abstract public class LevantamentoDao implements BaseDao<LevantamentoRiscoResult
     abstract public Maybe<LevantamentoRiscoResultado> obterLevantamento(int id);
 
 
+//    String query = " SELECT  ";
+//
+//    query += "CASE WHEN tarefa IS NULL OR perigo IS NULL THEN 0 ";
+//    query += " ELSE 1 END as valido  ";
+//
+//    query += "FROM levantamentosRisco_resultado  as lvr_res ";
+//
+//    query += "WHERE lvr_res.idLevantamento = ?   ";
+
+
 }

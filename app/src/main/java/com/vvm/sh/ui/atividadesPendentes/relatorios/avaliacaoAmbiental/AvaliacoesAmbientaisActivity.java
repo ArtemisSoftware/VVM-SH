@@ -140,6 +140,7 @@ public class AvaliacoesAmbientaisActivity extends BaseDaggerActivity
         Bundle bundle = getIntent().getExtras();
         bundle.putInt(getString(R.string.argumento_id), registo.id);
 
+        iniciarAvaliacao();
     }
 
 

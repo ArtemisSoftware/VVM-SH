@@ -350,6 +350,7 @@
     <string name="perigo_">Perigo:</string>
     <string name="tarefa_">Tarefa:</string>
     <string name="riscos">Riscos</string>
+    <string name="risco_">Risco:</string>
     <string name="tarefa">Tarefa</string>
     <string name="perigo">Perigo</string>
     <string name="clicar_completar_registo">Clicar para completar o registo</string>
@@ -372,4 +373,6 @@
     <string name="fotografias_">Fotografias:</string>
     <string name="limite1Fotografia">(Limite de 1 fotografia)</string>
     <string name="nenhuma_medida_selecionada">Nenhuma medida selecionada</string>
+    <string name="risco_especifico_">Risco especifico:</string>
+    <string name="consequencias_">Consequências:</string>
 </resources>

@@ -47,7 +47,7 @@ public class RiscoResultado {
     @NonNull
     public int nc;
 
-
+//TODO: completar
     public int idTipoRisco;
 
 

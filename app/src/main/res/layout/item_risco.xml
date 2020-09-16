@@ -9,15 +9,15 @@
         <import type="com.vvm.sh.BuildConfig"/>
         <import type="com.vvm.sh.util.metodos.StringUtil"/>
         <import type="android.view.View"/>
-<!--
-        <variable
-            name="formando"
-            type="com.vvm.sh.ui.atividadesPendentes.relatorios.Formando" />
 
         <variable
-            name="listener"
-            type="com.vvm.sh.ui.atividadesPendentes.relatorios.OnFormacaoListener"/>
--->
+            name="risco"
+            type="com.vvm.sh.baseDados.entidades.RiscoResultado" />
+        <!--
+                <variable
+                    name="listener"
+                    type="com.vvm.sh.ui.atividadesPendentes.relatorios.OnFormacaoListener"/>
+        -->
     </data>
 
 
@@ -45,9 +45,11 @@
                 style="@style/tituloCartao"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:text="@{formando.resultado.nome, default=nome}"
+
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <!-- android:text="@{formando.resultado.nome, default=nome}" -->
 
             <TextView
                 android:id="@+id/textView2"
@@ -134,7 +136,7 @@
                 android:id="@+id/textView71"
                 style="@style/textoDetalhe"
                 android:layout_marginStart="16dp"
-                android:text="TextView"
+                android:text="@{risco.consequencias, default=consequencias}"
                 app:layout_constraintBottom_toBottomOf="@+id/textView70"
                 app:layout_constraintStart_toEndOf="@+id/textView70"
                 app:layout_constraintTop_toTopOf="@+id/textView70" />

@@ -62,7 +62,7 @@ public class Migracao {
 
                 database.execSQL("CREATE INDEX index_tiposExtintor_idTarefa ON tarefas (idTarefa)");
 
-
+/*
                 database.execSQL("CREATE TABLE IF NOT EXISTS 'moradas' ("
                         + "'idTarefa' INTEGER NOT NULL , "
                         + "'id' TEXT NOT NULL , "
@@ -165,7 +165,7 @@ public class Migracao {
                         + "'mulheres' INTEGER  "
                         + ") ");
 
-
+*/
 
 
             }

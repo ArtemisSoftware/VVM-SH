@@ -111,10 +111,10 @@ public class IAvaliacaoRiscosAnterior {
     public class IChecklist{
 
         @SerializedName("idChecklist")
-        public String idChecklist;
+        public String id;
 
         @SerializedName("versaoChecklist")
-        public String versaoChecklist;
+        public String versao;
 
         @SerializedName("dadosChecklist")
         public List<IArea> areas;

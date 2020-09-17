@@ -1,6 +1,8 @@
 package com.vvm.sh.api;
 
+import com.vvm.sh.api.modelos.pedido.ISessao;
 import com.vvm.sh.api.modelos.pedido.ITipoListagem;
+import com.vvm.sh.api.modelos.pedido.IUtilizadorListagem;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.constantes.Sintaxe;
 
@@ -37,5 +39,14 @@ public interface SegurancaTrabalhoApi {
 
     @GET("{metodo}")
     Single<ITipoListagem> obterTipo(@HeaderMap Map<String, String> headers, @Path("metodo") String metodo, @Query("dataT") String seloTemporal);
+
+
+    @GET("GetUtilizadores?dataT=")
+    Single<IUtilizadorListagem> obterUtilizadores(@HeaderMap Map<String, String> headers);
+
+
+
+    @GET("GetDados")
+    Single<ISessao> obterTrabalho(@HeaderMap Map<String, String> headers, @Query("strUser") String idUtilizador);
 
 }

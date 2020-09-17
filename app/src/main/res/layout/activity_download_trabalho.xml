@@ -180,10 +180,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="84dp"
-                api:layout_constraintEnd_toEndOf="parent"
-                api:layout_constraintStart_toStartOf="parent"
-                api:layout_constraintTop_toTopOf="parent"
-                api:srcCompat="@drawable/ic_download" />
+                apiSA:layout_constraintEnd_toEndOf="parent"
+                apiSA:layout_constraintStart_toStartOf="parent"
+                apiSA:layout_constraintTop_toTopOf="parent"
+                apiSA:srcCompat="@drawable/ic_download" />
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -192,25 +192,25 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="32dp"
                 android:paddingHorizontal="20dp"
-                api:layout_constraintTop_toBottomOf="@+id/imageView">
+                apiSA:layout_constraintTop_toBottomOf="@+id/imageView">
 
 
                 <TextView
                     android:id="@+id/textView7"
                     style="@style/titulo"
                     android:text="@string/download_trabalho_dia_"
-                    api:layout_constraintBottom_toBottomOf="parent"
-                    api:layout_constraintStart_toStartOf="parent"
-                    api:layout_constraintTop_toTopOf="parent" />
+                    apiSA:layout_constraintBottom_toBottomOf="parent"
+                    apiSA:layout_constraintStart_toStartOf="parent"
+                    apiSA:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/textView8"
                     style="@style/titulo"
                     android:layout_marginStart="16dp"
                     android:text="TextView"
-                    api:layout_constraintBottom_toBottomOf="@+id/textView7"
-                    api:layout_constraintStart_toEndOf="@+id/textView7"
-                    api:layout_constraintTop_toTopOf="@+id/textView7" />
+                    apiSA:layout_constraintBottom_toBottomOf="@+id/textView7"
+                    apiSA:layout_constraintStart_toEndOf="@+id/textView7"
+                    apiSA:layout_constraintTop_toTopOf="@+id/textView7" />
             </androidx.constraintlayout.widget.ConstraintLayout>
 
 
@@ -219,7 +219,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="64dp"
-                api:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+                apiSA:layout_constraintTop_toBottomOf="@+id/constraintLayout">
 
                 <ProgressBar
                     android:id="@+id/progressBar_progresso"
@@ -228,27 +228,27 @@
                     android:layout_height="wrap_content"
                     android:max="100"
                     android:progress="0"
-                    api:layout_constraintBottom_toTopOf="@+id/button"
-                    api:layout_constraintEnd_toEndOf="parent"
-                    api:layout_constraintStart_toStartOf="parent"
-                    api:layout_constraintTop_toTopOf="parent"
-                    api:layout_constraintVertical_bias="0.19999999" />
+                    apiSA:layout_constraintBottom_toTopOf="@+id/button"
+                    apiSA:layout_constraintEnd_toEndOf="parent"
+                    apiSA:layout_constraintStart_toStartOf="parent"
+                    apiSA:layout_constraintTop_toTopOf="parent"
+                    apiSA:layout_constraintVertical_bias="0.19999999" />
 
                 <TextView
                     android:id="@+id/txt_titulo_progresso"
                     style="@style/textoDetalhe"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="64dp"
-                    api:layout_constraintBottom_toTopOf="@+id/button"
-                    api:layout_constraintStart_toStartOf="@+id/progressBar_progresso"
-                    api:layout_constraintTop_toBottomOf="@+id/progressBar_progresso"
-                    api:layout_constraintVertical_bias="0.07999998" />
+                    apiSA:layout_constraintBottom_toTopOf="@+id/button"
+                    apiSA:layout_constraintStart_toStartOf="@+id/progressBar_progresso"
+                    apiSA:layout_constraintTop_toBottomOf="@+id/progressBar_progresso"
+                    apiSA:layout_constraintVertical_bias="0.07999998" />
 
                 <TextView
                     android:id="@+id/txt_progresso"
                     style="@style/textoDetalhe"
-                    api:layout_constraintEnd_toEndOf="@+id/progressBar_progresso"
-                    api:layout_constraintTop_toTopOf="@+id/txt_titulo_progresso" />
+                    apiSA:layout_constraintEnd_toEndOf="@+id/progressBar_progresso"
+                    apiSA:layout_constraintTop_toTopOf="@+id/txt_titulo_progresso" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -259,7 +259,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="64dp"
-                api:layout_constraintTop_toBottomOf="@+id/lnr_lyt_progresso">
+                apiSA:layout_constraintTop_toBottomOf="@+id/lnr_lyt_progresso">
 
                 <ProgressBar
                     android:id="@+id/progressBar_progresso_"
@@ -268,27 +268,27 @@
                     android:layout_height="wrap_content"
                     android:max="100"
                     android:progress="0"
-                    api:layout_constraintBottom_toTopOf="@+id/button"
-                    api:layout_constraintEnd_toEndOf="parent"
-                    api:layout_constraintStart_toStartOf="parent"
-                    api:layout_constraintTop_toTopOf="parent"
-                    api:layout_constraintVertical_bias="0.19999999" />
+                    apiSA:layout_constraintBottom_toTopOf="@+id/button"
+                    apiSA:layout_constraintEnd_toEndOf="parent"
+                    apiSA:layout_constraintStart_toStartOf="parent"
+                    apiSA:layout_constraintTop_toTopOf="parent"
+                    apiSA:layout_constraintVertical_bias="0.19999999" />
 
                 <TextView
                     android:id="@+id/txt_titulo_progresso_"
                     style="@style/textoDetalhe"
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="64dp"
-                    api:layout_constraintBottom_toTopOf="@+id/button"
-                    api:layout_constraintStart_toStartOf="@+id/progressBar_progresso_"
-                    api:layout_constraintTop_toBottomOf="@+id/progressBar_progresso_"
-                    api:layout_constraintVertical_bias="0.07999998" />
+                    apiSA:layout_constraintBottom_toTopOf="@+id/button"
+                    apiSA:layout_constraintStart_toStartOf="@+id/progressBar_progresso_"
+                    apiSA:layout_constraintTop_toBottomOf="@+id/progressBar_progresso_"
+                    apiSA:layout_constraintVertical_bias="0.07999998" />
 
                 <TextView
                     android:id="@+id/txt_progresso_"
                     style="@style/textoDetalhe"
-                    api:layout_constraintEnd_toEndOf="@+id/progressBar_progresso_"
-                    api:layout_constraintTop_toTopOf="@+id/txt_titulo_progresso_" />
+                    apiSA:layout_constraintEnd_toEndOf="@+id/progressBar_progresso_"
+                    apiSA:layout_constraintTop_toTopOf="@+id/txt_titulo_progresso_" />
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -304,9 +304,9 @@
                 android:text="@string/terminar"
                 android:textColor="@color/whiteTextColor"
                 android:textSize="20dp"
-                api:layout_constraintEnd_toEndOf="parent"
-                api:layout_constraintStart_toStartOf="parent"
-                api:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
+                apiSA:layout_constraintEnd_toEndOf="parent"
+                apiSA:layout_constraintStart_toStartOf="parent"
+                apiSA:layout_constraintTop_toBottomOf="@+id/constraintLayout2" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
     -->

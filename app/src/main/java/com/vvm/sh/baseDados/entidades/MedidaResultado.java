@@ -8,19 +8,16 @@ import androidx.room.PrimaryKey;
 
 import static androidx.room.ForeignKey.CASCADE;
 
-@Entity(tableName = "medidasResultado")
+@Entity(tableName = "medidasResultado", primaryKeys = {"id", "idMedida", "origem"})
 public class MedidaResultado {
 
     @NonNull
-    @PrimaryKey
     public int id;
 
     @NonNull
-    @PrimaryKey
     public int origem;
 
     @NonNull
-    @PrimaryKey
     public int idMedida;
 
 

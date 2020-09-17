@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
@@ -29,25 +30,34 @@ public class ParqueExtintor {
     public int id;
 
 
-
+    @NonNull
     @ColumnInfo(name = "idServico")
     public String idServico;
 
+    @NonNull
     @ColumnInfo(name = "contrato")
     public String contrato;
 
+    @NonNull
     @ColumnInfo(name = "idExtintor")
     public String idExtintor;
 
+    @NonNull
     @ColumnInfo(name = "quantidade")
     public int quantidade;
 
+    @NonNull
     @ColumnInfo(name = "dataValidade")
     public Date dataValidade;
 
+    @NonNull
     @ColumnInfo(name = "idMorada")
     public String idMorada;
 
+
+    @Ignore
+    public ParqueExtintor() {
+    }
 
     public ParqueExtintor(int idTarefa, String idServico, String contrato, String idExtintor, int quantidade, Date dataValidade, String idMorada) {
         this.idTarefa = idTarefa;

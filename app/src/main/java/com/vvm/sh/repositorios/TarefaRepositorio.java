@@ -9,7 +9,7 @@ import com.vvm.sh.baseDados.dao.SinistralidadeDao;
 import com.vvm.sh.baseDados.dao.TarefaDao;
 import com.vvm.sh.baseDados.entidades.ParqueExtintorResultado;
 import com.vvm.sh.baseDados.entidades.SinistralidadeResultado;
-import com.vvm.sh.ui.cliente.extintores.modelos.ExtintorRegisto;
+import com.vvm.sh.ui.parqueExtintores.modelos.ExtintorRegisto;
 import com.vvm.sh.ui.tarefa.modelos.TarefaDia;
 import com.vvm.sh.baseDados.entidades.AtividadeExecutada;
 import com.vvm.sh.baseDados.entidades.EmailResultado;
@@ -158,7 +158,7 @@ public class TarefaRepositorio {
         return parqueExtintorDao.obterNumeroValidados(idTarefa);
     }
 
-
+/*
     public Observable<Integer> inserirValicao(int idTarefa) {
         return parqueExtintorDao.inserirValicao(idTarefa);
     }
@@ -166,5 +166,5 @@ public class TarefaRepositorio {
     public Observable<Integer> atualizarValidacao(int idTarefa) {
         return parqueExtintorDao.atualizarValidacao(idTarefa);
     }
-
+*/
 }

@@ -24,9 +24,11 @@ public class ParqueExtintorResultado {
     @NonNull
     public int id;
 
+    @NonNull
     @ColumnInfo(name = "valido")
     public boolean valido;
 
+    @NonNull
     @ColumnInfo(name = "dataValidade")
     public Date dataValidade;
 

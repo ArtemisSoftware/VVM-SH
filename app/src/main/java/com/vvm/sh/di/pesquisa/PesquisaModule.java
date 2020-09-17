@@ -1,6 +1,7 @@
 package com.vvm.sh.di.pesquisa;
 
 import com.vvm.sh.api.SegurancaAlimentarApi;
+import com.vvm.sh.api.SegurancaTrabalhoApi;
 import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.baseDados.dao.AtualizacaoDao;
 import com.vvm.sh.baseDados.dao.TipoDao;
@@ -43,9 +44,9 @@ public class PesquisaModule {
 
     @PesquisaScope
     @Provides
-    TiposRepositorio provideTiposRepositorio(SegurancaAlimentarApi segurancaAlimentarApi, AtualizacaoDao atualizacaoDao, TipoDao tipoDao) {
+    TiposRepositorio provideTiposRepositorio(SegurancaAlimentarApi segurancaAlimentarApi, SegurancaTrabalhoApi segurancaTrabalhoApi, AtualizacaoDao atualizacaoDao, TipoDao tipoDao) {
 
-        TiposRepositorio repositorio = new TiposRepositorio(segurancaAlimentarApi, atualizacaoDao, tipoDao);
+        TiposRepositorio repositorio = new TiposRepositorio(segurancaAlimentarApi, segurancaTrabalhoApi, atualizacaoDao, tipoDao);
 
         //Timber.d("Providing PokemonRepository: " + repository);
         return repositorio;

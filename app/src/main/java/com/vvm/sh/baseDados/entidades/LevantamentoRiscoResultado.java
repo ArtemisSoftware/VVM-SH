@@ -30,23 +30,31 @@ public class LevantamentoRiscoResultado {
     public int id;
 
 
+    @NonNull
     @ColumnInfo(name = "tarefa")
     public String tarefa;
 
+    @NonNull
     @ColumnInfo(name = "perigo")
     public String perigo;
 
     @ColumnInfo(name = "idModelo")
-    public String idModelo;
+    public int idModelo;
 
 
-    //TODO: verificar este campo
-    @NonNull
-    public int idTipo;
 
     @NonNull
     public int origem;
 
+
+    public LevantamentoRiscoResultado(int idAtividade, int id, String tarefa, String perigo, int idModelo, int origem) {
+        this.idAtividade = idAtividade;
+        this.id = id;
+        this.tarefa = tarefa;
+        this.perigo = perigo;
+        this.idModelo = idModelo;
+        this.origem = origem;
+    }
 
     @Ignore
     public LevantamentoRiscoResultado(int idAtividade, String tarefa, String perigo) {

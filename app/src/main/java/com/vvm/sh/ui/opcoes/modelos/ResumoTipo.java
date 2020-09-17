@@ -10,7 +10,10 @@ public class ResumoTipo {
     @Embedded
     public Atualizacao atualizacao;
 
-    @ColumnInfo(name = "numeroRegistos")
-    public int numeroRegistos;
+    @ColumnInfo(name = "numeroRegistosSA")
+    public int numeroRegistosSA;
 
+
+    @ColumnInfo(name = "numeroRegistosSHT")
+    public int numeroRegistosSHT;
 }

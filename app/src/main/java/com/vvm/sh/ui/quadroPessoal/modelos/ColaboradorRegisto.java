@@ -1,19 +1,30 @@
 package com.vvm.sh.ui.quadroPessoal.modelos;
 
+import androidx.room.Ignore;
+
 public class ColaboradorRegisto {
 
 
-    public int id, origem;
-    public String nome, idMorada, morada, sexo, estado, nacionalidade;
+    public int id;
+    public String nome;
+
+    @Ignore
+    public int  origem;
+    @Ignore
+    public String idMorada, morada, sexo, estado, nacionalidade;
+    @Ignore
     public long dataNascimento;
     //private String idMorada, morada, idColaborador, posto, dataNascimento, dataAdmissao, dataAdmissaoFuncao, genero, categoriaProfissional, idCategoriaProfissional, situacao, profissao, nacionalidade;
     //private int imagemSituacao, origem, corOrigem;
 
-    public ColaboradorRegisto(int id, String nome, String idMorada, String morada, String sexo, long dataNascimento, String estado, String nacionalidade,
+
+
+
+    public ColaboradorRegisto(int id, String nome/*, String idMorada, String morada, String sexo, long dataNascimento, String estado, String nacionalidade,
                               int origem,
                               String situacao, String posto,
                        String dataAdmissao, String dataAdmissaoFuncao, String categoriaProfissional, String idCategoriaProfissional,
-                       String profissao){
+                       String profissao*/){
 
 
         this.id = id;

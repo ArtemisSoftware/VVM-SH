@@ -40,14 +40,15 @@ public class AtualizarTipoAsyncTask extends AsyncTask<List<ITipoListagem>, Void,
 
                 try {
 
-                    //TODO: verificar a api
+                    List<Tipo> tipos = new ArrayList<>();
+
+                    Atualizacao atualizacao = DownloadMapping.INSTANCE.map(respostas.get(0));
+
                     for(ITipoListagem resposta : respostas){
-
-                        Atualizacao atualizacao = DownloadMapping.INSTANCE.map(resposta);
-                        List<Tipo> tipos = obterTipos(resposta);
-
-                        repositorio.atualizarTipo(atualizacao, tipos);
+                        tipos.addAll(obterTipos(resposta));
                     }
+
+                    repositorio.atualizarTipo(atualizacao, tipos);
 
                 }
                 catch(SQLiteConstraintException throwable){

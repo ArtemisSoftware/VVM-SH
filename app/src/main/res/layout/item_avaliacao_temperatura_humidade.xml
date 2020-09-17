@@ -73,14 +73,14 @@
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chip"
-                    estado="@{formando.completo}"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:theme="@style/Theme.MaterialComponents.Light" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chip2"
-                    participar="@{formando.resultado.selecionado}"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:theme="@style/Theme.MaterialComponents.Light"

@@ -61,7 +61,7 @@
             android:name=".ui.anomalias.AnomaliasActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
-            android:name=".ui.cliente.extintores.ExtintoresActivity"
+            android:name=".ui.parqueExtintores.ExtintoresActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.ocorrencias.OcorrenciasActivity"

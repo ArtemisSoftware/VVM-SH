@@ -5,16 +5,18 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Index;
+import androidx.room.PrimaryKey;
+
+import com.vvm.sh.util.constantes.Identificadores;
 
 import java.util.Date;
 
 import static androidx.room.ForeignKey.CASCADE;
 
 @Entity(tableName = "colaboradoresResultado",
-        primaryKeys = {"id"},
         foreignKeys = @ForeignKey(entity = Colaborador.class,
                 parentColumns = "id",
-                childColumns = "id",
+                childColumns = "idRegisto",
                 onDelete = CASCADE))
 public class ColaboradorResultado {
 
@@ -22,9 +24,13 @@ public class ColaboradorResultado {
     @NonNull
     public int idTarefa;
 
-    //TODO: isto pode dar problemas
     @NonNull
+    @PrimaryKey(autoGenerate = true)
     public int id;
+
+
+    @ColumnInfo(name = "idRegisto")
+    public String idRegisto;
 
     @ColumnInfo(name = "nome")
     public String nome;
@@ -53,7 +59,8 @@ public class ColaboradorResultado {
     @ColumnInfo(name = "dataAdmissaoFuncao")
     public Date dataAdmissaoFuncao;
 
-    @ColumnInfo(name = "idCategoriaProfissional")
+    @NonNull
+    @ColumnInfo(name = "idCategoriaProfissional", defaultValue = Identificadores.VALOR_0)
     public int idCategoriaProfissional;
 
     @ColumnInfo(name = "profissao")

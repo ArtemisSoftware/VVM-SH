@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Ignore;
 import androidx.room.Index;
 
 import static androidx.room.ForeignKey.CASCADE;
@@ -30,6 +31,10 @@ public class TipoExtintor {
     @ColumnInfo(name = "descricao")
     public String descricao;
 
+
+    @Ignore
+    public TipoExtintor() {
+    }
 
     public TipoExtintor(int idTarefa, @NonNull String id, @NonNull String descricao) {
         this.idTarefa = idTarefa;

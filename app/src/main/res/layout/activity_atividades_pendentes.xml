@@ -124,7 +124,7 @@
     <!--
     <androidx.coordinatorlayout.widget.CoordinatorLayout
         xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:api="http://schemas.android.com/apk/res-auto"
+        xmlns:apiSA="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -141,14 +141,14 @@
             <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:layout_width="match_parent"
                 android:layout_height="350dp"
-                api:layout_scrollFlags="scroll|exitUntilCollapsed"
-                api:contentScrim="?attr/colorPrimary"
-                api:expandedTitleTextAppearance="@android:color/transparent"
+                apiSA:layout_scrollFlags="scroll|exitUntilCollapsed"
+                apiSA:contentScrim="?attr/colorPrimary"
+                apiSA:expandedTitleTextAppearance="@android:color/transparent"
                 android:fitsSystemWindows="true"
                 >
 
                 <ImageView
-                    api:layout_collapseMode="parallax"
+                    apiSA:layout_collapseMode="parallax"
                     android:src="@drawable/lorem_ipsum_banner"
                     android:contentDescription="@string/app_name"
                     android:scaleType="centerCrop"
@@ -159,9 +159,9 @@
                     android:id="@+id/toolbar"
                     android:layout_width="match_parent"
                     android:layout_height="?attr/actionBarSize"
-                    api:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                    apiSA:popupTheme="@style/ThemeOverlay.AppCompat.Light"
                     android:title="@string/lorem_ipsum_titulo"
-                    api:layout_collapseMode="pin"/>
+                    apiSA:layout_collapseMode="pin"/>
 
 
             </com.google.android.material.appbar.CollapsingToolbarLayout>
@@ -175,7 +175,7 @@
                 android:id="@+id/rcl_registos"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                api:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+                apiSA:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>

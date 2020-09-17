@@ -1,41 +1,30 @@
-package com.vvm.sh.ui.cliente.extintores;
+package com.vvm.sh.ui.parqueExtintores;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.View;
 
 import com.vvm.sh.R;
-import com.vvm.sh.baseDados.entidades.ParqueExtintorResultado;
 import com.vvm.sh.databinding.ActivityExtintoresBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
-import com.vvm.sh.ui.BaseActivity;
 import com.vvm.sh.ui.BaseDaggerActivity;
-import com.vvm.sh.ui.cliente.extintores.adaptadores.OnExtintoresListener;
-import com.vvm.sh.ui.cliente.extintores.modelos.ExtintorRegisto;
+import com.vvm.sh.ui.parqueExtintores.adaptadores.OnExtintoresListener;
+import com.vvm.sh.ui.parqueExtintores.modelos.ExtintorRegisto;
 import com.vvm.sh.ui.tarefa.TarefaViewModel;
 import com.vvm.sh.util.Recurso;
-import com.vvm.sh.util.adaptadores.Item;
 import com.vvm.sh.util.base.BaseDatePickerDialog;
 import com.vvm.sh.util.constantes.Identificadores;
-import com.vvm.sh.util.interfaces.OnItemListener;
 import com.vvm.sh.util.metodos.DatasUtil;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
-import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.List;
 
 import javax.inject.Inject;
 
-import butterknife.BindView;
 import butterknife.OnClick;
 
 public class ExtintoresActivity extends BaseDaggerActivity

@@ -3,6 +3,7 @@ package com.vvm.sh.di;
 
 import com.vvm.sh.api.ApiConstantes;
 import com.vvm.sh.api.SegurancaAlimentarApi;
+import com.vvm.sh.api.SegurancaTrabalhoApi;
 import com.vvm.sh.util.interceptores.WebServiceInterceptor;
 
 import java.util.concurrent.TimeUnit;
@@ -77,6 +78,25 @@ public class RedeModule {
     }
 
 
+    @Provides
+    @Singleton
+    @Named("SegurancaTrabalhoRetrofit")
+    Retrofit provideSegurancaTrabalhoRetrofit(OkHttpClient okHttpClient) {
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(SegurancaTrabalhoApi.URL_BASE)
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .client(okHttpClient)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        //Timber.d("Providing retrofit: " + retrofit);
+        return retrofit;
+    }
+
+
+
+
 
     @Provides
     @Singleton
@@ -87,4 +107,16 @@ public class RedeModule {
         //Timber.d("Providing FlickrApi: " + api);
         return api;
     }
+
+
+    @Provides
+    @Singleton
+    SegurancaTrabalhoApi provideSegurancaTrabalhoApiInterface(@Named("SegurancaTrabalhoRetrofit") Retrofit retrofit) {
+
+        SegurancaTrabalhoApi api = retrofit.create(SegurancaTrabalhoApi.class);
+
+        //Timber.d("Providing FlickrApi: " + api);
+        return api;
+    }
+
 }

@@ -68,7 +68,7 @@ public class OpcoesViewModel extends BaseViewModel {
 
         showProgressBar(true);
 
-        tiposRepositorio.obterResumoTipos().toObservable()
+        tiposRepositorio.obterResumoTipos()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -111,16 +111,12 @@ public class OpcoesViewModel extends BaseViewModel {
 
         showProgressBar(true);
 
-        List<Observable<ITipoListagem>> pedidos = new ArrayList<>();
         List<ITipoListagem> respostas = new ArrayList<>();
 
-        for(String metodo : TiposUtil.obterMetodos(descricao)){
 
-            //TODO: quando houver sht separar os pedidos
-            pedidos.add(tiposRepositorio.obterTipo(metodo).toObservable());
-        }
+        TiposUtil.MetodoApi metodo = TiposUtil.obterMetodos(descricao);
 
-        Observable.concat(pedidos)
+        tiposRepositorio.obterTipo(metodo)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -161,14 +157,9 @@ public class OpcoesViewModel extends BaseViewModel {
         showProgressBar(true);
 
         List<ITipoListagem> respostas = new ArrayList<>();
-        List<Observable<ITipoListagem>> pedidos = new ArrayList<>();
 
-        //TODO: fazer algo parecido para SHT
-        for(String metodo : TiposUtil.obterMetodos(Identificadores.App.APP_SA)){
-            pedidos.add(tiposRepositorio.obterTipo(metodo).toObservable());
-        }
 
-        Observable.concat(pedidos)
+        tiposRepositorio.obterTipos()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(

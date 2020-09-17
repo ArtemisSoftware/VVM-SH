@@ -640,13 +640,8 @@ public class TransferenciasViewModel extends BaseViewModel {
         showProgressBar(true);
 
         List<ITipoListagem> respostas = new ArrayList<>();
-        List<Observable<ITipoListagem>> pedidos = new ArrayList<>();
 
-        for(Atualizacao atualizacao : atualizacoes){
-            pedidos.add(tiposRepositorio.obterTipo(atualizacao.descricao, atualizacao.seloTemporal).toObservable());
-        }
-
-        Observable.concat(pedidos)
+        tiposRepositorio.obterTipos(atualizacoes)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -683,51 +678,4 @@ public class TransferenciasViewModel extends BaseViewModel {
 
 
 
-
-    /**
-     * Metodo que permite recarregar todos os tipos
-     */
-    private void recarregarTipos(){
-
-        showProgressBar(true);
-
-        List<ITipoListagem> respostas = new ArrayList<>();
-        List<Observable<ITipoListagem>> pedidos = new ArrayList<>();
-
-        for(String metodo : TiposConstantes.MetodosTipos.TIPOS){
-            pedidos.add(tiposRepositorio.obterTipo(metodo).toObservable());
-        }
-
-        Observable.concat(pedidos)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        new Observer<ITipoListagem>() {
-                            @Override
-                            public void onSubscribe(Disposable d) {
-                                disposables.add(d);
-                            }
-
-                            @Override
-                            public void onNext(ITipoListagem iTipoListagem) {
-                                respostas.add(iTipoListagem);
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-                                showProgressBar(false);
-                                messagemLiveData.setValue(Recurso.erro(e.getMessage()));
-                            }
-
-                            @Override
-                            public void onComplete() {
-
-
-                                showProgressBar(false);
-                            }
-                        }
-
-                );
-
-    }
 }

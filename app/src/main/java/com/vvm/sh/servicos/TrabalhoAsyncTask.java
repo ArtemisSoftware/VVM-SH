@@ -111,6 +111,7 @@ public class TrabalhoAsyncTask extends AsyncTask<ISessao, Void, Void> {
      */
     protected void inserirTarefas(String data, ISessao.TrabalhoInfo info) {
 
+
         int idTarefa = inserirTarefa (info.tarefas.dados, data);
 
         inserirAtividadesExecutadas(info.tarefas.atividadesExecutadas, idTarefa);
@@ -127,7 +128,8 @@ public class TrabalhoAsyncTask extends AsyncTask<ISessao, Void, Void> {
 
         inserirParqueExtintores(info.tarefas.parqueExtintores, info.tarefas.tiposExtintor, idTarefa);
 
-        inserirQuadroPessoal(info.tarefas.quadroPessoal, idTarefa);
+        //inserirQuadroPessoal(info.tarefas.quadroPessoal, idTarefa);
+
 
     }
 
@@ -146,6 +148,8 @@ public class TrabalhoAsyncTask extends AsyncTask<ISessao, Void, Void> {
 
     }
 
+
+
     private void inserirParqueExtintores(List<IParqueExtintor> parqueExtintores, List<ITipoExtintor> tiposExtintor, int idTarefa) {
 
         List<TipoExtintor> registos = new ArrayList<>();
@@ -157,7 +161,7 @@ public class TrabalhoAsyncTask extends AsyncTask<ISessao, Void, Void> {
             registos.add(registo);
         }
 
-        //--repositorio.inserirTipoExtintor(registos);
+        repositorio.inserirTipoExtintor(registos);
 
 
         List<ParqueExtintor> registosExtintores = new ArrayList<>();
@@ -169,7 +173,7 @@ public class TrabalhoAsyncTask extends AsyncTask<ISessao, Void, Void> {
             registosExtintores.add(registo);
         }
 
-        //--repositorio.inserirParqueExtintores(registosExtintores);
+        repositorio.inserirParqueExtintores(registosExtintores);
 
     }
 
@@ -194,8 +198,7 @@ public class TrabalhoAsyncTask extends AsyncTask<ISessao, Void, Void> {
             registos.add(registo);
         }
         
-
-        //--repositorio.inserirMoradas(registos);
+        repositorio.inserirMoradas(registos);
     }
     
     /**

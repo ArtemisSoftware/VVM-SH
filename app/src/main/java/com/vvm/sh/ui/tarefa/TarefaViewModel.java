@@ -5,9 +5,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.vvm.sh.baseDados.entidades.ParqueExtintorResultado;
 import com.vvm.sh.baseDados.entidades.SinistralidadeResultado;
 import com.vvm.sh.repositorios.TarefaRepositorio;
-import com.vvm.sh.servicos.ResultadoAsyncTask;
-import com.vvm.sh.baseDados.entidades.Resultado;
-import com.vvm.sh.ui.cliente.extintores.modelos.ExtintorRegisto;
+import com.vvm.sh.ui.parqueExtintores.modelos.ExtintorRegisto;
 import com.vvm.sh.ui.tarefa.modelos.TarefaDia;
 import com.vvm.sh.baseDados.entidades.AtividadeExecutada;
 import com.vvm.sh.baseDados.entidades.Tipo;
@@ -274,6 +272,7 @@ public class TarefaViewModel extends BaseViewModel {
      */
     public void validarExtintores(int idTarefa) {
 
+        /*
         Observable<Object> observables = Observable.zip(
                 tarefaRepositorio.inserirValicao(idTarefa),
                 tarefaRepositorio.atualizarValidacao(idTarefa),
@@ -313,6 +312,7 @@ public class TarefaViewModel extends BaseViewModel {
                 );
 
         gravarResultado(tarefaRepositorio.resultadoDao, idTarefa, ResultadoId.PARQUE_EXTINTOR);
+        */
     }
 
 

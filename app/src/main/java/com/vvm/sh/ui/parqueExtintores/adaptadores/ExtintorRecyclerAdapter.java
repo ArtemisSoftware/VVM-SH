@@ -1,4 +1,4 @@
-package com.vvm.sh.ui.cliente.extintores.adaptadores;
+package com.vvm.sh.ui.parqueExtintores.adaptadores;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,7 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.vvm.sh.R;
 import com.vvm.sh.databinding.ItemExtintorBinding;
-import com.vvm.sh.ui.cliente.extintores.modelos.ExtintorRegisto;
+import com.vvm.sh.ui.parqueExtintores.modelos.ExtintorRegisto;
 
 import java.util.ArrayList;
 import java.util.List;

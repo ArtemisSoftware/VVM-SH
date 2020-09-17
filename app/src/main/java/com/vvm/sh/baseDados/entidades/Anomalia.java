@@ -105,7 +105,7 @@ public class Anomalia{
 //     * Metodo que permite obter o tipo
 //     * @return o tipo
 //     */
-//    public String obterTipo(){
+//    public String obterTipoSA(){
 //        return tipo;
 //    }
 //

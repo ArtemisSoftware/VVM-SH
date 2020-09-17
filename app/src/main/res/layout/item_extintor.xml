@@ -13,11 +13,11 @@
 
         <variable
             name="extintor"
-            type="com.vvm.sh.ui.cliente.extintores.modelos.ExtintorRegisto" />
+            type="com.vvm.sh.ui.parqueExtintores.modelos.ExtintorRegisto" />
 
         <variable
             name="listener"
-            type="com.vvm.sh.ui.cliente.extintores.adaptadores.OnExtintoresListener"/>
+            type="com.vvm.sh.ui.parqueExtintores.adaptadores.OnExtintoresListener"/>
 
     </data>
 

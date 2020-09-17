@@ -56,9 +56,21 @@ public class RelatorioAmbientalResultado {
 
     //TODO:Verificar
 
-    @NonNull
-    public String medidaRecomendada;
+//    @NonNull
+//    public String medidaRecomendada;
 
+
+    public RelatorioAmbientalResultado(int idAtividade, int id, int tipo, @NonNull String marca, @NonNull String numeroSerie, @NonNull Date data, @NonNull Date inicio, @NonNull Date termino, int idNebulosidade) {
+        this.idAtividade = idAtividade;
+        this.id = id;
+        this.tipo = tipo;
+        this.marca = marca;
+        this.numeroSerie = numeroSerie;
+        this.data = data;
+        this.inicio = inicio;
+        this.termino = termino;
+        this.idNebulosidade = idNebulosidade;
+    }
 
     @Ignore
     public RelatorioAmbientalResultado(int idAtividade, int tipo, @NonNull String marca, @NonNull String numeroSerie,

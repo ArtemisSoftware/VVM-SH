@@ -3,6 +3,7 @@ package com.vvm.sh.baseDados.entidades;
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Ignore;
 import androidx.room.Index;
 
 import static androidx.room.ForeignKey.CASCADE;
@@ -40,6 +41,10 @@ public class Morada {
     @NonNull
     public String localidade;
 
+
+    @Ignore
+    public Morada() {
+    }
 
     public Morada(int idTarefa, @NonNull String id, @NonNull int tipo, @NonNull String endereco, @NonNull String cp4, @NonNull String localidade) {
         this.idTarefa = idTarefa;

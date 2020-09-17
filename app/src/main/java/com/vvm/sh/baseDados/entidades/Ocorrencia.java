@@ -290,7 +290,7 @@ public class Ocorrencia  {
 //     * Metodo que permite obter o tipo de ocorrencia
 //     * @return o tipo de ocorrencia
 //     */
-//    public int obterTipo(){
+//    public int obterTipoSA(){
 //        return tipo;
 //    }
 //

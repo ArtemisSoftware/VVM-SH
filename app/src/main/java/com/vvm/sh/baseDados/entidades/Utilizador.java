@@ -22,14 +22,15 @@ public class Utilizador {
     @ColumnInfo(name = "nome")
     public String nome;
 
-    @NonNull
-    @ColumnInfo(name = "email")
-    public String email;
-
+    @ColumnInfo(name = "cap")
+    public String cap;
 
     @NonNull
     @ColumnInfo(name = "api")
     public int api;
+
+    @ColumnInfo(name = "email")
+    public String email;
 
 
     @Ignore
@@ -39,12 +40,14 @@ public class Utilizador {
     public Utilizador() {}
 
 
-    public Utilizador(String id, String area, String nome, String email, int api) {
+
+    public Utilizador(@NonNull String id, @NonNull String area, @NonNull String nome, String email, int api, String cap) {
         this.id = id;
         this.area = area;
         this.nome = nome;
         this.email = email;
         this.api = api;
+        this.cap = cap;
     }
 
     @Ignore

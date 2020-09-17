@@ -118,9 +118,9 @@ Event: 37.417 Thread 0x0000000017908800 5581       3       sun.nio.fs.WindowsPat
 Event: 37.418 Thread 0x0000000017908800 nmethod 5581 0x0000000002aa4d50 code [0x0000000002aa4ec0, 0x0000000002aa5150]
 Event: 37.429 Thread 0x0000000017908800 5582       3       java.util.concurrent.locks.AbstractQueuedSynchronizer$ConditionObject::signalAll (33 bytes)
 Event: 37.429 Thread 0x0000000017908800 nmethod 5582 0x0000000002bfa510 code [0x0000000002bfa6a0, 0x0000000002bfaa08]
-Event: 37.431 Thread 0x0000000017908800 5583       3       org.gradle.api.internal.artifacts.ivyservice.ivyresolve.ErrorHandlingModuleComponentRepository$ErrorHandlingModuleComponentRepositoryAccess::performOperationWithRetries (42 bytes)
+Event: 37.431 Thread 0x0000000017908800 5583       3       org.gradle.apiSA.internal.artifacts.ivyservice.ivyresolve.ErrorHandlingModuleComponentRepository$ErrorHandlingModuleComponentRepositoryAccess::performOperationWithRetries (42 bytes)
 Event: 37.432 Thread 0x0000000017908800 nmethod 5583 0x0000000002980510 code [0x0000000002980700, 0x0000000002981118]
-Event: 37.432 Thread 0x0000000017908800 5584       3       org.gradle.api.internal.artifacts.ivyservice.ivyresolve.ErrorHandlingModuleComponentRepository$ErrorHandlingModuleComponentRepositoryAccess$$Lambda$18/28528695::call (8 bytes)
+Event: 37.432 Thread 0x0000000017908800 5584       3       org.gradle.apiSA.internal.artifacts.ivyservice.ivyresolve.ErrorHandlingModuleComponentRepository$ErrorHandlingModuleComponentRepositoryAccess$$Lambda$18/28528695::call (8 bytes)
 
 GC Heap History (10 events):
 Event: 19.445 GC heap before
@@ -233,11 +233,11 @@ Deoptimization events (10 events):
 Event: 30.489 Thread 0x00000000192fe000 Uncommon trap: reason=unstable_if action=reinterpret pc=0x00000000029ea764 method=java.lang.String.lastIndexOf([CII[CIII)I @ 17
 Event: 30.753 Thread 0x00000000192fe000 Uncommon trap: reason=unstable_if action=reinterpret pc=0x0000000002c8c488 method=kotlin.reflect.jvm.internal.impl.protobuf.CodedInputStream.readRawVarint32()I @ 10
 Event: 31.720 Thread 0x00000000192fe000 Uncommon trap: reason=unstable_if action=reinterpret pc=0x0000000003047ae8 method=java.io.WinNTFileSystem.normalize(Ljava/lang/String;)Ljava/lang/String; @ 74
-Event: 34.729 Thread 0x00000000192fe000 Uncommon trap: reason=unloaded action=reinterpret pc=0x0000000003852960 method=org.gradle.api.internal.project.taskfactory.DefaultTaskClassInfoStore.createTaskAction(Ljava/lang/Class;Ljava/lang/reflect/Method;Ljava/util/Map;)Lorg/gradle/api/internal/proje
+Event: 34.729 Thread 0x00000000192fe000 Uncommon trap: reason=unloaded action=reinterpret pc=0x0000000003852960 method=org.gradle.apiSA.internal.project.taskfactory.DefaultTaskClassInfoStore.createTaskAction(Ljava/lang/Class;Ljava/lang/reflect/Method;Ljava/util/Map;)Lorg/gradle/apiSA/internal/proje
 Event: 35.754 Thread 0x00000000192fe000 Uncommon trap: reason=unstable_if action=reinterpret pc=0x000000000370a8ec method=org.objectweb.asm.Type.getArgumentsAndReturnSizes(Ljava/lang/String;)I @ 109
 Event: 35.754 Thread 0x00000000192fe000 Uncommon trap: reason=unstable_if action=reinterpret pc=0x000000000317ff64 method=org.objectweb.asm.Type.getArgumentsAndReturnSizes(Ljava/lang/String;)I @ 109
 Event: 35.978 Thread 0x00000000192fe000 Uncommon trap: reason=unstable_if action=reinterpret pc=0x00000000034d1f40 method=java.util.TreeMap.put(Ljava/lang/Object;Ljava/lang/Object;)Ljava/lang/Object; @ 163
-Event: 36.151 Thread 0x00000000192fe000 Uncommon trap: reason=unstable_if action=reinterpret pc=0x00000000038ea524 method=org.gradle.api.internal.project.taskfactory.DefaultTaskClassInfoStore.createTaskAction(Ljava/lang/Class;Ljava/lang/reflect/Method;Ljava/util/Map;)Lorg/gradle/api/internal/pr
+Event: 36.151 Thread 0x00000000192fe000 Uncommon trap: reason=unstable_if action=reinterpret pc=0x00000000038ea524 method=org.gradle.apiSA.internal.project.taskfactory.DefaultTaskClassInfoStore.createTaskAction(Ljava/lang/Class;Ljava/lang/reflect/Method;Ljava/util/Map;)Lorg/gradle/apiSA/internal/pr
 Event: 36.646 Thread 0x00000000192fe000 Uncommon trap: reason=unstable_if action=reinterpret pc=0x00000000031369f4 method=groovy.lang.MetaClassImpl.checkIfStdMethod(Lgroovy/lang/MetaMethod;)V @ 55
 Event: 36.646 Thread 0x00000000192fe000 Uncommon trap: reason=unstable_if action=reinterpret pc=0x0000000003116fb8 method=groovy.lang.MetaClassImpl.checkIfStdMethod(Lgroovy/lang/MetaMethod;)V @ 55
 
@@ -251,10 +251,10 @@ Event: 32.236 Thread 0x00000000192fe000 Exception <a 'java/lang/NoSuchMethodErro
 Event: 33.959 Thread 0x00000000192fe000 Exception <a 'java/lang/NoSuchMethodError': java.lang.Object.lambda$identity$2(Ljava/lang/Object;)Ljava/lang/Object;> (0x00000000e2cd2220) thrown at [D:\src\AOSP-openjdk-cygwin\jdk8u\hotspot\src\share\vm\interpreter\linkResolver.cpp, line 620]
 Event: 36.624 Thread 0x00000000192fe000 Exception <a 'java/lang/ClassNotFoundException': org/jetbrains/plugins/gradle/tooling/util/SourceSetCachedFinderBeanInfo> (0x00000000e4b862d0) thrown at [D:\src\AOSP-openjdk-cygwin\jdk8u\hotspot\src\share\vm\classfile\systemDictionary.cpp, line 210]
 Event: 36.625 Thread 0x00000000192fe000 Exception <a 'java/lang/ClassNotFoundException': org/jetbrains/plugins/gradle/tooling/util/SourceSetCachedFinderCustomizer> (0x00000000e4b98468) thrown at [D:\src\AOSP-openjdk-cygwin\jdk8u\hotspot\src\share\vm\classfile\systemDictionary.cpp, line 210]
-Event: 36.647 Thread 0x00000000192fe000 Exception <a 'java/lang/ClassNotFoundException': org/gradle/api/internal/plugins/DefaultConventionBeanInfo> (0x00000000e4bf98e8) thrown at [D:\src\AOSP-openjdk-cygwin\jdk8u\hotspot\src\share\vm\classfile\systemDictionary.cpp, line 210]
+Event: 36.647 Thread 0x00000000192fe000 Exception <a 'java/lang/ClassNotFoundException': org/gradle/apiSA/internal/plugins/DefaultConventionBeanInfo> (0x00000000e4bf98e8) thrown at [D:\src\AOSP-openjdk-cygwin\jdk8u\hotspot\src\share\vm\classfile\systemDictionary.cpp, line 210]
 Event: 36.648 Thread 0x00000000192fe000 Exception <a 'java/lang/ClassNotFoundException': org/gradle/internal/extensibility/DefaultConventionBeanInfo> (0x00000000e4c11a60) thrown at [D:\src\AOSP-openjdk-cygwin\jdk8u\hotspot\src\share\vm\classfile\systemDictionary.cpp, line 210]
 Event: 36.648 Thread 0x00000000192fe000 Exception <a 'java/lang/ClassNotFoundException': org/gradle/internal/extensibility/DefaultConventionCustomizer> (0x00000000e4c2a068) thrown at [D:\src\AOSP-openjdk-cygwin\jdk8u\hotspot\src\share\vm\classfile\systemDictionary.cpp, line 210]
-Event: 36.650 Thread 0x00000000192fe000 Exception <a 'java/lang/ClassNotFoundException': org/gradle/api/internal/plugins/DefaultConventionCustomizer> (0x00000000e4c6a000) thrown at [D:\src\AOSP-openjdk-cygwin\jdk8u\hotspot\src\share\vm\classfile\systemDictionary.cpp, line 210]
+Event: 36.650 Thread 0x00000000192fe000 Exception <a 'java/lang/ClassNotFoundException': org/gradle/apiSA/internal/plugins/DefaultConventionCustomizer> (0x00000000e4c6a000) thrown at [D:\src\AOSP-openjdk-cygwin\jdk8u\hotspot\src\share\vm\classfile\systemDictionary.cpp, line 210]
 
 Events (10 events):
 Event: 37.354 Thread 0x0000000017908800 flushing nmethod 0x0000000002fd4990
@@ -348,6 +348,6 @@ Memory: 4k page, physical 8315244k(452420k free), swap 33481068k(1764k free)
 vm_info: OpenJDK 64-Bit Server VM (25.202-b03) for windows-amd64 JRE (1.8.0_202-release-1483-b03), built by "builder" with MS VC++ 10.0 (VS2010)
 
 time: Thu Mar 05 14:02:45 2020
-timezone: Hora padrão de GMT
+timezone: Hora padrï¿½o de GMT
 elapsed time: 37 seconds (0d 0h 0m 37s)
 

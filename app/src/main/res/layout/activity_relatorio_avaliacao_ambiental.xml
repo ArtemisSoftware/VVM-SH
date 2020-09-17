@@ -124,7 +124,7 @@
                         android:id="@+id/chip"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        estado="@{viewmodel.acaoFormacao.completo}"
+
                         android:layout_marginTop="8dp"
                         android:layout_marginBottom="24dp"
                         app:layout_constraintStart_toStartOf="@+id/txt_titulo"

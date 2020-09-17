@@ -25,13 +25,17 @@ import com.vvm.sh.baseDados.dao.SinistralidadeDao;
 import com.vvm.sh.baseDados.dao.TarefaDao;
 import com.vvm.sh.baseDados.dao.TransferenciasDao;
 import com.vvm.sh.baseDados.dao.UtilizadorDao;
+import com.vvm.sh.baseDados.entidades.AvaliacaoAmbientalResultado;
+import com.vvm.sh.baseDados.entidades.CategoriaProfissionalResultado;
 import com.vvm.sh.baseDados.entidades.Colaborador;
 import com.vvm.sh.baseDados.entidades.ColaboradorResultado;
 import com.vvm.sh.baseDados.entidades.ImagemResultado;
 import com.vvm.sh.baseDados.entidades.LevantamentoRiscoResultado;
+import com.vvm.sh.baseDados.entidades.MedidaResultado;
 import com.vvm.sh.baseDados.entidades.Morada;
 import com.vvm.sh.baseDados.entidades.ParqueExtintor;
 import com.vvm.sh.baseDados.entidades.ParqueExtintorResultado;
+import com.vvm.sh.baseDados.entidades.RelatorioAmbientalResultado;
 import com.vvm.sh.baseDados.entidades.Resultado;
 import com.vvm.sh.baseDados.entidades.SinistralidadeResultado;
 import com.vvm.sh.baseDados.entidades.Tarefa;
@@ -70,7 +74,11 @@ import com.vvm.sh.baseDados.entidades.EmailResultado;
                     EmailResultado.class, AnomaliaResultado.class, FormandoResultado.class, AcaoFormacaoResultado.class,
                     AtividadePendenteResultado.class, CrossSellingResultado.class, OcorrenciaResultado.class,
                     ImagemResultado.class, SinistralidadeResultado.class,
-                    ParqueExtintorResultado.class, ColaboradorResultado.class, AvaliacaoAmbientalDao.class, CategoriaProfissionalDao.class, MedidaDao.class,
+                    ParqueExtintorResultado.class,
+                    CategoriaProfissionalResultado.class, MedidaResultado.class,
+                    ColaboradorResultado.class,
+                    RelatorioAmbientalResultado.class, AvaliacaoAmbientalResultado.class,
+
                     LevantamentoRiscoResultado.class,
                     Resultado.class
             },
@@ -126,13 +134,19 @@ public abstract class VvmshBaseDados extends RoomDatabase {
 
     public abstract SinistralidadeDao obterSinistralidadeDao();
 
-    public abstract QuadroPessoalDao obterQuadroPessoalDao();
-
-    public abstract AvaliacaoAmbientalDao obterAvaliacaoAmbientalDao();
+    public abstract ParqueExtintorDao obterParqueExtintorDao();
 
     public abstract CategoriaProfissionalDao obterCategoriaProfissionalDao();
 
     public abstract MedidaDao obterMedidaDao();
+
+
+
+    public abstract QuadroPessoalDao obterQuadroPessoalDao();
+
+    public abstract AvaliacaoAmbientalDao obterAvaliacaoAmbientalDao();
+
+
 
 
     public abstract LevantamentoDao obterLevantamentoDao();

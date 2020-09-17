@@ -32,11 +32,14 @@ public class TiposUtil {
 
     private static class MetodosTiposSH{
 
+        public static final String CURSOS = "getCoursesInfo";
+
         public static final String CATEGORIAS_PROFISSIONAIS = "";
 
 
         public static final String TIPOS [] = new String []{
 
+                CURSOS,
                 CATEGORIAS_PROFISSIONAIS
         };
     }
@@ -56,13 +59,16 @@ public class TiposUtil {
 
 
 
-        public static final String TIPOS [] = new String []{
+        public static final MetodoApi METODO_CURSOS = new MetodoApi(MetodosTiposSA.CURSOS, MetodosTiposSH.CURSOS);
+        //public static final MetodoApi METODO_ = new MetodoApi(MetodosTiposSA., MetodosTiposSH.);
 
-                CROSS_SELLING_PRODUTOS, CROSS_SELLING_DIMENSAO, CROSS_SELLING_TIPO,
-                ANOMALIAS,
-                TIPIFICACAO_OCORRENCIA,
-                CURSOS
+
+
+        public static final MetodoApi TIPOS [] = new MetodoApi []{
+
+                METODO_CURSOS
         };
+
     }
 
 
@@ -136,6 +142,7 @@ public class TiposUtil {
      * @param descricao a descricao do tipo
      * @return uma lista de metodos
      */
+    /*
     public static String [] obterMetodos(String descricao){
 
         String metodos [] = new String []{};
@@ -181,25 +188,64 @@ public class TiposUtil {
 
         return metodos;
     }
+*/
+
+
+    public static MetodoApi obterMetodos(String descricao){
+
+        MetodoApi metodo = new MetodoApi();
+
+
+        switch (descricao){
+
+            case MetodosTipos.CROSS_SELLING_PRODUTOS:
+
+                metodo.sa = MetodosTiposSA.CROSS_SELLING_PRODUTOS;
+                break;
+
+            case MetodosTipos.CROSS_SELLING_DIMENSAO:
+
+                metodo.sa = MetodosTiposSA.CROSS_SELLING_DIMENSAO;
+                break;
+
+            case MetodosTipos.CROSS_SELLING_TIPO:
+
+                metodo.sa = MetodosTiposSA.CROSS_SELLING_TIPO;
+                break;
+
+            case MetodosTipos.ANOMALIAS:
+
+                metodo.sa = MetodosTiposSA.TIPOS_ANOMALIA;
+                break;
+
+            case MetodosTipos.TIPIFICACAO_OCORRENCIA:
+
+                metodo.sa = MetodosTiposSA.TIPIFICACAO_OCORRENCIA;
+                break;
+
+            case MetodosTipos.CURSOS:
+
+                metodo = MetodosTipos.METODO_CURSOS;
+                break;
+
+            default:
+                //throw new TipoInexistenteException(metodo);
+                break;
+        }
+
+
+        return metodo;
+    }
+
 
 
 
     /**
      * Metodo que permite obter os metodos associados a tipos de uma api
-     * @param api o identificador da api
      * @return uma lista de metodos para tipos
      */
-    public static String[] obterMetodos(int api){
-
-
-        if(api == Identificadores.App.APP_SA){
-            return MetodosTiposSA.TIPOS;
-        }
-        else{
-            //TODO: POR aqui lista de SHT
-            return new String []{};
-        }
-
+    public static MetodoApi[] obterMetodos(){
+        return MetodosTipos.TIPOS;
     }
 
 //
@@ -218,5 +264,22 @@ public class TiposUtil {
 //
 //    }
 
+
+    public static class MetodoApi{
+
+        public String sa, sht;
+
+        public MetodoApi() {
+            this.sht = null;
+            this.sa = null;
+        }
+
+        public MetodoApi(String sa, String sht) {
+            this.sht = sht;
+            this.sa = sa;
+        }
+
+
+    }
 
 }

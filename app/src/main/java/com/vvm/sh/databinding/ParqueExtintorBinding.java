@@ -1,6 +1,5 @@
 package com.vvm.sh.databinding;
 
-import android.graphics.Color;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -12,9 +11,9 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipDrawable;
 import com.vvm.sh.R;
-import com.vvm.sh.ui.cliente.extintores.adaptadores.ExtintorRecyclerAdapter;
-import com.vvm.sh.ui.cliente.extintores.adaptadores.OnExtintoresListener;
-import com.vvm.sh.ui.cliente.extintores.modelos.ExtintorRegisto;
+import com.vvm.sh.ui.parqueExtintores.adaptadores.ExtintorRecyclerAdapter;
+import com.vvm.sh.ui.parqueExtintores.adaptadores.OnExtintoresListener;
+import com.vvm.sh.ui.parqueExtintores.modelos.ExtintorRegisto;
 import com.vvm.sh.util.metodos.DatasUtil;
 
 import java.util.List;

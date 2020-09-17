@@ -1,4 +1,4 @@
-package com.vvm.sh.ui.cliente.extintores.modelos;
+package com.vvm.sh.ui.parqueExtintores.modelos;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Embedded;

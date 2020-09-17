@@ -41,9 +41,6 @@ public class ITarefa {
     @SerializedName("Moradas")
     public List<IMorada> moradas;
 
-    @SerializedName("QuadroPessoal")
-    public List<IColaborador> quadroPessoal;
-
     @SerializedName("ParqueExtintores")
     public List<IParqueExtintor> parqueExtintores;
 
@@ -53,13 +50,16 @@ public class ITarefa {
     @SerializedName("TiposExtintor")
     public List<ITipoExtintor> tiposExtintor;
 
-    @SerializedName("AvaliacaoRiscosAnterior")
-    public List<IAvaliacaoRiscosAnterior> avaliacaoRiscosAnterior;
-
-    @SerializedName("Plano_Accao")
-    public IPlanoAcao planoAcao;
-
-    @SerializedName("RelatorioAvaliacaoRisco")
-    public IRelatorioAvaliacaoRiscos relatorioAvaliacaoRiscos;
+//    @SerializedName("QuadroPessoal")
+//    public List<IColaborador> quadroPessoal;
+//
+//    @SerializedName("AvaliacaoRiscosAnterior")
+//    public List<IAvaliacaoRiscosAnterior> avaliacaoRiscosAnterior;
+//
+//    @SerializedName("Plano_Accao")
+//    public IPlanoAcao planoAcao;
+//
+//    @SerializedName("RelatorioAvaliacaoRisco")
+//    public IRelatorioAvaliacaoRiscos relatorioAvaliacaoRiscos;
 
 }

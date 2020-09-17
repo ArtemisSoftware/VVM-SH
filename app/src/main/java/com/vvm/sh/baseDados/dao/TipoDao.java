@@ -9,10 +9,12 @@ import com.vvm.sh.baseDados.BaseDao;
 import com.vvm.sh.ui.opcoes.modelos.Colecao;
 import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.ui.opcoes.modelos.ResumoTipo;
+import com.vvm.sh.util.constantes.Identificadores;
 
 import java.util.List;
 
 import io.reactivex.Flowable;
+import io.reactivex.Observable;
 import io.reactivex.Single;
 
 @Dao
@@ -34,11 +36,12 @@ abstract public class TipoDao implements BaseDao<Tipo> {
     abstract public Maybe<List<Colecao>> obterResumoTipos();
 */
 
-    @Query("SELECT descricao, numeroRegistos, seloTemporal " +
+    @Query("SELECT descricao, numeroRegistosSA, numeroRegistosSHT, seloTemporal " +
             "FROM atualizacoes as atl " +
-            "LEFT JOIN (SELECT tipo, COUNT(id) as numeroRegistos FROM tipos WHERE ativo = 1 GROUP BY tipo) as tp ON atl.descricao = tp.tipo " +
+            "LEFT JOIN (SELECT tipo, COUNT(id) as numeroRegistosSA FROM tipos WHERE ativo = 1 AND api = " + Identificadores.App.APP_SA + " GROUP BY tipo) as tp_sa ON atl.descricao = tp_sa.tipo " +
+            "LEFT JOIN (SELECT tipo, COUNT(id) as numeroRegistosSHT FROM tipos WHERE ativo = 1 AND api = " + Identificadores.App.APP_ST + " GROUP BY tipo) as tp_sht ON atl.descricao = tp_sht.tipo " +
             "ORDER BY descricao ASC")
-    abstract public Flowable<List<ResumoTipo>> obterResumoTipos();
+    abstract public Observable<List<ResumoTipo>> obterResumoTipos();
 
 
 

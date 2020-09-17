@@ -44,7 +44,7 @@
                 android:id="@+id/textView49"
                 style="@style/textoDetalhe"
                 android:layout_marginStart="16dp"
-                android:text="@{avaliacao.eLx, default=eLx}"
+                android:text="@{avaliacao.resultado.eLx, default=eLx}"
                 app:layout_constraintBottom_toBottomOf="@+id/textView46"
                 app:layout_constraintStart_toEndOf="@+id/textView48"
                 app:layout_constraintTop_toTopOf="@+id/textView46" />
@@ -80,14 +80,14 @@
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chip"
-                    estado="@{formando.completo}"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:theme="@style/Theme.MaterialComponents.Light" />
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chip2"
-                    participar="@{formando.resultado.selecionado}"
+
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:theme="@style/Theme.MaterialComponents.Light"
@@ -118,7 +118,7 @@
                 android:id="@+id/textView45"
                 style="@style/textoDetalhe"
                 android:layout_marginStart="16dp"
-                android:text="@{avaliacao.tipoIluminacao, default=tipoIluminacao}"
+                android:text="@{avaliacao.resultado.tipoIluminacao, default=tipoIluminacao}"
                 app:layout_constraintBottom_toBottomOf="@+id/textView44"
                 app:layout_constraintStart_toEndOf="@+id/textView44"
                 app:layout_constraintTop_toTopOf="@+id/textView44" />
@@ -135,7 +135,7 @@
                 android:id="@+id/textView47"
                 style="@style/textoDetalhe"
                 android:layout_marginStart="16dp"
-                android:text="@{avaliacao.emedioLx, default=emedioLx}"
+                android:text="@{avaliacao.resultado.emedioLx, default=emedioLx}"
                 app:layout_constraintBottom_toBottomOf="@+id/textView46"
                 app:layout_constraintStart_toEndOf="@+id/textView46"
                 app:layout_constraintTop_toTopOf="@+id/textView46" />

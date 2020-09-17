@@ -2,6 +2,7 @@ package com.vvm.sh.repositorios;
 
 import androidx.annotation.NonNull;
 
+import com.vvm.sh.api.SegurancaTrabalhoApi;
 import com.vvm.sh.api.modelos.bd.AtividadePendenteBd;
 import com.vvm.sh.api.modelos.bd.FormandoBd;
 import com.vvm.sh.api.SegurancaAlimentarApi;
@@ -38,13 +39,15 @@ import io.reactivex.Single;
 public class TransferenciasRepositorio {
 
 
-    private final SegurancaAlimentarApi api;
+    private final SegurancaAlimentarApi apiSA;
+    private final SegurancaTrabalhoApi apiST;
 
     private final TransferenciasDao transferenciasDao;
 
 
-    public TransferenciasRepositorio(@NonNull SegurancaAlimentarApi api, @NonNull TransferenciasDao transferenciasDao) {
-        this.api = api;
+    public TransferenciasRepositorio(@NonNull SegurancaAlimentarApi apiSA, @NonNull SegurancaTrabalhoApi apiST, @NonNull TransferenciasDao transferenciasDao) {
+        this.apiSA = apiSA;
+        this.apiST = apiST;
         this.transferenciasDao = transferenciasDao;
     }
 
@@ -59,7 +62,7 @@ public class TransferenciasRepositorio {
      * @return o trabalho
      */
     public Single<ISessao> obterTrabalho(String idUtilizador) {
-        return api.obterTrabalho(idUtilizador);
+        return apiST.obterTrabalho(SegurancaTrabalhoApi.HEADER, idUtilizador);
     }
 
 
@@ -70,7 +73,7 @@ public class TransferenciasRepositorio {
      * @return o trabalho do dia
      */
     public Single<ISessao> obterTrabalho(String idUtilizador, String data) {
-        return api.obterTrabalho(idUtilizador, data);
+        return apiSA.obterTrabalho(idUtilizador, data);
     }
 
 
@@ -83,7 +86,7 @@ public class TransferenciasRepositorio {
      * @return um codigo com o resultado da submissao
      */
     public Single<Codigo> submeterDados(String dados, String idUtilizador, String id, String messageDigest) {
-        return api.submeterDados(dados, idUtilizador, id, messageDigest);
+        return apiSA.submeterDados(dados, idUtilizador, id, messageDigest);
     }
 
     /**
@@ -96,7 +99,7 @@ public class TransferenciasRepositorio {
      * @return um codigo com o resultado da submissao
      */
     public Single<Codigo> submeterImagens(String dados, String idUtilizador, String id, String numeroFicheiro, String messageDigest) {
-        return api.submeterImagens(dados, idUtilizador, id, numeroFicheiro, messageDigest);
+        return apiSA.submeterImagens(dados, idUtilizador, id, numeroFicheiro, messageDigest);
     }
 
 

@@ -14,6 +14,11 @@ public class Testes {
 
         resultado.add(new Utilizador("500005", "7765", "SA", "Super administrador", "gustavomaia@vivamais.com"));
         resultado.add(new Utilizador("12724", "58077278", "SA", "Marisa Mendonça", "gustavomaia@vivamais.com"));
+        resultado.add(new Utilizador("12010", "58077278", "SA", "Samuel Portela", "amuelportela@vivamais.com"));
+        resultado.add(new Utilizador("7187", "785678", "SA", "Paulo Braz", "paulobraz@vivamais.com"));
+
+
+
         return resultado;
     }
 

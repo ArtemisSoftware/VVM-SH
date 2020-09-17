@@ -15,12 +15,73 @@ public class Migracao {
 
         Migration migrations [] =  new Migration []{
                 MIGRACAO_1_2, MIGRACAO_2_3, MIGRACAO_3_4, MIGRACAO_4_5, MIGRACAO_5_6, MIGRACAO_6_7, MIGRACAO_7_8, MIGRACAO_8_9, MIGRACAO_9_10, MIGRACAO_10_11,
-                MIGRACAO_11_12, MIGRACAO_12_13, MIGRACAO_13_14, MIGRACAO_14_15, MIGRACAO_15_16
+                MIGRACAO_11_12, MIGRACAO_12_13, MIGRACAO_13_14, MIGRACAO_14_15, MIGRACAO_15_16, MIGRACAO_16_17
 
         };
 
         return migrations;
     }
+
+
+
+    public static final Migration MIGRACAO_16_17 = new Migration(16, 17) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            try {
+
+
+                database.execSQL(" ALTER TABLE atividadeExecutadas RENAME TO tmp");
+
+                database.execSQL("CREATE TABLE IF NOT EXISTS 'atividadeExecutadas' ("
+                        + "'idTarefa' INTEGER NOT NULL, "
+                        + "'ordem' TEXT NOT NULL, "
+                        + "'idServico' TEXT NOT NULL, "
+                        + "'descricao' TEXT NOT NULL, "
+                        + "'dataProgramada' INTEGER NOT NULL, "
+                        + "'dataExecucao' INTEGER NOT NULL, "
+                        + "PRIMARY KEY (idTarefa, idServico, ordem), "
+                        + "FOREIGN KEY (idTarefa) REFERENCES tarefas (idTarefa)  ON DELETE CASCADE) ");
+
+
+                database.execSQL(" INSERT INTO atividadeExecutadas(idTarefa, ordem, idServico, descricao, dataProgramada, dataExecucao) "
+                        + "SELECT idTarefa, ordem, idServico, descricao, dataProgramada, dataExecucao FROM tmp");
+
+                database.execSQL("DROP TABLE tmp");
+
+                database.execSQL("DROP INDEX IF EXISTS index_atividadeExecutadas_idTarefa");
+                database.execSQL("CREATE INDEX index_atividadeExecutadas_idTarefa ON atividadeExecutadas (idTarefa)");
+
+
+
+
+                database.execSQL(" ALTER TABLE utilizadores RENAME TO tmp");
+
+                database.execSQL("CREATE TABLE IF NOT EXISTS 'utilizadores' ("
+                        + "'id' TEXT PRIMARY KEY NOT NULL, "
+                        + "'area' TEXT NOT NULL, "
+                        + "'nome' TEXT NOT NULL, "
+                        + "'cap' TEXT, "
+                        + "'api' INTEGER NOT NULL DEFAULT " + Identificadores.App.APP_SA + ", "
+                        + "'email' TEXT ) ");
+
+                database.execSQL(" INSERT INTO utilizadores(id, area, nome, api, email) "
+                        + "SELECT id, area, nome, api, email FROM tmp");
+
+                database.execSQL("DROP TABLE tmp");
+
+
+            }
+            catch(SQLException e){
+                Log.e("Migracao", "erro MIGRACAO_16_17: " + e.getMessage());
+                //Timber.e("erro MIGRACAO_2_3: " + e.getMessage());
+            }
+        }
+    };
+
+
+
+
+
 
 
     public static final Migration MIGRACAO_15_16 = new Migration(15, 16) {
@@ -39,7 +100,7 @@ public class Migracao {
                         + "'idMorada' TEXT NOT NULL, "
                         + "FOREIGN KEY (idTarefa) REFERENCES tarefas (idTarefa)  ON DELETE CASCADE) ");
 
-                database.execSQL("CREATE INDEX index_parqueExtintores_idTarefa ON tarefas (idTarefa)");
+                database.execSQL("CREATE INDEX index_parqueExtintores_idTarefa ON parqueExtintores (idTarefa)");
 
 
 
@@ -60,9 +121,9 @@ public class Migracao {
                         + "PRIMARY KEY (idTarefa, id), "
                         + "FOREIGN KEY (idTarefa) REFERENCES tarefas (idTarefa)  ON DELETE CASCADE) ");
 
-                database.execSQL("CREATE INDEX index_tiposExtintor_idTarefa ON tarefas (idTarefa)");
+                database.execSQL("CREATE INDEX index_tiposExtintor_idTarefa ON tiposExtintor (idTarefa)");
 
-/*
+
                 database.execSQL("CREATE TABLE IF NOT EXISTS 'moradas' ("
                         + "'idTarefa' INTEGER NOT NULL , "
                         + "'id' TEXT NOT NULL , "
@@ -73,7 +134,24 @@ public class Migracao {
                         + "PRIMARY KEY (idTarefa, id, tipo), "
                         + "FOREIGN KEY (idTarefa) REFERENCES tarefas (idTarefa)  ON DELETE CASCADE) ");
 
-                database.execSQL("CREATE INDEX index_moradas_idTarefa ON tarefas (idTarefa)");
+                database.execSQL("CREATE INDEX index_moradas_idTarefa ON moradas (idTarefa)");
+
+
+
+                database.execSQL("CREATE TABLE IF NOT EXISTS 'medidasResultado' ("
+                        + "'id' INTEGER NOT NULL, "
+                        + "'idMedida' INTEGER NOT NULL, "
+                        + "'origem' INTEGER NOT NULL, "
+                        + "PRIMARY KEY (id, idMedida, origem)) ");
+
+
+                database.execSQL("CREATE TABLE IF NOT EXISTS 'categoriasProfissionaisResultado' ("
+                        + "'id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
+                        + "'idCategoriaProfissional' INTEGER NOT NULL, "
+                        + "'idRegisto' INTEGER NOT NULL, "
+                        + "'origem' INTEGER NOT NULL, "
+                        + "'homens' INTEGER NOT NULL DEFAULT " + Identificadores.VALOR_0 + " , "
+                        + "'mulheres' INTEGER NOT NULL DEFAULT " + Identificadores.VALOR_0 + " ) ");
 
 
 
@@ -89,11 +167,12 @@ public class Migracao {
                         + "'nacionalidade' TEXT, "
                         + "FOREIGN KEY (idTarefa) REFERENCES tarefas (idTarefa)  ON DELETE CASCADE) ");
 
-                database.execSQL("CREATE INDEX index_colaboradores_idTarefa ON tarefas (idTarefa)");
+                database.execSQL("CREATE INDEX index_colaboradores_idTarefa ON colaboradores (idTarefa)");
 
                 database.execSQL("CREATE TABLE IF NOT EXISTS 'colaboradoresResultado' ("
                         + "'idTarefa' INTEGER NOT NULL , "
-                        + "'id' INTEGER NOT NULL, "
+                        + "'id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
+                        + "'idRegisto' TEXT , "
                         + "'nome' TEXT , "
                         + "'estado' TEXT , "
                         + "'idMorada' TEXT , "
@@ -102,30 +181,11 @@ public class Migracao {
                         + "'nacionalidade' TEXT, "
                         + "'dataAdmissao' INTEGER , "
                         + "'dataAdmissaoFuncao' INTEGER , "
-                        + "'idCategoriaProfissional' INTEGER , "
+                        + "'idCategoriaProfissional' INTEGER NOT NULL DEFAULT " + Identificadores.VALOR_0 + " , "
                         + "'profissao' TEXT , "
                         + "'posto' TEXT , "
                         + "'origem' INTEGER NOT NULL, "
-                        + "PRIMARY KEY (id), "
-                        + "FOREIGN KEY (id) REFERENCES colaboradores (id)  ON DELETE CASCADE) ");
-
-
-
-
-                database.execSQL("CREATE TABLE IF NOT EXISTS 'medidasResultado' ("
-                        + "'id' INTEGER NOT NULL, "
-                        + "'idMedida' INTEGER NOT NULL, "
-                        + "'origem' INTEGER NOT NULL, "
-                        + "PRIMARY KEY (id, idMedida, origem)) ");
-
-                database.execSQL("CREATE TABLE IF NOT EXISTS 'categoriasProfissionaisResultado' ("
-                        + "'id' INTEGER NOT NULL, "
-                        + "'idCategoriaProfissional' INTEGER NOT NULL, "
-                        + "'idRegisto' INTEGER NOT NULL, "
-                        + "'origem' INTEGER NOT NULL, "
-                        + "'homens' REAL , "
-                        + "'mulheres' REAL , "
-                        + "PRIMARY KEY (id)) ");
+                        + "FOREIGN KEY (idRegisto) REFERENCES colaboradores (id)  ON DELETE CASCADE) ");
 
 
 
@@ -136,13 +196,16 @@ public class Migracao {
                         + "'id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
                         + "'tipo' INTEGER NOT NULL, "
 
+                        + "'marca' TEXT NOT NULL, "
+                        + "'numeroSerie' TEXT NOT NULL, "
+                        + "'data' INTEGER NOT NULL, "
+                        + "'inicio' INTEGER NOT NULL, "
+                        + "'termino' INTEGER NOT NULL, "
+                        + "'idNebulosidade' INTEGER NOT NULL, "
 
-
-                        //falta
                         + "FOREIGN KEY (idAtividade) REFERENCES atividadesPendentes (id)  ON DELETE CASCADE) ");
 
-                database.execSQL("CREATE INDEX index_atividadesPendentes_idAtividade ON atividadesPendentes (id)");
-
+                database.execSQL("CREATE INDEX index_relatorioAmbientalResultado_idAtividade ON relatorioAmbientalResultado (idAtividade)");
 
 
                 database.execSQL("CREATE TABLE IF NOT EXISTS 'avaliacoesAmbientaisResultado' ("
@@ -152,22 +215,34 @@ public class Migracao {
                         + "'anexoArea' TEXT, "
 
                         + "'nome' TEXT, "
-                        + "'sexo' INTEGER , "
-                        + "'tipoIluminacao' INTEGER, "
-                        + "'emedioLx' INTEGER, "
-                        + "'eLxArea' INTEGER , "
-                        + "'idElx' INTEGER, "
+                        + "'sexo' INTEGER NOT NULL DEFAULT " + Identificadores.SEXO_OMISSAO + " , "
+                        + "'tipoIluminacao' INTEGER NOT NULL DEFAULT " + Identificadores.SEM_VALOR + " , "
+                        + "'emedioLx' INTEGER NOT NULL DEFAULT " + Identificadores.SEM_VALOR + " , "
+                        + "'eLxArea' INTEGER NOT NULL DEFAULT " + Identificadores.SEM_VALOR + " , "
+                        + "'idElx' INTEGER NOT NULL DEFAULT " + Identificadores.SEM_VALOR + " , "
                         + "'eLx' TEXT, "
 
-                        + "'temperatura' REAL , "
-                        + "'humidadeRelativa' REAL , "
-                        + "'homens' INTEGER , "
-                        + "'mulheres' INTEGER  "
-                        + ") ");
+                        + "'temperatura' REAL NOT NULL DEFAULT " + Identificadores.VALOR_0 + " , "
+                        + "'humidadeRelativa' REAL NOT NULL DEFAULT " + Identificadores.VALOR_0 + " , "
+                        + "'homens'  INTEGER NOT NULL DEFAULT " + Identificadores.VALOR_0 + " , "
+                        + "'mulheres'  INTEGER NOT NULL DEFAULT " + Identificadores.VALOR_0 + " , "
+                        + "FOREIGN KEY (idRelatorio) REFERENCES relatorioAmbientalResultado (id)  ON DELETE CASCADE) ");
 
-*/
+                database.execSQL("CREATE INDEX index_avaliacoesAmbientaisResultado_idRelatorio ON avaliacoesAmbientaisResultado (idRelatorio)");
 
 
+                database.execSQL("CREATE TABLE IF NOT EXISTS 'levantamentosRiscoResultado' ("
+                        + "'idAtividade' INTEGER NOT NULL, "
+                        + "'id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
+
+                        + "'tarefa' TEXT NOT NULL, "
+                        + "'perigo' TEXT NOT NULL, "
+                        + "'idModelo' INTEGER NOT NULL, "
+                        + "'origem' INTEGER NOT NULL, "
+
+                        + "FOREIGN KEY (idAtividade) REFERENCES atividadesPendentes (id)  ON DELETE CASCADE) ");
+
+                database.execSQL("CREATE INDEX index_levantamentosRiscoResultado_idAtividade ON levantamentosRiscoResultado (idAtividade)");
             }
             catch(SQLException e){
                 Log.e("Migracao", "erro MIGRACAO_14_15: " + e.getMessage());
@@ -175,12 +250,6 @@ public class Migracao {
             }
         }
     };
-
-
-
-
-
-
 
 
 

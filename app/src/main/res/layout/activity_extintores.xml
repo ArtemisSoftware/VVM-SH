@@ -21,7 +21,7 @@
 
         <variable
             name="listener"
-            type="com.vvm.sh.ui.cliente.extintores.adaptadores.OnExtintoresListener"/>
+            type="com.vvm.sh.ui.parqueExtintores.adaptadores.OnExtintoresListener"/>
 
         <variable
             name="bloquear"
@@ -147,13 +147,14 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rcl_registos"
                     style="@style/lista"
-                    extintores="@{viewmodel.extintores}"
-                    listener="@{listener}"
+
                     tools:listitem="@layout/item_extintor"/>
 
                 <!--
-               formandos="@{viewmodel.formandos}"
 
+                    extintores="@{viewmodel.extintores}"
+
+                    listener="@{listener}"
                      -->
 
             </LinearLayout>

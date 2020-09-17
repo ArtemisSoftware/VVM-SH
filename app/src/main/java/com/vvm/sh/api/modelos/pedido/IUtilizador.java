@@ -30,4 +30,6 @@ public class IUtilizador {
     @SerializedName("api")
     public int api;
 
+    @SerializedName("CAP")
+    public String cap;
 }

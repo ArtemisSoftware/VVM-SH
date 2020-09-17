@@ -50,8 +50,8 @@ public class ITarefa {
     @SerializedName("TiposExtintor")
     public List<ITipoExtintor> tiposExtintor;
 
-//    @SerializedName("QuadroPessoal")
-//    public List<IColaborador> quadroPessoal;
+    @SerializedName("QuadroPessoal")
+    public List<IColaborador> quadroPessoal;
 //
 //    @SerializedName("AvaliacaoRiscosAnterior")
 //    public List<IAvaliacaoRiscosAnterior> avaliacaoRiscosAnterior;

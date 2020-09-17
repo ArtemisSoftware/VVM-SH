@@ -62,6 +62,8 @@ public class TransferenciasRepositorio {
      * @return o trabalho
      */
     public Single<ISessao> obterTrabalho(String idUtilizador) {
+        //TODO: rever isto para poder escolher a api ou as duas
+        //return apiSA.obterTrabalho(SegurancaAlimentarApi.HEADER, idUtilizador);
         return apiST.obterTrabalho(SegurancaTrabalhoApi.HEADER, idUtilizador);
     }
 
@@ -73,7 +75,10 @@ public class TransferenciasRepositorio {
      * @return o trabalho do dia
      */
     public Single<ISessao> obterTrabalho(String idUtilizador, String data) {
-        return apiSA.obterTrabalho(idUtilizador, data);
+
+        //TODO: rever isto para poder escolher a api ou as duas
+        //return apiSA.obterTrabalho(idUtilizador, data);
+        return apiST.obterTrabalho(idUtilizador, data);
     }
 
 

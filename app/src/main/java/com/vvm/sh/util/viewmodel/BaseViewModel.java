@@ -14,6 +14,7 @@ import com.vvm.sh.baseDados.entidades.Resultado;
 import com.vvm.sh.servicos.ResultadoAsyncTask;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.ResultadoId;
+import com.vvm.sh.util.excepcoes.MetodoWsInvalidoException;
 import com.vvm.sh.util.excepcoes.RespostaWsInvalidaException;
 import com.vvm.sh.util.excepcoes.TipoInexistenteException;
 
@@ -76,12 +77,18 @@ public abstract class BaseViewModel extends ViewModel {
      */
     protected void formatarErro(Throwable e){
 
+        Gson gson = new GsonBuilder().create();
+
         if (e instanceof RespostaWsInvalidaException){
 
-            Gson gson = new GsonBuilder().create();
             Codigo codigo = gson.fromJson(e.getMessage(), Codigo.class);
 
             messagemLiveData.setValue(Recurso.erro(codigo, "Upload"));
+        }
+        else if (e instanceof MetodoWsInvalidoException){
+
+            Codigo codigo = gson.fromJson(e.getMessage(), Codigo.class);
+            messagemLiveData.setValue(Recurso.erro(codigo, "Comunicação"));
         }
         else if (e instanceof TipoInexistenteException){
 

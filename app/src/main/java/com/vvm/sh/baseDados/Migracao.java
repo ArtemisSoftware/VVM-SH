@@ -23,6 +23,29 @@ public class Migracao {
     }
 
 
+    public static final Migration MIGRACAO_18_19 = new Migration(18, 19) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            try {
+
+
+                database.execSQL("CREATE TABLE IF NOT EXISTS 'parqueExtintoresResultado' ("
+                        + "'id' INTEGER NOT NULL , "
+                        + "'valido' INTEGER NOT NULL, "
+                        + "'dataValidade' INTEGER NOT NULL, "
+                        + "PRIMARY KEY (id), "
+                        + "FOREIGN KEY (id) REFERENCES parqueExtintores (id)  ON DELETE CASCADE) ");
+
+
+
+            }
+            catch(SQLException e){
+                Log.e("Migracao", "erro MIGRACAO_16_17: " + e.getMessage());
+                //Timber.e("erro MIGRACAO_2_3: " + e.getMessage());
+            }
+        }
+    };
+
 
     public static final Migration MIGRACAO_17_18 = new Migration(17, 18) {
         @Override

@@ -53,7 +53,6 @@ public class ExtintoresActivity extends BaseDaggerActivity
         activityExtintoresBinding.setLifecycleOwner(this);
         activityExtintoresBinding.setViewmodel(viewModel);
         activityExtintoresBinding.setListener(this);
-        activityExtintoresBinding.setEstatistica(0);
         activityExtintoresBinding.setBloquear(PreferenciasUtil.agendaEditavel(this));
 
         subscreverObservadores();

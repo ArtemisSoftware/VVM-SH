@@ -49,4 +49,8 @@ public interface SegurancaTrabalhoApi {
     @GET("GetDados")
     Single<ISessao> obterTrabalho(@HeaderMap Map<String, String> headers, @Query("strUser") String idUtilizador);
 
+
+    @GET("GetDadosDia")
+    Single<ISessao> obterTrabalho(@HeaderMap Map<String, String> headers, @Query("strUser") String idUtilizador, @Query("strDia") String data);
+
 }

@@ -11,6 +11,7 @@ import com.vvm.sh.util.constantes.Identificadores;
 
 import java.util.List;
 
+import io.reactivex.Completable;
 import io.reactivex.Flowable;
 import io.reactivex.Observable;
 
@@ -18,7 +19,7 @@ import io.reactivex.Observable;
 abstract public class ParqueExtintorDao implements BaseDao<ParqueExtintorResultado> {
 
     @Transaction
-    @Query("SELECT *,  endereco || ' ' || cp4 || ' ' || localidade AS morada, extintor " +
+    @Query("SELECT *,  endereco || '\n' || cp4 || ' ' || localidade AS morada, extintor " +
             "FROM parqueExtintores as prq_ext " +
             "LEFT JOIN (SELECT idTarefa, id, endereco, cp4, localidade  FROM moradas WHERE tipo = " + Identificadores.Origens.ORIGEM_MORADA_EXTINTOR + ") as mrd " +
             "ON prq_ext.idTarefa = mrd.idTarefa AND prq_ext.idMorada = mrd.id " +
@@ -29,23 +30,22 @@ abstract public class ParqueExtintorDao implements BaseDao<ParqueExtintorResulta
 
 
     @Transaction
-    @Query("SELECT IFNULL(valido ,0) as ct_valido " +
+    @Query("SELECT COUNT(*) as ct_valido " +
             "FROM parqueExtintores as prq_ext " +
             "LEFT JOIN (SELECT id, valido FROM parqueExtintoresResultado) as prq_ext_res ON prq_ext.id = prq_ext_res.id " +
-            "WHERE  idTarefa = :idTarefa AND valido = 1 " +
-            "GROUP BY idTarefa ")
+            "WHERE  idTarefa = :idTarefa AND valido = 1 ")
     abstract public Observable<Integer> obterNumeroValidados(int idTarefa);
 
 
 
-/*
+
     @Transaction
-    @Query("INSERT INTO parqueExtintoresResultado (id, valido)    " +
-            "SELECT pq_ext.id, 1 as valido   " +
+    @Query("INSERT INTO parqueExtintoresResultado (id, valido, dataValidade)    " +
+            "SELECT pq_ext.id as id, 1 as valido, pq_ext.dataValidade as data   " +
             "FROM parqueExtintores as pq_ext    " +
             "LEFT JOIN (SELECT id FROM  parqueExtintoresResultado) as pq_ext_res ON  pq_ext.id = pq_ext_res.id   " +
             "WHERE  pq_ext_res.id IS NULL AND idTarefa = :idTarefa  ")
-    abstract public Observable<List<Long>> inserirValicao(int idTarefa);
+    abstract public Completable inserirValicao(int idTarefa);
 
 
     @Transaction
@@ -54,9 +54,8 @@ abstract public class ParqueExtintorDao implements BaseDao<ParqueExtintorResulta
             "SELECT pq_ext_res.id FROM parqueExtintoresResultado as pq_ext_res " +
             "LEFT JOIN (SELECT id FROM  parqueExtintores WHERE idTarefa = :idTarefa) as pq_ext ON pq_ext_res.id = pq_ext.id" +
             ")")
-    abstract public Observable<List<Integer>> atualizarValidacao(int idTarefa);
+    abstract public Completable atualizarValidacao(int idTarefa);
 
-*/
 
 
 

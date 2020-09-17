@@ -158,6 +158,7 @@ public class TransferenciasViewModel extends BaseViewModel {
                             @Override
                             public void onError(Throwable e) {
                                 showProgressBar(false);
+                                formatarErro(e);
                             }
 
                             @Override
@@ -492,14 +493,8 @@ public class TransferenciasViewModel extends BaseViewModel {
                             public void onError(Throwable e) {
 
                                 showProgressBar(false);
+                                formatarErro(e);
 
-                                if (e instanceof RespostaWsInvalidaException){
-
-                                    Gson gson = new GsonBuilder().create();
-                                    Codigo codigo = gson.fromJson(e.getMessage(), Codigo.class);
-
-                                    messagemLiveData.setValue(Recurso.erro(codigo, Sintaxe.Palavras.DOWNLOAD));
-                                }
                             }
 
                             @Override

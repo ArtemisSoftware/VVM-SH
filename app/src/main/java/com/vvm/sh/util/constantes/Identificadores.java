@@ -165,6 +165,9 @@ public class Identificadores {
         public static final int ID_600 = 600;
         public static final String MSG_600 = "Erro no upload de dados";
 
+        public static final int ID_601 = 601;
+        public static final String MSG_601 = "Comunicação com o web service realizada sem header";
+
     }
 
 

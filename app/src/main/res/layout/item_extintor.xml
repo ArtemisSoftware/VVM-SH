@@ -103,7 +103,7 @@
                 android:id="@+id/linearLayout3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
@@ -118,20 +118,22 @@
 
                 <TextView
                     style="@style/textoDetalhe"
-                    android:text="@{StringUtil.converterString(extintor.parqueExtintor.quantidade), default=quantidade}"
-                    android:layout_marginLeft="12dp" />
+                    android:layout_marginLeft="12dp"
+                    android:text="@{StringUtil.converterString(extintor.parqueExtintor.quantidade), default=quantidade}" />
 
             </LinearLayout>
 
             <ImageView
                 android:id="@+id/imageView6"
+                extintorValidado="@{extintor}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="16dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
-                app:srcCompat="@drawable/ic_lorem_ipsum_24dp" />
+                app:srcCompat="@drawable/ic_validado"
+                android:tint="@color/cor_validado"/>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

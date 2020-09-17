@@ -126,6 +126,7 @@
     <color name="cor_branco">#fff</color>
     <color name="cor_preto">#000</color>
     <color name="cor_vermelho">#fe485a</color>
+    <color name="cor_azul">#25C0DE</color>
     <!--<color name="cor_separador">#c0c0c0</color>-->
     <color name="cor_separador">#ededed</color>
 
@@ -134,6 +135,9 @@
     <color name="cor_texto_descritivo">#2B292B</color>
     <color name="cor_botao_calendario">#99CC00</color>
     <color name="cor_botao">#3395ff</color>
+
+    <color name="cor_validado">#45C764</color>
+
 
     <color name="cor_sincronizado">#15D2A7</color>
     <color name="cor_nao_sincronizado">#ff0033</color>

@@ -128,7 +128,7 @@ public class TrabalhoAsyncTask extends AsyncTask<ISessao, Void, Void> {
 
         inserirParqueExtintores(info.tarefas.parqueExtintores, info.tarefas.tiposExtintor, idTarefa);
 
-        //inserirQuadroPessoal(info.tarefas.quadroPessoal, idTarefa);
+        inserirQuadroPessoal(info.tarefas.quadroPessoal, idTarefa);
 
 
     }
@@ -144,12 +144,17 @@ public class TrabalhoAsyncTask extends AsyncTask<ISessao, Void, Void> {
             registos.add(registo);
         }
 
-        //--repositorio.inserirQuadroPessoal(registos);
+        repositorio.inserirQuadroPessoal(registos);
 
     }
 
 
-
+    /**
+     * Metodo que permite inserir o parque extintores
+     * @param parqueExtintores os dados do parque
+     * @param tiposExtintor os tipos do extintor
+     * @param idTarefa o identificador da tarefa
+     */
     private void inserirParqueExtintores(List<IParqueExtintor> parqueExtintores, List<ITipoExtintor> tiposExtintor, int idTarefa) {
 
         List<TipoExtintor> registos = new ArrayList<>();

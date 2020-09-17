@@ -16,6 +16,7 @@ import com.vvm.sh.baseDados.entidades.EmailResultado;
 
 import java.util.List;
 
+import io.reactivex.Completable;
 import io.reactivex.Flowable;
 import io.reactivex.Maybe;
 import io.reactivex.Observable;
@@ -158,13 +159,13 @@ public class TarefaRepositorio {
         return parqueExtintorDao.obterNumeroValidados(idTarefa);
     }
 
-/*
-    public Observable<Integer> inserirValicao(int idTarefa) {
+
+    public Completable inserirValicao(int idTarefa) {
         return parqueExtintorDao.inserirValicao(idTarefa);
     }
 
-    public Observable<Integer> atualizarValidacao(int idTarefa) {
+    public Completable atualizarValidacao(int idTarefa) {
         return parqueExtintorDao.atualizarValidacao(idTarefa);
     }
-*/
+
 }

@@ -1,5 +1,6 @@
 package com.vvm.sh.databinding;
 
+import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -20,7 +21,7 @@ import java.util.List;
 
 public class ParqueExtintorBinding {
 
-    @BindingAdapter({"extintores", "onItemClick"})
+    @BindingAdapter({"extintores", "listener"})
     public static void setParqueExtintor(RecyclerView view, List<ExtintorRegisto> items, OnExtintoresListener listener) {
 
         if(items == null){
@@ -50,8 +51,7 @@ public class ParqueExtintorBinding {
     public static void setEstatisitica(Chip view, int estatistica) {
 
         ChipDrawable chipDrawable = (ChipDrawable) view.getChipDrawable();
-
-        view.setText(estatistica + " registos validados");
+        view.setText(estatistica + " " + view.getContext().getString(R.string.registos_validados) );
     }
 
 
@@ -59,7 +59,11 @@ public class ParqueExtintorBinding {
     public static void setValido(ImageView view, ExtintorRegisto registo) {
 
         if(registo.resultado != null){
-            view.setColorFilter(ContextCompat.getColor(view.getContext(), R.color.cor_sincronizado), android.graphics.PorterDuff.Mode.SRC_IN);
+
+            if(registo.resultado.dataValidade.equals(registo.parqueExtintor.dataValidade) == false) {
+
+                view.setColorFilter(ContextCompat.getColor(view.getContext(), R.color.cor_sincronizado), android.graphics.PorterDuff.Mode.SRC_IN);
+            }
         }
     }
 
@@ -74,4 +78,17 @@ public class ParqueExtintorBinding {
             view.setText(DatasUtil.converterData(registo.resultado.dataValidade, DatasUtil.FORMATO_DD_MM_YYYY));
         }
     }
+
+
+    @BindingAdapter({"extintorValidado"})
+    public static void setValidadeExtintor(ImageView view, ExtintorRegisto registo) {
+
+        if(registo.resultado == null){
+            view.setVisibility(View.INVISIBLE);
+        }
+        else{
+            view.setVisibility(View.VISIBLE);
+        }
+    }
+
 }

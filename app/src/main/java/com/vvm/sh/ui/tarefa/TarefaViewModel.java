@@ -23,6 +23,8 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import io.reactivex.Completable;
+import io.reactivex.CompletableObserver;
 import io.reactivex.MaybeObserver;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
@@ -43,6 +45,7 @@ public class TarefaViewModel extends BaseViewModel {
 
     public MutableLiveData<SinistralidadeResultado> sinistralidade;
     public MutableLiveData<List<ExtintorRegisto>> extintores;
+    public MutableLiveData<Integer> estatistica;
 
 
     @Inject
@@ -55,7 +58,7 @@ public class TarefaViewModel extends BaseViewModel {
         atividadesExecutadas = new MutableLiveData<>();
         sinistralidade = new MutableLiveData<>();
         extintores = new MutableLiveData<>();
-
+        estatistica = new MutableLiveData<>();
     }
 
 
@@ -220,7 +223,7 @@ public class TarefaViewModel extends BaseViewModel {
                             new SingleObserver<Long>() {
                                 @Override
                                 public void onSubscribe(Disposable d) {
-
+                                    disposables.add(d);
                                 }
 
                                 @Override
@@ -245,7 +248,7 @@ public class TarefaViewModel extends BaseViewModel {
                             new SingleObserver<Integer>() {
                                 @Override
                                 public void onSubscribe(Disposable d) {
-
+                                    disposables.add(d);
                                 }
 
                                 @Override
@@ -272,47 +275,34 @@ public class TarefaViewModel extends BaseViewModel {
      */
     public void validarExtintores(int idTarefa) {
 
-        /*
-        Observable<Object> observables = Observable.zip(
-                tarefaRepositorio.inserirValicao(idTarefa),
-                tarefaRepositorio.atualizarValidacao(idTarefa),
-                new BiFunction<Integer, Integer, Object>() {
-                    @Override
-                    public Object apply(Integer integer, Integer integer2) throws Exception {
-                        return null;
-                    }
-                });
+        showProgressBar(true);
 
-        observables
+        Completable.concatArray(tarefaRepositorio.atualizarValidacao(idTarefa), tarefaRepositorio.inserirValicao(idTarefa))
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
 
-                        new Observer<Object>() {
+                        new CompletableObserver() {
                             @Override
                             public void onSubscribe(Disposable d) {
-
-                            }
-
-                            @Override
-                            public void onNext(Object o) {
-                                messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_VALIDADOS_SUCESSO));
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-
+                                disposables.add(d);
                             }
 
                             @Override
                             public void onComplete() {
+                                messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_VALIDADOS_SUCESSO));
+                                gravarResultado(tarefaRepositorio.resultadoDao, idTarefa, ResultadoId.PARQUE_EXTINTOR);
+                                showProgressBar(false);
+                            }
 
+                            @Override
+                            public void onError(Throwable e) {
+                                showProgressBar(false);
                             }
                         }
+
                 );
 
-        gravarResultado(tarefaRepositorio.resultadoDao, idTarefa, ResultadoId.PARQUE_EXTINTOR);
-        */
     }
 
 
@@ -457,24 +447,35 @@ public class TarefaViewModel extends BaseViewModel {
 
     public void obterExtintores(int idTarefa) {
 
-        //TODO: fazer zip disto?
+        estatistica.setValue(0);
 
         showProgressBar(true);
 
-        tarefaRepositorio.obterExtintores(idTarefa).toObservable()
+        Observable.zip(tarefaRepositorio.obterExtintores(idTarefa).toObservable(), tarefaRepositorio.obterEstatisticaExtintores(idTarefa),
+                new BiFunction<List<ExtintorRegisto>, Integer, ParqueExtintor>() {
+                    @Override
+                    public ParqueExtintor apply(List<ExtintorRegisto> registos, Integer estatistica) throws Exception {
+
+                        ParqueExtintor registo = new ParqueExtintor();
+                        registo.estatistica = estatistica;
+                        registo.registos = registos;
+                        return registo;
+                    }
+                })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
 
-                        new Observer<List<ExtintorRegisto>>() {
+                        new Observer<ParqueExtintor>() {
                             @Override
                             public void onSubscribe(Disposable d) {
                                 disposables.add(d);
                             }
 
                             @Override
-                            public void onNext(List<ExtintorRegisto> registos) {
-                                extintores.setValue(registos);
+                            public void onNext(ParqueExtintor resultado) {
+                                extintores.setValue(resultado.registos);
+                                estatistica.setValue(resultado.estatistica);
                                 showProgressBar(false);
                             }
 
@@ -488,37 +489,8 @@ public class TarefaViewModel extends BaseViewModel {
                                 showProgressBar(false);
                             }
                         }
+
                 );
-
-
-        tarefaRepositorio.obterEstatisticaExtintores(idTarefa)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-
-                        new Observer<Integer>() {
-                            @Override
-                            public void onSubscribe(Disposable d) {
-
-                            }
-
-                            @Override
-                            public void onNext(Integer integer) {
-
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-
-                            }
-
-                            @Override
-                            public void onComplete() {
-
-                            }
-                        }
-                );
-
     }
 
 
@@ -558,5 +530,13 @@ public class TarefaViewModel extends BaseViewModel {
 
     }
 
+
+
+    private class ParqueExtintor{
+
+        int estatistica;
+        List<ExtintorRegisto> registos;
+
+    }
 
 }

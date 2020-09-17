@@ -68,6 +68,13 @@ public class AgendaBinding {
                 cor = COR_SA;
                 break;
 
+
+            case APP_ST:
+
+                sigla = ST;
+                cor = COR_ST;
+                break;
+
             default:
                 break;
 

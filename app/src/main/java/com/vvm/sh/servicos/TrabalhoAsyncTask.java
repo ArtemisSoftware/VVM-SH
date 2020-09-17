@@ -178,6 +178,12 @@ public class TrabalhoAsyncTask extends AsyncTask<ISessao, Void, Void> {
     }
 
 
+    /**
+     * Metodo que permite inserir as moradas
+     * @param moradas dados das moradas
+     * @param moradasExtintores dados das moradas dos extintores
+     * @param idTarefa o identificador da tarefa
+     */
     private void inserirMoradas(List<IMorada> moradas, List<IMorada> moradasExtintores, int idTarefa) {
 
         List<Morada> registos = new ArrayList<>();
@@ -279,6 +285,7 @@ public class TrabalhoAsyncTask extends AsyncTask<ISessao, Void, Void> {
 
         Cliente registo = DownloadMapping.INSTANCE.map(cliente, dados, tarefa);
         registo.idTarefa = idTarefa;
+        registo.emailAutenticado = ConversorUtil.converter_String_Para_Boolean(cliente.emailAutenticado);
 
         repositorio.inserirCliente(registo);
     }

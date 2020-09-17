@@ -4,6 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 public class ICliente {
 
+
     @SerializedName("Nome")
     public String nome;
 
@@ -40,11 +41,11 @@ public class ICliente {
     @SerializedName("Telemovel")
     public String telemovel;
 
-    @SerializedName("EmailResultado")
+    @SerializedName("Email")
     public String email;
 
     @SerializedName("EmailAUT")
-    public boolean emailAutenticado;
+    public String emailAutenticado;
 
     @SerializedName("CAE")
     public String cae;
@@ -52,15 +53,27 @@ public class ICliente {
     @SerializedName("CAE1")
     public String cae1;
 
+    @SerializedName("Segmento")
+    public String segmento;
+
+
+    //st
+
+    @SerializedName("Trabalhadores")
+    public String trabalhadores;
+
+    @SerializedName("anomaliaExtintores")
+    public String anomaliaExtintores;
+
+
+    //sa
+
+
     @SerializedName("MoveLife")
     public boolean moveLife;
 
     @SerializedName("numeroAnalises")
     public String numeroAnalises;
-
-    @SerializedName("Segmento")
-    public String segmento;
-
 
 
 

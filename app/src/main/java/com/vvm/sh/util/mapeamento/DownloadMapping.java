@@ -73,7 +73,8 @@ public interface DownloadMapping {
     AtividadeExecutada map(IAtividadeExecutada item);
 
 
-    @Mapping( source = "cliente.email", target = "email", defaultValue = "")
+
+    @Mapping(source = "cliente.email", target = "email", defaultValue = "")
     Cliente map(ICliente cliente, IDados dados, ITarefa tarefa);
 
 
@@ -85,10 +86,13 @@ public interface DownloadMapping {
 
     OcorrenciaHistorico map(IOcorrencia.IOcorrenciaHistorico item);
 
+    @Mapping(target = "endereco", source = "rua")
     Morada map(IMorada item);
 
+    @Mapping(target = "id", source = "idTipoExtintor")
     TipoExtintor map(ITipoExtintor item);
 
+    @Mapping(target = "idExtintor", source = "idTipoExtintor")
     ParqueExtintor map(IParqueExtintor item);
 
     Colaborador map(IColaborador item);

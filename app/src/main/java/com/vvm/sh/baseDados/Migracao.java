@@ -15,12 +15,93 @@ public class Migracao {
 
         Migration migrations [] =  new Migration []{
                 MIGRACAO_1_2, MIGRACAO_2_3, MIGRACAO_3_4, MIGRACAO_4_5, MIGRACAO_5_6, MIGRACAO_6_7, MIGRACAO_7_8, MIGRACAO_8_9, MIGRACAO_9_10, MIGRACAO_10_11,
-                MIGRACAO_11_12, MIGRACAO_12_13, MIGRACAO_13_14, MIGRACAO_14_15, MIGRACAO_15_16, MIGRACAO_16_17
+                MIGRACAO_11_12, MIGRACAO_12_13, MIGRACAO_13_14, MIGRACAO_14_15, MIGRACAO_15_16, MIGRACAO_16_17, MIGRACAO_17_18
 
         };
 
         return migrations;
     }
+
+
+
+    public static final Migration MIGRACAO_17_18 = new Migration(17, 18) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            try {
+
+
+                database.execSQL(" ALTER TABLE clientes RENAME TO tmp");
+
+                database.execSQL("CREATE TABLE IF NOT EXISTS 'clientes' ("
+                        + "'idTarefa' INTEGER PRIMARY KEY NOT NULL, "
+                        + "'nome' TEXT NOT NULL, "
+                        + "'morada' TEXT, "
+                        + "'localidade' TEXT, "
+                        + "'codigoPostal' TEXT, "
+                        + "'cpAlf' TEXT, "
+                        + "'freguesia' TEXT, "
+                        + "'nif' TEXT, "
+                        + "'actividade' TEXT, "
+                        + "'actividade1' TEXT, "
+                        + "'responsavel' TEXT , "
+                        + "'telefone' TEXT , "
+                        + "'telemovel' TEXT , "
+                        + "'email' TEXT , "
+                        + "'emailAutenticado' INTEGER NOT NULL DEFAULT " + Identificadores.VALOR_0 + " ,  "
+                        + "'cae' TEXT , "
+                        + "'cae1' TEXT , "
+                        + "'segmento' TEXT , "
+
+                        + "'trabalhadores' TEXT , "
+                        + "'anomaliaExtintores' TEXT , "
+
+                        + "'moveLife' INTEGER NOT NULL DEFAULT " + Identificadores.VALOR_0 + " ,  "
+                        + "'numeroAnalises' TEXT , "
+
+
+                        + "'numeroCliente' TEXT , "
+                        + "'servicoTp' TEXT , "
+                        + "'servico' TEXT , "
+                        + "'minutos' TEXT , "
+                        + "'ultimaVisita' TEXT, "
+                        + "'contrato' TEXT , "
+                        + "'dataContrato' TEXT, "
+                        + "'novo' TEXT , "
+                        + "'dataInsercao' TEXT, "
+                        + "'minutosRealizados' TEXT, "
+
+                        + "'tipoPacote' TEXT, "
+                        + "'anuidadeContrato' TEXT, "
+
+                        + "'saldoCartaoVm' TEXT, "
+                        + "'notas' TEXT, "
+                        + "'periodo' TEXT, "
+                        + "FOREIGN KEY (idTarefa) REFERENCES tarefas (idTarefa) ON DELETE CASCADE) ");
+
+
+                database.execSQL(" INSERT INTO clientes(idTarefa, nome, morada, localidade, codigoPostal, cpAlf) "
+                        + "SELECT idTarefa, nome, morada, localidade, codigoPostal, cpAlf FROM tmp");
+
+                database.execSQL("DROP TABLE tmp");
+
+
+            }
+            catch(SQLException e){
+                Log.e("Migracao", "erro MIGRACAO_16_17: " + e.getMessage());
+                //Timber.e("erro MIGRACAO_2_3: " + e.getMessage());
+            }
+        }
+    };
+
+
+
+
+
+
+
+
+
+
 
 
 

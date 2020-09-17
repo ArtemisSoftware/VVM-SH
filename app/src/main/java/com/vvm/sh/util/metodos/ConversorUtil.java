@@ -21,6 +21,11 @@ public class ConversorUtil {
 
     public static boolean converter_String_Para_Boolean(String valor){
 
+
+        if(valor.equals("0") == true || valor.equals("1") == true){
+            return converter_Integer_Para_Boolean(Integer.parseInt(valor));
+        }
+
         return Boolean.parseBoolean(valor);
     }
 

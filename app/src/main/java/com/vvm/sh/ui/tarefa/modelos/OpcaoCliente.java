@@ -45,6 +45,9 @@ public class OpcaoCliente {
     public static OpcaoCliente sinistralidade() {
         return new OpcaoCliente(OPCAO_SINISTRALIDADE, SINISTRALIDADE, ICON_SINISTRALIDADE, Identificadores.App.APP_ST);
     }
+    public static OpcaoCliente parqueExtintores() {
+        return new OpcaoCliente(OPCAO_EXTINTORES, EXTINTORES, ICON_EXTINTORES, Identificadores.App.APP_ST);
+    }
 
     @Override
     public boolean equals(Object o) {

@@ -42,4 +42,13 @@ public class IDados {
 
     @SerializedName("Periodo")
     public String periodo;
+
+    @SerializedName("TipoPacote")
+    public String tipoPacote;
+
+    @SerializedName("AnuidadeContrato")
+    public String anuidadeContrato;
+
+
+
 }

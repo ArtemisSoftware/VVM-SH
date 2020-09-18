@@ -17,9 +17,6 @@
             name="tipo"
             type="com.vvm.sh.baseDados.entidades.Tipo" />
 
-        <variable
-            name="listener"
-            type="com.vvm.sh.ui.crossSelling.adaptadores.OnCrossSellingListener"/>
 
         <variable
             name="bloquear"

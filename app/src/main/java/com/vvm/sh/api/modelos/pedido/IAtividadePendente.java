@@ -18,6 +18,9 @@ public class IAtividadePendente {
     @SerializedName("DataProg")
     public String dataProgramada;
 
+    @SerializedName("Anuidade")
+    public String anuidade;
+
     @SerializedName("formacao")
     public int formacao;
 

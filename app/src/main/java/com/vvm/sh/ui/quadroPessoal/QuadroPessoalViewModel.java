@@ -69,7 +69,7 @@ public class QuadroPessoalViewModel extends BaseViewModel {
                                 @Override
                                 public void onSuccess(Long aLong) {
 
-                                    messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_EDITADOS_SUCESSO));
+                                    messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_GRAVADOS_SUCESSO));
                                     gravarResultado(quadroPessoalRepositorio.resultadoDao, resultado.idTarefa, ResultadoId.QUADRO_PESSOAL);
                                 }
 
@@ -200,9 +200,9 @@ public class QuadroPessoalViewModel extends BaseViewModel {
      * @param idTarefa o identificador da tarefa
      * @param id o identificador do colaborador
      */
-    public void obterColaborador(int idTarefa, int id) {
+    public void obterColaborador(int idTarefa, int id, int origem) {
 
-        Maybe.zip(quadroPessoalRepositorio.obterColaborador(id), quadroPessoalRepositorio.obterMoradas(idTarefa),
+        Maybe.zip(quadroPessoalRepositorio.obterColaborador(id, origem), quadroPessoalRepositorio.obterMoradas(idTarefa),
                 new BiFunction<ColaboradorRegisto, List<Morada>, QuadroPessoal>() {
             @Override
             public QuadroPessoal apply(ColaboradorRegisto colaboradorRegisto, List<Morada> moradas) throws Exception {
@@ -247,6 +247,35 @@ public class QuadroPessoalViewModel extends BaseViewModel {
 
     }
 
+
+
+    public void remover(int idTarefa, int id){
+
+        quadroPessoalRepositorio.remover(id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new SingleObserver<Integer>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+
+                            }
+
+                            @Override
+                            public void onSuccess(Integer integer) {
+                                messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_REMOVIDOS_SUCESSO));
+                                gravarResultado(quadroPessoalRepositorio.resultadoDao, idTarefa, ResultadoId.QUADRO_PESSOAL);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+                        }
+                );
+
+    }
 
 
     private class QuadroPessoal{

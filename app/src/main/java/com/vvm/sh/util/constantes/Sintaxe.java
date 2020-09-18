@@ -109,6 +109,7 @@ public class Sintaxe {
         public static final String DOWNLOAD_COMPLETO = "Download completo";
         public static final String DOWNLOAD_INDEFINIDO = "Download com estado indefinido";
         public static final String DADOS_VALIDADOS_SUCESSO = "Dados validados com sucesso";
+        public static final String DADOS_REMOVIDOS_SUCESSO = "Dados removidos com sucesso";
     }
 
     public class API {

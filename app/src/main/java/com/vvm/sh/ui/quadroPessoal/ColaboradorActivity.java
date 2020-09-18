@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.view.View;
 
 import androidx.annotation.Nullable;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.google.android.material.textfield.TextInputEditText;
@@ -21,9 +22,11 @@ import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.pesquisa.Pesquisa;
 import com.vvm.sh.ui.pesquisa.PesquisaActivity;
+import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.base.BaseDatePickerDialog;
 import com.vvm.sh.util.base.BaseTimePickerDialog;
 import com.vvm.sh.util.constantes.Identificadores;
+import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.metodos.DatasUtil;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
 import com.vvm.sh.util.metodos.TiposUtil;
@@ -51,19 +54,19 @@ public class ColaboradorActivity extends BaseDaggerActivity
     private QuadroPessoalViewModel viewModel;
 
 
-    @NotEmpty(message = "Preenchimento obrigatório")
+    @NotEmpty(message = Sintaxe.Alertas.PREENCHIMENTO_OBRIGATORIO)
     @BindView(R.id.txt_inp_nome)
     TextInputEditText txt_inp_nome;
 
-    @NotEmpty(message = "Preenchimento obrigatório")
+    @NotEmpty(message = Sintaxe.Alertas.PREENCHIMENTO_OBRIGATORIO)
     @BindView(R.id.txt_inp_data_nascimento)
     TextInputEditText txt_inp_data_nascimento;
 
-    @NotEmpty(message = "Preenchimento obrigatório")
+    @NotEmpty(message = Sintaxe.Alertas.PREENCHIMENTO_OBRIGATORIO)
     @BindView(R.id.txt_inp_data_admissao)
     TextInputEditText txt_inp_data_admissao;
 
-    @NotEmpty(message = "Preenchimento obrigatório")
+    @NotEmpty(message = Sintaxe.Alertas.PREENCHIMENTO_OBRIGATORIO)
     @BindView(R.id.txt_inp_data_admissao_funcao)
     TextInputEditText txt_inp_data_admissao_funcao;
 
@@ -72,8 +75,6 @@ public class ColaboradorActivity extends BaseDaggerActivity
 
     @Override
     protected void intActivity(Bundle savedInstanceState) {
-
-        subscreverObservadores();
 
         validador = new Validator(this);
         validador.setValidationListener(this);
@@ -86,12 +87,16 @@ public class ColaboradorActivity extends BaseDaggerActivity
 
         activityColaboradorBinding.setBloquear(PreferenciasUtil.agendaEditavel(this));
 
+
+        subscreverObservadores();
+
+
         Bundle bundle = getIntent().getExtras();
 
         if(bundle != null) {
 
             int id = bundle.getInt(getString(R.string.argumento_id_colaborador));
-            viewModel.obterColaborador(PreferenciasUtil.obterIdTarefa(this), id);
+            viewModel.obterColaborador(PreferenciasUtil.obterIdTarefa(this), id, Identificadores.Origens.ORIGEM_BD);
         }
         else{
             viewModel.obterColaborador(PreferenciasUtil.obterIdTarefa(this));
@@ -112,25 +117,25 @@ public class ColaboradorActivity extends BaseDaggerActivity
     @Override
     protected void subscreverObservadores() {
 
-//        viewModel.observarMessagem().observe(this, new Observer<Recurso>() {
-//            @Override
-//            public void onChanged(Recurso recurso) {
-//
-//                switch (recurso.status){
-//
-//                    case SUCESSO:
-//
-//                        dialogo.sucesso(recurso.messagem, listenerActivity);
-//                        break;
-//
-//                    case ERRO:
-//
-//                        dialogo.erro(recurso.messagem);
-//                        break;
-//
-//                }
-//            }
-//        });
+        viewModel.observarMessagem().observe(this, new Observer<Recurso>() {
+            @Override
+            public void onChanged(Recurso recurso) {
+
+                switch (recurso.status){
+
+                    case SUCESSO:
+
+                        dialogo.sucesso(recurso.messagem, listenerActivity);
+                        break;
+
+                    case ERRO:
+
+                        dialogo.erro(recurso.messagem);
+                        break;
+
+                }
+            }
+        });
     }
 
 
@@ -166,16 +171,16 @@ public class ColaboradorActivity extends BaseDaggerActivity
     @OnClick(R.id.crl_btn_data_admissao)
     public void crl_btn_data_admissao_OnClickListener(View view) {
 
-        BaseTimePickerDialog dialogo = new BaseTimePickerDialog(activityColaboradorBinding.txtInpDataAdmissao);
-        dialogo.show(getSupportFragmentManager(), "Timepickerdialog");
+        BaseDatePickerDialog dialogo = new BaseDatePickerDialog(activityColaboradorBinding.txtInpDataAdmissao);
+        dialogo.obterDatePickerDialog().show(getSupportFragmentManager(), "Timepickerdialog");
 
     }
 
     @OnClick(R.id.crl_btn_data_admissao_funcao)
     public void crl_btn_data_admissao_funcao_OnClickListener(View view) {
 
-        BaseTimePickerDialog dialogo = new BaseTimePickerDialog(activityColaboradorBinding.txtInpDataAdmissaoFuncao);
-        dialogo.show(getSupportFragmentManager(), "Timepickerdialog");
+        BaseDatePickerDialog dialogo = new BaseDatePickerDialog(activityColaboradorBinding.txtInpDataAdmissaoFuncao);
+        dialogo.obterDatePickerDialog().show(getSupportFragmentManager(), "Timepickerdialog");
     }
 
 
@@ -197,12 +202,17 @@ public class ColaboradorActivity extends BaseDaggerActivity
     @OnClick(R.id.fab_gravar)
     public void fab_gravar_OnClickListener(View view) {
 
+        String profissao = activityColaboradorBinding.txtInpProfissao.getText().toString();
 
-        //adicionar esta validadcao
-//    			if(((AutoCompleteTextView) vista.findViewById(R.id.at_cmp_txt_profissao)).getText().toString().equals(AppIF.SEM_TEXTO) == false){
-//
-//        valido = MetodosValidacao.validarRotuloTexto((TextView) vista.findViewById(R.id.txt_view_tipificacao_profissao), (TextView) vista.findViewById(R.id.txt_view_tipificacao_profissao_erro)) & valido;
-//    }
+        if(profissao.equals(Sintaxe.SEM_TEXTO) == false){
+
+            String categoriaProfissional = activityColaboradorBinding.txtInpCategoriaProfissional.getText().toString();
+
+            if(profissao.equals(Sintaxe.SEM_TEXTO) == true){
+                activityColaboradorBinding.txtInpCategoriaProfissional.setError(Sintaxe.Alertas.PREENCHIMENTO_OBRIGATORIO);
+                return;
+            }
+        }
 
         ativarValidacao(true);
         validador.validate();
@@ -220,8 +230,10 @@ public class ColaboradorActivity extends BaseDaggerActivity
             if(resultCode == RESULT_OK){
 
                 ArrayList<Integer> resultado = data.getIntegerArrayListExtra(getString(R.string.resultado_pesquisa));
+                String descricao = data.getStringExtra(getString(R.string.resultado_pesquisa_descricao));
 
-                //viewModel.fixarCategoriasProfissionais(resultado);
+                activityColaboradorBinding.txtInpCategoriaProfissional.setText(descricao);
+                activityColaboradorBinding.txtIdCategoriaProfissional.setText(resultado.get(0) + "");
             }
         }
     }
@@ -250,18 +262,19 @@ public class ColaboradorActivity extends BaseDaggerActivity
 
         Tipo genero = (Tipo) activityColaboradorBinding.spnrGenero.getItems().get(activityColaboradorBinding.spnrGenero.getSelectedIndex());
         Morada morada = (Morada) activityColaboradorBinding.spnrMorada.getItems().get(activityColaboradorBinding.spnrMorada.getSelectedIndex());
+        int idCategoriaProfissional = Integer.parseInt(activityColaboradorBinding.txtIdCategoriaProfissional.getText().toString());
+
+        resultado = new ColaboradorResultado(PreferenciasUtil.obterIdTarefa(this), nome, posto, profissao, dataNascimento, dataAdmissao, dataAdmissaoFuncao, genero.codigo, morada.id, idCategoriaProfissional);
 
 
-        //--resultado = new ColaboradorResultado(PreferenciasUtil.obterIdTarefa(this), nome, posto, profissao, dataNascimento, dataAdmissao, dataAdmissaoFuncao, genero.codigo, morada.id, idCategoriaProfissional);
-
-
+        int id = 0;
         Bundle bundle = getIntent().getExtras();
 
         if(bundle != null) {
-            //--resultado.id = bundle.getInt(getString(R.string.argumento_id_colaborador));
+            id = bundle.getInt(getString(R.string.argumento_id_colaborador));
         }
 
-        //--viewModel.gravar(resultado);
+        viewModel.gravar(id, resultado);
     }
 
     @Override

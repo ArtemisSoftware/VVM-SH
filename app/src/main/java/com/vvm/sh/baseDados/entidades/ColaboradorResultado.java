@@ -9,6 +9,7 @@ import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 import com.vvm.sh.util.constantes.Identificadores;
+import com.vvm.sh.util.constantes.Sintaxe;
 
 import java.util.Date;
 
@@ -94,6 +95,25 @@ public class ColaboradorResultado {
     }
 
 
+    @Ignore
+    public ColaboradorResultado(int idTarefa, String nome, String posto, String profissao,
+                                Date dataNascimento, Date dataAdmissao, Date dataAdmissaoFuncao, String sexo,
+                                String idMorada, int idCategoriaProfissional) {
+
+        this.idTarefa = idTarefa;
+        this.nome = nome;
+        this.idMorada = idMorada;
+        this.estado = Sintaxe.Palavras.ADMITIDO;
+        this.dataNascimento = dataNascimento;
+        this.sexo = sexo;
+        this.dataAdmissao = dataAdmissao;
+        this.dataAdmissaoFuncao = dataAdmissaoFuncao;
+        this.idCategoriaProfissional = idCategoriaProfissional;
+        this.profissao = profissao;
+        this.posto = posto;
+        this.origem = Identificadores.Origens.ORIGEM_BD;
+    }
+
 
 
     public ColaboradorResultado(int idTarefa, int id, String idRegisto, String nome, String idMorada,
@@ -116,4 +136,6 @@ public class ColaboradorResultado {
         this.posto = posto;
         this.origem = origem;
     }
+
+
 }

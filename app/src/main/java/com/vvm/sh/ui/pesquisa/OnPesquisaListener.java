@@ -7,13 +7,13 @@ public interface OnPesquisaListener {
 
     interface OnPesquisaSelecionadoListener {
 
-        void OnSelecionarClick(Tipo registo);
+        void OnRemoverSelecao(Tipo registo);
     }
 
 
     interface OnPesquisaRegistoListener {
 
-        void OnRemoverSelecao(Tipo registo);
+        void OnSelecionarClick(Tipo registo);
     }
 
 }

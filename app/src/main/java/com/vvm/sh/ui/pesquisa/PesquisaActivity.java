@@ -21,9 +21,10 @@ import java.util.List;
 import javax.inject.Inject;
 
 import butterknife.OnClick;
+import butterknife.OnTextChanged;
 
 public class PesquisaActivity extends BaseDaggerActivity
-    implements OnPesquisaListener{
+    implements OnPesquisaListener.OnPesquisaSelecionadoListener, OnPesquisaListener.OnPesquisaRegistoListener{
 
     private ActivityPesquisaBinding activityPesquisaBinding;
 
@@ -36,6 +37,8 @@ public class PesquisaActivity extends BaseDaggerActivity
     private Pesquisa pesquisa;
 
 
+
+
     @Override
     protected void intActivity(Bundle savedInstanceState) {
 
@@ -44,8 +47,9 @@ public class PesquisaActivity extends BaseDaggerActivity
         activityPesquisaBinding = (ActivityPesquisaBinding) activityBinding;
         activityPesquisaBinding.setLifecycleOwner(this);
         activityPesquisaBinding.setViewmodel(viewModel);
-        activityPesquisaBinding.setListener(this);
-
+        activityPesquisaBinding.setListenerRegisto(this);
+        activityPesquisaBinding.setListenerSelecionado(this);
+        activityPesquisaBinding.setBloquear(PreferenciasUtil.agendaEditavel(this));
 
         Bundle bundle = getIntent().getExtras();
 
@@ -88,6 +92,7 @@ public class PesquisaActivity extends BaseDaggerActivity
             pesquisa.registosSelecionados.add(registo.id);
         }
         else{
+            pesquisa.descricao = registo.descricao;
             pesquisa.registosSelecionados.clear();
             pesquisa.registosSelecionados.add(registo.id);
         }
@@ -97,7 +102,13 @@ public class PesquisaActivity extends BaseDaggerActivity
     @Override
     public void OnRemoverSelecao(Tipo registo) {
 
-        pesquisa.registosSelecionados.remove(registo.id);
+        if(pesquisa.escolhaMultipla == true) {
+            pesquisa.registosSelecionados.remove(pesquisa.registosSelecionados.indexOf(registo.id));
+        }
+        else{
+            pesquisa.registosSelecionados.clear();
+        }
+
         viewModel.obterRegistos(pesquisa.metodo, pesquisa.registosSelecionados);
     }
 
@@ -105,6 +116,16 @@ public class PesquisaActivity extends BaseDaggerActivity
     //-----------------------
     //EVENTOS
     //-----------------------
+
+
+
+    @OnTextChanged(value = R.id.txt_inp_pesquisa, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
+    public void txt_inp_pesquisa_OnTextChanged(CharSequence text) {
+
+        viewModel.pesquisar(pesquisa.metodo, pesquisa.registosSelecionados, text.toString());
+    }
+
+
 
     @OnClick(R.id.crl_btn_limpar)
     public void crl_btn_limpar_OnClickListener(View view) {
@@ -122,6 +143,10 @@ public class PesquisaActivity extends BaseDaggerActivity
 
             Intent returnIntent = new Intent();
             returnIntent.putIntegerArrayListExtra(getString(R.string.resultado_pesquisa), (ArrayList<Integer>) pesquisa.registosSelecionados);
+
+            if(pesquisa.escolhaMultipla == false) {
+                returnIntent.putExtra(getString(R.string.resultado_pesquisa_descricao), pesquisa.descricao);
+            }
             setResult(RESULT_OK, returnIntent);
             finish();
         }
@@ -131,6 +156,7 @@ public class PesquisaActivity extends BaseDaggerActivity
 
         }
     }
+
 
 
 }

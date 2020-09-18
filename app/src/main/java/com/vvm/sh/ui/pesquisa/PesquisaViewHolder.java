@@ -36,11 +36,11 @@ public class PesquisaViewHolder extends RecyclerView.ViewHolder implements View.
     public void onClick(View v) {
 
         if(onItemSelecionadoListener != null){
-            onItemSelecionadoListener.OnSelecionarClick(binding.getTipo());
+            onItemSelecionadoListener.OnRemoverSelecao(binding.getTipo());
         }
 
         if(onItemRegistoListener != null){
-            onItemRegistoListener.OnRemoverSelecao(binding.getTipo());
+            onItemRegistoListener.OnSelecionarClick(binding.getTipo());
         }
 
     }

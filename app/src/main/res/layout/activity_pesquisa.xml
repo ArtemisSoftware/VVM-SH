@@ -16,8 +16,12 @@
 
 
         <variable
-            name="listener"
-            type="com.vvm.sh.ui.pesquisa.OnPesquisaListener"/>
+            name="listenerRegisto"
+            type="com.vvm.sh.ui.pesquisa.OnPesquisaListener.OnPesquisaRegistoListener"/>
+
+        <variable
+            name="listenerSelecionado"
+            type="com.vvm.sh.ui.pesquisa.OnPesquisaListener.OnPesquisaSelecionadoListener"/>
 
         <variable
             name="pesquisa"
@@ -52,14 +56,16 @@
         </com.google.android.material.appbar.AppBarLayout>
 
 
-        <androidx.core.widget.NestedScrollView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:paddingBottom="@dimen/activity_vertical_margin"
             android:paddingLeft="@dimen/activity_horizontal_margin"
             android:paddingRight="@dimen/activity_horizontal_margin"
             android:paddingTop="@dimen/activity_vertical_margin"
+            android:orientation="vertical"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -154,16 +160,17 @@
                         android:layout_height="80dp"
                         android:layout_marginTop="@dimen/distancia_vertical_formulario"
 
+                        pesquisaSelecionado="@{viewmodel.tiposSelecionados}"
+                        listener="@{listenerSelecionado}"
                         tools:listitem="@layout/item_pesquisa"
                         app:layout_constraintStart_toStartOf="@+id/textView18"
                         app:layout_constraintTop_toBottomOf="@+id/textview41" />
 
+
                     <!--
 
-                    formandos="@{viewmodel.formandos}"
-                        listener="@{listener}"
-                    -->
 
+                    -->
 
                     <TextView
                         android:id="@+id/textView5"
@@ -183,23 +190,40 @@
                         app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
 
-
+<!--
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rcl_registos"
                         style="@style/lista"
-                        android:layout_marginTop="@dimen/distancia_vertical_formulario"
 
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/distancia_vertical_formulario"
+                        registosPesquisa="@{viewmodel.tipos}"
+                        listener="@{listenerRegisto}"
 
                         tools:listitem="@layout/item_pesquisa"
                         app:layout_constraintStart_toStartOf="@+id/textView18"
                         app:layout_constraintTop_toBottomOf="@+id/textview51" />
-
+-->
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
 
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rcl_registos"
+                    style="@style/lista"
+
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/distancia_vertical_formulario"
+                    registosPesquisa="@{viewmodel.tipos}"
+                    listener="@{listenerRegisto}"
+
+                    tools:listitem="@layout/item_pesquisa" />
+
             </LinearLayout>
 
-        </androidx.core.widget.NestedScrollView>
+        </LinearLayout>
+
+
+
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/fab_gravar"

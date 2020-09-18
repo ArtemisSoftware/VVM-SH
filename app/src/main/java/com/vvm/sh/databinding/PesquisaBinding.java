@@ -9,6 +9,7 @@ import com.vvm.sh.ui.pesquisa.OnPesquisaListener;
 import com.vvm.sh.ui.pesquisa.Pesquisa;
 import com.vvm.sh.ui.pesquisa.PesquisaRecyclerAdapter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class PesquisaBinding {
@@ -21,6 +22,24 @@ public class PesquisaBinding {
             return;
         }
 
+        //List<Tipo> lolo = items;
+
+        List<Tipo> lolo = new ArrayList<>();
+
+        int i = 0;
+        for (Tipo item : items) {
+
+            lolo.add(item);
+
+            if(i == 14){
+                break;
+            }
+
+            ++i;
+        }
+
+        //TODO: fazer paginacao
+
         RecyclerView.LayoutManager layoutManager = view.getLayoutManager();
 
 
@@ -31,12 +50,12 @@ public class PesquisaBinding {
         PesquisaRecyclerAdapter adapter = (PesquisaRecyclerAdapter) view.getAdapter();
 
         if(adapter == null){
-            adapter = new PesquisaRecyclerAdapter(view.getContext(), items, listener);
+            adapter = new PesquisaRecyclerAdapter(view.getContext(), lolo, listener);
 
             view.setAdapter(adapter);
         }
         else{
-            adapter.atualizar(items);
+            adapter.atualizar(lolo);
         }
 
     }

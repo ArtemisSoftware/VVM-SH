@@ -128,8 +128,8 @@ public class Identificadores {
         public static final int ID_RELATORIO_ILUMINACAO = 2;
         public static final String ILUMINACAO = "Iluminação";
 
-        public static final int ID_RELATORIO_TERMICO = 3;
-        public static final String TERMICO = "Térmico";
+        public static final int ID_RELATORIO_TEMPERATURA_HUMIDADE = 3;
+        public static final String TEMPERATURA_E_HUMIDADE = "Temperatura e humidade";
     }
 
     public class CodigosWs {

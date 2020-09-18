@@ -58,7 +58,7 @@ public class DialogoColaborador extends BaseDaggerDialogoPersistenteFragment {
 
         if(verificarArgumentos(ARGUMENTO_ID) == true){
 
-            viewModel.obterColaborador(PreferenciasUtil.obterIdTarefa(getContext()), getArguments().getInt(ARGUMENTO_ID));
+            viewModel.obterColaborador(PreferenciasUtil.obterIdTarefa(getContext()), getArguments().getInt(ARGUMENTO_ID), Identificadores.Origens.ORIGEM_WS);
         }
         else{
             terminarDialogo();

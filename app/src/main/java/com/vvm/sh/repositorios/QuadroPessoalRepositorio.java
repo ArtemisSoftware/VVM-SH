@@ -46,8 +46,8 @@ public class QuadroPessoalRepositorio implements Repositorio<ColaboradorResultad
      * @param id o identificador do colaborador
      * @return os dados do colaborador
      */
-    public Maybe<ColaboradorRegisto> obterColaborador(int id){
-        return quadroPessoalDao.obterColaborador(id);
+    public Maybe<ColaboradorRegisto> obterColaborador(int id, int origem){
+        return quadroPessoalDao.obterColaborador(id, origem);
     }
 
 

@@ -140,6 +140,7 @@
 
     <string name="resultado_imagem">imagem</string>
     <string name="resultado_pesquisa">pesquisa</string>
+    <string name="resultado_pesquisa_descricao">descricao</string>
 
 
     <!--onboarding designs-->

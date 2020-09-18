@@ -161,7 +161,7 @@ public class AvaliacaoGeralActivity extends BaseDaggerActivity
                 activityAvaliacaoGeralBinding.txtEquipamento.setText(getString(R.string.termohigrometro));
                 break;
 
-            case Identificadores.Relatorios.ID_RELATORIO_TERMICO:
+            case Identificadores.Relatorios.ID_RELATORIO_TEMPERATURA_HUMIDADE:
 
                 activityAvaliacaoGeralBinding.txtEquipamento.setText(getString(R.string.luxometro));
                 break;

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.vvm.sh.R;
@@ -14,6 +15,7 @@ import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.quadroPessoal.adaptadores.OnColaboradorListener;
 import com.vvm.sh.ui.quadroPessoal.adaptadores.OnOpcoesColaboradorListener;
 import com.vvm.sh.ui.quadroPessoal.modelos.ColaboradorRegisto;
+import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
@@ -65,6 +67,25 @@ public class QuadroPessoalActivity extends BaseDaggerActivity
     @Override
     protected void subscreverObservadores() {
 
+        viewModel.observarMessagem().observe(this, new Observer<Recurso>() {
+            @Override
+            public void onChanged(Recurso recurso) {
+
+                switch (recurso.status){
+
+                    case SUCESSO:
+
+                        dialogo.sucesso(recurso.messagem);
+                        break;
+
+                    case ERRO:
+
+                        dialogo.erro(recurso.messagem);
+                        break;
+
+                }
+            }
+        });
     }
 
 
@@ -85,7 +106,7 @@ public class QuadroPessoalActivity extends BaseDaggerActivity
         else {
 
             Intent intent = new Intent(this, ColaboradorActivity.class);
-            intent.putExtra(getString(R.string.argumento_id), id);
+            intent.putExtra(getString(R.string.argumento_id_colaborador), id);
             startActivity(intent);
         }
     }
@@ -113,12 +134,13 @@ public class QuadroPessoalActivity extends BaseDaggerActivity
 
     @Override
     public void OnRemoverColaborador(int id) {
-
+        viewModel.remover(PreferenciasUtil.obterIdTarefa(this), id);
     }
 
     @Override
     public void OnDetalheColaborador(int id) {
 
+        //TODO: fazer
     }
 
 

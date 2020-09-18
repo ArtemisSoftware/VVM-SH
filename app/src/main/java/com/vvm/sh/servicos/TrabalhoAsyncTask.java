@@ -347,7 +347,7 @@ public class TrabalhoAsyncTask extends AsyncTask<ISessao, Void, Void> {
             return Identificadores.Relatorios.ID_RELATORIO_ILUMINACAO;
         }
         if(atividadePendente.relatorioTermico == 1){
-            return Identificadores.Relatorios.ID_RELATORIO_TERMICO;
+            return Identificadores.Relatorios.ID_RELATORIO_TEMPERATURA_HUMIDADE;
         }
 
         return Identificadores.Relatorios.SEM_RELATORIO;

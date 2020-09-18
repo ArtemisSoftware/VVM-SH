@@ -1,6 +1,5 @@
 package com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
@@ -103,7 +102,7 @@ public class AvaliacoesAmbientaisActivity extends BaseDaggerActivity
                     intent = new Intent(this, AvaliacaoIluminacaoRegistoActivity.class);
                     break;
 
-                case Identificadores.Relatorios.ID_RELATORIO_TERMICO:
+                case Identificadores.Relatorios.ID_RELATORIO_TEMPERATURA_HUMIDADE:
 
                     intent = new Intent(this, AvaliacaoTemperaturaHumidadeRegistoActivity.class);
                     break;

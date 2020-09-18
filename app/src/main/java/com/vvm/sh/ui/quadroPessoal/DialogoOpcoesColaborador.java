@@ -66,7 +66,7 @@ public class DialogoOpcoesColaborador extends BaseDaggerDialogFragment {
         binding = (DialogoOpcoesColaboradorBinding) activityBaseBinding;
 
 
-        viewModel.obterColaborador(PreferenciasUtil.obterIdTarefa(getContext()), getArguments().getInt(ARGUMENTO_ID));
+
 
         formatarDialogo();
 
@@ -107,6 +107,8 @@ public class DialogoOpcoesColaborador extends BaseDaggerDialogFragment {
         if(getArguments().getInt(ARGUMENTO_ORIGEM) == Identificadores.Origens.ORIGEM_WS){
             binding.rdBtnRemover.setVisibility(View.GONE);
             binding.rdBtnDetalhe.setVisibility(View.VISIBLE);
+
+            viewModel.obterColaborador(PreferenciasUtil.obterIdTarefa(getContext()), getArguments().getInt(ARGUMENTO_ID), Identificadores.Origens.ORIGEM_WS);
         }
         else{
 

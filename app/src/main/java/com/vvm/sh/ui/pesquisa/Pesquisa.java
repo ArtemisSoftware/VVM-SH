@@ -11,6 +11,7 @@ public class Pesquisa implements Parcelable {
     public boolean escolhaMultipla;
     public String metodo;
     public List<Integer> registosSelecionados;
+    public String descricao;
 
     public Pesquisa(String metodo) {
         this.escolhaMultipla = false;
@@ -35,9 +36,11 @@ public class Pesquisa implements Parcelable {
     protected Pesquisa(Parcel in) {
         escolhaMultipla = in.readByte() != 0;
         metodo = in.readString();
+        descricao = in.readString();
 
         registosSelecionados = new ArrayList<>();
         in.readList(registosSelecionados, ArrayList.class.getClassLoader());
+
     }
 
     @Override
@@ -45,6 +48,7 @@ public class Pesquisa implements Parcelable {
         dest.writeByte((byte) (escolhaMultipla ? 1 : 0));
         dest.writeString(metodo);
         dest.writeList(registosSelecionados);
+        dest.writeString(descricao);
     }
 
     @Override

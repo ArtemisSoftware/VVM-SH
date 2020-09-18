@@ -11,6 +11,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import io.reactivex.MaybeObserver;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -62,7 +63,7 @@ public class PesquisaViewModel extends BaseViewModel {
                         new Observer<PesquisaTipos>() {
                             @Override
                             public void onSubscribe(Disposable d) {
-
+                                disposables.add(d);
                             }
 
                             @Override
@@ -120,6 +121,42 @@ public class PesquisaViewModel extends BaseViewModel {
     }
 
 
+    public void pesquisar(String metodo, List<Integer> registos, String pesquisa) {
+
+        tiposRepositorio.obterTipos_Excluir(metodo, registos, pesquisa, idApi)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new MaybeObserver<List<Tipo>>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onSuccess(List<Tipo> registos) {
+                                tipos.setValue(registos);
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+
+                            @Override
+                            public void onComplete() {
+
+                            }
+                        }
+
+                );
+
+    }
+
+
+
     //----------------------
     //
     //----------------------
@@ -138,6 +175,7 @@ public class PesquisaViewModel extends BaseViewModel {
 
         return resultado;
     }
+
 
 
     //----------------------

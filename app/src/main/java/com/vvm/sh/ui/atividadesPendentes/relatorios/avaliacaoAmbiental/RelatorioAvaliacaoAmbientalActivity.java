@@ -93,7 +93,7 @@ public class RelatorioAvaliacaoAmbientalActivity extends BaseDaggerActivity {
                 activityRelatorioAvaliacaoAmbientalBinding.txtTitulo.setText(getString(R.string.iluminacao));
                 break;
 
-            case Identificadores.Relatorios.ID_RELATORIO_TERMICO:
+            case Identificadores.Relatorios.ID_RELATORIO_TEMPERATURA_HUMIDADE:
 
                 activityRelatorioAvaliacaoAmbientalBinding.imgBanner.setImageResource(R.drawable.termico_banner);
                 activityRelatorioAvaliacaoAmbientalBinding.txtTitulo.setText(getString(R.string.temperatura_humidade));

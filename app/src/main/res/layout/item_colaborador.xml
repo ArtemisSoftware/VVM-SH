@@ -10,6 +10,7 @@
         <import type="com.vvm.sh.BuildConfig"/>
         <import type="com.vvm.sh.util.metodos.StringUtil"/>
         <import type="android.view.View"/>
+        <import type="com.vvm.sh.util.constantes.Identificadores"/>
 
         <variable
             name="colaborador"
@@ -92,7 +93,7 @@
 
             <LinearLayout
                 android:id="@+id/linearLayout3"
-                android:visibility="gone"
+                android:visibility="@{(colaborador.origem == Identificadores.Origens.ORIGEM_BD) ? View.VISIBLE : View.GONE}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
@@ -109,6 +110,7 @@
 
                 <TextView
                     style="@style/textoDetalhe"
+                    android:text="@{colaborador.categoriaProfissional}"
                     android:layout_marginLeft="12dp"
                     />
 

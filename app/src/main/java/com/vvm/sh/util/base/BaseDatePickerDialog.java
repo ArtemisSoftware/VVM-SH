@@ -40,6 +40,11 @@ public class BaseDatePickerDialog {
             }
         };
 
+        Calendar calendar = Calendar.getInstance();
+        ano = calendar.get(Calendar.YEAR) ;
+        mes = calendar.get(Calendar.MONTH);
+        dia = calendar.get(Calendar.DAY_OF_MONTH);
+
         datePickerDialog = DatePickerDialog.newInstance(listener, ano, mes, dia);
 
         this.txt = txt;

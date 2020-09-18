@@ -23,7 +23,8 @@
         <activity android:name=".ui.atividadesPendentes.relatorios.avaliacaoAmbiental.AvaliacaoTemperaturaHumidadeRegistoActivity" />
         <activity android:name=".ui.pesquisa.PesquisaActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ui.atividadesPendentes.relatorios.avaliacaoAmbiental.RelatorioAvaliacaoAmbientalActivity" />
+        <activity android:name=".ui.atividadesPendentes.relatorios.avaliacaoAmbiental.RelatorioAvaliacaoAmbientalActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ui.atividadesPendentes.relatorios.avaliacaoAmbiental.AvaliacaoIluminacaoRegistoActivity" />
         <activity android:name=".ui.atividadesPendentes.relatorios.avaliacaoAmbiental.AvaliacoesAmbientaisActivity" />
         <activity android:name=".ui.atividadesPendentes.relatorios.avaliacaoAmbiental.AvaliacaoGeralActivity" />

@@ -8,7 +8,9 @@
         <import type="java.util.List"/>
         <import type="com.vvm.sh.R"/>
         <import type="android.view.View"/>
+        <import type="com.vvm.sh.util.metodos.StringUtil"/>
         <import type="com.vvm.sh.util.metodos.DatasUtil"/>
+        <import type="com.vvm.sh.BuildConfig"/>
 
         <variable
             name="viewmodel"
@@ -85,7 +87,7 @@
                         android:id="@+id/textview3"
                         style="@style/parent.TextLayout"
                         android:hint="Nome"
-                        android:layout_width="450dp"
+                        android:layout_width="510dp"
                         app:errorEnabled="true"
                         android:layout_marginTop="32dp"
                         app:layout_constraintStart_toStartOf="@+id/textView18"
@@ -213,11 +215,9 @@
                                 style="@style/modifiedEditText"
                                 android:inputType="date"
                                 android:enabled="false"
-
+                                android:text="@{DatasUtil.converterData(viewmodel.colaborador.dataAdmissao, DatasUtil.FORMATO_DD_MM_YYYY)}"
                                 android:maxLines="1"/>
 
-                            <!-- android:text="@{DatasUtil.converterData(viewmodel.formando.resultado.dataNascimento, DatasUtil.FORMATO_DD_MM_YYYY)}"
-                                  -->
                         </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -250,11 +250,9 @@
                                 style="@style/modifiedEditText"
                                 android:inputType="date"
                                 android:enabled="false"
-
+                                android:text="@{DatasUtil.converterData(viewmodel.colaborador.dataAdmissaoFuncao, DatasUtil.FORMATO_DD_MM_YYYY)}"
                                 android:maxLines="1"/>
 
-                            <!-- android:text="@{DatasUtil.converterData(viewmodel.formando.resultado.dataNascimento, DatasUtil.FORMATO_DD_MM_YYYY)}"
-                                  -->
                         </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -278,7 +276,7 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/txt_inp_profissao"
                             style="@style/modifiedEditText"
-
+                            android:text="@{viewmodel.colaborador.profissao}"
                             android:inputType="text"
                             android:maxLines="1"/>
 
@@ -299,7 +297,7 @@
                         <com.google.android.material.textfield.TextInputLayout
                             style="@style/parent.TextLayout"
                             android:hint="@string/categoria_profissional"
-                            android:layout_width="300dp"
+                            android:layout_width="450dp"
                             android:layout_marginTop="@dimen/signup_text_margin_top"
                             app:errorEnabled="true">
 
@@ -308,17 +306,23 @@
                                 style="@style/modifiedEditText"
                                 android:inputType="date"
                                 android:enabled="false"
-
+                                android:text="@{viewmodel.colaborador.categoriaProfissional}"
                                 android:maxLines="1"/>
 
-                            <!-- android:text="@{DatasUtil.converterData(viewmodel.formando.resultado.dataNascimento, DatasUtil.FORMATO_DD_MM_YYYY)}"
-                                  -->
                         </com.google.android.material.textfield.TextInputLayout>
 
 
                         <at.markushi.ui.CircleButton
                             android:id="@+id/crl_btn_categoria_profissional"
                             style="@style/btnPesquisa" />
+
+
+                        <TextView
+                            android:id="@+id/txt_id_categoria_profissional"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:visibility="@{BuildConfig.DEBUG ? View.VISIBLE : View.GONE}"
+                            android:text="@{StringUtil.converterString(viewmodel.colaborador.idCategoriaProfissional), default= 0}" />
 
                     </LinearLayout>
 
@@ -337,12 +341,14 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/txt_inp_posto"
                             style="@style/modifiedEditText"
-
+                            android:text="@{viewmodel.colaborador.posto}"
                             android:inputType="text"
                             android:maxLines="1"/>
 
                         <!-- android:text="@{viewmodel.formando.resultado.nome}" -->
                     </com.google.android.material.textfield.TextInputLayout>
+
+
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>

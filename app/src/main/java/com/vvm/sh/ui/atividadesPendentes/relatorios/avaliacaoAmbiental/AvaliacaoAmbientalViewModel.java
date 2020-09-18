@@ -35,6 +35,9 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
 
     private final AvaliacaoAmbientalRepositorio avaliacaoAmbientalRepositorio;
 
+    public MutableLiveData<Relatorio> relatorio;
+
+
 
     public MutableLiveData<RelatorioAmbientalResultado> geral;
     public MutableLiveData<List<AvaliacaoAmbientalResultado>> avaliacoes;
@@ -51,6 +54,9 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
     public AvaliacaoAmbientalViewModel(AvaliacaoAmbientalRepositorio avaliacaoAmbientalRepositorio){
 
         this.avaliacaoAmbientalRepositorio = avaliacaoAmbientalRepositorio;
+
+        relatorio = new MutableLiveData<>();
+
         geral = new MutableLiveData<>();
         avaliacoes = new MutableLiveData<>();
         avaliacao = new MutableLiveData<>();
@@ -161,7 +167,7 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
      * @param tipo o tipo de relatorio
      */
     public void obterValidadeRelatorio(int idAtividade, int tipo) {
-
+/*
         Observable<Object> observables = Observable.zip(
                 avaliacaoAmbientalRepositorio.obterIdRelatorio(idAtividade, tipo).toObservable(),
                 avaliacaoAmbientalRepositorio.obterValidadeGeral(idAtividade, tipo).toObservable(),
@@ -170,6 +176,20 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
                 new Function4<Integer, Boolean, Boolean, String, Object>() {
                     @Override
                     public Object apply(Integer integer, Boolean validadeGeral, Boolean validadeAvalicoes, String medida) throws Exception {
+                        return null;
+                    }
+                }
+        );
+*/
+
+        Relatorio registo = new Relatorio();
+
+        Observable<Object> observables = Observable.zip(
+                avaliacaoAmbientalRepositorio.obterIdRelatorio(idAtividade, tipo).toObservable(),
+                avaliacaoAmbientalRepositorio.obterValidadeGeral(idAtividade, tipo).toObservable(),
+                new BiFunction<Integer, Boolean, Object>() {
+                    @Override
+                    public Object apply(Integer integer, Boolean aBoolean) throws Exception {
                         return null;
                     }
                 }
@@ -199,7 +219,7 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
 
                             @Override
                             public void onComplete() {
-
+                                relatorio.setValue(registo);
                             }
                         }
                 );
@@ -380,5 +400,14 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
     }
 
 
+    public class Relatorio{
+
+        public int id = 0;
+        public boolean valido = false;
+        public boolean geralValido = false;
+
+
+
+    }
 
 }

@@ -5,14 +5,14 @@ import androidx.room.Ignore;
 public class ColaboradorRegisto {
 
 
-    public int id, origem, idResultado;
-    public String nome, idMorada, morada, estado, posto, idRegisto, sexo;
+    public int id, origem, idResultado, idCategoriaProfissional;
+    public String nome, idMorada, morada, estado, posto, idRegisto, sexo, categoriaProfissional, profissao;
 
     @Ignore
     public String  nacionalidade;
 
 
-    public long dataNascimento;
+    public long dataNascimento, dataAdmissaoFuncao, dataAdmissao;
     //private String idMorada, morada, idColaborador, posto, dataNascimento, dataAdmissao, dataAdmissaoFuncao, genero, categoriaProfissional, idCategoriaProfissional, situacao, profissao, nacionalidade;
     //private int imagemSituacao, origem, corOrigem;
 
@@ -20,11 +20,13 @@ public class ColaboradorRegisto {
 
 
     public ColaboradorRegisto(int id, String nome, String idMorada, String morada, String estado, int origem,
-                              String posto, String idRegisto, int idResultado, long dataNascimento, String sexo/*, String nacionalidade,
+                              String posto, String idRegisto, int idResultado, long dataNascimento, String sexo,
+                              int idCategoriaProfissional, String categoriaProfissional, String profissao,
+                              long dataAdmissao, long dataAdmissaoFuncao/*, String nacionalidade,
                               ,
                               String situacao,
-                       String dataAdmissao, String dataAdmissaoFuncao, String categoriaProfissional, String idCategoriaProfissional,
-                       String profissao*/){
+                        String categoriaProfissional, String idCategoriaProfissional,
+                       */){
 
 
         this.id = id;
@@ -40,6 +42,11 @@ public class ColaboradorRegisto {
         this.idRegisto = idRegisto;
         this.idResultado = idResultado;
 
+        this.idCategoriaProfissional = idCategoriaProfissional;
+        this.categoriaProfissional = categoriaProfissional;
+        this.profissao = profissao;
+        this.dataAdmissao = dataAdmissao;
+        this.dataAdmissaoFuncao = dataAdmissaoFuncao;
 //
 
 //        gerarSituacao(situacao);

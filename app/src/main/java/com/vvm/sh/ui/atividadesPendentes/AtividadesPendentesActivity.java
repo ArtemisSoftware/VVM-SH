@@ -123,7 +123,7 @@ public class AtividadesPendentesActivity extends BaseDaggerActivity
 
 
             case Identificadores.Relatorios.ID_RELATORIO_ILUMINACAO:
-            case Identificadores.Relatorios.ID_RELATORIO_TERMICO:
+            case Identificadores.Relatorios.ID_RELATORIO_TEMPERATURA_HUMIDADE:
                 intent = new Intent(this, RelatorioAvaliacaoAmbientalActivity.class);
                 intent.putExtra(getString(R.string.argumento_tipo_relatorio), idRelatorio);
                 break;

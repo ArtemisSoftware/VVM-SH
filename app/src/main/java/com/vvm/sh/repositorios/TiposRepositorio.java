@@ -146,6 +146,10 @@ public class TiposRepositorio {
         return tipoDao.obterTipos_Excluir(metodo, registos, api);
     }
 
+    public Maybe<List<Tipo>> obterTipos_Excluir(String metodo, List<Integer> registos, String pesquisa, int api) {
+        return tipoDao.obterTipos_Excluir(metodo, registos, pesquisa, api);
+    }
+
 
     /**
      * Metodo que permite obter uma lista de tipos apenas com base em registos especificos

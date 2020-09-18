@@ -20,7 +20,10 @@ public enum ResultadoId {
 
     SINISTRALIDADE(Identificadores.Resultados.ID_SINISTRALIDADE, Sintaxe.Palavras.SINISTRALIDADE),
 
-    PARQUE_EXTINTOR(Identificadores.Resultados.ID_PARQUE_EXTINTOR, Sintaxe.Palavras.PARQUE_EXTINTOR);
+    PARQUE_EXTINTOR(Identificadores.Resultados.ID_PARQUE_EXTINTOR, Sintaxe.Palavras.PARQUE_EXTINTOR),
+
+
+    QUADRO_PESSOAL(Identificadores.Resultados.ID_QUADRO_PESSOAL, Sintaxe.Palavras.QUADRO_PESSOAL);
 
 
     private final int value;
@@ -52,7 +55,7 @@ public enum ResultadoId {
 
         registos.add(SINISTRALIDADE);
         registos.add(PARQUE_EXTINTOR);
-
+        registos.add(QUADRO_PESSOAL);
 
         for (ResultadoId item: registos) {
 

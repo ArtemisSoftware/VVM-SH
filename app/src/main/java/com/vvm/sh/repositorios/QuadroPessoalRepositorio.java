@@ -7,6 +7,7 @@ import com.vvm.sh.baseDados.dao.ResultadoDao;
 import com.vvm.sh.baseDados.dao.TipoDao;
 import com.vvm.sh.baseDados.entidades.ColaboradorResultado;
 import com.vvm.sh.baseDados.entidades.Morada;
+import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.ui.quadroPessoal.modelos.ColaboradorRegisto;
 
 import java.util.List;

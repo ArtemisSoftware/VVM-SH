@@ -9,11 +9,11 @@
         <import type="com.vvm.sh.R"/>
         <import type="android.view.View"/>
         <import type="com.vvm.sh.util.metodos.DatasUtil"/>
-<!--
+
         <variable
             name="viewmodel"
-            type="com.vvm.sh.ui.atividadesPendentes.relatorios.FormacaoViewModel"/>
--->
+            type="com.vvm.sh.ui.quadroPessoal.QuadroPessoalViewModel"/>
+
 
         <variable
             name="bloquear"
@@ -94,11 +94,11 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/txt_inp_nome"
                             style="@style/modifiedEditText"
-
+                            android:text="@{viewmodel.colaborador.nome}"
                             android:inputType="text"
                             android:maxLines="1"/>
 
-                        <!-- android:text="@{viewmodel.formando.resultado.nome}" -->
+                        <!--  -->
                     </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -116,15 +116,15 @@
                     <com.jaredrummler.materialspinner.MaterialSpinner
                         android:id="@+id/spnr_genero"
                         android:layout_width="400dp"
-
+                        tipos_="@{viewmodel.generos}"
+                        genero="@{viewmodel.colaborador.sexo}"
 
                         android:layout_height="wrap_content"
                         app:layout_constraintStart_toStartOf="@+id/textView18"
                         app:layout_constraintTop_toBottomOf="@+id/textview31" />
 
 
-                    <!--                         tipos_="@{viewmodel.generos}"
-                        genero="@{viewmodel.formando.resultado.sexo}"
+                    <!--
                         -->
 
 
@@ -141,8 +141,9 @@
 
                     <com.jaredrummler.materialspinner.MaterialSpinner
                         android:id="@+id/spnr_morada"
-                        android:layout_width="400dp"
-
+                        android:layout_width="560dp"
+                        app:moradas="@{viewmodel.moradas}"
+                        app:idMorada="@{viewmodel.colaborador.idMorada}"
 
                         android:layout_height="wrap_content"
                         app:layout_constraintStart_toStartOf="@+id/textView18"
@@ -175,21 +176,17 @@
                                 style="@style/modifiedEditText"
                                 android:inputType="date"
                                 android:enabled="false"
-
+                                android:text="@{DatasUtil.converterData(viewmodel.colaborador.dataNascimento, DatasUtil.FORMATO_DD_MM_YYYY)}"
                                 android:maxLines="1"/>
 
-                            <!-- android:text="@{DatasUtil.converterData(viewmodel.formando.resultado.dataNascimento, DatasUtil.FORMATO_DD_MM_YYYY)}"
+                            <!--
                                   -->
                         </com.google.android.material.textfield.TextInputLayout>
 
 
                         <at.markushi.ui.CircleButton
                             android:id="@+id/crl_btn_data_nascimento"
-                            android:layout_width="64dip"
-                            android:layout_height="64dip"
-                            android:src="@drawable/ic_calendario"
-                            app:cb_color="#99CC00"
-                            app:cb_pressedRingWidth="8dip" />
+                            style="@style/btnCalendario" />
 
                     </LinearLayout>
 
@@ -226,11 +223,7 @@
 
                         <at.markushi.ui.CircleButton
                             android:id="@+id/crl_btn_data_admissao"
-                            android:layout_width="64dip"
-                            android:layout_height="64dip"
-                            android:src="@drawable/ic_calendario"
-                            app:cb_color="#99CC00"
-                            app:cb_pressedRingWidth="8dip" />
+                            style="@style/btnCalendario"  />
 
                     </LinearLayout>
 
@@ -267,11 +260,7 @@
 
                         <at.markushi.ui.CircleButton
                             android:id="@+id/crl_btn_data_admissao_funcao"
-                            android:layout_width="64dip"
-                            android:layout_height="64dip"
-                            android:src="@drawable/ic_calendario"
-                            app:cb_color="#99CC00"
-                            app:cb_pressedRingWidth="8dip" />
+                            style="@style/btnCalendario"  />
 
                     </LinearLayout>
 
@@ -329,11 +318,7 @@
 
                         <at.markushi.ui.CircleButton
                             android:id="@+id/crl_btn_categoria_profissional"
-                            android:layout_width="64dip"
-                            android:layout_height="64dip"
-                            android:src="@drawable/ic_calendario"
-                            app:cb_color="#99CC00"
-                            app:cb_pressedRingWidth="8dip" />
+                            style="@style/btnPesquisa" />
 
                     </LinearLayout>
 

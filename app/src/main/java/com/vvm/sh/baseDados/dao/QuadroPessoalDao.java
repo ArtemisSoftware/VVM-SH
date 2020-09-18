@@ -56,6 +56,7 @@ abstract public class QuadroPessoalDao implements BaseDao<ColaboradorResultado> 
     query += "WHERE qp.idTarefa = ? ";
     */
 
+    /*
     @Transaction
     @Query(" SELECT id, nome " +
             "FROM (" +
@@ -68,9 +69,21 @@ abstract public class QuadroPessoalDao implements BaseDao<ColaboradorResultado> 
             "FROM colaboradoresResultado WHERE origem = " + Identificadores.Origens.ORIGEM_BD + " " +
             ") " +
             "WHERE idTarefa = :idTarefa")
+    */
+    @Transaction
+    @Query("SELECT clb.id as id, nome, clb.idMorada as idMorada, morada, " +
+            "IFNULL(clb_res.estado, clb.estado) as estado, " + Identificadores.Origens.ORIGEM_WS + " as origem, posto, " +
+            "idRegisto, idResultado, " +
+            "dataNascimento, sexo " +
+            "FROM colaboradores as clb " +
+            "LEFT JOIN(SELECT id as idResultado, idRegisto, posto, estado FROM colaboradoresResultado) as clb_res ON  clb.id =  CAST(clb_res.idRegisto AS INTEGER)  " +
+            "LEFT JOIN (SELECT id, endereco || '\n' || cp4 || ' ' || localidade as morada, idTarefa FROM moradas WHERE tipo = " + Identificadores.Origens.ORIGEM_MORADA + ") as mrd " +
+            "ON  clb.idMorada = mrd.id  AND clb.idTarefa = mrd.idTarefa " +
+            "WHERE clb.idTarefa = :idTarefa")
     abstract public Observable<List<ColaboradorRegisto>> obterQuadroPessoal(int idTarefa);
 
 
+    /*
     @Transaction
     @Query(" SELECT id, nome " +
             "FROM (" +
@@ -83,6 +96,17 @@ abstract public class QuadroPessoalDao implements BaseDao<ColaboradorResultado> 
             "FROM colaboradoresResultado WHERE origem = " + Identificadores.Origens.ORIGEM_BD + " " +
             ") " +
             "WHERE id = :id")
+    */
+    @Transaction
+    @Query("SELECT clb.id as id, nome, clb.idMorada as idMorada, " +
+            "IFNULL(clb_res.estado, clb.estado) as estado ,  " + Identificadores.Origens.ORIGEM_WS + " as origem, posto, " +
+            "idRegisto, idResultado, " +
+            "dataNascimento, sexo " +
+            "FROM colaboradores as clb " +
+            "LEFT JOIN(SELECT id as idResultado, idRegisto, posto, estado FROM colaboradoresResultado) as clb_res ON  clb.id =  CAST(clb_res.idRegisto AS INTEGER)  " +
+            "LEFT JOIN (SELECT id, endereco || '\n' || cp4 || ' ' || localidade as morada, idTarefa FROM moradas WHERE tipo = " + Identificadores.Origens.ORIGEM_MORADA + ") as mrd " +
+            "ON  clb.idMorada = mrd.id  AND clb.idTarefa = mrd.idTarefa " +
+            "WHERE clb.id = :id")
     abstract public Maybe<ColaboradorRegisto> obterColaborador(int id);
 
 

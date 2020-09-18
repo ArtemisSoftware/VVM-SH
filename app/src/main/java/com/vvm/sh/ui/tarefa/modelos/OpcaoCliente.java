@@ -1,8 +1,5 @@
 package com.vvm.sh.ui.tarefa.modelos;
 
-import androidx.annotation.NonNull;
-
-import com.vvm.sh.util.adaptadores.Item;
 import com.vvm.sh.util.constantes.Identificadores;
 
 import java.util.Objects;
@@ -46,8 +43,12 @@ public class OpcaoCliente {
         return new OpcaoCliente(OPCAO_SINISTRALIDADE, SINISTRALIDADE, ICON_SINISTRALIDADE, Identificadores.App.APP_ST);
     }
     public static OpcaoCliente parqueExtintores() {
-        return new OpcaoCliente(OPCAO_EXTINTORES, EXTINTORES, ICON_EXTINTORES, Identificadores.App.APP_ST);
+        return new OpcaoCliente(OPCAO_PARQUE_EXTINTORES, PARQUE_EXTINTORES, ICON_PARQUE_EXTINTORES, Identificadores.App.APP_ST);
     }
+    public static OpcaoCliente quadroPessoal() {
+        return new OpcaoCliente(OPCAO_QUADRO_PESSOAL, QUADRO_PESSOAL, ICON_QUADRO_PESSOAL, Identificadores.App.APP_ST);
+    }
+
 
     @Override
     public boolean equals(Object o) {

@@ -5,14 +5,13 @@ import androidx.room.Ignore;
 public class ColaboradorRegisto {
 
 
-    public int id;
-    public String nome;
+    public int id, origem, idResultado;
+    public String nome, idMorada, morada, estado, posto, idRegisto, sexo;
 
     @Ignore
-    public int  origem;
-    @Ignore
-    public String idMorada, morada, sexo, estado, nacionalidade;
-    @Ignore
+    public String  nacionalidade;
+
+
     public long dataNascimento;
     //private String idMorada, morada, idColaborador, posto, dataNascimento, dataAdmissao, dataAdmissaoFuncao, genero, categoriaProfissional, idCategoriaProfissional, situacao, profissao, nacionalidade;
     //private int imagemSituacao, origem, corOrigem;
@@ -20,9 +19,10 @@ public class ColaboradorRegisto {
 
 
 
-    public ColaboradorRegisto(int id, String nome/*, String idMorada, String morada, String sexo, long dataNascimento, String estado, String nacionalidade,
-                              int origem,
-                              String situacao, String posto,
+    public ColaboradorRegisto(int id, String nome, String idMorada, String morada, String estado, int origem,
+                              String posto, String idRegisto, int idResultado, long dataNascimento, String sexo/*, String nacionalidade,
+                              ,
+                              String situacao,
                        String dataAdmissao, String dataAdmissaoFuncao, String categoriaProfissional, String idCategoriaProfissional,
                        String profissao*/){
 
@@ -36,6 +36,9 @@ public class ColaboradorRegisto {
         this.estado = estado;
         this.nacionalidade = nacionalidade;
         this.origem = origem;
+        this.posto = posto;
+        this.idRegisto = idRegisto;
+        this.idResultado = idResultado;
 
 //
 

@@ -1,7 +1,11 @@
 package com.vvm.sh.ui.quadroPessoal;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+
+import androidx.annotation.Nullable;
+import androidx.lifecycle.ViewModelProviders;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.mobsandgeeks.saripaar.ValidationError;
@@ -9,11 +13,25 @@ import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.vvm.sh.R;
 import com.vvm.sh.baseDados.entidades.ColaboradorResultado;
+import com.vvm.sh.baseDados.entidades.Morada;
+import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.databinding.ActivityColaboradorBinding;
+import com.vvm.sh.databinding.ActivityQuadroPessoalBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
+import com.vvm.sh.ui.pesquisa.Pesquisa;
+import com.vvm.sh.ui.pesquisa.PesquisaActivity;
+import com.vvm.sh.util.base.BaseDatePickerDialog;
+import com.vvm.sh.util.base.BaseTimePickerDialog;
+import com.vvm.sh.util.constantes.Identificadores;
+import com.vvm.sh.util.metodos.DatasUtil;
+import com.vvm.sh.util.metodos.PreferenciasUtil;
+import com.vvm.sh.util.metodos.TiposUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
+import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -60,17 +78,23 @@ public class ColaboradorActivity extends BaseDaggerActivity
         validador = new Validator(this);
         validador.setValidationListener(this);
 
+        viewModel = ViewModelProviders.of(this, providerFactory).get(QuadroPessoalViewModel.class);
+
+        activityColaboradorBinding = (ActivityColaboradorBinding) activityBinding;
+        activityColaboradorBinding.setLifecycleOwner(this);
+        activityColaboradorBinding.setViewmodel(viewModel);
+
+        activityColaboradorBinding.setBloquear(PreferenciasUtil.agendaEditavel(this));
 
         Bundle bundle = getIntent().getExtras();
 
         if(bundle != null) {
 
             int id = bundle.getInt(getString(R.string.argumento_id_colaborador));
-            //--viewModel.obterFormando(idFormando);
-            //--activityFormandoBinding.setBloquear(PreferenciasUtil.agendaEditavel(this));
+            viewModel.obterColaborador(PreferenciasUtil.obterIdTarefa(this), id);
         }
         else{
-            finish();
+            viewModel.obterColaborador(PreferenciasUtil.obterIdTarefa(this));
         }
 
     }
@@ -82,7 +106,7 @@ public class ColaboradorActivity extends BaseDaggerActivity
 
     @Override
     protected BaseViewModel obterBaseViewModel() {
-        return null;
+        return viewModel;
     }
 
     @Override
@@ -121,12 +145,53 @@ public class ColaboradorActivity extends BaseDaggerActivity
      */
     private void ativarValidacao(boolean ativar){
 
-        //binding.txtInpDataExecucao.setEnabled(ativar);
+        activityColaboradorBinding.txtInpDataNascimento.setEnabled(ativar);
+        activityColaboradorBinding.txtInpDataAdmissao.setEnabled(ativar);
+        activityColaboradorBinding.txtInpDataAdmissaoFuncao.setEnabled(ativar);
     }
 
     //-----------------------
     //EVENTOS
     //-----------------------
+
+
+
+    @OnClick(R.id.crl_btn_data_nascimento)
+    public void crl_btn_data_nascimento_OnClickListener(View view) {
+
+        BaseDatePickerDialog dialogo = new BaseDatePickerDialog(activityColaboradorBinding.txtInpDataNascimento);
+        dialogo.obterDatePickerDialog().show(getSupportFragmentManager(), "Datepickerdialog");
+    }
+
+    @OnClick(R.id.crl_btn_data_admissao)
+    public void crl_btn_data_admissao_OnClickListener(View view) {
+
+        BaseTimePickerDialog dialogo = new BaseTimePickerDialog(activityColaboradorBinding.txtInpDataAdmissao);
+        dialogo.show(getSupportFragmentManager(), "Timepickerdialog");
+
+    }
+
+    @OnClick(R.id.crl_btn_data_admissao_funcao)
+    public void crl_btn_data_admissao_funcao_OnClickListener(View view) {
+
+        BaseTimePickerDialog dialogo = new BaseTimePickerDialog(activityColaboradorBinding.txtInpDataAdmissaoFuncao);
+        dialogo.show(getSupportFragmentManager(), "Timepickerdialog");
+    }
+
+
+    @OnClick(R.id.crl_btn_categoria_profissional)
+    public void crl_btn_categoria_profissional_OnClickListener(View view) {
+
+        Pesquisa pesquisa = new Pesquisa(false, TiposUtil.MetodosTipos.CATEGORIAS_PROFISSIONAIS);
+
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(getString(R.string.argumento_configuracao_pesquisa), pesquisa);
+
+        Intent intent = new Intent(this, PesquisaActivity.class);
+        intent.putExtras(bundle);
+        startActivityForResult(intent, Identificadores.CodigoAtividade.PESQUISA);
+    }
+
 
 
     @OnClick(R.id.fab_gravar)
@@ -146,6 +211,26 @@ public class ColaboradorActivity extends BaseDaggerActivity
 
 
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == Identificadores.CodigoAtividade.PESQUISA) {
+
+            if(resultCode == RESULT_OK){
+
+                ArrayList<Integer> resultado = data.getIntegerArrayListExtra(getString(R.string.resultado_pesquisa));
+
+                //viewModel.fixarCategoriasProfissionais(resultado);
+            }
+        }
+    }
+
+
+
+
+
+
 
     @Override
     public void onValidationSucceeded() {
@@ -155,31 +240,28 @@ public class ColaboradorActivity extends BaseDaggerActivity
 
         ColaboradorResultado resultado;
 
+        String nome = activityColaboradorBinding.txtInpNome.getText().toString();
+        String posto = activityColaboradorBinding.txtInpPosto.getText().toString();
+        String profissao = activityColaboradorBinding.txtInpProfissao.getText().toString();
+
+        Date dataNascimento = DatasUtil.converterString(activityColaboradorBinding.txtInpDataNascimento.getText().toString(), DatasUtil.FORMATO_DD_MM_YYYY);
+        Date dataAdmissao = DatasUtil.converterString(activityColaboradorBinding.txtInpDataAdmissao.getText().toString(), DatasUtil.FORMATO_DD_MM_YYYY);
+        Date dataAdmissaoFuncao = DatasUtil.converterString(activityColaboradorBinding.txtInpDataAdmissaoFuncao.getText().toString(), DatasUtil.FORMATO_DD_MM_YYYY);
+
+        Tipo genero = (Tipo) activityColaboradorBinding.spnrGenero.getItems().get(activityColaboradorBinding.spnrGenero.getSelectedIndex());
+        Morada morada = (Morada) activityColaboradorBinding.spnrMorada.getItems().get(activityColaboradorBinding.spnrMorada.getSelectedIndex());
+
+
+        //--resultado = new ColaboradorResultado(PreferenciasUtil.obterIdTarefa(this), nome, posto, profissao, dataNascimento, dataAdmissao, dataAdmissaoFuncao, genero.codigo, morada.id, idCategoriaProfissional);
+
+
         Bundle bundle = getIntent().getExtras();
 
         if(bundle != null) {
-
-            int id = bundle.getInt(getString(R.string.argumento_id_colaborador));
-
-//            String nome =
-//
-//
-//                    ((EditText) vista.findViewById(R.id.edit_txt_nome)).getText().toString(),
-//                    ((TextView) vista.findViewById(R.id.txt_view_data_nascimento)).getText().toString(),
-//                    ((TextView) vista.findViewById(R.id.txt_view_data_admissao)).getText().toString(),
-//                    ((TextView) vista.findViewById(R.id.txt_view_data_admissao_funcao)).getText().toString(),
-//                    ((AutoCompleteTextView) vista.findViewById(R.id.at_cmp_txt_profissao)).getText().toString(),
-//                    ((TextView) vista.findViewById(R.id.txt_view_id_categoria)).getText().toString(),
-//                    ((SpinnerAdaptador)((Spinner) vista.findViewById(R.id.spnr_genero)).getAdapter()).obterDescricao(),
-//                    ((SpinnerAdaptador)((Spinner) vista.findViewById(R.id.spnr_moradas)).getAdapter()).obterIdItem(),
-//                    ((AutoCompleteTextView) vista.findViewById(R.id.at_cmp_txt_posto)).getText().toString());
-//
-//
-//
-//                resultado = new ColaboradorResultado(id);
-//
-//                viewModel.gravar(PreferenciasUtil.obterIdTarefa(this), resultado);
+            //--resultado.id = bundle.getInt(getString(R.string.argumento_id_colaborador));
         }
+
+        //--viewModel.gravar(resultado);
     }
 
     @Override

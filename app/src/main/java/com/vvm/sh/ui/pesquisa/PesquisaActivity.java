@@ -115,8 +115,8 @@ public class PesquisaActivity extends BaseDaggerActivity
 
 
 
-    @OnClick(R.id.btn_gravar)
-    public void btn_gravar_OnClickListener(View view) {
+    @OnClick(R.id.fab_gravar)
+    public void fab_gravar_OnClickListener(View view) {
 
         if(pesquisa.registosSelecionados.size() > 0) {
 

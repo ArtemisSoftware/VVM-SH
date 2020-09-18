@@ -1,5 +1,8 @@
 package com.vvm.sh.util.base;
 
+import android.widget.TextView;
+
+import com.vvm.sh.util.metodos.DatasUtil;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 
 import java.util.Calendar;
@@ -8,10 +11,11 @@ import java.util.List;
 
 public class BaseDatePickerDialog {
 
+    private TextView txt;
     int ano, mes, dia;
     private DatePickerDialog datePickerDialog;
     protected Calendar limiteInferior, limiteSuperior;
-
+    private DatePickerDialog.OnDateSetListener listener;
 
 
     public BaseDatePickerDialog(DatePickerDialog.OnDateSetListener listener) {
@@ -23,6 +27,26 @@ public class BaseDatePickerDialog {
 
         datePickerDialog = DatePickerDialog.newInstance(listener, ano, mes, dia);
     }
+
+
+
+    public BaseDatePickerDialog(TextView txt) {
+
+        listener = new DatePickerDialog.OnDateSetListener(){
+
+            @Override
+            public void onDateSet(DatePickerDialog view, int year, int monthOfYear, int dayOfMonth) {
+                txt.setText(DatasUtil.converterData(year, monthOfYear, dayOfMonth, DatasUtil.FORMATO_DD_MM_YYYY));
+            }
+        };
+
+        datePickerDialog = DatePickerDialog.newInstance(listener, ano, mes, dia);
+
+        this.txt = txt;
+    }
+
+
+
 
     public DatePickerDialog obterDatePickerDialog() {
         return datePickerDialog;

@@ -10,6 +10,7 @@ import com.vvm.sh.baseDados.dao.TipoDao;
 import com.vvm.sh.baseDados.entidades.Atualizacao;
 import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.ui.opcoes.modelos.ResumoTipo;
+import com.vvm.sh.util.excepcoes.TipoInexistenteException;
 import com.vvm.sh.util.metodos.TiposUtil;
 
 import java.util.ArrayList;
@@ -48,10 +49,13 @@ public class TiposRepositorio {
 
     /**
      * Metodo que permite obter um tipo a partir do web service
-     * @param metodo o metodo associado ao tipo
+     * @param descricao o metodo associado ao tipo
      * @return os dados de um tipo
      */
-    public Observable<ITipoListagem> obterTipo(TiposUtil.MetodoApi metodo) {
+    public Observable<ITipoListagem> obterTipo(String descricao) throws TipoInexistenteException {
+
+        TiposUtil.MetodoApi metodo = TiposUtil.obterMetodos(descricao);
+
 
         if(metodo.sa != null & metodo.sht != null) {
             return Observable.concat(apiSA.obterTipo(SegurancaAlimentarApi.HEADER_TIPO, metodo.sa).toObservable(), apiST.obterTipo(SegurancaTrabalhoApi.HEADER_TIPO, metodo.sht).toObservable());
@@ -70,7 +74,7 @@ public class TiposRepositorio {
      * Metodo que permite obter todos os tipos
      * @return os dados de todos os tipos
      */
-    public Observable<ITipoListagem> obterTipos(){
+    public Observable<ITipoListagem> obterTipos() throws TipoInexistenteException {
 
         List<Observable<ITipoListagem>> pedidos = new ArrayList<>();
 
@@ -95,7 +99,7 @@ public class TiposRepositorio {
      * @param atualizacoes as atualizacoes dos tipos
      * @return os dados dos tipos
      */
-    public Observable<ITipoListagem> obterTipos(List<Atualizacao> atualizacoes) {
+    public Observable<ITipoListagem> obterTipos(List<Atualizacao> atualizacoes) throws TipoInexistenteException {
 
         List<Observable<ITipoListagem>> pedidos = new ArrayList<>();
 

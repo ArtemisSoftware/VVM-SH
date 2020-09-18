@@ -510,6 +510,7 @@ public class TarefaViewModel extends BaseViewModel {
         items.add(OpcaoCliente.crossSelling());
         items.add(OpcaoCliente.sinistralidade());
         items.add(OpcaoCliente.parqueExtintores());
+        items.add(OpcaoCliente.quadroPessoal());
 
         opcoesCliente.setValue(items);
     }

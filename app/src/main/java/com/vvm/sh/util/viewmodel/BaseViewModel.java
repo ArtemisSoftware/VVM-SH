@@ -11,12 +11,17 @@ import com.vvm.sh.api.modelos.pedido.Codigo;
 import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.baseDados.dao.ResultadoDao;
 import com.vvm.sh.baseDados.entidades.Resultado;
+import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.servicos.ResultadoAsyncTask;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.ResultadoId;
+import com.vvm.sh.util.constantes.TiposConstantes;
 import com.vvm.sh.util.excepcoes.MetodoWsInvalidoException;
 import com.vvm.sh.util.excepcoes.RespostaWsInvalidaException;
 import com.vvm.sh.util.excepcoes.TipoInexistenteException;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -61,6 +66,22 @@ public abstract class BaseViewModel extends ViewModel {
 
         ResultadoAsyncTask servico = new ResultadoAsyncTask(vvmshBaseDados, resultadoDao);
         servico.execute(new Resultado(idTarefa, idResultado));
+    }
+
+
+
+
+    /**
+     * Metodo que permite obter os generos
+     */
+    protected void obterGeneros(MutableLiveData<List<Tipo>> generos){
+
+        List<Tipo> estado = new ArrayList<>();
+
+        estado.add(TiposConstantes.GENERO_MASCULINO);
+        estado.add(TiposConstantes.GENERO_FEMININO);
+        generos.setValue(estado);
+
     }
 
 

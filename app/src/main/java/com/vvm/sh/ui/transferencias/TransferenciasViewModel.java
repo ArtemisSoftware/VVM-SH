@@ -30,6 +30,7 @@ import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.constantes.TiposConstantes;
 import com.vvm.sh.util.excepcoes.RespostaWsInvalidaException;
+import com.vvm.sh.util.excepcoes.TipoInexistenteException;
 import com.vvm.sh.util.mapeamento.UploadMapping;
 import com.vvm.sh.util.metodos.DatasUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
@@ -636,37 +637,42 @@ public class TransferenciasViewModel extends BaseViewModel {
 
         List<ITipoListagem> respostas = new ArrayList<>();
 
-        tiposRepositorio.obterTipos(atualizacoes)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        new Observer<ITipoListagem>() {
-                            @Override
-                            public void onSubscribe(Disposable d) {
-                                disposables.add(d);
+        try {
+            tiposRepositorio.obterTipos(atualizacoes)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+                            new Observer<ITipoListagem>() {
+                                @Override
+                                public void onSubscribe(Disposable d) {
+                                    disposables.add(d);
+                                }
+
+                                @Override
+                                public void onNext(ITipoListagem iTipoListagem) {
+                                    respostas.add(iTipoListagem);
+                                }
+
+                                @Override
+                                public void onError(Throwable e) {
+                                    showProgressBar(false);
+                                    //messagemLiveData.setValue(Recurso.erro(e.getMessage()));
+                                }
+
+                                @Override
+                                public void onComplete() {
+
+                                    CarregarTipoAsyncTask servico = new CarregarTipoAsyncTask(vvmshBaseDados, handlerUI, tiposRepositorio);
+                                    servico.execute(respostas);
+                                    showProgressBar(false);
+                                }
                             }
 
-                            @Override
-                            public void onNext(ITipoListagem iTipoListagem) {
-                                respostas.add(iTipoListagem);
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-                                showProgressBar(false);
-                                //messagemLiveData.setValue(Recurso.erro(e.getMessage()));
-                            }
-
-                            @Override
-                            public void onComplete() {
-
-                                CarregarTipoAsyncTask servico = new CarregarTipoAsyncTask(vvmshBaseDados, handlerUI, tiposRepositorio);
-                                servico.execute(respostas);
-                                showProgressBar(false);
-                            }
-                        }
-
-                );
+                    );
+        } catch (TipoInexistenteException e) {
+            showProgressBar(false);
+            messagemLiveData.setValue(Recurso.erro(e.getMessage()));
+        }
 
     }
 

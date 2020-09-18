@@ -7,15 +7,15 @@
 
         <import type="java.util.List"/>
 
-<!--
-        <variable
-            name="viewmodel"
-            type="com.vvm.sh.ui.tarefa.TarefaViewModel"/>
 
         <variable
-            name="listener"
-            type="com.vvm.sh.ui.tarefa.adaptadores.OnTarefaListener"/>
--->
+            name="viewmodel"
+            type="com.vvm.sh.ui.quadroPessoal.QuadroPessoalViewModel"/>
+        <!--
+                <variable
+                    name="listener"
+                    type="com.vvm.sh.ui.tarefa.adaptadores.OnTarefaListener"/>
+        -->
     </data>
 
 
@@ -33,13 +33,12 @@
             app:errorEnabled="true">
 
             <com.google.android.material.textfield.TextInputEditText
-                android:id="@+id/txt_inp_email"
+                android:id="@+id/txt_inp_posto"
                 style="@style/modifiedEditText"
                 android:inputType="text"
-
+                android:text="@{viewmodel.colaborador.posto}"
                 android:maxLines="1"/>
 
-            <!--  android:text="@{viewmodel.tarefaDia.obterEnderecoEmail()}" -->
         </com.google.android.material.textfield.TextInputLayout>
 
 
@@ -53,8 +52,10 @@
 
 
         <com.jaredrummler.materialspinner.MaterialSpinner
-            android:id="@+id/spnr_email"
+            android:id="@+id/spnr_moradas"
 
+            app:moradas="@{viewmodel.moradas}"
+            app:idMorada="@{viewmodel.colaborador.idMorada}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/morada"/>

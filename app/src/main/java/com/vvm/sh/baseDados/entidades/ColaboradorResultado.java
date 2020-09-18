@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
@@ -73,4 +74,46 @@ public class ColaboradorResultado {
     @ColumnInfo(name = "origem")
     public int origem;
 
+    @Ignore
+    public ColaboradorResultado(int idTarefa, int id, String idMorada, String posto, int origem) {
+
+        this.idTarefa = idTarefa;
+        this.idRegisto = id + "";
+        this.idMorada = idMorada;
+        this.posto = posto;
+        this.origem = origem;
+    }
+
+    @Ignore
+    public ColaboradorResultado(int idTarefa, int id, String estado, int origem) {
+
+        this.idTarefa = idTarefa;
+        this.idRegisto = id + "";
+        this.estado = estado;
+        this.origem = origem;
+    }
+
+
+
+
+    public ColaboradorResultado(int idTarefa, int id, String idRegisto, String nome, String idMorada,
+                                String estado, Date dataNascimento, String sexo, String nacionalidade,
+                                Date dataAdmissao, Date dataAdmissaoFuncao, int idCategoriaProfissional,
+                                String profissao, String posto, int origem) {
+        this.idTarefa = idTarefa;
+        this.id = id;
+        this.idRegisto = idRegisto;
+        this.nome = nome;
+        this.idMorada = idMorada;
+        this.estado = estado;
+        this.dataNascimento = dataNascimento;
+        this.sexo = sexo;
+        this.nacionalidade = nacionalidade;
+        this.dataAdmissao = dataAdmissao;
+        this.dataAdmissaoFuncao = dataAdmissaoFuncao;
+        this.idCategoriaProfissional = idCategoriaProfissional;
+        this.profissao = profissao;
+        this.posto = posto;
+        this.origem = origem;
+    }
 }

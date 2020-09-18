@@ -15,6 +15,7 @@ import com.vvm.sh.servicos.AtualizarTipoAsyncTask;
 import com.vvm.sh.ui.opcoes.modelos.ResumoTipo;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.constantes.Identificadores;
+import com.vvm.sh.util.excepcoes.TipoInexistenteException;
 import com.vvm.sh.util.metodos.TiposUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
@@ -114,38 +115,41 @@ public class OpcoesViewModel extends BaseViewModel {
         List<ITipoListagem> respostas = new ArrayList<>();
 
 
-        TiposUtil.MetodoApi metodo = TiposUtil.obterMetodos(descricao);
+        try {
+            tiposRepositorio.obterTipo(descricao)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+                            new Observer<ITipoListagem>() {
+                                @Override
+                                public void onSubscribe(Disposable d) {
+                                    disposables.add(d);
+                                }
 
-        tiposRepositorio.obterTipo(metodo)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        new Observer<ITipoListagem>() {
-                            @Override
-                            public void onSubscribe(Disposable d) {
-                                disposables.add(d);
+                                @Override
+                                public void onNext(ITipoListagem iTipoListagem) {
+                                    respostas.add(iTipoListagem);
+                                }
+
+                                @Override
+                                public void onError(Throwable e) {
+                                    showProgressBar(false);
+                                    messagemLiveData.setValue(Recurso.erro(e.getMessage()));
+                                }
+
+                                @Override
+                                public void onComplete() {
+                                    AtualizarTipoAsyncTask servico = new AtualizarTipoAsyncTask(vvmshBaseDados, tiposRepositorio);
+                                    servico.execute(respostas);
+
+                                    showProgressBar(false);
+                                }
                             }
-
-                            @Override
-                            public void onNext(ITipoListagem iTipoListagem) {
-                                respostas.add(iTipoListagem);
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-                                showProgressBar(false);
-                                messagemLiveData.setValue(Recurso.erro(e.getMessage()));
-                            }
-
-                            @Override
-                            public void onComplete() {
-                                AtualizarTipoAsyncTask servico = new AtualizarTipoAsyncTask(vvmshBaseDados, tiposRepositorio);
-                                servico.execute(respostas);
-
-                                showProgressBar(false);
-                            }
-                        }
-                );
+                    );
+        } catch (TipoInexistenteException e) {
+            showProgressBar(false);
+            messagemLiveData.setValue(Recurso.erro(e.getMessage()));
+        }
     }
 
 
@@ -159,37 +163,42 @@ public class OpcoesViewModel extends BaseViewModel {
         List<ITipoListagem> respostas = new ArrayList<>();
 
 
-        tiposRepositorio.obterTipos()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        new Observer<ITipoListagem>() {
-                            @Override
-                            public void onSubscribe(Disposable d) {
-                                disposables.add(d);
+        try {
+            tiposRepositorio.obterTipos()
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+                            new Observer<ITipoListagem>() {
+                                @Override
+                                public void onSubscribe(Disposable d) {
+                                    disposables.add(d);
+                                }
+
+                                @Override
+                                public void onNext(ITipoListagem iTipoListagem) {
+                                    respostas.add(iTipoListagem);
+                                }
+
+                                @Override
+                                public void onError(Throwable e) {
+                                    showProgressBar(false);
+                                    messagemLiveData.setValue(Recurso.erro(e.getMessage()));
+                                }
+
+                                @Override
+                                public void onComplete() {
+                                    AtualizarTipoAsyncTask servico = new AtualizarTipoAsyncTask(vvmshBaseDados, tiposRepositorio);
+                                    servico.execute(respostas);
+
+                                    showProgressBar(false);
+                                }
                             }
 
-                            @Override
-                            public void onNext(ITipoListagem iTipoListagem) {
-                                respostas.add(iTipoListagem);
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-                                showProgressBar(false);
-                                messagemLiveData.setValue(Recurso.erro(e.getMessage()));
-                            }
-
-                            @Override
-                            public void onComplete() {
-                                AtualizarTipoAsyncTask servico = new AtualizarTipoAsyncTask(vvmshBaseDados, tiposRepositorio);
-                                servico.execute(respostas);
-
-                                showProgressBar(false);
-                            }
-                        }
-
-                );
+                    );
+        } catch (TipoInexistenteException e) {
+            showProgressBar(false);
+            messagemLiveData.setValue(Recurso.erro(e.getMessage()));
+        }
 
     }
 

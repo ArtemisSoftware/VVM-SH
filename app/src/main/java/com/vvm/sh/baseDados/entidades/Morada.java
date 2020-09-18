@@ -54,4 +54,10 @@ public class Morada {
         this.cp4 = cp4;
         this.localidade = localidade;
     }
+
+
+    @Override
+    public String toString() {
+        return endereco + "  " + cp4 + "-" + localidade;
+    }
 }

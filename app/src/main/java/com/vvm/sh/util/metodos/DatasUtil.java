@@ -260,6 +260,10 @@ public class DatasUtil {
      */
     public static String converterData(long data, String formato) {
 
+        if(data == 0){
+            return Sintaxe.SEM_TEXTO;
+        }
+
         Date resultado = new Date(data);
         SimpleDateFormat formatoData = new SimpleDateFormat(formato);
         return formatoData.format(resultado);

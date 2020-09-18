@@ -7,6 +7,7 @@ import android.view.View;
 import androidx.lifecycle.ViewModelProviders;
 
 import com.vvm.sh.R;
+import com.vvm.sh.baseDados.entidades.ColaboradorResultado;
 import com.vvm.sh.databinding.ActivityQuadroPessoalBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
@@ -14,6 +15,7 @@ import com.vvm.sh.ui.quadroPessoal.adaptadores.OnColaboradorListener;
 import com.vvm.sh.ui.quadroPessoal.adaptadores.OnOpcoesColaboradorListener;
 import com.vvm.sh.ui.quadroPessoal.modelos.ColaboradorRegisto;
 import com.vvm.sh.util.constantes.Identificadores;
+import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
@@ -76,8 +78,9 @@ public class QuadroPessoalActivity extends BaseDaggerActivity
     @Override
     public void OnEditarColaborador(int id, int origem) {
 
-        if(origem == Identificadores.Origens.ORIGEM_BD){
-
+        if(origem == Identificadores.Origens.ORIGEM_WS){
+            DialogoColaborador dialogo = DialogoColaborador.newInstance(id);
+            dialogo.show(getSupportFragmentManager(), "example dialog");
         }
         else {
 
@@ -88,13 +91,24 @@ public class QuadroPessoalActivity extends BaseDaggerActivity
     }
 
     @Override
-    public void OnDemitirColaborador(int id) {
+    public void OnDemitirColaborador(ColaboradorRegisto registo) {
 
+
+        int origem = Identificadores.Origens.ORIGEM_WS;
+
+        ColaboradorResultado resultado = new ColaboradorResultado(PreferenciasUtil.obterIdTarefa(this), registo.id, Sintaxe.Palavras.DEMITIDO, origem);
+
+        viewModel.gravar(registo.idResultado, resultado);
     }
 
     @Override
-    public void OnReademitirColaborador(int id) {
+    public void OnReademitirColaborador(ColaboradorRegisto registo) {
 
+        int origem = Identificadores.Origens.ORIGEM_WS;
+
+        ColaboradorResultado resultado = new ColaboradorResultado(PreferenciasUtil.obterIdTarefa(this), registo.id, Sintaxe.Palavras.READEMITIDO, origem);
+
+        viewModel.gravar(registo.idResultado, resultado);
     }
 
     @Override

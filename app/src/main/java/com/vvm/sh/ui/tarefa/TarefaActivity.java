@@ -19,6 +19,7 @@ import com.vvm.sh.ui.cliente.SinistralidadeActivity;
 import com.vvm.sh.ui.crossSelling.CrossSellingActivity;
 import com.vvm.sh.ui.ocorrencias.OcorrenciasActivity;
 import com.vvm.sh.ui.parqueExtintores.ExtintoresActivity;
+import com.vvm.sh.ui.quadroPessoal.QuadroPessoalActivity;
 import com.vvm.sh.ui.tarefa.adaptadores.OnTarefaListener;
 import com.vvm.sh.ui.tarefa.modelos.OpcaoCliente;
 import com.vvm.sh.util.constantes.Identificadores;
@@ -105,10 +106,17 @@ public class TarefaActivity extends BaseDaggerActivity
                 break;
 
 
-            case Identificadores.OpcoesCliente.OPCAO_EXTINTORES:
+            case Identificadores.OpcoesCliente.OPCAO_PARQUE_EXTINTORES:
 
                 intent = new Intent(this, ExtintoresActivity.class);
                 break;
+
+
+            case Identificadores.OpcoesCliente.OPCAO_QUADRO_PESSOAL:
+
+                intent = new Intent(this, QuadroPessoalActivity.class);
+                break;
+
 
 
             case Identificadores.OpcoesCliente.OPCAO_EMAIL:

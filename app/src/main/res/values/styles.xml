@@ -134,30 +134,32 @@
 
 
 
-    <style name="btnCalendario">
-        <item name="android:layout_width">64dip</item>
-        <item name="android:layout_height">64dip</item>
-        <item name="cb_color">@color/cor_botao_calendario</item>
-        <item name="cb_pressedRingWidth">8dip</item>
-        <item name="android:src">@drawable/ic_calendario</item>
-    </style>
-
-
-    <style name="btnLimpar">
-        <item name="android:layout_width">64dip</item>
-        <item name="android:layout_height">64dip</item>
-        <item name="cb_color">@color/md_purple_100</item>
-        <item name="cb_pressedRingWidth">8dip</item>
-        <item name="android:src">@drawable/ic_lorem_ipsum_24dp</item>
-    </style>
 
 
     <style name="btnCircular" >
-        <item name="android:background">@drawable/ic_appintro_ripple</item>
-<!--        <item name="android:layout_height">@dimen/appintro2_fab_size</item>-->
-<!--        <item name="android:layout_width">@dimen/appintro2_fab_size</item>-->
-<!--        <item name="android:layout_margin">@dimen/appintro2_fab_margin</item>-->
+        <item name="android:layout_width">64dip</item>
+        <item name="android:layout_height">64dip</item>
+        <item name="cb_pressedRingWidth">8dip</item>
     </style>
+
+    <style name="btnCalendario" parent="btnCircular">
+        <item name="cb_color">@color/cor_botao_calendario</item>
+        <item name="android:src">@drawable/ic_calendario</item>
+    </style>
+
+    <style name="btnPesquisa" parent="btnCircular">
+        <item name="cb_color">@color/cor_azul_2</item>
+        <item name="android:src">@drawable/ic_pesquisa_24dp</item>
+    </style>
+
+
+
+    <style name="btnLimpar" parent="btnCircular">
+        <item name="cb_color">@color/cor_amarelo</item>
+        <item name="android:src">@drawable/ic_pesquisa_24dp</item>
+    </style>
+
+
 
 
 

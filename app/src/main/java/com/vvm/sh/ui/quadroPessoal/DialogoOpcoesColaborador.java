@@ -6,12 +6,17 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.RadioButton;
 
+import androidx.lifecycle.ViewModelProviders;
+
 import com.vvm.sh.R;
 import com.vvm.sh.databinding.DialogoOpcoesColaboradorBinding;
+import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerDialogFragment;
 import com.vvm.sh.ui.quadroPessoal.adaptadores.OnOpcoesColaboradorListener;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
+
+import javax.inject.Inject;
 
 import butterknife.OnClick;
 
@@ -23,10 +28,15 @@ public class DialogoOpcoesColaborador extends BaseDaggerDialogFragment {
 
     private static final String ARGUMENTO_ORIGEM = "origem";
     private static final String ARGUMENTO_ID = "id";
-
+    private static final String ARGUMENTO_ID_RESULTADO = "idResultado";
 
     private OnOpcoesColaboradorListener listenerOpcoes;
 
+
+    @Inject
+    ViewModelProviderFactory providerFactory;
+
+    private QuadroPessoalViewModel viewModel;
 
 
     public DialogoOpcoesColaborador() {
@@ -51,8 +61,12 @@ public class DialogoOpcoesColaborador extends BaseDaggerDialogFragment {
 
         listenerOpcoes = (OnOpcoesColaboradorListener) getContext();
 
+        viewModel = ViewModelProviders.of(this, providerFactory).get(QuadroPessoalViewModel.class);
+
         binding = (DialogoOpcoesColaboradorBinding) activityBaseBinding;
 
+
+        viewModel.obterColaborador(PreferenciasUtil.obterIdTarefa(getContext()), getArguments().getInt(ARGUMENTO_ID));
 
         formatarDialogo();
 
@@ -92,10 +106,10 @@ public class DialogoOpcoesColaborador extends BaseDaggerDialogFragment {
 
         if(getArguments().getInt(ARGUMENTO_ORIGEM) == Identificadores.Origens.ORIGEM_WS){
             binding.rdBtnRemover.setVisibility(View.GONE);
-
+            binding.rdBtnDetalhe.setVisibility(View.VISIBLE);
         }
         else{
-            binding.rdBtnEditar.setVisibility(View.GONE);
+
             binding.rdBtnDemitir.setVisibility(View.GONE);
             binding.rdBtnReadmitir.setVisibility(View.GONE);
         }
@@ -135,7 +149,7 @@ public class DialogoOpcoesColaborador extends BaseDaggerDialogFragment {
             case R.id.rd_btn_demitir:
                 if (checked) {
 
-                    listenerOpcoes.OnDemitirColaborador(getArguments().getInt(ARGUMENTO_ID));
+                    listenerOpcoes.OnDemitirColaborador(viewModel.colaborador.getValue());
                     terminarDialogo();
                 }
                 break;
@@ -143,7 +157,7 @@ public class DialogoOpcoesColaborador extends BaseDaggerDialogFragment {
             case R.id.rd_btn_readmitir:
                 if (checked) {
 
-                    listenerOpcoes.OnReademitirColaborador(getArguments().getInt(ARGUMENTO_ID));
+                    listenerOpcoes.OnReademitirColaborador(viewModel.colaborador.getValue());
                     terminarDialogo();
                 }
                 break;

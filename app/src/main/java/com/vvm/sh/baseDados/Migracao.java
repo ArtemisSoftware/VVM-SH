@@ -119,15 +119,6 @@ public class Migracao {
 
 
 
-
-
-
-
-
-
-
-
-
     public static final Migration MIGRACAO_16_17 = new Migration(16, 17) {
         @Override
         public void migrate(SupportSQLiteDatabase database) {
@@ -181,10 +172,6 @@ public class Migracao {
             }
         }
     };
-
-
-
-
 
 
 

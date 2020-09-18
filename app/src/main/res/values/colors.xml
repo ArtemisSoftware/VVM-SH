@@ -127,6 +127,8 @@
     <color name="cor_preto">#000</color>
     <color name="cor_vermelho">#fe485a</color>
     <color name="cor_azul">#25C0DE</color>
+    <color name="cor_azul_2">#81D4fA</color>
+    <color name="cor_amarelo">#FFD600</color>
     <!--<color name="cor_separador">#c0c0c0</color>-->
     <color name="cor_separador">#ededed</color>
 

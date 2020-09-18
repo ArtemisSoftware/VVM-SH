@@ -74,6 +74,7 @@ public class Identificadores {
         public static final int ID_OCORRENCIA = 5;
         public static final int ID_SINISTRALIDADE = 6;
         public static final int ID_PARQUE_EXTINTOR = 7;
+        public static final int ID_QUADRO_PESSOAL = 8;
     }
 
     public class OpcoesCliente {
@@ -90,14 +91,20 @@ public class Identificadores {
         public static final String SINISTRALIDADE = "Sinistralidade";
         public static final int ICON_SINISTRALIDADE = R.drawable.ic_sinistralidade;
 
-        public static final int OPCAO_EXTINTORES = 4;
-        public static final String EXTINTORES = "Parque extintores";
-        public static final int ICON_EXTINTORES= R.drawable.ic_extintor;
+        public static final int OPCAO_PARQUE_EXTINTORES = 4;
+        public static final String PARQUE_EXTINTORES = "Parque Extintores";
+        public static final int ICON_PARQUE_EXTINTORES = R.drawable.ic_extintor;
 
 
         public static final int OPCAO_EMAIL = 5;
         public static final String EMAIL = "Email";
         public static final int ICON_EMAIL = R.drawable.ic_email_24dp;
+
+
+        public static final int OPCAO_QUADRO_PESSOAL = 6;
+        public static final String QUADRO_PESSOAL = "Quadro Pessoal";
+        public static final int ICON_QUADRO_PESSOAL= R.drawable.ic_quadro_pessoal_24dp;
+
 
         public static final int OPCAO_ANOMALIA = 6;
     }

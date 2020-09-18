@@ -54,6 +54,7 @@ import com.vvm.sh.ui.ocorrencias.RegistarOcorrenciaActivity;
 import com.vvm.sh.ui.pesquisa.PesquisaActivity;
 import com.vvm.sh.ui.quadroPessoal.ColaboradorActivity;
 import com.vvm.sh.ui.quadroPessoal.DialogoColaborador;
+import com.vvm.sh.ui.quadroPessoal.DialogoOpcoesColaborador;
 import com.vvm.sh.ui.quadroPessoal.QuadroPessoalActivity;
 import com.vvm.sh.ui.tarefa.DialogoEmail;
 import com.vvm.sh.ui.tarefa.TarefaActivity;
@@ -283,6 +284,15 @@ public abstract class ActivityBuildersModule {
     abstract DialogoColaborador contributeDialogoColaborador();
 
 
+    @QuadroPessoalScope
+    @ContributesAndroidInjector(
+            modules = { QuadroPessoalViewModelsModule.class, QuadroPessoalModule.class }
+    )
+    abstract DialogoOpcoesColaborador contributeDialogoOpcoesColaborador();
+
+
+
+
     //----------------------
     //Avaliacao ambiental
     //----------------------
@@ -338,7 +348,9 @@ public abstract class ActivityBuildersModule {
 
 
 
-
+    //----------------------
+    //Pequisa
+    //----------------------
 
     @PesquisaScope
     @ContributesAndroidInjector(

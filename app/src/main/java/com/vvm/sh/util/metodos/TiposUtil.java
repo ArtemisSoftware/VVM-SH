@@ -19,29 +19,13 @@ public class TiposUtil {
         public static final String TIPOS_ANOMALIA = "GetTiposAnomalia";
         public static final String TIPIFICACAO_OCORRENCIA = "GetTipificacoesOcorrencia_New";
         public static final String CURSOS = "getCoursesInfo";
-
-        public static final String TIPOS [] = new String []{
-
-                CROSS_SELLING_PRODUTOS, CROSS_SELLING_DIMENSAO, CROSS_SELLING_TIPO,
-                TIPOS_ANOMALIA,
-                TIPIFICACAO_OCORRENCIA,
-                CURSOS
-        };
     }
 
 
     private static class MetodosTiposSH{
 
         public static final String CURSOS = "getCoursesInfo";
-
-        public static final String CATEGORIAS_PROFISSIONAIS = "";
-
-
-        public static final String TIPOS [] = new String []{
-
-                CURSOS,
-                CATEGORIAS_PROFISSIONAIS
-        };
+        public static final String CATEGORIAS_PROFISSIONAIS = "GetCategoriasProfissionais";
     }
 
 
@@ -55,17 +39,25 @@ public class TiposUtil {
         public static final String TIPIFICACAO_OCORRENCIA = "Tipificacoes_Ocorrencia";
         public static final String CURSOS = "Cursos";
 
-        public static final String CATEGORIAS_PROFISSIONAIS = "";
+        public static final String CATEGORIAS_PROFISSIONAIS = "Categorias_Profissionais";
 
 
 
-        public static final MetodoApi METODO_CURSOS = new MetodoApi(MetodosTiposSA.CURSOS, MetodosTiposSH.CURSOS);
-        //public static final MetodoApi METODO_ = new MetodoApi(MetodosTiposSA., MetodosTiposSH.);
+        public static final MetodoApi METODO_CURSOS = new MetodoApi(CURSOS, MetodosTiposSA.CURSOS, MetodosTiposSH.CURSOS);
+        public static final MetodoApi METODO_CATEGORIAS_PROFISSIONAIS = new MetodoApi(CATEGORIAS_PROFISSIONAIS, null, MetodosTiposSH.CATEGORIAS_PROFISSIONAIS);
+//public static final MetodoApi METODO_ = new MetodoApi(MetodosTiposSA., MetodosTiposSH.);
+//public static final MetodoApi METODO_ = new MetodoApi(MetodosTiposSA., MetodosTiposSH.);
+//public static final MetodoApi METODO_ = new MetodoApi(MetodosTiposSA., MetodosTiposSH.);
+//public static final MetodoApi METODO_ = new MetodoApi(MetodosTiposSA., MetodosTiposSH.);
+//public static final MetodoApi METODO_ = new MetodoApi(MetodosTiposSA., MetodosTiposSH.);
+//public static final MetodoApi METODO_ = new MetodoApi(MetodosTiposSA., MetodosTiposSH.);
+//public static final MetodoApi METODO_ = new MetodoApi(MetodosTiposSA., MetodosTiposSH.);
 
 
 
         public static final MetodoApi TIPOS [] = new MetodoApi []{
 
+                METODO_CATEGORIAS_PROFISSIONAIS,
                 METODO_CURSOS
         };
 
@@ -91,44 +83,8 @@ public class TiposUtil {
             else if(header.equals("tipo") == true){
 
                 metodo  = pathSegments.get(2);
+                metodo = obterMetodos(metodo).descricao;
 
-
-                switch (metodo){
-
-                    case MetodosTiposSA.CROSS_SELLING_PRODUTOS:
-
-                        metodo = MetodosTipos.CROSS_SELLING_PRODUTOS;
-                        break;
-
-                    case MetodosTiposSA.CROSS_SELLING_DIMENSAO:
-
-                        metodo = MetodosTipos.CROSS_SELLING_DIMENSAO;
-                        break;
-
-                    case MetodosTiposSA.CROSS_SELLING_TIPO:
-
-                        metodo = MetodosTipos.CROSS_SELLING_TIPO;
-                        break;
-
-                    case MetodosTiposSA.TIPOS_ANOMALIA:
-
-                        metodo = MetodosTipos.ANOMALIAS;
-                        break;
-
-                    case MetodosTiposSA.TIPIFICACAO_OCORRENCIA:
-
-                        metodo = MetodosTipos.TIPIFICACAO_OCORRENCIA;
-                        break;
-
-                    case MetodosTiposSA.CURSOS:
-
-                        metodo = MetodosTipos.CURSOS;
-                        break;
-
-                    default:
-                        throw new TipoInexistenteException(metodo);
-
-                }
             }
         }
         catch(IndexOutOfBoundsException e){}
@@ -137,63 +93,16 @@ public class TiposUtil {
     }
 
 
+
     /**
      * Metodo que permite obter os metodos associados a um tipo
-     * @param descricao a descricao do tipo
-     * @return uma lista de metodos
+     * @param descricao a descricao do tipo como metodo do ws
+     * @return um metodo
+     * @throws TipoInexistenteException
      */
-    /*
-    public static String [] obterMetodos(String descricao){
+    public static MetodoApi obterMetodos(String descricao) throws TipoInexistenteException {
 
-        String metodos [] = new String []{};
-
-
-        switch (descricao){
-
-            case MetodosTipos.CROSS_SELLING_PRODUTOS:
-
-                metodos = new String [] { MetodosTiposSA.CROSS_SELLING_PRODUTOS };
-                break;
-
-            case MetodosTipos.CROSS_SELLING_DIMENSAO:
-
-                metodos = new String [] { MetodosTiposSA.CROSS_SELLING_DIMENSAO };
-                break;
-
-            case MetodosTipos.CROSS_SELLING_TIPO:
-
-                metodos = new String [] { MetodosTiposSA.CROSS_SELLING_TIPO };
-                break;
-
-            case MetodosTipos.ANOMALIAS:
-
-                metodos = new String [] { MetodosTiposSA.TIPOS_ANOMALIA };
-                break;
-
-            case MetodosTipos.TIPIFICACAO_OCORRENCIA:
-
-                metodos = new String [] { MetodosTiposSA.TIPIFICACAO_OCORRENCIA };
-                break;
-
-            case MetodosTipos.CURSOS:
-
-                metodos = new String [] { MetodosTiposSA.CURSOS };
-                break;
-
-            default:
-                //throw new TipoInexistenteException(metodo);
-                break;
-        }
-
-
-        return metodos;
-    }
-*/
-
-
-    public static MetodoApi obterMetodos(String descricao){
-
-        MetodoApi metodo = new MetodoApi();
+        MetodoApi metodo = null;
 
 
         switch (descricao){
@@ -223,14 +132,24 @@ public class TiposUtil {
                 metodo.sa = MetodosTiposSA.TIPIFICACAO_OCORRENCIA;
                 break;
 
+            case MetodosTiposSH.CURSOS:
             case MetodosTipos.CURSOS:
 
                 metodo = MetodosTipos.METODO_CURSOS;
                 break;
 
-            default:
-                //throw new TipoInexistenteException(metodo);
+
+
+            case MetodosTiposSH.CATEGORIAS_PROFISSIONAIS:
+            case MetodosTipos.CATEGORIAS_PROFISSIONAIS:
+
+
+                metodo = MetodosTipos.METODO_CATEGORIAS_PROFISSIONAIS;
                 break;
+
+            default:
+                throw new TipoInexistenteException(descricao);
+
         }
 
 
@@ -244,7 +163,35 @@ public class TiposUtil {
      * Metodo que permite obter os metodos associados a tipos de uma api
      * @return uma lista de metodos para tipos
      */
-    public static MetodoApi[] obterMetodos(){
+    public static MetodoApi[] obterMetodos() throws TipoInexistenteException {
+
+        for (MetodoApi item : MetodosTipos.TIPOS) {
+
+            if(item.descricao == null){
+                throw new TipoInexistenteException();
+            }
+
+            MetodoApi metodo = obterMetodos(item.descricao);
+
+            if(metodo.sht == null & metodo.sa == null){
+                throw new TipoInexistenteException();
+            }
+
+            if(metodo.sht == null){
+                if(metodo.sa.equals("") == true){
+                    throw new TipoInexistenteException();
+                }
+            }
+
+
+            if(metodo.sa == null){
+                if(metodo.sht.equals("") == true){
+                    throw new TipoInexistenteException();
+                }
+            }
+
+        }
+
         return MetodosTipos.TIPOS;
     }
 
@@ -267,14 +214,16 @@ public class TiposUtil {
 
     public static class MetodoApi{
 
-        public String sa, sht;
+        public String descricao, sa, sht;
 
         public MetodoApi() {
+            this.descricao = null;
             this.sht = null;
             this.sa = null;
         }
 
-        public MetodoApi(String sa, String sht) {
+        public MetodoApi(String descricao, String sa, String sht) {
+            this.descricao = descricao;
             this.sht = sht;
             this.sa = sa;
         }

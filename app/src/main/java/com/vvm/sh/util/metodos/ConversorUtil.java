@@ -29,7 +29,11 @@ public class ConversorUtil {
         return Boolean.parseBoolean(valor);
     }
 
+    public static int converter_long_Para_int(long valor) {
 
+        Long registo = new Long(valor);
+        return registo.intValue();
+    }
 
 
 
@@ -77,9 +81,6 @@ public class ConversorUtil {
 
         return valores;
     }
-
-
-
 
 
 

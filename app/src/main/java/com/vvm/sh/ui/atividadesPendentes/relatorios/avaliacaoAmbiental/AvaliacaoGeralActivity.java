@@ -23,6 +23,7 @@ import com.vvm.sh.util.base.BaseTimePickerDialog;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.interfaces.OnDialogoListener;
+import com.vvm.sh.util.metodos.ConversorUtil;
 import com.vvm.sh.util.metodos.DatasUtil;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
@@ -178,7 +179,7 @@ public class AvaliacaoGeralActivity extends BaseDaggerActivity
 
                     Intent intent = new Intent(AvaliacaoGeralActivity.this, AvaliacoesAmbientaisActivity.class);
                     Bundle bundle = getIntent().getExtras();
-                    bundle.putInt(getString(R.string.argumento_id_relatorio), (int)recurso.dados);
+                    bundle.putInt(getString(R.string.argumento_id_relatorio), ConversorUtil.converter_long_Para_int((long)recurso.dados));
                     intent.putExtras(bundle);
                     startActivity(intent);
                     finish();

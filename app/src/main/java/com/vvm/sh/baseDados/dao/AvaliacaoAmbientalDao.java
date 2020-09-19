@@ -9,6 +9,7 @@ import androidx.room.Update;
 import com.vvm.sh.baseDados.entidades.AvaliacaoAmbientalResultado;
 import com.vvm.sh.baseDados.entidades.RelatorioAmbientalResultado;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.AvaliacaoAmbiental;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.modelos.RelatorioAmbiental;
 import com.vvm.sh.util.constantes.Identificadores;
 
 import java.util.List;
@@ -152,6 +153,15 @@ abstract public class AvaliacaoAmbientalDao {
     //--------------
     //Validacao
     //--------------
+
+    @Query("SELECT id as idRelatorio, " +
+            "CASE WHEN marca IS NULL OR numeroSerie IS NULL OR data IS NULL THEN 0 ELSE 1 " +
+            "END as valido " +
+            "FROM relatorioAmbientalResultado " +
+            "WHERE  idAtividade = :idAtividade AND tipo = :tipo")
+    abstract public Observable<RelatorioAmbiental> obterValidadeRelatorio(int idAtividade, int tipo);
+
+
 
     @Query("SELECT id FROM relatorioAmbientalResultado WHERE idAtividade = :idAtividade AND tipo = :tipo")
     abstract public Maybe<Integer> obterIdRelatorio(int idAtividade, int tipo);

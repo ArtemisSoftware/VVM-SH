@@ -8,6 +8,7 @@ import com.vvm.sh.baseDados.entidades.MedidaResultado;
 import com.vvm.sh.baseDados.entidades.RelatorioAmbientalResultado;
 import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.repositorios.AvaliacaoAmbientalRepositorio;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.modelos.RelatorioAmbiental;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.constantes.Sintaxe;
@@ -36,7 +37,7 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
 
     private final AvaliacaoAmbientalRepositorio avaliacaoAmbientalRepositorio;
 
-    public MutableLiveData<Relatorio> relatorio;
+    public MutableLiveData<RelatorioAmbiental> relatorio;
 
 
 
@@ -69,7 +70,7 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
 
 
 
-    public MutableLiveData<Relatorio> observarRelatorio(){
+    public MutableLiveData<RelatorioAmbiental> observarRelatorio(){
         return relatorio;
     }
 
@@ -175,36 +176,10 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
      * @param tipo o tipo de relatorio
      */
     public void obterValidadeRelatorio(int idAtividade, int tipo) {
-/*
-        Observable<Object> observables = Observable.zip(
-                avaliacaoAmbientalRepositorio.obterIdRelatorio(idAtividade, tipo).toObservable(),
-                avaliacaoAmbientalRepositorio.obterValidadeGeral(idAtividade, tipo).toObservable(),
-                avaliacaoAmbientalRepositorio.obterValidadeAvaliacoes(idAtividade, tipo).toObservable(),
-                avaliacaoAmbientalRepositorio.obterMedidaRecomendada(idAtividade, tipo),
-                new Function4<Integer, Boolean, Boolean, String, Object>() {
-                    @Override
-                    public Object apply(Integer integer, Boolean validadeGeral, Boolean validadeAvalicoes, String medida) throws Exception {
-                        return null;
-                    }
-                }
-        );
-*/
 
-        final Relatorio[] registo = {new Relatorio()};
+        final RelatorioAmbiental[] registo = {new RelatorioAmbiental()};
 
-        Observable<Object> observables = Observable.zip(
-                avaliacaoAmbientalRepositorio.obterIdRelatorio(idAtividade, tipo).toObservable(),
-                avaliacaoAmbientalRepositorio.obterValidadeGeral(idAtividade, tipo).toObservable(),
-                new BiFunction<Integer, Boolean, Relatorio>() {
-                    @Override
-                    public Relatorio apply(Integer id, Boolean geral) throws Exception {
-                        return new Relatorio(id, geral);
-                    }
-                }
-        );
-
-
-        observables
+        avaliacaoAmbientalRepositorio.obterValidadeRelatorio(idAtividade, tipo)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -212,12 +187,12 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
                         new Observer<Object>() {
                             @Override
                             public void onSubscribe(Disposable d) {
-
+                                disposables.add(d);
                             }
 
                             @Override
                             public void onNext(Object o) {
-                                registo[0] = (Relatorio) o;
+                                registo[0] = (RelatorioAmbiental) o;
                             }
 
                             @Override
@@ -437,19 +412,5 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
     }
 
 
-    public class Relatorio{
-
-        public int id = 0;
-        public boolean valido = false;
-        public boolean geralValido = false;
-
-        public Relatorio() {
-        }
-
-        public Relatorio(int id, boolean geralValido) {
-            this.id = id;
-            this.geralValido = geralValido;
-        }
-    }
 
 }

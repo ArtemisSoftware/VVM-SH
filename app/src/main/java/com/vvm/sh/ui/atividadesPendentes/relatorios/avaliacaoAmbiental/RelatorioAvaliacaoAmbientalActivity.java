@@ -11,6 +11,7 @@ import com.vvm.sh.R;
 import com.vvm.sh.databinding.ActivityRelatorioAvaliacaoAmbientalBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.modelos.RelatorioAmbiental;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
@@ -76,14 +77,13 @@ public class RelatorioAvaliacaoAmbientalActivity extends BaseDaggerActivity {
     protected void subscreverObservadores() {
 
 
-        viewModel.observarRelatorio().observe(this, new Observer<AvaliacaoAmbientalViewModel.Relatorio>() {
+        viewModel.observarRelatorio().observe(this, new Observer<RelatorioAmbiental>() {
             @Override
-            public void onChanged(AvaliacaoAmbientalViewModel.Relatorio relatorio) {
+            public void onChanged(RelatorioAmbiental relatorio) {
 
                 if(relatorio.id == 0){
                     card_geral_OnClickListener(null);
                 }
-
             }
         });
 

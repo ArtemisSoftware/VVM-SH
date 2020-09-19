@@ -13,6 +13,7 @@ import com.vvm.sh.baseDados.entidades.MedidaResultado;
 import com.vvm.sh.baseDados.entidades.RelatorioAmbientalResultado;
 import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.AvaliacaoAmbiental;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.modelos.RelatorioAmbiental;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.metodos.TiposUtil;
 
@@ -62,6 +63,14 @@ public class AvaliacaoAmbientalRepositorio {
     public Single<Integer> atualizar(RelatorioAmbientalResultado registo){
         return avaliacaoAmbientalDao.atualizar(registo);
     }
+
+
+
+    public Observable<RelatorioAmbiental> obterValidadeRelatorio(int idAtividade, int tipo) {
+        return avaliacaoAmbientalDao.obterValidadeRelatorio(idAtividade, tipo);
+    }
+
+
 
 
     /**

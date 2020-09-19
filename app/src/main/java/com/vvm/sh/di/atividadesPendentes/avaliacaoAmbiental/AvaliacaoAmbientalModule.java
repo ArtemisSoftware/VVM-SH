@@ -52,11 +52,11 @@ public class AvaliacaoAmbientalModule {
 
     @AvaliacaoAmbientalScope
     @Provides
-    AvaliacaoAmbientalRepositorio provideAtividadePendenteRepositorio(AvaliacaoAmbientalDao avaliacaoAmbientalDao, CategoriaProfissionalDao categoriaProfissionalDao,
+    AvaliacaoAmbientalRepositorio provideAtividadePendenteRepositorio(int idApi, AvaliacaoAmbientalDao avaliacaoAmbientalDao, CategoriaProfissionalDao categoriaProfissionalDao,
                                                                       MedidaDao medidaDao,
                                                                       TipoDao tipoDao, ResultadoDao resultadoDao) {
 
-        AvaliacaoAmbientalRepositorio repositorio = new AvaliacaoAmbientalRepositorio(avaliacaoAmbientalDao, categoriaProfissionalDao, medidaDao, tipoDao, resultadoDao);
+        AvaliacaoAmbientalRepositorio repositorio = new AvaliacaoAmbientalRepositorio(idApi, avaliacaoAmbientalDao, categoriaProfissionalDao, medidaDao, tipoDao, resultadoDao);
 
         //Timber.d("Providing PokemonRepository: " + repository);
         return repositorio;

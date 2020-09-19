@@ -18,6 +18,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import io.reactivex.Maybe;
 import io.reactivex.MaybeObserver;
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
@@ -236,6 +237,32 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
         showProgressBar(true);
 
 
+        avaliacaoAmbientalRepositorio.obterNebulosidade()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+
+                    new SingleObserver<List<Tipo>>() {
+                        @Override
+                        public void onSubscribe(Disposable d) {
+                            disposables.add(d);
+                        }
+
+                        @Override
+                        public void onSuccess(List<Tipo> tipos) {
+                            nebulosidades.setValue(tipos);
+                            showProgressBar(false);
+                        }
+
+                        @Override
+                        public void onError(Throwable e) {
+
+                        }
+                    }
+            );
+
+
+
         avaliacaoAmbientalRepositorio.obterGeral(idAtividade, tipo)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -248,22 +275,25 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
                             }
 
                             @Override
-                            public void onSuccess(RelatorioAmbientalResultado resultado) {
-                                geral.setValue(resultado);
+                            public void onSuccess(RelatorioAmbientalResultado registo) {
+                                geral.setValue(registo);
                                 showProgressBar(false);
                             }
 
                             @Override
                             public void onError(Throwable e) {
-                                showProgressBar(false);
+
                             }
 
                             @Override
                             public void onComplete() {
-                                showProgressBar(false);
+
                             }
                         }
+
                 );
+
+
     }
 
 

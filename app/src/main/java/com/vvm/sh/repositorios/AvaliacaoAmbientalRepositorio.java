@@ -11,11 +11,14 @@ import com.vvm.sh.baseDados.entidades.AvaliacaoAmbientalResultado;
 import com.vvm.sh.baseDados.entidades.CategoriaProfissionalResultado;
 import com.vvm.sh.baseDados.entidades.MedidaResultado;
 import com.vvm.sh.baseDados.entidades.RelatorioAmbientalResultado;
+import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.AvaliacaoAmbiental;
 import com.vvm.sh.util.constantes.Identificadores;
+import com.vvm.sh.util.metodos.TiposUtil;
 
 import java.util.List;
 
+import io.reactivex.Flowable;
 import io.reactivex.Maybe;
 import io.reactivex.Observable;
 import io.reactivex.Single;
@@ -27,8 +30,9 @@ public class AvaliacaoAmbientalRepositorio {
     private final MedidaDao medidaDao;
     private final TipoDao tipoDao;
     public final ResultadoDao resultadoDao;
+    private int api;
 
-    public AvaliacaoAmbientalRepositorio(@NonNull AvaliacaoAmbientalDao avaliacaoAmbientalDao, @NonNull CategoriaProfissionalDao categoriaProfissionalDao,
+    public AvaliacaoAmbientalRepositorio(@NonNull int api, @NonNull AvaliacaoAmbientalDao avaliacaoAmbientalDao, @NonNull CategoriaProfissionalDao categoriaProfissionalDao,
                                          @NonNull MedidaDao medidaDao,
                                          @NonNull TipoDao tipoDao, @NonNull ResultadoDao resultadoDao) {
 
@@ -37,6 +41,8 @@ public class AvaliacaoAmbientalRepositorio {
         this.medidaDao = medidaDao;
         this.tipoDao = tipoDao;
         this.resultadoDao = resultadoDao;
+
+        this.api = api;
     }
 
     /**
@@ -67,6 +73,12 @@ public class AvaliacaoAmbientalRepositorio {
     public Maybe<RelatorioAmbientalResultado> obterGeral(int idAtividade, int tipo) {
         return avaliacaoAmbientalDao.obterGeral(idAtividade, tipo);
     }
+
+
+    public Single<List<Tipo>> obterNebulosidade(){
+        return tipoDao.obterTipos_(TiposUtil.MetodosTipos.CATEGORIAS_PROFISSIONAIS, api);
+    }
+
 
     /**
      * Metodo que permite obter a medida recomendada

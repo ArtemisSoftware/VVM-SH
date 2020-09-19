@@ -67,6 +67,11 @@ abstract public class TipoDao implements BaseDao<Tipo> {
     @Query("SELECT * FROM tipos WHERE tipo = :tipo AND api = :api AND ativo = 1")
     abstract public Flowable<List<Tipo>> obterTipos(String tipo, int api);
 
+    @Query("SELECT * FROM tipos WHERE tipo = :tipo AND api = :api AND ativo = 1")
+    abstract public Single<List<Tipo>> obterTipos_(String tipo, int api);
+
+
+
     @Query("SELECT * FROM tipos WHERE tipo = :tipo AND api = :api AND id NOT IN (:registos) AND ativo = 1")
     abstract public Flowable<List<Tipo>> obterTipos_Excluir(String tipo, List<Integer> registos, int api);
 

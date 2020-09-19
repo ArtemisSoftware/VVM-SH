@@ -1,5 +1,6 @@
 package com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental;
 
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
@@ -73,6 +74,18 @@ public class RelatorioAvaliacaoAmbientalActivity extends BaseDaggerActivity {
 
     @Override
     protected void subscreverObservadores() {
+
+
+        viewModel.observarRelatorio().observe(this, new Observer<AvaliacaoAmbientalViewModel.Relatorio>() {
+            @Override
+            public void onChanged(AvaliacaoAmbientalViewModel.Relatorio relatorio) {
+
+                if(relatorio.id == 0){
+                    card_geral_OnClickListener(null);
+                }
+
+            }
+        });
 
     }
 

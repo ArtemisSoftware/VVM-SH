@@ -68,6 +68,13 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
     }
 
 
+
+    public MutableLiveData<Relatorio> observarRelatorio(){
+        return relatorio;
+    }
+
+
+
     /**
      * Metodo que permite gravar um registo
      * @param idRelatorio o identificador do relatorio

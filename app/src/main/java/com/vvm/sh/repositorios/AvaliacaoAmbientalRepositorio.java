@@ -76,7 +76,7 @@ public class AvaliacaoAmbientalRepositorio {
 
 
     public Single<List<Tipo>> obterNebulosidade(){
-        return tipoDao.obterTipos_(TiposUtil.MetodosTipos.CATEGORIAS_PROFISSIONAIS, api);
+        return tipoDao.obterTipos_(TiposUtil.MetodosTipos.CONDICOES_CLIMATERICAS, api);
     }
 
 

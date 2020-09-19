@@ -8,8 +8,13 @@ import androidx.databinding.BindingAdapter;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.vvm.sh.R;
+import com.vvm.sh.baseDados.entidades.Morada;
+import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.util.metodos.ImagemUtil;
+
+import java.util.List;
 
 public class GeralBinding {
 
@@ -58,6 +63,27 @@ public class GeralBinding {
 
     }
 
+
+
+    @BindingAdapter({"tipos", "id"})
+    public static void setTipos(MaterialSpinner view, List<Tipo> registos, int id) {
+
+        if (registos == null)
+            return;
+
+        view.setItems(registos);
+
+        if(id != 0) {
+
+            for (int index = 0; index < registos.size(); ++index) {
+
+                if(registos.get(index).id == 0){
+                    view.setSelectedIndex(index);
+                    break;
+                }
+            }
+        }
+    }
 
 
 }

@@ -288,15 +288,11 @@
                         android:id="@+id/spnr_nebulosidade"
                         android:layout_width="400dp"
                         android:hint="@string/nebulosidade"
+                        tipos="@{viewmodel.nebulosidades}"
+                        id="@{viewmodel.geral.idNebulosidade}"
                         android:layout_height="wrap_content"
                         app:layout_constraintStart_toStartOf="@+id/textView18"
                         app:layout_constraintTop_toBottomOf="@+id/textview31" />
-
-                    <!--
-                                            tipos_="@{viewmodel.generos}"
-                        genero="@{viewmodel.formando.resultado.sexo}"
-                    -->
-
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>

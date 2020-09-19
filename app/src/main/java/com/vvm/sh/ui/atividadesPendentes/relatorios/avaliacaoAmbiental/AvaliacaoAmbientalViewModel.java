@@ -84,7 +84,7 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
                             new SingleObserver<Long>() {
                                 @Override
                                 public void onSubscribe(Disposable d) {
-
+                                    disposables.add(d);
                                 }
 
                                 @Override
@@ -108,7 +108,7 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
                             new SingleObserver<Integer>() {
                                 @Override
                                 public void onSubscribe(Disposable d) {
-
+                                    disposables.add(d);
                                 }
 
                                 @Override
@@ -182,15 +182,15 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
         );
 */
 
-        Relatorio registo = new Relatorio();
+        final Relatorio[] registo = {new Relatorio()};
 
         Observable<Object> observables = Observable.zip(
                 avaliacaoAmbientalRepositorio.obterIdRelatorio(idAtividade, tipo).toObservable(),
                 avaliacaoAmbientalRepositorio.obterValidadeGeral(idAtividade, tipo).toObservable(),
-                new BiFunction<Integer, Boolean, Object>() {
+                new BiFunction<Integer, Boolean, Relatorio>() {
                     @Override
-                    public Object apply(Integer integer, Boolean aBoolean) throws Exception {
-                        return null;
+                    public Relatorio apply(Integer id, Boolean geral) throws Exception {
+                        return new Relatorio(id, geral);
                     }
                 }
         );
@@ -209,7 +209,7 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
 
                             @Override
                             public void onNext(Object o) {
-
+                                registo[0] = (Relatorio) o;
                             }
 
                             @Override
@@ -219,7 +219,7 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
 
                             @Override
                             public void onComplete() {
-                                relatorio.setValue(registo);
+                                relatorio.setValue(registo[0]);
                             }
                         }
                 );
@@ -406,8 +406,13 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
         public boolean valido = false;
         public boolean geralValido = false;
 
+        public Relatorio() {
+        }
 
-
+        public Relatorio(int id, boolean geralValido) {
+            this.id = id;
+            this.geralValido = geralValido;
+        }
     }
 
 }

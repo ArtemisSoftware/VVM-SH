@@ -96,7 +96,7 @@ public class AvaliacaoGeralActivity extends BaseDaggerActivity
             int idAtividade = bundle.getInt(getString(R.string.argumento_id_atividade));
             int tipo = bundle.getInt(getString(R.string.argumento_tipo_relatorio));
 
-            formatarAvalicao(tipo);
+            activityAvaliacaoGeralBinding.setTipo(tipo);
 
             viewModel.obterGeral(idAtividade, tipo);
         }
@@ -148,30 +148,6 @@ public class AvaliacaoGeralActivity extends BaseDaggerActivity
     //Metodos locais
     //--------------------
 
-    /**
-     * Metodo que permite formatar dados da avaliacao
-     * @param tipo o tipo de relatorio
-     */
-    private void formatarAvalicao(int tipo) {
-
-        switch (tipo){
-
-            case Identificadores.Relatorios.ID_RELATORIO_ILUMINACAO:
-
-                activityAvaliacaoGeralBinding.txtEquipamento.setText(getString(R.string.termohigrometro));
-                break;
-
-            case Identificadores.Relatorios.ID_RELATORIO_TEMPERATURA_HUMIDADE:
-
-                activityAvaliacaoGeralBinding.txtEquipamento.setText(getString(R.string.luxometro));
-                break;
-
-            default:
-                finish();
-                break;
-
-        }
-    }
 
 
     /**

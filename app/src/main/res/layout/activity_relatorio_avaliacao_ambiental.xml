@@ -12,6 +12,10 @@
 
 
         <variable
+            name="tipo"
+            type="Integer"/>
+
+        <variable
             name="viewmodel"
             type="com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.AvaliacaoAmbientalViewModel"/>
         <!--
@@ -55,7 +59,7 @@
                 <ImageView
                     android:id="@+id/img_banner"
                     app:layout_collapseMode="parallax"
-                    android:src="@drawable/iluminacao_banner"
+                    imagemRelatorio="@{tipo}"
                     android:contentDescription="@string/relatorio"
                     android:scaleType="centerCrop"
                     android:layout_width="match_parent"
@@ -103,7 +107,7 @@
                     <TextView
                         android:id="@+id/txt_titulo"
                         style="@style/tituloCartao"
-                        android:text="@string/iluminacao"
+                        tituloRelatorio="@{tipo}"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="16dp"
                         app:layout_constraintStart_toStartOf="parent"

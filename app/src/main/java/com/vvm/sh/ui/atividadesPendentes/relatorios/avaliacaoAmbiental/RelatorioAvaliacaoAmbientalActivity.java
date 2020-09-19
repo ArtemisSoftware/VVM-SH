@@ -50,6 +50,8 @@ public class RelatorioAvaliacaoAmbientalActivity extends BaseDaggerActivity {
             int idAtividade = bundle.getInt(getString(R.string.argumento_id_atividade));
             int tipo = bundle.getInt(getString(R.string.argumento_tipo_relatorio));
 
+            activityRelatorioAvaliacaoAmbientalBinding.setTipo(tipo);
+
             viewModel.obterValidadeRelatorio(idAtividade, tipo);
         }
         else{

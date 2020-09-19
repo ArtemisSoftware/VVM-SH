@@ -26,6 +26,7 @@ public class TiposUtil {
 
         public static final String CURSOS = "getCoursesInfo";
         public static final String CATEGORIAS_PROFISSIONAIS = "GetCategoriasProfissionais";
+        public static final String CONDICOES_CLIMATERICAS = "GetCondicoesClimatericas";
     }
 
 
@@ -37,14 +38,16 @@ public class TiposUtil {
         public static final String CROSS_SELLING_TIPO = "CrossSelling_Tipo";
         public static final String ANOMALIAS = "Anomalias";
         public static final String TIPIFICACAO_OCORRENCIA = "Tipificacoes_Ocorrencia";
-        public static final String CURSOS = "Cursos";
+
 
         public static final String CATEGORIAS_PROFISSIONAIS = "Categorias_Profissionais";
+        public static final String CONDICOES_CLIMATERICAS = "Condicoes_Climatericas";
+        public static final String CURSOS = "Cursos";
 
 
-
-        public static final MetodoApi METODO_CURSOS = new MetodoApi(CURSOS, MetodosTiposSA.CURSOS, MetodosTiposSH.CURSOS);
         public static final MetodoApi METODO_CATEGORIAS_PROFISSIONAIS = new MetodoApi(CATEGORIAS_PROFISSIONAIS, null, MetodosTiposSH.CATEGORIAS_PROFISSIONAIS);
+        public static final MetodoApi METODO_CONDICOES_CLIMATERICAS = new MetodoApi(CONDICOES_CLIMATERICAS, null, MetodosTiposSH.CONDICOES_CLIMATERICAS);
+        public static final MetodoApi METODO_CURSOS = new MetodoApi(CURSOS, MetodosTiposSA.CURSOS, MetodosTiposSH.CURSOS);
 //public static final MetodoApi METODO_ = new MetodoApi(MetodosTiposSA., MetodosTiposSH.);
 //public static final MetodoApi METODO_ = new MetodoApi(MetodosTiposSA., MetodosTiposSH.);
 //public static final MetodoApi METODO_ = new MetodoApi(MetodosTiposSA., MetodosTiposSH.);
@@ -58,6 +61,7 @@ public class TiposUtil {
         public static final MetodoApi TIPOS [] = new MetodoApi []{
 
                 METODO_CATEGORIAS_PROFISSIONAIS,
+                METODO_CONDICOES_CLIMATERICAS,
                 METODO_CURSOS
         };
 
@@ -132,19 +136,28 @@ public class TiposUtil {
                 metodo.sa = MetodosTiposSA.TIPIFICACAO_OCORRENCIA;
                 break;
 
-            case MetodosTiposSH.CURSOS:
-            case MetodosTipos.CURSOS:
 
-                metodo = MetodosTipos.METODO_CURSOS;
-                break;
 
 
 
             case MetodosTiposSH.CATEGORIAS_PROFISSIONAIS:
             case MetodosTipos.CATEGORIAS_PROFISSIONAIS:
 
-
                 metodo = MetodosTipos.METODO_CATEGORIAS_PROFISSIONAIS;
+                break;
+
+
+            case MetodosTiposSH.CONDICOES_CLIMATERICAS:
+            case MetodosTipos.CONDICOES_CLIMATERICAS:
+
+                metodo = MetodosTipos.METODO_CONDICOES_CLIMATERICAS;
+                break;
+
+
+            case MetodosTiposSH.CURSOS:
+            case MetodosTipos.CURSOS:
+
+                metodo = MetodosTipos.METODO_CURSOS;
                 break;
 
             default:
@@ -189,27 +202,11 @@ public class TiposUtil {
                     throw new TipoInexistenteException();
                 }
             }
-
         }
 
         return MetodosTipos.TIPOS;
     }
 
-//
-//    public static String[] obterMetodos(){
-//
-//
-//        String TIPOS [] = MetodosTiposSA.TIPOS
-//
-//        if(api == Identificadores.App.APP_SA){
-//            return MetodosTiposSA.TIPOS;
-//        }
-//        else{
-//            //TODO: POR aqui lista de SHT
-//            return new String []{};
-//        }
-//
-//    }
 
 
     public static class MetodoApi{

@@ -12,19 +12,25 @@ import com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.modelos.R
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.constantes.Sintaxe;
+import com.vvm.sh.util.metodos.ConversorUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
+
+import org.reactivestreams.Subscription;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
+import io.reactivex.FlowableSubscriber;
 import io.reactivex.Maybe;
 import io.reactivex.MaybeObserver;
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
 import io.reactivex.Observer;
+import io.reactivex.Single;
 import io.reactivex.SingleObserver;
+import io.reactivex.SingleSource;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.BiFunction;
@@ -42,11 +48,18 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
 
 
     public MutableLiveData<RelatorioAmbientalResultado> geral;
+    public MutableLiveData<List<Tipo>> nebulosidades;
+
+
+
     public MutableLiveData<List<AvaliacaoAmbientalResultado>> avaliacoes;
 
-
+    public MutableLiveData<List<Tipo>> areas;
     public MutableLiveData<List<Tipo>> generos;
-    public MutableLiveData<List<Tipo>> nebulosidades;
+    public MutableLiveData<List<Tipo>> iluminacao;
+    public MutableLiveData<List<Tipo>> elxArea;
+    public MutableLiveData<List<Tipo>> elx;
+    public MutableLiveData<List<Tipo>> categoriasProfissionais;
 
     public MutableLiveData<AvaliacaoAmbientalResultado> avaliacao;
     //--public MutableLiveData<CategoriaProfissionalResultado> categoriasProfissionais;
@@ -60,11 +73,19 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
         relatorio = new MutableLiveData<>();
 
         geral = new MutableLiveData<>();
+        nebulosidades = new MutableLiveData<>();
+
         avaliacoes = new MutableLiveData<>();
+        areas = new MutableLiveData<>();
+        generos = new MutableLiveData<>();
+        iluminacao = new MutableLiveData<>();
+        elxArea = new MutableLiveData<>();
+        elx = new MutableLiveData<>();
+        categoriasProfissionais = new MutableLiveData<>();
+
+
         avaliacao = new MutableLiveData<>();
 
-        generos = new MutableLiveData<>();
-        nebulosidades = new MutableLiveData<>();
         //---categoriasProfissionais = new MutableLiveData<>();
     }
 
@@ -136,6 +157,55 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
 
 
     public void gravar(AvaliacaoAmbientalResultado registo, List<Integer> categoriasProfissionais, boolean nivel) {
+        
+        if(avaliacao.getValue() == null){
+            
+            
+            avaliacaoAmbientalRepositorio.inserir(registo)
+                    .flatMap(new Function<Long, SingleSource<?>>() {
+                        @Override
+                        public SingleSource<?> apply(Long id) throws Exception {
+
+
+                            int idRegisto = ConversorUtil.converter_long_Para_int(id);
+                            
+                            List<CategoriaProfissionalResultado> categorias = new ArrayList<>();
+
+                            for(int idCategoria : categoriasProfissionais){
+                                categorias.add(new CategoriaProfissionalResultado(idRegisto, idCategoria, Identificadores.Origens.AVALIACAO_AMBIENTAL_CATEGORIAS_PROFISSIONAIS));
+                            }
+
+                            
+                            return Single.fromObservable(avaliacaoAmbientalRepositorio.inserir(categorias).toObservable());
+                        }
+                    })
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+
+                            new SingleObserver<Object>() {
+                                @Override
+                                public void onSubscribe(Disposable d) {
+
+                                }
+
+                                @Override
+                                public void onSuccess(Object o) {
+
+                                }
+
+                                @Override
+                                public void onError(Throwable e) {
+
+                                }
+                            }
+
+                    );
+            
+            
+            
+        }
+        
 /*
         if(idAvaliacao.equals(AppIF.SEM_DADOS) == true){
             idAvaliacao = inserirAvaliacao(idRelatorio, idArea, anexoArea, nome,
@@ -193,6 +263,7 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
                             @Override
                             public void onNext(Object o) {
                                 registo[0] = (RelatorioAmbiental) o;
+                                relatorio.setValue(registo[0]);
                             }
 
                             @Override
@@ -328,7 +399,7 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
 
                             @Override
                             public void onNext(Object o) {
-
+                                showProgressBar(false);
                             }
 
                             @Override
@@ -338,7 +409,7 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
 
                             @Override
                             public void onComplete() {
-
+                                showProgressBar(false);
                             }
                         }
 
@@ -378,6 +449,76 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
 
                             @Override
                             public void onComplete() {
+                                showProgressBar(false);
+                            }
+                        }
+                );
+
+
+        Single.zip(avaliacaoAmbientalRepositorio.obterTipoIluminacao(), avaliacaoAmbientalRepositorio.obterAreas(), avaliacaoAmbientalRepositorio.obterElxArea(),
+                new Function3<List<Tipo>, List<Tipo>, List<Tipo>, TiposAvaliacao>() {
+                    @Override
+                    public TiposAvaliacao apply(List<Tipo> iluminacao, List<Tipo> areas, List<Tipo> elxArea) throws Exception {
+
+                        TiposAvaliacao registo = new TiposAvaliacao();
+                        registo.areas = areas;
+                        registo.tiposIluminacao = iluminacao;
+                        registo.elxArea = elxArea;
+                        return registo;
+                    }
+                }
+        )
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(
+
+                new SingleObserver<TiposAvaliacao>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(TiposAvaliacao tiposAvaliacao) {
+                        areas.setValue(tiposAvaliacao.areas);
+                        iluminacao.setValue(tiposAvaliacao.tiposIluminacao);
+                        elxArea.setValue(tiposAvaliacao.elxArea);
+                        obterGeneros(generos);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+                }
+
+        );
+
+
+    }
+
+
+    public void obterElx(int id) {
+
+
+        avaliacaoAmbientalRepositorio.obterElx(id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new SingleObserver<List<Tipo>>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+
+                            }
+
+                            @Override
+                            public void onSuccess(List<Tipo> tipos) {
+                                elx.setValue(tipos);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
 
                             }
                         }
@@ -388,7 +529,34 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
 
     public void fixarCategoriasProfissionais(ArrayList<Integer> resultado) {
 
-        //--avaliacaoAmbientalRepositorio.obterTipos_Incluir(resultado);
+        avaliacaoAmbientalRepositorio.obterTipos_Incluir(resultado).toObservable()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new Observer<List<Tipo>>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+
+                            }
+
+                            @Override
+                            public void onNext(List<Tipo> tipos) {
+                                categoriasProfissionais.setValue(tipos);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+
+                            @Override
+                            public void onComplete() {
+
+                            }
+                        }
+
+                );
     }
 
 
@@ -411,6 +579,15 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
         return resultado;
     }
 
+
+
+
+    private class TiposAvaliacao{
+
+        List<Tipo> areas;
+        List<Tipo> tiposIluminacao;
+        List<Tipo> elxArea;
+    }
 
 
 }

@@ -380,4 +380,6 @@
     <string name="numero_de_registos_st_">Numero de registos ST:</string>
     <string name="registos_validados">registos validados</string>
     <string name="trabalho_realizado">Trabalho realizado</string>
+    <string name="funcao">Função</string>
+    <string name="recebidoPor">Recebido por</string>
 </resources>

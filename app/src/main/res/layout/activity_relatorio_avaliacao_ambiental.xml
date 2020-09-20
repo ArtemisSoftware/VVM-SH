@@ -189,7 +189,7 @@
                     <androidx.cardview.widget.CardView
                         android:id="@+id/card_avaliacoes"
                         style="@style/cartao"
-                        android:visibility="@{(viewmodel.relatorio.id > 0) ? View.VISIBLE : View.GONE}"
+                        android:visibility="@{(viewmodel.relatorio.idRelatorio > 0) ? View.VISIBLE : View.GONE}"
                         android:layout_marginTop="16dp"
                         app:layout_constraintTop_toBottomOf="@+id/card_geral"
                         app:layout_constraintStart_toStartOf="@+id/txt_titulo">
@@ -258,7 +258,7 @@
 
 
                         <androidx.constraintlayout.widget.ConstraintLayout
-                            android:visibility="@{(viewmodel.relatorio.id > 0) ? View.VISIBLE : View.GONE}"
+                            android:visibility="@{(viewmodel.relatorio.idRelatorio > 0) ? View.VISIBLE : View.GONE}"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content">
 

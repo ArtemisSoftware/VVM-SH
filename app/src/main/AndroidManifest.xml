@@ -15,7 +15,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.atividadesPendentes.relatorios.registoVisita.TrabalhoRealizadoActivity"></activity>
+        <activity android:name=".ui.atividadesPendentes.relatorios.registoVisita.DadosClienteActivity"></activity>
+        <activity android:name=".ui.atividadesPendentes.relatorios.registoVisita.TrabalhoRealizadoActivity" />
         <activity android:name=".ui.atividadesPendentes.relatorios.levantamentos.RiscoRegistoActivity" />
         <activity android:name=".ui.atividadesPendentes.relatorios.levantamentos.RiscosActivity" />
         <activity android:name=".ui.atividadesPendentes.relatorios.levantamentos.CategoriasProfissionaisActivity" />
@@ -28,7 +29,9 @@
         <activity
             android:name=".ui.atividadesPendentes.relatorios.avaliacaoAmbiental.RelatorioAvaliacaoAmbientalActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ui.atividadesPendentes.relatorios.avaliacaoAmbiental.AvaliacaoIluminacaoRegistoActivity" />
+        <activity
+            android:name=".ui.atividadesPendentes.relatorios.avaliacaoAmbiental.AvaliacaoIluminacaoRegistoActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ui.atividadesPendentes.relatorios.avaliacaoAmbiental.AvaliacoesAmbientaisActivity" />
         <activity
             android:name=".ui.atividadesPendentes.relatorios.avaliacaoAmbiental.AvaliacaoGeralActivity"

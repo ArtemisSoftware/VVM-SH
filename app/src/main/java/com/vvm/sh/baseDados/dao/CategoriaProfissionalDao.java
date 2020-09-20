@@ -1,6 +1,8 @@
 package com.vvm.sh.baseDados.dao;
 
 import androidx.room.Dao;
+import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Transaction;
 
@@ -11,9 +13,14 @@ import com.vvm.sh.util.metodos.TiposUtil;
 import java.util.List;
 
 import io.reactivex.Observable;
+import io.reactivex.Single;
 
 @Dao
 abstract public class CategoriaProfissionalDao implements BaseDao<CategoriaProfissionalResultado> {
+
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    abstract public Single<List<Long>> inserir(List<CategoriaProfissionalResultado> entity);
 
 
     @Transaction

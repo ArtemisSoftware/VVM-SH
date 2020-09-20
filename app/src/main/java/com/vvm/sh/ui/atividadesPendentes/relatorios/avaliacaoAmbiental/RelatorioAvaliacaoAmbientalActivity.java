@@ -81,8 +81,11 @@ public class RelatorioAvaliacaoAmbientalActivity extends BaseDaggerActivity {
             @Override
             public void onChanged(RelatorioAmbiental relatorio) {
 
-                if(relatorio.id == 0){
+                if(relatorio.idRelatorio == 0){
                     card_geral_OnClickListener(null);
+                }
+                else{
+                    getIntent().getExtras().putInt(getString(R.string.argumento_id_relatorio), relatorio.idRelatorio);
                 }
             }
         });

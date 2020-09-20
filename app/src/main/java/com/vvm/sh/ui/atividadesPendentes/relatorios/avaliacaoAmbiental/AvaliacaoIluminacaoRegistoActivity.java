@@ -85,6 +85,10 @@ public class AvaliacaoIluminacaoRegistoActivity extends BaseDaggerActivity
         activityAvaliacaoIluminacaoRegistoBinding = (ActivityAvaliacaoIluminacaoRegistoBinding) activityBinding;
         activityAvaliacaoIluminacaoRegistoBinding.setLifecycleOwner(this);
         activityAvaliacaoIluminacaoRegistoBinding.setViewmodel(viewModel);
+
+        activityAvaliacaoIluminacaoRegistoBinding.spnrELxArea.setOnItemSelectedListener(spnr_eLx_area_ItemSelected);
+        activityAvaliacaoIluminacaoRegistoBinding.spnrELx.setOnItemSelectedListener(spnr_eLx_ItemSelected);
+
         activityAvaliacaoIluminacaoRegistoBinding.setBloquear(PreferenciasUtil.agendaEditavel(this));
 
         subscreverObservadores();
@@ -240,6 +244,14 @@ public class AvaliacaoIluminacaoRegistoActivity extends BaseDaggerActivity
             resultado = true;
         };
 
+
+        if(resultado == true){
+            activityAvaliacaoIluminacaoRegistoBinding.lnrLytMedidas.setVisibility(View.GONE);
+        }
+        else{
+            activityAvaliacaoIluminacaoRegistoBinding.lnrLytMedidas.setVisibility(View.VISIBLE);
+        }
+
         return resultado;
     }
 
@@ -281,22 +293,27 @@ public class AvaliacaoIluminacaoRegistoActivity extends BaseDaggerActivity
     }
 
 
-    @OnItemSelected(R.id.spnr_eLx_area)
-    public void spinnerItemSelected(MaterialSpinner spinner, int position) {
-//        if(selecionado == true){
-//
-//            ItemSpinner item = (ItemSpinner) ((SpinnerAdaptador) spnr.getAdapter()).getItem(position);
-//            ((Spinner)vista.findViewById(R.id.spnr_eLx)).setAdapter(acessoBd.obterElx(item.obterId()));
-//        }
+    MaterialSpinner.OnItemSelectedListener spnr_eLx_area_ItemSelected = new MaterialSpinner.OnItemSelectedListener() {
 
-        calcularNivelIluminacao();
-    }
+        @Override
+        public void onItemSelected(MaterialSpinner view, int position, long id, Object item) {
 
-    @OnItemSelected(R.id.spnr_eLx)
-    public void spinnerItemSelected_(MaterialSpinner spinner, int position) {
-        calcularNivelIluminacao();
-    }
+            Tipo elxArea = (Tipo) activityAvaliacaoIluminacaoRegistoBinding.spnrELxArea.getItems().get(position);
 
+            viewModel.obterElx(elxArea.id);
+            calcularNivelIluminacao();
+        }
+    };
+
+
+    MaterialSpinner.OnItemSelectedListener spnr_eLx_ItemSelected = new MaterialSpinner.OnItemSelectedListener() {
+
+        @Override
+        public void onItemSelected(MaterialSpinner view, int position, long id, Object item) {
+
+            calcularNivelIluminacao();
+        }
+    };
 
 
     @OnClick(R.id.crl_btn_pesquisar_categorias_profissionais)
@@ -311,6 +328,13 @@ public class AvaliacaoIluminacaoRegistoActivity extends BaseDaggerActivity
         intent.putExtras(bundle);
         startActivityForResult(intent, Identificadores.CodigoAtividade.PESQUISA);
     }
+
+
+    @OnClick(R.id.crl_btn_pesquisar_medidas)
+    public void crl_btn_pesquisar_medidas_OnClickListener(View view) {
+
+    }
+
 
     @OnClick(R.id.fab_gravar)
     public void fab_gravar_OnClickListener(View view) {

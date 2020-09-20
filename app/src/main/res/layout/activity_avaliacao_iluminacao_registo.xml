@@ -8,6 +8,7 @@
         <import type="java.util.List"/>
         <import type="com.vvm.sh.R"/>
         <import type="android.view.View"/>
+        <import type="com.vvm.sh.util.metodos.StringUtil"/>
         <import type="com.vvm.sh.util.metodos.DatasUtil"/>
 
         <variable
@@ -96,6 +97,7 @@
                         android:id="@+id/spnr_area_posto_trabalho"
                         android:layout_width="400dp"
                         android:hint="@string/areaPostoTrabalho"
+                        tipos_="@{viewmodel.areas}"
                         android:layout_height="wrap_content"
                         app:layout_constraintStart_toStartOf="@+id/textView18"
                         app:layout_constraintTop_toBottomOf="@+id/textview31" />
@@ -160,7 +162,7 @@
 
                             <TextView
                                 android:id="@+id/txt_categorias_profissionais"
-                                android:text="@string/categorias_profissionais"
+                                listagemTipos="@{viewmodel.categoriasProfissionais}"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 style="@style/textoDetalhe" />
@@ -171,11 +173,7 @@
 
                         <at.markushi.ui.CircleButton
                             android:id="@+id/crl_btn_pesquisar_categorias_profissionais"
-                            android:layout_width="64dip"
-                            android:layout_height="64dip"
-                            android:src="@drawable/ic_calendario"
-                            app:cb_color="#99CC00"
-                            app:cb_pressedRingWidth="8dip" />
+                            style="@style/btnPesquisa" />
 
                     </LinearLayout>
 
@@ -226,6 +224,7 @@
                         android:id="@+id/spnr_genero"
                         android:layout_width="400dp"
                         android:hint="@string/genero"
+                        tipos_="@{viewmodel.generos}"
                         android:layout_height="wrap_content"
                         app:layout_constraintStart_toStartOf="@+id/textView18"
                         app:layout_constraintTop_toBottomOf="@+id/textview36" />
@@ -246,6 +245,7 @@
                         android:id="@+id/spnr_tipo_iluminacao"
                         android:layout_width="400dp"
                         android:hint="@string/tipoIluminacao"
+                        tipos_="@{viewmodel.iluminacao}"
                         android:layout_height="wrap_content"
                         app:layout_constraintStart_toStartOf="@+id/textView18"
                         app:layout_constraintTop_toBottomOf="@+id/textview37" />
@@ -266,7 +266,7 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/txt_inp_emedio_lx"
                             style="@style/modifiedEditText"
-                            android:text="@{viewmodel.avaliacao.emedioLx}"
+                            android:text="@{StringUtil.converterStringEspaco(viewmodel.avaliacao.emedioLx)}"
                             android:maxLength="15"
                             android:inputType="number"
                             android:maxLines="1"/>
@@ -300,7 +300,9 @@
 
                     <com.jaredrummler.materialspinner.MaterialSpinner
                         android:id="@+id/spnr_eLx_area"
-                        android:layout_width="200dp"
+
+                        tipos_="@{viewmodel.elxArea}"
+                        android:layout_width="600dp"
                         android:layout_height="wrap_content"
                         app:layout_constraintStart_toStartOf="@+id/textView18"
                         app:layout_constraintTop_toBottomOf="@+id/textview39" />
@@ -308,24 +310,26 @@
 
                     <com.jaredrummler.materialspinner.MaterialSpinner
                         android:id="@+id/spnr_eLx"
-                        android:layout_width="200dp"
+                        tipos_="@{viewmodel.elx}"
+                        android:layout_width="600dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginStart="32dp"
-                        app:layout_constraintStart_toEndOf="@+id/spnr_eLx_area"
-                        app:layout_constraintTop_toBottomOf="@+id/textview39" />
+                        android:layout_marginTop="16dp"
+                        app:layout_constraintStart_toStartOf="@+id/textView18"
+                        app:layout_constraintTop_toBottomOf="@+id/spnr_eLx_area" />
 
 
 
 
                     <LinearLayout
                         android:id="@+id/lnr_lyt_medidas"
+                        android:visibility="gone"
                         android:orientation="horizontal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
                         android:layout_marginTop="@dimen/distancia_vertical_formulario"
                         app:layout_constraintStart_toStartOf="@+id/textView18"
-                        app:layout_constraintTop_toBottomOf="@+id/spnr_eLx_area">
+                        app:layout_constraintTop_toBottomOf="@+id/spnr_eLx">
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -353,11 +357,7 @@
 
                         <at.markushi.ui.CircleButton
                             android:id="@+id/crl_btn_pesquisar_medidas"
-                            android:layout_width="64dip"
-                            android:layout_height="64dip"
-                            android:src="@drawable/ic_calendario"
-                            app:cb_color="#99CC00"
-                            app:cb_pressedRingWidth="8dip" />
+                            style="@style/btnPesquisa"  />
 
                     </LinearLayout>
 

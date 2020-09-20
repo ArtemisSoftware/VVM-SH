@@ -4,7 +4,7 @@ import androidx.room.Ignore;
 
 public class RelatorioAmbiental {
 
-    public int id = 0;
+    public int idRelatorio = 0;
 
     public boolean geralValido = false;
 
@@ -25,8 +25,8 @@ public class RelatorioAmbiental {
     public RelatorioAmbiental() {
     }
 
-    public RelatorioAmbiental(int id, boolean geralValido) {
-        this.id = id;
+    public RelatorioAmbiental(int idRelatorio, boolean geralValido) {
+        this.idRelatorio = idRelatorio;
         this.geralValido = geralValido;
     }
 }

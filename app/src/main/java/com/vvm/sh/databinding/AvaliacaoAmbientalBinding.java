@@ -8,7 +8,10 @@ import androidx.databinding.BindingAdapter;
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipDrawable;
 import com.vvm.sh.R;
+import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.util.constantes.Identificadores;
+
+import java.util.List;
 
 public class AvaliacaoAmbientalBinding {
 
@@ -97,4 +100,25 @@ public class AvaliacaoAmbientalBinding {
         }
     }
 
+
+
+
+    @BindingAdapter({"listagemTipos"})
+    public static void setListagemTipos(TextView view, List<Tipo> tipos) {
+
+        String resultado = "";
+
+        if(tipos != null) {
+
+            resultado = "";
+
+            for (Tipo item : tipos) {
+
+                resultado += item.id + ". " + item.descricao + "\n";
+            }
+        }
+
+        view.setText(resultado);
+
+    }
 }

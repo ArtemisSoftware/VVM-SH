@@ -29,4 +29,9 @@ public class TrabalhoRealizadoResultado {
     public String informacao;
 
 
+    public TrabalhoRealizadoResultado(int idTarefa, int id, String informacao) {
+        this.idTarefa = idTarefa;
+        this.id = id;
+        this.informacao = informacao;
+    }
 }

@@ -11,6 +11,7 @@ import com.vvm.sh.databinding.DialogoCategoriaProfissionalBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerDialogoPersistenteFragment;
 import com.vvm.sh.util.Recurso;
+import com.vvm.sh.util.constantes.Identificadores;
 
 import javax.inject.Inject;
 
@@ -128,7 +129,7 @@ public class DialogoCategoriasProfissionais extends BaseDaggerDialogoPersistente
         }
 
 
-        CategoriaProfissionalResultado registo = new CategoriaProfissionalResultado(id, homens, mulheres);
+        CategoriaProfissionalResultado registo = new CategoriaProfissionalResultado(id, homens, mulheres, Identificadores.Origens.LEVANTAMENTO_CATEGORIAS_PROFISSIONAIS);
 
         viewModel.atualizarCategoriaProfissional(registo);
 

@@ -8,9 +8,11 @@ import androidx.room.Update;
 
 import com.vvm.sh.baseDados.entidades.AvaliacaoAmbientalResultado;
 import com.vvm.sh.baseDados.entidades.RelatorioAmbientalResultado;
+import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.AvaliacaoAmbiental;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.modelos.RelatorioAmbiental;
 import com.vvm.sh.util.constantes.Identificadores;
+import com.vvm.sh.util.metodos.TiposUtil;
 
 import java.util.List;
 
@@ -29,11 +31,35 @@ abstract public class AvaliacaoAmbientalDao {
     @Update(onConflict = OnConflictStrategy.IGNORE)
     abstract public Single<Integer> atualizar(RelatorioAmbientalResultado registo);
 
+
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    abstract public Single<Long> inserir(AvaliacaoAmbientalResultado registo);
+
+    @Update(onConflict = OnConflictStrategy.IGNORE)
+    abstract public Single<Integer> atualizar(AvaliacaoAmbientalResultado registo);
+
+
+
     @Query("SELECT * FROM relatorioAmbientalResultado WHERE idAtividade = :idAtividade AND tipo = :tipo")
     abstract public Maybe<RelatorioAmbientalResultado> obterGeral(int idAtividade, int tipo);
 
 
 
+    @Query("SELECT t2.id as id, " +
+            "CASE WHEN t1.id = t2.id THEN t1.descricao " +
+            "ELSE t1.descricao || '-' || t2.descricao END as descricao, " +
+            "t1.codigo as codigo, t1.idPai as idPai, " +
+            "t1.ativo as ativo, t1.detalhe as detalhe, t1.tipo as tipo, t1.api as api   " +
+            "FROM tipos as t1 " +
+            "LEFT JOIN tipos as t2 ON ( CAST(t2.idPai AS INTEGER) = t1.id OR (t2.id = t1.id AND t1.idPai ='' )) AND t2.codigo = '' " +
+            "WHERE t1.tipo = '"+ TiposUtil.MetodosTipos.ILUMINACAO + "'  AND t2.tipo = '"+ TiposUtil.MetodosTipos.ILUMINACAO +"'  AND t1.codigo = '' ")
+    abstract public Single<List<Tipo>> obterElxArea();
+
+
+    @Query("SELECT * " +
+            "FROM tipos " +
+            "WHERE tipo = '" + TiposUtil.MetodosTipos.ILUMINACAO  + "' AND idPai = :id AND ativo = 1 AND codigo <> '' AND api = :api")
+    abstract public Single<List<Tipo>> obterElx(int id, int api);
 
 
     @Query("SELECT * FROM avaliacoesAmbientaisResultado WHERE idRelatorio = :idRelatorio")
@@ -156,7 +182,7 @@ abstract public class AvaliacaoAmbientalDao {
 
     @Query("SELECT id as idRelatorio, " +
             "CASE WHEN marca IS NULL OR numeroSerie IS NULL OR data IS NULL THEN 0 ELSE 1 " +
-            "END as valido " +
+            "END as geralValido " +
             "FROM relatorioAmbientalResultado " +
             "WHERE  idAtividade = :idAtividade AND tipo = :tipo")
     abstract public Observable<RelatorioAmbiental> obterValidadeRelatorio(int idAtividade, int tipo);

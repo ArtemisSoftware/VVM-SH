@@ -17,6 +17,7 @@ import com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.modelos.R
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.metodos.TiposUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Flowable;
@@ -65,6 +66,16 @@ public class AvaliacaoAmbientalRepositorio {
     }
 
 
+    public Single<Long> inserir(AvaliacaoAmbientalResultado registo){
+        return avaliacaoAmbientalDao.inserir(registo);
+    }
+
+
+    public Single<List<Long>> inserir(List<CategoriaProfissionalResultado> categorias) {
+        return categoriaProfissionalDao.inserir(categorias);
+    }
+
+
 
     public Observable<RelatorioAmbiental> obterValidadeRelatorio(int idAtividade, int tipo) {
         return avaliacaoAmbientalDao.obterValidadeRelatorio(idAtividade, tipo);
@@ -87,6 +98,27 @@ public class AvaliacaoAmbientalRepositorio {
     public Single<List<Tipo>> obterNebulosidade(){
         return tipoDao.obterTipos_(TiposUtil.MetodosTipos.CONDICOES_CLIMATERICAS, api);
     }
+
+    public Single<List<Tipo>> obterAreas(){
+        return tipoDao.obterTipos_(TiposUtil.MetodosTipos.TIPOS_AREA, api);
+    }
+
+    public Single<List<Tipo>> obterTipoIluminacao(){
+        return tipoDao.obterTipos_(TiposUtil.MetodosTipos.TIPOS_ILUMINACAO, api);
+    }
+
+    public Single<List<Tipo>> obterElxArea(){
+        return avaliacaoAmbientalDao.obterElxArea();
+    }
+
+    public Single<List<Tipo>> obterElx(int id){
+        return avaliacaoAmbientalDao.obterElx(id, api);
+    }
+
+    public Flowable<List<Tipo>> obterTipos_Incluir(ArrayList<Integer> resultado){
+        return tipoDao.obterTipos_Incluir(TiposUtil.MetodosTipos.CATEGORIAS_PROFISSIONAIS, resultado, api);
+    }
+
 
 
     /**
@@ -195,4 +227,7 @@ public class AvaliacaoAmbientalRepositorio {
     public Maybe<Boolean> obterValidadeGeral(int idAtividade, int tipo) {
         return avaliacaoAmbientalDao.obterValidadeGeral(idAtividade, tipo);
     }
+
+
+
 }

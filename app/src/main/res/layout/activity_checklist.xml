@@ -1,0 +1,359 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="com.vvm.sh.BuildConfig"/>
+        <import type="com.vvm.sh.util.metodos.StringUtil"/>
+        <import type="java.util.List"/>
+        <import type="android.view.View"/>
+        <import type="com.vvm.sh.util.metodos.DatasUtil"/>
+<!--
+        <variable
+            name="viewmodel"
+            type="com.vvm.sh.ui.atividadesPendentes.relatorios.FormacaoViewModel"/>
+
+        <variable
+            name="listener"
+            type="com.vvm.sh.ui.atividadesPendentes.relatorios.OnFormacaoListener"/>
+-->
+        <variable
+            name="bloquear"
+            type="Boolean"/>
+
+    </data>
+
+
+
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/appbar_layout_activity"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.tarefa.TarefaActivity">
+
+
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/app_bar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            android:fitsSystemWindows="true">
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/banner_height"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                app:contentScrim="?attr/colorPrimary"
+                app:title="@string/relatorio"
+                app:expandedTitleTextAppearance="@android:color/transparent"
+                android:fitsSystemWindows="true">
+
+                <ImageView
+                    app:layout_collapseMode="parallax"
+                    android:src="@drawable/checklist_banner"
+                    android:contentDescription="@string/relatorio"
+                    android:scaleType="centerCrop"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                    android:title="@string/cliente"
+                    app:layout_collapseMode="pin"/>
+
+
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+
+
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_centerHorizontal="true">
+
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                    <TextView
+                        android:id="@+id/textview"
+                        style="@style/tituloCartao"
+                        android:text="@string/formacao"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+
+                    <View
+                        android:id="@+id/textview2"
+                        android:layout_width="280dp"
+                        android:layout_height="0.2dp"
+                        android:layout_marginTop="8dp"
+                        android:background="@color/cor_separador"
+                        app:layout_constraintStart_toStartOf="@+id/textview"
+                        app:layout_constraintTop_toBottomOf="@+id/textview" />
+
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        estado="@{viewmodel.acaoFormacao.completo}"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="24dp"
+                        app:layout_constraintStart_toStartOf="@+id/textview"
+                        app:layout_constraintTop_toBottomOf="@+id/textview2"
+                        android:theme="@style/Theme.MaterialComponents.Light" />
+
+
+
+
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/card_acao_formacao"
+                        style="@style/cartao"
+                        android:visibility="@{viewmodel.acaoFormacao != null ? View.VISIBLE : View.GONE}"
+                        android:layout_marginTop="16dp"
+                        app:layout_constraintTop_toBottomOf="@+id/chip"
+                        app:layout_constraintStart_toStartOf="@+id/textview">
+
+                        <!-- android:onClick="@{() -> listener.showNoteDialog(note) }" -->
+
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+
+                            <TextView
+                                android:id="@+id/textView20"
+                                style="@style/tituloCartao"
+                                android:text="@string/acao_formacao"
+                                android:layout_marginStart="16dp"
+                                android:layout_marginTop="16dp"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/textView21"
+                                style="@style/textoDetalhe"
+                                android:layout_marginTop="@dimen/distancia_vertical_titulo"
+                                android:text="@string/designacao_"
+                                app:layout_constraintStart_toStartOf="@+id/textView20"
+                                app:layout_constraintTop_toBottomOf="@+id/textView20" />
+
+                            <TextView
+                                android:id="@+id/textView22"
+                                style="@style/textoDetalhe"
+                                android:layout_marginStart="16dp"
+                                android:text="@{viewmodel.acaoFormacao.designacao}"
+                                app:layout_constraintStart_toEndOf="@+id/textView21"
+                                app:layout_constraintTop_toTopOf="@+id/textView21" />
+
+                            <TextView
+                                android:id="@+id/textView23"
+                                style="@style/textoDetalhe"
+                                android:layout_marginTop="8dp"
+                                android:layout_marginBottom="16dp"
+                                android:text="@string/local_"
+                                app:layout_constraintStart_toStartOf="@+id/textView20"
+                                app:layout_constraintTop_toBottomOf="@+id/textView21"
+                                app:layout_constraintVertical_bias="0.498" />
+
+                            <TextView
+                                android:id="@+id/textView24"
+                                style="@style/textoDetalhe"
+                                android:layout_marginStart="16dp"
+                                android:text="@{viewmodel.acaoFormacao.resultado.local}"
+                                app:layout_constraintStart_toEndOf="@+id/textView23"
+                                app:layout_constraintTop_toTopOf="@+id/textView23" />
+
+                            <TextView
+                                android:id="@+id/textView26"
+                                style="@style/textoDetalhe"
+                                android:layout_marginTop="8dp"
+                                android:layout_marginBottom="16dp"
+                                android:text="@string/data_"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="@+id/textView23"
+                                app:layout_constraintTop_toBottomOf="@+id/textView23" />
+
+                            <TextView
+                                android:id="@+id/textView27"
+                                style="@style/textoDetalhe"
+                                android:layout_marginStart="16dp"
+                                android:text="@{DatasUtil.converterData(viewmodel.acaoFormacao.resultado.data, DatasUtil.FORMATO_DD_MM_YYYY)}"
+                                app:layout_constraintStart_toEndOf="@+id/textView26"
+                                app:layout_constraintTop_toTopOf="@+id/textView26" />
+
+                            <TextView
+                                android:id="@+id/textView28"
+                                style="@style/textoDetalhe"
+                                android:layout_marginStart="16dp"
+                                android:text="@string/inicio"
+                                app:layout_constraintStart_toEndOf="@+id/textView27"
+                                app:layout_constraintTop_toTopOf="@+id/textView26" />
+
+                            <TextView
+                                android:id="@+id/textView29"
+                                style="@style/textoDetalhe"
+                                android:layout_marginStart="16dp"
+                                android:text="@{DatasUtil.converterData(viewmodel.acaoFormacao.resultado.inicio, DatasUtil.HORA_FORMATO_HH_MM)}"
+                                app:layout_constraintStart_toEndOf="@+id/textView28"
+                                app:layout_constraintTop_toTopOf="@+id/textView26" />
+
+                            <TextView
+                                android:id="@+id/textView30"
+                                style="@style/textoDetalhe"
+                                android:layout_marginStart="16dp"
+                                android:text="@string/fim"
+                                app:layout_constraintStart_toEndOf="@+id/textView29"
+                                app:layout_constraintTop_toTopOf="@+id/textView26" />
+
+                            <TextView
+                                android:id="@+id/textView31"
+                                style="@style/textoDetalhe"
+                                android:layout_marginStart="16dp"
+                                android:text="@{DatasUtil.converterData(viewmodel.acaoFormacao.resultado.termino, DatasUtil.HORA_FORMATO_HH_MM)}"
+                                app:layout_constraintStart_toEndOf="@+id/textView30"
+                                app:layout_constraintTop_toTopOf="@+id/textView26" />
+
+                            <TextView
+                                android:id="@+id/textView36"
+                                android:text="@{StringUtil.converterString(viewmodel.acaoFormacao.resultado.idAtividade), default=id}"
+                                android:visibility="@{BuildConfig.DEBUG ? View.VISIBLE : View.GONE}"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginEnd="8dp"
+                                android:layout_marginBottom="8dp"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintEnd_toEndOf="parent" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                    </androidx.cardview.widget.CardView>
+
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+                <!-- ..............lista............... -->
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rcl_registos"
+                    style="@style/lista"
+                    formandos="@{viewmodel.formandos}"
+                    listener="@{listener}"
+                    tools:listitem="@layout/item_formando"/>
+
+                <!--
+                registosOcorrencias="@{viewmodel.ocorrenciasRegistos}"
+                    onItemClick="@{listener}"
+
+                     -->
+
+            </LinearLayout>
+
+
+        </androidx.core.widget.NestedScrollView>
+
+
+        <com.github.clans.fab.FloatingActionMenu
+            android:id="@+id/fab_menu"
+            android:enabled="@{bloquear}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="@dimen/fab_margin"
+            app:menu_fab_size="normal"
+            app:menu_showShadow="true"
+            app:menu_shadowColor="#66000000"
+            app:menu_shadowRadius="4dp"
+            app:menu_shadowXOffset="1dp"
+            app:menu_shadowYOffset="3dp"
+            app:menu_colorNormal="#DA4336"
+            app:menu_colorPressed="#E75043"
+            app:menu_colorRipple="#99FFFFFF"
+            app:menu_animationDelayPerItem="50"
+            app:menu_icon="@drawable/ic_add_24dp"
+            app:menu_buttonSpacing="0dp"
+            app:menu_labels_margin="0dp"
+            app:menu_labels_paddingTop="4dp"
+            app:menu_labels_paddingRight="8dp"
+            app:menu_labels_paddingBottom="4dp"
+            app:menu_labels_paddingLeft="8dp"
+            app:menu_labels_padding="8dp"
+            app:menu_labels_textColor="#FFFFFF"
+            app:menu_labels_textSize="14sp"
+            app:menu_labels_cornerRadius="3dp"
+            app:menu_labels_colorNormal="#333333"
+            app:menu_labels_colorPressed="#444444"
+            app:menu_labels_colorRipple="#66FFFFFF"
+            app:menu_labels_showShadow="true"
+            app:menu_labels_singleLine="false"
+            app:menu_labels_ellipsize="none"
+            app:menu_labels_maxLines="-1"
+            app:menu_labels_style="@style/textoDetalhe"
+            app:menu_labels_position="left"
+            app:menu_openDirection="up"
+            app:menu_backgroundColor="@android:color/transparent">
+
+
+            <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/fab_adicionar_formando"
+                android:enabled="@{bloquear}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_formandos_24dp"
+                app:fab_size="mini"
+                app:fab_label="@string/adicionar_formando" />
+
+            <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/fab_adicionar_acao_formacao"
+                android:enabled="@{bloquear}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_acao_formacao"
+                app:fab_size="mini"
+                app:fab_label="@string/acao_formacao" />
+
+        </com.github.clans.fab.FloatingActionMenu>
+
+
+
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>
+
+

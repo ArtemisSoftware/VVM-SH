@@ -4,6 +4,7 @@ package com.vvm.sh.baseDados.entidades;
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
@@ -27,13 +28,17 @@ public class RegistoVisitaResultado {
     @NonNull
     public String funcao;
 
-    @NonNull
     public String observacao;
 
 
-    @NonNull
-    public int sincronizacao;
+    //@NonNull
+    //public int sincronizacao;
 
 
-
+    @Ignore
+    public RegistoVisitaResultado(int idTarefa, @NonNull String recebidoPor, @NonNull String funcao) {
+        this.idTarefa = idTarefa;
+        this.recebidoPor = recebidoPor;
+        this.funcao = funcao;
+    }
 }

@@ -134,6 +134,6 @@ public class Tipo {
 
     @Override
     public String toString() {
-        return descricao;
+        return descricao.replaceAll("(\\r|\\n|\\t)", "");
     }
 }

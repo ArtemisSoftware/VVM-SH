@@ -275,12 +275,13 @@
                             <TextView
                                 android:id="@+id/textView41"
                                 style="@style/textoDetalhe"
-                                android:layout_marginBottom="16dp"
                                 android:layout_marginTop="@dimen/distancia_vertical_titulo"
-                                android:text="TextView"
+                                android:layout_marginEnd="16dp"
+                                android:layout_marginBottom="16dp"
+                                android:text="@{viewmodel.relatorio.medida}"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintStart_toStartOf="@+id/textView20"
-                                app:layout_constraintTop_toBottomOf="@+id/textView20" />
+                                app:layout_constraintTop_toBottomOf="@+id/textView20"/>
 
 
                         </androidx.constraintlayout.widget.ConstraintLayout>

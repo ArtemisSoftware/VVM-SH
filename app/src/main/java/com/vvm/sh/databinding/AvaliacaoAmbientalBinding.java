@@ -4,11 +4,16 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.databinding.BindingAdapter;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.google.android.material.chip.Chip;
 import com.google.android.material.chip.ChipDrawable;
 import com.vvm.sh.R;
 import com.vvm.sh.baseDados.entidades.Tipo;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.AvaliacaoAmbiental;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.AvaliacaoRecyclerAdapter;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.OnAvaliacaoAmbientalListener;
 import com.vvm.sh.util.constantes.Identificadores;
 
 import java.util.List;
@@ -121,4 +126,34 @@ public class AvaliacaoAmbientalBinding {
         view.setText(resultado);
 
     }
+
+
+    @BindingAdapter({"avaliacoesAmbientais", "tipo", "listener"})
+    public static void setAvaliacoesAmbientais(RecyclerView view, List<AvaliacaoAmbiental> items, int tipo, OnAvaliacaoAmbientalListener listener) {
+
+        if(items == null){
+            return;
+        }
+
+        RecyclerView.LayoutManager layoutManager = view.getLayoutManager();
+
+        if(layoutManager == null){
+            view.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        }
+
+        AvaliacaoRecyclerAdapter adapter = (AvaliacaoRecyclerAdapter) view.getAdapter();
+
+        if(adapter == null){
+            adapter = new AvaliacaoRecyclerAdapter(view.getContext(), items, tipo, listener);
+
+            view.setAdapter(adapter);
+        }
+        else{
+            adapter.atualizar(items);
+        }
+
+    }
+
+
+
 }

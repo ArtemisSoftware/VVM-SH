@@ -33,23 +33,6 @@
 
 
             <TextView
-                android:id="@+id/textView53"
-                style="@style/textoDescritivo"
-                android:layout_marginStart="82dp"
-                android:text="@string/medidas_recomendadas"
-                app:layout_constraintStart_toEndOf="@+id/textView52"
-                app:layout_constraintTop_toTopOf="@+id/textView52" />
-
-            <TextView
-                android:id="@+id/textView49"
-                style="@style/textoDetalhe"
-                android:layout_marginStart="16dp"
-                android:text="@{avaliacao.resultado.eLx, default=eLx}"
-                app:layout_constraintBottom_toBottomOf="@+id/textView46"
-                app:layout_constraintStart_toEndOf="@+id/textView48"
-                app:layout_constraintTop_toTopOf="@+id/textView46" />
-
-            <TextView
                 android:id="@+id/textView"
                 style="@style/tituloCartao"
                 android:layout_marginStart="16dp"
@@ -59,52 +42,23 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
+                android:id="@+id/textView82"
+                style="@style/textoDetalhe"
+                android:layout_marginStart="16dp"
+                android:text="@{avaliacao.resultado.anexoArea}"
+                app:layout_constraintBottom_toBottomOf="@+id/textView"
+                app:layout_constraintStart_toEndOf="@+id/textView"
+                app:layout_constraintTop_toTopOf="@+id/textView" />
+
+
+            <TextView
                 android:id="@+id/textView2"
                 style="@style/textoDetalhe"
                 android:layout_marginTop="@dimen/distancia_vertical_titulo"
-                android:text="@{avaliacao.local, default=local}"
+                android:text="@{avaliacao.obterLocal(), default=local}"
                 app:layout_constraintStart_toStartOf="@+id/textView"
                 app:layout_constraintTop_toBottomOf="@+id/textView" />
 
-
-            <com.google.android.material.chip.ChipGroup
-                android:id="@+id/chipGroup"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp"
-                android:theme="@style/Theme.MaterialComponents.Light"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/textView"
-                app:layout_constraintTop_toBottomOf="@+id/textView54">
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chip"
-
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:theme="@style/Theme.MaterialComponents.Light" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chip2"
-
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:theme="@style/Theme.MaterialComponents.Light"
-                    android:visibility="gone" />
-
-            </com.google.android.material.chip.ChipGroup>
-
-            <TextView
-                android:id="@+id/textView37"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
-                android:text="@{StringUtil.converterString(avaliacao.resultado.id), default=id}"
-                android:visibility="@{BuildConfig.DEBUG ? View.VISIBLE : View.GONE}"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
 
             <TextView
                 android:id="@+id/textView44"
@@ -118,10 +72,12 @@
                 android:id="@+id/textView45"
                 style="@style/textoDetalhe"
                 android:layout_marginStart="16dp"
-                android:text="@{avaliacao.resultado.tipoIluminacao, default=tipoIluminacao}"
+                android:text="@{avaliacao.tipoIluminacao, default=tipoIluminacao}"
                 app:layout_constraintBottom_toBottomOf="@+id/textView44"
                 app:layout_constraintStart_toEndOf="@+id/textView44"
                 app:layout_constraintTop_toTopOf="@+id/textView44" />
+
+
 
             <TextView
                 android:id="@+id/textView46"
@@ -135,7 +91,7 @@
                 android:id="@+id/textView47"
                 style="@style/textoDetalhe"
                 android:layout_marginStart="16dp"
-                android:text="@{avaliacao.resultado.emedioLx, default=emedioLx}"
+                android:text="@{StringUtil.converterString(avaliacao.resultado.emedioLx), default=emedioLx}"
                 app:layout_constraintBottom_toBottomOf="@+id/textView46"
                 app:layout_constraintStart_toEndOf="@+id/textView46"
                 app:layout_constraintTop_toTopOf="@+id/textView46" />
@@ -150,6 +106,16 @@
                 app:layout_constraintTop_toTopOf="@+id/textView46" />
 
             <TextView
+                android:id="@+id/textView49"
+                style="@style/textoDetalhe"
+                android:layout_marginStart="16dp"
+                android:text="@{avaliacao.resultado.eLx, default=eLx}"
+                app:layout_constraintBottom_toBottomOf="@+id/textView46"
+                app:layout_constraintStart_toEndOf="@+id/textView48"
+                app:layout_constraintTop_toTopOf="@+id/textView46" />
+
+
+            <TextView
                 android:id="@+id/textView50"
                 style="@style/textoDetalhe"
                 android:layout_marginTop="16dp"
@@ -161,34 +127,147 @@
                 android:id="@+id/textView51"
                 style="@style/textoDetalhe"
                 android:layout_marginStart="16dp"
-                android:text="TextView"
+                android:text="@{avaliacao.resultado.nome}"
                 app:layout_constraintBottom_toBottomOf="@+id/textView50"
                 app:layout_constraintStart_toEndOf="@+id/textView50"
                 app:layout_constraintTop_toTopOf="@+id/textView50" />
 
-            <TextView
-                android:id="@+id/textView52"
-                style="@style/textoDescritivo"
+
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="@string/categorias_profissionais"
+                android:orientation="horizontal"
                 app:layout_constraintStart_toStartOf="@+id/textView"
-                app:layout_constraintTop_toBottomOf="@+id/textView50" />
+                app:layout_constraintTop_toBottomOf="@+id/textView50">
+
+
+                <LinearLayout
+                    android:id="@+id/linearLayout1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+
+                    <TextView
+                        android:id="@+id/textView52"
+                        style="@style/textoDescritivo"
+                        android:text="@string/categorias_profissionais" />
+
+                    <TextView
+                        android:id="@+id/textView54"
+                        style="@style/textoDetalhe"
+                        listagemTipos="@{avaliacao.categoriasProfissionais}" />
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/linearLayout2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_marginLeft="32dp">
+
+                    <TextView
+                        android:id="@+id/textView53"
+                        style="@style/textoDescritivo"
+                        android:text="@string/medidas_recomendadas" />
+
+                    <TextView
+                        android:id="@+id/textView56"
+                        style="@style/textoDetalhe"
+                        android:layout_marginTop="8dp"
+                        android:text="TextView" />
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:theme="@style/Theme.MaterialComponents.Light"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/textView"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip"
+                    completudeRelatorio="@{avaliacao.valido}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/Theme.MaterialComponents.Light" />
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip2"
+                    android:backgroundTint="@color/cor_pendente"
+                    app:chipIcon="@drawable/ic_alerta_24dp"
+                    android:text="@string/clicar_completar_registo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/Theme.MaterialComponents.Light"
+                    android:visibility="@{avaliacao.necessitaMedidas == true ? View.VISIBLE : View.GONE}" />
+
+            </com.google.android.material.chip.ChipGroup>
 
             <TextView
-                android:id="@+id/textView54"
-                style="@style/textoDetalhe"
-                android:layout_marginTop="8dp"
-                android:text="TextView"
-                app:layout_constraintStart_toStartOf="@+id/textView"
-                app:layout_constraintTop_toBottomOf="@+id/textView52" />
+                android:id="@+id/textView37"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                android:text="@{StringUtil.converterString(avaliacao.resultado.id), default=id}"
+                android:visibility="@{BuildConfig.DEBUG ? View.VISIBLE : View.GONE}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
 
-            <TextView
-                android:id="@+id/textView56"
-                style="@style/textoDetalhe"
-                android:layout_marginTop="8dp"
-                android:text="TextView"
-                app:layout_constraintStart_toStartOf="@+id/textView53"
-                app:layout_constraintTop_toBottomOf="@+id/textView53" />
+
+
+
+
+
+
+
+<!--
+
+
+          -->
+
+
+
+
+
+
+
+
+
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

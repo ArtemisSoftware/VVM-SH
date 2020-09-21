@@ -77,7 +77,7 @@ public class GeralBinding {
 
             for (int index = 0; index < registos.size(); ++index) {
 
-                if(registos.get(index).id == 0){
+                if(registos.get(index).id == id){
                     view.setSelectedIndex(index);
                     break;
                 }

@@ -122,7 +122,7 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/txt_inp_descricao_area"
                             style="@style/modifiedEditText"
-                            android:text="@{viewmodel.avaliacao.anexoArea}"
+                            android:text="@{viewmodel.avaliacao.resultado.anexoArea}"
                             android:maxLength="250"
                             android:inputType="text"
                             android:maxLines="1"/>
@@ -203,7 +203,7 @@
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/txt_inp_numero_homens"
-                            android:text="@{StringUtil.converterString(viewmodel.avaliacao.homens)}"
+                            android:text="@{StringUtil.converterString(viewmodel.avaliacao.resultado.homens)}"
                             style="@style/modifiedEditText"
                             android:inputType="number"
                             android:maxLines="1"/>
@@ -224,7 +224,7 @@
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/txt_inp_numero_mulheres"
-                            android:text="@{StringUtil.converterString(viewmodel.avaliacao.mulheres)}"
+                            android:text="@{StringUtil.converterString(viewmodel.avaliacao.resultado.mulheres)}"
                             style="@style/modifiedEditText"
                             android:inputType="number"
                             android:maxLines="1"/>
@@ -246,7 +246,7 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/txt_inp_temperatura"
                             style="@style/modifiedEditText"
-                            android:text="@{StringUtil.converterString(viewmodel.avaliacao.temperatura)}"
+                            android:text="@{StringUtil.converterString(viewmodel.avaliacao.resultado.temperatura)}"
                             android:maxLength="15"
                             android:inputType="numberDecimal"
                             android:maxLines="1"/>
@@ -285,7 +285,7 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/txt_inp_humidade_relativa"
                             style="@style/modifiedEditText"
-                            android:text="@{StringUtil.converterString(viewmodel.avaliacao.humidadeRelativa)}"
+                            android:text="@{StringUtil.converterString(viewmodel.avaliacao.resultado.humidadeRelativa)}"
                             android:maxLength="15"
                             android:inputType="numberDecimal"
                             android:maxLines="1"/>

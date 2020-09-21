@@ -1,7 +1,5 @@
 package com.vvm.sh.util.metodos;
 
-import com.vvm.sh.util.constantes.Identificadores;
-import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.excepcoes.TipoInexistenteException;
 
 import java.util.List;
@@ -24,14 +22,14 @@ public class TiposUtil {
 
     private static class MetodosTiposSH{
 
-        public static final String CURSOS = "getCoursesInfo";
         public static final String CATEGORIAS_PROFISSIONAIS = "GetCategoriasProfissionais";
+        public static final String CONCLUSAO_MEDIDAS_RECOMENDADAS = "GetConclusaoMedidasRecomendadas";
         public static final String CONDICOES_CLIMATERICAS = "GetCondicoesClimatericas";
-
+        public static final String CURSOS = "getCoursesInfo";
 
         public static final String TIPOS_ILUMINACAO = "GetTiposIluminacao";
         public static final String TIPOS_AREA = "GetTiposArea";
-        public static final String ILUMINACAO = "GetIluminancia";
+        public static final String ILUMINANCIA = "GetIluminancia";
 
 
     }
@@ -49,19 +47,21 @@ public class TiposUtil {
 
         public static final String CATEGORIAS_PROFISSIONAIS = "Categorias_Profissionais";
         public static final String CONDICOES_CLIMATERICAS = "Condicoes_Climatericas";
+        public static final String CONCLUSAO_MEDIDAS_RECOMENDADAS = "Conclusao_Medidas_Recomendadas";
         public static final String CURSOS = "Cursos";
 
         public static final String TIPOS_AREA = "Tipos_Area";
         public static final String TIPOS_ILUMINACAO = "Tipos_Iluminacao";
-        public static final String ILUMINACAO = "Iluminacao";
+        public static final String ILUMINANCIA = "Iluminancia";
 
         public static final MetodoApi METODO_CATEGORIAS_PROFISSIONAIS = new MetodoApi(CATEGORIAS_PROFISSIONAIS, null, MetodosTiposSH.CATEGORIAS_PROFISSIONAIS);
         public static final MetodoApi METODO_CONDICOES_CLIMATERICAS = new MetodoApi(CONDICOES_CLIMATERICAS, null, MetodosTiposSH.CONDICOES_CLIMATERICAS);
+        public static final MetodoApi METODO_CONCLUSAO_MEDIDAS_RECOMENDADAS = new MetodoApi(CONCLUSAO_MEDIDAS_RECOMENDADAS, null, MetodosTiposSH.CONCLUSAO_MEDIDAS_RECOMENDADAS);
         public static final MetodoApi METODO_CURSOS = new MetodoApi(CURSOS, MetodosTiposSA.CURSOS, MetodosTiposSH.CURSOS);
-        public static final MetodoApi METODO_ILUMINACAO = new MetodoApi(ILUMINACAO, null, MetodosTiposSH.ILUMINACAO);
+        public static final MetodoApi METODO_ILUMINANCIA = new MetodoApi(ILUMINANCIA, null, MetodosTiposSH.ILUMINANCIA);
         public static final MetodoApi METODO_TIPOS_ILUMINACAO = new MetodoApi(TIPOS_ILUMINACAO, null, MetodosTiposSH.TIPOS_ILUMINACAO);
         public static final MetodoApi METODO_TIPOS_AREA = new MetodoApi(TIPOS_AREA, null, MetodosTiposSH.TIPOS_AREA);
-//public static final MetodoApi METODO_ = new MetodoApi(MetodosTiposSA., MetodosTiposSH.);
+//
 //public static final MetodoApi METODO_ = new MetodoApi(MetodosTiposSA., MetodosTiposSH.);
 //public static final MetodoApi METODO_ = new MetodoApi(MetodosTiposSA., MetodosTiposSH.);
 //public static final MetodoApi METODO_ = new MetodoApi(MetodosTiposSA., MetodosTiposSH.);
@@ -73,9 +73,10 @@ public class TiposUtil {
 
                 METODO_CATEGORIAS_PROFISSIONAIS,
                 METODO_CONDICOES_CLIMATERICAS,
+                METODO_CONCLUSAO_MEDIDAS_RECOMENDADAS,
                 METODO_CURSOS,
 
-                METODO_ILUMINACAO,
+                METODO_ILUMINANCIA,
                 METODO_TIPOS_AREA,
                 METODO_TIPOS_ILUMINACAO
         };
@@ -169,6 +170,11 @@ public class TiposUtil {
                 metodo = MetodosTipos.METODO_CONDICOES_CLIMATERICAS;
                 break;
 
+            case MetodosTiposSH.CONCLUSAO_MEDIDAS_RECOMENDADAS:
+            case MetodosTipos.CONCLUSAO_MEDIDAS_RECOMENDADAS:
+
+                metodo = MetodosTipos.METODO_CONCLUSAO_MEDIDAS_RECOMENDADAS;
+                break;
 
             case MetodosTiposSH.CURSOS:
             case MetodosTipos.CURSOS:
@@ -177,10 +183,10 @@ public class TiposUtil {
                 break;
 
 
-            case MetodosTiposSH.ILUMINACAO:
-            case MetodosTipos.ILUMINACAO:
+            case MetodosTiposSH.ILUMINANCIA:
+            case MetodosTipos.ILUMINANCIA:
 
-                metodo = MetodosTipos.METODO_ILUMINACAO;
+                metodo = MetodosTipos.METODO_ILUMINANCIA;
                 break;
 
 

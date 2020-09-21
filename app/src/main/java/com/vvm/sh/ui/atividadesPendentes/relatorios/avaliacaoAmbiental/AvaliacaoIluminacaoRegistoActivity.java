@@ -72,7 +72,7 @@ public class AvaliacaoIluminacaoRegistoActivity extends BaseDaggerActivity
 
 
     private List<Integer> categoriasProfissionais;
-
+    private List<Integer> medidas;
 
     @Override
     protected void intActivity(Bundle savedInstanceState) {
@@ -91,14 +91,16 @@ public class AvaliacaoIluminacaoRegistoActivity extends BaseDaggerActivity
 
         activityAvaliacaoIluminacaoRegistoBinding.setBloquear(PreferenciasUtil.agendaEditavel(this));
 
+        medidas = new ArrayList<>();
+
         subscreverObservadores();
 
         Bundle bundle = getIntent().getExtras();
 
         if(bundle != null) {
 
-            int id = bundle.getInt(getString(R.string.argumento_id_relatorio));
-            viewModel.obterAvalicao(id);
+            int id = bundle.getInt(getString(R.string.argumento_id_avaliacao), -1);
+            viewModel.obterAvalicao(id, Identificadores.Origens.ORIGEM_RELATORIO_ILUMINACAO);
         }
         else{
             finish();
@@ -129,7 +131,8 @@ public class AvaliacaoIluminacaoRegistoActivity extends BaseDaggerActivity
 
                     case SUCESSO:
 
-                        avancarRelatorio();
+                        dialogo.sucesso(recurso.messagem);
+                        limparRegisto();
                         break;
 
                     case ERRO:
@@ -140,6 +143,14 @@ public class AvaliacaoIluminacaoRegistoActivity extends BaseDaggerActivity
                 }
             }
         });
+
+        viewModel.observaElxArea().observe(this, new Observer<List<Tipo>>() {
+            @Override
+            public void onChanged(List<Tipo> tipos) {
+                viewModel.obterElx(tipos.get(0).id);
+            }
+        });
+
     }
 
 
@@ -147,20 +158,6 @@ public class AvaliacaoIluminacaoRegistoActivity extends BaseDaggerActivity
     //-------------------
     //Metodos locais
     //-------------------
-
-
-    private void avancarRelatorio() {
-
-        if(calcularNivelIluminacao() == false){
-
-            //--dialogoMedidasRecomendadas();
-        }
-        else{
-            limparRegisto();
-        }
-
-    }
-
 
 //
 //    /**
@@ -231,7 +228,6 @@ public class AvaliacaoIluminacaoRegistoActivity extends BaseDaggerActivity
 
             Tipo elx = (Tipo) activityAvaliacaoIluminacaoRegistoBinding.spnrELx.getItems().get(activityAvaliacaoIluminacaoRegistoBinding.spnrELx.getSelectedIndex());
 
-
             int valorEmedioLx = Integer.parseInt(activityAvaliacaoIluminacaoRegistoBinding.txtInpEmedioLx.getText().toString());
             int valorELx = Integer.parseInt(elx.codigo);
 
@@ -241,7 +237,7 @@ public class AvaliacaoIluminacaoRegistoActivity extends BaseDaggerActivity
 
         }
         catch(NumberFormatException | NullPointerException e){
-            resultado = true;
+            resultado = false;
         };
 
 
@@ -250,6 +246,13 @@ public class AvaliacaoIluminacaoRegistoActivity extends BaseDaggerActivity
         }
         else{
             activityAvaliacaoIluminacaoRegistoBinding.lnrLytMedidas.setVisibility(View.VISIBLE);
+        }
+
+        if(resultado == false){
+            activityAvaliacaoIluminacaoRegistoBinding.txtNivelDificiente.setVisibility(View.VISIBLE);
+        }
+        else{
+            activityAvaliacaoIluminacaoRegistoBinding.txtNivelDificiente.setVisibility(View.GONE);
         }
 
         return resultado;
@@ -265,32 +268,50 @@ public class AvaliacaoIluminacaoRegistoActivity extends BaseDaggerActivity
 
         viewModel.avaliacao.setValue(null);
 
-        /*
-        ((Spinner)vista.findViewById(R.id.spnr_tipo_iluminacao)).setSelection(0);
 
-        ((EditText) vista.findViewById(R.id.edit_txt_nome)).setText(AppIF.SEM_TEXTO);
+        activityAvaliacaoIluminacaoRegistoBinding.spnrTipoIluminacao.setSelectedIndex(0);
+        activityAvaliacaoIluminacaoRegistoBinding.spnrGenero.setSelectedIndex(0);
+        activityAvaliacaoIluminacaoRegistoBinding.spnrTipoIluminacao.setSelectedIndex(0);
+
+
+        /*
+
         ((Spinner)vista.findViewById(R.id.spnr_sexo)).setSelection(0);
 
         ((EditText) vista.findViewById(R.id.edit_txt_emedio_lx)).setText(AppIF.SEM_TEXTO);
         ((Spinner)vista.findViewById(R.id.spnr_eLx)).setSelection(0);
         ((Spinner)vista.findViewById(R.id.spnr_eLx_area)).setSelection(0);
         */
+
+        activityAvaliacaoIluminacaoRegistoBinding.txtInpNome.setText(Sintaxe.SEM_TEXTO);
+        activityAvaliacaoIluminacaoRegistoBinding.txtInpEmedioLx.setText(Sintaxe.SEM_TEXTO);
+
+        activityAvaliacaoIluminacaoRegistoBinding.txtCategoriasProfissionais.setText(Sintaxe.SEM_TEXTO);
         categoriasProfissionais = new ArrayList<>();
+
+        activityAvaliacaoIluminacaoRegistoBinding.txtMedidas.setText(Sintaxe.SEM_TEXTO);
+        medidas = new ArrayList<>();
     }
 
 
 
 
-    @OnTextChanged(value = R.id.txt_inp_emedio_lx, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
+
+
+    @OnTextChanged(value = R.id.txt_inp_emedio_lx, callback = OnTextChanged.Callback.TEXT_CHANGED)
     public void txt_inp_emedio_lx_OnTextChanged(CharSequence text) {
 
-        if(calcularNivelIluminacao() == false){
-            activityAvaliacaoIluminacaoRegistoBinding.txtNivelDificiente.setVisibility(View.VISIBLE);
+        if(viewModel.avaliacao.getValue() != null) {
+
+            if(text.toString().equals(viewModel.avaliacao.getValue().resultado.emedioLx + "") == false) {
+                calcularNivelIluminacao();
+            }
         }
         else{
-            activityAvaliacaoIluminacaoRegistoBinding.txtNivelDificiente.setVisibility(View.GONE);
+            calcularNivelIluminacao();
         }
     }
+
 
 
     MaterialSpinner.OnItemSelectedListener spnr_eLx_area_ItemSelected = new MaterialSpinner.OnItemSelectedListener() {
@@ -346,6 +367,13 @@ public class AvaliacaoIluminacaoRegistoActivity extends BaseDaggerActivity
     @Override
     public void onValidationSucceeded() {
 
+
+        if(calcularNivelIluminacao() == false & medidas.size() == 0){
+
+            activityAvaliacaoIluminacaoRegistoBinding.txtMedidas.setError(Sintaxe.Alertas.PREENCHIMENTO_OBRIGATORIO);
+            return;
+        }
+
         Bundle bundle = getIntent().getExtras();
         int idRealtorio = bundle.getInt(getString(R.string.argumento_id_relatorio));
 
@@ -360,7 +388,6 @@ public class AvaliacaoIluminacaoRegistoActivity extends BaseDaggerActivity
 
 
         AvaliacaoAmbientalResultado registo = new AvaliacaoAmbientalResultado(idRealtorio, area.id, anexoArea, nome, sexo.id, tipoIluminacao.id, emedioLx, elxArea.id, elx.id, elx.codigo);
-
 
         viewModel.gravar(registo, categoriasProfissionais, calcularNivelIluminacao());
 
@@ -393,9 +420,8 @@ public class AvaliacaoIluminacaoRegistoActivity extends BaseDaggerActivity
 
             if(resultCode == RESULT_OK){
 
-                ArrayList<Integer> resultado = data.getIntegerArrayListExtra(getString(R.string.resultado_pesquisa));
-
-                viewModel.fixarCategoriasProfissionais(resultado);
+                categoriasProfissionais = data.getIntegerArrayListExtra(getString(R.string.resultado_pesquisa));
+                viewModel.fixarCategoriasProfissionais(categoriasProfissionais);
             }
         }
     }

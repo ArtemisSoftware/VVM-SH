@@ -22,7 +22,7 @@ public class Identificadores {
         public static final int ORIGEM_LEVANTAMENTO_RISCO = 7;
         public static final int LEVANTAMENTO_CATEGORIAS_PROFISSIONAIS = 8;
 
-        public static final int AVALIACAO_AMBIENTAL_CATEGORIAS_PROFISSIONAIS = 9;
+        public static final int AVALIACAO_AMBIENTAL_ILUMINACAO_CATEGORIAS_PROFISSIONAIS = 9;
 
     }
 

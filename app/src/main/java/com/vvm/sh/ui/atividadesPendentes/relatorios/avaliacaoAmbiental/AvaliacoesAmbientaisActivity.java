@@ -42,6 +42,7 @@ public class AvaliacoesAmbientaisActivity extends BaseDaggerActivity
         activityAvaliacoesAmbientaisBinding = (ActivityAvaliacoesAmbientaisBinding) activityBinding;
         activityAvaliacoesAmbientaisBinding.setLifecycleOwner(this);
         activityAvaliacoesAmbientaisBinding.setViewmodel(viewModel);
+        activityAvaliacoesAmbientaisBinding.setListener(this);
         activityAvaliacoesAmbientaisBinding.setBloquear(PreferenciasUtil.agendaEditavel(this));
 
         subscreverObservadores();
@@ -86,10 +87,8 @@ public class AvaliacoesAmbientaisActivity extends BaseDaggerActivity
     /**
      * Metodo que permite iniciar a avaliação
      */
-    private void iniciarAvaliacao() {
+    private void iniciarAvaliacao(Bundle bundle) {
         Intent intent = null;
-
-        Bundle bundle = getIntent().getExtras();
 
         if(bundle != null) {
 
@@ -137,16 +136,25 @@ public class AvaliacoesAmbientaisActivity extends BaseDaggerActivity
 
 
         Bundle bundle = getIntent().getExtras();
-        bundle.putInt(getString(R.string.argumento_id), registo.id);
+        bundle.putInt(getString(R.string.argumento_id_avaliacao), registo.id);
 
-        iniciarAvaliacao();
+        iniciarAvaliacao(bundle);
+    }
+
+    @Override
+    public void onRemoverClick(AvaliacaoAmbientalResultado registo) {
+
+        Bundle bundle = getIntent().getExtras();
+        int tipo = bundle.getInt(getString(R.string.argumento_tipo_relatorio));
+
+        viewModel.remover(registo, tipo);
     }
 
 
     @OnClick({R.id.fab_adicionar})
     public void fab_adicionar_OnClickListener(View view) {
 
-        iniciarAvaliacao();
+        iniciarAvaliacao(getIntent().getExtras());
     }
 
 

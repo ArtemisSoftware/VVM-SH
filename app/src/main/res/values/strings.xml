@@ -134,7 +134,8 @@
     <string name="argumento_id_levantamento">idLevantamento</string>
     <string name="argumento_descricao">descricao</string>
     <string name="argumento_tipo_relatorio">tipoRelatorio</string>
-    <string name="argumento_id_relatorio">idRelatorio</string>
+    <string name="argumento_id_relatorio">idRelatorio</string>>
+    <string name="argumento_id_avaliacao">idAvaliacao</string>
     <string name="argumento_configuracao_pesquisa">configuracaoPesquisa</string>
 
 

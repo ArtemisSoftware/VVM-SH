@@ -5,11 +5,12 @@
 
     <data>
         <import type="java.util.List"/>
-<!--
+        <import type="android.view.View"/>
+
         <variable
             name="listener"
-            type="com.vvm.sh.ui.ocorrencias.adaptadores.OnOcorrenciaListener"/>
--->
+            type="com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.OnAvaliacaoAmbientalListener"/>
+
         <variable
             name="viewmodel"
             type="com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.AvaliacaoAmbientalViewModel"/>
@@ -37,7 +38,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="visible"
+            android:visibility="@{viewmodel.avaliacoes.size() == 0 ? View.VISIBLE : View.GONE}"
             android:orientation="vertical"
             android:gravity="center"
             android:layout_gravity="center">
@@ -63,8 +64,10 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcl_registos"
             style="@style/lista"
-            android:visibility="gone"
-
+            android:visibility="@{viewmodel.avaliacoes.size() > 0 ? View.VISIBLE : View.GONE}"
+            avaliacoesAmbientais="@{viewmodel.avaliacoes}"
+            listener="@{listener}"
+            tipo="@{tipo}"
             tools:listitem="@layout/item_ocorrencia"/>
 
         <!--

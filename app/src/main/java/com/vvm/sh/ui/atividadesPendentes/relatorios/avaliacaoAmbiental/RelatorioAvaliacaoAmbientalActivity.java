@@ -32,6 +32,9 @@ public class RelatorioAvaliacaoAmbientalActivity extends BaseDaggerActivity {
     private AvaliacaoAmbientalViewModel viewModel;
 
 
+    private RelatorioAmbiental relatorio;
+
+
     @Override
     protected void intActivity(Bundle savedInstanceState) {
 
@@ -79,14 +82,14 @@ public class RelatorioAvaliacaoAmbientalActivity extends BaseDaggerActivity {
 
         viewModel.observarRelatorio().observe(this, new Observer<RelatorioAmbiental>() {
             @Override
-            public void onChanged(RelatorioAmbiental relatorio) {
+            public void onChanged(RelatorioAmbiental registo) {
+
+                relatorio = registo;
 
                 if(relatorio.idRelatorio == 0){
                     card_geral_OnClickListener(null);
                 }
-                else{
-                    getIntent().getExtras().putInt(getString(R.string.argumento_id_relatorio), relatorio.idRelatorio);
-                }
+
             }
         });
 
@@ -154,7 +157,7 @@ public class RelatorioAvaliacaoAmbientalActivity extends BaseDaggerActivity {
 
         if(bundle != null) {
 
-            bundle.putInt(getString(R.string.argumento_id_relatorio), 11); //TODO: meter o id do relatorio
+            bundle.putInt(getString(R.string.argumento_id_relatorio), relatorio.idRelatorio);
             intent.putExtras(bundle);
             startActivity(intent);
         }

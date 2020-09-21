@@ -97,16 +97,11 @@
                         android:id="@+id/spnr_area_posto_trabalho"
                         android:layout_width="400dp"
                         android:hint="@string/areaPostoTrabalho"
-                        tipos_="@{viewmodel.areas}"
+                        tipos="@{viewmodel.areas}"
+                        id="@{viewmodel.avaliacao.resultado.idArea}"
                         android:layout_height="wrap_content"
                         app:layout_constraintStart_toStartOf="@+id/textView18"
                         app:layout_constraintTop_toBottomOf="@+id/textview31" />
-
-                    <!--
-                                            tipos_="@{viewmodel.generos}"
-                        genero="@{viewmodel.formando.resultado.sexo}"
-                    -->
-
 
 
 
@@ -123,7 +118,7 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/txt_inp_descricao_area"
                             style="@style/modifiedEditText"
-                            android:text="@{viewmodel.avaliacao.anexoArea}"
+                            android:text="@{viewmodel.avaliacao.resultado.anexoArea}"
                             android:maxLength="250"
                             android:inputType="text"
                             android:maxLines="1"/>
@@ -200,7 +195,7 @@
 
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/txt_inp_nome"
-                            android:text="@{viewmodel.avaliacao.nome}"
+                            android:text="@{viewmodel.avaliacao.resultado.nome}"
                             style="@style/modifiedEditText"
                             android:inputType="text"
                             android:maxLines="1"/>
@@ -224,7 +219,8 @@
                         android:id="@+id/spnr_genero"
                         android:layout_width="400dp"
                         android:hint="@string/genero"
-                        tipos_="@{viewmodel.generos}"
+                        tipos="@{viewmodel.generos}"
+                        id="@{viewmodel.avaliacao.resultado.sexo}"
                         android:layout_height="wrap_content"
                         app:layout_constraintStart_toStartOf="@+id/textView18"
                         app:layout_constraintTop_toBottomOf="@+id/textview36" />
@@ -245,7 +241,8 @@
                         android:id="@+id/spnr_tipo_iluminacao"
                         android:layout_width="400dp"
                         android:hint="@string/tipoIluminacao"
-                        tipos_="@{viewmodel.iluminacao}"
+                        tipos="@{viewmodel.iluminacao}"
+                        id="@{viewmodel.avaliacao.resultado.tipoIluminacao}"
                         android:layout_height="wrap_content"
                         app:layout_constraintStart_toStartOf="@+id/textView18"
                         app:layout_constraintTop_toBottomOf="@+id/textview37" />
@@ -266,7 +263,7 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/txt_inp_emedio_lx"
                             style="@style/modifiedEditText"
-                            android:text="@{StringUtil.converterStringEspaco(viewmodel.avaliacao.emedioLx)}"
+                            android:text="@{StringUtil.converterStringEspaco(viewmodel.avaliacao.resultado.emedioLx)}"
                             android:maxLength="15"
                             android:inputType="number"
                             android:maxLines="1"/>
@@ -301,7 +298,8 @@
                     <com.jaredrummler.materialspinner.MaterialSpinner
                         android:id="@+id/spnr_eLx_area"
 
-                        tipos_="@{viewmodel.elxArea}"
+                        tipos="@{viewmodel.elxArea}"
+                        id="@{viewmodel.avaliacao.resultado.eLxArea}"
                         android:layout_width="600dp"
                         android:layout_height="wrap_content"
                         app:layout_constraintStart_toStartOf="@+id/textView18"
@@ -310,7 +308,8 @@
 
                     <com.jaredrummler.materialspinner.MaterialSpinner
                         android:id="@+id/spnr_eLx"
-                        tipos_="@{viewmodel.elx}"
+                        tipos="@{viewmodel.elx}"
+                        id="@{viewmodel.avaliacao.resultado.idElx}"
                         android:layout_width="600dp"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"

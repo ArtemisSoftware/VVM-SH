@@ -71,9 +71,10 @@ public class AvaliacaoRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.
     }
 
 
-    public void atualizar(List<AvaliacaoAmbiental> items){
-        this.items.clear();
-        this.items.addAll(items);
+    public void atualizar(List<AvaliacaoAmbiental> registos){
+        //this.items.clear();
+        //this.items.addAll(registos);
+        this.items = registos;
         notifyDataSetChanged();
     }
 

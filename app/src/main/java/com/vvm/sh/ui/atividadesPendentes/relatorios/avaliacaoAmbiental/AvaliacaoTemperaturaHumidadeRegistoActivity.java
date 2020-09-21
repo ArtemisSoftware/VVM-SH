@@ -99,7 +99,7 @@ public class AvaliacaoTemperaturaHumidadeRegistoActivity extends BaseDaggerActiv
         if(bundle != null) {
 
             int id = bundle.getInt(getString(R.string.argumento_id_relatorio));
-            viewModel.obterAvalicao(id);
+            viewModel.obterAvalicao(id, Identificadores.Origens.ORIGEM_RELATORIO_TEMPERATURA_HUMIDADE);
         }
         else{
             finish();

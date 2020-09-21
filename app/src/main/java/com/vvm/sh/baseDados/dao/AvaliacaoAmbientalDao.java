@@ -1,6 +1,7 @@
 package com.vvm.sh.baseDados.dao;
 
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
@@ -16,7 +17,6 @@ import com.vvm.sh.util.metodos.TiposUtil;
 
 import java.util.List;
 
-import io.reactivex.Flowable;
 import io.reactivex.Maybe;
 import io.reactivex.Observable;
 import io.reactivex.Single;
@@ -40,6 +40,12 @@ abstract public class AvaliacaoAmbientalDao {
 
 
 
+    @Delete
+    abstract public Single<Integer> remover(AvaliacaoAmbientalResultado registo);
+
+
+
+
     @Query("SELECT * FROM relatorioAmbientalResultado WHERE idAtividade = :idAtividade AND tipo = :tipo")
     abstract public Maybe<RelatorioAmbientalResultado> obterGeral(int idAtividade, int tipo);
 
@@ -52,13 +58,13 @@ abstract public class AvaliacaoAmbientalDao {
             "t1.ativo as ativo, t1.detalhe as detalhe, t1.tipo as tipo, t1.api as api   " +
             "FROM tipos as t1 " +
             "LEFT JOIN tipos as t2 ON ( CAST(t2.idPai AS INTEGER) = t1.id OR (t2.id = t1.id AND t1.idPai ='' )) AND t2.codigo = '' " +
-            "WHERE t1.tipo = '"+ TiposUtil.MetodosTipos.ILUMINACAO + "'  AND t2.tipo = '"+ TiposUtil.MetodosTipos.ILUMINACAO +"'  AND t1.codigo = '' ")
+            "WHERE t1.tipo = '"+ TiposUtil.MetodosTipos.ILUMINANCIA + "'  AND t2.tipo = '"+ TiposUtil.MetodosTipos.ILUMINANCIA +"'  AND t1.codigo = '' ")
     abstract public Single<List<Tipo>> obterElxArea();
 
 
     @Query("SELECT * " +
             "FROM tipos " +
-            "WHERE tipo = '" + TiposUtil.MetodosTipos.ILUMINACAO  + "' AND idPai = :id AND ativo = 1 AND codigo <> '' AND api = :api")
+            "WHERE tipo = '" + TiposUtil.MetodosTipos.ILUMINANCIA + "' AND idPai = :id AND ativo = 1 AND codigo <> '' AND api = :api")
     abstract public Single<List<Tipo>> obterElx(int id, int api);
 
 
@@ -85,13 +91,6 @@ abstract public class AvaliacaoAmbientalDao {
     query += "nome, sexo, tp_iluminacao.tipoIluminacao as tipoIluminacao, emedioLx, idElx, eLxArea, eLx, local_geral || ' -> ' || local_especifico as local, ";
     query += "idArea, av_am_res.tipoIluminacao as idTipoIluminacao,   ";
 
-    query += "   ";
-    query += " ";
-    query += "  ";
-
-    query += " ";
-    query += "  ";
-
     query += "FROM avaliacaoAmbiental_resultado as av_am_res ";
     query += "OUTER LEFT JOIN (SELECT id, descricao as area FROM tipos WHERE tipo = 'TiposArea') as tp_area ON av_am_res.idArea = tp_area.id ";
     query += "OUTER LEFT JOIN (SELECT id, descricao as tipoIluminacao FROM tipos WHERE tipo = 'TiposIluminacao') as tp_iluminacao ON  av_am_res.tipoIluminacao = tp_iluminacao.id ";
@@ -116,11 +115,14 @@ abstract public class AvaliacaoAmbientalDao {
             "ELSE 0 END as valido, " +
 
             "CASE WHEN  CAST(emedioLx AS INTEGER) <  (CAST(eLx AS INTEGER) - ((10 * CAST(eLx AS INTEGER)) / 100)) THEN 1  " +
-            "ELSE 0 END as necessitaMedidas " +
+            "ELSE 0 END as necessitaMedidas, " +
+            "area, local_geral || ' - ' || local_especifico as local, descricaoTipoIluminacao " +
 
-            //--"area, local_geral || ' -> ' || local_especifico as local" +
-
-            "FROM avaliacoesAmbientaisResultado " +
+            "FROM avaliacoesAmbientaisResultado as av_am_res " +
+            "LEFT JOIN (SELECT id, descricao as area FROM tipos WHERE tipo = '" + TiposUtil.MetodosTipos.TIPOS_AREA + "') as tp_area ON av_am_res.idArea = tp_area.id " +
+            "LEFT JOIN (SELECT id, descricao as local_geral FROM tipos WHERE tipo = '" + TiposUtil.MetodosTipos.ILUMINANCIA + "') as tp_local ON  av_am_res.eLxArea = tp_local.id " +
+            "LEFT JOIN (SELECT id, codigo, descricao as local_especifico FROM tipos WHERE tipo = '" + TiposUtil.MetodosTipos.ILUMINANCIA + "') as tp_local_especifico ON  av_am_res.idElx = tp_local_especifico.id AND av_am_res.eLx = tp_local_especifico.codigo " +
+            "LEFT JOIN (SELECT id, descricao as descricaoTipoIluminacao FROM tipos WHERE tipo = '" + TiposUtil.MetodosTipos.TIPOS_ILUMINACAO + "') as tp_iluminacao ON  av_am_res.tipoIluminacao = tp_iluminacao.id " +
             "WHERE idRelatorio = :idRelatorio")
     abstract public Observable<List<AvaliacaoAmbiental>> obterAvaliacoesIluminacao(int idRelatorio);
 
@@ -163,9 +165,11 @@ abstract public class AvaliacaoAmbientalDao {
 
             "CASE WHEN  (CAST(temperatura AS INTEGER) < 18 OR CAST(temperatura AS INTEGER) > 22)  THEN 1 " +
             "WHEN  (CAST(humidadeRelativa AS INTEGER) < 50 OR CAST(humidadeRelativa AS INTEGER) > 70)  THEN 1 " +
-            "ELSE 0 END as necessitaMedidas " +
-            "" +
-            "FROM avaliacoesAmbientaisResultado " +
+            "ELSE 0 END as necessitaMedidas, " +
+            "area " +
+
+            "FROM avaliacoesAmbientaisResultado as av_am_res " +
+            "LEFT JOIN (SELECT id, descricao as area FROM tipos WHERE tipo = '" + TiposUtil.MetodosTipos.TIPOS_AREA + "') as tp_area ON av_am_res.idArea = tp_area.id " +
             "WHERE idRelatorio = :idRelatorio")
     abstract public Observable<List<AvaliacaoAmbiental>> obterAvaliacoesTemperaturaHumidade(int idRelatorio);
 
@@ -180,10 +184,37 @@ abstract public class AvaliacaoAmbientalDao {
     //Validacao
     //--------------
 
-    @Query("SELECT id as idRelatorio, " +
+    @Query("SELECT rel_amb_res.id as idRelatorio, " +
             "CASE WHEN marca IS NULL OR numeroSerie IS NULL OR data IS NULL THEN 0 ELSE 1 " +
-            "END as geralValido " +
-            "FROM relatorioAmbientalResultado " +
+            "END as geralValido, " +
+            "numeroAvaliacoes, avaliacoesValido, medida " +
+
+            "FROM relatorioAmbientalResultado as rel_amb_res " +
+
+            "LEFT JOIN( " +
+
+            "SELECT idRelatorio, " +
+            "CASE WHEN COUNT(VALIDO) = SUM(VALIDO) AND COUNT(VALIDO) > 0 THEN 1 ELSE 0 END as avaliacoesValido," +
+            "CASE WHEN SUM(validade_medida_recomendada) > 0 AND COUNT(validade_medida_recomendada) > 0 THEN 2 ELSE 1 END as idMedidaRecomendada "  +
+
+            "FROM(   " +
+            "SELECT idRelatorio,   " +
+            "CASE WHEN CAST(emedioLx AS INTEGER) <  (CAST(eLx AS INTEGER) - ((10 * CAST(eLx AS INTEGER)) / 100)) AND IFNULL(numeroMedidas, 0) = 0 THEN 0  " +
+            "ELSE 1 END as valido,  " +
+            "CASE WHEN  CAST(emedioLx AS INTEGER) <  (CAST(eLx AS INTEGER) - ((10 * CAST(eLx AS INTEGER)) / 100)) THEN 1 ELSE 0 END as validade_medida_recomendada " +
+            "FROM avaliacoesAmbientaisResultado as av_amb_res  " +
+            "LEFT JOIN (SELECT id, COUNT(idMedida) as numeroMedidas FROM medidasResultado WHERE origem = " + Identificadores.Origens.ORIGEM_RELATORIO_ILUMINACAO + " GROUP BY id) as ct_medidas " +
+            "ON av_amb_res.id = ct_medidas.id  " +
+            ") as validacao " +
+            "GROUP BY idRelatorio" +
+
+            ") as vald_iluminacao ON rel_amb_res.id = vald_iluminacao.idRelatorio " +
+
+            "LEFT JOIN (SELECT idRelatorio, COUNT(id) as numeroAvaliacoes FROM avaliacoesAmbientaisResultado GROUP BY idRelatorio) as ct_avaliacoes " +
+            "ON rel_amb_res.id = ct_avaliacoes.idRelatorio " +
+            "LEFT JOIN (SELECT id, descricao as medida FROM tipos WHERE tipo = '" + TiposUtil.MetodosTipos.CONCLUSAO_MEDIDAS_RECOMENDADAS+ "' AND codigo = 'iluminacao') as ccl " +
+            "ON vald_iluminacao.idMedidaRecomendada = ccl.id " +
+
             "WHERE  idAtividade = :idAtividade AND tipo = :tipo")
     abstract public Observable<RelatorioAmbiental> obterValidadeRelatorio(int idAtividade, int tipo);
 

@@ -23,7 +23,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import io.reactivex.FlowableSubscriber;
-import io.reactivex.Maybe;
 import io.reactivex.MaybeObserver;
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
@@ -34,9 +33,10 @@ import io.reactivex.SingleSource;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.BiFunction;
+import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.functions.Function3;
-import io.reactivex.functions.Function4;
+import io.reactivex.functions.Predicate;
 import io.reactivex.schedulers.Schedulers;
 
 public class AvaliacaoAmbientalViewModel extends BaseViewModel {
@@ -52,7 +52,8 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
 
 
 
-    public MutableLiveData<List<AvaliacaoAmbientalResultado>> avaliacoes;
+    private List<AvaliacaoAmbiental> resultadosAvaliacoes;
+    public MutableLiveData<List<AvaliacaoAmbiental>> avaliacoes;
 
     public MutableLiveData<List<Tipo>> areas;
     public MutableLiveData<List<Tipo>> generos;
@@ -61,7 +62,7 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
     public MutableLiveData<List<Tipo>> elx;
     public MutableLiveData<List<Tipo>> categoriasProfissionais;
 
-    public MutableLiveData<AvaliacaoAmbientalResultado> avaliacao;
+    public MutableLiveData<AvaliacaoAmbiental> avaliacao;
     //--public MutableLiveData<CategoriaProfissionalResultado> categoriasProfissionais;
 
 
@@ -75,6 +76,7 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
         geral = new MutableLiveData<>();
         nebulosidades = new MutableLiveData<>();
 
+        resultadosAvaliacoes = new ArrayList<>();
         avaliacoes = new MutableLiveData<>();
         areas = new MutableLiveData<>();
         generos = new MutableLiveData<>();
@@ -95,6 +97,9 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
         return relatorio;
     }
 
+    public MutableLiveData<List<Tipo>> observaElxArea(){
+        return elxArea;
+    }
 
 
     /**
@@ -157,10 +162,11 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
 
 
     public void gravar(AvaliacaoAmbientalResultado registo, List<Integer> categoriasProfissionais, boolean nivel) {
-        
+
+        resultadosAvaliacoes.clear();
+
         if(avaliacao.getValue() == null){
-            
-            
+
             avaliacaoAmbientalRepositorio.inserir(registo)
                     .flatMap(new Function<Long, SingleSource<?>>() {
                         @Override
@@ -172,7 +178,7 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
                             List<CategoriaProfissionalResultado> categorias = new ArrayList<>();
 
                             for(int idCategoria : categoriasProfissionais){
-                                categorias.add(new CategoriaProfissionalResultado(idRegisto, idCategoria, Identificadores.Origens.AVALIACAO_AMBIENTAL_CATEGORIAS_PROFISSIONAIS));
+                                categorias.add(new CategoriaProfissionalResultado(idRegisto, idCategoria, Identificadores.Origens.AVALIACAO_AMBIENTAL_ILUMINACAO_CATEGORIAS_PROFISSIONAIS));
                             }
 
                             
@@ -191,7 +197,7 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
 
                                 @Override
                                 public void onSuccess(Object o) {
-
+                                    messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_GRAVADOS_SUCESSO));
                                 }
 
                                 @Override
@@ -201,9 +207,44 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
                             }
 
                     );
-            
-            
-            
+        }
+        else{
+
+            registo.id = avaliacao.getValue().resultado.id;
+
+
+            List<CategoriaProfissionalResultado> categorias = new ArrayList<>();
+
+            if(categoriasProfissionais == null){
+
+                for (Tipo categoria : avaliacao.getValue().categoriasProfissionais) {
+                    categorias.add(new CategoriaProfissionalResultado(registo.id, categoria.id, Identificadores.Origens.AVALIACAO_AMBIENTAL_ILUMINACAO_CATEGORIAS_PROFISSIONAIS));
+                }
+            }
+            else {
+
+                for (int idCategoria : categoriasProfissionais) {
+                    categorias.add(new CategoriaProfissionalResultado(registo.id, idCategoria, Identificadores.Origens.AVALIACAO_AMBIENTAL_ILUMINACAO_CATEGORIAS_PROFISSIONAIS));
+                }
+            }
+
+
+            Disposable d = avaliacaoAmbientalRepositorio.atualizarAvaliacao(registo, categorias)
+                    .toList()
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+
+                            new Consumer<Object>() {
+                                @Override
+                                public void accept(Object o) throws Exception {
+                                    messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_EDITADOS_SUCESSO));
+                                }
+                            }
+                    );
+
+            disposables.add(d);
+
         }
         
 /*
@@ -356,28 +397,28 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
      */
     public void obterAvalicoes(int id, int tipo) {
 
-        showProgressBar(true);
-
 
         avaliacaoAmbientalRepositorio.obterAvaliacoes(id, tipo)
-                .map(new Function<List<AvaliacaoAmbiental>, Object>() {
+                .flatMap(new Function<List<AvaliacaoAmbiental>, ObservableSource<?>>() {
                     @Override
-                    public Object apply(List<AvaliacaoAmbiental> resultados) throws Exception {
-                        return Observable.fromIterable(resultados);
+                    public ObservableSource<?> apply(List<AvaliacaoAmbiental> avaliacaoAmbientals) throws Exception {
+                        return Observable.fromIterable(avaliacaoAmbientals);
                     }
                 })
                 .flatMap(new Function<Object, ObservableSource<?>>() {
                     @Override
                     public ObservableSource<?> apply(Object o) throws Exception {
-
+                        AvaliacaoAmbiental registo = (AvaliacaoAmbiental) o;
 
                         Observable<Object> observables = Observable.zip(
-                                avaliacaoAmbientalRepositorio.obterCategoriasProfissionais(id, tipo),
-                                avaliacaoAmbientalRepositorio.obterMedidas(id, tipo),
-                                new BiFunction<List<CategoriaProfissionalResultado>, List<MedidaResultado>, Object>() {
+                                avaliacaoAmbientalRepositorio.obterCategoriasProfissionais(registo.resultado.id, tipo).toObservable(),
+                                avaliacaoAmbientalRepositorio.obterMedidas(registo.resultado.id, tipo),
+                                new BiFunction<List<Tipo>, List<MedidaResultado>, Object>() {
                                     @Override
-                                    public Object apply(List<CategoriaProfissionalResultado> categoriaProfissionalResultados, List<MedidaResultado> medidaResultados) throws Exception {
-                                        return 1;
+                                    public Object apply(List<Tipo> categoriaProfissionalResultados, List<MedidaResultado> medidaResultados) throws Exception {
+
+                                        registo.categoriasProfissionais = categoriaProfissionalResultados;
+                                        return registo;
                                     }
                                 }
                         );
@@ -387,6 +428,7 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
                         return observables;
                     }
                 })
+
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -399,6 +441,89 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
 
                             @Override
                             public void onNext(Object o) {
+
+                                resultadosAvaliacoes.add((AvaliacaoAmbiental)o);
+                                List<AvaliacaoAmbiental> registos = new ArrayList<>();
+
+                                for (AvaliacaoAmbiental item : resultadosAvaliacoes) {
+
+                                    for(int index = 0; index < registos.size(); ++index){
+
+                                        if(registos.get(index).resultado.id == item.resultado.id){
+                                            registos.remove(index);
+                                            break;
+                                        }
+                                    }
+
+                                    registos.add(item);
+                                }
+
+
+                                avaliacoes.setValue(registos);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+
+                            @Override
+                            public void onComplete() {
+
+                            }
+                        }
+
+                );
+        /*
+        showProgressBar(true);
+
+
+        avaliacaoAmbientalRepositorio.obterAvaliacoes(id, tipo)
+                .map(new Function<List<AvaliacaoAmbiental>, Object>() {
+                    @Override
+                    public Object apply(List<AvaliacaoAmbiental> avaliacaoAmbientals) throws Exception {
+                        return avaliacaoAmbientals;
+                    }
+                })
+                .flatMap(new Function<Object, ObservableSource<?>>() {
+                    @Override
+                    public ObservableSource<?> apply(Object o) throws Exception {
+
+                        AvaliacaoAmbiental registo = (AvaliacaoAmbiental) o;
+
+                        Observable<Object> observables = Observable.zip(
+                                avaliacaoAmbientalRepositorio.obterCategoriasProfissionais(registo.resultado.id, tipo),
+                                avaliacaoAmbientalRepositorio.obterMedidas(registo.resultado.id, tipo),
+                                new BiFunction<List<CategoriaProfissionalResultado>, List<MedidaResultado>, Object>() {
+                                    @Override
+                                    public Object apply(List<CategoriaProfissionalResultado> categoriaProfissionalResultados, List<MedidaResultado> medidaResultados) throws Exception {
+
+                                        registo.categoriasProfissionais = categoriaProfissionalResultados;
+                                        return registo;
+                                    }
+                                }
+                        );
+
+
+
+                        return observables;
+                    }
+                })
+                .toList()
+                .toObservable()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+
+                        new Observer<List<Object>>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+
+                            }
+
+                            @Override
+                            public void onNext(List<Object> objects) {
                                 showProgressBar(false);
                             }
 
@@ -414,6 +539,8 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
                         }
 
                 );
+
+        */
     }
 
 
@@ -421,39 +548,42 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
      * Metodo que permite obter uma avaliacao
      * @param id o identificador da avaliacao
      */
-    public void obterAvalicao(int id) {
+    public void obterAvalicao(int id, int tipo) {
 
         showProgressBar(true);
 
-        avaliacaoAmbientalRepositorio.obterAvaliacao(id)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
+        if(id != -1) {
 
-                        new MaybeObserver<AvaliacaoAmbientalResultado>() {
-                            @Override
-                            public void onSubscribe(Disposable d) {
+            avaliacaoAmbientalRepositorio.obterAvaliacao(id, tipo)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
 
+                            new MaybeObserver<AvaliacaoAmbiental>() {
+                                @Override
+                                public void onSubscribe(Disposable d) {
+
+                                }
+
+                                @Override
+                                public void onSuccess(AvaliacaoAmbiental avaliacaoAmbiental) {
+                                    avaliacao.setValue(avaliacaoAmbiental);
+                                    categoriasProfissionais.setValue(avaliacaoAmbiental.categoriasProfissionais);
+                                    showProgressBar(false);
+                                }
+
+                                @Override
+                                public void onError(Throwable e) {
+
+                                }
+
+                                @Override
+                                public void onComplete() {
+
+                                }
                             }
-
-                            @Override
-                            public void onSuccess(AvaliacaoAmbientalResultado resultado) {
-                                avaliacao.setValue(resultado);
-                                showProgressBar(false);
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-
-                            }
-
-                            @Override
-                            public void onComplete() {
-                                showProgressBar(false);
-                            }
-                        }
-                );
-
+                    );
+        }
 
         Single.zip(avaliacaoAmbientalRepositorio.obterTipoIluminacao(), avaliacaoAmbientalRepositorio.obterAreas(), avaliacaoAmbientalRepositorio.obterElxArea(),
                 new Function3<List<Tipo>, List<Tipo>, List<Tipo>, TiposAvaliacao>() {
@@ -484,6 +614,7 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
                         iluminacao.setValue(tiposAvaliacao.tiposIluminacao);
                         elxArea.setValue(tiposAvaliacao.elxArea);
                         obterGeneros(generos);
+                        showProgressBar(false);
                     }
 
                     @Override
@@ -498,8 +629,52 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
     }
 
 
-    public void obterElx(int id) {
 
+
+
+
+    //---------------------
+    //REMOVER
+    //---------------------
+
+
+    public void remover(AvaliacaoAmbientalResultado registo, int tipo) {
+
+        resultadosAvaliacoes.clear();
+
+        avaliacaoAmbientalRepositorio.removerAvaliacao(registo, tipo)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new SingleObserver<Object>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+
+                            }
+
+                            @Override
+                            public void onSuccess(Object o) {
+                                messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_REMOVIDOS_SUCESSO));
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+                        }
+                );
+    }
+
+
+
+
+
+
+
+
+
+    public void obterElx(int id) {
 
         avaliacaoAmbientalRepositorio.obterElx(id)
                 .subscribeOn(Schedulers.io())
@@ -527,7 +702,7 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
 
 
 
-    public void fixarCategoriasProfissionais(ArrayList<Integer> resultado) {
+    public void fixarCategoriasProfissionais(List<Integer> resultado) {
 
         avaliacaoAmbientalRepositorio.obterTipos_Incluir(resultado).toObservable()
                 .subscribeOn(Schedulers.io())

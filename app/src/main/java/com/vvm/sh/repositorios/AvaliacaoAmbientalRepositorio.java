@@ -17,13 +17,13 @@ import com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.modelos.R
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.metodos.TiposUtil;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Flowable;
 import io.reactivex.Maybe;
 import io.reactivex.Observable;
 import io.reactivex.Single;
+import io.reactivex.functions.BiFunction;
 
 public class AvaliacaoAmbientalRepositorio {
 
@@ -71,6 +71,11 @@ public class AvaliacaoAmbientalRepositorio {
     }
 
 
+    public Single<Integer> atualizar(AvaliacaoAmbientalResultado registo){
+        return avaliacaoAmbientalDao.atualizar(registo);
+    }
+
+
     public Single<List<Long>> inserir(List<CategoriaProfissionalResultado> categorias) {
         return categoriaProfissionalDao.inserir(categorias);
     }
@@ -115,7 +120,7 @@ public class AvaliacaoAmbientalRepositorio {
         return avaliacaoAmbientalDao.obterElx(id, api);
     }
 
-    public Flowable<List<Tipo>> obterTipos_Incluir(ArrayList<Integer> resultado){
+    public Flowable<List<Tipo>> obterTipos_Incluir(List<Integer> resultado){
         return tipoDao.obterTipos_Incluir(TiposUtil.MetodosTipos.CATEGORIAS_PROFISSIONAIS, resultado, api);
     }
 
@@ -171,13 +176,13 @@ public class AvaliacaoAmbientalRepositorio {
     }
 
 
-    public Observable<List<CategoriaProfissionalResultado>> obterCategoriasProfissionais(int id, int tipo){
+    public Maybe<List<Tipo>> obterCategoriasProfissionais(int id, int tipo){
         if(tipo == Identificadores.Relatorios.ID_RELATORIO_ILUMINACAO) {
 
-            return categoriaProfissionalDao.obterCategoriasProfissionais(id, Identificadores.Origens.ORIGEM_RELATORIO_ILUMINACAO);
+            return categoriaProfissionalDao.obterTipoCategoriasProfissionais(id, Identificadores.Origens.AVALIACAO_AMBIENTAL_ILUMINACAO_CATEGORIAS_PROFISSIONAIS);
         }
         else{
-            return categoriaProfissionalDao.obterCategoriasProfissionais(id, Identificadores.Origens.ORIGEM_RELATORIO_TEMPERATURA_HUMIDADE);
+            return categoriaProfissionalDao.obterTipoCategoriasProfissionais(id, Identificadores.Origens.ORIGEM_RELATORIO_TEMPERATURA_HUMIDADE);
         }
     }
 
@@ -199,10 +204,35 @@ public class AvaliacaoAmbientalRepositorio {
     /**
      * Metodo que permite obter uma avaliacao
      * @param id o identificador da avaliacao
+     * @param tipo  o tipo de relatorio
      * @return um registo
      */
-    public Maybe<AvaliacaoAmbientalResultado> obterAvaliacao(int id) {
-        return avaliacaoAmbientalDao.obterAvaliacao(id);
+    public Maybe<AvaliacaoAmbiental> obterAvaliacao(int id, int tipo) {
+
+        int origemCategorias = Identificadores.Origens.AVALIACAO_AMBIENTAL_ILUMINACAO_CATEGORIAS_PROFISSIONAIS;
+
+        if(tipo == Identificadores.Relatorios.ID_RELATORIO_TEMPERATURA_HUMIDADE) {
+            origemCategorias = Identificadores.Origens.ORIGEM_RELATORIO_ILUMINACAO; //TODO: mudar isto para termico
+        }
+
+
+        Maybe<AvaliacaoAmbiental> maybe = Maybe.zip(
+                avaliacaoAmbientalDao.obterAvaliacao(id),
+                categoriaProfissionalDao.obterTipoCategoriasProfissionais(id, origemCategorias),
+                new BiFunction<AvaliacaoAmbientalResultado, List<Tipo>, AvaliacaoAmbiental>() {
+                    @Override
+                    public AvaliacaoAmbiental apply(AvaliacaoAmbientalResultado avaliacaoAmbientalResultado, List<Tipo> categoriasProfissionais) throws Exception {
+
+                        AvaliacaoAmbiental resultado = new AvaliacaoAmbiental();
+
+                        resultado.resultado = avaliacaoAmbientalResultado;
+                        resultado.categoriasProfissionais = categoriasProfissionais;
+
+                        return resultado;
+                    }
+                });
+
+        return maybe;
     }
 
 
@@ -229,5 +259,40 @@ public class AvaliacaoAmbientalRepositorio {
     }
 
 
+
+
+    public Single<Object> removerAvaliacao(AvaliacaoAmbientalResultado registo, int tipo) {
+
+        Single<Object> single = null;
+
+        if(tipo == Identificadores.Relatorios.ID_RELATORIO_ILUMINACAO) {
+
+            single = Single.zip(
+                    avaliacaoAmbientalDao.remover(registo),
+                    categoriaProfissionalDao.remover(registo.id, Identificadores.Origens.AVALIACAO_AMBIENTAL_ILUMINACAO_CATEGORIAS_PROFISSIONAIS),
+                    new BiFunction<Integer, Integer, Object>() {
+                        @Override
+                        public Object apply(Integer integer, Integer integer2) throws Exception {
+                            return integer & integer2;
+                        }
+                    });
+
+            return single;
+        }
+        else{
+            return single;
+        }
+    }
+
+
+    public Flowable<Object> atualizarAvaliacao(AvaliacaoAmbientalResultado registo, List<CategoriaProfissionalResultado> categorias){
+
+        Flowable<Object> single = Single.merge(avaliacaoAmbientalDao.atualizar(registo),
+                categoriaProfissionalDao.remover(registo.id, Identificadores.Origens.AVALIACAO_AMBIENTAL_ILUMINACAO_CATEGORIAS_PROFISSIONAIS),
+                categoriaProfissionalDao.inserir(categorias));
+
+        return single;
+
+    }
 
 }

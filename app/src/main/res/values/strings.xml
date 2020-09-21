@@ -383,4 +383,7 @@
     <string name="trabalho_realizado">Trabalho realizado</string>
     <string name="funcao">Função</string>
     <string name="recebidoPor">Recebido por</string>
+    <string name="dados_cliente">Dados do cliente</string>
+    <string name="trabalhos_realizados">Trabalhos realizados</string>
+    <string name="registo_visita">Registo de visita</string>
 </resources>

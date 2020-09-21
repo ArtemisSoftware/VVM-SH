@@ -15,7 +15,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.atividadesPendentes.relatorios.checklist.ChecklistActivity"></activity>
+        <activity android:name=".ui.atividadesPendentes.relatorios.registoVisita.RegistoVisitaActivity"></activity>
+        <activity android:name=".ui.atividadesPendentes.relatorios.checklist.ChecklistActivity" />
         <activity android:name=".ui.atividadesPendentes.relatorios.registoVisita.DadosClienteActivity" />
         <activity android:name=".ui.atividadesPendentes.relatorios.registoVisita.TrabalhoRealizadoActivity" />
         <activity android:name=".ui.atividadesPendentes.relatorios.levantamentos.RiscoRegistoActivity" />

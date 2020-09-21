@@ -1,0 +1,307 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="com.vvm.sh.BuildConfig"/>
+        <import type="com.vvm.sh.util.metodos.StringUtil"/>
+        <import type="java.util.List"/>
+        <import type="android.view.View"/>
+        <import type="com.vvm.sh.util.metodos.DatasUtil"/>
+
+
+        <variable
+            name="tipo"
+            type="Integer"/>
+
+        <variable
+            name="viewmodel"
+            type="com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.AvaliacaoAmbientalViewModel"/>
+        <!--
+                <variable
+                    name="listener"
+                    type="com.vvm.sh.ui.atividadesPendentes.relatorios.OnFormacaoListener"/>
+
+                <variable
+                    name="bloquear"
+                    type="Boolean"/>
+        -->
+    </data>
+
+
+
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/appbar_layout_activity"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.tarefa.TarefaActivity">
+
+
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/app_bar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            android:fitsSystemWindows="true">
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/banner_height"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                app:contentScrim="?attr/colorPrimary"
+                app:title="@string/registo_visita"
+                app:expandedTitleTextAppearance="@android:color/transparent"
+                android:fitsSystemWindows="true">
+
+                <ImageView
+                    android:id="@+id/img_banner"
+                    app:layout_collapseMode="parallax"
+                    android:src="@drawable/registo_visita_banner"
+                    android:contentDescription="@string/relatorio"
+                    android:scaleType="centerCrop"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                    android:title="@string/cliente"
+                    app:layout_collapseMode="pin"/>
+
+
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+
+
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_centerHorizontal="true">
+
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                    <TextView
+                        android:id="@+id/txt_titulo"
+                        style="@style/tituloCartao"
+                        android:text="@string/informacao"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"/>
+
+
+                    <View
+                        android:id="@+id/textview2"
+                        android:layout_width="280dp"
+                        android:layout_height="0.2dp"
+                        android:layout_marginTop="8dp"
+                        android:background="@color/cor_separador"
+                        app:layout_constraintStart_toStartOf="@+id/txt_titulo"
+                        app:layout_constraintTop_toBottomOf="@+id/txt_titulo" />
+
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="24dp"
+                        app:layout_constraintStart_toStartOf="@+id/txt_titulo"
+                        app:layout_constraintTop_toBottomOf="@+id/textview2"
+                        android:theme="@style/Theme.MaterialComponents.Light" />
+
+
+
+
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/card_geral"
+                        style="@style/cartao"
+                        android:layout_marginTop="16dp"
+                        app:layout_constraintTop_toBottomOf="@+id/chip"
+                        app:layout_constraintStart_toStartOf="@+id/txt_titulo">
+
+                        <!-- android:onClick="@{() -> listener.showNoteDialog(note) }" -->
+
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+
+                            <TextView
+                                android:id="@+id/textView2"
+                                style="@style/tituloCartao"
+                                android:text="@string/dados_cliente"
+                                android:layout_marginStart="16dp"
+                                android:layout_marginTop="16dp"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/chip_geral"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="@dimen/distancia_vertical_titulo"
+                                android:layout_marginBottom="16dp"
+
+                                android:theme="@style/Theme.MaterialComponents.Light"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="@+id/textView2"
+                                app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+
+
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                    </androidx.cardview.widget.CardView>
+
+
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/card_avaliacoes"
+                        style="@style/cartao"
+                        android:visibility="@{(viewmodel.relatorio.idRelatorio > 0) ? View.VISIBLE : View.GONE}"
+                        android:layout_marginTop="16dp"
+                        app:layout_constraintTop_toBottomOf="@+id/card_geral"
+                        app:layout_constraintStart_toStartOf="@+id/txt_titulo">
+
+                        <!-- android:onClick="@{() -> listener.showNoteDialog(note) }" -->
+
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+
+                            <TextView
+                                android:id="@+id/textView21"
+                                style="@style/tituloCartao"
+                                android:layout_marginStart="16dp"
+                                android:layout_marginTop="16dp"
+                                android:text="@string/trabalhos_realizados"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+
+                            <TextView
+                                android:id="@+id/textView66"
+                                style="@style/textoDetalhe"
+                                android:layout_marginTop="@dimen/distancia_vertical_titulo"
+                                android:text="@string/numero_de_registos_"
+                                app:layout_constraintStart_toStartOf="@+id/textView21"
+                                app:layout_constraintTop_toBottomOf="@+id/textView21" />
+
+
+                            <com.google.android.material.chip.Chip
+                                android:id="@+id/chip_avaliacoes"
+
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="16dp"
+                                android:layout_marginBottom="16dp"
+                                android:theme="@style/Theme.MaterialComponents.Light"
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="@+id/textView21"
+                                app:layout_constraintTop_toBottomOf="@+id/textView66" />
+
+                            <TextView
+                                android:id="@+id/textView40"
+                                style="@style/textoDetalhe"
+                                android:layout_marginStart="16dp"
+
+                                app:layout_constraintStart_toEndOf="@+id/textView66"
+                                app:layout_constraintTop_toTopOf="@+id/textView66" />
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                    </androidx.cardview.widget.CardView>
+
+
+
+                    <androidx.cardview.widget.CardView
+                        android:id="@+id/card_medida_recomendada"
+                        style="@style/cartao"
+                        android:layout_marginTop="16dp"
+                        app:layout_constraintTop_toBottomOf="@+id/card_avaliacoes"
+                        app:layout_constraintStart_toStartOf="@+id/txt_titulo">
+
+                        <!-- android:onClick="@{() -> listener.showNoteDialog(note) }" -->
+
+
+                        <androidx.constraintlayout.widget.ConstraintLayout
+                            android:visibility="@{(viewmodel.relatorio.idRelatorio > 0) ? View.VISIBLE : View.GONE}"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content">
+
+
+                            <TextView
+                                android:id="@+id/textView20"
+                                style="@style/tituloCartao"
+                                android:layout_marginStart="16dp"
+                                android:layout_marginTop="16dp"
+                                android:text="@string/medida_recomendada"
+                                app:layout_constraintStart_toStartOf="parent"
+                                app:layout_constraintTop_toTopOf="parent" />
+
+                            <TextView
+                                android:id="@+id/textView41"
+                                style="@style/textoDetalhe"
+                                android:layout_marginTop="@dimen/distancia_vertical_titulo"
+                                android:layout_marginEnd="16dp"
+                                android:layout_marginBottom="16dp"
+
+                                app:layout_constraintBottom_toBottomOf="parent"
+                                app:layout_constraintStart_toStartOf="@+id/textView20"
+                                app:layout_constraintTop_toBottomOf="@+id/textView20"/>
+
+
+                        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                    </androidx.cardview.widget.CardView>
+
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+            </LinearLayout>
+
+
+        </androidx.core.widget.NestedScrollView>
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+</layout>
+
+

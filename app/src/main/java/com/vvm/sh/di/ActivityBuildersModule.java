@@ -19,6 +19,8 @@ import com.vvm.sh.di.atividadesPendentes.formacao.FormacaoViewModelsModule;
 import com.vvm.sh.di.atividadesPendentes.levantamentos.LevantamentosModule;
 import com.vvm.sh.di.atividadesPendentes.levantamentos.LevantamentosScope;
 import com.vvm.sh.di.atividadesPendentes.levantamentos.LevantamentosViewModelsModule;
+import com.vvm.sh.di.atividadesPendentes.registoVisita.RegistoVisitaModule;
+import com.vvm.sh.di.atividadesPendentes.registoVisita.RegistoVisitaViewModelsModule;
 import com.vvm.sh.di.ocorrencias.OcorrenciasModule;
 import com.vvm.sh.di.ocorrencias.OcorrenciasScope;
 import com.vvm.sh.di.ocorrencias.OcorrenciasViewModelsModule;
@@ -46,6 +48,10 @@ import com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.Avaliacao
 import com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.AvaliacoesAmbientaisActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.RelatorioAvaliacaoAmbientalActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.LevantamentosActivity;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.registoVisita.DadosClienteActivity;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.registoVisita.DialogoTrabalhoRealizado;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.registoVisita.RegistoVisitaActivity;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.registoVisita.TrabalhoRealizadoActivity;
 import com.vvm.sh.ui.autenticacao.PerfilActivity;
 import com.vvm.sh.ui.cliente.SinistralidadeActivity;
 import com.vvm.sh.ui.parqueExtintores.ExtintoresActivity;
@@ -365,6 +371,45 @@ public abstract class ActivityBuildersModule {
             modules = { PesquisaViewModelsModule.class, PesquisaModule.class }
     )
     abstract PesquisaActivity contributePesquisaActivity();
+
+
+
+    //----------------------
+    //Registo visita
+    //----------------------
+
+
+    @PesquisaScope
+    @ContributesAndroidInjector(
+            modules = { RegistoVisitaViewModelsModule.class, RegistoVisitaModule.class }
+    )
+    abstract RegistoVisitaActivity contributeRegistoVisitaActivity();
+
+
+    @PesquisaScope
+    @ContributesAndroidInjector(
+            modules = { RegistoVisitaViewModelsModule.class, RegistoVisitaModule.class }
+    )
+    abstract DadosClienteActivity contributeDadosClienteActivity();
+
+
+    @PesquisaScope
+    @ContributesAndroidInjector(
+            modules = { RegistoVisitaViewModelsModule.class, RegistoVisitaModule.class }
+    )
+    abstract TrabalhoRealizadoActivity contributeTrabalhoRealizadoActivity();
+
+    @PesquisaScope
+    @ContributesAndroidInjector(
+            modules = { RegistoVisitaViewModelsModule.class, RegistoVisitaModule.class }
+    )
+    abstract DialogoTrabalhoRealizado contributeDialogoTrabalhoRealizado();
+
+
+
+
+
+
 
 
 

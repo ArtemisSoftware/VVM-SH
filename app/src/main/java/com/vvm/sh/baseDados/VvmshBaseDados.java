@@ -20,9 +20,11 @@ import com.vvm.sh.baseDados.dao.MedidaDao;
 import com.vvm.sh.baseDados.dao.OcorrenciaDao;
 import com.vvm.sh.baseDados.dao.ParqueExtintorDao;
 import com.vvm.sh.baseDados.dao.QuadroPessoalDao;
+import com.vvm.sh.baseDados.dao.RegistoVisitaDao;
 import com.vvm.sh.baseDados.dao.ResultadoDao;
 import com.vvm.sh.baseDados.dao.SinistralidadeDao;
 import com.vvm.sh.baseDados.dao.TarefaDao;
+import com.vvm.sh.baseDados.dao.TrabalhosRealizadosDao;
 import com.vvm.sh.baseDados.dao.TransferenciasDao;
 import com.vvm.sh.baseDados.dao.UtilizadorDao;
 import com.vvm.sh.baseDados.entidades.AvaliacaoAmbientalResultado;
@@ -35,6 +37,7 @@ import com.vvm.sh.baseDados.entidades.MedidaResultado;
 import com.vvm.sh.baseDados.entidades.Morada;
 import com.vvm.sh.baseDados.entidades.ParqueExtintor;
 import com.vvm.sh.baseDados.entidades.ParqueExtintorResultado;
+import com.vvm.sh.baseDados.entidades.RegistoVisitaResultado;
 import com.vvm.sh.baseDados.entidades.RelatorioAmbientalResultado;
 import com.vvm.sh.baseDados.entidades.Resultado;
 import com.vvm.sh.baseDados.entidades.SinistralidadeResultado;
@@ -48,6 +51,7 @@ import com.vvm.sh.baseDados.entidades.AcaoFormacaoResultado;
 import com.vvm.sh.baseDados.entidades.FormandoResultado;
 import com.vvm.sh.baseDados.dao.TipoDao;
 import com.vvm.sh.baseDados.entidades.TipoExtintor;
+import com.vvm.sh.baseDados.entidades.TrabalhoRealizadoResultado;
 import com.vvm.sh.baseDados.entidades.Utilizador;
 import com.vvm.sh.baseDados.entidades.Cliente;
 import com.vvm.sh.baseDados.entidades.CrossSellingResultado;
@@ -78,6 +82,8 @@ import com.vvm.sh.baseDados.entidades.EmailResultado;
                     CategoriaProfissionalResultado.class, MedidaResultado.class,
                     ColaboradorResultado.class,
                     RelatorioAmbientalResultado.class, AvaliacaoAmbientalResultado.class,
+
+                    TrabalhoRealizadoResultado.class, RegistoVisitaResultado.class,
 
                     LevantamentoRiscoResultado.class,
                     Resultado.class
@@ -150,6 +156,13 @@ public abstract class VvmshBaseDados extends RoomDatabase {
 
 
     public abstract LevantamentoDao obterLevantamentoDao();
+
+
+    public abstract RegistoVisitaDao obterRegistoVisitaDao();
+
+    public abstract TrabalhosRealizadosDao obterTrabalhosRealizadosDao();
+
+
 
 
     public abstract TransferenciasDao obterTransferenciasDao();

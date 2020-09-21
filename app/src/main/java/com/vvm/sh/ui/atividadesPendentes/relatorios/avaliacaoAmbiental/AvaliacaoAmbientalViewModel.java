@@ -198,6 +198,8 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
                                 @Override
                                 public void onSuccess(Object o) {
                                     messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_GRAVADOS_SUCESSO));
+
+                                    //TODO: remover a atividade pendente
                                 }
 
                                 @Override
@@ -239,6 +241,7 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
                                 @Override
                                 public void accept(Object o) throws Exception {
                                     messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_EDITADOS_SUCESSO));
+                                    //TODO: remover a atividade pendente
                                 }
                             }
                     );
@@ -656,6 +659,7 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
                             @Override
                             public void onSuccess(Object o) {
                                 messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_REMOVIDOS_SUCESSO));
+                                //TODO: remover a atividade pendente
                             }
 
                             @Override

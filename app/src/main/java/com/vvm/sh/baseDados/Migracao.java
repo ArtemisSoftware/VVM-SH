@@ -15,7 +15,7 @@ public class Migracao {
 
         Migration migrations [] =  new Migration []{
                 MIGRACAO_1_2, MIGRACAO_2_3, MIGRACAO_3_4, MIGRACAO_4_5, MIGRACAO_5_6, MIGRACAO_6_7, MIGRACAO_7_8, MIGRACAO_8_9, MIGRACAO_9_10, MIGRACAO_10_11,
-                MIGRACAO_11_12, MIGRACAO_12_13, MIGRACAO_13_14, MIGRACAO_14_15, MIGRACAO_15_16, MIGRACAO_16_17, MIGRACAO_17_18
+                MIGRACAO_11_12, MIGRACAO_12_13, MIGRACAO_13_14, MIGRACAO_14_15, MIGRACAO_15_16, MIGRACAO_16_17, MIGRACAO_17_18, MIGRACAO_18_19
 
         };
 
@@ -29,14 +29,24 @@ public class Migracao {
             try {
 
 
-                database.execSQL("CREATE TABLE IF NOT EXISTS 'parqueExtintoresResultado' ("
-                        + "'id' INTEGER NOT NULL , "
-                        + "'valido' INTEGER NOT NULL, "
-                        + "'dataValidade' INTEGER NOT NULL, "
-                        + "PRIMARY KEY (id), "
-                        + "FOREIGN KEY (id) REFERENCES parqueExtintores (id)  ON DELETE CASCADE) ");
+                database.execSQL("CREATE TABLE IF NOT EXISTS 'registoVisitaResultado' ("
+                        + "'idTarefa' INTEGER NOT NULL , "
+                        + "'recebidoPor' TEXT NOT NULL, "
+                        + "'funcao' TEXT NOT NULL, "
+                        + "'observacao' TEXT, "
+                        + "PRIMARY KEY (idTarefa), "
+                        + "FOREIGN KEY (idTarefa) REFERENCES tarefas (idTarefa)  ON DELETE CASCADE) ");
 
 
+
+                database.execSQL("CREATE TABLE IF NOT EXISTS 'trabalhoRealizadoResultado' ("
+                        + "'idTarefa' INTEGER NOT NULL , "
+                        + "'id' INTEGER NOT NULL, "
+                        + "'informacao' TEXT, "
+                        + "PRIMARY KEY (idTarefa), "
+                        + "FOREIGN KEY (idTarefa) REFERENCES tarefas (idTarefa)  ON DELETE CASCADE) ");
+
+                database.execSQL("CREATE INDEX index_trabalhoRealizadoResultado_idTarefa ON trabalhoRealizadoResultado (idTarefa)");
 
             }
             catch(SQLException e){
@@ -45,6 +55,9 @@ public class Migracao {
             }
         }
     };
+
+
+
 
 
     public static final Migration MIGRACAO_17_18 = new Migration(17, 18) {

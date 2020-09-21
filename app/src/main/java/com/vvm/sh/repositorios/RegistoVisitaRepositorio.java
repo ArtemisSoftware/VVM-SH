@@ -11,6 +11,7 @@ import com.vvm.sh.baseDados.entidades.TrabalhoRealizadoResultado;
 
 import java.util.List;
 
+import io.reactivex.Maybe;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 
@@ -68,4 +69,8 @@ public class RegistoVisitaRepositorio {
         return trabalhosRealizadosDao.obterTrabalhosRealizados(idTarefa);
     }
 
+
+    public Maybe<RegistoVisitaResultado> obterRegisto(int idTarefa){
+        return registoVisitaDao.obterRegistoVisita(idTarefa);
+    }
 }

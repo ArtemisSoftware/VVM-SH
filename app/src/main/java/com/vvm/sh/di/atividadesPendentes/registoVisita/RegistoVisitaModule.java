@@ -2,7 +2,9 @@ package com.vvm.sh.di.atividadesPendentes.registoVisita;
 
 import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.baseDados.dao.RegistoVisitaDao;
+import com.vvm.sh.baseDados.dao.ResultadoDao;
 import com.vvm.sh.baseDados.dao.TrabalhosRealizadosDao;
+import com.vvm.sh.repositorios.RegistoVisitaRepositorio;
 
 import dagger.Module;
 import dagger.Provides;
@@ -32,5 +34,17 @@ public class RegistoVisitaModule {
         return dao;
     }
 
+
+
+    @RegistoVisitaScope
+    @Provides
+    RegistoVisitaRepositorio provideRegistoVisitaRepositorio(RegistoVisitaDao registoVisitaDao,
+                                                             TrabalhosRealizadosDao trabalhosRealizadosDao, ResultadoDao resultadoDao) {
+
+        RegistoVisitaRepositorio repositorio = new RegistoVisitaRepositorio(registoVisitaDao, trabalhosRealizadosDao, resultadoDao);
+
+        //Timber.d("Providing PokemonRepository: " + repository);
+        return repositorio;
+    }
 
 }

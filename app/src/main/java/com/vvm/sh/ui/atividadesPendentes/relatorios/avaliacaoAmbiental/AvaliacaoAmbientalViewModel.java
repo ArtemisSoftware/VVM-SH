@@ -192,7 +192,7 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
                             new SingleObserver<Object>() {
                                 @Override
                                 public void onSubscribe(Disposable d) {
-
+                                    disposables.add(d);
                                 }
 
                                 @Override
@@ -641,6 +641,11 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
     //---------------------
 
 
+    /**
+     * Metodo que permite remover uma avaliacao ambiental
+     * @param registo os dados do registo
+     * @param tipo o tipo de relatorio
+     */
     public void remover(AvaliacaoAmbientalResultado registo, int tipo) {
 
         resultadosAvaliacoes.clear();
@@ -653,7 +658,7 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
                         new SingleObserver<Object>() {
                             @Override
                             public void onSubscribe(Disposable d) {
-
+                                disposables.add(d);
                             }
 
                             @Override

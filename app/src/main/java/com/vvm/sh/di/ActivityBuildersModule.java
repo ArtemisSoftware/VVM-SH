@@ -49,10 +49,10 @@ import com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.Avaliacao
 import com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.AvaliacoesAmbientaisActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.RelatorioAvaliacaoAmbientalActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.LevantamentosActivity;
-import com.vvm.sh.ui.atividadesPendentes.relatorios.registoVisita.DadosClienteActivity;
-import com.vvm.sh.ui.atividadesPendentes.relatorios.registoVisita.DialogoTrabalhoRealizado;
-import com.vvm.sh.ui.atividadesPendentes.relatorios.registoVisita.RegistoVisitaActivity;
-import com.vvm.sh.ui.atividadesPendentes.relatorios.registoVisita.TrabalhoRealizadoActivity;
+import com.vvm.sh.ui.registoVisita.DadosClienteActivity;
+import com.vvm.sh.ui.registoVisita.DialogoTrabalhoRealizado;
+import com.vvm.sh.ui.registoVisita.RegistoVisitaActivity;
+import com.vvm.sh.ui.registoVisita.TrabalhoRealizadoActivity;
 import com.vvm.sh.ui.autenticacao.PerfilActivity;
 import com.vvm.sh.ui.cliente.SinistralidadeActivity;
 import com.vvm.sh.ui.parqueExtintores.ExtintoresActivity;

@@ -1,12 +1,11 @@
-package com.vvm.sh.ui.atividadesPendentes.relatorios.registoVisita;
+package com.vvm.sh.ui.registoVisita;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
 
 import com.vvm.sh.R;
-import com.vvm.sh.ui.atividadesPendentes.relatorios.registoVisita.adaptadores.OnRegistoVisitaListener;
-import com.vvm.sh.util.metodos.PreferenciasUtil;
+import com.vvm.sh.ui.registoVisita.adaptadores.OnRegistoVisitaListener;
 
 public class TrabalhoRealizadoActivity extends AppCompatActivity
     implements OnRegistoVisitaListener {

@@ -10,12 +10,9 @@
         <import type="android.view.View"/>
         <import type="com.vvm.sh.util.metodos.StringUtil"/>
         <import type="com.vvm.sh.util.metodos.DatasUtil"/>
-<!--
         <variable
             name="viewmodel"
-            type="com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.AvaliacaoAmbientalViewModel"/>
-
--->
+            type="com.vvm.sh.ui.registoVisita.RegistoVisitaViewModel"/>
         <variable
             name="bloquear"
             type="Boolean"/>

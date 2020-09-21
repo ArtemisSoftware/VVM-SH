@@ -1,4 +1,4 @@
-package com.vvm.sh.ui.atividadesPendentes.relatorios.registoVisita;
+package com.vvm.sh.ui.registoVisita;
 
 import androidx.lifecycle.MutableLiveData;
 
@@ -10,7 +10,6 @@ import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;

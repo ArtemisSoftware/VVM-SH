@@ -14,11 +14,11 @@
 
         <variable
             name="viewmodel"
-            type="com.vvm.sh.ui.atividadesPendentes.relatorios.registoVisita.RegistoVisitaViewModel"/>
+            type="com.vvm.sh.ui.registoVisita.RegistoVisitaViewModel"/>
 
         <variable
             name="listener"
-            type="com.vvm.sh.ui.atividadesPendentes.relatorios.registoVisita.adaptadores.OnRegistoVisitaListener"/>
+            type="com.vvm.sh.ui.registoVisita.adaptadores.OnRegistoVisitaListener"/>
 <!--
                 <variable
                     name="bloquear"

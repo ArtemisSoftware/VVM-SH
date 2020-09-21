@@ -1,9 +1,7 @@
-package com.vvm.sh.ui.atividadesPendentes.relatorios.registoVisita;
+package com.vvm.sh.ui.registoVisita;
 
 import android.os.Bundle;
 import android.view.View;
-
-import androidx.lifecycle.Observer;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.mobsandgeeks.saripaar.ValidationError;
@@ -13,7 +11,6 @@ import com.vvm.sh.R;
 import com.vvm.sh.baseDados.entidades.TrabalhoRealizadoResultado;
 import com.vvm.sh.databinding.DialogoTrabalhoRealizadoBinding;
 import com.vvm.sh.ui.BaseDaggerDialogoPersistenteFragment;
-import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
 

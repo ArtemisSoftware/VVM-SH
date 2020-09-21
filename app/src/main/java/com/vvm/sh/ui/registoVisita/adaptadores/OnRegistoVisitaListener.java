@@ -1,4 +1,4 @@
-package com.vvm.sh.ui.atividadesPendentes.relatorios.registoVisita.adaptadores;
+package com.vvm.sh.ui.registoVisita.adaptadores;
 
 public interface OnRegistoVisitaListener {
 

@@ -1,12 +1,9 @@
-package com.vvm.sh.ui.atividadesPendentes.relatorios.registoVisita;
+package com.vvm.sh.ui.registoVisita;
 
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.lifecycle.Observer;
-import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
 import android.view.View;
-import android.widget.TextView;
 
 import com.google.android.material.textfield.TextInputEditText;
 import com.mobsandgeeks.saripaar.ValidationError;
@@ -15,10 +12,8 @@ import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.vvm.sh.R;
 import com.vvm.sh.baseDados.entidades.RegistoVisitaResultado;
 import com.vvm.sh.databinding.ActivityDadosClienteBinding;
-import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
-import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import java.util.List;
 

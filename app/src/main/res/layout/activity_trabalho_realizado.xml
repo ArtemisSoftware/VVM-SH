@@ -16,6 +16,13 @@
 
 -->
 
+        <variable
+            name="listener"
+            type="com.vvm.sh.ui.registoVisita.adaptadores.OnRegistoVisitaListener"/>
+
+        <variable
+            name="viewmodel"
+            type="com.vvm.sh.ui.registoVisita.RegistoVisitaViewModel"/>
     </data>
 
 

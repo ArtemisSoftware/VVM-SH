@@ -1,4 +1,4 @@
-package com.vvm.sh.ui.atividadesPendentes.relatorios.registoVisita.modelos;
+package com.vvm.sh.ui.registoVisita.modelos;
 
 import androidx.room.Ignore;
 

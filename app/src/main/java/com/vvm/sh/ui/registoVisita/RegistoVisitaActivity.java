@@ -1,4 +1,4 @@
-package com.vvm.sh.ui.atividadesPendentes.relatorios.registoVisita;
+package com.vvm.sh.ui.registoVisita;
 
 import androidx.appcompat.app.AppCompatActivity;
 

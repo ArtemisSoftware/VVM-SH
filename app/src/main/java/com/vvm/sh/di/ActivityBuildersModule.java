@@ -20,6 +20,7 @@ import com.vvm.sh.di.atividadesPendentes.levantamentos.LevantamentosModule;
 import com.vvm.sh.di.atividadesPendentes.levantamentos.LevantamentosScope;
 import com.vvm.sh.di.atividadesPendentes.levantamentos.LevantamentosViewModelsModule;
 import com.vvm.sh.di.atividadesPendentes.registoVisita.RegistoVisitaModule;
+import com.vvm.sh.di.atividadesPendentes.registoVisita.RegistoVisitaScope;
 import com.vvm.sh.di.atividadesPendentes.registoVisita.RegistoVisitaViewModelsModule;
 import com.vvm.sh.di.ocorrencias.OcorrenciasModule;
 import com.vvm.sh.di.ocorrencias.OcorrenciasScope;
@@ -379,27 +380,27 @@ public abstract class ActivityBuildersModule {
     //----------------------
 
 
-    @PesquisaScope
+    @RegistoVisitaScope
     @ContributesAndroidInjector(
             modules = { RegistoVisitaViewModelsModule.class, RegistoVisitaModule.class }
     )
     abstract RegistoVisitaActivity contributeRegistoVisitaActivity();
 
 
-    @PesquisaScope
+    @RegistoVisitaScope
     @ContributesAndroidInjector(
             modules = { RegistoVisitaViewModelsModule.class, RegistoVisitaModule.class }
     )
     abstract DadosClienteActivity contributeDadosClienteActivity();
 
 
-    @PesquisaScope
+    @RegistoVisitaScope
     @ContributesAndroidInjector(
             modules = { RegistoVisitaViewModelsModule.class, RegistoVisitaModule.class }
     )
     abstract TrabalhoRealizadoActivity contributeTrabalhoRealizadoActivity();
 
-    @PesquisaScope
+    @RegistoVisitaScope
     @ContributesAndroidInjector(
             modules = { RegistoVisitaViewModelsModule.class, RegistoVisitaModule.class }
     )

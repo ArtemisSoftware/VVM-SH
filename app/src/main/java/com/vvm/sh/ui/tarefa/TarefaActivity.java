@@ -14,6 +14,7 @@ import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.anomalias.AnomaliasActivity;
 import com.vvm.sh.ui.atividadesExecutadas.AtividadesExecutadasActivity;
 import com.vvm.sh.ui.atividadesPendentes.AtividadesPendentesActivity;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.registoVisita.RegistoVisitaActivity;
 import com.vvm.sh.ui.cliente.InformacaoActivity;
 import com.vvm.sh.ui.cliente.SinistralidadeActivity;
 import com.vvm.sh.ui.crossSelling.CrossSellingActivity;
@@ -117,6 +118,10 @@ public class TarefaActivity extends BaseDaggerActivity
                 intent = new Intent(this, QuadroPessoalActivity.class);
                 break;
 
+            case Identificadores.OpcoesCliente.OPCAO_REGISTO_VISITA:
+
+                intent = new Intent(this, RegistoVisitaActivity.class);
+                break;
 
 
             case Identificadores.OpcoesCliente.OPCAO_EMAIL:

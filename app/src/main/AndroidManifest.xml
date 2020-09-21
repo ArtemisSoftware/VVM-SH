@@ -15,10 +15,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.atividadesPendentes.relatorios.registoVisita.RegistoVisitaActivity"></activity>
+        <activity android:name=".ui.atividadesPendentes.relatorios.registoVisita.RegistoVisitaActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
         <activity android:name=".ui.atividadesPendentes.relatorios.checklist.ChecklistActivity" />
-        <activity android:name=".ui.atividadesPendentes.relatorios.registoVisita.DadosClienteActivity" />
-        <activity android:name=".ui.atividadesPendentes.relatorios.registoVisita.TrabalhoRealizadoActivity" />
+        <activity android:name=".ui.atividadesPendentes.relatorios.registoVisita.DadosClienteActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".ui.atividadesPendentes.relatorios.registoVisita.TrabalhoRealizadoActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".ui.atividadesPendentes.relatorios.levantamentos.RiscoRegistoActivity" />
         <activity android:name=".ui.atividadesPendentes.relatorios.levantamentos.RiscosActivity" />
         <activity android:name=".ui.atividadesPendentes.relatorios.levantamentos.CategoriasProfissionaisActivity" />

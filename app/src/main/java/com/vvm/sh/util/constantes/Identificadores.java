@@ -108,6 +108,11 @@ public class Identificadores {
         public static final int ICON_QUADRO_PESSOAL= R.drawable.ic_quadro_pessoal_24dp;
 
 
+        public static final int OPCAO_REGISTO_VISITA = 7;
+        public static final String REGISTO_VISITA = "Registo de visita";
+        public static final int ICON_REGISTO_VISITA= R.drawable.ic_registo_visita_24dp;
+
+
         public static final int OPCAO_ANOMALIA = 6;
     }
 

@@ -48,7 +48,9 @@ public class OpcaoCliente {
     public static OpcaoCliente quadroPessoal() {
         return new OpcaoCliente(OPCAO_QUADRO_PESSOAL, QUADRO_PESSOAL, ICON_QUADRO_PESSOAL, Identificadores.App.APP_ST);
     }
-
+    public static OpcaoCliente registoVisita() {
+        return new OpcaoCliente(OPCAO_REGISTO_VISITA, REGISTO_VISITA, ICON_REGISTO_VISITA, Identificadores.App.APP_ST);
+    }
 
     @Override
     public boolean equals(Object o) {

@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+
+    <data>
+
+        <import type="com.vvm.sh.BuildConfig"/>
+        <import type="com.vvm.sh.util.metodos.StringUtil"/>
+        <import type="android.view.View"/>
+
+        <variable
+            name="questao"
+            type="com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.modelos.Questao"/>
+
+
+        <variable
+            name="bloquear"
+            type="Boolean"/>
+    </data>
+
+
+
+    <androidx.cardview.widget.CardView
+        style="@style/cartao">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <LinearLayout
+                android:id="@+id/linearLayout9"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginTop="16dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+                <TextView
+                    style="@style/txt_rotulo"
+                    android:layout_width="wrap_content"
+                    android:text="@{questao.registo.uid}" />
+
+                <TextView
+                    android:id="@+id/txt_view_pergunta"
+                    style="@style/textoDetalhe"
+                    android:layout_marginLeft="16dp"
+                    />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/lnr_lyt_resposta"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout9">
+
+
+                <at.markushi.ui.CircleButton
+                    android:id="@+id/crl_btn_registar"
+                    style="@style/btnCalendario"
+                    android:layout_marginEnd="1dp" />
+
+                <at.markushi.ui.CircleButton
+                    android:id="@+id/crl_btn_galeria"
+                    style="@style/btnCalendario"
+                    android:layout_marginEnd="1dp" />
+
+            </LinearLayout>
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+
+</layout>

@@ -43,7 +43,7 @@ public class Migracao {
                         + "'idTarefa' INTEGER NOT NULL , "
                         + "'id' INTEGER NOT NULL, "
                         + "'informacao' TEXT, "
-                        + "PRIMARY KEY (idTarefa), "
+                        + "PRIMARY KEY (idTarefa, id), "
                         + "FOREIGN KEY (idTarefa) REFERENCES tarefas (idTarefa)  ON DELETE CASCADE) ");
 
                 database.execSQL("CREATE INDEX index_trabalhoRealizadoResultado_idTarefa ON trabalhoRealizadoResultado (idTarefa)");

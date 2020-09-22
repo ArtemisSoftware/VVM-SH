@@ -1,4 +1,4 @@
-package com.vvm.sh.di.atividadesPendentes.registoVisita;
+package com.vvm.sh.di.registoVisita;
 
 import androidx.lifecycle.ViewModel;
 

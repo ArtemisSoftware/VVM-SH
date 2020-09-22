@@ -1,4 +1,4 @@
-package com.vvm.sh.di.atividadesPendentes.registoVisita;
+package com.vvm.sh.di.registoVisita;
 
 import java.lang.annotation.Documented;
 import java.lang.annotation.Retention;

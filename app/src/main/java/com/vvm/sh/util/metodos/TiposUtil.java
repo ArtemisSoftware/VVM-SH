@@ -22,6 +22,8 @@ public class TiposUtil {
 
     private static class MetodosTiposSH{
 
+        public static final String ATIVIDADES_RELATORIO_VISITA = "ObterActividadesRelatorioVisita";
+
         public static final String CATEGORIAS_PROFISSIONAIS = "GetCategoriasProfissionais";
         public static final String CONCLUSAO_MEDIDAS_RECOMENDADAS = "GetConclusaoMedidasRecomendadas";
         public static final String CONDICOES_CLIMATERICAS = "GetCondicoesClimatericas";
@@ -45,6 +47,10 @@ public class TiposUtil {
         public static final String TIPIFICACAO_OCORRENCIA = "Tipificacoes_Ocorrencia";
 
 
+
+
+        public static final String ATIVIDADES_RELATORIO_VISITA = "Atividades_Relatorio_Visita";
+
         public static final String CATEGORIAS_PROFISSIONAIS = "Categorias_Profissionais";
         public static final String CONDICOES_CLIMATERICAS = "Condicoes_Climatericas";
         public static final String CONCLUSAO_MEDIDAS_RECOMENDADAS = "Conclusao_Medidas_Recomendadas";
@@ -54,6 +60,7 @@ public class TiposUtil {
         public static final String TIPOS_ILUMINACAO = "Tipos_Iluminacao";
         public static final String ILUMINANCIA = "Iluminancia";
 
+        public static final MetodoApi METODO_ATIVIDADES_RELATORIO_VISITA = new MetodoApi(ATIVIDADES_RELATORIO_VISITA, null, MetodosTiposSH.ATIVIDADES_RELATORIO_VISITA);
         public static final MetodoApi METODO_CATEGORIAS_PROFISSIONAIS = new MetodoApi(CATEGORIAS_PROFISSIONAIS, null, MetodosTiposSH.CATEGORIAS_PROFISSIONAIS);
         public static final MetodoApi METODO_CONDICOES_CLIMATERICAS = new MetodoApi(CONDICOES_CLIMATERICAS, null, MetodosTiposSH.CONDICOES_CLIMATERICAS);
         public static final MetodoApi METODO_CONCLUSAO_MEDIDAS_RECOMENDADAS = new MetodoApi(CONCLUSAO_MEDIDAS_RECOMENDADAS, null, MetodosTiposSH.CONCLUSAO_MEDIDAS_RECOMENDADAS);
@@ -70,6 +77,7 @@ public class TiposUtil {
 
         public static final MetodoApi TIPOS [] = new MetodoApi []{
 
+                METODO_ATIVIDADES_RELATORIO_VISITA,
 
                 METODO_CATEGORIAS_PROFISSIONAIS,
                 METODO_CONDICOES_CLIMATERICAS,
@@ -155,6 +163,12 @@ public class TiposUtil {
 
 
 
+
+            case MetodosTiposSH.ATIVIDADES_RELATORIO_VISITA:
+            case MetodosTipos.ATIVIDADES_RELATORIO_VISITA:
+
+                metodo = MetodosTipos.METODO_ATIVIDADES_RELATORIO_VISITA;
+                break;
 
 
             case MetodosTiposSH.CATEGORIAS_PROFISSIONAIS:

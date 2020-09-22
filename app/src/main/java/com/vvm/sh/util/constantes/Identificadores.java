@@ -68,6 +68,7 @@ public class Identificadores {
     public class Imagens{
 
         public static final int IMAGEM_ASSINATURA_FORMANDO = 1;
+        public static final int IMAGEM_ASSINATURA_REGISTO_VISITA = 2;
     }
 
     public class Resultados {
@@ -79,6 +80,7 @@ public class Identificadores {
         public static final int ID_SINISTRALIDADE = 6;
         public static final int ID_PARQUE_EXTINTOR = 7;
         public static final int ID_QUADRO_PESSOAL = 8;
+        public static final int ID_REGISTO_VISITA = 9;
     }
 
     public class OpcoesCliente {

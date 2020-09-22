@@ -1,6 +1,7 @@
-package com.vvm.sh.di.atividadesPendentes.registoVisita;
+package com.vvm.sh.di.registoVisita;
 
 import com.vvm.sh.baseDados.VvmshBaseDados;
+import com.vvm.sh.baseDados.dao.ImagemDao;
 import com.vvm.sh.baseDados.dao.RegistoVisitaDao;
 import com.vvm.sh.baseDados.dao.ResultadoDao;
 import com.vvm.sh.baseDados.dao.TrabalhosRealizadosDao;
@@ -38,10 +39,10 @@ public class RegistoVisitaModule {
 
     @RegistoVisitaScope
     @Provides
-    RegistoVisitaRepositorio provideRegistoVisitaRepositorio(RegistoVisitaDao registoVisitaDao,
-                                                             TrabalhosRealizadosDao trabalhosRealizadosDao, ResultadoDao resultadoDao) {
+    RegistoVisitaRepositorio provideRegistoVisitaRepositorio(int api, RegistoVisitaDao registoVisitaDao,
+                                                             TrabalhosRealizadosDao trabalhosRealizadosDao, ImagemDao imagemDao, ResultadoDao resultadoDao) {
 
-        RegistoVisitaRepositorio repositorio = new RegistoVisitaRepositorio(registoVisitaDao, trabalhosRealizadosDao, resultadoDao);
+        RegistoVisitaRepositorio repositorio = new RegistoVisitaRepositorio(api, registoVisitaDao, trabalhosRealizadosDao, imagemDao,resultadoDao);
 
         //Timber.d("Providing PokemonRepository: " + repository);
         return repositorio;

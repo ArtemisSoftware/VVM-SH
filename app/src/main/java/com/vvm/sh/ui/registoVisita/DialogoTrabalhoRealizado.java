@@ -3,6 +3,9 @@ package com.vvm.sh.ui.registoVisita;
 import android.os.Bundle;
 import android.view.View;
 
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
+
 import com.google.android.material.textfield.TextInputEditText;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
@@ -10,11 +13,15 @@ import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.vvm.sh.R;
 import com.vvm.sh.baseDados.entidades.TrabalhoRealizadoResultado;
 import com.vvm.sh.databinding.DialogoTrabalhoRealizadoBinding;
+import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerDialogoPersistenteFragment;
+import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 
@@ -31,10 +38,10 @@ public class DialogoTrabalhoRealizado extends BaseDaggerDialogoPersistenteFragme
 
     private Validator validador;
 
-//    @Inject
-//    ViewModelProviderFactory providerFactory;
-//
-//    private RegistoVisitaViewModel viewModel;
+    @Inject
+    ViewModelProviderFactory providerFactory;
+
+    private RegistoVisitaViewModel viewModel;
 
 
 
@@ -61,7 +68,7 @@ public class DialogoTrabalhoRealizado extends BaseDaggerDialogoPersistenteFragme
         validador = new Validator(this);
         validador.setValidationListener(this);
 
-        //viewModel = ViewModelProviders.of(this, providerFactory).get(RegistoVisitaViewModel.class);
+        viewModel = ViewModelProviders.of(this, providerFactory).get(RegistoVisitaViewModel.class);
         binding = (DialogoTrabalhoRealizadoBinding) activityBaseBinding;
     }
 
@@ -77,29 +84,29 @@ public class DialogoTrabalhoRealizado extends BaseDaggerDialogoPersistenteFragme
 
     @Override
     protected void subscreverObservadores() {
-//        viewModel.observarMessagem().observe(this, new Observer<Recurso>() {
-//            @Override
-//            public void onChanged(Recurso recurso) {
-//
-//                switch (recurso.status){
-//
-//                    case SUCESSO:
-//
-//                        dialogo.sucesso(recurso.messagem, listener);
-//                        break;
-//
-//                    case ERRO:
-//
-//                        dialogo.erro(recurso.messagem);
-//                        break;
-//
-//                    default:
-//                        break;
-//                }
-//
-//            }
-//        });
-//
+        viewModel.observarMessagem().observe(this, new Observer<Recurso>() {
+            @Override
+            public void onChanged(Recurso recurso) {
+
+                switch (recurso.status){
+
+                    case SUCESSO:
+
+                        dialogo.sucesso(recurso.messagem, listener);
+                        break;
+
+                    case ERRO:
+
+                        dialogo.erro(recurso.messagem);
+                        break;
+
+                    default:
+                        break;
+                }
+
+            }
+        });
+
     }
 
     @Override
@@ -113,7 +120,7 @@ public class DialogoTrabalhoRealizado extends BaseDaggerDialogoPersistenteFragme
         int id = getArguments().getInt(ARGUMENTO_ID);
 
         TrabalhoRealizadoResultado resultado = new TrabalhoRealizadoResultado(PreferenciasUtil.obterIdTarefa(getContext()), id, binding.txtInpObservacao.getText().toString());
-        //viewModel.gravar(resultado);
+        viewModel.gravar(resultado);
     }
 
     @Override

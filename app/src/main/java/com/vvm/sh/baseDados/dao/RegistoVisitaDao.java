@@ -7,6 +7,7 @@ import com.vvm.sh.baseDados.BaseDao;
 import com.vvm.sh.baseDados.entidades.RegistoVisitaResultado;
 import com.vvm.sh.ui.registoVisita.modelos.DadosCliente;
 import com.vvm.sh.ui.registoVisita.modelos.RegistoVisita;
+import com.vvm.sh.util.constantes.Identificadores;
 
 import io.reactivex.Maybe;
 import io.reactivex.Observable;
@@ -15,12 +16,31 @@ import io.reactivex.Observable;
 abstract public class RegistoVisitaDao implements BaseDao<RegistoVisitaResultado> {
 
 
-    @Query("SELECT * FROM registoVisitaResultado WHERE idTarefa =:idTarefa")
+    @Query("SELECT * FROM tarefas WHERE idTarefa =:idTarefa")
     abstract public Maybe<DadosCliente> obterDadosCliente(int idTarefa);
 
-    @Query("SELECT CASE WHEN recebidoPor IS NULL OR funcao IS NULL THEN 0  ELSE 1 END as clienteValido " +
-            "FROM registoVisitaResultado " +
-            "WHERE idTarefa =:idTarefa")
+    @Query("SELECT CASE WHEN recebidoPor IS NULL OR funcao IS NULL THEN 0  ELSE 1 END as clienteValido, " +
+            "trabalhoValido, numeroTrabalhos, " +
+            "CASE WHEN IFNULL(img.idTarefa, 0) = 0 THEN 0 ELSE 1 END as assinaturaValido " +
+            "FROM registoVisitaResultado as rg_visit_res " +
+            "" +
+            "LEFT JOIN(" +
+            "SELECT idTarefa, CASE WHEN COUNT(VALIDO) = SUM(VALIDO) AND COUNT(VALIDO) > 0 THEN 1 ELSE 0 END trabalhoValido " +
+            "FROM ( " +
+            "SELECT idTarefa, CASE WHEN COUNT(id) = 0 THEN 0 ELSE 1 END as valido " +
+            "FROM trabalhoRealizadoResultado " +
+            "GROUP BY idTarefa " +
+            ") as resultado" +
+            ") as validade_trab_real ON rg_visit_res.idTarefa = validade_trab_real.idTarefa " +
+
+            "LEFT JOIN(SELECT idTarefa, COUNT(id) as numeroTrabalhos FROM trabalhoRealizadoResultado GROUP BY idTarefa) as ct_trab_rl " +
+            "ON rg_visit_res.idTarefa = ct_trab_rl.idTarefa " +
+
+
+            "LEFT JOIN(SELECT idTarefa FROM imagensResultado WHERE origem = " + Identificadores.Imagens.IMAGEM_ASSINATURA_REGISTO_VISITA + ") as img " +
+            "ON rg_visit_res.idTarefa = img.idTarefa " +
+
+            "WHERE rg_visit_res.idTarefa =:idTarefa")
     abstract public Observable<RegistoVisita> obterValidadeRegistoVisita(int idTarefa);
 
 

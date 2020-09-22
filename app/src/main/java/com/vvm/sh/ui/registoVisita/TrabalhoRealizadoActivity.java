@@ -36,7 +36,7 @@ public class TrabalhoRealizadoActivity extends BaseDaggerActivity
 
         viewModel = ViewModelProviders.of(this, providerFactory).get(RegistoVisitaViewModel.class);
 
-        activityTrabalhoRealizadoBinding = (ActivityTrabalhoRealizadoBinding) activityTrabalhoRealizadoBinding;
+        activityTrabalhoRealizadoBinding = (ActivityTrabalhoRealizadoBinding) activityBinding;
         activityTrabalhoRealizadoBinding.setLifecycleOwner(this);
         activityTrabalhoRealizadoBinding.setListener(this);
         activityTrabalhoRealizadoBinding.setViewmodel(viewModel);

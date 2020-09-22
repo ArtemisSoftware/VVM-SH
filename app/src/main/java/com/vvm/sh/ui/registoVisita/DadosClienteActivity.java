@@ -67,10 +67,10 @@ public class DadosClienteActivity extends BaseDaggerActivity
 
         viewModel = ViewModelProviders.of(this, providerFactory).get(RegistoVisitaViewModel.class);
 
-        activityDadosClienteBinding = (ActivityDadosClienteBinding) activityDadosClienteBinding;
+        activityDadosClienteBinding = (ActivityDadosClienteBinding) activityBinding;
         activityDadosClienteBinding.setLifecycleOwner(this);
         activityDadosClienteBinding.setViewmodel(viewModel);
-
+        activityDadosClienteBinding.setBloquear(PreferenciasUtil.agendaEditavel(this));
         subscreverObservadores();
 
 

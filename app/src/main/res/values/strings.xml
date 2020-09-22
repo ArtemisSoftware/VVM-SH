@@ -386,4 +386,7 @@
     <string name="dados_cliente">Dados do cliente</string>
     <string name="trabalhos_realizados">Trabalhos realizados</string>
     <string name="registo_visita">Registo de visita</string>
+    <string name="pdf">Pdf</string>
+    <string name="previsualizar_pdf">Pre-visualizar pdf</string>
+    <string name="enviar_pdf">Enviar pdf</string>
 </resources>

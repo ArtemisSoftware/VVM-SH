@@ -2,13 +2,16 @@ package com.vvm.sh.ui.registoVisita;
 
 import androidx.lifecycle.MutableLiveData;
 
+import com.vvm.sh.baseDados.entidades.ImagemResultado;
 import com.vvm.sh.baseDados.entidades.RegistoVisitaResultado;
-import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.baseDados.entidades.TrabalhoRealizadoResultado;
 import com.vvm.sh.repositorios.RegistoVisitaRepositorio;
 import com.vvm.sh.ui.registoVisita.modelos.DadosCliente;
 import com.vvm.sh.ui.registoVisita.modelos.RegistoVisita;
+import com.vvm.sh.ui.registoVisita.modelos.TrabalhoRealizado;
 import com.vvm.sh.util.Recurso;
+import com.vvm.sh.util.ResultadoId;
+import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
@@ -21,6 +24,7 @@ import io.reactivex.Observer;
 import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 public class RegistoVisitaViewModel extends BaseViewModel {
@@ -30,7 +34,7 @@ public class RegistoVisitaViewModel extends BaseViewModel {
 
     public MutableLiveData<RegistoVisita> relatorio;
     public MutableLiveData<DadosCliente> registoVisita;
-    public MutableLiveData<List<Tipo>> trabalhos;
+    public MutableLiveData<List<TrabalhoRealizado>> trabalhos;
 
 
     @Inject
@@ -69,7 +73,8 @@ public class RegistoVisitaViewModel extends BaseViewModel {
 
                             @Override
                             public void onSuccess(Long aLong) {
-                               //TODO: adicionar aos resultados
+                                messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_GRAVADOS_SUCESSO));
+                                gravarResultado(registoVisitaRepositorio.resultadoDao, registo.idTarefa, ResultadoId.REGISTO_VISITA);
                             }
 
                             @Override
@@ -81,13 +86,14 @@ public class RegistoVisitaViewModel extends BaseViewModel {
                 );
     }
 
+
     /**
      * Metodo que permite gravar um registo
      * @param registo os dados do registo
      */
     public void gravar(RegistoVisitaResultado registo){
 
-        if(registoVisita.getValue() == null){
+        if(registoVisita.getValue().registo == null){
 
             registoVisitaRepositorio.inserir(registo)
                     .subscribeOn(Schedulers.io())
@@ -103,7 +109,7 @@ public class RegistoVisitaViewModel extends BaseViewModel {
                                 @Override
                                 public void onSuccess(Long aLong) {
                                     messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_GRAVADOS_SUCESSO));
-                                    //TODO: adicionar aos resultados
+                                    gravarResultado(registoVisitaRepositorio.resultadoDao, registo.idTarefa, ResultadoId.REGISTO_VISITA);
                                 }
 
                                 @Override
@@ -128,7 +134,7 @@ public class RegistoVisitaViewModel extends BaseViewModel {
                                 @Override
                                 public void onSuccess(Integer integer) {
                                     messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_EDITADOS_SUCESSO));
-                                    //TODO: adicionar aos resultados
+                                    gravarResultado(registoVisitaRepositorio.resultadoDao, registo.idTarefa, ResultadoId.REGISTO_VISITA);
                                 }
 
                                 @Override
@@ -139,14 +145,41 @@ public class RegistoVisitaViewModel extends BaseViewModel {
 
                     );
         }
+    }
 
 
+    /**
+     * Metodo que permite gravar um registo
+     * @param idTarefa o identificador da tarefa
+     * @param imagem os dados da imagem
+     */
+    public void gravar(int idTarefa, byte[] imagem) {
+
+        ImagemResultado imagemResultado = new ImagemResultado(idTarefa, idTarefa, Identificadores.Imagens.IMAGEM_ASSINATURA_REGISTO_VISITA, imagem);
+
+        Disposable d = registoVisitaRepositorio.gravarAssinatura(imagemResultado)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .toList()
+                .subscribe(
+
+                        new Consumer<List<? extends Number>>() {
+                            @Override
+                            public void accept(List<? extends Number> numbers) throws Exception {
+                                messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_GRAVADOS_SUCESSO));
+                                gravarResultado(registoVisitaRepositorio.resultadoDao, idTarefa, ResultadoId.REGISTO_VISITA);
+                            }
+                        }
+                );
+
+        disposables.add(d);
     }
 
 
     //--------------------
     //OBTER
     //--------------------
+
 
     /**
      * Metodo que permite obter a validade do registo de visita
@@ -185,7 +218,6 @@ public class RegistoVisitaViewModel extends BaseViewModel {
                         }
 
                 );
-
     }
 
 
@@ -227,8 +259,8 @@ public class RegistoVisitaViewModel extends BaseViewModel {
                         }
 
                 );
-
     }
+
 
 
     /**
@@ -244,14 +276,14 @@ public class RegistoVisitaViewModel extends BaseViewModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
 
-                        new Observer<List<Tipo>>() {
+                        new Observer<List<TrabalhoRealizado>>() {
                             @Override
                             public void onSubscribe(Disposable d) {
                                 disposables.add(d);
                             }
 
                             @Override
-                            public void onNext(List<Tipo> tipos) {
+                            public void onNext(List<TrabalhoRealizado> tipos) {
                                 trabalhos.setValue(tipos);
                                 showProgressBar(false);
                             }
@@ -273,12 +305,9 @@ public class RegistoVisitaViewModel extends BaseViewModel {
 
 
 
-
     //---------------------
     //REMOVER
     //---------------------
-
-
 
 
 
@@ -302,7 +331,7 @@ public class RegistoVisitaViewModel extends BaseViewModel {
 
                             @Override
                             public void onSuccess(Object o) {
-                                //TODO: remover a atividade pendente
+                                gravarResultado(registoVisitaRepositorio.resultadoDao, idTarefa, ResultadoId.REGISTO_VISITA);
                             }
 
                             @Override
@@ -312,6 +341,7 @@ public class RegistoVisitaViewModel extends BaseViewModel {
                         }
                 );
     }
+
 
 
 }

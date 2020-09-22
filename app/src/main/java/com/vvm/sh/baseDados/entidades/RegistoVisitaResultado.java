@@ -41,4 +41,11 @@ public class RegistoVisitaResultado {
         this.recebidoPor = recebidoPor;
         this.funcao = funcao;
     }
+
+    public RegistoVisitaResultado(int idTarefa, @NonNull String recebidoPor, @NonNull String funcao, String observacao) {
+        this.idTarefa = idTarefa;
+        this.recebidoPor = recebidoPor;
+        this.funcao = funcao;
+        this.observacao = observacao;
+    }
 }

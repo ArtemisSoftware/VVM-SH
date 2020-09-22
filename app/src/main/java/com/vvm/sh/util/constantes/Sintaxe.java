@@ -52,6 +52,7 @@ public class Sintaxe {
         public static final String READEMITIDO = "Reademitido";
         public static final String QUADRO_PESSOAL_INICIAL = "QP inicial";
         public static final String QUADRO_PESSOAL = "Quadro pessoal";
+        public static final String REGISTO_VISITA = "Registo de visita";
     }
 
     public class Opcoes{

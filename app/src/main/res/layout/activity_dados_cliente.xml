@@ -220,6 +220,7 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/txt_inp_observacao"
                             style="@style/modifiedEditText"
+                            android:gravity="top|left"
                             android:text="@{viewmodel.registoVisita.registo.observacao}"
                             android:inputType="textMultiLine"
                             android:minLines="5"

@@ -15,7 +15,7 @@
 
         <variable
             name="trabalho"
-            type="com.vvm.sh.baseDados.entidades.Tipo" />
+            type="com.vvm.sh.ui.registoVisita.modelos.TrabalhoRealizado" />
 
         <variable
             name="listener"
@@ -48,7 +48,8 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:enabled="@{bloquear}"
-                android:text="@{trabalho.descricao, default=descricao}"
+                android:text="@{trabalho.tipo.descricao, default=descricao}"
+                android:checked="@{trabalho.selecionado()}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
             <!--
@@ -56,7 +57,7 @@
 
 
                 android:text="@{crossSelling.tipo.descricao, default=descricao}"
-                android:checked="@{crossSelling.selecionado}"
+
 
 
             -->
@@ -65,26 +66,24 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="24dp"
-
+                android:visibility="@{trabalho.possuiInformacao() ? View.VISIBLE : View.GONE}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/chk_box_item"
                 app:layout_constraintTop_toBottomOf="@+id/chk_box_item">
                 <!--
 
 
-                android:visibility="@{crossSelling.possuiSinaletica ? View.VISIBLE : View.GONE}"
+
 
 
                 -->
                 <TextView
                     android:id="@+id/textView9"
                     style="@style/textoDetalhe"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:layout_marginBottom="16dp"
-                    android:text="@string/dimensao_"
+                    android:text="@{trabalho.informacao, default=informacao}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent"
                     app:layout_constraintBottom_toBottomOf="parent" />

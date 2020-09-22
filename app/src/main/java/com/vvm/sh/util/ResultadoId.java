@@ -23,7 +23,9 @@ public enum ResultadoId {
     PARQUE_EXTINTOR(Identificadores.Resultados.ID_PARQUE_EXTINTOR, Sintaxe.Palavras.PARQUE_EXTINTOR),
 
 
-    QUADRO_PESSOAL(Identificadores.Resultados.ID_QUADRO_PESSOAL, Sintaxe.Palavras.QUADRO_PESSOAL);
+    QUADRO_PESSOAL(Identificadores.Resultados.ID_QUADRO_PESSOAL, Sintaxe.Palavras.QUADRO_PESSOAL),
+
+    REGISTO_VISITA(Identificadores.Resultados.ID_REGISTO_VISITA, Sintaxe.Palavras.REGISTO_VISITA);
 
 
     private final int value;

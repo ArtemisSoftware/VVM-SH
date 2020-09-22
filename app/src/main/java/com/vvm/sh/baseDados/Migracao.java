@@ -38,11 +38,20 @@ public class Migracao {
 
                 database.execSQL("CREATE TABLE IF NOT EXISTS 'areasChecklist' ("
                         + "'idChecklist' INTEGER NOT NULL , "
-                        + "'idArea' TEXT NOT NULL, "
+                        + "'idArea' INTEGER NOT NULL, "
                         + "'area' TEXT NOT NULL, "
                         + "PRIMARY KEY (idChecklist, idArea), "
                         + "FOREIGN KEY (idChecklist) REFERENCES checklist (id)  ON DELETE CASCADE) ");
 
+
+                database.execSQL("CREATE TABLE IF NOT EXISTS 'seccoesChecklist' ("
+                        + "'idChecklist' INTEGER NOT NULL , "
+                        + "'idArea' INTEGER NOT NULL, "
+                        + "'uid' TEXT NOT NULL, "
+                        + "'descricao' TEXT NOT NULL, "
+                        + "'tipo' TEXT NOT NULL, "
+                        + "PRIMARY KEY (idChecklist, idArea, uid), "
+                        + "FOREIGN KEY (idArea) REFERENCES areasChecklist (idArea)  ON DELETE CASCADE) ");
 
             }
             catch(SQLException e){

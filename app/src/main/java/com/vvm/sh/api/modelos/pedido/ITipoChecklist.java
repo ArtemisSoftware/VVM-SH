@@ -44,6 +44,8 @@ public class ITipoChecklist {
         @SerializedName("type")
         public String tipo;
 
+        @SerializedName("label")
+        public String descricao;
 
         @SerializedName("items")
         public List<IItem> items;

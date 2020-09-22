@@ -26,6 +26,6 @@ public class TrabalhoRealizadoViewHolder extends RecyclerView.ViewHolder impleme
 
     @Override
     public void onClick(View v) {
-       //-- onItemListener.onItemChecked(binding.getTrabalho(), ((CheckBox) v).isChecked());
+       onItemListener.onItemChecked(binding.getTrabalho().id, ((CheckBox) v).isChecked());
     }
 }

@@ -12,15 +12,20 @@
         <import type="com.vvm.sh.BuildConfig"/>
         <import type="com.vvm.sh.util.metodos.StringUtil"/>
         <import type="android.view.View"/>
-<!--
+
         <variable
-            name="crossSelling"
-            type="com.vvm.sh.ui.crossSelling.modelos.CrossSelling" />
+            name="trabalho"
+            type="com.vvm.sh.baseDados.entidades.Tipo" />
 
         <variable
             name="listener"
-            type="com.vvm.sh.ui.crossSelling.adaptadores.OnCrossSellingListener"/>
--->
+            type="com.vvm.sh.ui.registoVisita.adaptadores.OnRegistoVisitaListener"/>
+
+
+        <variable
+            name="bloquear"
+            type="Boolean" />
+
     </data>
 
 
@@ -42,13 +47,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-
+                android:enabled="@{bloquear}"
+                android:text="@{trabalho.descricao, default=descricao}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
             <!--
 
 
-                            android:enabled="@{bloquear}"
+
                 android:text="@{crossSelling.tipo.descricao, default=descricao}"
                 android:checked="@{crossSelling.selecionado}"
 

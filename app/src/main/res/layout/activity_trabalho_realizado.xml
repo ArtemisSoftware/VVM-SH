@@ -5,16 +5,6 @@
 
     <data>
         <import type="java.util.List"/>
-        <!--
-                <variable
-                    name="listener"
-                    type="com.vvm.sh.ui.ocorrencias.adaptadores.OnOcorrenciaListener"/>
-
-        <variable
-            name="viewmodel"
-            type="com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.AvaliacaoAmbientalViewModel"/>
-
--->
 
         <variable
             name="listener"
@@ -40,13 +30,9 @@
             android:id="@+id/rcl_registos"
             style="@style/lista"
 
+            trabalhos="@{viewmodel.trabalhos}"
+            listener="@{listener}"
             tools:listitem="@layout/item_trabalho_realizado"/>
-
-        <!--
-        android:visibility="@{viewmodel.agenda.marcacaos.size() > 0 ? View.VISIBLE : View.GONE}"
-        ocorrencias="@{viewmodel.ocorrencias}"
-                            listener="@{listener}"
-        -->
 
 
 

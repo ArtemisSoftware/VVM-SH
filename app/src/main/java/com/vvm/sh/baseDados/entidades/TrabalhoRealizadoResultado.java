@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Ignore;
 import androidx.room.Index;
 
 import static androidx.room.ForeignKey.CASCADE;
@@ -28,6 +29,12 @@ public class TrabalhoRealizadoResultado {
     @ColumnInfo(name = "informacao")
     public String informacao;
 
+
+    @Ignore
+    public TrabalhoRealizadoResultado(int idTarefa, int id) {
+        this.idTarefa = idTarefa;
+        this.id = id;
+    }
 
     public TrabalhoRealizadoResultado(int idTarefa, int id, String informacao) {
         this.idTarefa = idTarefa;

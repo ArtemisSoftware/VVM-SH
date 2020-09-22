@@ -58,13 +58,6 @@ public class DadosClienteActivity extends BaseDaggerActivity
     TextInputEditText txt_inp_funcao;
 
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_dados_cliente);
-    }
-
-
 
     @Override
     protected void intActivity(Bundle savedInstanceState) {

@@ -9,6 +9,8 @@ public class Identificadores {
 
     public static final String VALOR_0 = "0";
     public static final String SEXO_OMISSAO = "1";
+    public static final int ID_FORMACAO_TRABALHO_REALIZADO = 15;
+
 
     public class Origens{
 

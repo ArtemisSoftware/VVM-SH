@@ -44,6 +44,18 @@ public class Migracao {
                         + "FOREIGN KEY (idChecklist) REFERENCES checklist (id)  ON DELETE CASCADE) ");
 
 
+                database.execSQL("CREATE TABLE IF NOT EXISTS 'areasChecklistResultado' ("
+                        + "'idAtividade' INTEGER NOT NULL , "
+                        + "'idChecklist'  INTEGER NOT NULL, "
+                        + "'idArea'  INTEGER NOT NULL, "
+                        + "'id'  INTEGER PRIMARY KEY NOT NULL, "
+                        + "'subDescricao' TEXT , "
+                        + "FOREIGN KEY (idAtividade) REFERENCES atividadesPendentes (id)  ON DELETE CASCADE) ");
+
+                database.execSQL("CREATE INDEX index_areasChecklistResultado_idAtividade ON areasChecklistResultado (idAtividade)");
+
+
+
                 database.execSQL("CREATE TABLE IF NOT EXISTS 'seccoesChecklist' ("
                         + "'idChecklist' INTEGER NOT NULL , "
                         + "'idArea' INTEGER NOT NULL, "
@@ -64,6 +76,43 @@ public class Migracao {
                         + "'codigo' TEXT, "
                         + "PRIMARY KEY (idChecklist, idArea, idSeccao, uid), "
                         + "FOREIGN KEY (idChecklist) REFERENCES checklist (id)  ON DELETE CASCADE) ");
+
+
+
+                database.execSQL("CREATE TABLE IF NOT EXISTS 'questionarioChecklistResultado' ("
+                        + "'idArea' INTEGER NOT NULL , "
+                        + "'idSeccao' TEXT NOT NULL, "
+                        + "'idItem' TEXT NOT NULL, "
+                        + "'id' INTEGER PRIMARY KEY NOT NULL, "
+                        + "'tipo' TEXT NOT NULL, "
+
+                        + "'resposta' TEXT, "
+                        + "'nr' INTEGER, "
+                        + "'ni' INTEGER, "
+
+                        + "'ut1' INTEGER, "
+                        + "'ut1_CategoriasRisco' INTEGER, "
+                        + "'ut1_LocalRisco_A' INTEGER, "
+                        + "'ut1_LocalRisco_B' INTEGER, "
+                        + "'ut1_LocalRisco_C' INTEGER, "
+                        + "'ut1_LocalRisco_D' INTEGER, "
+                        + "'ut1_LocalRisco_E' INTEGER, "
+                        + "'ut1_LocalRisco_F' INTEGER, "
+
+                        + "'ut2' INTEGER, "
+                        + "'ut2_CategoriasRisco' INTEGER, "
+                        + "'ut2_LocalRisco_A' INTEGER, "
+                        + "'ut2_LocalRisco_B' INTEGER, "
+                        + "'ut2_LocalRisco_C' INTEGER, "
+                        + "'ut2_LocalRisco_D' INTEGER, "
+                        + "'ut2_LocalRisco_E' INTEGER, "
+                        + "'ut2_LocalRisco_F' INTEGER, "
+
+                        + "'observacao' TEXT, "
+                        + "'origem' INTEGER NOT NULL, "
+                        + "PRIMARY KEY (idChecklist, idArea, idSeccao, uid), "
+                        + "FOREIGN KEY (idChecklist) REFERENCES checklist (id)  ON DELETE CASCADE) ");
+
 
             }
             catch(SQLException e){

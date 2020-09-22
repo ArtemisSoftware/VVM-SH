@@ -389,4 +389,5 @@
     <string name="pdf">Pdf</string>
     <string name="previsualizar_pdf">Pre-visualizar pdf</string>
     <string name="enviar_pdf">Enviar pdf</string>
+    <string name="adicionar_area">Adicionar área</string>
 </resources>

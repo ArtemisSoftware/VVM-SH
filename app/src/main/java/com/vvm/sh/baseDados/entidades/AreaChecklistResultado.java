@@ -11,23 +11,17 @@ import java.util.Date;
 
 import static androidx.room.ForeignKey.CASCADE;
 
-@Entity(tableName = "areasResultado",
+@Entity(tableName = "areasChecklistResultado",
         indices = {@Index(value="idAtividade", unique = false) },
         foreignKeys = @ForeignKey(entity = AtividadePendente.class,
                 parentColumns = "id",
                 childColumns = "idAtividade",
                 onDelete = CASCADE))
-public class AreaResultado {
+public class AreaChecklistResultado {
 
 
     @NonNull
     public int idAtividade;
-
-
-    @NonNull
-    @PrimaryKey(autoGenerate = true)
-    public int id;
-
 
     @NonNull
     public int idChecklist;
@@ -35,7 +29,12 @@ public class AreaResultado {
     @NonNull
     public int idArea;
 
-    public String descricao;
+    @NonNull
+    @PrimaryKey(autoGenerate = true)
+    public int id;
+
+
+    public String subDescricao;
 
 
 

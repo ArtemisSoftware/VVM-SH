@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.vvm.sh.BuildConfig"/>
+        <import type="android.view.View"/>
+        <import type="java.util.List"/>
+        <import type="com.vvm.sh.util.metodos.StringUtil"/>
+
+        <variable
+            name="seccao"
+            type="com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.modelos.Area" />
+
+
+        <variable
+            name="listener"
+            type="com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.adaptadores.OnChecklistListener"/>
+
+
+    </data>
+
+
+    <androidx.cardview.widget.CardView
+        style="@style/cartao">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <ImageView
+                android:id="@+id/imageView5"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginStart="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/textView84"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textView"
+                app:srcCompat="@drawable/ic_registo_incompleto" />
+
+
+            <TextView
+                android:id="@+id/textView"
+                style="@style/tituloCartao"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="@{StringUtil.formatarHtml(seccao.descricao), default=descricao}"
+                app:layout_constraintStart_toEndOf="@+id/imageView5"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView84"
+                style="@style/textoDetalhe"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp"
+                android:text="@string/itens_"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/textView"
+                app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+            <TextView
+                android:id="@+id/textView85"
+                style="@style/textoDetalhe"
+                android:layout_marginStart="16dp"
+                android:text="@{StringUtil.converterString(seccao.completos), default=0}"
+                app:layout_constraintStart_toEndOf="@+id/textView84"
+                app:layout_constraintTop_toTopOf="@+id/textView84" />
+
+            <TextView
+                android:id="@+id/textView86"
+                style="@style/textoDetalhe"
+                android:layout_marginStart="8dp"
+                android:text="/"
+                app:layout_constraintStart_toEndOf="@+id/textView85"
+                app:layout_constraintTop_toTopOf="@+id/textView84" />
+
+            <TextView
+                android:id="@+id/textView87"
+                style="@style/textoDetalhe"
+                android:layout_marginStart="8dp"
+                android:text="@{StringUtil.converterString(seccao.total), default=0}"
+                app:layout_constraintStart_toEndOf="@+id/textView86"
+                app:layout_constraintTop_toTopOf="@+id/textView84" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+</layout>
+
+
+
+

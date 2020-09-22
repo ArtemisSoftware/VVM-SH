@@ -16,9 +16,6 @@
             name="viewmodel"
             type="com.vvm.sh.ui.registoVisita.RegistoVisitaViewModel"/>
 
-        <variable
-            name="listener"
-            type="com.vvm.sh.ui.registoVisita.adaptadores.OnRegistoVisitaListener"/>
 <!--
                 <variable
                     name="bloquear"
@@ -137,8 +134,8 @@
 
 
                     <androidx.cardview.widget.CardView
-                        android:id="@+id/card_geral"
-                        style="@style/cartao"
+                        android:id="@+id/card_dados_cliente"
+                        style="@style/cartaoMini"
                         android:layout_marginTop="16dp"
                         app:layout_constraintTop_toBottomOf="@+id/chip"
                         app:layout_constraintStart_toStartOf="@+id/txt_titulo">
@@ -167,7 +164,7 @@
                                 android:layout_height="wrap_content"
                                 android:layout_marginTop="@dimen/distancia_vertical_titulo"
                                 android:layout_marginBottom="16dp"
-
+                                completudeRelatorio="@{viewmodel.relatorio.clienteValido}"
                                 android:theme="@style/Theme.MaterialComponents.Light"
                                 app:layout_constraintBottom_toBottomOf="parent"
                                 app:layout_constraintStart_toStartOf="@+id/textView2"
@@ -184,11 +181,11 @@
 
 
                     <androidx.cardview.widget.CardView
-                        android:id="@+id/card_avaliacoes"
+                        android:id="@+id/card_trabalhos_realizados"
                         style="@style/cartao"
 
                         android:layout_marginTop="16dp"
-                        app:layout_constraintTop_toBottomOf="@+id/card_geral"
+                        app:layout_constraintTop_toBottomOf="@+id/card_dados_cliente"
                         app:layout_constraintStart_toStartOf="@+id/txt_titulo">
 
                         <!-- android:onClick="@{() -> listener.showNoteDialog(note) }" -->
@@ -251,10 +248,10 @@
 
 
                     <androidx.cardview.widget.CardView
-                        android:id="@+id/card_medida_recomendada"
+                        android:id="@+id/card_assinatura"
                         style="@style/cartao"
                         android:layout_marginTop="16dp"
-                        app:layout_constraintTop_toBottomOf="@+id/card_avaliacoes"
+                        app:layout_constraintTop_toBottomOf="@+id/card_trabalhos_realizados"
                         app:layout_constraintStart_toStartOf="@+id/txt_titulo">
 
                         <!-- android:onClick="@{() -> listener.showNoteDialog(note) }" -->
@@ -295,10 +292,10 @@
 
 
                     <androidx.cardview.widget.CardView
-                        android:id="@+id/card_assinatura"
+                        android:id="@+id/card_envio"
                         style="@style/cartao"
                         android:layout_marginTop="16dp"
-                        app:layout_constraintTop_toBottomOf="@+id/card_medida_recomendada"
+                        app:layout_constraintTop_toBottomOf="@+id/card_assinatura"
                         app:layout_constraintStart_toStartOf="@+id/txt_titulo">
 
                         <!-- android:onClick="@{() -> listener.showNoteDialog(note) }" -->

@@ -21,24 +21,7 @@ import java.util.List;
 public class AvaliacaoAmbientalBinding {
 
 
-    @BindingAdapter({"completudeRelatorio"})
-    public static void setCompletudeRelatorio(Chip view, boolean estado) {
 
-        ChipDrawable chipDrawable = (ChipDrawable) view.getChipDrawable();
-
-        if(estado == true){
-
-            view.setText(view.getContext().getString(R.string.completo));
-            chipDrawable.setChipBackgroundColorResource(R.color.cor_completo);
-            view.setChipIcon(view.getContext().getResources().getDrawable(R.drawable.ic_executado_24dp));
-
-        }
-        else{
-            view.setText(view.getContext().getString(R.string.incompleto));
-            chipDrawable.setChipBackgroundColorResource(R.color.cor_incompleto);
-            view.setChipIcon(view.getContext().getResources().getDrawable(R.drawable.ic_nao_executado_24dp));
-        }
-    }
 
     @BindingAdapter({"equipamento"})
     public static void setNomeEquipamento(TextView view, int tipo) {

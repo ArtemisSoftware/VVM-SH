@@ -1,7 +1,10 @@
 package com.vvm.sh.ui.registoVisita;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProviders;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -12,26 +15,33 @@ import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.vvm.sh.R;
 import com.vvm.sh.baseDados.entidades.RegistoVisitaResultado;
 import com.vvm.sh.databinding.ActivityDadosClienteBinding;
+import com.vvm.sh.di.ViewModelProviderFactory;
+import com.vvm.sh.ui.BaseDaggerActivity;
+import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.constantes.Sintaxe;
+import com.vvm.sh.util.interfaces.OnDialogoListener;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
+import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 import butterknife.OnClick;
 
-public class DadosClienteActivity extends AppCompatActivity
+public class DadosClienteActivity extends BaseDaggerActivity
         implements Validator.ValidationListener{
 
 
-        private ActivityDadosClienteBinding activityDadosClienteBinding;
+    private ActivityDadosClienteBinding activityDadosClienteBinding;
 
 
-//        @Inject
-//        ViewModelProviderFactory providerFactory;
-//
-//
-//        private RegistoVisitaViewModel viewModel;
+    @Inject
+    ViewModelProviderFactory providerFactory;
+
+
+    private RegistoVisitaViewModel viewModel;
 
 
     private Validator validador;
@@ -55,66 +65,84 @@ public class DadosClienteActivity extends AppCompatActivity
     }
 
 
-//    @Override
-//    protected void intActivity(Bundle savedInstanceState) {
-//
-//        validador = new Validator(this);
-//        validador.setValidationListener(this);
-//
-//        viewModel = ViewModelProviders.of(this, providerFactory).get(RegistoVisitaViewModel.class);
-//
-//        activityDadosClienteBinding = (ActivityDadosClienteBinding) activityDadosClienteBinding;
-//        activityDadosClienteBinding.setLifecycleOwner(this);
-//        activityDadosClienteBinding.setViewmodel(viewModel);
-//
-//
-//        activityAvaliacaoIluminacaoRegistoBinding.setBloquear(PreferenciasUtil.agendaEditavel(this));
-//
-//        subscreverObservadores();
-//
-//
-//        viewModel.obterDadosCliente(PreferenciasUtil.obterIdTarefa(this));
-//    }
-//
+
+    @Override
+    protected void intActivity(Bundle savedInstanceState) {
+
+        validador = new Validator(this);
+        validador.setValidationListener(this);
+
+        viewModel = ViewModelProviders.of(this, providerFactory).get(RegistoVisitaViewModel.class);
+
+        activityDadosClienteBinding = (ActivityDadosClienteBinding) activityDadosClienteBinding;
+        activityDadosClienteBinding.setLifecycleOwner(this);
+        activityDadosClienteBinding.setViewmodel(viewModel);
+
+        subscreverObservadores();
 
 
-//
-//    @Override
-//    protected int obterLayout() {
-//        return R.layout.activity_dados_cliente;
-//    }
-//
-//    @Override
-//    protected BaseViewModel obterBaseViewModel() {
-//        return viewModel;
-//    }
-//
-//
-//
-//    @Override
-//    protected void subscreverObservadores() {
-//
-//        viewModel.observarMessagem().observe(this, new Observer<Recurso>() {
-//            @Override
-//            public void onChanged(Recurso recurso) {
-//
-//                switch (recurso.status){
-//
-//                    case SUCESSO:
-//
-//                        avancarRelatorio();
-//                        break;
-//
-//                    case ERRO:
-//
-//                        dialogo.erro(recurso.messagem);
-//                        break;
-//
-//                }
-//            }
-//        });
-//    }
-//
+        viewModel.obterRegisto(PreferenciasUtil.obterIdTarefa(this));
+    }
+
+
+
+
+    @Override
+    protected int obterLayout() {
+        return R.layout.activity_dados_cliente;
+    }
+
+    @Override
+    protected BaseViewModel obterBaseViewModel() {
+        return viewModel;
+    }
+
+
+
+    @Override
+    protected void subscreverObservadores() {
+
+        viewModel.observarMessagem().observe(this, new Observer<Recurso>() {
+            @Override
+            public void onChanged(Recurso recurso) {
+
+                switch (recurso.status){
+
+                    case SUCESSO:
+
+                        avancarRelatorio(recurso);
+                        break;
+
+                    case ERRO:
+
+                        dialogo.erro(recurso.messagem);
+                        break;
+
+                }
+            }
+        });
+    }
+
+
+    //-------------------
+    //Metodos locais
+    //-------------------
+
+    private void avancarRelatorio(Recurso recurso) {
+
+        OnDialogoListener avancarListener = new OnDialogoListener() {
+            @Override
+            public void onExecutar() {
+
+                Intent intent = new Intent(DadosClienteActivity.this, TrabalhoRealizadoActivity.class);
+                startActivity(intent);
+                finish();
+            }
+        };
+
+        dialogo.sucesso(recurso.messagem, avancarListener);
+    }
+
 
     //-------------------
     //EVENTOS
@@ -139,7 +167,7 @@ public class DadosClienteActivity extends AppCompatActivity
             resultado.observacao = observacao;
         }
 
-        //viewmodel.gravar(resultado);
+        viewModel.gravar(resultado);
 
     }
 

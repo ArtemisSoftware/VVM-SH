@@ -6,6 +6,8 @@ import com.vvm.sh.baseDados.entidades.RegistoVisitaResultado;
 import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.baseDados.entidades.TrabalhoRealizadoResultado;
 import com.vvm.sh.repositorios.RegistoVisitaRepositorio;
+import com.vvm.sh.ui.registoVisita.modelos.DadosCliente;
+import com.vvm.sh.ui.registoVisita.modelos.RegistoVisita;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
@@ -26,7 +28,8 @@ public class RegistoVisitaViewModel extends BaseViewModel {
     private final RegistoVisitaRepositorio registoVisitaRepositorio;
 
 
-    public MutableLiveData<RegistoVisitaResultado> registoVisita;
+    public MutableLiveData<RegistoVisita> relatorio;
+    public MutableLiveData<DadosCliente> registoVisita;
     public MutableLiveData<List<Tipo>> trabalhos;
 
 
@@ -35,6 +38,7 @@ public class RegistoVisitaViewModel extends BaseViewModel {
 
         this.registoVisitaRepositorio = registoVisitaRepositorio;
 
+        relatorio = new MutableLiveData<>();
         registoVisita = new MutableLiveData<>();
         trabalhos = new MutableLiveData<>();
 
@@ -145,6 +149,48 @@ public class RegistoVisitaViewModel extends BaseViewModel {
     //--------------------
 
     /**
+     * Metodo que permite obter a validade do registo de visita
+     * @param idTarefa o identificador da tarefa
+     */
+    public void obterValidadeRegistoVisita(int idTarefa){
+
+        showProgressBar(true);
+
+        registoVisitaRepositorio.obterValidadeRegistoVisita(idTarefa)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new Observer<RegistoVisita>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onNext(RegistoVisita registoVisita) {
+                                relatorio.setValue(registoVisita);
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onComplete() {
+                                showProgressBar(false);
+                            }
+                        }
+
+                );
+
+    }
+
+
+
+    /**
      * Metodo que permite obter o registo
      * @param idTarefa o identificador da tarefa
      */
@@ -152,20 +198,20 @@ public class RegistoVisitaViewModel extends BaseViewModel {
 
         showProgressBar(true);
 
-        registoVisitaRepositorio.obterRegisto(idTarefa)
+        registoVisitaRepositorio.obterDadosCliente(idTarefa)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
 
-                        new MaybeObserver<RegistoVisitaResultado>() {
+                        new MaybeObserver<DadosCliente>() {
                             @Override
                             public void onSubscribe(Disposable d) {
                                 disposables.add(d);
                             }
 
                             @Override
-                            public void onSuccess(RegistoVisitaResultado registoVisitaResultado) {
-                                registoVisita.setValue(registoVisitaResultado);
+                            public void onSuccess(DadosCliente resultado) {
+                                registoVisita.setValue(resultado);
                                 showProgressBar(false);
                             }
 

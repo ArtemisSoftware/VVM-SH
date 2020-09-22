@@ -33,6 +33,13 @@
         <item name="android:layout_height">match_parent</item>
     </style>
 
+
+    <style name="caixa">
+        <item name="android:layout_width">200dp</item>
+        <item name="android:layout_height">200dp</item>
+    </style>
+
+
     <!--  #####################FINAL -->
 
     <style name="titulo" parent="viewParent">
@@ -125,6 +132,16 @@
 
     </style>
 
+
+    <style name="cartaoMini" parent="caixa">
+
+        <item name="android:layout_margin">10dp</item>
+        <item name="android:foreground">?android:attr/selectableItemBackground</item>
+        <item name="android:clickable">true</item>
+        <item name="cardElevation">0dp</item>
+        <item name="android:orientation">vertical</item>
+
+    </style>
 
     <style name="lista" parent="matchParent">
         <item name="android:verticalSpacing">24dp</item>

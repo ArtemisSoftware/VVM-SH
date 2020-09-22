@@ -8,6 +8,8 @@ import com.vvm.sh.baseDados.dao.TrabalhosRealizadosDao;
 import com.vvm.sh.baseDados.entidades.RegistoVisitaResultado;
 import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.baseDados.entidades.TrabalhoRealizadoResultado;
+import com.vvm.sh.ui.registoVisita.modelos.DadosCliente;
+import com.vvm.sh.ui.registoVisita.modelos.RegistoVisita;
 
 import java.util.List;
 
@@ -70,7 +72,12 @@ public class RegistoVisitaRepositorio {
     }
 
 
-    public Maybe<RegistoVisitaResultado> obterRegisto(int idTarefa){
-        return registoVisitaDao.obterRegistoVisita(idTarefa);
+    public Maybe<DadosCliente> obterDadosCliente(int idTarefa){
+        return registoVisitaDao.obterDadosCliente(idTarefa);
+    }
+
+
+    public Observable<RegistoVisita> obterValidadeRegistoVisita(int idTarefa){
+        return registoVisitaDao.obterValidadeRegistoVisita(idTarefa);
     }
 }

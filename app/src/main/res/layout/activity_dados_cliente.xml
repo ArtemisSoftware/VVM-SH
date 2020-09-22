@@ -91,6 +91,7 @@
 
                         <TextView
                             style="@style/textoDescritivo"
+                            android:text="@{viewmodel.registoVisita.cliente.nome}"
                              />
 
                         <!--
@@ -117,6 +118,7 @@
 
                         <TextView
                             style="@style/textoDescritivo"
+                            android:text="@{viewmodel.registoVisita.cliente.numeroCliente}"
                             />
 
                         <!--
@@ -143,6 +145,7 @@
 
                         <TextView
                             style="@style/textoDescritivo"
+                            android:text="@{viewmodel.registoVisita.tarefa.ordem}"
                             />
 
                         <!--
@@ -173,6 +176,7 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/txt_inp_recebido_por"
                             style="@style/modifiedEditText"
+                            android:text="@{viewmodel.registoVisita.registo.recebidoPor}"
                             android:inputType="text"
                             android:maxLines="1"/>
 
@@ -193,6 +197,8 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/txt_inp_funcao"
                             style="@style/modifiedEditText"
+
+                            android:text="@{viewmodel.registoVisita.registo.funcao}"
                             android:inputType="text"
                             android:maxLines="1"/>
 
@@ -214,6 +220,7 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/txt_inp_observacao"
                             style="@style/modifiedEditText"
+                            android:text="@{viewmodel.registoVisita.registo.observacao}"
                             android:inputType="textMultiLine"
                             android:minLines="5"
                             android:maxLines="5"/>

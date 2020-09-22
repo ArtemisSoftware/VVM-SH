@@ -5,6 +5,7 @@ import androidx.room.Query;
 
 import com.vvm.sh.baseDados.BaseDao;
 import com.vvm.sh.baseDados.entidades.RegistoVisitaResultado;
+import com.vvm.sh.ui.registoVisita.modelos.DadosCliente;
 import com.vvm.sh.ui.registoVisita.modelos.RegistoVisita;
 
 import io.reactivex.Maybe;
@@ -15,7 +16,7 @@ abstract public class RegistoVisitaDao implements BaseDao<RegistoVisitaResultado
 
 
     @Query("SELECT * FROM registoVisitaResultado WHERE idTarefa =:idTarefa")
-    abstract public Maybe<RegistoVisitaResultado> obterRegistoVisita(int idTarefa);
+    abstract public Maybe<DadosCliente> obterDadosCliente(int idTarefa);
 
     @Query("SELECT CASE WHEN recebidoPor IS NULL OR funcao IS NULL THEN 0  ELSE 1 END as clienteValido " +
             "FROM registoVisitaResultado " +

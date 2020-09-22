@@ -1,22 +1,19 @@
 package com.vvm.sh.baseDados.entidades;
 
-
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
-import androidx.room.Index;
 
 import static androidx.room.ForeignKey.CASCADE;
 
-@Entity(tableName = "seccoesChecklist",
+@Entity(tableName = "itensChecklist",
 
-        primaryKeys = {"idChecklist", "idArea", "uid"},
+        primaryKeys = {"idChecklist", "idArea", "idSeccao", "uid"},
         foreignKeys = @ForeignKey(entity = CheckList.class,
                 parentColumns = "id",
                 childColumns = "idChecklist",
                 onDelete = CASCADE))
-public class SeccaoChecklist {
-
+public class ItemChecklist {
 
 
     @NonNull
@@ -24,6 +21,10 @@ public class SeccaoChecklist {
 
     @NonNull
     public int idArea;
+
+
+    @NonNull
+    public String idSeccao;
 
 
     @NonNull
@@ -35,4 +36,10 @@ public class SeccaoChecklist {
     @NonNull
     public String tipo;
 
+
+    public String codigo;
+
+
+
 }
+

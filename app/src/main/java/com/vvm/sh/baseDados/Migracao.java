@@ -51,7 +51,19 @@ public class Migracao {
                         + "'descricao' TEXT NOT NULL, "
                         + "'tipo' TEXT NOT NULL, "
                         + "PRIMARY KEY (idChecklist, idArea, uid), "
-                        + "FOREIGN KEY (idArea) REFERENCES areasChecklist (idArea)  ON DELETE CASCADE) ");
+                        + "FOREIGN KEY (idChecklist) REFERENCES checklist (id)  ON DELETE CASCADE) ");
+
+
+                database.execSQL("CREATE TABLE IF NOT EXISTS 'itensChecklist' ("
+                        + "'idChecklist' INTEGER NOT NULL , "
+                        + "'idArea' INTEGER NOT NULL, "
+                        + "'idSeccao' TEXT NOT NULL, "
+                        + "'uid' TEXT NOT NULL, "
+                        + "'descricao' TEXT NOT NULL, "
+                        + "'tipo' TEXT NOT NULL, "
+                        + "'codigo' TEXT, "
+                        + "PRIMARY KEY (idChecklist, idArea, idSeccao, uid), "
+                        + "FOREIGN KEY (idChecklist) REFERENCES checklist (id)  ON DELETE CASCADE) ");
 
             }
             catch(SQLException e){

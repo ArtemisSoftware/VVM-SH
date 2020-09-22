@@ -393,4 +393,12 @@
     <string name="seccoes_">Secções:</string>
     <string name="itens_">Itens:</string>
     <string name="resposta_">Resposta:</string>
+    <string name="ut_">U.T:</string>
+
+    <string name="ut1">U.T 1 </string>
+    <string name="ut2">U.T 2 </string>
+
+    <string name="categoriasRisco_">Categorias de risco: </string>
+    <string name="locaisRisco_">Locais de risco: </string>
+    <string name="cargaTermica_">Carga térmica: </string>
 </resources>

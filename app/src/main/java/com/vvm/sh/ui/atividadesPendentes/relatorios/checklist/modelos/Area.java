@@ -13,5 +13,11 @@ public class Area {
 
 
     @ColumnInfo(name = "descricao")
-    public int descricao;
+    public String descricao;
+
+    @ColumnInfo(name = "completos")
+    public int completos;
+
+    @ColumnInfo(name = "total")
+    public int total;
 }

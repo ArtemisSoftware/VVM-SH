@@ -6,6 +6,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.ui.registoVisita.adaptadores.OnRegistoVisitaListener;
+import com.vvm.sh.ui.registoVisita.adaptadores.TrabalhoRealizadoRecyclerAdaptor;
 
 import java.util.List;
 
@@ -24,16 +25,16 @@ public class RegistoVisitaBinding {
             view.setLayoutManager(new LinearLayoutManager(view.getContext()));
         }
 
-//        ColaboradorRecyclerAdapter adapter = (ColaboradorRecyclerAdapter) view.getAdapter();
-//
-//        if(adapter == null){
-//            adapter = new ColaboradorRecyclerAdapter(view.getContext(), items, listener);
-//
-//            view.setAdapter(adapter);
-//        }
-//        else{
-//            adapter.atualizar(items);
-//        }
+        TrabalhoRealizadoRecyclerAdaptor adapter = (TrabalhoRealizadoRecyclerAdaptor) view.getAdapter();
+
+        if(adapter == null){
+            adapter = new TrabalhoRealizadoRecyclerAdaptor(view.getContext(), items, listener);
+
+            view.setAdapter(adapter);
+        }
+        else{
+            adapter.atualizar(items);
+        }
 
     }
 

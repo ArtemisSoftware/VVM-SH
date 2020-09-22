@@ -23,6 +23,42 @@ public class Migracao {
     }
 
 
+
+    public static final Migration MIGRACAO_19_20 = new Migration(19, 20) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            try {
+
+
+                database.execSQL("CREATE TABLE IF NOT EXISTS 'checklist' ("
+                        + "'id' INTEGER PRIMARY KEY NOT NULL , "
+                        + "'descricao' TEXT NOT NULL, "
+                        + "'versao' TEXT NOT NULL) ");
+
+
+                database.execSQL("CREATE TABLE IF NOT EXISTS 'areasChecklist' ("
+                        + "'idChecklist' INTEGER NOT NULL , "
+                        + "'idArea' TEXT NOT NULL, "
+                        + "'area' TEXT NOT NULL, "
+                        + "PRIMARY KEY (idChecklist, idArea), "
+                        + "FOREIGN KEY (idChecklist) REFERENCES checklist (id)  ON DELETE CASCADE) ");
+
+
+            }
+            catch(SQLException e){
+                Log.e("Migracao", "erro MIGRACAO_19_20: " + e.getMessage());
+                //Timber.e("erro MIGRACAO_2_3: " + e.getMessage());
+            }
+        }
+    };
+
+
+
+
+
+
+
+
     public static final Migration MIGRACAO_18_19 = new Migration(18, 19) {
         @Override
         public void migrate(SupportSQLiteDatabase database) {

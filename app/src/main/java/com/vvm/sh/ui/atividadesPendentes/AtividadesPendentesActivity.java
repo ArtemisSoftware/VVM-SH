@@ -13,6 +13,7 @@ import com.vvm.sh.ui.atividadesPendentes.adaptadores.OnAtividadePendenteListener
 import com.vvm.sh.ui.atividadesPendentes.modelos.AtividadePendenteRegisto;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.FormacaoActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.RelatorioAvaliacaoAmbientalActivity;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.ChecklistActivity;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
@@ -149,6 +150,9 @@ public class AtividadesPendentesActivity extends BaseDaggerActivity
     @Override
     public void OnIniciarChecklist(int idAtividade) {
 
+        Intent intent = new Intent(this, ChecklistActivity.class);
+        intent.putExtra(getString(R.string.argumento_id_atividade), idAtividade);
+        startActivity(intent);
     }
 
 

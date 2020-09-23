@@ -41,6 +41,7 @@ import com.vvm.sh.baseDados.entidades.MedidaResultado;
 import com.vvm.sh.baseDados.entidades.Morada;
 import com.vvm.sh.baseDados.entidades.ParqueExtintor;
 import com.vvm.sh.baseDados.entidades.ParqueExtintorResultado;
+import com.vvm.sh.baseDados.entidades.ProcessoProdutivoResultado;
 import com.vvm.sh.baseDados.entidades.QuestionarioChecklistResultado;
 import com.vvm.sh.baseDados.entidades.RegistoVisitaResultado;
 import com.vvm.sh.baseDados.entidades.RelatorioAmbientalResultado;
@@ -92,7 +93,7 @@ import com.vvm.sh.baseDados.entidades.EmailResultado;
 
                     TrabalhoRealizadoResultado.class, RegistoVisitaResultado.class,
 
-                    LevantamentoRiscoResultado.class,
+                    LevantamentoRiscoResultado.class, ProcessoProdutivoResultado.class,
                     AreaChecklistResultado.class, QuestionarioChecklistResultado.class,
                     Resultado.class
             },

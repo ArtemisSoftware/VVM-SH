@@ -33,11 +33,23 @@ public class Migracao {
                 database.execSQL("ALTER TABLE atividadesPendentes ADD COLUMN idChecklist INTEGER NOT NULL DEFAULT " + Identificadores.SEM_VALOR + "");
 
 
+                database.execSQL("CREATE TABLE IF NOT EXISTS 'processosProdutivosResultado' ("
+                        + "'id' INTEGER PRIMARY KEY , "
+                        + "'descricao' TEXT NOT NULL) ");
+
+
+                database.execSQL("CREATE INDEX index_processosProdutivosResultado_id ON atividadesPendentes (id)");
+
+
+
 
                 database.execSQL("CREATE TABLE IF NOT EXISTS 'checklist' ("
                         + "'id' INTEGER PRIMARY KEY NOT NULL , "
                         + "'descricao' TEXT NOT NULL, "
                         + "'versao' TEXT NOT NULL) ");
+
+
+
 
 
                 database.execSQL("CREATE TABLE IF NOT EXISTS 'areasChecklist' ("
@@ -117,6 +129,7 @@ public class Migracao {
                         + "FOREIGN KEY (idChecklist) REFERENCES checklist (id)  ON DELETE CASCADE) ");
 
 
+                database.execSQL("CREATE INDEX index_questionarioChecklistResultado_idArea ON areasChecklistResultado (id)");
             }
             catch(SQLException e){
                 Log.e("Migracao", "erro MIGRACAO_19_20: " + e.getMessage());

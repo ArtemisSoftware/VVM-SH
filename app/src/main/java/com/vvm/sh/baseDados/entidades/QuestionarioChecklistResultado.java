@@ -4,12 +4,13 @@ package com.vvm.sh.baseDados.entidades;
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 import static androidx.room.ForeignKey.CASCADE;
 
 @Entity(tableName = "questionarioChecklistResultado",
-
+        indices = {@Index(value="idArea", unique = false) },
         foreignKeys = @ForeignKey(entity = AreaChecklistResultado.class,
                 parentColumns = "id",
                 childColumns = "idArea",

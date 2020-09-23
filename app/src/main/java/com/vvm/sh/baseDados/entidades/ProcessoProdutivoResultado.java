@@ -9,15 +9,15 @@ import androidx.room.Index;
 import static androidx.room.ForeignKey.CASCADE;
 
 @Entity(tableName = "processosProdutivosResultado",
-        primaryKeys = {"idAtividade"},
+        primaryKeys = {"id"},
         foreignKeys = @ForeignKey(entity = AtividadePendente.class,
                 parentColumns = "id",
-                childColumns = "idAtividade",
+                childColumns = "id",
                 onDelete = CASCADE))
 public class ProcessoProdutivoResultado {
 
     @NonNull
-    public int idAtividade;
+    public int id;
 
     @NonNull
     @ColumnInfo(name = "descricao")

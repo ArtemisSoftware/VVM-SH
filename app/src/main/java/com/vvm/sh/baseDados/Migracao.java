@@ -55,9 +55,11 @@ public class Migracao {
                 database.execSQL("CREATE TABLE IF NOT EXISTS 'areasChecklist' ("
                         + "'idChecklist' INTEGER NOT NULL , "
                         + "'idArea' INTEGER NOT NULL, "
-                        + "'area' TEXT NOT NULL, "
+                        + "'descricao' TEXT NOT NULL, "
                         + "PRIMARY KEY (idChecklist, idArea), "
                         + "FOREIGN KEY (idChecklist) REFERENCES checklist (id)  ON DELETE CASCADE) ");
+
+                database.execSQL("CREATE INDEX index_areasChecklist_idChecklist ON checklist (id)");
 
 
                 database.execSQL("CREATE TABLE IF NOT EXISTS 'areasChecklistResultado' ("
@@ -126,7 +128,7 @@ public class Migracao {
 
                         + "'observacao' TEXT, "
                         + "'origem' INTEGER NOT NULL, "
-                        + "FOREIGN KEY (idChecklist) REFERENCES checklist (id)  ON DELETE CASCADE) ");
+                        + "FOREIGN KEY (idArea) REFERENCES areasChecklistResultado (id)  ON DELETE CASCADE) ");
 
 
                 database.execSQL("CREATE INDEX index_questionarioChecklistResultado_idArea ON areasChecklistResultado (id)");

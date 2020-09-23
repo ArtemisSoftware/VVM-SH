@@ -22,4 +22,9 @@ public class ProcessoProdutivoResultado {
     @NonNull
     @ColumnInfo(name = "descricao")
     public String descricao;
+
+    public ProcessoProdutivoResultado(int id, @NonNull String descricao) {
+        this.id = id;
+        this.descricao = descricao;
+    }
 }

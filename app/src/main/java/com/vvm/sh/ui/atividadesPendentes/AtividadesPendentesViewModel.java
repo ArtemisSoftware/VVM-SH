@@ -2,6 +2,7 @@ package com.vvm.sh.ui.atividadesPendentes;
 
 import androidx.lifecycle.MutableLiveData;
 
+import com.vvm.sh.baseDados.entidades.ProcessoProdutivoResultado;
 import com.vvm.sh.repositorios.AtividadePendenteRepositorio;
 import com.vvm.sh.servicos.ResultadoAsyncTask;
 import com.vvm.sh.baseDados.entidades.Resultado;
@@ -253,7 +254,9 @@ public class AtividadesPendentesViewModel extends BaseViewModel {
     }
 
 
+    public void obterProcessoProdutivo(int anInt) {
+    }
 
-
-
+    public void gravarAtividade(ProcessoProdutivoResultado registo) {
+    }
 }

@@ -79,42 +79,16 @@ public class CarregarTipoChecklistAsyncTask extends AsyncTask<List<ITipoChecklis
 
                                         ItemChecklist item = DownloadMapping.INSTANCE.map(itemItem, checkList, itemArea, itemSeccao, itemItem);
                                         itens.add(item);
-                                        break;
                                     }
                                 }
                             }
                         }
 
+
                         repositorio.inserirChecklist(checkList, areas, seccoes, itens);
 
                     }
 
-
-  /*
-                    int index = 0;
-
-                    for(ITipoListagem resposta : respostas){
-
-                        List<Tipo> dadosNovos = new ArrayList<>();
-                        List<Tipo> dadosAlterados = new ArrayList<>();
-
-                        Atualizacao atualizacao = DownloadMapping.INSTANCE.map(resposta);
-
-                        for (ITipo item : resposta.dadosNovos) {
-                            dadosNovos.add(DownloadMapping.INSTANCE.map(item, resposta));
-                        }
-
-                        for (ITipo item : resposta.dadosAlterados) {
-                            dadosAlterados.add(DownloadMapping.INSTANCE.map(item, resposta));
-                        }
-
-                        repositorio.carregarTipo(atualizacao, dadosNovos, dadosAlterados);
-
-                        atualizacaoUI.atualizarUI(AtualizacaoUI.Codigo.PROCESSAMENTO_DADOS, atualizacao.descricao, ++index, respostas.size());
-                    }
-
-                    atualizacaoUI.atualizarUI(AtualizacaoUI.Codigo.PROCESSAMENTO_TIPOS_CONCLUIDO, "Concluido", index, respostas.size());
-*/
                 }
                 catch(SQLiteConstraintException throwable){
                     errorMessage = throwable.getMessage();

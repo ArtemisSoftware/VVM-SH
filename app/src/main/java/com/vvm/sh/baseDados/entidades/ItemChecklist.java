@@ -30,7 +30,6 @@ public class ItemChecklist {
     @NonNull
     public String uid;
 
-    @NonNull
     public String descricao;
 
     @NonNull

@@ -161,7 +161,7 @@ public class OpcoesViewModel extends BaseViewModel {
     public void recarregarTipos(){
 
         showProgressBar(true);
-/*
+
         List<ITipoListagem> respostas = new ArrayList<>();
 
 
@@ -202,9 +202,9 @@ public class OpcoesViewModel extends BaseViewModel {
             messagemLiveData.setValue(Recurso.erro(e.getMessage()));
         }
 
-*/
-        //TODO: na primeira chamada isto pode dar problemas. rever
 
+        //TODO: na primeira chamada isto pode dar problemas. rever
+/*
         List<ITipoChecklist> respostasChecklist = new ArrayList<>();
 
 
@@ -247,7 +247,7 @@ public class OpcoesViewModel extends BaseViewModel {
 
                 );
 
-
+*/
 
 
     }

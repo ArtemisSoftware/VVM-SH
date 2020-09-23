@@ -15,7 +15,8 @@ public class Migracao {
 
         Migration migrations [] =  new Migration []{
                 MIGRACAO_1_2, MIGRACAO_2_3, MIGRACAO_3_4, MIGRACAO_4_5, MIGRACAO_5_6, MIGRACAO_6_7, MIGRACAO_7_8, MIGRACAO_8_9, MIGRACAO_9_10, MIGRACAO_10_11,
-                MIGRACAO_11_12, MIGRACAO_12_13, MIGRACAO_13_14, MIGRACAO_14_15, MIGRACAO_15_16, MIGRACAO_16_17, MIGRACAO_17_18, MIGRACAO_18_19, MIGRACAO_19_20
+                MIGRACAO_11_12, MIGRACAO_12_13, MIGRACAO_13_14, MIGRACAO_14_15, MIGRACAO_15_16, MIGRACAO_16_17, MIGRACAO_17_18, MIGRACAO_18_19, MIGRACAO_19_20,
+                MIGRACAO_20_21
 
         };
 
@@ -27,7 +28,32 @@ public class Migracao {
 
 
 
-    public static final Migration MIGRACAO_20_21 = new Migration(20, 21) {
+    public static final Migration MIGRACAO_21_22 = new Migration(21, 22) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            try {
+                database.execSQL("CREATE TABLE IF NOT EXISTS 'planoAcao' ("
+                        + "'idTarefa' INTEGER PRIMARY KEY NOT NULL, "
+                        + "'anuidade' TEXT NOT NULL, "
+                        + "'tst' TEXT , "
+                        + "'cap' TEXT  , "
+                        + "'email' TEXT  , "
+                        + "FOREIGN KEY (idTarefa) REFERENCES tarefas (idTarefa)  ON DELETE CASCADE)  ");
+
+
+
+            }
+            catch(SQLException e){
+                Log.e("Migracao", "erro MIGRACAO_16_17: " + e.getMessage());
+                //Timber.e("erro MIGRACAO_2_3: " + e.getMessage());
+            }
+        }
+    };
+
+
+
+
+                public static final Migration MIGRACAO_20_21 = new Migration(20, 21) {
         @Override
         public void migrate(SupportSQLiteDatabase database) {
             try {
@@ -41,19 +67,6 @@ public class Migracao {
                         + "FOREIGN KEY (idAtividade) REFERENCES atividadesPendentes (id)  ON DELETE CASCADE) ");
 
                 database.execSQL("CREATE INDEX index_trabalhadoresVulneraveisResultado_idAtividade ON trabalhadoresVulneraveisResultado (idAtividade)");
-
-
-                database.execSQL("CREATE TABLE IF NOT EXISTS 'atividadesPendentes' ("
-                        + "'idTarefa' INTEGER NOT NULL, "
-                        + "'id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
-                        + "'dataProgramada' INTEGER NOT NULL, "
-                        + "'descricao' TEXT NOT NULL, "
-                        + "'servId' TEXT NOT NULL , "
-                        + "'formacao' INTEGER NOT NULL , "
-                        + "FOREIGN KEY (idTarefa) REFERENCES tarefas (idTarefa)  ON DELETE CASCADE)  ");
-
-                database.execSQL("CREATE INDEX index_atividadesPendentes_idTarefa ON atividadesPendentes (idTarefa)");
-
 
 
 

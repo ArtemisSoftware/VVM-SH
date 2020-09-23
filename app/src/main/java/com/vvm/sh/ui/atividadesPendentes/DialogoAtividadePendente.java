@@ -185,6 +185,12 @@ public class DialogoAtividadePendente extends BaseDaggerDialogFragment {
                     listenerAtividade.OnIniciarChecklist(getArguments().getInt(ARGUMENTO_ID_ATIVIDADE));
                     terminarDialogo();
                 }
+
+            case R.id.rd_btn_risco_processo_produtivo:
+                if (checked) {
+                    listenerAtividade.OnIniciarProcessoProdutivo(getArguments().getInt(ARGUMENTO_ID_ATIVIDADE));
+                    terminarDialogo();
+                }
                 break;
 
 

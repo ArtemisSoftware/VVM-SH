@@ -203,6 +203,7 @@ public class OpcoesViewModel extends BaseViewModel {
         }
 
 
+        //TODO: na primeira chamada isto pode dar problemas. rever
 
         List<ITipoChecklist> respostasChecklist = new ArrayList<>();
 

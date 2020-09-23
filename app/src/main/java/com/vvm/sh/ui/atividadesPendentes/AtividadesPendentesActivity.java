@@ -11,6 +11,7 @@ import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.atividadesPendentes.adaptadores.OnAtividadePendenteListener;
 import com.vvm.sh.ui.atividadesPendentes.modelos.AtividadePendenteRegisto;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.DialogoProcessoProdutivo;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.FormacaoActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.RelatorioAvaliacaoAmbientalActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.ChecklistActivity;
@@ -155,7 +156,12 @@ public class AtividadesPendentesActivity extends BaseDaggerActivity
         startActivity(intent);
     }
 
+    @Override
+    public void OnIniciarProcessoProdutivo(int idAtividade) {
 
+        DialogoProcessoProdutivo dialogo = DialogoProcessoProdutivo.newInstance(idAtividade);
+        dialogo.show(getSupportFragmentManager(), "example dialog");
+    }
 
 
 }

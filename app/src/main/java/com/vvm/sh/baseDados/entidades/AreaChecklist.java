@@ -10,7 +10,6 @@ import androidx.room.PrimaryKey;
 import static androidx.room.ForeignKey.CASCADE;
 
 @Entity(tableName = "areasChecklist",
-        indices = {@Index(value="idChecklist", unique = false) },
         primaryKeys = {"idChecklist", "idArea"},
         foreignKeys = @ForeignKey(entity = CheckList.class,
                 parentColumns = "id",

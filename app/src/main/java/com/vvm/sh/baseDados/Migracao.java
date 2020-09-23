@@ -24,6 +24,39 @@ public class Migracao {
 
 
 
+
+
+
+    public static final Migration MIGRACAO_20_21 = new Migration(20, 21) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            try {
+
+                database.execSQL("CREATE TABLE IF NOT EXISTS 'trabalhadoresVulneraveisResultado' ("
+                        + "'idAtividade' INTEGER NOT NULL, "
+                        + "'id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
+                        + "'idVulnerabilidade' INTEGER NOT NULL, "
+                        + "'origem' INTEGER NOT NULL, "
+
+                        + "FOREIGN KEY (idAtividade) REFERENCES atividadesPendentes (id)  ON DELETE CASCADE) ");
+
+                database.execSQL("CREATE INDEX index_trabalhadoresVulneraveisResultado_idAtividade ON trabalhadoresVulneraveisResultado (idAtividade)");
+
+
+            }
+            catch(SQLException e){
+                Log.e("Migracao", "erro MIGRACAO_16_17: " + e.getMessage());
+                //Timber.e("erro MIGRACAO_2_3: " + e.getMessage());
+            }
+        }
+    };
+
+
+
+
+
+
+
     public static final Migration MIGRACAO_19_20 = new Migration(19, 20) {
         @Override
         public void migrate(SupportSQLiteDatabase database) {
@@ -34,11 +67,10 @@ public class Migracao {
 
 
                 database.execSQL("CREATE TABLE IF NOT EXISTS 'processosProdutivosResultado' ("
-                        + "'id' INTEGER PRIMARY KEY , "
-                        + "'descricao' TEXT NOT NULL) ");
-
-
-                database.execSQL("CREATE INDEX index_processosProdutivosResultado_id ON atividadesPendentes (id)");
+                        + "'id' INTEGER NOT NULL, "
+                        + "'descricao' TEXT NOT NULL, "
+                        + "PRIMARY KEY (id), "
+                        + "FOREIGN KEY (id) REFERENCES atividadesPendentes (id)  ON DELETE CASCADE) ");
 
 
 
@@ -59,7 +91,6 @@ public class Migracao {
                         + "PRIMARY KEY (idChecklist, idArea), "
                         + "FOREIGN KEY (idChecklist) REFERENCES checklist (id)  ON DELETE CASCADE) ");
 
-                database.execSQL("CREATE INDEX index_areasChecklist_idChecklist ON checklist (id)");
 
 
                 database.execSQL("CREATE TABLE IF NOT EXISTS 'areasChecklistResultado' ("
@@ -70,7 +101,6 @@ public class Migracao {
                         + "'subDescricao' TEXT , "
                         + "FOREIGN KEY (idAtividade) REFERENCES atividadesPendentes (id)  ON DELETE CASCADE) ");
 
-                database.execSQL("CREATE INDEX index_areasChecklistResultado_idAtividade ON areasChecklistResultado (idAtividade)");
 
 
 
@@ -105,33 +135,33 @@ public class Migracao {
                         + "'tipo' TEXT NOT NULL, "
 
                         + "'resposta' TEXT, "
-                        + "'nr' INTEGER, "
-                        + "'ni' INTEGER, "
+                        + "'nr' TEXT, "
+                        + "'ni' TEXT, "
 
-                        + "'ut1' INTEGER, "
-                        + "'ut1_CategoriasRisco' INTEGER, "
-                        + "'ut1_LocalRisco_A' INTEGER, "
-                        + "'ut1_LocalRisco_B' INTEGER, "
-                        + "'ut1_LocalRisco_C' INTEGER, "
-                        + "'ut1_LocalRisco_D' INTEGER, "
-                        + "'ut1_LocalRisco_E' INTEGER, "
-                        + "'ut1_LocalRisco_F' INTEGER, "
+                        + "'ut1' INTEGER NOT NULL DEFAULT " + Identificadores.VALOR_0 + " ,  "
+                        + "'ut1_CategoriasRisco' INTEGER NOT NULL DEFAULT " + Identificadores.VALOR_0 + " ,  "
+                        + "'ut1_LocalRisco_A' INTEGER NOT NULL DEFAULT " + Identificadores.VALOR_0 + " ,  "
+                        + "'ut1_LocalRisco_B' INTEGER NOT NULL DEFAULT " + Identificadores.VALOR_0 + " ,  "
+                        + "'ut1_LocalRisco_C' INTEGER NOT NULL DEFAULT " + Identificadores.VALOR_0 + " ,  "
+                        + "'ut1_LocalRisco_D' INTEGER NOT NULL DEFAULT " + Identificadores.VALOR_0 + " ,  "
+                        + "'ut1_LocalRisco_E' INTEGER NOT NULL DEFAULT " + Identificadores.VALOR_0 + " ,  "
+                        + "'ut1_LocalRisco_F' INTEGER NOT NULL DEFAULT " + Identificadores.VALOR_0 + " ,  "
 
-                        + "'ut2' INTEGER, "
-                        + "'ut2_CategoriasRisco' INTEGER, "
-                        + "'ut2_LocalRisco_A' INTEGER, "
-                        + "'ut2_LocalRisco_B' INTEGER, "
-                        + "'ut2_LocalRisco_C' INTEGER, "
-                        + "'ut2_LocalRisco_D' INTEGER, "
-                        + "'ut2_LocalRisco_E' INTEGER, "
-                        + "'ut2_LocalRisco_F' INTEGER, "
+                        + "'ut2' INTEGER NOT NULL DEFAULT " + Identificadores.VALOR_0 + " ,  "
+                        + "'ut2_CategoriasRisco' INTEGER NOT NULL DEFAULT " + Identificadores.VALOR_0 + " ,  "
+                        + "'ut2_LocalRisco_A' INTEGER NOT NULL DEFAULT " + Identificadores.VALOR_0 + " ,  "
+                        + "'ut2_LocalRisco_B' INTEGER NOT NULL DEFAULT " + Identificadores.VALOR_0 + " ,  "
+                        + "'ut2_LocalRisco_C' INTEGER NOT NULL DEFAULT " + Identificadores.VALOR_0 + " ,  "
+                        + "'ut2_LocalRisco_D' INTEGER NOT NULL DEFAULT " + Identificadores.VALOR_0 + " ,  "
+                        + "'ut2_LocalRisco_E' INTEGER NOT NULL DEFAULT " + Identificadores.VALOR_0 + " ,  "
+                        + "'ut2_LocalRisco_F' INTEGER NOT NULL DEFAULT " + Identificadores.VALOR_0 + " ,  "
 
                         + "'observacao' TEXT, "
                         + "'origem' INTEGER NOT NULL, "
                         + "FOREIGN KEY (idArea) REFERENCES areasChecklistResultado (id)  ON DELETE CASCADE) ");
 
 
-                database.execSQL("CREATE INDEX index_questionarioChecklistResultado_idArea ON areasChecklistResultado (id)");
+
             }
             catch(SQLException e){
                 Log.e("Migracao", "erro MIGRACAO_19_20: " + e.getMessage());

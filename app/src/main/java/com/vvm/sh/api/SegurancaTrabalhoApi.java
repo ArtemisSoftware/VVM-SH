@@ -56,7 +56,7 @@ public interface SegurancaTrabalhoApi {
 
 
 
-    @GET("GetCheckListNovo?dataT=")
+    @GET("GetCheckListNovo")
     Single<ITipoChecklist> obterChecklist(@HeaderMap Map<String, String> headers, @Query("IdTipoCheckList") String id);
 
 }

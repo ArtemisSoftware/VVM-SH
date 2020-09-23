@@ -1,5 +1,6 @@
 package com.vvm.sh.baseDados.entidades;
 
+
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
@@ -7,35 +8,31 @@ import androidx.room.ForeignKey;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
-import java.util.Date;
-
 import static androidx.room.ForeignKey.CASCADE;
 
-@Entity(tableName = "areasChecklistResultado",
+@Entity(tableName = "trabalhadoresVulneraveisResultado",
+        indices = {@Index(value="idAtividade", unique = false) },
 
         foreignKeys = @ForeignKey(entity = AtividadePendente.class,
                 parentColumns = "id",
                 childColumns = "idAtividade",
                 onDelete = CASCADE))
-public class AreaChecklistResultado {
-
+public class TrabalhadorVulneravel {
 
     @NonNull
+    @ColumnInfo(name = "idAtividade")
     public int idAtividade;
-
-    @NonNull
-    public int idChecklist;
-
-    @NonNull
-    public int idArea;
 
     @NonNull
     @PrimaryKey(autoGenerate = true)
     public int id;
 
+    @NonNull
+    public int idVulnerabilidade;
 
-    public String subDescricao;
 
+    @NonNull
+    public int origem;
 
 
 }

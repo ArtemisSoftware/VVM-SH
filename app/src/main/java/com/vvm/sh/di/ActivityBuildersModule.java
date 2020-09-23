@@ -42,6 +42,7 @@ import com.vvm.sh.ui.atividadesPendentes.relatorios.AcaoFormacaoActivity;
 import com.vvm.sh.ui.atividadesPendentes.DialogoAtividadePendente;
 import com.vvm.sh.ui.atividadesPendentes.DialogoAtividadePendenteExecutada;
 import com.vvm.sh.ui.atividadesPendentes.DialogoAtividadePendenteNaoExecutada;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.DialogoProcessoProdutivo;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.FormacaoActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.FormandoActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.AvaliacaoGeralActivity;
@@ -198,7 +199,9 @@ public abstract class ActivityBuildersModule {
     abstract OcorrenciasHistoricoActivity contributeOcorrenciasHistoricoActivity();
 
 
-
+    //----------------------
+    //Atividades pendentes
+    //----------------------
 
 
     @AtividadesPendentesScope
@@ -228,6 +231,17 @@ public abstract class ActivityBuildersModule {
     )
     abstract DialogoAtividadePendenteExecutada contributeDialogoAtividadePendenteExecutada();
 
+
+    @AtividadesPendentesScope
+    @ContributesAndroidInjector(
+            modules = { AtividadesPendentesViewModelsModule.class, AtividadesPendentesModule.class }
+    )
+    abstract DialogoProcessoProdutivo contributeDialogoProcessoProdutivo();
+
+
+    //----------------------
+    //Formacao
+    //----------------------
 
 
     @FormacaoScope

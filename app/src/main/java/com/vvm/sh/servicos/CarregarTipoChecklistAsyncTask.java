@@ -70,13 +70,17 @@ public class CarregarTipoChecklistAsyncTask extends AsyncTask<List<ITipoChecklis
 
                             for (ITipoChecklist.ISeccao itemSeccao : itemArea.seccoes) {
 
-                                SeccaoChecklist seccao = DownloadMapping.INSTANCE.map(itemSeccao, checkList, itemArea);
-                                seccoes.add(seccao);
+                                if(itemSeccao.items != null) {
 
-                                for (ITipoChecklist.IItem itemItem : itemSeccao.items) {
+                                    SeccaoChecklist seccao = DownloadMapping.INSTANCE.map(itemSeccao, checkList, itemArea);
+                                    seccoes.add(seccao);
 
-                                    ItemChecklist item = DownloadMapping.INSTANCE.map(itemItem, checkList, itemArea, itemSeccao, itemItem);
-                                    itens.add(item);
+                                    for (ITipoChecklist.IItem itemItem : itemSeccao.items) {
+
+                                        ItemChecklist item = DownloadMapping.INSTANCE.map(itemItem, checkList, itemArea, itemSeccao, itemItem);
+                                        itens.add(item);
+                                        break;
+                                    }
                                 }
                             }
                         }

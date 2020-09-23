@@ -131,7 +131,7 @@ public class TiposRepositorio {
         List<Observable<ITipoChecklist>> pedidos = new ArrayList<>();
 
         for (int id: ids) {
-            pedidos.add(apiST.obterChecklist(SegurancaTrabalhoApi.HEADER_TIPO, ids +"").toObservable());
+            pedidos.add(apiST.obterChecklist(SegurancaTrabalhoApi.HEADER_TIPO, id +"").toObservable());
         }
 
 

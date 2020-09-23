@@ -43,6 +43,41 @@ public class Migracao {
                 database.execSQL("CREATE INDEX index_trabalhadoresVulneraveisResultado_idAtividade ON trabalhadoresVulneraveisResultado (idAtividade)");
 
 
+                database.execSQL("CREATE TABLE IF NOT EXISTS 'atividadesPendentes' ("
+                        + "'idTarefa' INTEGER NOT NULL, "
+                        + "'id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
+                        + "'dataProgramada' INTEGER NOT NULL, "
+                        + "'descricao' TEXT NOT NULL, "
+                        + "'servId' TEXT NOT NULL , "
+                        + "'formacao' INTEGER NOT NULL , "
+                        + "FOREIGN KEY (idTarefa) REFERENCES tarefas (idTarefa)  ON DELETE CASCADE)  ");
+
+                database.execSQL("CREATE INDEX index_atividadesPendentes_idTarefa ON atividadesPendentes (idTarefa)");
+
+
+
+
+
+
+                database.execSQL(" ALTER TABLE itensChecklist RENAME TO tmp");
+
+                database.execSQL("CREATE TABLE IF NOT EXISTS 'itensChecklist' ("
+                        + "'idChecklist' INTEGER NOT NULL , "
+                        + "'idArea' INTEGER NOT NULL, "
+                        + "'idSeccao' TEXT NOT NULL, "
+                        + "'uid' TEXT NOT NULL, "
+                        + "'descricao' TEXT, "
+                        + "'tipo' TEXT NOT NULL, "
+                        + "'codigo' TEXT, "
+                        + "PRIMARY KEY (idChecklist, idArea, idSeccao, uid), "
+                        + "FOREIGN KEY (idChecklist) REFERENCES checklist (id)  ON DELETE CASCADE) ");
+
+                database.execSQL("DROP TABLE tmp");
+
+
+
+
+
             }
             catch(SQLException e){
                 Log.e("Migracao", "erro MIGRACAO_16_17: " + e.getMessage());

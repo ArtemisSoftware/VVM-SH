@@ -27,19 +27,25 @@ import com.vvm.sh.baseDados.dao.TarefaDao;
 import com.vvm.sh.baseDados.dao.TrabalhosRealizadosDao;
 import com.vvm.sh.baseDados.dao.TransferenciasDao;
 import com.vvm.sh.baseDados.dao.UtilizadorDao;
+import com.vvm.sh.baseDados.entidades.AreaChecklist;
+import com.vvm.sh.baseDados.entidades.AreaChecklistResultado;
 import com.vvm.sh.baseDados.entidades.AvaliacaoAmbientalResultado;
 import com.vvm.sh.baseDados.entidades.CategoriaProfissionalResultado;
+import com.vvm.sh.baseDados.entidades.CheckList;
 import com.vvm.sh.baseDados.entidades.Colaborador;
 import com.vvm.sh.baseDados.entidades.ColaboradorResultado;
 import com.vvm.sh.baseDados.entidades.ImagemResultado;
+import com.vvm.sh.baseDados.entidades.ItemChecklist;
 import com.vvm.sh.baseDados.entidades.LevantamentoRiscoResultado;
 import com.vvm.sh.baseDados.entidades.MedidaResultado;
 import com.vvm.sh.baseDados.entidades.Morada;
 import com.vvm.sh.baseDados.entidades.ParqueExtintor;
 import com.vvm.sh.baseDados.entidades.ParqueExtintorResultado;
+import com.vvm.sh.baseDados.entidades.QuestionarioChecklistResultado;
 import com.vvm.sh.baseDados.entidades.RegistoVisitaResultado;
 import com.vvm.sh.baseDados.entidades.RelatorioAmbientalResultado;
 import com.vvm.sh.baseDados.entidades.Resultado;
+import com.vvm.sh.baseDados.entidades.SeccaoChecklist;
 import com.vvm.sh.baseDados.entidades.SinistralidadeResultado;
 import com.vvm.sh.baseDados.entidades.Tarefa;
 import com.vvm.sh.baseDados.entidades.Anomalia;
@@ -66,6 +72,7 @@ import com.vvm.sh.baseDados.entidades.EmailResultado;
             entities = {
                     Atualizacao.class, Tipo.class, Utilizador.class,
                     Tarefa.class,
+                    CheckList.class, AreaChecklist.class, SeccaoChecklist.class, ItemChecklist.class,
 
                     //Trabalho
 
@@ -86,6 +93,7 @@ import com.vvm.sh.baseDados.entidades.EmailResultado;
                     TrabalhoRealizadoResultado.class, RegistoVisitaResultado.class,
 
                     LevantamentoRiscoResultado.class,
+                    AreaChecklistResultado.class, QuestionarioChecklistResultado.class,
                     Resultado.class
             },
             version = BaseDadosContantes.VERSAO

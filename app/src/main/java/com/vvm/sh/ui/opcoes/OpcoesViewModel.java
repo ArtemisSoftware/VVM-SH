@@ -5,18 +5,18 @@ import android.os.Handler;
 
 import androidx.lifecycle.MutableLiveData;
 
+import com.vvm.sh.api.modelos.pedido.ITipoChecklist;
 import com.vvm.sh.api.modelos.pedido.ITipoListagem;
 import com.vvm.sh.api.modelos.VersaoApp;
 import com.vvm.sh.repositorios.TiposRepositorio;
 import com.vvm.sh.repositorios.VersaoAppRepositorio;
+import com.vvm.sh.servicos.CarregarTipoChecklistAsyncTask;
 import com.vvm.sh.servicos.DownloadApkAsyncTask;
 import com.vvm.sh.servicos.InstalarApkAsyncTask;
 import com.vvm.sh.servicos.AtualizarTipoAsyncTask;
 import com.vvm.sh.ui.opcoes.modelos.ResumoTipo;
 import com.vvm.sh.util.Recurso;
-import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.excepcoes.TipoInexistenteException;
-import com.vvm.sh.util.metodos.TiposUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import java.util.ArrayList;
@@ -24,7 +24,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import io.reactivex.Observable;
+import io.reactivex.ObservableSource;
 import io.reactivex.Observer;
 import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -150,6 +150,8 @@ public class OpcoesViewModel extends BaseViewModel {
             showProgressBar(false);
             messagemLiveData.setValue(Recurso.erro(e.getMessage()));
         }
+
+
     }
 
 
@@ -199,6 +201,53 @@ public class OpcoesViewModel extends BaseViewModel {
             showProgressBar(false);
             messagemLiveData.setValue(Recurso.erro(e.getMessage()));
         }
+
+
+
+        List<ITipoChecklist> respostasChecklist = new ArrayList<>();
+
+
+        tiposRepositorio.obterIdChecklists().toObservable()
+                .flatMap(new Function<List<Integer>, ObservableSource<ITipoChecklist>>() {
+                    @Override
+                    public ObservableSource<ITipoChecklist> apply(List<Integer> ids) throws Exception {
+                        return tiposRepositorio.obterChecklists(ids);
+                    }
+                })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+
+                        new Observer<ITipoChecklist>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+
+                            }
+
+                            @Override
+                            public void onNext(ITipoChecklist o) {
+                                respostasChecklist.add(o);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+
+                            @Override
+                            public void onComplete() {
+                                CarregarTipoChecklistAsyncTask servico = new CarregarTipoChecklistAsyncTask(vvmshBaseDados, tiposRepositorio);
+                                servico.execute(respostasChecklist);
+
+                                showProgressBar(false);
+                            }
+                        }
+
+                );
+
+
+
 
     }
 

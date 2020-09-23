@@ -26,6 +26,7 @@ public class Atualizacao {
     }
 
 
+
     public Atualizacao(String descricao, String seloTemporal) {
         this.descricao = descricao;
         this.seloTemporal = seloTemporal;

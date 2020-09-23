@@ -50,6 +50,10 @@ public class AtividadePendente {
     @ColumnInfo(name = "idRelatorio")
     public int idRelatorio;
 
+    @NonNull
+    @ColumnInfo(name = "idChecklist", defaultValue = Identificadores.SEM_VALOR)
+    public int idChecklist;
+
 
     @Ignore
     public AtividadePendente() {

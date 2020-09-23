@@ -4,10 +4,15 @@ import androidx.annotation.NonNull;
 
 import com.vvm.sh.api.SegurancaAlimentarApi;
 import com.vvm.sh.api.SegurancaTrabalhoApi;
+import com.vvm.sh.api.modelos.pedido.ITipoChecklist;
 import com.vvm.sh.api.modelos.pedido.ITipoListagem;
 import com.vvm.sh.baseDados.dao.AtualizacaoDao;
 import com.vvm.sh.baseDados.dao.TipoDao;
+import com.vvm.sh.baseDados.entidades.AreaChecklist;
 import com.vvm.sh.baseDados.entidades.Atualizacao;
+import com.vvm.sh.baseDados.entidades.CheckList;
+import com.vvm.sh.baseDados.entidades.ItemChecklist;
+import com.vvm.sh.baseDados.entidades.SeccaoChecklist;
 import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.ui.opcoes.modelos.ResumoTipo;
 import com.vvm.sh.util.excepcoes.TipoInexistenteException;
@@ -121,6 +126,23 @@ public class TiposRepositorio {
 
 
 
+    public Observable<ITipoChecklist> obterChecklists(List<Integer> ids) throws TipoInexistenteException {
+
+        List<Observable<ITipoChecklist>> pedidos = new ArrayList<>();
+
+        for (int id: ids) {
+            pedidos.add(apiST.obterChecklist(SegurancaTrabalhoApi.HEADER_TIPO, ids +"").toObservable());
+        }
+
+
+        return Observable.concat(pedidos);
+    }
+
+
+
+
+
+
     /**
      * Metodo que permite obter as atualizacoes
      * @return uma lista de atualizacoes
@@ -128,6 +150,17 @@ public class TiposRepositorio {
     public Maybe<List<Atualizacao>> obterAtualizacoes() {
         return atualizacaoDao.obterAtualizacoes();
     }
+
+
+
+    /**
+     * Metodo que permite obter as atualizacoes
+     * @return uma lista de atualizacoes
+     */
+    public Maybe<List<Integer>> obterIdChecklists() {
+        return tipoDao.obterChecklists(2);
+    }
+
 
 
     public Flowable<List<Tipo>> obterTipos(String metodo, int api) {
@@ -206,6 +239,29 @@ public class TiposRepositorio {
     }
 
 
+    public void inserirChecklist(Atualizacao atualizacao, List<Tipo> tipos){
+        atualizacaoDao.remover(atualizacao.descricao);
+        atualizacaoDao.inserirRegisto(atualizacao);
+        tipoDao.inserir(tipos);
+    }
+
+    /**
+     * Metodo que permite inserir uma checklist
+     * @param checkList
+     * @param areas
+     * @param seccoes
+     * @param itens
+     */
+    public void inserirChecklist(CheckList checkList, List<AreaChecklist> areas, List<SeccaoChecklist> seccoes, List<ItemChecklist> itens) {
 
 
+        tipoDao.remover(checkList);
+
+
+        tipoDao.inserir(checkList);
+        tipoDao.inserirAreasChecklist(areas);
+        tipoDao.inserirSeccoesChecklis(seccoes);
+        tipoDao.inserirItensChecklis(itens);
+
+    }
 }

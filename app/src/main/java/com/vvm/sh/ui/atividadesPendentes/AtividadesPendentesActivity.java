@@ -110,6 +110,7 @@ public class AtividadesPendentesActivity extends BaseDaggerActivity
     }
 
 
+
     @Override
     public void OnIniciarRelatorio(int idAtividade, int idRelatorio) {
 
@@ -141,6 +142,12 @@ public class AtividadesPendentesActivity extends BaseDaggerActivity
             intent.putExtra(getString(R.string.argumento_id_atividade), idAtividade);
             startActivity(intent);
         }
+    }
+
+
+
+    @Override
+    public void OnIniciarChecklist(int idAtividade) {
 
     }
 

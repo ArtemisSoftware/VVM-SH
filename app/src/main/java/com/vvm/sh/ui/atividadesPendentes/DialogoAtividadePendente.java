@@ -178,6 +178,16 @@ public class DialogoAtividadePendente extends BaseDaggerDialogFragment {
                 }
                 break;
 
+
+
+            case R.id.rd_btn_risco_checklist:
+                if (checked) {
+                    listenerAtividade.OnIniciarChecklist(getArguments().getInt(ARGUMENTO_ID_ATIVIDADE));
+                    terminarDialogo();
+                }
+                break;
+
+
             default:
                 break;
         }

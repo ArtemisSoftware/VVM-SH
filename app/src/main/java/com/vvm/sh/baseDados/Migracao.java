@@ -15,7 +15,7 @@ public class Migracao {
 
         Migration migrations [] =  new Migration []{
                 MIGRACAO_1_2, MIGRACAO_2_3, MIGRACAO_3_4, MIGRACAO_4_5, MIGRACAO_5_6, MIGRACAO_6_7, MIGRACAO_7_8, MIGRACAO_8_9, MIGRACAO_9_10, MIGRACAO_10_11,
-                MIGRACAO_11_12, MIGRACAO_12_13, MIGRACAO_13_14, MIGRACAO_14_15, MIGRACAO_15_16, MIGRACAO_16_17, MIGRACAO_17_18, MIGRACAO_18_19
+                MIGRACAO_11_12, MIGRACAO_12_13, MIGRACAO_13_14, MIGRACAO_14_15, MIGRACAO_15_16, MIGRACAO_16_17, MIGRACAO_17_18, MIGRACAO_18_19, MIGRACAO_19_20
 
         };
 
@@ -28,6 +28,10 @@ public class Migracao {
         @Override
         public void migrate(SupportSQLiteDatabase database) {
             try {
+
+
+                database.execSQL("ALTER TABLE atividadesPendentes ADD COLUMN idChecklist INTEGER NOT NULL DEFAULT " + Identificadores.SEM_VALOR + "");
+
 
 
                 database.execSQL("CREATE TABLE IF NOT EXISTS 'checklist' ("
@@ -110,7 +114,6 @@ public class Migracao {
 
                         + "'observacao' TEXT, "
                         + "'origem' INTEGER NOT NULL, "
-                        + "PRIMARY KEY (idChecklist, idArea, idSeccao, uid), "
                         + "FOREIGN KEY (idChecklist) REFERENCES checklist (id)  ON DELETE CASCADE) ");
 
 

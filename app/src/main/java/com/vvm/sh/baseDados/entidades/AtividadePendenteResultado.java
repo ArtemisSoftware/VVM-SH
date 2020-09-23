@@ -52,6 +52,7 @@ public class AtividadePendenteResultado implements Parcelable {
     public String observacao;
 
 
+
     @Ignore
     public AtividadePendenteResultado(int id, int idAnomalia, String observacao) {
         this.id = id;

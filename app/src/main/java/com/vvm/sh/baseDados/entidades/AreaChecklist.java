@@ -26,6 +26,6 @@ public class AreaChecklist {
     public int idArea;
 
     @NonNull
-    public String area;
+    public String descricao;
 
 }

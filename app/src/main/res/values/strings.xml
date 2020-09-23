@@ -401,4 +401,11 @@
     <string name="categoriasRisco_">Categorias de risco: </string>
     <string name="locaisRisco_">Locais de risco: </string>
     <string name="cargaTermica_">Carga térmica: </string>
+    <string name="processoProdutivo">Processo produtivo</string>
+    <string name="trabalhadoresVulneraveis">Trabalhadores vulneráveis</string>
+    <string name="equipamentosTrabalho">Equipamentos de trabalho</string>
+    <string name="avaliacaoCondicoesST">Avaliação de condições ST</string>
+    <string name="avaliacaoRiscos">Avaliação de Riscos</string>
+    <string name="adicionarCapaRelatorio">Adicionar capa do relatório</string>
+    <string name="planoAcao">Plano de Ação</string>
 </resources>

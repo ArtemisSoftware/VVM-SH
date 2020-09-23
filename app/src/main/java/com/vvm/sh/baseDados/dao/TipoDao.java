@@ -1,15 +1,21 @@
 package com.vvm.sh.baseDados.dao;
 
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
 import androidx.room.Update;
 
 import com.vvm.sh.baseDados.BaseDao;
+import com.vvm.sh.baseDados.entidades.AreaChecklist;
+import com.vvm.sh.baseDados.entidades.CheckList;
+import com.vvm.sh.baseDados.entidades.ItemChecklist;
+import com.vvm.sh.baseDados.entidades.SeccaoChecklist;
 import com.vvm.sh.ui.opcoes.modelos.Colecao;
 import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.ui.opcoes.modelos.ResumoTipo;
 import com.vvm.sh.util.constantes.Identificadores;
+import com.vvm.sh.util.metodos.TiposUtil;
 
 import java.util.List;
 
@@ -27,6 +33,24 @@ abstract public class TipoDao implements BaseDao<Tipo> {
 
     @Update
     abstract public Integer atualizar(List<Tipo> tipo);
+
+
+    @Delete
+    abstract public Integer remover(CheckList registo);
+
+    @Insert
+    abstract public Long inserir(CheckList registo);
+
+    @Insert
+    abstract public List<Long> inserirAreasChecklist(List<AreaChecklist> registo);
+
+    @Insert
+    abstract public List<Long> inserirSeccoesChecklis(List<SeccaoChecklist> registo);
+
+    @Insert
+    abstract public List<Long> inserirItensChecklis(List<ItemChecklist> registo);
+
+
 
 
 /*
@@ -81,4 +105,14 @@ abstract public class TipoDao implements BaseDao<Tipo> {
 
     @Query("SELECT * FROM tipos WHERE tipo = :tipo AND api = :api AND id IN (:registos) AND ativo = 1")
     abstract public Flowable<List<Tipo>> obterTipos_Incluir(String tipo, List<Integer> registos, int api);
+
+
+
+    @Query("SELECT tp.id as id " +
+            "FROM tipos as tp " +
+            "LEFT JOIN (SELECT id FROM checklist) as chk ON tp.id = chk.id " +
+            "WHERE tipo = '" + TiposUtil.MetodosTipos.TIPOS_CHECKLIST + "' AND api = :api  AND ativo = 1")
+    abstract public Maybe<List<Integer>> obterChecklists(int api);
+
+
 }

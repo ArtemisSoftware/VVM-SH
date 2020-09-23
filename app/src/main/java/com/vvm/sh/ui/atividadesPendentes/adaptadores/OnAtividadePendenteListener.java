@@ -15,4 +15,10 @@ public interface OnAtividadePendenteListener {
     void OnIniciarRelatorio(int idAtividade, int idRelatorio);
 
     void OnDetalhe(int idAtividade);
+
+    void OnIniciarChecklist(int idAtividade);
+
+
+
+
 }

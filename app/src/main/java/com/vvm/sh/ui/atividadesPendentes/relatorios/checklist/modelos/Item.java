@@ -15,4 +15,7 @@ public class Item {
 
     @ColumnInfo(name = "total")
     public int total;
+
+    @ColumnInfo(name = "tipo")
+    public int tipo;
 }

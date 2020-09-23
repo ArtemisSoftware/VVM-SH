@@ -7,6 +7,7 @@ import androidx.room.TypeConverters;
 import com.vvm.sh.baseDados.dao.AcaoFormacaoDao;
 import com.vvm.sh.baseDados.dao.AgendaDao;
 import com.vvm.sh.baseDados.dao.AnomaliaDao;
+import com.vvm.sh.baseDados.dao.AreaChecklistDao;
 import com.vvm.sh.baseDados.dao.AtividadePendenteDao;
 import com.vvm.sh.baseDados.dao.AtualizacaoDao;
 import com.vvm.sh.baseDados.dao.AvaliacaoAmbientalDao;
@@ -165,6 +166,8 @@ public abstract class VvmshBaseDados extends RoomDatabase {
 
 
     public abstract LevantamentoDao obterLevantamentoDao();
+
+    public abstract AreaChecklistDao obterAreaChecklistDao();
 
 
     public abstract RegistoVisitaDao obterRegistoVisitaDao();

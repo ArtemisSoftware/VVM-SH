@@ -4,6 +4,7 @@ import androidx.databinding.BindingAdapter;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.adaptadores.ItemRecyclerAdapter;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.adaptadores.OnChecklistListener;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.modelos.Item;
 
@@ -24,18 +25,18 @@ public class ChecklistBinding {
         if(layoutManager == null){
             view.setLayoutManager(new LinearLayoutManager(view.getContext()));
         }
-/*
-        AvaliacaoRecyclerAdapter adapter = (AvaliacaoRecyclerAdapter) view.getAdapter();
+
+        ItemRecyclerAdapter adapter = (ItemRecyclerAdapter) view.getAdapter();
 
         if(adapter == null){
-            adapter = new AvaliacaoRecyclerAdapter(view.getContext(), items, listener);
+            adapter = new ItemRecyclerAdapter(view.getContext(), items, listener);
 
             view.setAdapter(adapter);
         }
         else{
             adapter.atualizar(items);
         }
-*/
+
     }
 
 

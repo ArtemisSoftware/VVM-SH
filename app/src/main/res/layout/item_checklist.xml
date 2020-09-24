@@ -12,8 +12,8 @@
         <import type="com.vvm.sh.util.metodos.StringUtil"/>
 
         <variable
-            name="area"
-            type="com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.modelos.Area" />
+            name="item"
+            type="com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.modelos.Item" />
 
 
         <variable
@@ -50,7 +50,7 @@
                 android:id="@+id/textView"
                 style="@style/tituloCartao"
                 android:layout_marginTop="16dp"
-                android:text="@{StringUtil.formatarHtml(area.descricao), default=descricao}"
+                android:text="@{StringUtil.formatarHtml(item.descricao), default=descricao}"
                 app:layout_constraintStart_toStartOf="@+id/textView83"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -59,7 +59,7 @@
                 style="@style/textoDetalhe"
                 android:layout_marginStart="32dp"
                 android:layout_marginTop="8dp"
-                android:text="@{StringUtil.formatarHtml(area.resultado.subDescricao)}"
+                android:text="@{StringUtil.formatarHtml(item.subDescricao)}"
                 app:layout_constraintStart_toEndOf="@+id/imageView5"
                 app:layout_constraintTop_toBottomOf="@+id/textView" />
 
@@ -77,7 +77,7 @@
                 android:id="@+id/textView85"
                 style="@style/textoDetalhe"
                 android:layout_marginStart="16dp"
-                android:text="@{StringUtil.converterString(area.completos), default=0}"
+                android:text="@{StringUtil.converterString(item.completos), default=0}"
                 app:layout_constraintStart_toEndOf="@+id/textView84"
                 app:layout_constraintTop_toTopOf="@+id/textView84" />
 
@@ -93,9 +93,21 @@
                 android:id="@+id/textView87"
                 style="@style/textoDetalhe"
                 android:layout_marginStart="8dp"
-                android:text="@{StringUtil.converterString(area.total), default=0}"
+                android:text="@{StringUtil.converterString(item.total), default=0}"
                 app:layout_constraintStart_toEndOf="@+id/textView86"
                 app:layout_constraintTop_toTopOf="@+id/textView84" />
+
+
+            <TextView
+                android:id="@+id/textView37"
+                android:text="@{StringUtil.converterString(item.id), default=id}"
+                android:visibility="@{BuildConfig.DEBUG ? View.VISIBLE : View.GONE}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

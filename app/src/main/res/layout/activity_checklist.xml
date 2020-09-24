@@ -149,7 +149,7 @@
                     android:id="@+id/rcl_registos"
                     style="@style/lista"
 
-                    tools:listitem="@layout/item_area_checklist"/>
+                    tools:listitem="@layout/item_checklist"/>
 
                 <!--
                 registosOcorrencias="@{viewmodel.ocorrenciasRegistos}"

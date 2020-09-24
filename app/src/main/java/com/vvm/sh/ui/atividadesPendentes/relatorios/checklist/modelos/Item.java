@@ -10,6 +10,10 @@ public class Item {
     @ColumnInfo(name = "descricao")
     public String descricao;
 
+    @ColumnInfo(name = "subDescricao")
+    public String subDescricao;
+
+
     @ColumnInfo(name = "id")
     public int id;
 

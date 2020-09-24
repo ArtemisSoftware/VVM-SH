@@ -2,6 +2,7 @@ package com.vvm.sh.ui.atividadesPendentes.relatorios.checklist;
 
 import androidx.lifecycle.MutableLiveData;
 
+import com.vvm.sh.baseDados.entidades.AreaChecklist;
 import com.vvm.sh.baseDados.entidades.AreaChecklistResultado;
 import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.repositorios.ChecklistRepositorio;
@@ -32,12 +33,16 @@ public class ChecklistViewModel extends BaseViewModel {
     public MutableLiveData<List<Item>> itens;
 
 
+    public MutableLiveData<List<AreaChecklist>> tipoAreas;
+
+
     @Inject
     public ChecklistViewModel(ChecklistRepositorio checklistRepositorio){
 
         this.checklistRepositorio = checklistRepositorio;
         checklist = new MutableLiveData<>();
         itens = new MutableLiveData<>();
+        tipoAreas = new MutableLiveData<>();
     }
 
 
@@ -147,6 +152,36 @@ public class ChecklistViewModel extends BaseViewModel {
                             }
                         }
                 );
+
+    }
+
+
+    public void obterAreasChecklist(int idChecklist){
+
+
+        checklistRepositorio.obterAreasChecklist(idChecklist)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new SingleObserver<List<AreaChecklist>>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+
+                            }
+
+                            @Override
+                            public void onSuccess(List<AreaChecklist> areaChecklists) {
+                                tipoAreas.setValue(areaChecklists);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+                        }
+                );
+
 
     }
 

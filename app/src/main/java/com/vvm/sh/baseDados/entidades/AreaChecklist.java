@@ -27,4 +27,9 @@ public class AreaChecklist {
     @NonNull
     public String descricao;
 
+
+    @Override
+    public String toString() {
+        return descricao;
+    }
 }

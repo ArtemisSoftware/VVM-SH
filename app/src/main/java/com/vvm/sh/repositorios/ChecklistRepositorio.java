@@ -7,6 +7,7 @@ import com.vvm.sh.baseDados.dao.ResultadoDao;
 import com.vvm.sh.baseDados.dao.TipoDao;
 import com.vvm.sh.baseDados.entidades.AreaChecklist;
 import com.vvm.sh.baseDados.entidades.AreaChecklistResultado;
+import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.modelos.Item;
 
 import java.util.List;
@@ -56,6 +57,9 @@ public class ChecklistRepositorio {
     }
 
 
+    public Single<Tipo> obterChecklist(int idAtividade){
+        return areaChecklistDao.obterChecklist(idAtividade, api);
+    }
 
     public Single<List<AreaChecklist>> obterAreasChecklist(int idChecklist){
         return areaChecklistDao.obterAreasChecklist(idChecklist);

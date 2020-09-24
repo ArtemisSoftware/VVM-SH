@@ -7,8 +7,10 @@ import androidx.room.Query;
 import com.vvm.sh.baseDados.BaseDao;
 import com.vvm.sh.baseDados.entidades.AreaChecklist;
 import com.vvm.sh.baseDados.entidades.AreaChecklistResultado;
+import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.modelos.Item;
 import com.vvm.sh.util.constantes.Identificadores;
+import com.vvm.sh.util.metodos.TiposUtil;
 
 import java.util.List;
 
@@ -17,6 +19,23 @@ import io.reactivex.Single;
 
 @Dao
 abstract public class AreaChecklistDao implements BaseDao<AreaChecklistResultado> {
+
+
+    @Query("SELECT tp.* " +
+            "FROM tipos as tp " +
+            "LEFT JOIN( " +
+            "SELECT CASE WHEN area_chk_res.idChecklist IS NULL THEN  atp.idChecklist ELSE area_chk_res.idChecklist END as idChecklist " +
+            "FROM atividadesPendentes as atp " +
+            "LEFT JOIN (SELECT idChecklist, idAtividade FROM areasChecklistResultado WHERE idArea = " + Identificadores.ID_AREA_GERAL + " ) as area_chk_res " +
+            "ON atp.id = area_chk_res.idChecklist " +
+            "WHERE id = :idAtividade " +
+            ") as chk_res " +
+            "ON tp.id = chk_res.idChecklist " +
+
+            "WHERE tipo = '" + TiposUtil.MetodosTipos.TIPOS_CHECKLIST + "' AND api = :api ")
+    abstract public Single<Tipo> obterChecklist(int idAtividade, int api);
+
+
 
 
     @Query("SELECT idArea, id, descricao, 0 as tipo, 0 as completos, 0 as  total " +

@@ -9,15 +9,15 @@
         <import type="java.util.List"/>
         <import type="android.view.View"/>
         <import type="com.vvm.sh.util.metodos.DatasUtil"/>
-<!--
+
         <variable
             name="viewmodel"
-            type="com.vvm.sh.ui.atividadesPendentes.relatorios.FormacaoViewModel"/>
+            type="com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.ChecklistViewModel"/>
 
         <variable
             name="listener"
-            type="com.vvm.sh.ui.atividadesPendentes.relatorios.OnFormacaoListener"/>
--->
+            type="com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.adaptadores.OnChecklistListener"/>
+
         <variable
             name="bloquear"
             type="Boolean"/>
@@ -101,7 +101,7 @@
                     <TextView
                         android:id="@+id/textview"
                         style="@style/tituloCartao"
-                        android:text=""
+                        android:text="@{viewmodel.checklist.descricao, default=checklist}"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="16dp"
                         app:layout_constraintStart_toStartOf="parent"
@@ -123,13 +123,20 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
 
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="24dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="8dp"
+                        android:theme="@style/Theme.MaterialComponents.Light"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="@+id/textview"
-                        app:layout_constraintTop_toBottomOf="@+id/textview2"
-                        android:theme="@style/Theme.MaterialComponents.Light" />
+                        app:layout_constraintTop_toBottomOf="@+id/textView95" />
 
-
+                    <TextView
+                        android:id="@+id/textView95"
+                        style="@style/textoDetalhe"
+                        android:layout_marginTop="8dp"
+                        android:text="@{viewmodel.checklist.detalhe, default=detalhe}"
+                        app:layout_constraintStart_toStartOf="@+id/textview"
+                        app:layout_constraintTop_toBottomOf="@+id/textview2" />
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>

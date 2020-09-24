@@ -10,88 +10,107 @@ import android.view.View;
 
 import com.vvm.sh.R;
 import com.vvm.sh.baseDados.entidades.AreaChecklistResultado;
+import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.databinding.ActivityChecklistBinding;
+import com.vvm.sh.di.ViewModelProviderFactory;
+import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.adaptadores.OnChecklistListener;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
+import javax.inject.Inject;
+
 import butterknife.OnClick;
 
-public class ChecklistActivity extends AppCompatActivity
+public class ChecklistActivity extends BaseDaggerActivity
     implements OnChecklistListener {
 
 
     private ActivityChecklistBinding activityRegistoVisitaBinding;
 
-//    @Inject
-//    ViewModelProviderFactory providerFactory;
-//
-//
-//    private ChecklistViewModel viewModel;
-//
-//
-//    @Override
-//    protected void intActivity(Bundle savedInstanceState) {
-//
-//        viewModel = ViewModelProviders.of(this, providerFactory).get(ChecklistViewModel.class);
-//
-//        activityRegistoVisitaBinding = (ActivityChecklistBinding) activityBinding;
-//        activityRegistoVisitaBinding.setLifecycleOwner(this);
-//        activityRegistoVisitaBinding.setViewmodel(viewModel);
-//
-//        activityRegistoVisitaBinding.setBloquear(PreferenciasUtil.agendaEditavel(this));
-//
-//        subscreverObservadores();
-//
-//
-//        Bundle bundle = getIntent().getExtras();
-//
-//        if(bundle != null) {
-//
-//            int idAtividade = bundle.getInt(getString(R.string.argumento_id_atividade));
-//            viewModel.obterAreas(idAtividade);
-//        }
-//        else{
-//            finish();
-//        }
-//
-//    }
-//
-//    @Override
-//    protected int obterLayout() {
-//        return R.layout.activity_checklist;
-//    }
-//
-//    @Override
-//    protected BaseViewModel obterBaseViewModel() {
-//        return viewModel;
-//    }
-//
-//    @Override
-//    protected void subscreverObservadores() {
-//
-//
-//        viewModel.observarMessagem().observe(this, new Observer<Recurso>() {
-//            @Override
-//            public void onChanged(Recurso recurso) {
-//
-//                switch (recurso.status){
-//
-//                    case SUCESSO:
-//
-//                        dialogo.sucesso(recurso.messagem);
-//                        break;
-//
-//                    case ERRO:
-//
-//                        dialogo.erro(recurso.messagem);
-//                        break;
-//
-//                }
-//            }
-//        });
-//    }
+    @Inject
+    ViewModelProviderFactory providerFactory;
+
+
+    private ChecklistViewModel viewModel;
+
+
+    private Tipo checklist;
+
+
+    @Override
+    protected void intActivity(Bundle savedInstanceState) {
+
+        viewModel = ViewModelProviders.of(this, providerFactory).get(ChecklistViewModel.class);
+
+        activityRegistoVisitaBinding = (ActivityChecklistBinding) activityBinding;
+        activityRegistoVisitaBinding.setLifecycleOwner(this);
+        activityRegistoVisitaBinding.setViewmodel(viewModel);
+
+        activityRegistoVisitaBinding.setBloquear(PreferenciasUtil.agendaEditavel(this));
+
+        subscreverObservadores();
+
+
+        Bundle bundle = getIntent().getExtras();
+
+        if(bundle != null) {
+
+            int idAtividade = bundle.getInt(getString(R.string.argumento_id_atividade));
+            viewModel.obterChecklist(idAtividade);
+        }
+        else{
+            finish();
+        }
+
+    }
+
+    @Override
+    protected int obterLayout() {
+        return R.layout.activity_checklist;
+    }
+
+    @Override
+    protected BaseViewModel obterBaseViewModel() {
+        return viewModel;
+    }
+
+    @Override
+    protected void subscreverObservadores() {
+
+
+        viewModel.observarMessagem().observe(this, new Observer<Recurso>() {
+            @Override
+            public void onChanged(Recurso recurso) {
+
+                switch (recurso.status){
+
+                    case SUCESSO:
+
+                        dialogo.sucesso(recurso.messagem);
+                        break;
+
+                    case ERRO:
+
+                        dialogo.erro(recurso.messagem);
+                        break;
+
+                }
+            }
+        });
+
+
+        viewModel.observarChecklist().observe(this, new Observer<Tipo>() {
+            @Override
+            public void onChanged(Tipo tipo) {
+                checklist = tipo;
+
+                viewModel.obterAreas(getIntent().getExtras().getInt(getString(R.string.argumento_id_atividade)), checklist.id);
+            }
+        });
+
+    }
 
 
     @Override

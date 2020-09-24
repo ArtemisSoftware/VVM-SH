@@ -3,6 +3,7 @@ package com.vvm.sh.ui.atividadesPendentes.relatorios.checklist;
 import androidx.lifecycle.MutableLiveData;
 
 import com.vvm.sh.baseDados.entidades.AreaChecklistResultado;
+import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.repositorios.ChecklistRepositorio;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.modelos.Item;
 import com.vvm.sh.util.Recurso;
@@ -27,7 +28,7 @@ public class ChecklistViewModel extends BaseViewModel {
 
     private final ChecklistRepositorio checklistRepositorio;
 
-
+    public MutableLiveData<Tipo> checklist;
     public MutableLiveData<List<Item>> itens;
 
 
@@ -35,8 +36,16 @@ public class ChecklistViewModel extends BaseViewModel {
     public ChecklistViewModel(ChecklistRepositorio checklistRepositorio){
 
         this.checklistRepositorio = checklistRepositorio;
+        checklist = new MutableLiveData<>();
         itens = new MutableLiveData<>();
     }
+
+
+    public MutableLiveData<Tipo> observarChecklist(){
+        return checklist;
+    }
+
+
 
 
     //--------------------
@@ -76,6 +85,34 @@ public class ChecklistViewModel extends BaseViewModel {
     //OBTER
     //--------------------
 
+
+    public void obterChecklist(int idAtividade){
+
+        checklistRepositorio.obterChecklist(idAtividade)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new SingleObserver<Tipo>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+
+                            }
+
+                            @Override
+                            public void onSuccess(Tipo tipo) {
+                                checklist.setValue(tipo);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+                        }
+
+                );
+
+    }
 
 
     public void obterAreas(int idAtividade, int idChecklist) {

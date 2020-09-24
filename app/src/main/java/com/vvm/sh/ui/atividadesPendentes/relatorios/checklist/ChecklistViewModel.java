@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.vvm.sh.baseDados.entidades.AreaChecklist;
 import com.vvm.sh.baseDados.entidades.AreaChecklistResultado;
+import com.vvm.sh.baseDados.entidades.QuestionarioChecklistResultado;
 import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.repositorios.ChecklistRepositorio;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.modelos.Item;
@@ -38,7 +39,7 @@ public class ChecklistViewModel extends BaseViewModel {
 
 
     public MutableLiveData<List<Tipo>> respostas;
-
+    public MutableLiveData<List<Tipo>> tiposNi;
     public MutableLiveData<List<AreaChecklist>> tipoAreas;
 
 
@@ -54,6 +55,8 @@ public class ChecklistViewModel extends BaseViewModel {
         tipoAreas = new MutableLiveData<>();
         questionario = new MutableLiveData<>();
         respostas = new MutableLiveData<>();
+        tiposNi = new MutableLiveData<>();
+
     }
 
 
@@ -135,6 +138,63 @@ public class ChecklistViewModel extends BaseViewModel {
                         }
 
                 );
+
+    }
+
+
+    public void inserir(int idRegisto, QuestionarioChecklistResultado resultado) {
+
+        if(idRegisto == 0) {
+            checklistRepositorio.inserir(resultado)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+
+                            new SingleObserver<Long>() {
+                                @Override
+                                public void onSubscribe(Disposable d) {
+                                    disposables.add(d);
+                                }
+
+                                @Override
+                                public void onSuccess(Long aLong) {
+                                    messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_GRAVADOS_SUCESSO));
+                                }
+
+                                @Override
+                                public void onError(Throwable e) {
+
+                                }
+                            }
+                    );
+        }
+        else{
+
+            resultado.id = idRegisto;
+
+            checklistRepositorio.atualizar(resultado)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+
+                            new SingleObserver<Integer>() {
+                                @Override
+                                public void onSubscribe(Disposable d) {
+                                    disposables.add(d);
+                                }
+
+                                @Override
+                                public void onSuccess(Integer aLong) {
+                                    messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_EDITADOS_SUCESSO));
+                                }
+
+                                @Override
+                                public void onError(Throwable e) {
+
+                                }
+                            }
+                    );
+        }
 
     }
 
@@ -365,7 +425,7 @@ public class ChecklistViewModel extends BaseViewModel {
     /**
      * Metodo que permite obter as respostas
      */
-    private void obterRespostas(){
+    public void obterRespostas(){
 
         List<Tipo> estado = new ArrayList<>();
 
@@ -374,7 +434,33 @@ public class ChecklistViewModel extends BaseViewModel {
         estado.add(TiposConstantes.Checklist.NAO_APLICAVEL);
         respostas.setValue(estado);
 
+
+
+        checklistRepositorio.obterNI()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new SingleObserver<List<Tipo>>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+
+                            }
+
+                            @Override
+                            public void onSuccess(List<Tipo> tipos) {
+                                tiposNi.setValue(tipos);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+                        }
+
+                );
     }
+
 
 
 }

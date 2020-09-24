@@ -40,6 +40,7 @@ public class TiposUtil {
         public static final String TIPOS_AREA = "GetTiposArea";
         public static final String TIPOS_CHECKLIST = "GetTiposChecklistNovo";
         public static final String TIPOS_ILUMINACAO = "GetTiposIluminacao";
+        public static final String TIPOS_NI = "GetTiposNI";
         public static final String ILUMINANCIA = "GetIluminancia";
 
 
@@ -69,6 +70,8 @@ public class TiposUtil {
         public static final String TIPOS_AREA = "Tipos_Area";
         public static final String TIPOS_CHECKLIST = "Tipos_Checklist";
         public static final String TIPOS_ILUMINACAO = "Tipos_Iluminacao";
+        public static final String TIPOS_NI = "Tipos_NI";
+
         public static final String ILUMINANCIA = "Iluminancia";
 
         public static final MetodoApi METODO_ATIVIDADES_RELATORIO_VISITA = new MetodoApi(ATIVIDADES_RELATORIO_VISITA, null, MetodosTiposSH.ATIVIDADES_RELATORIO_VISITA);
@@ -82,6 +85,7 @@ public class TiposUtil {
 
         public static final MetodoApi METODO_TIPOS_CHECKLIST = new MetodoApi(TIPOS_CHECKLIST, null, MetodosTiposSH.TIPOS_CHECKLIST);
         public static final MetodoApi METODO_TIPOS_ILUMINACAO = new MetodoApi(TIPOS_ILUMINACAO, null, MetodosTiposSH.TIPOS_ILUMINACAO);
+        public static final MetodoApi METODO_TIPOS_NI = new MetodoApi(TIPOS_NI, null, MetodosTiposSH.TIPOS_NI);
 //
 //public static final MetodoApi METODO_ = new MetodoApi(MetodosTiposSA., MetodosTiposSH.);
 //public static final MetodoApi METODO_ = new MetodoApi(MetodosTiposSA., MetodosTiposSH.);
@@ -101,7 +105,8 @@ public class TiposUtil {
                 METODO_ILUMINANCIA,
                 METODO_TIPOS_AREA,
                 METODO_TIPOS_CHECKLIST,
-                METODO_TIPOS_ILUMINACAO
+                METODO_TIPOS_ILUMINACAO,
+                METODO_TIPOS_NI
         };
 
     }
@@ -244,6 +249,13 @@ public class TiposUtil {
             case MetodosTipos.TIPOS_ILUMINACAO:
 
                 metodo = MetodosTipos.METODO_TIPOS_ILUMINACAO;
+                break;
+
+
+            case MetodosTiposSH.TIPOS_NI:
+            case MetodosTipos.TIPOS_NI:
+
+                metodo = MetodosTipos.METODO_TIPOS_NI;
                 break;
 
             default:

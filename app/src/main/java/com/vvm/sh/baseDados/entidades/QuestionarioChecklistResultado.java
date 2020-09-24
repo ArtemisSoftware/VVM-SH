@@ -8,6 +8,7 @@ import androidx.room.ForeignKey;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
+import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.modelos.Item;
 import com.vvm.sh.util.constantes.Identificadores;
 
 import static androidx.room.ForeignKey.CASCADE;
@@ -117,5 +118,12 @@ public class QuestionarioChecklistResultado {
     public int origem;
 
 
-
+    public QuestionarioChecklistResultado(Item item, String idQuestao, String resposta, String ni) {
+        this.idArea = item.id;
+        this.idSeccao = item.uid;
+        this.idItem = idQuestao;
+        this.tipo = Identificadores.Checklist.TIPO_QUESTAO;
+        this.resposta = resposta;
+        this.ni = ni;
+    }
 }

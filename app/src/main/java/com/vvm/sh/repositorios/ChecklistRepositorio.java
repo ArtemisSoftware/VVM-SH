@@ -8,9 +8,11 @@ import com.vvm.sh.baseDados.dao.ResultadoDao;
 import com.vvm.sh.baseDados.dao.TipoDao;
 import com.vvm.sh.baseDados.entidades.AreaChecklist;
 import com.vvm.sh.baseDados.entidades.AreaChecklistResultado;
+import com.vvm.sh.baseDados.entidades.QuestionarioChecklistResultado;
 import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.modelos.Item;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.modelos.Questao;
+import com.vvm.sh.util.metodos.TiposUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -50,6 +52,16 @@ public class ChecklistRepositorio {
     }
 
     /**
+     * Metodo que permite inserir um registo
+     * @param registo os dados a inserir
+     * @return o resultado da insercao
+     */
+    public Single<Long> inserir(QuestionarioChecklistResultado registo){
+        return questionarioChecklistDao.inserir(registo);
+    }
+
+
+    /**
      * Metodo que permite atualizar um registo
      * @param registo os dados a inserir
      * @return o resultado da insercao
@@ -57,6 +69,18 @@ public class ChecklistRepositorio {
     public Single<Integer> atualizar(AreaChecklistResultado registo){
         return areaChecklistDao.atualizar(registo);
     }
+
+
+    /**
+     * Metodo que permite atualizar um registo
+     * @param registo os dados a inserir
+     * @return o resultado da insercao
+     */
+    public Single<Integer> atualizar(QuestionarioChecklistResultado registo){
+        return questionarioChecklistDao.atualizar(registo);
+    }
+
+
 
     public Single<Boolean> validarAreaGeral(int idAtividade, int idChecklist){
         return areaChecklistDao.validarAreaGeral(idAtividade, idChecklist);
@@ -104,6 +128,12 @@ public class ChecklistRepositorio {
 
 
         return single;
+    }
+
+
+    public Single<List<Tipo>> obterNI(){
+        return tipoDao.obterTipos_(TiposUtil.MetodosTipos.TIPOS_NI, api);
+
     }
 
 }

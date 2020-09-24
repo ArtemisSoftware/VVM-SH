@@ -27,8 +27,6 @@ public class DialogoArea extends BaseDaggerDialogoPersistenteFragment {
 
     private static final String ARGUMENTO_ID_ATIVIDADE = "idAtividade";
     private static final String ARGUMENTO_ID_CHECKLIST = "idChecklist";
-    private static final String ARGUMENTO_ID = "id";
-    private static final String ARGUMENTO_DESCRICAO = "descricao";
     private static final String ARGUMENTO_ITEM = "item";
 
 

@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
@@ -36,6 +37,10 @@ public class AreaChecklistResultado {
 
     public String subDescricao;
 
-
-
+    @Ignore
+    public AreaChecklistResultado(int idAtividade, int idChecklist, int idArea) {
+        this.idAtividade = idAtividade;
+        this.idChecklist = idChecklist;
+        this.idArea = idArea;
+    }
 }

@@ -51,6 +51,11 @@ public class ChecklistRepositorio {
         return areaChecklistDao.atualizar(registo);
     }
 
+    public Single<Boolean> validarAreaGeral(int idAtividade, int idChecklist){
+        return areaChecklistDao.validarAreaGeral(idAtividade, idChecklist);
+    }
+
+
 
     public Single<List<AreaChecklist>> obterAreasChecklist(int idChecklist){
         return areaChecklistDao.obterAreasChecklist(idChecklist);

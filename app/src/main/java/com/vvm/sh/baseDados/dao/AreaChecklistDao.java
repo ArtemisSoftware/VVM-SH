@@ -39,6 +39,11 @@ abstract public class AreaChecklistDao implements BaseDao<AreaChecklistResultado
     abstract public Single<Integer> remover(int id);
 
 
+    @Query("SELECT CASE WHEN id IS NULL THEN 1 ELSE 0 END as valido " +
+            "FROM areasChecklistResultado " +
+            "WHERE idChecklist = :idChecklist AND idAtividade = :idAtividade AND idArea = :idArea " +
+            "AND subDescricao = :subDescricao")
+    abstract public Single<Boolean> validarSubDescricaoArea(int idAtividade, int idChecklist, int idArea, String subDescricao);
 
 //
 //

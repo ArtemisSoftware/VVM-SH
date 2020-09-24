@@ -10,8 +10,10 @@ import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.modelos.Item;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.constantes.Sintaxe;
+import com.vvm.sh.util.constantes.TiposConstantes;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -34,6 +36,8 @@ public class ChecklistViewModel extends BaseViewModel {
     public MutableLiveData<List<Item>> itens;
 
 
+    public MutableLiveData<List<Tipo>> respostas;
+
     public MutableLiveData<List<AreaChecklist>> tipoAreas;
 
 
@@ -44,6 +48,8 @@ public class ChecklistViewModel extends BaseViewModel {
         checklist = new MutableLiveData<>();
         itens = new MutableLiveData<>();
         tipoAreas = new MutableLiveData<>();
+
+        respostas = new MutableLiveData<>();
     }
 
 
@@ -115,7 +121,7 @@ public class ChecklistViewModel extends BaseViewModel {
 
                             @Override
                             public void onSuccess(Object o) {
-
+                                messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_GRAVADOS_SUCESSO));
                             }
 
                             @Override
@@ -202,6 +208,45 @@ public class ChecklistViewModel extends BaseViewModel {
     }
 
 
+    public void obterSeccoes(int idRegistoArea) {
+
+        showProgressBar(true);
+
+
+        checklistRepositorio.obterSeccoes(idRegistoArea)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new Observer<List<Item>>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+
+                            }
+
+                            @Override
+                            public void onNext(List<Item> items) {
+                                itens.setValue(items);
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+
+                            @Override
+                            public void onComplete() {
+
+                            }
+                        }
+                );
+
+    }
+
+
+
+
     public void obterAreasChecklist(int idChecklist){
 
 
@@ -278,4 +323,22 @@ public class ChecklistViewModel extends BaseViewModel {
                 );
 
     }
+
+
+
+    /**
+     * Metodo que permite obter as respostas
+     */
+    private void obterRespostas(){
+
+        List<Tipo> estado = new ArrayList<>();
+
+        estado.add(TiposConstantes.Checklist.SIM);
+        estado.add(TiposConstantes.Checklist.NAO);
+        estado.add(TiposConstantes.Checklist.NAO_APLICAVEL);
+        respostas.setValue(estado);
+
+    }
+
+
 }

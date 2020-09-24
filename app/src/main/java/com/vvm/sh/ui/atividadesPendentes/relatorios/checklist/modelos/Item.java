@@ -21,6 +21,9 @@ public class Item implements Parcelable {
     @ColumnInfo(name = "id")
     public int id;
 
+    @ColumnInfo(name = "uid")
+    public String uid;
+
     @ColumnInfo(name = "completos")
     public int completos;
 
@@ -31,7 +34,9 @@ public class Item implements Parcelable {
     public int tipo;
 
 
-    public Item(int idArea, String descricao, String subDescricao, int id, int completos, int total, int tipo) {
+
+
+    public Item(int idArea, String descricao, String subDescricao, int id, int completos, int total, int tipo, String uid) {
         this.idArea = idArea;
         this.descricao = descricao;
         this.subDescricao = subDescricao;
@@ -39,7 +44,10 @@ public class Item implements Parcelable {
         this.completos = completos;
         this.total = total;
         this.tipo = tipo;
+        this.uid = uid;
     }
+
+
 
     @Ignore
     protected Item(Parcel in) {

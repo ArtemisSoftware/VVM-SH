@@ -110,7 +110,8 @@ public class DialogoArea extends BaseDaggerDialogoPersistenteFragment {
 
                     case SUCESSO:
 
-                        dialogo.sucesso(recurso.messagem, listener);
+                        dialogo.sucesso(recurso.messagem);
+                        binding.txtInpDescricaoArea.setText("");
                         break;
 
                     case ERRO:

@@ -55,6 +55,7 @@ import com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.Relatorio
 import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.ChecklistActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.ChecklistViewModel;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.DialogoArea;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.QuestoesChecklistActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.LevantamentosActivity;
 import com.vvm.sh.ui.registoVisita.DadosClienteActivity;
 import com.vvm.sh.ui.registoVisita.DialogoTrabalhoRealizado;
@@ -305,7 +306,11 @@ public abstract class ActivityBuildersModule {
     abstract DialogoArea contributeDialogoArea();
 
 
-
+    @ChecklistScope
+    @ContributesAndroidInjector(
+            modules = { ChecklistViewModelsModule.class, ChecklistModule.class }
+    )
+    abstract QuestoesChecklistActivity contributeQuestoesChecklistActivity();
 
 
 

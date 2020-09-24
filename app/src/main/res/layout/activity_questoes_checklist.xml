@@ -5,12 +5,19 @@
 
     <data>
         <import type="java.util.List"/>
-<!--
+
+        <variable
+            name="listener"
+            type="com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.adaptadores.OnChecklistListener"/>
+
+
         <variable
             name="viewmodel"
-            type="com.vvm.sh.ui.registoVisita.RegistoVisitaViewModel"/>
+            type="com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.ChecklistViewModel"/>
 
-            -->
+        <variable
+            name="bloquear"
+            type="Boolean"/>
     </data>
 
 
@@ -29,7 +36,7 @@
             style="@style/lista"
 
 
-            tools:listitem="@layout/item_trabalho_realizado"/>
+            tools:listitem="@layout/item_checklist_pergunta"/>
 
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton

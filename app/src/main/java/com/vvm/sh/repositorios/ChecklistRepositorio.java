@@ -3,6 +3,7 @@ package com.vvm.sh.repositorios;
 import androidx.annotation.NonNull;
 
 import com.vvm.sh.baseDados.dao.AreaChecklistDao;
+import com.vvm.sh.baseDados.dao.QuestionarioChecklistDao;
 import com.vvm.sh.baseDados.dao.ResultadoDao;
 import com.vvm.sh.baseDados.dao.TipoDao;
 import com.vvm.sh.baseDados.entidades.AreaChecklist;
@@ -18,16 +19,18 @@ import io.reactivex.Single;
 public class ChecklistRepositorio {
 
     private final AreaChecklistDao areaChecklistDao;
+    private final QuestionarioChecklistDao questionarioChecklistDao;
     private final TipoDao tipoDao;
     public final ResultadoDao resultadoDao;
     private int api;
 
 
 
-    public ChecklistRepositorio(@NonNull int api, @NonNull AreaChecklistDao areaChecklistDao,
+    public ChecklistRepositorio(@NonNull int api, @NonNull AreaChecklistDao areaChecklistDao, @NonNull QuestionarioChecklistDao questionarioChecklistDao,
                                          @NonNull TipoDao tipoDao, @NonNull ResultadoDao resultadoDao) {
 
         this.areaChecklistDao = areaChecklistDao;
+        this.questionarioChecklistDao = questionarioChecklistDao;
         this.tipoDao = tipoDao;
         this.resultadoDao = resultadoDao;
 
@@ -69,7 +72,9 @@ public class ChecklistRepositorio {
         return areaChecklistDao.obterAreas(idAtividade, idChecklist);
     }
 
-
+    public Observable<List<Item>> obterSeccoes(int idRegistoArea){
+        return areaChecklistDao.obterSeccoes(idRegistoArea);
+    }
 
 
     public Single<Boolean> validarSubDescricaoArea(int idAtividade, int idChecklist, int idArea, String subDescricao){

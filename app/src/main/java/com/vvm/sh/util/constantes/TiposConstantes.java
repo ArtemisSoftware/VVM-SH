@@ -47,5 +47,14 @@ public class TiposConstantes {
     }
 
 
+    public static class Checklist{
+
+
+        public static final Tipo SIM = new Tipo(1, "NA");
+        public static final Tipo NAO = new Tipo(2, "N");
+        public static final Tipo NAO_APLICAVEL = new Tipo(3,"S");
+
+
+    }
 
 }

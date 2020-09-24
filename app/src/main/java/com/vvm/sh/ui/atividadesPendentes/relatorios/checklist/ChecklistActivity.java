@@ -119,7 +119,7 @@ public class ChecklistActivity extends BaseDaggerActivity
     public void OnItemClick(Item registo) {
 
         if(registo.tipo == Identificadores.Checklist.TIPO_AREA){
-
+            viewModel.obterSeccoes(registo.id);
         }
 
     }
@@ -148,6 +148,7 @@ public class ChecklistActivity extends BaseDaggerActivity
         DialogoArea dialogo = DialogoArea.newInstance(idAtividade, checklist.id);
         dialogo.show(getSupportFragmentManager(), "example dialog");
 
+        activityRegistoVisitaBinding.fabMenu.close(true);
     }
 
 

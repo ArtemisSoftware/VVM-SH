@@ -103,9 +103,9 @@ public class AtividadesPendentesActivity extends BaseDaggerActivity
         for(AtividadePendenteRegisto item: viewModel.atividades.getValue()){
 
             if(item.atividade.id == idAtividade){
+
                 DialogoDetalheAtividadePendente dialogo = DialogoDetalheAtividadePendente.newInstance(item.resultado);
                 dialogo.show(getSupportFragmentManager(), "example dialog");
-
                 break;
             }
         }

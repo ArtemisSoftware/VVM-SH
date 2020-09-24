@@ -37,14 +37,23 @@ abstract public class AreaChecklistDao implements BaseDao<AreaChecklistResultado
 
 
 
-    @Query("SELECT area_chk_res.idArea as idArea, id, descricao, 'lolo' as subDescricao, 0 as tipo, 0 as completos, 0 as  total " +
+
+
+    @Query("SELECT area_chk_res.idArea as idArea, id, descricao, IFNULL(subDescricao,'') as subDescricao, " +
+            "" + Identificadores.Checklist.TIPO_AREA + " as tipo, 0 as completos, 0 as  total " +
             "FROM areasChecklistResultado as area_chk_res " +
             "LEFT JOIN (SELECT idArea, descricao, idChecklist FROM areasChecklist) as area_chk " +
             "ON area_chk_res.idChecklist = area_chk.idChecklist AND area_chk_res.idArea = area_chk.idArea " +
 
 
-            "WHERE area_chk_res.idChecklist = :idChecklist AND idAtividade = :idAtividade")
+            "WHERE area_chk_res.idChecklist = :idChecklist AND idAtividade = :idAtividade " +
+            "ORDER BY " +
+            "CASE WHEN descricao = 'Geral' THEN 0 ELSE 1 END, " +
+            "descricao, subDescricao ")
     abstract public Observable<List<Item>> obterAreas(int idAtividade, int idChecklist);
+
+
+
 
 
 
@@ -57,14 +66,14 @@ abstract public class AreaChecklistDao implements BaseDao<AreaChecklistResultado
     abstract public Single<Integer> remover(int id);
 
 
-    @Query("SELECT CASE WHEN id IS NULL THEN 1 ELSE 0 END as valido " +
+    @Query("SELECT CASE WHEN COUNT(*) = 0 THEN 0 ELSE 1 END as valido " +
             "FROM areasChecklistResultado " +
             "WHERE idChecklist = :idChecklist AND idAtividade = :idAtividade AND idArea = :idArea " +
             "AND subDescricao = :subDescricao")
     abstract public Single<Boolean> validarSubDescricaoArea(int idAtividade, int idChecklist, int idArea, String subDescricao);
 
 
-    @Query("SELECT CASE WHEN id IS NULL THEN 0 ELSE 1 END as valido " +
+    @Query("SELECT CASE WHEN COUNT(*) = 0 THEN 0 ELSE 1 END as valido " +
             "FROM areasChecklistResultado " +
             "WHERE idChecklist = :idChecklist AND idAtividade = :idAtividade AND idArea = " + Identificadores.ID_AREA_GERAL + " ")
     abstract public Single<Boolean> validarAreaGeral(int idAtividade, int idChecklist);

@@ -4,6 +4,9 @@ import androidx.databinding.BindingAdapter;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.jaredrummler.materialspinner.MaterialSpinner;
+import com.vvm.sh.baseDados.entidades.AreaChecklist;
+import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.adaptadores.ItemRecyclerAdapter;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.adaptadores.OnChecklistListener;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.modelos.Item;
@@ -39,6 +42,26 @@ public class ChecklistBinding {
 
     }
 
+
+    @BindingAdapter({"areas", "idArea"})
+    public static void setAreas(MaterialSpinner view, List<AreaChecklist> registos, int id) {
+
+        if (registos == null)
+            return;
+
+        view.setItems(registos);
+
+        if(id != 0) {
+
+            for (int index = 0; index < registos.size(); ++index) {
+
+                if(registos.get(index).idArea == id){
+                    view.setSelectedIndex(index);
+                    break;
+                }
+            }
+        }
+    }
 
 
 }

@@ -44,6 +44,14 @@ public class AreaChecklistResultado {
         this.idArea = idArea;
     }
 
+    @Ignore
+    public AreaChecklistResultado(int idAtividade, int idChecklist, int idArea, String subDescricao) {
+        this.idAtividade = idAtividade;
+        this.idChecklist = idChecklist;
+        this.idArea = idArea;
+        this.subDescricao = subDescricao;
+    }
+
     public AreaChecklistResultado(int idAtividade, int idChecklist, int idArea, int id, String subDescricao) {
         this.idAtividade = idAtividade;
         this.idChecklist = idChecklist;

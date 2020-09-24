@@ -17,6 +17,7 @@ import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.adaptadores.OnChecklistListener;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.modelos.Item;
 import com.vvm.sh.util.Recurso;
+import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
@@ -48,6 +49,7 @@ public class ChecklistActivity extends BaseDaggerActivity
         activityRegistoVisitaBinding = (ActivityChecklistBinding) activityBinding;
         activityRegistoVisitaBinding.setLifecycleOwner(this);
         activityRegistoVisitaBinding.setViewmodel(viewModel);
+        activityRegistoVisitaBinding.setListener(this);
 
         activityRegistoVisitaBinding.setBloquear(PreferenciasUtil.agendaEditavel(this));
 
@@ -107,7 +109,7 @@ public class ChecklistActivity extends BaseDaggerActivity
             public void onChanged(Tipo tipo) {
                 checklist = tipo;
 
-                viewModel.obterAreas(getIntent().getExtras().getInt(getString(R.string.argumento_id_atividade)), checklist.id);
+                viewModel.inserirAreaGeral(getIntent().getExtras().getInt(getString(R.string.argumento_id_atividade)), checklist.id);
             }
         });
 
@@ -115,6 +117,10 @@ public class ChecklistActivity extends BaseDaggerActivity
 
     @Override
     public void OnItemClick(Item registo) {
+
+        if(registo.tipo == Identificadores.Checklist.TIPO_AREA){
+
+        }
 
     }
 
@@ -136,8 +142,12 @@ public class ChecklistActivity extends BaseDaggerActivity
     @OnClick({R.id.fab_adicionar_area})
     public void fab_adicionar_area_OnClickListener(View view) {
 
-//        Intent intent = new Intent(this, DadosClienteActivity.class);
-//        startActivity(intent);
+        Bundle bundle = getIntent().getExtras();
+        int idAtividade = bundle.getInt(getString(R.string.argumento_id_atividade));
+
+        DialogoArea dialogo = DialogoArea.newInstance(idAtividade, checklist.id);
+        dialogo.show(getSupportFragmentManager(), "example dialog");
+
     }
 
 

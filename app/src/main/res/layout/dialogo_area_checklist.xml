@@ -14,6 +14,11 @@
             name="viewmodel"
             type="com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.ChecklistViewModel"/>
 
+
+        <variable
+            name="idArea"
+            type="Integer"/>
+
     </data>
 
 
@@ -30,11 +35,12 @@
 
 
         <com.jaredrummler.materialspinner.MaterialSpinner
-            android:id="@+id/spnr_anomalias"
+            android:id="@+id/spnr_areas"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/area"
-
+            areas="@{viewmodel.tipoAreas}"
+            idArea="@{idArea}"
             app:layout_constraintStart_toStartOf="@+id/textView18"
             app:layout_constraintTop_toBottomOf="@+id/chk_box_fiscalizado" />
 

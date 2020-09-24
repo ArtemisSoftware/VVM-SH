@@ -69,4 +69,10 @@ public class ChecklistRepositorio {
         return areaChecklistDao.obterAreas(idAtividade, idChecklist);
     }
 
+
+
+
+    public Single<Boolean> validarSubDescricaoArea(int idAtividade, int idChecklist, int idArea, String subDescricao){
+        return areaChecklistDao.validarSubDescricaoArea(idAtividade, idChecklist, idArea, subDescricao);
+    }
 }

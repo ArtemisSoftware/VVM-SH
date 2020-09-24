@@ -129,6 +129,14 @@ public class Identificadores {
         public static final int SEM_SINCRONIZACAO = 4;
     }
 
+    public class Checklist {
+        public static final int TIPO_AREA = 1;
+        public static final int TIPO_SECCAO = 2;
+        public static final int TRANCADO = 3;
+        public static final int SEM_SINCRONIZACAO = 4;
+    }
+
+
 
     public class Relatorios {
 

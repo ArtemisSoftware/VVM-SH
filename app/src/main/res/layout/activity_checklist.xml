@@ -148,14 +148,10 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rcl_registos"
                     style="@style/lista"
-
+                    itens="@{viewmodel.itens}"
+                    listener="@{listener}"
                     tools:listitem="@layout/item_checklist"/>
 
-                <!--
-                registosOcorrencias="@{viewmodel.ocorrenciasRegistos}"
-                    onItemClick="@{listener}"
-
-                     -->
 
             </LinearLayout>
 

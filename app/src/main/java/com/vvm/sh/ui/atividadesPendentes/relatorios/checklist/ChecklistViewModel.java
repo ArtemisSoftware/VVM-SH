@@ -17,6 +17,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import io.reactivex.MaybeObserver;
+import io.reactivex.MaybeSource;
 import io.reactivex.Observer;
 import io.reactivex.SingleObserver;
 import io.reactivex.SingleSource;
@@ -86,6 +87,48 @@ public class ChecklistViewModel extends BaseViewModel {
     }
 
 
+
+    public void inserNovaArea(AreaChecklistResultado area){
+
+        checklistRepositorio.validarSubDescricaoArea(area.idAtividade, area.idChecklist, area.idArea, area.subDescricao)
+                .flatMap(new Function<Boolean, SingleSource<?>>() {
+                    @Override
+                    public SingleSource<?> apply(Boolean resultado) throws Exception {
+
+
+                        if(resultado == false){
+                            return checklistRepositorio.inserir(area);
+                        }
+
+                        return null;
+                    }
+                })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new SingleObserver<Object>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+
+                            }
+
+                            @Override
+                            public void onSuccess(Object o) {
+
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                messagemLiveData.setValue(Recurso.erro("A descrição já existe"));
+                            }
+                        }
+
+                );
+
+    }
+
+
     //--------------------
     //OBTER
     //--------------------
@@ -120,6 +163,8 @@ public class ChecklistViewModel extends BaseViewModel {
     }
 
 
+
+
     public void obterAreas(int idAtividade, int idChecklist) {
 
         showProgressBar(true);
@@ -139,6 +184,7 @@ public class ChecklistViewModel extends BaseViewModel {
                             @Override
                             public void onNext(List<Item> items) {
                                 itens.setValue(items);
+                                showProgressBar(false);
                             }
 
                             @Override
@@ -215,17 +261,17 @@ public class ChecklistViewModel extends BaseViewModel {
                         new SingleObserver<Object>() {
                             @Override
                             public void onSubscribe(Disposable d) {
-
+                                disposables.add(d);
                             }
 
                             @Override
                             public void onSuccess(Object o) {
-
+                                obterAreas(idAtividade, idChecklist);
                             }
 
                             @Override
                             public void onError(Throwable e) {
-
+                                obterAreas(idAtividade, idChecklist);
                             }
                         }
 

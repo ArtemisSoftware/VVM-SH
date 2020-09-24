@@ -13,6 +13,8 @@ import com.vvm.sh.di.atividadesPendentes.AtividadesPendentesViewModelsModule;
 import com.vvm.sh.di.atividadesPendentes.avaliacaoAmbiental.AvaliacaoAmbientalModule;
 import com.vvm.sh.di.atividadesPendentes.avaliacaoAmbiental.AvaliacaoAmbientalScope;
 import com.vvm.sh.di.atividadesPendentes.avaliacaoAmbiental.AvaliacaoAmbientalViewModelsModule;
+import com.vvm.sh.di.atividadesPendentes.checklist.ChecklistScope;
+import com.vvm.sh.di.atividadesPendentes.checklist.ChecklistViewModelsModule;
 import com.vvm.sh.di.atividadesPendentes.formacao.FormacaoModule;
 import com.vvm.sh.di.atividadesPendentes.formacao.FormacaoScope;
 import com.vvm.sh.di.atividadesPendentes.formacao.FormacaoViewModelsModule;
@@ -49,6 +51,8 @@ import com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.Avaliacao
 import com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.AvaliacaoIluminacaoRegistoActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.AvaliacoesAmbientaisActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.RelatorioAvaliacaoAmbientalActivity;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.ChecklistActivity;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.ChecklistViewModel;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.LevantamentosActivity;
 import com.vvm.sh.ui.registoVisita.DadosClienteActivity;
 import com.vvm.sh.ui.registoVisita.DialogoTrabalhoRealizado;
@@ -277,6 +281,26 @@ public abstract class ActivityBuildersModule {
             modules = { CrossSellingViewModelsModule.class, CrossSellingModule.class }
     )
     abstract DialogoSinaletica contributeDialogoSinaletica();
+
+
+
+    //----------------------
+    //Checklist
+    //----------------------
+
+
+    @ChecklistScope
+    @ContributesAndroidInjector(
+            modules = { ChecklistViewModelsModule.class, ChecklistViewModel.class }
+    )
+    abstract ChecklistActivity contributeChecklistActivity();
+
+
+
+
+
+
+
 
 
 

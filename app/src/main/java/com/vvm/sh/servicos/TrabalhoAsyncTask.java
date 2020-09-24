@@ -224,6 +224,12 @@ public class TrabalhoAsyncTask extends AsyncTask<ISessao, Void, Void> {
         for(IAtividadePendente atividadePendente : atividadesPendentes){
 
             AtividadePendente registo = DownloadMapping.INSTANCE.map(atividadePendente);
+
+            try {
+                registo.idChecklist = Integer.parseInt(atividadePendente.idChecklist);
+            }
+            catch (NumberFormatException e){}
+
             registo.idRelatorio = obterIdRelatorioAtividadePendente(atividadePendente);
             registo.idTarefa = idTarefa;
             registos.add(registo);
@@ -348,6 +354,9 @@ public class TrabalhoAsyncTask extends AsyncTask<ISessao, Void, Void> {
         }
         if(atividadePendente.relatorioTermico == 1){
             return Identificadores.Relatorios.ID_RELATORIO_TEMPERATURA_HUMIDADE;
+        }
+        if(atividadePendente.relatorioAvaliacaoRisco == 1){
+            return Identificadores.Relatorios.ID_RELATORIO_AVALIACAO_RISCO;
         }
 
         return Identificadores.Relatorios.SEM_RELATORIO;

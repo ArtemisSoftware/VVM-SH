@@ -101,7 +101,7 @@
                     <TextView
                         android:id="@+id/textview"
                         style="@style/tituloCartao"
-                        android:text="@{viewmodel.checklist.descricao, default=checklist}"
+                        android:text="@{viewmodel.checklist.detalhe, default=checklist}"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="16dp"
                         app:layout_constraintStart_toStartOf="parent"
@@ -134,7 +134,7 @@
                         android:id="@+id/textView95"
                         style="@style/textoDetalhe"
                         android:layout_marginTop="8dp"
-                        android:text="@{viewmodel.checklist.detalhe, default=detalhe}"
+                        android:text="@{viewmodel.checklist.descricao, default=detalhe}"
                         app:layout_constraintStart_toStartOf="@+id/textview"
                         app:layout_constraintTop_toBottomOf="@+id/textview2" />
 

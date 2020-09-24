@@ -57,7 +57,8 @@
         <RadioGroup
             android:id="@+id/rd_gp_avaliacao_riscos"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="wrap_content"
+            android:visibility="gone">
 
 
             <RadioButton android:id="@+id/rd_btn_risco_processo_produtivo"

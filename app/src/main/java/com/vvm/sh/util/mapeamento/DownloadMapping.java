@@ -85,6 +85,7 @@ public interface DownloadMapping {
 
     Anomalia map(IAnomalia item);
 
+    @Mapping(target = "idChecklist", ignore = true)
     AtividadePendente map(IAtividadePendente item);
 
     Ocorrencia map(IOcorrencia item);

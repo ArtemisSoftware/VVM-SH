@@ -105,7 +105,7 @@ public class DialogoProcessoProdutivo extends BaseDaggerDialogoPersistenteFragme
 
     @Override
     protected int obterTitulo() {
-        return R.string.anomalia;
+        return R.string.processoProdutivo;
     }
 
 

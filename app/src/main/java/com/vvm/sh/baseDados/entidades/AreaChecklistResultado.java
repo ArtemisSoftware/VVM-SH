@@ -43,4 +43,12 @@ public class AreaChecklistResultado {
         this.idChecklist = idChecklist;
         this.idArea = idArea;
     }
+
+    public AreaChecklistResultado(int idAtividade, int idChecklist, int idArea, int id, String subDescricao) {
+        this.idAtividade = idAtividade;
+        this.idChecklist = idChecklist;
+        this.idArea = idArea;
+        this.id = id;
+        this.subDescricao = subDescricao;
+    }
 }

@@ -5,6 +5,8 @@ import android.content.Context;
 import android.view.View;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.vvm.sh.api.modelos.pedido.Codigo;
+import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.interfaces.OnDialogoListener;
 
@@ -97,6 +99,35 @@ public class MensagensUtil {
     }
 
     public void erro(String titulo, String mensagem, OnDialogoListener listener) {
+
+        dialogo.changeAlertType(SweetAlertDialog.ERROR_TYPE);
+        dialogo.setTitleText(titulo)
+                .setContentText(mensagem)
+                .setConfirmText(Sintaxe.Opcoes.OK)
+                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sDialog) {
+//                        sDialog.dismissWithAnimation();
+                        sDialog.dismiss();
+                        listener.onExecutar();
+                    }
+                });
+
+        dialogo.show();
+    }
+
+
+    public void erro(Recurso recurso, OnDialogoListener listener) {
+
+        String titulo = Sintaxe.Opcoes.ERRO;
+        String mensagem = recurso.messagem;
+
+        if(((Codigo)recurso.dados) != null){
+            titulo = recurso.messagem;
+            mensagem = ((Codigo)recurso.dados).mensagem;
+        }
+
+
 
         dialogo.changeAlertType(SweetAlertDialog.ERROR_TYPE);
         dialogo.setTitleText(titulo)

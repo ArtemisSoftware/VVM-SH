@@ -142,6 +142,9 @@ public class Identificadores {
 
         public static final int ID_RELATORIO_TEMPERATURA_HUMIDADE = 3;
         public static final String TEMPERATURA_E_HUMIDADE = "Temperatura e humidade";
+
+        public static final int ID_RELATORIO_AVALIACAO_RISCO = 4;
+        public static final String AVALIACAO_RISCO = "Avaliação de riscos";
     }
 
     public class CodigosWs {

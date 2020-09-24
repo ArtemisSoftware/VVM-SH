@@ -15,6 +15,7 @@ import com.vvm.sh.databinding.ActivityChecklistBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.adaptadores.OnChecklistListener;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.modelos.Item;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
@@ -112,9 +113,18 @@ public class ChecklistActivity extends BaseDaggerActivity
 
     }
 
+    @Override
+    public void OnItemClick(Item registo) {
+
+    }
 
     @Override
-    public void OnAreaClick(AreaChecklistResultado registo) {
+    public void OnEditarClick(Item registo) {
+
+    }
+
+    @Override
+    public void OnRemoverClick(Item registo) {
 
     }
 
@@ -137,6 +147,7 @@ public class ChecklistActivity extends BaseDaggerActivity
 //        Intent intent = new Intent(this, DadosClienteActivity.class);
 //        startActivity(intent);
     }
+
 
 
 }

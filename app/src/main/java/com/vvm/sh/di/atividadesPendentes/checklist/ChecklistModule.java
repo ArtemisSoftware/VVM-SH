@@ -6,8 +6,10 @@ import com.vvm.sh.baseDados.dao.ResultadoDao;
 import com.vvm.sh.baseDados.dao.TipoDao;
 import com.vvm.sh.repositorios.ChecklistRepositorio;
 
+import dagger.Module;
 import dagger.Provides;
 
+@Module
 public class ChecklistModule {
 
 

@@ -21,6 +21,11 @@ public class IAtividadePendente {
     @SerializedName("Anuidade")
     public String anuidade;
 
+
+    @SerializedName("ChecklistAVR")
+    public String idChecklist;
+
+
     @SerializedName("formacao")
     public int formacao;
 
@@ -29,4 +34,7 @@ public class IAtividadePendente {
 
     @SerializedName("relatorioTermico")
     public int relatorioTermico;
+
+    @SerializedName("AvRisco")
+    public int relatorioAvaliacaoRisco;
 }

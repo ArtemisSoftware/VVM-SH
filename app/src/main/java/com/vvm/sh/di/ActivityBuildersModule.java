@@ -13,6 +13,7 @@ import com.vvm.sh.di.atividadesPendentes.AtividadesPendentesViewModelsModule;
 import com.vvm.sh.di.atividadesPendentes.avaliacaoAmbiental.AvaliacaoAmbientalModule;
 import com.vvm.sh.di.atividadesPendentes.avaliacaoAmbiental.AvaliacaoAmbientalScope;
 import com.vvm.sh.di.atividadesPendentes.avaliacaoAmbiental.AvaliacaoAmbientalViewModelsModule;
+import com.vvm.sh.di.atividadesPendentes.checklist.ChecklistModule;
 import com.vvm.sh.di.atividadesPendentes.checklist.ChecklistScope;
 import com.vvm.sh.di.atividadesPendentes.checklist.ChecklistViewModelsModule;
 import com.vvm.sh.di.atividadesPendentes.formacao.FormacaoModule;
@@ -291,7 +292,7 @@ public abstract class ActivityBuildersModule {
 
     @ChecklistScope
     @ContributesAndroidInjector(
-            modules = { ChecklistViewModelsModule.class, ChecklistViewModel.class }
+            modules = { ChecklistViewModelsModule.class, ChecklistModule.class }
     )
     abstract ChecklistActivity contributeChecklistActivity();
 

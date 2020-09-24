@@ -10,11 +10,14 @@ import com.vvm.sh.baseDados.entidades.AreaChecklist;
 import com.vvm.sh.baseDados.entidades.AreaChecklistResultado;
 import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.modelos.Item;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.modelos.Questao;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.Single;
+import io.reactivex.functions.BiFunction;
 
 public class ChecklistRepositorio {
 
@@ -80,4 +83,27 @@ public class ChecklistRepositorio {
     public Single<Boolean> validarSubDescricaoArea(int idAtividade, int idChecklist, int idArea, String subDescricao){
         return areaChecklistDao.validarSubDescricaoArea(idAtividade, idChecklist, idArea, subDescricao);
     }
+
+
+
+    public Observable<List<Questao>> obterQuestoes(int idRegistoArea, String idSeccao){
+
+        Observable<List<Questao>> single = Observable.zip(
+                questionarioChecklistDao.obterQuestoes(idRegistoArea, idSeccao).toObservable(),
+                questionarioChecklistDao.obterObservacao(idRegistoArea, idSeccao).toObservable(),
+                new BiFunction<List<Questao>, Questao, List<Questao>>() {
+                    @Override
+                    public List<Questao> apply(List<Questao> questoes, Questao observacao) throws Exception {
+
+                        List<Questao> resultado = new ArrayList<>();
+                        resultado.addAll(questoes);
+                        resultado.add(observacao);
+                        return resultado;
+                    }
+                });
+
+
+        return single;
+    }
+
 }

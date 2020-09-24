@@ -11,6 +11,7 @@ import com.vvm.sh.R;
 import com.vvm.sh.databinding.ActivityQuestoesChecklistBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.modelos.Item;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
@@ -50,8 +51,8 @@ public class QuestoesChecklistActivity extends BaseDaggerActivity {
 
         if(bundle != null) {
 
-            int idAtividade = bundle.getInt(getString(R.string.argumento_id_atividade));
-            //viewModel.obterAreas(idAtividade);
+            Item item = bundle.getParcelable(getString(R.string.argumento_registo_area));
+            viewModel.obterQuestoes(item);
         }
         else{
             finish();

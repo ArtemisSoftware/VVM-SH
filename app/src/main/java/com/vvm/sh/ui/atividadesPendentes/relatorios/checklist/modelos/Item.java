@@ -53,7 +53,8 @@ public class Item implements Parcelable {
     protected Item(Parcel in) {
         idArea = in.readInt();
         descricao = in.readString();
-        subDescricao = in.readString();
+        subDescricao = in.readString();;
+        uid = in.readString();
         id = in.readInt();
         completos = in.readInt();
         total = in.readInt();
@@ -82,6 +83,7 @@ public class Item implements Parcelable {
         dest.writeInt(idArea);
         dest.writeString(descricao);
         dest.writeString(subDescricao);
+        dest.writeString(uid);
         dest.writeInt(id);
         dest.writeInt(completos);
         dest.writeInt(total);

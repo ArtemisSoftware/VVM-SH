@@ -7,6 +7,7 @@ import com.vvm.sh.baseDados.entidades.AreaChecklistResultado;
 import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.repositorios.ChecklistRepositorio;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.modelos.Item;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.modelos.Questao;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.constantes.Sintaxe;
@@ -41,6 +42,9 @@ public class ChecklistViewModel extends BaseViewModel {
     public MutableLiveData<List<AreaChecklist>> tipoAreas;
 
 
+    public MutableLiveData<List<Questao>> questionario;
+
+
     @Inject
     public ChecklistViewModel(ChecklistRepositorio checklistRepositorio){
 
@@ -48,7 +52,7 @@ public class ChecklistViewModel extends BaseViewModel {
         checklist = new MutableLiveData<>();
         itens = new MutableLiveData<>();
         tipoAreas = new MutableLiveData<>();
-
+        questionario = new MutableLiveData<>();
         respostas = new MutableLiveData<>();
     }
 
@@ -249,7 +253,6 @@ public class ChecklistViewModel extends BaseViewModel {
 
     public void obterAreasChecklist(int idChecklist){
 
-
         checklistRepositorio.obterAreasChecklist(idChecklist)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -272,7 +275,40 @@ public class ChecklistViewModel extends BaseViewModel {
                             }
                         }
                 );
+    }
 
+
+    public void obterQuestoes(Item item){
+
+
+        checklistRepositorio.obterQuestoes(item.id, item.uid)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new Observer<List<Questao>>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+
+                            }
+
+                            @Override
+                            public void onNext(List<Questao> resultado) {
+                                questionario.setValue(resultado);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+
+                            @Override
+                            public void onComplete() {
+
+                            }
+                        }
+
+                );
 
     }
 

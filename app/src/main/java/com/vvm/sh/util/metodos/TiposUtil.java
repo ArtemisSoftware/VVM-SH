@@ -42,6 +42,7 @@ public class TiposUtil {
         public static final String TIPOS_ILUMINACAO = "GetTiposIluminacao";
         public static final String TIPOS_NI = "GetTiposNI";
         public static final String TIPOS_UTS = "GetTiposUT";
+        public static final String TIPOS_VULNERABILIDADES =  "GetTiposVulnerabilidade";
         public static final String ILUMINANCIA = "GetIluminancia";
 
 
@@ -73,6 +74,7 @@ public class TiposUtil {
         public static final String TIPOS_ILUMINACAO = "Tipos_Iluminacao";
         public static final String TIPOS_NI = "Tipos_NI";
         public static final String TIPOS_UTS = "Tipos_Uts";
+        public static final String TIPOS_VULNERABILIDADES =  "Tipos_Vulnerabilidade";
 
         public static final String ILUMINANCIA = "Iluminancia";
 
@@ -90,6 +92,7 @@ public class TiposUtil {
         public static final MetodoApi METODO_TIPOS_NI = new MetodoApi(TIPOS_NI, null, MetodosTiposSH.TIPOS_NI);
 
         public static final MetodoApi METODO_TIPOS_UTS = new MetodoApi(TIPOS_UTS, null, MetodosTiposSH.TIPOS_UTS);
+        public static final MetodoApi METODO_TIPOS_VULNERABILIDADES = new MetodoApi(TIPOS_VULNERABILIDADES, null, MetodosTiposSH.TIPOS_VULNERABILIDADES);
 //
 //public static final MetodoApi METODO_ = new MetodoApi(MetodosTiposSA., MetodosTiposSH.);
 //public static final MetodoApi METODO_ = new MetodoApi(MetodosTiposSA., MetodosTiposSH.);
@@ -268,6 +271,13 @@ public class TiposUtil {
             case MetodosTipos.TIPOS_UTS:
 
                 metodo = MetodosTipos.METODO_TIPOS_UTS;
+                break;
+
+
+            case MetodosTiposSH.TIPOS_VULNERABILIDADES:
+            case MetodosTipos.TIPOS_VULNERABILIDADES:
+
+                metodo = MetodosTipos.METODO_TIPOS_VULNERABILIDADES;
                 break;
 
 

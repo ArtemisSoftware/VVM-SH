@@ -139,6 +139,40 @@ public class QuestionarioChecklistResultado {
         this.observacao = observacao;
     }
 
+    public QuestionarioChecklistResultado(Item item, String idQuestao, int numeroUt, int ut, int ut_CategoriasRisco,
+                                          boolean ut_LocalRisco_A, boolean ut_LocalRisco_B, boolean ut_LocalRisco_C,
+                                          boolean ut_LocalRisco_D, boolean ut_LocalRisco_E, boolean ut_LocalRisco_F) {
+        this.idArea = item.id;
+        this.idSeccao = item.uid;
+        this.idItem = idQuestao;
+        this.tipo = Identificadores.Checklist.TIPO_UTS;
+
+
+        if(numeroUt == 1) {
+            this.ut1 = ut;
+            this.ut1_CategoriasRisco = ut_CategoriasRisco;
+            this.ut1_LocalRisco_A = ut_LocalRisco_A;
+            this.ut1_LocalRisco_B = ut_LocalRisco_B;
+            this.ut1_LocalRisco_C = ut_LocalRisco_C;
+            this.ut1_LocalRisco_D = ut_LocalRisco_D;
+            this.ut1_LocalRisco_E = ut_LocalRisco_E;
+            this.ut1_LocalRisco_F = ut_LocalRisco_F;
+        }
+        else {
+            this.ut2 = ut;
+            this.ut2_CategoriasRisco = ut_CategoriasRisco;
+            this.ut2_LocalRisco_A = ut_LocalRisco_A;
+            this.ut2_LocalRisco_B = ut_LocalRisco_B;
+            this.ut2_LocalRisco_C = ut_LocalRisco_C;
+            this.ut2_LocalRisco_D = ut_LocalRisco_D;
+            this.ut2_LocalRisco_E = ut_LocalRisco_E;
+            this.ut2_LocalRisco_F = ut_LocalRisco_F;
+        }
+
+    }
+
+
+
 
     public QuestionarioChecklistResultado(int idArea, @NonNull String idSeccao, @NonNull String idItem, int id,
                                           @NonNull String tipo, String resposta, String nr, String ni, int ut1, int ut1_CategoriasRisco,
@@ -173,4 +207,31 @@ public class QuestionarioChecklistResultado {
         this.observacao = observacao;
         this.origem = origem;
     }
+
+
+    public void fixarUt(int numeroUt, int ut, int ut_CategoriasRisco,
+                        boolean ut_LocalRisco_A, boolean ut_LocalRisco_B, boolean ut_LocalRisco_C,
+                        boolean ut_LocalRisco_D, boolean ut_LocalRisco_E, boolean ut_LocalRisco_F){
+        if(numeroUt == 1) {
+            this.ut1 = ut;
+            this.ut1_CategoriasRisco = ut_CategoriasRisco;
+            this.ut1_LocalRisco_A = ut_LocalRisco_A;
+            this.ut1_LocalRisco_B = ut_LocalRisco_B;
+            this.ut1_LocalRisco_C = ut_LocalRisco_C;
+            this.ut1_LocalRisco_D = ut_LocalRisco_D;
+            this.ut1_LocalRisco_E = ut_LocalRisco_E;
+            this.ut1_LocalRisco_F = ut_LocalRisco_F;
+        }
+        else {
+            this.ut2 = ut;
+            this.ut2_CategoriasRisco = ut_CategoriasRisco;
+            this.ut2_LocalRisco_A = ut_LocalRisco_A;
+            this.ut2_LocalRisco_B = ut_LocalRisco_B;
+            this.ut2_LocalRisco_C = ut_LocalRisco_C;
+            this.ut2_LocalRisco_D = ut_LocalRisco_D;
+            this.ut2_LocalRisco_E = ut_LocalRisco_E;
+            this.ut2_LocalRisco_F = ut_LocalRisco_F;
+        }
+    }
+
 }

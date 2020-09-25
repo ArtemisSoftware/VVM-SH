@@ -169,7 +169,10 @@
         <item name="android:src">@drawable/ic_pesquisa_24dp</item>
     </style>
 
-
+    <style name="btnEditar" parent="btnCircular">
+        <item name="cb_color">@color/cor_botao</item>
+        <item name="android:src">@drawable/ic_editar</item>
+    </style>
 
     <style name="btnLimpar" parent="btnCircular">
         <item name="cb_color">@color/cor_amarelo</item>

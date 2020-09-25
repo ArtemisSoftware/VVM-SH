@@ -41,6 +41,7 @@ public class TiposUtil {
         public static final String TIPOS_CHECKLIST = "GetTiposChecklistNovo";
         public static final String TIPOS_ILUMINACAO = "GetTiposIluminacao";
         public static final String TIPOS_NI = "GetTiposNI";
+        public static final String TIPOS_UTS = "GetTiposUT";
         public static final String ILUMINANCIA = "GetIluminancia";
 
 
@@ -71,6 +72,7 @@ public class TiposUtil {
         public static final String TIPOS_CHECKLIST = "Tipos_Checklist";
         public static final String TIPOS_ILUMINACAO = "Tipos_Iluminacao";
         public static final String TIPOS_NI = "Tipos_NI";
+        public static final String TIPOS_UTS = "Tipos_Uts";
 
         public static final String ILUMINANCIA = "Iluminancia";
 
@@ -86,6 +88,8 @@ public class TiposUtil {
         public static final MetodoApi METODO_TIPOS_CHECKLIST = new MetodoApi(TIPOS_CHECKLIST, null, MetodosTiposSH.TIPOS_CHECKLIST);
         public static final MetodoApi METODO_TIPOS_ILUMINACAO = new MetodoApi(TIPOS_ILUMINACAO, null, MetodosTiposSH.TIPOS_ILUMINACAO);
         public static final MetodoApi METODO_TIPOS_NI = new MetodoApi(TIPOS_NI, null, MetodosTiposSH.TIPOS_NI);
+
+        public static final MetodoApi METODO_TIPOS_UTS = new MetodoApi(TIPOS_UTS, null, MetodosTiposSH.TIPOS_UTS);
 //
 //public static final MetodoApi METODO_ = new MetodoApi(MetodosTiposSA., MetodosTiposSH.);
 //public static final MetodoApi METODO_ = new MetodoApi(MetodosTiposSA., MetodosTiposSH.);
@@ -106,7 +110,8 @@ public class TiposUtil {
                 METODO_TIPOS_AREA,
                 METODO_TIPOS_CHECKLIST,
                 METODO_TIPOS_ILUMINACAO,
-                METODO_TIPOS_NI
+                METODO_TIPOS_NI,
+                METODO_TIPOS_UTS
         };
 
     }
@@ -257,6 +262,14 @@ public class TiposUtil {
 
                 metodo = MetodosTipos.METODO_TIPOS_NI;
                 break;
+
+
+            case MetodosTiposSH.TIPOS_UTS:
+            case MetodosTipos.TIPOS_UTS:
+
+                metodo = MetodosTipos.METODO_TIPOS_UTS;
+                break;
+
 
             default:
                 throw new TipoInexistenteException(descricao);

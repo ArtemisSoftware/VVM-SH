@@ -40,10 +40,13 @@ public class ChecklistViewModel extends BaseViewModel {
 
     public MutableLiveData<List<Tipo>> respostas;
     public MutableLiveData<List<Tipo>> tiposNi;
+    public MutableLiveData<List<Tipo>> tiposCategoriasRisco;
+    public MutableLiveData<List<Tipo>> tiposUts;
     public MutableLiveData<List<AreaChecklist>> tipoAreas;
 
 
     public MutableLiveData<List<Questao>> questionario;
+    public QuestionarioChecklistResultado resposta;
 
 
     @Inject
@@ -56,6 +59,9 @@ public class ChecklistViewModel extends BaseViewModel {
         questionario = new MutableLiveData<>();
         respostas = new MutableLiveData<>();
         tiposNi = new MutableLiveData<>();
+
+        tiposCategoriasRisco = new MutableLiveData<>();
+        tiposUts = new MutableLiveData<>();
 
     }
 
@@ -196,6 +202,34 @@ public class ChecklistViewModel extends BaseViewModel {
                     );
         }
 
+    }
+
+
+    public void remover(int idAtividade) {
+
+        checklistRepositorio.remover(idAtividade)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new SingleObserver<Integer>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+
+                            }
+
+                            @Override
+                            public void onSuccess(Integer integer) {
+                                messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_REMOVIDOS_SUCESSO));
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+                        }
+
+                );
     }
 
 
@@ -427,16 +461,26 @@ public class ChecklistViewModel extends BaseViewModel {
 
     /**
      * Metodo que permite obter as respostas
+     * @param idRegisto o identificador da resposta
      */
-    public void obterRespostas(){
+    public void obterRespostas(int idRegisto){
 
         List<Tipo> estado = new ArrayList<>();
 
-        estado.add(TiposConstantes.Checklist.SIM);
-        estado.add(TiposConstantes.Checklist.NAO);
-        estado.add(TiposConstantes.Checklist.NAO_APLICAVEL);
+        for (Tipo tipo : TiposConstantes.Checklist.RESPOSTAS) {
+            estado.add(tipo);
+        }
+
         respostas.setValue(estado);
 
+
+        List<Tipo> categorias = new ArrayList<>();
+
+        for (Tipo tipo : TiposConstantes.Checklist.CATEGORIAS_RISCO) {
+            categorias.add(tipo);
+        }
+
+        tiposCategoriasRisco.setValue(categorias);
 
 
         checklistRepositorio.obterNI()
@@ -453,6 +497,55 @@ public class ChecklistViewModel extends BaseViewModel {
                             @Override
                             public void onSuccess(List<Tipo> tipos) {
                                 tiposNi.setValue(tipos);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+                        }
+
+                );
+
+
+        checklistRepositorio.obterUts()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new SingleObserver<List<Tipo>>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+
+                            }
+
+                            @Override
+                            public void onSuccess(List<Tipo> tipos) {
+                                tiposUts.setValue(tipos);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+                        }
+
+                );
+
+        checklistRepositorio.obterQuestao(idRegisto)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new SingleObserver<QuestionarioChecklistResultado>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+
+                            }
+
+                            @Override
+                            public void onSuccess(QuestionarioChecklistResultado questionarioChecklistResultado) {
+                                resposta = questionarioChecklistResultado;
                             }
 
                             @Override

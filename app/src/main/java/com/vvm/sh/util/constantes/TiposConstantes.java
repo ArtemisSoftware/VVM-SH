@@ -55,6 +55,16 @@ public class TiposConstantes {
         public static final Tipo NAO_APLICAVEL = new Tipo(3,"S");
 
 
+        public static final Tipo RESPOSTAS[] = { SIM, NAO, NAO_APLICAVEL };
+
+
+        public static final Tipo CATEGORIAS_RISCO_0 = new Tipo(1, "");
+        public static final Tipo CATEGORIAS_RISCO_1 = new Tipo(2, "1");
+        public static final Tipo CATEGORIAS_RISCO_2 = new Tipo(3,"2");
+        public static final Tipo CATEGORIAS_RISCO_3 = new Tipo(4,"3");
+        public static final Tipo CATEGORIAS_RISCO_4 = new Tipo(5,"4");
+
+        public static final Tipo CATEGORIAS_RISCO[] = { CATEGORIAS_RISCO_0, CATEGORIAS_RISCO_1, CATEGORIAS_RISCO_2, CATEGORIAS_RISCO_3, CATEGORIAS_RISCO_4 };
     }
 
 }

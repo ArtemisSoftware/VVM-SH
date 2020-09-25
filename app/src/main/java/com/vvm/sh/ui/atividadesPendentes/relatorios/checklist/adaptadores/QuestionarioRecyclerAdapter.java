@@ -9,6 +9,8 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.vvm.sh.R;
+import com.vvm.sh.baseDados.entidades.ItemChecklist;
+import com.vvm.sh.databinding.ItemChecklistFotoBinding;
 import com.vvm.sh.databinding.ItemChecklistObservacaoBinding;
 import com.vvm.sh.databinding.ItemChecklistPerguntaBinding;
 import com.vvm.sh.databinding.ItemChecklistUtsBinding;
@@ -61,7 +63,8 @@ public class QuestionarioRecyclerAdapter extends RecyclerView.Adapter<RecyclerVi
 
             case FOTOS:
 
-                break;
+                ItemChecklistFotoBinding bindingFotos = DataBindingUtil.inflate(LayoutInflater.from(contexto), R.layout.item_checklist_foto, parent, false);
+                return new FotoViewHolder(bindingFotos.getRoot(), listener);
 
             case UTS:
 
@@ -142,6 +145,8 @@ public class QuestionarioRecyclerAdapter extends RecyclerView.Adapter<RecyclerVi
 
             case FOTOS:
 
+                ((FotoViewHolder)holder).binding.setQuestao(registo);
+                ((FotoViewHolder)holder).binding.executePendingBindings();
                 break;
 
             case UTS:

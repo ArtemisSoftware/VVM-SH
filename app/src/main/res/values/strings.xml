@@ -420,4 +420,7 @@
     <string name="E">E</string>
     <string name="F">F</string>
     <string name="questao">Questão</string>
+    <string name="fotos_registadas">Fotos registas</string>
+    <string name="eliminar_checklist">Eliminar checklist</string>
+    <string name="eliminar_checklist_dados">Ao eliminar a checklist irá perder todos os dados registados</string>
 </resources>

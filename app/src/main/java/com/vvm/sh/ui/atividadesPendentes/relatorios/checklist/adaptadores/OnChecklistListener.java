@@ -18,5 +18,9 @@ public interface OnChecklistListener {
         void OnObservacaoClick(Questao registo);
 
         void OnUtClick(Questao registo, int numeroUt);
+
+        void OnGaleriaClick();
+
+        void OnRegistarFoto();
     }
 }

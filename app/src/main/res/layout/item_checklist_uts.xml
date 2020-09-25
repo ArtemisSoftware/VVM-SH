@@ -31,7 +31,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
-            android:layout_height="500dp">
+            android:layout_height="wrap_content">
 
             <TextView
                 android:id="@+id/textView88"
@@ -45,13 +45,16 @@
 
             <LinearLayout
                 android:id="@+id/linearLayout17"
-                android:layout_width="400dp"
+                android:layout_width="match_parent"
                 android:layout_height="42dp"
                 android:layout_gravity="center_vertical"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
+                android:layout_marginEnd="32dp"
                 android:background="@color/cor_separador"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/textView88"
                 app:layout_constraintTop_toBottomOf="@+id/textView88">
 
@@ -79,7 +82,7 @@
                 android:id="@+id/textView90"
                 style="@style/textoDetalhe"
                 android:layout_marginStart="16dp"
-                android:text="TextView"
+                android:text="@{questao.ut1}"
                 app:layout_constraintStart_toEndOf="@+id/textView89"
                 app:layout_constraintTop_toTopOf="@+id/textView89" />
 
@@ -95,7 +98,7 @@
                 android:id="@+id/textView92"
                 style="@style/textoDetalhe"
                 android:layout_marginStart="16dp"
-                android:text="TextView"
+                android:text="@{questao.obterUt1_CategoriasRisco()}"
                 app:layout_constraintStart_toEndOf="@+id/textView91"
                 app:layout_constraintTop_toTopOf="@+id/textView91" />
 
@@ -111,35 +114,31 @@
                 android:id="@+id/textView94"
                 style="@style/textoDetalhe"
                 android:layout_marginStart="16dp"
-                android:text="TextView"
+                android:text="@{questao.obterUt1_Locais()}"
                 app:layout_constraintStart_toEndOf="@+id/textView93"
                 app:layout_constraintTop_toTopOf="@+id/textView93" />
 
 
             <at.markushi.ui.CircleButton
                 android:id="@+id/crl_btn_pergunta_1"
-                style="@style/btnCalendario"
+                style="@style/btnEditar"
                 android:layout_marginEnd="32dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout17" />
 
 
-
-
-
-
-
-
-
             <LinearLayout
                 android:id="@+id/linearLayout18"
-                android:layout_width="400dp"
+                android:layout_width="match_parent"
                 android:layout_height="42dp"
                 android:layout_gravity="center_vertical"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
+                android:layout_marginEnd="32dp"
                 android:background="@color/cor_separador"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/textView88"
                 app:layout_constraintTop_toBottomOf="@+id/textView93">
 
@@ -167,7 +166,7 @@
                 android:id="@+id/textView901"
                 style="@style/textoDetalhe"
                 android:layout_marginStart="16dp"
-                android:text="TextView"
+                android:text="@{questao.ut2}"
                 app:layout_constraintStart_toEndOf="@+id/textView891"
                 app:layout_constraintTop_toTopOf="@+id/textView891" />
 
@@ -183,15 +182,17 @@
                 android:id="@+id/textView921"
                 style="@style/textoDetalhe"
                 android:layout_marginStart="16dp"
-                android:text="TextView"
-                app:layout_constraintStart_toEndOf="@+id/textView91"
-                app:layout_constraintTop_toTopOf="@+id/textView91" />
+                android:text="@{questao.obterUt2_CategoriasRisco()}"
+                app:layout_constraintStart_toEndOf="@+id/textView911"
+                app:layout_constraintTop_toTopOf="@+id/textView911" />
 
             <TextView
                 android:id="@+id/textView931"
                 style="@style/textoDescritivo"
                 android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
                 android:text="@string/locaisRisco_"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/textView88"
                 app:layout_constraintTop_toBottomOf="@+id/textView911" />
 
@@ -199,14 +200,14 @@
                 android:id="@+id/textView941"
                 style="@style/textoDetalhe"
                 android:layout_marginStart="16dp"
-                android:text="TextView"
+                android:text="@{questao.obterUt2_Locais()}"
                 app:layout_constraintStart_toEndOf="@+id/textView931"
                 app:layout_constraintTop_toTopOf="@+id/textView931" />
 
 
             <at.markushi.ui.CircleButton
                 android:id="@+id/crl_btn_pergunta_2"
-                style="@style/btnCalendario"
+                style="@style/btnEditar"
                 android:layout_marginEnd="32dp"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout18" />

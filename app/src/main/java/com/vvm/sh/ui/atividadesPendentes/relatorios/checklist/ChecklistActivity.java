@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import com.vvm.sh.MainActivity;
 import com.vvm.sh.R;
 import com.vvm.sh.baseDados.entidades.AreaChecklistResultado;
 import com.vvm.sh.baseDados.entidades.Tipo;
@@ -18,6 +19,7 @@ import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.adaptadores.OnChec
 import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.modelos.Item;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.constantes.Identificadores;
+import com.vvm.sh.util.interfaces.OnDialogoListener;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
@@ -123,7 +125,7 @@ public class ChecklistActivity extends BaseDaggerActivity
 
             activityRegistoVisitaBinding.cardAreas.setVisibility(View.VISIBLE);
             activityRegistoVisitaBinding.txtTituloArea.setText(registo.descricao + " " + registo.subDescricao);
-            activityRegistoVisitaBinding.fabMenu.setVisibility(View.VISIBLE);
+            activityRegistoVisitaBinding.fabMenu.setVisibility(View.GONE);
 
         }
         else{
@@ -151,7 +153,7 @@ public class ChecklistActivity extends BaseDaggerActivity
     public void card_areas_OnClickListener(View view) {
 
         activityRegistoVisitaBinding.cardAreas.setVisibility(View.GONE);
-        activityRegistoVisitaBinding.fabMenu.setVisibility(View.GONE);
+        activityRegistoVisitaBinding.fabMenu.setVisibility(View.VISIBLE);
         viewModel.obterAreas(getIntent().getExtras().getInt(getString(R.string.argumento_id_atividade)), checklist.id);
     }
 
@@ -171,8 +173,17 @@ public class ChecklistActivity extends BaseDaggerActivity
     @OnClick({R.id.fab_eliminar})
     public void fab_eliminar_OnClickListener(View view) {
 
-//        Intent intent = new Intent(this, DadosClienteActivity.class);
-//        startActivity(intent);
+        OnDialogoListener listener = new OnDialogoListener() {
+            @Override
+            public void onExecutar() {
+                Bundle bundle = getIntent().getExtras();
+                int idAtividade = bundle.getInt(getString(R.string.argumento_id_atividade));
+                viewModel.remover(idAtividade);
+            }
+        };
+
+        dialogo.alerta(getString(R.string.eliminar_checklist), getString(R.string.eliminar_checklist_dados), listener);
+
     }
 
 

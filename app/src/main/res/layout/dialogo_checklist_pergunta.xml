@@ -128,6 +128,7 @@
 
             <com.jaredrummler.materialspinner.MaterialSpinner
                 android:id="@+id/spnr_ut"
+                tipos_="@{viewmodel.tiposUts}"
 
                 android:layout_width="400dp"
                 app:popupTextAlignment="start"
@@ -146,6 +147,7 @@
 
             <com.jaredrummler.materialspinner.MaterialSpinner
                 android:id="@+id/spnr_categorias_risco"
+                tipos_="@{viewmodel.tiposCategoriasRisco}"
 
                 android:layout_width="400dp"
                 app:popupTextAlignment="start"

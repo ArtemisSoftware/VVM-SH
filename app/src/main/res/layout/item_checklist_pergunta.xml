@@ -115,7 +115,7 @@
 
                 <at.markushi.ui.CircleButton
                     android:id="@+id/crl_btn_pergunta"
-                    style="@style/btnCalendario"
+                    style="@style/btnEditar"
                     android:layout_marginEnd="1dp" />
 
 

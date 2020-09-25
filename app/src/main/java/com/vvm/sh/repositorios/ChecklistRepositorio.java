@@ -18,9 +18,11 @@ import com.vvm.sh.util.metodos.TiposUtil;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.functions.BiFunction;
+import io.reactivex.functions.Function4;
 
 public class ChecklistRepositorio {
 
@@ -116,16 +118,26 @@ public class ChecklistRepositorio {
         Observable<List<Questao>> single = Observable.zip(
                 questionarioChecklistDao.obterQuestoes(idRegistoArea, idSeccao, Identificadores.Checklist.TIPO_QUESTAO),
                 questionarioChecklistDao.obterQuestoes(idRegistoArea, idSeccao, Identificadores.Checklist.TIPO_OBSERVACOES),
-                new BiFunction<List<Questao>, List<Questao>, List<Questao>>() {
+                questionarioChecklistDao.obterQuestoes(idRegistoArea, idSeccao, Identificadores.Checklist.TIPO_UTS),
+                questionarioChecklistDao.obterQuestoes(idRegistoArea, idSeccao, Identificadores.Checklist.TIPO_FOTOS),
+                new Function4<List<Questao>, List<Questao>, List<Questao>, List<Questao>, List<Questao>>() {
                     @Override
-                    public List<Questao> apply(List<Questao> questoes, List<Questao> observacao) throws Exception {
+                    public List<Questao> apply(List<Questao> questoes, List<Questao> observacoes, List<Questao> uts, List<Questao> fotos) throws Exception {
 
                         List<Questao> resultado = new ArrayList<>();
+
                         resultado.addAll(questoes);
-                        resultado.addAll(observacao);
+                        resultado.addAll(uts);
+
+                        if(uts.size() == 0) {
+                            resultado.addAll(observacoes);
+                            resultado.addAll(fotos);
+                        }
+
                         return resultado;
                     }
-                });
+                }
+        );
 
         return single;
     }
@@ -133,7 +145,18 @@ public class ChecklistRepositorio {
 
     public Single<List<Tipo>> obterNI(){
         return tipoDao.obterTipos_(TiposUtil.MetodosTipos.TIPOS_NI, api);
+    }
+
+    public Single<List<Tipo>> obterUts(){
+        return tipoDao.obterTipos_(TiposUtil.MetodosTipos.TIPOS_UTS, api);
+    }
+
+    public Single<QuestionarioChecklistResultado> obterQuestao(int idRegisto){
+        return questionarioChecklistDao.obterQuestao(idRegisto);
 
     }
 
+    public Single<Integer> remover(int idAtividade) {
+        return questionarioChecklistDao.remover(idAtividade);
+    }
 }

@@ -89,6 +89,7 @@
 
                 <LinearLayout
                     android:id="@+id/lnr_lyt_sub_resposta"
+                    android:visibility="@{questao.ni == null ? View.GONE : View.VISIBLE}"
                     android:layout_width="wrap_content"
                     android:layout_height="fill_parent"
                     android:layout_marginLeft="20dp"
@@ -106,13 +107,14 @@
                     <TextView
                         android:id="@+id/txt_view_sub_resposta"
                         style="@style/textoDetalhe"
+                        android:text="@{questao.ni}"
                         android:layout_marginLeft="16dp" />
 
                 </LinearLayout>
 
 
                 <at.markushi.ui.CircleButton
-                    android:id="@+id/crl_btn_calendario"
+                    android:id="@+id/crl_btn_pergunta"
                     style="@style/btnCalendario"
                     android:layout_marginEnd="1dp" />
 

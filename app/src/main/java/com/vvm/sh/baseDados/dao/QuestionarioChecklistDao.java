@@ -44,7 +44,7 @@ abstract public class QuestionarioChecklistDao implements BaseDao<QuestionarioCh
 
 
 
-    @Query("SELECT *, resposta " +
+    @Query("SELECT *, qst.id as idRegistoItem, resposta, ni, observacao " +
             "FROM itensChecklist as it_chk " +
 
             "LEFT JOIN ( " +
@@ -54,7 +54,7 @@ abstract public class QuestionarioChecklistDao implements BaseDao<QuestionarioCh
 
             "LEFT JOIN (  " +
             "SELECT idArea, idSeccao, idItem, tipo, " +
-            "resposta " +
+            "id, resposta, ni, observacao " +
             "FROM   questionarioChecklistResultado " +
             ") as qst " +
             "ON area_chk_res.id = qst.idArea AND it_chk.idSeccao = qst.idSeccao AND  it_chk.uid = qst.idItem AND it_chk.tipo = qst.tipo " +
@@ -76,50 +76,4 @@ abstract public class QuestionarioChecklistDao implements BaseDao<QuestionarioCh
     abstract public Observable<List<Questao>> obterQuestoes(int idRegistoArea, String idSeccao, String tipo);
 
 
-
-
-//    String query = "SELECT chk_itens.idItem as idItem, IFNULL(observacao, '') as observacao, IFNULL(origem, 0) as origem ";
-//
-//    query += "FROM itens_checklist as chk_itens   ";
-//
-//    query += "OUTER LEFT JOIN (   ";
-//    query += "SELECT idChecklist, idArea, idRegisto FROM areas_checklist_resultado   ";
-//    query += ") ar_chk_res ON chk_itens.idChecklist = ar_chk_res.idChecklist AND  chk_itens.idArea = ar_chk_res.idArea   ";
-//
-//    query += "OUTER LEFT JOIN (   ";
-//    query += "SELECT idSeccao, idItem, resposta, origem, idRegistoArea, tipo, observacao   ";
-//    query += "FROM   questionario_checklist_resultado    ";
-//    query += ") as qst ON ar_chk_res.idRegisto = qst.idRegistoArea AND chk_itens.idSeccao = qst.idSeccao AND  chk_itens.idItem = qst.idItem AND chk_itens.tipo = qst.tipo    ";
-//    query += "   ";
-//    query += "   ";
-//    query += "   ";
-//
-//    query += "WHERE   ar_chk_res.idRegisto = ? AND chk_itens.idSeccao = ?  AND chk_itens.tipo = ?	 ";
-//
-//
-//    String argumentos [] = {
-//            idRegistoArea, idSeccao, CheckListIF.TIPO_OBSERVACOES
-//    };
-
-
-    @Query("SELECT *, resposta " +
-            "FROM itensChecklist as it_chk " +
-
-            "LEFT JOIN ( " +
-            "SELECT idChecklist, idArea, id FROM areasChecklistResultado " +
-            ") as area_chk_res " +
-            "ON it_chk.idChecklist = area_chk_res.idChecklist AND  it_chk.idArea = area_chk_res.idArea " +
-
-            "LEFT JOIN (  " +
-            "SELECT idArea, idSeccao, idItem, tipo, " +
-            "resposta " +
-            "FROM   questionarioChecklistResultado " +
-            ") as qst " +
-            "ON area_chk_res.id = qst.idArea AND it_chk.idSeccao = qst.idSeccao AND  it_chk.uid = qst.idItem AND it_chk.tipo = qst.tipo " +
-            "" +
-            "" +
-
-
-            "WHERE it_chk.idSeccao = :idSeccao  AND it_chk.tipo = '" + Identificadores.Checklist.TIPO_OBSERVACOES + "' AND area_chk_res.id = :idRegistoArea ")
-    abstract public Single<Questao> obterObservacao(int idRegistoArea, String idSeccao);
 }

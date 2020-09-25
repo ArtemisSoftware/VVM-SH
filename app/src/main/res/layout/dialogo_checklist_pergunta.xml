@@ -21,56 +21,189 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         android:padding="16dp"
         android:background="@color/white_93">
 
 
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="@string/resposta"
-            style="@style/textoInput" />
-
-
-
-        <com.jaredrummler.materialspinner.MaterialSpinner
-            android:id="@+id/spnr_resposta"
-            tipos_="@{viewmodel.respostas}"
-            android:layout_width="400dp"
-            app:popupTextAlignment="start"
-            android:layout_height="wrap_content"
-            android:prompt="@string/resposta"/>
-
-
         <LinearLayout
-            android:id="@+id/lnr_lyt_sub_resposta"
+            android:id="@+id/lnr_lyt_pergunta"
+            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical"
-            android:visibility="gone">
+            android:orientation="vertical">
+
+
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="@string/ni"
-                android:layout_marginTop="25dp"
+                android:text="@string/resposta"
                 style="@style/textoInput" />
 
 
-            <com.jaredrummler.materialspinner.MaterialSpinner
-                android:id="@+id/spnr_sub_resposta"
-                tipos_="@{viewmodel.tiposNi}"
 
+            <com.jaredrummler.materialspinner.MaterialSpinner
+                android:id="@+id/spnr_resposta"
+                tipos_="@{viewmodel.respostas}"
                 android:layout_width="400dp"
                 app:popupTextAlignment="start"
                 android:layout_height="wrap_content"
-                android:prompt="@string/anomalia"/>
+                android:prompt="@string/resposta"/>
+
+
+            <LinearLayout
+                android:id="@+id/lnr_lyt_sub_resposta"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/ni"
+                    android:layout_marginTop="25dp"
+                    style="@style/textoInput" />
+
+
+                <com.jaredrummler.materialspinner.MaterialSpinner
+                    android:id="@+id/spnr_sub_resposta"
+                    tipos_="@{viewmodel.tiposNi}"
+
+                    android:layout_width="400dp"
+                    app:popupTextAlignment="start"
+                    android:layout_height="wrap_content"
+                    android:prompt="@string/anomalia"/>
+
+            </LinearLayout>
 
         </LinearLayout>
 
 
+
+        <LinearLayout
+            android:id="@+id/lnr_lyt_observacao"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:orientation="vertical">
+
+            <com.google.android.material.textfield.TextInputLayout
+                style="@style/parent.TextLayout"
+                android:hint="@string/observacao"
+                android:layout_width="match_parent"
+                android:layout_marginTop="@dimen/spacing_dialog_item"
+                app:errorEnabled="true">
+
+                <com.google.android.material.textfield.TextInputEditText
+                    android:id="@+id/txt_inp_observacao"
+                    style="@style/modifiedEditText"
+                    android:gravity="top|left"
+                    android:lines="5"
+                    android:maxLines="5"/>
+            </com.google.android.material.textfield.TextInputLayout>
+
+        </LinearLayout>
+
+
+
+
+
+        <LinearLayout
+            android:id="@+id/lnr_lyt_uts"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:orientation="vertical">
+
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/ut"
+                style="@style/textoInput" />
+
+            <com.jaredrummler.materialspinner.MaterialSpinner
+                android:id="@+id/spnr_ut"
+
+                android:layout_width="400dp"
+                app:popupTextAlignment="start"
+                android:layout_height="wrap_content"
+                android:prompt="@string/ut"/>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="25dp"
+                android:text="@string/categoriasRisco"
+                style="@style/textoInput" />
+
+
+
+            <com.jaredrummler.materialspinner.MaterialSpinner
+                android:id="@+id/spnr_categorias_risco"
+
+                android:layout_width="400dp"
+                app:popupTextAlignment="start"
+                android:layout_height="wrap_content"
+                android:prompt="@string/resposta"/>
+
+
+
+            <!-- ................ locais de risco ...................... -->
+
+            <LinearLayout android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_marginTop="25dp"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView android:text="@string/locaisRisco_"
+                    style="@style/textoDetalhe" />
+
+
+                <CheckBox android:id="@+id/chk_box_locais_risco_A"
+                    style="@style/textoDetalhe"
+                    android:text="@string/A"
+                    android:layout_marginLeft="@dimen/distancia_vertical_titulo"/>
+
+                <CheckBox android:id="@+id/chk_box_locais_risco_B"
+                    style="@style/textoDetalhe"
+                    android:text="@string/B"
+                    android:layout_marginLeft="@dimen/distancia_vertical_titulo"/>
+
+                <CheckBox android:id="@+id/chk_box_locais_risco_C"
+                    style="@style/textoDetalhe"
+                    android:text="@string/C"
+                    android:layout_marginLeft="@dimen/distancia_vertical_titulo"/>
+
+                <CheckBox android:id="@+id/chk_box_locais_risco_D"
+                    style="@style/textoDetalhe"
+                    android:text="@string/D"
+                    android:layout_marginLeft="@dimen/distancia_vertical_titulo"/>
+
+                <CheckBox android:id="@+id/chk_box_locais_risco_E"
+                    style="@style/textoDetalhe"
+                    android:text="@string/E"
+                    android:layout_marginLeft="@dimen/distancia_vertical_titulo"/>
+
+                <CheckBox android:id="@+id/chk_box_locais_risco_F"
+                    style="@style/textoDetalhe"
+                    android:text="@string/F"
+                    android:layout_marginLeft="@dimen/distancia_vertical_titulo"/>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
     </LinearLayout>
+
+
+
 
 </layout>

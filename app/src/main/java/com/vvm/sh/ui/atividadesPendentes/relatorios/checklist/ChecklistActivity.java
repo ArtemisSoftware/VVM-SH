@@ -123,7 +123,7 @@ public class ChecklistActivity extends BaseDaggerActivity
 
             activityRegistoVisitaBinding.cardAreas.setVisibility(View.VISIBLE);
             activityRegistoVisitaBinding.txtTituloArea.setText(registo.descricao + " " + registo.subDescricao);
-
+            activityRegistoVisitaBinding.fabMenu.setVisibility(View.VISIBLE);
 
         }
         else{
@@ -151,7 +151,7 @@ public class ChecklistActivity extends BaseDaggerActivity
     public void card_areas_OnClickListener(View view) {
 
         activityRegistoVisitaBinding.cardAreas.setVisibility(View.GONE);
-
+        activityRegistoVisitaBinding.fabMenu.setVisibility(View.GONE);
         viewModel.obterAreas(getIntent().getExtras().getInt(getString(R.string.argumento_id_atividade)), checklist.id);
     }
 

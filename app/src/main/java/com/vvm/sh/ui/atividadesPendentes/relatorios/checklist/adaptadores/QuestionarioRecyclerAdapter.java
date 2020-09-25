@@ -9,9 +9,9 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.vvm.sh.R;
-import com.vvm.sh.databinding.ItemChecklistBinding;
 import com.vvm.sh.databinding.ItemChecklistObservacaoBinding;
 import com.vvm.sh.databinding.ItemChecklistPerguntaBinding;
+import com.vvm.sh.databinding.ItemChecklistUtsBinding;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.modelos.Item;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.modelos.Questao;
 import com.vvm.sh.util.constantes.Identificadores;
@@ -65,7 +65,9 @@ public class QuestionarioRecyclerAdapter extends RecyclerView.Adapter<RecyclerVi
 
             case UTS:
 
-                break;
+                ItemChecklistUtsBinding bindingUt = DataBindingUtil.inflate(LayoutInflater.from(contexto), R.layout.item_checklist_uts, parent, false);
+                return new UtViewHolder(bindingUt.getRoot(), listener);
+
             default:
 
                 break;
@@ -143,7 +145,8 @@ public class QuestionarioRecyclerAdapter extends RecyclerView.Adapter<RecyclerVi
                 break;
 
             case UTS:
-
+                ((UtViewHolder)holder).binding.setQuestao(registo);
+                ((UtViewHolder)holder).binding.executePendingBindings();
                 break;
             default:
 

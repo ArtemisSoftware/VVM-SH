@@ -11,6 +11,15 @@ public class Questao {
     public ItemChecklist registo;
 
 
+    @ColumnInfo(name = "idRegistoItem")
+    public int id;
+
     @ColumnInfo(name = "resposta")
     public String resposta;
+
+    @ColumnInfo(name = "ni")
+    public String ni;
+
+    @ColumnInfo(name = "observacao")
+    public String observacao;
 }

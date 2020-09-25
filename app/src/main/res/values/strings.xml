@@ -396,10 +396,11 @@
     <string name="itens_">Itens:</string>
     <string name="resposta_">Resposta:</string>
     <string name="ut_">U.T:</string>
-
+    <string name="ut">U.T</string>
     <string name="ut1">U.T 1 </string>
     <string name="ut2">U.T 2 </string>
 
+    <string name="categoriasRisco">Categorias de risco</string>
     <string name="categoriasRisco_">Categorias de risco: </string>
     <string name="locaisRisco_">Locais de risco: </string>
     <string name="cargaTermica_">Carga térmica: </string>
@@ -412,4 +413,11 @@
     <string name="planoAcao">Plano de Ação</string>
     <string name="resposta">Resposta</string>
     <string name="regressar_lista_areas">Regressar à lista de áreas</string>
+    <string name="A">A</string>
+    <string name="B">B</string>
+    <string name="C">C</string>
+    <string name="D">D</string>
+    <string name="E">E</string>
+    <string name="F">F</string>
+    <string name="questao">Questão</string>
 </resources>

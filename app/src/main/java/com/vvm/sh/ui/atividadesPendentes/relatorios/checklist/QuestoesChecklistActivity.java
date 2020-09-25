@@ -119,12 +119,27 @@ public class QuestoesChecklistActivity extends BaseDaggerActivity
         Bundle bundle = getIntent().getExtras();
         Item item = bundle.getParcelable(getString(R.string.argumento_registo_area));
 
-        DialogoPergunta dialogo = DialogoPergunta.newInstance(item, questao.registo.uid, 0);
+        DialogoPergunta dialogo = DialogoPergunta.newInstance(item, questao.registo.uid, questao.registo.tipo, questao.id);
         dialogo.show(getSupportFragmentManager(), "example dialog");
     }
 
     @Override
-    public void OnObservacaoClick(Questao registo) {
+    public void OnObservacaoClick(Questao questao) {
 
+        Bundle bundle = getIntent().getExtras();
+        Item item = bundle.getParcelable(getString(R.string.argumento_registo_area));
+
+        DialogoPergunta dialogo = DialogoPergunta.newInstance(item, questao.registo.uid, questao.registo.tipo, questao.id);
+        dialogo.show(getSupportFragmentManager(), "example dialog");
+    }
+
+    @Override
+    public void OnUtClick(Questao questao, int numeroUt) {
+
+        Bundle bundle = getIntent().getExtras();
+        Item item = bundle.getParcelable(getString(R.string.argumento_registo_area));
+
+        DialogoPergunta dialogo = DialogoPergunta.newInstance(item, questao.registo.uid, questao.registo.tipo, questao.id, numeroUt);
+        dialogo.show(getSupportFragmentManager(), "example dialog");
     }
 }

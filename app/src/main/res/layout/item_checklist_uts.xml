@@ -117,7 +117,7 @@
 
 
             <at.markushi.ui.CircleButton
-                android:id="@+id/crl_btn_calendario_"
+                android:id="@+id/crl_btn_pergunta_1"
                 style="@style/btnCalendario"
                 android:layout_marginEnd="32dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -205,7 +205,7 @@
 
 
             <at.markushi.ui.CircleButton
-                android:id="@+id/crl_btn_calendario__"
+                android:id="@+id/crl_btn_pergunta_2"
                 style="@style/btnCalendario"
                 android:layout_marginEnd="32dp"
                 app:layout_constraintEnd_toEndOf="parent"

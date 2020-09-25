@@ -112,28 +112,6 @@ public class ChecklistRepositorio {
 
 
     public Observable<List<Questao>> obterQuestoes(int idRegistoArea, String idSeccao){
-/*
-        Observable<List<Questao>> single = Observable.zip(
-                questionarioChecklistDao.obterQuestoes(idRegistoArea, idSeccao, Identificadores.Checklist.TIPO_QUESTAO).toObservable(),
-                questionarioChecklistDao.obterQuestoes(idRegistoArea, idSeccao, Identificadores.Checklist.TIPO_OBSERVACOES).toObservable(),
-                new BiFunction<List<Questao>, List<Questao>, List<Questao>>() {
-                    @Override
-                    public List<Questao> apply(List<Questao> questoes, List<Questao> observacao) throws Exception {
-
-                        List<Questao> resultado = new ArrayList<>();
-                        resultado.addAll(questoes);
-                        resultado.addAll(observacao);
-                        return resultado;
-                    }
-                });
-*/
-
-/*
-        Observable<List<Questao>> single = Observable.concat(questionarioChecklistDao.obterQuestoes(idRegistoArea, idSeccao, Identificadores.Checklist.TIPO_QUESTAO).toObservable(),
-                questionarioChecklistDao.obterQuestoes(idRegistoArea, idSeccao, Identificadores.Checklist.TIPO_OBSERVACOES).toObservable());
-
-        return single;
-        */
 
         Observable<List<Questao>> single = Observable.zip(
                 questionarioChecklistDao.obterQuestoes(idRegistoArea, idSeccao, Identificadores.Checklist.TIPO_QUESTAO),

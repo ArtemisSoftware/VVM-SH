@@ -48,7 +48,7 @@ public class ItemRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewH
             case Identificadores.Checklist.TIPO_SECCAO:
 
                 ItemChecklistSeccaoBinding bindingSeccao = DataBindingUtil.inflate(LayoutInflater.from(contexto), R.layout.item_checklist_seccao, parent, false);
-                return new AreaViewHolder(bindingSeccao.getRoot(), listener);
+                return new SeccaoViewHolder(bindingSeccao.getRoot(), listener);
 
         }
 

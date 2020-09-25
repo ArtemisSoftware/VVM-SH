@@ -20,7 +20,7 @@ public class ObservacaoViewHolder extends RecyclerView.ViewHolder implements Vie
         binding = DataBindingUtil.bind(itemView);
 
         this.onItemListener = onItemListener;
-        binding.crlBtnCalendario.setOnClickListener(this);
+        binding.crlBtnPergunta.setOnClickListener(this);
     }
 
 

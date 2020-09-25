@@ -129,6 +129,17 @@ public class QuestionarioChecklistResultado {
         this.ni = ni;
     }
 
+
+    @Ignore
+    public QuestionarioChecklistResultado(Item item, String idQuestao, String observacao) {
+        this.idArea = item.id;
+        this.idSeccao = item.uid;
+        this.idItem = idQuestao;
+        this.tipo = Identificadores.Checklist.TIPO_OBSERVACOES;
+        this.observacao = observacao;
+    }
+
+
     public QuestionarioChecklistResultado(int idArea, @NonNull String idSeccao, @NonNull String idItem, int id,
                                           @NonNull String tipo, String resposta, String nr, String ni, int ut1, int ut1_CategoriasRisco,
                                           boolean ut1_LocalRisco_A, boolean ut1_LocalRisco_B, boolean ut1_LocalRisco_C, boolean ut1_LocalRisco_D,

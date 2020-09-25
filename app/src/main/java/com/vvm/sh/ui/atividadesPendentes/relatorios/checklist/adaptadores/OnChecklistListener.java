@@ -16,5 +16,7 @@ public interface OnChecklistListener {
 
         void OnPerguntaClick(Questao registo);
         void OnObservacaoClick(Questao registo);
+
+        void OnUtClick(Questao registo, int numeroUt);
     }
 }

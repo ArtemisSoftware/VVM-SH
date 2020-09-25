@@ -93,12 +93,12 @@ public class ChecklistActivity extends BaseDaggerActivity
 
                     case SUCESSO:
 
-                        dialogo.sucesso(recurso.messagem);
+                        //dialogo.sucesso(recurso.messagem);
                         break;
 
                     case ERRO:
 
-                        dialogo.erro(recurso.messagem);
+                        //dialogo.erro(recurso.messagem);
                         break;
 
                 }
@@ -124,7 +124,8 @@ public class ChecklistActivity extends BaseDaggerActivity
             viewModel.obterSeccoes(registo.id);
 
             activityRegistoVisitaBinding.cardAreas.setVisibility(View.VISIBLE);
-            activityRegistoVisitaBinding.txtTituloArea.setText(registo.descricao + " " + registo.subDescricao);
+            activityRegistoVisitaBinding.txtTituloArea.setText(registo.descricao);
+            activityRegistoVisitaBinding.txtTituloAreaSubDescricao.setText(registo.subDescricao);
             activityRegistoVisitaBinding.fabMenu.setVisibility(View.GONE);
 
         }
@@ -142,7 +143,7 @@ public class ChecklistActivity extends BaseDaggerActivity
 
     @Override
     public void OnRemoverClick(Item registo) {
-
+        viewModel.removerArea(registo.id);
     }
 
     //--------------------

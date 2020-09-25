@@ -86,7 +86,16 @@ public class MensagensUtil {
 
         dialogo.setTitleText(Sintaxe.Opcoes.ERRO)
                 .setContentText(mensagem)
-                .show();
+                .setConfirmText(Sintaxe.Opcoes.OK)
+                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sDialog) {
+//                        sDialog.dismissWithAnimation();
+                        sDialog.dismiss();
+                    }
+                });
+
+        dialogo.show();
     }
 
     public void erro(String titulo, String mensagem) {
@@ -95,7 +104,16 @@ public class MensagensUtil {
 
         dialogo.setTitleText(titulo)
                 .setContentText(mensagem)
-                .show();
+                .setConfirmText(Sintaxe.Opcoes.OK)
+                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sDialog) {
+//                        sDialog.dismissWithAnimation();
+                        sDialog.dismiss();
+                    }
+                });
+
+        dialogo.show();
     }
 
     public void erro(String titulo, String mensagem, OnDialogoListener listener) {

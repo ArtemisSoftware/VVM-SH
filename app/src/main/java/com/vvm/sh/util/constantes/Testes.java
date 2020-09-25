@@ -19,6 +19,7 @@ public class Testes {
 
         resultado.add(new Utilizador("12705", "1993", "SA", "Sara Leão", "paulobraz@vivamais.com"));
         resultado.add(new Utilizador("12706", "23270", "SA", "Marta Ruxa (inativo)", "paulobraz@vivamais.com"));
+        resultado.add(new Utilizador("7543", "706269", "SA", "Ricardo Pereira (21-09)", "paulobraz@vivamais.com"));
         return resultado;
     }
 

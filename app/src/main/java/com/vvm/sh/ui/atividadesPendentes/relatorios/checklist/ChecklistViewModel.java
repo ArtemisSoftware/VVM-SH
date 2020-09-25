@@ -233,6 +233,35 @@ public class ChecklistViewModel extends BaseViewModel {
     }
 
 
+    public void removerArea(int id) {
+
+        checklistRepositorio.removerArea(id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new SingleObserver<Integer>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+
+                            }
+
+                            @Override
+                            public void onSuccess(Integer integer) {
+                                messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_REMOVIDOS_SUCESSO));
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+                        }
+
+                );
+
+    }
+
+
     //--------------------
     //OBTER
     //--------------------
@@ -556,7 +585,6 @@ public class ChecklistViewModel extends BaseViewModel {
 
                 );
     }
-
 
 
 }

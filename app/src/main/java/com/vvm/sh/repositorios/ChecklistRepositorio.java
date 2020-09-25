@@ -159,4 +159,8 @@ public class ChecklistRepositorio {
     public Single<Integer> remover(int idAtividade) {
         return questionarioChecklistDao.remover(idAtividade);
     }
+
+    public Single<Integer> removerArea(int id) {
+        return questionarioChecklistDao.removerArea(id);
+    }
 }

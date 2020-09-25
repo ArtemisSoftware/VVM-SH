@@ -40,10 +40,14 @@ abstract public class AreaChecklistDao implements BaseDao<AreaChecklistResultado
 
 
     @Query("SELECT area_chk_res.idArea as idArea, id, descricao, IFNULL(subDescricao,'') as subDescricao, " +
-            "" + Identificadores.Checklist.TIPO_AREA + " as tipo, 0 as completos, 0 as  total, '' as uid " +
+            "" + Identificadores.Checklist.TIPO_AREA + " as tipo, 0 as completos, total, '' as uid " +
             "FROM areasChecklistResultado as area_chk_res " +
+
             "LEFT JOIN (SELECT idArea, descricao, idChecklist FROM areasChecklist) as area_chk " +
             "ON area_chk_res.idChecklist = area_chk.idChecklist AND area_chk_res.idArea = area_chk.idArea " +
+
+            "LEFT JOIN (SELECT idChecklist, idArea, COUNT(*) as total FROM seccoesChecklist GROUP BY idChecklist, idArea) as seccoes_total " +
+            "ON area_chk_res.idChecklist = seccoes_total.idChecklist AND area_chk_res.idArea = seccoes_total.idArea " +
 
 
             "WHERE area_chk_res.idChecklist = :idChecklist AND idAtividade = :idAtividade " +
@@ -55,11 +59,16 @@ abstract public class AreaChecklistDao implements BaseDao<AreaChecklistResultado
 
 
     @Query("SELECT area_chk_res.idArea as idArea, id, descricao, '' as subDescricao, " +
-            "" + Identificadores.Checklist.TIPO_SECCAO + " as tipo, 0 as completos, 0 as  total, uid " +
+            "" + Identificadores.Checklist.TIPO_SECCAO + " as tipo, 0 as completos, total, uid " +
             "FROM seccoesChecklist as seccao_chk " +
+
             "LEFT JOIN (SELECT idChecklist, idArea, id FROM areasChecklistResultado) as area_chk_res " +
             "ON seccao_chk.idChecklist = area_chk_res.idChecklist AND seccao_chk.idArea = area_chk_res.idArea  " +
-            "WHERE area_chk_res.id = :idRegisto " +
+
+            "LEFT JOIN (SELECT idChecklist, idArea, idSeccao, COUNT(*) as total FROM itensChecklist GROUP BY idChecklist, idArea, idSeccao) as seccoes_total " +
+            "ON seccao_chk.idChecklist = seccoes_total.idChecklist AND seccao_chk.idArea = seccoes_total.idArea AND seccao_chk.uid = seccoes_total.idSeccao " +
+
+            "WHERE area_chk_res.id = :idRegisto ORDER BY uid ASC " +
             "")
     abstract public Observable<List<Item>> obterSeccoes(int idRegisto);
 
@@ -83,7 +92,7 @@ abstract public class AreaChecklistDao implements BaseDao<AreaChecklistResultado
     @Query("SELECT CASE WHEN COUNT(*) = 0 THEN 0 ELSE 1 END as valido " +
             "FROM areasChecklistResultado " +
             "WHERE idChecklist = :idChecklist AND idAtividade = :idAtividade AND idArea = :idArea " +
-            "AND subDescricao = :subDescricao")
+            "AND (subDescricao  = :subDescricao OR subDescricao IS NULL) ")
     abstract public Single<Boolean> validarSubDescricaoArea(int idAtividade, int idChecklist, int idArea, String subDescricao);
 
 

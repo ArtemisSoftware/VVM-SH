@@ -10,6 +10,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.vvm.sh.databinding.ItemChecklistAreaBinding;
+import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
 
@@ -43,6 +44,11 @@ public class AreaViewHolder extends RecyclerView.ViewHolder
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+
+
+        if(binding.getItem().idArea == Identificadores.Checklist.ID_AREA_GERAL){
+            return;
+        }
 
         menu.setHeaderTitle(Sintaxe.Palavras.OPCOES);
         MenuItem editar = menu.add(Menu.NONE, 1, 1, Sintaxe.Palavras.EDITAR);

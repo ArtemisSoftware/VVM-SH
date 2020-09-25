@@ -64,4 +64,7 @@ abstract public class QuestionarioChecklistDao implements BaseDao<QuestionarioCh
     @Query("DELETE FROM areasChecklistResultado WHERE idAtividade = :idAtividade")
     abstract public Single<Integer> remover(int idAtividade);
 
+    @Query("DELETE FROM areasChecklistResultado WHERE id = :id")
+    abstract public Single<Integer> removerArea(int id);
+
 }

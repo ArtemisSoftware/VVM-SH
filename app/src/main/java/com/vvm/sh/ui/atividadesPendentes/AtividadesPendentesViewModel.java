@@ -124,6 +124,12 @@ public class AtividadesPendentesViewModel extends BaseViewModel {
     }
 
 
+
+    public void gravarAtividade(ProcessoProdutivoResultado registo) {
+
+
+
+    }
     //------------------
     //OBTER
     //------------------
@@ -257,6 +263,5 @@ public class AtividadesPendentesViewModel extends BaseViewModel {
     public void obterProcessoProdutivo(int anInt) {
     }
 
-    public void gravarAtividade(ProcessoProdutivoResultado registo) {
-    }
+
 }

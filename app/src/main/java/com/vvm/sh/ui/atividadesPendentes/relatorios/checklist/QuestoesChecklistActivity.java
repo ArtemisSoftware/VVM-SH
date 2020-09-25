@@ -142,4 +142,14 @@ public class QuestoesChecklistActivity extends BaseDaggerActivity
         DialogoPergunta dialogo = DialogoPergunta.newInstance(item, questao.registo.uid, questao.registo.tipo, questao.id, numeroUt);
         dialogo.show(getSupportFragmentManager(), "example dialog");
     }
+
+    @Override
+    public void OnGaleriaClick() {
+        //TODO: abrir galeria
+    }
+
+    @Override
+    public void OnRegistarFoto() {
+        //TODO: registar foto
+    }
 }

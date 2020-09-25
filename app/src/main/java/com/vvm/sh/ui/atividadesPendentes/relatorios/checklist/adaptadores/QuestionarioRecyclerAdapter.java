@@ -24,7 +24,7 @@ public class QuestionarioRecyclerAdapter extends RecyclerView.Adapter<RecyclerVi
 
     private List<Questao> items = new ArrayList<>();
     private Context contexto;
-    private OnChecklistListener listener;
+    private OnChecklistListener.OnQuestaoListener listener;
 
     private final int QUESTAO = 1;
     private final int OBSERVACAO = 2;
@@ -32,7 +32,7 @@ public class QuestionarioRecyclerAdapter extends RecyclerView.Adapter<RecyclerVi
     private final int FOTOS = 4;
 
 
-    public QuestionarioRecyclerAdapter(Context contexto, List<Questao> items, OnChecklistListener listener) {
+    public QuestionarioRecyclerAdapter(Context contexto, List<Questao> items, OnChecklistListener.OnQuestaoListener listener) {
         this.items = items;
         this.contexto = contexto;
         this.listener = listener;

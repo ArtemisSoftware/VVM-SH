@@ -9,19 +9,19 @@ import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.vvm.sh.databinding.ItemChecklistBinding;
+import com.vvm.sh.databinding.ItemChecklistAreaBinding;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
 
-public class ItemViewHolder extends RecyclerView.ViewHolder
+public class AreaViewHolder extends RecyclerView.ViewHolder
         implements View.OnClickListener, View.OnCreateContextMenuListener, MenuItem.OnMenuItemClickListener{
 
-    public ItemChecklistBinding binding;
+    public ItemChecklistAreaBinding binding;
 
-    private OnChecklistListener listener;
+    private OnChecklistListener.OnItemListener listener;
 
 
-    public ItemViewHolder(@NonNull View itemView, OnChecklistListener listener) {
+    public AreaViewHolder(@NonNull View itemView, OnChecklistListener.OnItemListener listener) {
         super(itemView);
 
         binding = DataBindingUtil.bind(itemView);

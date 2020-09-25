@@ -26,7 +26,7 @@ import javax.inject.Inject;
 import butterknife.OnClick;
 
 public class ChecklistActivity extends BaseDaggerActivity
-    implements OnChecklistListener {
+    implements OnChecklistListener.OnItemListener {
 
 
     private ActivityChecklistBinding activityRegistoVisitaBinding;
@@ -120,8 +120,17 @@ public class ChecklistActivity extends BaseDaggerActivity
 
         if(registo.tipo == Identificadores.Checklist.TIPO_AREA){
             viewModel.obterSeccoes(registo.id);
-        }
 
+            activityRegistoVisitaBinding.cardAreas.setVisibility(View.VISIBLE);
+            activityRegistoVisitaBinding.txtTituloArea.setText(registo.descricao + " " + registo.subDescricao);
+
+
+        }
+        else{
+            Intent intent = new Intent(this, QuestoesChecklistActivity.class);
+            intent.putExtra(getString(R.string.argumento_registo_area), registo);
+            startActivity(intent);
+        }
     }
 
     @Override
@@ -138,6 +147,13 @@ public class ChecklistActivity extends BaseDaggerActivity
     //EVENTOS
     //--------------------
 
+    @OnClick({R.id.card_areas})
+    public void card_areas_OnClickListener(View view) {
+
+        activityRegistoVisitaBinding.cardAreas.setVisibility(View.GONE);
+
+        viewModel.obterAreas(getIntent().getExtras().getInt(getString(R.string.argumento_id_atividade)), checklist.id);
+    }
 
     @OnClick({R.id.fab_adicionar_area})
     public void fab_adicionar_area_OnClickListener(View view) {

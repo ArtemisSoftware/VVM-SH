@@ -8,7 +8,7 @@
 
         <variable
             name="listener"
-            type="com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.adaptadores.OnChecklistListener"/>
+            type="com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.adaptadores.OnChecklistListener.OnQuestaoListener"/>
 
 
         <variable
@@ -35,6 +35,8 @@
             android:id="@+id/rcl_registos"
             style="@style/lista"
 
+            questoes="@{viewmodel.questionario}"
+            listener="@{listener}"
 
             tools:listitem="@layout/item_checklist_pergunta"/>
 

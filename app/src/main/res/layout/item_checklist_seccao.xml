@@ -12,8 +12,8 @@
         <import type="com.vvm.sh.util.metodos.StringUtil"/>
 
         <variable
-            name="seccao"
-            type="com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.modelos.Area" />
+            name="item"
+            type="com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.modelos.Item" />
 
 
         <variable
@@ -48,7 +48,7 @@
                 style="@style/tituloCartao"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:text="@{StringUtil.formatarHtml(seccao.descricao), default=descricao}"
+                android:text="@{StringUtil.formatarHtml(item.descricao), default=descricao}"
                 app:layout_constraintStart_toEndOf="@+id/imageView5"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -66,7 +66,7 @@
                 android:id="@+id/textView85"
                 style="@style/textoDetalhe"
                 android:layout_marginStart="16dp"
-                android:text="@{StringUtil.converterString(seccao.completos), default=0}"
+                android:text="@{StringUtil.converterString(item.completos), default=0}"
                 app:layout_constraintStart_toEndOf="@+id/textView84"
                 app:layout_constraintTop_toTopOf="@+id/textView84" />
 
@@ -82,7 +82,7 @@
                 android:id="@+id/textView87"
                 style="@style/textoDetalhe"
                 android:layout_marginStart="8dp"
-                android:text="@{StringUtil.converterString(seccao.total), default=0}"
+                android:text="@{StringUtil.converterString(item.total), default=0}"
                 app:layout_constraintStart_toEndOf="@+id/textView86"
                 app:layout_constraintTop_toTopOf="@+id/textView84" />
 

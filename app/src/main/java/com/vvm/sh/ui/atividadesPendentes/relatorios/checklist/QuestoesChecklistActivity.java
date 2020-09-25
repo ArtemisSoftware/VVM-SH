@@ -11,7 +11,9 @@ import com.vvm.sh.R;
 import com.vvm.sh.databinding.ActivityQuestoesChecklistBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.adaptadores.OnChecklistListener;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.modelos.Item;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.modelos.Questao;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
@@ -20,7 +22,8 @@ import javax.inject.Inject;
 
 import butterknife.OnClick;
 
-public class QuestoesChecklistActivity extends BaseDaggerActivity {
+public class QuestoesChecklistActivity extends BaseDaggerActivity
+        implements OnChecklistListener.OnQuestaoListener {
 
 
 
@@ -40,6 +43,7 @@ public class QuestoesChecklistActivity extends BaseDaggerActivity {
 
         activityQuestoesChecklistBinding = (ActivityQuestoesChecklistBinding) activityBinding;
         activityQuestoesChecklistBinding.setLifecycleOwner(this);
+        activityQuestoesChecklistBinding.setListener(this);
         activityQuestoesChecklistBinding.setViewmodel(viewModel);
 
         activityQuestoesChecklistBinding.setBloquear(PreferenciasUtil.agendaEditavel(this));
@@ -109,4 +113,18 @@ public class QuestoesChecklistActivity extends BaseDaggerActivity {
 //        startActivity(intent);
     }
 
+    @Override
+    public void OnPerguntaClick(Questao questao) {
+
+        Bundle bundle = getIntent().getExtras();
+        Item item = bundle.getParcelable(getString(R.string.argumento_registo_area));
+
+        DialogoPergunta dialogo = DialogoPergunta.newInstance(item, questao.registo.uid, 0);
+        dialogo.show(getSupportFragmentManager(), "example dialog");
+    }
+
+    @Override
+    public void OnObservacaoClick(Questao registo) {
+
+    }
 }

@@ -10,7 +10,6 @@ public class Identificadores {
     public static final String VALOR_0 = "0";
     public static final String SEXO_OMISSAO = "1";
     public static final int ID_FORMACAO_TRABALHO_REALIZADO = 15;
-    public static final int ID_AREA_GERAL = 10;
 
 
     public class Origens{
@@ -133,6 +132,9 @@ public class Identificadores {
         public static final int TIPO_AREA = 1;
         public static final int TIPO_SECCAO = 2;
 
+
+        public static final int ID_AREA_GERAL = 10;
+        public static final String AREA_GERAL_SUB_DESCRICAO = "Principios gerais de prevenção";
 
         /**
          * questões

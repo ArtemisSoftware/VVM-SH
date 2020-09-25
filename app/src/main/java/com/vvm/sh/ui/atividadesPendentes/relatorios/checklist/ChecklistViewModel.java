@@ -340,6 +340,7 @@ public class ChecklistViewModel extends BaseViewModel {
 
     public void obterQuestoes(Item item){
 
+        showProgressBar(true);
 
         checklistRepositorio.obterQuestoes(item.id, item.uid)
                 .subscribeOn(Schedulers.io())
@@ -349,22 +350,24 @@ public class ChecklistViewModel extends BaseViewModel {
                         new Observer<List<Questao>>() {
                             @Override
                             public void onSubscribe(Disposable d) {
-
+                                disposables.add(d);
                             }
 
                             @Override
                             public void onNext(List<Questao> resultado) {
+
                                 questionario.setValue(resultado);
+                                showProgressBar(false);
                             }
 
                             @Override
                             public void onError(Throwable e) {
-
+                                showProgressBar(false);
                             }
 
                             @Override
                             public void onComplete() {
-
+                                showProgressBar(false);
                             }
                         }
 
@@ -387,7 +390,7 @@ public class ChecklistViewModel extends BaseViewModel {
                     public SingleSource<?> apply(Boolean existe) throws Exception {
 
                         if(existe == false){
-                            AreaChecklistResultado resultado = new AreaChecklistResultado(idAtividade, idChecklist, Identificadores.ID_AREA_GERAL);
+                            AreaChecklistResultado resultado = new AreaChecklistResultado(idAtividade, idChecklist, Identificadores.Checklist.ID_AREA_GERAL, Identificadores.Checklist.AREA_GERAL_SUB_DESCRICAO);
 
                             return checklistRepositorio.inserir(resultado);
                         }

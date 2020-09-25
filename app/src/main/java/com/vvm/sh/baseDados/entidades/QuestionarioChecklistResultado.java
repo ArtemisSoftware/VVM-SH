@@ -5,6 +5,7 @@ import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
@@ -118,6 +119,7 @@ public class QuestionarioChecklistResultado {
     public int origem;
 
 
+    @Ignore
     public QuestionarioChecklistResultado(Item item, String idQuestao, String resposta, String ni) {
         this.idArea = item.id;
         this.idSeccao = item.uid;
@@ -125,5 +127,39 @@ public class QuestionarioChecklistResultado {
         this.tipo = Identificadores.Checklist.TIPO_QUESTAO;
         this.resposta = resposta;
         this.ni = ni;
+    }
+
+    public QuestionarioChecklistResultado(int idArea, @NonNull String idSeccao, @NonNull String idItem, int id,
+                                          @NonNull String tipo, String resposta, String nr, String ni, int ut1, int ut1_CategoriasRisco,
+                                          boolean ut1_LocalRisco_A, boolean ut1_LocalRisco_B, boolean ut1_LocalRisco_C, boolean ut1_LocalRisco_D,
+                                          boolean ut1_LocalRisco_E, boolean ut1_LocalRisco_F, int ut2, int ut2_CategoriasRisco,
+                                          boolean ut2_LocalRisco_A, boolean ut2_LocalRisco_B, boolean ut2_LocalRisco_C, boolean ut2_LocalRisco_D,
+                                          boolean ut2_LocalRisco_E, boolean ut2_LocalRisco_F, String observacao, int origem) {
+        this.idArea = idArea;
+        this.idSeccao = idSeccao;
+        this.idItem = idItem;
+        this.id = id;
+        this.tipo = tipo;
+        this.resposta = resposta;
+        this.nr = nr;
+        this.ni = ni;
+        this.ut1 = ut1;
+        this.ut1_CategoriasRisco = ut1_CategoriasRisco;
+        this.ut1_LocalRisco_A = ut1_LocalRisco_A;
+        this.ut1_LocalRisco_B = ut1_LocalRisco_B;
+        this.ut1_LocalRisco_C = ut1_LocalRisco_C;
+        this.ut1_LocalRisco_D = ut1_LocalRisco_D;
+        this.ut1_LocalRisco_E = ut1_LocalRisco_E;
+        this.ut1_LocalRisco_F = ut1_LocalRisco_F;
+        this.ut2 = ut2;
+        this.ut2_CategoriasRisco = ut2_CategoriasRisco;
+        this.ut2_LocalRisco_A = ut2_LocalRisco_A;
+        this.ut2_LocalRisco_B = ut2_LocalRisco_B;
+        this.ut2_LocalRisco_C = ut2_LocalRisco_C;
+        this.ut2_LocalRisco_D = ut2_LocalRisco_D;
+        this.ut2_LocalRisco_E = ut2_LocalRisco_E;
+        this.ut2_LocalRisco_F = ut2_LocalRisco_F;
+        this.observacao = observacao;
+        this.origem = origem;
     }
 }

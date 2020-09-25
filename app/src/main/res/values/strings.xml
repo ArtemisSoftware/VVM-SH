@@ -411,4 +411,5 @@
     <string name="adicionarCapaRelatorio">Adicionar capa do relatório</string>
     <string name="planoAcao">Plano de Ação</string>
     <string name="resposta">Resposta</string>
+    <string name="regressar_lista_areas">Regressar à lista de áreas</string>
 </resources>

@@ -10,6 +10,7 @@ import com.vvm.sh.util.constantes.Identificadores;
 
 import java.util.List;
 
+import io.reactivex.Observable;
 import io.reactivex.Single;
 
 @Dao
@@ -43,7 +44,7 @@ abstract public class QuestionarioChecklistDao implements BaseDao<QuestionarioCh
 
 
 
-    @Query("SELECT it_chk.* " +
+    @Query("SELECT *, resposta " +
             "FROM itensChecklist as it_chk " +
 
             "LEFT JOIN ( " +
@@ -51,8 +52,28 @@ abstract public class QuestionarioChecklistDao implements BaseDao<QuestionarioCh
             ") as area_chk_res " +
             "ON it_chk.idChecklist = area_chk_res.idChecklist AND  it_chk.idArea = area_chk_res.idArea " +
 
-            "WHERE it_chk.idSeccao = :idSeccao  AND it_chk.tipo = '" + Identificadores.Checklist.TIPO_QUESTAO + "' AND area_chk_res.id = :idRegistoArea ")
-    abstract public Single<List<Questao>> obterQuestoes(int idRegistoArea, String idSeccao);
+            "LEFT JOIN (  " +
+            "SELECT idArea, idSeccao, idItem, tipo, " +
+            "resposta " +
+            "FROM   questionarioChecklistResultado " +
+            ") as qst " +
+            "ON area_chk_res.id = qst.idArea AND it_chk.idSeccao = qst.idSeccao AND  it_chk.uid = qst.idItem AND it_chk.tipo = qst.tipo " +
+            "" +
+            "" +
+
+
+//                query += "";
+//    query += "SELECT idSeccao, idItem, resposta, origem, idRegistoArea, tipo,   ";
+//    query += "CASE   WHEN nr IS NULL AND ni IS NULL THEN ''   ";
+//    query += "WHEN nr IS NULL THEN ni    ";
+//    query += "ELSE nr END as subResposta   ";
+//    query += "FROM   questionario_checklist_resultado   ";
+//    query += ") as qst ON ar_chk_res.idRegisto = qst.idRegistoArea AND chk_itens.idSeccao = qst.idSeccao AND  chk_itens.idItem = qst.idItem AND chk_itens.tipo = qst.tipo   ";
+
+
+
+            "WHERE it_chk.idSeccao = :idSeccao  AND it_chk.tipo = :tipo AND area_chk_res.id = :idRegistoArea ")
+    abstract public Observable<List<Questao>> obterQuestoes(int idRegistoArea, String idSeccao, String tipo);
 
 
 
@@ -81,13 +102,23 @@ abstract public class QuestionarioChecklistDao implements BaseDao<QuestionarioCh
 //    };
 
 
-    @Query("SELECT it_chk.* " +
+    @Query("SELECT *, resposta " +
             "FROM itensChecklist as it_chk " +
 
             "LEFT JOIN ( " +
             "SELECT idChecklist, idArea, id FROM areasChecklistResultado " +
             ") as area_chk_res " +
             "ON it_chk.idChecklist = area_chk_res.idChecklist AND  it_chk.idArea = area_chk_res.idArea " +
+
+            "LEFT JOIN (  " +
+            "SELECT idArea, idSeccao, idItem, tipo, " +
+            "resposta " +
+            "FROM   questionarioChecklistResultado " +
+            ") as qst " +
+            "ON area_chk_res.id = qst.idArea AND it_chk.idSeccao = qst.idSeccao AND  it_chk.uid = qst.idItem AND it_chk.tipo = qst.tipo " +
+            "" +
+            "" +
+
 
             "WHERE it_chk.idSeccao = :idSeccao  AND it_chk.tipo = '" + Identificadores.Checklist.TIPO_OBSERVACOES + "' AND area_chk_res.id = :idRegistoArea ")
     abstract public Single<Questao> obterObservacao(int idRegistoArea, String idSeccao);

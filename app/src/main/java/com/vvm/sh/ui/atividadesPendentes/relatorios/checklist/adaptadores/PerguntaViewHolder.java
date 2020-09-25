@@ -13,10 +13,10 @@ public class PerguntaViewHolder extends RecyclerView.ViewHolder implements View.
 
 
     public ItemChecklistPerguntaBinding binding;
-    private OnChecklistListener onItemListener;
+    private OnChecklistListener.OnQuestaoListener onItemListener;
 
 
-    public PerguntaViewHolder(View itemView, OnChecklistListener onItemListener) {
+    public PerguntaViewHolder(View itemView, OnChecklistListener.OnQuestaoListener onItemListener) {
         super(itemView);
         binding = DataBindingUtil.bind(itemView);
 

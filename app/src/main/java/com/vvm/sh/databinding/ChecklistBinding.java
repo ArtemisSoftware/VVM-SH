@@ -9,7 +9,9 @@ import com.vvm.sh.baseDados.entidades.AreaChecklist;
 import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.adaptadores.ItemRecyclerAdapter;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.adaptadores.OnChecklistListener;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.adaptadores.QuestionarioRecyclerAdapter;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.modelos.Item;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.modelos.Questao;
 
 import java.util.List;
 
@@ -17,7 +19,7 @@ public class ChecklistBinding {
 
 
     @BindingAdapter({"itens",  "listener"})
-    public static void setChecklist(RecyclerView view, List<Item> items, OnChecklistListener listener) {
+    public static void setChecklist(RecyclerView view, List<Item> items, OnChecklistListener.OnItemListener listener) {
 
         if(items == null){
             return;
@@ -41,6 +43,34 @@ public class ChecklistBinding {
         }
 
     }
+
+
+    @BindingAdapter({"questoes",  "listener"})
+    public static void setChecklist(RecyclerView view, List<Questao> items, OnChecklistListener.OnQuestaoListener listener) {
+
+        if(items == null){
+            return;
+        }
+
+        RecyclerView.LayoutManager layoutManager = view.getLayoutManager();
+
+        if(layoutManager == null){
+            view.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        }
+
+        QuestionarioRecyclerAdapter adapter = (QuestionarioRecyclerAdapter) view.getAdapter();
+
+        if(adapter == null){
+            adapter = new QuestionarioRecyclerAdapter(view.getContext(), items, listener);
+
+            view.setAdapter(adapter);
+        }
+        else{
+            adapter.atualizar(items);
+        }
+
+    }
+
 
 
     @BindingAdapter({"areas", "idArea"})

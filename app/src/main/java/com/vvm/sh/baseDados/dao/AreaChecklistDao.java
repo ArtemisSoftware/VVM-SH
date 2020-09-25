@@ -26,7 +26,7 @@ abstract public class AreaChecklistDao implements BaseDao<AreaChecklistResultado
             "LEFT JOIN( " +
             "SELECT atp.id as idAtividade, CASE WHEN area_chk_res.idChecklist IS NULL THEN  atp.idChecklist ELSE area_chk_res.idChecklist END as idChecklist " +
             "FROM atividadesPendentes as atp " +
-            "LEFT JOIN (SELECT idChecklist, idAtividade FROM areasChecklistResultado WHERE idArea = " + Identificadores.ID_AREA_GERAL + " ) as area_chk_res " +
+            "LEFT JOIN (SELECT idChecklist, idAtividade FROM areasChecklistResultado WHERE idArea = " + Identificadores.Checklist.ID_AREA_GERAL + " ) as area_chk_res " +
             "ON atp.id = area_chk_res.idChecklist AND atp.id = area_chk_res.idAtividade " +
             ") as chk_res " +
             "ON tp.id = chk_res.idChecklist " +
@@ -71,7 +71,7 @@ abstract public class AreaChecklistDao implements BaseDao<AreaChecklistResultado
 
 
 
-    @Query("SELECT * FROM areasChecklist WHERE idChecklist = :idChecklist AND idArea NOT IN(" + Identificadores.ID_AREA_GERAL + ")")
+    @Query("SELECT * FROM areasChecklist WHERE idChecklist = :idChecklist AND idArea NOT IN(" + Identificadores.Checklist.ID_AREA_GERAL + ")")
     abstract public Single<List<AreaChecklist>> obterAreasChecklist(int idChecklist);
 
 
@@ -89,7 +89,7 @@ abstract public class AreaChecklistDao implements BaseDao<AreaChecklistResultado
 
     @Query("SELECT CASE WHEN COUNT(*) = 0 THEN 0 ELSE 1 END as valido " +
             "FROM areasChecklistResultado " +
-            "WHERE idChecklist = :idChecklist AND idAtividade = :idAtividade AND idArea = " + Identificadores.ID_AREA_GERAL + " ")
+            "WHERE idChecklist = :idChecklist AND idAtividade = :idAtividade AND idArea = " + Identificadores.Checklist.ID_AREA_GERAL + " ")
     abstract public Single<Boolean> validarAreaGeral(int idAtividade, int idChecklist);
 
 

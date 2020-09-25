@@ -12,10 +12,10 @@ public class ObservacaoViewHolder extends RecyclerView.ViewHolder implements Vie
 
 
     public ItemChecklistObservacaoBinding binding;
-    private OnChecklistListener onItemListener;
+    private OnChecklistListener.OnQuestaoListener onItemListener;
 
 
-    public ObservacaoViewHolder(View itemView, OnChecklistListener onItemListener) {
+    public ObservacaoViewHolder(View itemView, OnChecklistListener.OnQuestaoListener onItemListener) {
         super(itemView);
         binding = DataBindingUtil.bind(itemView);
 

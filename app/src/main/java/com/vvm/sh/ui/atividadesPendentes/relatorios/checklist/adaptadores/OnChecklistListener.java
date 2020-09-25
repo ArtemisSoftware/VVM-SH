@@ -5,14 +5,16 @@ import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.modelos.Questao;
 
 public interface OnChecklistListener {
 
-    void OnItemClick(Item registo);
+    interface OnItemListener {
 
-    void OnEditarClick(Item registo);
+        void OnItemClick(Item registo);
+        void OnEditarClick(Item registo);
+        void OnRemoverClick(Item registo);
+    }
 
-    void OnRemoverClick(Item registo);
+    interface OnQuestaoListener{
 
-
-
-    void OnPerguntaClick(Questao registo);
-    void OnObservacaoClick(Questao registo);
+        void OnPerguntaClick(Questao registo);
+        void OnObservacaoClick(Questao registo);
+    }
 }

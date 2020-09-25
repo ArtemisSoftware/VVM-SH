@@ -59,8 +59,6 @@ public class DialogoProcessoProdutivo extends BaseDaggerDialogoPersistenteFragme
 
 
 
-    private static final String ARGUMENTO_ID= "id";
-
 
     public DialogoProcessoProdutivo() {
         // Empty constructor required for DialogFragment
@@ -71,7 +69,7 @@ public class DialogoProcessoProdutivo extends BaseDaggerDialogoPersistenteFragme
         DialogoProcessoProdutivo fragmento = new DialogoProcessoProdutivo();
 
         Bundle args = new Bundle();
-        args.putInt(ARGUMENTO_ID, id);
+        args.putInt(ARGUMENTO_ID_ATIVIDADE, id);
         fragmento.setArguments(args);
         return fragmento;
     }
@@ -89,7 +87,7 @@ public class DialogoProcessoProdutivo extends BaseDaggerDialogoPersistenteFragme
             validador = new Validator(this);
             validador.setValidationListener(this);
 
-            viewModel.obterProcessoProdutivo(getArguments().getInt(ARGUMENTO_ID));
+            viewModel.obterProcessoProdutivo(getArguments().getInt(ARGUMENTO_ID_ATIVIDADE));
         }
         else{
             terminarDialogo();
@@ -150,7 +148,7 @@ public class DialogoProcessoProdutivo extends BaseDaggerDialogoPersistenteFragme
         String processo = txt_inp_processo_produtivo.getText().toString();
 
         ProcessoProdutivoResultado registo = new ProcessoProdutivoResultado(idAtividade, processo);
-        viewModel.gravarAtividade(registo);
+        viewModel.gravarProcessoProdutivo(PreferenciasUtil.obterIdTarefa(getContext()), registo);
 
     }
 

@@ -14,11 +14,14 @@ import com.vvm.sh.util.ResultadoId;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
+import java.net.HttpCookie;
 import java.util.List;
 
 import javax.inject.Inject;
 
+import io.reactivex.MaybeObserver;
 import io.reactivex.Observer;
+import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
@@ -31,6 +34,7 @@ public class AtividadesPendentesViewModel extends BaseViewModel {
     public MutableLiveData<AtividadePendenteRegisto> atividade;
 
     public MutableLiveData<List<Tipo>> tiposAnomalias;
+    public MutableLiveData<ProcessoProdutivoResultado> processo;
 
 
     @Inject
@@ -40,6 +44,7 @@ public class AtividadesPendentesViewModel extends BaseViewModel {
         atividades = new MutableLiveData<>();
         atividade = new MutableLiveData<>();
         tiposAnomalias = new MutableLiveData<>();
+        processo = new MutableLiveData<>();
     }
 
 
@@ -120,16 +125,74 @@ public class AtividadesPendentesViewModel extends BaseViewModel {
         ResultadoAsyncTask servico = new ResultadoAsyncTask(vvmshBaseDados, atividadePendenteRepositorio.resultadoDao);
         servico.execute(new Resultado(idTarefa, ResultadoId.ATIVIDADE_PENDENTE));
 
+    }
+
+
+    /**
+     * Metodo que permite gravar um registo
+     * @param idTarefa o identificador da tarefa
+     * @param registo os dados
+     */
+    public void gravarProcessoProdutivo(int idTarefa, ProcessoProdutivoResultado registo) {
+
+        if(this.processo.getValue() == null){
+
+            atividadePendenteRepositorio.inserir(registo)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+
+                            new SingleObserver<Long>() {
+                                @Override
+                                public void onSubscribe(Disposable d) {
+                                    disposables.add(d);
+                                }
+
+                                @Override
+                                public void onSuccess(Long aLong) {
+                                    messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_GRAVADOS_SUCESSO));
+                                }
+
+                                @Override
+                                public void onError(Throwable e) {
+
+                                }
+                            }
+
+                    );
+        }
+        else{
+            atividadePendenteRepositorio.atualizar(registo)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+
+                            new SingleObserver<Integer>() {
+                                @Override
+                                public void onSubscribe(Disposable d) {
+                                    disposables.add(d);
+                                }
+
+                                @Override
+                                public void onSuccess(Integer integer) {
+                                    messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_EDITADOS_SUCESSO));
+                                }
+
+                                @Override
+                                public void onError(Throwable e) {
+
+                                }
+                            }
+
+                    );
+        }
+
+        ResultadoAsyncTask servico = new ResultadoAsyncTask(vvmshBaseDados, atividadePendenteRepositorio.resultadoDao);
+        servico.execute(new Resultado(idTarefa, ResultadoId.ATIVIDADE_PENDENTE));
 
     }
 
 
-
-    public void gravarAtividade(ProcessoProdutivoResultado registo) {
-
-
-
-    }
     //------------------
     //OBTER
     //------------------
@@ -260,7 +323,43 @@ public class AtividadesPendentesViewModel extends BaseViewModel {
     }
 
 
-    public void obterProcessoProdutivo(int anInt) {
+    /**
+     * Metodo que permite obter o processo produtivo
+     * @param idAtividade o identificador da atividade
+     */
+    public void obterProcessoProdutivo(int idAtividade) {
+
+        showProgressBar(true);
+
+        atividadePendenteRepositorio.obterProcessiProdutivo(idAtividade)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new MaybeObserver<ProcessoProdutivoResultado>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onSuccess(ProcessoProdutivoResultado processoProdutivoResultado) {
+                                processo.setValue(processoProdutivoResultado);
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onComplete() {
+                                showProgressBar(false);
+                            }
+                        }
+
+                );
     }
 
 

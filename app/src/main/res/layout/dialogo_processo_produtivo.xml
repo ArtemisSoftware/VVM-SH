@@ -32,7 +32,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/txt_inp_processo_produtivo"
                 style="@style/modifiedEditText"
-
+                android:text="@{viewmodel.processo.descricao}"
                 android:gravity="top|left"
                 android:lines="5"
                 android:maxLines="5"/>

@@ -38,7 +38,16 @@ public class MensagensUtil {
 
         dialogo.setTitleText(Sintaxe.Palavras.SUCESSO)
                 .setContentText(mensagem)
-                .show();
+                .setConfirmText(Sintaxe.Opcoes.OK)
+                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sDialog) {
+//                        sDialog.dismissWithAnimation();
+                        sDialog.dismiss();
+                    }
+                });
+
+        dialogo.show();
     }
 
 
@@ -185,7 +194,16 @@ public class MensagensUtil {
 
         dialogo.setTitleText(titulo)
                 .setContentText(mensagem)
-                .show();
+                .setConfirmText(Sintaxe.Opcoes.OK)
+                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sDialog) {
+//                        sDialog.dismissWithAnimation();
+                        sDialog.dismiss();
+                    }
+                });
+
+        dialogo.show();
     }
 
 

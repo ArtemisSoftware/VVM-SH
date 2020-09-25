@@ -59,14 +59,19 @@ abstract public class AreaChecklistDao implements BaseDao<AreaChecklistResultado
 
 
     @Query("SELECT area_chk_res.idArea as idArea, id, descricao, '' as subDescricao, " +
-            "" + Identificadores.Checklist.TIPO_SECCAO + " as tipo, 0 as completos, total, uid " +
+            "" + Identificadores.Checklist.TIPO_SECCAO + " as tipo, completos, total, uid " +
             "FROM seccoesChecklist as seccao_chk " +
 
             "LEFT JOIN (SELECT idChecklist, idArea, id FROM areasChecklistResultado) as area_chk_res " +
             "ON seccao_chk.idChecklist = area_chk_res.idChecklist AND seccao_chk.idArea = area_chk_res.idArea  " +
 
-            "LEFT JOIN (SELECT idChecklist, idArea, idSeccao, COUNT(*) as total FROM itensChecklist GROUP BY idChecklist, idArea, idSeccao) as seccoes_total " +
-            "ON seccao_chk.idChecklist = seccoes_total.idChecklist AND seccao_chk.idArea = seccoes_total.idArea AND seccao_chk.uid = seccoes_total.idSeccao " +
+
+            "LEFT JOIN (SELECT idArea, COUNT(*) as completos FROM questionarioChecklistResultado WHERE tipo = '" + Identificadores.Checklist.TIPO_QUESTAO + "' GROUP BY idArea) as itens_completos " +
+            "ON area_chk_res.id = itens_completos.idArea   " +
+
+
+            "LEFT JOIN (SELECT idChecklist, idArea, idSeccao, COUNT(*) as total FROM itensChecklist WHERE tipo = '" + Identificadores.Checklist.TIPO_QUESTAO + "' GROUP BY idChecklist, idArea, idSeccao) as itens_total " +
+            "ON seccao_chk.idChecklist = itens_total.idChecklist AND seccao_chk.idArea = itens_total.idArea AND seccao_chk.uid = itens_total.idSeccao " +
 
             "WHERE area_chk_res.id = :idRegisto ORDER BY uid ASC " +
             "")

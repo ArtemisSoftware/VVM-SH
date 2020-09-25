@@ -41,6 +41,20 @@ public class Migracao {
                         + "FOREIGN KEY (idTarefa) REFERENCES tarefas (idTarefa)  ON DELETE CASCADE)  ");
 
 
+                database.execSQL("DROP TABLE IF EXISTS trabalhoRealizadoResultado");
+                database.execSQL("DROP INDEX IF EXISTS index_trabalhoRealizadoResultado_idTarefa");
+
+                database.execSQL("CREATE TABLE IF NOT EXISTS 'trabalhadoresVulneraveisResultado' ("
+                        + "'idAtividade' INTEGER NOT NULL, "
+                        + "'id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
+                        + "'idVulnerabilidade' INTEGER NOT NULL, "
+                        + "'origem' INTEGER NOT NULL, "
+
+                        + "FOREIGN KEY (idAtividade) REFERENCES atividadesPendentes (id)  ON DELETE CASCADE) ");
+
+                database.execSQL("CREATE INDEX index_trabalhadoresVulneraveisResultado_idAtividade ON trabalhadoresVulneraveisResultado (idAtividade)");
+
+
 
             }
             catch(SQLException e){
@@ -238,6 +252,9 @@ public class Migracao {
                         + "'observacao' TEXT, "
                         + "PRIMARY KEY (idTarefa), "
                         + "FOREIGN KEY (idTarefa) REFERENCES tarefas (idTarefa)  ON DELETE CASCADE) ");
+
+
+
 
 
 

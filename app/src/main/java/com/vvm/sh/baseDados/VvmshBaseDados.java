@@ -45,6 +45,8 @@ import com.vvm.sh.baseDados.entidades.MedidaResultado;
 import com.vvm.sh.baseDados.entidades.Morada;
 import com.vvm.sh.baseDados.entidades.ParqueExtintor;
 import com.vvm.sh.baseDados.entidades.ParqueExtintorResultado;
+import com.vvm.sh.baseDados.entidades.PlanoAcao;
+import com.vvm.sh.baseDados.entidades.PlanoAcaoAtividade;
 import com.vvm.sh.baseDados.entidades.ProcessoProdutivoResultado;
 import com.vvm.sh.baseDados.entidades.QuestionarioChecklistResultado;
 import com.vvm.sh.baseDados.entidades.RegistoVisitaResultado;
@@ -84,7 +86,7 @@ import com.vvm.sh.baseDados.entidades.EmailResultado;
 
                     Cliente.class, AtividadeExecutada.class, Anomalia.class, AtividadePendente.class, Ocorrencia.class, OcorrenciaHistorico.class,
                     Morada.class,
-                    ParqueExtintor.class, TipoExtintor.class, Colaborador.class,
+                    ParqueExtintor.class, TipoExtintor.class, Colaborador.class, PlanoAcao.class, PlanoAcaoAtividade.class,
 
                     //Resultado
 

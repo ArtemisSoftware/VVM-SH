@@ -56,7 +56,7 @@ public class IPlanoAcao {
         public String observacao;
 
         @SerializedName("FIXO")
-        public String posicao; //TODO: criar inteiros para topo, meio e fim
+        public String posicao; //TODO: criar inteiros para topo, meio e fim ---> opcoes topo, null, fim
 
         @SerializedName("Anuidade")
         public String anuidade;

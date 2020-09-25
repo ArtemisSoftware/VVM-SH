@@ -46,6 +46,8 @@ public class TrabalhadoresVulneraveisViewModel extends BaseViewModel {
                             @Override
                             public void onComplete() {
 
+                                showProgressBar(false);
+
                             }
 
                             @Override

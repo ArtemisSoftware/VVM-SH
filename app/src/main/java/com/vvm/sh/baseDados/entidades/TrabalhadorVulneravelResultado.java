@@ -32,6 +32,13 @@ public class TrabalhadorVulneravelResultado {
     @NonNull
     public int idVulnerabilidade;
 
+    @NonNull
+    @ColumnInfo(name = "homens", defaultValue = Identificadores.VALOR_0)
+    public int homens;
+
+    @NonNull
+    @ColumnInfo(name = "mulheres", defaultValue = Identificadores.VALOR_0)
+    public int mulheres;
 
     @NonNull
     @ColumnInfo(name = "origem" , defaultValue = Identificadores.Origens.ORIGEM_WS + "")

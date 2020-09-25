@@ -22,6 +22,9 @@ import com.vvm.sh.di.atividadesPendentes.formacao.FormacaoViewModelsModule;
 import com.vvm.sh.di.atividadesPendentes.levantamentos.LevantamentosModule;
 import com.vvm.sh.di.atividadesPendentes.levantamentos.LevantamentosScope;
 import com.vvm.sh.di.atividadesPendentes.levantamentos.LevantamentosViewModelsModule;
+import com.vvm.sh.di.atividadesPendentes.trabalhadoresVulneraveis.TrabalhadoresVulneraveisModule;
+import com.vvm.sh.di.atividadesPendentes.trabalhadoresVulneraveis.TrabalhadoresVulneraveisScope;
+import com.vvm.sh.di.atividadesPendentes.trabalhadoresVulneraveis.TrabalhadoresVulneraveisViewModelsModule;
 import com.vvm.sh.di.registoVisita.RegistoVisitaModule;
 import com.vvm.sh.di.registoVisita.RegistoVisitaScope;
 import com.vvm.sh.di.registoVisita.RegistoVisitaViewModelsModule;
@@ -58,6 +61,7 @@ import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.DialogoArea;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.DialogoPergunta;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.QuestoesChecklistActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.LevantamentosActivity;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.trabalhadoresVulneraveis.TrabalhadoresVulneraveisActivity;
 import com.vvm.sh.ui.registoVisita.DadosClienteActivity;
 import com.vvm.sh.ui.registoVisita.DialogoTrabalhoRealizado;
 import com.vvm.sh.ui.registoVisita.RegistoVisitaActivity;
@@ -464,9 +468,15 @@ public abstract class ActivityBuildersModule {
 
 
 
+    //----------------------
+    //Trabalhadores vulneraveis
+    //----------------------
 
-
-
+    @TrabalhadoresVulneraveisScope
+    @ContributesAndroidInjector(
+            modules = { TrabalhadoresVulneraveisViewModelsModule.class, TrabalhadoresVulneraveisModule.class }
+    )
+    abstract TrabalhadoresVulneraveisActivity contributeTrabalhadoresVulneraveisActivity();
 
 
 

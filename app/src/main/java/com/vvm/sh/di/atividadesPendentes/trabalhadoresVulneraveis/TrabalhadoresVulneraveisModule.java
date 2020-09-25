@@ -2,6 +2,7 @@ package com.vvm.sh.di.atividadesPendentes.trabalhadoresVulneraveis;
 
 import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.baseDados.dao.AtividadePendenteDao;
+import com.vvm.sh.baseDados.dao.CategoriaProfissionalDao;
 import com.vvm.sh.baseDados.dao.ProcessoProdutivoDao;
 import com.vvm.sh.baseDados.dao.ResultadoDao;
 import com.vvm.sh.baseDados.dao.TipoDao;
@@ -28,10 +29,21 @@ public class TrabalhadoresVulneraveisModule {
 
     @TrabalhadoresVulneraveisScope
     @Provides
-    TrabalhadoresVulneraveisRepositorio provideTrabalhadoresVulneraveisRepositorio(int idApi,
-                                                                                   TrabalhadoresVulneraveisDao trabalhadoresVulneraveisDao, ResultadoDao resultadoDao) {
+    static CategoriaProfissionalDao provideCategoriaProfissionalDao(VvmshBaseDados vvmshBaseDados){
 
-        TrabalhadoresVulneraveisRepositorio repositorio = new TrabalhadoresVulneraveisRepositorio(idApi,trabalhadoresVulneraveisDao, resultadoDao);
+        CategoriaProfissionalDao dao = vvmshBaseDados.obterCategoriaProfissionalDao();
+
+        return dao;
+    }
+
+
+    @TrabalhadoresVulneraveisScope
+    @Provides
+    TrabalhadoresVulneraveisRepositorio provideTrabalhadoresVulneraveisRepositorio(int idApi,
+                                                                                   TrabalhadoresVulneraveisDao trabalhadoresVulneraveisDao, CategoriaProfissionalDao categoriaProfissionalDao,
+                                                                                   ResultadoDao resultadoDao) {
+
+        TrabalhadoresVulneraveisRepositorio repositorio = new TrabalhadoresVulneraveisRepositorio(idApi,trabalhadoresVulneraveisDao, categoriaProfissionalDao, resultadoDao);
         return repositorio;
     }
 

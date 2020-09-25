@@ -16,7 +16,7 @@ public class Migracao {
         Migration migrations [] =  new Migration []{
                 MIGRACAO_1_2, MIGRACAO_2_3, MIGRACAO_3_4, MIGRACAO_4_5, MIGRACAO_5_6, MIGRACAO_6_7, MIGRACAO_7_8, MIGRACAO_8_9, MIGRACAO_9_10, MIGRACAO_10_11,
                 MIGRACAO_11_12, MIGRACAO_12_13, MIGRACAO_13_14, MIGRACAO_14_15, MIGRACAO_15_16, MIGRACAO_16_17, MIGRACAO_17_18, MIGRACAO_18_19, MIGRACAO_19_20,
-                MIGRACAO_20_21
+                MIGRACAO_20_21, MIGRACAO_21_22
 
         };
 
@@ -67,6 +67,8 @@ public class Migracao {
                         + "'idAtividade' INTEGER NOT NULL, "
                         + "'id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
                         + "'idVulnerabilidade' INTEGER NOT NULL, "
+                        + "'homens' INTEGER NOT NULL DEFAULT " + Identificadores.VALOR_0 + " ,  "
+                        + "'mulheres' INTEGER NOT NULL DEFAULT " + Identificadores.VALOR_0 + " ,  "
                         + "'origem' INTEGER NOT NULL DEFAULT " + Identificadores.Origens.ORIGEM_WS + ", "
 
                         + "FOREIGN KEY (idAtividade) REFERENCES atividadesPendentes (id)  ON DELETE CASCADE) ");

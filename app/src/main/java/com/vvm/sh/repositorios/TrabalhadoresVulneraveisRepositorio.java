@@ -2,6 +2,7 @@ package com.vvm.sh.repositorios;
 
 import androidx.annotation.NonNull;
 
+import com.vvm.sh.baseDados.dao.CategoriaProfissionalDao;
 import com.vvm.sh.baseDados.dao.ResultadoDao;
 import com.vvm.sh.baseDados.dao.TrabalhadoresVulneraveisDao;
 import com.vvm.sh.baseDados.entidades.TrabalhadorVulneravelResultado;
@@ -13,14 +14,16 @@ public class TrabalhadoresVulneraveisRepositorio implements Repositorio<Trabalha
 
     private final int idApi;
     private final TrabalhadoresVulneraveisDao trabalhadoresVulneraveisDao;
+    private final CategoriaProfissionalDao categoriaProfissionalDao;
     public final ResultadoDao resultadoDao;
 
     public TrabalhadoresVulneraveisRepositorio(int idApi,
-                                               @NonNull TrabalhadoresVulneraveisDao trabalhadoresVulneraveisDao,
+                                               @NonNull TrabalhadoresVulneraveisDao trabalhadoresVulneraveisDao, @NonNull CategoriaProfissionalDao categoriaProfissionalDao,
                                                @NonNull ResultadoDao resultadoDao) {
 
         this.idApi = idApi;
         this.trabalhadoresVulneraveisDao = trabalhadoresVulneraveisDao;
+        this.categoriaProfissionalDao = categoriaProfissionalDao;
         this.resultadoDao = resultadoDao;
     }
 

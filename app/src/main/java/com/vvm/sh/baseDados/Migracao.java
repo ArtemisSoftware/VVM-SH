@@ -41,6 +41,25 @@ public class Migracao {
                         + "FOREIGN KEY (idTarefa) REFERENCES tarefas (idTarefa)  ON DELETE CASCADE)  ");
 
 
+
+                database.execSQL("CREATE TABLE IF NOT EXISTS 'planoAcaoAtividade' ("
+                        + "'idTarefa' INTEGER NOT NULL, "
+                        + "'id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
+                        + "'servId' TEXT, "
+                        + "'descricaoSimples' TEXT NOT NULL, "
+                        + "'equipaSst' TEXT NOT NULL, "
+                        + "'sempreNecessario' INTEGER NOT NULL, "
+                        + "'dataProgramada' TEXT , "
+                        + "'reprogramada' INTEGER NOT NULL, "
+                        + "'observacao' TEXT, "
+                        + "'fixo' INTEGER NOT NULL , "
+                        + "'anuidade' TEXT, "
+                        + "FOREIGN KEY (idTarefa) REFERENCES planoAcao (idTarefa)  ON DELETE CASCADE)  ");
+
+                database.execSQL("CREATE INDEX index_planoAcaoAtividade_idTarefa ON planoAcaoAtividade (idTarefa)");
+
+
+
                 database.execSQL("DROP TABLE IF EXISTS trabalhoRealizadoResultado");
                 database.execSQL("DROP INDEX IF EXISTS index_trabalhoRealizadoResultado_idTarefa");
 
@@ -48,7 +67,7 @@ public class Migracao {
                         + "'idAtividade' INTEGER NOT NULL, "
                         + "'id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
                         + "'idVulnerabilidade' INTEGER NOT NULL, "
-                        + "'origem' INTEGER NOT NULL, "
+                        + "'origem' INTEGER NOT NULL DEFAULT " + Identificadores.Origens.ORIGEM_WS + ", "
 
                         + "FOREIGN KEY (idAtividade) REFERENCES atividadesPendentes (id)  ON DELETE CASCADE) ");
 

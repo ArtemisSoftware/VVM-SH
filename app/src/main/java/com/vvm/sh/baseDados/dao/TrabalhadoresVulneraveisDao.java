@@ -4,15 +4,13 @@ import androidx.room.Dao;
 import androidx.room.Query;
 
 import com.vvm.sh.baseDados.BaseDao;
-import com.vvm.sh.baseDados.entidades.TrabalhadorVulneravel;
+import com.vvm.sh.baseDados.entidades.TrabalhadorVulneravelResultado;
 import com.vvm.sh.util.metodos.TiposUtil;
-
-import java.util.List;
 
 import io.reactivex.Completable;
 
 @Dao
-abstract public class TrabalhadoresVulneraveisDao implements BaseDao<TrabalhadorVulneravel> {
+abstract public class TrabalhadoresVulneraveisDao implements BaseDao<TrabalhadorVulneravelResultado> {
 
 
 

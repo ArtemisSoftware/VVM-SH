@@ -8,6 +8,8 @@ import androidx.room.ForeignKey;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
+import com.vvm.sh.util.constantes.Identificadores;
+
 import static androidx.room.ForeignKey.CASCADE;
 
 @Entity(tableName = "trabalhadoresVulneraveisResultado",
@@ -17,7 +19,7 @@ import static androidx.room.ForeignKey.CASCADE;
                 parentColumns = "id",
                 childColumns = "idAtividade",
                 onDelete = CASCADE))
-public class TrabalhadorVulneravel {
+public class TrabalhadorVulneravelResultado {
 
     @NonNull
     @ColumnInfo(name = "idAtividade")
@@ -32,6 +34,7 @@ public class TrabalhadorVulneravel {
 
 
     @NonNull
+    @ColumnInfo(name = "origem" , defaultValue = Identificadores.Origens.ORIGEM_WS + "")
     public int origem;
 
 

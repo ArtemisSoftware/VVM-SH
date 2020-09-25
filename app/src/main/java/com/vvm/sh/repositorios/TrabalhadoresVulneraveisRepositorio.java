@@ -4,12 +4,12 @@ import androidx.annotation.NonNull;
 
 import com.vvm.sh.baseDados.dao.ResultadoDao;
 import com.vvm.sh.baseDados.dao.TrabalhadoresVulneraveisDao;
-import com.vvm.sh.baseDados.entidades.TrabalhadorVulneravel;
+import com.vvm.sh.baseDados.entidades.TrabalhadorVulneravelResultado;
 
 import io.reactivex.Completable;
 import io.reactivex.Single;
 
-public class TrabalhadoresVulneraveisRepositorio implements Repositorio<TrabalhadorVulneravel> {
+public class TrabalhadoresVulneraveisRepositorio implements Repositorio<TrabalhadorVulneravelResultado> {
 
     private final int idApi;
     private final TrabalhadoresVulneraveisDao trabalhadoresVulneraveisDao;
@@ -26,12 +26,12 @@ public class TrabalhadoresVulneraveisRepositorio implements Repositorio<Trabalha
 
 
     @Override
-    public Single<Long> inserir(TrabalhadorVulneravel item) {
+    public Single<Long> inserir(TrabalhadorVulneravelResultado item) {
         return trabalhadoresVulneraveisDao.inserir(item);
     }
 
     @Override
-    public Single<Integer> atualizar(TrabalhadorVulneravel item) {
+    public Single<Integer> atualizar(TrabalhadorVulneravelResultado item) {
         return trabalhadoresVulneraveisDao.atualizar(item);
     }
 
@@ -41,7 +41,7 @@ public class TrabalhadoresVulneraveisRepositorio implements Repositorio<Trabalha
     }
 
     @Override
-    public Single<Integer> remover(TrabalhadorVulneravel item) {
+    public Single<Integer> remover(TrabalhadorVulneravelResultado item) {
         return null;
     }
 }

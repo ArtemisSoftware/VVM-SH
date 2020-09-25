@@ -66,8 +66,8 @@ abstract public class AreaChecklistDao implements BaseDao<AreaChecklistResultado
             "ON seccao_chk.idChecklist = area_chk_res.idChecklist AND seccao_chk.idArea = area_chk_res.idArea  " +
 
 
-            "LEFT JOIN (SELECT idArea, COUNT(*) as completos FROM questionarioChecklistResultado WHERE tipo = '" + Identificadores.Checklist.TIPO_QUESTAO + "' GROUP BY idArea) as itens_completos " +
-            "ON area_chk_res.id = itens_completos.idArea   " +
+            "LEFT JOIN (SELECT idArea, idSeccao, COUNT(*) as completos FROM questionarioChecklistResultado WHERE tipo = '" + Identificadores.Checklist.TIPO_QUESTAO + "' GROUP BY idArea, idSeccao) as itens_completos " +
+            "ON area_chk_res.id = itens_completos.idArea  AND seccao_chk.uid = itens_completos.idSeccao " +
 
 
             "LEFT JOIN (SELECT idChecklist, idArea, idSeccao, COUNT(*) as total FROM itensChecklist WHERE tipo = '" + Identificadores.Checklist.TIPO_QUESTAO + "' GROUP BY idChecklist, idArea, idSeccao) as itens_total " +

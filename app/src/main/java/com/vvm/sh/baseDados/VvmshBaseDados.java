@@ -62,6 +62,7 @@ import com.vvm.sh.baseDados.entidades.AcaoFormacaoResultado;
 import com.vvm.sh.baseDados.entidades.FormandoResultado;
 import com.vvm.sh.baseDados.dao.TipoDao;
 import com.vvm.sh.baseDados.entidades.TipoExtintor;
+import com.vvm.sh.baseDados.entidades.TrabalhadorVulneravel;
 import com.vvm.sh.baseDados.entidades.TrabalhoRealizadoResultado;
 import com.vvm.sh.baseDados.entidades.Utilizador;
 import com.vvm.sh.baseDados.entidades.Cliente;
@@ -97,7 +98,7 @@ import com.vvm.sh.baseDados.entidades.EmailResultado;
 
                     TrabalhoRealizadoResultado.class, RegistoVisitaResultado.class,
 
-                    LevantamentoRiscoResultado.class, ProcessoProdutivoResultado.class,
+                    LevantamentoRiscoResultado.class, ProcessoProdutivoResultado.class, TrabalhadorVulneravel.class,
                     AreaChecklistResultado.class, QuestionarioChecklistResultado.class,
                     Resultado.class
             },

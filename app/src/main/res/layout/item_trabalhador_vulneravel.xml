@@ -86,11 +86,13 @@
                     <TextView
                         android:id="@+id/textView52"
                         style="@style/textoDescritivo"
+                        android:layout_marginTop="@dimen/distancia_vertical_titulo"
                         android:text="@string/categorias_profissionais" />
 
                     <TextView
                         android:id="@+id/textView54"
-                        style="@style/textoDetalhe"/>
+                        style="@style/textoDetalhe"
+                        android:layout_marginTop="8dp"/>
 
                     <!--
 
@@ -132,7 +134,8 @@
                     <TextView
                         android:id="@+id/textView53"
                         style="@style/textoDescritivo"
-                        android:text="@string/medidas_recomendadas" />
+                        android:layout_marginTop="@dimen/distancia_vertical_titulo"
+                        android:text="@string/categorias_profissionais" />
 
                     <TextView
                         android:id="@+id/textView56"

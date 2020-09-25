@@ -27,6 +27,7 @@ import com.vvm.sh.baseDados.dao.RegistoVisitaDao;
 import com.vvm.sh.baseDados.dao.ResultadoDao;
 import com.vvm.sh.baseDados.dao.SinistralidadeDao;
 import com.vvm.sh.baseDados.dao.TarefaDao;
+import com.vvm.sh.baseDados.dao.TrabalhadoresVulneraveisDao;
 import com.vvm.sh.baseDados.dao.TrabalhosRealizadosDao;
 import com.vvm.sh.baseDados.dao.TransferenciasDao;
 import com.vvm.sh.baseDados.dao.UtilizadorDao;
@@ -169,6 +170,7 @@ public abstract class VvmshBaseDados extends RoomDatabase {
 
     public abstract LevantamentoDao obterLevantamentoDao();
     public abstract ProcessoProdutivoDao obterProcessoProdutivoDao();
+    public abstract TrabalhadoresVulneraveisDao obterTrabalhadoresVulneraveisDao();
 
     public abstract AreaChecklistDao obterAreaChecklistDao();
     public abstract QuestionarioChecklistDao obterQuestionarioChecklistDao();

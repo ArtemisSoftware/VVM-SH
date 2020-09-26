@@ -15,11 +15,11 @@
             name="viewmodel"
             type="com.vvm.sh.ui.atividadesPendentes.relatorios.trabalhadoresVulneraveis.TrabalhadoresVulneraveisViewModel"/>
 
-        <!--
-                <variable
-                    name="listener"
-                    type="com.vvm.sh.ui.quadroPessoal.adaptadores.OnColaboradorListener"/>
-        -->
+
+        <variable
+            name="listener"
+            type="com.vvm.sh.ui.atividadesPendentes.relatorios.trabalhadoresVulneraveis.adaptadores.OnTrabalhadorVulneravelListener"/>
+
         <variable
             name="bloquear"
             type="Boolean"/>
@@ -133,14 +133,14 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rcl_registos"
                     style="@style/lista"
-
+                    vulnerabilidade="@{viewmodel.vulnerabilidades}"
+                    listener="@{listener}"
                     tools:listitem="@layout/item_trabalhador_vulneravel"/>
 
                 <!--
 
 
-                    colaboradores="@{viewmodel.colaboradores}"
-                    listener="@{listener}"
+
 
                 -->
 

@@ -1,0 +1,259 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="java.util.List"/>
+        <import type="com.vvm.sh.R"/>
+        <import type="android.view.View"/>
+        <import type="com.vvm.sh.util.metodos.StringUtil"/>
+        <import type="com.vvm.sh.util.metodos.DatasUtil"/>
+
+        <variable
+            name="viewmodel"
+            type="com.vvm.sh.ui.atividadesPendentes.relatorios.trabalhadoresVulneraveis.TrabalhadoresVulneraveisViewModel"/>
+
+
+        <variable
+            name="bloquear"
+            type="Boolean"/>
+
+    </data>
+
+
+
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/AppTheme.AppBarOverlay">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                    <TextView
+                        android:id="@+id/textView18"
+                        style="@style/tituloCartao"
+                        android:text="@string/avaliacao_iluminacao"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <View
+                        android:id="@+id/textview2"
+                        android:layout_width="280dp"
+                        android:layout_height="0.2dp"
+                        android:layout_marginTop="8dp"
+                        android:background="@color/cor_separador"
+                        app:layout_constraintStart_toStartOf="@+id/textView18"
+                        app:layout_constraintTop_toBottomOf="@+id/textView18" />
+
+
+
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/textview3"
+                        style="@style/parent.TextLayout"
+                        android:hint="@string/numero_homens"
+                        android:layout_width="450dp"
+                        app:errorEnabled="true"
+                        android:layout_marginTop="@dimen/distancia_vertical_formulario"
+                        app:layout_constraintStart_toStartOf="@+id/textView18"
+                        app:layout_constraintTop_toBottomOf="@+id/textview2">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/txt_inp_descricao_area"
+                            style="@style/modifiedEditText"
+
+                            android:maxLength="250"
+                            android:inputType="number"
+                            android:maxLines="1"/>
+
+                        <!--   -->
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
+
+
+
+                    <LinearLayout
+                        android:id="@+id/linearlayout1"
+                        android:orientation="horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:layout_marginTop="@dimen/distancia_vertical_formulario"
+                        app:layout_constraintStart_toStartOf="@+id/textView18"
+                        app:layout_constraintTop_toBottomOf="@+id/textview3">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/textview32"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/categorias_profissionais_homens"
+                                style="@style/textoInput" />
+
+
+                            <TextView
+                                android:id="@+id/txt_categorias_profissionais"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                style="@style/textoDetalhe" />
+
+                            <!---
+
+
+                                listagemTipos="@{viewmodel.categoriasProfissionais}"
+                            -->
+
+                        </LinearLayout>
+
+
+                        <at.markushi.ui.CircleButton
+                            android:id="@+id/crl_btn_pesquisar_categorias_profissionais_homens"
+                            style="@style/btnPesquisa" />
+
+                    </LinearLayout>
+
+
+
+
+
+
+
+
+
+
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/textview35"
+                        style="@style/parent.TextLayout"
+                        android:hint="@string/numero_mulheres"
+                        android:layout_width="450dp"
+                        app:errorEnabled="true"
+                        android:layout_marginTop="@dimen/distancia_vertical_formulario"
+                        app:layout_constraintStart_toStartOf="@+id/textView18"
+                        app:layout_constraintTop_toBottomOf="@+id/linearlayout1">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/txt_inp_nome"
+
+                            style="@style/modifiedEditText"
+                            android:inputType="number"
+                            android:maxLines="1"/>
+
+                        <!--   -->
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+
+
+                    <LinearLayout
+                        android:id="@+id/linearlayout12"
+                        android:orientation="horizontal"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_vertical"
+                        android:layout_marginTop="@dimen/distancia_vertical_formulario"
+                        app:layout_constraintStart_toStartOf="@+id/textView18"
+                        app:layout_constraintTop_toBottomOf="@+id/textview35">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/textview321"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/categorias_profissionais_mulheres"
+                                style="@style/textoInput" />
+
+
+                            <TextView
+                                android:id="@+id/txt_categorias_profissionais_mulheres"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                style="@style/textoDetalhe" />
+
+                            <!---
+
+
+                                listagemTipos="@{viewmodel.categoriasProfissionais}"
+                            -->
+
+                        </LinearLayout>
+
+
+                        <at.markushi.ui.CircleButton
+                            android:id="@+id/crl_btn_pesquisar_categorias_profissionais_mulheres"
+                            style="@style/btnPesquisa" />
+
+                    </LinearLayout>
+
+
+
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_gravar"
+            android:enabled="@{bloquear}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="@dimen/fab_margin"
+            android:src="@drawable/ic_gravar_24dp" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+</layout>

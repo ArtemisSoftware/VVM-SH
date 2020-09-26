@@ -423,4 +423,6 @@
     <string name="fotos_registadas">Fotos registas</string>
     <string name="eliminar_checklist">Eliminar checklist</string>
     <string name="eliminar_checklist_dados">Ao eliminar a checklist irá perder todos os dados registados</string>
+    <string name="categorias_profissionais_homens">Categorias profissionais (homens)</string>
+    <string name="categorias_profissionais_mulheres">Categorias profissionais (mulheres)</string>
 </resources>

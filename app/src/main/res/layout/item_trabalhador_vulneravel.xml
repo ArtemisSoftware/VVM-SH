@@ -13,11 +13,11 @@
         <variable
             name="vulnerabilidade"
             type="com.vvm.sh.ui.atividadesPendentes.relatorios.trabalhadoresVulneraveis.modelos.TrabalhadorVulneravel" />
-        <!--
-                <variable
-                    name="listener"
-                    type="com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.OnAvaliacaoAmbientalListener"/>
-        -->
+
+            <variable
+                name="listener"
+                type="com.vvm.sh.ui.atividadesPendentes.relatorios.trabalhadoresVulneraveis.adaptadores.OnTrabalhadorVulneravelListener"/>
+
     </data>
 
 

@@ -10,16 +10,16 @@
         <import type="java.util.List"/>
         <import type="android.view.View"/>
         <import type="com.vvm.sh.util.metodos.DatasUtil"/>
-<!--
+
         <variable
             name="viewmodel"
-            type="com.vvm.sh.ui.quadroPessoal.QuadroPessoalViewModel"/>
+            type="com.vvm.sh.ui.atividadesPendentes.relatorios.trabalhadoresVulneraveis.TrabalhadoresVulneraveisViewModel"/>
 
-
-        <variable
-            name="listener"
-            type="com.vvm.sh.ui.quadroPessoal.adaptadores.OnColaboradorListener"/>
--->
+        <!--
+                <variable
+                    name="listener"
+                    type="com.vvm.sh.ui.quadroPessoal.adaptadores.OnColaboradorListener"/>
+        -->
         <variable
             name="bloquear"
             type="Boolean"/>

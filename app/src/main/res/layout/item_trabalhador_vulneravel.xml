@@ -9,15 +9,15 @@
         <import type="com.vvm.sh.BuildConfig"/>
         <import type="com.vvm.sh.util.metodos.StringUtil"/>
         <import type="android.view.View"/>
-<!--
-        <variable
-            name="avaliacao"
-            type="com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.AvaliacaoAmbiental" />
 
         <variable
-            name="listener"
-            type="com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.OnAvaliacaoAmbientalListener"/>
--->
+            name="vulnerabilidade"
+            type="com.vvm.sh.ui.atividadesPendentes.relatorios.trabalhadoresVulneraveis.modelos.TrabalhadorVulneravel" />
+        <!--
+                <variable
+                    name="listener"
+                    type="com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.OnAvaliacaoAmbientalListener"/>
+        -->
     </data>
 
 
@@ -37,7 +37,7 @@
                 style="@style/tituloCartao"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-
+                android:text="@{vulnerabilidade.descricao}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -75,7 +75,7 @@
 
 
                         <TextView
-                            android:id="@+id/txt_numero_homens"
+                            android:text="@{StringUtil.converterString(vulnerabilidade.resultado.homens)}"
                             style="@style/textoDetalhe"
                             android:layout_marginLeft="16dp"/>
 

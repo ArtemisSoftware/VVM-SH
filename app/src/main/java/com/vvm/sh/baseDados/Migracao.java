@@ -47,9 +47,11 @@ public class Migracao {
                         + "'id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
                         + "'servId' TEXT, "
                         + "'descricaoSimples' TEXT NOT NULL, "
+                        + "'descricao' TEXT NOT NULL, "
                         + "'equipaSst' TEXT NOT NULL, "
                         + "'sempreNecessario' INTEGER NOT NULL, "
-                        + "'dataProgramada' TEXT , "
+                        + "'dataProgramada' TEXT NOT NULL, "
+                        + "'dataExecucao' TEXT , "
                         + "'reprogramada' INTEGER NOT NULL, "
                         + "'observacao' TEXT, "
                         + "'fixo' INTEGER NOT NULL , "
@@ -60,8 +62,8 @@ public class Migracao {
 
 
 
-                database.execSQL("DROP TABLE IF EXISTS trabalhoRealizadoResultado");
-                database.execSQL("DROP INDEX IF EXISTS index_trabalhoRealizadoResultado_idTarefa");
+                database.execSQL("DROP TABLE IF EXISTS trabalhadoresVulneraveisResultado");
+                database.execSQL("DROP INDEX IF EXISTS index_trabalhadoresVulneraveisResultado_idAtividade");
 
                 database.execSQL("CREATE TABLE IF NOT EXISTS 'trabalhadoresVulneraveisResultado' ("
                         + "'idAtividade' INTEGER NOT NULL, "

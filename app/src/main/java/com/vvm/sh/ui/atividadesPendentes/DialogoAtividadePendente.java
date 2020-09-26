@@ -203,6 +203,14 @@ public class DialogoAtividadePendente extends BaseDaggerDialogFragment {
                 break;
 
 
+            case R.id.rd_btn_risco_vulnerabilidades:
+                if (checked) {
+                    listenerAtividade.OnIniciarVulnerabilidades(getArguments().getInt(ARGUMENTO_ID_ATIVIDADE));
+                    terminarDialogo();
+                }
+                break;
+
+
             default:
                 break;
         }

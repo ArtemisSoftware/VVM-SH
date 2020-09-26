@@ -19,6 +19,7 @@ public interface OnAtividadePendenteListener {
     void OnIniciarChecklist(int idAtividade);
 
     void OnIniciarProcessoProdutivo(int idAtividade);
+    void OnIniciarVulnerabilidades(int idAtividade);
 
 
 }

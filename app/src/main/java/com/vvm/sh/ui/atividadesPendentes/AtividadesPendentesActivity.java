@@ -15,6 +15,7 @@ import com.vvm.sh.ui.atividadesPendentes.relatorios.DialogoProcessoProdutivo;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.FormacaoActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.RelatorioAvaliacaoAmbientalActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.ChecklistActivity;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.trabalhadoresVulneraveis.TrabalhadoresVulneraveisActivity;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
@@ -161,6 +162,13 @@ public class AtividadesPendentesActivity extends BaseDaggerActivity
 
         DialogoProcessoProdutivo dialogo = DialogoProcessoProdutivo.newInstance(idAtividade);
         dialogo.show(getSupportFragmentManager(), "example dialog");
+    }
+
+    @Override
+    public void OnIniciarVulnerabilidades(int idAtividade) {
+        Intent intent = new Intent(this, TrabalhadoresVulneraveisActivity.class);
+        intent.putExtra(getString(R.string.argumento_id_atividade), idAtividade);
+        startActivity(intent);
     }
 
 

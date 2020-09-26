@@ -6,8 +6,12 @@ import com.vvm.sh.baseDados.dao.CategoriaProfissionalDao;
 import com.vvm.sh.baseDados.dao.ResultadoDao;
 import com.vvm.sh.baseDados.dao.TrabalhadoresVulneraveisDao;
 import com.vvm.sh.baseDados.entidades.TrabalhadorVulneravelResultado;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.trabalhadoresVulneraveis.modelos.TrabalhadorVulneravel;
+
+import java.util.List;
 
 import io.reactivex.Completable;
+import io.reactivex.Observable;
 import io.reactivex.Single;
 
 public class TrabalhadoresVulneraveisRepositorio implements Repositorio<TrabalhadorVulneravelResultado> {
@@ -42,6 +46,11 @@ public class TrabalhadoresVulneraveisRepositorio implements Repositorio<Trabalha
     public Completable validarVulnerabilidades(int idAtividade){
         return trabalhadoresVulneraveisDao.inserirVulnerabilidades(idAtividade, idApi);
     }
+
+    public Observable<List<TrabalhadorVulneravel>> obterVulnerabilidades(int idAtividade){
+        return trabalhadoresVulneraveisDao.obterVulnerabilidades(idAtividade, idApi);
+    }
+
 
     @Override
     public Single<Integer> remover(TrabalhadorVulneravelResultado item) {

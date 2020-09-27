@@ -6,6 +6,7 @@ import androidx.room.Query;
 import com.vvm.sh.baseDados.BaseDao;
 import com.vvm.sh.baseDados.entidades.TrabalhadorVulneravelResultado;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.trabalhadoresVulneraveis.modelos.TrabalhadorVulneravel;
+import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.metodos.TiposUtil;
 
 import java.util.List;
@@ -47,16 +48,39 @@ abstract public class TrabalhadoresVulneraveisDao implements BaseDao<Trabalhador
 
 
     @Query("SELECT *, descricao, " +
-            "CASE WHEN idVulnerabilidade = 1 OR idVulnerabilidade = 2 OR idVulnerabilidade = 3 THEN 1 ELSE 0 END feminina " +
+            "CASE WHEN idVulnerabilidade = 1 OR idVulnerabilidade = 2 OR idVulnerabilidade = 3 THEN 1 ELSE 0 END feminina, " +
+            "CASE WHEN (idVulnerabilidade = 1 OR idVulnerabilidade = 2 OR idVulnerabilidade = 3) AND (mulheres = ct_mulheres OR mulheres > ct_mulheres) THEN 1 " +
+            "WHEN (homens = ct_homens OR homens > ct_homens) AND  mulheres = 0 THEN 1 " +
+            "WHEN (homens = ct_homens OR homens > ct_homens) AND (mulheres = ct_mulheres OR mulheres > ct_mulheres) THEN 1 ELSE 0 END as valido " +
             "FROM trabalhadoresVulneraveisResultado as tbr_vul_res " +
+
+            "LEFT JOIN (SELECT idRegisto, IFNULL(COUNT(*), 0) as ct_homens  FROM categoriasProfissionaisResultado WHERE origem = " + Identificadores.Origens.CATEGORIAS_PROFISSIONAIS_VULNERABILIDADE_HOMENS +" GROUP BY origem, idRegisto ) as ctPro_homens " +
+            "ON  tbr_vul_res.id = ctPro_homens.idRegisto    " +
+
+            "LEFT JOIN (SELECT idRegisto, IFNULL(COUNT(*), 0) as ct_mulheres FROM categoriasProfissionaisResultado WHERE origem = " + Identificadores.Origens.CATEGORIAS_PROFISSIONAIS_VULNERABILIDADE_MULHERES +" GROUP BY origem, idRegisto) as ctPro_mulheres " +
+            "ON  tbr_vul_res.id = ctPro_mulheres.idRegisto " +
+
+
             "LEFT JOIN (SELECT id, descricao FROM tipos WHERE tipo = '" + TiposUtil.MetodosTipos.TIPOS_VULNERABILIDADES + "' AND ativo = 1 AND api =:idApi) as tp_vul " +
             "ON tbr_vul_res.idVulnerabilidade = tp_vul.id " +
             "WHERE idAtividade =:idAtividade")
     abstract public Observable<List<TrabalhadorVulneravel>> obterVulnerabilidades(int idAtividade, int idApi);
 
+
+
     @Query("SELECT *, descricao, " +
-            "CASE WHEN idVulnerabilidade = 1 OR idVulnerabilidade = 2 OR idVulnerabilidade = 3 THEN 1 ELSE 0 END feminina " +
+            "CASE WHEN idVulnerabilidade = 1 OR idVulnerabilidade = 2 OR idVulnerabilidade = 3 THEN 1 ELSE 0 END feminina, " +
+            "CASE WHEN (idVulnerabilidade = 1 OR idVulnerabilidade = 2 OR idVulnerabilidade = 3) AND (mulheres = ct_mulheres OR mulheres > ct_mulheres) THEN 1 " +
+            "WHEN (homens = ct_homens OR homens > ct_homens) AND  mulheres = 0 THEN 1 " +
+            "WHEN (homens = ct_homens OR homens > ct_homens) AND (mulheres = ct_mulheres OR mulheres > ct_mulheres) THEN 1 ELSE 0 END as valido " +
             "FROM trabalhadoresVulneraveisResultado as tbr_vul_res " +
+
+            "LEFT JOIN (SELECT idRegisto, IFNULL(COUNT(*), 0) as ct_homens  FROM categoriasProfissionaisResultado WHERE origem = " + Identificadores.Origens.CATEGORIAS_PROFISSIONAIS_VULNERABILIDADE_HOMENS +" GROUP BY origem, idRegisto ) as ctPro_homens " +
+            "ON  tbr_vul_res.id = ctPro_homens.idRegisto    " +
+
+            "LEFT JOIN (SELECT idRegisto, IFNULL(COUNT(*), 0) as ct_mulheres FROM categoriasProfissionaisResultado WHERE origem = " + Identificadores.Origens.CATEGORIAS_PROFISSIONAIS_VULNERABILIDADE_MULHERES +" GROUP BY origem, idRegisto) as ctPro_mulheres " +
+            "ON  tbr_vul_res.id = ctPro_mulheres.idRegisto " +
+
             "LEFT JOIN (SELECT id, descricao FROM tipos WHERE tipo = '" + TiposUtil.MetodosTipos.TIPOS_VULNERABILIDADES + "' AND ativo = 1 AND api =:idApi) as tp_vul " +
             "ON tbr_vul_res.idVulnerabilidade = tp_vul.id " +
             "WHERE tbr_vul_res.id =:id")

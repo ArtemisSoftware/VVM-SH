@@ -24,6 +24,9 @@ public class TrabalhadorVulneravel {
     public boolean feminina;
 
 
+    @ColumnInfo(name = "valido")
+    public boolean valido;
+
     @Ignore
     public List<Tipo> categoriasProfissionaisHomens;
 

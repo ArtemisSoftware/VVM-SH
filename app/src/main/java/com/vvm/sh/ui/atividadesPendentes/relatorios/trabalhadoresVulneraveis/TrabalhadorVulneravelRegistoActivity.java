@@ -2,6 +2,7 @@ package com.vvm.sh.ui.atividadesPendentes.relatorios.trabalhadoresVulneraveis;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
@@ -17,6 +18,7 @@ import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.trabalhadoresVulneraveis.modelos.TrabalhadorVulneravel;
 import com.vvm.sh.ui.pesquisa.Pesquisa;
 import com.vvm.sh.ui.pesquisa.PesquisaActivity;
+import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
@@ -78,6 +80,25 @@ public class TrabalhadorVulneravelRegistoActivity extends BaseDaggerActivity {
     @Override
     protected void subscreverObservadores() {
 
+        viewModel.observarMessagem().observe(this, new Observer<Recurso>() {
+            @Override
+            public void onChanged(Recurso recurso) {
+
+                switch (recurso.status){
+
+                    case SUCESSO:
+
+                        dialogo.sucesso(recurso.messagem, listenerActivity);
+                        break;
+
+                    case ERRO:
+
+                        dialogo.erro(recurso.messagem);
+                        break;
+
+                }
+            }
+        });
     }
 
 

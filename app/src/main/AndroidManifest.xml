@@ -15,8 +15,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.atividadesPendentes.relatorios.trabalhadoresVulneraveis.TrabalhadorVulneravelRegistoActivity"></activity>
-        <activity android:name=".ui.atividadesPendentes.relatorios.trabalhadoresVulneraveis.TrabalhadoresVulneraveisActivity" />
+        <activity android:name=".ui.atividadesPendentes.relatorios.trabalhadoresVulneraveis.TrabalhadorVulneravelRegistoActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity android:name=".ui.atividadesPendentes.relatorios.trabalhadoresVulneraveis.TrabalhadoresVulneraveisActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.atividadesPendentes.relatorios.checklist.QuestoesChecklistActivity"
             android:theme="@style/AppTheme.NoActionBar" />

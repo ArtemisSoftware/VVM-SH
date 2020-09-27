@@ -50,4 +50,8 @@ abstract public class CategoriaProfissionalDao implements BaseDao<CategoriaProfi
     abstract public Maybe<List<Tipo>> obterTipoCategoriasProfissionais(int id, int origem);
 
 
+    @Query("SELECT * FROM tipos WHERE tipo = '" + TiposUtil.MetodosTipos.CATEGORIAS_PROFISSIONAIS + "' AND api = :api AND id IN (:registos) AND ativo = 1")
+    abstract public Single<List<Tipo>> obterTiposCategorias(List<Integer> registos, int api);
+
+
 }

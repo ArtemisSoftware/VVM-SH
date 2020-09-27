@@ -56,6 +56,7 @@
 
                 <LinearLayout
                     android:id="@+id/linearLayout1"
+                    android:visibility="@{vulnerabilidade.feminina ? View.GONE : View.VISIBLE}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
@@ -126,6 +127,7 @@
                         <TextView
                             android:id="@+id/txt_numero_mulheres"
                             style="@style/textoDetalhe"
+                            android:text="@{StringUtil.converterString(vulnerabilidade.resultado.mulheres)}"
                             android:layout_marginLeft="16dp"/>
 
 
@@ -194,7 +196,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
-
+                android:text="@{StringUtil.converterString(vulnerabilidade.resultado.id), default=id}"
+                android:visibility="@{BuildConfig.DEBUG ? View.VISIBLE : View.GONE}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
 
@@ -206,8 +209,7 @@
 
 
 <!--
-                android:text="@{StringUtil.converterString(avaliacao.resultado.id), default=id}"
-                android:visibility="@{BuildConfig.DEBUG ? View.VISIBLE : View.GONE}"
+
 
           -->
 

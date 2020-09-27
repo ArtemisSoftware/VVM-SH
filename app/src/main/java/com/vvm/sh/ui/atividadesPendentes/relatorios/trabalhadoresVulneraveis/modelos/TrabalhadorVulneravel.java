@@ -3,6 +3,7 @@ package com.vvm.sh.ui.atividadesPendentes.relatorios.trabalhadoresVulneraveis.mo
 import androidx.room.ColumnInfo;
 import androidx.room.Embedded;
 import androidx.room.Ignore;
+import androidx.room.Relation;
 
 import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.baseDados.entidades.TrabalhadorVulneravelResultado;
@@ -15,8 +16,12 @@ public class TrabalhadorVulneravel {
     public TrabalhadorVulneravelResultado resultado;
 
 
+
     @ColumnInfo(name = "descricao")
     public String descricao;
+
+    @ColumnInfo(name = "feminina")
+    public boolean feminina;
 
 
     @Ignore

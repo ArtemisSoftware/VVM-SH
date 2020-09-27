@@ -67,7 +67,7 @@
                     <TextView
                         android:id="@+id/textView18"
                         style="@style/tituloCartao"
-                        android:text="@string/avaliacao_iluminacao"
+                        android:text="@{viewmodel.vulnerabilidade.descricao}"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
@@ -86,6 +86,8 @@
 
                     <com.google.android.material.textfield.TextInputLayout
                         android:id="@+id/textview3"
+
+                        android:visibility="@{viewmodel.vulnerabilidade.feminina ? View.GONE : View.VISIBLE}"
                         style="@style/parent.TextLayout"
                         android:hint="@string/numero_homens"
                         android:layout_width="450dp"
@@ -95,9 +97,9 @@
                         app:layout_constraintTop_toBottomOf="@+id/textview2">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/txt_inp_descricao_area"
+                            android:id="@+id/txt_inp_numero_homens"
                             style="@style/modifiedEditText"
-
+                            android:text="@{StringUtil.converterString(viewmodel.vulnerabilidade.resultado.homens), default=0}"
                             android:maxLength="250"
                             android:inputType="number"
                             android:maxLines="1"/>
@@ -113,6 +115,7 @@
 
                     <LinearLayout
                         android:id="@+id/linearlayout1"
+                        android:visibility="@{viewmodel.vulnerabilidade.feminina == true ? View.GONE : View.VISIBLE}"
                         android:orientation="horizontal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -138,12 +141,13 @@
                                 android:id="@+id/txt_categorias_profissionais"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                listagemTipos="@{viewmodel.categoriasProfissionaisHomens}"
                                 style="@style/textoDetalhe" />
 
                             <!---
 
 
-                                listagemTipos="@{viewmodel.categoriasProfissionais}"
+
                             -->
 
                         </LinearLayout>
@@ -177,8 +181,9 @@
                         app:layout_constraintTop_toBottomOf="@+id/linearlayout1">
 
                         <com.google.android.material.textfield.TextInputEditText
-                            android:id="@+id/txt_inp_nome"
+                            android:id="@+id/txt_inp_numero_mulheres"
 
+                            android:text="@{StringUtil.converterString(viewmodel.vulnerabilidade.resultado.mulheres), default=0}"
                             style="@style/modifiedEditText"
                             android:inputType="number"
                             android:maxLines="1"/>
@@ -216,6 +221,7 @@
                                 android:id="@+id/txt_categorias_profissionais_mulheres"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                listagemTipos="@{viewmodel.categoriasProfissionaisMulheres}"
                                 style="@style/textoDetalhe" />
 
                             <!---

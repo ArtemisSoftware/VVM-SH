@@ -10,11 +10,13 @@ import com.google.gson.GsonBuilder;
 import com.vvm.sh.api.modelos.pedido.Codigo;
 import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.baseDados.dao.ResultadoDao;
+import com.vvm.sh.baseDados.entidades.CategoriaProfissionalResultado;
 import com.vvm.sh.baseDados.entidades.Resultado;
 import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.servicos.ResultadoAsyncTask;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.ResultadoId;
+import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.constantes.TiposConstantes;
 import com.vvm.sh.util.excepcoes.MetodoWsInvalidoException;
 import com.vvm.sh.util.excepcoes.RespostaWsInvalidaException;
@@ -84,6 +86,17 @@ public abstract class BaseViewModel extends ViewModel {
 
     }
 
+
+    protected List<CategoriaProfissionalResultado> ObterCategoriasProfissionais(List<Tipo> registo, int id, int origem){
+
+
+        List<CategoriaProfissionalResultado> categorias = new ArrayList<>();
+        for (Tipo categoria : registo) {
+            categorias.add(new CategoriaProfissionalResultado(id, categoria.id, origem));
+        }
+
+        return categorias;
+    }
 
 
 

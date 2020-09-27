@@ -61,6 +61,7 @@ import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.DialogoArea;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.DialogoPergunta;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.QuestoesChecklistActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.LevantamentosActivity;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.trabalhadoresVulneraveis.TrabalhadorVulneravelRegistoActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.trabalhadoresVulneraveis.TrabalhadoresVulneraveisActivity;
 import com.vvm.sh.ui.registoVisita.DadosClienteActivity;
 import com.vvm.sh.ui.registoVisita.DialogoTrabalhoRealizado;
@@ -479,7 +480,11 @@ public abstract class ActivityBuildersModule {
     abstract TrabalhadoresVulneraveisActivity contributeTrabalhadoresVulneraveisActivity();
 
 
-
+    @TrabalhadoresVulneraveisScope
+    @ContributesAndroidInjector(
+            modules = { TrabalhadoresVulneraveisViewModelsModule.class, TrabalhadoresVulneraveisModule.class }
+    )
+    abstract TrabalhadorVulneravelRegistoActivity contributeTrabalhadorVulneravelRegistoActivity();
 
 
 

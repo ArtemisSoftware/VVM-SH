@@ -146,7 +146,7 @@ public class DialogoAtividadePendente extends BaseDaggerDialogFragment {
 
 
     @OnClick({R.id.rd_btn_actividade_executada, R.id.rd_btn_actividade_nao_executada, R.id.rd_btn_relatorio,
-            R.id.rd_btn_risco_checklist, R.id.rd_btn_risco_processo_produtivo})
+            R.id.rd_btn_risco_checklist, R.id.rd_btn_risco_processo_produtivo, R.id.rd_btn_risco_vulnerabilidades})
     public void onRadioButtonClicked(RadioButton radioButton) {
 
         boolean checked = radioButton.isChecked();

@@ -114,7 +114,8 @@ public class TiposUtil {
                 METODO_TIPOS_CHECKLIST,
                 METODO_TIPOS_ILUMINACAO,
                 METODO_TIPOS_NI,
-                METODO_TIPOS_UTS
+                METODO_TIPOS_UTS,
+                METODO_TIPOS_VULNERABILIDADES
         };
 
     }

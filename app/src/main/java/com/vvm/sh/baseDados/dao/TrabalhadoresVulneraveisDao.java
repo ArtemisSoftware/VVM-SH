@@ -12,6 +12,7 @@ import java.util.List;
 
 import io.reactivex.Completable;
 import io.reactivex.Observable;
+import io.reactivex.Single;
 
 @Dao
 abstract public class TrabalhadoresVulneraveisDao implements BaseDao<TrabalhadorVulneravelResultado> {
@@ -32,9 +33,33 @@ abstract public class TrabalhadoresVulneraveisDao implements BaseDao<Trabalhador
     abstract public Completable inserirVulnerabilidades(int idAtividade, int idApi);
 
 
-    @Query("SELECT *, descricao " +
+
+//    query += "OUTER LEFT JOIN (   ";
+//    query += "SELECT tb_vul_res.id, CASE WHEN COUNT(idRegisto) > 0 THEN 1 ELSE 0 END as valido    ";
+//    query += "FROM trabalhadoresVulneraveis_resultado as tb_vul_res     ";
+//    query += "OUTER LEFT JOIN (SELECT id, homens  FROM categoriasProfissionais_resultado WHERE origem = 13 GROUP BY id ) as ctPro_homens ON  tb_vul_res.idRegisto = ctPro_homens.id    ";
+//    query += "OUTER LEFT JOIN (SELECT id, mulheres  FROM categoriasProfissionais_resultado WHERE origem = 14 GROUP BY id) as ctPro_mulheres ON  tb_vul_res.idRegisto = ctPro_mulheres.id   ";
+//    query += "WHERE IFNULL(homens,0) != 0 OR IFNULL(mulheres,0) != 0   ";
+//    query += ") as validade ON tb_vul_res.id = validade.id   ";
+//
+//
+
+
+
+    @Query("SELECT *, descricao, " +
+            "CASE WHEN idVulnerabilidade = 1 OR idVulnerabilidade = 2 OR idVulnerabilidade = 3 THEN 1 ELSE 0 END feminina " +
             "FROM trabalhadoresVulneraveisResultado as tbr_vul_res " +
-            "LEFT JOIN (SELECT id, descricao FROM tipos WHERE tipo = '" + TiposUtil.MetodosTipos.TIPOS_VULNERABILIDADES + "' AND ativo = 1 AND api =:idApi)" +
+            "LEFT JOIN (SELECT id, descricao FROM tipos WHERE tipo = '" + TiposUtil.MetodosTipos.TIPOS_VULNERABILIDADES + "' AND ativo = 1 AND api =:idApi) as tp_vul " +
+            "ON tbr_vul_res.idVulnerabilidade = tp_vul.id " +
             "WHERE idAtividade =:idAtividade")
     abstract public Observable<List<TrabalhadorVulneravel>> obterVulnerabilidades(int idAtividade, int idApi);
+
+    @Query("SELECT *, descricao, " +
+            "CASE WHEN idVulnerabilidade = 1 OR idVulnerabilidade = 2 OR idVulnerabilidade = 3 THEN 1 ELSE 0 END feminina " +
+            "FROM trabalhadoresVulneraveisResultado as tbr_vul_res " +
+            "LEFT JOIN (SELECT id, descricao FROM tipos WHERE tipo = '" + TiposUtil.MetodosTipos.TIPOS_VULNERABILIDADES + "' AND ativo = 1 AND api =:idApi) as tp_vul " +
+            "ON tbr_vul_res.idVulnerabilidade = tp_vul.id " +
+            "WHERE tbr_vul_res.id =:id")
+    abstract public Single<TrabalhadorVulneravel> obterVulnerabilidade(int id, int idApi);
+
 }

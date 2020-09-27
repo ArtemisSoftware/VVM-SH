@@ -26,6 +26,9 @@ public class Identificadores {
 
         public static final int AVALIACAO_AMBIENTAL_ILUMINACAO_CATEGORIAS_PROFISSIONAIS = 9;
 
+        public static final int CATEGORIAS_PROFISSIONAIS_VULNERABILIDADE_HOMENS = 10;
+        public static final int CATEGORIAS_PROFISSIONAIS_VULNERABILIDADE_MULHERES = 11;
+
     }
 
 
@@ -62,6 +65,9 @@ public class Identificadores {
     public class CodigoAtividade {
         public static final int ASSINATURA = 1;
         public static final int PESQUISA = 2;
+
+        public static final int PESQUISA_CATEGORIAS_PROFISSIONAIS_HOMENS = 3;
+        public static final int PESQUISA_CATEGORIAS_PROFISSIONAIS_MULHERES = 4;
     }
 
 

@@ -3,18 +3,22 @@ package com.vvm.sh.ui.atividadesPendentes.relatorios.trabalhadoresVulneraveis;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.vvm.sh.R;
 import com.vvm.sh.databinding.ActivityTrabalhadoresVulneraveisBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.trabalhadoresVulneraveis.adaptadores.OnTrabalhadorVulneravelListener;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.trabalhadoresVulneraveis.modelos.TrabalhadorVulneravel;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import javax.inject.Inject;
 
-public class TrabalhadoresVulneraveisActivity extends BaseDaggerActivity {
+public class TrabalhadoresVulneraveisActivity extends BaseDaggerActivity
+    implements OnTrabalhadorVulneravelListener {
 
 
     private ActivityTrabalhadoresVulneraveisBinding activityTrabalhadoresVulneraveisBinding;
@@ -34,7 +38,7 @@ public class TrabalhadoresVulneraveisActivity extends BaseDaggerActivity {
 
         activityTrabalhadoresVulneraveisBinding = (ActivityTrabalhadoresVulneraveisBinding) activityBinding;
         activityTrabalhadoresVulneraveisBinding.setLifecycleOwner(this);
-        //activityFormandoBinding.setListener(this);
+        activityTrabalhadoresVulneraveisBinding.setListener(this);
         activityTrabalhadoresVulneraveisBinding.setViewmodel(viewModel);
 
         subscreverObservadores();
@@ -63,5 +67,16 @@ public class TrabalhadoresVulneraveisActivity extends BaseDaggerActivity {
     @Override
     protected void subscreverObservadores() {
 
+    }
+
+    @Override
+    public void OnTrabalhadorVulneravelClick(TrabalhadorVulneravel registo) {
+
+        Bundle bundle = new Bundle();
+        bundle.putInt(getString(R.string.argumento_id), registo.resultado.id);
+
+        Intent intent = new Intent(this, TrabalhadorVulneravelRegistoActivity.class);
+        intent.putExtras(bundle);
+        startActivity(intent);
     }
 }

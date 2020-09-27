@@ -49,14 +49,14 @@
                 android:layout_height="@dimen/banner_height"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
                 app:contentScrim="?attr/colorPrimary"
-                app:title="@string/quadro_pessoal"
+                app:title="@string/trabalhadoresVulneraveis"
                 app:expandedTitleTextAppearance="@android:color/transparent"
                 android:fitsSystemWindows="true">
 
                 <ImageView
                     app:layout_collapseMode="parallax"
                     android:src="@drawable/trabalhadores_vulneraveis_banner"
-                    android:contentDescription="@string/quadro_pessoal"
+                    android:contentDescription="@string/trabalhadoresVulneraveis"
                     android:scaleType="centerCrop"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent" />
@@ -103,7 +103,7 @@
                     <TextView
                         android:id="@+id/textview"
                         style="@style/tituloCartao"
-                        android:text="@string/trabalhadoresVulneraveis"
+                        android:text="@string/vulnerabilidades"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="16dp"
                         app:layout_constraintStart_toStartOf="parent"

@@ -83,6 +83,8 @@ public class TrabalhadoresVulneraveisViewModel extends BaseViewModel {
                             }
                         }
                 );
+
+        //TODO:dar baixa da atividades pendente
     }
 
 
@@ -116,6 +118,44 @@ public class TrabalhadoresVulneraveisViewModel extends BaseViewModel {
                             }
                         }
                 );
+
+        //TODO:dar baixa da atividades pendente
+    }
+
+
+    public void remover(TrabalhadorVulneravelResultado resultado) {
+
+        resultadosVulnerabulidades = new ArrayList<>();
+
+        resultado.homens = 0;
+        resultado.mulheres = 0;
+
+        trabalhadoresVulneraveisRepositorio.remover(resultado)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new SingleObserver<Integer>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+
+                            }
+
+                            @Override
+                            public void onSuccess(Integer integer) {
+
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+                        }
+
+                );
+
+
+        //TODO:dar baixa da atividades pendente
     }
 
 
@@ -340,6 +380,7 @@ public class TrabalhadoresVulneraveisViewModel extends BaseViewModel {
 
                 );
     }
+
 
 
 }

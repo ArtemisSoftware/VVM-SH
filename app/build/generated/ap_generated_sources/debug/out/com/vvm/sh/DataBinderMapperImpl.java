@@ -37,6 +37,7 @@ import com.vvm.sh.databinding.ActivityOcorrenciasRegistoBindingImpl;
 import com.vvm.sh.databinding.ActivityPerfilBindingImpl;
 import com.vvm.sh.databinding.ActivityPerigoTarefaBindingImpl;
 import com.vvm.sh.databinding.ActivityPesquisaBindingImpl;
+import com.vvm.sh.databinding.ActivityPropostaPlanoAccaoBindingImpl;
 import com.vvm.sh.databinding.ActivityQuadroPessoalBindingImpl;
 import com.vvm.sh.databinding.ActivityQuestoesChecklistBindingImpl;
 import com.vvm.sh.databinding.ActivityRegistoVisitaBindingImpl;
@@ -81,13 +82,13 @@ import com.vvm.sh.databinding.ItemCrossSellingBindingImpl;
 import com.vvm.sh.databinding.ItemExtintorBindingImpl;
 import com.vvm.sh.databinding.ItemFormandoBindingImpl;
 import com.vvm.sh.databinding.ItemMarcacaoBindingImpl;
-import com.vvm.sh.databinding.ItemMedidasAvaliacaoBindingImpl;
 import com.vvm.sh.databinding.ItemOcorrenciaBindingImpl;
 import com.vvm.sh.databinding.ItemOcorrenciaHistoricoBindingImpl;
 import com.vvm.sh.databinding.ItemOcorrenciaRegistoBindingImpl;
 import com.vvm.sh.databinding.ItemOpcaoClienteBindingImpl;
 import com.vvm.sh.databinding.ItemPendenciaBindingImpl;
 import com.vvm.sh.databinding.ItemPesquisaBindingImpl;
+import com.vvm.sh.databinding.ItemPlanoAccaoMedidasAvaliacaoBindingImpl;
 import com.vvm.sh.databinding.ItemPlanoAccaoStBindingImpl;
 import com.vvm.sh.databinding.ItemRiscoBindingImpl;
 import com.vvm.sh.databinding.ItemTipoBindingImpl;
@@ -167,95 +168,95 @@ public class DataBinderMapperImpl extends DataBinderMapper {
 
   private static final int LAYOUT_ACTIVITYPESQUISA = 31;
 
-  private static final int LAYOUT_ACTIVITYQUADROPESSOAL = 32;
+  private static final int LAYOUT_ACTIVITYPROPOSTAPLANOACCAO = 32;
 
-  private static final int LAYOUT_ACTIVITYQUESTOESCHECKLIST = 33;
+  private static final int LAYOUT_ACTIVITYQUADROPESSOAL = 33;
 
-  private static final int LAYOUT_ACTIVITYREGISTOVISITA = 34;
+  private static final int LAYOUT_ACTIVITYQUESTOESCHECKLIST = 34;
 
-  private static final int LAYOUT_ACTIVITYRELATORIOAVALIACAOAMBIENTAL = 35;
+  private static final int LAYOUT_ACTIVITYREGISTOVISITA = 35;
 
-  private static final int LAYOUT_ACTIVITYRISCOREGISTO = 36;
+  private static final int LAYOUT_ACTIVITYRELATORIOAVALIACAOAMBIENTAL = 36;
 
-  private static final int LAYOUT_ACTIVITYRISCOS = 37;
+  private static final int LAYOUT_ACTIVITYRISCOREGISTO = 37;
 
-  private static final int LAYOUT_ACTIVITYSINISTRALIDADE = 38;
+  private static final int LAYOUT_ACTIVITYRISCOS = 38;
 
-  private static final int LAYOUT_ACTIVITYTAREFA = 39;
+  private static final int LAYOUT_ACTIVITYSINISTRALIDADE = 39;
 
-  private static final int LAYOUT_ACTIVITYTIPOS = 40;
+  private static final int LAYOUT_ACTIVITYTAREFA = 40;
 
-  private static final int LAYOUT_ACTIVITYTRABALHADORVULNERAVELREGISTO = 41;
+  private static final int LAYOUT_ACTIVITYTIPOS = 41;
 
-  private static final int LAYOUT_ACTIVITYTRABALHADORESVULNERAVEIS = 42;
+  private static final int LAYOUT_ACTIVITYTRABALHADORVULNERAVELREGISTO = 42;
 
-  private static final int LAYOUT_ACTIVITYTRABALHOREALIZADO = 43;
+  private static final int LAYOUT_ACTIVITYTRABALHADORESVULNERAVEIS = 43;
 
-  private static final int LAYOUT_ACTIVITYUPLOAD = 44;
+  private static final int LAYOUT_ACTIVITYTRABALHOREALIZADO = 44;
 
-  private static final int LAYOUT_DIALOGOANOMALIA = 45;
+  private static final int LAYOUT_ACTIVITYUPLOAD = 45;
 
-  private static final int LAYOUT_DIALOGOAREACHECKLIST = 46;
+  private static final int LAYOUT_DIALOGOANOMALIA = 46;
 
-  private static final int LAYOUT_DIALOGOATIVIDADEPENDENTE = 47;
+  private static final int LAYOUT_DIALOGOAREACHECKLIST = 47;
 
-  private static final int LAYOUT_DIALOGOATIVIDADEPENDENTEEXECUTADA = 48;
+  private static final int LAYOUT_DIALOGOATIVIDADEPENDENTE = 48;
 
-  private static final int LAYOUT_DIALOGOATIVIDADEPENDENTENAOEXECUTADA = 49;
+  private static final int LAYOUT_DIALOGOATIVIDADEPENDENTEEXECUTADA = 49;
 
-  private static final int LAYOUT_DIALOGOCATEGORIAPROFISSIONAL = 50;
+  private static final int LAYOUT_DIALOGOATIVIDADEPENDENTENAOEXECUTADA = 50;
 
-  private static final int LAYOUT_DIALOGOCHECKLISTPERGUNTA = 51;
+  private static final int LAYOUT_DIALOGOCATEGORIAPROFISSIONAL = 51;
 
-  private static final int LAYOUT_DIALOGOCOLABORADOR = 52;
+  private static final int LAYOUT_DIALOGOCHECKLISTPERGUNTA = 52;
 
-  private static final int LAYOUT_DIALOGOEMAIL = 53;
+  private static final int LAYOUT_DIALOGOCOLABORADOR = 53;
 
-  private static final int LAYOUT_DIALOGOOPCOESCOLABORADOR = 54;
+  private static final int LAYOUT_DIALOGOEMAIL = 54;
 
-  private static final int LAYOUT_DIALOGOPROCESSOPRODUTIVO = 55;
+  private static final int LAYOUT_DIALOGOOPCOESCOLABORADOR = 55;
 
-  private static final int LAYOUT_DIALOGOSINALETICA = 56;
+  private static final int LAYOUT_DIALOGOPROCESSOPRODUTIVO = 56;
 
-  private static final int LAYOUT_DIALOGOTRABALHOREALIZADO = 57;
+  private static final int LAYOUT_DIALOGOSINALETICA = 57;
 
-  private static final int LAYOUT_ITEMANOMALIA = 58;
+  private static final int LAYOUT_DIALOGOTRABALHOREALIZADO = 58;
 
-  private static final int LAYOUT_ITEMANOMALIAREGISTADA = 59;
+  private static final int LAYOUT_ITEMANOMALIA = 59;
 
-  private static final int LAYOUT_ITEMATIVIDADEEXECUTADA = 60;
+  private static final int LAYOUT_ITEMANOMALIAREGISTADA = 60;
 
-  private static final int LAYOUT_ITEMATIVIDADEPENDENTE = 61;
+  private static final int LAYOUT_ITEMATIVIDADEEXECUTADA = 61;
 
-  private static final int LAYOUT_ITEMAVALIACAOILUMINACAO = 62;
+  private static final int LAYOUT_ITEMATIVIDADEPENDENTE = 62;
 
-  private static final int LAYOUT_ITEMAVALIACAOTEMPERATURAHUMIDADE = 63;
+  private static final int LAYOUT_ITEMAVALIACAOILUMINACAO = 63;
 
-  private static final int LAYOUT_ITEMCATEGORIAPROFISSIONAL = 64;
+  private static final int LAYOUT_ITEMAVALIACAOTEMPERATURAHUMIDADE = 64;
 
-  private static final int LAYOUT_ITEMCHECKLISTAREA = 65;
+  private static final int LAYOUT_ITEMCATEGORIAPROFISSIONAL = 65;
 
-  private static final int LAYOUT_ITEMCHECKLISTFOTO = 66;
+  private static final int LAYOUT_ITEMCHECKLISTAREA = 66;
 
-  private static final int LAYOUT_ITEMCHECKLISTOBSERVACAO = 67;
+  private static final int LAYOUT_ITEMCHECKLISTFOTO = 67;
 
-  private static final int LAYOUT_ITEMCHECKLISTPERGUNTA = 68;
+  private static final int LAYOUT_ITEMCHECKLISTOBSERVACAO = 68;
 
-  private static final int LAYOUT_ITEMCHECKLISTSECCAO = 69;
+  private static final int LAYOUT_ITEMCHECKLISTPERGUNTA = 69;
 
-  private static final int LAYOUT_ITEMCHECKLISTUTS = 70;
+  private static final int LAYOUT_ITEMCHECKLISTSECCAO = 70;
 
-  private static final int LAYOUT_ITEMCOLABORADOR = 71;
+  private static final int LAYOUT_ITEMCHECKLISTUTS = 71;
 
-  private static final int LAYOUT_ITEMCROSSSELLING = 72;
+  private static final int LAYOUT_ITEMCOLABORADOR = 72;
 
-  private static final int LAYOUT_ITEMEXTINTOR = 73;
+  private static final int LAYOUT_ITEMCROSSSELLING = 73;
 
-  private static final int LAYOUT_ITEMFORMANDO = 74;
+  private static final int LAYOUT_ITEMEXTINTOR = 74;
 
-  private static final int LAYOUT_ITEMMARCACAO = 75;
+  private static final int LAYOUT_ITEMFORMANDO = 75;
 
-  private static final int LAYOUT_ITEMMEDIDASAVALIACAO = 76;
+  private static final int LAYOUT_ITEMMARCACAO = 76;
 
   private static final int LAYOUT_ITEMOCORRENCIA = 77;
 
@@ -269,19 +270,21 @@ public class DataBinderMapperImpl extends DataBinderMapper {
 
   private static final int LAYOUT_ITEMPESQUISA = 82;
 
-  private static final int LAYOUT_ITEMPLANOACCAOST = 83;
+  private static final int LAYOUT_ITEMPLANOACCAOMEDIDASAVALIACAO = 83;
 
-  private static final int LAYOUT_ITEMRISCO = 84;
+  private static final int LAYOUT_ITEMPLANOACCAOST = 84;
 
-  private static final int LAYOUT_ITEMTIPO = 85;
+  private static final int LAYOUT_ITEMRISCO = 85;
 
-  private static final int LAYOUT_ITEMTRABALHADORVULNERAVEL = 86;
+  private static final int LAYOUT_ITEMTIPO = 86;
 
-  private static final int LAYOUT_ITEMTRABALHOREALIZADO = 87;
+  private static final int LAYOUT_ITEMTRABALHADORVULNERAVEL = 87;
 
-  private static final int LAYOUT_ITEMUPLOAD = 88;
+  private static final int LAYOUT_ITEMTRABALHOREALIZADO = 88;
 
-  private static final SparseIntArray INTERNAL_LAYOUT_ID_LOOKUP = new SparseIntArray(88);
+  private static final int LAYOUT_ITEMUPLOAD = 89;
+
+  private static final SparseIntArray INTERNAL_LAYOUT_ID_LOOKUP = new SparseIntArray(89);
 
   static {
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.vvm.sh.R.layout.activity_acao_formacao, LAYOUT_ACTIVITYACAOFORMACAO);
@@ -315,6 +318,7 @@ public class DataBinderMapperImpl extends DataBinderMapper {
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.vvm.sh.R.layout.activity_perfil, LAYOUT_ACTIVITYPERFIL);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.vvm.sh.R.layout.activity_perigo_tarefa, LAYOUT_ACTIVITYPERIGOTAREFA);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.vvm.sh.R.layout.activity_pesquisa, LAYOUT_ACTIVITYPESQUISA);
+    INTERNAL_LAYOUT_ID_LOOKUP.put(com.vvm.sh.R.layout.activity_proposta_plano_accao, LAYOUT_ACTIVITYPROPOSTAPLANOACCAO);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.vvm.sh.R.layout.activity_quadro_pessoal, LAYOUT_ACTIVITYQUADROPESSOAL);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.vvm.sh.R.layout.activity_questoes_checklist, LAYOUT_ACTIVITYQUESTOESCHECKLIST);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.vvm.sh.R.layout.activity_registo_visita, LAYOUT_ACTIVITYREGISTOVISITA);
@@ -359,13 +363,13 @@ public class DataBinderMapperImpl extends DataBinderMapper {
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.vvm.sh.R.layout.item_extintor, LAYOUT_ITEMEXTINTOR);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.vvm.sh.R.layout.item_formando, LAYOUT_ITEMFORMANDO);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.vvm.sh.R.layout.item_marcacao, LAYOUT_ITEMMARCACAO);
-    INTERNAL_LAYOUT_ID_LOOKUP.put(com.vvm.sh.R.layout.item_medidas_avaliacao, LAYOUT_ITEMMEDIDASAVALIACAO);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.vvm.sh.R.layout.item_ocorrencia, LAYOUT_ITEMOCORRENCIA);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.vvm.sh.R.layout.item_ocorrencia_historico, LAYOUT_ITEMOCORRENCIAHISTORICO);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.vvm.sh.R.layout.item_ocorrencia_registo, LAYOUT_ITEMOCORRENCIAREGISTO);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.vvm.sh.R.layout.item_opcao_cliente, LAYOUT_ITEMOPCAOCLIENTE);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.vvm.sh.R.layout.item_pendencia, LAYOUT_ITEMPENDENCIA);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.vvm.sh.R.layout.item_pesquisa, LAYOUT_ITEMPESQUISA);
+    INTERNAL_LAYOUT_ID_LOOKUP.put(com.vvm.sh.R.layout.item_plano_accao_medidas_avaliacao, LAYOUT_ITEMPLANOACCAOMEDIDASAVALIACAO);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.vvm.sh.R.layout.item_plano_accao_st, LAYOUT_ITEMPLANOACCAOST);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.vvm.sh.R.layout.item_risco, LAYOUT_ITEMRISCO);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.vvm.sh.R.layout.item_tipo, LAYOUT_ITEMTIPO);
@@ -563,6 +567,12 @@ public class DataBinderMapperImpl extends DataBinderMapper {
         }
         throw new IllegalArgumentException("The tag for activity_pesquisa is invalid. Received: " + tag);
       }
+      case  LAYOUT_ACTIVITYPROPOSTAPLANOACCAO: {
+        if ("layout/activity_proposta_plano_accao_0".equals(tag)) {
+          return new ActivityPropostaPlanoAccaoBindingImpl(component, view);
+        }
+        throw new IllegalArgumentException("The tag for activity_proposta_plano_accao is invalid. Received: " + tag);
+      }
       case  LAYOUT_ACTIVITYQUADROPESSOAL: {
         if ("layout/activity_quadro_pessoal_0".equals(tag)) {
           return new ActivityQuadroPessoalBindingImpl(component, view);
@@ -671,12 +681,6 @@ public class DataBinderMapperImpl extends DataBinderMapper {
         }
         throw new IllegalArgumentException("The tag for dialogo_atividade_pendente_nao_executada is invalid. Received: " + tag);
       }
-      case  LAYOUT_DIALOGOCATEGORIAPROFISSIONAL: {
-        if ("layout/dialogo_categoria_profissional_0".equals(tag)) {
-          return new DialogoCategoriaProfissionalBindingImpl(component, view);
-        }
-        throw new IllegalArgumentException("The tag for dialogo_categoria_profissional is invalid. Received: " + tag);
-      }
     }
     return null;
   }
@@ -684,6 +688,12 @@ public class DataBinderMapperImpl extends DataBinderMapper {
   private final ViewDataBinding internalGetViewDataBinding1(DataBindingComponent component,
       View view, int internalId, Object tag) {
     switch(internalId) {
+      case  LAYOUT_DIALOGOCATEGORIAPROFISSIONAL: {
+        if ("layout/dialogo_categoria_profissional_0".equals(tag)) {
+          return new DialogoCategoriaProfissionalBindingImpl(component, view);
+        }
+        throw new IllegalArgumentException("The tag for dialogo_categoria_profissional is invalid. Received: " + tag);
+      }
       case  LAYOUT_DIALOGOCHECKLISTPERGUNTA: {
         if ("layout/dialogo_checklist_pergunta_0".equals(tag)) {
           return new DialogoChecklistPerguntaBindingImpl(component, view);
@@ -834,12 +844,6 @@ public class DataBinderMapperImpl extends DataBinderMapper {
         }
         throw new IllegalArgumentException("The tag for item_marcacao is invalid. Received: " + tag);
       }
-      case  LAYOUT_ITEMMEDIDASAVALIACAO: {
-        if ("layout/item_medidas_avaliacao_0".equals(tag)) {
-          return new ItemMedidasAvaliacaoBindingImpl(component, view);
-        }
-        throw new IllegalArgumentException("The tag for item_medidas_avaliacao is invalid. Received: " + tag);
-      }
       case  LAYOUT_ITEMOCORRENCIA: {
         if ("layout/item_ocorrencia_0".equals(tag)) {
           return new ItemOcorrenciaBindingImpl(component, view);
@@ -875,6 +879,12 @@ public class DataBinderMapperImpl extends DataBinderMapper {
           return new ItemPesquisaBindingImpl(component, view);
         }
         throw new IllegalArgumentException("The tag for item_pesquisa is invalid. Received: " + tag);
+      }
+      case  LAYOUT_ITEMPLANOACCAOMEDIDASAVALIACAO: {
+        if ("layout/item_plano_accao_medidas_avaliacao_0".equals(tag)) {
+          return new ItemPlanoAccaoMedidasAvaliacaoBindingImpl(component, view);
+        }
+        throw new IllegalArgumentException("The tag for item_plano_accao_medidas_avaliacao is invalid. Received: " + tag);
       }
       case  LAYOUT_ITEMPLANOACCAOST: {
         if ("layout/item_plano_accao_st_0".equals(tag)) {
@@ -1015,7 +1025,7 @@ public class DataBinderMapperImpl extends DataBinderMapper {
   }
 
   private static class InnerLayoutIdLookup {
-    static final HashMap<String, Integer> sKeys = new HashMap<String, Integer>(88);
+    static final HashMap<String, Integer> sKeys = new HashMap<String, Integer>(89);
 
     static {
       sKeys.put("layout/activity_acao_formacao_0", com.vvm.sh.R.layout.activity_acao_formacao);
@@ -1049,6 +1059,7 @@ public class DataBinderMapperImpl extends DataBinderMapper {
       sKeys.put("layout/activity_perfil_0", com.vvm.sh.R.layout.activity_perfil);
       sKeys.put("layout/activity_perigo_tarefa_0", com.vvm.sh.R.layout.activity_perigo_tarefa);
       sKeys.put("layout/activity_pesquisa_0", com.vvm.sh.R.layout.activity_pesquisa);
+      sKeys.put("layout/activity_proposta_plano_accao_0", com.vvm.sh.R.layout.activity_proposta_plano_accao);
       sKeys.put("layout/activity_quadro_pessoal_0", com.vvm.sh.R.layout.activity_quadro_pessoal);
       sKeys.put("layout/activity_questoes_checklist_0", com.vvm.sh.R.layout.activity_questoes_checklist);
       sKeys.put("layout/activity_registo_visita_0", com.vvm.sh.R.layout.activity_registo_visita);
@@ -1093,13 +1104,13 @@ public class DataBinderMapperImpl extends DataBinderMapper {
       sKeys.put("layout/item_extintor_0", com.vvm.sh.R.layout.item_extintor);
       sKeys.put("layout/item_formando_0", com.vvm.sh.R.layout.item_formando);
       sKeys.put("layout/item_marcacao_0", com.vvm.sh.R.layout.item_marcacao);
-      sKeys.put("layout/item_medidas_avaliacao_0", com.vvm.sh.R.layout.item_medidas_avaliacao);
       sKeys.put("layout/item_ocorrencia_0", com.vvm.sh.R.layout.item_ocorrencia);
       sKeys.put("layout/item_ocorrencia_historico_0", com.vvm.sh.R.layout.item_ocorrencia_historico);
       sKeys.put("layout/item_ocorrencia_registo_0", com.vvm.sh.R.layout.item_ocorrencia_registo);
       sKeys.put("layout/item_opcao_cliente_0", com.vvm.sh.R.layout.item_opcao_cliente);
       sKeys.put("layout/item_pendencia_0", com.vvm.sh.R.layout.item_pendencia);
       sKeys.put("layout/item_pesquisa_0", com.vvm.sh.R.layout.item_pesquisa);
+      sKeys.put("layout/item_plano_accao_medidas_avaliacao_0", com.vvm.sh.R.layout.item_plano_accao_medidas_avaliacao);
       sKeys.put("layout/item_plano_accao_st_0", com.vvm.sh.R.layout.item_plano_accao_st);
       sKeys.put("layout/item_risco_0", com.vvm.sh.R.layout.item_risco);
       sKeys.put("layout/item_tipo_0", com.vvm.sh.R.layout.item_tipo);

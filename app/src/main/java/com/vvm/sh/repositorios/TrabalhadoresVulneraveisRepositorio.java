@@ -242,7 +242,19 @@ public class TrabalhadoresVulneraveisRepositorio implements Repositorio<Trabalha
 
     @Override
     public Single<Integer> remover(TrabalhadorVulneravelResultado item) {
-        return null;
+
+        Single<Integer> single = Single.zip(trabalhadoresVulneraveisDao.atualizar(item),
+                categoriaProfissionalDao.remover(item.id, Identificadores.Origens.CATEGORIAS_PROFISSIONAIS_VULNERABILIDADE_HOMENS),
+                categoriaProfissionalDao.remover(item.id, Identificadores.Origens.CATEGORIAS_PROFISSIONAIS_VULNERABILIDADE_MULHERES),
+                new Function3<Integer, Integer, Integer, Integer>() {
+                    @Override
+                    public Integer apply(Integer integer, Integer integer2, Integer integer3) throws Exception {
+                        return integer;
+                    }
+                });
+
+
+        return single;
     }
 
 

@@ -51,6 +51,7 @@ abstract public class TrabalhadoresVulneraveisDao implements BaseDao<Trabalhador
             "CASE WHEN idVulnerabilidade = 1 OR idVulnerabilidade = 2 OR idVulnerabilidade = 3 THEN 1 ELSE 0 END feminina, " +
             "CASE WHEN (idVulnerabilidade = 1 OR idVulnerabilidade = 2 OR idVulnerabilidade = 3) AND (mulheres = ct_mulheres OR mulheres > ct_mulheres) THEN 1 " +
             "WHEN (homens = ct_homens OR homens > ct_homens) AND  mulheres = 0 THEN 1 " +
+            "WHEN (mulheres = ct_mulheres OR mulheres > ct_mulheres) AND  homens = 0 THEN 1 " +
             "WHEN (homens = ct_homens OR homens > ct_homens) AND (mulheres = ct_mulheres OR mulheres > ct_mulheres) THEN 1 ELSE 0 END as valido " +
             "FROM trabalhadoresVulneraveisResultado as tbr_vul_res " +
 
@@ -72,6 +73,7 @@ abstract public class TrabalhadoresVulneraveisDao implements BaseDao<Trabalhador
             "CASE WHEN idVulnerabilidade = 1 OR idVulnerabilidade = 2 OR idVulnerabilidade = 3 THEN 1 ELSE 0 END feminina, " +
             "CASE WHEN (idVulnerabilidade = 1 OR idVulnerabilidade = 2 OR idVulnerabilidade = 3) AND (mulheres = ct_mulheres OR mulheres > ct_mulheres) THEN 1 " +
             "WHEN (homens = ct_homens OR homens > ct_homens) AND  mulheres = 0 THEN 1 " +
+            "WHEN (mulheres = ct_mulheres OR mulheres > ct_mulheres) AND  homens = 0 THEN 1 " +
             "WHEN (homens = ct_homens OR homens > ct_homens) AND (mulheres = ct_mulheres OR mulheres > ct_mulheres) THEN 1 ELSE 0 END as valido " +
             "FROM trabalhadoresVulneraveisResultado as tbr_vul_res " +
 

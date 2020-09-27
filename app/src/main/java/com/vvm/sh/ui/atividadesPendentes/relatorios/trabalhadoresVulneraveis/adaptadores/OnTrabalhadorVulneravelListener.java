@@ -7,4 +7,5 @@ public interface OnTrabalhadorVulneravelListener {
 
     void OnTrabalhadorVulneravelClick(TrabalhadorVulneravel registo);
 
+    void onRemoverClick(TrabalhadorVulneravel vulnerabilidade);
 }

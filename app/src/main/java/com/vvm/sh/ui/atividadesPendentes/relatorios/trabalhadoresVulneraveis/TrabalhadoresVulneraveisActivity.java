@@ -79,4 +79,11 @@ public class TrabalhadoresVulneraveisActivity extends BaseDaggerActivity
         intent.putExtras(bundle);
         startActivity(intent);
     }
+
+    @Override
+    public void onRemoverClick(TrabalhadorVulneravel vulnerabilidade) {
+
+        viewModel.remover(vulnerabilidade.resultado);
+
+    }
 }

@@ -15,7 +15,7 @@
 
         <variable
             name="listener"
-            type="com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.OnLevantamentoListener.OnLevantamentoRegistoListener"/>
+            type="com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.adaptadores.OnLevantamentoListener.OnLevantamentoRegistoListener"/>
 
         <variable
             name="levantamento"

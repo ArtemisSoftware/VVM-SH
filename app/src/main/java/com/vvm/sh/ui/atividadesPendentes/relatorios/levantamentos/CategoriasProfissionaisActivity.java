@@ -1,7 +1,6 @@
 package com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
@@ -11,8 +10,8 @@ import android.view.View;
 import com.vvm.sh.R;
 import com.vvm.sh.baseDados.entidades.CategoriaProfissionalResultado;
 import com.vvm.sh.databinding.ActivityCategoriasProfissionaisBinding;
-import com.vvm.sh.databinding.ActivityPerigoTarefaBinding;
 import com.vvm.sh.ui.BaseDaggerActivity;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.adaptadores.OnLevantamentoListener;
 import com.vvm.sh.ui.pesquisa.Pesquisa;
 import com.vvm.sh.ui.pesquisa.PesquisaActivity;
 import com.vvm.sh.util.constantes.Identificadores;

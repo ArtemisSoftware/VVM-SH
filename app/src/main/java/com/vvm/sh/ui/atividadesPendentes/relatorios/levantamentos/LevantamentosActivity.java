@@ -1,6 +1,5 @@
 package com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
@@ -12,8 +11,8 @@ import com.vvm.sh.baseDados.entidades.LevantamentoRiscoResultado;
 import com.vvm.sh.databinding.ActivityLevantamentosBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.adaptadores.OnLevantamentoListener;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.modelos.Levantamento;
-import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
@@ -83,8 +82,6 @@ public class LevantamentosActivity extends BaseDaggerActivity
     private void initLevantamento(LevantamentoRiscoResultado registo){
 
 
-
-
         activityLevantamentosBinding.rclRegistos.setVisibility(View.GONE);
         activityLevantamentosBinding.lnrLytLevantamento.setVisibility(View.VISIBLE);
 
@@ -119,6 +116,21 @@ public class LevantamentosActivity extends BaseDaggerActivity
     public void OnLevantamentoClick(Levantamento registo) {
 
         initLevantamento(registo.resultado);
+    }
+
+    @Override
+    public void OnDuplicarClick(Levantamento levantamento) {
+
+    }
+
+    @Override
+    public void OnRemoverClick(Levantamento levantamento) {
+
+    }
+
+    @Override
+    public void OnGaleriaClick(Levantamento levantamento) {
+
     }
 
     //-----------------------

@@ -65,7 +65,8 @@
             android:id="@+id/rcl_registos"
             style="@style/lista"
             android:visibility="gone"
-
+            levantamentos="@{viewmodel.levantamentos}"
+            listener="@{listener}"
             tools:listitem="@layout/item_levantamento"/>
 
         <!--

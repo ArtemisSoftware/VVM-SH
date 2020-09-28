@@ -1,4 +1,4 @@
-package com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.modelos;
+package com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.adaptadores;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,8 +10,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.vvm.sh.R;
 import com.vvm.sh.databinding.ItemLevantamentoBinding;
-import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.OnLevantamentoListener;
-import com.vvm.sh.util.metodos.PreferenciasUtil;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.modelos.Levantamento;
 
 import java.util.ArrayList;
 import java.util.List;

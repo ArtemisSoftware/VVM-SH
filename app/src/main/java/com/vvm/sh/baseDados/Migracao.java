@@ -16,7 +16,7 @@ public class Migracao {
         Migration migrations [] =  new Migration []{
                 MIGRACAO_1_2, MIGRACAO_2_3, MIGRACAO_3_4, MIGRACAO_4_5, MIGRACAO_5_6, MIGRACAO_6_7, MIGRACAO_7_8, MIGRACAO_8_9, MIGRACAO_9_10, MIGRACAO_10_11,
                 MIGRACAO_11_12, MIGRACAO_12_13, MIGRACAO_13_14, MIGRACAO_14_15, MIGRACAO_15_16, MIGRACAO_16_17, MIGRACAO_17_18, MIGRACAO_18_19, MIGRACAO_19_20,
-                MIGRACAO_20_21, MIGRACAO_21_22
+                MIGRACAO_20_21, MIGRACAO_21_22, MIGRACAO_22_23
 
         };
 
@@ -25,7 +25,45 @@ public class Migracao {
 
 
 
+    public static final Migration MIGRACAO_22_23 = new Migration(22, 23) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            try {
+                database.execSQL("CREATE TABLE IF NOT EXISTS 'propostaPlanoAcaoResultado' ("
+                        + "'idAtividade' INTEGER NOT NULL, "
+                        + "'id' INTEGER PRIMARY KEY NOT NULL, "
+                        + "'origem' INTEGER NOT NULL DEFAULT " + Identificadores.VALOR_0 + " ,  "
+                        + "'idQuestaoChecklis' INTEGER  , "
+                        + "'idMedida' INTEGER  , "
+                        + "'idNi' INTEGER  , "
+                        + "'idPrazo' INTEGER  , "
+                        + "'selecionado' INTEGER NOT NULL DEFAULT   " + Sintaxe.Codigos.NAO_SELECIONADO + " ,  "
+                        + "FOREIGN KEY (idAtividade) REFERENCES atividadesPendentes (idAtividade)  ON DELETE CASCADE)  ");
 
+
+                database.execSQL("CREATE INDEX index_propostaPlanoAcaoResultado_idAtividade ON propostaPlanoAcaoResultado (idAtividade)");
+
+
+
+                database.execSQL("CREATE TABLE IF NOT EXISTS 'planoAccaoResultado' ("
+                        + "'idTarefa' INTEGER NOT NULL, "
+                        + "'id' INTEGER PRIMARY KEY NOT NULL, "
+                        + "'idAtividadePlano' INTEGER NOT NULL,  "
+                        + "'servId' TEXT  , "
+                        + "'data' TEXT  , "
+                        + "FOREIGN KEY (idAtividadePlano) REFERENCES planoAcaoAtividade (id)  ON DELETE CASCADE)  ");
+
+
+                database.execSQL("CREATE INDEX index_planoAccaoResultado_idTarefa ON planoAccaoResultado (idTarefa)");
+
+
+            }
+            catch(SQLException e){
+                Log.e("Migracao", "erro MIGRACAO_22_23: " + e.getMessage());
+                //Timber.e("erro MIGRACAO_2_3: " + e.getMessage());
+            }
+        }
+    };
 
 
     public static final Migration MIGRACAO_21_22 = new Migration(21, 22) {

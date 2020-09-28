@@ -1,4 +1,4 @@
-package com.vvm.sh.ui.atividadesPendentes.relatorios.propostaPlanoAccao.modelos;
+package com.vvm.sh.ui.atividadesPendentes.relatorios.propostaPlanoAccao.adaptadores;
 
 import android.view.View;
 import android.widget.CheckBox;

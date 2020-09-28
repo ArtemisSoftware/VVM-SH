@@ -12,8 +12,6 @@ import com.vvm.sh.R;
 import com.vvm.sh.databinding.ItemPlanoAccaoMedidasAvaliacaoBinding;
 import com.vvm.sh.databinding.ItemPlanoAccaoStBinding;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.propostaPlanoAccao.modelos.Proposta;
-import com.vvm.sh.ui.atividadesPendentes.relatorios.propostaPlanoAccao.modelos.PropostaMedidaViewHolder;
-import com.vvm.sh.ui.atividadesPendentes.relatorios.propostaPlanoAccao.modelos.PropostaStViewHolder;
 import com.vvm.sh.util.constantes.Identificadores;
 
 import java.util.ArrayList;
@@ -74,16 +72,16 @@ public class PropostaRecyclerHolder extends RecyclerView.Adapter<RecyclerView.Vi
         int tipo = ST;
         Proposta proposta = items.get(position);
 
-/*
-        switch (proposta.registo.tipo){
 
-            case Identificadores.Checklist.TIPO_QUESTAO:
+        switch (proposta.tipo){
+
+            case Identificadores.ID_PROPOSTA_ST:
 
                 tipo = ST;
                 break;
 
 
-            case Identificadores.Checklist.TIPO_OBSERVACOES:
+            case Identificadores.ID_PROPOSTA_MEDIDA:
 
                 tipo = MEDIDAS;
                 break;
@@ -93,7 +91,7 @@ public class PropostaRecyclerHolder extends RecyclerView.Adapter<RecyclerView.Vi
                 break;
 
         }
-*/
+
 
         return tipo;
     }

@@ -99,7 +99,7 @@
                 android:id="@+id/textView97"
                 style="@style/textoDetalhe"
                 android:layout_marginStart="16dp"
-                android:text="@{StringUtil.converterString(levantamento.resultado.perigo)}"
+                android:text="@{levantamento.resultado.perigo}"
                 app:layout_constraintStart_toEndOf="@+id/textView96"
                 app:layout_constraintTop_toTopOf="@+id/textView96" />
 
@@ -117,7 +117,7 @@
                 android:id="@+id/textView99"
                 style="@style/textoDetalhe"
                 android:layout_marginStart="16dp"
-                android:text="@{StringUtil.converterString(levantamento.resultado.tarefa)}"
+                android:text="@{levantamento.resultado.tarefa}"
                 app:layout_constraintStart_toEndOf="@+id/textView98"
                 app:layout_constraintTop_toTopOf="@+id/textView98" />
 

@@ -41,7 +41,7 @@
             <TextView
                 android:id="@+id/textView106"
                 style="@style/textoDetalhe"
-                android:text="@{StringUtil.converterString(proposta.descricao)}"
+                android:text="@{proposta.descricao}"
                 android:layout_marginStart="16dp"
                 app:layout_constraintStart_toEndOf="@+id/textView25"
                 app:layout_constraintTop_toTopOf="@+id/textView25" />

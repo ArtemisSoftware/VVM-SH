@@ -81,6 +81,7 @@ import com.vvm.sh.databinding.ItemColaboradorBindingImpl;
 import com.vvm.sh.databinding.ItemCrossSellingBindingImpl;
 import com.vvm.sh.databinding.ItemExtintorBindingImpl;
 import com.vvm.sh.databinding.ItemFormandoBindingImpl;
+import com.vvm.sh.databinding.ItemLevantamentoBindingImpl;
 import com.vvm.sh.databinding.ItemMarcacaoBindingImpl;
 import com.vvm.sh.databinding.ItemOcorrenciaBindingImpl;
 import com.vvm.sh.databinding.ItemOcorrenciaHistoricoBindingImpl;
@@ -256,35 +257,37 @@ public class DataBinderMapperImpl extends DataBinderMapper {
 
   private static final int LAYOUT_ITEMFORMANDO = 75;
 
-  private static final int LAYOUT_ITEMMARCACAO = 76;
+  private static final int LAYOUT_ITEMLEVANTAMENTO = 76;
 
-  private static final int LAYOUT_ITEMOCORRENCIA = 77;
+  private static final int LAYOUT_ITEMMARCACAO = 77;
 
-  private static final int LAYOUT_ITEMOCORRENCIAHISTORICO = 78;
+  private static final int LAYOUT_ITEMOCORRENCIA = 78;
 
-  private static final int LAYOUT_ITEMOCORRENCIAREGISTO = 79;
+  private static final int LAYOUT_ITEMOCORRENCIAHISTORICO = 79;
 
-  private static final int LAYOUT_ITEMOPCAOCLIENTE = 80;
+  private static final int LAYOUT_ITEMOCORRENCIAREGISTO = 80;
 
-  private static final int LAYOUT_ITEMPENDENCIA = 81;
+  private static final int LAYOUT_ITEMOPCAOCLIENTE = 81;
 
-  private static final int LAYOUT_ITEMPESQUISA = 82;
+  private static final int LAYOUT_ITEMPENDENCIA = 82;
 
-  private static final int LAYOUT_ITEMPLANOACCAOMEDIDASAVALIACAO = 83;
+  private static final int LAYOUT_ITEMPESQUISA = 83;
 
-  private static final int LAYOUT_ITEMPLANOACCAOST = 84;
+  private static final int LAYOUT_ITEMPLANOACCAOMEDIDASAVALIACAO = 84;
 
-  private static final int LAYOUT_ITEMRISCO = 85;
+  private static final int LAYOUT_ITEMPLANOACCAOST = 85;
 
-  private static final int LAYOUT_ITEMTIPO = 86;
+  private static final int LAYOUT_ITEMRISCO = 86;
 
-  private static final int LAYOUT_ITEMTRABALHADORVULNERAVEL = 87;
+  private static final int LAYOUT_ITEMTIPO = 87;
 
-  private static final int LAYOUT_ITEMTRABALHOREALIZADO = 88;
+  private static final int LAYOUT_ITEMTRABALHADORVULNERAVEL = 88;
 
-  private static final int LAYOUT_ITEMUPLOAD = 89;
+  private static final int LAYOUT_ITEMTRABALHOREALIZADO = 89;
 
-  private static final SparseIntArray INTERNAL_LAYOUT_ID_LOOKUP = new SparseIntArray(89);
+  private static final int LAYOUT_ITEMUPLOAD = 90;
+
+  private static final SparseIntArray INTERNAL_LAYOUT_ID_LOOKUP = new SparseIntArray(90);
 
   static {
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.vvm.sh.R.layout.activity_acao_formacao, LAYOUT_ACTIVITYACAOFORMACAO);
@@ -362,6 +365,7 @@ public class DataBinderMapperImpl extends DataBinderMapper {
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.vvm.sh.R.layout.item_cross_selling, LAYOUT_ITEMCROSSSELLING);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.vvm.sh.R.layout.item_extintor, LAYOUT_ITEMEXTINTOR);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.vvm.sh.R.layout.item_formando, LAYOUT_ITEMFORMANDO);
+    INTERNAL_LAYOUT_ID_LOOKUP.put(com.vvm.sh.R.layout.item_levantamento, LAYOUT_ITEMLEVANTAMENTO);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.vvm.sh.R.layout.item_marcacao, LAYOUT_ITEMMARCACAO);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.vvm.sh.R.layout.item_ocorrencia, LAYOUT_ITEMOCORRENCIA);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.vvm.sh.R.layout.item_ocorrencia_historico, LAYOUT_ITEMOCORRENCIAHISTORICO);
@@ -838,6 +842,12 @@ public class DataBinderMapperImpl extends DataBinderMapper {
         }
         throw new IllegalArgumentException("The tag for item_formando is invalid. Received: " + tag);
       }
+      case  LAYOUT_ITEMLEVANTAMENTO: {
+        if ("layout/item_levantamento_0".equals(tag)) {
+          return new ItemLevantamentoBindingImpl(component, view);
+        }
+        throw new IllegalArgumentException("The tag for item_levantamento is invalid. Received: " + tag);
+      }
       case  LAYOUT_ITEMMARCACAO: {
         if ("layout/item_marcacao_0".equals(tag)) {
           return new ItemMarcacaoBindingImpl(component, view);
@@ -988,7 +998,7 @@ public class DataBinderMapperImpl extends DataBinderMapper {
   }
 
   private static class InnerBrLookup {
-    static final SparseArray<String> sKeys = new SparseArray<String>(31);
+    static final SparseArray<String> sKeys = new SparseArray<String>(33);
 
     static {
       sKeys.put(0, "_all");
@@ -997,35 +1007,37 @@ public class DataBinderMapperImpl extends DataBinderMapper {
       sKeys.put(3, "tipo");
       sKeys.put(4, "listenerRegisto");
       sKeys.put(5, "activity");
-      sKeys.put(6, "idArea");
-      sKeys.put(7, "upload");
-      sKeys.put(8, "listener");
-      sKeys.put(9, "utilizadoresTestes");
-      sKeys.put(10, "marcacao");
-      sKeys.put(11, "anomalia");
-      sKeys.put(12, "crossSelling");
-      sKeys.put(13, "questao");
-      sKeys.put(14, "baseviewmodel");
-      sKeys.put(15, "extintor");
-      sKeys.put(16, "item");
-      sKeys.put(17, "viewmodel");
-      sKeys.put(18, "categoria");
-      sKeys.put(19, "vulnerabilidade");
-      sKeys.put(20, "listenerSelecionado");
-      sKeys.put(21, "avaliacao");
-      sKeys.put(22, "colaborador");
-      sKeys.put(23, "pesquisa");
-      sKeys.put(24, "atividade");
-      sKeys.put(25, "ocorrencia");
-      sKeys.put(26, "trabalho");
-      sKeys.put(27, "pendencia");
-      sKeys.put(28, "formando");
-      sKeys.put(29, "risco");
+      sKeys.put(6, "levantamento");
+      sKeys.put(7, "idArea");
+      sKeys.put(8, "upload");
+      sKeys.put(9, "listener");
+      sKeys.put(10, "utilizadoresTestes");
+      sKeys.put(11, "marcacao");
+      sKeys.put(12, "anomalia");
+      sKeys.put(13, "crossSelling");
+      sKeys.put(14, "questao");
+      sKeys.put(15, "baseviewmodel");
+      sKeys.put(16, "extintor");
+      sKeys.put(17, "item");
+      sKeys.put(18, "viewmodel");
+      sKeys.put(19, "proposta");
+      sKeys.put(20, "categoria");
+      sKeys.put(21, "vulnerabilidade");
+      sKeys.put(22, "listenerSelecionado");
+      sKeys.put(23, "avaliacao");
+      sKeys.put(24, "colaborador");
+      sKeys.put(25, "pesquisa");
+      sKeys.put(26, "atividade");
+      sKeys.put(27, "ocorrencia");
+      sKeys.put(28, "trabalho");
+      sKeys.put(29, "pendencia");
+      sKeys.put(30, "formando");
+      sKeys.put(31, "risco");
     }
   }
 
   private static class InnerLayoutIdLookup {
-    static final HashMap<String, Integer> sKeys = new HashMap<String, Integer>(89);
+    static final HashMap<String, Integer> sKeys = new HashMap<String, Integer>(90);
 
     static {
       sKeys.put("layout/activity_acao_formacao_0", com.vvm.sh.R.layout.activity_acao_formacao);
@@ -1103,6 +1115,7 @@ public class DataBinderMapperImpl extends DataBinderMapper {
       sKeys.put("layout/item_cross_selling_0", com.vvm.sh.R.layout.item_cross_selling);
       sKeys.put("layout/item_extintor_0", com.vvm.sh.R.layout.item_extintor);
       sKeys.put("layout/item_formando_0", com.vvm.sh.R.layout.item_formando);
+      sKeys.put("layout/item_levantamento_0", com.vvm.sh.R.layout.item_levantamento);
       sKeys.put("layout/item_marcacao_0", com.vvm.sh.R.layout.item_marcacao);
       sKeys.put("layout/item_ocorrencia_0", com.vvm.sh.R.layout.item_ocorrencia);
       sKeys.put("layout/item_ocorrencia_historico_0", com.vvm.sh.R.layout.item_ocorrencia_historico);

@@ -33,25 +33,21 @@ public class PropostaPlanoAcaoResultado {
 
 
     @NonNull
-    public int idRegisto; //o identificador da pergunta da checklist que gerou o plano ||
-
-
-
-    @NonNull
-    @ColumnInfo(name = "origem", defaultValue = Identificadores.Origens.ORIGEM_BD + "")
+    @ColumnInfo(name = "origem", defaultValue = Identificadores.VALOR_0 + "")
     public int origem;
+//--https://mega.nz/folder/SohilbpA#Ahm58e1cpLlmECfstygiXA/folder/XooCxDID
 
 
-    //CAMPO_ID +" INTEGER," +
+    //@ColumnInfo(name = "idQuestaoChecklis", defaultValue = Identificadores.VALOR_0 + "")
+    public int idQuestaoChecklis;
 
-
-    @ColumnInfo(name = "idMedida", defaultValue = Identificadores.VALOR_0 + "")
+    //@ColumnInfo(name = "idMedida", defaultValue = Identificadores.VALOR_0 + "")
     public int idMedida;
 
-    @ColumnInfo(name = "idNi", defaultValue = Identificadores.VALOR_0 + "")
+    //@ColumnInfo(name = "idNi", defaultValue = Identificadores.VALOR_0 + "")
     public int idNi;
 
-    @ColumnInfo(name = "idPrazo", defaultValue = Identificadores.VALOR_0 + "")
+    //@ColumnInfo(name = "idPrazo", defaultValue = Identificadores.VALOR_0 + "")
     public int idPrazo;
 
 

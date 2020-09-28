@@ -13,21 +13,21 @@
         <import type="com.vvm.sh.util.metodos.StringUtil"/>
         <import type="android.view.View"/>
 
-        <!--
+
         <variable
-            name="trabalho"
-            type="com.vvm.sh.ui.registoVisita.modelos.TrabalhoRealizado" />
+            name="proposta"
+            type="com.vvm.sh.ui.atividadesPendentes.relatorios.propostaPlanoAccao.modelos.Proposta" />
 
         <variable
             name="listener"
-            type="com.vvm.sh.ui.registoVisita.adaptadores.OnRegistoVisitaListener"/>
+            type="com.vvm.sh.ui.atividadesPendentes.relatorios.propostaPlanoAccao.adaptadores.OnPropostaPlanoAcaoListener"/>
 
 
         <variable
             name="bloquear"
             type="Boolean" />
 
-        -->
+
 
     </data>
 
@@ -50,15 +50,15 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-
+                android:checked="@{proposta.selecionado}"
+                android:text="@{proposta.descricao, default=descricao}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
             <!--
 
-android:checked="@{trabalho.selecionado()}"
+
                 android:enabled="@{bloquear}"
-                android:text="@{trabalho.tipo.descricao, default=descricao}"
 
 
 
@@ -67,7 +67,8 @@ android:checked="@{trabalho.selecionado()}"
 
             <TextView
                 android:id="@+id/textView39"
-
+                android:text="@{StringUtil.converterString(proposta.resultado.id), default=id}"
+                android:visibility="@{BuildConfig.DEBUG ? View.VISIBLE : View.GONE}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
@@ -78,8 +79,7 @@ android:checked="@{trabalho.selecionado()}"
             <!--
 
 
-                            android:text="@{StringUtil.converterString(crossSelling.tipo.id), default=id}"
-                android:visibility="@{BuildConfig.DEBUG ? View.VISIBLE : View.GONE}"
+
 
 
             -->

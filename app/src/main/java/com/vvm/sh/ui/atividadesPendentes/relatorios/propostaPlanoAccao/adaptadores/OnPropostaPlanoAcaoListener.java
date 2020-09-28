@@ -6,4 +6,5 @@ public interface OnPropostaPlanoAcaoListener {
 
 
     void OnCheckProposta(Proposta registo, boolean selecionado);
+
 }

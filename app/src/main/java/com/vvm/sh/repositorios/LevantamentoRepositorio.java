@@ -9,6 +9,7 @@ import com.vvm.sh.baseDados.dao.TipoDao;
 import com.vvm.sh.baseDados.entidades.CategoriaProfissionalResultado;
 import com.vvm.sh.baseDados.entidades.LevantamentoRiscoResultado;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.modelos.Levantamento;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.modelos.RelatorioLevantamento;
 import com.vvm.sh.util.constantes.Identificadores;
 
 import java.util.List;
@@ -93,5 +94,10 @@ public class LevantamentoRepositorio {
      */
     public Observable<List<CategoriaProfissionalResultado>> obterCategoriasProfissionais(int id){
         return categoriaProfissionalDao.obterCategoriasProfissionais(id, Identificadores.Origens.ORIGEM_LEVANTAMENTO_RISCO) ;
+    }
+
+
+    public Maybe<RelatorioLevantamento> obterRelatorio(int id){
+        return levantamentoDao.obterRelatorio(id);
     }
 }

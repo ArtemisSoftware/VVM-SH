@@ -16,7 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".ui.atividadesPendentes.relatorios.propostaPlanoAccao.PropostaPlanoAccaoActivity"
-            android:theme="@style/AppTheme.NoActionBar"></activity>
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".ui.atividadesPendentes.relatorios.trabalhadoresVulneraveis.TrabalhadorVulneravelRegistoActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -41,7 +41,8 @@
         <activity android:name=".ui.atividadesPendentes.relatorios.levantamentos.RiscoRegistoActivity" />
         <activity android:name=".ui.atividadesPendentes.relatorios.levantamentos.RiscosActivity" />
         <activity android:name=".ui.atividadesPendentes.relatorios.levantamentos.CategoriasProfissionaisActivity" />
-        <activity android:name=".ui.atividadesPendentes.relatorios.levantamentos.PerigoTarefaActivity" />
+        <activity android:name=".ui.atividadesPendentes.relatorios.levantamentos.PerigoTarefaActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ui.atividadesPendentes.relatorios.levantamentos.LevantamentosActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ui.atividadesPendentes.relatorios.avaliacaoAmbiental.AvaliacaoTemperaturaHumidadeRegistoActivity" />

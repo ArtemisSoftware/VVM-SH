@@ -5,6 +5,7 @@
 
     <data>
         <import type="java.util.List"/>
+        <import type="com.vvm.sh.util.metodos.StringUtil"/>
         <!--
                 <variable
                     name="listener"
@@ -63,7 +64,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcl_registos"
             style="@style/lista"
-            android:visibility="visible"
+            android:visibility="gone"
 
             tools:listitem="@layout/item_levantamento"/>
 
@@ -80,7 +81,7 @@
             android:id="@+id/lnr_lyt_levantamento"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="gone"
+            android:visibility="visible"
             android:orientation="vertical">
 
 
@@ -126,6 +127,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="16dp"
+                        completudeRelatorio="@{viewmodel.relatorio.valido}"
                         android:theme="@style/Theme.MaterialComponents.Light"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="@+id/textView20"
@@ -135,7 +137,7 @@
                         android:id="@+id/textView59"
                         style="@style/textoDetalhe"
                         android:layout_marginStart="16dp"
-                        android:text="TextView"
+                        android:text="@{StringUtil.converterString(viewmodel.relatorio.id)}"
                         app:layout_constraintBottom_toBottomOf="@+id/textView20"
                         app:layout_constraintStart_toEndOf="@+id/textView20"
                         app:layout_constraintTop_toTopOf="@+id/textView20" />

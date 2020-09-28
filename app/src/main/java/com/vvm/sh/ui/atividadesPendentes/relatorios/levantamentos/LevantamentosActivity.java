@@ -82,9 +82,17 @@ public class LevantamentosActivity extends BaseDaggerActivity
      */
     private void initLevantamento(LevantamentoRiscoResultado registo){
 
-        int idLevantamento = Sintaxe.SEM_REGISTO;
 
-        Bundle bundle = getIntent().getExtras();
+
+
+        activityLevantamentosBinding.rclRegistos.setVisibility(View.GONE);
+        activityLevantamentosBinding.lnrLytLevantamento.setVisibility(View.VISIBLE);
+
+        viewModel.obterRelatorio(registo.id);
+
+        //int idLevantamento = Sintaxe.SEM_REGISTO;
+
+        //Bundle bundle = getIntent().getExtras();
 
 //
 
@@ -110,10 +118,7 @@ public class LevantamentosActivity extends BaseDaggerActivity
     @Override
     public void OnLevantamentoClick(Levantamento registo) {
 
-        activityLevantamentosBinding.rclRegistos.setVisibility(View.GONE);
-
-
-        activityLevantamentosBinding.lnrLytLevantamento.setVisibility(View.VISIBLE);
+        initLevantamento(registo.resultado);
     }
 
     //-----------------------

@@ -6,6 +6,7 @@ import com.vvm.sh.baseDados.entidades.CategoriaProfissionalResultado;
 import com.vvm.sh.baseDados.entidades.LevantamentoRiscoResultado;
 import com.vvm.sh.repositorios.LevantamentoRepositorio;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.modelos.Levantamento;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.modelos.RelatorioLevantamento;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
@@ -28,6 +29,9 @@ public class LevantamentosViewModel extends BaseViewModel {
 
 
     public MutableLiveData<List<Levantamento>> levantamentos;
+
+    public MutableLiveData<RelatorioLevantamento> relatorio;
+
     public MutableLiveData<LevantamentoRiscoResultado> levantamento;
 
     public MutableLiveData<List<CategoriaProfissionalResultado>> categoriasProfissionais;
@@ -37,6 +41,7 @@ public class LevantamentosViewModel extends BaseViewModel {
 
         this.levantamentoRepositorio = levantamentoRepositorio;
         levantamentos = new MutableLiveData<>();
+        relatorio = new MutableLiveData<>();
         levantamento = new MutableLiveData<>();
         categoriasProfissionais = new MutableLiveData<>();
 
@@ -188,6 +193,47 @@ public class LevantamentosViewModel extends BaseViewModel {
                         }
                 );
     }
+
+
+
+    /**
+     * Metodo que permite obter o relatorio do levantamento
+     * @param id o identificador do levantamento
+     */
+    public void obterRelatorio(int id) {
+
+        levantamentoRepositorio.obterRelatorio(id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new MaybeObserver<RelatorioLevantamento>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+
+                            }
+
+                            @Override
+                            public void onSuccess(RelatorioLevantamento registo) {
+                                relatorio.setValue(registo);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                                RelatorioLevantamento registo = new RelatorioLevantamento();
+                                relatorio.setValue(registo);
+                            }
+
+                            @Override
+                            public void onComplete() {
+
+                            }
+                        }
+                );
+    }
+
+
 
 
     /**

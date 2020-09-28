@@ -9,6 +9,11 @@ public interface OnLevantamentoListener {
 
         void OnLevantamentoClick(Levantamento registo);
 
+        void OnDuplicarClick(Levantamento levantamento);
+
+        void OnRemoverClick(Levantamento levantamento);
+
+        void OnGaleriaClick(Levantamento levantamento);
     }
 
 

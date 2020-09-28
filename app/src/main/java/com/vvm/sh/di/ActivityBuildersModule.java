@@ -61,6 +61,7 @@ import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.DialogoArea;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.DialogoPergunta;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.QuestoesChecklistActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.LevantamentosActivity;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.PerigoTarefaActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.trabalhadoresVulneraveis.TrabalhadorVulneravelRegistoActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.trabalhadoresVulneraveis.TrabalhadoresVulneraveisActivity;
 import com.vvm.sh.ui.registoVisita.DadosClienteActivity;
@@ -427,7 +428,11 @@ public abstract class ActivityBuildersModule {
     abstract LevantamentosActivity contributeLevantamentosActivity();
 
 
-
+    @LevantamentosScope
+    @ContributesAndroidInjector(
+            modules = { LevantamentosViewModelsModule.class, LevantamentosModule.class }
+    )
+    abstract PerigoTarefaActivity contributePerigoTarefaActivity();
 
     //----------------------
     //Pequisa

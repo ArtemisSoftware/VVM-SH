@@ -13,4 +13,8 @@ public class Levantamento {
     @ColumnInfo(name = "modelo")
     public String modelo;
 
+
+    @ColumnInfo(name = "valido")
+    public boolean valido;
+
 }

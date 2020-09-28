@@ -16,11 +16,11 @@
         <variable
             name="listener"
             type="com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.OnLevantamentoListener"/>
-        <!--
-                <variable
-                    name="atividade"
-                    type="com.vvm.sh.ui.atividadesPendentes.modelos.AtividadePendenteRegisto" />
-        -->
+
+        <variable
+            name="levantamento"
+            type="com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.modelos.Levantamento" />
+
     </data>
 
 
@@ -37,9 +37,18 @@
                 style="@style/tituloCartao"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-
+                android:text="@string/levantamento_numero_"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView2"
+                style="@style/tituloCartao"
+                android:text="@{StringUtil.converterString(levantamento.resultado.id)}"
+                android:layout_marginStart="16dp"
+                app:layout_constraintStart_toEndOf="@+id/textView"
+                app:layout_constraintTop_toTopOf="@+id/textView" />
+
 
 
             <!--  -->
@@ -48,7 +57,7 @@
                 android:id="@+id/chip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-
+                completudeRelatorio="@{levantamento.valido}"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
                 android:theme="@style/Theme.MaterialComponents.Light"
@@ -76,15 +85,7 @@
             -->
 
 
-            <TextView
-                android:id="@+id/textView35"
 
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
 
             <TextView
                 android:id="@+id/textView96"
@@ -98,7 +99,7 @@
                 android:id="@+id/textView97"
                 style="@style/textoDetalhe"
                 android:layout_marginStart="16dp"
-                android:text="TextView"
+                android:text="@{StringUtil.converterString(levantamento.resultado.perigo)}"
                 app:layout_constraintStart_toEndOf="@+id/textView96"
                 app:layout_constraintTop_toTopOf="@+id/textView96" />
 
@@ -116,7 +117,7 @@
                 android:id="@+id/textView99"
                 style="@style/textoDetalhe"
                 android:layout_marginStart="16dp"
-                android:text="TextView"
+                android:text="@{StringUtil.converterString(levantamento.resultado.tarefa)}"
                 app:layout_constraintStart_toEndOf="@+id/textView98"
                 app:layout_constraintTop_toTopOf="@+id/textView98" />
 
@@ -132,13 +133,24 @@
                 android:id="@+id/textView101"
                 style="@style/textoDetalhe"
                 android:layout_marginStart="16dp"
-                android:text="TextView"
+                android:text="@{levantamento.modelo}"
                 app:layout_constraintStart_toEndOf="@+id/textView100"
                 app:layout_constraintTop_toTopOf="@+id/textView100" />
 
-            <!--
-                            android:text="@{StringUtil.converterString(atividade.atividade.id), default=id}"
+
+            <TextView
+                android:id="@+id/textView35"
+                android:text="@{StringUtil.converterString(levantamento.resultado.id), default=id}"
                 android:visibility="@{BuildConfig.DEBUG ? View.VISIBLE : View.GONE}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+            <!--
+
 
             -->
         </androidx.constraintlayout.widget.ConstraintLayout>

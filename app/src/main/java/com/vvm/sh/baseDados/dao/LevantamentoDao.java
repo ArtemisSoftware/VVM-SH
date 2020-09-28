@@ -16,7 +16,7 @@ import io.reactivex.Observable;
 abstract public class LevantamentoDao implements BaseDao<LevantamentoRiscoResultado> {
 
 
-    @Query("SELECT *, 'lolo' as modelo FROM levantamentosRiscoResultado  WHERE idAtividade = :idAtividade")
+    @Query("SELECT *, 'lolo' as modelo, 0 as valido FROM levantamentosRiscoResultado  WHERE idAtividade = :idAtividade")
     abstract public Observable<List<Levantamento>> obterLevantamentos(int idAtividade);
 
 

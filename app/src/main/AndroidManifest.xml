@@ -40,7 +40,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ui.atividadesPendentes.relatorios.levantamentos.RiscoRegistoActivity" />
         <activity android:name=".ui.atividadesPendentes.relatorios.levantamentos.RiscosActivity" />
-        <activity android:name=".ui.atividadesPendentes.relatorios.levantamentos.CategoriasProfissionaisActivity" />
+        <activity android:name=".ui.atividadesPendentes.relatorios.levantamentos.CategoriasProfissionaisActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".ui.atividadesPendentes.relatorios.levantamentos.PerigoTarefaActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ui.atividadesPendentes.relatorios.levantamentos.LevantamentosActivity"

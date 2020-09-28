@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.vvm.sh.baseDados.entidades.CategoriaProfissionalResultado;
 import com.vvm.sh.baseDados.entidades.LevantamentoRiscoResultado;
+import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.repositorios.LevantamentoRepositorio;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.modelos.Levantamento;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.modelos.RelatorioLevantamento;
@@ -26,6 +27,7 @@ import io.reactivex.schedulers.Schedulers;
 public class LevantamentosViewModel extends BaseViewModel {
 
     private final LevantamentoRepositorio levantamentoRepositorio;
+    public MutableLiveData<List<Tipo>> modelos;
 
 
     public MutableLiveData<List<Levantamento>> levantamentos;
@@ -36,6 +38,8 @@ public class LevantamentosViewModel extends BaseViewModel {
 
     public MutableLiveData<List<CategoriaProfissionalResultado>> categoriasProfissionais;
 
+
+
     @Inject
     public LevantamentosViewModel(LevantamentoRepositorio levantamentoRepositorio){
 
@@ -44,6 +48,7 @@ public class LevantamentosViewModel extends BaseViewModel {
         relatorio = new MutableLiveData<>();
         levantamento = new MutableLiveData<>();
         categoriasProfissionais = new MutableLiveData<>();
+        modelos = new MutableLiveData<>();
 
     }
 
@@ -172,7 +177,7 @@ public class LevantamentosViewModel extends BaseViewModel {
                         new Observer<List<Levantamento>>() {
                             @Override
                             public void onSubscribe(Disposable d) {
-
+                                disposables.add(d);
                             }
 
                             @Override
@@ -188,7 +193,7 @@ public class LevantamentosViewModel extends BaseViewModel {
 
                             @Override
                             public void onComplete() {
-
+                                showProgressBar(false);
                             }
                         }
                 );
@@ -303,6 +308,42 @@ public class LevantamentosViewModel extends BaseViewModel {
 
                 );
     }
+
+
+
+    //---------------------
+    //MISC
+    //---------------------
+
+
+    public void obterModelos(int idAtividade){
+
+
+        levantamentoRepositorio.obterModelos(idAtividade)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new SingleObserver<List<Tipo>>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+
+                            }
+
+                            @Override
+                            public void onSuccess(List<Tipo> tipos) {
+                                modelos.setValue(tipos);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+                        }
+
+                );
+    }
+
 
     public List<Integer> obterRegistosSelecionados() {
 

@@ -5,6 +5,7 @@ import androidx.room.Query;
 
 import com.vvm.sh.baseDados.BaseDao;
 import com.vvm.sh.baseDados.entidades.LevantamentoRiscoResultado;
+import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.modelos.Levantamento;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.modelos.RelatorioLevantamento;
 
@@ -12,6 +13,7 @@ import java.util.List;
 
 import io.reactivex.Maybe;
 import io.reactivex.Observable;
+import io.reactivex.Single;
 
 @Dao
 abstract public class LevantamentoDao implements BaseDao<LevantamentoRiscoResultado> {
@@ -20,12 +22,24 @@ abstract public class LevantamentoDao implements BaseDao<LevantamentoRiscoResult
 
 
 
-    @Query("SELECT *, 'lolo' as modelo, 0 as categoriasProfissionais, 0 as riscos, 0 as valido FROM levantamentosRiscoResultado  WHERE idAtividade = :idAtividade")
+    @Query("SELECT *, 'lolo' as modelo, 0 as categoriasProfissionais, 0 as riscos, 0 as valido " +
+//            "CASE WHEN validadePerigoTarefa = 1 THEN 1 ELSE 0 END as valido " +
+            "FROM levantamentosRiscoResultado as lv_riscos_res " +
+
+//            "LEFT JOIN (" +
+//            "SELECT id, " +
+//            "CASE WHEN tarefa IS NULL OR perigo IS NULL THEN 0  ELSE 1 END as validadePerigoTarefa " +
+//            "FROM levantamentosRiscoResultado " +
+//            ") as validacao_levantamento " +
+//            "ON lv_riscos_res.id = validacao_levantamento.id " +
+            "WHERE lv_riscos_res.idAtividade = :idAtividade")
     abstract public Observable<List<Levantamento>> obterLevantamentos(int idAtividade);
 
 
 
-    @Query("SELECT id FROM levantamentosRiscoResultado  WHERE id = :id")
+    @Query("SELECT id, 0 as numeroCategoriasProfissionais, " +
+            "CASE WHEN tarefa IS NULL OR perigo IS NULL THEN 0  ELSE 1 END as validadePerigoTarefa " +
+            "FROM levantamentosRiscoResultado  WHERE id = :id")
     abstract public Maybe<RelatorioLevantamento> obterRelatorio(int id);
 
 
@@ -78,5 +92,8 @@ abstract public class LevantamentoDao implements BaseDao<LevantamentoRiscoResult
 //    };
 
 
+
+    @Query("SELECT * FROM tipos WHERE tipo = :tipo AND api = :api AND ativo = 1 AND id NOT IN (SELECT id FROM levantamentosRiscoResultado WHERE idAtividade = :idAtividade)")
+    abstract public Single<List<Tipo>> obterModelos(int idAtividade, String tipo, int api);
 
 }

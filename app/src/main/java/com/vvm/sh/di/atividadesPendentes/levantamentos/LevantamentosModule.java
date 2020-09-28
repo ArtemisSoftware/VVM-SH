@@ -38,10 +38,10 @@ public class LevantamentosModule {
 
     @LevantamentosScope
     @Provides
-    LevantamentoRepositorio provideLevantamentoRepositorio(LevantamentoDao levantamentoDao, CategoriaProfissionalDao categoriaProfissionalDao,
+    LevantamentoRepositorio provideLevantamentoRepositorio(int idApi, LevantamentoDao levantamentoDao, CategoriaProfissionalDao categoriaProfissionalDao,
                                                            TipoDao tipoDao, ResultadoDao resultadoDao) {
 
-        LevantamentoRepositorio repositorio = new LevantamentoRepositorio(levantamentoDao, categoriaProfissionalDao, tipoDao, resultadoDao);
+        LevantamentoRepositorio repositorio = new LevantamentoRepositorio(idApi, levantamentoDao, categoriaProfissionalDao, tipoDao, resultadoDao);
 
         //Timber.d("Providing PokemonRepository: " + repository);
         return repositorio;

@@ -47,6 +47,7 @@ import com.vvm.sh.baseDados.entidades.ParqueExtintor;
 import com.vvm.sh.baseDados.entidades.ParqueExtintorResultado;
 import com.vvm.sh.baseDados.entidades.PlanoAcao;
 import com.vvm.sh.baseDados.entidades.PlanoAcaoAtividade;
+import com.vvm.sh.baseDados.entidades.PlanoAccaoResultado;
 import com.vvm.sh.baseDados.entidades.ProcessoProdutivoResultado;
 import com.vvm.sh.baseDados.entidades.PropostaPlanoAcaoResultado;
 import com.vvm.sh.baseDados.entidades.QuestionarioChecklistResultado;
@@ -92,7 +93,7 @@ import com.vvm.sh.baseDados.entidades.EmailResultado;
                     //Resultado
 
                     EmailResultado.class, AnomaliaResultado.class, FormandoResultado.class, AcaoFormacaoResultado.class,
-                    AtividadePendenteResultado.class, CrossSellingResultado.class, OcorrenciaResultado.class,
+                    AtividadePendenteResultado.class, CrossSellingResultado.class, OcorrenciaResultado.class, PlanoAccaoResultado.class,
                     ImagemResultado.class, SinistralidadeResultado.class,
                     ParqueExtintorResultado.class,
                     CategoriaProfissionalResultado.class, MedidaResultado.class,

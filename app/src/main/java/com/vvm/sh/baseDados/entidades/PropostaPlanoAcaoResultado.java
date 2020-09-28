@@ -38,16 +38,16 @@ public class PropostaPlanoAcaoResultado {
 //--https://mega.nz/folder/SohilbpA#Ahm58e1cpLlmECfstygiXA/folder/XooCxDID
 
 
-    //@ColumnInfo(name = "idQuestaoChecklis", defaultValue = Identificadores.VALOR_0 + "")
+    @ColumnInfo(name = "idQuestaoChecklis", defaultValue = Identificadores.VALOR_0 + "")
     public int idQuestaoChecklis;
 
-    //@ColumnInfo(name = "idMedida", defaultValue = Identificadores.VALOR_0 + "")
+    @ColumnInfo(name = "idMedida", defaultValue = Identificadores.VALOR_0 + "")
     public int idMedida;
 
-    //@ColumnInfo(name = "idNi", defaultValue = Identificadores.VALOR_0 + "")
+    @ColumnInfo(name = "idNi", defaultValue = Identificadores.VALOR_0 + "")
     public int idNi;
 
-    //@ColumnInfo(name = "idPrazo", defaultValue = Identificadores.VALOR_0 + "")
+    @ColumnInfo(name = "idPrazo", defaultValue = Identificadores.VALOR_0 + "")
     public int idPrazo;
 
 

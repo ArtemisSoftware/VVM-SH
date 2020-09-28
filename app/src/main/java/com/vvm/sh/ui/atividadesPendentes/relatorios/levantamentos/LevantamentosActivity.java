@@ -42,6 +42,7 @@ public class LevantamentosActivity extends BaseDaggerActivity
         activityLevantamentosBinding = (ActivityLevantamentosBinding) activityBinding;
         activityLevantamentosBinding.setLifecycleOwner(this);
         activityLevantamentosBinding.setViewmodel(viewModel);
+        activityLevantamentosBinding.setListener(this);
         activityLevantamentosBinding.setBloquear(PreferenciasUtil.agendaEditavel(this));
 
         subscreverObservadores();
@@ -85,7 +86,14 @@ public class LevantamentosActivity extends BaseDaggerActivity
         activityLevantamentosBinding.rclRegistos.setVisibility(View.GONE);
         activityLevantamentosBinding.lnrLytLevantamento.setVisibility(View.VISIBLE);
 
-        viewModel.obterRelatorio(registo.id);
+        int id = 0;
+
+        if(registo != null){
+            id = registo.id;
+            activityLevantamentosBinding.txtIdLevantamento.setText(registo.id + "");
+        }
+
+        viewModel.obterRelatorio(id);
 
         //int idLevantamento = Sintaxe.SEM_REGISTO;
 
@@ -143,8 +151,8 @@ public class LevantamentosActivity extends BaseDaggerActivity
         initLevantamento(null);
     }
 
-    @OnClick({R.id.crd_perigo_tarefa})
-    public void crd_perigo_tarefa_OnClickListener(View view) {
+    @OnClick({R.id.card_perigo_tarefa})
+    public void card_perigo_tarefa_OnClickListener(View view) {
 
         Bundle bundle = getIntent().getExtras();
 
@@ -153,4 +161,14 @@ public class LevantamentosActivity extends BaseDaggerActivity
         startActivity(intent);
     }
 
+
+    @OnClick({R.id.card_categorias_profissionais})
+    public void card_categorias_profissionais_OnClickListener(View view) {
+
+        Bundle bundle = getIntent().getExtras();
+
+        Intent intent = new Intent(this, CategoriasProfissionaisActivity.class);
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
 }

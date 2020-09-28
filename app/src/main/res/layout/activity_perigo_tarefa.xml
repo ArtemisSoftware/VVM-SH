@@ -95,6 +95,8 @@
                             android:id="@+id/txt_inp_perigo"
                             style="@style/modifiedEditText"
                             android:inputType="textMultiLine"
+                            android:gravity="top|left"
+                            android:text="@{viewmodel.levantamento.perigo}"
                             android:minLines="5"
                             android:maxLines="5"/>
                     </com.google.android.material.textfield.TextInputLayout>
@@ -116,6 +118,8 @@
                             android:id="@+id/txt_inp_tarefa"
                             style="@style/modifiedEditText"
                             android:inputType="textMultiLine"
+                            android:text="@{viewmodel.levantamento.tarefa}"
+                            android:gravity="top|left"
                             android:minLines="5"
                             android:maxLines="5"/>
 

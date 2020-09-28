@@ -33,12 +33,12 @@ public class Migracao {
                         + "'idAtividade' INTEGER NOT NULL, "
                         + "'id' INTEGER PRIMARY KEY NOT NULL, "
                         + "'origem' INTEGER NOT NULL DEFAULT " + Identificadores.VALOR_0 + " ,  "
-                        + "'idQuestaoChecklis' INTEGER  , "
-                        + "'idMedida' INTEGER  , "
-                        + "'idNi' INTEGER  , "
-                        + "'idPrazo' INTEGER  , "
+                        + "'idQuestaoChecklis' INTEGER  NOT NULL DEFAULT " + Identificadores.VALOR_0 + " ,  "
+                        + "'idMedida' INTEGER  NOT NULL DEFAULT " + Identificadores.VALOR_0 + " ,  "
+                        + "'idNi' INTEGER  NOT NULL DEFAULT " + Identificadores.VALOR_0 + " ,  "
+                        + "'idPrazo' INTEGER  NOT NULL DEFAULT " + Identificadores.VALOR_0 + " ,  "
                         + "'selecionado' INTEGER NOT NULL DEFAULT   " + Sintaxe.Codigos.NAO_SELECIONADO + " ,  "
-                        + "FOREIGN KEY (idAtividade) REFERENCES atividadesPendentes (idAtividade)  ON DELETE CASCADE)  ");
+                        + "FOREIGN KEY (idAtividade) REFERENCES atividadesPendentes (id)  ON DELETE CASCADE)  ");
 
 
                 database.execSQL("CREATE INDEX index_propostaPlanoAcaoResultado_idAtividade ON propostaPlanoAcaoResultado (idAtividade)");
@@ -58,7 +58,7 @@ public class Migracao {
 
 
             }
-            catch(SQLException e){
+            catch(SQLException | IllegalStateException e){
                 Log.e("Migracao", "erro MIGRACAO_22_23: " + e.getMessage());
                 //Timber.e("erro MIGRACAO_2_3: " + e.getMessage());
             }

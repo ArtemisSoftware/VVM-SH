@@ -12,7 +12,6 @@ import static androidx.room.ForeignKey.CASCADE;
 
 @Entity(tableName = "planoAccaoResultado",
         indices = {@Index(value="idTarefa", unique = false) },
-        primaryKeys = {"idTarefa","id"},
 
         foreignKeys = @ForeignKey(entity = PlanoAcaoAtividade.class,
                 parentColumns = "id",
@@ -28,6 +27,7 @@ public class PlanoAccaoResultado {
     @PrimaryKey(autoGenerate = true)
     public int id;
 
+    @NonNull
     @ColumnInfo(name = "idAtividadePlano")
     public int idAtividadePlano;
 

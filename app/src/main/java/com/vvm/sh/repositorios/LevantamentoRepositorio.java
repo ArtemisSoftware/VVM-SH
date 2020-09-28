@@ -8,9 +8,11 @@ import com.vvm.sh.baseDados.dao.ResultadoDao;
 import com.vvm.sh.baseDados.dao.TipoDao;
 import com.vvm.sh.baseDados.entidades.CategoriaProfissionalResultado;
 import com.vvm.sh.baseDados.entidades.LevantamentoRiscoResultado;
+import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.modelos.Levantamento;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.modelos.RelatorioLevantamento;
 import com.vvm.sh.util.constantes.Identificadores;
+import com.vvm.sh.util.metodos.TiposUtil;
 
 import java.util.List;
 
@@ -21,6 +23,7 @@ import io.reactivex.Single;
 public class LevantamentoRepositorio {
 
 
+    private final int idApi;
     private final LevantamentoDao levantamentoDao;
     private final CategoriaProfissionalDao categoriaProfissionalDao;
 
@@ -28,8 +31,10 @@ public class LevantamentoRepositorio {
     public final ResultadoDao resultadoDao;
 
 
-    public LevantamentoRepositorio(@NonNull LevantamentoDao levantamentoDao, @NonNull CategoriaProfissionalDao categoriaProfissionalDao,
+    public LevantamentoRepositorio(int idApi, @NonNull LevantamentoDao levantamentoDao, @NonNull CategoriaProfissionalDao categoriaProfissionalDao,
                                    @NonNull TipoDao tipoDao, @NonNull ResultadoDao resultadoDao) {
+
+        this.idApi = idApi;
 
         this.levantamentoDao = levantamentoDao;
         this.categoriaProfissionalDao = categoriaProfissionalDao;
@@ -93,11 +98,20 @@ public class LevantamentoRepositorio {
      * @return os registos
      */
     public Observable<List<CategoriaProfissionalResultado>> obterCategoriasProfissionais(int id){
-        return categoriaProfissionalDao.obterCategoriasProfissionais(id, Identificadores.Origens.ORIGEM_LEVANTAMENTO_RISCO) ;
+        return categoriaProfissionalDao.obterCategoriasProfissionais(id, Identificadores.Origens.LEVANTAMENTO_CATEGORIAS_PROFISSIONAIS) ;
     }
 
 
     public Maybe<RelatorioLevantamento> obterRelatorio(int id){
         return levantamentoDao.obterRelatorio(id);
+    }
+
+
+    /**
+     * Metodo que permite obter a listagem de modelos
+     * @return uma lista
+     */
+    public Single<List<Tipo>> obterModelos(int idAtividade){
+        return levantamentoDao.obterModelos(idAtividade, TiposUtil.MetodosTipos.TEMPLATE_AVALIACAO_RISCOS, idApi);
     }
 }

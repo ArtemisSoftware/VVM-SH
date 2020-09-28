@@ -37,6 +37,8 @@ public class TiposUtil {
         public static final String CONDICOES_CLIMATERICAS = "GetCondicoesClimatericas";
         public static final String CURSOS = "getCoursesInfo";
 
+        public static final String TEMPLATE_AVALIACAO_RISCOS = "ObterTemplatesAVR";
+
         public static final String TIPOS_AREA = "GetTiposArea";
         public static final String TIPOS_CHECKLIST = "GetTiposChecklistNovo";
         public static final String TIPOS_ILUMINACAO = "GetTiposIluminacao";
@@ -69,6 +71,10 @@ public class TiposUtil {
         public static final String CONCLUSAO_MEDIDAS_RECOMENDADAS = "Conclusao_Medidas_Recomendadas";
         public static final String CURSOS = "Cursos";
 
+        public static final String TEMPLATE_AVALIACAO_RISCOS = "Template_Avaliação_Riscos";
+
+
+
         public static final String TIPOS_AREA = "Tipos_Area";
         public static final String TIPOS_CHECKLIST = "Tipos_Checklist";
         public static final String TIPOS_ILUMINACAO = "Tipos_Iluminacao";
@@ -87,6 +93,7 @@ public class TiposUtil {
         public static final MetodoApi METODO_ILUMINANCIA = new MetodoApi(ILUMINANCIA, null, MetodosTiposSH.ILUMINANCIA);
         public static final MetodoApi METODO_TIPOS_AREA = new MetodoApi(TIPOS_AREA, null, MetodosTiposSH.TIPOS_AREA);
 
+        public static final MetodoApi METODO_TEMPLATE_AVALIACAO_RISCOS = new MetodoApi(TEMPLATE_AVALIACAO_RISCOS, null, MetodosTiposSH.TEMPLATE_AVALIACAO_RISCOS);
         public static final MetodoApi METODO_TIPOS_CHECKLIST = new MetodoApi(TIPOS_CHECKLIST, null, MetodosTiposSH.TIPOS_CHECKLIST);
         public static final MetodoApi METODO_TIPOS_ILUMINACAO = new MetodoApi(TIPOS_ILUMINACAO, null, MetodosTiposSH.TIPOS_ILUMINACAO);
         public static final MetodoApi METODO_TIPOS_NI = new MetodoApi(TIPOS_NI, null, MetodosTiposSH.TIPOS_NI);
@@ -110,6 +117,8 @@ public class TiposUtil {
                 METODO_CURSOS,
 
                 METODO_ILUMINANCIA,
+
+                METODO_TEMPLATE_AVALIACAO_RISCOS,
                 METODO_TIPOS_AREA,
                 METODO_TIPOS_CHECKLIST,
                 METODO_TIPOS_ILUMINACAO,
@@ -238,6 +247,13 @@ public class TiposUtil {
             case MetodosTipos.ILUMINANCIA:
 
                 metodo = MetodosTipos.METODO_ILUMINANCIA;
+                break;
+
+
+            case MetodosTiposSH.TEMPLATE_AVALIACAO_RISCOS:
+            case MetodosTipos.TEMPLATE_AVALIACAO_RISCOS:
+
+                metodo = MetodosTipos.METODO_TEMPLATE_AVALIACAO_RISCOS;
                 break;
 
 

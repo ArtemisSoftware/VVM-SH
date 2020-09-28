@@ -13,7 +13,7 @@ import java.util.List;
 public class LevantamentoBinding {
 
     @BindingAdapter({"levantamentos", "listener"})
-    public static void setTarefas(RecyclerView view, List<Levantamento> items, OnLevantamentoListener.OnLevantamentoRegistoListener listener) {
+    public static void setLevantamentos(RecyclerView view, List<Levantamento> items, OnLevantamentoListener.OnLevantamentoRegistoListener listener) {
 
         if(items == null){
             return;

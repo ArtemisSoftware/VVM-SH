@@ -5,6 +5,7 @@ import androidx.room.Query;
 
 import com.vvm.sh.baseDados.BaseDao;
 import com.vvm.sh.baseDados.entidades.LevantamentoRiscoResultado;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.modelos.Levantamento;
 
 import java.util.List;
 
@@ -15,8 +16,8 @@ import io.reactivex.Observable;
 abstract public class LevantamentoDao implements BaseDao<LevantamentoRiscoResultado> {
 
 
-    @Query("SELECT * FROM levantamentosRiscoResultado  WHERE idAtividade = :idAtividade")
-    abstract public Observable<List<LevantamentoRiscoResultado>> obterLevantamentos(int idAtividade);
+    @Query("SELECT *, 'lolo' as modelo FROM levantamentosRiscoResultado  WHERE idAtividade = :idAtividade")
+    abstract public Observable<List<Levantamento>> obterLevantamentos(int idAtividade);
 
 
     @Query("SELECT * FROM levantamentosRiscoResultado  WHERE id = :id")

@@ -9,11 +9,11 @@
 
         <import type="android.view.View"/>
         <import type="com.vvm.sh.util.metodos.StringUtil"/>
-<!--
+
         <variable
-            name="ocorrencia"
-            type="com.vvm.sh.ui.ocorrencias.modelos.OcorrenciaRegisto" />
--->
+            name="proposta"
+            type="com.vvm.sh.ui.atividadesPendentes.relatorios.propostaPlanoAccao.modelos.Proposta" />
+
 
     </data>
 
@@ -30,13 +30,21 @@
             <TextView
                 android:id="@+id/textView25"
                 style="@style/textoDetalhe"
-
+                android:text="@{StringUtil.converterString(proposta.resultado.id)}"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView106"
+                style="@style/textoDetalhe"
+                android:text="@{StringUtil.converterString(proposta.descricao)}"
+                android:layout_marginStart="16dp"
+                app:layout_constraintStart_toEndOf="@+id/textView25"
+                app:layout_constraintTop_toTopOf="@+id/textView25" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

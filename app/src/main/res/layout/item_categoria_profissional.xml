@@ -12,12 +12,12 @@
 
         <variable
             name="categoria"
-            type="com.vvm.sh.baseDados.entidades.CategoriaProfissionalResultado" />
-<!--
+            type="com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.modelos.CategoriaProfissional" />
+
         <variable
             name="listener"
-            type="com.vvm.sh.ui.atividadesPendentes.relatorios.OnFormacaoListener"/>
--->
+            type="com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.adaptadores.OnLevantamentoListener.OnCategoriaProfissionalListener"/>
+
     </data>
 
 
@@ -36,7 +36,7 @@
                 style="@style/tituloCartao"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-
+                android:text="@{categoria.descricao}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -51,7 +51,7 @@
             <TextView
                 android:id="@+id/textView3"
                 style="@style/textoDetalhe"
-                android:text="@{StringUtil.converterString(categoria.homens), default=homens}"
+                android:text="@{StringUtil.converterString(categoria.categoria.homens), default=homens}"
                 app:layout_constraintStart_toStartOf="@+id/textView67"
                 app:layout_constraintTop_toTopOf="@+id/textView2" />
 
@@ -71,7 +71,7 @@
                     android:id="@+id/chip"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-
+                    completudeRelatorio="@{categoria.valido}"
                     android:theme="@style/Theme.MaterialComponents.Light" />
 
 
@@ -82,7 +82,7 @@
 
             <TextView
                 android:id="@+id/textView37"
-                android:text="@{StringUtil.converterString(categoria.id), default=id}"
+                android:text="@{StringUtil.converterString(categoria.resultado.id), default=id}"
                 android:visibility="@{BuildConfig.DEBUG ? View.VISIBLE : View.GONE}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -103,7 +103,7 @@
                 android:id="@+id/textView67"
                 style="@style/textoDetalhe"
                 android:layout_marginStart="16dp"
-                android:text="@{StringUtil.converterString(categoria.mulheres), default=mulheres}"
+                android:text="@{StringUtil.converterString(categoria.categoria.mulheres), default=mulheres}"
                 app:layout_constraintBottom_toBottomOf="@+id/textView65"
                 app:layout_constraintStart_toEndOf="@+id/textView65"
                 app:layout_constraintTop_toTopOf="@+id/textView65" />

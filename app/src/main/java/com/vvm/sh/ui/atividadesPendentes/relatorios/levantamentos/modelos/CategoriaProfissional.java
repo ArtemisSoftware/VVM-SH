@@ -12,4 +12,7 @@ public class CategoriaProfissional {
 
     @ColumnInfo(name = "descricao")
     public String descricao;
+
+    @ColumnInfo(name = "valido")
+    public boolean valido;
 }

@@ -102,7 +102,7 @@ public class LevantamentoRepositorio {
     }
 
 
-    public Maybe<RelatorioLevantamento> obterRelatorio(int id){
+    public Observable<RelatorioLevantamento> obterRelatorio(int id){
         return levantamentoDao.obterRelatorio(id);
     }
 

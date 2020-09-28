@@ -50,7 +50,7 @@ public class CategoriasProfissionaisActivity extends BaseDaggerActivity
 
         if(bundle != null) {
 
-            int id = bundle.getInt(getString(R.string.argumento_id));
+            int id = bundle.getInt(getString(R.string.argumento_id_atividade));
             viewModel.obterCategoriasProfissionais(id);
         }
         else{

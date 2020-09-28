@@ -89,6 +89,7 @@ import com.vvm.sh.databinding.ItemOcorrenciaRegistoBindingImpl;
 import com.vvm.sh.databinding.ItemOpcaoClienteBindingImpl;
 import com.vvm.sh.databinding.ItemPendenciaBindingImpl;
 import com.vvm.sh.databinding.ItemPesquisaBindingImpl;
+import com.vvm.sh.databinding.ItemPlanoAcaoProgramacaoBindingImpl;
 import com.vvm.sh.databinding.ItemPlanoAccaoMedidasAvaliacaoBindingImpl;
 import com.vvm.sh.databinding.ItemPlanoAccaoStBindingImpl;
 import com.vvm.sh.databinding.ItemRiscoBindingImpl;
@@ -273,21 +274,23 @@ public class DataBinderMapperImpl extends DataBinderMapper {
 
   private static final int LAYOUT_ITEMPESQUISA = 83;
 
-  private static final int LAYOUT_ITEMPLANOACCAOMEDIDASAVALIACAO = 84;
+  private static final int LAYOUT_ITEMPLANOACAOPROGRAMACAO = 84;
 
-  private static final int LAYOUT_ITEMPLANOACCAOST = 85;
+  private static final int LAYOUT_ITEMPLANOACCAOMEDIDASAVALIACAO = 85;
 
-  private static final int LAYOUT_ITEMRISCO = 86;
+  private static final int LAYOUT_ITEMPLANOACCAOST = 86;
 
-  private static final int LAYOUT_ITEMTIPO = 87;
+  private static final int LAYOUT_ITEMRISCO = 87;
 
-  private static final int LAYOUT_ITEMTRABALHADORVULNERAVEL = 88;
+  private static final int LAYOUT_ITEMTIPO = 88;
 
-  private static final int LAYOUT_ITEMTRABALHOREALIZADO = 89;
+  private static final int LAYOUT_ITEMTRABALHADORVULNERAVEL = 89;
 
-  private static final int LAYOUT_ITEMUPLOAD = 90;
+  private static final int LAYOUT_ITEMTRABALHOREALIZADO = 90;
 
-  private static final SparseIntArray INTERNAL_LAYOUT_ID_LOOKUP = new SparseIntArray(90);
+  private static final int LAYOUT_ITEMUPLOAD = 91;
+
+  private static final SparseIntArray INTERNAL_LAYOUT_ID_LOOKUP = new SparseIntArray(91);
 
   static {
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.vvm.sh.R.layout.activity_acao_formacao, LAYOUT_ACTIVITYACAOFORMACAO);
@@ -373,6 +376,7 @@ public class DataBinderMapperImpl extends DataBinderMapper {
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.vvm.sh.R.layout.item_opcao_cliente, LAYOUT_ITEMOPCAOCLIENTE);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.vvm.sh.R.layout.item_pendencia, LAYOUT_ITEMPENDENCIA);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.vvm.sh.R.layout.item_pesquisa, LAYOUT_ITEMPESQUISA);
+    INTERNAL_LAYOUT_ID_LOOKUP.put(com.vvm.sh.R.layout.item_plano_acao_programacao, LAYOUT_ITEMPLANOACAOPROGRAMACAO);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.vvm.sh.R.layout.item_plano_accao_medidas_avaliacao, LAYOUT_ITEMPLANOACCAOMEDIDASAVALIACAO);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.vvm.sh.R.layout.item_plano_accao_st, LAYOUT_ITEMPLANOACCAOST);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.vvm.sh.R.layout.item_risco, LAYOUT_ITEMRISCO);
@@ -890,6 +894,12 @@ public class DataBinderMapperImpl extends DataBinderMapper {
         }
         throw new IllegalArgumentException("The tag for item_pesquisa is invalid. Received: " + tag);
       }
+      case  LAYOUT_ITEMPLANOACAOPROGRAMACAO: {
+        if ("layout/item_plano_acao_programacao_0".equals(tag)) {
+          return new ItemPlanoAcaoProgramacaoBindingImpl(component, view);
+        }
+        throw new IllegalArgumentException("The tag for item_plano_acao_programacao is invalid. Received: " + tag);
+      }
       case  LAYOUT_ITEMPLANOACCAOMEDIDASAVALIACAO: {
         if ("layout/item_plano_accao_medidas_avaliacao_0".equals(tag)) {
           return new ItemPlanoAccaoMedidasAvaliacaoBindingImpl(component, view);
@@ -1037,7 +1047,7 @@ public class DataBinderMapperImpl extends DataBinderMapper {
   }
 
   private static class InnerLayoutIdLookup {
-    static final HashMap<String, Integer> sKeys = new HashMap<String, Integer>(90);
+    static final HashMap<String, Integer> sKeys = new HashMap<String, Integer>(91);
 
     static {
       sKeys.put("layout/activity_acao_formacao_0", com.vvm.sh.R.layout.activity_acao_formacao);
@@ -1123,6 +1133,7 @@ public class DataBinderMapperImpl extends DataBinderMapper {
       sKeys.put("layout/item_opcao_cliente_0", com.vvm.sh.R.layout.item_opcao_cliente);
       sKeys.put("layout/item_pendencia_0", com.vvm.sh.R.layout.item_pendencia);
       sKeys.put("layout/item_pesquisa_0", com.vvm.sh.R.layout.item_pesquisa);
+      sKeys.put("layout/item_plano_acao_programacao_0", com.vvm.sh.R.layout.item_plano_acao_programacao);
       sKeys.put("layout/item_plano_accao_medidas_avaliacao_0", com.vvm.sh.R.layout.item_plano_accao_medidas_avaliacao);
       sKeys.put("layout/item_plano_accao_st_0", com.vvm.sh.R.layout.item_plano_accao_st);
       sKeys.put("layout/item_risco_0", com.vvm.sh.R.layout.item_risco);

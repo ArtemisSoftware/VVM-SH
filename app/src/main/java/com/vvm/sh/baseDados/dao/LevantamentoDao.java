@@ -40,7 +40,7 @@ abstract public class LevantamentoDao implements BaseDao<LevantamentoRiscoResult
     @Query("SELECT id, 0 as numeroCategoriasProfissionais, " +
             "CASE WHEN tarefa IS NULL OR perigo IS NULL THEN 0  ELSE 1 END as validadePerigoTarefa " +
             "FROM levantamentosRiscoResultado  WHERE id = :id")
-    abstract public Maybe<RelatorioLevantamento> obterRelatorio(int id);
+    abstract public Observable<RelatorioLevantamento> obterRelatorio(int id);
 
 
     @Query("SELECT * FROM levantamentosRiscoResultado  WHERE id = :id")

@@ -41,7 +41,7 @@ public class PerigoTarefaActivity extends BaseDaggerActivity {
 
         if(bundle != null) {
 
-            int id = bundle.getInt(getString(R.string.argumento_id));
+            int id = bundle.getInt(getString(R.string.argumento_id_atividade));
             viewModel.obterLevantamento(id);
         }
         else{

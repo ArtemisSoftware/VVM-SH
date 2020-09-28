@@ -212,20 +212,19 @@ public class LevantamentosViewModel extends BaseViewModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
 
-                        new MaybeObserver<RelatorioLevantamento>() {
+                        new Observer<RelatorioLevantamento>() {
                             @Override
                             public void onSubscribe(Disposable d) {
 
                             }
 
                             @Override
-                            public void onSuccess(RelatorioLevantamento registo) {
+                            public void onNext(RelatorioLevantamento registo) {
                                 relatorio.setValue(registo);
                             }
 
                             @Override
                             public void onError(Throwable e) {
-
                                 RelatorioLevantamento registo = new RelatorioLevantamento();
                                 relatorio.setValue(registo);
                             }

@@ -155,6 +155,7 @@ public class LevantamentosActivity extends BaseDaggerActivity
     public void card_perigo_tarefa_OnClickListener(View view) {
 
         Bundle bundle = getIntent().getExtras();
+        int idAtividade = bundle.getInt(getString(R.string.argumento_id_atividade));
 
         Intent intent = new Intent(this, PerigoTarefaActivity.class);
         intent.putExtras(bundle);
@@ -166,6 +167,8 @@ public class LevantamentosActivity extends BaseDaggerActivity
     public void card_categorias_profissionais_OnClickListener(View view) {
 
         Bundle bundle = getIntent().getExtras();
+        int idAtividade = bundle.getInt(getString(R.string.argumento_id_atividade));
+        //bundle.putInt();
 
         Intent intent = new Intent(this, CategoriasProfissionaisActivity.class);
         intent.putExtras(bundle);

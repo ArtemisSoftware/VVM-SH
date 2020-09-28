@@ -43,7 +43,10 @@ public class PropostaPlanoAcaoResultado {
 
 
     //CAMPO_ID +" INTEGER," +
-    //CAMPO_ID_MEDIDA + " TEXT," +
+
+
+    @ColumnInfo(name = "idMedida", defaultValue = Identificadores.VALOR_0 + "")
+    public int idMedida;
 
     @ColumnInfo(name = "idNi", defaultValue = Identificadores.VALOR_0 + "")
     public int idNi;

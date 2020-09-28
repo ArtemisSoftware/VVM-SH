@@ -11,6 +11,9 @@ public class Identificadores {
     public static final String SEXO_OMISSAO = "1";
     public static final int ID_FORMACAO_TRABALHO_REALIZADO = 15;
 
+    public static final int ID_PROPOSTA_ST = 1;
+    public static final int ID_PROPOSTA_MEDIDA = 2;
+
 
     public class Origens{
 

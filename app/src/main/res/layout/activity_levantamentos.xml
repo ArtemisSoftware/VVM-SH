@@ -65,7 +65,7 @@
             style="@style/lista"
             android:visibility="visible"
 
-            tools:listitem="@layout/item_ocorrencia"/>
+            tools:listitem="@layout/item_levantamento"/>
 
         <!--
         android:visibility="@{viewmodel.agenda.marcacaos.size() > 0 ? View.VISIBLE : View.GONE}"

@@ -427,4 +427,6 @@
     <string name="categorias_profissionais_mulheres">Categorias profissionais (mulheres)</string>
     <string name="vulnerabilidades">Vulnerabilidades</string>
     <string name="modelo_">Modelo:</string>
+    <string name="riscos_">Riscos:</string>
+    <string name="categorias_profissionais_">Categorias profissionais:</string>
 </resources>

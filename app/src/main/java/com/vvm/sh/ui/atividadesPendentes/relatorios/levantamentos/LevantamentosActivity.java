@@ -12,6 +12,7 @@ import com.vvm.sh.baseDados.entidades.LevantamentoRiscoResultado;
 import com.vvm.sh.databinding.ActivityLevantamentosBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.modelos.Levantamento;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
@@ -20,7 +21,8 @@ import javax.inject.Inject;
 
 import butterknife.OnClick;
 
-public class LevantamentosActivity extends BaseDaggerActivity {
+public class LevantamentosActivity extends BaseDaggerActivity
+    implements OnLevantamentoListener.OnLevantamentoRegistoListener{
 
 
     private ActivityLevantamentosBinding activityLevantamentosBinding;
@@ -105,6 +107,14 @@ public class LevantamentosActivity extends BaseDaggerActivity {
     }
 
 
+    @Override
+    public void OnLevantamentoClick(Levantamento registo) {
+
+        activityLevantamentosBinding.rclRegistos.setVisibility(View.GONE);
+
+
+        activityLevantamentosBinding.lnrLytLevantamento.setVisibility(View.VISIBLE);
+    }
 
     //-----------------------
     //EVENTOS
@@ -125,4 +135,5 @@ public class LevantamentosActivity extends BaseDaggerActivity {
         intent.putExtras(bundle);
         startActivity(intent);
     }
+
 }

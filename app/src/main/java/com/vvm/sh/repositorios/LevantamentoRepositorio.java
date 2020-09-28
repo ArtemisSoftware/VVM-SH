@@ -8,6 +8,7 @@ import com.vvm.sh.baseDados.dao.ResultadoDao;
 import com.vvm.sh.baseDados.dao.TipoDao;
 import com.vvm.sh.baseDados.entidades.CategoriaProfissionalResultado;
 import com.vvm.sh.baseDados.entidades.LevantamentoRiscoResultado;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.modelos.Levantamento;
 import com.vvm.sh.util.constantes.Identificadores;
 
 import java.util.List;
@@ -72,7 +73,7 @@ public class LevantamentoRepositorio {
      * @param idAtividade o identificador da atividade
      * @return uma lista de registos
      */
-    public Observable<List<LevantamentoRiscoResultado>> obterLevantamentos(int idAtividade){
+    public Observable<List<Levantamento>> obterLevantamentos(int idAtividade){
         return levantamentoDao.obterLevantamentos(idAtividade);
     }
 

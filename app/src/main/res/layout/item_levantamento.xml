@@ -124,10 +124,10 @@
             <TextView
                 android:id="@+id/textView100"
                 style="@style/textoDetalhe"
-                android:layout_marginTop="8dp"
+                android:layout_marginTop="16dp"
                 android:text="@string/modelo_"
                 app:layout_constraintStart_toStartOf="@+id/textView"
-                app:layout_constraintTop_toBottomOf="@+id/textView98" />
+                app:layout_constraintTop_toBottomOf="@+id/textView104" />
 
             <TextView
                 android:id="@+id/textView101"
@@ -148,6 +148,38 @@
                 android:layout_marginBottom="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
+
+            <TextView
+                android:id="@+id/textView102"
+                style="@style/textoDetalhe"
+                android:layout_marginTop="16dp"
+                android:text="@string/categorias_profissionais_"
+                app:layout_constraintStart_toStartOf="@+id/textView"
+                app:layout_constraintTop_toBottomOf="@+id/textView98" />
+
+            <TextView
+                android:id="@+id/textView103"
+                style="@style/textoDetalhe"
+                android:layout_marginStart="16dp"
+                android:text="@{StringUtil.converterString(levantamento.numeroCategoriasProfissionais)}"
+                app:layout_constraintStart_toEndOf="@+id/textView102"
+                app:layout_constraintTop_toTopOf="@+id/textView102" />
+
+            <TextView
+                android:id="@+id/textView104"
+                style="@style/textoDetalhe"
+                android:layout_marginTop="8dp"
+                android:text="@string/riscos_"
+                app:layout_constraintStart_toStartOf="@+id/textView"
+                app:layout_constraintTop_toBottomOf="@+id/textView102" />
+
+            <TextView
+                android:id="@+id/textView105"
+                style="@style/textoDetalhe"
+                android:layout_marginStart="16dp"
+                android:text="@{StringUtil.converterString(levantamento.numeroRiscos)}"
+                app:layout_constraintStart_toEndOf="@+id/textView104"
+                app:layout_constraintTop_toTopOf="@+id/textView104" />
 
             <!--
 

@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.vvm.sh.baseDados.entidades.CategoriaProfissionalResultado;
 import com.vvm.sh.baseDados.entidades.LevantamentoRiscoResultado;
 import com.vvm.sh.repositorios.LevantamentoRepositorio;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.modelos.Levantamento;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
@@ -26,7 +27,7 @@ public class LevantamentosViewModel extends BaseViewModel {
     private final LevantamentoRepositorio levantamentoRepositorio;
 
 
-    public MutableLiveData<List<LevantamentoRiscoResultado>> levantamentos;
+    public MutableLiveData<List<Levantamento>> levantamentos;
     public MutableLiveData<LevantamentoRiscoResultado> levantamento;
 
     public MutableLiveData<List<CategoriaProfissionalResultado>> categoriasProfissionais;
@@ -163,14 +164,14 @@ public class LevantamentosViewModel extends BaseViewModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
 
-                        new Observer<List<LevantamentoRiscoResultado>>() {
+                        new Observer<List<Levantamento>>() {
                             @Override
                             public void onSubscribe(Disposable d) {
 
                             }
 
                             @Override
-                            public void onNext(List<LevantamentoRiscoResultado> registos) {
+                            public void onNext(List<Levantamento> registos) {
                                 levantamentos.setValue(registos);
                                 showProgressBar(false);
                             }

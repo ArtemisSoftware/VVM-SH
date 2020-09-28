@@ -13,6 +13,12 @@ public class Levantamento {
     @ColumnInfo(name = "modelo")
     public String modelo;
 
+    @ColumnInfo(name = "categoriasProfissionais")
+    public int numeroCategoriasProfissionais;
+
+    @ColumnInfo(name = "riscos")
+    public int numeroRiscos;
+
 
     @ColumnInfo(name = "valido")
     public boolean valido;

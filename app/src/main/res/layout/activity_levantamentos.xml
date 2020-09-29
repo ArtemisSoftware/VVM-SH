@@ -322,6 +322,7 @@
 
                 <androidx.cardview.widget.CardView
                     android:id="@+id/card_riscos"
+                    android:visibility="@{viewmodel.relatorio.id > 0 ? View.VISIBLE : View.GONE}"
                     style="@style/cartaoMini"
                     android:layout_marginTop="32dp"
                     app:layout_constraintStart_toStartOf="@+id/card_perigo_tarefa"

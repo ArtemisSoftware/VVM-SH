@@ -6,7 +6,7 @@ import androidx.room.Embedded;
 import com.vvm.sh.baseDados.entidades.RiscoResultado;
 
 public class Risco {
-    //https://linkvertise.com/57850/vk?o=sharing
+    //https://mega.nz/folder/jqJAlYyL#Js1gkGWstR3F9O3gKrINgw
     @Embedded
     public RiscoResultado resultado;
 

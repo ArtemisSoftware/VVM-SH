@@ -10,12 +10,15 @@ import android.view.View;
 import com.vvm.sh.R;
 import com.vvm.sh.databinding.ActivityRiscosBinding;
 import com.vvm.sh.ui.BaseDaggerActivity;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.adaptadores.OnLevantamentoListener;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.modelos.Risco;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import butterknife.OnClick;
 
-public class RiscosActivity extends BaseDaggerActivity {
+public class RiscosActivity extends BaseDaggerActivity
+    implements OnLevantamentoListener.OnRiscoListener {
 
 
     private ActivityRiscosBinding activityRiscosBinding;
@@ -70,15 +73,25 @@ public class RiscosActivity extends BaseDaggerActivity {
     //-----------------------
 
     @OnClick({R.id.fab_adicionar})
-    public void fab_adicionar_levantamento_OnClickListener(View view) {
+    public void fab_adicionar_OnClickListener(View view) {
 
-//        Pesquisa pesquisa = new Pesquisa(true, TiposUtil.MetodosTipos.CATEGORIAS_PROFISSIONAIS, viewModel.obterRegistosSelecionados());
-//
-//        Bundle bundle = new Bundle();
-//        bundle.putParcelable(getString(R.string.argumento_configuracao_pesquisa), pesquisa);
-//
-//        Intent intent = new Intent(this, PesquisaActivity.class);
-//        intent.putExtras(bundle);
-//        startActivityForResult(intent, Identificadores.CodigoAtividade.PESQUISA);
+        Bundle bundle = getIntent().getExtras();
+        Intent intent = new Intent(this, RiscoRegistoActivity.class);
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
+
+    @Override
+    public void OnRiscoClick(Risco registo) {
+
+        Bundle bundle = getIntent().getExtras();
+        Intent intent = new Intent(this, RiscoRegistoActivity.class);
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
+
+    @Override
+    public void OnRemoverClick(Risco registo) {
+
     }
 }

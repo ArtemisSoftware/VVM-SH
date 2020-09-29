@@ -184,4 +184,18 @@ public class LevantamentosActivity extends BaseDaggerActivity
         intent.putExtras(bundle);
         startActivity(intent);
     }
+
+
+
+    @OnClick({R.id.card_riscos})
+    public void card_riscos_OnClickListener(View view) {
+
+        Bundle bundle = new Bundle();
+        int id = Integer.parseInt(activityLevantamentosBinding.txtIdLevantamento.getText().toString());
+        bundle.putInt(getString(R.string.argumento_id_levantamento), id);
+
+        Intent intent = new Intent(this, RiscosActivity.class);
+        intent.putExtras(bundle);
+        startActivity(intent);
+    }
 }

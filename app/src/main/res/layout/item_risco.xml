@@ -136,7 +136,7 @@
                 android:id="@+id/textView71"
                 style="@style/textoDetalhe"
                 android:layout_marginStart="16dp"
-                android:text="@{risco.consequencias, default=consequencias}"
+                android:text="@{risco.resultado.consequencias, default=consequencias}"
                 app:layout_constraintBottom_toBottomOf="@+id/textView70"
                 app:layout_constraintStart_toEndOf="@+id/textView70"
                 app:layout_constraintTop_toTopOf="@+id/textView70" />

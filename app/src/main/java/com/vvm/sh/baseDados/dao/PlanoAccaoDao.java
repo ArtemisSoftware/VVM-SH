@@ -7,6 +7,8 @@ import com.vvm.sh.baseDados.BaseDao;
 import com.vvm.sh.baseDados.entidades.PlanoAcao;
 import com.vvm.sh.baseDados.entidades.PlanoAcaoAtividade;
 import com.vvm.sh.baseDados.entidades.PlanoAccaoResultado;
+import com.vvm.sh.ui.planoAccao.AtividadeRegisto;
+import com.vvm.sh.util.constantes.Identificadores;
 
 import java.util.List;
 
@@ -78,11 +80,22 @@ abstract public class PlanoAccaoDao implements BaseDao<PlanoAccaoResultado> {
     query += "WHERE idTarefa = ?   ";
     query += "GROUP BY descricaoSimples  ";
     query += "ORDER BY fixo ASC  ";
-
-
-
-
-    @Query("SELECT * FROM planoAcao WHERE idTarefa = :idTarefa")
-    abstract public Observable<List<PlanoAcaoAtividade>> obterAtividades(int idTarefa);
 */
+
+
+
+    @Query("SELECT *,  " +
+            "CASE " +
+            "WHEN sempreNecessario = 1   THEN " + Identificadores.TIPO_3 + " "+
+            "WHEN observacao IS NOT NULL THEN " + Identificadores.TIPO_2 + " "+
+            "ELSE " + Identificadores.TIPO_1 + " END as tipo, " +
+            "" +
+            "CASE WHEN sempreNecessario = 1   THEN 'Sempre necessário'  " +
+            "WHEN observacao IS NOT NULL THEN observacao  " +
+            "ELSE '' END as nota  " +
+            "" +
+            "FROM planoAcaoAtividade as pl_acao " +
+            "WHERE idTarefa = :idTarefa")
+    abstract public Observable<List<AtividadeRegisto>> obterAtividades(int idTarefa);
+
 }

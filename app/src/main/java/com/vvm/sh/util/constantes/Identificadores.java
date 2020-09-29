@@ -14,6 +14,9 @@ public class Identificadores {
     public static final int ID_PROPOSTA_ST = 1;
     public static final int ID_PROPOSTA_MEDIDA = 2;
 
+    public static final int TIPO_1 = 1;
+    public static final int TIPO_2 = 2;
+    public static final int TIPO_3 = 3;
 
     public class Origens{
 

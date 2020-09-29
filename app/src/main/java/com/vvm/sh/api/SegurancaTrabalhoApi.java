@@ -4,6 +4,7 @@ import com.vvm.sh.api.modelos.pedido.ISessao;
 import com.vvm.sh.api.modelos.pedido.ITipoAtividadePlaneavelListagem;
 import com.vvm.sh.api.modelos.pedido.ITipoChecklist;
 import com.vvm.sh.api.modelos.pedido.ITipoListagem;
+import com.vvm.sh.api.modelos.pedido.ITipoTemplateAvrLevantamentoListagem;
 import com.vvm.sh.api.modelos.pedido.IUtilizadorListagem;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.constantes.Sintaxe;
@@ -48,6 +49,15 @@ public interface SegurancaTrabalhoApi {
 
     @GET("GetActivPlaneaveis")
     Single<ITipoAtividadePlaneavelListagem> obterTipoAtividadesPlaneaveis(@HeaderMap Map<String, String> headers, @Query("dataT") String seloTemporal);
+
+
+    @GET("ObterTemplatesAVR_Levantamentos?dataT=")
+    Single<ITipoTemplateAvrLevantamentoListagem> obterTipoTemplatesAVR_Levantamentos(@HeaderMap Map<String, String> headers);
+
+    @GET("ObterTemplatesAVR_Levantamentos")
+    Single<ITipoTemplateAvrLevantamentoListagem> obterTipoTemplatesAVR_Levantamentos(@HeaderMap Map<String, String> headers, @Query("dataT") String seloTemporal);
+
+
 
 
 

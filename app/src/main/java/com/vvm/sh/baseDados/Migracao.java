@@ -29,18 +29,6 @@ public class Migracao {
         @Override
         public void migrate(SupportSQLiteDatabase database) {
             try {
-                database.execSQL("CREATE TABLE IF NOT EXISTS 'propostaPlanoAcaoResultado' ("
-                        + "'idAtividade' INTEGER NOT NULL, "
-                        + "'id' INTEGER PRIMARY KEY NOT NULL, "
-                        + "'origem' INTEGER NOT NULL DEFAULT " + Identificadores.VALOR_0 + " ,  "
-                        + "'idQuestaoChecklis' INTEGER  NOT NULL DEFAULT " + Identificadores.VALOR_0 + " ,  "
-                        + "'idMedida' INTEGER  NOT NULL DEFAULT " + Identificadores.VALOR_0 + " ,  "
-                        + "'idNi' INTEGER  NOT NULL DEFAULT " + Identificadores.VALOR_0 + " ,  "
-                        + "'idPrazo' INTEGER  NOT NULL DEFAULT " + Identificadores.VALOR_0 + " ,  "
-                        + "'selecionado' INTEGER NOT NULL DEFAULT   " + Sintaxe.Codigos.NAO_SELECIONADO + " ,  "
-                        + "FOREIGN KEY (idAtividade) REFERENCES atividadesPendentes (id)  ON DELETE CASCADE)  ");
-
-
 
 
                 database.execSQL("CREATE TABLE IF NOT EXISTS 'riscosResultado' ("

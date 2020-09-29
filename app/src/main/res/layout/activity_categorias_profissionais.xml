@@ -5,11 +5,12 @@
 
     <data>
         <import type="java.util.List"/>
-        <!--
-                <variable
-                    name="listener"
-                    type="com.vvm.sh.ui.ocorrencias.adaptadores.OnOcorrenciaListener"/>
-        -->
+        <import type="android.view.View"/>
+
+        <variable
+            name="listener"
+            type="com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.adaptadores.OnLevantamentoListener.OnCategoriaProfissionalListener"/>
+
         <variable
             name="viewmodel"
             type="com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.LevantamentosViewModel"/>
@@ -34,12 +35,12 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:visibility="visible"
+            android:visibility="@{viewmodel.categoriasProfissionais.size() == 0 ? View.VISIBLE : View.GONE}"
             android:orientation="vertical"
             android:gravity="center"
             android:layout_gravity="center">
 
-            <!-- android:visibility="@{viewmodel.agenda.marcacaos.size() == 0 ? View.VISIBLE : View.GONE}"  -->
+            <!--  -->
 
             <ImageView
                 android:layout_width="200dp"
@@ -60,8 +61,9 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcl_registos"
             style="@style/lista"
-            android:visibility="gone"
-
+            android:visibility="@{viewmodel.categoriasProfissionais.size() > 0 ? View.VISIBLE : View.GONE}"
+            categorias="@{viewmodel.categoriasProfissionais}"
+            listener="@{listener}"
             tools:listitem="@layout/item_categoria_profissional"/>
 
         <!--

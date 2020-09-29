@@ -47,15 +47,12 @@ public class RiscoResultado {
     @NonNull
     public int nc;
 
-//TODO: completar
+    @NonNull
     public int idTipoRisco;
 
 
     @NonNull
     public int origem;
 
-
-    //CAMPO_ORIGEM + " INTEGER DEFAULT " + IdentificadoresIF.ORIGEM_DADOS_BD + ", " +
-    //CAMPO_ID_TIPO_RISCO + " TEXT, " +
 
 }

@@ -45,7 +45,6 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:id="@+id/txt_inp_mulheres"
                 style="@style/modifiedEditText"
-                android:enabled="false"
 
                 android:inputType="number"
                 android:maxLines="1"/>

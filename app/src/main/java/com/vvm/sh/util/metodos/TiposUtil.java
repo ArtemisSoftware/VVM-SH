@@ -29,6 +29,9 @@ public class TiposUtil {
 
     private static class MetodosTiposSH{
 
+
+        public static final String ATIVIDADES_PLANEAVEIS = "GetActivPlaneaveis";
+
         public static final String ATIVIDADES_RELATORIO_VISITA = "ObterActividadesRelatorioVisita";
 
         public static final String CATEGORIAS_PROFISSIONAIS = "GetCategoriasProfissionais";
@@ -54,6 +57,10 @@ public class TiposUtil {
 
     public static class MetodosTipos{
 
+
+        public static final String ATIVIDADES_PLANEAVEIS = "Atividades_Planeaveis";
+        public static final String ATIVIDADES_RELATORIO_VISITA = "Atividades_Relatorio_Visita";
+
         public static final String CROSS_SELLING_PRODUTOS = "CrossSelling_Produtos";
         public static final String CROSS_SELLING_DIMENSAO = "CrossSelling_Dimensao";
         public static final String CROSS_SELLING_TIPO = "CrossSelling_Tipo";
@@ -63,7 +70,6 @@ public class TiposUtil {
 
 
 
-        public static final String ATIVIDADES_RELATORIO_VISITA = "Atividades_Relatorio_Visita";
 
         public static final String CATEGORIAS_PROFISSIONAIS = "Categorias_Profissionais";
         public static final String CHECKLIST = "CheckList";
@@ -84,20 +90,22 @@ public class TiposUtil {
 
         public static final String ILUMINANCIA = "Iluminancia";
 
+
         public static final MetodoApi METODO_ATIVIDADES_RELATORIO_VISITA = new MetodoApi(ATIVIDADES_RELATORIO_VISITA, null, MetodosTiposSH.ATIVIDADES_RELATORIO_VISITA);
+
         public static final MetodoApi METODO_CATEGORIAS_PROFISSIONAIS = new MetodoApi(CATEGORIAS_PROFISSIONAIS, null, MetodosTiposSH.CATEGORIAS_PROFISSIONAIS);
         public static final MetodoApi METODO_CHECKLIST = new MetodoApi(CHECKLIST, null, MetodosTiposSH.CHECKLIST);
         public static final MetodoApi METODO_CONDICOES_CLIMATERICAS = new MetodoApi(CONDICOES_CLIMATERICAS, null, MetodosTiposSH.CONDICOES_CLIMATERICAS);
         public static final MetodoApi METODO_CONCLUSAO_MEDIDAS_RECOMENDADAS = new MetodoApi(CONCLUSAO_MEDIDAS_RECOMENDADAS, null, MetodosTiposSH.CONCLUSAO_MEDIDAS_RECOMENDADAS);
         public static final MetodoApi METODO_CURSOS = new MetodoApi(CURSOS, MetodosTiposSA.CURSOS, MetodosTiposSH.CURSOS);
+
         public static final MetodoApi METODO_ILUMINANCIA = new MetodoApi(ILUMINANCIA, null, MetodosTiposSH.ILUMINANCIA);
-        public static final MetodoApi METODO_TIPOS_AREA = new MetodoApi(TIPOS_AREA, null, MetodosTiposSH.TIPOS_AREA);
 
         public static final MetodoApi METODO_TEMPLATE_AVALIACAO_RISCOS = new MetodoApi(TEMPLATE_AVALIACAO_RISCOS, null, MetodosTiposSH.TEMPLATE_AVALIACAO_RISCOS);
+        public static final MetodoApi METODO_TIPOS_AREA = new MetodoApi(TIPOS_AREA, null, MetodosTiposSH.TIPOS_AREA);
         public static final MetodoApi METODO_TIPOS_CHECKLIST = new MetodoApi(TIPOS_CHECKLIST, null, MetodosTiposSH.TIPOS_CHECKLIST);
         public static final MetodoApi METODO_TIPOS_ILUMINACAO = new MetodoApi(TIPOS_ILUMINACAO, null, MetodosTiposSH.TIPOS_ILUMINACAO);
         public static final MetodoApi METODO_TIPOS_NI = new MetodoApi(TIPOS_NI, null, MetodosTiposSH.TIPOS_NI);
-
         public static final MetodoApi METODO_TIPOS_UTS = new MetodoApi(TIPOS_UTS, null, MetodosTiposSH.TIPOS_UTS);
         public static final MetodoApi METODO_TIPOS_VULNERABILIDADES = new MetodoApi(TIPOS_VULNERABILIDADES, null, MetodosTiposSH.TIPOS_VULNERABILIDADES);
 //
@@ -197,7 +205,6 @@ public class TiposUtil {
 
                 metodo.sa = MetodosTiposSA.TIPIFICACAO_OCORRENCIA;
                 break;
-
 
 
 

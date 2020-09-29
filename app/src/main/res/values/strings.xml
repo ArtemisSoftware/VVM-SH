@@ -429,4 +429,6 @@
     <string name="modelo_">Modelo:</string>
     <string name="riscos_">Riscos:</string>
     <string name="categorias_profissionais_">Categorias profissionais:</string>
+    <string name="adicionar_modelo">Adicionar modelo</string>
+    <string name="adicionar_levantamento">Adicionar levantamento</string>
 </resources>

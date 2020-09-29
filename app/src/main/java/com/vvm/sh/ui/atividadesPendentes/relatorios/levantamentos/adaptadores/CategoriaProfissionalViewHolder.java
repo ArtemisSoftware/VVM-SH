@@ -45,7 +45,7 @@ public class CategoriaProfissionalViewHolder extends RecyclerView.ViewHolder
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
 
         menu.setHeaderTitle(Sintaxe.Palavras.OPCOES);
-        MenuItem remover = menu.add(Menu.NONE, 2, 2, Sintaxe.Palavras.REMOVER);
+        MenuItem remover = menu.add(Menu.NONE, 1, 1, Sintaxe.Palavras.REMOVER);
 
         remover.setOnMenuItemClickListener(this);
     }

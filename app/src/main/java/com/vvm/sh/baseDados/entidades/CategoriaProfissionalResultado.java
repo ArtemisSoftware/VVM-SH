@@ -64,4 +64,6 @@ public class CategoriaProfissionalResultado {
         this.mulheres = mulheres;
         this.origem = origem;
     }
+
+
 }

@@ -85,6 +85,7 @@ public class LevantamentosActivity extends BaseDaggerActivity
 
         activityLevantamentosBinding.rclRegistos.setVisibility(View.GONE);
         activityLevantamentosBinding.lnrLytLevantamento.setVisibility(View.VISIBLE);
+        activityLevantamentosBinding.fabMenu.setVisibility(View.GONE);
 
         int id = 0;
 
@@ -151,6 +152,15 @@ public class LevantamentosActivity extends BaseDaggerActivity
         initLevantamento(null);
     }
 
+
+    @OnClick({R.id.card_levantamento})
+    public void card_levantamento_OnClickListener(View view) {
+
+        activityLevantamentosBinding.rclRegistos.setVisibility(View.VISIBLE);
+        activityLevantamentosBinding.lnrLytLevantamento.setVisibility(View.GONE);
+        activityLevantamentosBinding.fabMenu.setVisibility(View.VISIBLE);
+    }
+
     @OnClick({R.id.card_perigo_tarefa})
     public void card_perigo_tarefa_OnClickListener(View view) {
 
@@ -166,9 +176,9 @@ public class LevantamentosActivity extends BaseDaggerActivity
     @OnClick({R.id.card_categorias_profissionais})
     public void card_categorias_profissionais_OnClickListener(View view) {
 
-        Bundle bundle = getIntent().getExtras();
-        int idAtividade = bundle.getInt(getString(R.string.argumento_id_atividade));
-        //bundle.putInt();
+        Bundle bundle = new Bundle();
+        int id = Integer.parseInt(activityLevantamentosBinding.txtIdLevantamento.getText().toString());
+        bundle.putInt(getString(R.string.argumento_id_levantamento), id);
 
         Intent intent = new Intent(this, CategoriasProfissionaisActivity.class);
         intent.putExtras(bundle);

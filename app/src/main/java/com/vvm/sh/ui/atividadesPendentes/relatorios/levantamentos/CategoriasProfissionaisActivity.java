@@ -12,6 +12,7 @@ import com.vvm.sh.baseDados.entidades.CategoriaProfissionalResultado;
 import com.vvm.sh.databinding.ActivityCategoriasProfissionaisBinding;
 import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.adaptadores.OnLevantamentoListener;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.modelos.CategoriaProfissional;
 import com.vvm.sh.ui.pesquisa.Pesquisa;
 import com.vvm.sh.ui.pesquisa.PesquisaActivity;
 import com.vvm.sh.util.constantes.Identificadores;
@@ -41,6 +42,7 @@ public class CategoriasProfissionaisActivity extends BaseDaggerActivity
         activityCategoriasProfissionaisBinding = (ActivityCategoriasProfissionaisBinding) activityBinding;
         activityCategoriasProfissionaisBinding.setLifecycleOwner(this);
         activityCategoriasProfissionaisBinding.setViewmodel(viewModel);
+        activityCategoriasProfissionaisBinding.setListener(this);
         activityCategoriasProfissionaisBinding.setBloquear(PreferenciasUtil.agendaEditavel(this));
 
 
@@ -50,7 +52,7 @@ public class CategoriasProfissionaisActivity extends BaseDaggerActivity
 
         if(bundle != null) {
 
-            int id = bundle.getInt(getString(R.string.argumento_id_atividade));
+            int id = bundle.getInt(getString(R.string.argumento_id_levantamento));
             viewModel.obterCategoriasProfissionais(id);
         }
         else{
@@ -75,10 +77,17 @@ public class CategoriasProfissionaisActivity extends BaseDaggerActivity
     }
 
     @Override
-    public void OnCategoriaProfissionalClick(CategoriaProfissionalResultado registo) {
+    public void OnCategoriaProfissionalClick(CategoriaProfissional registo) {
 
         DialogoCategoriasProfissionais dialogo = DialogoCategoriasProfissionais.newInstance(registo);
         dialogo.show(getSupportFragmentManager(), "Dialogo");
+    }
+
+
+    @Override
+    public void OnRemoverClick(CategoriaProfissional categoria) {
+
+        viewModel.remover(categoria.categoria);
     }
 
 
@@ -89,7 +98,7 @@ public class CategoriasProfissionaisActivity extends BaseDaggerActivity
     @OnClick({R.id.fab_adicionar})
     public void fab_adicionar_levantamento_OnClickListener(View view) {
 
-        Pesquisa pesquisa = new Pesquisa(true, TiposUtil.MetodosTipos.CATEGORIAS_PROFISSIONAIS, viewModel.obterRegistosSelecionados());
+        Pesquisa pesquisa = new Pesquisa(true, TiposUtil.MetodosTipos.CATEGORIAS_PROFISSIONAIS/*, viewModel.obterRegistosSelecionados()*/);
 
         Bundle bundle = new Bundle();
         bundle.putParcelable(getString(R.string.argumento_configuracao_pesquisa), pesquisa);
@@ -111,8 +120,12 @@ public class CategoriasProfissionaisActivity extends BaseDaggerActivity
 
                 ArrayList<Integer> resultado = data.getIntegerArrayListExtra(getString(R.string.resultado_pesquisa));
 
-                //--viewModel.fixarCategoriasProfissionais(resultado);
+                Bundle bundle = getIntent().getExtras();
+                int id = bundle.getInt(getString(R.string.argumento_id_levantamento));
+                viewModel.gravarCategoriasProfissionais(id, resultado);
             }
         }
     }
+
+
 }

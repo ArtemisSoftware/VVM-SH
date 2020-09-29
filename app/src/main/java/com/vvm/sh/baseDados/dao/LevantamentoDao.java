@@ -8,6 +8,7 @@ import com.vvm.sh.baseDados.entidades.LevantamentoRiscoResultado;
 import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.modelos.Levantamento;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.modelos.RelatorioLevantamento;
+import com.vvm.sh.util.constantes.Identificadores;
 
 import java.util.List;
 
@@ -22,9 +23,15 @@ abstract public class LevantamentoDao implements BaseDao<LevantamentoRiscoResult
 
 
 
-    @Query("SELECT *, 'lolo' as modelo, 0 as categoriasProfissionais, 0 as riscos, 0 as valido " +
-//            "CASE WHEN validadePerigoTarefa = 1 THEN 1 ELSE 0 END as valido " +
+    @Query("SELECT *, 'lolo' as modelo, count_categorias as categoriasProfissionais, 0 as riscos, " +
+            //"CASE WHEN validadePerigoTarefa = 1 THEN 1 ELSE 0 END as valido " +
+            "0 as valido " +
             "FROM levantamentosRiscoResultado as lv_riscos_res " +
+
+
+            "LEFT JOIN (SELECT idRegisto, COUNT(*) as count_categorias FROM categoriasProfissionaisResultado WHERE origem = " + Identificadores.Origens.LEVANTAMENTO_CATEGORIAS_PROFISSIONAIS + " GROUP BY idRegisto) " +
+            "as ct_categorias ON lv_riscos_res.id = ct_categorias.idRegisto " +
+
 
 //            "LEFT JOIN (" +
 //            "SELECT id, " +
@@ -37,9 +44,25 @@ abstract public class LevantamentoDao implements BaseDao<LevantamentoRiscoResult
 
 
 
-    @Query("SELECT id, 0 as numeroCategoriasProfissionais, " +
-            "CASE WHEN tarefa IS NULL OR perigo IS NULL THEN 0  ELSE 1 END as validadePerigoTarefa " +
-            "FROM levantamentosRiscoResultado  WHERE id = :id")
+    @Query("SELECT id, 0 as numeroRiscos, " +
+            "CASE WHEN tarefa IS NULL OR perigo IS NULL THEN 0  ELSE 1 END as validadePerigoTarefa, " +
+            "vald_categorias_prof.valido as validadeCategoriasProfissionais, count_categorias as numeroCategoriasProfissionais " +
+            "FROM levantamentosRiscoResultado as lv_risco_res " +
+            "" +
+            "LEFT JOIN( " +
+            "SELECT idRegisto, CASE WHEN COUNT(VALIDO) = SUM(VALIDO) AND COUNT(VALIDO) > 0 THEN 1 ELSE 0 END valido " +
+            "FROM( " +
+            "SELECT idRegisto, CASE WHEN (homens = 0 AND mulheres = 0) OR (homens IS NULL AND mulheres IS NULL) THEN 0 ELSE 1 END as valido " +
+            "FROM categoriasProfissionaisResultado " +
+            "WHERE origem = " + Identificadores.Origens.LEVANTAMENTO_CATEGORIAS_PROFISSIONAIS + " AND idRegisto = :id " +
+            ")" +
+            "GROUP BY idRegisto   " +
+            ") as vald_categorias_prof ON lv_risco_res.id = vald_categorias_prof.idRegisto " +
+
+            "LEFT JOIN (SELECT idRegisto, COUNT(*) as count_categorias FROM categoriasProfissionaisResultado WHERE origem = " + Identificadores.Origens.LEVANTAMENTO_CATEGORIAS_PROFISSIONAIS + " GROUP BY idRegisto) " +
+            "as ct_categorias ON lv_risco_res.id = ct_categorias.idRegisto " +
+            "" +
+            "WHERE lv_risco_res.id = :id")
     abstract public Observable<RelatorioLevantamento> obterRelatorio(int id);
 
 

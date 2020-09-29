@@ -9,6 +9,7 @@ import com.vvm.sh.baseDados.dao.TipoDao;
 import com.vvm.sh.baseDados.entidades.CategoriaProfissionalResultado;
 import com.vvm.sh.baseDados.entidades.LevantamentoRiscoResultado;
 import com.vvm.sh.baseDados.entidades.Tipo;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.modelos.CategoriaProfissional;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.modelos.Levantamento;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.modelos.RelatorioLevantamento;
 import com.vvm.sh.util.constantes.Identificadores;
@@ -64,6 +65,15 @@ public class LevantamentoRepositorio {
 
 
     /**
+     * Metodo que permite inserir registos
+     * @param registos os dados
+     * @return o resultado da operação
+     */
+    public Single<List<Long>> inserir(List<CategoriaProfissionalResultado> registos){
+        return categoriaProfissionalDao.inserir(registos);
+    }
+
+    /**
      * Metodo que permite atualizar um registo
      * @param registo os dados
      * @return o resultado da operação
@@ -97,8 +107,8 @@ public class LevantamentoRepositorio {
      * @param id o identificador do registo ao qual as categorias profissionais pertencem
      * @return os registos
      */
-    public Observable<List<CategoriaProfissionalResultado>> obterCategoriasProfissionais(int id){
-        return categoriaProfissionalDao.obterCategoriasProfissionais(id, Identificadores.Origens.LEVANTAMENTO_CATEGORIAS_PROFISSIONAIS) ;
+    public Observable<List<CategoriaProfissional>> obterCategoriasProfissionais(int id){
+        return categoriaProfissionalDao.obterCategoriasProfissionais(id, idApi, Identificadores.Origens.LEVANTAMENTO_CATEGORIAS_PROFISSIONAIS) ;
     }
 
 
@@ -113,5 +123,9 @@ public class LevantamentoRepositorio {
      */
     public Single<List<Tipo>> obterModelos(int idAtividade){
         return levantamentoDao.obterModelos(idAtividade, TiposUtil.MetodosTipos.TEMPLATE_AVALIACAO_RISCOS, idApi);
+    }
+
+    public Single<Integer> remover(CategoriaProfissionalResultado categoria) {
+        return categoriaProfissionalDao.remover(categoria);
     }
 }

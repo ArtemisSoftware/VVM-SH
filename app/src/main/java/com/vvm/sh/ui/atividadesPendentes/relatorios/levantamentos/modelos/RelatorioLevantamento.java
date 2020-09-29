@@ -12,13 +12,18 @@ public class RelatorioLevantamento {
     @ColumnInfo(name = "numeroCategoriasProfissionais")
     public int numeroCategoriasProfissionais;
 
+    @ColumnInfo(name = "numeroRiscos")
+    public int numeroRiscos;
+
     @ColumnInfo(name = "validadePerigoTarefa")
     public boolean validadePerigoTarefa;
 
-    //@ColumnInfo(name = "validadeCategoriasProfissionais")
-    @Ignore
+    @ColumnInfo(name = "validadeCategoriasProfissionais")
     public boolean validadeCategoriasProfissionais;
 
+
+    @Ignore
+    public boolean validadeRiscos;
 
     @Ignore
     public boolean valido;

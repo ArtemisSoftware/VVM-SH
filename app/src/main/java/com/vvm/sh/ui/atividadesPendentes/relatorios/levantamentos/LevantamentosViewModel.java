@@ -6,9 +6,11 @@ import com.vvm.sh.baseDados.entidades.CategoriaProfissionalResultado;
 import com.vvm.sh.baseDados.entidades.LevantamentoRiscoResultado;
 import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.repositorios.LevantamentoRepositorio;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.modelos.CategoriaProfissional;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.modelos.Levantamento;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.modelos.RelatorioLevantamento;
 import com.vvm.sh.util.Recurso;
+import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
@@ -36,7 +38,7 @@ public class LevantamentosViewModel extends BaseViewModel {
 
     public MutableLiveData<LevantamentoRiscoResultado> levantamento;
 
-    public MutableLiveData<List<CategoriaProfissionalResultado>> categoriasProfissionais;
+    public MutableLiveData<List<CategoriaProfissional>> categoriasProfissionais;
 
 
 
@@ -116,6 +118,55 @@ public class LevantamentosViewModel extends BaseViewModel {
     }
 
 
+
+    public void gravarCategoriasProfissionais(int idRegisto, ArrayList<Integer> resultado) {
+
+
+        List<CategoriaProfissionalResultado> registos = new ArrayList<>();
+
+        for(Integer id : resultado) {
+
+            boolean existe = false;
+
+            for (CategoriaProfissional item : categoriasProfissionais.getValue()) {
+
+                if (id == item.categoria.idCategoriaProfissional){
+                    existe = true;
+                }
+            }
+
+            if(existe == false){
+                registos.add(new CategoriaProfissionalResultado(idRegisto, id, Identificadores.Origens.LEVANTAMENTO_CATEGORIAS_PROFISSIONAIS));
+            }
+        }
+
+
+        levantamentoRepositorio.inserir(registos)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        new SingleObserver<List<Long>>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+
+                            }
+
+                            @Override
+                            public void onSuccess(List<Long> longs) {
+                                messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_GRAVADOS_SUCESSO));
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+                        }
+                );
+
+
+        //TODO: remover atividade pendente + adicionar resultado
+    }
+
     /**
      * Metodo que permite atualizar uma categoria profissional
      * @param registo os dados a atualizar
@@ -153,6 +204,35 @@ public class LevantamentosViewModel extends BaseViewModel {
         //TODO: remover atividade pendente + adicionar resultado
     }
 
+
+    public void remover(CategoriaProfissionalResultado categoria) {
+
+        levantamentoRepositorio.remover(categoria)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new SingleObserver<Integer>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+
+                            }
+
+                            @Override
+                            public void onSuccess(Integer integer) {
+                                messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_REMOVIDOS_SUCESSO));
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+                        }
+
+                );
+
+        //TODO: remover atividade pendente + adicionar resultado
+    }
 
     //--------------------
     //OBTER
@@ -282,14 +362,14 @@ public class LevantamentosViewModel extends BaseViewModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
 
-                        new Observer<List<CategoriaProfissionalResultado>>() {
+                        new Observer<List<CategoriaProfissional>>() {
                             @Override
                             public void onSubscribe(Disposable d) {
 
                             }
 
                             @Override
-                            public void onNext(List<CategoriaProfissionalResultado> registos) {
+                            public void onNext(List<CategoriaProfissional> registos) {
 
                                 categoriasProfissionais.setValue(registos);
                             }
@@ -343,22 +423,6 @@ public class LevantamentosViewModel extends BaseViewModel {
                 );
     }
 
-
-    public List<Integer> obterRegistosSelecionados() {
-
-
-        List<Integer> registos = new ArrayList<>();
-
-
-        for (CategoriaProfissionalResultado item : categoriasProfissionais.getValue()) {
-
-            registos.add(item.idCategoriaProfissional);
-        }
-
-
-        return registos;
-
-    }
 
 
 }

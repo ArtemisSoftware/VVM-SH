@@ -25,6 +25,99 @@ public class Migracao {
 
 
 
+    public static final Migration MIGRACAO_23_24 = new Migration(23, 24) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            try {
+                database.execSQL("CREATE TABLE IF NOT EXISTS 'propostaPlanoAcaoResultado' ("
+                        + "'idAtividade' INTEGER NOT NULL, "
+                        + "'id' INTEGER PRIMARY KEY NOT NULL, "
+                        + "'origem' INTEGER NOT NULL DEFAULT " + Identificadores.VALOR_0 + " ,  "
+                        + "'idQuestaoChecklis' INTEGER  NOT NULL DEFAULT " + Identificadores.VALOR_0 + " ,  "
+                        + "'idMedida' INTEGER  NOT NULL DEFAULT " + Identificadores.VALOR_0 + " ,  "
+                        + "'idNi' INTEGER  NOT NULL DEFAULT " + Identificadores.VALOR_0 + " ,  "
+                        + "'idPrazo' INTEGER  NOT NULL DEFAULT " + Identificadores.VALOR_0 + " ,  "
+                        + "'selecionado' INTEGER NOT NULL DEFAULT   " + Sintaxe.Codigos.NAO_SELECIONADO + " ,  "
+                        + "FOREIGN KEY (idAtividade) REFERENCES atividadesPendentes (id)  ON DELETE CASCADE)  ");
+
+
+
+
+                database.execSQL("CREATE TABLE IF NOT EXISTS 'riscosResultado' ("
+                        + "'idLevantamento' INTEGER NOT NULL, "
+                        + "'id' INTEGER PRIMARY KEY NOT NULL, "
+
+
+                        + "'idRisco' INTEGER NOT NULL, "
+                        + "'idRiscoEspecifico' INTEGER NOT NULL, "
+                        + "'id' INTEGER NOT NULL, "
+                        + "'consequencias' TEXT NOT NULL, "
+
+
+                        + "'nd' INTEGER NOT NULL, "
+                        + "'ne' INTEGER NOT NULL, "
+                        + "'nc' INTEGER NOT NULL, "
+
+                        + "'idTipoRisco' INTEGER NOT NULL, "
+                        + "'origem' INTEGER NOT NULL DEFAULT " + Identificadores.Origens.ORIGEM_BD + " ,  "
+                        + "FOREIGN KEY (idLevantamento) REFERENCES levantamentosRiscoResultado (id)  ON DELETE CASCADE)  ");
+
+                database.execSQL("CREATE INDEX index_riscosResultado_idLevantamento ON riscosResultado (idLevantamento)");
+
+
+
+/*
+
+                        GetActivPlaneaveis
+                        actividadesPlaneaveis
+                CAMPO_ACTIVIDADES_PLANEAVEIS_CODIGO + " TEXT ," +
+                        CAMPO_ACTIVIDADES_PLANEAVEIS_SERVID + " TEXT ," +
+                        CAMPO_ACTIVIDADES_PLANEAVEIS_DESCRICAO + " TEXT," +
+                        CAMPO_ACTIVIDADES_PLANEAVEIS_DESCRICAO_COMPLETA + " TEXT," +
+                        CAMPO_ACTIVIDADES_PLANEAVEIS_EQUIPA + " TEXT," +
+                        CAMPO_ACTIVIDADES_PLANEAVEIS_SEMPRE_NECESSARIO + " TEXT," +
+                        CAMPO_ACTIVIDADES_PLANEAVEIS_ORDEM + " TEXT," +
+                        CAMPO_ACTIVIDADES_PLANEAVEIS_RELATORIO + " TEXT," +
+                        CAMPO_ACTIVIDADES_PLANEAVEIS_OBSERVACAO + " TEXT," +
+                        CAMPO_ACTIVIDADES_PLANEAVEIS_ACTIVO + " TEXT" +
+
+                        {"Codigo":"","ServID":"2226","Descricao":"Aconselhamento sobre EPP\u0027s e Sinalização de Segurança","DescricaoCompleta":"Aconselhamento pelo Técnico de Segurança do Trabalho e pelo Médico de Trabalho sobre Equipamentos de Protecção Individual/Pessoal e Colectiva e sobre Sinalização de Segurança . Na visita às instalações, o Técnico de Segurança do Trabalho dá indicação sobre quais os equipamentos de protecção colectiva a implementar nas instalações e sobre quais os Equipamentos de Protecção Individual/Pessoal a disponibilizar aos trabalhadores, assim como acerca da sinalização de segurança que deve existir nas instalações. O Médico do Trabalho, analisa as sugestões do Técnico de Segurança e efectua os aconselhamentos em consulta.","Equipa":"Técnico de Segurança no Trabalho, Médico do Trabalho","SempreNecessario":"0","Ordem":"2","IsRelatorio":"0","OBS":null,"Activo":"1"}
+
+
+
+                        ObterTemplatesAVR_Levantamentos
+                        levantamentosRisco
+                CAMPO_ID + " TEXT ," +
+                        CAMPO_ID_MODELO + " TEXT ," +
+                        CAMPO_ACTIVO + " TEXT ," +
+                        CAMPO_LEVANTAMENTOS_RISCO_TAREFA + " TEXT ," +
+                        CAMPO_LEVANTAMENTOS_RISCO_PERIGO + " TEXT," +
+                        CAMPO_LEVANTAMENTOS_RISCO_DETALHE + " TEXT" +
+                        {"Id":"59","Tarefa":"Atendimento a clientes","Perigo":"Atos antissociais decorrentes do contacto com clientes ou fornecedores","ParentId":"1","Activo":"1","detailData":""}
+
+                ObterTemplatesAVR_Riscos
+                        riscos
+                CAMPO_ID + " TEXT ," +
+                        CAMPO_ACTIVO + " TEXT ," +
+                        CAMPO_RISCOS_ID_LEVANTAMENTO + " TEXT," +
+                        CAMPO_RISCOS_ID_RISCO + " TEXT," +
+                        CAMPO_RISCOS_ID_RISCO_ESPECIFICO + " TEXT," +
+                        CAMPO_RISCOS_CONSEQUENCIAS + " TEXT," +
+                        CAMPO_RISCOS_MEDIDAS_EXISTENTES + " TEXT," +
+                        CAMPO_RISCOS_MEDIDAS_RECOMENDADAS + " TEXT" +
+                        {"Id":"452","idRisco":"10","idRiscoEspecifico":"104","Consequencias":"Danos pessoais (queimaduras) e perdas patrimoniais","Activo":"1","ParentId":"119","MedidasExistentes":["9278","9279","9281","9287","9290","9735"],"MedidasRecomendadas":["7853","7854","7856","7862","7865","8123"]}
+                        */
+            }
+            catch(SQLException | IllegalStateException e){
+                Log.e("Migracao", "erro MIGRACAO_23_24: " + e.getMessage());
+                //Timber.e("erro MIGRACAO_2_3: " + e.getMessage());
+            }
+        }
+    };
+
+
+
+
     public static final Migration MIGRACAO_22_23 = new Migration(22, 23) {
         @Override
         public void migrate(SupportSQLiteDatabase database) {

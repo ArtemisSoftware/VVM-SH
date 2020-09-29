@@ -46,18 +46,13 @@ public class Migracao {
                 database.execSQL("CREATE TABLE IF NOT EXISTS 'riscosResultado' ("
                         + "'idLevantamento' INTEGER NOT NULL, "
                         + "'id' INTEGER PRIMARY KEY NOT NULL, "
-
-
                         + "'idRisco' INTEGER NOT NULL, "
                         + "'idRiscoEspecifico' INTEGER NOT NULL, "
                         + "'id' INTEGER NOT NULL, "
                         + "'consequencias' TEXT NOT NULL, "
-
-
                         + "'nd' INTEGER NOT NULL, "
                         + "'ne' INTEGER NOT NULL, "
                         + "'nc' INTEGER NOT NULL, "
-
                         + "'idTipoRisco' INTEGER NOT NULL, "
                         + "'origem' INTEGER NOT NULL DEFAULT " + Identificadores.Origens.ORIGEM_BD + " ,  "
                         + "FOREIGN KEY (idLevantamento) REFERENCES levantamentosRiscoResultado (id)  ON DELETE CASCADE)  ");
@@ -66,24 +61,23 @@ public class Migracao {
 
 
 
+                database.execSQL("CREATE TABLE IF NOT EXISTS 'tiposAtividadesPlaneaveis' ("
+                        + "'id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
+                        + "'codigo' TEXT , "
+                        + "'servId' TEXT NOT NULL, "
+                        + "'descricao' TEXT NOT NULL, "
+                        + "'descricaoCompleta' TEXT NOT NULL, "
+                        + "'equipa' TEXT NOT NULL, "
+                        + "'sempreNecessario' INTEGER, "
+                        + "'ordem' INTEGER, "
+                        + "'relatorio' INTEGER, "
+                        + "'observacao' TEXT , "
+                        + "'ativo' INTEGER NOT NULL) ");
+
+
+
+
 /*
-
-                        GetActivPlaneaveis
-                        actividadesPlaneaveis
-                CAMPO_ACTIVIDADES_PLANEAVEIS_CODIGO + " TEXT ," +
-                        CAMPO_ACTIVIDADES_PLANEAVEIS_SERVID + " TEXT ," +
-                        CAMPO_ACTIVIDADES_PLANEAVEIS_DESCRICAO + " TEXT," +
-                        CAMPO_ACTIVIDADES_PLANEAVEIS_DESCRICAO_COMPLETA + " TEXT," +
-                        CAMPO_ACTIVIDADES_PLANEAVEIS_EQUIPA + " TEXT," +
-                        CAMPO_ACTIVIDADES_PLANEAVEIS_SEMPRE_NECESSARIO + " TEXT," +
-                        CAMPO_ACTIVIDADES_PLANEAVEIS_ORDEM + " TEXT," +
-                        CAMPO_ACTIVIDADES_PLANEAVEIS_RELATORIO + " TEXT," +
-                        CAMPO_ACTIVIDADES_PLANEAVEIS_OBSERVACAO + " TEXT," +
-                        CAMPO_ACTIVIDADES_PLANEAVEIS_ACTIVO + " TEXT" +
-
-                        {"Codigo":"","ServID":"2226","Descricao":"Aconselhamento sobre EPP\u0027s e Sinalização de Segurança","DescricaoCompleta":"Aconselhamento pelo Técnico de Segurança do Trabalho e pelo Médico de Trabalho sobre Equipamentos de Protecção Individual/Pessoal e Colectiva e sobre Sinalização de Segurança . Na visita às instalações, o Técnico de Segurança do Trabalho dá indicação sobre quais os equipamentos de protecção colectiva a implementar nas instalações e sobre quais os Equipamentos de Protecção Individual/Pessoal a disponibilizar aos trabalhadores, assim como acerca da sinalização de segurança que deve existir nas instalações. O Médico do Trabalho, analisa as sugestões do Técnico de Segurança e efectua os aconselhamentos em consulta.","Equipa":"Técnico de Segurança no Trabalho, Médico do Trabalho","SempreNecessario":"0","Ordem":"2","IsRelatorio":"0","OBS":null,"Activo":"1"}
-
-
 
                         ObterTemplatesAVR_Levantamentos
                         levantamentosRisco

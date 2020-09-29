@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.vvm.sh.repositorios.PlanoAccaoRepositorio;
 import com.vvm.sh.ui.planoAccao.modelo.AtividadeRegisto;
+import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import java.util.List;
 
@@ -14,7 +15,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-public class PlanoAccaoViewModel {
+public class PlanoAccaoViewModel extends BaseViewModel {
 
     private final PlanoAccaoRepositorio planoAccaoRepositorio;
     public MutableLiveData<List<AtividadeRegisto>> atividades;

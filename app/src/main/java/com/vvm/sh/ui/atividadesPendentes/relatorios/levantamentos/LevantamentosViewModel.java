@@ -400,14 +400,14 @@ public class LevantamentosViewModel extends BaseViewModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
 
-                        new Observer<List<RiscoResultado>>() {
+                        new Observer<List<Risco>>() {
                             @Override
                             public void onSubscribe(Disposable d) {
 
                             }
 
                             @Override
-                            public void onNext(List<RiscoResultado> registos) {
+                            public void onNext(List<Risco> registos) {
                                 riscos.setValue(registos);
                             }
 

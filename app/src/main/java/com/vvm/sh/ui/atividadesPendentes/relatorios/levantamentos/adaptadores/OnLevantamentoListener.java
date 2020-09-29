@@ -3,6 +3,7 @@ package com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.adaptadores;
 import com.vvm.sh.baseDados.entidades.CategoriaProfissionalResultado;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.modelos.CategoriaProfissional;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.modelos.Levantamento;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.modelos.Risco;
 
 public interface OnLevantamentoListener {
 
@@ -25,4 +26,11 @@ public interface OnLevantamentoListener {
         void OnRemoverClick(CategoriaProfissional categoria);
     }
 
+
+    public interface OnRiscoListener{
+
+        void OnRiscoClick(Risco registo);
+
+        void OnRemoverClick(Risco registo);
+    }
 }

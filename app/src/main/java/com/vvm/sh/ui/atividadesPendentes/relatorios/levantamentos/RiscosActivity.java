@@ -40,8 +40,8 @@ public class RiscosActivity extends BaseDaggerActivity {
 
         if(bundle != null) {
 
-            int id = bundle.getInt(getString(R.string.argumento_id));
-            viewModel.obterCategoriasProfissionais(id);
+            int id = bundle.getInt(getString(R.string.argumento_id_levantamento));
+            viewModel.obteRiscos(id);
         }
         else{
             finish();

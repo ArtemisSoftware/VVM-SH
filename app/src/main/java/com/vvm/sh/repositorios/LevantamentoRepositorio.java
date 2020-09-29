@@ -14,6 +14,7 @@ import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.modelos.CategoriaProfissional;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.modelos.Levantamento;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.modelos.RelatorioLevantamento;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.modelos.Risco;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.metodos.TiposUtil;
 
@@ -122,7 +123,7 @@ public class LevantamentoRepositorio {
     }
 
 
-    public Observable<List<RiscoResultado>> obterRiscos(int id){
+    public Observable<List<Risco>> obterRiscos(int id){
         return riscoDao.obterRiscos(id);
     }
 

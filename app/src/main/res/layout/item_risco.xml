@@ -12,12 +12,12 @@
 
         <variable
             name="risco"
-            type="com.vvm.sh.baseDados.entidades.RiscoResultado" />
-        <!--
-                <variable
-                    name="listener"
-                    type="com.vvm.sh.ui.atividadesPendentes.relatorios.OnFormacaoListener"/>
-        -->
+            type="com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.modelos.Risco" />
+
+        <variable
+            name="listener"
+            type="com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.adaptadores.OnLevantamentoListener.OnRiscoListener"/>
+
     </data>
 
 
@@ -63,7 +63,7 @@
                 android:id="@+id/textView3"
                 style="@style/textoDetalhe"
                 android:layout_marginStart="16dp"
-
+                android:text="@{risco.risco, default=risco}"
                 app:layout_constraintStart_toEndOf="@+id/textView2"
                 app:layout_constraintTop_toTopOf="@+id/textView2" />
 

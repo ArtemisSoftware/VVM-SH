@@ -16,7 +16,7 @@ public class ITipoTemplateAvrLevantamento {
 
 
     @SerializedName("ParentId")
-    public String idPai;
+    public String idModelo;
 
     @SerializedName("Activo")
     public int ativo;

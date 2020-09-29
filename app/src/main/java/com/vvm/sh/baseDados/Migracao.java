@@ -64,6 +64,13 @@ public class Migracao {
 
 
 
+                database.execSQL("CREATE TABLE IF NOT EXISTS 'tiposTemplateAvrLevantamentos' ("
+                        + "'id' INTEGER PRIMARY KEY, "
+                        + "'idModelo' INTEGER NOT NULL , "
+                        + "'servId' TEXT NOT NULL, "
+                        + "'tarefa' TEXT NOT NULL, "
+                        + "'perigo' TEXT NOT NULL, "
+                        + "'ativo' INTEGER NOT NULL) ");
 
 /*
 

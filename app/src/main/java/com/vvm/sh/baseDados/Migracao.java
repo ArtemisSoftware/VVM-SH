@@ -72,27 +72,23 @@ public class Migracao {
                         + "'perigo' TEXT NOT NULL, "
                         + "'ativo' INTEGER NOT NULL) ");
 
-/*
+
+                database.execSQL("CREATE TABLE IF NOT EXISTS 'tiposTemplateAvrRiscos' ("
+                        + "'id' INTEGER PRIMARY KEY, "
+                        + "'idLevantamento' INTEGER NOT NULL , "
+                        + "'idRisco' INTEGER NOT NULL, "
+                        + "'idRiscoEspecifico' INTEGER NOT NULL, "
+                        + "'consequencias' TEXT NOT NULL, "
+                        + "'ativo' INTEGER NOT NULL) ");
 
 
-                ObterTemplatesAVR_Riscos
-                        riscos
-                CAMPO_ID + " TEXT ," +
-                        CAMPO_ACTIVO + " TEXT ," +
-                        CAMPO_RISCOS_ID_LEVANTAMENTO + " TEXT," +
-                        CAMPO_RISCOS_ID_RISCO + " TEXT," +
-                        CAMPO_RISCOS_ID_RISCO_ESPECIFICO + " TEXT," +
-                        CAMPO_RISCOS_CONSEQUENCIAS + " TEXT," +
-                        CAMPO_RISCOS_MEDIDAS_EXISTENTES + " TEXT," +
-                        CAMPO_RISCOS_MEDIDAS_RECOMENDADAS + " TEXT" +
-                        {"Id":"452","idRisco":"10","idRiscoEspecifico":"104","Consequencias":"Danos pessoais (queimaduras) e perdas patrimoniais","Activo":"1","ParentId":"119","MedidasExistentes":["9278","9279","9281","9287","9290","9735"],"MedidasRecomendadas":["7853","7854","7856","7862","7865","8123"]}
+                database.execSQL("CREATE TABLE IF NOT EXISTS 'tiposTemplatesAVRMedidasRisco' ("
+                        + "'id' INTEGER NOT NULL, "
+                        + "'origem' INTEGER NOT NULL , "
+                        + "'idMedida' INTEGER NOT NULL, "
+                        + "PRIMARY KEY (id, origem, idMedida), "
+                        + "FOREIGN KEY (id) REFERENCES tiposTemplateAvrRiscos (id)  ON DELETE CASCADE)  ");
 
-
-TemplatesAVR_MedidasRiscos
-idRisco
-origem
-idMedida
-                        */
 
 
 

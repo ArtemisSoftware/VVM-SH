@@ -58,7 +58,6 @@ public class TiposUtil {
     public static class MetodosTipos{
 
 
-        public static final String ATIVIDADES_PLANEAVEIS = "Atividades_Planeaveis";
         public static final String ATIVIDADES_RELATORIO_VISITA = "Atividades_Relatorio_Visita";
 
         public static final String CROSS_SELLING_PRODUTOS = "CrossSelling_Produtos";

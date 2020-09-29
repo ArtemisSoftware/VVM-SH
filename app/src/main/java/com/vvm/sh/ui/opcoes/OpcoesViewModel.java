@@ -26,6 +26,7 @@ import javax.inject.Inject;
 
 import io.reactivex.ObservableSource;
 import io.reactivex.Observer;
+import io.reactivex.Single;
 import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -249,6 +250,7 @@ public class OpcoesViewModel extends BaseViewModel {
 
 */
 
+        /*templates*/
 
     }
 

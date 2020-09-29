@@ -139,8 +139,21 @@ public class TiposRepositorio {
     }
 
 
-
-
+//    public Single<ITipoChecklist> obterTemplateAvr() throws TipoInexistenteException {
+//
+//        Single.zip(apiST.obterTipoTemplatesAVR_Levantamentos(SegurancaTrabalhoApi.HEADER_TIPO))
+//
+//
+//        List<Observable<ITipoChecklist>> pedidos = new ArrayList<>();
+//
+//        for (int id: ids) {
+//            pedidos.add(apiST.obterChecklist(SegurancaTrabalhoApi.HEADER_TIPO, id +"").toObservable());
+//        }
+//
+//
+//        return Observable.concat(pedidos);
+//    }
+//
 
 
     /**

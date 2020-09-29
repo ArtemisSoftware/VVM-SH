@@ -61,6 +61,8 @@ public interface SegurancaTrabalhoApi {
 
 
 
+
+
     @GET("GetUtilizadores?dataT=")
     Single<IUtilizadorListagem> obterUtilizadores(@HeaderMap Map<String, String> headers);
 

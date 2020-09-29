@@ -15,8 +15,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.atividadesPendentes.relatorios.propostaPlanoAccao.PropostaPlanoAccaoActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".ui.planoAccao.PlanoAccaoActivity"></activity>
+        <activity
+            android:name=".ui.atividadesPendentes.relatorios.propostaPlanoAccao.PropostaPlanoAccaoActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.atividadesPendentes.relatorios.trabalhadoresVulneraveis.TrabalhadorVulneravelRegistoActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -40,11 +42,14 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ui.atividadesPendentes.relatorios.levantamentos.RiscoRegistoActivity" />
         <activity android:name=".ui.atividadesPendentes.relatorios.levantamentos.RiscosActivity" />
-        <activity android:name=".ui.atividadesPendentes.relatorios.levantamentos.CategoriasProfissionaisActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
-        <activity android:name=".ui.atividadesPendentes.relatorios.levantamentos.PerigoTarefaActivity"
+        <activity
+            android:name=".ui.atividadesPendentes.relatorios.levantamentos.CategoriasProfissionaisActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ui.atividadesPendentes.relatorios.levantamentos.LevantamentosActivity"
+        <activity
+            android:name=".ui.atividadesPendentes.relatorios.levantamentos.PerigoTarefaActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity
+            android:name=".ui.atividadesPendentes.relatorios.levantamentos.LevantamentosActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ui.atividadesPendentes.relatorios.avaliacaoAmbiental.AvaliacaoTemperaturaHumidadeRegistoActivity" />
         <activity

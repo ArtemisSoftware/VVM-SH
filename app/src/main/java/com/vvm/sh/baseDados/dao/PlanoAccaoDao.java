@@ -5,7 +5,6 @@ import androidx.room.Query;
 
 import com.vvm.sh.baseDados.BaseDao;
 import com.vvm.sh.baseDados.entidades.PlanoAcao;
-import com.vvm.sh.baseDados.entidades.PlanoAcaoAtividade;
 import com.vvm.sh.baseDados.entidades.PlanoAccaoResultado;
 import com.vvm.sh.ui.planoAccao.AtividadeRegisto;
 import com.vvm.sh.util.constantes.Identificadores;

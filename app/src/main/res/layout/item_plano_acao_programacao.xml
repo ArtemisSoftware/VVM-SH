@@ -9,11 +9,11 @@
     <data>
 
         <import type="com.vvm.sh.util.metodos.DatasUtil"/>
-<!--
+
         <variable
-            name="anomalia"
-            type="com.vvm.sh.baseDados.entidades.Anomalia" />
--->
+            name="atividade"
+            type="com.vvm.sh.ui.planoAccao.modelo.AtividadeRegisto" />
+
     </data>
 
 
@@ -41,11 +41,13 @@
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
                     android:gravity="center_vertical"
+                    android:text="@{atividade.atividade.descricao}"
                     android:textSize="12sp" />
 
 
                 <TextView
                     android:id="@+id/txt_view_equipa"
+                    android:text="@{atividade.atividade.equipaSst}"
                     android:layout_width="140dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -56,6 +58,7 @@
 
                 <TextView
                     android:id="@+id/txt_view_anuidade"
+                    android:text="@{atividade.atividade.anuidade}"
                     android:layout_width="70dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"

@@ -74,15 +74,6 @@ public class Migracao {
 
 /*
 
-                        ObterTemplatesAVR_Levantamentos
-                        levantamentosRisco
-                CAMPO_ID + " TEXT ," +
-                        CAMPO_ID_MODELO + " TEXT ," +
-                        CAMPO_ACTIVO + " TEXT ," +
-                        CAMPO_LEVANTAMENTOS_RISCO_TAREFA + " TEXT ," +
-                        CAMPO_LEVANTAMENTOS_RISCO_PERIGO + " TEXT," +
-                        CAMPO_LEVANTAMENTOS_RISCO_DETALHE + " TEXT" +
-                        {"Id":"59","Tarefa":"Atendimento a clientes","Perigo":"Atos antissociais decorrentes do contacto com clientes ou fornecedores","ParentId":"1","Activo":"1","detailData":""}
 
                 ObterTemplatesAVR_Riscos
                         riscos
@@ -95,7 +86,16 @@ public class Migracao {
                         CAMPO_RISCOS_MEDIDAS_EXISTENTES + " TEXT," +
                         CAMPO_RISCOS_MEDIDAS_RECOMENDADAS + " TEXT" +
                         {"Id":"452","idRisco":"10","idRiscoEspecifico":"104","Consequencias":"Danos pessoais (queimaduras) e perdas patrimoniais","Activo":"1","ParentId":"119","MedidasExistentes":["9278","9279","9281","9287","9290","9735"],"MedidasRecomendadas":["7853","7854","7856","7862","7865","8123"]}
+
+
+TemplatesAVR_MedidasRiscos
+idRisco
+origem
+idMedida
                         */
+
+
+
             }
             catch(SQLException | IllegalStateException e){
                 Log.e("Migracao", "erro MIGRACAO_23_24: " + e.getMessage());

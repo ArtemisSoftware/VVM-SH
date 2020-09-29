@@ -1,4 +1,4 @@
-package com.vvm.sh.ui.planoAccao;
+package com.vvm.sh.ui.planoAccao.modelo;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Embedded;

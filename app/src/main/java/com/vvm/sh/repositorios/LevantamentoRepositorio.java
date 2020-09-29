@@ -5,9 +5,11 @@ import androidx.annotation.NonNull;
 import com.vvm.sh.baseDados.dao.CategoriaProfissionalDao;
 import com.vvm.sh.baseDados.dao.LevantamentoDao;
 import com.vvm.sh.baseDados.dao.ResultadoDao;
+import com.vvm.sh.baseDados.dao.RiscoDao;
 import com.vvm.sh.baseDados.dao.TipoDao;
 import com.vvm.sh.baseDados.entidades.CategoriaProfissionalResultado;
 import com.vvm.sh.baseDados.entidades.LevantamentoRiscoResultado;
+import com.vvm.sh.baseDados.entidades.RiscoResultado;
 import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.modelos.CategoriaProfissional;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.modelos.Levantamento;
@@ -27,17 +29,20 @@ public class LevantamentoRepositorio {
     private final int idApi;
     private final LevantamentoDao levantamentoDao;
     private final CategoriaProfissionalDao categoriaProfissionalDao;
+    private final RiscoDao riscoDao;
 
     private final TipoDao tipoDao;
     public final ResultadoDao resultadoDao;
 
 
     public LevantamentoRepositorio(int idApi, @NonNull LevantamentoDao levantamentoDao, @NonNull CategoriaProfissionalDao categoriaProfissionalDao,
+                                   @NonNull RiscoDao riscoDao,
                                    @NonNull TipoDao tipoDao, @NonNull ResultadoDao resultadoDao) {
 
         this.idApi = idApi;
 
         this.levantamentoDao = levantamentoDao;
+        this.riscoDao = riscoDao;
         this.categoriaProfissionalDao = categoriaProfissionalDao;
 
 
@@ -114,6 +119,11 @@ public class LevantamentoRepositorio {
 
     public Observable<RelatorioLevantamento> obterRelatorio(int id){
         return levantamentoDao.obterRelatorio(id);
+    }
+
+
+    public Observable<List<RiscoResultado>> obterRiscos(int id){
+        return riscoDao.obterRiscos(id);
     }
 
 

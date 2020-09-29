@@ -4,11 +4,13 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.vvm.sh.baseDados.entidades.CategoriaProfissionalResultado;
 import com.vvm.sh.baseDados.entidades.LevantamentoRiscoResultado;
+import com.vvm.sh.baseDados.entidades.RiscoResultado;
 import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.repositorios.LevantamentoRepositorio;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.modelos.CategoriaProfissional;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.modelos.Levantamento;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.modelos.RelatorioLevantamento;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.modelos.Risco;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.constantes.Sintaxe;
@@ -41,6 +43,8 @@ public class LevantamentosViewModel extends BaseViewModel {
     public MutableLiveData<List<CategoriaProfissional>> categoriasProfissionais;
 
 
+    public MutableLiveData<List<Risco>> riscos;
+
 
     @Inject
     public LevantamentosViewModel(LevantamentoRepositorio levantamentoRepositorio){
@@ -51,6 +55,7 @@ public class LevantamentosViewModel extends BaseViewModel {
         levantamento = new MutableLiveData<>();
         categoriasProfissionais = new MutableLiveData<>();
         modelos = new MutableLiveData<>();
+        riscos = new MutableLiveData<>();
 
     }
 
@@ -388,7 +393,37 @@ public class LevantamentosViewModel extends BaseViewModel {
                 );
     }
 
+    public void obteRiscos(int id) {
 
+        levantamentoRepositorio.obterRiscos(id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new Observer<List<RiscoResultado>>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+
+                            }
+
+                            @Override
+                            public void onNext(List<RiscoResultado> registos) {
+                                riscos.setValue(registos);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+
+                            @Override
+                            public void onComplete() {
+
+                            }
+                        }
+
+                );
+    }
 
     //---------------------
     //MISC

@@ -25,6 +25,9 @@ import com.vvm.sh.di.atividadesPendentes.levantamentos.LevantamentosViewModelsMo
 import com.vvm.sh.di.atividadesPendentes.trabalhadoresVulneraveis.TrabalhadoresVulneraveisModule;
 import com.vvm.sh.di.atividadesPendentes.trabalhadoresVulneraveis.TrabalhadoresVulneraveisScope;
 import com.vvm.sh.di.atividadesPendentes.trabalhadoresVulneraveis.TrabalhadoresVulneraveisViewModelsModule;
+import com.vvm.sh.di.planoAccao.PlanoAccaoModule;
+import com.vvm.sh.di.planoAccao.PlanoAccaoScope;
+import com.vvm.sh.di.planoAccao.PlanoAccaoViewModelsModule;
 import com.vvm.sh.di.registoVisita.RegistoVisitaModule;
 import com.vvm.sh.di.registoVisita.RegistoVisitaScope;
 import com.vvm.sh.di.registoVisita.RegistoVisitaViewModelsModule;
@@ -66,6 +69,7 @@ import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.LevantamentosA
 import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.PerigoTarefaActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.trabalhadoresVulneraveis.TrabalhadorVulneravelRegistoActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.trabalhadoresVulneraveis.TrabalhadoresVulneraveisActivity;
+import com.vvm.sh.ui.planoAccao.PlanoAccaoActivity;
 import com.vvm.sh.ui.registoVisita.DadosClienteActivity;
 import com.vvm.sh.ui.registoVisita.DialogoTrabalhoRealizado;
 import com.vvm.sh.ui.registoVisita.RegistoVisitaActivity;
@@ -116,6 +120,39 @@ public abstract class ActivityBuildersModule {
             modules = { AutenticacaoViewModelsModule.class, AutenticacaoModule.class }
     )
     abstract AutenticacaoActivity contributeAutenticacaoActivity();
+
+
+
+    @OpcoesScope
+    @ContributesAndroidInjector(
+            modules = { OpcoesViewModelsModule.class, OpcoesModule.class }
+    )
+    abstract AtualizacaoAppActivity contributeAtualizacaoAppActivity();
+
+
+    @OpcoesScope
+    @ContributesAndroidInjector(
+            modules = { OpcoesViewModelsModule.class, OpcoesModule.class }
+    )
+    abstract TiposActivity contributeTiposActivity();
+
+
+    @TransferenciasScope
+    @ContributesAndroidInjector(
+            modules = { TransferenciasViewModelsModule.class, TransferenciasModule.class }
+    )
+    abstract UploadTrabalhoActivity contributeUploadActivity();
+
+
+    @TransferenciasScope
+    @ContributesAndroidInjector(
+            modules = { TransferenciasViewModelsModule.class, TransferenciasModule.class }
+    )
+    abstract DownloadTrabalhoActivity contributeTrabalhoActivity();
+
+
+
+
 
     @AutenticacaoScope
     @ContributesAndroidInjector(
@@ -514,32 +551,16 @@ public abstract class ActivityBuildersModule {
 
 
 
-    @OpcoesScope
+    //----------------------
+    //Plano Accao
+    //----------------------
+
+
+    @PlanoAccaoScope
     @ContributesAndroidInjector(
-            modules = { OpcoesViewModelsModule.class, OpcoesModule.class }
+            modules = { PlanoAccaoViewModelsModule.class, PlanoAccaoModule.class }
     )
-    abstract AtualizacaoAppActivity contributeAtualizacaoAppActivity();
-
-
-    @OpcoesScope
-    @ContributesAndroidInjector(
-            modules = { OpcoesViewModelsModule.class, OpcoesModule.class }
-    )
-    abstract TiposActivity contributeTiposActivity();
-
-
-    @TransferenciasScope
-    @ContributesAndroidInjector(
-            modules = { TransferenciasViewModelsModule.class, TransferenciasModule.class }
-    )
-    abstract UploadTrabalhoActivity contributeUploadActivity();
-
-
-    @TransferenciasScope
-    @ContributesAndroidInjector(
-            modules = { TransferenciasViewModelsModule.class, TransferenciasModule.class }
-    )
-    abstract DownloadTrabalhoActivity contributeTrabalhoActivity();
+    abstract PlanoAccaoActivity contributePlanoAccaoActivity();
 
 
 }

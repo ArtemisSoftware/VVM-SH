@@ -55,6 +55,7 @@ import com.vvm.sh.baseDados.entidades.QuestionarioChecklistResultado;
 import com.vvm.sh.baseDados.entidades.RegistoVisitaResultado;
 import com.vvm.sh.baseDados.entidades.RelatorioAmbientalResultado;
 import com.vvm.sh.baseDados.entidades.Resultado;
+import com.vvm.sh.baseDados.entidades.RiscoResultado;
 import com.vvm.sh.baseDados.entidades.SeccaoChecklist;
 import com.vvm.sh.baseDados.entidades.SinistralidadeResultado;
 import com.vvm.sh.baseDados.entidades.Tarefa;
@@ -66,7 +67,11 @@ import com.vvm.sh.baseDados.entidades.AtividadePendenteResultado;
 import com.vvm.sh.baseDados.entidades.AcaoFormacaoResultado;
 import com.vvm.sh.baseDados.entidades.FormandoResultado;
 import com.vvm.sh.baseDados.dao.TipoDao;
+import com.vvm.sh.baseDados.entidades.TipoAtividadePlaneavel;
 import com.vvm.sh.baseDados.entidades.TipoExtintor;
+import com.vvm.sh.baseDados.entidades.TipoTemplateAvrLevantamento;
+import com.vvm.sh.baseDados.entidades.TipoTemplateAvrRisco;
+import com.vvm.sh.baseDados.entidades.TipoTemplatesAVRMedidaRisco;
 import com.vvm.sh.baseDados.entidades.TrabalhadorVulneravelResultado;
 import com.vvm.sh.baseDados.entidades.TrabalhoRealizadoResultado;
 import com.vvm.sh.baseDados.entidades.Utilizador;
@@ -84,6 +89,7 @@ import com.vvm.sh.baseDados.entidades.EmailResultado;
                     Atualizacao.class, Tipo.class, Utilizador.class,
                     Tarefa.class,
                     CheckList.class, AreaChecklist.class, SeccaoChecklist.class, ItemChecklist.class,
+                    TipoAtividadePlaneavel.class, TipoTemplateAvrLevantamento.class, TipoTemplateAvrRisco.class, TipoTemplatesAVRMedidaRisco.class,
 
                     //Trabalho
 
@@ -104,7 +110,7 @@ import com.vvm.sh.baseDados.entidades.EmailResultado;
                     TrabalhoRealizadoResultado.class, RegistoVisitaResultado.class,
 
                     LevantamentoRiscoResultado.class, ProcessoProdutivoResultado.class, TrabalhadorVulneravelResultado.class,
-                    AreaChecklistResultado.class, QuestionarioChecklistResultado.class, PropostaPlanoAcaoResultado.class,
+                    AreaChecklistResultado.class, QuestionarioChecklistResultado.class, PropostaPlanoAcaoResultado.class, RiscoResultado.class,
                     Resultado.class
             },
             version = BaseDadosContantes.VERSAO

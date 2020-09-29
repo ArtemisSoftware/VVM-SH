@@ -512,6 +512,7 @@ public class TarefaViewModel extends BaseViewModel {
         items.add(OpcaoCliente.parqueExtintores());
         items.add(OpcaoCliente.quadroPessoal());
         items.add(OpcaoCliente.registoVisita());
+        items.add(OpcaoCliente.planoAcao());
 
         opcoesCliente.setValue(items);
     }

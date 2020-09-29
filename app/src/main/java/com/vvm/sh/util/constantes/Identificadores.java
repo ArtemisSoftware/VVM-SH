@@ -129,6 +129,11 @@ public class Identificadores {
         public static final int ICON_REGISTO_VISITA= R.drawable.ic_registo_visita_24dp;
 
 
+        public static final int OPCAO_PLANO_ACAO = 8;
+        public static final String PLANO_ACAO = "Plano de ação";
+        public static final int ICON_PLANO_ACAO= R.drawable.ic_plano_acao;
+
+
         public static final int OPCAO_ANOMALIA = 6;
     }
 

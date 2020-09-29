@@ -7,7 +7,7 @@ import androidx.room.ForeignKey;
 import static androidx.room.ForeignKey.CASCADE;
 
 @Entity(tableName = "tiposTemplatesAVRMedidasRisco",
-        primaryKeys = {"id"},
+        primaryKeys = {"id", "origem", "idMedida"},
         foreignKeys = @ForeignKey(entity = TipoTemplateAvrRisco.class,
                 parentColumns = "id",
                 childColumns = "id",

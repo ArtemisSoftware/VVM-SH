@@ -15,16 +15,18 @@ import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
+import javax.inject.Inject;
+
 public class PlanoAccaoActivity extends BaseDaggerActivity {
 
 
     ActivityPlanoAccaoBinding activityPlanoAccaoBinding;
 
 
-//    @Inject
-//    ViewModelProviderFactory providerFactory;
-//
-//    private PlanoAccaoViewModel viewModel;
+    @Inject
+    ViewModelProviderFactory providerFactory;
+
+    private PlanoAccaoViewModel viewModel;
 
 
 
@@ -41,11 +43,11 @@ public class PlanoAccaoActivity extends BaseDaggerActivity {
     protected void intActivity(Bundle savedInstanceState) {
 
 
-//        viewModel = ViewModelProviders.of(this, providerFactory).get(PlanoAccaoViewModel.class);
+        viewModel = ViewModelProviders.of(this, providerFactory).get(PlanoAccaoViewModel.class);
         activityPlanoAccaoBinding = (ActivityPlanoAccaoBinding) activityBinding;
         activityPlanoAccaoBinding.setLifecycleOwner(this);
-        //activityPlanoAccaoBinding.setViewmodel(viewModel);
-        activityPlanoAccaoBinding.setBloquear(PreferenciasUtil.agendaEditavel(this));
+        activityPlanoAccaoBinding.setViewmodel(viewModel);
+        //activityPlanoAccaoBinding.setBloquear(PreferenciasUtil.agendaEditavel(this));
 
 
         subscreverObservadores();
@@ -54,7 +56,7 @@ public class PlanoAccaoActivity extends BaseDaggerActivity {
 
         if(bundle != null) {
 
-            //--viewModel.obterRegistos(pesquisa.metodo, pesquisa.registosSelecionados);
+            viewModel.obterAtividades(PreferenciasUtil.obterIdTarefa(this));
         }
         else{
             finish();
@@ -70,7 +72,7 @@ public class PlanoAccaoActivity extends BaseDaggerActivity {
 
     @Override
     protected BaseViewModel obterBaseViewModel() {
-        return null;
+        return viewModel;
     }
 
     @Override

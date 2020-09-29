@@ -51,6 +51,9 @@ public class OpcaoCliente {
     public static OpcaoCliente registoVisita() {
         return new OpcaoCliente(OPCAO_REGISTO_VISITA, REGISTO_VISITA, ICON_REGISTO_VISITA, Identificadores.App.APP_ST);
     }
+    public static OpcaoCliente planoAcao() {
+        return new OpcaoCliente(OPCAO_PLANO_ACAO, PLANO_ACAO, ICON_PLANO_ACAO, Identificadores.App.APP_ST);
+    }
 
     @Override
     public boolean equals(Object o) {

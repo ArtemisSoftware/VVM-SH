@@ -16,7 +16,7 @@ public class Migracao {
         Migration migrations [] =  new Migration []{
                 MIGRACAO_1_2, MIGRACAO_2_3, MIGRACAO_3_4, MIGRACAO_4_5, MIGRACAO_5_6, MIGRACAO_6_7, MIGRACAO_7_8, MIGRACAO_8_9, MIGRACAO_9_10, MIGRACAO_10_11,
                 MIGRACAO_11_12, MIGRACAO_12_13, MIGRACAO_13_14, MIGRACAO_14_15, MIGRACAO_15_16, MIGRACAO_16_17, MIGRACAO_17_18, MIGRACAO_18_19, MIGRACAO_19_20,
-                MIGRACAO_20_21, MIGRACAO_21_22, MIGRACAO_22_23
+                MIGRACAO_20_21, MIGRACAO_21_22, MIGRACAO_22_23, MIGRACAO_23_24
 
         };
 
@@ -36,7 +36,6 @@ public class Migracao {
                         + "'id' INTEGER PRIMARY KEY NOT NULL, "
                         + "'idRisco' INTEGER NOT NULL, "
                         + "'idRiscoEspecifico' INTEGER NOT NULL, "
-                        + "'id' INTEGER NOT NULL, "
                         + "'consequencias' TEXT NOT NULL, "
                         + "'nd' INTEGER NOT NULL, "
                         + "'ne' INTEGER NOT NULL, "
@@ -56,16 +55,16 @@ public class Migracao {
                         + "'descricao' TEXT NOT NULL, "
                         + "'descricaoCompleta' TEXT NOT NULL, "
                         + "'equipa' TEXT NOT NULL, "
-                        + "'sempreNecessario' INTEGER, "
-                        + "'ordem' INTEGER, "
-                        + "'relatorio' INTEGER, "
+                        + "'sempreNecessario' INTEGER NOT NULL, "
+                        + "'ordem' INTEGER NOT NULL, "
+                        + "'relatorio' INTEGER NOT NULL, "
                         + "'observacao' TEXT , "
                         + "'ativo' INTEGER NOT NULL) ");
 
 
 
                 database.execSQL("CREATE TABLE IF NOT EXISTS 'tiposTemplateAvrLevantamentos' ("
-                        + "'id' INTEGER PRIMARY KEY, "
+                        + "'id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
                         + "'idModelo' INTEGER NOT NULL , "
                         + "'servId' TEXT NOT NULL, "
                         + "'tarefa' TEXT NOT NULL, "
@@ -74,12 +73,13 @@ public class Migracao {
 
 
                 database.execSQL("CREATE TABLE IF NOT EXISTS 'tiposTemplateAvrRiscos' ("
-                        + "'id' INTEGER PRIMARY KEY, "
+                        + "'id' INTEGER NOT NULL, "
                         + "'idLevantamento' INTEGER NOT NULL , "
                         + "'idRisco' INTEGER NOT NULL, "
                         + "'idRiscoEspecifico' INTEGER NOT NULL, "
                         + "'consequencias' TEXT NOT NULL, "
-                        + "'ativo' INTEGER NOT NULL) ");
+                        + "'ativo' INTEGER NOT NULL, "
+                        + "PRIMARY KEY (id)) ");
 
 
                 database.execSQL("CREATE TABLE IF NOT EXISTS 'tiposTemplatesAVRMedidasRisco' ("

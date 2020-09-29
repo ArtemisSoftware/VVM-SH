@@ -14,6 +14,7 @@ import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.anomalias.AnomaliasActivity;
 import com.vvm.sh.ui.atividadesExecutadas.AtividadesExecutadasActivity;
 import com.vvm.sh.ui.atividadesPendentes.AtividadesPendentesActivity;
+import com.vvm.sh.ui.planoAccao.PlanoAccaoActivity;
 import com.vvm.sh.ui.registoVisita.RegistoVisitaActivity;
 import com.vvm.sh.ui.cliente.InformacaoActivity;
 import com.vvm.sh.ui.cliente.SinistralidadeActivity;
@@ -123,6 +124,11 @@ public class TarefaActivity extends BaseDaggerActivity
                 intent = new Intent(this, RegistoVisitaActivity.class);
                 break;
 
+
+            case Identificadores.OpcoesCliente.OPCAO_PLANO_ACAO:
+
+                intent = new Intent(this, PlanoAccaoActivity.class);
+                break;
 
             case Identificadores.OpcoesCliente.OPCAO_EMAIL:
 

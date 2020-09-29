@@ -21,6 +21,12 @@ public class AnuidadePagerAdapter extends FragmentPagerAdapter {
         super(fm, FragmentPagerAdapter.BEHAVIOR_RESUME_ONLY_CURRENT_FRAGMENT);
     }
 
+
+    public void adicionarFragmento(Fragment fragment){
+        mFragmentList.add(fragment);
+    }
+
+
     @NonNull
     @Override
     public Fragment getItem(int position) {

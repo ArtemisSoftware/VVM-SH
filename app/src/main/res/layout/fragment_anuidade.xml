@@ -6,15 +6,15 @@
     <data>
         <import type="java.util.List"/>
         <import type="android.view.View"/>
-<!--
-        <variable
-            name="listener"
-            type="com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.adaptadores.OnLevantamentoListener.OnCategoriaProfissionalListener"/>
+        <!--
+                <variable
+                    name="listener"
+                    type="com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.adaptadores.OnLevantamentoListener.OnCategoriaProfissionalListener"/>
 
-        <variable
-            name="viewmodel"
-            type="com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.LevantamentosViewModel"/>
--->
+                <variable
+                    name="viewmodel"
+                    type="com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.LevantamentosViewModel"/>
+        -->
 
         <variable
             name="bloquear"

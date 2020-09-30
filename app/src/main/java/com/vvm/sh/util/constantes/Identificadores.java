@@ -14,9 +14,8 @@ public class Identificadores {
     public static final int ID_PROPOSTA_ST = 1;
     public static final int ID_PROPOSTA_MEDIDA = 2;
 
-    public static final int TIPO_1 = 1;
-    public static final int TIPO_2 = 2;
-    public static final int TIPO_3 = 3;
+    public static final int TIPO_DATA = 1;
+    public static final int TIPO_NOTA = 2;
     public static final String PLANO_ACCAO_ATIVIDADE_TOPO = "topo";
     public static final int ID_POSICAO_TOPO = 1;
 

@@ -28,42 +28,32 @@
 
             <LinearLayout
                 android:id="@+id/linearLayout19"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="200dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:gravity="center_vertical"
                 android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
 
                 <TextView
-                    android:id="@+id/txt_view_actividade"
-                    android:layout_width="315dp"
-                    android:layout_height="wrap_content"
+                    style="@style/textoDetalhe"
                     android:layout_gravity="center_vertical"
                     android:gravity="center_vertical"
-                    android:text="@{atividade.atividade.descricao}"
+                    android:text="@{atividade.atividade.descricao, default=descricao}"
                     android:textSize="12sp" />
 
 
                 <TextView
-                    android:id="@+id/txt_view_equipa"
-                    android:text="@{atividade.atividade.equipaSst}"
-                    android:layout_width="140dp"
-                    android:layout_height="wrap_content"
+                    style="@style/textoDetalhe"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="7dp"
+                    android:layout_marginTop="7dp"
                     android:gravity="center_vertical"
-                    android:paddingLeft="10dp"
-                    android:textSize="12sp" />
-
-                <TextView
-                    android:id="@+id/txt_view_anuidade"
-                    android:text="@{atividade.atividade.anuidade}"
-                    android:layout_width="70dp"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_vertical"
-                    android:layout_marginLeft="7dp"
-                    android:gravity="center_horizontal" />
+                    android:text="@{atividade.atividade.anuidade, default=anuidade}" />
 
             </LinearLayout>
 
@@ -73,9 +63,13 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
                 android:gravity="center_horizontal"
                 android:orientation="horizontal"
                 android:paddingLeft="10dp"
+                app:layout_constraintBottom_toBottomOf="@+id/linearLayout19"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@+id/linearLayout19"
                 app:layout_constraintTop_toTopOf="@+id/linearLayout19">
 
@@ -170,7 +164,7 @@
                     android:layout_height="60dp"
                     android:layout_gravity="center_vertical"
                     android:layout_margin="2dp"
-                    android:background="@color/bg_screen1"
+                    android:background="@color/cor_omissao"
                     android:gravity="center_vertical" />
 
                 <TextView

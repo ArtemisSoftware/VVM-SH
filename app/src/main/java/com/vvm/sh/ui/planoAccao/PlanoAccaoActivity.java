@@ -13,6 +13,7 @@ import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.planoAccao.adaptadores.AnuidadePagerAdapter;
 import com.vvm.sh.ui.planoAccao.adaptadores.OnPlanoAtividadeListener;
 import com.vvm.sh.ui.planoAccao.modelo.AtividadeRegisto;
+import com.vvm.sh.ui.planoAccao.modelo.Plano;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
@@ -86,6 +87,19 @@ public class PlanoAccaoActivity extends BaseDaggerActivity implements OnPlanoAti
         });
 
 
+        viewModel.observarPlano().observe(this, new Observer<Plano>() {
+            @Override
+            public void onChanged(Plano plano) {
+
+                int ano = Integer.parseInt(plano.cliente.dataContrato.split("-")[0]);
+
+                activityPlanoAccaoBinding.tab.getTabAt(ANUIDADE_1_FRAGMENT).setText(getString(R.string.anuidade) + " - " + ano);
+                activityPlanoAccaoBinding.tab.getTabAt(ANUIDADE_2_FRAGMENT).setText(getString(R.string.anuidade) + " - " + (ano + 1));
+
+            }
+        });
+
+
 //
 //        viewModel.observarMessagem().observe(this, new Observer<Recurso>() {
 //            @Override
@@ -131,9 +145,6 @@ public class PlanoAccaoActivity extends BaseDaggerActivity implements OnPlanoAti
 
         activityPlanoAccaoBinding.viewpagerContainer.setAdapter(adapter);
         activityPlanoAccaoBinding.tab.setupWithViewPager(activityPlanoAccaoBinding.viewpagerContainer);
-
-//        activityPlanoAccaoBinding.tab.getTabAt(ANUIDADE_1_FRAGMENT).setText(getString(R.string.tag_fragment_about));
-//        activityPlanoAccaoBinding.tab.getTabAt(ANUIDADE_2_FRAGMENT).setText(getString(R.string.tag_fragment_notes));
 
     }
 

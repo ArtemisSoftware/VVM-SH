@@ -7,6 +7,7 @@ import com.vvm.sh.baseDados.BaseDao;
 import com.vvm.sh.baseDados.entidades.PlanoAcao;
 import com.vvm.sh.baseDados.entidades.PlanoAccaoResultado;
 import com.vvm.sh.ui.planoAccao.modelo.AtividadeRegisto;
+import com.vvm.sh.ui.planoAccao.modelo.Plano;
 import com.vvm.sh.util.constantes.Identificadores;
 
 import java.util.List;
@@ -16,11 +17,6 @@ import io.reactivex.Single;
 
 @Dao
 abstract public class PlanoAccaoDao implements BaseDao<PlanoAccaoResultado> {
-
-
-
-    @Query("SELECT * FROM planoAcao WHERE idTarefa = :idTarefa")
-    abstract public Single<PlanoAcao> obterPlano(int idTarefa);
 
 
 
@@ -85,30 +81,21 @@ abstract public class PlanoAccaoDao implements BaseDao<PlanoAccaoResultado> {
 
     @Query("SELECT *,  " +
             "CASE " +
-            "WHEN sempreNecessario = 1   THEN " + Identificadores.TIPO_3 + " "+
-            "WHEN observacao IS NOT NULL THEN " + Identificadores.TIPO_2 + " "+
-            "ELSE " + Identificadores.TIPO_1 + " END as tipo, " +
+            "WHEN sempreNecessario = 1   THEN " + Identificadores.TIPO_NOTA + " "+
+            "WHEN observacao IS NOT NULL THEN " + Identificadores.TIPO_NOTA + " "+
+            "ELSE " + Identificadores.TIPO_DATA + " END as tipo, " +
             "" +
             "CASE WHEN sempreNecessario = 1   THEN 'Sempre necessário'  " +
             "WHEN observacao IS NOT NULL THEN observacao  " +
             "ELSE '' END as nota  " +
             "" +
             "FROM planoAcaoAtividade as pl_acao " +
-            "WHERE idTarefa = :idTarefa")
+            "WHERE idTarefa = :idTarefa ORDER BY fixo ASC ")
     abstract public Observable<List<AtividadeRegisto>> obterAtividades(int idTarefa);
 
 
 
-//    String query = "SELECT  cap, email, dataContrato   ";
-//    query += "FROM planoAcao as pl_ac ";
-//    query += "OUTER LEFT JOIN (SELECT idTarefa, dataContrato FROM clientes) as clt ON pl_ac.idTarefa = clt.idTarefa ";
-//    query += "WHERE pl_ac.idTarefa = ? ";
-//
-//    String argumentos [] = {
-//            idTarefa
-//    };
-//
-//
-//    abstract public Single<List<AtividadeRegisto>> obterAtividades(int idTarefa);
+    @Query("SELECT * FROM planoAcao WHERE idTarefa =:idTarefa")
+    abstract public Single<Plano> obterPlano(int idTarefa);
 
 }

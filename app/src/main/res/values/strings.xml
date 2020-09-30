@@ -259,6 +259,10 @@
     <string name="trancado">Trancado</string>
     <string name="upload_dados">Upload de dados</string>
     <string name="executada">Executado</string>
+
+    <string name="programada">Programada</string>
+    <string name="programadaFixa">Programada Fixa</string>
+    <string name="reprogramada">Reprogramada</string>
     <string name="nao_executado">Não executado</string>
     <string name="Assinatura">Assinatura</string>
     <string name="ver_pendencias">Ver pendencias</string>
@@ -431,4 +435,7 @@
     <string name="categorias_profissionais_">Categorias profissionais:</string>
     <string name="adicionar_modelo">Adicionar modelo</string>
     <string name="adicionar_levantamento">Adicionar levantamento</string>
+    <string name="email_">E-mail:</string>
+    <string name="cap_">CAP:</string>
+    <string name="anuidade">Aunidade</string>
 </resources>

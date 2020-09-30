@@ -1,0 +1,94 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <data>
+
+        <import type="com.vvm.sh.util.metodos.DatasUtil"/>
+
+        <variable
+            name="atividade"
+            type="com.vvm.sh.ui.planoAccao.modelo.AtividadeRegisto" />
+
+    </data>
+
+
+
+    <androidx.cardview.widget.CardView
+        style="@style/cartao">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:id="@+id/linearLayout19"
+                android:layout_width="200dp"
+                android:layout_height="60dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:gravity="center_vertical"
+                android:orientation="vertical"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent">
+
+
+                <TextView
+                    style="@style/textoDetalhe"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical"
+                    android:text="@{atividade.atividade.descricao, default=descricao}"
+                    android:textSize="12sp" />
+
+
+                <TextView
+                    style="@style/textoDetalhe"
+                    android:layout_gravity="center_vertical"
+                    android:layout_marginTop="7dp"
+                    android:gravity="center_vertical"
+                    android:text="@{atividade.atividade.anuidade, default=anuidade}" />
+
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/lnr_marcacoes"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="8dp"
+                android:layout_marginEnd="8dp"
+                android:gravity="center_horizontal"
+                android:orientation="horizontal"
+                android:background="@color/cor_omissao"
+                app:layout_constraintBottom_toBottomOf="@+id/linearLayout19"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@+id/linearLayout19"
+                app:layout_constraintTop_toTopOf="@+id/linearLayout19">
+
+
+                    <TextView
+                        android:id="@+id/txt1"
+                        style="@style/textoDetalhe"
+                        android:layout_width="wrap_content"
+                        android:text="@{atividade.nota, default=nota}"
+                        android:layout_gravity="center_vertical"
+                        android:background="@color/cor_omissao"
+                        android:gravity="center_vertical" />
+
+
+
+            </LinearLayout>
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+</layout>

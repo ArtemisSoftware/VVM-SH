@@ -75,53 +75,151 @@
                     android:layout_height="wrap_content">
 
 
-                    <ImageView
-                        android:id="@+id/imageView5"
-
-                        android:layout_width="40dp"
-                        android:layout_height="40dp"
-                        android:layout_marginStart="16dp"
-                        app:layout_constraintBottom_toBottomOf="@+id/textView4"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="@+id/textView"
-                        app:srcCompat="@mipmap/ic_launcher" />
-
-
                     <TextView
-                        android:id="@+id/textView"
-                        style="@style/tituloCartao"
-                        android:layout_marginStart="24dp"
+                        android:id="@+id/textView59"
+                        style="@style/textoDetalhe"
+                        android:layout_marginStart="16dp"
                         android:layout_marginTop="16dp"
-
-                        app:layout_constraintStart_toEndOf="@+id/imageView5"
+                        android:text="@string/email_"
+                        app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent" />
 
                     <TextView
-                        android:id="@+id/textView2"
-                        style="@style/textoDetalhe"
-                        android:layout_marginTop="8dp"
-                        android:text="@string/ordem_"
-                        app:layout_constraintStart_toStartOf="@+id/textView"
-                        app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-                    <TextView
-                        android:id="@+id/textView3"
+                        android:id="@+id/textView60"
                         style="@style/textoDetalhe"
                         android:layout_marginStart="16dp"
-
-                        app:layout_constraintStart_toEndOf="@+id/textView2"
-                        app:layout_constraintTop_toTopOf="@+id/textView2" />
+                        android:text="@{viewmodel.plano.detalhe.email}"
+                        app:layout_constraintStart_toEndOf="@+id/textView59"
+                        app:layout_constraintTop_toTopOf="@+id/textView59" />
 
                     <TextView
-                        android:id="@+id/textView4"
+                        android:id="@+id/textView61"
                         style="@style/textoDetalhe"
                         android:layout_marginTop="8dp"
+                        android:text="@string/cap_"
+                        app:layout_constraintStart_toStartOf="@+id/textView59"
+                        app:layout_constraintTop_toBottomOf="@+id/textView59" />
+
+                    <TextView
+                        android:id="@+id/textView62"
+                        style="@style/textoDetalhe"
+                        android:layout_marginStart="16dp"
+                        android:text="@{viewmodel.plano.detalhe.cap}"
+                        app:layout_constraintStart_toEndOf="@+id/textView61"
+                        app:layout_constraintTop_toTopOf="@+id/textView61" />
+
+
+                    <LinearLayout
+                        android:id="@+id/lnr_lyt_executada"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="16dp"
                         android:layout_marginBottom="16dp"
-
+                        android:background="@drawable/borda_personalizada"
+                        android:orientation="horizontal"
                         app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="@+id/textView"
-                        app:layout_constraintTop_toBottomOf="@+id/textView2" />
+                        app:layout_constraintStart_toStartOf="@+id/textView59"
+                        app:layout_constraintTop_toBottomOf="@+id/textView61">
 
+                        <TextView
+                            android:layout_width="10dip"
+                            android:layout_height="40dp"
+                            android:layout_gravity="center_horizontal"
+                            android:background="@color/cor_executada"
+                            android:gravity="center|center_vertical" />
+
+                        <TextView
+                            style="@style/textoDetalhe"
+                            android:layout_gravity="center_vertical|center_horizontal"
+                            android:layout_marginLeft="4dp"
+                            android:layout_marginRight="4dp"
+                            android:gravity="center|center_vertical"
+                            android:text="@string/executada" />
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:id="@+id/lnr_lyt_programada"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:background="@drawable/borda_personalizada"
+                        android:orientation="horizontal"
+                        android:visibility="visible"
+                        app:layout_constraintStart_toEndOf="@+id/lnr_lyt_executada"
+                        app:layout_constraintTop_toTopOf="@+id/lnr_lyt_executada">
+
+                        <TextView
+                            android:layout_width="10dip"
+                            android:layout_height="40dp"
+                            android:layout_gravity="center_horizontal"
+                            android:background="@color/cor_programada"
+                            android:gravity="center|center_vertical" />
+
+                        <TextView
+                            style="@style/textoDetalhe"
+                            android:layout_gravity="center_vertical|center_horizontal"
+                            android:layout_marginLeft="4dp"
+                            android:layout_marginRight="4dp"
+                            android:gravity="center|center_vertical"
+                            android:text="@string/programada" />
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:id="@+id/lnr_lyt_programada_fixa"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:background="@drawable/borda_personalizada"
+                        android:orientation="horizontal"
+                        android:visibility="visible"
+                        app:layout_constraintStart_toEndOf="@+id/lnr_lyt_programada"
+                        app:layout_constraintTop_toTopOf="@+id/lnr_lyt_executada">
+
+                        <TextView
+                            android:layout_width="10dip"
+                            android:layout_height="40dp"
+                            android:layout_gravity="center_horizontal"
+                            android:background="@color/cor_programada_fixa"
+                            android:gravity="center|center_vertical" />
+
+                        <TextView
+                            style="@style/textoDetalhe"
+                            android:layout_gravity="center_vertical|center_horizontal"
+                            android:layout_marginLeft="4dp"
+                            android:layout_marginRight="4dp"
+                            android:gravity="center|center_vertical"
+                            android:text="@string/programadaFixa" />
+                    </LinearLayout>
+
+
+                    <LinearLayout
+                        android:id="@+id/lnr_lyt_reprogramada"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:background="@drawable/borda_personalizada"
+                        android:orientation="horizontal"
+                        android:visibility="visible"
+                        app:layout_constraintStart_toEndOf="@+id/lnr_lyt_programada_fixa"
+                        app:layout_constraintTop_toTopOf="@+id/lnr_lyt_executada">
+
+                        <TextView
+                            android:layout_width="10dip"
+                            android:layout_height="40dp"
+                            android:layout_gravity="center_horizontal"
+                            android:background="@color/cor_reprogramada"
+                            android:gravity="center|center_vertical" />
+
+                        <TextView
+                            style="@style/textoDetalhe"
+                            android:layout_gravity="center_vertical|center_horizontal"
+                            android:layout_marginLeft="4dp"
+                            android:layout_marginRight="4dp"
+                            android:gravity="center|center_vertical"
+                            android:text="@string/reprogramada" />
+                    </LinearLayout>
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
@@ -145,11 +243,11 @@
 
 
 
-                    <androidx.viewpager.widget.ViewPager
-                        android:id="@+id/viewpager_container"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+        <androidx.viewpager.widget.ViewPager
+            android:id="@+id/viewpager_container"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
 
 

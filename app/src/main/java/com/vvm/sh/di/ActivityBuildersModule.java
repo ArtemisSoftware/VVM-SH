@@ -67,6 +67,8 @@ import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.CategoriasProf
 import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.DialogoCategoriasProfissionais;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.LevantamentosActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.PerigoTarefaActivity;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.RiscoRegistoActivity;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.RiscosActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.trabalhadoresVulneraveis.TrabalhadorVulneravelRegistoActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.trabalhadoresVulneraveis.TrabalhadoresVulneraveisActivity;
 import com.vvm.sh.ui.planoAccao.PlanoAccaoActivity;
@@ -486,6 +488,19 @@ public abstract class ActivityBuildersModule {
     )
     abstract DialogoCategoriasProfissionais contributeDialogoCategoriasProfissionais();
 
+
+    @LevantamentosScope
+    @ContributesAndroidInjector(
+            modules = { LevantamentosViewModelsModule.class, LevantamentosModule.class }
+    )
+    abstract RiscosActivity contributeRiscosActivity();
+
+
+    @LevantamentosScope
+    @ContributesAndroidInjector(
+            modules = { LevantamentosViewModelsModule.class, LevantamentosModule.class }
+    )
+    abstract RiscoRegistoActivity contributeRiscoRegistoActivity();
 
     //----------------------
     //Pequisa

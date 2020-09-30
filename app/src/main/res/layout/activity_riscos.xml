@@ -5,11 +5,12 @@
 
     <data>
         <import type="java.util.List"/>
-        <!--
-                <variable
-                    name="listener"
-                    type="com.vvm.sh.ui.ocorrencias.adaptadores.OnOcorrenciaListener"/>
-        -->
+        <import type="android.view.View"/>
+
+        <variable
+            name="listener"
+            type="com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.adaptadores.OnLevantamentoListener.OnRiscoListener"/>
+
         <variable
             name="viewmodel"
             type="com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.LevantamentosViewModel"/>
@@ -60,14 +61,15 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcl_registos"
             style="@style/lista"
-            android:visibility="gone"
-
+            android:visibility="@{viewmodel.riscos.size() > 0 ? View.VISIBLE : View.GONE}"
+            riscos="@{viewmodel.riscos}"
+            listener="@{listener}"
             tools:listitem="@layout/item_risco"/>
 
         <!--
-        android:visibility="@{viewmodel.agenda.marcacaos.size() > 0 ? View.VISIBLE : View.GONE}"
+
         ocorrencias="@{viewmodel.ocorrencias}"
-                            listener="@{listener}"
+
         -->
 
 

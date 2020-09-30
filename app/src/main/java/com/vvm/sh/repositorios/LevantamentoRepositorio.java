@@ -128,6 +128,13 @@ public class LevantamentoRepositorio {
     }
 
 
+
+
+    public Maybe<RiscoResultado> obterRisco(int id){
+        return riscoDao.obterRisco(id);
+    }
+
+
     /**
      * Metodo que permite obter a listagem de modelos
      * @return uma lista
@@ -139,4 +146,15 @@ public class LevantamentoRepositorio {
     public Single<Integer> remover(CategoriaProfissionalResultado categoria) {
         return categoriaProfissionalDao.remover(categoria);
     }
+
+
+
+    public Single<List<Tipo>> obterTipos(String tipo){
+        return tipoDao.obterTipos_(tipo, idApi);
+    }
+
+    public Single<List<Tipo>> obterTipos(String tipo, int idPai){
+        return tipoDao.obterTipos_(tipo, idApi, idPai + "");
+    }
+
 }

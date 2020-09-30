@@ -40,11 +40,21 @@ public class TiposUtil {
         public static final String CONDICOES_CLIMATERICAS = "GetCondicoesClimatericas";
         public static final String CURSOS = "getCoursesInfo";
 
+        public static final String RISCOS = "GetRiscos";
+        public static final String RISCOS_ESPECIFICOS = "GetRiscosEspecificos";
+
+
+
         public static final String TEMPLATE_AVALIACAO_RISCOS = "ObterTemplatesAVR";
+        public static final String TEMPLATE_AVALIACAO_RISCOS_LEVANTAMENTOS = "ObterTemplatesAVR_Levantamentos";
+        public static final String TEMPLATE_AVALIACAO_RISCOS_RISCOS = "ObterTemplatesAVR_Riscos";
 
         public static final String TIPOS_AREA = "GetTiposArea";
         public static final String TIPOS_CHECKLIST = "GetTiposChecklistNovo";
         public static final String TIPOS_ILUMINACAO = "GetTiposIluminacao";
+        public static final String TIPOS_NC = "GetTiposNC";
+        public static final String TIPOS_ND = "GetTiposND";
+        public static final String TIPOS_NE = "GetTiposNE";
         public static final String TIPOS_NI = "GetTiposNI";
         public static final String TIPOS_UTS = "GetTiposUT";
         public static final String TIPOS_VULNERABILIDADES =  "GetTiposVulnerabilidade";
@@ -52,6 +62,7 @@ public class TiposUtil {
 
 
     }
+
 
 
 
@@ -71,19 +82,23 @@ public class TiposUtil {
 
 
         public static final String CATEGORIAS_PROFISSIONAIS = "Categorias_Profissionais";
-        public static final String CHECKLIST = "CheckList";
         public static final String CONDICOES_CLIMATERICAS = "Condicoes_Climatericas";
         public static final String CONCLUSAO_MEDIDAS_RECOMENDADAS = "Conclusao_Medidas_Recomendadas";
         public static final String CURSOS = "Cursos";
 
-        public static final String TEMPLATE_AVALIACAO_RISCOS = "Template_Avaliação_Riscos";
+        public static final String RISCOS = "Riscos";
+        public static final String RISCOS_ESPECIFICOS = "Riscos_Especificos";
 
+        public static final String TEMPLATE_AVALIACAO_RISCOS = "Template_Avaliação_Riscos";
 
 
         public static final String TIPOS_AREA = "Tipos_Area";
         public static final String TIPOS_CHECKLIST = "Tipos_Checklist";
         public static final String TIPOS_ILUMINACAO = "Tipos_Iluminacao";
         public static final String TIPOS_NI = "Tipos_NI";
+        public static final String TIPOS_ND = "Tipos_ND";
+        public static final String TIPOS_NE = "Tipos_NE";
+        public static final String TIPOS_NC = "Tipos_NC";
         public static final String TIPOS_UTS = "Tipos_Uts";
         public static final String TIPOS_VULNERABILIDADES =  "Tipos_Vulnerabilidade";
 
@@ -93,24 +108,29 @@ public class TiposUtil {
         public static final MetodoApi METODO_ATIVIDADES_RELATORIO_VISITA = new MetodoApi(ATIVIDADES_RELATORIO_VISITA, null, MetodosTiposSH.ATIVIDADES_RELATORIO_VISITA);
 
         public static final MetodoApi METODO_CATEGORIAS_PROFISSIONAIS = new MetodoApi(CATEGORIAS_PROFISSIONAIS, null, MetodosTiposSH.CATEGORIAS_PROFISSIONAIS);
-        public static final MetodoApi METODO_CHECKLIST = new MetodoApi(CHECKLIST, null, MetodosTiposSH.CHECKLIST);
+
         public static final MetodoApi METODO_CONDICOES_CLIMATERICAS = new MetodoApi(CONDICOES_CLIMATERICAS, null, MetodosTiposSH.CONDICOES_CLIMATERICAS);
         public static final MetodoApi METODO_CONCLUSAO_MEDIDAS_RECOMENDADAS = new MetodoApi(CONCLUSAO_MEDIDAS_RECOMENDADAS, null, MetodosTiposSH.CONCLUSAO_MEDIDAS_RECOMENDADAS);
         public static final MetodoApi METODO_CURSOS = new MetodoApi(CURSOS, MetodosTiposSA.CURSOS, MetodosTiposSH.CURSOS);
 
         public static final MetodoApi METODO_ILUMINANCIA = new MetodoApi(ILUMINANCIA, null, MetodosTiposSH.ILUMINANCIA);
 
+
+        public static final MetodoApi METODO_RISCOS = new MetodoApi(RISCOS, null, MetodosTiposSH.RISCOS);
+        public static final MetodoApi METODO_RISCOS_ESPECIFICOS = new MetodoApi(RISCOS_ESPECIFICOS, null, MetodosTiposSH.RISCOS_ESPECIFICOS);
+
+
         public static final MetodoApi METODO_TEMPLATE_AVALIACAO_RISCOS = new MetodoApi(TEMPLATE_AVALIACAO_RISCOS, null, MetodosTiposSH.TEMPLATE_AVALIACAO_RISCOS);
         public static final MetodoApi METODO_TIPOS_AREA = new MetodoApi(TIPOS_AREA, null, MetodosTiposSH.TIPOS_AREA);
         public static final MetodoApi METODO_TIPOS_CHECKLIST = new MetodoApi(TIPOS_CHECKLIST, null, MetodosTiposSH.TIPOS_CHECKLIST);
         public static final MetodoApi METODO_TIPOS_ILUMINACAO = new MetodoApi(TIPOS_ILUMINACAO, null, MetodosTiposSH.TIPOS_ILUMINACAO);
+        public static final MetodoApi METODO_TIPOS_NC = new MetodoApi(TIPOS_NC, null, MetodosTiposSH.TIPOS_NC);
+        public static final MetodoApi METODO_TIPOS_ND = new MetodoApi(TIPOS_ND, null, MetodosTiposSH.TIPOS_ND);
+        public static final MetodoApi METODO_TIPOS_NE = new MetodoApi(TIPOS_NE, null, MetodosTiposSH.TIPOS_NE);
         public static final MetodoApi METODO_TIPOS_NI = new MetodoApi(TIPOS_NI, null, MetodosTiposSH.TIPOS_NI);
         public static final MetodoApi METODO_TIPOS_UTS = new MetodoApi(TIPOS_UTS, null, MetodosTiposSH.TIPOS_UTS);
         public static final MetodoApi METODO_TIPOS_VULNERABILIDADES = new MetodoApi(TIPOS_VULNERABILIDADES, null, MetodosTiposSH.TIPOS_VULNERABILIDADES);
-//
-//public static final MetodoApi METODO_ = new MetodoApi(MetodosTiposSA., MetodosTiposSH.);
-//public static final MetodoApi METODO_ = new MetodoApi(MetodosTiposSA., MetodosTiposSH.);
-//public static final MetodoApi METODO_ = new MetodoApi(MetodosTiposSA., MetodosTiposSH.);
+
 
 
 
@@ -125,14 +145,40 @@ public class TiposUtil {
 
                 METODO_ILUMINANCIA,
 
+                METODO_RISCOS,
+                METODO_RISCOS_ESPECIFICOS,
+
                 METODO_TEMPLATE_AVALIACAO_RISCOS,
                 METODO_TIPOS_AREA,
                 METODO_TIPOS_CHECKLIST,
                 METODO_TIPOS_ILUMINACAO,
+                METODO_TIPOS_NC,
+                METODO_TIPOS_ND,
+                METODO_TIPOS_NE,
                 METODO_TIPOS_NI,
                 METODO_TIPOS_UTS,
                 METODO_TIPOS_VULNERABILIDADES
         };
+
+
+
+        private static class Checklist {
+
+            public static final String CHECKLIST = "CheckList";
+            public static final MetodoApi METODO_CHECKLIST = new MetodoApi(CHECKLIST, null, MetodosTiposSH.CHECKLIST);
+
+        }
+
+
+        private static class TemplateAvr {
+
+            public static final String TEMPLATE_AVALIACAO_RISCOS_LEVANTAMENTOS = "Template_Avaliação_Riscos_Levantamentos";
+            public static final String TEMPLATE_AVALIACAO_RISCOS_RISCOS = "Template_Avaliação_Riscos_Riscos";
+
+            public static final MetodoApi METODO_TEMPLATE_AVALIACAO_RISCOS_LEVANTAMENTOS = new MetodoApi(TEMPLATE_AVALIACAO_RISCOS_LEVANTAMENTOS, null, MetodosTiposSH.TEMPLATE_AVALIACAO_RISCOS_LEVANTAMENTOS);
+            public static final MetodoApi METODO_TEMPLATE_AVALIACAO_RISCOS_RISCOS = new MetodoApi(TEMPLATE_AVALIACAO_RISCOS_RISCOS, null, MetodosTiposSH.TEMPLATE_AVALIACAO_RISCOS_RISCOS);
+        }
+
 
     }
 
@@ -223,9 +269,9 @@ public class TiposUtil {
 
 
             case MetodosTiposSH.CHECKLIST:
-            case MetodosTipos.CHECKLIST:
+            case MetodosTipos.Checklist.CHECKLIST:
 
-                metodo = MetodosTipos.METODO_CHECKLIST;
+                metodo = MetodosTipos.Checklist.METODO_CHECKLIST;
                 break;
 
 
@@ -256,11 +302,51 @@ public class TiposUtil {
                 break;
 
 
+
+
+
+            case MetodosTiposSH.RISCOS:
+            case MetodosTipos.RISCOS:
+
+                metodo = MetodosTipos.METODO_RISCOS;
+                break;
+
+
+
+            case MetodosTiposSH.RISCOS_ESPECIFICOS:
+            case MetodosTipos.RISCOS_ESPECIFICOS:
+
+                metodo = MetodosTipos.METODO_RISCOS_ESPECIFICOS;
+                break;
+
+
+
+
+
+
+
+
             case MetodosTiposSH.TEMPLATE_AVALIACAO_RISCOS:
             case MetodosTipos.TEMPLATE_AVALIACAO_RISCOS:
 
                 metodo = MetodosTipos.METODO_TEMPLATE_AVALIACAO_RISCOS;
                 break;
+
+
+            case MetodosTiposSH.TEMPLATE_AVALIACAO_RISCOS_LEVANTAMENTOS:
+            case MetodosTipos.TemplateAvr.TEMPLATE_AVALIACAO_RISCOS_LEVANTAMENTOS:
+
+                metodo = MetodosTipos.TemplateAvr.METODO_TEMPLATE_AVALIACAO_RISCOS_LEVANTAMENTOS;
+                break;
+
+            case MetodosTiposSH.TEMPLATE_AVALIACAO_RISCOS_RISCOS:
+            case MetodosTipos.TemplateAvr.TEMPLATE_AVALIACAO_RISCOS_RISCOS:
+
+                metodo = MetodosTipos.TemplateAvr.METODO_TEMPLATE_AVALIACAO_RISCOS_RISCOS;
+                break;
+
+
+
 
 
             case MetodosTiposSH.TIPOS_AREA:
@@ -283,10 +369,35 @@ public class TiposUtil {
                 break;
 
 
+
+
+
             case MetodosTiposSH.TIPOS_NI:
             case MetodosTipos.TIPOS_NI:
 
                 metodo = MetodosTipos.METODO_TIPOS_NI;
+                break;
+
+            case MetodosTiposSH.TIPOS_NC:
+            case MetodosTipos.TIPOS_NC:
+
+                metodo = MetodosTipos.METODO_TIPOS_NC;
+                break;
+
+
+            case MetodosTiposSH.TIPOS_ND:
+            case MetodosTipos.TIPOS_ND:
+
+                metodo = MetodosTipos.METODO_TIPOS_ND;
+                break;
+
+
+
+
+            case MetodosTiposSH.TIPOS_NE:
+            case MetodosTipos.TIPOS_NE:
+
+                metodo = MetodosTipos.METODO_TIPOS_NE;
                 break;
 
 

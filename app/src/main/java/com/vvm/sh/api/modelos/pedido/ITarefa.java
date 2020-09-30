@@ -55,10 +55,10 @@ public class ITarefa {
 //
 //    @SerializedName("AvaliacaoRiscosAnterior")
 //    public List<IAvaliacaoRiscosAnterior> avaliacaoRiscosAnterior;
-//
-//    @SerializedName("Plano_Accao")
-//    public IPlanoAcao planoAcao;
-//
+
+    @SerializedName("Plano_Accao")
+    public IPlanoAcao planoAcao;
+
 //    @SerializedName("RelatorioAvaliacaoRisco")
 //    public IRelatorioAvaliacaoRiscos relatorioAvaliacaoRiscos;
 

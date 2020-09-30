@@ -22,7 +22,7 @@ public class ITipoTemplateAvrRisco {
     public int ativo;
 
     @SerializedName("ParentId")
-    public String idPai;
+    public String idLevantamento;
 
     @SerializedName("MedidasExistentes")
     public List<Integer> medidasExistentes;

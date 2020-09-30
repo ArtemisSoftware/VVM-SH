@@ -11,6 +11,9 @@ import com.vvm.sh.baseDados.entidades.AreaChecklist;
 import com.vvm.sh.baseDados.entidades.CheckList;
 import com.vvm.sh.baseDados.entidades.ItemChecklist;
 import com.vvm.sh.baseDados.entidades.SeccaoChecklist;
+import com.vvm.sh.baseDados.entidades.TipoTemplateAvrLevantamento;
+import com.vvm.sh.baseDados.entidades.TipoTemplateAvrRisco;
+import com.vvm.sh.baseDados.entidades.TipoTemplatesAVRMedidaRisco;
 import com.vvm.sh.ui.opcoes.modelos.Colecao;
 import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.ui.opcoes.modelos.ResumoTipo;
@@ -49,6 +52,31 @@ abstract public class TipoDao implements BaseDao<Tipo> {
 
     @Insert
     abstract public List<Long> inserirItensChecklis(List<ItemChecklist> registo);
+
+
+    @Insert
+    abstract public List<Long> inserirTemplateAvrLevantamento(List<TipoTemplateAvrLevantamento> tipo);
+
+    @Update
+    abstract public Integer atualizarTemplateAvrLevantamento(List<TipoTemplateAvrLevantamento> tipo);
+
+
+    @Insert
+    abstract public List<Long> inserirTemplateAvrRisco(List<TipoTemplateAvrRisco> tipo);
+
+    @Update
+    abstract public Integer atualizarTemplateAvrRisco(List<TipoTemplateAvrRisco> tipo);
+
+
+    @Insert
+    abstract public List<Long> inserirTemplatesAVRMedidaRisco(List<TipoTemplatesAVRMedidaRisco> tipo);
+
+    @Update
+    abstract public Integer atualizarTemplatesAVRMedidaRisco(List<TipoTemplatesAVRMedidaRisco> tipo);
+
+
+    @Query("DELETE FROM tiposTemplatesAVRMedidasRisco WHERE id = :id AND origem = :origem")
+    abstract public Integer removerTemplatesAVRMedidaRisco(int id, int origem);
 
 
 
@@ -93,6 +121,9 @@ abstract public class TipoDao implements BaseDao<Tipo> {
 
     @Query("SELECT * FROM tipos WHERE tipo = :tipo AND api = :api AND ativo = 1")
     abstract public Single<List<Tipo>> obterTipos_(String tipo, int api);
+
+    @Query("SELECT * FROM tipos WHERE tipo = :tipo AND api = :api AND idPai = :idPai AND ativo = 1")
+    abstract public Single<List<Tipo>> obterTipos_(String tipo, int api, String idPai);
 
 
 

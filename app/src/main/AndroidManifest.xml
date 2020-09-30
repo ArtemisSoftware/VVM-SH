@@ -40,8 +40,10 @@
         <activity
             android:name=".ui.registoVisita.TrabalhoRealizadoActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ui.atividadesPendentes.relatorios.levantamentos.RiscoRegistoActivity" />
-        <activity android:name=".ui.atividadesPendentes.relatorios.levantamentos.RiscosActivity" />
+        <activity android:name=".ui.atividadesPendentes.relatorios.levantamentos.RiscoRegistoActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".ui.atividadesPendentes.relatorios.levantamentos.RiscosActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.atividadesPendentes.relatorios.levantamentos.CategoriasProfissionaisActivity"
             android:theme="@style/AppTheme.NoActionBar" />

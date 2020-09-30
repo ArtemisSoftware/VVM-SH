@@ -1,5 +1,9 @@
 package com.vvm.sh.util.metodos;
 
+import com.vvm.sh.baseDados.entidades.Tipo;
+
+import java.util.List;
+
 public class ConversorUtil {
 
     /**
@@ -37,51 +41,52 @@ public class ConversorUtil {
 
 
 
+
     /**
      * Metodo que permite obter um vector com os valores NP, NR, NI descricao, NI id
      * @param nd
      * @param ne
      * @param nc
-     * @return um vector [NP, NR, NI descricao, NI id]
+     * @param ni
+     * @return  um vector [NP, NR, NI descricao, NI id]
      */
-    public static String [] obterNP_NR_NI(String nd, String ne, String nc/*, ObjDados ni*/){
+    public static String [] obterNP_NR_NI(Tipo nd, Tipo ne, Tipo nc, List<Tipo> ni){
 
         String valores[] = new String[4];
-        String np, nr;
+        int np, nr;
 
-        //TODO completar metodo
 
-//        try{
-//            int resultado = Integer.parseInt(nd) * Integer.parseInt(ne);
-//            np = resultado + "";
-//
-//            resultado = Integer.parseInt(nc) * Integer.parseInt(np);
-//            nr = resultado + "";
-//
-//            int index = 0;
-//
-//            for(int posicao = 0; posicao < ni.tamanho(); ++posicao){
-//
-//                String limite = ni.obterDetalhe(posicao);
-//
-//                if(resultado >= Integer.parseInt(limite.split("-")[0]) & resultado <= Integer.parseInt(limite.split("-")[1])){
-//                    break;
-//                }
-//
-//                ++index;
-//            }
-//
-//            valores[0] = np;
-//            valores[1] = nr;
-//            valores[2] = ni.obterDescricao(index);
-//            valores[3] = ni.obterIdentificador(index);
-//
-//        }
-//        catch(NumberFormatException e){}
+        try{
+
+            np = Integer.parseInt(nd.obterDescricao()) * Integer.parseInt(ne.obterDescricao());
+            nr = Integer.parseInt(nc.obterDescricao()) * np;
+
+
+            int index = 0;
+
+            for(int posicao = 0; posicao < ni.size(); ++posicao){
+
+                String limite = ni.get(posicao).detalhe;
+
+                if(nr >= Integer.parseInt(limite.split("-")[0]) & nr <= Integer.parseInt(limite.split("-")[1])){
+                    break;
+                }
+
+                ++index;
+            }
+
+
+            valores[0] = np + "";
+            valores[1] = nr + "";
+            valores[2] =  ni.get(index).descricao;
+            valores[3] = ni.get(index).id + "";
+
+
+        }
+        catch(NumberFormatException e){}
 
         return valores;
     }
-
 
 
 }

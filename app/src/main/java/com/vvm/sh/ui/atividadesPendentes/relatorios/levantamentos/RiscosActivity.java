@@ -9,11 +9,14 @@ import android.view.View;
 
 import com.vvm.sh.R;
 import com.vvm.sh.databinding.ActivityRiscosBinding;
+import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.adaptadores.OnLevantamentoListener;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.modelos.Risco;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
+
+import javax.inject.Inject;
 
 import butterknife.OnClick;
 
@@ -22,6 +25,9 @@ public class RiscosActivity extends BaseDaggerActivity
 
 
     private ActivityRiscosBinding activityRiscosBinding;
+
+
+
 
     private LevantamentosViewModel viewModel;
 
@@ -34,6 +40,7 @@ public class RiscosActivity extends BaseDaggerActivity
         activityRiscosBinding = (ActivityRiscosBinding) activityBinding;
         activityRiscosBinding.setLifecycleOwner(this);
         activityRiscosBinding.setViewmodel(viewModel);
+        activityRiscosBinding.setListener(this);
         activityRiscosBinding.setBloquear(PreferenciasUtil.agendaEditavel(this));
 
 

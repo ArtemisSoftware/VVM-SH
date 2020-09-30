@@ -19,7 +19,7 @@ public class IPlanoAcao {
     public String email;
 
     @SerializedName("OutraAnuidade")
-    public boolean outraAnuidade; //TODO: atencao isto vem como string True
+    public String outraAnuidade; //TODO: atencao isto vem como string True
 
     @SerializedName("ActividadesPlano")
     public List<IAtividadePlano> atividades;
@@ -32,13 +32,13 @@ public class IPlanoAcao {
         public String servId;
 
         @SerializedName("DescSimples")
-        public String descricaoSimplificada;
+        public String descricaoSimples;
 
         @SerializedName("Descricao")
         public String descricao;
 
         @SerializedName("EquipaSST")
-        public String equipa;
+        public String equipaSst;
 
         @SerializedName("SempreNecessario")
         public String sempreNecessario; //TODO: isto ou vem como "" ou como x. Fazer substituicao por boolean
@@ -50,7 +50,7 @@ public class IPlanoAcao {
         public String dataExecucao;
 
         @SerializedName("Reprogramada")
-        public String reprogramada; //TODO: verificar isto. Vem a 0
+        public int reprogramada; //TODO: verificar isto. Vem a 0
 
         @SerializedName("OBS")
         public String observacao;

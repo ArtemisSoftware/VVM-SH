@@ -11,6 +11,7 @@ import com.vvm.sh.api.modelos.pedido.ICliente;
 import com.vvm.sh.api.modelos.pedido.IColaborador;
 import com.vvm.sh.api.modelos.pedido.IMorada;
 import com.vvm.sh.api.modelos.pedido.IParqueExtintor;
+import com.vvm.sh.api.modelos.pedido.IPlanoAcao;
 import com.vvm.sh.api.modelos.pedido.ITarefa;
 import com.vvm.sh.api.modelos.pedido.IDados;
 import com.vvm.sh.api.modelos.pedido.IOcorrencia;
@@ -20,6 +21,8 @@ import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.baseDados.entidades.Colaborador;
 import com.vvm.sh.baseDados.entidades.Morada;
 import com.vvm.sh.baseDados.entidades.ParqueExtintor;
+import com.vvm.sh.baseDados.entidades.PlanoAcao;
+import com.vvm.sh.baseDados.entidades.PlanoAcaoAtividade;
 import com.vvm.sh.baseDados.entidades.Tarefa;
 import com.vvm.sh.baseDados.entidades.Anomalia;
 import com.vvm.sh.baseDados.entidades.AtividadeExecutada;
@@ -130,8 +133,60 @@ public class TrabalhoAsyncTask extends AsyncTask<ISessao, Void, Void> {
 
         inserirQuadroPessoal(info.tarefas.quadroPessoal, idTarefa);
 
+        inserirPlanoAcao(info.tarefas.planoAcao, idTarefa);
+
 
     }
+
+
+    /**
+     * Metodo que permite inserir o plano acao
+     * @param planoAcao os dados do plano acao
+     * @param idTarefa o identificador da tarefa
+     */
+    private void inserirPlanoAcao(IPlanoAcao planoAcao, int idTarefa) {
+
+
+        PlanoAcao registo = DownloadMapping.INSTANCE.map(planoAcao);
+        registo.idTarefa = idTarefa;
+
+        repositorio.inserirPlanoAcao(registo);
+
+
+        List<PlanoAcaoAtividade> registos = new ArrayList<>();
+
+        for(IPlanoAcao.IAtividadePlano IAtividadePlano : planoAcao.atividades){
+
+            PlanoAcaoAtividade item = DownloadMapping.INSTANCE.map(IAtividadePlano);
+            item.idTarefa = idTarefa;
+
+            if(IAtividadePlano.sempreNecessario.equals("x") == false){
+                item.sempreNecessario = 0;
+            }
+            else{
+                item.sempreNecessario = 1;
+            }
+
+
+            if(IAtividadePlano.posicao.equals(Identificadores.PLANO_ACCAO_ATIVIDADE_TOPO) == true){
+                item.fixo = Identificadores.ID_POSICAO_TOPO;
+            }
+            else if(IAtividadePlano.posicao.equals(Identificadores.PLANO_ACCAO_ATIVIDADE_FIM) == true){
+                item.fixo = Identificadores.ID_POSICAO_FIM;
+            }
+            else{
+                item.fixo = Identificadores.ID_POSICAO_MEIO;
+            }
+
+            registos.add(item);
+        }
+
+        repositorio.inserirPlanoAtividades(registos);
+
+    }
+
+
+
 
     private void inserirQuadroPessoal(List<IColaborador> quadroPessoal, int idTarefa) {
 

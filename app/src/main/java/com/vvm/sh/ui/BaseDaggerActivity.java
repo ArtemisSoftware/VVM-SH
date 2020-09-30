@@ -31,7 +31,6 @@ public abstract class BaseDaggerActivity extends DaggerAppCompatActivity {
     @Inject
     public ViewModelProviderFactory providerFactory_;
 
-
     public ProgressBar mProgressBar;
 
     public MensagensUtil dialogo;

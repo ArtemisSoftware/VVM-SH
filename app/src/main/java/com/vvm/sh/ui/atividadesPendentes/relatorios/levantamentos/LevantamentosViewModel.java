@@ -14,6 +14,7 @@ import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.modelos.Risco;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.constantes.Sintaxe;
+import com.vvm.sh.util.metodos.TiposUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import java.util.ArrayList;
@@ -23,9 +24,12 @@ import javax.inject.Inject;
 
 import io.reactivex.MaybeObserver;
 import io.reactivex.Observer;
+import io.reactivex.Single;
 import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Function4;
+import io.reactivex.functions.Function5;
 import io.reactivex.schedulers.Schedulers;
 
 public class LevantamentosViewModel extends BaseViewModel {
@@ -44,7 +48,13 @@ public class LevantamentosViewModel extends BaseViewModel {
 
 
     public MutableLiveData<List<Risco>> riscos;
-
+    public MutableLiveData<RiscoResultado> risco;
+    public MutableLiveData<List<Tipo>> tiposRiscos;
+    public MutableLiveData<List<Tipo>> tipoRiscoEspecifico;
+    public MutableLiveData<List<Tipo>> tiposNd;
+    public MutableLiveData<List<Tipo>> tiposNe;
+    public MutableLiveData<List<Tipo>> tiposNc;
+    public List<Tipo> tiposNi;
 
     @Inject
     public LevantamentosViewModel(LevantamentoRepositorio levantamentoRepositorio){
@@ -56,8 +66,25 @@ public class LevantamentosViewModel extends BaseViewModel {
         categoriasProfissionais = new MutableLiveData<>();
         modelos = new MutableLiveData<>();
         riscos = new MutableLiveData<>();
+        risco = new MutableLiveData<>();
+
+
+        tiposRiscos = new MutableLiveData<>();
+        tipoRiscoEspecifico = new MutableLiveData<>();
+        tiposNd = new MutableLiveData<>();
+        tiposNe = new MutableLiveData<>();
+        tiposNc = new MutableLiveData<>();
+        tiposNi = new ArrayList<>();
 
     }
+
+
+
+    public MutableLiveData<List<Tipo>> observarRiscos(){
+        return tiposRiscos;
+    }
+
+
 
     /**
      * Metodo que permite gravar um registo
@@ -425,9 +452,116 @@ public class LevantamentosViewModel extends BaseViewModel {
                 );
     }
 
+
+    public void obteRisco(int id) {
+
+
+        Single.zip(levantamentoRepositorio.obterTipos(TiposUtil.MetodosTipos.RISCOS),
+                levantamentoRepositorio.obterTipos(TiposUtil.MetodosTipos.TIPOS_NC),
+                levantamentoRepositorio.obterTipos(TiposUtil.MetodosTipos.TIPOS_ND),
+                levantamentoRepositorio.obterTipos(TiposUtil.MetodosTipos.TIPOS_NE),
+                levantamentoRepositorio.obterTipos(TiposUtil.MetodosTipos.TIPOS_NI),
+                new Function5<List<Tipo>, List<Tipo>, List<Tipo>, List<Tipo>, List<Tipo>, TiposRiscos>() {
+                    @Override
+                    public TiposRiscos apply(List<Tipo> riscos, List<Tipo> nc, List<Tipo> nd, List<Tipo> ne, List<Tipo> ni) throws Exception {
+
+                        TiposRiscos tipos = new TiposRiscos();
+                        tipos.riscos = riscos;
+                        tipos.nc = nc;
+                        tipos.nd = nd;
+                        tipos.ne = ne;
+                        tipos.ni = ni;
+                        return tipos;
+                    }
+                }
+        )
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(
+
+                new SingleObserver<TiposRiscos>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+
+                    }
+
+                    @Override
+                    public void onSuccess(TiposRiscos registo) {
+                        tiposRiscos.setValue(registo.riscos);
+                        tiposNc.setValue(registo.nc);
+                        tiposNd.setValue(registo.nd);
+                        tiposNe.setValue(registo.ne);
+                        tiposNi = registo.ni;
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+
+                    }
+                }
+
+        );
+
+        levantamentoRepositorio.obterRisco(id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new MaybeObserver<RiscoResultado>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+
+                            }
+
+                            @Override
+                            public void onSuccess(RiscoResultado registo) {
+                                risco.setValue(registo);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+
+                            @Override
+                            public void onComplete() {
+
+                            }
+                        }
+
+                );
+    }
+
     //---------------------
     //MISC
     //---------------------
+
+
+    public void obteRiscoEspecifico(int id) {
+
+        levantamentoRepositorio.obterTipos(TiposUtil.MetodosTipos.RISCOS_ESPECIFICOS, id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new SingleObserver<List<Tipo>>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+
+                            }
+
+                            @Override
+                            public void onSuccess(List<Tipo> tipos) {
+                                tipoRiscoEspecifico.setValue(tipos);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+                        }
+                );
+    }
 
 
     public void obterModelos(int idAtividade){
@@ -458,6 +592,16 @@ public class LevantamentosViewModel extends BaseViewModel {
                 );
     }
 
+
+
+    private class TiposRiscos{
+
+        List<Tipo> riscos;
+        List<Tipo> nd;
+        List<Tipo> ne;
+        List<Tipo> nc;
+        List<Tipo> ni;
+    }
 
 
 }

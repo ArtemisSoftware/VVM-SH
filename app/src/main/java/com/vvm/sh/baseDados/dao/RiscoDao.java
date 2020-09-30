@@ -19,4 +19,8 @@ abstract public class RiscoDao implements BaseDao<RiscoResultado> {
     @Query("SELECT *, '----' as risco FROM riscosResultado WHERE idLevantamento = :idLevantamento")
     abstract public Observable<List<Risco>> obterRiscos(int idLevantamento);
 
+
+    @Query("SELECT * FROM riscosResultado WHERE id = :id")
+    abstract public Maybe<RiscoResultado> obterRisco(int id);
+
 }

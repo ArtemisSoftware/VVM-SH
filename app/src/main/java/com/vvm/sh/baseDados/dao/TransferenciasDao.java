@@ -19,6 +19,8 @@ import com.vvm.sh.baseDados.entidades.Morada;
 import com.vvm.sh.baseDados.entidades.Ocorrencia;
 import com.vvm.sh.baseDados.entidades.OcorrenciaHistorico;
 import com.vvm.sh.baseDados.entidades.ParqueExtintor;
+import com.vvm.sh.baseDados.entidades.PlanoAcao;
+import com.vvm.sh.baseDados.entidades.PlanoAcaoAtividade;
 import com.vvm.sh.baseDados.entidades.Resultado;
 import com.vvm.sh.baseDados.entidades.EmailResultado;
 import com.vvm.sh.baseDados.entidades.Tarefa;
@@ -194,7 +196,11 @@ abstract public class TransferenciasDao implements BaseDao<Resultado> {
     abstract public List<Long>  inserirQuadroPessoal(List<Colaborador> registos);
 
 
+    @Insert
+    abstract public Long inserirPlanoAcao(PlanoAcao registo);
 
+    @Insert
+    abstract public List<Long>  inserirPlanoAtividades(List<PlanoAcaoAtividade> registos);
 
 
 

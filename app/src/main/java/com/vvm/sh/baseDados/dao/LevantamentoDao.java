@@ -24,6 +24,7 @@ abstract public class LevantamentoDao implements BaseDao<LevantamentoRiscoResult
 
 
     @Query("SELECT *, 'lolo' as modelo, count_categorias as categoriasProfissionais, 0 as riscos, " +
+            "CASE WHEN tarefa IS NULL OR perigo IS NULL THEN 0  ELSE 1 END as validadePerigoTarefa, " +
             //"CASE WHEN validadePerigoTarefa = 1 THEN 1 ELSE 0 END as valido " +
             "0 as valido " +
             "FROM levantamentosRiscoResultado as lv_riscos_res " +

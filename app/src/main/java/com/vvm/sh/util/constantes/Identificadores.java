@@ -17,6 +17,17 @@ public class Identificadores {
     public static final int TIPO_1 = 1;
     public static final int TIPO_2 = 2;
     public static final int TIPO_3 = 3;
+    public static final String PLANO_ACCAO_ATIVIDADE_TOPO = "topo";
+    public static final int ID_POSICAO_TOPO = 1;
+
+    public static final String PLANO_ACCAO_ATIVIDADE_MEIO = "null";
+    public static final int ID_POSICAO_MEIO = 2;
+
+    public static final String PLANO_ACCAO_ATIVIDADE_FIM = "fim";
+    public static final int ID_POSICAO_FIM = 3;
+
+
+
 
     public class Origens{
 
@@ -35,6 +46,8 @@ public class Identificadores {
         public static final int CATEGORIAS_PROFISSIONAIS_VULNERABILIDADE_HOMENS = 10;
         public static final int CATEGORIAS_PROFISSIONAIS_VULNERABILIDADE_MULHERES = 11;
 
+        public static final int MEDIDAS_RISCO_EXISTENTES = 12;
+        public static final int MEDIDAS_RISCO_RECOMENDADAS = 13;
     }
 
 

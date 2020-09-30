@@ -7,6 +7,7 @@ import com.vvm.sh.baseDados.entidades.RiscoResultado;
 
 public class Risco {
     //https://mega.nz/folder/jqJAlYyL#Js1gkGWstR3F9O3gKrINgw
+    //http://linkunshortner.glitch.me/
     @Embedded
     public RiscoResultado resultado;
 

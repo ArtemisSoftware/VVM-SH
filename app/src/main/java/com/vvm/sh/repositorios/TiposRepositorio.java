@@ -6,6 +6,8 @@ import com.vvm.sh.api.SegurancaAlimentarApi;
 import com.vvm.sh.api.SegurancaTrabalhoApi;
 import com.vvm.sh.api.modelos.pedido.ITipoChecklist;
 import com.vvm.sh.api.modelos.pedido.ITipoListagem;
+import com.vvm.sh.api.modelos.pedido.ITipoTemplateAvrLevantamentoListagem;
+import com.vvm.sh.api.modelos.pedido.ITipoTemplateAvrRiscoListagem;
 import com.vvm.sh.baseDados.dao.AtualizacaoDao;
 import com.vvm.sh.baseDados.dao.TipoDao;
 import com.vvm.sh.baseDados.entidades.AreaChecklist;
@@ -14,7 +16,12 @@ import com.vvm.sh.baseDados.entidades.CheckList;
 import com.vvm.sh.baseDados.entidades.ItemChecklist;
 import com.vvm.sh.baseDados.entidades.SeccaoChecklist;
 import com.vvm.sh.baseDados.entidades.Tipo;
+import com.vvm.sh.baseDados.entidades.TipoTemplateAvrLevantamento;
+import com.vvm.sh.baseDados.entidades.TipoTemplateAvrRisco;
+import com.vvm.sh.baseDados.entidades.TipoTemplatesAVRMedidaRisco;
 import com.vvm.sh.ui.opcoes.modelos.ResumoTipo;
+import com.vvm.sh.ui.opcoes.modelos.TemplateAvr;
+import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.excepcoes.TipoInexistenteException;
 import com.vvm.sh.util.metodos.TiposUtil;
 
@@ -25,6 +32,7 @@ import io.reactivex.Flowable;
 import io.reactivex.Maybe;
 import io.reactivex.Observable;
 import io.reactivex.Single;
+import io.reactivex.functions.BiFunction;
 
 public class TiposRepositorio {
 
@@ -139,21 +147,27 @@ public class TiposRepositorio {
     }
 
 
-//    public Single<ITipoChecklist> obterTemplateAvr() throws TipoInexistenteException {
-//
-//        Single.zip(apiST.obterTipoTemplatesAVR_Levantamentos(SegurancaTrabalhoApi.HEADER_TIPO))
-//
-//
-//        List<Observable<ITipoChecklist>> pedidos = new ArrayList<>();
-//
-//        for (int id: ids) {
-//            pedidos.add(apiST.obterChecklist(SegurancaTrabalhoApi.HEADER_TIPO, id +"").toObservable());
-//        }
-//
-//
-//        return Observable.concat(pedidos);
-//    }
-//
+    public Single<TemplateAvr> obterTemplateAvr() throws TipoInexistenteException {
+
+        Single<TemplateAvr> single = Single.zip(
+                apiST.obterTipoTemplatesAVR_Levantamentos(SegurancaTrabalhoApi.HEADER_TIPO),
+                apiST.obterTipoTemplatesAVR_Riscos(SegurancaTrabalhoApi.HEADER_TIPO),
+                new BiFunction<ITipoTemplateAvrLevantamentoListagem, ITipoTemplateAvrRiscoListagem, TemplateAvr>() {
+                    @Override
+                    public TemplateAvr apply(ITipoTemplateAvrLevantamentoListagem levantamentos, ITipoTemplateAvrRiscoListagem riscos) throws Exception {
+
+                        TemplateAvr resultado = new TemplateAvr();
+                        resultado.levantamentos = levantamentos;
+                        resultado.riscos = riscos;
+
+                        return resultado;
+                    }
+                });
+
+
+        return single;
+    }
+
 
 
     /**
@@ -276,5 +290,52 @@ public class TiposRepositorio {
         tipoDao.inserirSeccoesChecklis(seccoes);
         tipoDao.inserirItensChecklis(itens);
 
+    }
+
+    public void carregarTipoTemplateAvr(Atualizacao atualizacaoLevantamento, List<TipoTemplateAvrLevantamento> dadosNovosLevantamento, List<TipoTemplateAvrLevantamento> dadosAlteradosLevantamento,
+                                        Atualizacao atualizacaoRisco,
+                                        List<TipoTemplateAvrRisco> dadosNovosRiscos, List<TipoTemplatesAVRMedidaRisco> medidas,
+                                        List<TipoTemplateAvrRisco> dadosAlteradosRiscos, List<TipoTemplatesAVRMedidaRisco> medidasAlteradas) {
+
+        //levantamento
+
+        if(dadosNovosLevantamento.size() == 0){
+            atualizacaoDao.atualizarRegisto(atualizacaoLevantamento);
+        }
+        else if(dadosNovosLevantamento.size() != 0 & dadosAlteradosLevantamento.size() == 0){
+            atualizacaoDao.inserirRegisto(atualizacaoLevantamento);
+        }
+        else{
+            atualizacaoDao.atualizarRegisto(atualizacaoLevantamento);
+        }
+
+        tipoDao.inserirTemplateAvrLevantamento(dadosNovosLevantamento);
+        tipoDao.atualizarTemplateAvrLevantamento(dadosAlteradosLevantamento);
+
+
+        //riscos
+
+        if(dadosNovosRiscos.size() == 0){
+            atualizacaoDao.atualizarRegisto(atualizacaoRisco);
+        }
+        else if(dadosNovosRiscos.size() != 0 & dadosAlteradosRiscos.size() == 0){
+            atualizacaoDao.inserirRegisto(atualizacaoRisco);
+        }
+        else{
+            atualizacaoDao.atualizarRegisto(atualizacaoRisco);
+        }
+
+        tipoDao.inserirTemplateAvrRisco(dadosNovosRiscos);
+        tipoDao.inserirTemplatesAVRMedidaRisco(medidas);
+
+        tipoDao.atualizarTemplateAvrRisco(dadosAlteradosRiscos);
+
+        for(TipoTemplateAvrRisco item : dadosAlteradosRiscos){
+
+            tipoDao.removerTemplatesAVRMedidaRisco(item.id, Identificadores.Origens.MEDIDAS_RISCO_RECOMENDADAS);
+            tipoDao.removerTemplatesAVRMedidaRisco(item.id, Identificadores.Origens.MEDIDAS_RISCO_EXISTENTES);
+        }
+
+        tipoDao.inserirTemplatesAVRMedidaRisco(medidasAlteradas);
     }
 }

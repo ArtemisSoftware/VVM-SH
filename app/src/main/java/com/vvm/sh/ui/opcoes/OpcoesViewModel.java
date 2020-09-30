@@ -15,6 +15,7 @@ import com.vvm.sh.servicos.DownloadApkAsyncTask;
 import com.vvm.sh.servicos.InstalarApkAsyncTask;
 import com.vvm.sh.servicos.AtualizarTipoAsyncTask;
 import com.vvm.sh.ui.opcoes.modelos.ResumoTipo;
+import com.vvm.sh.ui.opcoes.modelos.TemplateAvr;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.excepcoes.TipoInexistenteException;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
@@ -251,7 +252,36 @@ public class OpcoesViewModel extends BaseViewModel {
 */
 
         /*templates*/
+        /*
+        try {
+        tiposRepositorio.obterTemplateAvr()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
 
+
+                        new SingleObserver<TemplateAvr>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+
+                            }
+
+                            @Override
+                            public void onSuccess(TemplateAvr templateAvr) {
+
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+                        }
+                );
+        } catch (TipoInexistenteException e) {
+            showProgressBar(false);
+            messagemLiveData.setValue(Recurso.erro(e.getMessage()));
+        }
+        */
     }
 
 

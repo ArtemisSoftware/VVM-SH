@@ -35,6 +35,4 @@ public class PlanoAcao {
     @ColumnInfo(name = "email")
     public String email;
 
-
-
 }

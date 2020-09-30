@@ -20,7 +20,12 @@ public class Levantamento {
     public int numeroRiscos;
 
 
+    @ColumnInfo(name = "validadePerigoTarefa")
+    public boolean validadePerigoTarefa;
+
     @ColumnInfo(name = "valido")
     public boolean valido;
 
 }
+//https://mega.nz/folder/bzghSJwZ#PypeetXqf6ahBAhpqR52Rw
+//https://mega.nz/folder/qYZRzCJB#ZWPfd5n1DFzX9zfvaO6aMQ

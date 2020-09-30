@@ -20,6 +20,8 @@ import com.vvm.sh.baseDados.entidades.Morada;
 import com.vvm.sh.baseDados.entidades.Ocorrencia;
 import com.vvm.sh.baseDados.entidades.OcorrenciaHistorico;
 import com.vvm.sh.baseDados.entidades.ParqueExtintor;
+import com.vvm.sh.baseDados.entidades.PlanoAcao;
+import com.vvm.sh.baseDados.entidades.PlanoAcaoAtividade;
 import com.vvm.sh.baseDados.entidades.Resultado;
 import com.vvm.sh.baseDados.entidades.EmailResultado;
 import com.vvm.sh.baseDados.entidades.Tarefa;
@@ -333,6 +335,24 @@ public class TransferenciasRepositorio {
     public void inserirQuadroPessoal(List<Colaborador> registos) {
         transferenciasDao.inserirQuadroPessoal(registos);
     }
+
+    /**
+     * Metodo que permite inserir o plano de acao
+     * @param registo os dados a inserir
+     */
+    public void inserirPlanoAcao(PlanoAcao registo) {
+        transferenciasDao.inserirPlanoAcao(registo);
+    }
+
+    /**
+     * Metodo que permite inserir as atividades do plano de acao
+     * @param registos os dados a inserir
+     */
+    public void inserirPlanoAtividades(List<PlanoAcaoAtividade> registos) {
+        transferenciasDao.inserirPlanoAtividades(registos);
+    }
+
+
 
     /**
      * Metodo que permite eliminar uma tarefa

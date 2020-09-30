@@ -95,6 +95,7 @@
                         android:id="@+id/spnr_risco"
                         android:layout_width="400dp"
                         android:hint="@string/risco"
+                        tipos_="@{viewmodel.tiposRiscos}"
                         android:layout_height="wrap_content"
                         app:layout_constraintStart_toStartOf="@+id/textView18"
                         app:layout_constraintTop_toBottomOf="@+id/textview31" />
@@ -115,6 +116,7 @@
                         android:id="@+id/spnr_risco_especifico"
                         android:layout_width="400dp"
                         android:hint="@string/risco_especifico"
+                        tipos_="@{viewmodel.tipoRiscoEspecifico}"
                         android:layout_height="wrap_content"
                         app:layout_constraintStart_toStartOf="@+id/textView18"
                         app:layout_constraintTop_toBottomOf="@+id/textview32" />
@@ -125,7 +127,7 @@
                         android:id="@+id/textview4"
                         style="@style/parent.TextLayout"
                         android:hint="@string/consequencias"
-                        android:layout_width="450dp"
+                        android:layout_width="500dp"
                         android:layout_marginTop="@dimen/distancia_vertical_formulario"
                         app:layout_constraintStart_toStartOf="@+id/textView18"
                         app:layout_constraintTop_toBottomOf="@+id/spnr_risco_especifico"
@@ -135,6 +137,7 @@
                             android:id="@+id/txt_inp_consequencias"
                             style="@style/modifiedEditText"
                             android:inputType="textMultiLine"
+                            android:gravity="top|left"
                             android:minLines="5"
                             android:maxLines="5"/>
 
@@ -164,6 +167,7 @@
                         <com.jaredrummler.materialspinner.MaterialSpinner
                             android:id="@+id/spnr_nd"
                             android:layout_width="80dp"
+                            tipos_="@{viewmodel.tiposNd}"
                             android:layout_height="wrap_content" />
 
 
@@ -179,6 +183,7 @@
                         <com.jaredrummler.materialspinner.MaterialSpinner
                             android:id="@+id/spnr_ne"
                             android:layout_width="80dp"
+                            tipos_="@{viewmodel.tiposNe}"
                             android:layout_height="wrap_content" />
 
 
@@ -216,7 +221,8 @@
 
                         <com.jaredrummler.materialspinner.MaterialSpinner
                             android:id="@+id/spnr_nc"
-                            android:layout_width="80dp"
+                            tipos_="@{viewmodel.tiposNc}"
+                            android:layout_width="110dp"
                             android:layout_height="wrap_content" />
 
 

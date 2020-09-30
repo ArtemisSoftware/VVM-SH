@@ -56,8 +56,8 @@ public class RiscoRegistoActivity extends BaseDaggerActivity
     private Validator validador;
 
 
-    private List<Integer> medidasExistentes;
-    private List<Integer> medidasRecomendadas;
+    private List<Integer> medidasExistentes = new ArrayList<>();
+    private List<Integer> medidasRecomendadas = new ArrayList<>();
     private List<Integer> imagens;
 
     @Override
@@ -74,6 +74,17 @@ public class RiscoRegistoActivity extends BaseDaggerActivity
         activityRiscoRegistoBinding.setViewmodel(viewModel);
         activityRiscoRegistoBinding.setBloquear(PreferenciasUtil.agendaEditavel(this));
 
+
+
+        activityRiscoRegistoBinding.spnrRisco.setOnItemSelectedListener(spnr_riscos_ItemSelected);
+        activityRiscoRegistoBinding.spnrRiscoEspecifico.setOnItemSelectedListener(spnr_riscos_especificos_ItemSelected);
+
+        activityRiscoRegistoBinding.spnrNc.setOnItemSelectedListener(spnr_NP_NR_ItemSelected);
+        activityRiscoRegistoBinding.spnrNd.setOnItemSelectedListener(spnr_NP_NR_ItemSelected);
+        activityRiscoRegistoBinding.spnrNe.setOnItemSelectedListener(spnr_NP_NR_ItemSelected);
+
+
+
         subscreverObservadores();
 
         Bundle bundle = getIntent().getExtras();
@@ -81,11 +92,9 @@ public class RiscoRegistoActivity extends BaseDaggerActivity
         if(bundle != null) {
 
             int id = bundle.getInt(getString(R.string.argumento_id));
-            viewModel.obterCategoriasProfissionais(id);
+            viewModel.obteRisco(id);
         }
-        else{
-            finish();
-        }
+
 
     }
 
@@ -119,6 +128,14 @@ public class RiscoRegistoActivity extends BaseDaggerActivity
                         break;
 
                 }
+            }
+        });
+
+
+        viewModel.observarRiscos().observe(this, new Observer<List<Tipo>>() {
+            @Override
+            public void onChanged(List<Tipo> tipos) {
+                viewModel.obteRiscoEspecifico(tipos.get(0).id);
             }
         });
     }
@@ -167,15 +184,11 @@ public class RiscoRegistoActivity extends BaseDaggerActivity
 
         try{
 
-
             Tipo nd = (Tipo) activityRiscoRegistoBinding.spnrNd.getItems().get(activityRiscoRegistoBinding.spnrNd.getSelectedIndex());
             Tipo ne = (Tipo) activityRiscoRegistoBinding.spnrNe.getItems().get(activityRiscoRegistoBinding.spnrNe.getSelectedIndex());
             Tipo nc = (Tipo) activityRiscoRegistoBinding.spnrNc.getItems().get(activityRiscoRegistoBinding.spnrNc.getSelectedIndex());
 
-            //TODO: completar
-
-            //--ObjDados ni = acessoBd.obterListaId(TiposBdIF_v3.SECCAO_TiposNI);
-            String valores [] = {"0", "0", "0", "0"};//ConversorUtil.obterNP_NR_NI(nd.descricao, ne.descricao, nc.descricao, ni);
+            String valores [] = ConversorUtil.obterNP_NR_NI(nd, ne, nc, viewModel.tiposNi);
 
             activityRiscoRegistoBinding.txtNp.setText(valores[0]);
             activityRiscoRegistoBinding.txtNr.setText(valores[1]);
@@ -217,33 +230,41 @@ public class RiscoRegistoActivity extends BaseDaggerActivity
     //-------------------
 
 
-    @OnItemSelected({R.id.spnr_nd, R.id.spnr_ne, R.id.spnr_nc})
-    public void calcularNP_NR_ItemSelected(MaterialSpinner spinner, int position) {
-        calcularNP_NR();
-    }
+    MaterialSpinner.OnItemSelectedListener spnr_riscos_ItemSelected = new MaterialSpinner.OnItemSelectedListener() {
+
+        @Override
+        public void onItemSelected(MaterialSpinner view, int position, long id, Object item) {
+
+            Tipo risco = (Tipo) activityRiscoRegistoBinding.spnrRisco.getItems().get(position);
+
+            viewModel.obteRiscoEspecifico(risco.id);
+            medidasExistentes.clear();
+            medidasRecomendadas.clear();
+        }
+    };
 
 
-    @OnItemSelected({R.id.spnr_risco})
-    public void spnr_risco_ItemSelected(MaterialSpinner spinner, int position) {
+    MaterialSpinner.OnItemSelectedListener spnr_riscos_especificos_ItemSelected = new MaterialSpinner.OnItemSelectedListener() {
+
+        @Override
+        public void onItemSelected(MaterialSpinner view, int position, long id, Object item) {
+
+            estatisticaRisco();
+            medidasExistentes.clear();
+            medidasRecomendadas.clear();
+        }
+    };
 
 
-        //TODO ao selecionar deve trocar os riscos especificos
-        //ItemSpinner item = (ItemSpinner) ((SpinnerAdaptador) spnr.getAdapter()).getItem(position);
-        //((Spinner)vista.findViewById(R.id.spnr_risco_especifico)).setAdapter(acessoBdAvaliacao.obterSpinnerRiscoEspecifico(item.obterId(), false));
+    MaterialSpinner.OnItemSelectedListener spnr_NP_NR_ItemSelected = new MaterialSpinner.OnItemSelectedListener() {
 
+        @Override
+        public void onItemSelected(MaterialSpinner view, int position, long id, Object item) {
 
-        medidasExistentes.clear();
-        medidasRecomendadas.clear();
-    }
+            calcularNP_NR();
+        }
+    };
 
-
-    @OnItemSelected({R.id.spnr_risco_especifico})
-    public void spnr_risco_especifico_ItemSelected(MaterialSpinner spinner, int position) {
-
-        estatisticaRisco();
-        medidasExistentes.clear();
-        medidasRecomendadas.clear();
-    }
 
 
 

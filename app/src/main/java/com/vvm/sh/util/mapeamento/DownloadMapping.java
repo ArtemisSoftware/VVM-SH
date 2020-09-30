@@ -3,10 +3,15 @@ package com.vvm.sh.util.mapeamento;
 import com.vvm.sh.api.modelos.pedido.IColaborador;
 import com.vvm.sh.api.modelos.pedido.IMorada;
 import com.vvm.sh.api.modelos.pedido.IParqueExtintor;
+import com.vvm.sh.api.modelos.pedido.IPlanoAcao;
 import com.vvm.sh.api.modelos.pedido.ITipo;
 import com.vvm.sh.api.modelos.pedido.ITipoChecklist;
 import com.vvm.sh.api.modelos.pedido.ITipoExtintor;
 import com.vvm.sh.api.modelos.pedido.ITipoListagem;
+import com.vvm.sh.api.modelos.pedido.ITipoTemplateAvrLevantamento;
+import com.vvm.sh.api.modelos.pedido.ITipoTemplateAvrLevantamentoListagem;
+import com.vvm.sh.api.modelos.pedido.ITipoTemplateAvrRisco;
+import com.vvm.sh.api.modelos.pedido.ITipoTemplateAvrRiscoListagem;
 import com.vvm.sh.api.modelos.pedido.IUtilizador;
 import com.vvm.sh.api.modelos.pedido.IAtividadeExecutada;
 import com.vvm.sh.api.modelos.pedido.IAnomalia;
@@ -21,12 +26,16 @@ import com.vvm.sh.baseDados.entidades.Colaborador;
 import com.vvm.sh.baseDados.entidades.ItemChecklist;
 import com.vvm.sh.baseDados.entidades.Morada;
 import com.vvm.sh.baseDados.entidades.ParqueExtintor;
+import com.vvm.sh.baseDados.entidades.PlanoAcao;
+import com.vvm.sh.baseDados.entidades.PlanoAcaoAtividade;
 import com.vvm.sh.baseDados.entidades.SeccaoChecklist;
 import com.vvm.sh.baseDados.entidades.Tarefa;
 import com.vvm.sh.baseDados.entidades.Anomalia;
 import com.vvm.sh.baseDados.entidades.AtividadeExecutada;
 import com.vvm.sh.baseDados.entidades.AtividadePendente;
 import com.vvm.sh.baseDados.entidades.TipoExtintor;
+import com.vvm.sh.baseDados.entidades.TipoTemplateAvrLevantamento;
+import com.vvm.sh.baseDados.entidades.TipoTemplateAvrRisco;
 import com.vvm.sh.baseDados.entidades.Utilizador;
 import com.vvm.sh.baseDados.entidades.Cliente;
 import com.vvm.sh.baseDados.entidades.Ocorrencia;
@@ -127,4 +136,17 @@ public interface DownloadMapping {
     @Mapping(target = "tipo", source = "itemItem.tipo")
     @Mapping(target = "codigo", source = "itemItem.codigo")
     ItemChecklist map(ITipoChecklist.IItem item, CheckList checkList, ITipoChecklist.IArea itemArea, ITipoChecklist.ISeccao itemSeccao, ITipoChecklist.IItem itemItem);
+
+    PlanoAcao map(IPlanoAcao planoAcao);
+
+    @Mapping(target = "sempreNecessario", ignore = true)
+    PlanoAcaoAtividade map(IPlanoAcao.IAtividadePlano iAtividadePlano);
+
+    Atualizacao map(ITipoTemplateAvrLevantamentoListagem levantamentos);
+
+    TipoTemplateAvrLevantamento map(ITipoTemplateAvrLevantamento item);
+
+    Atualizacao map(ITipoTemplateAvrRiscoListagem riscos);
+
+    TipoTemplateAvrRisco map(ITipoTemplateAvrRisco item);
 }

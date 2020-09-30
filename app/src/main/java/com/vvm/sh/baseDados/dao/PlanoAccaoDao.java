@@ -97,4 +97,18 @@ abstract public class PlanoAccaoDao implements BaseDao<PlanoAccaoResultado> {
             "WHERE idTarefa = :idTarefa")
     abstract public Observable<List<AtividadeRegisto>> obterAtividades(int idTarefa);
 
+
+
+//    String query = "SELECT  cap, email, dataContrato   ";
+//    query += "FROM planoAcao as pl_ac ";
+//    query += "OUTER LEFT JOIN (SELECT idTarefa, dataContrato FROM clientes) as clt ON pl_ac.idTarefa = clt.idTarefa ";
+//    query += "WHERE pl_ac.idTarefa = ? ";
+//
+//    String argumentos [] = {
+//            idTarefa
+//    };
+//
+//
+//    abstract public Single<List<AtividadeRegisto>> obterAtividades(int idTarefa);
+
 }

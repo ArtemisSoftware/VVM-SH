@@ -11,6 +11,7 @@ import com.vvm.sh.databinding.ActivityPlanoAccaoBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.planoAccao.adaptadores.AnuidadePagerAdapter;
+import com.vvm.sh.ui.planoAccao.adaptadores.OnPlanoAtividadeListener;
 import com.vvm.sh.ui.planoAccao.modelo.AtividadeRegisto;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
@@ -20,7 +21,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class PlanoAccaoActivity extends BaseDaggerActivity {
+public class PlanoAccaoActivity extends BaseDaggerActivity implements OnPlanoAtividadeListener {
 
 
     ActivityPlanoAccaoBinding activityPlanoAccaoBinding;
@@ -50,6 +51,7 @@ public class PlanoAccaoActivity extends BaseDaggerActivity {
         activityPlanoAccaoBinding = (ActivityPlanoAccaoBinding) activityBinding;
         activityPlanoAccaoBinding.setLifecycleOwner(this);
         activityPlanoAccaoBinding.setViewmodel(viewModel);
+        activityPlanoAccaoBinding.setListener(this);
         //activityPlanoAccaoBinding.setBloquear(PreferenciasUtil.agendaEditavel(this));
 
 
@@ -79,7 +81,7 @@ public class PlanoAccaoActivity extends BaseDaggerActivity {
         viewModel.observarAtividades().observe(this, new Observer<List<AtividadeRegisto>>() {
             @Override
             public void onChanged(List<AtividadeRegisto> atividadeRegistos) {
-                ((AnuidadePagerAdapter) activityPlanoAccaoBinding.viewpagerContainer.getAdapter()).atualizar(atividadeRegistos, 0);
+               ((AnuidadePagerAdapter) activityPlanoAccaoBinding.viewpagerContainer.getAdapter()).atualizar(atividadeRegistos, 0);
             }
         });
 
@@ -136,5 +138,13 @@ public class PlanoAccaoActivity extends BaseDaggerActivity {
     }
 
 
+    @Override
+    public void OnAtividadeClick(AtividadeRegisto registo) {
 
+    }
+
+    @Override
+    public void OnDataClick(AtividadeRegisto registo, int mes) {
+
+    }
 }

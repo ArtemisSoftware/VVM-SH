@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 
 import com.vvm.sh.R;
 import com.vvm.sh.databinding.FragmentAnuidadeBinding;
+import com.vvm.sh.ui.planoAccao.adaptadores.OnPlanoAtividadeListener;
 import com.vvm.sh.ui.planoAccao.modelo.AtividadeRegisto;
 
 import java.util.List;
@@ -34,6 +35,10 @@ public class AnuidadeFragment extends Fragment {
 
     private String mParam1;
     private String mParam2;
+
+
+    private OnPlanoAtividadeListener listenerAtividade;
+
 
 
     public AnuidadeFragment() {
@@ -70,6 +75,7 @@ public class AnuidadeFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         binding = FragmentAnuidadeBinding.inflate(inflater);
+        binding.setListener(listenerAtividade);
         return binding.getRoot();
     }
 
@@ -82,28 +88,21 @@ public class AnuidadeFragment extends Fragment {
 
 
 
-//    // TODO: Rename method, update argument and hook method into UI event
-//    public void onButtonPressed(Uri uri) {
-//        if (mListener != null) {
-//            mListener.onFragmentInteraction(uri);
-//        }
-//    }
-//
-//    @Override
-//    public void onAttach(Context context) {
-//        super.onAttach(context);
-//        if (context instanceof OnFragmentInteractionListener) {
-//            mListener = (OnFragmentInteractionListener) context;
-//        } else {
-//            throw new RuntimeException(context.toString()
-//                    + " must implement OnFragmentInteractionListener");
-//        }
-//    }
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        if (context instanceof OnPlanoAtividadeListener) {
+            listenerAtividade = (OnPlanoAtividadeListener) context;
+        } else {
+            throw new RuntimeException(context.toString()
+                    + " must implement OnPlanoAtividadeListener");
+        }
+    }
 
     @Override
     public void onDetach() {
         super.onDetach();
-        //mListener = null;
+        listenerAtividade = null;
     }
 
 

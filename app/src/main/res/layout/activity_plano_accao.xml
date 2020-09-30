@@ -18,6 +18,10 @@
 
 
         <variable
+            name="listener"
+            type="com.vvm.sh.ui.planoAccao.adaptadores.OnPlanoAtividadeListener"/>
+
+        <variable
             name="bloquear"
             type="Boolean"/>
 
@@ -141,22 +145,13 @@
 
 
 
-        <androidx.core.widget.NestedScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:clipToPadding="false"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+                    <androidx.viewpager.widget.ViewPager
+                        android:id="@+id/viewpager_container"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
 
-
-
-            <androidx.viewpager.widget.ViewPager
-                android:id="@+id/viewpager_container"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
-
-        </androidx.core.widget.NestedScrollView>
 
 
 

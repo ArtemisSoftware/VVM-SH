@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 
 import com.vvm.sh.R;
+import com.vvm.sh.baseDados.entidades.PlanoAccaoResultado;
 import com.vvm.sh.databinding.ActivityPlanoAccaoBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
@@ -146,8 +147,8 @@ public class PlanoAccaoActivity extends BaseDaggerActivity implements OnPlanoAti
         activityPlanoAccaoBinding.viewpagerContainer.setAdapter(adapter);
         activityPlanoAccaoBinding.tab.setupWithViewPager(activityPlanoAccaoBinding.viewpagerContainer);
 
-        activityPlanoAccaoBinding.tab.getTabAt(ANUIDADE_1_FRAGMENT).setText("lolololo");
-        activityPlanoAccaoBinding.tab.getTabAt(ANUIDADE_2_FRAGMENT).setText("vovovovovov");
+        activityPlanoAccaoBinding.tab.getTabAt(ANUIDADE_1_FRAGMENT).setText("");
+        activityPlanoAccaoBinding.tab.getTabAt(ANUIDADE_2_FRAGMENT).setText("");
     }
 
 
@@ -157,7 +158,28 @@ public class PlanoAccaoActivity extends BaseDaggerActivity implements OnPlanoAti
     }
 
     @Override
-    public void OnDataClick(AtividadeRegisto registo, int mes) {
+    public void OnDataClick(AtividadeRegisto registo, int mesSelecionado) {
+
+
+        int ano = Integer.parseInt(viewModel.plano.getValue().cliente.dataContrato.split("-")[0]);
+        ano = ano + activityPlanoAccaoBinding.tab.getSelectedTabPosition();
+
+        String mes = mesSelecionado + "";
+
+        if((mes + "").length() == 1){
+            mes = "0" + mes;
+        }
+
+        String data = "01-" + mes + "-" + ano;
+
+
+        PlanoAccaoResultado resultado = new PlanoAccaoResultado(PreferenciasUtil.obterIdTarefa(this), registo.atividade.id, registo.atividade.servId, data);
+
+
+        //AcessoBDPlanoAcao acessoBdPlano = new AcessoBDPlanoAcao(contexto, idTarefa);
+        //acessoBdPlano.gravar(obterRegistoSelecionado().obterId(), ((AtividadePlano) obterRegistoSelecionado()).obterIdAtividade(),data,  ((AtividadePlano) obterRegistoSelecionado()).obterServId());
+
+
 
     }
 }

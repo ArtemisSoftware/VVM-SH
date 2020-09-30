@@ -5,6 +5,7 @@ import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
@@ -40,4 +41,19 @@ public class PlanoAccaoResultado {
     public String data;
 
 
+    public PlanoAccaoResultado(int idTarefa, int id, int idAtividadePlano, String servId, String data) {
+        this.idTarefa = idTarefa;
+        this.id = id;
+        this.idAtividadePlano = idAtividadePlano;
+        this.servId = servId;
+        this.data = data;
+    }
+
+    @Ignore
+    public PlanoAccaoResultado(int idTarefa, int idAtividadePlano, String servId, String data) {
+        this.idTarefa = idTarefa;
+        this.idAtividadePlano = idAtividadePlano;
+        this.servId = servId;
+        this.data = data;
+    }
 }

@@ -2,6 +2,7 @@ package com.vvm.sh.baseDados.dao;
 
 import androidx.room.Dao;
 import androidx.room.Query;
+import androidx.room.Transaction;
 
 import com.vvm.sh.baseDados.BaseDao;
 import com.vvm.sh.baseDados.entidades.PlanoAcao;
@@ -79,6 +80,7 @@ abstract public class PlanoAccaoDao implements BaseDao<PlanoAccaoResultado> {
 
 
 
+    @Transaction
     @Query("SELECT *,  " +
             "CASE " +
             "WHEN sempreNecessario = 1   THEN " + Identificadores.TIPO_NOTA + " "+
@@ -90,10 +92,13 @@ abstract public class PlanoAccaoDao implements BaseDao<PlanoAccaoResultado> {
             "ELSE '' END as nota,  " +
             "" +
             "CASE WHEN fixo = 2 THEN 1 ELSE 0 END as reprogramavel " +
+
             "" +
             "" +
             "FROM planoAcaoAtividade as pl_acao " +
-            "WHERE idTarefa = :idTarefa ORDER BY fixo ASC ")
+
+
+            "WHERE pl_acao.idTarefa = :idTarefa ORDER BY fixo ASC ")
     abstract public Observable<List<AtividadeRegisto>> obterAtividades(int idTarefa);
 
 

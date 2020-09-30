@@ -52,9 +52,6 @@ public class PlanoAtividadeRecyclerAdapter extends RecyclerView.Adapter<Recycler
 
         }
 
-//        ItemPlanoAcaoProgramacaoBinding binding = DataBindingUtil.inflate(LayoutInflater.from(contexto), R.layout.item_plano_acao_programacao, parent, false);
-//        return new PlanoAtividadeViewHolder(binding.getRoot(), this.listener, Identificadores.TIPO_DATA);
-
     }
 
     @Override

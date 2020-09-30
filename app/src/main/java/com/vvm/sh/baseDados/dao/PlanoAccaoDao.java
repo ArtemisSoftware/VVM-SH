@@ -87,7 +87,10 @@ abstract public class PlanoAccaoDao implements BaseDao<PlanoAccaoResultado> {
             "" +
             "CASE WHEN sempreNecessario = 1   THEN 'Sempre necessário'  " +
             "WHEN observacao IS NOT NULL THEN observacao  " +
-            "ELSE '' END as nota  " +
+            "ELSE '' END as nota,  " +
+            "" +
+            "CASE WHEN fixo = 2 THEN 1 ELSE 0 END as reprogramavel " +
+            "" +
             "" +
             "FROM planoAcaoAtividade as pl_acao " +
             "WHERE idTarefa = :idTarefa ORDER BY fixo ASC ")

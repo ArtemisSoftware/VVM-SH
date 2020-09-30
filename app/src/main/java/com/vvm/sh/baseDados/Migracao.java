@@ -40,49 +40,37 @@ CAMPO_ID +" INTEGER," +
 			"PRIMARY KEY (" + CAMPO_ID +"," + CAMPO_ID_EQUIPAMENTO + "," + CAMPO_CODIGO + ")" +
 
 
-
-	//1.Nome da tabela
-	public String TABELA_TIPOS_NOVOS = "tiposNovos";
-
-	//2.ID da tabela
-	public int TABELA_TIPOS_NOVOS_ID = 23;
-
-	//3.Campos da tabela
-	public String CAMPO_ID_DEFINITIVO = "idDefinitivo";
-	public String CAMPO_ESTADO = "estado";
-
-
-	//4.Criar tabela
-	public String CRIAR_TABELA_TIPOS_NOVOS = "CREATE TABLE " + TABELA_TIPOS_NOVOS + "(" +
-			CAMPO_ID +" INTEGER," +
-			CAMPO_DESCRICAO + " TEXT," +
-			CAMPO_CODIGO + " TEXT," +
-			CAMPO_TIPO + " TEXT," +
-			CAMPO_ID_DEFINITIVO + " TEXT," +
-			CAMPO_ESTADO + " INTEGER DEFAULT " + IdentificadoresIF.TIPO_INSERIDO_PENDENTE + ", " +
-			CAMPO_ACTIVO + " INTEGER DEFAULT " + AtualizacaoIF.CODIGO_TIPO_ATIVO + ", " +
-			SELO_TEMPORAL + " " +
-	")";
-
-
-
-
-
-
                  */
+
+                database.execSQL("DROP TABLE IF EXISTS 'tiposTemplateAvrLevantamentos'");
+
+                database.execSQL("CREATE TABLE IF NOT EXISTS 'tiposTemplateAvrLevantamentos' ("
+                        + "'id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
+                        + "'idModelo' INTEGER NOT NULL , "
+                        + "'tarefa' TEXT NOT NULL, "
+                        + "'perigo' TEXT NOT NULL, "
+                        + "'ativo' INTEGER NOT NULL) ");
+
+
+                database.execSQL("CREATE TABLE IF NOT EXISTS 'verificacaoEquipamentosResultado' ("
+                        + "'idAtividade' INTEGER, "
+                        + "'idEquipamento' INTEGER, "
+                        + "'codigo' INTEGER NOT NULL, "
+                        + "PRIMARY KEY (idAtividade, idEquipamento, codigo), "
+                        + "FOREIGN KEY (idAtividade) REFERENCES atividadesPendentes (idAtividade)  ON DELETE CASCADE)  ");
+
 
 
                 database.execSQL("CREATE TABLE IF NOT EXISTS 'tiposNovos' ("
-                        + "'id' INTEGER NOT NULL, "
+                        + "'id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
+                        + "'idDefinitivo' INTEGER NOT NULL, "
                         + "'tipo' TEXT NOT NULL, "
                         + "'descricao' TEXT NOT NULL, "
-                        + "'codigo' TEXT NOT NULL, "
-                        + "'idPai' TEXT NOT NULL, "
-                        + "'ativo' INTEGER NOT NULL, "
-                        + "'detalhe' TEXT NOT NULL, "
-                        + "'api' INTEGER NOT NULL, "
-                        + "PRIMARY KEY (id, tipo, api), "
-                        + "FOREIGN KEY (tipo) REFERENCES atualizacoes (descricao)  ON DELETE CASCADE) ");
+                        + "'codigo' TEXT , "
+                        + "'idPai' TEXT , "
+                        + "'estado' INTEGER NOT NULL DEFAULT " + Identificadores.ESTADO_PENDENTE + " ,  "
+                        + "'ativo' INTEGER NOT NULL DEFAULT " + Identificadores.VALOR_1 + " ,  "
+                        + "'detalhe' TEXT) ");
             }
             catch(SQLException | IllegalStateException e){
                 Log.e("Migracao", "erro MIGRACAO_24_25: " + e.getMessage());

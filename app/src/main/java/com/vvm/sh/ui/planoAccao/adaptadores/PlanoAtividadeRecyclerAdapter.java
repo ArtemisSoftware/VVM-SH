@@ -62,10 +62,10 @@ public class PlanoAtividadeRecyclerAdapter extends RecyclerView.Adapter<Recycler
 
         AtividadeRegisto registo = items.get(position);
 
-        if(registo.tipo == Identificadores.TIPO_DATA) {
+        if(registo.tipo == Identificadores.TIPO_NOTA) {
 
-            ((PlanoAtividadeViewHolder) holder).binding.setAtividade(registo);
-            ((PlanoAtividadeViewHolder) holder).binding.executePendingBindings();
+            ((PlanoAtividadeNotaViewHolder) holder).binding.setAtividade(registo);
+            ((PlanoAtividadeNotaViewHolder) holder).binding.executePendingBindings();
         }
         else{
             ((PlanoAtividadeViewHolder) holder).binding.setAtividade(registo);

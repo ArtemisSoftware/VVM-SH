@@ -21,6 +21,9 @@ public class PlanoAtividadeViewHolder extends RecyclerView.ViewHolder implements
         binding = DataBindingUtil.bind(itemView);
         this.listener = listener;
         itemView.setOnClickListener(this);
+
+        binding.txt1.setOnClickListener(txt_mes_onClick);
+
     }
 
 
@@ -30,4 +33,17 @@ public class PlanoAtividadeViewHolder extends RecyclerView.ViewHolder implements
         this.listener.OnAtividadeClick(binding.getAtividade());
 
     }
+
+
+    View.OnClickListener txt_mes_onClick = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+
+
+            if(binding.getAtividade().reprogramavel == true){
+                listener.OnDataClick(binding.getAtividade(), Integer.parseInt(v.getTag().toString()));
+            }
+        }
+    };
+
 }

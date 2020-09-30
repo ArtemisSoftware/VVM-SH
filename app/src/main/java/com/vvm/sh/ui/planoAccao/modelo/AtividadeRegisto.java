@@ -17,4 +17,7 @@ public class AtividadeRegisto {
 
     @ColumnInfo(name = "nota")
     public String nota;
+
+    @ColumnInfo(name = "reprogramavel")
+    public boolean reprogramavel;
 }

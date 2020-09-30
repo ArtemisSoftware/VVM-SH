@@ -92,6 +92,7 @@ import com.vvm.sh.databinding.ItemOcorrenciaRegistoBindingImpl;
 import com.vvm.sh.databinding.ItemOpcaoClienteBindingImpl;
 import com.vvm.sh.databinding.ItemPendenciaBindingImpl;
 import com.vvm.sh.databinding.ItemPesquisaBindingImpl;
+import com.vvm.sh.databinding.ItemPesquisaEquipamentoBindingImpl;
 import com.vvm.sh.databinding.ItemPlanoAcaoNotaBindingImpl;
 import com.vvm.sh.databinding.ItemPlanoAcaoProgramacaoBindingImpl;
 import com.vvm.sh.databinding.ItemPlanoAccaoMedidasAvaliacaoBindingImpl;
@@ -284,25 +285,27 @@ public class DataBinderMapperImpl extends DataBinderMapper {
 
   private static final int LAYOUT_ITEMPESQUISA = 86;
 
-  private static final int LAYOUT_ITEMPLANOACAONOTA = 87;
+  private static final int LAYOUT_ITEMPESQUISAEQUIPAMENTO = 87;
 
-  private static final int LAYOUT_ITEMPLANOACAOPROGRAMACAO = 88;
+  private static final int LAYOUT_ITEMPLANOACAONOTA = 88;
 
-  private static final int LAYOUT_ITEMPLANOACCAOMEDIDASAVALIACAO = 89;
+  private static final int LAYOUT_ITEMPLANOACAOPROGRAMACAO = 89;
 
-  private static final int LAYOUT_ITEMPLANOACCAOST = 90;
+  private static final int LAYOUT_ITEMPLANOACCAOMEDIDASAVALIACAO = 90;
 
-  private static final int LAYOUT_ITEMRISCO = 91;
+  private static final int LAYOUT_ITEMPLANOACCAOST = 91;
 
-  private static final int LAYOUT_ITEMTIPO = 92;
+  private static final int LAYOUT_ITEMRISCO = 92;
 
-  private static final int LAYOUT_ITEMTRABALHADORVULNERAVEL = 93;
+  private static final int LAYOUT_ITEMTIPO = 93;
 
-  private static final int LAYOUT_ITEMTRABALHOREALIZADO = 94;
+  private static final int LAYOUT_ITEMTRABALHADORVULNERAVEL = 94;
 
-  private static final int LAYOUT_ITEMUPLOAD = 95;
+  private static final int LAYOUT_ITEMTRABALHOREALIZADO = 95;
 
-  private static final SparseIntArray INTERNAL_LAYOUT_ID_LOOKUP = new SparseIntArray(95);
+  private static final int LAYOUT_ITEMUPLOAD = 96;
+
+  private static final SparseIntArray INTERNAL_LAYOUT_ID_LOOKUP = new SparseIntArray(96);
 
   static {
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.vvm.sh.R.layout.activity_acao_formacao, LAYOUT_ACTIVITYACAOFORMACAO);
@@ -391,6 +394,7 @@ public class DataBinderMapperImpl extends DataBinderMapper {
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.vvm.sh.R.layout.item_opcao_cliente, LAYOUT_ITEMOPCAOCLIENTE);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.vvm.sh.R.layout.item_pendencia, LAYOUT_ITEMPENDENCIA);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.vvm.sh.R.layout.item_pesquisa, LAYOUT_ITEMPESQUISA);
+    INTERNAL_LAYOUT_ID_LOOKUP.put(com.vvm.sh.R.layout.item_pesquisa_equipamento, LAYOUT_ITEMPESQUISAEQUIPAMENTO);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.vvm.sh.R.layout.item_plano_acao_nota, LAYOUT_ITEMPLANOACAONOTA);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.vvm.sh.R.layout.item_plano_acao_programacao, LAYOUT_ITEMPLANOACAOPROGRAMACAO);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.vvm.sh.R.layout.item_plano_accao_medidas_avaliacao, LAYOUT_ITEMPLANOACCAOMEDIDASAVALIACAO);
@@ -928,6 +932,12 @@ public class DataBinderMapperImpl extends DataBinderMapper {
         }
         throw new IllegalArgumentException("The tag for item_pesquisa is invalid. Received: " + tag);
       }
+      case  LAYOUT_ITEMPESQUISAEQUIPAMENTO: {
+        if ("layout/item_pesquisa_equipamento_0".equals(tag)) {
+          return new ItemPesquisaEquipamentoBindingImpl(component, view);
+        }
+        throw new IllegalArgumentException("The tag for item_pesquisa_equipamento is invalid. Received: " + tag);
+      }
       case  LAYOUT_ITEMPLANOACAONOTA: {
         if ("layout/item_plano_acao_nota_0".equals(tag)) {
           return new ItemPlanoAcaoNotaBindingImpl(component, view);
@@ -1088,7 +1098,7 @@ public class DataBinderMapperImpl extends DataBinderMapper {
   }
 
   private static class InnerLayoutIdLookup {
-    static final HashMap<String, Integer> sKeys = new HashMap<String, Integer>(95);
+    static final HashMap<String, Integer> sKeys = new HashMap<String, Integer>(96);
 
     static {
       sKeys.put("layout/activity_acao_formacao_0", com.vvm.sh.R.layout.activity_acao_formacao);
@@ -1177,6 +1187,7 @@ public class DataBinderMapperImpl extends DataBinderMapper {
       sKeys.put("layout/item_opcao_cliente_0", com.vvm.sh.R.layout.item_opcao_cliente);
       sKeys.put("layout/item_pendencia_0", com.vvm.sh.R.layout.item_pendencia);
       sKeys.put("layout/item_pesquisa_0", com.vvm.sh.R.layout.item_pesquisa);
+      sKeys.put("layout/item_pesquisa_equipamento_0", com.vvm.sh.R.layout.item_pesquisa_equipamento);
       sKeys.put("layout/item_plano_acao_nota_0", com.vvm.sh.R.layout.item_plano_acao_nota);
       sKeys.put("layout/item_plano_acao_programacao_0", com.vvm.sh.R.layout.item_plano_acao_programacao);
       sKeys.put("layout/item_plano_accao_medidas_avaliacao_0", com.vvm.sh.R.layout.item_plano_accao_medidas_avaliacao);

@@ -15,7 +15,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.atividadesPendentes.relatorios.equipamentos.EquipamentosActivity"></activity>
+        <activity android:name=".ui.atividadesPendentes.relatorios.equipamentos.EquipamentosActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity
             android:name=".ui.planoAccao.PlanoAccaoActivity"
             android:theme="@style/AppTheme.NoActionBar" />

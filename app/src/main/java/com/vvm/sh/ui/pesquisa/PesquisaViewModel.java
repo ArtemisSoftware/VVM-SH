@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.repositorios.TiposRepositorio;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.equipamentos.Equipamento;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import java.util.ArrayList;
@@ -28,6 +29,9 @@ public class PesquisaViewModel extends BaseViewModel {
     public MutableLiveData<List<Tipo>> tipos;
 
 
+    public MutableLiveData<List<Equipamento>> equipamentos;
+
+
     @Inject
     public PesquisaViewModel(int idApi, TiposRepositorio tiposRepositorio){
 
@@ -36,6 +40,7 @@ public class PesquisaViewModel extends BaseViewModel {
 
         tiposSelecionados = new MutableLiveData<>();
         tipos = new MutableLiveData<>();
+        equipamentos = new MutableLiveData<>();
     }
 
 
@@ -43,7 +48,34 @@ public class PesquisaViewModel extends BaseViewModel {
 
     public void obterEquipamentos(int idAtividade) {
 
+        tiposRepositorio.obterEquipamentos_Excluir(idAtividade, idApi)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
 
+                        new Observer<List<Equipamento>>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+
+                            }
+
+                            @Override
+                            public void onNext(List<Equipamento> registos) {
+                                equipamentos.setValue(registos);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+
+                            @Override
+                            public void onComplete() {
+
+                            }
+                        }
+
+                );
 
 
     }

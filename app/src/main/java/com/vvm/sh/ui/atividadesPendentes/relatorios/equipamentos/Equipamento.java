@@ -10,5 +10,6 @@ public class Equipamento {
     @ColumnInfo(name = "descricao")
     public String descricao;
 
-
+    @ColumnInfo(name = "estado")
+    public int estado;
 }

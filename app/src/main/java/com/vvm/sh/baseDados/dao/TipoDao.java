@@ -14,6 +14,7 @@ import com.vvm.sh.baseDados.entidades.SeccaoChecklist;
 import com.vvm.sh.baseDados.entidades.TipoTemplateAvrLevantamento;
 import com.vvm.sh.baseDados.entidades.TipoTemplateAvrRisco;
 import com.vvm.sh.baseDados.entidades.TipoTemplatesAVRMedidaRisco;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.equipamentos.Equipamento;
 import com.vvm.sh.ui.opcoes.modelos.Colecao;
 import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.ui.opcoes.modelos.ResumoTipo;
@@ -148,11 +149,11 @@ abstract public class TipoDao implements BaseDao<Tipo> {
 
     //equipamentos
 
-    @Query("SELECT * FROM tipos WHERE tipo = " + TiposUtil.MetodosTipos.TIPOS_MAQUINA + " AND api = :api AND id NOT IN (:registos) AND ativo = 1")
-    abstract public Observable<List<Tipo>> obterEquipamentos_Excluir(List<Integer> registos, int api);
+    @Query("SELECT id, descricao, 1 as estado FROM tipos WHERE tipo = '" + TiposUtil.MetodosTipos.TIPOS_MAQUINA + "' AND api = :api AND ativo = 1") // AND id NOT IN (:registos)
+    abstract public Observable<List<Equipamento>> obterEquipamentos_Excluir(int api); //-int idAtividade,
 
 
-    @Query("SELECT * FROM tipos WHERE tipo = " + TiposUtil.MetodosTipos.TIPOS_MAQUINA + " AND api = :api AND id IN (:registos) AND ativo = 1")
-    abstract public Observable<List<Tipo>> obterEquipamentos_Incluir(List<Integer> registos, int api);
+    @Query("SELECT id, descricao, 1 as estado FROM tipos WHERE tipo = '" + TiposUtil.MetodosTipos.TIPOS_MAQUINA + "' AND api = :api AND id IN (:registos) AND ativo = 1")
+    abstract public Observable<List<Equipamento>> obterEquipamentos_Incluir(List<Integer> registos, int api);
 
 }

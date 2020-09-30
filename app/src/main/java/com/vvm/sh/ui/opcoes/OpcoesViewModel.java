@@ -166,7 +166,7 @@ public class OpcoesViewModel extends BaseViewModel {
         showProgressBar(true);
 
         List<ITipoListagem> respostas = new ArrayList<>();
-/*
+
 
         try {
             tiposRepositorio.obterTipos()
@@ -204,7 +204,7 @@ public class OpcoesViewModel extends BaseViewModel {
             showProgressBar(false);
             messagemLiveData.setValue(Recurso.erro(e.getMessage()));
         }
-*/
+
 
         //TODO: na primeira chamada isto pode dar problemas. rever
 /*
@@ -254,36 +254,43 @@ public class OpcoesViewModel extends BaseViewModel {
 
         /*templates*/
 
+
+    }
+
+
+    public void recarregarTemplatesAvr(){
+
         try {
-        tiposRepositorio.obterTemplateAvr()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
+            tiposRepositorio.obterTemplateAvr()
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
 
 
-                        new SingleObserver<TemplateAvr>() {
-                            @Override
-                            public void onSubscribe(Disposable d) {
+                            new SingleObserver<TemplateAvr>() {
+                                @Override
+                                public void onSubscribe(Disposable d) {
 
+                                }
+
+                                @Override
+                                public void onSuccess(TemplateAvr templateAvr) {
+
+                                    CarregarTipoTemplatesAvrAsyncTask servico = new CarregarTipoTemplatesAvrAsyncTask(vvmshBaseDados, tiposRepositorio);
+                                    servico.execute(templateAvr);
+                                }
+
+                                @Override
+                                public void onError(Throwable e) {
+
+                                }
                             }
-
-                            @Override
-                            public void onSuccess(TemplateAvr templateAvr) {
-
-                                CarregarTipoTemplatesAvrAsyncTask servico = new CarregarTipoTemplatesAvrAsyncTask(vvmshBaseDados, tiposRepositorio);
-                                servico.execute(templateAvr);
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-
-                            }
-                        }
-                );
+                    );
         } catch (TipoInexistenteException e) {
             showProgressBar(false);
             messagemLiveData.setValue(Recurso.erro(e.getMessage()));
         }
+
 
     }
 

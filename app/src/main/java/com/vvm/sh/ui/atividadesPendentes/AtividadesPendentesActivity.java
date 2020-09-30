@@ -15,6 +15,7 @@ import com.vvm.sh.ui.atividadesPendentes.relatorios.DialogoProcessoProdutivo;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.FormacaoActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.RelatorioAvaliacaoAmbientalActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.ChecklistActivity;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.equipamentos.EquipamentosActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.LevantamentosActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.propostaPlanoAccao.PropostaPlanoAccaoActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.trabalhadoresVulneraveis.TrabalhadoresVulneraveisActivity;
@@ -183,6 +184,13 @@ public class AtividadesPendentesActivity extends BaseDaggerActivity
     @Override
     public void OnIniciarAvaliacaoRiscos(int idAtividade) {
         Intent intent = new Intent(this, LevantamentosActivity.class);
+        intent.putExtra(getString(R.string.argumento_id_atividade), idAtividade);
+        startActivity(intent);
+    }
+
+    @Override
+    public void OnIniciarEquipamentos(int idAtividade) {
+        Intent intent = new Intent(this, EquipamentosActivity.class);
         intent.putExtra(getString(R.string.argumento_id_atividade), idAtividade);
         startActivity(intent);
     }

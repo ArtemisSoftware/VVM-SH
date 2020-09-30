@@ -22,4 +22,6 @@ public interface OnAtividadePendenteListener {
     void OnIniciarVulnerabilidades(int idAtividade);
     void OnIniciarPlanoAcao(int idAtividade);
     void OnIniciarAvaliacaoRiscos(int idAtividade);
+
+    void OnIniciarEquipamentos(int idAtividade);
 }

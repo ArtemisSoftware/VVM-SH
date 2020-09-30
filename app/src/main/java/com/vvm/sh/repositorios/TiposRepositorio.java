@@ -19,6 +19,7 @@ import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.baseDados.entidades.TipoTemplateAvrLevantamento;
 import com.vvm.sh.baseDados.entidades.TipoTemplateAvrRisco;
 import com.vvm.sh.baseDados.entidades.TipoTemplatesAVRMedidaRisco;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.equipamentos.Equipamento;
 import com.vvm.sh.ui.opcoes.modelos.ResumoTipo;
 import com.vvm.sh.ui.opcoes.modelos.TemplateAvr;
 import com.vvm.sh.util.constantes.Identificadores;
@@ -211,6 +212,17 @@ public class TiposRepositorio {
     }
 
 
+
+
+
+
+
+
+
+
+
+
+
     /**
      * Metodo que permite obter uma lista de tipos apenas com base em registos especificos
      * @param metodo o nome do metodo associado ao tipo
@@ -222,6 +234,10 @@ public class TiposRepositorio {
         return tipoDao.obterTipos_Incluir(metodo, registos, api);
     }
 
+
+    public Observable<List<Equipamento>> obterEquipamentos_Excluir(int idAtividade, int api) {
+        return tipoDao.obterEquipamentos_Excluir( api); //-idAtividade,
+    }
 
 
     /**

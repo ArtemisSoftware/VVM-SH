@@ -1,4 +1,4 @@
-package com.vvm.sh.ui.atividadesPendentes.relatorios.equipamentos;
+package com.vvm.sh.ui.atividadesPendentes.relatorios.equipamentos.adaptadores;
 
 import android.view.View;
 

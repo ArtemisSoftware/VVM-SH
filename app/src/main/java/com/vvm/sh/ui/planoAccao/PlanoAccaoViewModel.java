@@ -2,9 +2,12 @@ package com.vvm.sh.ui.planoAccao;
 
 import androidx.lifecycle.MutableLiveData;
 
+import com.vvm.sh.baseDados.entidades.PlanoAccaoResultado;
 import com.vvm.sh.repositorios.PlanoAccaoRepositorio;
 import com.vvm.sh.ui.planoAccao.modelo.AtividadeRegisto;
 import com.vvm.sh.ui.planoAccao.modelo.Plano;
+import com.vvm.sh.util.Recurso;
+import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import java.util.List;
@@ -42,6 +45,70 @@ public class PlanoAccaoViewModel extends BaseViewModel {
     public MutableLiveData<Plano> observarPlano(){
         return plano;
     }
+
+
+
+
+
+    public void gravar(PlanoAccaoResultado registo, PlanoAccaoResultado resultado) {
+
+        if(registo == null){
+            planoAccaoRepositorio.inserir(resultado)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+
+                            new SingleObserver<Long>() {
+                                @Override
+                                public void onSubscribe(Disposable d) {
+
+                                }
+
+                                @Override
+                                public void onSuccess(Long aLong) {
+                                    messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_GRAVADOS_SUCESSO));
+
+                                }
+
+                                @Override
+                                public void onError(Throwable e) {
+
+                                }
+                            }
+                    );
+        }
+        else{
+
+            resultado.id = registo.id;
+            planoAccaoRepositorio.atualizar(resultado)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+
+                            new SingleObserver<Integer>() {
+                                @Override
+                                public void onSubscribe(Disposable d) {
+
+                                }
+
+                                @Override
+                                public void onSuccess(Integer integer) {
+                                    messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_EDITADOS_SUCESSO));
+                                }
+
+                                @Override
+                                public void onError(Throwable e) {
+
+                                }
+                            }
+                    );
+
+        }
+
+    }
+
+
+
 
     //---------------------
     //OBTER
@@ -106,5 +173,6 @@ public class PlanoAccaoViewModel extends BaseViewModel {
                 );
 
     }
+
 
 }

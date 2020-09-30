@@ -52,6 +52,7 @@ public class TiposUtil {
         public static final String TIPOS_AREA = "GetTiposArea";
         public static final String TIPOS_CHECKLIST = "GetTiposChecklistNovo";
         public static final String TIPOS_ILUMINACAO = "GetTiposIluminacao";
+        public static final String TIPOS_MAQUINA = "GetTiposMaquina";
         public static final String TIPOS_NC = "GetTiposNC";
         public static final String TIPOS_ND = "GetTiposND";
         public static final String TIPOS_NE = "GetTiposNE";
@@ -99,6 +100,7 @@ public class TiposUtil {
         public static final String TIPOS_ND = "Tipos_ND";
         public static final String TIPOS_NE = "Tipos_NE";
         public static final String TIPOS_NC = "Tipos_NC";
+        public static final String TIPOS_MAQUINA = "Tipos_Maquina";
         public static final String TIPOS_UTS = "Tipos_Uts";
         public static final String TIPOS_VULNERABILIDADES =  "Tipos_Vulnerabilidade";
 
@@ -128,6 +130,7 @@ public class TiposUtil {
         public static final MetodoApi METODO_TIPOS_ND = new MetodoApi(TIPOS_ND, null, MetodosTiposSH.TIPOS_ND);
         public static final MetodoApi METODO_TIPOS_NE = new MetodoApi(TIPOS_NE, null, MetodosTiposSH.TIPOS_NE);
         public static final MetodoApi METODO_TIPOS_NI = new MetodoApi(TIPOS_NI, null, MetodosTiposSH.TIPOS_NI);
+        public static final MetodoApi METODO_TIPOS_MAQUINA = new MetodoApi(TIPOS_MAQUINA, null, MetodosTiposSH.TIPOS_MAQUINA);
         public static final MetodoApi METODO_TIPOS_UTS = new MetodoApi(TIPOS_UTS, null, MetodosTiposSH.TIPOS_UTS);
         public static final MetodoApi METODO_TIPOS_VULNERABILIDADES = new MetodoApi(TIPOS_VULNERABILIDADES, null, MetodosTiposSH.TIPOS_VULNERABILIDADES);
 
@@ -156,6 +159,7 @@ public class TiposUtil {
                 METODO_TIPOS_ND,
                 METODO_TIPOS_NE,
                 METODO_TIPOS_NI,
+                METODO_TIPOS_MAQUINA,
                 METODO_TIPOS_UTS,
                 METODO_TIPOS_VULNERABILIDADES
         };
@@ -398,6 +402,13 @@ public class TiposUtil {
             case MetodosTipos.TIPOS_NE:
 
                 metodo = MetodosTipos.METODO_TIPOS_NE;
+                break;
+
+
+            case MetodosTiposSH.TIPOS_MAQUINA:
+            case MetodosTipos.TIPOS_MAQUINA:
+
+                metodo = MetodosTipos.METODO_TIPOS_MAQUINA;
                 break;
 
 

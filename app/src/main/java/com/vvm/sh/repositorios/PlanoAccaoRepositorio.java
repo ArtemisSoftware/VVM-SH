@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 
 import com.vvm.sh.baseDados.dao.PlanoAccaoDao;
 import com.vvm.sh.baseDados.dao.ResultadoDao;
+import com.vvm.sh.baseDados.entidades.PlanoAccaoResultado;
 import com.vvm.sh.ui.planoAccao.modelo.AtividadeRegisto;
 import com.vvm.sh.ui.planoAccao.modelo.Plano;
 
@@ -33,5 +34,14 @@ public class PlanoAccaoRepositorio {
 
     public Single<Plano> obterPlano(int idTarefa){
         return planoAccaoDao.obterPlano(idTarefa);
+    }
+
+    public Single<Long> inserir(PlanoAccaoResultado registo){
+        return planoAccaoDao.inserir(registo);
+    }
+
+
+    public Single<Integer> atualizar(PlanoAccaoResultado registo){
+        return planoAccaoDao.atualizar(registo);
     }
 }

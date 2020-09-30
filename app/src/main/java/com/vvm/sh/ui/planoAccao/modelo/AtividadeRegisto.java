@@ -29,4 +29,6 @@ public class AtividadeRegisto {
     @ColumnInfo(name = "reprogramavel")
     public boolean reprogramavel;
 
+    @ColumnInfo(name = "tipoExecucao")
+    public int tipoExecucao;
 }

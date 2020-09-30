@@ -39,6 +39,17 @@ public class PesquisaViewModel extends BaseViewModel {
     }
 
 
+
+
+    public void obterEquipamentos(int idAtividade) {
+
+
+
+
+    }
+
+
+
     public void obterRegistos(String metodo, List<Integer> registos){
 
         showProgressBar(true);

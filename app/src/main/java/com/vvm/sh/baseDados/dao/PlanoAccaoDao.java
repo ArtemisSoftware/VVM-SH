@@ -91,7 +91,20 @@ abstract public class PlanoAccaoDao implements BaseDao<PlanoAccaoResultado> {
             "WHEN observacao IS NOT NULL THEN observacao  " +
             "ELSE '' END as nota,  " +
             "" +
-            "CASE WHEN fixo = 2 THEN 1 ELSE 0 END as reprogramavel " +
+            "CASE WHEN fixo = 2 THEN 1 ELSE 0 END as reprogramavel, " +
+            "" +
+            "CASE WHEN dataExecucao IS NOT NULL                            THEN " + Identificadores.REPROGRAMADA + "  " + //--'reprogramada'\n" +
+            "WHEN sempreNecessario = 1                            THEN 0  " +  //--'NADA'\n" +
+            "WHEN dataExecucao IS NOT NULL AND fixo = 2                        THEN " + Identificadores.PROGRAMADA + "  " + //--'programada'\n" +
+            "WHEN dataExecucao IS NOT NULL                        THEN  " + Identificadores.EXECUTADA + "  " + //--'executada'\n" +
+            "WHEN group_concat(dataProgramada) IS NOT NULL AND reprogramada = 1     THEN 3  " + //--'reprogramada'\n" +
+            "WHEN group_concat(dataProgramada) IS NOT NULL                            THEN " + Identificadores.PROGRAMADA_FIXA + "  " + //--'programada fixa'\n" +
+            "WHEN fixo = 3    AND (observacao IS NULL OR  observacao = '')        THEN 1  " +//--'FIxa'\n" +
+            "ELSE 3    " + //--'reprogramada'\n" +
+            "END as tipoExecucao " +
+            "" +
+            "" +
+            "" +
 
             "" +
             "" +

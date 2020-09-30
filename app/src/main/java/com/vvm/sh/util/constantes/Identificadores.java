@@ -30,6 +30,10 @@ public class Identificadores {
 
 
 
+    public static final int EXECUTADA = 2, PROGRAMADA_FIXA = 4, PROGRAMADA = 5, REPROGRAMADA = 6;
+
+
+
 
     public class Origens{
 

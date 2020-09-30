@@ -146,4 +146,13 @@ abstract public class TipoDao implements BaseDao<Tipo> {
     abstract public Maybe<List<Integer>> obterChecklists(int api);
 
 
+    //equipamentos
+
+    @Query("SELECT * FROM tipos WHERE tipo = " + TiposUtil.MetodosTipos.TIPOS_MAQUINA + " AND api = :api AND id NOT IN (:registos) AND ativo = 1")
+    abstract public Observable<List<Tipo>> obterEquipamentos_Excluir(List<Integer> registos, int api);
+
+
+    @Query("SELECT * FROM tipos WHERE tipo = " + TiposUtil.MetodosTipos.TIPOS_MAQUINA + " AND api = :api AND id IN (:registos) AND ativo = 1")
+    abstract public Observable<List<Tipo>> obterEquipamentos_Incluir(List<Integer> registos, int api);
+
 }

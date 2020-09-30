@@ -176,8 +176,7 @@ public class PlanoAccaoActivity extends BaseDaggerActivity implements OnPlanoAti
         PlanoAccaoResultado resultado = new PlanoAccaoResultado(PreferenciasUtil.obterIdTarefa(this), registo.atividade.id, registo.atividade.servId, data);
 
 
-        //AcessoBDPlanoAcao acessoBdPlano = new AcessoBDPlanoAcao(contexto, idTarefa);
-        //acessoBdPlano.gravar(obterRegistoSelecionado().obterId(), ((AtividadePlano) obterRegistoSelecionado()).obterIdAtividade(),data,  ((AtividadePlano) obterRegistoSelecionado()).obterServId());
+        viewModel.gravar(registo.resultado, resultado);
 
 
 

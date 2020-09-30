@@ -12,4 +12,16 @@ public class Equipamento {
 
     @ColumnInfo(name = "estado")
     public int estado;
+
+
+    public String obterEstado(){
+
+        String resultado = "";
+
+        if(estado == 1){
+            resultado = "Novo equipamento";
+        }
+
+        return resultado;
+    }
 }

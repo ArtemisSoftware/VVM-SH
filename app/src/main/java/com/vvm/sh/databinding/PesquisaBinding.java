@@ -5,6 +5,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.vvm.sh.baseDados.entidades.Tipo;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.equipamentos.Equipamento;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.equipamentos.adaptadores.EquipamentoRecyclerHolder;
 import com.vvm.sh.ui.pesquisa.OnPesquisaListener;
 import com.vvm.sh.ui.pesquisa.Pesquisa;
 import com.vvm.sh.ui.pesquisa.PesquisaRecyclerAdapter;
@@ -88,5 +90,51 @@ public class PesquisaBinding {
 
     }
 
+
+
+    @BindingAdapter({"registosEquipamentos"})
+    public static void setRegistosEquipamentos(RecyclerView view, List<Equipamento> items) {
+
+        if(items == null){
+            return;
+        }
+
+        //List<Tipo> lolo = items;
+
+        List<Equipamento> lolo = new ArrayList<>();
+
+        int i = 0;
+        for (Equipamento item : items) {
+
+            lolo.add(item);
+
+            if(i == 14){
+                break;
+            }
+
+            ++i;
+        }
+
+        //TODO: fazer paginacao
+
+        RecyclerView.LayoutManager layoutManager = view.getLayoutManager();
+
+
+        if(layoutManager == null){
+            view.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        }
+
+        EquipamentoRecyclerHolder adapter = (EquipamentoRecyclerHolder) view.getAdapter();
+
+        if(adapter == null){
+            adapter = new EquipamentoRecyclerHolder(view.getContext(), lolo);
+
+            view.setAdapter(adapter);
+        }
+        else{
+            adapter.atualizar(lolo);
+        }
+
+    }
 
 }

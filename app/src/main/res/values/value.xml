@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <integer name="janeiro">1</integer>
+    <integer name="fevereiro">2</integer>
+    <integer name="marco">3</integer>
+    <integer name="abril">4</integer>
+    <integer name="maio">5</integer>
+    <integer name="junho">6</integer>
+    <integer name="julho">7</integer>
+    <integer name="agosto">8</integer>
+    <integer name="setembro">9</integer>
+    <integer name="outubro">10</integer>
+    <integer name="novembro">11</integer>
+    <integer name="dezembro">12</integer>
+</resources>

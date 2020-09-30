@@ -149,7 +149,7 @@ abstract public class TipoDao implements BaseDao<Tipo> {
 
     //equipamentos
 
-    @Query("SELECT id, descricao, 1 as estado FROM tipos WHERE tipo = '" + TiposUtil.MetodosTipos.TIPOS_MAQUINA + "' AND api = :api AND ativo = 1") // AND id NOT IN (:registos)
+    @Query("SELECT id, descricao, 0 as estado FROM tipos WHERE tipo = '" + TiposUtil.MetodosTipos.TIPOS_MAQUINA + "' AND api = :api AND ativo = 1") // AND id NOT IN (:registos)
     abstract public Observable<List<Equipamento>> obterEquipamentos_Excluir(int api); //-int idAtividade,
 
 

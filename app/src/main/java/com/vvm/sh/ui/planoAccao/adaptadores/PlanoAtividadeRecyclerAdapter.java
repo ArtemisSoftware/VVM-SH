@@ -10,8 +10,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.vvm.sh.R;
 import com.vvm.sh.baseDados.entidades.Tipo;
+import com.vvm.sh.databinding.ItemPlanoAcaoNotaBinding;
 import com.vvm.sh.databinding.ItemPlanoAcaoProgramacaoBinding;
 import com.vvm.sh.ui.planoAccao.modelo.AtividadeRegisto;
+import com.vvm.sh.util.constantes.Identificadores;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -37,6 +39,12 @@ public class PlanoAtividadeRecyclerAdapter extends RecyclerView.Adapter<Recycler
 
         switch (viewType){
 
+            case Identificadores.TIPO_NOTA:
+
+                ItemPlanoAcaoNotaBinding bindingNota = DataBindingUtil.inflate(LayoutInflater.from(contexto), R.layout.item_plano_acao_nota, parent, false);
+                return new PlanoAtividadeNotaViewHolder(bindingNota.getRoot(), this.listener);
+
+
             default:
 
                 ItemPlanoAcaoProgramacaoBinding binding = DataBindingUtil.inflate(LayoutInflater.from(contexto), R.layout.item_plano_acao_programacao, parent, false);
@@ -44,16 +52,25 @@ public class PlanoAtividadeRecyclerAdapter extends RecyclerView.Adapter<Recycler
 
         }
 
-        //return null;
+//        ItemPlanoAcaoProgramacaoBinding binding = DataBindingUtil.inflate(LayoutInflater.from(contexto), R.layout.item_plano_acao_programacao, parent, false);
+//        return new PlanoAtividadeViewHolder(binding.getRoot(), this.listener, Identificadores.TIPO_DATA);
+
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
         AtividadeRegisto registo = items.get(position);
-        ((PlanoAtividadeViewHolder) holder).binding.setAtividade(registo);
 
-        ((PlanoAtividadeViewHolder) holder).binding.executePendingBindings();
+        if(registo.tipo == Identificadores.TIPO_DATA) {
+
+            ((PlanoAtividadeViewHolder) holder).binding.setAtividade(registo);
+            ((PlanoAtividadeViewHolder) holder).binding.executePendingBindings();
+        }
+        else{
+            ((PlanoAtividadeViewHolder) holder).binding.setAtividade(registo);
+            ((PlanoAtividadeViewHolder) holder).binding.executePendingBindings();
+        }
 
     }
 
@@ -62,7 +79,7 @@ public class PlanoAtividadeRecyclerAdapter extends RecyclerView.Adapter<Recycler
     public int getItemViewType(int position) {
 
         AtividadeRegisto registo = items.get(position);
-        return super.getItemViewType(registo.tipo);
+        return registo.tipo;
     }
 
     @Override

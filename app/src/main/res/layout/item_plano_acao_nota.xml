@@ -28,7 +28,7 @@
 
             <LinearLayout
                 android:id="@+id/linearLayout19"
-                android:layout_width="200dp"
+                android:layout_width="250dp"
                 android:layout_height="60dp"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="8dp"
@@ -51,7 +51,7 @@
                 <TextView
                     style="@style/textoDetalhe"
                     android:layout_gravity="center_vertical"
-                    android:layout_marginTop="7dp"
+                    android:layout_marginTop="2dp"
                     android:gravity="center_vertical"
                     android:text="@{atividade.atividade.anuidade, default=anuidade}" />
 

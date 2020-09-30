@@ -146,6 +146,8 @@ public class PlanoAccaoActivity extends BaseDaggerActivity implements OnPlanoAti
         activityPlanoAccaoBinding.viewpagerContainer.setAdapter(adapter);
         activityPlanoAccaoBinding.tab.setupWithViewPager(activityPlanoAccaoBinding.viewpagerContainer);
 
+        activityPlanoAccaoBinding.tab.getTabAt(ANUIDADE_1_FRAGMENT).setText("lolololo");
+        activityPlanoAccaoBinding.tab.getTabAt(ANUIDADE_2_FRAGMENT).setText("vovovovovov");
     }
 
 

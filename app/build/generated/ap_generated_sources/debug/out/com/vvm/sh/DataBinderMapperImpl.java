@@ -91,6 +91,7 @@ import com.vvm.sh.databinding.ItemOcorrenciaRegistoBindingImpl;
 import com.vvm.sh.databinding.ItemOpcaoClienteBindingImpl;
 import com.vvm.sh.databinding.ItemPendenciaBindingImpl;
 import com.vvm.sh.databinding.ItemPesquisaBindingImpl;
+import com.vvm.sh.databinding.ItemPlanoAcaoNotaBindingImpl;
 import com.vvm.sh.databinding.ItemPlanoAcaoProgramacaoBindingImpl;
 import com.vvm.sh.databinding.ItemPlanoAccaoMedidasAvaliacaoBindingImpl;
 import com.vvm.sh.databinding.ItemPlanoAccaoStBindingImpl;
@@ -280,23 +281,25 @@ public class DataBinderMapperImpl extends DataBinderMapper {
 
   private static final int LAYOUT_ITEMPESQUISA = 85;
 
-  private static final int LAYOUT_ITEMPLANOACAOPROGRAMACAO = 86;
+  private static final int LAYOUT_ITEMPLANOACAONOTA = 86;
 
-  private static final int LAYOUT_ITEMPLANOACCAOMEDIDASAVALIACAO = 87;
+  private static final int LAYOUT_ITEMPLANOACAOPROGRAMACAO = 87;
 
-  private static final int LAYOUT_ITEMPLANOACCAOST = 88;
+  private static final int LAYOUT_ITEMPLANOACCAOMEDIDASAVALIACAO = 88;
 
-  private static final int LAYOUT_ITEMRISCO = 89;
+  private static final int LAYOUT_ITEMPLANOACCAOST = 89;
 
-  private static final int LAYOUT_ITEMTIPO = 90;
+  private static final int LAYOUT_ITEMRISCO = 90;
 
-  private static final int LAYOUT_ITEMTRABALHADORVULNERAVEL = 91;
+  private static final int LAYOUT_ITEMTIPO = 91;
 
-  private static final int LAYOUT_ITEMTRABALHOREALIZADO = 92;
+  private static final int LAYOUT_ITEMTRABALHADORVULNERAVEL = 92;
 
-  private static final int LAYOUT_ITEMUPLOAD = 93;
+  private static final int LAYOUT_ITEMTRABALHOREALIZADO = 93;
 
-  private static final SparseIntArray INTERNAL_LAYOUT_ID_LOOKUP = new SparseIntArray(93);
+  private static final int LAYOUT_ITEMUPLOAD = 94;
+
+  private static final SparseIntArray INTERNAL_LAYOUT_ID_LOOKUP = new SparseIntArray(94);
 
   static {
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.vvm.sh.R.layout.activity_acao_formacao, LAYOUT_ACTIVITYACAOFORMACAO);
@@ -384,6 +387,7 @@ public class DataBinderMapperImpl extends DataBinderMapper {
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.vvm.sh.R.layout.item_opcao_cliente, LAYOUT_ITEMOPCAOCLIENTE);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.vvm.sh.R.layout.item_pendencia, LAYOUT_ITEMPENDENCIA);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.vvm.sh.R.layout.item_pesquisa, LAYOUT_ITEMPESQUISA);
+    INTERNAL_LAYOUT_ID_LOOKUP.put(com.vvm.sh.R.layout.item_plano_acao_nota, LAYOUT_ITEMPLANOACAONOTA);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.vvm.sh.R.layout.item_plano_acao_programacao, LAYOUT_ITEMPLANOACAOPROGRAMACAO);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.vvm.sh.R.layout.item_plano_accao_medidas_avaliacao, LAYOUT_ITEMPLANOACCAOMEDIDASAVALIACAO);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.vvm.sh.R.layout.item_plano_accao_st, LAYOUT_ITEMPLANOACCAOST);
@@ -914,6 +918,12 @@ public class DataBinderMapperImpl extends DataBinderMapper {
         }
         throw new IllegalArgumentException("The tag for item_pesquisa is invalid. Received: " + tag);
       }
+      case  LAYOUT_ITEMPLANOACAONOTA: {
+        if ("layout/item_plano_acao_nota_0".equals(tag)) {
+          return new ItemPlanoAcaoNotaBindingImpl(component, view);
+        }
+        throw new IllegalArgumentException("The tag for item_plano_acao_nota is invalid. Received: " + tag);
+      }
       case  LAYOUT_ITEMPLANOACAOPROGRAMACAO: {
         if ("layout/item_plano_acao_programacao_0".equals(tag)) {
           return new ItemPlanoAcaoProgramacaoBindingImpl(component, view);
@@ -1068,7 +1078,7 @@ public class DataBinderMapperImpl extends DataBinderMapper {
   }
 
   private static class InnerLayoutIdLookup {
-    static final HashMap<String, Integer> sKeys = new HashMap<String, Integer>(93);
+    static final HashMap<String, Integer> sKeys = new HashMap<String, Integer>(94);
 
     static {
       sKeys.put("layout/activity_acao_formacao_0", com.vvm.sh.R.layout.activity_acao_formacao);
@@ -1156,6 +1166,7 @@ public class DataBinderMapperImpl extends DataBinderMapper {
       sKeys.put("layout/item_opcao_cliente_0", com.vvm.sh.R.layout.item_opcao_cliente);
       sKeys.put("layout/item_pendencia_0", com.vvm.sh.R.layout.item_pendencia);
       sKeys.put("layout/item_pesquisa_0", com.vvm.sh.R.layout.item_pesquisa);
+      sKeys.put("layout/item_plano_acao_nota_0", com.vvm.sh.R.layout.item_plano_acao_nota);
       sKeys.put("layout/item_plano_acao_programacao_0", com.vvm.sh.R.layout.item_plano_acao_programacao);
       sKeys.put("layout/item_plano_accao_medidas_avaliacao_0", com.vvm.sh.R.layout.item_plano_accao_medidas_avaliacao);
       sKeys.put("layout/item_plano_accao_st_0", com.vvm.sh.R.layout.item_plano_accao_st);

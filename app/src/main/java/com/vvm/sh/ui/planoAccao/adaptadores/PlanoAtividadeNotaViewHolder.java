@@ -10,12 +10,13 @@ import com.vvm.sh.databinding.ItemPlanoAcaoNotaBinding;
 import com.vvm.sh.databinding.ItemPlanoAcaoProgramacaoBinding;
 import com.vvm.sh.util.constantes.Identificadores;
 
-public class PlanoAtividadeViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+public class PlanoAtividadeNotaViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
-    public ItemPlanoAcaoProgramacaoBinding binding;
+    public ItemPlanoAcaoNotaBinding binding;
     private OnPlanoAtividadeListener listener;
 
-    public PlanoAtividadeViewHolder(@NonNull View itemView, OnPlanoAtividadeListener listener) {
+
+    public PlanoAtividadeNotaViewHolder(@NonNull View itemView, OnPlanoAtividadeListener listener) {
         super(itemView);
 
         binding = DataBindingUtil.bind(itemView);
@@ -28,6 +29,5 @@ public class PlanoAtividadeViewHolder extends RecyclerView.ViewHolder implements
     public void onClick(View v) {
 
         this.listener.OnAtividadeClick(binding.getAtividade());
-
     }
 }

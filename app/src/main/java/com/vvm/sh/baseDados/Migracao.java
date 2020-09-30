@@ -55,7 +55,7 @@ CAMPO_ID +" INTEGER," +
                 database.execSQL("CREATE TABLE IF NOT EXISTS 'verificacaoEquipamentosResultado' ("
                         + "'idAtividade' INTEGER, "
                         + "'idEquipamento' INTEGER, "
-                        + "'codigo' INTEGER NOT NULL, "
+                        + "'codigo' INTEGER , "
                         + "PRIMARY KEY (idAtividade, idEquipamento, codigo), "
                         + "FOREIGN KEY (idAtividade) REFERENCES atividadesPendentes (idAtividade)  ON DELETE CASCADE)  ");
 

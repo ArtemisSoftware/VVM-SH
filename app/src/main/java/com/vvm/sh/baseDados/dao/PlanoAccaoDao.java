@@ -82,7 +82,7 @@ abstract public class PlanoAccaoDao implements BaseDao<PlanoAccaoResultado> {
     @Query("SELECT *,  " +
             "CASE " +
             "WHEN sempreNecessario = 1   THEN " + Identificadores.TIPO_NOTA + " "+
-            "WHEN observacao IS NOT NULL THEN " + Identificadores.TIPO_NOTA + " "+
+            "WHEN observacao IS NOT NULL AND observacao != '' THEN " + Identificadores.TIPO_NOTA + " "+
             "ELSE " + Identificadores.TIPO_DATA + " END as tipo, " +
             "" +
             "CASE WHEN sempreNecessario = 1   THEN 'Sempre necessário'  " +

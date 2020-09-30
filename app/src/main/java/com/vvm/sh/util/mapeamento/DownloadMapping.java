@@ -56,6 +56,12 @@ public interface DownloadMapping {
     @Mapping(source = "seloTemporal", target = "seloTemporal")
     Atualizacao map(ITipoListagem item);
 
+    @Mapping(target = "descricao", source = "metodo")
+    Atualizacao map(ITipoTemplateAvrLevantamentoListagem levantamentos);
+
+    @Mapping(target = "descricao", source = "metodo")
+    Atualizacao map(ITipoTemplateAvrRiscoListagem riscos);
+
 
     @Mapping(source = "item.id", target = "id")
     @Mapping(source = "item.descricao", target = "descricao")
@@ -142,11 +148,9 @@ public interface DownloadMapping {
     @Mapping(target = "sempreNecessario", ignore = true)
     PlanoAcaoAtividade map(IPlanoAcao.IAtividadePlano iAtividadePlano);
 
-    Atualizacao map(ITipoTemplateAvrLevantamentoListagem levantamentos);
 
     TipoTemplateAvrLevantamento map(ITipoTemplateAvrLevantamento item);
 
-    Atualizacao map(ITipoTemplateAvrRiscoListagem riscos);
 
     TipoTemplateAvrRisco map(ITipoTemplateAvrRisco item);
 }

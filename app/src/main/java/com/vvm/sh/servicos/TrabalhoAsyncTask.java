@@ -168,14 +168,18 @@ public class TrabalhoAsyncTask extends AsyncTask<ISessao, Void, Void> {
             }
 
 
-            if(IAtividadePlano.posicao.equals(Identificadores.PLANO_ACCAO_ATIVIDADE_TOPO) == true){
-                item.fixo = Identificadores.ID_POSICAO_TOPO;
-            }
-            else if(IAtividadePlano.posicao.equals(Identificadores.PLANO_ACCAO_ATIVIDADE_FIM) == true){
-                item.fixo = Identificadores.ID_POSICAO_FIM;
-            }
-            else{
+            if(IAtividadePlano.posicao == null){
                 item.fixo = Identificadores.ID_POSICAO_MEIO;
+            }
+            else {
+
+                if (IAtividadePlano.posicao.equals(Identificadores.PLANO_ACCAO_ATIVIDADE_TOPO) == true) {
+                    item.fixo = Identificadores.ID_POSICAO_TOPO;
+                } else if (IAtividadePlano.posicao.equals(Identificadores.PLANO_ACCAO_ATIVIDADE_FIM) == true) {
+                    item.fixo = Identificadores.ID_POSICAO_FIM;
+                } else {
+                    item.fixo = Identificadores.ID_POSICAO_MEIO;
+                }
             }
 
             registos.add(item);

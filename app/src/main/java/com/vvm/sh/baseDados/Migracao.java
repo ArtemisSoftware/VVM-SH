@@ -24,6 +24,32 @@ public class Migracao {
     }
 
 
+    public static final Migration MIGRACAO_24_25 = new Migration(24, 25) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            try {
+
+
+                /*
+verificacaoEquipamentos_resultado
+CAMPO_ID +" INTEGER," +
+			CAMPO_ID_EQUIPAMENTO +" TEXT," +
+			CAMPO_CODIGO  + " INTEGER, " +
+
+			"FOREIGN KEY (" + CAMPO_ID + ") REFERENCES " + EncargosBdIF.TABELA_ATIVIDADES_PENDENTES + " (" + CAMPO_ID + "), " +
+			"PRIMARY KEY (" + CAMPO_ID +"," + CAMPO_ID_EQUIPAMENTO + "," + CAMPO_CODIGO + ")" +
+
+
+                 */
+            }
+            catch(SQLException | IllegalStateException e){
+                Log.e("Migracao", "erro MIGRACAO_24_25: " + e.getMessage());
+                //Timber.e("erro MIGRACAO_2_3: " + e.getMessage());
+            }
+        }
+    };
+
+
 
     public static final Migration MIGRACAO_23_24 = new Migration(23, 24) {
         @Override

@@ -76,7 +76,7 @@ abstract public class TipoDao implements BaseDao<Tipo> {
 
 
     @Query("DELETE FROM tiposTemplatesAVRMedidasRisco WHERE id = :id AND origem = :origem")
-    abstract public Integer removerTemplatesAVRMedidaRisco(int id, int origem);
+    abstract public void removerTemplatesAVRMedidaRisco(int id, int origem);
 
 
 

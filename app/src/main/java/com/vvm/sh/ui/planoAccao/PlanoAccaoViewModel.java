@@ -30,6 +30,11 @@ public class PlanoAccaoViewModel extends BaseViewModel {
 
 
 
+    public MutableLiveData<List<AtividadeRegisto>> observarAtividades(){
+        return atividades;
+    }
+
+
     //---------------------
     //OBTER
     //---------------------

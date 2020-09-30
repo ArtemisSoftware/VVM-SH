@@ -11,9 +11,12 @@ import com.vvm.sh.databinding.ActivityPlanoAccaoBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.planoAccao.adaptadores.AnuidadePagerAdapter;
+import com.vvm.sh.ui.planoAccao.modelo.AtividadeRegisto;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -52,17 +55,11 @@ public class PlanoAccaoActivity extends BaseDaggerActivity {
 
         subscreverObservadores();
 
-        Bundle bundle = getIntent().getExtras();
-
-        if(bundle != null) {
-
-            viewModel.obterAtividades(PreferenciasUtil.obterIdTarefa(this));
-        }
-        else{
-            finish();
-        }
-
         setupViewPager();
+
+        viewModel.obterAtividades(PreferenciasUtil.obterIdTarefa(this));
+
+
     }
 
     @Override
@@ -77,6 +74,15 @@ public class PlanoAccaoActivity extends BaseDaggerActivity {
 
     @Override
     protected void subscreverObservadores() {
+
+
+        viewModel.observarAtividades().observe(this, new Observer<List<AtividadeRegisto>>() {
+            @Override
+            public void onChanged(List<AtividadeRegisto> atividadeRegistos) {
+                ((AnuidadePagerAdapter) activityPlanoAccaoBinding.viewpagerContainer.getAdapter()).atualizar(atividadeRegistos, 0);
+            }
+        });
+
 
 //
 //        viewModel.observarMessagem().observe(this, new Observer<Recurso>() {

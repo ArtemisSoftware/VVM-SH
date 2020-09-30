@@ -11,6 +11,7 @@ import com.vvm.sh.api.modelos.VersaoApp;
 import com.vvm.sh.repositorios.TiposRepositorio;
 import com.vvm.sh.repositorios.VersaoAppRepositorio;
 import com.vvm.sh.servicos.CarregarTipoChecklistAsyncTask;
+import com.vvm.sh.servicos.CarregarTipoTemplatesAvrAsyncTask;
 import com.vvm.sh.servicos.DownloadApkAsyncTask;
 import com.vvm.sh.servicos.InstalarApkAsyncTask;
 import com.vvm.sh.servicos.AtualizarTipoAsyncTask;
@@ -165,7 +166,7 @@ public class OpcoesViewModel extends BaseViewModel {
         showProgressBar(true);
 
         List<ITipoListagem> respostas = new ArrayList<>();
-
+/*
 
         try {
             tiposRepositorio.obterTipos()
@@ -203,7 +204,7 @@ public class OpcoesViewModel extends BaseViewModel {
             showProgressBar(false);
             messagemLiveData.setValue(Recurso.erro(e.getMessage()));
         }
-
+*/
 
         //TODO: na primeira chamada isto pode dar problemas. rever
 /*
@@ -252,7 +253,7 @@ public class OpcoesViewModel extends BaseViewModel {
 */
 
         /*templates*/
-        /*
+
         try {
         tiposRepositorio.obterTemplateAvr()
                 .subscribeOn(Schedulers.io())
@@ -269,6 +270,8 @@ public class OpcoesViewModel extends BaseViewModel {
                             @Override
                             public void onSuccess(TemplateAvr templateAvr) {
 
+                                CarregarTipoTemplatesAvrAsyncTask servico = new CarregarTipoTemplatesAvrAsyncTask(vvmshBaseDados, tiposRepositorio);
+                                servico.execute(templateAvr);
                             }
 
                             @Override
@@ -281,7 +284,7 @@ public class OpcoesViewModel extends BaseViewModel {
             showProgressBar(false);
             messagemLiveData.setValue(Recurso.erro(e.getMessage()));
         }
-        */
+
     }
 
 

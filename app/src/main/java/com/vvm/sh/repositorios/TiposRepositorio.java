@@ -326,9 +326,9 @@ public class TiposRepositorio {
         }
 
         tipoDao.inserirTemplateAvrRisco(dadosNovosRiscos);
-        tipoDao.inserirTemplatesAVRMedidaRisco(medidas);
-
         tipoDao.atualizarTemplateAvrRisco(dadosAlteradosRiscos);
+
+        /*Medidas*/
 
         for(TipoTemplateAvrRisco item : dadosAlteradosRiscos){
 
@@ -336,6 +336,10 @@ public class TiposRepositorio {
             tipoDao.removerTemplatesAVRMedidaRisco(item.id, Identificadores.Origens.MEDIDAS_RISCO_EXISTENTES);
         }
 
+
+        //TODO: verificar se as medidas estão ativias , depois filtrar e depois inserir
+
+        tipoDao.inserirTemplatesAVRMedidaRisco(medidas);
         tipoDao.inserirTemplatesAVRMedidaRisco(medidasAlteradas);
     }
 }

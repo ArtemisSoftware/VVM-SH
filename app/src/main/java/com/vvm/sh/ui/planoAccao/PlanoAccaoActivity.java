@@ -160,19 +160,20 @@ public class PlanoAccaoActivity extends BaseDaggerActivity implements OnPlanoAti
     }
 
     @Override
-    public void OnDataClick(AtividadeRegisto registo) {
+    public void OnDataClick(AtividadeRegisto registo, int mes) {
 
 
         int ano = Integer.parseInt(viewModel.plano.getValue().cliente.dataContrato.split("-")[0]);
         ano = ano + activityPlanoAccaoBinding.tab.getSelectedTabPosition();
 
-        String mes = registo.mes + "";
+        String data = "";
 
         if((mes + "").length() == 1){
-            mes = "0" + mes;
+            data =  ano + "-" + "0" + mes + "-01";
         }
-
-        String data = ano + "-" + mes + "-01";
+        else{
+            data = ano + "-" + mes + "-01";
+        }
 
 
         PlanoAccaoResultado resultado = new PlanoAccaoResultado(PreferenciasUtil.obterIdTarefa(this), registo.atividade.id, registo.atividade.servId, data);

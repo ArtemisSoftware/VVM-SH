@@ -4,10 +4,12 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.baseDados.entidades.TipoNovo;
+import com.vvm.sh.baseDados.entidades.VerificacaoEquipamentoResultado;
 import com.vvm.sh.repositorios.EquipamentoRepositorio;
 import com.vvm.sh.repositorios.TiposRepositorio;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.equipamentos.Equipamento;
 import com.vvm.sh.util.Recurso;
+import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.excepcoes.TipoInexistenteException;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
@@ -24,6 +26,7 @@ import io.reactivex.SingleSource;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.BiFunction;
+import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
@@ -40,6 +43,10 @@ public class PesquisaViewModel extends BaseViewModel {
     public MutableLiveData<List<Equipamento>> equipamentos;
     public MutableLiveData<List<Equipamento>> equipamentosSelecionados;
 
+    public MutableLiveData<List<String>> equipamentosRegistados;
+
+
+
 
     @Inject
     public PesquisaViewModel(int idApi, TiposRepositorio tiposRepositorio, EquipamentoRepositorio equipamentoRepositorio){
@@ -52,6 +59,13 @@ public class PesquisaViewModel extends BaseViewModel {
         tipos = new MutableLiveData<>();
         equipamentos = new MutableLiveData<>();
         equipamentosSelecionados = new MutableLiveData<>();
+        equipamentosRegistados = new MutableLiveData<>();
+    }
+
+
+
+    public MutableLiveData<List<String>> observarEquipamentos(){
+        return equipamentosRegistados;
     }
 
 
@@ -101,6 +115,32 @@ public class PesquisaViewModel extends BaseViewModel {
     }
 
 
+    public void gravar(int idAtividade, List<VerificacaoEquipamentoResultado> itens) {
+
+        equipamentoRepositorio.inserir(idAtividade, itens)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new SingleObserver<List<Object>>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+
+                            }
+
+                            @Override
+                            public void onSuccess(List<Object> objects) {
+                                messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_GRAVADOS_SUCESSO));
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+                        }
+                );
+    }
+
 
     //-----------------------
     //OBTER
@@ -108,16 +148,43 @@ public class PesquisaViewModel extends BaseViewModel {
 
 
     public void obterEquipamentos(int idAtividade) {
-        obterEquipamentos(idAtividade, new ArrayList<>());
+
+        equipamentoRepositorio.obterEquipamentos(idAtividade)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new MaybeObserver<List<String>>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+
+                            }
+
+                            @Override
+                            public void onSuccess(List<String> equipamentos) {
+                                equipamentosRegistados.setValue(equipamentos);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+
+                            @Override
+                            public void onComplete() {
+
+                            }
+                        }
+                );
     }
 
-    public void obterEquipamentos(int idAtividade, List<String> registos) {
+    public void obterEquipamentos(List<String> registos) {
 
         showProgressBar(true);
 
         Observable<PesquisaEquipamentos> observable = Observable.zip(
-                equipamentoRepositorio.obterEquipamentos_Excluir(idAtividade, registos),
-                equipamentoRepositorio.obterEquipamentos_Incluir(idAtividade, registos),
+                equipamentoRepositorio.obterEquipamentos_Excluir(registos),
+                equipamentoRepositorio.obterEquipamentos_Incluir(registos),
                 new BiFunction<List<Equipamento>, List<Equipamento>, PesquisaEquipamentos>() {
                     @Override
                     public PesquisaEquipamentos apply(List<Equipamento> tipos, List<Equipamento> tiposSelecionados) throws Exception {

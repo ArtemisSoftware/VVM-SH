@@ -27,4 +27,10 @@ public class VerificacaoEquipamentoResultado {
     @NonNull
     public int codigo;
 
+
+    public VerificacaoEquipamentoResultado(int idAtividade, int idEquipamento, int codigo) {
+        this.idAtividade = idAtividade;
+        this.idEquipamento = idEquipamento;
+        this.codigo = codigo;
+    }
 }

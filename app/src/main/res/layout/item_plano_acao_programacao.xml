@@ -88,7 +88,8 @@
                     android:layout_gravity="center_vertical"
                     android:layout_margin="2dp"
                     android:background="@color/cor_omissao"
-                    android:gravity="center_vertical" />
+                    android:text="Jan"
+                    style="@style/textoData"/>
 
                 <TextView
                     android:id="@+id/txt2"
@@ -100,7 +101,8 @@
                     android:layout_gravity="center_vertical"
                     android:layout_margin="2dp"
                     android:background="@color/cor_omissao"
-                    android:gravity="center_vertical" />
+                    android:text="Fev"
+                    style="@style/textoData"/>
 
                 <TextView
                     android:id="@+id/txt3"
@@ -112,7 +114,8 @@
                     android:layout_gravity="center_vertical"
                     android:layout_margin="2dp"
                     android:background="@color/cor_omissao"
-                    android:gravity="center_vertical" />
+                    android:text="Mar"
+                    style="@style/textoData" />
 
 
                 <TextView
@@ -125,7 +128,8 @@
                     android:layout_gravity="center_vertical"
                     android:layout_margin="2dp"
                     android:background="@color/cor_omissao"
-                    android:gravity="center_vertical" />
+                    android:text="Abr"
+                    style="@style/textoData" />
 
                 <TextView
                     android:id="@+id/txt5"
@@ -137,7 +141,8 @@
                     android:layout_gravity="center_vertical"
                     android:layout_margin="2dp"
                     android:background="@color/cor_omissao"
-                    android:gravity="center_vertical" />
+                    android:text="Mai"
+                    style="@style/textoData" />
 
                 <TextView
                     android:id="@+id/txt6"
@@ -149,7 +154,8 @@
                     android:layout_gravity="center_vertical"
                     android:layout_margin="2dp"
                     android:background="@color/cor_omissao"
-                    android:gravity="center_vertical" />
+                    android:text="Jun"
+                    style="@style/textoData" />
 
 
                 <TextView
@@ -162,7 +168,8 @@
                     android:layout_gravity="center_vertical"
                     android:layout_margin="2dp"
                     android:background="@color/cor_omissao"
-                    android:gravity="center_vertical" />
+                    android:text="Jul"
+                    style="@style/textoData" />
 
                 <TextView
                     android:id="@+id/txt8"
@@ -174,7 +181,9 @@
                     android:layout_gravity="center_vertical"
                     android:layout_margin="2dp"
                     android:background="@color/cor_omissao"
-                    android:gravity="center_vertical" />
+                    android:gravity="center_vertical"
+                    android:text="Ago"
+                    style="@style/textoData" />
 
                 <TextView
                     android:id="@+id/txt9"
@@ -186,7 +195,8 @@
                     android:layout_gravity="center_vertical"
                     android:layout_margin="2dp"
                     android:background="@color/cor_omissao"
-                    android:gravity="center_vertical" />
+                    android:text="Set"
+                    style="@style/textoData" />
 
 
                 <TextView
@@ -199,7 +209,8 @@
                     android:layout_gravity="center_vertical"
                     android:layout_margin="2dp"
                     android:background="@color/cor_omissao"
-                    android:gravity="center_vertical" />
+                    android:text="Out"
+                    style="@style/textoData" />
 
                 <TextView
                     android:id="@+id/txt11"
@@ -211,7 +222,8 @@
                     android:layout_gravity="center_vertical"
                     android:layout_margin="2dp"
                     android:background="@color/cor_omissao"
-                    android:gravity="center_vertical" />
+                    android:text="Nov"
+                    style="@style/textoData" />
 
                 <TextView
                     android:id="@+id/txt12"
@@ -223,7 +235,8 @@
                     android:layout_gravity="center_vertical"
                     android:layout_margin="2dp"
                     android:background="@color/cor_omissao"
-                    android:gravity="center_vertical" />
+                    android:text="Dez"
+                    style="@style/textoData" />
 
 
             </LinearLayout>

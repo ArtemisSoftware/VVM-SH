@@ -1,6 +1,7 @@
 package com.vvm.sh.ui.atividadesPendentes.relatorios.equipamentos;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
@@ -8,11 +9,13 @@ import android.view.View;
 
 import com.vvm.sh.R;
 import com.vvm.sh.baseDados.entidades.Tipo;
+import com.vvm.sh.baseDados.entidades.VerificacaoEquipamentoResultado;
 import com.vvm.sh.databinding.ActivityEquipamentosBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.pesquisa.OnPesquisaListener;
 import com.vvm.sh.ui.pesquisa.PesquisaViewModel;
+import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
 import com.vvm.sh.util.metodos.TiposUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
@@ -39,8 +42,8 @@ public class EquipamentosActivity extends BaseDaggerActivity
 
 
 
-    private List<Integer> registosSelecionados;
-
+    private List<String> registosSelecionados;
+    private List<Equipamento> registos;
 
     @Override
     protected void intActivity(Bundle savedInstanceState) {
@@ -54,11 +57,15 @@ public class EquipamentosActivity extends BaseDaggerActivity
         activityEquipamentosBinding.setListenerSelecionado(this);
         activityEquipamentosBinding.setBloquear(PreferenciasUtil.agendaEditavel(this));
 
+
+        subscreverObservadores();
+
         Bundle bundle = getIntent().getExtras();
 
         if(bundle != null) {
 
             registosSelecionados = new ArrayList<>();
+            registos = new ArrayList<>();
 
             int idAtividade = bundle.getInt(getString(R.string.argumento_id_atividade));
             viewModel.obterEquipamentos(idAtividade);
@@ -81,6 +88,36 @@ public class EquipamentosActivity extends BaseDaggerActivity
     @Override
     protected void subscreverObservadores() {
 
+        viewModel.observarMessagem().observe(this, new Observer<Recurso>() {
+            @Override
+            public void onChanged(Recurso recurso) {
+
+                switch (recurso.status){
+
+                    case SUCESSO:
+
+                        dialogo.sucesso(recurso.messagem, listenerActivity);
+                        break;
+
+                    case ERRO:
+
+                        dialogo.erro(recurso.messagem);
+                        break;
+
+                    default:
+                        break;
+                }
+
+            }
+        });
+
+        viewModel.observarEquipamentos().observe(this, new Observer<List<String>>() {
+
+            @Override
+            public void onChanged(List<String> equipamentos) {
+                viewModel.obterEquipamentos(equipamentos);
+            }
+        });
     }
 
 
@@ -94,8 +131,9 @@ public class EquipamentosActivity extends BaseDaggerActivity
         Bundle bundle = getIntent().getExtras();
         int idAtividade = bundle.getInt(getString(R.string.argumento_id_atividade));
 
-        registosSelecionados.add(registo.id);
-        viewModel.obterEquipamentos(idAtividade, registosSelecionados);
+        registosSelecionados.add(registo.descricao);
+        registos.add(registo);
+        viewModel.obterEquipamentos(registosSelecionados);
     }
 
     @Override
@@ -104,8 +142,11 @@ public class EquipamentosActivity extends BaseDaggerActivity
         Bundle bundle = getIntent().getExtras();
         int idAtividade = bundle.getInt(getString(R.string.argumento_id_atividade));
 
-        registosSelecionados.remove(registosSelecionados.indexOf(registo.id));
-        viewModel.obterEquipamentos(idAtividade, registosSelecionados);
+        int index = registosSelecionados.indexOf(registo.descricao);
+
+        registosSelecionados.remove(index);
+        registos.remove(index);
+        viewModel.obterEquipamentos(registosSelecionados);
     }
 
 
@@ -125,10 +166,8 @@ public class EquipamentosActivity extends BaseDaggerActivity
 
         Bundle bundle = getIntent().getExtras();
         int idAtividade = bundle.getInt(getString(R.string.argumento_id_atividade));
+        activityEquipamentosBinding.txtInpPesquisa.setText("");
 
-
-        registosSelecionados.clear();
-        viewModel.obterEquipamentos(idAtividade, registosSelecionados);
     }
 
 
@@ -142,7 +181,14 @@ public class EquipamentosActivity extends BaseDaggerActivity
         Bundle bundle = getIntent().getExtras();
         int idAtividade = bundle.getInt(getString(R.string.argumento_id_atividade));
 
-        //--viewModel.gravar(idAtividade, registosSelecionados);
+        List<VerificacaoEquipamentoResultado> itens = new ArrayList<>();
+
+
+        for (Equipamento item : registos) {
+            itens.add(new VerificacaoEquipamentoResultado(idAtividade, item.id, item.estado));
+        }
+
+        viewModel.gravar(idAtividade, itens);
     }
 
 

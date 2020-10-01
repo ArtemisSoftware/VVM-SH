@@ -7,6 +7,8 @@ import com.vvm.sh.baseDados.dao.AtualizacaoDao;
 import com.vvm.sh.baseDados.dao.ResultadoDao;
 import com.vvm.sh.baseDados.dao.TipoDao;
 import com.vvm.sh.baseDados.dao.TipoNovoDao;
+import com.vvm.sh.baseDados.dao.VerificacaoEquipamentoDao;
+import com.vvm.sh.baseDados.entidades.VerificacaoEquipamentoResultado;
 import com.vvm.sh.di.opcoes.OpcoesScope;
 import com.vvm.sh.repositorios.EquipamentoRepositorio;
 import com.vvm.sh.repositorios.TiposRepositorio;
@@ -42,11 +44,24 @@ public class PesquisaModule {
 
     @PesquisaScope
     @Provides
-    EquipamentoRepositorio provideEquipamentoRepositorio(int idApi, TipoNovoDao tipoNovoDao, TipoDao tipoDao, ResultadoDao resultadoDao) {
+    static VerificacaoEquipamentoDao provideVerificacaoEquipamentoDao(VvmshBaseDados vvmshBaseDados){
 
-        EquipamentoRepositorio repositorio = new EquipamentoRepositorio(idApi, tipoNovoDao, tipoDao, resultadoDao);
+        VerificacaoEquipamentoDao dao = vvmshBaseDados.obterVerificacaoEquipamentoDao();
+        return dao;
+    }
+
+
+    @PesquisaScope
+    @Provides
+    EquipamentoRepositorio provideEquipamentoRepositorio(int idApi, TipoNovoDao tipoNovoDao, TipoDao tipoDao, VerificacaoEquipamentoDao verificacaoEquipamentoDao,
+                                                         ResultadoDao resultadoDao) {
+
+        EquipamentoRepositorio repositorio = new EquipamentoRepositorio(idApi, tipoNovoDao, tipoDao, verificacaoEquipamentoDao, resultadoDao);
         return repositorio;
     }
+
+
+
 
 
 

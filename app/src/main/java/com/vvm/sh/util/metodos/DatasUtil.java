@@ -98,6 +98,24 @@ public class DatasUtil {
 
 
 
+    public static Date obterDataAtual_Date(){
+
+        String data = obterDataAtual(FORMATO_DD_MMMM_YYYY);
+        SimpleDateFormat format = new SimpleDateFormat(FORMATO_DD_MMMM_YYYY);
+
+        try {
+            Date dataResultado = format.parse(data);
+            return dataResultado;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return new Date();
+
+    }
+
+
+
     /**
      * Metodo que permite converter uma data numformato especifico para String
      * @param data a data a converter

@@ -54,7 +54,7 @@ public class PlanoAccaoActivity extends BaseDaggerActivity implements OnPlanoAti
         activityPlanoAccaoBinding.setLifecycleOwner(this);
         activityPlanoAccaoBinding.setViewmodel(viewModel);
         activityPlanoAccaoBinding.setListener(this);
-        //activityPlanoAccaoBinding.setBloquear(PreferenciasUtil.agendaEditavel(this));
+        activityPlanoAccaoBinding.setBloquear(PreferenciasUtil.agendaEditavel(this));
 
 
         subscreverObservadores();
@@ -172,13 +172,13 @@ public class PlanoAccaoActivity extends BaseDaggerActivity implements OnPlanoAti
             mes = "0" + mes;
         }
 
-        String data = "01-" + mes + "-" + ano;
+        String data = ano + "-" + mes + "-01";
 
 
         PlanoAccaoResultado resultado = new PlanoAccaoResultado(PreferenciasUtil.obterIdTarefa(this), registo.atividade.id, registo.atividade.servId, data);
 
 
-        //viewModel.gravar(registo.resultado, resultado);
+        viewModel.gravar(registo.resultado, resultado);
 
 
 

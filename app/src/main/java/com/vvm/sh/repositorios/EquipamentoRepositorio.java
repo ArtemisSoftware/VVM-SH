@@ -14,7 +14,7 @@ import io.reactivex.Maybe;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 
-public class EquipamentoRepositorio {
+public class EquipamentoRepositorio implements Repositorio<TipoNovo>{
 
     private final int idApi;
     private final TipoNovoDao tipoNovoDao;
@@ -30,26 +30,37 @@ public class EquipamentoRepositorio {
     }
 
 
-    public Observable<List<Equipamento>> obterEquipamentos_Excluir(int idAtividade, List<Integer> registos) {
-        return tipoDao.obterEquipamentos_Excluir(idApi, registos); //-idAtividade,
+    public Observable<List<Equipamento>> obterEquipamentos_Excluir(int idAtividade, List<String> registos) {
+        return tipoNovoDao.obterEquipamentos_Excluir(idApi, registos); //-idAtividade,
     }
 
 
-    public Observable<List<Equipamento>> obterEquipamentos_Incluir(int idAtividade, List<Integer> registos) {
-        return tipoDao.obterEquipamentos_Incluir(idApi, registos); //-idAtividade,
+    public Observable<List<Equipamento>> obterEquipamentos_Incluir(int idAtividade, List<String> registos) {
+        return tipoNovoDao.obterEquipamentos_Incluir(idApi, registos); //-idAtividade,
     }
 
-    public Maybe<List<Equipamento>> obterEquipamentos_Excluir(int idAtividade, List<Integer> registos, String pesquisa) {
-        return tipoDao.obterEquipamentos_Excluir(registos, pesquisa, idApi);
+    public Maybe<List<Equipamento>> obterEquipamentos_Excluir(int idAtividade, List<String> registos, String pesquisa) {
+        return tipoNovoDao.obterEquipamentos_Excluir(registos, pesquisa, idApi);
     }
 
 
     public Single<Boolean> validarEquipamento(String descricao) {
-        return tipoDao.validarEquipamento(idApi, descricao);
+        return tipoNovoDao.validarEquipamento(idApi, descricao);
     }
 
+    @Override
     public Single<Long> inserir(TipoNovo registo) {
         return tipoNovoDao.inserir(registo);
+    }
+
+    @Override
+    public Single<Integer> atualizar(TipoNovo item) {
+        return null;
+    }
+
+    @Override
+    public Single<Integer> remover(TipoNovo item) {
+        return null;
     }
 
 

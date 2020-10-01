@@ -101,6 +101,7 @@ abstract public class PlanoAccaoDao implements BaseDao<PlanoAccaoResultado> {
 
             "CASE " +
             "WHEN sempreNecessario = 1                            THEN 0  " +  //--'NADA'\n" +
+            "WHEN data IS NOT NULL THEN  " + Identificadores.PROGRAMADA + "  " +
             "WHEN fixo = " + Identificadores.ID_POSICAO_FIM + "    AND (observacao IS NULL OR  observacao = '')        THEN " + Identificadores.PROGRAMADA_FIXA + "  " +//--'FIxa'\n" +
             "WHEN (dataExecucao IS NOT NULL  AND dataExecucao  != '')                            THEN " + Identificadores.EXECUTADA + "  " +
             "WHEN (group_concat(dataProgramada) IS NOT NULL AND group_concat(dataProgramada) != '') AND reprogramada = 1     THEN " + Identificadores.REPROGRAMADA + "   " +
@@ -109,24 +110,10 @@ abstract public class PlanoAccaoDao implements BaseDao<PlanoAccaoResultado> {
             "END as tipoExecucao, " +
 
 
-//            "CASE WHEN (dataExecucao IS NOT NULL  AND dataExecucao  != '')                            THEN " + Identificadores.EXECUTADA + "  " + //--'reprogramada'\n" +
-//            "WHEN sempreNecessario = 1                            THEN 0  " +  //--'NADA'\n" +
-//            "WHEN (dataExecucao IS NOT NULL  AND dataExecucao  != '') AND fixo = 2                        THEN " + Identificadores.PROGRAMADA + "  " + //--'programada'\n" +
-//            "WHEN (group_concat(dataProgramada) IS NOT NULL AND group_concat(dataProgramada) != '') AND reprogramada = 1     THEN 3  " + //--'reprogramada'\n" +
-//            "WHEN (group_concat(dataProgramada) IS NOT NULL  AND group_concat(dataProgramada) != '')       THEN " + Identificadores.PROGRAMADA_FIXA + "  " + //--'programada fixa'\n" +
-//            "WHEN fixo = 3    AND (observacao IS NULL OR  observacao = '')        THEN 1  " +//--'FIxa'\n" +
-//            "ELSE 3    " + //--'reprogramada'\n" +
-//            "END as tipoExecucao, " +
-
-
-
-
-
-            "" +
-            "" +
-            "" +
-            "CASE WHEN (dataExecucao IS NOT NULL  AND dataExecucao  != '')                            THEN dataExecucao  " + 	//--'reprogramada'
+            "CASE " +
             "WHEN sempreNecessario = 1                                                 THEN  'SEM DATA'  " +
+            "WHEN data IS NOT NULL THEN  data  " +
+            "WHEN (dataExecucao IS NOT NULL  AND dataExecucao  != '')                            THEN dataExecucao  " + 	//--'reprogramada'
             "WHEN (dataExecucao IS NOT NULL  AND dataExecucao  != '') AND fixo = 2                        THEN group_concat(dataProgramada)  " + 	 //--'programada'
             "WHEN (group_concat(dataProgramada) IS NOT NULL AND group_concat(dataProgramada) != '')        AND reprogramada = '1'     THEN group_concat(dataProgramada)  " +
             "WHEN (group_concat(dataProgramada) IS NOT NULL AND group_concat(dataProgramada) != '')                                   THEN group_concat(dataProgramada)  " +
@@ -135,7 +122,8 @@ abstract public class PlanoAccaoDao implements BaseDao<PlanoAccaoResultado> {
             "" +
             "" +
             "FROM planoAcaoAtividade as pl_acao " +
-
+            "LEFT JOIN(SELECT idTarefa, idAtividadePlano, data FROM planoAccaoResultado) as pl_acao_res " +
+            "ON pl_acao.idTarefa = pl_acao_res.idTarefa AND pl_acao.id = pl_acao_res.idAtividadePlano " +
 
             "WHERE pl_acao.idTarefa = :idTarefa " +
             "GROUP BY descricaoSimples ORDER BY fixo ASC ")

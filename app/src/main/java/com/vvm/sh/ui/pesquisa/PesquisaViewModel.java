@@ -4,9 +4,11 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.baseDados.entidades.TipoNovo;
+import com.vvm.sh.repositorios.EquipamentoRepositorio;
 import com.vvm.sh.repositorios.TiposRepositorio;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.equipamentos.Equipamento;
 import com.vvm.sh.util.Recurso;
+import com.vvm.sh.util.excepcoes.TipoInexistenteException;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import java.util.ArrayList;
@@ -18,14 +20,17 @@ import io.reactivex.MaybeObserver;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.SingleObserver;
+import io.reactivex.SingleSource;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.BiFunction;
+import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 public class PesquisaViewModel extends BaseViewModel {
 
     private final TiposRepositorio tiposRepositorio;
+    private final EquipamentoRepositorio equipamentoRepositorio;
     private final int idApi;
 
     public MutableLiveData<List<Tipo>> tiposSelecionados;
@@ -37,8 +42,9 @@ public class PesquisaViewModel extends BaseViewModel {
 
 
     @Inject
-    public PesquisaViewModel(int idApi, TiposRepositorio tiposRepositorio){
+    public PesquisaViewModel(int idApi, TiposRepositorio tiposRepositorio, EquipamentoRepositorio equipamentoRepositorio){
 
+        this.equipamentoRepositorio = equipamentoRepositorio;
         this.tiposRepositorio = tiposRepositorio;
         this.idApi = idApi;
 
@@ -49,39 +55,48 @@ public class PesquisaViewModel extends BaseViewModel {
     }
 
 
-    public void gravar(TipoNovo resultado) {
+    public void gravar(TipoNovo registo) {
 
         //TODO: verificar se já existe
         //TODO: obter o numero provisorio e depois inserir
 
-        tiposRepositorio.validarEquipamento(idApi, resultado.descricao)
+        equipamentoRepositorio.validarEquipamento(registo.descricao)
+                .flatMap(new Function<Boolean, SingleSource<?>>() {
+                    @Override
+                    public SingleSource<?> apply(Boolean resultado) throws Exception {
+                        if(resultado == true) {
+
+                            throw new TipoInexistenteException("O equipamento já se encontra registado");
+                        }
+                        else{
+
+                            registo.idProvisorio = 102;
+                            return equipamentoRepositorio.inserir(registo);
+                        }
+                    }
+                })
+
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
 
-                        new SingleObserver<Boolean>() {
+                        new SingleObserver<Object>() {
                             @Override
                             public void onSubscribe(Disposable d) {
 
                             }
 
                             @Override
-                            public void onSuccess(Boolean resultado) {
-
-                                if(resultado == true) {
-
-                                    messagemLiveData.setValue(Recurso.erro("O equipamento já se encontra registado"));
-                                }
-                                else{
-                                    messagemLiveData.setValue(Recurso.successo("Equipamento registado com sucesso"));
-                                }
+                            public void onSuccess(Object o) {
+                                messagemLiveData.setValue(Recurso.successo("Equipamento registado com sucesso"));
                             }
 
                             @Override
                             public void onError(Throwable e) {
-
+                                messagemLiveData.setValue(Recurso.erro(e.getMessage()));
                             }
                         }
+
                 );
     }
 
@@ -96,13 +111,13 @@ public class PesquisaViewModel extends BaseViewModel {
         obterEquipamentos(idAtividade, new ArrayList<>());
     }
 
-    public void obterEquipamentos(int idAtividade, List<Integer> registos) {
+    public void obterEquipamentos(int idAtividade, List<String> registos) {
 
         showProgressBar(true);
 
         Observable<PesquisaEquipamentos> observable = Observable.zip(
-                tiposRepositorio.obterEquipamentos_Excluir(idAtividade, idApi, registos),
-                tiposRepositorio.obterEquipamentos_Incluir(idAtividade, idApi, registos),
+                equipamentoRepositorio.obterEquipamentos_Excluir(idAtividade, registos),
+                equipamentoRepositorio.obterEquipamentos_Incluir(idAtividade, registos),
                 new BiFunction<List<Equipamento>, List<Equipamento>, PesquisaEquipamentos>() {
                     @Override
                     public PesquisaEquipamentos apply(List<Equipamento> tipos, List<Equipamento> tiposSelecionados) throws Exception {
@@ -265,9 +280,9 @@ public class PesquisaViewModel extends BaseViewModel {
 
 
 
-    public void pesquisarEquipamento(int idAtividade, List<Integer> registos, String pesquisa) {
+    public void pesquisarEquipamento(int idAtividade, List<String> registos, String pesquisa) {
 
-        tiposRepositorio.obterEquipamentos_Excluir(idAtividade, registos, pesquisa, idApi)
+        equipamentoRepositorio.obterEquipamentos_Excluir(idAtividade, registos, pesquisa)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(

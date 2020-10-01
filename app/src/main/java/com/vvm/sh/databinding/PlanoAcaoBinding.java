@@ -47,6 +47,7 @@ public class PlanoAcaoBinding {
     @BindingAdapter({"atividadePlano", "ano", "mes"})
     public static void setEstadoMes(TextView view, AtividadeRegisto item, int ano, int mes) {
 
+        view.setTag(mes);
         view.setBackgroundResource(item.obterCorExecucao(ano, mes - 1));
 
     }

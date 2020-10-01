@@ -23,7 +23,18 @@ public class PlanoAtividadeViewHolder extends RecyclerView.ViewHolder implements
         itemView.setOnClickListener(this);
 
         binding.txt1.setOnClickListener(txt_mes_onClick);
+        binding.txt2.setOnClickListener(txt_mes_onClick);
+        binding.txt3.setOnClickListener(txt_mes_onClick);
+        binding.txt4.setOnClickListener(txt_mes_onClick);
+        binding.txt5.setOnClickListener(txt_mes_onClick);
+        binding.txt6.setOnClickListener(txt_mes_onClick);
 
+        binding.txt7.setOnClickListener(txt_mes_onClick);
+        binding.txt8.setOnClickListener(txt_mes_onClick);
+        binding.txt9.setOnClickListener(txt_mes_onClick);
+        binding.txt10.setOnClickListener(txt_mes_onClick);
+        binding.txt11.setOnClickListener(txt_mes_onClick);
+        binding.txt12.setOnClickListener(txt_mes_onClick);
     }
 
 

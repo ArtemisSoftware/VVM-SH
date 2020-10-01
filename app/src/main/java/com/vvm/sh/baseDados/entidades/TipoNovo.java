@@ -60,5 +60,7 @@ public class TipoNovo {
         this.idProvisorio = idProvisorio;
         this.tipo = tipo;
         this.descricao = descricao;
+        this.ativo = 1;
+        this.estado = Identificadores.ESTADO_PENDENTE ;
     }
 }

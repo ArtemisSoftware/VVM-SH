@@ -97,25 +97,34 @@ abstract public class PlanoAccaoDao implements BaseDao<PlanoAccaoResultado> {
             "WHEN sempreNecessario = 1                            THEN 0  " +  //--'NADA'\n" +
             "WHEN dataExecucao IS NOT NULL AND fixo = 2                        THEN " + Identificadores.PROGRAMADA + "  " + //--'programada'\n" +
             "WHEN dataExecucao IS NOT NULL                        THEN  " + Identificadores.EXECUTADA + "  " + //--'executada'\n" +
-            "WHEN group_concat(dataProgramada) IS NOT NULL AND reprogramada = 1     THEN 3  " + //--'reprogramada'\n" +
-            "WHEN group_concat(dataProgramada) IS NOT NULL                            THEN " + Identificadores.PROGRAMADA_FIXA + "  " + //--'programada fixa'\n" +
+            "WHEN (group_concat(dataProgramada) IS NOT NULL AND group_concat(dataProgramada) != '') AND reprogramada = 1     THEN 3  " + //--'reprogramada'\n" +
+            "WHEN (group_concat(dataProgramada) IS NOT NULL  AND group_concat(dataProgramada) != '')       THEN " + Identificadores.PROGRAMADA_FIXA + "  " + //--'programada fixa'\n" +
             "WHEN fixo = 3    AND (observacao IS NULL OR  observacao = '')        THEN 1  " +//--'FIxa'\n" +
             "ELSE 3    " + //--'reprogramada'\n" +
-            "END as tipoExecucao " +
+            "END as tipoExecucao, " +
             "" +
             "" +
             "" +
-
+            "CASE WHEN dataExecucao IS NOT NULL                            THEN dataExecucao  " + 	//--'reprogramada'
+            "WHEN sempreNecessario = 1                                                 THEN  'SEM DATA'  " +
+            "WHEN dataExecucao IS NOT NULL AND fixo = 2                        THEN group_concat(dataProgramada)  " + 	 //--'programada'
+            "WHEN dataExecucao IS NOT NULL                                             THEN dataExecucao  " +
+            "WHEN (group_concat(dataProgramada) IS NOT NULL AND group_concat(dataProgramada) != '')        AND reprogramada = '1'     THEN group_concat(dataProgramada)  " +
+            "WHEN (group_concat(dataProgramada) IS NOT NULL AND group_concat(dataProgramada) != '')                                   THEN group_concat(dataProgramada)  " +
+            "ELSE date('now')   " +
+            "END as data  " +
             "" +
             "" +
             "FROM planoAcaoAtividade as pl_acao " +
 
 
-            "WHERE pl_acao.idTarefa = :idTarefa ORDER BY fixo ASC ")
+            "WHERE pl_acao.idTarefa = :idTarefa " +
+            "GROUP BY descricaoSimples ORDER BY fixo ASC ")
     abstract public Observable<List<AtividadeRegisto>> obterAtividades(int idTarefa);
 
 
 
+    @Transaction
     @Query("SELECT * FROM planoAcao WHERE idTarefa =:idTarefa")
     abstract public Single<Plano> obterPlano(int idTarefa);
 

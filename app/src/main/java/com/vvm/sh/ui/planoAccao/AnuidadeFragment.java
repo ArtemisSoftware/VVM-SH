@@ -86,7 +86,9 @@ public class AnuidadeFragment extends Fragment {
         binding.setAtividades(items);
     }
 
-
+    public void atualizar(int ano) {
+        binding.setAno(ano);
+    }
 
     @Override
     public void onAttach(Context context) {

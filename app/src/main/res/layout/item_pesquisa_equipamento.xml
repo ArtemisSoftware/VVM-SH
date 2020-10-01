@@ -18,6 +18,9 @@
             type="com.vvm.sh.ui.atividadesPendentes.relatorios.equipamentos.Equipamento" />
 
 
+
+
+
         <variable
             name="bloquear"
             type="Boolean"/>
@@ -75,6 +78,7 @@
                 android:layout_marginStart="32dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
+                android:visibility="@{equipamento.novoEquipamento() == true ? View.VISIBLE : View.GONE}"
                 app:layout_constraintBottom_toBottomOf="@+id/divider_2"
                 app:layout_constraintStart_toEndOf="@+id/textView43"
                 app:layout_constraintTop_toTopOf="@+id/divider_2">

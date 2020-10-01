@@ -1,5 +1,7 @@
 package com.vvm.sh.databinding;
 
+import android.widget.TextView;
+
 import androidx.databinding.BindingAdapter;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -13,30 +15,39 @@ import java.util.List;
 public class PlanoAcaoBinding {
 
 
-    @BindingAdapter({"atividades", "listener"})
-    public static void setAtividadesPlano(RecyclerView view, List<AtividadeRegisto> items, OnPlanoAtividadeListener listener) {
+    @BindingAdapter({"atividades", "listener", "ano"})
+    public static void setAtividadesPlano(RecyclerView view, List<AtividadeRegisto> items, OnPlanoAtividadeListener listener, int ano) {
 
-        if(items == null){
+        if (items == null) {
+            return;
+        }
+
+        if (ano == 0) {
             return;
         }
 
         RecyclerView.LayoutManager layoutManager = view.getLayoutManager();
 
-        if(layoutManager == null){
+        if (layoutManager == null) {
             view.setLayoutManager(new LinearLayoutManager(view.getContext()));
         }
 
         PlanoAtividadeRecyclerAdapter adapter = (PlanoAtividadeRecyclerAdapter) view.getAdapter();
 
-        if(adapter == null){
-            adapter = new PlanoAtividadeRecyclerAdapter(view.getContext(), items, listener);
+        if (adapter == null) {
+            adapter = new PlanoAtividadeRecyclerAdapter(view.getContext(), items, listener, ano);
 
             view.setAdapter(adapter);
-        }
-        else{
+        } else {
             adapter.atualizar(items);
         }
     }
 
 
+    @BindingAdapter({"atividadePlano", "ano", "mes"})
+    public static void setEstadoMes(TextView view, AtividadeRegisto item, int ano, int mes) {
+
+        view.setBackgroundResource(item.obterCorExecucao(ano, mes - 1));
+
+    }
 }

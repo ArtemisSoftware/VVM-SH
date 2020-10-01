@@ -115,6 +115,10 @@ public class DatasUtil {
 
     }
 
+    public static Date converterString(String data){
+        return converterString(data, FORMATO_YYYY_MM_DD);
+    }
+
 
     public static Date converterString(String data, String formato){
 

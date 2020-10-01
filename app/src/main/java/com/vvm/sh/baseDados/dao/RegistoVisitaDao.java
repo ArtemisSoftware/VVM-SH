@@ -2,6 +2,7 @@ package com.vvm.sh.baseDados.dao;
 
 import androidx.room.Dao;
 import androidx.room.Query;
+import androidx.room.Transaction;
 
 import com.vvm.sh.baseDados.BaseDao;
 import com.vvm.sh.baseDados.entidades.RegistoVisitaResultado;
@@ -16,6 +17,7 @@ import io.reactivex.Observable;
 abstract public class RegistoVisitaDao implements BaseDao<RegistoVisitaResultado> {
 
 
+    @Transaction
     @Query("SELECT * FROM tarefas WHERE idTarefa =:idTarefa")
     abstract public Maybe<DadosCliente> obterDadosCliente(int idTarefa);
 

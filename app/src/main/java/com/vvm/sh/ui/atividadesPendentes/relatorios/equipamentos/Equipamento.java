@@ -24,4 +24,17 @@ public class Equipamento {
 
         return resultado;
     }
+
+
+    public boolean novoEquipamento(){
+
+        boolean resultado = false;
+
+        if(estado == 1){
+            resultado = true;
+        }
+
+        return resultado;
+    }
+
 }

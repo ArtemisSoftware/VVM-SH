@@ -24,11 +24,13 @@ public class PlanoAtividadeRecyclerAdapter extends RecyclerView.Adapter<Recycler
     private List<AtividadeRegisto> items = new ArrayList<>();
     private Context contexto;
     private OnPlanoAtividadeListener listener;
+    private int ano;
 
-    public PlanoAtividadeRecyclerAdapter(Context contexto, List<AtividadeRegisto> items, OnPlanoAtividadeListener onItemListener) {
+    public PlanoAtividadeRecyclerAdapter(Context contexto, List<AtividadeRegisto> items, OnPlanoAtividadeListener onItemListener, int ano) {
         this.items = items;
         this.contexto = contexto;
         this.listener = onItemListener;
+        this.ano = ano;
     }
 
 
@@ -58,6 +60,7 @@ public class PlanoAtividadeRecyclerAdapter extends RecyclerView.Adapter<Recycler
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
         AtividadeRegisto registo = items.get(position);
+        registo.gerarMarcacao();
 
         if(registo.tipo == Identificadores.TIPO_NOTA) {
 
@@ -66,6 +69,7 @@ public class PlanoAtividadeRecyclerAdapter extends RecyclerView.Adapter<Recycler
         }
         else{
             ((PlanoAtividadeViewHolder) holder).binding.setAtividade(registo);
+            ((PlanoAtividadeViewHolder) holder).binding.setAno(ano);
             ((PlanoAtividadeViewHolder) holder).binding.executePendingBindings();
         }
 

@@ -44,4 +44,10 @@ public class AnuidadePagerAdapter extends FragmentPagerAdapter {
         ((AnuidadeFragment) mFragmentList.get(anuidade)).atualizar(data);
     }
 
+
+    public void atualizar(int anuidade, int ano) {
+
+        ((AnuidadeFragment) mFragmentList.get(anuidade)).atualizar(ano);
+    }
+
 }

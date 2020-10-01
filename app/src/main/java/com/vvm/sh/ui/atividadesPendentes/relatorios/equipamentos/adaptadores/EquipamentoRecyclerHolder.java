@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.vvm.sh.R;
 import com.vvm.sh.databinding.ItemPesquisaEquipamentoBinding;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.equipamentos.Equipamento;
+import com.vvm.sh.ui.pesquisa.OnPesquisaListener;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,12 +21,19 @@ public class EquipamentoRecyclerHolder extends RecyclerView.Adapter<RecyclerView
 
     private List<Equipamento> items = new ArrayList<>();
     private Context contexto;
-    //private OnTrabalhadorVulneravelListener listener;
+    private OnPesquisaListener.OnPesquisaEquipamentoRegistoListener registolistener;
+    private OnPesquisaListener.OnPesquisaEquipamentoSelecionadoListener selecionadolistener;
 
-    public EquipamentoRecyclerHolder(Context contexto, List<Equipamento> items/*, OnTrabalhadorVulneravelListener listener*/) {
+    public EquipamentoRecyclerHolder(Context contexto, List<Equipamento> items, OnPesquisaListener.OnPesquisaEquipamentoRegistoListener listener) {
         this.items = items;
         this.contexto = contexto;
-        //this.listener = listener;
+        this.registolistener = listener;
+    }
+
+    public EquipamentoRecyclerHolder(Context contexto, List<Equipamento> items, OnPesquisaListener.OnPesquisaEquipamentoSelecionadoListener listener) {
+        this.items = items;
+        this.contexto = contexto;
+        this.selecionadolistener = listener;
     }
 
 
@@ -34,7 +42,15 @@ public class EquipamentoRecyclerHolder extends RecyclerView.Adapter<RecyclerView
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         ItemPesquisaEquipamentoBinding binding = DataBindingUtil.inflate(LayoutInflater.from(contexto), R.layout.item_pesquisa_equipamento, parent, false);
-        return new EquipamentoViewHolder(binding.getRoot()/*, listener*/);
+
+
+        if(registolistener == null) {
+            return new EquipamentoViewHolder(binding.getRoot(), this.selecionadolistener);
+        }
+        else{
+            return new EquipamentoViewHolder(binding.getRoot(), this.registolistener);
+        }
+
     }
 
     @Override

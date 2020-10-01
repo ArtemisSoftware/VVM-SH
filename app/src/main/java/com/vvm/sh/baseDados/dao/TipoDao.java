@@ -149,11 +149,24 @@ abstract public class TipoDao implements BaseDao<Tipo> {
 
     //equipamentos
 
-    @Query("SELECT id, descricao, 0 as estado FROM tipos WHERE tipo = '" + TiposUtil.MetodosTipos.TIPOS_MAQUINA + "' AND api = :api AND ativo = 1") // AND id NOT IN (:registos)
-    abstract public Observable<List<Equipamento>> obterEquipamentos_Excluir(int api); //-int idAtividade,
+    @Query("SELECT id, descricao, 0 as estado " +
+            "FROM tipos " +
+            "WHERE tipo = '" + TiposUtil.MetodosTipos.TIPOS_MAQUINA + "' AND api = :api AND ativo = 1 " +
+            "AND id NOT IN (:registos)")
+    abstract public Observable<List<Equipamento>> obterEquipamentos_Excluir(int api, List<Integer> registos); //-int idAtividade,
 
 
-    @Query("SELECT id, descricao, 1 as estado FROM tipos WHERE tipo = '" + TiposUtil.MetodosTipos.TIPOS_MAQUINA + "' AND api = :api AND id IN (:registos) AND ativo = 1")
-    abstract public Observable<List<Equipamento>> obterEquipamentos_Incluir(List<Integer> registos, int api);
+    @Query("SELECT id, descricao, 0 as estado " +
+            "FROM tipos WHERE tipo = '" + TiposUtil.MetodosTipos.TIPOS_MAQUINA + "' AND api = :api  AND ativo = 1 " +
+            "AND id IN (:registos)")
+    abstract public Observable<List<Equipamento>> obterEquipamentos_Incluir( int api, List<Integer> registos);
+
+
+    @Query("SELECT id, descricao, 0 as estado " +
+            "FROM tipos " +
+            "WHERE tipo = '" + TiposUtil.MetodosTipos.TIPOS_MAQUINA + "' AND api = :api AND ativo = 1 " +
+            "AND id NOT IN (:registos) AND descricao LIKE '%' || :pesquisa || '%' ")
+    abstract public Maybe<List<Equipamento>> obterEquipamentos_Excluir(List<Integer> registos, String pesquisa, int api); //-int idAtividade,
+
 
 }

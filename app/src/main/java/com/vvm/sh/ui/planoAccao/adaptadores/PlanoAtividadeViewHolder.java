@@ -41,7 +41,7 @@ public class PlanoAtividadeViewHolder extends RecyclerView.ViewHolder implements
 
 
             if(binding.getAtividade().reprogramavel == true){
-                listener.OnDataClick(binding.getAtividade(), Integer.parseInt(v.getTag().toString()));
+                listener.OnDataClick(binding.getAtividade());
             }
         }
     };

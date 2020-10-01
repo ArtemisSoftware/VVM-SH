@@ -14,16 +14,16 @@
             name="viewmodel"
             type="com.vvm.sh.ui.pesquisa.PesquisaViewModel"/>
 
-<!--
-        <variable
-            name="listenerRegisto"
-            type="com.vvm.sh.ui.pesquisa.OnPesquisaListener.OnPesquisaRegistoListener"/>
 
         <variable
             name="listenerSelecionado"
-            type="com.vvm.sh.ui.pesquisa.OnPesquisaListener.OnPesquisaSelecionadoListener"/>
+            type="com.vvm.sh.ui.pesquisa.OnPesquisaListener.OnPesquisaEquipamentoSelecionadoListener"/>
 
--->
+        <variable
+            name="listenerRegisto"
+            type="com.vvm.sh.ui.pesquisa.OnPesquisaListener.OnPesquisaEquipamentoRegistoListener"/>
+
+
         <variable
             name="bloquear"
             type="Boolean"/>
@@ -154,8 +154,11 @@
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rcl_registos_selecionados"
                         style="@style/lista"
-                        android:layout_height="80dp"
+                        android:layout_height="120dp"
                         android:layout_marginTop="@dimen/distancia_vertical_formulario"
+
+                        equipamentosSelecionado="@{viewmodel.equipamentosSelecionados}"
+                        listener="@{listenerSelecionado}"
 
                         tools:listitem="@layout/item_pesquisa_equipamento"
                         app:layout_constraintStart_toStartOf="@+id/textView18"
@@ -210,7 +213,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/distancia_vertical_formulario"
                     registosEquipamentos="@{viewmodel.equipamentos}"
-
+                    listener="@{listenerRegisto}"
                     tools:listitem="@layout/item_pesquisa_equipamento" />
 
                 <!--
@@ -227,14 +230,73 @@
 
 
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_gravar"
 
+        <com.github.clans.fab.FloatingActionMenu
+            android:id="@+id/fab_menu"
+            android:enabled="@{bloquear}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
             android:layout_gravity="bottom|end"
             android:layout_margin="@dimen/fab_margin"
-            android:src="@drawable/ic_gravar_24dp" />
+            app:menu_fab_size="normal"
+            app:menu_showShadow="true"
+            app:menu_shadowColor="#66000000"
+            app:menu_shadowRadius="4dp"
+            app:menu_shadowXOffset="1dp"
+            app:menu_shadowYOffset="3dp"
+            app:menu_colorNormal="#DA4336"
+            app:menu_colorPressed="#E75043"
+            app:menu_colorRipple="#99FFFFFF"
+            app:menu_animationDelayPerItem="50"
+            app:menu_icon="@drawable/ic_add_24dp"
+            app:menu_buttonSpacing="0dp"
+            app:menu_labels_margin="0dp"
+            app:menu_labels_paddingTop="4dp"
+            app:menu_labels_paddingRight="8dp"
+            app:menu_labels_paddingBottom="4dp"
+            app:menu_labels_paddingLeft="8dp"
+            app:menu_labels_padding="8dp"
+            app:menu_labels_textColor="#FFFFFF"
+            app:menu_labels_textSize="14sp"
+            app:menu_labels_cornerRadius="3dp"
+            app:menu_labels_colorNormal="#333333"
+            app:menu_labels_colorPressed="#444444"
+            app:menu_labels_colorRipple="#66FFFFFF"
+            app:menu_labels_showShadow="true"
+            app:menu_labels_singleLine="false"
+            app:menu_labels_ellipsize="none"
+            app:menu_labels_maxLines="-1"
+            app:menu_labels_style="@style/textoDetalhe"
+            app:menu_labels_position="left"
+            app:menu_openDirection="up"
+            app:menu_backgroundColor="@android:color/transparent">
+
+
+            <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/fab_adicionar_equipamento"
+                android:enabled="@{bloquear}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_formandos_24dp"
+                app:fab_size="mini"
+                app:fab_label="@string/adicionar_equipamento" />
+
+            <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/fab_gravar"
+                android:enabled="@{bloquear}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_gravar_24dp"
+                app:fab_size="mini"
+                app:fab_label="@string/gravar" />
+
+        </com.github.clans.fab.FloatingActionMenu>
+
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

@@ -83,7 +83,7 @@ public class PlanoAccaoActivity extends BaseDaggerActivity implements OnPlanoAti
         viewModel.observarAtividades().observe(this, new Observer<List<AtividadeRegisto>>() {
             @Override
             public void onChanged(List<AtividadeRegisto> atividadeRegistos) {
-               ((AnuidadePagerAdapter) activityPlanoAccaoBinding.viewpagerContainer.getAdapter()).atualizar(atividadeRegistos, 0);
+               ((AnuidadePagerAdapter) activityPlanoAccaoBinding.viewpagerContainer.getAdapter()).atualizar(atividadeRegistos, ANUIDADE_1_FRAGMENT);
             }
         });
 
@@ -95,6 +95,8 @@ public class PlanoAccaoActivity extends BaseDaggerActivity implements OnPlanoAti
                 int ano = Integer.parseInt(plano.cliente.dataContrato.split("-")[0]);
 
                 activityPlanoAccaoBinding.tab.getTabAt(ANUIDADE_1_FRAGMENT).setText(getString(R.string.anuidade) + " - " + ano);
+                ((AnuidadePagerAdapter) activityPlanoAccaoBinding.viewpagerContainer.getAdapter()).atualizar(ANUIDADE_1_FRAGMENT, ano);
+
                 activityPlanoAccaoBinding.tab.getTabAt(ANUIDADE_2_FRAGMENT).setText(getString(R.string.anuidade) + " - " + (ano + 1));
 
             }
@@ -147,8 +149,8 @@ public class PlanoAccaoActivity extends BaseDaggerActivity implements OnPlanoAti
         activityPlanoAccaoBinding.viewpagerContainer.setAdapter(adapter);
         activityPlanoAccaoBinding.tab.setupWithViewPager(activityPlanoAccaoBinding.viewpagerContainer);
 
-        activityPlanoAccaoBinding.tab.getTabAt(ANUIDADE_1_FRAGMENT).setText("");
-        activityPlanoAccaoBinding.tab.getTabAt(ANUIDADE_2_FRAGMENT).setText("");
+        activityPlanoAccaoBinding.tab.getTabAt(ANUIDADE_1_FRAGMENT).setText(getString(R.string.anuidade));
+        activityPlanoAccaoBinding.tab.getTabAt(ANUIDADE_2_FRAGMENT).setText(getString(R.string.anuidade));
     }
 
 
@@ -158,13 +160,13 @@ public class PlanoAccaoActivity extends BaseDaggerActivity implements OnPlanoAti
     }
 
     @Override
-    public void OnDataClick(AtividadeRegisto registo, int mesSelecionado) {
+    public void OnDataClick(AtividadeRegisto registo) {
 
 
         int ano = Integer.parseInt(viewModel.plano.getValue().cliente.dataContrato.split("-")[0]);
         ano = ano + activityPlanoAccaoBinding.tab.getSelectedTabPosition();
 
-        String mes = mesSelecionado + "";
+        String mes = registo.mes + "";
 
         if((mes + "").length() == 1){
             mes = "0" + mes;
@@ -176,7 +178,7 @@ public class PlanoAccaoActivity extends BaseDaggerActivity implements OnPlanoAti
         PlanoAccaoResultado resultado = new PlanoAccaoResultado(PreferenciasUtil.obterIdTarefa(this), registo.atividade.id, registo.atividade.servId, data);
 
 
-        viewModel.gravar(registo.resultado, resultado);
+        //viewModel.gravar(registo.resultado, resultado);
 
 
 

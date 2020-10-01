@@ -30,6 +30,7 @@ public class PesquisaViewModel extends BaseViewModel {
 
 
     public MutableLiveData<List<Equipamento>> equipamentos;
+    public MutableLiveData<List<Equipamento>> equipamentosSelecionados;
 
 
     @Inject
@@ -41,27 +42,46 @@ public class PesquisaViewModel extends BaseViewModel {
         tiposSelecionados = new MutableLiveData<>();
         tipos = new MutableLiveData<>();
         equipamentos = new MutableLiveData<>();
+        equipamentosSelecionados = new MutableLiveData<>();
     }
 
 
-
-
     public void obterEquipamentos(int idAtividade) {
+        obterEquipamentos(idAtividade, new ArrayList<>());
+    }
 
-        tiposRepositorio.obterEquipamentos_Excluir(idAtividade, idApi)
+    public void obterEquipamentos(int idAtividade, List<Integer> registos) {
+
+        showProgressBar(true);
+
+        Observable<PesquisaEquipamentos> observable = Observable.zip(
+                tiposRepositorio.obterEquipamentos_Excluir(idAtividade, idApi, registos),
+                tiposRepositorio.obterEquipamentos_Incluir(idAtividade, idApi, registos),
+                new BiFunction<List<Equipamento>, List<Equipamento>, PesquisaEquipamentos>() {
+                    @Override
+                    public PesquisaEquipamentos apply(List<Equipamento> tipos, List<Equipamento> tiposSelecionados) throws Exception {
+                        return new PesquisaEquipamentos(tipos, tiposSelecionados);
+                    }
+                }
+        );
+
+        observable
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
 
-                        new Observer<List<Equipamento>>() {
+                        new Observer<PesquisaEquipamentos>() {
                             @Override
                             public void onSubscribe(Disposable d) {
 
                             }
 
                             @Override
-                            public void onNext(List<Equipamento> registos) {
-                                equipamentos.setValue(registos);
+                            public void onNext(PesquisaEquipamentos registos) {
+
+                                equipamentos.setValue(registos.registos);
+                                equipamentosSelecionados.setValue(registos.registado);
+                                showProgressBar(false);
                             }
 
                             @Override
@@ -76,7 +96,6 @@ public class PesquisaViewModel extends BaseViewModel {
                         }
 
                 );
-
 
     }
 
@@ -200,6 +219,41 @@ public class PesquisaViewModel extends BaseViewModel {
 
 
 
+    public void pesquisarEquipamento(int idAtividade, List<Integer> registos, String pesquisa) {
+
+        tiposRepositorio.obterEquipamentos_Excluir(idAtividade, registos, pesquisa, idApi)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new MaybeObserver<List<Equipamento>>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onSuccess(List<Equipamento> registos) {
+                                equipamentos.setValue(registos);
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+
+                            @Override
+                            public void onComplete() {
+
+                            }
+                        }
+
+                );
+
+    }
+
+
     //----------------------
     //
     //----------------------
@@ -236,4 +290,17 @@ public class PesquisaViewModel extends BaseViewModel {
             this.registado = registado;
         }
     }
+
+
+    private class PesquisaEquipamentos{
+
+        List<Equipamento> registos;
+        List<Equipamento> registado;
+
+        public PesquisaEquipamentos(List<Equipamento> registos, List<Equipamento> registado) {
+            this.registos = registos;
+            this.registado = registado;
+        }
+    }
+
 }

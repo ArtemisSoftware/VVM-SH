@@ -92,8 +92,8 @@ public class PesquisaBinding {
 
 
 
-    @BindingAdapter({"registosEquipamentos"})
-    public static void setRegistosEquipamentos(RecyclerView view, List<Equipamento> items) {
+    @BindingAdapter({"registosEquipamentos", "listener"})
+    public static void setRegistosEquipamentos(RecyclerView view, List<Equipamento> items, OnPesquisaListener.OnPesquisaEquipamentoRegistoListener listener) {
 
         if(items == null){
             return;
@@ -127,12 +127,40 @@ public class PesquisaBinding {
         EquipamentoRecyclerHolder adapter = (EquipamentoRecyclerHolder) view.getAdapter();
 
         if(adapter == null){
-            adapter = new EquipamentoRecyclerHolder(view.getContext(), lolo);
+            adapter = new EquipamentoRecyclerHolder(view.getContext(), lolo, listener);
 
             view.setAdapter(adapter);
         }
         else{
             adapter.atualizar(lolo);
+        }
+
+    }
+
+
+    @BindingAdapter({"equipamentosSelecionado", "listener"})
+    public static void setsEquipamentosSelecionado(RecyclerView view, List<Equipamento> items, OnPesquisaListener.OnPesquisaEquipamentoSelecionadoListener listener) {
+
+        if(items == null){
+            return;
+        }
+
+        RecyclerView.LayoutManager layoutManager = view.getLayoutManager();
+
+
+        if(layoutManager == null){
+            view.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        }
+
+        EquipamentoRecyclerHolder adapter = (EquipamentoRecyclerHolder) view.getAdapter();
+
+        if(adapter == null){
+            adapter = new EquipamentoRecyclerHolder(view.getContext(), items, listener);
+
+            view.setAdapter(adapter);
+        }
+        else{
+            adapter.atualizar(items);
         }
 
     }

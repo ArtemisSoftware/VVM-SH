@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="com.vvm.sh.util.metodos.DatasUtil"/>
+
+        <variable
+            name="viewmodel"
+            type="com.vvm.sh.ui.pesquisa.PesquisaViewModel"/>
+
+    </data>
+
+    <LinearLayout
+        style="@style/temaDialogo"
+        android:orientation="vertical">
+
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/parent.TextLayout"
+            android:hint="@string/equipamentosTrabalho"
+            android:layout_width="380dp"
+            android:layout_marginTop="@dimen/signup_text_margin_top"
+            app:errorEnabled="true">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txt_inp_equipamento"
+                style="@style/modifiedEditText"
+                android:inputType="text"
+                android:maxLines="1"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+
+    </LinearLayout>
+</layout>
+

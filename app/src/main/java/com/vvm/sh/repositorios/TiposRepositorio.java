@@ -235,9 +235,19 @@ public class TiposRepositorio {
     }
 
 
-    public Observable<List<Equipamento>> obterEquipamentos_Excluir(int idAtividade, int api) {
-        return tipoDao.obterEquipamentos_Excluir( api); //-idAtividade,
+    public Observable<List<Equipamento>> obterEquipamentos_Excluir(int idAtividade, int api, List<Integer> registos) {
+        return tipoDao.obterEquipamentos_Excluir( api, registos); //-idAtividade,
     }
+
+
+    public Observable<List<Equipamento>> obterEquipamentos_Incluir(int idAtividade, int api, List<Integer> registos) {
+        return tipoDao.obterEquipamentos_Incluir( api, registos); //-idAtividade,
+    }
+
+    public Maybe<List<Equipamento>> obterEquipamentos_Excluir(int idAtividade, List<Integer> registos, String pesquisa, int api) {
+        return tipoDao.obterEquipamentos_Excluir(registos, pesquisa, api);
+    }
+
 
 
     /**

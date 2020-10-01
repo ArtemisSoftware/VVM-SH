@@ -4,8 +4,11 @@ import com.vvm.sh.api.SegurancaAlimentarApi;
 import com.vvm.sh.api.SegurancaTrabalhoApi;
 import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.baseDados.dao.AtualizacaoDao;
+import com.vvm.sh.baseDados.dao.ResultadoDao;
 import com.vvm.sh.baseDados.dao.TipoDao;
+import com.vvm.sh.baseDados.dao.TipoNovoDao;
 import com.vvm.sh.di.opcoes.OpcoesScope;
+import com.vvm.sh.repositorios.EquipamentoRepositorio;
 import com.vvm.sh.repositorios.TiposRepositorio;
 import com.vvm.sh.repositorios.VersaoAppRepositorio;
 
@@ -19,6 +22,36 @@ public class PesquisaModule {
 
     @PesquisaScope
     @Provides
+    static AtualizacaoDao provideAtualizacaoDao(VvmshBaseDados vvmshBaseDados){
+
+        AtualizacaoDao dao = vvmshBaseDados.obterAtualizacaoDao();
+        return dao;
+    }
+
+
+
+    @PesquisaScope
+    @Provides
+    static TipoNovoDao provideTipoNovoDao(VvmshBaseDados vvmshBaseDados){
+
+        TipoNovoDao dao = vvmshBaseDados.obterTipoNovoDao();
+        return dao;
+    }
+
+
+
+    @PesquisaScope
+    @Provides
+    EquipamentoRepositorio provideEquipamentoRepositorio(int idApi, TipoNovoDao tipoNovoDao, TipoDao tipoDao, ResultadoDao resultadoDao) {
+
+        EquipamentoRepositorio repositorio = new EquipamentoRepositorio(idApi, tipoNovoDao, tipoDao, resultadoDao);
+        return repositorio;
+    }
+
+
+
+    @PesquisaScope
+    @Provides
     VersaoAppRepositorio provideVersaoAppRepositorio(SegurancaAlimentarApi segurancaAlimentarApi) {
 
         VersaoAppRepositorio repositorio = new VersaoAppRepositorio(segurancaAlimentarApi);
@@ -28,16 +61,6 @@ public class PesquisaModule {
     }
 
 
-
-    @PesquisaScope
-    @Provides
-    static AtualizacaoDao provideAtualizacaoDao(VvmshBaseDados vvmshBaseDados){
-
-        AtualizacaoDao dao = vvmshBaseDados.obterAtualizacaoDao();
-
-        //Timber.d("Providing NoteDao: " + dao);
-        return dao;
-    }
 
 
 

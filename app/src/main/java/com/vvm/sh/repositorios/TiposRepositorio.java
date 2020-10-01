@@ -249,6 +249,11 @@ public class TiposRepositorio {
     }
 
 
+    public Single<Boolean> validarEquipamento(int api, String descricao) {
+        return tipoDao.validarEquipamento(api, descricao);
+    }
+
+
 
     /**
      * Metodo que permite atualizar um tipo<br>

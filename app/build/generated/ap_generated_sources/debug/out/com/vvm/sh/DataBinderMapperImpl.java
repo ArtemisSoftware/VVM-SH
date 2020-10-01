@@ -1058,7 +1058,7 @@ public class DataBinderMapperImpl extends DataBinderMapper {
   }
 
   private static class InnerBrLookup {
-    static final SparseArray<String> sKeys = new SparseArray<String>(35);
+    static final SparseArray<String> sKeys = new SparseArray<String>(36);
 
     static {
       sKeys.put(0, "_all");
@@ -1080,21 +1080,22 @@ public class DataBinderMapperImpl extends DataBinderMapper {
       sKeys.put(16, "atividades");
       sKeys.put(17, "extintor");
       sKeys.put(18, "item");
-      sKeys.put(19, "viewmodel");
-      sKeys.put(20, "proposta");
-      sKeys.put(21, "categoria");
-      sKeys.put(22, "vulnerabilidade");
-      sKeys.put(23, "listenerSelecionado");
-      sKeys.put(24, "avaliacao");
-      sKeys.put(25, "colaborador");
-      sKeys.put(26, "pesquisa");
-      sKeys.put(27, "atividade");
-      sKeys.put(28, "ocorrencia");
-      sKeys.put(29, "trabalho");
-      sKeys.put(30, "equipamento");
-      sKeys.put(31, "pendencia");
-      sKeys.put(32, "formando");
-      sKeys.put(33, "risco");
+      sKeys.put(19, "ano");
+      sKeys.put(20, "viewmodel");
+      sKeys.put(21, "proposta");
+      sKeys.put(22, "categoria");
+      sKeys.put(23, "vulnerabilidade");
+      sKeys.put(24, "listenerSelecionado");
+      sKeys.put(25, "avaliacao");
+      sKeys.put(26, "colaborador");
+      sKeys.put(27, "pesquisa");
+      sKeys.put(28, "atividade");
+      sKeys.put(29, "ocorrencia");
+      sKeys.put(30, "trabalho");
+      sKeys.put(31, "equipamento");
+      sKeys.put(32, "pendencia");
+      sKeys.put(33, "formando");
+      sKeys.put(34, "risco");
     }
   }
 

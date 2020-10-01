@@ -67,4 +67,11 @@ public class TiposConstantes {
         public static final Tipo CATEGORIAS_RISCO[] = { CATEGORIAS_RISCO_0, CATEGORIAS_RISCO_1, CATEGORIAS_RISCO_2, CATEGORIAS_RISCO_3, CATEGORIAS_RISCO_4 };
     }
 
+
+    public static class TiposNovos{
+
+        public static final String TIPOS_MAQUINA = "Tipos_Maquina";
+
+    }
+
 }

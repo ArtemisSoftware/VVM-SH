@@ -3,8 +3,10 @@ package com.vvm.sh.ui.pesquisa;
 import androidx.lifecycle.MutableLiveData;
 
 import com.vvm.sh.baseDados.entidades.Tipo;
+import com.vvm.sh.baseDados.entidades.TipoNovo;
 import com.vvm.sh.repositorios.TiposRepositorio;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.equipamentos.Equipamento;
+import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import java.util.ArrayList;
@@ -15,6 +17,7 @@ import javax.inject.Inject;
 import io.reactivex.MaybeObserver;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
+import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.BiFunction;
@@ -44,6 +47,49 @@ public class PesquisaViewModel extends BaseViewModel {
         equipamentos = new MutableLiveData<>();
         equipamentosSelecionados = new MutableLiveData<>();
     }
+
+
+    public void gravar(TipoNovo resultado) {
+
+
+        //TODO: obter o numero provisorio e depois inserir
+
+        tiposRepositorio.validarEquipamento(idApi, resultado.descricao)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new SingleObserver<Boolean>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+
+                            }
+
+                            @Override
+                            public void onSuccess(Boolean resultado) {
+
+                                if(resultado == true) {
+
+                                    messagemLiveData.setValue(Recurso.erro("O equipamento já se encontra registado"));
+                                }
+                                else{
+                                    messagemLiveData.setValue(Recurso.successo("Equipamento registado com sucesso"));
+                                }
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+                        }
+                );
+    }
+
+
+
+    //-----------------------
+    //OBTER
+    //-----------------------
 
 
     public void obterEquipamentos(int idAtividade) {
@@ -272,6 +318,7 @@ public class PesquisaViewModel extends BaseViewModel {
 
         return resultado;
     }
+
 
 
 

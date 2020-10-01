@@ -104,7 +104,7 @@ public class AtividadeRegisto {
                 break;
 
             default:
-                corExecucao = R.color.main_orange_color/*cor_omissao*/;
+                corExecucao = R.color.cor_omissao/*cor_omissao*/;
                 break;
         }
     }

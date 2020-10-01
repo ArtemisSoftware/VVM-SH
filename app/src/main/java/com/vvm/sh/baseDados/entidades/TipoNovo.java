@@ -19,8 +19,14 @@ public class TipoNovo {
     @PrimaryKey(autoGenerate = true)
     public int id;
 
+
     @NonNull
-    @ColumnInfo(name = "idDefinitivo")
+    @ColumnInfo(name = "idProvisorio", defaultValue = Identificadores.VALOR_0 + "")
+    public int idProvisorio;
+
+
+    @NonNull
+    @ColumnInfo(name = "idDefinitivo", defaultValue = Identificadores.VALOR_0 + "")
     public int idDefinitivo;
 
 
@@ -49,4 +55,10 @@ public class TipoNovo {
     @NonNull
     @ColumnInfo(name = "estado", defaultValue = Identificadores.ESTADO_PENDENTE + "")
     public int estado;
+
+    public TipoNovo(@NonNull String tipo, @NonNull String descricao) {
+        this.idProvisorio = idProvisorio;
+        this.tipo = tipo;
+        this.descricao = descricao;
+    }
 }

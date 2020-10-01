@@ -63,7 +63,8 @@ CAMPO_ID +" INTEGER," +
 
                 database.execSQL("CREATE TABLE IF NOT EXISTS 'tiposNovos' ("
                         + "'id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
-                        + "'idDefinitivo' INTEGER NOT NULL, "
+                        + "'idProvisorio' INTEGER NOT NULL DEFAULT " + Identificadores.VALOR_0 + " ,  "
+                        + "'idDefinitivo' INTEGER NOT NULL DEFAULT " + Identificadores.VALOR_0 + " ,  "
                         + "'tipo' TEXT NOT NULL, "
                         + "'descricao' TEXT NOT NULL, "
                         + "'codigo' TEXT , "

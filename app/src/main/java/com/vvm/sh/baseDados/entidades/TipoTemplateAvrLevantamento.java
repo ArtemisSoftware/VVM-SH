@@ -17,10 +17,6 @@ public class TipoTemplateAvrLevantamento {
 
 
     @NonNull
-    public String servId;
-
-
-    @NonNull
     public String tarefa;
 
 

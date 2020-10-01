@@ -16,7 +16,7 @@ public class Migracao {
         Migration migrations [] =  new Migration []{
                 MIGRACAO_1_2, MIGRACAO_2_3, MIGRACAO_3_4, MIGRACAO_4_5, MIGRACAO_5_6, MIGRACAO_6_7, MIGRACAO_7_8, MIGRACAO_8_9, MIGRACAO_9_10, MIGRACAO_10_11,
                 MIGRACAO_11_12, MIGRACAO_12_13, MIGRACAO_13_14, MIGRACAO_14_15, MIGRACAO_15_16, MIGRACAO_16_17, MIGRACAO_17_18, MIGRACAO_18_19, MIGRACAO_19_20,
-                MIGRACAO_20_21, MIGRACAO_21_22, MIGRACAO_22_23, MIGRACAO_23_24
+                MIGRACAO_20_21, MIGRACAO_21_22, MIGRACAO_22_23, MIGRACAO_23_24, MIGRACAO_24_25
 
         };
 
@@ -29,19 +29,6 @@ public class Migracao {
         public void migrate(SupportSQLiteDatabase database) {
             try {
 
-
-                /*
-verificacaoEquipamentos_resultado
-CAMPO_ID +" INTEGER," +
-			CAMPO_ID_EQUIPAMENTO +" TEXT," +
-			CAMPO_CODIGO  + " INTEGER, " +
-
-			"FOREIGN KEY (" + CAMPO_ID + ") REFERENCES " + EncargosBdIF.TABELA_ATIVIDADES_PENDENTES + " (" + CAMPO_ID + "), " +
-			"PRIMARY KEY (" + CAMPO_ID +"," + CAMPO_ID_EQUIPAMENTO + "," + CAMPO_CODIGO + ")" +
-
-
-                 */
-
                 database.execSQL("DROP TABLE IF EXISTS 'tiposTemplateAvrLevantamentos'");
 
                 database.execSQL("CREATE TABLE IF NOT EXISTS 'tiposTemplateAvrLevantamentos' ("
@@ -53,11 +40,11 @@ CAMPO_ID +" INTEGER," +
 
 
                 database.execSQL("CREATE TABLE IF NOT EXISTS 'verificacaoEquipamentosResultado' ("
-                        + "'idAtividade' INTEGER, "
-                        + "'idEquipamento' INTEGER, "
-                        + "'codigo' INTEGER , "
+                        + "'idAtividade' INTEGER NOT NULL, "
+                        + "'idEquipamento' INTEGER NOT NULL, "
+                        + "'codigo' INTEGER NOT NULL , "
                         + "PRIMARY KEY (idAtividade, idEquipamento, codigo), "
-                        + "FOREIGN KEY (idAtividade) REFERENCES atividadesPendentes (idAtividade)  ON DELETE CASCADE)  ");
+                        + "FOREIGN KEY (idAtividade) REFERENCES atividadesPendentes (id)  ON DELETE CASCADE)  ");
 
 
 

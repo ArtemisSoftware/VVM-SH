@@ -59,6 +59,9 @@ public class DialogoEquipamento extends BaseDaggerDialogoPersistenteFragment
     @Override
     protected void iniciarDialogo() {
 
+        validador = new Validator(this);
+        validador.setValidationListener(this);
+
         viewModel = ViewModelProviders.of(this, providerFactory).get(PesquisaViewModel.class);
         binding = (DialogoEquipamentoBinding) activityBaseBinding;
         binding.setViewmodel(viewModel);

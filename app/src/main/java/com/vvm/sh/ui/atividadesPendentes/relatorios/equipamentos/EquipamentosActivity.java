@@ -152,10 +152,8 @@ public class EquipamentosActivity extends BaseDaggerActivity
 
         activityEquipamentosBinding.fabMenu.close(true);
 
-        Bundle bundle = getIntent().getExtras();
-        int idAtividade = bundle.getInt(getString(R.string.argumento_id_atividade));
 
-
-        //DialogoEquipamento dialogo = DialogoEquipamento.newInstance();
+        DialogoEquipamento dialogo = new DialogoEquipamento();
+        dialogo.show(getSupportFragmentManager(), "example dialog");
     }
 }

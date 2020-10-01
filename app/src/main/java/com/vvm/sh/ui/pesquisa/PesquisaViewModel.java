@@ -51,7 +51,7 @@ public class PesquisaViewModel extends BaseViewModel {
 
     public void gravar(TipoNovo resultado) {
 
-
+        //TODO: verificar se já existe
         //TODO: obter o numero provisorio e depois inserir
 
         tiposRepositorio.validarEquipamento(idApi, resultado.descricao)

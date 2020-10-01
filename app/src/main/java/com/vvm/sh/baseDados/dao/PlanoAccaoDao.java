@@ -59,7 +59,9 @@ abstract public class PlanoAccaoDao implements BaseDao<PlanoAccaoResultado> {
     query += "SELECT idTarefa, pl_ac.id as id, descricaoSimples, equipaSST, CASE WHEN anuidade = 'V' THEN 'Vigente' ELSE 'Outra' END as anuidade, sempreNecessario, observacao, fixo, dataExecucao, dataProg, data, idRegisto, reprogramada, descricao, servId  ";
     query += "FROM planoAcaoAtividades as pl_ac  ";
     query += "OUTER LEFT JOIN (SELECT id, data, idRegisto FROM planoAcao_resultado) as pl_ac_res ON pl_ac.id = pl_ac_res.id  ";
+
     query += "UNION  ";
+
     query += "SELECT idTarefa, id, descricaoSimples, equipaSST, anuidade, sempreNecessario, observacao, fixo , dataExecucao, dataProg, data, idRegisto, '0' as reprogramada, descricaoCompleta as descricao,  pl_ac_res.servID as servId  ";
     query += "FROM planoAcao_resultado as pl_ac_res  ";
     query += "OUTER LEFT JOIN (  ";
@@ -70,9 +72,10 @@ abstract public class PlanoAccaoDao implements BaseDao<PlanoAccaoResultado> {
     query += "NULL as dataExecucao, NULL as dataProg   ";
     query += "FROM actividadesPlaneaveis WHERE activo = '1'  ";
     query += ") as act ON pl_ac_res.servID = act.servId  ";
-
     query += "WHERE pl_ac_res.servID IS NOT NULL  ";
     query += ")  ";
+
+
     query += "WHERE idTarefa = ?   ";
     query += "GROUP BY descricaoSimples  ";
     query += "ORDER BY fixo ASC  ";
@@ -84,31 +87,47 @@ abstract public class PlanoAccaoDao implements BaseDao<PlanoAccaoResultado> {
     @Query("SELECT *,  " +
             "CASE " +
             "WHEN sempreNecessario = 1   THEN " + Identificadores.TIPO_NOTA + " "+
-            "WHEN observacao IS NOT NULL AND observacao != '' THEN " + Identificadores.TIPO_NOTA + " "+
+            "WHEN (observacao IS NOT NULL AND observacao != '') THEN " + Identificadores.TIPO_NOTA + " "+
             "ELSE " + Identificadores.TIPO_DATA + " END as tipo, " +
             "" +
             "CASE WHEN sempreNecessario = 1   THEN 'Sempre necessário'  " +
-            "WHEN observacao IS NOT NULL THEN observacao  " +
+            "WHEN (observacao IS NOT NULL AND observacao != '') THEN observacao  " +
             "ELSE '' END as nota,  " +
             "" +
             "CASE WHEN fixo = 2 THEN 1 ELSE 0 END as reprogramavel, " +
             "" +
-            "CASE WHEN dataExecucao IS NOT NULL                            THEN " + Identificadores.REPROGRAMADA + "  " + //--'reprogramada'\n" +
+
+
+
+            "CASE " +
             "WHEN sempreNecessario = 1                            THEN 0  " +  //--'NADA'\n" +
-            "WHEN dataExecucao IS NOT NULL AND fixo = 2                        THEN " + Identificadores.PROGRAMADA + "  " + //--'programada'\n" +
-            "WHEN dataExecucao IS NOT NULL                        THEN  " + Identificadores.EXECUTADA + "  " + //--'executada'\n" +
-            "WHEN (group_concat(dataProgramada) IS NOT NULL AND group_concat(dataProgramada) != '') AND reprogramada = 1     THEN 3  " + //--'reprogramada'\n" +
-            "WHEN (group_concat(dataProgramada) IS NOT NULL  AND group_concat(dataProgramada) != '')       THEN " + Identificadores.PROGRAMADA_FIXA + "  " + //--'programada fixa'\n" +
-            "WHEN fixo = 3    AND (observacao IS NULL OR  observacao = '')        THEN 1  " +//--'FIxa'\n" +
+            "WHEN fixo = " + Identificadores.ID_POSICAO_FIM + "    AND (observacao IS NULL OR  observacao = '')        THEN " + Identificadores.PROGRAMADA_FIXA + "  " +//--'FIxa'\n" +
+            "WHEN (dataExecucao IS NOT NULL  AND dataExecucao  != '')                            THEN " + Identificadores.EXECUTADA + "  " +
+            "WHEN (group_concat(dataProgramada) IS NOT NULL AND group_concat(dataProgramada) != '') AND reprogramada = 1     THEN " + Identificadores.REPROGRAMADA + "   " +
+            "WHEN (group_concat(dataProgramada) IS NOT NULL  AND group_concat(dataProgramada) != '')       THEN " + Identificadores.PROGRAMADA_FIXA + "  " +
             "ELSE 3    " + //--'reprogramada'\n" +
             "END as tipoExecucao, " +
+
+
+//            "CASE WHEN (dataExecucao IS NOT NULL  AND dataExecucao  != '')                            THEN " + Identificadores.EXECUTADA + "  " + //--'reprogramada'\n" +
+//            "WHEN sempreNecessario = 1                            THEN 0  " +  //--'NADA'\n" +
+//            "WHEN (dataExecucao IS NOT NULL  AND dataExecucao  != '') AND fixo = 2                        THEN " + Identificadores.PROGRAMADA + "  " + //--'programada'\n" +
+//            "WHEN (group_concat(dataProgramada) IS NOT NULL AND group_concat(dataProgramada) != '') AND reprogramada = 1     THEN 3  " + //--'reprogramada'\n" +
+//            "WHEN (group_concat(dataProgramada) IS NOT NULL  AND group_concat(dataProgramada) != '')       THEN " + Identificadores.PROGRAMADA_FIXA + "  " + //--'programada fixa'\n" +
+//            "WHEN fixo = 3    AND (observacao IS NULL OR  observacao = '')        THEN 1  " +//--'FIxa'\n" +
+//            "ELSE 3    " + //--'reprogramada'\n" +
+//            "END as tipoExecucao, " +
+
+
+
+
+
             "" +
             "" +
             "" +
-            "CASE WHEN dataExecucao IS NOT NULL                            THEN dataExecucao  " + 	//--'reprogramada'
+            "CASE WHEN (dataExecucao IS NOT NULL  AND dataExecucao  != '')                            THEN dataExecucao  " + 	//--'reprogramada'
             "WHEN sempreNecessario = 1                                                 THEN  'SEM DATA'  " +
-            "WHEN dataExecucao IS NOT NULL AND fixo = 2                        THEN group_concat(dataProgramada)  " + 	 //--'programada'
-            "WHEN dataExecucao IS NOT NULL                                             THEN dataExecucao  " +
+            "WHEN (dataExecucao IS NOT NULL  AND dataExecucao  != '') AND fixo = 2                        THEN group_concat(dataProgramada)  " + 	 //--'programada'
             "WHEN (group_concat(dataProgramada) IS NOT NULL AND group_concat(dataProgramada) != '')        AND reprogramada = '1'     THEN group_concat(dataProgramada)  " +
             "WHEN (group_concat(dataProgramada) IS NOT NULL AND group_concat(dataProgramada) != '')                                   THEN group_concat(dataProgramada)  " +
             "ELSE date('now')   " +

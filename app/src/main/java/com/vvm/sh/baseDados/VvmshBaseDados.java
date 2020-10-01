@@ -70,6 +70,7 @@ import com.vvm.sh.baseDados.entidades.FormandoResultado;
 import com.vvm.sh.baseDados.dao.TipoDao;
 import com.vvm.sh.baseDados.entidades.TipoAtividadePlaneavel;
 import com.vvm.sh.baseDados.entidades.TipoExtintor;
+import com.vvm.sh.baseDados.entidades.TipoNovo;
 import com.vvm.sh.baseDados.entidades.TipoTemplateAvrLevantamento;
 import com.vvm.sh.baseDados.entidades.TipoTemplateAvrRisco;
 import com.vvm.sh.baseDados.entidades.TipoTemplatesAVRMedidaRisco;
@@ -84,6 +85,7 @@ import com.vvm.sh.baseDados.entidades.OcorrenciaResultado;
 import com.vvm.sh.baseDados.entidades.Atualizacao;
 import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.baseDados.entidades.EmailResultado;
+import com.vvm.sh.baseDados.entidades.VerificacaoEquipamentoResultado;
 
 @Database(
             entities = {
@@ -91,6 +93,7 @@ import com.vvm.sh.baseDados.entidades.EmailResultado;
                     Tarefa.class,
                     CheckList.class, AreaChecklist.class, SeccaoChecklist.class, ItemChecklist.class,
                     TipoAtividadePlaneavel.class, TipoTemplateAvrLevantamento.class, TipoTemplateAvrRisco.class, TipoTemplatesAVRMedidaRisco.class,
+                    TipoNovo.class,
 
                     //Trabalho
 
@@ -112,6 +115,7 @@ import com.vvm.sh.baseDados.entidades.EmailResultado;
 
                     LevantamentoRiscoResultado.class, ProcessoProdutivoResultado.class, TrabalhadorVulneravelResultado.class,
                     AreaChecklistResultado.class, QuestionarioChecklistResultado.class, PropostaPlanoAcaoResultado.class, RiscoResultado.class,
+                    VerificacaoEquipamentoResultado.class,
                     Resultado.class
             },
             version = BaseDadosContantes.VERSAO

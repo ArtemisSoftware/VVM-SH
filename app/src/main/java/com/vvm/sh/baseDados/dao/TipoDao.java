@@ -171,7 +171,7 @@ abstract public class TipoDao implements BaseDao<Tipo> {
 
     @Query("SELECT CASE WHEN IFNULL(COUNT(*), 0) > 0 THEN 1 ELSE 0 END as existente " +
             "FROM tipos WHERE tipo = '" + TiposUtil.MetodosTipos.TIPOS_MAQUINA + "' AND api = :api  " +
-            "AND descricao = :descricao")
+            "AND descricao = :descricao COLLATE NOCASE")
     abstract public Single<Boolean> validarEquipamento(int api, String descricao);
 
 

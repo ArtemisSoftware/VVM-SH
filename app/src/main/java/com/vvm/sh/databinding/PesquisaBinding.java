@@ -8,8 +8,7 @@ import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.equipamentos.Equipamento;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.equipamentos.adaptadores.EquipamentoRecyclerHolder;
 import com.vvm.sh.ui.pesquisa.OnPesquisaListener;
-import com.vvm.sh.ui.pesquisa.Pesquisa;
-import com.vvm.sh.ui.pesquisa.PesquisaRecyclerAdapter;
+import com.vvm.sh.ui.pesquisa.adaptadores.PesquisaRecyclerAdapter;
 
 import java.util.ArrayList;
 import java.util.List;

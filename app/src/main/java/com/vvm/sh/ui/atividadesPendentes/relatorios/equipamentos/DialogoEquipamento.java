@@ -1,6 +1,5 @@
 package com.vvm.sh.ui.atividadesPendentes.relatorios.equipamentos;
 
-import android.os.Bundle;
 import android.view.View;
 
 import androidx.lifecycle.Observer;
@@ -15,13 +14,10 @@ import com.vvm.sh.baseDados.entidades.TipoNovo;
 import com.vvm.sh.databinding.DialogoEquipamentoBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerDialogoPersistenteFragment;
-import com.vvm.sh.ui.pesquisa.PesquisaViewModel;
+import com.vvm.sh.ui.pesquisa.adaptadores.PesquisaViewModel;
 import com.vvm.sh.util.Recurso;
-import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.constantes.TiposConstantes;
-import com.vvm.sh.util.metodos.DatasUtil;
-import com.vvm.sh.util.metodos.PreferenciasUtil;
 
 import java.util.List;
 

@@ -1,6 +1,5 @@
 package com.vvm.sh.ui.atividadesPendentes.relatorios.equipamentos;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -8,16 +7,14 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.vvm.sh.R;
-import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.baseDados.entidades.VerificacaoEquipamentoResultado;
 import com.vvm.sh.databinding.ActivityEquipamentosBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.pesquisa.OnPesquisaListener;
-import com.vvm.sh.ui.pesquisa.PesquisaViewModel;
+import com.vvm.sh.ui.pesquisa.adaptadores.PesquisaViewModel;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
-import com.vvm.sh.util.metodos.TiposUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import java.util.ArrayList;

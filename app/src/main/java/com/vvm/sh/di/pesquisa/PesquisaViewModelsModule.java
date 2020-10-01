@@ -3,8 +3,7 @@ package com.vvm.sh.di.pesquisa;
 import androidx.lifecycle.ViewModel;
 
 import com.vvm.sh.di.ViewModelKey;
-import com.vvm.sh.ui.pesquisa.PesquisaViewModel;
-import com.vvm.sh.ui.quadroPessoal.QuadroPessoalViewModel;
+import com.vvm.sh.ui.pesquisa.adaptadores.PesquisaViewModel;
 
 import dagger.Binds;
 import dagger.Module;

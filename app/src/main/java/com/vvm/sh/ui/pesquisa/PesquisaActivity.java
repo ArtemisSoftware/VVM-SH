@@ -1,6 +1,5 @@
 package com.vvm.sh.ui.pesquisa;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
@@ -12,11 +11,11 @@ import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.databinding.ActivityPesquisaBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
+import com.vvm.sh.ui.pesquisa.adaptadores.PesquisaViewModel;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import javax.inject.Inject;
 

@@ -1,4 +1,4 @@
-package com.vvm.sh.ui.pesquisa;
+package com.vvm.sh.ui.pesquisa.adaptadores;
 
 import androidx.lifecycle.MutableLiveData;
 

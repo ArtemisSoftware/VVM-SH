@@ -1,4 +1,4 @@
-package com.vvm.sh.ui.pesquisa;
+package com.vvm.sh.ui.pesquisa.adaptadores;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.vvm.sh.R;
 import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.databinding.ItemPesquisaBinding;
+import com.vvm.sh.ui.pesquisa.OnPesquisaListener;
 
 import java.util.ArrayList;
 import java.util.List;

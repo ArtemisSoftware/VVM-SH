@@ -202,7 +202,7 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rcl_registos"
                     style="@style/lista"
-                    tools:listitem="@layout/item_checklist_area"/>
+                    tools:listitem="@layout/item_averiguacao_area"/>
 
 
                 <!--

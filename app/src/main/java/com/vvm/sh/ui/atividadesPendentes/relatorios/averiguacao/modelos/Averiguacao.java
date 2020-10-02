@@ -14,6 +14,9 @@ public class Averiguacao {
     @ColumnInfo(name = "descricao")
     public String descricao;
 
+    @ColumnInfo(name = "tipo")
+    public int tipo;
+
 
     @ColumnInfo(name = "numeroRegistos")
     public int numeroRegistos;

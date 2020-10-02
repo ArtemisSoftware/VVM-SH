@@ -31,7 +31,7 @@ abstract public class AveriguacaoDao implements BaseDao<RelatorioAveriguacaoResu
 //    query += "ON rel_avr_rsc.idTarefa = rel_avrg_res.idTarefa AND rel_avr_rsc_med.idRelatorio = rel_avrg_res.idRelatorio		 ";
 //    query += "WHERE rel_avr_rsc.idTarefa = ?	AND rel_avr_rsc.idRelatorio = ?	 ";
 //
-    @Query("SELECT id, descricao, 0 as numeroRegistos, 0 as total, 0 as valido " +
+    @Query("SELECT id, descricao, tipo, 0 as numeroRegistos, 0 as total, 0 as valido " +
             "FROM relatorioAveriguacao as rel_avg " +
             "WHERE idTarefa = :idTarefa AND tipo = :tipo")
     abstract public Observable<List<Averiguacao>> obterRelatorio(int idTarefa, int tipo);

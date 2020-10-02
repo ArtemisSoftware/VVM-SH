@@ -13,11 +13,11 @@
         <variable
             name="viewmodel"
             type="com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.ChecklistViewModel"/>
-
+-->
         <variable
             name="listener"
-            type="com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.adaptadores.OnChecklistListener.OnItemListener"/>
--->
+            type="com.vvm.sh.ui.atividadesPendentes.relatorios.averiguacao.adaptadores.OnAveriguacaoListener"/>
+
 
     </data>
 

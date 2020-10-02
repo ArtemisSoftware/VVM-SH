@@ -3,18 +3,22 @@ package com.vvm.sh.ui.atividadesPendentes.relatorios.averiguacao;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.content.Intent;
 import android.os.Bundle;
 
 import com.vvm.sh.R;
 import com.vvm.sh.databinding.ActivityAveriguacaoBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.averiguacao.adaptadores.OnAveriguacaoListener;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.averiguacao.modelos.Averiguacao;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import javax.inject.Inject;
 
-public class AveriguacaoActivity extends BaseDaggerActivity {
+public class AveriguacaoActivity extends BaseDaggerActivity
+        implements OnAveriguacaoListener {
 
 
     private ActivityAveriguacaoBinding activityAveriguacaoBinding;
@@ -34,7 +38,7 @@ public class AveriguacaoActivity extends BaseDaggerActivity {
 
         activityAveriguacaoBinding = (ActivityAveriguacaoBinding) activityBinding;
         activityAveriguacaoBinding.setLifecycleOwner(this);
-        //activityFormandoBinding.setListener(this);
+        activityAveriguacaoBinding.setListener(this);
         //activityAveriguacaoBinding.setViewmodel(viewModel);
 
         subscreverObservadores();
@@ -62,6 +66,19 @@ public class AveriguacaoActivity extends BaseDaggerActivity {
 
     @Override
     protected void subscreverObservadores() {
+
+    }
+
+    @Override
+    public void OnItemClick(Averiguacao registo) {
+
+        Bundle bundleLocal = new Bundle();
+        bundleLocal.putInt(getString(R.string.argumento_id_relatorio), registo.id);
+        bundleLocal.putInt(getString(R.string.argumento_id_tipo), registo.tipo);
+
+        Intent intent = new Intent(this, AveriguacaoListagemActivity.class);
+        intent.putExtras(bundleLocal);
+        startActivity(intent);
 
     }
 }

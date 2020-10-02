@@ -14,16 +14,9 @@
         <import type="android.view.View"/>
 
         <variable
-            name="crossSelling"
-            type="com.vvm.sh.ui.crossSelling.modelos.CrossSelling" />
+            name="averiguacao"
+            type="com.vvm.sh.ui.atividadesPendentes.relatorios.averiguacao.modelos.AveriguacaoRegisto" />
 
-        <variable
-            name="listener"
-            type="com.vvm.sh.ui.crossSelling.adaptadores.OnCrossSellingListener"/>
-
-        <variable
-            name="bloquear"
-            type="Boolean"/>
     </data>
 
 
@@ -43,7 +36,7 @@
                 style="@style/tituloCartao"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:text="lololo"
+                android:text="@{ati}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 

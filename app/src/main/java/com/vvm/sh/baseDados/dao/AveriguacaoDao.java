@@ -6,6 +6,7 @@ import androidx.room.Query;
 import com.vvm.sh.baseDados.BaseDao;
 import com.vvm.sh.baseDados.entidades.RelatorioAveriguacaoResultado;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.averiguacao.modelos.Averiguacao;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.averiguacao.modelos.AveriguacaoRegisto;
 
 import java.util.List;
 
@@ -33,6 +34,33 @@ abstract public class AveriguacaoDao implements BaseDao<RelatorioAveriguacaoResu
             "FROM relatoriosAvaliacaoRiscos as rel_avr " +
             "WHERE idTarefa = :idTarefa")
     abstract public Observable<List<Averiguacao>> obterRelatorioAvaliacaoRiscos(int idTarefa);
+
+
+//
+//    String query = "SELECT idMedida, tp_medidas.descricao as medida, risco, implementacao, ponderacao, rel_avrg_res.data  as data  ";
+//    query += "FROM relatorioAvaliacaoRiscos as rel_avr_rsc   ";
+//
+//    query += "OUTER LEFT JOIN (SELECT idRelatorio, idMedida FROM relatorioAvaliacaoRiscosMedidas) as rel_avr_rsc_med ON rel_avr_rsc.idRelatorio = rel_avr_rsc_med.idRelatorio   ";
+//    query += "OUTER LEFT JOIN (SELECT id, descricao FROM tipos WHERE tipo = 'MedidasPrevencaoRecomendadas') as tp_medidas ON rel_avr_rsc_med.idMedida = tp_medidas.id   ";
+//
+//    query += "OUTER LEFT JOIN (SELECT idTarefa, idRelatorio, medida, implementacao, risco, ponderacao, data FROM relatorioAveriguacao_resultado) as rel_avrg_res    ";
+//    query += "ON rel_avr_rsc.idTarefa = rel_avrg_res.idTarefa AND rel_avr_rsc_med.idRelatorio = rel_avrg_res.idRelatorio AND rel_avr_rsc_med.idMedida = rel_avrg_res.medida   ";
+//    query += "WHERE rel_avr_rsc.idTarefa = ? AND rel_avr_rsc_med.idRelatorio = ?   ";
+//    query += "   ";
+//    query += "   ";
+//    query += "   ";
+//
+//    String argumentos [] = {
+//            idTarefa, idRelatorio
+//    };
+//
+
+
+    @Query("SELECT * " +
+            "FROM ")
+    abstract public Observable<List<AveriguacaoRegisto>> obterRegistosAvaliacaoRiscos(int idTarefa);
+
+    //https://mega.nz/folder/9aIhXIrR#U9QHq_13tly4SYRLn10ykg/folder/YaJQAaZR
 
 }
 

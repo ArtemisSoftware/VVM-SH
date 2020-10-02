@@ -60,7 +60,7 @@ public class Migracao {
                 database.execSQL("CREATE TABLE IF NOT EXISTS 'relatorioAuditoriaMedidas' ("
                         + "'idRelatorio' INTEGER NOT NULL, "
                         + "'nc' TEXT NOT NULL, " //TODO: ver se pode ser int
-                        + "PRIMARY KEY (idRelatorio, idMedida), "
+                        + "PRIMARY KEY (idRelatorio, nc), "
                         + "FOREIGN KEY (idRelatorio) REFERENCES relatorioAuditoria (id)  ON DELETE CASCADE)  ");
 
 

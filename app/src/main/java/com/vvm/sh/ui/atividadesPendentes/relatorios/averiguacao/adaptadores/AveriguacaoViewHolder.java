@@ -5,17 +5,16 @@ import android.view.View;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.vvm.sh.R;
-import com.vvm.sh.databinding.ItemAveriguacaoBinding;
+import com.vvm.sh.databinding.ItemAveriguacaoAreaBinding;
 
-public class AveriguacaoRegistoViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-
-
-    public ItemAveriguacaoBinding binding;
-    private OnAveriguacaoListener.OnAveriguacaoItemListener onItemListener;
+public class AveriguacaoViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
 
-    public AveriguacaoRegistoViewHolder(View itemView, OnAveriguacaoListener.OnAveriguacaoItemListener onItemListener) {
+    public ItemAveriguacaoAreaBinding binding;
+    private OnAveriguacaoListener onItemListener;
+
+
+    public AveriguacaoViewHolder(View itemView, OnAveriguacaoListener onItemListener) {
         super(itemView);
         binding = DataBindingUtil.bind(itemView);
 

@@ -10,16 +10,16 @@
         <import type="android.view.View"/>
         <import type="java.util.List"/>
         <import type="com.vvm.sh.util.metodos.StringUtil"/>
-<!--
-        <variable
-            name="item"
-            type="com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.modelos.Item" />
-
 
         <variable
-            name="listener"
-            type="com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.adaptadores.OnChecklistListener"/>
--->
+            name="averiguacao"
+            type="com.vvm.sh.ui.atividadesPendentes.relatorios.averiguacao.modelos.Averiguacao" />
+        <!--
+
+                <variable
+                    name="listener"
+                    type="com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.adaptadores.OnChecklistListener"/>
+        -->
 
     </data>
 
@@ -48,7 +48,7 @@
                 style="@style/tituloCartao"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-
+                android:text="@{averiguacao.descricao, default=descricao}"
                 app:layout_constraintStart_toEndOf="@+id/imageView5"
                 app:layout_constraintTop_toTopOf="parent" />
 

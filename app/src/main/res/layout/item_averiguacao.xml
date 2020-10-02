@@ -36,7 +36,7 @@
                 style="@style/tituloCartao"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-                android:text="@{ati}"
+                android:text="@{averiguacao.descricao, default=descricao}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
@@ -134,6 +134,8 @@
             <TextView
                 android:id="@+id/textView39"
 
+                android:text="@{StringUtil.converterString(averiguacao.id), default=id}"
+                android:visibility="@{BuildConfig.DEBUG ? View.VISIBLE : View.GONE}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
@@ -145,8 +147,6 @@
             <!--
 
 
-                android:text="@{StringUtil.converterString(crossSelling.tipo.id), default=id}"
-                android:visibility="@{BuildConfig.DEBUG ? View.VISIBLE : View.GONE}"
             -->
 
         </androidx.constraintlayout.widget.ConstraintLayout>

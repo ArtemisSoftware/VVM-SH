@@ -12,6 +12,7 @@ import com.vvm.sh.databinding.ActivityPesquisaMedidasBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.pesquisa.adaptadores.PesquisaViewModel;
+import com.vvm.sh.ui.pesquisa.modelos.Medida;
 import com.vvm.sh.ui.pesquisa.modelos.Pesquisa;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
@@ -56,7 +57,7 @@ public class PesquisaMedidasActivity extends BaseDaggerActivity implements OnPes
 
             pesquisa = bundle.getParcelable(getString(R.string.argumento_configuracao_pesquisa));
             activityPesquisaMedidasBinding.setPesquisa(pesquisa);
-            viewModel.obterRegistos(pesquisa.metodo, pesquisa.registosSelecionados);
+            viewModel.obterMedidas(pesquisa.metodo, pesquisa.registosSelecionados);
         }
         else{
             finish();
@@ -79,7 +80,14 @@ public class PesquisaMedidasActivity extends BaseDaggerActivity implements OnPes
     }
 
     @Override
-    public void OnSelecionarClick(Tipo registo, boolean selecionado) {
+    public void OnSelecionarClick(Medida registo, boolean selecionado) {
+
+        if(selecionado == true){
+            pesquisa.registosSelecionados.add(registo.tipo.id);
+        }
+        else{
+            pesquisa.registosSelecionados.remove(pesquisa.registosSelecionados.indexOf(registo.tipo.id));
+        }
 
     }
 

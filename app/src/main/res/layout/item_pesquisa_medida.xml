@@ -14,8 +14,8 @@
         <import type="android.view.View"/>
 
         <variable
-            name="tipo"
-            type="com.vvm.sh.baseDados.entidades.Tipo" />
+            name="medida"
+            type="com.vvm.sh.ui.pesquisa.modelos.Medida" />
 
 
         <variable
@@ -39,7 +39,9 @@
                 style="@style/textoDetalhe"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="8dp"
-                android:text="CheckBox"
+                android:enabled="@{bloquear}"
+                android:text="@{medida.tipo.descricao, default=descricao}"
+                android:checked="@{medida.selecionado}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.5"

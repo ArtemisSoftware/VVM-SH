@@ -311,6 +311,20 @@ public class PesquisaViewModel extends BaseViewModel {
     }
 
 
+
+    public void obterMedidas(String metodo, List<Integer> registos){
+
+
+    }
+
+
+
+
+
+
+
+
+
     public void pesquisar(String metodo, List<Integer> registos, String pesquisa) {
 
         tiposRepositorio.obterTipos_Excluir(metodo, registos, pesquisa, idApi)

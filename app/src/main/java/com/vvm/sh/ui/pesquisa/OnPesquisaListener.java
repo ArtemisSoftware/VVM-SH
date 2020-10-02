@@ -2,6 +2,7 @@ package com.vvm.sh.ui.pesquisa;
 
 import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.equipamentos.Equipamento;
+import com.vvm.sh.ui.pesquisa.modelos.Medida;
 
 public interface OnPesquisaListener {
 
@@ -34,7 +35,7 @@ public interface OnPesquisaListener {
 
     interface OnPesquisaMedidaListener {
 
-        void OnSelecionarClick(Tipo registo, boolean selecionado);
+        void OnSelecionarClick(Medida registo, boolean selecionado);
     }
 
 }

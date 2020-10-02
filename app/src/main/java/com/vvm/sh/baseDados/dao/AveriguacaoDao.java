@@ -7,6 +7,7 @@ import com.vvm.sh.baseDados.BaseDao;
 import com.vvm.sh.baseDados.entidades.RelatorioAveriguacaoResultado;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.averiguacao.modelos.Averiguacao;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.averiguacao.modelos.AveriguacaoRegisto;
+import com.vvm.sh.util.metodos.TiposUtil;
 
 import java.util.List;
 
@@ -31,9 +32,9 @@ abstract public class AveriguacaoDao implements BaseDao<RelatorioAveriguacaoResu
 //    query += "WHERE rel_avr_rsc.idTarefa = ?	AND rel_avr_rsc.idRelatorio = ?	 ";
 //
     @Query("SELECT id, descricao, 0 as numeroRegistos, 0 as total, 0 as valido " +
-            "FROM relatoriosAvaliacaoRiscos as rel_avr " +
-            "WHERE idTarefa = :idTarefa")
-    abstract public Observable<List<Averiguacao>> obterRelatorioAvaliacaoRiscos(int idTarefa);
+            "FROM relatorioAveriguacao as rel_avg " +
+            "WHERE idTarefa = :idTarefa AND tipo = :tipo")
+    abstract public Observable<List<Averiguacao>> obterRelatorio(int idTarefa, int tipo);
 
 
 //
@@ -56,9 +57,12 @@ abstract public class AveriguacaoDao implements BaseDao<RelatorioAveriguacaoResu
 //
 
 
-    @Query("SELECT * " +
-            "FROM ")
-    abstract public Observable<List<AveriguacaoRegisto>> obterRegistosAvaliacaoRiscos(int idTarefa);
+    @Query("SELECT rel_avr_med.idMedida as id, descricao " +
+            "FROM relatorioAvaliacaoRiscosMedidas as rel_avr_med " +
+            "LEFT JOIN (SELECT id as idMedida, descricao FROM tipos WHERE tipo = '" + TiposUtil.MetodosTipos.MEDIDAS_PREVENCAO_RECOMENDADAS + "') as tp_medidas " +
+            "ON rel_avr_med.idMedida = tp_medidas.idMedida   " +
+            "WHERE idRelatorio = :idRelatorio")
+    abstract public Observable<List<AveriguacaoRegisto>> obterRegistosAvaliacaoRiscos(int idRelatorio);
 
     //https://mega.nz/folder/9aIhXIrR#U9QHq_13tly4SYRLn10ykg/folder/YaJQAaZR
 

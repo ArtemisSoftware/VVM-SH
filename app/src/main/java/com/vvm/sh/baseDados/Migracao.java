@@ -33,6 +33,20 @@ public class Migracao {
             try {
 
 
+                database.execSQL("CREATE TABLE IF NOT EXISTS 'relatorioAveriguacao' ("
+                        + "'idTarefa' INTEGER NOT NULL, "
+                        + "'id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
+                        + "'tipo' INTEGER NOT NULL, "
+                        + "'data' INTEGER NOT NULL, "
+                        + "'descricao' TEXT NOT NULL, "
+                        + "'idChecklist' INTEGER NOT NULL, "
+                        + "'idArea' INTEGER NOT NULL, "
+                        + "FOREIGN KEY (idTarefa) REFERENCES tarefas (idTarefa)  ON DELETE CASCADE)  ");
+
+
+
+
+
                 database.execSQL("CREATE TABLE IF NOT EXISTS 'relatoriosAvaliacaoRiscos' ("
                         + "'idTarefa' INTEGER NOT NULL, "
                         + "'id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "

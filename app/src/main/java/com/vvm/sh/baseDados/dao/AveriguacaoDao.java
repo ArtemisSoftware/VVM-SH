@@ -5,8 +5,11 @@ import androidx.room.Query;
 
 import com.vvm.sh.baseDados.BaseDao;
 import com.vvm.sh.baseDados.entidades.RelatorioAveriguacaoResultado;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.averiguacao.modelos.Averiguacao;
 
-import java.util.Observable;
+import java.util.List;
+
+import io.reactivex.Observable;
 
 @Dao
 abstract public class AveriguacaoDao implements BaseDao<RelatorioAveriguacaoResultado> {
@@ -26,8 +29,10 @@ abstract public class AveriguacaoDao implements BaseDao<RelatorioAveriguacaoResu
 //    query += "ON rel_avr_rsc.idTarefa = rel_avrg_res.idTarefa AND rel_avr_rsc_med.idRelatorio = rel_avrg_res.idRelatorio		 ";
 //    query += "WHERE rel_avr_rsc.idTarefa = ?	AND rel_avr_rsc.idRelatorio = ?	 ";
 //
-//    @Query("DELETE FROM categoriasProfissionaisResultado WHERE idRegisto = :idRegisto AND origem = :origem")
-//    abstract public Observable<RelatorioAveriguacaoResultado> remover(int idRegisto, int origem);
+    @Query("SELECT id, descricao, 0 as numeroRegistos, 0 as total, 0 as valido " +
+            "FROM relatoriosAvaliacaoRiscos as rel_avr " +
+            "WHERE idTarefa = :idTarefa")
+    abstract public Observable<List<Averiguacao>> obterRelatorioAvaliacaoRiscos(int idTarefa);
 
 }
 

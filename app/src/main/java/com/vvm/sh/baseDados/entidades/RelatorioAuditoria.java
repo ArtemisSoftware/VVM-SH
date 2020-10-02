@@ -11,14 +11,14 @@ import java.util.Date;
 
 import static androidx.room.ForeignKey.CASCADE;
 
-@Entity(tableName = "relatoriosAvaliacaoRiscos",
+@Entity(tableName = "relatorioAuditoria",
 
 
         foreignKeys = @ForeignKey(entity = Tarefa.class,
                 parentColumns = "idTarefa",
                 childColumns = "idTarefa",
                 onDelete = CASCADE))
-public class RelatorioAvaliacaoRisco {
+public class RelatorioAuditoria {
 
     @NonNull
     @ColumnInfo(name = "idTarefa")
@@ -35,4 +35,9 @@ public class RelatorioAvaliacaoRisco {
     @NonNull
     public String descricao;
 
+    @NonNull
+    public int idChecklist;
+
+    @NonNull
+    public int idArea;
 }

@@ -59,6 +59,19 @@ public class BaseDatePickerDialog {
 
 
     /**
+     * Metodo que permite fixar os limites
+     * @param tipo o campo a alterar (dia - Calendar.DATE, mes - Calendar.MONTH, ano - Calendar.YEAR)
+     * @param desvioInferior o limite inferior
+     * @param desvioSuperior o limite superior
+     */
+    public void fixarLimites(int tipo, int desvioInferior, int desvioSuperior){
+        fixarLimiteInferior(tipo, desvioInferior);
+        fixarLimiteSuperior(tipo, desvioSuperior);
+    }
+
+
+
+    /**
      * Metodo que permite fixar o limite inferior da calendario <b>fixando o limite maximo no dia atual</b>
      * @param tipo o campo a alterar (dia - Calendar.DATE, mes - Calendar.MONTH, ano - Calendar.YEAR)
      * @param desvio o limite

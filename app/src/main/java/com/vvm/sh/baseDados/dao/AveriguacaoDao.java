@@ -65,6 +65,8 @@ abstract public class AveriguacaoDao implements BaseDao<RelatorioAveriguacaoResu
     abstract public Observable<List<AveriguacaoRegisto>> obterRegistos(int idRelatorio);
 
     //https://mega.nz/folder/9aIhXIrR#U9QHq_13tly4SYRLn10ykg/folder/YaJQAaZR
-
+    //https://mega.nz/folder/9aIhXIrR#U9QHq_13tly4SYRLn10ykg/folder/JHZWBCxY
+    //https://mega.nz/folder/9aIhXIrR#U9QHq_13tly4SYRLn10ykg/folder/AbYCAQ4I
+    //https://mega.nz/folder/9aIhXIrR#U9QHq_13tly4SYRLn10ykg/folder/BLB03SaJ
 }
 

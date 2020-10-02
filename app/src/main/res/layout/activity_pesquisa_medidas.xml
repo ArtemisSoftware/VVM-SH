@@ -16,8 +16,12 @@
 
 
         <variable
+            name="listener"
+            type="com.vvm.sh.ui.pesquisa.OnPesquisaListener.OnPesquisaMedidaListener"/>
+
+        <variable
             name="pesquisa"
-            type="com.vvm.sh.ui.pesquisa.Pesquisa"/>
+            type="com.vvm.sh.ui.pesquisa.modelos.Pesquisa"/>
 
         <variable
             name="bloquear"
@@ -108,14 +112,14 @@
                     android:layout_height="match_parent"
                     android:layout_marginTop="@dimen/distancia_vertical_formulario"
 
-
+                    listener="@{listener}"
                     tools:listitem="@layout/item_pesquisa_medida" />
 
             </LinearLayout>
 
             <!--
                                 registosPesquisa="@{viewmodel.tipos}"
-                    listener="@{listenerRegisto}"
+                    listener="@{listener}"
 
             -->
 

@@ -73,6 +73,7 @@ import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.RiscoRegistoAc
 import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.RiscosActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.trabalhadoresVulneraveis.TrabalhadorVulneravelRegistoActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.trabalhadoresVulneraveis.TrabalhadoresVulneraveisActivity;
+import com.vvm.sh.ui.pesquisa.PesquisaMedidasActivity;
 import com.vvm.sh.ui.planoAccao.PlanoAccaoActivity;
 import com.vvm.sh.ui.registoVisita.DadosClienteActivity;
 import com.vvm.sh.ui.registoVisita.DialogoTrabalhoRealizado;
@@ -515,6 +516,11 @@ public abstract class ActivityBuildersModule {
     abstract PesquisaActivity contributePesquisaActivity();
 
 
+    @PesquisaScope
+    @ContributesAndroidInjector(
+            modules = { PesquisaViewModelsModule.class, PesquisaModule.class }
+    )
+    abstract PesquisaMedidasActivity contributePesquisaMedidasActivity();
 
     //----------------------
     //Registo visita

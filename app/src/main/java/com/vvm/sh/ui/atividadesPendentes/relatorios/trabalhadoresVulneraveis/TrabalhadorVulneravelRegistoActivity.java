@@ -1,7 +1,6 @@
 package com.vvm.sh.ui.atividadesPendentes.relatorios.trabalhadoresVulneraveis;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -12,11 +11,9 @@ import android.view.View;
 import com.vvm.sh.R;
 import com.vvm.sh.baseDados.entidades.TrabalhadorVulneravelResultado;
 import com.vvm.sh.databinding.ActivityTrabalhadorVulneravelRegistoBinding;
-import com.vvm.sh.databinding.ActivityTrabalhadoresVulneraveisBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
-import com.vvm.sh.ui.atividadesPendentes.relatorios.trabalhadoresVulneraveis.modelos.TrabalhadorVulneravel;
-import com.vvm.sh.ui.pesquisa.Pesquisa;
+import com.vvm.sh.ui.pesquisa.modelos.Pesquisa;
 import com.vvm.sh.ui.pesquisa.PesquisaActivity;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.constantes.Identificadores;

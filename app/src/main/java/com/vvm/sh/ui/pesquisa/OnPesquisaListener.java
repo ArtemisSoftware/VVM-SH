@@ -32,4 +32,9 @@ public interface OnPesquisaListener {
 
 
 
+    interface OnPesquisaMedidaListener {
+
+        void OnSelecionarClick(Tipo registo, boolean selecionado);
+    }
+
 }

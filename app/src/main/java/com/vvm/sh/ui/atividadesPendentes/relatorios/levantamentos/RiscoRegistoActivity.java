@@ -1,7 +1,6 @@
 package com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -18,16 +17,12 @@ import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.vvm.sh.R;
 import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.databinding.ActivityRiscoRegistoBinding;
-import com.vvm.sh.databinding.ActivityRiscosBinding;
 import com.vvm.sh.ui.BaseDaggerActivity;
-import com.vvm.sh.ui.pesquisa.Pesquisa;
-import com.vvm.sh.ui.pesquisa.PesquisaActivity;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.metodos.ConversorUtil;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
-import com.vvm.sh.util.metodos.TiposUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import java.util.ArrayList;
@@ -35,7 +30,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.OnClick;
-import butterknife.OnItemSelected;
 
 public class RiscoRegistoActivity extends BaseDaggerActivity
         implements Validator.ValidationListener{

@@ -12,6 +12,7 @@ import com.vvm.sh.databinding.ActivityPesquisaBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.pesquisa.adaptadores.PesquisaViewModel;
+import com.vvm.sh.ui.pesquisa.modelos.Pesquisa;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 

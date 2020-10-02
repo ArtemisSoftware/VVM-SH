@@ -1,7 +1,6 @@
 package com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -22,7 +21,7 @@ import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.databinding.ActivityAvaliacaoTemperaturaHumidadeRegistoBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
-import com.vvm.sh.ui.pesquisa.Pesquisa;
+import com.vvm.sh.ui.pesquisa.modelos.Pesquisa;
 import com.vvm.sh.ui.pesquisa.PesquisaActivity;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.constantes.Identificadores;

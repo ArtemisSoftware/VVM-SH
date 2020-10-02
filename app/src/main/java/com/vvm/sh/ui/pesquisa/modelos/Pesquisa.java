@@ -1,4 +1,4 @@
-package com.vvm.sh.ui.pesquisa;
+package com.vvm.sh.ui.pesquisa.modelos;
 
 import android.os.Parcel;
 import android.os.Parcelable;

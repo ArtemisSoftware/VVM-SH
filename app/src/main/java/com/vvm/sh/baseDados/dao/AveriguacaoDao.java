@@ -62,7 +62,7 @@ abstract public class AveriguacaoDao implements BaseDao<RelatorioAveriguacaoResu
             "LEFT JOIN (SELECT id as idMedida, descricao FROM tipos WHERE tipo = '" + TiposUtil.MetodosTipos.MEDIDAS_PREVENCAO_RECOMENDADAS + "') as tp_medidas " +
             "ON rel_avr_med.idMedida = tp_medidas.idMedida   " +
             "WHERE idRelatorio = :idRelatorio")
-    abstract public Observable<List<AveriguacaoRegisto>> obterRegistosAvaliacaoRiscos(int idRelatorio);
+    abstract public Observable<List<AveriguacaoRegisto>> obterRegistos(int idRelatorio);
 
     //https://mega.nz/folder/9aIhXIrR#U9QHq_13tly4SYRLn10ykg/folder/YaJQAaZR
 

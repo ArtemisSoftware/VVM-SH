@@ -442,4 +442,5 @@
     <string name="novo_equipamento">Novo equipamento</string>
     <string name="dataImplementacao_">Data de implementação:</string>
     <string name="ponderacao_">Ponderação:</string>
+    <string name="implementacao">Implementação</string>
 </resources>

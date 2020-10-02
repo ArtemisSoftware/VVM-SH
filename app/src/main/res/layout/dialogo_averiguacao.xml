@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="java.util.List"/>
+
+<!--
+        <variable
+            name="viewmodel"
+            type="com.vvm.sh.ui.tarefa.TarefaViewModel"/>
+
+        <variable
+            name="listener"
+            type="com.vvm.sh.ui.tarefa.adaptadores.OnTarefaListener"/>
+-->
+    </data>
+
+
+    <LinearLayout
+        style="@style/temaDialogo"
+        android:orientation="vertical">
+
+
+
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/implementacao"
+            style="@style/textoInput"
+            android:layout_marginTop="@dimen/spacing_dialog_item" />
+
+
+        <com.jaredrummler.materialspinner.MaterialSpinner
+            android:id="@+id/spnr_implementacao"
+
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/implementacao"/>
+
+
+        <LinearLayout android:id="@+id/lnr_lyt_risco"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/spacing_dialog_item"
+            android:orientation="vertical"
+            android:visibility="visible">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:gravity="center_vertical">
+
+                <TextView
+                    style="@style/textoDetalhe"
+                    android:text="@string/data_"/>
+
+                <TextView
+                    android:id="@+id/txt_view_data"
+                    style="@style/textoDetalhe"
+                    android:layout_marginLeft="10dp"/>
+
+
+                <at.markushi.ui.CircleButton
+                    android:id="@+id/crl_btn_data_execucao"
+                    style="@style/btnCalendario"
+                    android:layout_marginLeft="10dp" />
+
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:gravity="center_vertical"
+                android:layout_marginTop="@dimen/spacing_dialog_item"  >
+
+                <TextView
+                    style="@style/textoInput"
+                    android:text="@string/riscos"/>
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/riscos"
+                    style="@style/textoInput"/>
+
+                <com.jaredrummler.materialspinner.MaterialSpinner
+                    android:id="@+id/spnr_riscos"
+
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:hint="@string/riscos"/>
+
+            </LinearLayout>
+
+
+
+            <LinearLayout android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginTop="@dimen/spacing_dialog_item" >
+
+                <TextView
+                    style="@style/textoDetalhe"
+                    android:text="@string/ponderacao_" />
+
+                <TextView android:id="@+id/txt_ponderacao"
+                    style="@style/textoDetalhe"
+                    android:layout_marginLeft="10dp"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+</layout>

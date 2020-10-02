@@ -54,6 +54,9 @@ public class Identificadores {
 
         public static final int MEDIDAS_RISCO_EXISTENTES = 12;
         public static final int MEDIDAS_RISCO_RECOMENDADAS = 13;
+
+
+        public static final int AVALIACAO_AMBIENTAL_ILUMINACAO_MEDIDAS_RECOMENDADAS = 14;
     }
 
 
@@ -93,6 +96,7 @@ public class Identificadores {
 
         public static final int PESQUISA_CATEGORIAS_PROFISSIONAIS_HOMENS = 3;
         public static final int PESQUISA_CATEGORIAS_PROFISSIONAIS_MULHERES = 4;
+        public static final int PESQUISA_MEDIDAS_RECOMENDADAS = 5;
     }
 
 
@@ -272,4 +276,8 @@ public class Identificadores {
         public static final String CANAL_ATUALIZACAO_APP = "Atualização app";
     }
 
+    public class Codigos {
+        public static final String ILUMINACAO = "iluminacao";
+        public static final String TERMICO = "termico";
+    }
 }

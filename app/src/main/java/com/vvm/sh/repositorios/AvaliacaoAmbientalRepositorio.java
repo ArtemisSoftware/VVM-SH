@@ -125,6 +125,11 @@ public class AvaliacaoAmbientalRepositorio {
     }
 
 
+    public Single<List<Tipo>> obterTipos_Incluir(String metodo, String codigo, List<Integer> resultado){
+        return tipoDao.obterTipos_Incluir(metodo, codigo, api, resultado);
+    }
+
+
 
     /**
      * Metodo que permite obter a medida recomendada

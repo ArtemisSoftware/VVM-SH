@@ -112,6 +112,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginTop="@dimen/distancia_vertical_formulario"
 
+                    registosMedidas="@{viewmodel.medidas}"
                     listener="@{listener}"
                     tools:listitem="@layout/item_pesquisa_medida" />
 

@@ -61,6 +61,7 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
     public MutableLiveData<List<Tipo>> elxArea;
     public MutableLiveData<List<Tipo>> elx;
     public MutableLiveData<List<Tipo>> categoriasProfissionais;
+    public MutableLiveData<List<Tipo>> medidas;
 
     public MutableLiveData<AvaliacaoAmbiental> avaliacao;
     //--public MutableLiveData<CategoriaProfissionalResultado> categoriasProfissionais;
@@ -84,6 +85,7 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
         elxArea = new MutableLiveData<>();
         elx = new MutableLiveData<>();
         categoriasProfissionais = new MutableLiveData<>();
+        medidas = new MutableLiveData<>();
 
 
         avaliacao = new MutableLiveData<>();
@@ -743,7 +745,37 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
                 );
     }
 
+    public void fixarMedidas(String metodo, String codigo, List<Integer> resultado) {
 
+        avaliacaoAmbientalRepositorio.obterTipos_Incluir(metodo, codigo, resultado).toObservable()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new Observer<List<Tipo>>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+
+                            }
+
+                            @Override
+                            public void onNext(List<Tipo> tipos) {
+                                medidas.setValue(tipos);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+
+                            @Override
+                            public void onComplete() {
+
+                            }
+                        }
+
+                );
+    }
 
 
 
@@ -759,6 +791,22 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
 //        for (Tipo item : categoriasProfissionais.getValue()) {
 //            resultado.add(item.id);
 //        }
+
+        return resultado;
+    }
+
+
+
+    public ArrayList<Integer> obterRegistosSelecionados(List<Tipo> registos){
+
+        ArrayList<Integer> resultado = new ArrayList<>();
+
+        if(registos != null) {
+
+            for (Tipo item : registos) {
+                resultado.add(item.id);
+            }
+        }
 
         return resultado;
     }

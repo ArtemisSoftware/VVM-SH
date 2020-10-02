@@ -8,7 +8,9 @@ import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.equipamentos.Equipamento;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.equipamentos.adaptadores.EquipamentoRecyclerHolder;
 import com.vvm.sh.ui.pesquisa.OnPesquisaListener;
+import com.vvm.sh.ui.pesquisa.adaptadores.PesquisaMedidaRecyclerAdapter;
 import com.vvm.sh.ui.pesquisa.adaptadores.PesquisaRecyclerAdapter;
+import com.vvm.sh.ui.pesquisa.modelos.Medida;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -163,5 +165,56 @@ public class PesquisaBinding {
         }
 
     }
+
+
+
+
+    @BindingAdapter({"registosMedidas", "listener"})
+    public static void setRegistosMedidas(RecyclerView view, List<Medida> items, OnPesquisaListener.OnPesquisaMedidaListener listener) {
+
+        if(items == null){
+            return;
+        }
+
+        //List<Tipo> lolo = items;
+
+        List<Medida> lolo = new ArrayList<>();
+
+        int i = 0;
+        for (Medida item : items) {
+
+            lolo.add(item);
+
+            if(i == 14){
+                break;
+            }
+
+            ++i;
+        }
+
+        //TODO: fazer paginacao
+
+        RecyclerView.LayoutManager layoutManager = view.getLayoutManager();
+
+
+        if(layoutManager == null){
+            view.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        }
+
+        PesquisaMedidaRecyclerAdapter adapter = (PesquisaMedidaRecyclerAdapter) view.getAdapter();
+
+        if(adapter == null){
+            adapter = new PesquisaMedidaRecyclerAdapter(view.getContext(), lolo, listener);
+
+            view.setAdapter(adapter);
+        }
+        else{
+            adapter.atualizar(lolo);
+        }
+
+    }
+
+
+
 
 }

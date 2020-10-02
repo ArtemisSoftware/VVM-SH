@@ -57,7 +57,7 @@ public class PesquisaMedidasActivity extends BaseDaggerActivity implements OnPes
 
             pesquisa = bundle.getParcelable(getString(R.string.argumento_configuracao_pesquisa));
             activityPesquisaMedidasBinding.setPesquisa(pesquisa);
-            viewModel.obterMedidas(pesquisa.metodo, pesquisa.registosSelecionados);
+            viewModel.obterMedidas(pesquisa.metodo, pesquisa.codigo, pesquisa.origem, pesquisa.registosSelecionados);
         }
         else{
             finish();
@@ -96,14 +96,6 @@ public class PesquisaMedidasActivity extends BaseDaggerActivity implements OnPes
     //-----------------------
     //EVENTOS
     //-----------------------
-
-
-    @OnClick(R.id.crl_btn_limpar)
-    public void crl_btn_limpar_OnClickListener(View view) {
-
-        pesquisa.registosSelecionados.clear();
-        viewModel.obterRegistos(pesquisa.metodo, pesquisa.registosSelecionados);
-    }
 
 
     @OnClick(R.id.fab_gravar)

@@ -20,6 +20,7 @@ import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.databinding.ActivityAvaliacaoIluminacaoRegistoBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
+import com.vvm.sh.ui.pesquisa.PesquisaMedidasActivity;
 import com.vvm.sh.ui.pesquisa.modelos.Pesquisa;
 import com.vvm.sh.ui.pesquisa.PesquisaActivity;
 import com.vvm.sh.util.Recurso;
@@ -157,61 +158,6 @@ public class AvaliacaoIluminacaoRegistoActivity extends BaseDaggerActivity
     //Metodos locais
     //-------------------
 
-//
-//    /**
-//     * Metodo que inicia o dialogo de medidas recomendadas
-//     */
-//    private void dialogoMedidasRecomendadas() {
-//
-//        final EscolhaMultipla registos = new EscolhaMultipla(((Item_AvaliacaoAmbiental) adaptador.obterRegistoSelecionado()).obterMedidas(IdentificadoresIF.ORIGEM_MEDIDAS_RECOMENDADAS),  obterMedidasRecomendadas());
-//
-//        AlertDialog.Builder builder = new AlertDialog.Builder(contexto);
-//        builder.setTitle(SintaxeIF.TITULO_MEDIDAS_RECOMENDADAS);
-//
-//        builder.setMultiChoiceItems(registos.obterListaBase(), registos.obterValoresMarcados(), new DialogInterface.OnMultiChoiceClickListener() {
-//
-//            @Override
-//            public void onClick(DialogInterface dialog,int posicao, boolean isChecked) {
-//
-//                if (isChecked == true){
-//                    registos.adicionarRegisto(posicao);
-//                }
-//                else{
-//                    registos.removerRegisto(posicao);
-//                }
-//            }
-//        });
-//
-//        builder.setPositiveButton(SintaxeIF.OPCAO_OK, new DialogInterface.OnClickListener() {
-//
-//            public void onClick(DialogInterface dialog,int id) {
-//
-//                adicionarMedidas(registos.obterMedidasSelecionadas());
-//                dialog.cancel();
-//            }
-//        });
-//
-//        AlertDialog alert = builder.create();
-//        alert.show();
-//    }
-//
-//    @Override
-//    protected Mapeamento obterMedidasRecomendadas() {
-//        return acessoBdRelatorio.obterMedidasRecomendadas(TiposBdIF_v3.SECCAO_MedidasIluminacaoTermico, "iluminacao");
-//    }
-//
-//    /**
-//     * Metodo que permite adicionar as medidas de uma avaliacao
-//     */
-//    protected void adicionarMedidas(ArrayList<String> idMedidas){
-//
-//        acessoBdRelatorio.gravarMedidas(adaptador.obterRegistoSelecionado().obterId(), idMedidas);
-//
-//        MetodosMensagens.gerarToast(contexto, SintaxeIF.DADOS_GRAVADOS_SUCESSO);
-//        adaptador.atualizar();
-//        ((IndiceRelatorioActivity) contexto).atualizar(idRelatorio);
-//    }
-//
 
 
     /**
@@ -352,7 +298,85 @@ public class AvaliacaoIluminacaoRegistoActivity extends BaseDaggerActivity
     @OnClick(R.id.crl_btn_pesquisar_medidas)
     public void crl_btn_pesquisar_medidas_OnClickListener(View view) {
 
+
+        Pesquisa pesquisa = new Pesquisa(true,
+                                         TiposUtil.MetodosTipos.MEDIDAS_ILUMINACAO_TERMICO,
+                                         Identificadores.Codigos.ILUMINACAO, Identificadores.Origens.AVALIACAO_AMBIENTAL_ILUMINACAO_MEDIDAS_RECOMENDADAS,
+                                         viewModel.obterRegistosSelecionados(viewModel.medidas.getValue()));
+
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(getString(R.string.argumento_configuracao_pesquisa), pesquisa);
+
+        Intent intent = new Intent(this, PesquisaMedidasActivity.class);
+        intent.putExtras(bundle);
+        startActivityForResult(intent, Identificadores.CodigoAtividade.PESQUISA_MEDIDAS_RECOMENDADAS);
+
     }
+
+    //
+//    /**
+//     * Metodo que inicia o dialogo de medidas recomendadas
+//     */
+//    private void dialogoMedidasRecomendadas() {
+//
+//        final EscolhaMultipla registos = new EscolhaMultipla(((Item_AvaliacaoAmbiental) adaptador.obterRegistoSelecionado()).obterMedidas(IdentificadoresIF.ORIGEM_MEDIDAS_RECOMENDADAS),  obterMedidasRecomendadas());
+//
+//        AlertDialog.Builder builder = new AlertDialog.Builder(contexto);
+//        builder.setTitle(SintaxeIF.TITULO_MEDIDAS_RECOMENDADAS);
+//
+//        builder.setMultiChoiceItems(registos.obterListaBase(), registos.obterValoresMarcados(), new DialogInterface.OnMultiChoiceClickListener() {
+//
+//            @Override
+//            public void onClick(DialogInterface dialog,int posicao, boolean isChecked) {
+//
+//                if (isChecked == true){
+//                    registos.adicionarRegisto(posicao);
+//                }
+//                else{
+//                    registos.removerRegisto(posicao);
+//                }
+//            }
+//        });
+//
+//        builder.setPositiveButton(SintaxeIF.OPCAO_OK, new DialogInterface.OnClickListener() {
+//
+//            public void onClick(DialogInterface dialog,int id) {
+//
+//                adicionarMedidas(registos.obterMedidasSelecionadas());
+//                dialog.cancel();
+//            }
+//        });
+//
+//        AlertDialog alert = builder.create();
+//        alert.show();
+//    }
+//
+//    @Override
+//    protected Mapeamento obterMedidasRecomendadas() {
+//        return acessoBdRelatorio.obterMedidasRecomendadas(TiposBdIF_v3.SECCAO_MedidasIluminacaoTermico, "iluminacao");
+//    }
+//
+//    /**
+//     * Metodo que permite adicionar as medidas de uma avaliacao
+//     */
+//    protected void adicionarMedidas(ArrayList<String> idMedidas){
+//
+//        acessoBdRelatorio.gravarMedidas(adaptador.obterRegistoSelecionado().obterId(), idMedidas);
+//
+//        MetodosMensagens.gerarToast(contexto, SintaxeIF.DADOS_GRAVADOS_SUCESSO);
+//        adaptador.atualizar();
+//        ((IndiceRelatorioActivity) contexto).atualizar(idRelatorio);
+//    }
+//
+
+
+
+
+
+
+
+
+
 
 
     @OnClick(R.id.fab_gravar)
@@ -420,6 +444,16 @@ public class AvaliacaoIluminacaoRegistoActivity extends BaseDaggerActivity
 
                 categoriasProfissionais = data.getIntegerArrayListExtra(getString(R.string.resultado_pesquisa));
                 viewModel.fixarCategoriasProfissionais(categoriasProfissionais);
+            }
+        }
+
+
+        if (requestCode == Identificadores.CodigoAtividade.PESQUISA_MEDIDAS_RECOMENDADAS) {
+
+            if(resultCode == RESULT_OK){
+
+                medidas = data.getIntegerArrayListExtra(getString(R.string.resultado_pesquisa));
+                viewModel.fixarMedidas(TiposUtil.MetodosTipos.MEDIDAS_ILUMINACAO_TERMICO, Identificadores.Codigos.ILUMINACAO, medidas);
             }
         }
     }

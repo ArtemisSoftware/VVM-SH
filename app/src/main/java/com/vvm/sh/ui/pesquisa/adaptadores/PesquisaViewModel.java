@@ -8,6 +8,7 @@ import com.vvm.sh.baseDados.entidades.VerificacaoEquipamentoResultado;
 import com.vvm.sh.repositorios.EquipamentoRepositorio;
 import com.vvm.sh.repositorios.TiposRepositorio;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.equipamentos.Equipamento;
+import com.vvm.sh.ui.pesquisa.modelos.Medida;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.excepcoes.TipoInexistenteException;
@@ -47,6 +48,7 @@ public class PesquisaViewModel extends BaseViewModel {
 
 
 
+    public MutableLiveData<List<Medida>> medidas;
 
     @Inject
     public PesquisaViewModel(int idApi, TiposRepositorio tiposRepositorio, EquipamentoRepositorio equipamentoRepositorio){
@@ -60,6 +62,7 @@ public class PesquisaViewModel extends BaseViewModel {
         equipamentos = new MutableLiveData<>();
         equipamentosSelecionados = new MutableLiveData<>();
         equipamentosRegistados = new MutableLiveData<>();
+        medidas = new MutableLiveData<>();
     }
 
 
@@ -312,9 +315,39 @@ public class PesquisaViewModel extends BaseViewModel {
 
 
 
-    public void obterMedidas(String metodo, List<Integer> registos){
+    public void obterMedidas(String metodo, String codigo, int origem, List<Integer> registos){
 
-
+//        showProgressBar(true);
+//
+//        tiposRepositorio.obterMedidas(metodo, codigo, idApi, origem, registos)
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(
+//
+//                        new Observer<List<Medida>>() {
+//                            @Override
+//                            public void onSubscribe(Disposable d) {
+//
+//                            }
+//
+//                            @Override
+//                            public void onNext(List<Medida> registos) {
+//                                medidas.setValue(registos);
+//                                showProgressBar(false);
+//                            }
+//
+//                            @Override
+//                            public void onError(Throwable e) {
+//
+//                            }
+//
+//                            @Override
+//                            public void onComplete() {
+//                                showProgressBar(false);
+//                            }
+//                        }
+//
+//                );
     }
 
 

@@ -18,6 +18,7 @@ import com.vvm.sh.ui.atividadesPendentes.relatorios.equipamentos.Equipamento;
 import com.vvm.sh.ui.opcoes.modelos.Colecao;
 import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.ui.opcoes.modelos.ResumoTipo;
+import com.vvm.sh.ui.pesquisa.modelos.Medida;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.metodos.TiposUtil;
 
@@ -140,6 +141,12 @@ abstract public class TipoDao implements BaseDao<Tipo> {
 
 
 
+    @Query("SELECT * FROM tipos WHERE tipo = :metodo AND codigo = :codigo AND api = :api AND id IN (:registos) AND ativo = 1")
+    abstract public Single<List<Tipo>> obterTipos_Incluir(String metodo, String codigo, int api, List<Integer> registos);
+
+
+
+
     @Query("SELECT tp.id as id " +
             "FROM tipos as tp " +
             "LEFT JOIN (SELECT id FROM checklist) as chk ON tp.id = chk.id " +
@@ -147,6 +154,16 @@ abstract public class TipoDao implements BaseDao<Tipo> {
     abstract public Maybe<List<Integer>> obterChecklists(int api);
 
 
+
+
+    @Query("SELECT tp.* " +
+            //"CASE WHEN idMedida != 0 THEN 0 ELSE 1 END as selecionado " +
+            "FROM tipos as tp " +
+            "LEFT JOIN( " +
+            "SELECT id as idMedida FROM tipos WHERE id IN(:registos) AND tipo = :tipo AND codigo = :codigo AND api = :api AND ativo = 1" +
+            ") as med_res ON tp.id = med_res.idMedida " +
+            "WHERE tp.tipo = :tipo AND tp.codigo = :codigo AND api = :api AND ativo = 1")
+    abstract public Observable<List<Medida>> obterMedidas(String tipo, String codigo, int api, List<Integer> registos);
 
 
 

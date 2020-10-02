@@ -13,11 +13,18 @@ public class Pesquisa implements Parcelable {
     public List<Integer> registosSelecionados;
     public String descricao;
 
+
+
+    public String codigo;
+    public int origem;
+
+
     public Pesquisa(String metodo) {
         this.escolhaMultipla = false;
         this.metodo = metodo;
         this.registosSelecionados = new ArrayList<>();
     }
+
 
     public Pesquisa(boolean escolhaMultipla, String metodo) {
         this.escolhaMultipla = escolhaMultipla;
@@ -32,11 +39,23 @@ public class Pesquisa implements Parcelable {
     }
 
 
+    public Pesquisa(boolean escolhaMultipla, String metodo, String codigo, int origem, List<Integer> registosSelecionados) {
+        this.escolhaMultipla = escolhaMultipla;
+        this.metodo = metodo;
+        this.registosSelecionados = registosSelecionados;
+        this.codigo = codigo;
+        this.origem = origem;
+    }
 
     protected Pesquisa(Parcel in) {
         escolhaMultipla = in.readByte() != 0;
         metodo = in.readString();
         descricao = in.readString();
+
+
+        codigo = in.readString();
+        origem = in.readInt();
+
 
         registosSelecionados = new ArrayList<>();
         in.readList(registosSelecionados, ArrayList.class.getClassLoader());
@@ -49,6 +68,9 @@ public class Pesquisa implements Parcelable {
         dest.writeString(metodo);
         dest.writeList(registosSelecionados);
         dest.writeString(descricao);
+
+        dest.writeString(codigo);
+        dest.writeInt(origem);
     }
 
     @Override

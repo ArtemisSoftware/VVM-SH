@@ -22,6 +22,7 @@ import com.vvm.sh.baseDados.entidades.TipoTemplatesAVRMedidaRisco;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.equipamentos.Equipamento;
 import com.vvm.sh.ui.opcoes.modelos.ResumoTipo;
 import com.vvm.sh.ui.opcoes.modelos.TemplateAvr;
+import com.vvm.sh.ui.pesquisa.modelos.Medida;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.excepcoes.TipoInexistenteException;
 import com.vvm.sh.util.metodos.TiposUtil;
@@ -212,8 +213,10 @@ public class TiposRepositorio {
     }
 
 
-
-
+//
+//    public Observable<List<Medida>> obterMedidas(String metodo, String codigo, int api, int origem, List<Integer> registos) {
+//        return tipoDao.obterMedidas(metodo, codigo, api, origem, registos);
+//    }
 
 
 

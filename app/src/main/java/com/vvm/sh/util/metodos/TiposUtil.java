@@ -40,6 +40,8 @@ public class TiposUtil {
         public static final String CONDICOES_CLIMATERICAS = "GetCondicoesClimatericas";
         public static final String CURSOS = "getCoursesInfo";
 
+        public static final String MEDIDAS_ILUMINACAO_TERMICO = "GetMedidasIluminacaoTermico";
+
         public static final String RISCOS = "GetRiscos";
         public static final String RISCOS_ESPECIFICOS = "GetRiscosEspecificos";
 
@@ -87,6 +89,9 @@ public class TiposUtil {
         public static final String CONCLUSAO_MEDIDAS_RECOMENDADAS = "Conclusao_Medidas_Recomendadas";
         public static final String CURSOS = "Cursos";
 
+
+        public static final String MEDIDAS_ILUMINACAO_TERMICO = "Medidas_Iluminacao_Termico";
+
         public static final String RISCOS = "Riscos";
         public static final String RISCOS_ESPECIFICOS = "Riscos_Especificos";
 
@@ -118,6 +123,10 @@ public class TiposUtil {
         public static final MetodoApi METODO_ILUMINANCIA = new MetodoApi(ILUMINANCIA, null, MetodosTiposSH.ILUMINANCIA);
 
 
+
+        public static final MetodoApi METODO_MEDIDAS_ILUMINACAO_TERMICO = new MetodoApi(MEDIDAS_ILUMINACAO_TERMICO, null, MetodosTiposSH.MEDIDAS_ILUMINACAO_TERMICO);
+
+
         public static final MetodoApi METODO_RISCOS = new MetodoApi(RISCOS, null, MetodosTiposSH.RISCOS);
         public static final MetodoApi METODO_RISCOS_ESPECIFICOS = new MetodoApi(RISCOS_ESPECIFICOS, null, MetodosTiposSH.RISCOS_ESPECIFICOS);
 
@@ -147,6 +156,8 @@ public class TiposUtil {
                 METODO_CURSOS,
 
                 METODO_ILUMINANCIA,
+
+                METODO_MEDIDAS_ILUMINACAO_TERMICO,
 
                 METODO_RISCOS,
                 METODO_RISCOS_ESPECIFICOS,
@@ -305,6 +316,15 @@ public class TiposUtil {
                 metodo = MetodosTipos.METODO_ILUMINANCIA;
                 break;
 
+
+
+
+
+            case MetodosTiposSH.MEDIDAS_ILUMINACAO_TERMICO:
+            case MetodosTipos.MEDIDAS_ILUMINACAO_TERMICO:
+
+                metodo = MetodosTipos.METODO_MEDIDAS_ILUMINACAO_TERMICO;
+                break;
 
 
 

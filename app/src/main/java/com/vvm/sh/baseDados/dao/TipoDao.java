@@ -156,13 +156,9 @@ abstract public class TipoDao implements BaseDao<Tipo> {
 
 
 
-    @Query("SELECT tp.* " +
-            //"CASE WHEN idMedida != 0 THEN 0 ELSE 1 END as selecionado " +
+    @Query("SELECT *, CASE WHEN id IN (:registos) THEN 1 ELSE 0 END as selecionado " +
             "FROM tipos as tp " +
-            "LEFT JOIN( " +
-            "SELECT id as idMedida FROM tipos WHERE id IN(:registos) AND tipo = :tipo AND codigo = :codigo AND api = :api AND ativo = 1" +
-            ") as med_res ON tp.id = med_res.idMedida " +
-            "WHERE tp.tipo = :tipo AND tp.codigo = :codigo AND api = :api AND ativo = 1")
+            "WHERE tipo = :tipo AND codigo = :codigo AND api = :api AND ativo = 1")
     abstract public Observable<List<Medida>> obterMedidas(String tipo, String codigo, int api, List<Integer> registos);
 
 

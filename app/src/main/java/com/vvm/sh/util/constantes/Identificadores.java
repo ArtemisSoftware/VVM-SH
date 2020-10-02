@@ -7,6 +7,8 @@ public class Identificadores {
     public static final String SEM_VALOR = "-1";
     public static final int SEM_VALOR_INT = -1;
 
+
+    public static final int VALOR_INT_0 = 0;
     public static final String VALOR_0 = "0";
     public static final String VALOR_1 = "1";
     public static final int ESTADO_PENDENTE = 1;

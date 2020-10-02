@@ -315,39 +315,39 @@ public class PesquisaViewModel extends BaseViewModel {
 
 
 
-    public void obterMedidas(String metodo, String codigo, int origem, List<Integer> registos){
+    public void obterMedidas(String metodo, String codigo, List<Integer> registos){
 
-//        showProgressBar(true);
-//
-//        tiposRepositorio.obterMedidas(metodo, codigo, idApi, origem, registos)
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(
-//
-//                        new Observer<List<Medida>>() {
-//                            @Override
-//                            public void onSubscribe(Disposable d) {
-//
-//                            }
-//
-//                            @Override
-//                            public void onNext(List<Medida> registos) {
-//                                medidas.setValue(registos);
-//                                showProgressBar(false);
-//                            }
-//
-//                            @Override
-//                            public void onError(Throwable e) {
-//
-//                            }
-//
-//                            @Override
-//                            public void onComplete() {
-//                                showProgressBar(false);
-//                            }
-//                        }
-//
-//                );
+        showProgressBar(true);
+
+        tiposRepositorio.obterMedidas(metodo, codigo, idApi, registos)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new Observer<List<Medida>>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+
+                            }
+
+                            @Override
+                            public void onNext(List<Medida> registos) {
+                                medidas.setValue(registos);
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+
+                            @Override
+                            public void onComplete() {
+                                showProgressBar(false);
+                            }
+                        }
+
+                );
     }
 
 

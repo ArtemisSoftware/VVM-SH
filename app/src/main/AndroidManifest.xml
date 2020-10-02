@@ -15,8 +15,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.pesquisa.PesquisaMedidasActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".ui.atividadesPendentes.relatorios.averiguacao.AveriguacaoActivity"></activity>
+        <activity
+            android:name=".ui.pesquisa.PesquisaMedidasActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.atividadesPendentes.relatorios.equipamentos.EquipamentosActivity"
             android:theme="@style/AppTheme.NoActionBar" />

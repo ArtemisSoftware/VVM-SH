@@ -24,6 +24,87 @@ public class Migracao {
     }
 
 
+
+
+
+    public static final Migration MIGRACAO_25_26 = new Migration(25, 26) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            try {
+
+
+                database.execSQL("CREATE TABLE IF NOT EXISTS 'relatoriosAvaliacaoRiscos' ("
+                        + "'idTarefa' INTEGER NOT NULL, "
+                        + "'id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
+                        + "'data' INTEGER NOT NULL, "
+                        + "'descricao' TEXT NOT NULL, "
+                        + "FOREIGN KEY (idTarefa) REFERENCES tarefas (idTarefa)  ON DELETE CASCADE)  ");
+
+                database.execSQL("CREATE TABLE IF NOT EXISTS 'relatorioAvaliacaoRiscosMedidas' ("
+                        + "'idRelatorio' INTEGER NOT NULL, "
+                        + "'idMedida' INTEGER NOT NULL, "
+                        + "PRIMARY KEY (idRelatorio, idMedida), "
+                        + "FOREIGN KEY (idRelatorio) REFERENCES relatoriosAvaliacaoRiscos (id)  ON DELETE CASCADE)  ");
+
+
+
+                database.execSQL("CREATE TABLE IF NOT EXISTS 'relatorioAuditoria' ("
+                        + "'idTarefa' INTEGER NOT NULL, "
+                        + "'id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
+                        + "'data' INTEGER NOT NULL, "
+                        + "'descricao' TEXT NOT NULL, "
+                        + "'idChecklist' INTEGER NOT NULL, "
+                        + "'idArea' INTEGER NOT NULL, "
+                        + "FOREIGN KEY (idTarefa) REFERENCES tarefas (idTarefa)  ON DELETE CASCADE)  ");
+
+                database.execSQL("CREATE TABLE IF NOT EXISTS 'relatorioAuditoriaMedidas' ("
+                        + "'idRelatorio' INTEGER NOT NULL, "
+                        + "'nc' TEXT NOT NULL, " //TODO: ver se pode ser int
+                        + "PRIMARY KEY (idRelatorio, idMedida), "
+                        + "FOREIGN KEY (idRelatorio) REFERENCES relatorioAuditoria (id)  ON DELETE CASCADE)  ");
+
+
+
+                database.execSQL("CREATE TABLE IF NOT EXISTS 'relatorioAveriguacaoResultado' ("
+                        + "'idTarefa' INTEGER NOT NULL, "
+                        + "'idRelatorio' INTEGER NOT NULL, "
+                        + "'idMedida' INTEGER, " //TODO: dever ser text? por causa do nc
+                        + "'idImplementacao' TEXT NOT NULL, "
+                        + "'idRisco' INTEGER NOT NULL, "
+                        + "'idPonderacao' INTEGER NOT NULL, "
+                        + "'idTipoMedida' INTEGER NOT NULL, "
+                        + "'data' INTEGER NOT NULL, "
+                        + "'observacao' TEXT, "
+                        + "PRIMARY KEY (idTarefa, idRelatorio, idMedida), "
+                        + "FOREIGN KEY (idTarefa) REFERENCES tarefas (idTarefa)  ON DELETE CASCADE)  ");
+
+
+
+                database.execSQL("CREATE TABLE IF NOT EXISTS 'propostaPlanoAcaoResultado' ("
+                        + "'idAtividade' INTEGER NOT NULL, "
+                        + "'id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
+                        + "'idRegisto' INTEGER NOT NULL, " //o identificador da pergunta da checklist que gerou o plano ||
+                        + "'origem' INTEGER NOT NULL, "
+
+                        + "'idMedida' INTEGER, "
+                        + "'idNi' INTEGER, "
+                        + "'idPrazo' INTEGER, "
+                        + "'selecionado' INTEGER  DEFAULT " + Identificadores.VALOR_INT_0 + " ,  "
+                        + "FOREIGN KEY (idTarefa) REFERENCES tarefas (idTarefa)  ON DELETE CASCADE)  ");
+
+            }
+            catch(SQLException | IllegalStateException e){
+                Log.e("Migracao", "erro MIGRACAO_24_25: " + e.getMessage());
+                //Timber.e("erro MIGRACAO_2_3: " + e.getMessage());
+            }
+        }
+    };
+
+
+
+
+
+
     public static final Migration MIGRACAO_24_25 = new Migration(24, 25) {
         @Override
         public void migrate(SupportSQLiteDatabase database) {

@@ -11,7 +11,7 @@ public class Medida {
     @Embedded
     public Tipo tipo;
 
-    @Ignore
+    @ColumnInfo(name = "selecionado")
     public boolean selecionado;
-    //@ColumnInfo(name = "selecionado")
+
 }

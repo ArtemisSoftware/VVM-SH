@@ -47,6 +47,7 @@ public class AveriguacaoActivity extends BaseDaggerActivity
 
         if(bundle != null) {
 
+            activityAveriguacaoBinding.setTipo(bundle.getInt(getString(R.string.argumento_id_tipo)));
             //viewModel.obterRelatorio(PreferenciasUtil.obterIdTarefa(this), bundle.getInt(getString(R.string.argumento_id_tipo)));
         }
         else{

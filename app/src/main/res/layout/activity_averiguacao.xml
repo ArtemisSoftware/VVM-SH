@@ -18,6 +18,10 @@
             name="listener"
             type="com.vvm.sh.ui.atividadesPendentes.relatorios.averiguacao.adaptadores.OnAveriguacaoListener"/>
 
+        <variable
+            name="tipo"
+            type="Integer"/>
+
 
     </data>
 
@@ -98,7 +102,7 @@
                     <TextView
                         android:id="@+id/textview"
                         style="@style/tituloCartao"
-
+                        tipoAveriguacao="@{tipo}"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="16dp"
                         app:layout_constraintStart_toStartOf="parent"
@@ -202,6 +206,7 @@
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rcl_registos"
                     style="@style/lista"
+
                     tools:listitem="@layout/item_averiguacao_area"/>
 
 

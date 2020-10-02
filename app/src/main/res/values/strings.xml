@@ -443,4 +443,5 @@
     <string name="dataImplementacao_">Data de implementação:</string>
     <string name="ponderacao_">Ponderação:</string>
     <string name="implementacao">Implementação</string>
+    <string name="auditoria">Auditoria</string>
 </resources>

@@ -216,6 +216,12 @@ public class Identificadores {
 
         public static final int ID_RELATORIO_AVALIACAO_RISCO = 4;
         public static final String AVALIACAO_RISCO = "Avaliação de riscos";
+
+        public static final int ID_RELATORIO_AVERIGUACAO_AVALIACAO_RISCO = 5;
+        public static final String AVERIGUACAO_AVALIACAO_RISCO = "Avaliação de riscos";
+
+        public static final int ID_RELATORIO_AVERIGUACAO_AUDITORIA = 6;
+        public static final String AVERIGUACAO_AUDITORIA = "Auditoria";
     }
 
     public class CodigosWs {

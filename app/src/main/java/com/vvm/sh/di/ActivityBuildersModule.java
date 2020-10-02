@@ -58,6 +58,9 @@ import com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.Avaliacao
 import com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.AvaliacaoIluminacaoRegistoActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.AvaliacoesAmbientaisActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.RelatorioAvaliacaoAmbientalActivity;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.averiguacao.AveriguacaoActivity;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.averiguacao.AveriguacaoListagemActivity;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.averiguacao.DialogoAveriguacao;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.ChecklistActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.ChecklistViewModel;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.DialogoArea;
@@ -602,5 +605,12 @@ public abstract class ActivityBuildersModule {
     )
     abstract DialogoEquipamento contributeDialogoEquipamento();
 
+
+    //----------------------
+    //Averiguacao
+    //----------------------
+//    abstract AveriguacaoActivity contributeAveriguacaoActivity();
+//    abstract AveriguacaoListagemActivity contributeAveriguacaoListagemActivity();
+//    abstract DialogoAveriguacao contributeDialogoAveriguacao();
 
 }

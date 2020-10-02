@@ -17,7 +17,7 @@ import com.vvm.sh.util.metodos.PreferenciasUtil;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AveriguacaoRegistoRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
+public class AveriguacaoRegistoRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.ViewHolder> {
 
 
     private List<AveriguacaoRegisto> items = new ArrayList<>();
@@ -43,8 +43,8 @@ public class AveriguacaoRegistoRecyclerAdapter extends RecyclerView.Adapter<Recy
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
         AveriguacaoRegisto registo = items.get(position);
-        ((AveriguacaoRegistoViewHolder)holder).binding.setAveriguacao(registo);
-        ((AveriguacaoRegistoViewHolder)holder).binding.executePendingBindings();
+        ((AveriguacaoRegistoViewHolder) holder).binding.setAveriguacao(registo);
+        ((AveriguacaoRegistoViewHolder) holder).binding.executePendingBindings();
 
     }
 
@@ -54,8 +54,9 @@ public class AveriguacaoRegistoRecyclerAdapter extends RecyclerView.Adapter<Recy
     }
 
 
-    public void atualizar(List<AveriguacaoRegisto> items){
+    public void atualizar(List<AveriguacaoRegisto> items) {
         this.items.clear();
         this.items.addAll(items);
         notifyDataSetChanged();
     }
+}

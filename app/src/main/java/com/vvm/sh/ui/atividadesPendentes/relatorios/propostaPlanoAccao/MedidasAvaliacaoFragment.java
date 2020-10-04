@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 
 import com.vvm.sh.R;
 import com.vvm.sh.databinding.FragmentMedidasAvaliacaoBinding;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.propostaPlanoAccao.adaptadores.OnPropostaPlanoAcaoListener;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.propostaPlanoAccao.modelos.Proposta;
 
 import java.util.List;
@@ -29,7 +30,7 @@ public class MedidasAvaliacaoFragment extends Fragment {
     private String mParam2;
 
 
-    //private OnPlanoAtividadeListener listenerAtividade;
+    private OnPropostaPlanoAcaoListener listenerPropostas;
 
 
 
@@ -51,7 +52,7 @@ public class MedidasAvaliacaoFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentMedidasAvaliacaoBinding.inflate(inflater);
-        //binding.setListener(listenerAtividade);
+        binding.setListener(listenerPropostas);
         return binding.getRoot();
     }
 
@@ -77,18 +78,17 @@ public class MedidasAvaliacaoFragment extends Fragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-//        if (context instanceof OnPlanoAtividadeListener) {
-//            listenerAtividade = (OnPlanoAtividadeListener) context;
-//        } else {
-//            throw new RuntimeException(context.toString()
-//                    + " must implement OnPlanoAtividadeListener");
-//        }
+        if (context instanceof OnPropostaPlanoAcaoListener) {
+            listenerPropostas = (OnPropostaPlanoAcaoListener) context;
+        } else {
+            throw new RuntimeException(context.toString()  + " must implement OnPropostaPlanoAcaoListener");
+        }
     }
 
     @Override
     public void onDetach() {
         super.onDetach();
-//        mListener = null;
+        listenerPropostas = null;
     }
 
 

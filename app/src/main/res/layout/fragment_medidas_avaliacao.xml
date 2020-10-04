@@ -13,6 +13,10 @@
             type="List&lt;Proposta>"/>
 
 
+        <variable
+            name="listener"
+            type="com.vvm.sh.ui.atividadesPendentes.relatorios.propostaPlanoAccao.adaptadores.OnPropostaPlanoAcaoListener"/>
+
     </data>
 
     <FrameLayout

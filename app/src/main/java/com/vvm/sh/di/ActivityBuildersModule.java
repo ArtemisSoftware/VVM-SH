@@ -22,6 +22,9 @@ import com.vvm.sh.di.atividadesPendentes.formacao.FormacaoViewModelsModule;
 import com.vvm.sh.di.atividadesPendentes.levantamentos.LevantamentosModule;
 import com.vvm.sh.di.atividadesPendentes.levantamentos.LevantamentosScope;
 import com.vvm.sh.di.atividadesPendentes.levantamentos.LevantamentosViewModelsModule;
+import com.vvm.sh.di.atividadesPendentes.propostaPlanoAcao.PropostaPlanoAcaoModule;
+import com.vvm.sh.di.atividadesPendentes.propostaPlanoAcao.PropostaPlanoAcaoScope;
+import com.vvm.sh.di.atividadesPendentes.propostaPlanoAcao.PropostaPlanoAcaoViewModelsModule;
 import com.vvm.sh.di.atividadesPendentes.trabalhadoresVulneraveis.TrabalhadoresVulneraveisModule;
 import com.vvm.sh.di.atividadesPendentes.trabalhadoresVulneraveis.TrabalhadoresVulneraveisScope;
 import com.vvm.sh.di.atividadesPendentes.trabalhadoresVulneraveis.TrabalhadoresVulneraveisViewModelsModule;
@@ -74,6 +77,7 @@ import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.LevantamentosA
 import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.PerigoTarefaActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.RiscoRegistoActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.RiscosActivity;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.propostaPlanoAccao.PropostaPlanoAccaoActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.trabalhadoresVulneraveis.TrabalhadorVulneravelRegistoActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.trabalhadoresVulneraveis.TrabalhadoresVulneraveisActivity;
 import com.vvm.sh.ui.pesquisa.PesquisaMedidasActivity;
@@ -458,10 +462,6 @@ public abstract class ActivityBuildersModule {
 
 
 
-    //----------------------
-    //Proposta plano acao
-    //----------------------
-
 
     //----------------------
     //Levantamentos
@@ -612,5 +612,17 @@ public abstract class ActivityBuildersModule {
 //    abstract AveriguacaoActivity contributeAveriguacaoActivity();
 //    abstract AveriguacaoListagemActivity contributeAveriguacaoListagemActivity();
 //    abstract DialogoAveriguacao contributeDialogoAveriguacao();
+
+
+    //----------------------
+    //Proposta plano acao
+    //----------------------
+
+
+    @PropostaPlanoAcaoScope
+    @ContributesAndroidInjector(
+            modules = { PropostaPlanoAcaoViewModelsModule.class, PropostaPlanoAcaoModule.class }
+    )
+    abstract PropostaPlanoAccaoActivity contributePropostaPlanoAccaoActivity();
 
 }

@@ -12,11 +12,6 @@
             name="propostas"
             type="List&lt;Proposta>"/>
 
-
-        <variable
-            name="listener"
-            type="com.vvm.sh.ui.atividadesPendentes.relatorios.propostaPlanoAccao.adaptadores.OnPropostaPlanoAcaoListener"/>
-
     </data>
 
     <FrameLayout
@@ -35,8 +30,8 @@
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rcl_registos"
                 style="@style/lista"
-
-                tools:listitem="@layout/item_proposta_medida_avalicao"/>
+                propostas="@{propostas}"
+                tools:listitem="@layout/item_proposta_condicoes_st"/>
 
             <!--
             android:visibility="@{viewmodel.agenda.marcacaos.size() > 0 ? View.VISIBLE : View.GONE}"

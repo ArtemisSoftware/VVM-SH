@@ -76,6 +76,13 @@ public class Migracao {
 
 
 
+                database.execSQL("DROP TABLE IF EXISTS 'atualizacoes' ");
+
+                database.execSQL("CREATE TABLE IF NOT EXISTS 'atualizacoes' ("
+                        + "'descricao' TEXT NOT NULL, "
+                        + "'tipo' INTEGER NOT NULL, "
+                        + "'seloTemporal' TEXT NOT NULL, "
+                        + "PRIMARY KEY (descricao, tipo))");
 
             }
             catch(SQLException | IllegalStateException e){

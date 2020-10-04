@@ -68,4 +68,8 @@ abstract public class PropostaPlanoAcaoDao implements BaseDao<PropostaPlanoAcaoR
 
     @Query("UPDATE propostaPlanoAcaoResultado SET selecionado = :selecionado WHERE idAtividade = :idAtividade AND origem = " + Identificadores.Origens.PROPOSTA_MEDIDAS_AVALIACAO + "")
     abstract public Completable selecionarTudo(int idAtividade, boolean selecionado);
+
+    @Query("UPDATE propostaPlanoAcaoResultado SET selecionado = :selecionado WHERE idAtividade = :idAtividade AND id = :id AND origem = " + Identificadores.Origens.PROPOSTA_MEDIDAS_AVALIACAO + "")
+    abstract public Completable selecionar(int idAtividade, int id, boolean selecionado);
+
 }

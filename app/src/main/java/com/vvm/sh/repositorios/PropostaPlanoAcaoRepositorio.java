@@ -41,8 +41,8 @@ public class PropostaPlanoAcaoRepositorio {
         return propostaPlanoAcaoDao.inserir(registo);
     }
 
-    public Single<Integer> atualizar(PropostaPlanoAcaoResultado registo){
-        return propostaPlanoAcaoDao.atualizar(registo);
+    public Completable selecionar(int idAtividade, int id, boolean selecionado){
+        return propostaPlanoAcaoDao.selecionar(idAtividade, id, selecionado);
     }
 
     public Completable selecionarTudo(int idAtividade, boolean selecionado){

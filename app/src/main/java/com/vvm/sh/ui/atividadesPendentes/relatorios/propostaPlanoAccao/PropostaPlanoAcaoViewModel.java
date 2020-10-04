@@ -79,21 +79,21 @@ public class PropostaPlanoAcaoViewModel extends BaseViewModel {
     }
 
 
-    public void selecionar(PropostaPlanoAcaoResultado registo){
+    public void selecionar(int idAtividade, int id, boolean selecionado){
 
-        propostaPlanoAcaoRepositorio.atualizar(registo)
+        propostaPlanoAcaoRepositorio.selecionar(idAtividade, id, selecionado)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
 
-                        new SingleObserver<Integer>() {
+                        new CompletableObserver() {
                             @Override
                             public void onSubscribe(Disposable d) {
-
+                                disposables.add(d);
                             }
 
                             @Override
-                            public void onSuccess(Integer integer) {
+                            public void onComplete() {
 
                             }
 

@@ -11,7 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.vvm.sh.R;
-import com.vvm.sh.databinding.FragmentCondicoesStBinding;
+import com.vvm.sh.databinding.FragmentPropostaCondicoesStBinding;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.propostaPlanoAccao.modelos.Proposta;
 
 import java.util.List;
@@ -20,7 +20,7 @@ import java.util.List;
 public class CondicoesStFragment extends Fragment {
 
 
-    private FragmentCondicoesStBinding binding;
+    private FragmentPropostaCondicoesStBinding binding;
 
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
@@ -48,7 +48,7 @@ public class CondicoesStFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        binding = FragmentCondicoesStBinding.inflate(inflater);
+        binding = FragmentPropostaCondicoesStBinding.inflate(inflater);
         return binding.getRoot();
     }
 

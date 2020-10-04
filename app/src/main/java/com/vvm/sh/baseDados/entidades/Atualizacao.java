@@ -8,13 +8,16 @@ import androidx.room.Ignore;
 import androidx.room.PrimaryKey;
 
 
-@Entity(tableName = "atualizacoes")
+@Entity(tableName = "atualizacoes", primaryKeys = {"descricao", "tipo"})
 public class Atualizacao {
 
 
-    @PrimaryKey
     @NonNull
     public String descricao;
+
+    @NonNull
+    public int tipo;
+
 
     @ColumnInfo(name = "seloTemporal")
     public String seloTemporal;
@@ -27,11 +30,16 @@ public class Atualizacao {
 
 
 
-    public Atualizacao(String descricao, String seloTemporal) {
+    public Atualizacao(String descricao, int tipo, String seloTemporal) {
         this.descricao = descricao;
+        this.tipo = tipo;
         this.seloTemporal = seloTemporal;
     }
 
+
+    public int getTipo() {
+        return tipo;
+    }
 
     public String getDescricao() {
         return descricao;

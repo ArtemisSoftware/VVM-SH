@@ -131,10 +131,13 @@ public class PropostaPlanoAccaoActivity extends BaseDaggerActivity implements On
     @Override
     public void OnCheckProposta(Proposta registo, boolean selecionado) {
 
+        Bundle bundle = getIntent().getExtras();
+        viewModel.selecionar(bundle.getInt(getString(R.string.argumento_id_atividade)), registo.resultado.id, selecionado);
     }
 
     @Override
     public void OnSelecionarTudo(boolean selecionado) {
-
+        Bundle bundle = getIntent().getExtras();
+        viewModel.selecionarTudo(bundle.getInt(getString(R.string.argumento_id_atividade)), selecionado);
     }
 }

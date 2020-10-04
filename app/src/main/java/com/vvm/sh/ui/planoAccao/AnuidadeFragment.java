@@ -81,6 +81,12 @@ public class AnuidadeFragment extends Fragment {
 
 
 
+
+
+    //-------------------------
+    //Medidas locais
+    //-------------------------
+
     public void atualizar(List<AtividadeRegisto> items) {
 
         binding.setAtividades(items);
@@ -89,6 +95,12 @@ public class AnuidadeFragment extends Fragment {
     public void atualizar(int ano) {
         binding.setAno(ano);
     }
+
+
+
+
+
+
 
     @Override
     public void onAttach(Context context) {

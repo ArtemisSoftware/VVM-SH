@@ -12,6 +12,7 @@ import com.vvm.sh.databinding.ActivityPropostaPlanoAccaoBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.propostaPlanoAccao.adaptadores.OnPropostaPlanoAcaoListener;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.propostaPlanoAccao.adaptadores.PropostaPagerAdapter;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.propostaPlanoAccao.modelos.Proposta;
 import com.vvm.sh.ui.planoAccao.AnuidadeFragment;
 import com.vvm.sh.ui.planoAccao.adaptadores.AnuidadePagerAdapter;
@@ -30,7 +31,7 @@ public class PropostaPlanoAccaoActivity extends BaseDaggerActivity implements On
     @Inject
     ViewModelProviderFactory providerFactory;
 
-    //--private PropostaPlanoAccaoViewModel viewModel;
+    private PropostaPlanoAcaoViewModel viewModel;
 
 
 
@@ -48,11 +49,11 @@ public class PropostaPlanoAccaoActivity extends BaseDaggerActivity implements On
     protected void intActivity(Bundle savedInstanceState) {
 
 
-        //--viewModel = ViewModelProviders.of(this, providerFactory).get(PropostaPlanoAccaoViewModel.class);
+        viewModel = ViewModelProviders.of(this, providerFactory).get(PropostaPlanoAcaoViewModel.class);
 
         activityPropostaPlanoAccaoBinding = (ActivityPropostaPlanoAccaoBinding) activityBinding;
         activityPropostaPlanoAccaoBinding.setLifecycleOwner(this);
-        //--activityPropostaPlanoAccaoBinding.setViewmodel(viewModel);
+        activityPropostaPlanoAccaoBinding.setViewmodel(viewModel);
         activityPropostaPlanoAccaoBinding.setListener(this);
 
 
@@ -60,9 +61,14 @@ public class PropostaPlanoAccaoActivity extends BaseDaggerActivity implements On
 
         setupViewPager();
 
-        //--viewModel.obterAtividades(PreferenciasUtil.obterIdTarefa(this));
+        Bundle bundle = getIntent().getExtras();
 
-
+        if(bundle != null) {
+            viewModel.obterPropostas(bundle.getInt(getString(R.string.argumento_id_atividade)));
+        }
+        else{
+            finish();
+        }
 
     }
 
@@ -79,20 +85,20 @@ public class PropostaPlanoAccaoActivity extends BaseDaggerActivity implements On
     @Override
     protected void subscreverObservadores() {
 
-//        viewModel.observarAtividades().observe(this, new Observer<List<Proposta>>() {
-//            @Override
-//            public void onChanged(List<Proposta> propostas) {
-//                ((CondicoesStFragment) activityPropostaPlanoAccaoBinding.viewpagerContainer.getAdapter()).atualizarCondicoesSt(propostas);
-//            }
-//        });
-//
-//
-//        viewModel.observarAtividades().observe(this, new Observer<List<Proposta>>() {
-//            @Override
-//            public void onChanged(List<Proposta> propostas) {
-//                ((MedidasAvaliacaoFragment) activityPropostaPlanoAccaoBinding.viewpagerContainer.getAdapter()).atualizarMedidasAvaliacao(propostas);
-//            }
-//        });
+        viewModel.observarCondicoesSt().observe(this, new Observer<List<Proposta>>() {
+            @Override
+            public void onChanged(List<Proposta> propostas) {
+                ((PropostaPagerAdapter) activityPropostaPlanoAccaoBinding.viewpagerContainer.getAdapter()).atualizarCondicoesSt(propostas);
+            }
+        });
+
+
+        viewModel.observarMedidasAvaliacao().observe(this, new Observer<List<Proposta>>() {
+            @Override
+            public void onChanged(List<Proposta> propostas) {
+                ((PropostaPagerAdapter) activityPropostaPlanoAccaoBinding.viewpagerContainer.getAdapter()).atualizarMedidasAvaliacao(propostas);
+            }
+        });
     }
 
 

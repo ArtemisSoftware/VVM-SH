@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.vvm.sh.baseDados.entidades.PropostaPlanoAcaoResultado;
 import com.vvm.sh.repositorios.PropostaPlanoAcaoRepositorio;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.propostaPlanoAccao.modelos.Proposta;
+import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import java.util.List;
@@ -35,6 +36,19 @@ public class PropostaPlanoAcaoViewModel extends BaseViewModel {
         condicoes = new MutableLiveData<>();
         medidas = new MutableLiveData<>();
     }
+
+
+
+    public MutableLiveData<List<Proposta>> observarCondicoesSt(){
+        return condicoes;
+    }
+
+    public MutableLiveData<List<Proposta>> observarMedidasAvaliacao(){
+        return medidas;
+    }
+
+
+
 
 
 

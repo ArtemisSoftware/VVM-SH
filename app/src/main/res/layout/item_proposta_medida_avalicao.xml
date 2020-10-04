@@ -6,11 +6,11 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-<!--
         <variable
-            name="atividade"
-            type="com.vvm.sh.baseDados.entidades.AtividadeExecutada" />
--->
+            name="proposta"
+            type="com.vvm.sh.ui.atividadesPendentes.relatorios.propostaPlanoAccao.modelos.Proposta" />
+
+
     </data>
 
 
@@ -23,7 +23,11 @@
 
 
             <CheckBox
+                android:id="@+id/chkBoxItem"
                 style="@style/textoDetalhe"
+                android:enabled="@{bloquear}"
+                android:text="@{proposta.descricao, default=descricao}"
+                android:checked="@{proposta.selecionado}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"

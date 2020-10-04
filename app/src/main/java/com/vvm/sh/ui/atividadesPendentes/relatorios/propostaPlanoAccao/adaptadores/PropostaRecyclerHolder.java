@@ -9,8 +9,8 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.vvm.sh.R;
-import com.vvm.sh.databinding.ItemPlanoAccaoMedidasAvaliacaoBinding;
-import com.vvm.sh.databinding.ItemPlanoAccaoStBinding;
+import com.vvm.sh.databinding.ItemPropostaCondicoesStBinding;
+import com.vvm.sh.databinding.ItemPropostaMedidaAvalicaoBinding;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.propostaPlanoAccao.modelos.Proposta;
 import com.vvm.sh.util.constantes.Identificadores;
 
@@ -49,13 +49,13 @@ public class PropostaRecyclerHolder extends RecyclerView.Adapter<RecyclerView.Vi
 
             case ST:
 
-                ItemPlanoAccaoStBinding binding = DataBindingUtil.inflate(LayoutInflater.from(contexto), R.layout.item_plano_accao_st, parent, false);
+                ItemPropostaCondicoesStBinding binding = DataBindingUtil.inflate(LayoutInflater.from(contexto), R.layout.item_proposta_condicoes_st, parent, false);
                 return new PropostaStViewHolder(binding.getRoot());
 
 
             case MEDIDAS:
 
-                ItemPlanoAccaoMedidasAvaliacaoBinding bindingMedidas = DataBindingUtil.inflate(LayoutInflater.from(contexto), R.layout.item_plano_accao_medidas_avaliacao, parent, false);
+                ItemPropostaMedidaAvalicaoBinding bindingMedidas = DataBindingUtil.inflate(LayoutInflater.from(contexto), R.layout.item_proposta_medida_avalicao, parent, false);
                 return new PropostaMedidaViewHolder(bindingMedidas.getRoot(), listener);
 
 

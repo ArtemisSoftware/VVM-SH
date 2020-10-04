@@ -8,13 +8,12 @@ import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.vvm.sh.databinding.ItemPlanoAccaoMedidasAvaliacaoBinding;
-import com.vvm.sh.ui.atividadesPendentes.relatorios.propostaPlanoAccao.adaptadores.OnPropostaPlanoAcaoListener;
+import com.vvm.sh.databinding.ItemPropostaMedidaAvalicaoBinding;
 
 public class PropostaMedidaViewHolder extends RecyclerView.ViewHolder implements CheckBox.OnCheckedChangeListener {
 
 
-    public ItemPlanoAccaoMedidasAvaliacaoBinding binding;
+    public ItemPropostaMedidaAvalicaoBinding binding;
 
     private OnPropostaPlanoAcaoListener listener;
 

@@ -11,6 +11,7 @@ import com.vvm.sh.baseDados.dao.AreaChecklistDao;
 import com.vvm.sh.baseDados.dao.AtividadePendenteDao;
 import com.vvm.sh.baseDados.dao.AtualizacaoDao;
 import com.vvm.sh.baseDados.dao.AvaliacaoAmbientalDao;
+import com.vvm.sh.baseDados.dao.AveriguacaoDao;
 import com.vvm.sh.baseDados.dao.CategoriaProfissionalDao;
 import com.vvm.sh.baseDados.dao.CrossSellingDao;
 import com.vvm.sh.baseDados.dao.EmailDao;
@@ -58,6 +59,8 @@ import com.vvm.sh.baseDados.entidades.PropostaPlanoAcaoResultado;
 import com.vvm.sh.baseDados.entidades.QuestionarioChecklistResultado;
 import com.vvm.sh.baseDados.entidades.RegistoVisitaResultado;
 import com.vvm.sh.baseDados.entidades.RelatorioAmbientalResultado;
+import com.vvm.sh.baseDados.entidades.RelatorioAuditoriaMedida;
+import com.vvm.sh.baseDados.entidades.RelatorioAvaliacaoRiscosMedida;
 import com.vvm.sh.baseDados.entidades.RelatorioAveriguacao;
 import com.vvm.sh.baseDados.entidades.RelatorioAveriguacaoResultado;
 import com.vvm.sh.baseDados.entidades.Resultado;
@@ -104,7 +107,8 @@ import com.vvm.sh.baseDados.entidades.VerificacaoEquipamentoResultado;
 
                     Cliente.class, AtividadeExecutada.class, Anomalia.class, AtividadePendente.class, Ocorrencia.class, OcorrenciaHistorico.class,
                     Morada.class,
-                    ParqueExtintor.class, TipoExtintor.class, Colaborador.class, PlanoAcao.class, PlanoAcaoAtividade.class, RelatorioAveriguacao.class,
+                    ParqueExtintor.class, TipoExtintor.class, Colaborador.class, PlanoAcao.class, PlanoAcaoAtividade.class,
+                    RelatorioAveriguacao.class, RelatorioAuditoriaMedida.class, RelatorioAvaliacaoRiscosMedida.class,
 
                     //Resultado
 
@@ -226,4 +230,6 @@ public abstract class VvmshBaseDados extends RoomDatabase {
     public abstract VerificacaoEquipamentoDao obterVerificacaoEquipamentoDao();
 
     public abstract PropostaPlanoAcaoDao obterPropostaPlanoAcaoDao();
+
+    public abstract AveriguacaoDao obterAveriguacaoDao();
 }

@@ -3,16 +3,19 @@ package com.vvm.sh.baseDados.dao;
 import androidx.room.Dao;
 import androidx.room.Query;
 
+import com.vvm.sh.baseDados.BaseDao;
+import com.vvm.sh.baseDados.entidades.PropostaPlanoAcaoResultado;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.propostaPlanoAccao.modelos.Proposta;
 import com.vvm.sh.util.constantes.Identificadores;
 
 import java.util.List;
 
+import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 
-//--@Dao
-abstract public class PropostaPlanoAcaoDao {
+@Dao
+abstract public class PropostaPlanoAcaoDao implements BaseDao<PropostaPlanoAcaoResultado> {
 
 
 
@@ -38,10 +41,10 @@ abstract public class PropostaPlanoAcaoDao {
 
 
 
-    @Query("SELECT * , 'lolo' as descricao, 0 as selecionado, " + Identificadores.ID_PROPOSTA_ST + " as tipo " +
+    @Query("SELECT * , 'lolo' as descricao, 0 as selecionado, " + Identificadores.Origens.PROPOSTA_CONDICOES_ST + " as tipo " +
             "FROM propostaPlanoAcaoResultado as prop_pl_accao_res " +
             "WHERE idAtividade = :idAtividade")
-    abstract public Single<List<Proposta>> obterPropostasSt(int idAtividade);
+    abstract public Observable<List<Proposta>> obterPropostasSt(int idAtividade);
 
 
 
@@ -57,10 +60,12 @@ abstract public class PropostaPlanoAcaoDao {
 //    };
 
 
-    @Query("SELECT * , 'lolo' as descricao, 0 as selecionado, " + Identificadores.ID_PROPOSTA_MEDIDA + " as tipo " +
+    @Query("SELECT * , 'lolo' as descricao, 0 as selecionado, " + Identificadores.Origens.PROPOSTA_MEDIDAS_AVALIACAO + " as tipo " +
             "FROM propostaPlanoAcaoResultado as prop_pl_accao_res " +
             "WHERE idAtividade = :idAtividade")
-    abstract public Observable<List<Proposta>> obterPropostasMedidas(int idAtividade);
+    abstract public Observable<List<Proposta>> obterMedidasAvaliacao(int idAtividade);
 
 
+    @Query("UPDATE propostaPlanoAcaoResultado SET selecionado = :selecionado WHERE idAtividade = :idAtividade AND origem = " + Identificadores.Origens.PROPOSTA_MEDIDAS_AVALIACAO + "")
+    abstract public Completable selecionarTudo(int idAtividade, boolean selecionado);
 }

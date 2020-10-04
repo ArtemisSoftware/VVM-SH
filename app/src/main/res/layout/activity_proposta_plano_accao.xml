@@ -18,8 +18,8 @@
 
 
         <variable
-            name="bloquear"
-            type="Boolean"/>
+            name="listener"
+            type="com.vvm.sh.ui.atividadesPendentes.relatorios.propostaPlanoAccao.adaptadores.OnPropostaPlanoAcaoListener"/>
 
     </data>
 

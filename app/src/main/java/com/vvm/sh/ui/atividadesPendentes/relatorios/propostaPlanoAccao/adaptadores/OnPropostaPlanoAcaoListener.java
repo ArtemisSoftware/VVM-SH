@@ -7,4 +7,9 @@ public interface OnPropostaPlanoAcaoListener {
 
     void OnCheckProposta(Proposta registo, boolean selecionado);
 
+    interface OnPropostaListener {
+
+        void OnSelecionarTudo(boolean selecionado);
+    }
+
 }

@@ -444,4 +444,6 @@
     <string name="ponderacao_">Ponderação:</string>
     <string name="implementacao">Implementação</string>
     <string name="auditoria">Auditoria</string>
+    <string name="condicoes_st">Condições ST</string>
+    <string name="medidas_avaliacao">Medidas de avaliação</string>
 </resources>

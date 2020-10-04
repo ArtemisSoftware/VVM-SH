@@ -75,13 +75,13 @@ public class PropostaRecyclerHolder extends RecyclerView.Adapter<RecyclerView.Vi
 
         switch (proposta.tipo){
 
-            case Identificadores.ID_PROPOSTA_ST:
+            case Identificadores.Origens.PROPOSTA_CONDICOES_ST:
 
                 tipo = ST;
                 break;
 
 
-            case Identificadores.ID_PROPOSTA_MEDIDA:
+            case Identificadores.Origens.PROPOSTA_MEDIDAS_AVALIACAO:
 
                 tipo = MEDIDAS;
                 break;

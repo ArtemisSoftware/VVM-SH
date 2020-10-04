@@ -16,8 +16,6 @@ public class Identificadores {
     public static final String SEXO_OMISSAO = "1";
     public static final int ID_FORMACAO_TRABALHO_REALIZADO = 15;
 
-    public static final int ID_PROPOSTA_ST = 1;
-    public static final int ID_PROPOSTA_MEDIDA = 2;
 
     public static final int TIPO_DATA = 1;
     public static final int TIPO_NOTA = 2;
@@ -59,6 +57,9 @@ public class Identificadores {
 
 
         public static final int AVALIACAO_AMBIENTAL_ILUMINACAO_MEDIDAS_RECOMENDADAS = 14;
+
+        public static final int PROPOSTA_CONDICOES_ST = 15;
+        public static final int PROPOSTA_MEDIDAS_AVALIACAO = 16;
     }
 
 

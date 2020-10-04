@@ -76,17 +76,6 @@ public class Migracao {
 
 
 
-//                database.execSQL("CREATE TABLE IF NOT EXISTS 'propostaPlanoAcaoResultado' ("
-//                        + "'idAtividade' INTEGER NOT NULL, "
-//                        + "'id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
-//                        + "'idRegisto' INTEGER NOT NULL, " //o identificador da pergunta da checklist que gerou o plano ||
-//                        + "'origem' INTEGER NOT NULL, "
-//
-//                        + "'idMedida' INTEGER, "
-//                        + "'idNi' INTEGER, "
-//                        + "'idPrazo' INTEGER, "
-//                        + "'selecionado' INTEGER  DEFAULT " + Identificadores.VALOR_INT_0 + " ,  "
-//                        + "FOREIGN KEY (idTarefa) REFERENCES tarefas (idTarefa)  ON DELETE CASCADE)  ");
 
             }
             catch(SQLException | IllegalStateException e){

@@ -15,8 +15,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.atividadesPendentes.relatorios.averiguacao.AveriguacaoListagemActivity"></activity>
-        <activity android:name=".ui.atividadesPendentes.relatorios.averiguacao.AveriguacaoActivity" />
+        <activity android:name=".ui.atividadesPendentes.relatorios.averiguacao.AveriguacaoListagemActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity android:name=".ui.atividadesPendentes.relatorios.averiguacao.AveriguacaoActivity"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.pesquisa.PesquisaMedidasActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -91,8 +93,7 @@
         <activity android:name=".ui.contaUtilizador.OpcoesAvancadasActivity" />
         <activity android:name=".ui.transferencias.DownloadTrabalhoActivity" />
         <activity android:name=".ui.contaUtilizador.DefinicoesActivity" />
-        <activity
-            android:name=".ui.AssinaturaActivity"
+        <activity android:name=".ui.AssinaturaActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ui.opcoes.TiposActivity" />
         <activity

@@ -14,6 +14,7 @@ import com.vvm.sh.ui.atividadesPendentes.modelos.AtividadePendenteRegisto;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.DialogoProcessoProdutivo;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.FormacaoActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.RelatorioAvaliacaoAmbientalActivity;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.averiguacao.AveriguacaoActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.ChecklistActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.equipamentos.EquipamentosActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.LevantamentosActivity;
@@ -135,6 +136,12 @@ public class AtividadesPendentesActivity extends BaseDaggerActivity
                 intent.putExtra(getString(R.string.argumento_tipo_relatorio), idRelatorio);
                 break;
 
+
+            case Identificadores.Relatorios.ID_RELATORIO_AVERIGUACAO_AVALIACAO_RISCO:
+            case Identificadores.Relatorios.ID_RELATORIO_AVERIGUACAO_AUDITORIA:
+                intent = new Intent(this, AveriguacaoActivity.class);
+                intent.putExtra(getString(R.string.argumento_tipo_relatorio), idRelatorio);
+                break;
 
 
             default:

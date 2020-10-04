@@ -57,6 +57,8 @@ import com.vvm.sh.baseDados.entidades.PropostaPlanoAcaoResultado;
 import com.vvm.sh.baseDados.entidades.QuestionarioChecklistResultado;
 import com.vvm.sh.baseDados.entidades.RegistoVisitaResultado;
 import com.vvm.sh.baseDados.entidades.RelatorioAmbientalResultado;
+import com.vvm.sh.baseDados.entidades.RelatorioAveriguacao;
+import com.vvm.sh.baseDados.entidades.RelatorioAveriguacaoResultado;
 import com.vvm.sh.baseDados.entidades.Resultado;
 import com.vvm.sh.baseDados.entidades.RiscoResultado;
 import com.vvm.sh.baseDados.entidades.SeccaoChecklist;
@@ -101,7 +103,7 @@ import com.vvm.sh.baseDados.entidades.VerificacaoEquipamentoResultado;
 
                     Cliente.class, AtividadeExecutada.class, Anomalia.class, AtividadePendente.class, Ocorrencia.class, OcorrenciaHistorico.class,
                     Morada.class,
-                    ParqueExtintor.class, TipoExtintor.class, Colaborador.class, PlanoAcao.class, PlanoAcaoAtividade.class,
+                    ParqueExtintor.class, TipoExtintor.class, Colaborador.class, PlanoAcao.class, PlanoAcaoAtividade.class, RelatorioAveriguacao.class,
 
                     //Resultado
 
@@ -118,6 +120,9 @@ import com.vvm.sh.baseDados.entidades.VerificacaoEquipamentoResultado;
                     LevantamentoRiscoResultado.class, ProcessoProdutivoResultado.class, TrabalhadorVulneravelResultado.class,
                     AreaChecklistResultado.class, QuestionarioChecklistResultado.class, PropostaPlanoAcaoResultado.class, RiscoResultado.class,
                     VerificacaoEquipamentoResultado.class,
+
+                    RelatorioAveriguacaoResultado.class,
+
                     Resultado.class
             },
             version = BaseDadosContantes.VERSAO

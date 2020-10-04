@@ -64,6 +64,8 @@ abstract public class AveriguacaoDao implements BaseDao<RelatorioAveriguacaoResu
             "WHERE idRelatorio = :idRelatorio")
     abstract public Observable<List<AveriguacaoRegisto>> obterRegistos(int idRelatorio);
 
+    //https://mega.nz/folder/9aIhXIrR#U9QHq_13tly4SYRLn10ykg
+
     //https://mega.nz/folder/9aIhXIrR#U9QHq_13tly4SYRLn10ykg/folder/YaJQAaZR
     //https://mega.nz/folder/9aIhXIrR#U9QHq_13tly4SYRLn10ykg/folder/JHZWBCxY
     //https://mega.nz/folder/9aIhXIrR#U9QHq_13tly4SYRLn10ykg/folder/AbYCAQ4I
@@ -74,5 +76,14 @@ abstract public class AveriguacaoDao implements BaseDao<RelatorioAveriguacaoResu
     //https://mega.nz/folder/9aIhXIrR#U9QHq_13tly4SYRLn10ykg/folder/sXI0RCqY
     //https://mega.nz/folder/9aIhXIrR#U9QHq_13tly4SYRLn10ykg/folder/deIGzI4a
     //https://mega.nz/folder/9aIhXIrR#U9QHq_13tly4SYRLn10ykg/folder/1fI2WagQ
+    //https://mega.nz/folder/9aIhXIrR#U9QHq_13tly4SYRLn10ykg/folder/BDZmEILA
+    //https://mega.nz/folder/9aIhXIrR#U9QHq_13tly4SYRLn10ykg/folder/lTQ0UKZa
+    //https://mega.nz/folder/9aIhXIrR#U9QHq_13tly4SYRLn10ykg/folder/NWY2gAID
+
+    //https://mega.nz/folder/1RADSQzY#iFdVNCrgfF_mdyUhUw1luQ
+
+
+
+//--https://mega.nz/folder/SohilbpA#Ahm58e1cpLlmECfstygiXA/folder/XooCxDID
 }
 

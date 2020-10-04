@@ -35,7 +35,6 @@ public class PropostaPlanoAcaoResultado {
     @NonNull
     @ColumnInfo(name = "origem", defaultValue = Identificadores.VALOR_0 + "")
     public int origem;
-//--https://mega.nz/folder/SohilbpA#Ahm58e1cpLlmECfstygiXA/folder/XooCxDID
 
 
     @ColumnInfo(name = "idQuestaoChecklis", defaultValue = Identificadores.VALOR_0 + "")

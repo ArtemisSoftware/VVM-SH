@@ -23,37 +23,19 @@ public class RelatorioAveriguacaoResultado {
     @NonNull
     public int idRelatorio;
 
-    @NonNull
-    public int idMedida;
-
-
 
     @NonNull
     public boolean implementado;
 
+    public int idMedida;
+    public String nc;
 
 
-    @NonNull
     public String risco;
 
-    @NonNull
     public int idPonderacao;
 
-    @NonNull
     public Date data;
-
-
-
-
-    @NonNull
-    public int idTipoMedida;
-
-
-    public String observacao;
-
-
-
-
 
 
 

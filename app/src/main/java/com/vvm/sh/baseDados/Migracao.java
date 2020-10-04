@@ -16,7 +16,7 @@ public class Migracao {
         Migration migrations [] =  new Migration []{
                 MIGRACAO_1_2, MIGRACAO_2_3, MIGRACAO_3_4, MIGRACAO_4_5, MIGRACAO_5_6, MIGRACAO_6_7, MIGRACAO_7_8, MIGRACAO_8_9, MIGRACAO_9_10, MIGRACAO_10_11,
                 MIGRACAO_11_12, MIGRACAO_12_13, MIGRACAO_13_14, MIGRACAO_14_15, MIGRACAO_15_16, MIGRACAO_16_17, MIGRACAO_17_18, MIGRACAO_18_19, MIGRACAO_19_20,
-                MIGRACAO_20_21, MIGRACAO_21_22, MIGRACAO_22_23, MIGRACAO_23_24, MIGRACAO_24_25
+                MIGRACAO_20_21, MIGRACAO_21_22, MIGRACAO_22_23, MIGRACAO_23_24, MIGRACAO_24_25, MIGRACAO_25_26
 
         };
 
@@ -39,76 +39,58 @@ public class Migracao {
                         + "'tipo' INTEGER NOT NULL, "
                         + "'data' INTEGER NOT NULL, "
                         + "'descricao' TEXT NOT NULL, "
-                        + "'idChecklist' INTEGER NOT NULL, "
-                        + "'idArea' INTEGER NOT NULL, "
+                        + "'tipo' INTEGER NOT NULL, "
+                        + "'idChecklist' INTEGER, "
+                        + "'idArea' INTEGER, "
                         + "FOREIGN KEY (idTarefa) REFERENCES tarefas (idTarefa)  ON DELETE CASCADE)  ");
 
 
-
-
-
-                database.execSQL("CREATE TABLE IF NOT EXISTS 'relatoriosAvaliacaoRiscos' ("
-                        + "'idTarefa' INTEGER NOT NULL, "
-                        + "'id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
-                        + "'data' INTEGER NOT NULL, "
-                        + "'descricao' TEXT NOT NULL, "
-                        + "FOREIGN KEY (idTarefa) REFERENCES tarefas (idTarefa)  ON DELETE CASCADE)  ");
 
                 database.execSQL("CREATE TABLE IF NOT EXISTS 'relatorioAvaliacaoRiscosMedidas' ("
                         + "'idRelatorio' INTEGER NOT NULL, "
                         + "'idMedida' INTEGER NOT NULL, "
                         + "PRIMARY KEY (idRelatorio, idMedida), "
-                        + "FOREIGN KEY (idRelatorio) REFERENCES relatoriosAvaliacaoRiscos (id)  ON DELETE CASCADE)  ");
+                        + "FOREIGN KEY (idRelatorio) REFERENCES relatorioAveriguacao (id)  ON DELETE CASCADE)  ");
 
-
-
-                database.execSQL("CREATE TABLE IF NOT EXISTS 'relatorioAuditoria' ("
-                        + "'idTarefa' INTEGER NOT NULL, "
-                        + "'id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
-                        + "'data' INTEGER NOT NULL, "
-                        + "'descricao' TEXT NOT NULL, "
-                        + "'idChecklist' INTEGER NOT NULL, "
-                        + "'idArea' INTEGER NOT NULL, "
-                        + "FOREIGN KEY (idTarefa) REFERENCES tarefas (idTarefa)  ON DELETE CASCADE)  ");
 
                 database.execSQL("CREATE TABLE IF NOT EXISTS 'relatorioAuditoriaMedidas' ("
                         + "'idRelatorio' INTEGER NOT NULL, "
                         + "'nc' TEXT NOT NULL, " //TODO: ver se pode ser int
                         + "PRIMARY KEY (idRelatorio, nc), "
-                        + "FOREIGN KEY (idRelatorio) REFERENCES relatorioAuditoria (id)  ON DELETE CASCADE)  ");
+                        + "FOREIGN KEY (idRelatorio) REFERENCES relatorioAveriguacao (id)  ON DELETE CASCADE)  ");
+
 
 
 
                 database.execSQL("CREATE TABLE IF NOT EXISTS 'relatorioAveriguacaoResultado' ("
                         + "'idTarefa' INTEGER NOT NULL, "
                         + "'idRelatorio' INTEGER NOT NULL, "
-                        + "'idMedida' INTEGER, " //TODO: dever ser text? por causa do nc
                         + "'idImplementacao' TEXT NOT NULL, "
-                        + "'idRisco' INTEGER NOT NULL, "
-                        + "'idPonderacao' INTEGER NOT NULL, "
-                        + "'idTipoMedida' INTEGER NOT NULL, "
-                        + "'data' INTEGER NOT NULL, "
-                        + "'observacao' TEXT, "
+                        + "'idMedida' INTEGER, "
+                        + "'nc' TEXT, "
+                        + "'risco' TEXT, "
+                        + "'idPonderacao' INTEGER, "
+                        + "'data' INTEGER, "
                         + "PRIMARY KEY (idTarefa, idRelatorio, idMedida), "
                         + "FOREIGN KEY (idTarefa) REFERENCES tarefas (idTarefa)  ON DELETE CASCADE)  ");
 
 
 
-                database.execSQL("CREATE TABLE IF NOT EXISTS 'propostaPlanoAcaoResultado' ("
-                        + "'idAtividade' INTEGER NOT NULL, "
-                        + "'id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
-                        + "'idRegisto' INTEGER NOT NULL, " //o identificador da pergunta da checklist que gerou o plano ||
-                        + "'origem' INTEGER NOT NULL, "
-
-                        + "'idMedida' INTEGER, "
-                        + "'idNi' INTEGER, "
-                        + "'idPrazo' INTEGER, "
-                        + "'selecionado' INTEGER  DEFAULT " + Identificadores.VALOR_INT_0 + " ,  "
-                        + "FOREIGN KEY (idTarefa) REFERENCES tarefas (idTarefa)  ON DELETE CASCADE)  ");
+//                database.execSQL("CREATE TABLE IF NOT EXISTS 'propostaPlanoAcaoResultado' ("
+//                        + "'idAtividade' INTEGER NOT NULL, "
+//                        + "'id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
+//                        + "'idRegisto' INTEGER NOT NULL, " //o identificador da pergunta da checklist que gerou o plano ||
+//                        + "'origem' INTEGER NOT NULL, "
+//
+//                        + "'idMedida' INTEGER, "
+//                        + "'idNi' INTEGER, "
+//                        + "'idPrazo' INTEGER, "
+//                        + "'selecionado' INTEGER  DEFAULT " + Identificadores.VALOR_INT_0 + " ,  "
+//                        + "FOREIGN KEY (idTarefa) REFERENCES tarefas (idTarefa)  ON DELETE CASCADE)  ");
 
             }
             catch(SQLException | IllegalStateException e){
-                Log.e("Migracao", "erro MIGRACAO_24_25: " + e.getMessage());
+                Log.e("Migracao", "erro MIGRACAO_25_26: " + e.getMessage());
                 //Timber.e("erro MIGRACAO_2_3: " + e.getMessage());
             }
         }

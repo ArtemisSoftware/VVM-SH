@@ -19,7 +19,8 @@ public class Testes {
 
         resultado.add(new Utilizador("12705", "1993", "SA", "Sara Leão", "paulobraz@vivamais.com"));
         resultado.add(new Utilizador("12706", "23270", "SA", "Marta Ruxa (inativo)", "paulobraz@vivamais.com"));
-        resultado.add(new Utilizador("7543", "706269", "SA", "Ricardo Pereira (21-09)", "paulobraz@vivamais.com"));
+        resultado.add(new Utilizador("7543", "706269", "SA", "Ricardo Pereira (21-09 termico)", "paulobraz@vivamais.com"));
+        resultado.add(new Utilizador("1456", "5826268", "SA", "Ana Tomé (02-10 - Averiguacao)", "paulobraz@vivamais.com"));
         return resultado;
     }
 

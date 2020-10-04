@@ -10,11 +10,11 @@
         <variable
             name="listener"
             type="com.vvm.sh.ui.atividadesPendentes.relatorios.averiguacao.adaptadores.OnAveriguacaoListener.OnAveriguacaoItemListener"/>
-        <!--
-                <variable
-                    name="viewmodel"
-                    type="com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.AvaliacaoAmbientalViewModel"/>
-        -->
+
+        <variable
+            name="viewmodel"
+            type="com.vvm.sh.ui.atividadesPendentes.relatorios.averiguacao.AveriguacaoViewModel"/>
+
 
     </data>
 

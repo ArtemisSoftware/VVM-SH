@@ -8,15 +8,15 @@
 
         <import type="java.util.List"/>
 
-<!--
-        <variable
-            name="viewmodel"
-            type="com.vvm.sh.ui.tarefa.TarefaViewModel"/>
 
         <variable
-            name="listener"
-            type="com.vvm.sh.ui.tarefa.adaptadores.OnTarefaListener"/>
--->
+            name="viewmodel"
+            type="com.vvm.sh.ui.atividadesPendentes.relatorios.averiguacao.AveriguacaoViewModel"/>
+        <!--
+                <variable
+                    name="listener"
+                    type="com.vvm.sh.ui.tarefa.adaptadores.OnTarefaListener"/>
+        -->
     </data>
 
 

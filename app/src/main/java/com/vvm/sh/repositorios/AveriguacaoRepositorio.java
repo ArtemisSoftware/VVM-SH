@@ -27,8 +27,12 @@ public class AveriguacaoRepositorio implements Repositorio<RelatorioAveriguacaoR
 
     }
 
-    public Observable<List<AveriguacaoRegisto>> obterRegistos(int idRegisto){
-        return averiguacaoDao.obterRegistos(idRegisto);
+    public Observable<List<AveriguacaoRegisto>> obterRegistos(int idRelatorio){
+        return averiguacaoDao.obterRegistos(idRelatorio);
+    }
+
+    public Single<AveriguacaoRegisto> obterRegisto(int idRegisto){
+        return averiguacaoDao.obterRegisto(idRegisto);
     }
 
 

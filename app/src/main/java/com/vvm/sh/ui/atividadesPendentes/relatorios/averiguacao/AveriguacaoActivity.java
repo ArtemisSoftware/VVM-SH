@@ -28,18 +28,18 @@ public class AveriguacaoActivity extends BaseDaggerActivity
     ViewModelProviderFactory providerFactory;
 
 
-    //--private AveriguacaoViewModel viewModel;
+    private AveriguacaoViewModel viewModel;
 
 
     @Override
     protected void intActivity(Bundle savedInstanceState) {
 
-        //--viewModel = ViewModelProviders.of(this, providerFactory).get(AveriguacaoViewModel.class);
+        viewModel = ViewModelProviders.of(this, providerFactory).get(AveriguacaoViewModel.class);
 
         activityAveriguacaoBinding = (ActivityAveriguacaoBinding) activityBinding;
         activityAveriguacaoBinding.setLifecycleOwner(this);
         activityAveriguacaoBinding.setListener(this);
-        //activityAveriguacaoBinding.setViewmodel(viewModel);
+        activityAveriguacaoBinding.setViewmodel(viewModel);
 
         subscreverObservadores();
 
@@ -48,7 +48,7 @@ public class AveriguacaoActivity extends BaseDaggerActivity
         if(bundle != null) {
 
             activityAveriguacaoBinding.setTipo(bundle.getInt(getString(R.string.argumento_id_tipo)));
-            //viewModel.obterRelatorio(PreferenciasUtil.obterIdTarefa(this), bundle.getInt(getString(R.string.argumento_id_tipo)));
+            viewModel.obterRelatorio(PreferenciasUtil.obterIdTarefa(this), bundle.getInt(getString(R.string.argumento_id_tipo)));
         }
         else{
             finish();

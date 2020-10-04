@@ -1,6 +1,7 @@
 package com.vvm.sh.ui.atividadesPendentes.relatorios.averiguacao;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
 
@@ -27,18 +28,18 @@ public class AveriguacaoListagemActivity extends BaseDaggerActivity
     ViewModelProviderFactory providerFactory;
 
 
-    //--private AveriguacaoViewModel viewModel;
+    private AveriguacaoViewModel viewModel;
 
 
     @Override
     protected void intActivity(Bundle savedInstanceState) {
 
-        //--viewModel = ViewModelProviders.of(this, providerFactory).get(AveriguacaoViewModel.class);
+        viewModel = ViewModelProviders.of(this, providerFactory).get(AveriguacaoViewModel.class);
 
         activityAveriguacaoListagemBinding = (ActivityAveriguacaoListagemBinding) activityBinding;
         activityAveriguacaoListagemBinding.setLifecycleOwner(this);
         activityAveriguacaoListagemBinding.setListener(this);
-        //activityAveriguacaoBinding.setViewmodel(viewModel);
+        activityAveriguacaoListagemBinding.setViewmodel(viewModel);
 
         subscreverObservadores();
 
@@ -46,7 +47,7 @@ public class AveriguacaoListagemActivity extends BaseDaggerActivity
 
         if(bundle != null) {
 
-            //viewModel.obterRegistos(bundle.getInt(getString(R.string.argumento_id_relatorio)));
+            viewModel.obterRegistos(bundle.getInt(getString(R.string.argumento_id_relatorio)));
         }
         else{
             finish();
@@ -71,5 +72,9 @@ public class AveriguacaoListagemActivity extends BaseDaggerActivity
     @Override
     public void OnItemClick(AveriguacaoRegisto registo) {
 
+        Bundle bundle = getIntent().getExtras();
+
+        DialogoAveriguacao dialogo = DialogoAveriguacao.newInstance(bundle.getInt(getString(R.string.argumento_id_relatorio)), registo.id);
+        dialogo.show(getSupportFragmentManager(), "example dialog");
     }
 }

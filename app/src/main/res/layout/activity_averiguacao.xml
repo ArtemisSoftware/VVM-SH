@@ -9,11 +9,11 @@
         <import type="java.util.List"/>
         <import type="android.view.View"/>
         <import type="com.vvm.sh.util.metodos.DatasUtil"/>
-<!--
+
         <variable
             name="viewmodel"
-            type="com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.ChecklistViewModel"/>
--->
+            type="com.vvm.sh.ui.atividadesPendentes.relatorios.averiguacao.AveriguacaoViewModel"/>
+
         <variable
             name="listener"
             type="com.vvm.sh.ui.atividadesPendentes.relatorios.averiguacao.adaptadores.OnAveriguacaoListener"/>

@@ -12,6 +12,7 @@ import com.vvm.sh.util.metodos.TiposUtil;
 import java.util.List;
 
 import io.reactivex.Observable;
+import io.reactivex.Single;
 
 @Dao
 abstract public class AveriguacaoDao implements BaseDao<RelatorioAveriguacaoResultado> {
@@ -63,6 +64,17 @@ abstract public class AveriguacaoDao implements BaseDao<RelatorioAveriguacaoResu
             "ON rel_avr_med.idMedida = tp_medidas.idMedida   " +
             "WHERE idRelatorio = :idRelatorio")
     abstract public Observable<List<AveriguacaoRegisto>> obterRegistos(int idRelatorio);
+
+
+
+    @Query("SELECT rel_avr_med.idMedida as id, descricao " +
+            "FROM relatorioAvaliacaoRiscosMedidas as rel_avr_med " +
+            "LEFT JOIN (SELECT id as idMedida, descricao FROM tipos WHERE tipo = '" + TiposUtil.MetodosTipos.MEDIDAS_PREVENCAO_RECOMENDADAS + "') as tp_medidas " +
+            "ON rel_avr_med.idMedida = tp_medidas.idMedida   " +
+            "WHERE id = :id")
+    abstract public Single<AveriguacaoRegisto> obterRegisto(int id);
+
+
 
     //https://mega.nz/folder/9aIhXIrR#U9QHq_13tly4SYRLn10ykg
 

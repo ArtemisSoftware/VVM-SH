@@ -15,7 +15,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.transferencias.UploadTrabalhoActivity"></activity>
+        <activity android:name=".ui.autenticacao.CarregamentoActivity"></activity>
+        <activity android:name=".ui.transferencias.UploadTrabalhoActivity" />
         <activity android:name=".ui.ocorrencias.OcorrenciasHistoricoActivity" />
         <activity android:name=".ui.opcoes.AtualizacaoAppActivity" />
         <activity android:name=".ui.contaUtilizador.OpcoesAvancadasActivity" />
@@ -31,7 +32,6 @@
         <activity android:name=".ui.autenticacao.AutenticacaoActivity" />
         <activity android:name=".ui.apresentacao.ApresentacaoActivity" />
         <activity android:name=".carregamentos.CarregamentoTiposActivity" />
-
         <activity
             android:name=".ui.atividadesPendentes.relatorios.FormandoActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -62,7 +62,7 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.crossSelling.CrossSellingActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.atividadesExecutadas.AtividadesExecutadasActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -71,8 +71,8 @@
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.tarefa.TarefaActivity"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:screenOrientation="portrait"/>
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".MainActivity"
             android:theme="@style/AppTheme.NoActionBar">
@@ -87,7 +87,6 @@
             android:configChanges="keyboardHidden|orientation|screenSize"
             android:screenOrientation="landscape"
             android:theme="@style/FinestWebViewTheme.Light" />
-
     </application>
 
 </manifest>

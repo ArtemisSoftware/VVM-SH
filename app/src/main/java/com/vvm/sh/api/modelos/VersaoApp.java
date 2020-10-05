@@ -10,6 +10,13 @@ import java.util.Arrays;
 
 public class VersaoApp {
 
+
+    //-{"emTeste":true,"versaoTeste":"1.46.77","textoTeste":["Atualicação 1","Nova Funcionalidade"],"utilizadoresTeste":["500005"," 4153"],"versaoProducao":"1.42.31","textoProducao":["Atualização 145","Nova funcionalidade para todos"]}
+
+
+
+
+
     @SerializedName("versaoApp")
     private String versaoTeste;
 

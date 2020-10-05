@@ -33,6 +33,11 @@ public class Identificadores {
         public static final int APP_SA = 1;
         public static final String SA = "SA";
         public static final int COR_SA = R.color.cor_app_sa;
+
+
+        public static final int APP_SH = 3;
+        public static final String SH = "SH";
+
     }
 
     public class CodigoAtividade {

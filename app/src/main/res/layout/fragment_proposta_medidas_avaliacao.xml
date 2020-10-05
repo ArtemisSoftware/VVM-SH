@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="java.util.List"/>
+        <import type="android.view.View"/>
+        <import type="com.vvm.sh.ui.atividadesPendentes.relatorios.propostaPlanoAccao.modelos.Proposta"/>
+
+        <variable
+            name="propostas"
+            type="List&lt;Proposta>"/>
+
+
+        <variable
+            name="listener"
+            type="com.vvm.sh.ui.atividadesPendentes.relatorios.propostaPlanoAccao.adaptadores.OnPropostaPlanoAcaoListener"/>
+
+    </data>
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <androidx.coordinatorlayout.widget.CoordinatorLayout
+            android:id="@+id/appbar_layout_activity"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcl_registos"
+                style="@style/lista"
+                propostas="@{propostas}"
+                listener="@{listener}"
+                tools:listitem="@layout/item_proposta_medida_avalicao"/>
+
+            <!--
+            android:visibility="@{viewmodel.agenda.marcacaos.size() > 0 ? View.VISIBLE : View.GONE}"
+            ocorrencias="@{viewmodel.ocorrencias}"
+                                listener="@{listener}"
+            -->
+
+
+
+
+        </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+    </FrameLayout>
+</layout>
+
+

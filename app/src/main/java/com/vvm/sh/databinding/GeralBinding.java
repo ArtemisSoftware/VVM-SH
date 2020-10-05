@@ -8,8 +8,15 @@ import androidx.databinding.BindingAdapter;
 
 import com.bumptech.glide.Glide;
 import com.bumptech.glide.request.RequestOptions;
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipDrawable;
+import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.vvm.sh.R;
+import com.vvm.sh.baseDados.entidades.Morada;
+import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.util.metodos.ImagemUtil;
+
+import java.util.List;
 
 public class GeralBinding {
 
@@ -59,5 +66,46 @@ public class GeralBinding {
     }
 
 
+
+    @BindingAdapter({"tipos", "id"})
+    public static void setTipos(MaterialSpinner view, List<Tipo> registos, int id) {
+
+        if (registos == null)
+            return;
+
+        view.setItems(registos);
+
+        if(id != 0) {
+
+            for (int index = 0; index < registos.size(); ++index) {
+
+                if(registos.get(index).id == id){
+                    view.setSelectedIndex(index);
+                    break;
+                }
+            }
+        }
+    }
+
+
+
+    @BindingAdapter({"completudeRelatorio"})
+    public static void setCompletudeRelatorio(Chip view, boolean estado) {
+
+        ChipDrawable chipDrawable = (ChipDrawable) view.getChipDrawable();
+
+        if(estado == true){
+
+            view.setText(view.getContext().getString(R.string.completo));
+            chipDrawable.setChipBackgroundColorResource(R.color.cor_completo);
+            view.setChipIcon(view.getContext().getResources().getDrawable(R.drawable.ic_executado_24dp));
+
+        }
+        else{
+            view.setText(view.getContext().getString(R.string.incompleto));
+            chipDrawable.setChipBackgroundColorResource(R.color.cor_incompleto);
+            view.setChipIcon(view.getContext().getResources().getDrawable(R.drawable.ic_nao_executado_24dp));
+        }
+    }
 
 }

@@ -1,0 +1,304 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="java.util.List"/>
+        <import type="com.vvm.sh.R"/>
+        <import type="android.view.View"/>
+        <import type="com.vvm.sh.util.metodos.DatasUtil"/>
+
+        <variable
+            name="viewmodel"
+            type="com.vvm.sh.ui.pesquisa.adaptadores.PesquisaViewModel"/>
+
+
+        <variable
+            name="listenerSelecionado"
+            type="com.vvm.sh.ui.pesquisa.OnPesquisaListener.OnPesquisaEquipamentoSelecionadoListener"/>
+
+        <variable
+            name="listenerRegisto"
+            type="com.vvm.sh.ui.pesquisa.OnPesquisaListener.OnPesquisaEquipamentoRegistoListener"/>
+
+
+        <variable
+            name="bloquear"
+            type="Boolean"/>
+
+    </data>
+
+
+
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/AppTheme.AppBarOverlay">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            android:orientation="vertical"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                    <TextView
+                        android:id="@+id/textView18"
+                        style="@style/tituloCartao"
+                        android:text="@string/pesquisa"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <TextView
+                        android:id="@+id/txt_pesquisa"
+                        style="@style/textoDetalhe"
+                        android:layout_marginStart="16dp"
+                        android:text="@string/equipamentosTrabalho"
+                        app:layout_constraintBottom_toBottomOf="@+id/textView18"
+                        app:layout_constraintStart_toEndOf="@+id/textView18"
+                        app:layout_constraintTop_toTopOf="@+id/textView18" />
+
+                    <View
+                        android:id="@+id/textview2"
+                        android:layout_width="280dp"
+                        android:layout_height="0.2dp"
+                        android:layout_marginTop="8dp"
+                        android:background="@color/cor_separador"
+                        app:layout_constraintStart_toStartOf="@+id/textView18"
+                        app:layout_constraintTop_toBottomOf="@+id/textView18" />
+
+
+                    <com.google.android.material.textfield.TextInputLayout
+                        android:id="@+id/textview3"
+                        style="@style/parent.TextLayout"
+                        android:layout_width="350dp"
+                        android:layout_marginTop="@dimen/distancia_vertical_formulario"
+                        android:hint="@string/descricao"
+                        app:errorEnabled="true"
+                        app:layout_constraintStart_toStartOf="@+id/textView18"
+                        app:layout_constraintTop_toBottomOf="@+id/textview2">
+
+                        <com.google.android.material.textfield.TextInputEditText
+                            android:id="@+id/txt_inp_pesquisa"
+                            style="@style/modifiedEditText"
+                            android:inputType="text"
+                            android:maxLength="170"
+                            android:maxLines="1" />
+
+                        <!--   -->
+                    </com.google.android.material.textfield.TextInputLayout>
+
+
+                    <at.markushi.ui.CircleButton
+                        android:id="@+id/crl_btn_limpar"
+                        style="@style/btnLimpar"
+                        android:layout_marginStart="16dp"
+                        app:layout_constraintBottom_toBottomOf="@+id/textview3"
+                        app:layout_constraintStart_toEndOf="@+id/textview3"
+                        app:layout_constraintTop_toTopOf="@+id/textview3" />
+
+
+
+
+                    <TextView
+                        android:id="@+id/textView4"
+                        style="@style/tituloCartao"
+                        android:text="@string/registos_selecionados"
+                        android:layout_marginTop="@dimen/distancia_vertical_formulario"
+                        app:layout_constraintStart_toStartOf="@+id/textView18"
+                        app:layout_constraintTop_toBottomOf="@+id/textview3"/>
+
+                    <View
+                        android:id="@+id/textview41"
+                        android:layout_width="280dp"
+                        android:layout_height="0.2dp"
+                        android:layout_marginTop="8dp"
+                        android:background="@color/cor_separador"
+                        app:layout_constraintStart_toStartOf="@+id/textView18"
+                        app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+
+
+                    <androidx.recyclerview.widget.RecyclerView
+                        android:id="@+id/rcl_registos_selecionados"
+                        style="@style/lista"
+                        android:layout_height="120dp"
+                        android:layout_marginTop="@dimen/distancia_vertical_formulario"
+
+                        equipamentosSelecionado="@{viewmodel.equipamentosSelecionados}"
+                        listener="@{listenerSelecionado}"
+
+                        tools:listitem="@layout/item_pesquisa_equipamento"
+                        app:layout_constraintStart_toStartOf="@+id/textView18"
+                        app:layout_constraintTop_toBottomOf="@+id/textview41" />
+
+
+                    <!--
+                        pesquisaSelecionado="@{viewmodel.tiposSelecionados}"
+                        listener="@{listenerSelecionado}"
+
+                    -->
+
+                    <TextView
+                        android:id="@+id/textView5"
+                        style="@style/tituloCartao"
+                        android:text="@string/_registos"
+                        android:layout_marginTop="@dimen/distancia_vertical_formulario"
+                        app:layout_constraintStart_toStartOf="@+id/textView18"
+                        app:layout_constraintTop_toBottomOf="@+id/rcl_registos_selecionados"/>
+
+                    <View
+                        android:id="@+id/textview51"
+                        android:layout_width="280dp"
+                        android:layout_height="0.2dp"
+                        android:layout_marginTop="8dp"
+                        android:background="@color/cor_separador"
+                        app:layout_constraintStart_toStartOf="@+id/textView18"
+                        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+
+
+                    <!--
+                                        <androidx.recyclerview.widget.RecyclerView
+                                            android:id="@+id/rcl_registos"
+                                            style="@style/lista"
+
+                                            android:layout_height="wrap_content"
+                                            android:layout_marginTop="@dimen/distancia_vertical_formulario"
+                                            registosPesquisa="@{viewmodel.tipos}"
+                                            listener="@{listenerRegisto}"
+
+                                            tools:listitem="@layout/item_pesquisa"
+                                            app:layout_constraintStart_toStartOf="@+id/textView18"
+                                            app:layout_constraintTop_toBottomOf="@+id/textview51" />
+                    -->
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/rcl_registos"
+                    style="@style/lista"
+
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/distancia_vertical_formulario"
+                    registosEquipamentos="@{viewmodel.equipamentos}"
+                    listener="@{listenerRegisto}"
+                    tools:listitem="@layout/item_pesquisa_equipamento" />
+
+                <!--
+                                    registosPesquisa="@{viewmodel.tipos}"
+                    listener="@{listenerRegisto}"
+
+                -->
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+
+
+
+        <com.github.clans.fab.FloatingActionMenu
+            android:id="@+id/fab_menu"
+            android:enabled="@{bloquear}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="@dimen/fab_margin"
+            app:menu_fab_size="normal"
+            app:menu_showShadow="true"
+            app:menu_shadowColor="#66000000"
+            app:menu_shadowRadius="4dp"
+            app:menu_shadowXOffset="1dp"
+            app:menu_shadowYOffset="3dp"
+            app:menu_colorNormal="#DA4336"
+            app:menu_colorPressed="#E75043"
+            app:menu_colorRipple="#99FFFFFF"
+            app:menu_animationDelayPerItem="50"
+            app:menu_icon="@drawable/ic_add_24dp"
+            app:menu_buttonSpacing="0dp"
+            app:menu_labels_margin="0dp"
+            app:menu_labels_paddingTop="4dp"
+            app:menu_labels_paddingRight="8dp"
+            app:menu_labels_paddingBottom="4dp"
+            app:menu_labels_paddingLeft="8dp"
+            app:menu_labels_padding="8dp"
+            app:menu_labels_textColor="#FFFFFF"
+            app:menu_labels_textSize="14sp"
+            app:menu_labels_cornerRadius="3dp"
+            app:menu_labels_colorNormal="#333333"
+            app:menu_labels_colorPressed="#444444"
+            app:menu_labels_colorRipple="#66FFFFFF"
+            app:menu_labels_showShadow="true"
+            app:menu_labels_singleLine="false"
+            app:menu_labels_ellipsize="none"
+            app:menu_labels_maxLines="-1"
+            app:menu_labels_style="@style/textoDetalhe"
+            app:menu_labels_position="left"
+            app:menu_openDirection="up"
+            app:menu_backgroundColor="@android:color/transparent">
+
+
+            <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/fab_adicionar_equipamento"
+                android:enabled="@{bloquear}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_formandos_24dp"
+                app:fab_size="mini"
+                app:fab_label="@string/adicionar_equipamento" />
+
+            <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/fab_gravar"
+                android:enabled="@{bloquear}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_gravar_24dp"
+                app:fab_size="mini"
+                app:fab_label="@string/gravar" />
+
+        </com.github.clans.fab.FloatingActionMenu>
+
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+</layout>

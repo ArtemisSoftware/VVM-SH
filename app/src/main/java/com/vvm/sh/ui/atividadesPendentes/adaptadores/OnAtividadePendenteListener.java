@@ -15,4 +15,13 @@ public interface OnAtividadePendenteListener {
     void OnIniciarRelatorio(int idAtividade, int idRelatorio);
 
     void OnDetalhe(int idAtividade);
+
+    void OnIniciarChecklist(int idAtividade);
+
+    void OnIniciarProcessoProdutivo(int idAtividade);
+    void OnIniciarVulnerabilidades(int idAtividade);
+    void OnIniciarPlanoAcao(int idAtividade);
+    void OnIniciarAvaliacaoRiscos(int idAtividade);
+
+    void OnIniciarEquipamentos(int idAtividade);
 }

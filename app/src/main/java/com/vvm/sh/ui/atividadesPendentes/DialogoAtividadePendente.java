@@ -113,6 +113,13 @@ public class DialogoAtividadePendente extends BaseDaggerDialogFragment {
             }
         }
 
+        if(getArguments().getInt(ARGUMENTO_RELATORIO) == Identificadores.Relatorios.ID_RELATORIO_AVALIACAO_RISCO){
+
+            binding.rdBtnRelatorio.setVisibility(View.GONE);
+            binding.rdGpAvaliacaoRiscos.setVisibility(View.VISIBLE);
+        }
+
+
         if(PreferenciasUtil.agendaEditavel(getContext()) == false){
             binding.rdBtnActividadeExecutada.setVisibility(View.GONE);
             binding.rdBtnActividadeNaoExecutada.setVisibility(View.GONE);
@@ -138,7 +145,9 @@ public class DialogoAtividadePendente extends BaseDaggerDialogFragment {
 
 
 
-    @OnClick({R.id.rd_btn_actividade_executada, R.id.rd_btn_actividade_nao_executada, R.id.rd_btn_relatorio})
+    @OnClick({R.id.rd_btn_actividade_executada, R.id.rd_btn_actividade_nao_executada, R.id.rd_btn_relatorio,
+            R.id.rd_btn_risco_checklist, R.id.rd_btn_risco_processo_produtivo, R.id.rd_btn_risco_vulnerabilidades, R.id.rd_btn_risco_levantamento, R.id.rd_btn_av_plano_acao,
+            R.id.rd_btn_risco_verificacao_equipamentos})
     public void onRadioButtonClicked(RadioButton radioButton) {
 
         boolean checked = radioButton.isChecked();
@@ -174,6 +183,53 @@ public class DialogoAtividadePendente extends BaseDaggerDialogFragment {
                 if (checked) {
                     // 2 clicked
                     listenerAtividade.OnDetalhe(getArguments().getInt(ARGUMENTO_ID_ATIVIDADE));
+                    terminarDialogo();
+                }
+                break;
+
+
+
+            case R.id.rd_btn_risco_checklist:
+                if (checked) {
+                    listenerAtividade.OnIniciarChecklist(getArguments().getInt(ARGUMENTO_ID_ATIVIDADE));
+                    terminarDialogo();
+                }
+                break;
+
+            case R.id.rd_btn_risco_processo_produtivo:
+                if (checked) {
+                    listenerAtividade.OnIniciarProcessoProdutivo(getArguments().getInt(ARGUMENTO_ID_ATIVIDADE));
+                    terminarDialogo();
+                }
+                break;
+
+
+            case R.id.rd_btn_risco_vulnerabilidades:
+                if (checked) {
+                    listenerAtividade.OnIniciarVulnerabilidades(getArguments().getInt(ARGUMENTO_ID_ATIVIDADE));
+                    terminarDialogo();
+                }
+                break;
+
+
+            case R.id.rd_btn_risco_levantamento:
+                if (checked) {
+                    listenerAtividade.OnIniciarAvaliacaoRiscos(getArguments().getInt(ARGUMENTO_ID_ATIVIDADE));
+                    terminarDialogo();
+                }
+                break;
+
+            case R.id.rd_btn_av_plano_acao:
+                if (checked) {
+                    listenerAtividade.OnIniciarPlanoAcao(getArguments().getInt(ARGUMENTO_ID_ATIVIDADE));
+                    terminarDialogo();
+                }
+                break;
+
+
+            case R.id.rd_btn_risco_verificacao_equipamentos:
+                if (checked) {
+                    listenerAtividade.OnIniciarEquipamentos(getArguments().getInt(ARGUMENTO_ID_ATIVIDADE));
                     terminarDialogo();
                 }
                 break;

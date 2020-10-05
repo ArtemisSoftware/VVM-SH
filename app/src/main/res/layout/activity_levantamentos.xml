@@ -1,0 +1,501 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="java.util.List"/>
+        <import type="com.vvm.sh.util.metodos.StringUtil"/>
+        <import type="android.view.View"/>
+
+        <variable
+            name="listener"
+            type="com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.adaptadores.OnLevantamentoListener.OnLevantamentoRegistoListener"/>
+
+
+        <variable
+            name="viewmodel"
+            type="com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.LevantamentosViewModel"/>
+
+
+        <variable
+            name="bloquear"
+            type="Boolean"/>
+
+
+    </data>
+
+
+
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/appbar_layout_activity"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/app_bar_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            android:fitsSystemWindows="true">
+
+            <com.google.android.material.appbar.CollapsingToolbarLayout
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/banner_height"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                app:contentScrim="?attr/colorPrimary"
+                app:title="@string/avaliacaoRiscos"
+                app:expandedTitleTextAppearance="@android:color/transparent"
+                android:fitsSystemWindows="true">
+
+                <ImageView
+                    app:layout_collapseMode="parallax"
+                    android:src="@drawable/avaliacao_riscos_banner"
+                    android:contentDescription="@string/relatorio"
+                    android:scaleType="centerCrop"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                    android:title="@string/cliente"
+                    app:layout_collapseMode="pin"/>
+
+
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+
+
+
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_centerHorizontal="true">
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            android:orientation="vertical"
+            android:gravity="center"
+            android:layout_gravity="center">
+
+            <!-- android:visibility="@{viewmodel.agenda.marcacaos.size() == 0 ? View.VISIBLE : View.GONE}"  -->
+
+            <ImageView
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:src="@drawable/ic_sem_trabalho"
+                android:tint="@color/cor_alerta_medio"/>
+
+            <TextView
+                style="@style/textoDetalhe"
+                android:text="@string/registos_inexistentes"
+                android:layout_marginTop="32dp"/>
+
+
+        </LinearLayout>
+
+
+
+
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcl_registos"
+            style="@style/lista"
+            android:visibility="visible"
+            levantamentos="@{viewmodel.levantamentos}"
+            listener="@{listener}"
+            tools:listitem="@layout/item_levantamento"/>
+
+        <!--
+        android:visibility="@{viewmodel.agenda.marcacaos.size() > 0 ? View.VISIBLE : View.GONE}"
+        ocorrencias="@{viewmodel.ocorrencias}"
+                            listener="@{listener}"
+        -->
+
+
+
+
+        <LinearLayout
+            android:id="@+id/lnr_lyt_levantamento"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            android:orientation="vertical">
+
+
+
+            <androidx.cardview.widget.CardView
+                android:id="@+id/card_levantamento"
+                style="@style/cartao"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/textview"
+                app:layout_constraintTop_toBottomOf="@+id/chip">
+
+                <!-- android:onClick="@{() -> listener.showNoteDialog(note) }" -->
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                    <TextView
+                        android:id="@+id/textView211"
+                        style="@style/tituloCartao"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="8dp"
+                        android:text="@string/levantamento_numero_"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+
+                    <TextView
+                        android:id="@+id/txt_id_levantamento"
+                        style="@style/tituloCartao"
+                        android:layout_marginStart="16dp"
+                        app:layout_constraintStart_toEndOf="@+id/textView211"
+                        app:layout_constraintTop_toTopOf="@+id/textView211" />
+
+                    <TextView
+                        android:id="@+id/textView213"
+                        style="@style/textoDetalhe"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
+                        android:drawableLeft="@drawable/ic_seta_esquerda_24dp"
+                        android:gravity="center_vertical"
+                        android:text="@string/listagem_levantamentos"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/textView211"
+                        app:layout_constraintTop_toBottomOf="@+id/textView211" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </androidx.cardview.widget.CardView>
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="0dp"
+                android:padding="20dp"
+                app:layout_constraintStart_toStartOf="@+id/txt_titulo"
+                app:layout_constraintTop_toBottomOf="@+id/chip">
+
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/card_perigo_tarefa"
+                    style="@style/cartaoMini"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+
+                        <TextView
+                            android:id="@+id/textView2"
+                            style="@style/tituloCartao"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="16dp"
+                            android:layout_marginEnd="16dp"
+                            android:text="@string/perigo_tarefa"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+
+                        <ImageView
+                            android:id="@+id/imageView8"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/distancia_vertical_titulo"
+                            app:layout_constraintStart_toStartOf="@+id/textView2"
+                            app:layout_constraintTop_toBottomOf="@+id/textView2"
+                            app:srcCompat="@drawable/ic_geral" />
+
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chip_geral"
+                            completudeRelatorio="@{viewmodel.relatorio.validadePerigoTarefa}"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/distancia_vertical_titulo"
+                            android:layout_marginBottom="16dp"
+                            android:theme="@style/Theme.MaterialComponents.Light"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="@+id/textView2"
+                            app:layout_constraintTop_toBottomOf="@+id/imageView8" />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                </androidx.cardview.widget.CardView>
+
+
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/card_categorias_profissionais"
+                    style="@style/cartaoMini"
+                    android:visibility="@{viewmodel.relatorio.id > 0 ? View.VISIBLE : View.GONE}"
+                    android:layout_marginStart="32dp"
+                    app:layout_constraintStart_toEndOf="@+id/card_perigo_tarefa"
+                    app:layout_constraintTop_toTopOf="@+id/card_perigo_tarefa">
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+
+                        <TextView
+                            android:id="@+id/textView216"
+                            style="@style/tituloCartao"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="16dp"
+                            android:layout_marginEnd="16dp"
+                            android:text="@string/categorias_profissionais"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+
+                        <ImageView
+                            android:id="@+id/imageView9"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/distancia_vertical_titulo"
+                            app:layout_constraintStart_toStartOf="@+id/textView216"
+                            app:layout_constraintTop_toBottomOf="@+id/textView216"
+                            app:srcCompat="@drawable/ic_listagem" />
+
+
+                        <TextView
+                            android:id="@+id/textView66"
+                            style="@style/textoDetalhe"
+                            android:layout_marginTop="@dimen/distancia_vertical_titulo"
+                            android:text="@string/numero_de_registos_"
+                            app:layout_constraintStart_toStartOf="@+id/textView216"
+                            app:layout_constraintTop_toBottomOf="@+id/imageView9" />
+
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chip_avaliacoes"
+
+                            completudeRelatorio="@{viewmodel.relatorio.validadeCategoriasProfissionais}"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="16dp"
+                            android:layout_marginBottom="16dp"
+                            android:theme="@style/Theme.MaterialComponents.Light"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="@+id/textView216"
+                            app:layout_constraintTop_toBottomOf="@+id/textView66" />
+
+                        <TextView
+                            android:id="@+id/textView40"
+                            style="@style/textoDetalhe"
+                            android:layout_marginStart="16dp"
+                            android:text="@{StringUtil.converterString(viewmodel.relatorio.numeroCategoriasProfissionais)}"
+                            app:layout_constraintStart_toEndOf="@+id/textView66"
+                            app:layout_constraintTop_toTopOf="@+id/textView66" />
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                </androidx.cardview.widget.CardView>
+
+
+
+                <androidx.cardview.widget.CardView
+                    android:id="@+id/card_riscos"
+                    android:visibility="@{viewmodel.relatorio.id > 0 ? View.VISIBLE : View.GONE}"
+                    style="@style/cartaoMini"
+                    android:layout_marginTop="32dp"
+                    app:layout_constraintStart_toStartOf="@+id/card_perigo_tarefa"
+                    app:layout_constraintTop_toBottomOf="@+id/card_perigo_tarefa">
+
+
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+
+                        <TextView
+                            android:id="@+id/textView20"
+                            style="@style/tituloCartao"
+                            android:layout_marginStart="16dp"
+                            android:layout_marginTop="16dp"
+                            android:layout_marginEnd="16dp"
+                            android:text="@string/riscos"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent" />
+
+
+                        <ImageView
+                            android:id="@+id/imageView10"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/distancia_vertical_titulo"
+                            app:layout_constraintStart_toStartOf="@+id/textView20"
+                            app:layout_constraintTop_toBottomOf="@+id/textView20"
+                            app:srcCompat="@drawable/ic_listagem" />
+
+
+                        <TextView
+                            android:id="@+id/textView662"
+                            style="@style/textoDetalhe"
+                            android:layout_marginTop="@dimen/distancia_vertical_titulo"
+                            android:text="@string/numero_de_registos_"
+                            app:layout_constraintStart_toStartOf="@+id/textView20"
+                            app:layout_constraintTop_toBottomOf="@+id/imageView10" />
+
+
+                        <TextView
+                            android:id="@+id/textView402"
+                            style="@style/textoDetalhe"
+                            android:layout_marginStart="16dp"
+                            android:text="@{StringUtil.converterString(viewmodel.relatorio.numeroRiscos)}"
+                            app:layout_constraintStart_toEndOf="@+id/textView662"
+                            app:layout_constraintTop_toTopOf="@+id/textView662" />
+
+
+                        <com.google.android.material.chip.Chip
+                            android:id="@+id/chip_assinatura"
+                            completudeRelatorio="@{viewmodel.relatorio.validadeRiscos}"
+
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="@dimen/distancia_vertical_titulo"
+                            android:layout_marginBottom="16dp"
+                            android:theme="@style/Theme.MaterialComponents.Light"
+                            app:layout_constraintBottom_toBottomOf="parent"
+                            app:layout_constraintStart_toStartOf="@+id/textView20"
+                            app:layout_constraintTop_toBottomOf="@+id/textView662" />
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                </androidx.cardview.widget.CardView>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+        </LinearLayout>
+
+        </LinearLayout>
+        </androidx.core.widget.NestedScrollView>
+
+        <com.github.clans.fab.FloatingActionMenu
+            android:id="@+id/fab_menu"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="@dimen/fab_margin"
+            app:menu_fab_size="normal"
+            app:menu_showShadow="true"
+            app:menu_shadowColor="#66000000"
+            app:menu_shadowRadius="4dp"
+            app:menu_shadowXOffset="1dp"
+            app:menu_shadowYOffset="3dp"
+            app:menu_colorNormal="#DA4336"
+            app:menu_colorPressed="#E75043"
+            app:menu_colorRipple="#99FFFFFF"
+            app:menu_animationDelayPerItem="50"
+            app:menu_icon="@drawable/ic_add_24dp"
+            app:menu_buttonSpacing="0dp"
+            app:menu_labels_margin="0dp"
+            app:menu_labels_paddingTop="4dp"
+            app:menu_labels_paddingRight="8dp"
+            app:menu_labels_paddingBottom="4dp"
+            app:menu_labels_paddingLeft="8dp"
+            app:menu_labels_padding="8dp"
+            app:menu_labels_textColor="#FFFFFF"
+            app:menu_labels_textSize="14sp"
+            app:menu_labels_cornerRadius="3dp"
+            app:menu_labels_colorNormal="#333333"
+            app:menu_labels_colorPressed="#444444"
+            app:menu_labels_colorRipple="#66FFFFFF"
+            app:menu_labels_showShadow="true"
+            app:menu_labels_singleLine="false"
+            app:menu_labels_ellipsize="none"
+            app:menu_labels_maxLines="-1"
+            app:menu_labels_style="@style/textoDetalhe"
+            app:menu_labels_position="left"
+            app:menu_openDirection="up"
+            app:menu_backgroundColor="@android:color/transparent">
+
+
+            <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/fab_adicionar_levantamento"
+                android:enabled="@{bloquear}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_relatorio"
+                app:fab_size="mini"
+                app:fab_label="@string/adicionar_levantamento" />
+
+            <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/fab_adicionar_modelo"
+                android:enabled="@{bloquear}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_acao_formacao"
+                app:fab_size="mini"
+                app:fab_label="@string/adicionar_modelo" />
+
+        </com.github.clans.fab.FloatingActionMenu>
+
+
+
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+
+
+
+
+
+
+</layout>
+
+

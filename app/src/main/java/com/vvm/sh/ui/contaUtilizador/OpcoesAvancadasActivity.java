@@ -1,6 +1,5 @@
 package com.vvm.sh.ui.contaUtilizador;
 
-import android.Manifest;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
@@ -12,6 +11,7 @@ import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.vvm.sh.R;
 import com.vvm.sh.ui.BaseActivity;
 import com.vvm.sh.ui.opcoes.TiposActivity;
+import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.interfaces.OnPermissaoConcedidaListener;
 import com.vvm.sh.util.metodos.BaseDadosUtil;
 import com.vvm.sh.util.metodos.DiretoriasUtil;
@@ -49,8 +49,31 @@ public class OpcoesAvancadasActivity extends BaseActivity {
 
         Intent intent;
         intent = new Intent(this, TiposActivity.class);
+        intent.putExtra(getString(R.string.argumento_id_tipo), Identificadores.Atualizacoes.TIPO);
         startActivity(intent);
     }
+
+
+    @OnClick(R.id.lnr_lyt_templates)
+    public void lnr_lyt_templates_OnClickListener(View view) {
+
+        Intent intent;
+        intent = new Intent(this, TiposActivity.class);
+        intent.putExtra(getString(R.string.argumento_id_tipo), Identificadores.Atualizacoes.TEMPLATE);
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.lnr_lyt_checklist)
+    public void lnr_lyt_checklist_OnClickListener(View view) {
+
+        Intent intent;
+        intent = new Intent(this, TiposActivity.class);
+        intent.putExtra(getString(R.string.argumento_id_tipo), Identificadores.Atualizacoes.CHECKLIST);
+        startActivity(intent);
+    }
+
+
+
 
     @OnClick(R.id.lnr_lyt_exportar_bd)
     public void lnr_lyt_exportar_bd_OnClickListener(View view) {

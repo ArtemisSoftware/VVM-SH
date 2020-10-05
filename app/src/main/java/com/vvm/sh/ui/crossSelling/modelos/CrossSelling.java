@@ -37,33 +37,4 @@ public class CrossSelling {
     public boolean selecionado;
 
 
-//
-//    /**
-//     * Metodo que indica se o registo foi selecionado
-//     * @return true caso tenha sido selecionado ou false caso contrário
-//     */
-//    public boolean obterSelecao() {
-//        if(idAreaRecomendacao == 0){
-//            return false;
-//        }
-//        else{
-//            return true;
-//        }
-//    }
-//
-//
-//    /**
-//     * Metodo que indica se o registo possui sinaletica
-//     * @return true caso possua ou false caso contrário
-//     */
-//    public boolean possuiSinaletica() {
-//        if(idDimensao == 0 & idTipo == 0){
-//            return false;
-//        }
-//        else{
-//            return true;
-//        }
-//    }
-
-
 }

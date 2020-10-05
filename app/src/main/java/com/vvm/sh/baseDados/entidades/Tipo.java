@@ -73,6 +73,15 @@ public class Tipo {
     }
 
     @Ignore
+    public Tipo(int id, String descricao, String codigo, String idPai) {
+        this.id = id;
+        this.descricao = descricao;
+        this.codigo = codigo;
+        this.idPai = idPai;
+    }
+
+
+    @Ignore
     public Tipo(int id, String descricao, String codigo, String idPai, int ativo, String detalhe, String tipo) {
         this.id = id;
         this.descricao = descricao;
@@ -125,6 +134,6 @@ public class Tipo {
 
     @Override
     public String toString() {
-        return descricao;
+        return descricao.replaceAll("(\\r|\\n|\\t)", "");
     }
 }

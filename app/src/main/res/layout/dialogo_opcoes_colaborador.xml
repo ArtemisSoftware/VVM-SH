@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+
+        <RadioGroup
+            android:id="@+id/rd_gp_opcoes"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+
+            <RadioButton
+                android:id="@+id/rd_btn_editar"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:text="@string/editar"/>
+
+            <RadioButton
+                android:id="@+id/rd_btn_demitir"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:text="@string/demitir" />
+
+
+            <RadioButton
+                android:id="@+id/rd_btn_readmitir"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:text="@string/readmitir" />
+
+
+
+            <RadioButton
+                android:id="@+id/rd_btn_remover"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:text="@string/remover" />
+
+
+            <RadioButton
+                android:id="@+id/rd_btn_detalhe"
+                android:layout_width="wrap_content"
+                android:visibility="gone"
+                android:layout_height="50dp"
+                android:text="@string/detalhe" />
+
+
+        </RadioGroup>
+
+    </LinearLayout>
+
+
+</layout>

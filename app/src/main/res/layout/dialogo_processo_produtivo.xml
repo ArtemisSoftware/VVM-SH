@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="java.util.List"/>
+        <import type="com.vvm.sh.util.metodos.StringUtil"/>
+
+        <variable
+            name="viewmodel"
+            type="com.vvm.sh.ui.atividadesPendentes.AtividadesPendentesViewModel"/>
+
+    </data>
+
+
+    <LinearLayout
+        style="@style/temaDialogo"
+        android:orientation="vertical">
+
+
+        <com.google.android.material.textfield.TextInputLayout
+            style="@style/parent.TextLayout"
+            android:hint="@string/processoProdutivo"
+            android:layout_width="match_parent"
+            android:layout_marginTop="@dimen/spacing_dialog_item"
+            app:errorEnabled="true">
+
+            <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/txt_inp_processo_produtivo"
+                style="@style/modifiedEditText"
+                android:text="@{viewmodel.processo.descricao}"
+                android:gravity="top|left"
+                android:lines="5"
+                android:maxLines="5"/>
+        </com.google.android.material.textfield.TextInputLayout>
+
+
+    </LinearLayout>
+
+
+</layout>

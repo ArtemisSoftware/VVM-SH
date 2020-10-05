@@ -1,0 +1,230 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+
+    <data>
+
+        <import type="com.vvm.sh.BuildConfig"/>
+        <import type="com.vvm.sh.util.metodos.StringUtil"/>
+        <import type="android.view.View"/>
+
+        <variable
+            name="questao"
+            type="com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.modelos.Questao"/>
+
+
+        <variable
+            name="bloquear"
+            type="Boolean"/>
+    </data>
+
+
+
+    <androidx.cardview.widget.CardView
+        style="@style/cartao">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/textView88"
+                style="@style/textoDetalhe"
+                android:text="@{questao.registo.uid}"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <LinearLayout
+                android:id="@+id/linearLayout17"
+                android:layout_width="match_parent"
+                android:layout_height="42dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="32dp"
+                android:background="@color/cor_separador"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/textView88"
+                app:layout_constraintTop_toBottomOf="@+id/textView88">
+
+
+                <TextView
+                    style="@style/txt_rotulo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="20dp"
+                    android:text="@string/ut1" />
+
+
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/textView89"
+                style="@style/textoDescritivo"
+                android:layout_marginTop="16dp"
+                android:text="@string/ut_"
+                app:layout_constraintStart_toStartOf="@+id/textView88"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout17" />
+
+            <TextView
+                android:id="@+id/textView90"
+                style="@style/textoDetalhe"
+                android:layout_marginStart="16dp"
+                android:text="@{questao.ut1}"
+                app:layout_constraintStart_toEndOf="@+id/textView89"
+                app:layout_constraintTop_toTopOf="@+id/textView89" />
+
+            <TextView
+                android:id="@+id/textView91"
+                style="@style/textoDescritivo"
+                android:layout_marginTop="16dp"
+                android:text="@string/categoriasRisco_"
+                app:layout_constraintStart_toStartOf="@+id/textView88"
+                app:layout_constraintTop_toBottomOf="@+id/textView89" />
+
+            <TextView
+                android:id="@+id/textView92"
+                style="@style/textoDetalhe"
+                android:layout_marginStart="16dp"
+                android:text="@{questao.obterUt1_CategoriasRisco()}"
+                app:layout_constraintStart_toEndOf="@+id/textView91"
+                app:layout_constraintTop_toTopOf="@+id/textView91" />
+
+            <TextView
+                android:id="@+id/textView93"
+                style="@style/textoDescritivo"
+                android:layout_marginTop="16dp"
+                android:text="@string/locaisRisco_"
+                app:layout_constraintStart_toStartOf="@+id/textView88"
+                app:layout_constraintTop_toBottomOf="@+id/textView91" />
+
+            <TextView
+                android:id="@+id/textView94"
+                style="@style/textoDetalhe"
+                android:layout_marginStart="16dp"
+                android:text="@{questao.obterUt1_Locais()}"
+                app:layout_constraintStart_toEndOf="@+id/textView93"
+                app:layout_constraintTop_toTopOf="@+id/textView93" />
+
+
+            <at.markushi.ui.CircleButton
+                android:id="@+id/crl_btn_pergunta_1"
+                style="@style/btnEditar"
+                android:layout_marginEnd="32dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout17" />
+
+
+            <LinearLayout
+                android:id="@+id/linearLayout18"
+                android:layout_width="match_parent"
+                android:layout_height="42dp"
+                android:layout_gravity="center_vertical"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="32dp"
+                android:background="@color/cor_separador"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/textView88"
+                app:layout_constraintTop_toBottomOf="@+id/textView93">
+
+
+                <TextView
+                    style="@style/txt_rotulo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:paddingLeft="20dp"
+                    android:text="@string/ut2" />
+
+
+            </LinearLayout>
+
+
+            <TextView
+                android:id="@+id/textView891"
+                style="@style/textoDescritivo"
+                android:layout_marginTop="16dp"
+                android:text="@string/ut_"
+                app:layout_constraintStart_toStartOf="@+id/textView88"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout18" />
+
+            <TextView
+                android:id="@+id/textView901"
+                style="@style/textoDetalhe"
+                android:layout_marginStart="16dp"
+                android:text="@{questao.ut2}"
+                app:layout_constraintStart_toEndOf="@+id/textView891"
+                app:layout_constraintTop_toTopOf="@+id/textView891" />
+
+            <TextView
+                android:id="@+id/textView911"
+                style="@style/textoDescritivo"
+                android:layout_marginTop="16dp"
+                android:text="@string/categoriasRisco_"
+                app:layout_constraintStart_toStartOf="@+id/textView88"
+                app:layout_constraintTop_toBottomOf="@+id/textView891" />
+
+            <TextView
+                android:id="@+id/textView921"
+                style="@style/textoDetalhe"
+                android:layout_marginStart="16dp"
+                android:text="@{questao.obterUt2_CategoriasRisco()}"
+                app:layout_constraintStart_toEndOf="@+id/textView911"
+                app:layout_constraintTop_toTopOf="@+id/textView911" />
+
+            <TextView
+                android:id="@+id/textView931"
+                style="@style/textoDescritivo"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:text="@string/locaisRisco_"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/textView88"
+                app:layout_constraintTop_toBottomOf="@+id/textView911" />
+
+            <TextView
+                android:id="@+id/textView941"
+                style="@style/textoDetalhe"
+                android:layout_marginStart="16dp"
+                android:text="@{questao.obterUt2_Locais()}"
+                app:layout_constraintStart_toEndOf="@+id/textView931"
+                app:layout_constraintTop_toTopOf="@+id/textView931" />
+
+
+            <at.markushi.ui.CircleButton
+                android:id="@+id/crl_btn_pergunta_2"
+                style="@style/btnEditar"
+                android:layout_marginEnd="32dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout18" />
+
+
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+    </androidx.cardview.widget.CardView>
+
+
+    <!--
+    </LinearLayout>
+
+    -->
+
+
+
+</layout>

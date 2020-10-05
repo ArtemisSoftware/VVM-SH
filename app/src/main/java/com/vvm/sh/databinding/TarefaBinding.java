@@ -1,6 +1,7 @@
 package com.vvm.sh.databinding;
 
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import androidx.databinding.BindingAdapter;
@@ -8,6 +9,7 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.jaredrummler.materialspinner.MaterialSpinner;
+import com.vvm.sh.R;
 import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.ui.tarefa.adaptadores.OnTarefaListener;
 import com.vvm.sh.ui.tarefa.adaptadores.OpcaoClienteRecyclerAdapter;
@@ -17,6 +19,9 @@ import com.vvm.sh.util.metodos.PreferenciasUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.vvm.sh.util.constantes.Identificadores.App.APP_SA;
+import static com.vvm.sh.util.constantes.Identificadores.App.APP_ST;
 
 public class TarefaBinding {
 
@@ -61,6 +66,33 @@ public class TarefaBinding {
             child.setEnabled(ativar);
         }
     }
+
+
+
+    @BindingAdapter({"banner"})
+    public static void setBanner(ImageView view, int api) {
+
+
+        switch (api){
+
+            case APP_SA:
+                view.setBackgroundResource(R.drawable.sa_banner);
+                break;
+
+
+            case APP_ST:
+                view.setBackgroundResource(R.drawable.st_banner);
+                break;
+
+            default:
+                break;
+
+        }
+
+
+
+    }
+
 
 
     @BindingAdapter({"tipos_", "email"})

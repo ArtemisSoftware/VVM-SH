@@ -244,13 +244,13 @@ Classes redefined (0 events):
 No events
 
 Internal exceptions (10 events):
-Event: 12.354 Thread 0x000000001895f000 Exception <a 'java/lang/ClassNotFoundException': org/gradle/api/DefaultTaskBeanInfo> (0x00000000e10178d0) thrown at [D:\src\AOSP-openjdk-cygwin\jdk8u\hotspot\src\share\vm\classfile\systemDictionary.cpp, line 210]
-Event: 12.355 Thread 0x000000001895f000 Exception <a 'java/lang/ClassNotFoundException': org/gradle/api/internal/AbstractTaskBeanInfo> (0x00000000e10459e8) thrown at [D:\src\AOSP-openjdk-cygwin\jdk8u\hotspot\src\share\vm\classfile\systemDictionary.cpp, line 210]
-Event: 12.356 Thread 0x000000001895f000 Exception <a 'java/lang/ClassNotFoundException': org/gradle/api/internal/AbstractTaskCustomizer> (0x00000000e10747b8) thrown at [D:\src\AOSP-openjdk-cygwin\jdk8u\hotspot\src\share\vm\classfile\systemDictionary.cpp, line 210]
-Event: 12.361 Thread 0x000000001895f000 Exception <a 'java/lang/ClassNotFoundException': org/gradle/api/DefaultTaskCustomizer> (0x00000000e10fd2e8) thrown at [D:\src\AOSP-openjdk-cygwin\jdk8u\hotspot\src\share\vm\classfile\systemDictionary.cpp, line 210]
-Event: 12.362 Thread 0x000000001895f000 Exception <a 'java/lang/ClassNotFoundException': org/gradle/api/internal/ConventionTaskCustomizer> (0x00000000e113b700) thrown at [D:\src\AOSP-openjdk-cygwin\jdk8u\hotspot\src\share\vm\classfile\systemDictionary.cpp, line 210]
-Event: 12.365 Thread 0x000000001895f000 Exception <a 'java/lang/ClassNotFoundException': org/gradle/api/tasks/DeleteCustomizer> (0x00000000e11770c8) thrown at [D:\src\AOSP-openjdk-cygwin\jdk8u\hotspot\src\share\vm\classfile\systemDictionary.cpp, line 210]
-Event: 12.367 Thread 0x000000001895f000 Exception <a 'java/lang/ClassNotFoundException': org/gradle/api/tasks/Delete_DecoratedCustomizer> (0x00000000e11bfd00) thrown at [D:\src\AOSP-openjdk-cygwin\jdk8u\hotspot\src\share\vm\classfile\systemDictionary.cpp, line 210]
+Event: 12.354 Thread 0x000000001895f000 Exception <a 'java/lang/ClassNotFoundException': org/gradle/apiSA/DefaultTaskBeanInfo> (0x00000000e10178d0) thrown at [D:\src\AOSP-openjdk-cygwin\jdk8u\hotspot\src\share\vm\classfile\systemDictionary.cpp, line 210]
+Event: 12.355 Thread 0x000000001895f000 Exception <a 'java/lang/ClassNotFoundException': org/gradle/apiSA/internal/AbstractTaskBeanInfo> (0x00000000e10459e8) thrown at [D:\src\AOSP-openjdk-cygwin\jdk8u\hotspot\src\share\vm\classfile\systemDictionary.cpp, line 210]
+Event: 12.356 Thread 0x000000001895f000 Exception <a 'java/lang/ClassNotFoundException': org/gradle/apiSA/internal/AbstractTaskCustomizer> (0x00000000e10747b8) thrown at [D:\src\AOSP-openjdk-cygwin\jdk8u\hotspot\src\share\vm\classfile\systemDictionary.cpp, line 210]
+Event: 12.361 Thread 0x000000001895f000 Exception <a 'java/lang/ClassNotFoundException': org/gradle/apiSA/DefaultTaskCustomizer> (0x00000000e10fd2e8) thrown at [D:\src\AOSP-openjdk-cygwin\jdk8u\hotspot\src\share\vm\classfile\systemDictionary.cpp, line 210]
+Event: 12.362 Thread 0x000000001895f000 Exception <a 'java/lang/ClassNotFoundException': org/gradle/apiSA/internal/ConventionTaskCustomizer> (0x00000000e113b700) thrown at [D:\src\AOSP-openjdk-cygwin\jdk8u\hotspot\src\share\vm\classfile\systemDictionary.cpp, line 210]
+Event: 12.365 Thread 0x000000001895f000 Exception <a 'java/lang/ClassNotFoundException': org/gradle/apiSA/tasks/DeleteCustomizer> (0x00000000e11770c8) thrown at [D:\src\AOSP-openjdk-cygwin\jdk8u\hotspot\src\share\vm\classfile\systemDictionary.cpp, line 210]
+Event: 12.367 Thread 0x000000001895f000 Exception <a 'java/lang/ClassNotFoundException': org/gradle/apiSA/tasks/Delete_DecoratedCustomizer> (0x00000000e11bfd00) thrown at [D:\src\AOSP-openjdk-cygwin\jdk8u\hotspot\src\share\vm\classfile\systemDictionary.cpp, line 210]
 Event: 13.302 Thread 0x000000001895f000 Exception <a 'java/lang/ClassNotFoundException': build_26fxg11ppogjymnjahoveq6gBeanInfo> (0x00000000e2c8c608) thrown at [D:\src\AOSP-openjdk-cygwin\jdk8u\hotspot\src\share\vm\classfile\systemDictionary.cpp, line 210]
 Event: 13.303 Thread 0x000000001895f000 Exception <a 'java/lang/ClassNotFoundException': build_26fxg11ppogjymnjahoveq6gCustomizer> (0x00000000e2c98228) thrown at [D:\src\AOSP-openjdk-cygwin\jdk8u\hotspot\src\share\vm\classfile\systemDictionary.cpp, line 210]
 Event: 13.671 Thread 0x000000001895f000 Implicit null exception at 0x0000000002ffcf95 to 0x0000000002ffd27d
@@ -258,8 +258,8 @@ Event: 13.671 Thread 0x000000001895f000 Implicit null exception at 0x0000000002f
 Events (10 events):
 Event: 14.438 loading class com/android/prefs/AndroidLocation$AndroidLocationException
 Event: 14.438 loading class com/android/prefs/AndroidLocation$AndroidLocationException done
-Event: 14.439 loading class org/gradle/api/Project
-Event: 14.439 loading class org/gradle/api/Project done
+Event: 14.439 loading class org/gradle/apiSA/Project
+Event: 14.439 loading class org/gradle/apiSA/Project done
 Event: 14.440 loading class com/android/prefs/AndroidLocation
 Event: 14.440 loading class com/android/prefs/AndroidLocation done
 Event: 14.441 loading class com/android/prefs/AndroidLocation$Global
@@ -347,6 +347,6 @@ Memory: 4k page, physical 8315244k(470260k free), swap 33481068k(3224k free)
 vm_info: OpenJDK 64-Bit Server VM (25.202-b03) for windows-amd64 JRE (1.8.0_202-release-1483-b03), built by "builder" with MS VC++ 10.0 (VS2010)
 
 time: Thu Mar 05 14:18:47 2020
-timezone: Hora padrão de GMT
+timezone: Hora padrï¿½o de GMT
 elapsed time: 14 seconds (0d 0h 0m 14s)
 

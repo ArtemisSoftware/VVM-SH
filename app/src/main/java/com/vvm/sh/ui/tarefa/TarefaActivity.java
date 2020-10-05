@@ -14,9 +14,14 @@ import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.anomalias.AnomaliasActivity;
 import com.vvm.sh.ui.atividadesExecutadas.AtividadesExecutadasActivity;
 import com.vvm.sh.ui.atividadesPendentes.AtividadesPendentesActivity;
+import com.vvm.sh.ui.planoAccao.PlanoAccaoActivity;
+import com.vvm.sh.ui.registoVisita.RegistoVisitaActivity;
 import com.vvm.sh.ui.cliente.InformacaoActivity;
+import com.vvm.sh.ui.cliente.SinistralidadeActivity;
 import com.vvm.sh.ui.crossSelling.CrossSellingActivity;
 import com.vvm.sh.ui.ocorrencias.OcorrenciasActivity;
+import com.vvm.sh.ui.parqueExtintores.ExtintoresActivity;
+import com.vvm.sh.ui.quadroPessoal.QuadroPessoalActivity;
 import com.vvm.sh.ui.tarefa.adaptadores.OnTarefaListener;
 import com.vvm.sh.ui.tarefa.modelos.OpcaoCliente;
 import com.vvm.sh.util.constantes.Identificadores;
@@ -97,15 +102,33 @@ public class TarefaActivity extends BaseDaggerActivity
                 intent = new Intent(this, CrossSellingActivity.class);
                 break;
 
-//            case OpcaoClienteRecyclerAdapter.OPCAO_SINISTRALIDADE:
-//
-//                intent = new Intent(this, SinistralidadeActivity.class);
-//                break;
-//
-//            case OpcaoClienteRecyclerAdapter.OPCAO_EXTINTORES:
-//
-//                intent = new Intent(this, ExtintoresActivity.class);
-//                break;
+            case Identificadores.OpcoesCliente.OPCAO_SINISTRALIDADE:
+
+                intent = new Intent(this, SinistralidadeActivity.class);
+                break;
+
+
+            case Identificadores.OpcoesCliente.OPCAO_PARQUE_EXTINTORES:
+
+                intent = new Intent(this, ExtintoresActivity.class);
+                break;
+
+
+            case Identificadores.OpcoesCliente.OPCAO_QUADRO_PESSOAL:
+
+                intent = new Intent(this, QuadroPessoalActivity.class);
+                break;
+
+            case Identificadores.OpcoesCliente.OPCAO_REGISTO_VISITA:
+
+                intent = new Intent(this, RegistoVisitaActivity.class);
+                break;
+
+
+            case Identificadores.OpcoesCliente.OPCAO_PLANO_ACAO:
+
+                intent = new Intent(this, PlanoAccaoActivity.class);
+                break;
 
             case Identificadores.OpcoesCliente.OPCAO_EMAIL:
 

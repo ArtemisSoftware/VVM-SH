@@ -12,16 +12,22 @@ import com.vvm.sh.baseDados.entidades.Anomalia;
 import com.vvm.sh.baseDados.entidades.AtividadeExecutada;
 import com.vvm.sh.baseDados.entidades.AtividadePendente;
 import com.vvm.sh.baseDados.entidades.Cliente;
+import com.vvm.sh.baseDados.entidades.Colaborador;
 import com.vvm.sh.baseDados.entidades.CrossSellingResultado;
 import com.vvm.sh.baseDados.entidades.ImagemResultado;
+import com.vvm.sh.baseDados.entidades.Morada;
 import com.vvm.sh.baseDados.entidades.Ocorrencia;
 import com.vvm.sh.baseDados.entidades.OcorrenciaHistorico;
+import com.vvm.sh.baseDados.entidades.ParqueExtintor;
+import com.vvm.sh.baseDados.entidades.PlanoAcao;
+import com.vvm.sh.baseDados.entidades.PlanoAcaoAtividade;
 import com.vvm.sh.baseDados.entidades.Resultado;
 import com.vvm.sh.baseDados.entidades.EmailResultado;
 import com.vvm.sh.baseDados.entidades.Tarefa;
 import com.vvm.sh.baseDados.entidades.AnomaliaResultado;
 import com.vvm.sh.baseDados.entidades.OcorrenciaResultado;
 import com.vvm.sh.baseDados.entidades.AcaoFormacaoResultado;
+import com.vvm.sh.baseDados.entidades.TipoExtintor;
 import com.vvm.sh.ui.transferencias.modelos.Pendencia;
 import com.vvm.sh.ui.transferencias.modelos.Upload;
 import com.vvm.sh.util.constantes.Identificadores;
@@ -176,11 +182,34 @@ abstract public class TransferenciasDao implements BaseDao<Resultado> {
     abstract public List<Long> inserir(List<OcorrenciaHistorico> registos);
 
 
+
+    @Insert
+    abstract public List<Long> inserirMoradas(List<Morada> registos);
+
+    @Insert
+    abstract public List<Long> inserirTipoExtintor(List<TipoExtintor> registos);
+
+    @Insert
+    abstract public List<Long> inserirParqueExtintores(List<ParqueExtintor> registos);
+
+    @Insert
+    abstract public List<Long>  inserirQuadroPessoal(List<Colaborador> registos);
+
+
+    @Insert
+    abstract public Long inserirPlanoAcao(PlanoAcao registo);
+
+    @Insert
+    abstract public List<Long>  inserirPlanoAtividades(List<PlanoAcaoAtividade> registos);
+
+
+
     @Query("DELETE FROM tarefas WHERE idTarefa = :idTarefa")
     abstract public void removerTarefa(int idTarefa);
 
 
     @Query("DELETE FROM tarefas WHERE idTarefa IN(SELECT idTarefa FROM tarefas WHERE idUtilizador = :idUtilizador AND data = :data)")
     abstract public void removerTrabalho(String idUtilizador, long data);
+
 
 }

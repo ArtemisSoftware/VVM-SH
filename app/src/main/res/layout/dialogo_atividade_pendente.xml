@@ -52,6 +52,61 @@
 
         </RadioGroup>
 
+
+
+        <RadioGroup
+            android:id="@+id/rd_gp_avaliacao_riscos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone">
+
+
+            <RadioButton android:id="@+id/rd_btn_risco_processo_produtivo"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:text="@string/processoProdutivo" />
+
+            <RadioButton android:id="@+id/rd_btn_risco_vulnerabilidades"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:text="@string/trabalhadoresVulneraveis" />
+
+            <RadioButton android:id="@+id/rd_btn_risco_verificacao_equipamentos"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:text="@string/equipamentosTrabalho" />
+
+            <RadioButton android:id="@+id/rd_btn_risco_checklist"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:text="@string/avaliacaoCondicoesST" />
+
+            <RadioButton android:id="@+id/rd_btn_risco_levantamento"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:text="@string/avaliacaoRiscos" />
+
+
+
+
+
+            <RadioButton android:id="@+id/rd_btn_capa_relatorio"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:text="@string/adicionarCapaRelatorio"/>
+
+
+            <RadioButton android:id="@+id/rd_btn_av_plano_acao"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:text="@string/planoAcao" />
+
+
+        </RadioGroup>
+
+
+
+
     </LinearLayout>
 
 

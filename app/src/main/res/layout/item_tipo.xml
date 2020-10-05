@@ -51,7 +51,7 @@
             <TextView
                 android:id="@+id/textView2"
                 style="@style/textoDetalhe"
-                android:text="@string/numero_de_registos_"
+                android:text="@string/numero_de_registos_sa_"
                 android:layout_marginTop="18dp"
                 app:layout_constraintStart_toStartOf="@+id/textView"
                 app:layout_constraintTop_toBottomOf="@+id/textView" />
@@ -60,19 +60,19 @@
                 android:id="@+id/textView3"
                 style="@style/textoDetalhe"
                 android:layout_marginStart="16dp"
-                android:text="@{StringUtil.converterString(tipo.numeroRegistos), default=0}"
+                android:text="@{StringUtil.converterString(tipo.numeroRegistosSA), default=0}"
                 app:layout_constraintStart_toEndOf="@+id/textView2"
                 app:layout_constraintTop_toTopOf="@+id/textView2" />
 
             <TextView
                 android:id="@+id/textView4"
                 style="@style/textoDetalhe"
-                android:text="@string/ultima_atualizacao_"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
+                android:text="@string/ultima_atualizacao_"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/textView"
-                app:layout_constraintTop_toBottomOf="@+id/textView2" />
+                app:layout_constraintTop_toBottomOf="@+id/textView78" />
 
             <TextView
                 android:id="@+id/textView5"
@@ -80,6 +80,22 @@
                 android:text="@{DatasUtil.converterData(tipo.atualizacao.seloTemporal, DatasUtil.FORMATO_DD_MM_YYYY__HH_MM_SS), default=data}"
                 app:layout_constraintStart_toStartOf="@+id/textView3"
                 app:layout_constraintTop_toTopOf="@+id/textView4" />
+
+            <TextView
+                android:id="@+id/textView78"
+                style="@style/textoDetalhe"
+                android:layout_marginTop="8dp"
+                android:text="@string/numero_de_registos_st_"
+                app:layout_constraintStart_toStartOf="@+id/textView"
+                app:layout_constraintTop_toBottomOf="@+id/textView2" />
+
+            <TextView
+                android:id="@+id/textView79"
+                style="@style/textoDetalhe"
+                android:text="@{StringUtil.converterString(tipo.numeroRegistosSHT), default=0}"
+                app:layout_constraintBottom_toBottomOf="@+id/textView78"
+                app:layout_constraintStart_toStartOf="@+id/textView3"
+                app:layout_constraintTop_toTopOf="@+id/textView78" />
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 

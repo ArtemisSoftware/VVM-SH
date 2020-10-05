@@ -18,6 +18,23 @@ public class IAtividadePendente {
     @SerializedName("DataProg")
     public String dataProgramada;
 
+    @SerializedName("Anuidade")
+    public String anuidade;
+
+
+    @SerializedName("ChecklistAVR")
+    public String idChecklist;
+
+
     @SerializedName("formacao")
     public int formacao;
+
+    @SerializedName("relatorioIluminacao")
+    public int relatorioIluminacao;
+
+    @SerializedName("relatorioTermico")
+    public int relatorioTermico;
+
+    @SerializedName("AvRisco")
+    public int relatorioAvaliacaoRisco;
 }

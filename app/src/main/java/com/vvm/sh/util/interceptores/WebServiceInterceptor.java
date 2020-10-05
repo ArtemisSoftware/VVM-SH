@@ -6,6 +6,7 @@ import com.vvm.sh.api.SegurancaAlimentarApi;
 import com.vvm.sh.api.modelos.pedido.Codigo;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.constantes.Sintaxe;
+import com.vvm.sh.util.excepcoes.MetodoWsInvalidoException;
 import com.vvm.sh.util.excepcoes.RespostaWsInvalidaException;
 import com.vvm.sh.util.metodos.TiposUtil;
 
@@ -32,6 +33,16 @@ public class WebServiceInterceptor implements Interceptor {
         Request pedido = chain.request();
 
         String metodo = TiposUtil.obterMetodo(pedido.url().pathSegments(), pedido.header(Sintaxe.API.METODO_INTERNO));
+
+
+
+        if(pedido.header(Sintaxe.API.API) == null) {
+
+            Gson gson = new GsonBuilder().create();
+            Codigo codigo = new Codigo(Identificadores.CodigosWs.ID_601, Identificadores.CodigosWs.MSG_601);
+            throw new MetodoWsInvalidoException(gson.toJson(codigo, Codigo.class));
+        }
+
         int api = Integer.parseInt(pedido.header(Sintaxe.API.API));
 
         Response resposta = chain.proceed(pedido);

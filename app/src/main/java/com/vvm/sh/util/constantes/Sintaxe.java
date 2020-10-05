@@ -41,6 +41,20 @@ public class Sintaxe {
         public static final String FUNCIONALIDADE = "Funcionalidade";
         public static final String UPLOAD = "Upload";
 
+        public static final String SINISTRALIDADE = "Sinistralidade";
+        public static final String PARQUE_EXTINTOR = "Parque extintor";
+
+
+        public static final String ADMITIDO = "Admitido";
+        public static final String ADMISSAO = "Admissão";
+        public static final String DEMITIDO = "Demitido";
+        public static final String ESTADO_TRANSITADO = "Transitou";
+        public static final String READEMITIDO = "Reademitido";
+        public static final String QUADRO_PESSOAL_INICIAL = "QP inicial";
+        public static final String QUADRO_PESSOAL = "Quadro pessoal";
+        public static final String REGISTO_VISITA = "Registo de visita";
+        public static final String DUPLICAR_REGISTO = "Duplicar registo";
+        public static final String GALERIA = "Galeria";
     }
 
     public class Opcoes{
@@ -80,6 +94,8 @@ public class Sintaxe {
         public static final String SUCESSO_EXPORTAR_BD = "BaseListagem de dados exportada com sucesso: ";
         public static final String SESSAO_EXPIRADA = "A sua sessão expirou";
         public static final String TIPO_NAO_REGISTADO = "O tipo não se encontra registado: ";
+        public static final String TIPO_NAO_REGISTADOS = "Existem tipos não registados";
+        public static final String VALOR_INVALIDO = "Valor inválido";
     }
 
     public class Frases{
@@ -95,6 +111,8 @@ public class Sintaxe {
         public static final String DOWNLOAD_EM_CURSO = "Download em curso.";
         public static final String DOWNLOAD_COMPLETO = "Download completo";
         public static final String DOWNLOAD_INDEFINIDO = "Download com estado indefinido";
+        public static final String DADOS_VALIDADOS_SUCESSO = "Dados validados com sucesso";
+        public static final String DADOS_REMOVIDOS_SUCESSO = "Dados removidos com sucesso";
     }
 
     public class API {

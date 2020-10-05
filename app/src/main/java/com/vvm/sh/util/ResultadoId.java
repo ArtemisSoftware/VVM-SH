@@ -16,7 +16,16 @@ public enum ResultadoId {
 
     CROSS_SELLING(Identificadores.Resultados.ID_CROSS_SELLING, Sintaxe.Palavras.CROSS_SELLING),
 
-    OCORRENCIA(Identificadores.Resultados.ID_OCORRENCIA, Sintaxe.Palavras.OCORRENCIA);
+    OCORRENCIA(Identificadores.Resultados.ID_OCORRENCIA, Sintaxe.Palavras.OCORRENCIA),
+
+    SINISTRALIDADE(Identificadores.Resultados.ID_SINISTRALIDADE, Sintaxe.Palavras.SINISTRALIDADE),
+
+    PARQUE_EXTINTOR(Identificadores.Resultados.ID_PARQUE_EXTINTOR, Sintaxe.Palavras.PARQUE_EXTINTOR),
+
+
+    QUADRO_PESSOAL(Identificadores.Resultados.ID_QUADRO_PESSOAL, Sintaxe.Palavras.QUADRO_PESSOAL),
+
+    REGISTO_VISITA(Identificadores.Resultados.ID_REGISTO_VISITA, Sintaxe.Palavras.REGISTO_VISITA);
 
 
     private final int value;
@@ -46,6 +55,9 @@ public enum ResultadoId {
         registos.add(CROSS_SELLING);
         registos.add(OCORRENCIA);
 
+        registos.add(SINISTRALIDADE);
+        registos.add(PARQUE_EXTINTOR);
+        registos.add(QUADRO_PESSOAL);
 
         for (ResultadoId item: registos) {
 

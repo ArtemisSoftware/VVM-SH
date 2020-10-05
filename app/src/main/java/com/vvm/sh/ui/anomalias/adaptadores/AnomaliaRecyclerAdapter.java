@@ -53,7 +53,7 @@ public class AnomaliaRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.V
         if(registo.obterTipoAnomalia() == Anomalia.TIPO_ANOMALIA) {
             txt_data.setText(registo.obterData());
             txt_contacto.setText(registo.obterContacto());
-            txt_tipo.setText(registo.obterTipo());
+            txt_tipo.setText(registo.obterTipoSA());
         }
         else{
             lnr_lyt_data.setVisibility(View.GONE);

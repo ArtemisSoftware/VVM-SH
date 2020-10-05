@@ -8,11 +8,21 @@ import com.vvm.sh.api.modelos.pedido.IAtividadeExecutada;
 import com.vvm.sh.api.modelos.pedido.IAnomalia;
 import com.vvm.sh.api.modelos.pedido.IAtividadePendente;
 import com.vvm.sh.api.modelos.pedido.ICliente;
+import com.vvm.sh.api.modelos.pedido.IColaborador;
+import com.vvm.sh.api.modelos.pedido.IMorada;
+import com.vvm.sh.api.modelos.pedido.IParqueExtintor;
+import com.vvm.sh.api.modelos.pedido.IPlanoAcao;
 import com.vvm.sh.api.modelos.pedido.ITarefa;
 import com.vvm.sh.api.modelos.pedido.IDados;
 import com.vvm.sh.api.modelos.pedido.IOcorrencia;
 import com.vvm.sh.api.modelos.pedido.ISessao;
+import com.vvm.sh.api.modelos.pedido.ITipoExtintor;
 import com.vvm.sh.baseDados.VvmshBaseDados;
+import com.vvm.sh.baseDados.entidades.Colaborador;
+import com.vvm.sh.baseDados.entidades.Morada;
+import com.vvm.sh.baseDados.entidades.ParqueExtintor;
+import com.vvm.sh.baseDados.entidades.PlanoAcao;
+import com.vvm.sh.baseDados.entidades.PlanoAcaoAtividade;
 import com.vvm.sh.baseDados.entidades.Tarefa;
 import com.vvm.sh.baseDados.entidades.Anomalia;
 import com.vvm.sh.baseDados.entidades.AtividadeExecutada;
@@ -20,6 +30,7 @@ import com.vvm.sh.baseDados.entidades.AtividadePendente;
 import com.vvm.sh.baseDados.entidades.Cliente;
 import com.vvm.sh.baseDados.entidades.Ocorrencia;
 import com.vvm.sh.baseDados.entidades.OcorrenciaHistorico;
+import com.vvm.sh.baseDados.entidades.TipoExtintor;
 import com.vvm.sh.repositorios.TransferenciasRepositorio;
 import com.vvm.sh.util.AtualizacaoUI;
 import com.vvm.sh.util.constantes.Identificadores;
@@ -103,6 +114,7 @@ public class TrabalhoAsyncTask extends AsyncTask<ISessao, Void, Void> {
      */
     protected void inserirTarefas(String data, ISessao.TrabalhoInfo info) {
 
+
         int idTarefa = inserirTarefa (info.tarefas.dados, data);
 
         inserirAtividadesExecutadas(info.tarefas.atividadesExecutadas, idTarefa);
@@ -114,9 +126,151 @@ public class TrabalhoAsyncTask extends AsyncTask<ISessao, Void, Void> {
         inserirOcorrencias(info.tarefas.ocorrencias, idTarefa);
 
         inserirAtividadesPendentes(info.tarefas.atividadesPendentes, idTarefa);
+
+        inserirMoradas(info.tarefas.moradas, info.tarefas.moradasExtintores, idTarefa);
+
+        inserirParqueExtintores(info.tarefas.parqueExtintores, info.tarefas.tiposExtintor, idTarefa);
+
+        inserirQuadroPessoal(info.tarefas.quadroPessoal, idTarefa);
+
+        inserirPlanoAcao(info.tarefas.planoAcao, idTarefa);
+
+
     }
 
 
+    /**
+     * Metodo que permite inserir o plano acao
+     * @param planoAcao os dados do plano acao
+     * @param idTarefa o identificador da tarefa
+     */
+    private void inserirPlanoAcao(IPlanoAcao planoAcao, int idTarefa) {
+
+
+        PlanoAcao registo = DownloadMapping.INSTANCE.map(planoAcao);
+        registo.idTarefa = idTarefa;
+
+        repositorio.inserirPlanoAcao(registo);
+
+
+        List<PlanoAcaoAtividade> registos = new ArrayList<>();
+
+        for(IPlanoAcao.IAtividadePlano IAtividadePlano : planoAcao.atividades){
+
+            PlanoAcaoAtividade item = DownloadMapping.INSTANCE.map(IAtividadePlano);
+            item.idTarefa = idTarefa;
+
+            if(IAtividadePlano.sempreNecessario.equals("x") == false){
+                item.sempreNecessario = 0;
+            }
+            else{
+                item.sempreNecessario = 1;
+            }
+
+
+            if(IAtividadePlano.posicao == null){
+                item.fixo = Identificadores.ID_POSICAO_MEIO;
+            }
+            else {
+
+                if (IAtividadePlano.posicao.equals(Identificadores.PLANO_ACCAO_ATIVIDADE_TOPO) == true) {
+                    item.fixo = Identificadores.ID_POSICAO_TOPO;
+                } else if (IAtividadePlano.posicao.equals(Identificadores.PLANO_ACCAO_ATIVIDADE_FIM) == true) {
+                    item.fixo = Identificadores.ID_POSICAO_FIM;
+                } else {
+                    item.fixo = Identificadores.ID_POSICAO_MEIO;
+                }
+            }
+
+            registos.add(item);
+        }
+
+        repositorio.inserirPlanoAtividades(registos);
+
+    }
+
+
+
+
+    private void inserirQuadroPessoal(List<IColaborador> quadroPessoal, int idTarefa) {
+
+        List<Colaborador> registos = new ArrayList<>();
+
+        for(IColaborador item : quadroPessoal){
+
+            Colaborador registo = DownloadMapping.INSTANCE.map(item);
+            registo.idTarefa = idTarefa;
+            registos.add(registo);
+        }
+
+        repositorio.inserirQuadroPessoal(registos);
+
+    }
+
+
+    /**
+     * Metodo que permite inserir o parque extintores
+     * @param parqueExtintores os dados do parque
+     * @param tiposExtintor os tipos do extintor
+     * @param idTarefa o identificador da tarefa
+     */
+    private void inserirParqueExtintores(List<IParqueExtintor> parqueExtintores, List<ITipoExtintor> tiposExtintor, int idTarefa) {
+
+        List<TipoExtintor> registos = new ArrayList<>();
+
+        for(ITipoExtintor item : tiposExtintor){
+
+            TipoExtintor registo = DownloadMapping.INSTANCE.map(item);
+            registo.idTarefa = idTarefa;
+            registos.add(registo);
+        }
+
+        repositorio.inserirTipoExtintor(registos);
+
+
+        List<ParqueExtintor> registosExtintores = new ArrayList<>();
+
+        for(IParqueExtintor item : parqueExtintores){
+
+            ParqueExtintor registo = DownloadMapping.INSTANCE.map(item);
+            registo.idTarefa = idTarefa;
+            registosExtintores.add(registo);
+        }
+
+        repositorio.inserirParqueExtintores(registosExtintores);
+
+    }
+
+
+    /**
+     * Metodo que permite inserir as moradas
+     * @param moradas dados das moradas
+     * @param moradasExtintores dados das moradas dos extintores
+     * @param idTarefa o identificador da tarefa
+     */
+    private void inserirMoradas(List<IMorada> moradas, List<IMorada> moradasExtintores, int idTarefa) {
+
+        List<Morada> registos = new ArrayList<>();
+
+        for(IMorada morada : moradas){
+
+            Morada registo = DownloadMapping.INSTANCE.map(morada);
+            registo.tipo = Identificadores.Origens.ORIGEM_MORADA;
+            registo.idTarefa = idTarefa;
+            registos.add(registo);
+        }
+
+        for(IMorada morada : moradasExtintores){
+
+            Morada registo = DownloadMapping.INSTANCE.map(morada);
+            registo.tipo = Identificadores.Origens.ORIGEM_MORADA_EXTINTOR;
+            registo.idTarefa = idTarefa;
+            registos.add(registo);
+        }
+        
+        repositorio.inserirMoradas(registos);
+    }
+    
     /**
      * Metodo que permite inserir as atividades pendentes
      * @param atividadesPendentes os dados das atividades pendentes
@@ -129,6 +283,12 @@ public class TrabalhoAsyncTask extends AsyncTask<ISessao, Void, Void> {
         for(IAtividadePendente atividadePendente : atividadesPendentes){
 
             AtividadePendente registo = DownloadMapping.INSTANCE.map(atividadePendente);
+
+            try {
+                registo.idChecklist = Integer.parseInt(atividadePendente.idChecklist);
+            }
+            catch (NumberFormatException e){}
+
             registo.idRelatorio = obterIdRelatorioAtividadePendente(atividadePendente);
             registo.idTarefa = idTarefa;
             registos.add(registo);
@@ -195,6 +355,7 @@ public class TrabalhoAsyncTask extends AsyncTask<ISessao, Void, Void> {
 
         Cliente registo = DownloadMapping.INSTANCE.map(cliente, dados, tarefa);
         registo.idTarefa = idTarefa;
+        registo.emailAutenticado = ConversorUtil.converter_String_Para_Boolean(cliente.emailAutenticado);
 
         repositorio.inserirCliente(registo);
     }
@@ -244,8 +405,17 @@ public class TrabalhoAsyncTask extends AsyncTask<ISessao, Void, Void> {
      */
     private int obterIdRelatorioAtividadePendente(IAtividadePendente atividadePendente){
 
-        if(ConversorUtil.converter_Integer_Para_Boolean(atividadePendente.formacao) == true){
+        if(atividadePendente.formacao == 1){
             return Identificadores.Relatorios.ID_RELATORIO_FORMACAO;
+        }
+        else if(atividadePendente.relatorioIluminacao == 1){
+            return Identificadores.Relatorios.ID_RELATORIO_ILUMINACAO;
+        }
+        if(atividadePendente.relatorioTermico == 1){
+            return Identificadores.Relatorios.ID_RELATORIO_TEMPERATURA_HUMIDADE;
+        }
+        if(atividadePendente.relatorioAvaliacaoRisco == 1){
+            return Identificadores.Relatorios.ID_RELATORIO_AVALIACAO_RISCO;
         }
 
         return Identificadores.Relatorios.SEM_RELATORIO;

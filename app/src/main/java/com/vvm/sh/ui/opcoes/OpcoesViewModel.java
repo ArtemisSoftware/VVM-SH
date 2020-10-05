@@ -5,17 +5,22 @@ import android.os.Handler;
 
 import androidx.lifecycle.MutableLiveData;
 
+import com.vvm.sh.api.modelos.pedido.ITipoChecklist;
 import com.vvm.sh.api.modelos.pedido.ITipoListagem;
 import com.vvm.sh.api.modelos.VersaoApp;
 import com.vvm.sh.repositorios.TiposRepositorio;
 import com.vvm.sh.repositorios.VersaoAppRepositorio;
+import com.vvm.sh.servicos.CarregarTipoAsyncTask;
+import com.vvm.sh.servicos.CarregarTipoChecklistAsyncTask;
+import com.vvm.sh.servicos.CarregarTipoTemplatesAvrAsyncTask;
 import com.vvm.sh.servicos.DownloadApkAsyncTask;
 import com.vvm.sh.servicos.InstalarApkAsyncTask;
 import com.vvm.sh.servicos.AtualizarTipoAsyncTask;
 import com.vvm.sh.ui.opcoes.modelos.ResumoTipo;
+import com.vvm.sh.ui.opcoes.modelos.TemplateAvr;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.constantes.Identificadores;
-import com.vvm.sh.util.metodos.TiposUtil;
+import com.vvm.sh.util.excepcoes.TipoInexistenteException;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import java.util.ArrayList;
@@ -23,7 +28,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import io.reactivex.Observable;
+import io.reactivex.ObservableSource;
 import io.reactivex.Observer;
 import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -57,18 +62,20 @@ public class OpcoesViewModel extends BaseViewModel {
 
 
     //---------------------
-    //Tipos
+    //OBTER
     //---------------------
 
 
+
     /**
-     * Metodo que permite obter um resumo dos tipos existentes
+     * Metodo que permite obter o resumo dos registos existentes
+     * @param tipo o identificador do resumo
      */
-    public void obterTipos(){
+    public void obterResumo(int tipo){
 
         showProgressBar(true);
 
-        tiposRepositorio.obterResumoTipos().toObservable()
+        tiposRepositorio.obterResumoTipos(tipo)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -103,6 +110,11 @@ public class OpcoesViewModel extends BaseViewModel {
 
 
 
+    //---------------------
+    //ATUALIZAR
+    //---------------------
+
+
     /**
      * Metodo que permite atualizar um tipo
      * @param descricao a descricao associada ao tipo
@@ -111,95 +123,237 @@ public class OpcoesViewModel extends BaseViewModel {
 
         showProgressBar(true);
 
-        List<Observable<ITipoListagem>> pedidos = new ArrayList<>();
         List<ITipoListagem> respostas = new ArrayList<>();
 
-        for(String metodo : TiposUtil.obterMetodos(descricao)){
 
-            //TODO: quando houver sht separar os pedidos
-            pedidos.add(tiposRepositorio.obterTipo(metodo).toObservable());
+        try {
+            tiposRepositorio.obterTipo(descricao)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+                            new Observer<ITipoListagem>() {
+                                @Override
+                                public void onSubscribe(Disposable d) {
+                                    disposables.add(d);
+                                }
+
+                                @Override
+                                public void onNext(ITipoListagem iTipoListagem) {
+                                    respostas.add(iTipoListagem);
+                                }
+
+                                @Override
+                                public void onError(Throwable e) {
+                                    showProgressBar(false);
+                                    messagemLiveData.setValue(Recurso.erro(e.getMessage()));
+                                }
+
+                                @Override
+                                public void onComplete() {
+                                    AtualizarTipoAsyncTask servico = new AtualizarTipoAsyncTask(vvmshBaseDados, tiposRepositorio);
+                                    servico.execute(respostas);
+
+                                    showProgressBar(false);
+                                }
+                            }
+                    );
+        } catch (TipoInexistenteException e) {
+            showProgressBar(false);
+            messagemLiveData.setValue(Recurso.erro(e.getMessage()));
         }
 
-        Observable.concat(pedidos)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        new Observer<ITipoListagem>() {
-                            @Override
-                            public void onSubscribe(Disposable d) {
-                                disposables.add(d);
-                            }
 
-                            @Override
-                            public void onNext(ITipoListagem iTipoListagem) {
-                                respostas.add(iTipoListagem);
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-                                showProgressBar(false);
-                                messagemLiveData.setValue(Recurso.erro(e.getMessage()));
-                            }
-
-                            @Override
-                            public void onComplete() {
-                                AtualizarTipoAsyncTask servico = new AtualizarTipoAsyncTask(vvmshBaseDados, tiposRepositorio);
-                                servico.execute(respostas);
-
-                                showProgressBar(false);
-                            }
-                        }
-                );
     }
+
+
+    //---------------------
+    //RECARREGAR
+    //---------------------
+
+
+    /**
+     * Metodo que permite recarregar todos os registos
+     * @param tipo o identificador
+     */
+    public void recarregarRegistos(int tipo){
+
+
+        switch(tipo){
+
+            case Identificadores.Atualizacoes.TIPO:
+
+                recarregarTipos();
+                break;
+
+
+            case Identificadores.Atualizacoes.TEMPLATE:
+
+                recarregarTemplates();
+                break;
+
+            case Identificadores.Atualizacoes.CHECKLIST:
+
+                recarregarChecklist();
+                break;
+
+
+            default:
+                break;
+
+        }
+    }
+
+
+
+
+
+
+
 
 
     /**
      * Metodo que permite recarregar todos os tipos
      */
-    public void recarregarTipos(){
+    private void recarregarTipos(){
 
         showProgressBar(true);
 
         List<ITipoListagem> respostas = new ArrayList<>();
-        List<Observable<ITipoListagem>> pedidos = new ArrayList<>();
 
-        //TODO: fazer algo parecido para SHT
-        for(String metodo : TiposUtil.obterMetodos(Identificadores.App.APP_SA)){
-            pedidos.add(tiposRepositorio.obterTipo(metodo).toObservable());
+
+        try {
+            tiposRepositorio.obterTipos()
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+                            new Observer<ITipoListagem>() {
+                                @Override
+                                public void onSubscribe(Disposable d) {
+                                    disposables.add(d);
+                                }
+
+                                @Override
+                                public void onNext(ITipoListagem iTipoListagem) {
+                                    respostas.add(iTipoListagem);
+                                }
+
+                                @Override
+                                public void onError(Throwable e) {
+                                    showProgressBar(false);
+                                    messagemLiveData.setValue(Recurso.erro(e.getMessage()));
+                                }
+
+                                @Override
+                                public void onComplete() {
+                                    AtualizarTipoAsyncTask servico = new AtualizarTipoAsyncTask(vvmshBaseDados, tiposRepositorio);
+                                    servico.execute(respostas);
+
+                                    showProgressBar(false);
+                                }
+                            }
+
+                    );
+        } catch (TipoInexistenteException e) {
+            showProgressBar(false);
+            messagemLiveData.setValue(Recurso.erro(e.getMessage()));
         }
 
-        Observable.concat(pedidos)
+
+    }
+
+
+    /**
+     * Metodo que permite recarregar templates
+     */
+    private void recarregarTemplates(){
+
+        showProgressBar(true);
+
+        try {
+            tiposRepositorio.obterTemplateAvr()
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+
+
+                            new SingleObserver<TemplateAvr>() {
+                                @Override
+                                public void onSubscribe(Disposable d) {
+                                    disposables.add(d);
+                                }
+
+                                @Override
+                                public void onSuccess(TemplateAvr templateAvr) {
+
+                                    CarregarTipoTemplatesAvrAsyncTask servico = new CarregarTipoTemplatesAvrAsyncTask(vvmshBaseDados, tiposRepositorio);
+                                    servico.execute(templateAvr);
+                                    showProgressBar(false);
+                                }
+
+                                @Override
+                                public void onError(Throwable e) {
+                                    showProgressBar(false);
+                                }
+                            }
+                    );
+        } catch (TipoInexistenteException e) {
+            showProgressBar(false);
+            messagemLiveData.setValue(Recurso.erro(e.getMessage()));
+        }
+    }
+
+
+    /**
+     * Metodo que permite recarregar as checklists
+     */
+    private void recarregarChecklist(){
+
+
+
+        //TODO: na primeira chamada isto pode dar problemas. rever
+
+        showProgressBar(true);
+        List<ITipoChecklist> respostasChecklist = new ArrayList<>();
+
+
+        tiposRepositorio.obterIdChecklists().toObservable()
+                .flatMap(new Function<List<Integer>, ObservableSource<ITipoChecklist>>() {
+                    @Override
+                    public ObservableSource<ITipoChecklist> apply(List<Integer> ids) throws Exception {
+                        return tiposRepositorio.obterChecklists(ids);
+                    }
+                })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        new Observer<ITipoListagem>() {
+
+
+                        new Observer<ITipoChecklist>() {
                             @Override
                             public void onSubscribe(Disposable d) {
                                 disposables.add(d);
                             }
 
                             @Override
-                            public void onNext(ITipoListagem iTipoListagem) {
-                                respostas.add(iTipoListagem);
+                            public void onNext(ITipoChecklist o) {
+                                respostasChecklist.add(o);
                             }
 
                             @Override
                             public void onError(Throwable e) {
                                 showProgressBar(false);
-                                messagemLiveData.setValue(Recurso.erro(e.getMessage()));
                             }
 
                             @Override
                             public void onComplete() {
-                                AtualizarTipoAsyncTask servico = new AtualizarTipoAsyncTask(vvmshBaseDados, tiposRepositorio);
-                                servico.execute(respostas);
+                                CarregarTipoChecklistAsyncTask servico = new CarregarTipoChecklistAsyncTask(vvmshBaseDados, tiposRepositorio);
+                                servico.execute(respostasChecklist);
 
                                 showProgressBar(false);
                             }
                         }
 
                 );
-
     }
 
 

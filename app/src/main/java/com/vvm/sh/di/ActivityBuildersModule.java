@@ -10,12 +10,42 @@ import com.vvm.sh.di.anomalias.AnomaliasViewModelsModule;
 import com.vvm.sh.di.atividadesPendentes.AtividadesPendentesModule;
 import com.vvm.sh.di.atividadesPendentes.AtividadesPendentesScope;
 import com.vvm.sh.di.atividadesPendentes.AtividadesPendentesViewModelsModule;
+import com.vvm.sh.di.atividadesPendentes.avaliacaoAmbiental.AvaliacaoAmbientalModule;
+import com.vvm.sh.di.atividadesPendentes.avaliacaoAmbiental.AvaliacaoAmbientalScope;
+import com.vvm.sh.di.atividadesPendentes.avaliacaoAmbiental.AvaliacaoAmbientalViewModelsModule;
+import com.vvm.sh.di.atividadesPendentes.averiguacao.AveriguacaoModule;
+import com.vvm.sh.di.atividadesPendentes.averiguacao.AveriguacaoScope;
+import com.vvm.sh.di.atividadesPendentes.averiguacao.AveriguacaoViewModelsModule;
+import com.vvm.sh.di.atividadesPendentes.checklist.ChecklistModule;
+import com.vvm.sh.di.atividadesPendentes.checklist.ChecklistScope;
+import com.vvm.sh.di.atividadesPendentes.checklist.ChecklistViewModelsModule;
 import com.vvm.sh.di.atividadesPendentes.formacao.FormacaoModule;
 import com.vvm.sh.di.atividadesPendentes.formacao.FormacaoScope;
 import com.vvm.sh.di.atividadesPendentes.formacao.FormacaoViewModelsModule;
+import com.vvm.sh.di.atividadesPendentes.levantamentos.LevantamentosModule;
+import com.vvm.sh.di.atividadesPendentes.levantamentos.LevantamentosScope;
+import com.vvm.sh.di.atividadesPendentes.levantamentos.LevantamentosViewModelsModule;
+import com.vvm.sh.di.atividadesPendentes.propostaPlanoAcao.PropostaPlanoAcaoModule;
+import com.vvm.sh.di.atividadesPendentes.propostaPlanoAcao.PropostaPlanoAcaoScope;
+import com.vvm.sh.di.atividadesPendentes.propostaPlanoAcao.PropostaPlanoAcaoViewModelsModule;
+import com.vvm.sh.di.atividadesPendentes.trabalhadoresVulneraveis.TrabalhadoresVulneraveisModule;
+import com.vvm.sh.di.atividadesPendentes.trabalhadoresVulneraveis.TrabalhadoresVulneraveisScope;
+import com.vvm.sh.di.atividadesPendentes.trabalhadoresVulneraveis.TrabalhadoresVulneraveisViewModelsModule;
+import com.vvm.sh.di.planoAccao.PlanoAccaoModule;
+import com.vvm.sh.di.planoAccao.PlanoAccaoScope;
+import com.vvm.sh.di.planoAccao.PlanoAccaoViewModelsModule;
+import com.vvm.sh.di.registoVisita.RegistoVisitaModule;
+import com.vvm.sh.di.registoVisita.RegistoVisitaScope;
+import com.vvm.sh.di.registoVisita.RegistoVisitaViewModelsModule;
 import com.vvm.sh.di.ocorrencias.OcorrenciasModule;
 import com.vvm.sh.di.ocorrencias.OcorrenciasScope;
 import com.vvm.sh.di.ocorrencias.OcorrenciasViewModelsModule;
+import com.vvm.sh.di.pesquisa.PesquisaModule;
+import com.vvm.sh.di.pesquisa.PesquisaScope;
+import com.vvm.sh.di.pesquisa.PesquisaViewModelsModule;
+import com.vvm.sh.di.quadroPessoal.QuadroPessoalModule;
+import com.vvm.sh.di.quadroPessoal.QuadroPessoalScope;
+import com.vvm.sh.di.quadroPessoal.QuadroPessoalViewModelsModule;
 import com.vvm.sh.di.tarefa.TarefaModule;
 import com.vvm.sh.di.tarefa.TarefaScope;
 import com.vvm.sh.di.tarefa.TarefaViewModelsModule;
@@ -27,13 +57,50 @@ import com.vvm.sh.ui.atividadesPendentes.relatorios.AcaoFormacaoActivity;
 import com.vvm.sh.ui.atividadesPendentes.DialogoAtividadePendente;
 import com.vvm.sh.ui.atividadesPendentes.DialogoAtividadePendenteExecutada;
 import com.vvm.sh.ui.atividadesPendentes.DialogoAtividadePendenteNaoExecutada;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.DialogoProcessoProdutivo;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.FormacaoActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.FormandoActivity;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.AvaliacaoGeralActivity;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.AvaliacaoIluminacaoRegistoActivity;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.AvaliacoesAmbientaisActivity;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.RelatorioAvaliacaoAmbientalActivity;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.averiguacao.AveriguacaoActivity;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.averiguacao.AveriguacaoListagemActivity;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.averiguacao.DialogoAveriguacao;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.ChecklistActivity;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.ChecklistViewModel;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.DialogoArea;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.DialogoPergunta;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.QuestoesChecklistActivity;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.equipamentos.DialogoEquipamento;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.equipamentos.EquipamentosActivity;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.CategoriasProfissionaisActivity;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.DialogoCategoriasProfissionais;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.LevantamentosActivity;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.PerigoTarefaActivity;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.RiscoRegistoActivity;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.RiscosActivity;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.propostaPlanoAccao.PropostaPlanoAccaoActivity;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.trabalhadoresVulneraveis.TrabalhadorVulneravelRegistoActivity;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.trabalhadoresVulneraveis.TrabalhadoresVulneraveisActivity;
+import com.vvm.sh.ui.pesquisa.PesquisaMedidasActivity;
+import com.vvm.sh.ui.planoAccao.PlanoAccaoActivity;
+import com.vvm.sh.ui.registoVisita.DadosClienteActivity;
+import com.vvm.sh.ui.registoVisita.DialogoTrabalhoRealizado;
+import com.vvm.sh.ui.registoVisita.RegistoVisitaActivity;
+import com.vvm.sh.ui.registoVisita.TrabalhoRealizadoActivity;
 import com.vvm.sh.ui.autenticacao.CarregamentoActivity;
 import com.vvm.sh.ui.autenticacao.PerfilActivity;
+import com.vvm.sh.ui.cliente.SinistralidadeActivity;
+import com.vvm.sh.ui.parqueExtintores.ExtintoresActivity;
 import com.vvm.sh.ui.ocorrencias.OcorrenciasHistoricoActivity;
 import com.vvm.sh.ui.ocorrencias.OcorrenciasRegistoActivity;
 import com.vvm.sh.ui.ocorrencias.RegistarOcorrenciaActivity;
+import com.vvm.sh.ui.pesquisa.PesquisaActivity;
+import com.vvm.sh.ui.quadroPessoal.ColaboradorActivity;
+import com.vvm.sh.ui.quadroPessoal.DialogoColaborador;
+import com.vvm.sh.ui.quadroPessoal.DialogoOpcoesColaborador;
+import com.vvm.sh.ui.quadroPessoal.QuadroPessoalActivity;
 import com.vvm.sh.ui.tarefa.DialogoEmail;
 import com.vvm.sh.ui.tarefa.TarefaActivity;
 import com.vvm.sh.ui.transferencias.DownloadTrabalhoActivity;
@@ -69,6 +136,39 @@ public abstract class ActivityBuildersModule {
             modules = { AutenticacaoViewModelsModule.class, AutenticacaoModule.class }
     )
     abstract AutenticacaoActivity contributeAutenticacaoActivity();
+
+
+
+    @OpcoesScope
+    @ContributesAndroidInjector(
+            modules = { OpcoesViewModelsModule.class, OpcoesModule.class }
+    )
+    abstract AtualizacaoAppActivity contributeAtualizacaoAppActivity();
+
+
+    @OpcoesScope
+    @ContributesAndroidInjector(
+            modules = { OpcoesViewModelsModule.class, OpcoesModule.class }
+    )
+    abstract TiposActivity contributeTiposActivity();
+
+
+    @TransferenciasScope
+    @ContributesAndroidInjector(
+            modules = { TransferenciasViewModelsModule.class, TransferenciasModule.class }
+    )
+    abstract UploadTrabalhoActivity contributeUploadActivity();
+
+
+    @TransferenciasScope
+    @ContributesAndroidInjector(
+            modules = { TransferenciasViewModelsModule.class, TransferenciasModule.class }
+    )
+    abstract DownloadTrabalhoActivity contributeTrabalhoActivity();
+
+
+
+
 
     @AutenticacaoScope
     @ContributesAndroidInjector(
@@ -197,6 +297,17 @@ public abstract class ActivityBuildersModule {
     abstract DialogoAtividadePendenteExecutada contributeDialogoAtividadePendenteExecutada();
 
 
+    @AtividadesPendentesScope
+    @ContributesAndroidInjector(
+            modules = { AtividadesPendentesViewModelsModule.class, AtividadesPendentesModule.class }
+    )
+    abstract DialogoProcessoProdutivo contributeDialogoProcessoProdutivo();
+
+
+    //----------------------
+    //Formacao
+    //----------------------
+
 
     @FormacaoScope
     @ContributesAndroidInjector(
@@ -265,6 +376,158 @@ public abstract class ActivityBuildersModule {
     )
     abstract DownloadTrabalhoActivity contributeTrabalhoActivity();
 
+    @LevantamentosScope
+    @ContributesAndroidInjector(
+            modules = { LevantamentosViewModelsModule.class, LevantamentosModule.class }
+    )
+    abstract DialogoCategoriasProfissionais contributeDialogoCategoriasProfissionais();
+
+
+    @LevantamentosScope
+    @ContributesAndroidInjector(
+            modules = { LevantamentosViewModelsModule.class, LevantamentosModule.class }
+    )
+    abstract RiscosActivity contributeRiscosActivity();
+
+
+    @LevantamentosScope
+    @ContributesAndroidInjector(
+            modules = { LevantamentosViewModelsModule.class, LevantamentosModule.class }
+    )
+    abstract RiscoRegistoActivity contributeRiscoRegistoActivity();
+
+    //----------------------
+    //Pesquisa
+    //----------------------
+
+    @PesquisaScope
+    @ContributesAndroidInjector(
+            modules = { PesquisaViewModelsModule.class, PesquisaModule.class }
+    )
+    abstract PesquisaActivity contributePesquisaActivity();
+
+
+    @PesquisaScope
+    @ContributesAndroidInjector(
+            modules = { PesquisaViewModelsModule.class, PesquisaModule.class }
+    )
+    abstract PesquisaMedidasActivity contributePesquisaMedidasActivity();
+
+    //----------------------
+    //Registo visita
+    //----------------------
+
+
+    @RegistoVisitaScope
+    @ContributesAndroidInjector(
+            modules = { RegistoVisitaViewModelsModule.class, RegistoVisitaModule.class }
+    )
+    abstract RegistoVisitaActivity contributeRegistoVisitaActivity();
+
+
+    @RegistoVisitaScope
+    @ContributesAndroidInjector(
+            modules = { RegistoVisitaViewModelsModule.class, RegistoVisitaModule.class }
+    )
+    abstract DadosClienteActivity contributeDadosClienteActivity();
+
+
+    @RegistoVisitaScope
+    @ContributesAndroidInjector(
+            modules = { RegistoVisitaViewModelsModule.class, RegistoVisitaModule.class }
+    )
+    abstract TrabalhoRealizadoActivity contributeTrabalhoRealizadoActivity();
+
+    @RegistoVisitaScope
+    @ContributesAndroidInjector(
+            modules = { RegistoVisitaViewModelsModule.class, RegistoVisitaModule.class }
+    )
+    abstract DialogoTrabalhoRealizado contributeDialogoTrabalhoRealizado();
+
+
+
+    //----------------------
+    //Trabalhadores vulneraveis
+    //----------------------
+
+    @TrabalhadoresVulneraveisScope
+    @ContributesAndroidInjector(
+            modules = { TrabalhadoresVulneraveisViewModelsModule.class, TrabalhadoresVulneraveisModule.class }
+    )
+    abstract TrabalhadoresVulneraveisActivity contributeTrabalhadoresVulneraveisActivity();
+
+
+    @TrabalhadoresVulneraveisScope
+    @ContributesAndroidInjector(
+            modules = { TrabalhadoresVulneraveisViewModelsModule.class, TrabalhadoresVulneraveisModule.class }
+    )
+    abstract TrabalhadorVulneravelRegistoActivity contributeTrabalhadorVulneravelRegistoActivity();
+
+
+
+    //----------------------
+    //Plano Accao
+    //----------------------
+
+
+    @PlanoAccaoScope
+    @ContributesAndroidInjector(
+            modules = { PlanoAccaoViewModelsModule.class, PlanoAccaoModule.class }
+    )
+    abstract PlanoAccaoActivity contributePlanoAccaoActivity();
+
+
+    //----------------------
+    //Equipamentos
+    //----------------------
+
+    @PesquisaScope
+    @ContributesAndroidInjector(
+            modules = { PesquisaViewModelsModule.class, PesquisaModule.class }
+    )
+    abstract EquipamentosActivity contributeEquipamentosActivity();
+
+    @PesquisaScope
+    @ContributesAndroidInjector(
+            modules = { PesquisaViewModelsModule.class, PesquisaModule.class }
+    )
+    abstract DialogoEquipamento contributeDialogoEquipamento();
+
+
+    //----------------------
+    //Averiguacao
+    //----------------------
+
+
+    @AveriguacaoScope
+    @ContributesAndroidInjector(
+            modules = { AveriguacaoViewModelsModule.class, AveriguacaoModule.class }
+    )
+    abstract AveriguacaoActivity contributeAveriguacaoActivity();
+
+    @AveriguacaoScope
+    @ContributesAndroidInjector(
+            modules = { AveriguacaoViewModelsModule.class, AveriguacaoModule.class }
+    )
+    abstract AveriguacaoListagemActivity contributeAveriguacaoListagemActivity();
+
+    @AveriguacaoScope
+    @ContributesAndroidInjector(
+            modules = { AveriguacaoViewModelsModule.class, AveriguacaoModule.class }
+    )
+    abstract DialogoAveriguacao contributeDialogoAveriguacao();
+
+
+    //----------------------
+    //Proposta plano acao
+    //----------------------
+
+
+    @PropostaPlanoAcaoScope
+    @ContributesAndroidInjector(
+            modules = { PropostaPlanoAcaoViewModelsModule.class, PropostaPlanoAcaoModule.class }
+    )
+    abstract PropostaPlanoAccaoActivity contributePropostaPlanoAccaoActivity();
 
     @TransferenciasScope
     @ContributesAndroidInjector(

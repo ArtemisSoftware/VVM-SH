@@ -102,7 +102,7 @@ public class DownloadTrabalhoActivity extends BaseDaggerActivity {
 
                     case ERRO:
 
-                        dialogo.erro(recurso.messagem, ((Codigo)recurso.dados).mensagem, listenerActivity);
+                        dialogo.erro(recurso, listenerActivity);
                         break;
 
                     default:
@@ -150,7 +150,8 @@ public class DownloadTrabalhoActivity extends BaseDaggerActivity {
 
         if(registos.size() == 0) {
 
-            viewModel.obterTipos(handlerNotificacoesUI);
+            //--viewModel.obterResumo(handlerNotificacoesUI);
+            obterTrabalho();
         }
         else{
 

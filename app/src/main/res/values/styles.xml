@@ -33,6 +33,13 @@
         <item name="android:layout_height">match_parent</item>
     </style>
 
+
+    <style name="caixa">
+        <item name="android:layout_width">300dp</item>
+        <item name="android:layout_height">180dp</item>
+    </style>
+
+
     <!--  #####################FINAL -->
 
     <style name="titulo" parent="viewParent">
@@ -91,6 +98,14 @@
         <item name="android:textStyle">italic</item>
     </style>
 
+    <style name="textoData" parent="viewParent">
+        <item name="android:textSize">@dimen/texto</item>
+        <item name="android:textColor">@color/cor_branco</item>
+        <item name="android:fontFamily">sans-serif-light</item>
+        <item name="android:textStyle">bold</item>
+        <item name="android:gravity">center_vertical|center_horizontal</item>
+    </style>
+
 
 
     <style name="textoInput" parent="TextAppearance.AppCompat.Caption">
@@ -126,6 +141,16 @@
     </style>
 
 
+    <style name="cartaoMini" parent="caixa">
+
+        <item name="android:padding">10dp</item>
+        <item name="android:foreground">?android:attr/selectableItemBackground</item>
+        <item name="android:clickable">true</item>
+        <item name="cardElevation">0dp</item>
+        <item name="android:orientation">vertical</item>
+
+    </style>
+
     <style name="lista" parent="matchParent">
         <item name="android:verticalSpacing">24dp</item>
         <item name="layout_behavior">@string/appbar_scrolling_view_behavior</item>
@@ -134,21 +159,35 @@
 
 
 
-    <style name="btnCalendario">
-        <item name="android:layout_width">64dip</item>
-        <item name="android:layout_height">64dip</item>
-        <item name="cb_color">@color/cor_botao_calendario</item>
-        <item name="cb_pressedRingWidth">8dip</item>
-        <item name="android:src">@drawable/ic_calendario</item>
-    </style>
 
 
     <style name="btnCircular" >
-        <item name="android:background">@drawable/ic_appintro_ripple</item>
-<!--        <item name="android:layout_height">@dimen/appintro2_fab_size</item>-->
-<!--        <item name="android:layout_width">@dimen/appintro2_fab_size</item>-->
-<!--        <item name="android:layout_margin">@dimen/appintro2_fab_margin</item>-->
+        <item name="android:layout_width">64dip</item>
+        <item name="android:layout_height">64dip</item>
+        <item name="cb_pressedRingWidth">8dip</item>
     </style>
+
+    <style name="btnCalendario" parent="btnCircular">
+        <item name="cb_color">@color/cor_botao_calendario</item>
+        <item name="android:src">@drawable/ic_calendario</item>
+    </style>
+
+    <style name="btnPesquisa" parent="btnCircular">
+        <item name="cb_color">@color/cor_azul_2</item>
+        <item name="android:src">@drawable/ic_pesquisa_24dp</item>
+    </style>
+
+    <style name="btnEditar" parent="btnCircular">
+        <item name="cb_color">@color/cor_botao</item>
+        <item name="android:src">@drawable/ic_editar</item>
+    </style>
+
+    <style name="btnLimpar" parent="btnCircular">
+        <item name="cb_color">@color/cor_amarelo</item>
+        <item name="android:src">@drawable/ic_pesquisa_24dp</item>
+    </style>
+
+
 
 
 

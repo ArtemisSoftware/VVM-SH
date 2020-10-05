@@ -1,6 +1,7 @@
 package com.vvm.sh.di.transferencias;
 
 import com.vvm.sh.api.SegurancaAlimentarApi;
+import com.vvm.sh.api.SegurancaTrabalhoApi;
 import com.vvm.sh.baseDados.dao.AtualizacaoDao;
 import com.vvm.sh.baseDados.dao.TipoDao;
 import com.vvm.sh.baseDados.VvmshBaseDados;
@@ -39,9 +40,9 @@ public class TransferenciasModule {
 
     @TransferenciasScope
     @Provides
-    TransferenciasRepositorio provideUploadRepositorio(SegurancaAlimentarApi api, TransferenciasDao transferenciasDao) {
+    TransferenciasRepositorio provideUploadRepositorio(SegurancaAlimentarApi segurancaAlimentarApi, SegurancaTrabalhoApi segurancaTrabalhoApi, TransferenciasDao transferenciasDao) {
 
-        TransferenciasRepositorio repositorio = new TransferenciasRepositorio(api, transferenciasDao);
+        TransferenciasRepositorio repositorio = new TransferenciasRepositorio(segurancaAlimentarApi, segurancaTrabalhoApi, transferenciasDao);
 
         //Timber.d("Providing PokemonRepository: " + repository);
         return repositorio;
@@ -50,9 +51,9 @@ public class TransferenciasModule {
 
     @TransferenciasScope
     @Provides
-    TiposRepositorio provideTiposRepositorio(SegurancaAlimentarApi segurancaAlimentarApi, AtualizacaoDao atualizacaoDao, TipoDao tipoDao) {
+    TiposRepositorio provideTiposRepositorio(SegurancaAlimentarApi segurancaAlimentarApi, SegurancaTrabalhoApi segurancaTrabalhoApi, AtualizacaoDao atualizacaoDao, TipoDao tipoDao) {
 
-        TiposRepositorio repositorio = new TiposRepositorio(segurancaAlimentarApi, atualizacaoDao, tipoDao);
+        TiposRepositorio repositorio = new TiposRepositorio(segurancaAlimentarApi, segurancaTrabalhoApi, atualizacaoDao, tipoDao);
 
         //Timber.d("Providing PokemonRepository: " + repository);
         return repositorio;

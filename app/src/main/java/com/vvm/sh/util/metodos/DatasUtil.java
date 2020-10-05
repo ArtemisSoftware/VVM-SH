@@ -98,6 +98,24 @@ public class DatasUtil {
 
 
 
+    public static Date obterDataAtual_Date(){
+
+        String data = obterDataAtual(FORMATO_DD_MMMM_YYYY);
+        SimpleDateFormat format = new SimpleDateFormat(FORMATO_DD_MMMM_YYYY);
+
+        try {
+            Date dataResultado = format.parse(data);
+            return dataResultado;
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return new Date();
+
+    }
+
+
+
     /**
      * Metodo que permite converter uma data numformato especifico para String
      * @param data a data a converter
@@ -113,6 +131,10 @@ public class DatasUtil {
        DateFormat fmt = new SimpleDateFormat(formato);
        return fmt.format(data.getTime());
 
+    }
+
+    public static Date converterString(String data){
+        return converterString(data, FORMATO_YYYY_MM_DD);
     }
 
 
@@ -143,6 +165,17 @@ public class DatasUtil {
 
     }
 
+
+    public static Date converterData_Date(int ano, int mesDoAno, int diaDoMes){
+
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(ano, mesDoAno, diaDoMes);
+
+        SimpleDateFormat format = new SimpleDateFormat(FORMATO_YYYY_MM_DD);
+        String data = format.format(calendar.getTime());
+
+        return converterString(data,FORMATO_YYYY_MM_DD);
+    }
 
 
     /**
@@ -248,6 +281,10 @@ public class DatasUtil {
      * @return a nova dados
      */
     public static String converterData(long data, String formato) {
+
+        if(data == 0){
+            return Sintaxe.SEM_TEXTO;
+        }
 
         Date resultado = new Date(data);
         SimpleDateFormat formatoData = new SimpleDateFormat(formato);

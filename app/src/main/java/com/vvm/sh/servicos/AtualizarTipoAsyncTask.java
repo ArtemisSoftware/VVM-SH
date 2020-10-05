@@ -9,7 +9,9 @@ import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.repositorios.TiposRepositorio;
 import com.vvm.sh.baseDados.entidades.Atualizacao;
 import com.vvm.sh.baseDados.entidades.Tipo;
+import com.vvm.sh.util.excepcoes.TipoInexistenteException;
 import com.vvm.sh.util.mapeamento.DownloadMapping;
+import com.vvm.sh.util.metodos.TiposUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,14 +42,42 @@ public class AtualizarTipoAsyncTask extends AsyncTask<List<ITipoListagem>, Void,
 
                 try {
 
-                    //TODO: verificar a api
-                    for(ITipoListagem resposta : respostas){
+                    try {
 
-                        Atualizacao atualizacao = DownloadMapping.INSTANCE.map(resposta);
-                        List<Tipo> tipos = obterTipos(resposta);
+                        for (TiposUtil.MetodoApi metodo : TiposUtil.obterMetodos()){
 
-                        repositorio.atualizarTipo(atualizacao, tipos);
+                            Atualizacao atualizacao = null;
+                            List<ITipoListagem> registos = new ArrayList<>();
+
+                            for (ITipoListagem tipo : respostas) {
+
+                                if(tipo.metodo.equals(metodo.descricao) == true){
+
+                                    atualizacao = DownloadMapping.INSTANCE.map(tipo);
+                                    registos.add(tipo);
+                                }
+                            }
+
+
+                            if(atualizacao != null) {
+
+                                List<Tipo> tipos = new ArrayList<>();
+
+                                for (ITipoListagem resposta : registos) {
+                                    tipos.addAll(obterTipos(resposta));
+                                }
+
+                                repositorio.atualizarTipo(atualizacao, tipos);
+                            }
+
+                        }
                     }
+                    catch (TipoInexistenteException throwable) {
+                        errorMessage = throwable.getMessage();
+                    }
+
+
+
 
                 }
                 catch(SQLiteConstraintException throwable){

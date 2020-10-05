@@ -2,9 +2,10 @@ package com.vvm.sh.ui.tarefa;
 
 import androidx.lifecycle.MutableLiveData;
 
+import com.vvm.sh.baseDados.entidades.ParqueExtintorResultado;
+import com.vvm.sh.baseDados.entidades.SinistralidadeResultado;
 import com.vvm.sh.repositorios.TarefaRepositorio;
-import com.vvm.sh.servicos.ResultadoAsyncTask;
-import com.vvm.sh.baseDados.entidades.Resultado;
+import com.vvm.sh.ui.parqueExtintores.modelos.ExtintorRegisto;
 import com.vvm.sh.ui.tarefa.modelos.TarefaDia;
 import com.vvm.sh.baseDados.entidades.AtividadeExecutada;
 import com.vvm.sh.baseDados.entidades.Tipo;
@@ -12,17 +13,25 @@ import com.vvm.sh.baseDados.entidades.EmailResultado;
 import com.vvm.sh.ui.tarefa.modelos.OpcaoCliente;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.ResultadoId;
+import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.constantes.TiposConstantes;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
 
+import io.reactivex.Completable;
+import io.reactivex.CompletableObserver;
+import io.reactivex.MaybeObserver;
+import io.reactivex.Observable;
 import io.reactivex.Observer;
+import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.BiFunction;
 import io.reactivex.schedulers.Schedulers;
 
 public class TarefaViewModel extends BaseViewModel {
@@ -34,6 +43,9 @@ public class TarefaViewModel extends BaseViewModel {
     public MutableLiveData<List<OpcaoCliente>> opcoesCliente;
     public MutableLiveData<List<Tipo>> opcoesEmail;
 
+    public MutableLiveData<SinistralidadeResultado> sinistralidade;
+    public MutableLiveData<List<ExtintorRegisto>> extintores;
+    public MutableLiveData<Integer> estatistica;
 
 
     @Inject
@@ -44,7 +56,9 @@ public class TarefaViewModel extends BaseViewModel {
         opcoesCliente = new MutableLiveData<>();
         opcoesEmail = new MutableLiveData<>();
         atividadesExecutadas = new MutableLiveData<>();
-
+        sinistralidade = new MutableLiveData<>();
+        extintores = new MutableLiveData<>();
+        estatistica = new MutableLiveData<>();
     }
 
 
@@ -120,10 +134,177 @@ public class TarefaViewModel extends BaseViewModel {
                     );
         }
 
+        gravarResultado(tarefaRepositorio.resultadoDao, email.idTarefa, ResultadoId.EMAIL);
 
-        ResultadoAsyncTask servico = new ResultadoAsyncTask(vvmshBaseDados, tarefaRepositorio.resultadoDao);
-        servico.execute(new Resultado(email.idTarefa, ResultadoId.EMAIL));
     }
+
+
+    /**
+     * Metodo que permite gravar uma sinistralidade
+     * @param sinistralidade os dados a gravar
+     */
+    public void gravarSinistralidade(SinistralidadeResultado sinistralidade) {
+
+        showProgressBar(true);
+
+        if(this.sinistralidade.getValue() == null){
+            tarefaRepositorio.inserir(sinistralidade)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+                            new SingleObserver<Long>() {
+                                @Override
+                                public void onSubscribe(Disposable d) {
+                                    disposables.add(d);
+                                }
+
+                                @Override
+                                public void onSuccess(Long aLong) {
+                                    messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_GRAVADOS_SUCESSO));
+                                    showProgressBar(false);
+                                }
+
+                                @Override
+                                public void onError(Throwable e) {
+                                    messagemLiveData.setValue(Recurso.erro(e.getMessage()));
+                                    showProgressBar(false);
+                                }
+                            }
+                    );
+        }
+        else{
+            tarefaRepositorio.atualizar(sinistralidade)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+                            new SingleObserver<Integer>() {
+                                @Override
+                                public void onSubscribe(Disposable d) {
+                                    disposables.add(d);
+                                }
+
+                                @Override
+                                public void onSuccess(Integer integer) {
+                                    messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_EDITADOS_SUCESSO));
+                                    showProgressBar(false);
+                                }
+
+                                @Override
+                                public void onError(Throwable e) {
+                                    messagemLiveData.setValue(Recurso.erro(e.getMessage()));
+                                    showProgressBar(false);
+                                }
+                            }
+                    );
+        }
+
+        gravarResultado(tarefaRepositorio.resultadoDao, sinistralidade.idTarefa, ResultadoId.SINISTRALIDADE);
+    }
+
+
+
+
+    /**
+     * Metodo que permite gravar um extintor
+     * @param registo os dados do extintor
+     * @param data a nova data de validade do extintor
+     */
+    public void gravarExtintor(ExtintorRegisto registo, Date data) {
+
+        ParqueExtintorResultado resultado = new ParqueExtintorResultado(registo.parqueExtintor.id, data);
+
+        if(registo.resultado == null){
+
+            tarefaRepositorio.inserir(resultado)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+
+                            new SingleObserver<Long>() {
+                                @Override
+                                public void onSubscribe(Disposable d) {
+                                    disposables.add(d);
+                                }
+
+                                @Override
+                                public void onSuccess(Long aLong) {
+                                    messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_GRAVADOS_SUCESSO));
+                                }
+
+                                @Override
+                                public void onError(Throwable e) {
+
+                                }
+                            }
+
+                    );
+        }
+        else{
+            tarefaRepositorio.atualizar(resultado)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+
+                            new SingleObserver<Integer>() {
+                                @Override
+                                public void onSubscribe(Disposable d) {
+                                    disposables.add(d);
+                                }
+
+                                @Override
+                                public void onSuccess(Integer integer) {
+                                    messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_EDITADOS_SUCESSO));
+                                }
+
+                                @Override
+                                public void onError(Throwable e) {
+
+                                }
+                            }
+
+                    );
+        }
+
+        gravarResultado(tarefaRepositorio.resultadoDao, registo.parqueExtintor.idTarefa, ResultadoId.PARQUE_EXTINTOR);
+    }
+
+
+    /**
+     * Metodo que permite validar os extintores
+     * @param idTarefa o identificador da tarefa
+     */
+    public void validarExtintores(int idTarefa) {
+
+        showProgressBar(true);
+
+        Completable.concatArray(tarefaRepositorio.atualizarValidacao(idTarefa), tarefaRepositorio.inserirValicao(idTarefa))
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new CompletableObserver() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onComplete() {
+                                messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_VALIDADOS_SUCESSO));
+                                gravarResultado(tarefaRepositorio.resultadoDao, idTarefa, ResultadoId.PARQUE_EXTINTOR);
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                showProgressBar(false);
+                            }
+                        }
+
+                );
+
+    }
+
 
 
 
@@ -225,6 +406,93 @@ public class TarefaViewModel extends BaseViewModel {
     }
 
 
+    /**
+     * Metodo que permite obter a sinistralidade
+     * @param idTarefa o identificador da tarefa
+     */
+    public void obterSinistralidade(int idTarefa) {
+
+        showProgressBar(true);
+
+        tarefaRepositorio.obterSinistralidade(idTarefa)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new MaybeObserver<SinistralidadeResultado>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onSuccess(SinistralidadeResultado sinistralidadeResultado) {
+                                sinistralidade.setValue(sinistralidadeResultado);
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onComplete() {
+                                showProgressBar(false);
+                            }
+                        }
+                );
+    }
+
+
+    public void obterExtintores(int idTarefa) {
+
+        estatistica.setValue(0);
+
+        showProgressBar(true);
+
+        Observable.zip(tarefaRepositorio.obterExtintores(idTarefa).toObservable(), tarefaRepositorio.obterEstatisticaExtintores(idTarefa),
+                new BiFunction<List<ExtintorRegisto>, Integer, ParqueExtintor>() {
+                    @Override
+                    public ParqueExtintor apply(List<ExtintorRegisto> registos, Integer estatistica) throws Exception {
+
+                        ParqueExtintor registo = new ParqueExtintor();
+                        registo.estatistica = estatistica;
+                        registo.registos = registos;
+                        return registo;
+                    }
+                })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new Observer<ParqueExtintor>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onNext(ParqueExtintor resultado) {
+                                extintores.setValue(resultado.registos);
+                                estatistica.setValue(resultado.estatistica);
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onComplete() {
+                                showProgressBar(false);
+                            }
+                        }
+
+                );
+    }
+
 
     //--------------------
     //Misc
@@ -240,6 +508,11 @@ public class TarefaViewModel extends BaseViewModel {
         items.add(OpcaoCliente.informacao());
         items.add(OpcaoCliente.email());
         items.add(OpcaoCliente.crossSelling());
+        items.add(OpcaoCliente.sinistralidade());
+        items.add(OpcaoCliente.parqueExtintores());
+        items.add(OpcaoCliente.quadroPessoal());
+        items.add(OpcaoCliente.registoVisita());
+        items.add(OpcaoCliente.planoAcao());
 
         opcoesCliente.setValue(items);
     }
@@ -262,5 +535,11 @@ public class TarefaViewModel extends BaseViewModel {
 
 
 
+    private class ParqueExtintor{
+
+        int estatistica;
+        List<ExtintorRegisto> registos;
+
+    }
 
 }

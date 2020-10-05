@@ -1,5 +1,9 @@
 package com.vvm.sh.util.metodos;
 
+import com.vvm.sh.baseDados.entidades.Tipo;
+
+import java.util.List;
+
 public class ConversorUtil {
 
     /**
@@ -21,7 +25,68 @@ public class ConversorUtil {
 
     public static boolean converter_String_Para_Boolean(String valor){
 
+
+        if(valor.equals("0") == true || valor.equals("1") == true){
+            return converter_Integer_Para_Boolean(Integer.parseInt(valor));
+        }
+
         return Boolean.parseBoolean(valor);
     }
+
+    public static int converter_long_Para_int(long valor) {
+
+        Long registo = new Long(valor);
+        return registo.intValue();
+    }
+
+
+
+
+    /**
+     * Metodo que permite obter um vector com os valores NP, NR, NI descricao, NI id
+     * @param nd
+     * @param ne
+     * @param nc
+     * @param ni
+     * @return  um vector [NP, NR, NI descricao, NI id]
+     */
+    public static String [] obterNP_NR_NI(Tipo nd, Tipo ne, Tipo nc, List<Tipo> ni){
+
+        String valores[] = new String[4];
+        int np, nr;
+
+
+        try{
+
+            np = Integer.parseInt(nd.obterDescricao()) * Integer.parseInt(ne.obterDescricao());
+            nr = Integer.parseInt(nc.obterDescricao()) * np;
+
+
+            int index = 0;
+
+            for(int posicao = 0; posicao < ni.size(); ++posicao){
+
+                String limite = ni.get(posicao).detalhe;
+
+                if(nr >= Integer.parseInt(limite.split("-")[0]) & nr <= Integer.parseInt(limite.split("-")[1])){
+                    break;
+                }
+
+                ++index;
+            }
+
+
+            valores[0] = np + "";
+            valores[1] = nr + "";
+            valores[2] =  ni.get(index).descricao;
+            valores[3] = ni.get(index).id + "";
+
+
+        }
+        catch(NumberFormatException e){}
+
+        return valores;
+    }
+
 
 }

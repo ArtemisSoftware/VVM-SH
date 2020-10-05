@@ -28,6 +28,9 @@ abstract public class AtualizacaoDao implements BaseDao<Atualizacao> {
 
 
 
-    @Query("SELECT * FROM atualizacoes ")
+    @Query("SELECT * FROM atualizacoes WHERE descricao")
     abstract public Maybe<List<Atualizacao>> obterAtualizacoes();
+
+
+
 }

@@ -54,7 +54,7 @@
 
                 <ImageView
                     app:layout_collapseMode="parallax"
-                    android:src="@drawable/sa_banner"
+                    banner="@{viewmodel.tarefaDia.tarefa.api}"
                     android:contentDescription="@string/app_name"
                     android:scaleType="centerCrop"
                     android:layout_width="match_parent"

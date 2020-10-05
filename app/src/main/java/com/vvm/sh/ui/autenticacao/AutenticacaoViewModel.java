@@ -14,14 +14,21 @@ import com.vvm.sh.util.mapeamento.DownloadMapping;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
+import java.util.List;
+
 import javax.inject.Inject;
 
+import io.reactivex.MaybeObserver;
+import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
 import io.reactivex.Observer;
+import io.reactivex.Single;
 import io.reactivex.SingleObserver;
+import io.reactivex.SingleSource;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Function;
+import io.reactivex.functions.Predicate;
 import io.reactivex.schedulers.Schedulers;
 
 public class AutenticacaoViewModel extends BaseViewModel {
@@ -49,12 +56,37 @@ public class AutenticacaoViewModel extends BaseViewModel {
 
         showProgressBar(true);
 
-        autenticacaoRepositorio.obterUtilizadores().toObservable()
-                .map(new Function<IUtilizadorListagem, Object>() {
+        autenticacaoRepositorio.obterUtilizadores()
+                .map(new Function<IUtilizadorListagem, Observable<IUtilizador>>() {
                     @Override
-                    public IUtilizador apply(IUtilizadorListagem resposta) throws Exception {
+                    public Observable<IUtilizador> apply(IUtilizadorListagem iUtilizadorListagem) throws Exception {
+                        return  Observable.fromIterable(iUtilizadorListagem.dadosNovos);
+                    }
+                })
+                .flatMap(new Function<Observable<IUtilizador>, ObservableSource<IUtilizador>>() {
+                    @Override
+                    public ObservableSource<IUtilizador> apply(Observable<IUtilizador> iUtilizadorObservable) throws Exception {
+                        return iUtilizadorObservable;
+                    }
+                })
+                .filter(new Predicate<IUtilizador>() {
+                    @Override
+                    public boolean test(IUtilizador iUtilizador) throws Exception {
 
-                        IUtilizador resultado = autenticarUtilizador(resposta, idUtilizador, palavraChave);
+                        if(iUtilizador.id.equals(idUtilizador)){
+                            return true;
+                        }
+
+                        return false;
+                    }
+                })
+
+                .toList()
+                .map(new Function<List<IUtilizador>, IUtilizador>() {
+                    @Override
+                    public IUtilizador apply(List<IUtilizador> resposta) throws Exception {
+
+                        IUtilizador resultado = autenticarUtilizador(resposta, palavraChave);
 
                         if(resultado == null){
                             throw new UtilizadorException(Sintaxe.Alertas.ERRO_AUTENTICACAO);
@@ -63,43 +95,34 @@ public class AutenticacaoViewModel extends BaseViewModel {
                         return resultado;
                     }
                 })
-
-                .flatMap(new Function<Object, ObservableSource<?>>() {
+                .flatMap(new Function<IUtilizador, SingleSource<?>>() {
                     @Override
-                    public ObservableSource<?> apply(Object o) throws Exception {
-
-                        Utilizador utilizador = DownloadMapping.INSTANCE.map((IUtilizador) o);
-                        return autenticacaoRepositorio.inserir(utilizador).toObservable();
-
+                    public SingleSource<?> apply(IUtilizador iUtilizador) throws Exception {
+                        Utilizador utilizador = DownloadMapping.INSTANCE.map((IUtilizador) iUtilizador);
+                        return autenticacaoRepositorio.inserir(utilizador);
                     }
                 })
+
 
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
 
                 .subscribe(
-
-                        new Observer<Object>() {
+                        new SingleObserver<Object>() {
                             @Override
                             public void onSubscribe(Disposable d) {
                                 disposables.add(d);
                             }
 
                             @Override
-                            public void onNext(Object o) {
+                            public void onSuccess(Object o) {
                                 messagemLiveData.setValue(Recurso.successo());
                                 showProgressBar(false);
                             }
 
                             @Override
                             public void onError(Throwable e) {
-
                                 messagemLiveData.setValue(Recurso.erro(e.getMessage()));
-                                showProgressBar(false);
-                            }
-
-                            @Override
-                            public void onComplete() {
                                 showProgressBar(false);
                             }
                         }
@@ -112,26 +135,42 @@ public class AutenticacaoViewModel extends BaseViewModel {
     /**
      * Metodo que permite verificar as credenciais do utilizador
      * @param resposta os dados da api
-     * @param idUtilizador o identificador do utilizador
      * @param palavraChave a palavra chave do utilizador
-     * @return um utilizador
+     * @return  um utilizador
      */
-    private IUtilizador autenticarUtilizador(IUtilizadorListagem resposta, String idUtilizador, String palavraChave){
+    private IUtilizador autenticarUtilizador(List<IUtilizador> resposta, String palavraChave){
 
-        for (IUtilizador registo : resposta.dadosNovos) {
+        IUtilizador utilizador = null;
+        String cap = null, email = null;
+
+        for (IUtilizador registo : resposta) {
 
             String messageDigest = Hasher.Companion.hash(palavraChave, HashType.MD5);
 
-            if(registo.id.equals(idUtilizador) == true & registo.ativo == true & registo.palavraChave.equals(messageDigest) == true){
+            if(registo.ativo == true & registo.palavraChave.equals(messageDigest) == true){
 
-                registo.api = resposta.api;
-                return registo;
+                if(registo.email != null){
+                    email = registo.email;
+                }
+                if(registo.cap != null){
+                    cap = registo.cap;
+                }
+            }
+            else{
+                return null;
             }
         }
 
-        return null;
-    }
+        if(resposta.size() != 0){
+            utilizador = resposta.get(0);
+            utilizador.api = 0;
+            utilizador.email = email;
+            utilizador.cap = cap;
+        }
 
+
+        return utilizador;
+    }
 
     //-----------------------
     //OBTER

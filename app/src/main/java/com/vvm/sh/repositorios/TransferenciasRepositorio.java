@@ -2,6 +2,7 @@ package com.vvm.sh.repositorios;
 
 import androidx.annotation.NonNull;
 
+import com.vvm.sh.api.SegurancaTrabalhoApi;
 import com.vvm.sh.api.modelos.bd.AtividadePendenteBd;
 import com.vvm.sh.api.modelos.bd.FormandoBd;
 import com.vvm.sh.api.SegurancaAlimentarApi;
@@ -12,16 +13,22 @@ import com.vvm.sh.baseDados.entidades.Anomalia;
 import com.vvm.sh.baseDados.entidades.AtividadeExecutada;
 import com.vvm.sh.baseDados.entidades.AtividadePendente;
 import com.vvm.sh.baseDados.entidades.Cliente;
+import com.vvm.sh.baseDados.entidades.Colaborador;
 import com.vvm.sh.baseDados.entidades.CrossSellingResultado;
 import com.vvm.sh.baseDados.entidades.ImagemResultado;
+import com.vvm.sh.baseDados.entidades.Morada;
 import com.vvm.sh.baseDados.entidades.Ocorrencia;
 import com.vvm.sh.baseDados.entidades.OcorrenciaHistorico;
+import com.vvm.sh.baseDados.entidades.ParqueExtintor;
+import com.vvm.sh.baseDados.entidades.PlanoAcao;
+import com.vvm.sh.baseDados.entidades.PlanoAcaoAtividade;
 import com.vvm.sh.baseDados.entidades.Resultado;
 import com.vvm.sh.baseDados.entidades.EmailResultado;
 import com.vvm.sh.baseDados.entidades.Tarefa;
 import com.vvm.sh.baseDados.entidades.AnomaliaResultado;
 import com.vvm.sh.baseDados.entidades.OcorrenciaResultado;
 import com.vvm.sh.baseDados.entidades.AcaoFormacaoResultado;
+import com.vvm.sh.baseDados.entidades.TipoExtintor;
 import com.vvm.sh.ui.transferencias.modelos.Pendencia;
 import com.vvm.sh.ui.transferencias.modelos.Upload;
 
@@ -34,13 +41,15 @@ import io.reactivex.Single;
 public class TransferenciasRepositorio {
 
 
-    private final SegurancaAlimentarApi api;
+    private final SegurancaAlimentarApi apiSA;
+    private final SegurancaTrabalhoApi apiST;
 
     private final TransferenciasDao transferenciasDao;
 
 
-    public TransferenciasRepositorio(@NonNull SegurancaAlimentarApi api, @NonNull TransferenciasDao transferenciasDao) {
-        this.api = api;
+    public TransferenciasRepositorio(@NonNull SegurancaAlimentarApi apiSA, @NonNull SegurancaTrabalhoApi apiST, @NonNull TransferenciasDao transferenciasDao) {
+        this.apiSA = apiSA;
+        this.apiST = apiST;
         this.transferenciasDao = transferenciasDao;
     }
 
@@ -55,7 +64,9 @@ public class TransferenciasRepositorio {
      * @return o trabalho
      */
     public Single<ISessao> obterTrabalho(String idUtilizador) {
-        return api.obterTrabalho(idUtilizador);
+        //TODO: rever isto para poder escolher a api ou as duas
+        //return apiSA.obterTrabalho(SegurancaAlimentarApi.HEADER, idUtilizador);
+        return apiST.obterTrabalho(SegurancaTrabalhoApi.HEADER, idUtilizador);
     }
 
 
@@ -66,7 +77,10 @@ public class TransferenciasRepositorio {
      * @return o trabalho do dia
      */
     public Single<ISessao> obterTrabalho(String idUtilizador, String data) {
-        return api.obterTrabalho(idUtilizador, data);
+
+        //TODO: rever isto para poder escolher a api ou as duas
+        //return apiSA.obterTrabalho(SegurancaAlimentarApi.HEADER, idUtilizador, data);
+        return apiST.obterTrabalho(SegurancaTrabalhoApi.HEADER, idUtilizador, data);
     }
 
 
@@ -79,7 +93,7 @@ public class TransferenciasRepositorio {
      * @return um codigo com o resultado da submissao
      */
     public Single<Codigo> submeterDados(String dados, String idUtilizador, String id, String messageDigest) {
-        return api.submeterDados(dados, idUtilizador, id, messageDigest);
+        return apiSA.submeterDados(dados, idUtilizador, id, messageDigest);
     }
 
     /**
@@ -92,7 +106,7 @@ public class TransferenciasRepositorio {
      * @return um codigo com o resultado da submissao
      */
     public Single<Codigo> submeterImagens(String dados, String idUtilizador, String id, String numeroFicheiro, String messageDigest) {
-        return api.submeterImagens(dados, idUtilizador, id, numeroFicheiro, messageDigest);
+        return apiSA.submeterImagens(dados, idUtilizador, id, numeroFicheiro, messageDigest);
     }
 
 
@@ -289,6 +303,58 @@ public class TransferenciasRepositorio {
 
 
     /**
+     * Metodo que permite inserir as moradas
+     * @param registos os dados a inserir
+     */
+    public void inserirMoradas(List<Morada> registos) {
+        transferenciasDao.inserirMoradas(registos);
+    }
+
+
+    /**
+     * Metodo que permite inserir os tipos extintores
+     * @param registos os dados a inserir
+     */
+    public void inserirTipoExtintor(List<TipoExtintor> registos) {
+        transferenciasDao.inserirTipoExtintor(registos);
+    }
+
+    /**
+     * Metodo que permite inserir o parque extintor
+     * @param registos os dados a inserir
+     */
+    public void inserirParqueExtintores(List<ParqueExtintor> registos) {
+        transferenciasDao.inserirParqueExtintores(registos);
+    }
+
+
+    /**
+     * Metodo que permite inserir o quadro pessoal
+     * @param registos os dados a inserir
+     */
+    public void inserirQuadroPessoal(List<Colaborador> registos) {
+        transferenciasDao.inserirQuadroPessoal(registos);
+    }
+
+    /**
+     * Metodo que permite inserir o plano de acao
+     * @param registo os dados a inserir
+     */
+    public void inserirPlanoAcao(PlanoAcao registo) {
+        transferenciasDao.inserirPlanoAcao(registo);
+    }
+
+    /**
+     * Metodo que permite inserir as atividades do plano de acao
+     * @param registos os dados a inserir
+     */
+    public void inserirPlanoAtividades(List<PlanoAcaoAtividade> registos) {
+        transferenciasDao.inserirPlanoAtividades(registos);
+    }
+
+
+
+    /**
      * Metodo que permite eliminar uma tarefa
      * @param idTarefa o identificador da tarefa
      */
@@ -304,5 +370,7 @@ public class TransferenciasRepositorio {
     public void eliminarTrabalho(String idUtilizador, long data) {
         transferenciasDao.removerTrabalho(idUtilizador, data);
     }
+
+
 
 }

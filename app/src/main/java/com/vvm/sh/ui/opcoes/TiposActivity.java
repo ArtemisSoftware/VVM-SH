@@ -44,7 +44,15 @@ public class TiposActivity extends BaseDaggerActivity
 
         subscreverObservadores();
 
-        viewModel.obterTipos();
+        Bundle bundle = getIntent().getExtras();
+
+        if(bundle != null) {
+
+            viewModel.obterResumo(bundle.getInt(getString(R.string.argumento_id_tipo)));
+        }
+        else{
+            finish();
+        }
 
     }
 
@@ -110,12 +118,14 @@ public class TiposActivity extends BaseDaggerActivity
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
+        Bundle bundle = getIntent().getExtras();
+
         switch (item.getItemId()){
 
 
             case R.id.item_recarregar_geral:
 
-                viewModel.recarregarTipos();
+                viewModel.recarregarRegistos(bundle.getInt(getString(R.string.argumento_id_tipo)));
                 break;
 
             default:

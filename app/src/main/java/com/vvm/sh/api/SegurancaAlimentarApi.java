@@ -53,11 +53,11 @@ public interface SegurancaAlimentarApi {
 
 
     @GET("GetDados")
-    Single<ISessao> obterTrabalho(@Query("strUser") String idUtilizador);
+    Single<ISessao> obterTrabalho(@HeaderMap Map<String, String> headers, @Query("strUser") String idUtilizador);
 
 
     @GET("GetDadosDia")
-    Single<ISessao> obterTrabalho(@Query("strUser") String idUtilizador, @Query("strDia") String data);
+    Single<ISessao> obterTrabalho(@HeaderMap Map<String, String> headers, @Query("strUser") String idUtilizador, @Query("strDia") String data);
 
 
     @FormUrlEncoded

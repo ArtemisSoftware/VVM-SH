@@ -32,7 +32,7 @@ import io.reactivex.functions.BiFunction;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
-@Module
+
 public class FormacaoViewModel extends BaseViewModel {
 
     private final FormacaoRepositorio formacaoRepositorio;

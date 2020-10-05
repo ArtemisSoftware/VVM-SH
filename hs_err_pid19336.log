@@ -244,14 +244,14 @@ Classes redefined (0 events):
 No events
 
 Internal exceptions (10 events):
-Event: 16.020 Thread 0x00000000180f8800 Exception <a 'java/lang/ClassNotFoundException': org/gradle/api/DefaultTaskCustomizer> (0x00000000e0427a08) thrown at [D:\src\AOSP-openjdk-cygwin\jdk8u\hotspot\src\share\vm\classfile\systemDictionary.cpp, line 210]
-Event: 16.024 Thread 0x00000000180f8800 Exception <a 'java/lang/ClassNotFoundException': org/gradle/api/internal/ConventionTaskCustomizer> (0x00000000e0465eb8) thrown at [D:\src\AOSP-openjdk-cygwin\jdk8u\hotspot\src\share\vm\classfile\systemDictionary.cpp, line 210]
-Event: 16.026 Thread 0x00000000180f8800 Exception <a 'java/lang/ClassNotFoundException': org/gradle/api/tasks/DeleteCustomizer> (0x00000000e04a1878) thrown at [D:\src\AOSP-openjdk-cygwin\jdk8u\hotspot\src\share\vm\classfile\systemDictionary.cpp, line 210]
-Event: 16.030 Thread 0x00000000180f8800 Exception <a 'java/lang/ClassNotFoundException': org/gradle/api/tasks/Delete_DecoratedCustomizer> (0x00000000e04ea3f0) thrown at [D:\src\AOSP-openjdk-cygwin\jdk8u\hotspot\src\share\vm\classfile\systemDictionary.cpp, line 210]
+Event: 16.020 Thread 0x00000000180f8800 Exception <a 'java/lang/ClassNotFoundException': org/gradle/apiSA/DefaultTaskCustomizer> (0x00000000e0427a08) thrown at [D:\src\AOSP-openjdk-cygwin\jdk8u\hotspot\src\share\vm\classfile\systemDictionary.cpp, line 210]
+Event: 16.024 Thread 0x00000000180f8800 Exception <a 'java/lang/ClassNotFoundException': org/gradle/apiSA/internal/ConventionTaskCustomizer> (0x00000000e0465eb8) thrown at [D:\src\AOSP-openjdk-cygwin\jdk8u\hotspot\src\share\vm\classfile\systemDictionary.cpp, line 210]
+Event: 16.026 Thread 0x00000000180f8800 Exception <a 'java/lang/ClassNotFoundException': org/gradle/apiSA/tasks/DeleteCustomizer> (0x00000000e04a1878) thrown at [D:\src\AOSP-openjdk-cygwin\jdk8u\hotspot\src\share\vm\classfile\systemDictionary.cpp, line 210]
+Event: 16.030 Thread 0x00000000180f8800 Exception <a 'java/lang/ClassNotFoundException': org/gradle/apiSA/tasks/Delete_DecoratedCustomizer> (0x00000000e04ea3f0) thrown at [D:\src\AOSP-openjdk-cygwin\jdk8u\hotspot\src\share\vm\classfile\systemDictionary.cpp, line 210]
 Event: 16.081 Thread 0x00000000180f8800 Exception <a 'java/lang/ClassNotFoundException': build_26fxg11ppogjymnjahoveq6gBeanInfo> (0x00000000e05f8c30) thrown at [D:\src\AOSP-openjdk-cygwin\jdk8u\hotspot\src\share\vm\classfile\systemDictionary.cpp, line 210]
 Event: 16.081 Thread 0x00000000180f8800 Exception <a 'java/lang/ClassNotFoundException': build_26fxg11ppogjymnjahoveq6gCustomizer> (0x00000000e0604850) thrown at [D:\src\AOSP-openjdk-cygwin\jdk8u\hotspot\src\share\vm\classfile\systemDictionary.cpp, line 210]
-Event: 16.091 Thread 0x00000000180f8800 Exception <a 'java/lang/ClassNotFoundException': org/gradle/api/internal/plugins/DefaultObjectConfigurationActionBeanInfo> (0x00000000e0673818) thrown at [D:\src\AOSP-openjdk-cygwin\jdk8u\hotspot\src\share\vm\classfile\systemDictionary.cpp, line 210]
-Event: 16.092 Thread 0x00000000180f8800 Exception <a 'java/lang/ClassNotFoundException': org/gradle/api/internal/plugins/DefaultObjectConfigurationActionCustomizer> (0x00000000e06b09b8) thrown at [D:\src\AOSP-openjdk-cygwin\jdk8u\hotspot\src\share\vm\classfile\systemDictionary.cpp, line 210]
+Event: 16.091 Thread 0x00000000180f8800 Exception <a 'java/lang/ClassNotFoundException': org/gradle/apiSA/internal/plugins/DefaultObjectConfigurationActionBeanInfo> (0x00000000e0673818) thrown at [D:\src\AOSP-openjdk-cygwin\jdk8u\hotspot\src\share\vm\classfile\systemDictionary.cpp, line 210]
+Event: 16.092 Thread 0x00000000180f8800 Exception <a 'java/lang/ClassNotFoundException': org/gradle/apiSA/internal/plugins/DefaultObjectConfigurationActionCustomizer> (0x00000000e06b09b8) thrown at [D:\src\AOSP-openjdk-cygwin\jdk8u\hotspot\src\share\vm\classfile\systemDictionary.cpp, line 210]
 Event: 17.051 Thread 0x00000000180f8800 Implicit null exception at 0x0000000002f0f182 to 0x0000000002f15855
 Event: 20.747 Thread 0x00000000180f8800 Implicit null exception at 0x000000000304e4a8 to 0x000000000304e9dd
 
@@ -347,6 +347,6 @@ Memory: 4k page, physical 8315244k(372784k free), swap 33481068k(916k free)
 vm_info: OpenJDK 64-Bit Server VM (25.202-b03) for windows-amd64 JRE (1.8.0_202-release-1483-b03), built by "builder" with MS VC++ 10.0 (VS2010)
 
 time: Thu Feb 27 13:14:52 2020
-timezone: Hora padrão de GMT
+timezone: Hora padrï¿½o de GMT
 elapsed time: 21 seconds (0d 0h 0m 21s)
 

@@ -1,0 +1,160 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="com.vvm.sh.BuildConfig"/>
+        <import type="com.vvm.sh.util.metodos.StringUtil"/>
+        <import type="android.view.View"/>
+        <import type="com.vvm.sh.util.constantes.Identificadores"/>
+
+        <variable
+            name="colaborador"
+            type="com.vvm.sh.ui.quadroPessoal.modelos.ColaboradorRegisto" />
+
+        <variable
+            name="listener"
+            type="com.vvm.sh.ui.quadroPessoal.adaptadores.OnColaboradorListener"/>
+
+    </data>
+
+
+    <androidx.cardview.widget.CardView
+        style="@style/cartao">
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="16dp">
+
+
+            <TextView
+                android:id="@+id/textView"
+                style="@style/tituloCartao"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:text="@{colaborador.nome, default=nome}"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <LinearLayout
+                android:id="@+id/linearLayout1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/distancia_vertical_titulo"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="@+id/textView"
+                app:layout_constraintTop_toBottomOf="@+id/textView">
+
+                <ImageView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:src="@drawable/ic_localizacao_24dp" />
+
+
+                <TextView
+                    style="@style/textoDetalhe"
+                    android:text="@{colaborador.morada, default=morada}"
+                    android:layout_marginLeft="12dp" />
+            </LinearLayout>
+
+
+            <LinearLayout
+                android:id="@+id/linearLayout2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="@+id/textView"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout1">
+
+                <TextView
+                    style="@style/textoDetalhe"
+                    android:text="@string/posto_" />
+
+
+                <TextView
+                    style="@style/textoDetalhe"
+                    android:layout_marginLeft="12dp"
+                    android:text="@{colaborador.posto, default=posto}"/>
+
+
+            </LinearLayout>
+
+
+
+            <LinearLayout
+                android:id="@+id/linearLayout3"
+                android:visibility="@{(colaborador.origem == Identificadores.Origens.ORIGEM_BD) ? View.VISIBLE : View.GONE}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/textView"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
+
+                <TextView
+                    style="@style/textoDetalhe"
+                    android:text="@string/categoria_profissional_" />
+
+
+                <TextView
+                    style="@style/textoDetalhe"
+                    android:text="@{colaborador.categoriaProfissional}"
+                    android:layout_marginLeft="12dp"
+                    />
+
+                <!-- android:text="@{StringUtil.converterString(extintor.parqueExtintor.quantidade), default=quantidade}" -->
+
+            </LinearLayout>
+
+
+            <ImageView
+                android:id="@+id/imageView6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                estadoAdmissao="@{colaborador}"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/textView80"
+                style="@style/textoDetalhe"
+                android:layout_marginTop="8dp"
+                android:layout_marginEnd="16dp"
+                android:text="@{colaborador.estado}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/imageView6" />
+
+            <TextView
+                android:id="@+id/textView81"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{StringUtil.converterString(colaborador.id), default=id}"
+                android:visibility="@{BuildConfig.DEBUG ? View.VISIBLE : View.GONE}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+    </androidx.cardview.widget.CardView>
+
+
+
+</layout>
+
+

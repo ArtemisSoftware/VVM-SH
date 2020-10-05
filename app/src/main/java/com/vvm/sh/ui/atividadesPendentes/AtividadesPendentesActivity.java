@@ -11,7 +11,15 @@ import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.atividadesPendentes.adaptadores.OnAtividadePendenteListener;
 import com.vvm.sh.ui.atividadesPendentes.modelos.AtividadePendenteRegisto;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.DialogoProcessoProdutivo;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.FormacaoActivity;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.RelatorioAvaliacaoAmbientalActivity;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.averiguacao.AveriguacaoActivity;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.ChecklistActivity;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.equipamentos.EquipamentosActivity;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.LevantamentosActivity;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.propostaPlanoAccao.PropostaPlanoAccaoActivity;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.trabalhadoresVulneraveis.TrabalhadoresVulneraveisActivity;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
@@ -100,13 +108,14 @@ public class AtividadesPendentesActivity extends BaseDaggerActivity
         for(AtividadePendenteRegisto item: viewModel.atividades.getValue()){
 
             if(item.atividade.id == idAtividade){
+
                 DialogoDetalheAtividadePendente dialogo = DialogoDetalheAtividadePendente.newInstance(item.resultado);
                 dialogo.show(getSupportFragmentManager(), "example dialog");
-
                 break;
             }
         }
     }
+
 
 
     @Override
@@ -120,6 +129,21 @@ public class AtividadesPendentesActivity extends BaseDaggerActivity
                 intent = new Intent(this, FormacaoActivity.class);
                 break;
 
+
+            case Identificadores.Relatorios.ID_RELATORIO_ILUMINACAO:
+            case Identificadores.Relatorios.ID_RELATORIO_TEMPERATURA_HUMIDADE:
+                intent = new Intent(this, RelatorioAvaliacaoAmbientalActivity.class);
+                intent.putExtra(getString(R.string.argumento_tipo_relatorio), idRelatorio);
+                break;
+
+
+            case Identificadores.Relatorios.ID_RELATORIO_AVERIGUACAO_AVALIACAO_RISCO:
+            case Identificadores.Relatorios.ID_RELATORIO_AVERIGUACAO_AUDITORIA:
+                intent = new Intent(this, AveriguacaoActivity.class);
+                intent.putExtra(getString(R.string.argumento_tipo_relatorio), idRelatorio);
+                break;
+
+
             default:
                 break;
 
@@ -131,10 +155,52 @@ public class AtividadesPendentesActivity extends BaseDaggerActivity
             intent.putExtra(getString(R.string.argumento_id_atividade), idAtividade);
             startActivity(intent);
         }
-
     }
 
 
+
+    @Override
+    public void OnIniciarChecklist(int idAtividade) {
+
+        Intent intent = new Intent(this, ChecklistActivity.class);
+        intent.putExtra(getString(R.string.argumento_id_atividade), idAtividade);
+        startActivity(intent);
+    }
+
+    @Override
+    public void OnIniciarProcessoProdutivo(int idAtividade) {
+
+        DialogoProcessoProdutivo dialogo = DialogoProcessoProdutivo.newInstance(idAtividade);
+        dialogo.show(getSupportFragmentManager(), "example dialog");
+    }
+
+    @Override
+    public void OnIniciarVulnerabilidades(int idAtividade) {
+        Intent intent = new Intent(this, TrabalhadoresVulneraveisActivity.class);
+        intent.putExtra(getString(R.string.argumento_id_atividade), idAtividade);
+        startActivity(intent);
+    }
+
+    @Override
+    public void OnIniciarPlanoAcao(int idAtividade) {
+        Intent intent = new Intent(this, PropostaPlanoAccaoActivity.class);
+        intent.putExtra(getString(R.string.argumento_id_atividade), idAtividade);
+        startActivity(intent);
+    }
+
+    @Override
+    public void OnIniciarAvaliacaoRiscos(int idAtividade) {
+        Intent intent = new Intent(this, LevantamentosActivity.class);
+        intent.putExtra(getString(R.string.argumento_id_atividade), idAtividade);
+        startActivity(intent);
+    }
+
+    @Override
+    public void OnIniciarEquipamentos(int idAtividade) {
+        Intent intent = new Intent(this, EquipamentosActivity.class);
+        intent.putExtra(getString(R.string.argumento_id_atividade), idAtividade);
+        startActivity(intent);
+    }
 
 
 }

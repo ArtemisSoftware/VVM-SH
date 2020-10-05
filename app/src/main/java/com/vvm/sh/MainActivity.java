@@ -17,6 +17,7 @@ import com.vvm.sh.ui.agenda.DialogoCalendario;
 import com.vvm.sh.ui.agenda.DialogoOpcoesTrabalhoFragment;
 import com.vvm.sh.ui.agenda.modelos.Marcacao;
 import com.vvm.sh.ui.autenticacao.AutenticacaoActivity;
+import com.vvm.sh.ui.autenticacao.CarregamentoActivity;
 import com.vvm.sh.ui.contaUtilizador.DefinicoesActivity;
 import com.vvm.sh.ui.contaUtilizador.OpcoesAvancadasActivity;
 import com.vvm.sh.ui.autenticacao.PerfilActivity;
@@ -183,7 +184,10 @@ public class MainActivity extends BaseDaggerActivity
      */
     private void iniciarSessao(){
 
-        if(validarSessao() == false){
+        if(PreferenciasUtil.obterPrimeiraUtilizacao(this) == true){
+            iniciarApp();
+        }
+        else if(validarSessao() == false){
             terminarSessao();
         }
         else{
@@ -209,7 +213,17 @@ public class MainActivity extends BaseDaggerActivity
     }
 
 
+    /**
+     * Metodo que permite fazer a primeira iniciação da app
+     */
+    private void iniciarApp(){
 
+        PreferenciasUtil.eliminarDadosUtilizador(this);
+
+        finish();
+        Intent intent = new Intent(this, CarregamentoActivity.class);
+        startActivity(intent);
+    }
 
 
     //---------------------

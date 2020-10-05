@@ -11,7 +11,7 @@
 
         <variable
             name="viewmodel"
-            type="com.vvm.sh.ui.opcoes.OpcoesViewModel"/>
+            type="com.vvm.sh.ui.transferencias.TransferenciasViewModel"/>
 
     </data>
 
@@ -49,21 +49,63 @@
                     android:layout_marginStart="32dp"
                     android:layout_marginBottom="32dp"
                     android:text="@string/atualizar_app"
-                    app:layout_constraintBottom_toTopOf="@+id/progressBar3"
+                    app:layout_constraintBottom_toTopOf="@+id/lnr_lyt_tipos"
                     app:layout_constraintStart_toStartOf="parent" />
 
-                <ProgressBar
-                    android:id="@+id/progressBar3"
-                    style="?android:attr/progressBarStyleHorizontal"
+
+
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/lnr_lyt_tipos"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="332dp"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/textView40" />
+                    android:layout_marginBottom="300dp"
+                    app:layout_constraintBottom_toTopOf="@+id/crl_prosseguir"
+                    app:layout_constraintStart_toStartOf="@+id/textView40" >
+
+                    <!-- android:visibility="@{viewmodel.versaoApp.atualizar ? View.VISIBLE : View.GONE}" -->
+
+                    <ProgressBar
+                        android:id="@+id/prgBar_tipos"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="500dp"
+                        android:layout_height="wrap_content"
+                        android:max="100"
+                        android:progress="0"
+                        app:layout_constraintBottom_toTopOf="@+id/button"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.19999999" />
+
+                    <TextView
+                        android:id="@+id/txt_titulo_tipos"
+                        style="@style/textoDetalhe"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="64dp"
+                        app:layout_constraintStart_toStartOf="@+id/prgBar_tipos"
+                        app:layout_constraintTop_toBottomOf="@+id/prgBar_tipos"
+                        app:layout_constraintVertical_bias="0.07999998" />
+
+                    <TextView
+                        android:id="@+id/txt_progresso_tipos"
+                        style="@style/textoDetalhe"
+                        app:layout_constraintEnd_toEndOf="@+id/prgBar_tipos"
+                        app:layout_constraintTop_toTopOf="@+id/txt_titulo_tipos" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
 
 
                 <at.markushi.ui.CircleButton
                     android:id="@+id/crl_prosseguir"
+                    android:visibility="invisible"
                     android:layout_width="70dp"
                     android:layout_height="70dp"
                     android:layout_marginEnd="32dp"

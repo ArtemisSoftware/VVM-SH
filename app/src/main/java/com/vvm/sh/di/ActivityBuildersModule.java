@@ -29,6 +29,7 @@ import com.vvm.sh.ui.atividadesPendentes.DialogoAtividadePendenteExecutada;
 import com.vvm.sh.ui.atividadesPendentes.DialogoAtividadePendenteNaoExecutada;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.FormacaoActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.FormandoActivity;
+import com.vvm.sh.ui.autenticacao.CarregamentoActivity;
 import com.vvm.sh.ui.autenticacao.PerfilActivity;
 import com.vvm.sh.ui.ocorrencias.OcorrenciasHistoricoActivity;
 import com.vvm.sh.ui.ocorrencias.OcorrenciasRegistoActivity;
@@ -265,4 +266,9 @@ public abstract class ActivityBuildersModule {
     abstract DownloadTrabalhoActivity contributeTrabalhoActivity();
 
 
+    @TransferenciasScope
+    @ContributesAndroidInjector(
+            modules = { TransferenciasViewModelsModule.class, TransferenciasModule.class }
+    )
+    abstract CarregamentoActivity contributeCarregamentoActivity();
 }

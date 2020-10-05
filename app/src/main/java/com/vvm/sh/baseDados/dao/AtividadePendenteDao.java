@@ -42,7 +42,7 @@ abstract public class AtividadePendenteDao implements BaseDao<AtividadePendenteR
             "CASE WHEN idRelatorio = " + ID_RELATORIO_FORMACAO + " AND IFNULL(ct_formando, 0) > 0 THEN  1 " +
             "ELSE 0 END as relatorioCompleto " +
 
-            "FROM atividadesPendentes atp " +
+            "FROM atividadesPendentes as atp " +
 
             //relatorios
 
@@ -62,7 +62,7 @@ abstract public class AtividadePendenteDao implements BaseDao<AtividadePendenteR
             ") as ac_form ON atp.id = ac_form.idAtividade " +
 
 
-            "WHERE idTarefa = :idTarefa")
+            "WHERE atp.idTarefa = :idTarefa")
     abstract public Flowable<List<AtividadePendenteRegisto>> obterAtividades(int idTarefa);
 
     @Transaction
@@ -84,7 +84,7 @@ abstract public class AtividadePendenteDao implements BaseDao<AtividadePendenteR
             "CASE WHEN idRelatorio = " + ID_RELATORIO_FORMACAO + " AND IFNULL(ct_formando, 0) > 0 THEN  1 " +
             "ELSE 0 END as relatorioCompleto " +
 
-            "FROM atividadesPendentes atp " +
+            "FROM atividadesPendentes as atp " +
 
             //relatorios
 

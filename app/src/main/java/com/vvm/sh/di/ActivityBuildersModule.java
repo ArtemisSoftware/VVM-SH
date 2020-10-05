@@ -13,6 +13,9 @@ import com.vvm.sh.di.atividadesPendentes.AtividadesPendentesViewModelsModule;
 import com.vvm.sh.di.atividadesPendentes.avaliacaoAmbiental.AvaliacaoAmbientalModule;
 import com.vvm.sh.di.atividadesPendentes.avaliacaoAmbiental.AvaliacaoAmbientalScope;
 import com.vvm.sh.di.atividadesPendentes.avaliacaoAmbiental.AvaliacaoAmbientalViewModelsModule;
+import com.vvm.sh.di.atividadesPendentes.averiguacao.AveriguacaoModule;
+import com.vvm.sh.di.atividadesPendentes.averiguacao.AveriguacaoScope;
+import com.vvm.sh.di.atividadesPendentes.averiguacao.AveriguacaoViewModelsModule;
 import com.vvm.sh.di.atividadesPendentes.checklist.ChecklistModule;
 import com.vvm.sh.di.atividadesPendentes.checklist.ChecklistScope;
 import com.vvm.sh.di.atividadesPendentes.checklist.ChecklistViewModelsModule;
@@ -609,9 +612,25 @@ public abstract class ActivityBuildersModule {
     //----------------------
     //Averiguacao
     //----------------------
-//    abstract AveriguacaoActivity contributeAveriguacaoActivity();
-//    abstract AveriguacaoListagemActivity contributeAveriguacaoListagemActivity();
-//    abstract DialogoAveriguacao contributeDialogoAveriguacao();
+
+
+    @AveriguacaoScope
+    @ContributesAndroidInjector(
+            modules = { AveriguacaoViewModelsModule.class, AveriguacaoModule.class }
+    )
+    abstract AveriguacaoActivity contributeAveriguacaoActivity();
+
+    @AveriguacaoScope
+    @ContributesAndroidInjector(
+            modules = { AveriguacaoViewModelsModule.class, AveriguacaoModule.class }
+    )
+    abstract AveriguacaoListagemActivity contributeAveriguacaoListagemActivity();
+
+    @AveriguacaoScope
+    @ContributesAndroidInjector(
+            modules = { AveriguacaoViewModelsModule.class, AveriguacaoModule.class }
+    )
+    abstract DialogoAveriguacao contributeDialogoAveriguacao();
 
 
     //----------------------

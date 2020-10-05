@@ -12,11 +12,15 @@ import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
+import dagger.Module;
 import io.reactivex.Observer;
 import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
+
 
 public class AveriguacaoViewModel extends BaseViewModel {
 
@@ -27,6 +31,7 @@ public class AveriguacaoViewModel extends BaseViewModel {
     public MutableLiveData<List<AveriguacaoRegisto>> averiguacoes;
     public MutableLiveData<AveriguacaoRegisto> averiguacao;
 
+    @Inject
     public AveriguacaoViewModel(AveriguacaoRepositorio averiguacaoRepositorio) {
         this.averiguacaoRepositorio = averiguacaoRepositorio;
 

@@ -289,4 +289,11 @@ public class Identificadores {
         public static final String ILUMINACAO = "iluminacao";
         public static final String TERMICO = "termico";
     }
+
+    public class Atualizacoes {
+        public static final int TIPO = 1;
+        public static final int TEMPLATE = 2;
+        public static final int CHECKLIST = 3;
+    }
+
 }

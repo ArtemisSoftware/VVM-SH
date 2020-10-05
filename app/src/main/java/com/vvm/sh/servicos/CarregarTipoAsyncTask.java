@@ -11,6 +11,7 @@ import com.vvm.sh.baseDados.entidades.Atualizacao;
 import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.repositorios.TiposRepositorio;
 import com.vvm.sh.util.AtualizacaoUI;
+import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.mapeamento.DownloadMapping;
 
 import java.util.ArrayList;
@@ -58,6 +59,7 @@ public class CarregarTipoAsyncTask extends AsyncTask<List<ITipoListagem>, Void, 
                         List<Tipo> dadosAlterados = new ArrayList<>();
 
                         Atualizacao atualizacao = DownloadMapping.INSTANCE.map(resposta);
+
 
                         for (ITipo item : resposta.dadosNovos) {
                             dadosNovos.add(DownloadMapping.INSTANCE.map(item, resposta));

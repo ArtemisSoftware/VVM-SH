@@ -1,5 +1,6 @@
 package com.vvm.sh.api;
 
+import com.vvm.sh.api.modelos.pedido.Codigo;
 import com.vvm.sh.api.modelos.pedido.ISessao;
 import com.vvm.sh.api.modelos.pedido.ITipoAtividadePlaneavelListagem;
 import com.vvm.sh.api.modelos.pedido.ITipoChecklist;
@@ -84,5 +85,9 @@ public interface SegurancaTrabalhoApi {
 
     @GET("GetCheckListNovo")
     Single<ITipoChecklist> obterChecklist(@HeaderMap Map<String, String> headers, @Query("IdTipoCheckList") String id);
+
+    @GET("ObterContagemTiposMaquina")
+    Single<Codigo> obterContagemMaquinas(@HeaderMap Map<String, String> headers, @Query("utilizador") String idUtilizador);
+
 
 }

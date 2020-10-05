@@ -42,6 +42,7 @@ import com.vvm.sh.baseDados.entidades.Ocorrencia;
 import com.vvm.sh.baseDados.entidades.OcorrenciaHistorico;
 import com.vvm.sh.baseDados.entidades.Atualizacao;
 import com.vvm.sh.baseDados.entidades.Tipo;
+import com.vvm.sh.util.constantes.Identificadores;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -52,9 +53,16 @@ public interface DownloadMapping {
 
     static final DownloadMapping INSTANCE = Mappers.getMapper( DownloadMapping.class );
 
-    @Mapping(source = "metodo", target = "descricao")
-    @Mapping(source = "seloTemporal", target = "seloTemporal")
-    Atualizacao map(ITipoListagem item);
+//    @Mapping(source = "metodo", target = "descricao")
+//    @Mapping(source = "seloTemporal", target = "seloTemporal")
+//    Atualizacao map(ITipoListagem item);
+
+    @Mapping(target = "descricao", source = "metodo")
+    @Mapping(target = "seloTemporal", source = "seloTemporal")
+    @Mapping(target = "tipo", constant = Identificadores.Atualizacoes.TIPO + "")
+    Atualizacao map(ITipoListagem resposta);
+
+
 
     @Mapping(target = "descricao", source = "metodo")
     Atualizacao map(ITipoTemplateAvrLevantamentoListagem levantamentos);
@@ -153,4 +161,5 @@ public interface DownloadMapping {
 
 
     TipoTemplateAvrRisco map(ITipoTemplateAvrRisco item);
+
 }

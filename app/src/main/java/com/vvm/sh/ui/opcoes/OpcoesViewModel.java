@@ -10,6 +10,7 @@ import com.vvm.sh.api.modelos.pedido.ITipoListagem;
 import com.vvm.sh.api.modelos.VersaoApp;
 import com.vvm.sh.repositorios.TiposRepositorio;
 import com.vvm.sh.repositorios.VersaoAppRepositorio;
+import com.vvm.sh.servicos.CarregarTipoAsyncTask;
 import com.vvm.sh.servicos.CarregarTipoChecklistAsyncTask;
 import com.vvm.sh.servicos.CarregarTipoTemplatesAvrAsyncTask;
 import com.vvm.sh.servicos.DownloadApkAsyncTask;
@@ -18,6 +19,7 @@ import com.vvm.sh.servicos.AtualizarTipoAsyncTask;
 import com.vvm.sh.ui.opcoes.modelos.ResumoTipo;
 import com.vvm.sh.ui.opcoes.modelos.TemplateAvr;
 import com.vvm.sh.util.Recurso;
+import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.excepcoes.TipoInexistenteException;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
@@ -28,7 +30,6 @@ import javax.inject.Inject;
 
 import io.reactivex.ObservableSource;
 import io.reactivex.Observer;
-import io.reactivex.Single;
 import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -61,18 +62,20 @@ public class OpcoesViewModel extends BaseViewModel {
 
 
     //---------------------
-    //Tipos
+    //OBTER
     //---------------------
 
 
+
     /**
-     * Metodo que permite obter um resumo dos tipos existentes
+     * Metodo que permite obter o resumo dos registos existentes
+     * @param tipo o identificador do resumo
      */
-    public void obterTipos(){
+    public void obterResumo(int tipo){
 
         showProgressBar(true);
 
-        tiposRepositorio.obterResumoTipos()
+        tiposRepositorio.obterResumoTipos(tipo)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -105,6 +108,11 @@ public class OpcoesViewModel extends BaseViewModel {
 
     }
 
+
+
+    //---------------------
+    //ATUALIZAR
+    //---------------------
 
 
     /**
@@ -158,10 +166,55 @@ public class OpcoesViewModel extends BaseViewModel {
     }
 
 
+    //---------------------
+    //RECARREGAR
+    //---------------------
+
+
+    /**
+     * Metodo que permite recarregar todos os registos
+     * @param tipo o identificador
+     */
+    public void recarregarRegistos(int tipo){
+
+
+        switch(tipo){
+
+            case Identificadores.Atualizacoes.TIPO:
+
+                recarregarTipos();
+                break;
+
+
+            case Identificadores.Atualizacoes.TEMPLATE:
+
+                recarregarTemplates();
+                break;
+
+            case Identificadores.Atualizacoes.CHECKLIST:
+
+                recarregarChecklist();
+                break;
+
+
+            default:
+                break;
+
+        }
+    }
+
+
+
+
+
+
+
+
+
     /**
      * Metodo que permite recarregar todos os tipos
      */
-    public void recarregarTipos(){
+    private void recarregarTipos(){
 
         showProgressBar(true);
 
@@ -206,8 +259,60 @@ public class OpcoesViewModel extends BaseViewModel {
         }
 
 
+    }
+
+
+    /**
+     * Metodo que permite recarregar templates
+     */
+    private void recarregarTemplates(){
+
+        showProgressBar(true);
+
+        try {
+            tiposRepositorio.obterTemplateAvr()
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+
+
+                            new SingleObserver<TemplateAvr>() {
+                                @Override
+                                public void onSubscribe(Disposable d) {
+                                    disposables.add(d);
+                                }
+
+                                @Override
+                                public void onSuccess(TemplateAvr templateAvr) {
+
+                                    CarregarTipoTemplatesAvrAsyncTask servico = new CarregarTipoTemplatesAvrAsyncTask(vvmshBaseDados, tiposRepositorio);
+                                    servico.execute(templateAvr);
+                                    showProgressBar(false);
+                                }
+
+                                @Override
+                                public void onError(Throwable e) {
+                                    showProgressBar(false);
+                                }
+                            }
+                    );
+        } catch (TipoInexistenteException e) {
+            showProgressBar(false);
+            messagemLiveData.setValue(Recurso.erro(e.getMessage()));
+        }
+    }
+
+
+    /**
+     * Metodo que permite recarregar as checklists
+     */
+    private void recarregarChecklist(){
+
+
+
         //TODO: na primeira chamada isto pode dar problemas. rever
-/*
+
+        showProgressBar(true);
         List<ITipoChecklist> respostasChecklist = new ArrayList<>();
 
 
@@ -226,7 +331,7 @@ public class OpcoesViewModel extends BaseViewModel {
                         new Observer<ITipoChecklist>() {
                             @Override
                             public void onSubscribe(Disposable d) {
-
+                                disposables.add(d);
                             }
 
                             @Override
@@ -236,7 +341,7 @@ public class OpcoesViewModel extends BaseViewModel {
 
                             @Override
                             public void onError(Throwable e) {
-
+                                showProgressBar(false);
                             }
 
                             @Override
@@ -249,49 +354,6 @@ public class OpcoesViewModel extends BaseViewModel {
                         }
 
                 );
-
-*/
-
-        /*templates*/
-
-
-    }
-
-
-    public void recarregarTemplatesAvr(){
-
-        try {
-            tiposRepositorio.obterTemplateAvr()
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(
-
-
-                            new SingleObserver<TemplateAvr>() {
-                                @Override
-                                public void onSubscribe(Disposable d) {
-
-                                }
-
-                                @Override
-                                public void onSuccess(TemplateAvr templateAvr) {
-
-                                    CarregarTipoTemplatesAvrAsyncTask servico = new CarregarTipoTemplatesAvrAsyncTask(vvmshBaseDados, tiposRepositorio);
-                                    servico.execute(templateAvr);
-                                }
-
-                                @Override
-                                public void onError(Throwable e) {
-
-                                }
-                            }
-                    );
-        } catch (TipoInexistenteException e) {
-            showProgressBar(false);
-            messagemLiveData.setValue(Recurso.erro(e.getMessage()));
-        }
-
-
     }
 
 

@@ -19,7 +19,6 @@ import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.baseDados.entidades.TipoTemplateAvrLevantamento;
 import com.vvm.sh.baseDados.entidades.TipoTemplateAvrRisco;
 import com.vvm.sh.baseDados.entidades.TipoTemplatesAVRMedidaRisco;
-import com.vvm.sh.ui.atividadesPendentes.relatorios.equipamentos.Equipamento;
 import com.vvm.sh.ui.opcoes.modelos.ResumoTipo;
 import com.vvm.sh.ui.opcoes.modelos.TemplateAvr;
 import com.vvm.sh.ui.pesquisa.modelos.Medida;
@@ -57,8 +56,31 @@ public class TiposRepositorio {
      * Metodo que permite obter o resumo dos tipos
      * @return uma lista
      */
-    public Observable<List<ResumoTipo>> obterResumoTipos() {
-        return tipoDao.obterResumoTipos();
+    public Observable<List<ResumoTipo>> obterResumoTipos(int tipo) {
+
+        switch(tipo){
+
+            case Identificadores.Atualizacoes.TIPO:
+
+                return tipoDao.obterResumoTipos();
+
+
+            case Identificadores.Atualizacoes.TEMPLATE:
+
+                break;
+
+            case Identificadores.Atualizacoes.CHECKLIST:
+
+                break;
+
+
+            default:
+                break;
+
+        }
+
+        return null;
+
     }
 
 

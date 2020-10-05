@@ -16,7 +16,7 @@ public class Migracao {
         Migration migrations [] =  new Migration []{
                 MIGRACAO_1_2, MIGRACAO_2_3, MIGRACAO_3_4, MIGRACAO_4_5, MIGRACAO_5_6, MIGRACAO_6_7, MIGRACAO_7_8, MIGRACAO_8_9, MIGRACAO_9_10, MIGRACAO_10_11,
                 MIGRACAO_11_12, MIGRACAO_12_13, MIGRACAO_13_14, MIGRACAO_14_15, MIGRACAO_15_16, MIGRACAO_16_17, MIGRACAO_17_18, MIGRACAO_18_19, MIGRACAO_19_20,
-                MIGRACAO_20_21, MIGRACAO_21_22, MIGRACAO_22_23, MIGRACAO_23_24, MIGRACAO_24_25, MIGRACAO_25_26
+                MIGRACAO_20_21, MIGRACAO_21_22, MIGRACAO_22_23, MIGRACAO_23_24, MIGRACAO_24_25, MIGRACAO_25_26, MIGRACAO_26_27
 
         };
 
@@ -24,6 +24,54 @@ public class Migracao {
     }
 
 
+
+    public static final Migration MIGRACAO_26_27 = new Migration(26, 27) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            try {
+
+
+                database.execSQL("DROP TABLE IF EXISTS 'atualizacoes' ");
+                database.execSQL("DROP INDEX IF EXISTS index_atualizacoes_descricao ");
+
+                database.execSQL("CREATE TABLE IF NOT EXISTS 'atualizacoes' ("
+                        + "'descricao' TEXT NOT NULL, "
+                        + "'tipo' INTEGER NOT NULL, "
+                        + "'seloTemporal' TEXT, "
+                        + "PRIMARY KEY (descricao)) ");
+
+                database.execSQL("CREATE INDEX index_atualizacoes_descricao ON atualizacoes (descricao)");
+
+
+
+                database.execSQL("DROP TABLE IF EXISTS 'tipos' ");
+                database.execSQL("DROP INDEX IF EXISTS index_tipos_tipo ");
+
+
+
+                database.execSQL("CREATE TABLE IF NOT EXISTS 'tipos' ("
+                        + "'id' INTEGER NOT NULL, "
+                        + "'tipo' TEXT NOT NULL, "
+                        + "'descricao' TEXT NOT NULL, "
+                        + "'codigo' TEXT NOT NULL, "
+                        + "'idPai' TEXT NOT NULL, "
+                        + "'ativo' INTEGER NOT NULL, "
+                        + "'detalhe' TEXT NOT NULL, "
+                        + "'api' INTEGER NOT NULL, "
+                        + "PRIMARY KEY (id, tipo, api), "
+                        + "FOREIGN KEY (tipo) REFERENCES atualizacoes (descricao)  ON DELETE CASCADE) ");
+
+                database.execSQL("CREATE INDEX index_tipos_tipo ON tipos (tipo)");
+
+
+
+            }
+            catch(SQLException | IllegalStateException e){
+                Log.e("Migracao", "erro MIGRACAO_26_27: " + e.getMessage());
+                //Timber.e("erro MIGRACAO_2_3: " + e.getMessage());
+            }
+        }
+    };
 
 
 
@@ -39,9 +87,8 @@ public class Migracao {
                         + "'tipo' INTEGER NOT NULL, "
                         + "'data' INTEGER NOT NULL, "
                         + "'descricao' TEXT NOT NULL, "
-                        + "'tipo' INTEGER NOT NULL, "
-                        + "'idChecklist' INTEGER, "
-                        + "'idArea' INTEGER, "
+                        + "'idChecklist' INTEGER NOT NULL, "
+                        + "'idArea' INTEGER NOT NULL, "
                         + "FOREIGN KEY (idTarefa) REFERENCES tarefas (idTarefa)  ON DELETE CASCADE)  ");
 
 
@@ -63,16 +110,15 @@ public class Migracao {
 
 
                 database.execSQL("CREATE TABLE IF NOT EXISTS 'relatorioAveriguacaoResultado' ("
-                        + "'idTarefa' INTEGER NOT NULL, "
+                        + "'id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
                         + "'idRelatorio' INTEGER NOT NULL, "
-                        + "'idImplementacao' TEXT NOT NULL, "
-                        + "'idMedida' INTEGER, "
+                        + "'implementado' INTEGER NOT NULL, "
+                        + "'idMedida' INTEGER NOT NULL, "
                         + "'nc' TEXT, "
                         + "'risco' TEXT, "
-                        + "'idPonderacao' INTEGER, "
+                        + "'idPonderacao' INTEGER NOT NULL, "
                         + "'data' INTEGER, "
-                        + "PRIMARY KEY (idTarefa, idRelatorio, idMedida), "
-                        + "FOREIGN KEY (idTarefa) REFERENCES tarefas (idTarefa)  ON DELETE CASCADE)  ");
+                        + "FOREIGN KEY (idRelatorio) REFERENCES relatorioAveriguacao (id)  ON DELETE CASCADE)  ");
 
 
 
@@ -81,8 +127,10 @@ public class Migracao {
                 database.execSQL("CREATE TABLE IF NOT EXISTS 'atualizacoes' ("
                         + "'descricao' TEXT NOT NULL, "
                         + "'tipo' INTEGER NOT NULL, "
-                        + "'seloTemporal' TEXT NOT NULL, "
+                        + "'seloTemporal' TEXT, "
                         + "PRIMARY KEY (descricao, tipo))");
+
+                database.execSQL("CREATE UNIQUE INDEX index_atualizacoes_descricao ON atualizacoes (descricao)");
 
             }
             catch(SQLException | IllegalStateException e){

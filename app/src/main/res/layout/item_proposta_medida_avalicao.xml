@@ -10,7 +10,9 @@
             name="proposta"
             type="com.vvm.sh.ui.atividadesPendentes.relatorios.propostaPlanoAccao.modelos.Proposta" />
 
-
+        <variable
+            name="bloquear"
+            type="Boolean"/>
     </data>
 
 
@@ -27,7 +29,7 @@
                 style="@style/textoDetalhe"
                 android:enabled="@{bloquear}"
                 android:text="@{proposta.descricao, default=descricao}"
-                android:checked="@{proposta.selecionado}"
+                android:checked="@{proposta.resultado.selecionado}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"

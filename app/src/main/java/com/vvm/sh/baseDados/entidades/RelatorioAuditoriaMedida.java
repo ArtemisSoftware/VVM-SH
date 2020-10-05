@@ -7,10 +7,10 @@ import androidx.room.ForeignKey;
 
 import static androidx.room.ForeignKey.CASCADE;
 
-@Entity(tableName = "relatorioAveriguacaoResultado",
+@Entity(tableName = "relatorioAuditoriaMedidas",
 
         primaryKeys = {"idRelatorio", "nc"},
-        foreignKeys = @ForeignKey(entity = RelatorioAuditoria.class,
+        foreignKeys = @ForeignKey(entity = RelatorioAveriguacao.class,
                 parentColumns = "id",
                 childColumns = "idRelatorio",
                 onDelete = CASCADE))
@@ -21,5 +21,5 @@ public class RelatorioAuditoriaMedida {
     public int idRelatorio;
 
     @NonNull
-    public int nc;
+    public String nc;
 }

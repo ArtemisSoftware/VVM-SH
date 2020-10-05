@@ -6,11 +6,17 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
+
+
+        <import type="com.vvm.sh.util.metodos.StringUtil"/>
+
         <variable
             name="proposta"
             type="com.vvm.sh.ui.atividadesPendentes.relatorios.propostaPlanoAccao.modelos.Proposta" />
 
-
+        <variable
+            name="bloquear"
+            type="Boolean"/>
     </data>
 
 

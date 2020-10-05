@@ -150,7 +150,7 @@ public class DownloadTrabalhoActivity extends BaseDaggerActivity {
 
         if(registos.size() == 0) {
 
-            //--viewModel.obterTipos(handlerNotificacoesUI);
+            //--viewModel.obterResumo(handlerNotificacoesUI);
             obterTrabalho();
         }
         else{

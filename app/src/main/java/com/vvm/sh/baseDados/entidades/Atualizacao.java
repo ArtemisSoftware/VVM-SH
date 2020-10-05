@@ -5,10 +5,13 @@ import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Ignore;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 
-@Entity(tableName = "atualizacoes", primaryKeys = {"descricao", "tipo"})
+@Entity(tableName = "atualizacoes",
+        indices = {@Index(value="descricao", unique = false) },
+        primaryKeys = {"descricao"})
 public class Atualizacao {
 
 
@@ -28,6 +31,11 @@ public class Atualizacao {
 
     }
 
+    @Ignore
+    public Atualizacao(String descricao, String seloTemporal) {
+        this.descricao = descricao;
+        this.seloTemporal = seloTemporal;
+    }
 
 
     public Atualizacao(String descricao, int tipo, String seloTemporal) {

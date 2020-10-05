@@ -14,8 +14,6 @@ import com.vvm.sh.baseDados.entidades.SeccaoChecklist;
 import com.vvm.sh.baseDados.entidades.TipoTemplateAvrLevantamento;
 import com.vvm.sh.baseDados.entidades.TipoTemplateAvrRisco;
 import com.vvm.sh.baseDados.entidades.TipoTemplatesAVRMedidaRisco;
-import com.vvm.sh.ui.atividadesPendentes.relatorios.equipamentos.Equipamento;
-import com.vvm.sh.ui.opcoes.modelos.Colecao;
 import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.ui.opcoes.modelos.ResumoTipo;
 import com.vvm.sh.ui.pesquisa.modelos.Medida;
@@ -83,21 +81,31 @@ abstract public class TipoDao implements BaseDao<Tipo> {
 
 
 
-/*
-    @Query("SELECT descricao, numeroRegistos, seloTemporal " +
-            "FROM atualizacoes as atl " +
-            "LEFT JOIN (SELECT tipo, COUNT(id) as numeroRegistos FROM tipos GROUP BY tipo) as tp ON atl.descricao = tp.tipo " +
-            "ORDER BY descricao ASC")
-    abstract public Maybe<List<Colecao>> obterResumoTipos();
-*/
 
-    @Query("SELECT descricao, numeroRegistosSA, numeroRegistosSHT, seloTemporal " +
+    @Query("SELECT *, numeroRegistosSA, numeroRegistosSHT " +
             "FROM atualizacoes as atl " +
             "LEFT JOIN (SELECT tipo, COUNT(id) as numeroRegistosSA FROM tipos WHERE ativo = 1 AND api = " + Identificadores.App.APP_SA + " GROUP BY tipo) as tp_sa ON atl.descricao = tp_sa.tipo " +
             "LEFT JOIN (SELECT tipo, COUNT(id) as numeroRegistosSHT FROM tipos WHERE ativo = 1 AND api = " + Identificadores.App.APP_ST + " GROUP BY tipo) as tp_sht ON atl.descricao = tp_sht.tipo " +
+            "WHERE atl.tipo = " + Identificadores.Atualizacoes.TIPO + " " +
             "ORDER BY descricao ASC")
     abstract public Observable<List<ResumoTipo>> obterResumoTipos();
 
+
+//    @Query("SELECT descricao, numeroRegistosSA, numeroRegistosSHT, seloTemporal " +
+//            "FROM(" +
+//            "" +
+//            "SELECT descricao, 0 as numeroRegistosSA, numeroRegistosSHT, seloTemporal, atl.tipo " +
+//            "FROM atualizacoes as atl " +
+//            "LEFT JOIN (SELECT IFNULL(COUNT(id), 0) as numeroRegistosSHT FROM tiposTemplateAvrLevantamentos WHERE ativo = 1) as tp_temp_lv " +
+//            "ON atl.descricao = '" + TiposUtil.MetodosTipos.TemplateAvr.TEMPLATE_AVALIACAO_RISCOS_LEVANTAMENTOS + "' "+
+//            ") as templates " +
+//            "" +
+//            "" +
+//            "" +
+//            "" +
+//            "WHERE templates.tipo = " + Identificadores.Atualizacoes.TEMPLATE + " " +
+//            "ORDER BY descricao ASC")
+//    abstract public Observable<List<ResumoTipo>> obterResumoTemplates();
 
 
 

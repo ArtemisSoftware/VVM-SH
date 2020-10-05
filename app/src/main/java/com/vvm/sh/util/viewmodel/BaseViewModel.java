@@ -126,7 +126,7 @@ public abstract class BaseViewModel extends ViewModel {
         }
         else if (e instanceof TipoInexistenteException){
 
-            messagemLiveData.setValue(Recurso.erro(e.getMessage(), "Tipos"));
+            messagemLiveData.setValue(Recurso.erro(e.getMessage(), "Atualizacoes"));
         }
         else {
             messagemLiveData.setValue(Recurso.erro(e.getMessage()));

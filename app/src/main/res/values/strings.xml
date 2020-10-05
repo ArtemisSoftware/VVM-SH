@@ -446,4 +446,6 @@
     <string name="auditoria">Auditoria</string>
     <string name="condicoes_st">Condições ST</string>
     <string name="medidas_avaliacao">Medidas de avaliação</string>
+    <string name="gerir_templates">Gerir templates</string>
+    <string name="gerir_checklists">Gerir checklists</string>
 </resources>

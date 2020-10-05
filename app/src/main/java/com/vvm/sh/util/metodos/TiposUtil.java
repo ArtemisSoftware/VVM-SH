@@ -189,7 +189,7 @@ public class TiposUtil {
         }
 
 
-        private static class TemplateAvr {
+        public static class TemplateAvr {
 
             public static final String TEMPLATE_AVALIACAO_RISCOS_LEVANTAMENTOS = "Template_Avaliação_Riscos_Levantamentos";
             public static final String TEMPLATE_AVALIACAO_RISCOS_RISCOS = "Template_Avaliação_Riscos_Riscos";

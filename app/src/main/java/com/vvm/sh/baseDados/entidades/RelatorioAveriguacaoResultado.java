@@ -10,7 +10,6 @@ import java.util.Date;
 import static androidx.room.ForeignKey.CASCADE;
 
 @Entity(tableName = "relatorioAveriguacaoResultado",
-        primaryKeys = {"","",""},
         foreignKeys = @ForeignKey(entity = RelatorioAveriguacao.class,
                 parentColumns = "id",
                 childColumns = "idRelatorio",
@@ -18,7 +17,8 @@ import static androidx.room.ForeignKey.CASCADE;
 public class RelatorioAveriguacaoResultado {
 
     @NonNull
-    public int idTarefa; //não é necessário
+    @PrimaryKey(autoGenerate = true)
+    public int id;
 
     @NonNull
     public int idRelatorio;

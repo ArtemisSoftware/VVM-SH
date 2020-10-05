@@ -16,9 +16,6 @@ public class Proposta {
     public String descricao;
 
 
-    @ColumnInfo(name = "selecionado")
-    public boolean selecionado;
-
     @ColumnInfo(name = "tipo")
     public int tipo;
 }

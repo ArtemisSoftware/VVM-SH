@@ -41,7 +41,7 @@ abstract public class PropostaPlanoAcaoDao implements BaseDao<PropostaPlanoAcaoR
 
 
 
-    @Query("SELECT * , 'lolo' as descricao, 0 as selecionado, " + Identificadores.Origens.PROPOSTA_CONDICOES_ST + " as tipo " +
+    @Query("SELECT * , 'lolo' as descricao, " + Identificadores.Origens.PROPOSTA_CONDICOES_ST + " as tipo " +
             "FROM propostaPlanoAcaoResultado as prop_pl_accao_res " +
             "WHERE idAtividade = :idAtividade")
     abstract public Observable<List<Proposta>> obterPropostasSt(int idAtividade);
@@ -60,7 +60,7 @@ abstract public class PropostaPlanoAcaoDao implements BaseDao<PropostaPlanoAcaoR
 //    };
 
 
-    @Query("SELECT * , 'lolo' as descricao, 0 as selecionado, " + Identificadores.Origens.PROPOSTA_MEDIDAS_AVALIACAO + " as tipo " +
+    @Query("SELECT * , 'lolo' as descricao, " + Identificadores.Origens.PROPOSTA_MEDIDAS_AVALIACAO + " as tipo " +
             "FROM propostaPlanoAcaoResultado as prop_pl_accao_res " +
             "WHERE idAtividade = :idAtividade")
     abstract public Observable<List<Proposta>> obterMedidasAvaliacao(int idAtividade);

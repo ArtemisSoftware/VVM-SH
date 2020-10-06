@@ -91,6 +91,8 @@ public class Identificadores {
         public static final int APP_ST = 2;
         public static final String ST = "ST";
         public static final int COR_ST = R.color.cor_app_sht;
+        public static final int APP_SH = 3;
+        public static final String SH = "SH";
     }
 
     public class CodigoAtividade {

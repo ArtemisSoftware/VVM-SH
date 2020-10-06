@@ -93,6 +93,20 @@ public class TiposRepositorio {
 
         TiposUtil.MetodoApi metodo = TiposUtil.obterMetodos(descricao);
 
+        if(metodo.sa != null & metodo.sht != null) {
+            return Observable.concat(apiSA.obterTipo(SegurancaAlimentarApi.HEADER_TIPO, metodo.sa).toObservable(), apiST.obterTipo(SegurancaTrabalhoApi.HEADER_TIPO, metodo.sht).toObservable());
+        }
+        else if(metodo.sa != null){
+            return apiSA.obterTipo(SegurancaAlimentarApi.HEADER_TIPO, metodo.sa).toObservable();
+        }
+
+        else{
+            return apiST.obterTipo(SegurancaTrabalhoApi.HEADER_TIPO, metodo.sht).toObservable();
+        }
+    }
+
+
+    public Observable<ITipoListagem> obterTipo(TiposUtil.MetodoApi metodo) {
 
         if(metodo.sa != null & metodo.sht != null) {
             return Observable.concat(apiSA.obterTipo(SegurancaAlimentarApi.HEADER_TIPO, metodo.sa).toObservable(), apiST.obterTipo(SegurancaTrabalhoApi.HEADER_TIPO, metodo.sht).toObservable());
@@ -288,15 +302,11 @@ public class TiposRepositorio {
      */
     public void carregarTipo(Atualizacao atualizacao, List<Tipo> dadosNovos, List<Tipo> dadosAlteradaos){
 
-
-        if(dadosNovos.size() == 0){
+        if(atualizacaoDao.existeRegisto(atualizacao.descricao) == true){
             atualizacaoDao.atualizarRegisto(atualizacao);
-        }
-        else if(dadosNovos.size() != 0 & dadosAlteradaos.size() == 0){
-            atualizacaoDao.inserirRegisto(atualizacao);
         }
         else{
-            atualizacaoDao.atualizarRegisto(atualizacao);
+            atualizacaoDao.inserirRegisto(atualizacao);
         }
 
         tipoDao.inserir(dadosNovos);

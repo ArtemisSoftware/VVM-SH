@@ -1,6 +1,7 @@
 package com.vvm.sh.ui.autenticacao;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
@@ -17,6 +18,7 @@ import com.vvm.sh.ui.apresentacao.ApresentacaoActivity;
 import com.vvm.sh.ui.opcoes.OpcoesViewModel;
 import com.vvm.sh.ui.transferencias.TransferenciasViewModel;
 import com.vvm.sh.util.AtualizacaoUI;
+import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
@@ -66,7 +68,39 @@ public class CarregamentoActivity extends BaseDaggerActivity {
     @Override
     protected void subscreverObservadores() {
 
+        viewModel.observarMessagem().observe(this, new Observer<Recurso>() {
+            @Override
+            public void onChanged(Recurso recurso) {
+
+
+                switch (recurso.status){
+
+
+
+                    case ERRO:
+
+                        terminarAtualizacao();
+                        dialogo.erro(getString(R.string.erro), recurso.messagem);
+                        break;
+
+                }
+            }
+        });
     }
+
+
+    //----------------------------------------
+    //Metodos locais
+    //----------------------------------------
+
+    private void terminarAtualizacao() {
+        activityCarregamentoBinding.crlProsseguir.setVisibility(View.VISIBLE);
+    }
+
+
+    //--------------------
+    //EVENTOS
+    //--------------------
 
 
     @OnClick({R.id.crl_prosseguir})
@@ -87,13 +121,6 @@ public class CarregamentoActivity extends BaseDaggerActivity {
     }
 
 
-    //----------------------------------------
-    //Metodos locais
-    //----------------------------------------
-
-    private void terminarAtualizacao() {
-        activityCarregamentoBinding.crlProsseguir.setVisibility(View.VISIBLE);
-    }
 
 
 

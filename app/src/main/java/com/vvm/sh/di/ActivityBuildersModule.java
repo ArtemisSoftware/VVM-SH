@@ -347,35 +347,6 @@ public abstract class ActivityBuildersModule {
 
 
 
-
-
-    @OpcoesScope
-    @ContributesAndroidInjector(
-            modules = { OpcoesViewModelsModule.class, OpcoesModule.class }
-    )
-    abstract AtualizacaoAppActivity contributeAtualizacaoAppActivity();
-
-
-    @OpcoesScope
-    @ContributesAndroidInjector(
-            modules = { OpcoesViewModelsModule.class, OpcoesModule.class }
-    )
-    abstract TiposActivity contributeTiposActivity();
-
-
-    @TransferenciasScope
-    @ContributesAndroidInjector(
-            modules = { TransferenciasViewModelsModule.class, TransferenciasModule.class }
-    )
-    abstract UploadTrabalhoActivity contributeUploadActivity();
-
-
-    @TransferenciasScope
-    @ContributesAndroidInjector(
-            modules = { TransferenciasViewModelsModule.class, TransferenciasModule.class }
-    )
-    abstract DownloadTrabalhoActivity contributeTrabalhoActivity();
-
     @LevantamentosScope
     @ContributesAndroidInjector(
             modules = { LevantamentosViewModelsModule.class, LevantamentosModule.class }

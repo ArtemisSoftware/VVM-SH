@@ -33,6 +33,7 @@ import com.vvm.sh.util.excepcoes.RespostaWsInvalidaException;
 import com.vvm.sh.util.excepcoes.TipoInexistenteException;
 import com.vvm.sh.util.mapeamento.UploadMapping;
 import com.vvm.sh.util.metodos.DatasUtil;
+import com.vvm.sh.util.metodos.TiposUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import java.util.ArrayList;
@@ -577,43 +578,29 @@ public class TransferenciasViewModel extends BaseViewModel {
     //------------------------
 
 
-    public void obterTipos(Handler handlerUI){
+    public void obterTipos(Handler handlerUI) {
 
 
         tiposRepositorio.obterAtualizacoes()
-                .map(new Function<List<Atualizacao>, List<Atualizacao>>() {
+                .map(new Function<List<Atualizacao>, List<TiposUtil.MetodoApi>>() {
                     @Override
-                    public List<Atualizacao> apply(List<Atualizacao> atualizacoes) throws Exception {
+                    public List<TiposUtil.MetodoApi> apply(List<Atualizacao> atualizacoes) throws Exception {
 
-                        List<String> tipos = new LinkedList(Arrays.asList(TiposConstantes.MetodosTipos.TIPOS));
-
-                        for (Atualizacao atualizacao: atualizacoes) {
-
-                            if(tipos.contains(atualizacao.descricao) == true){
-                                tipos.remove(atualizacao.descricao);
-                            }
-                        }
-
-                        for (String tipo: tipos) {
-                            atualizacoes.add(new Atualizacao(tipo, ""));
-                        }
-
-
-                        return atualizacoes;
+                        return TiposUtil.fixarSeloTemporal(atualizacoes);
                     }
                 })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
 
-                        new MaybeObserver<List<Atualizacao>>() {
+                        new MaybeObserver<List<TiposUtil.MetodoApi>>() {
                             @Override
                             public void onSubscribe(Disposable d) {
                                 disposables.add(d);
                             }
 
                             @Override
-                            public void onSuccess(List<Atualizacao> atualizacoes) {
+                            public void onSuccess(List<TiposUtil.MetodoApi> atualizacoes) {
                                 carregarTipos(atualizacoes, handlerUI);
                             }
 
@@ -632,20 +619,79 @@ public class TransferenciasViewModel extends BaseViewModel {
 
 
 
-
     }
 
 
+//
+//    public void obterTipos(Handler handlerUI){
+//
+//
+//        tiposRepositorio.obterAtualizacoes()
+//                .map(new Function<List<Atualizacao>, List<Atualizacao>>() {
+//                    @Override
+//                    public List<Atualizacao> apply(List<Atualizacao> atualizacoes) throws Exception {
+//
+//                        List<String> tipos = new LinkedList(Arrays.asList(TiposConstantes.MetodosTipos.TIPOS));
+//
+//                        for (Atualizacao atualizacao: atualizacoes) {
+//
+//                            if(tipos.contains(atualizacao.descricao) == true){
+//                                tipos.remove(atualizacao.descricao);
+//                            }
+//                        }
+//
+//                        for (String tipo: tipos) {
+//                            atualizacoes.add(new Atualizacao(tipo, ""));
+//                        }
+//
+//
+//                        return atualizacoes;
+//                    }
+//                })
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(
+//
+//                        new MaybeObserver<List<Atualizacao>>() {
+//                            @Override
+//                            public void onSubscribe(Disposable d) {
+//                                disposables.add(d);
+//                            }
+//
+//                            @Override
+//                            public void onSuccess(List<Atualizacao> atualizacoes) {
+//                                carregarTipos(atualizacoes, handlerUI);
+//                            }
+//
+//                            @Override
+//                            public void onError(Throwable e) {
+//
+//                            }
+//
+//                            @Override
+//                            public void onComplete() {
+//
+//                            }
+//                        }
+//
+//                );
+//
+//
+//
+//
+//    }
+//
+//
 
-    private void carregarTipos(List<Atualizacao> atualizacoes, Handler handlerUI){
+    private void carregarTipos(List<TiposUtil.MetodoApi> atualizacoes, Handler handlerUI){
 
         showProgressBar(true);
 
         List<ITipoListagem> respostas = new ArrayList<>();
         List<Observable<ITipoListagem>> pedidos = new ArrayList<>();
 
-        for(Atualizacao atualizacao : atualizacoes){
-            pedidos.add(tiposRepositorio.obterTipo(atualizacao.descricao, atualizacao.seloTemporal).toObservable());
+        for(TiposUtil.MetodoApi atualizacao : atualizacoes){
+            pedidos.add(tiposRepositorio.obterTipo(atualizacao));
         }
 
         Observable.concat(pedidos)
@@ -666,6 +712,7 @@ public class TransferenciasViewModel extends BaseViewModel {
                             @Override
                             public void onError(Throwable e) {
                                 showProgressBar(false);
+                                formatarErro(e);
                                 //messagemLiveData.setValue(Recurso.erro(e.getMessage()));
                             }
 
@@ -679,10 +726,7 @@ public class TransferenciasViewModel extends BaseViewModel {
                         }
 
                     );
-        } catch (TipoInexistenteException e) {
-            showProgressBar(false);
-            messagemLiveData.setValue(Recurso.erro(e.getMessage()));
-        }
+
 
     }
 

@@ -60,7 +60,6 @@ public class CarregarTipoAsyncTask extends AsyncTask<List<ITipoListagem>, Void, 
 
                         Atualizacao atualizacao = DownloadMapping.INSTANCE.map(resposta);
 
-
                         for (ITipo item : resposta.dadosNovos) {
                             dadosNovos.add(DownloadMapping.INSTANCE.map(item, resposta));
                         }

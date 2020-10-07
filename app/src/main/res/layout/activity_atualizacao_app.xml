@@ -10,10 +10,6 @@
         <import type="java.util.List"/>
 
 
-
-
-        <variable name="activity" type="com.vvm.sh.ui.opcoes.AtualizacaoAppActivity" />
-
         <variable
             name="viewmodel"
             type="com.vvm.sh.ui.opcoes.OpcoesViewModel"/>
@@ -71,11 +67,17 @@
            </LinearLayout>
 
            <TextView
+               android:layout_marginTop="32dp"
+               style="@style/tituloCartao"
+               android:text="@string/descricao" />
+
+
+           <TextView
                android:id="@+id/txt_atualizacoes"
                style="@style/textoDetalhe"
                android:layout_marginTop="16dp"
                android:layout_marginRight="20dp"
-               android:text="@{viewmodel.versaoApp.texto}"/>
+               arrayTexto="@{viewmodel.versaoApp.texto}"/>
 
 
        </LinearLayout>
@@ -96,7 +98,7 @@
                android:layout_height="wrap_content"
                android:max="100"
                android:progress="0"
-               app:layout_constraintBottom_toTopOf="@+id/button"
+               app:layout_constraintBottom_toTopOf="@+id/btn_cancelar"
                app:layout_constraintEnd_toEndOf="parent"
                app:layout_constraintStart_toStartOf="parent"
                app:layout_constraintTop_toTopOf="parent"
@@ -107,7 +109,7 @@
                style="@style/textoDetalhe"
                android:layout_marginTop="8dp"
                android:layout_marginBottom="64dp"
-               app:layout_constraintBottom_toTopOf="@+id/button"
+               app:layout_constraintBottom_toTopOf="@+id/btn_cancelar"
                app:layout_constraintStart_toStartOf="@+id/progressBar_progresso"
                app:layout_constraintTop_toBottomOf="@+id/progressBar_progresso"
                app:layout_constraintVertical_bias="0.07999998" />
@@ -119,27 +121,21 @@
                app:layout_constraintTop_toTopOf="@+id/txt_titulo_progresso" />
 
            <Button
-               android:id="@+id/button"
+               android:id="@+id/btn_cancelar"
                style="@style/botaoOpcao"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
                android:layout_marginStart="32dp"
                android:layout_marginBottom="32dp"
                android:text="@string/cancelar"
                app:layout_constraintBottom_toBottomOf="parent"
-               app:layout_constraintStart_toStartOf="parent"
-               android:onClick="@{(view) -> activity.onCancelarClick(viewmodel.versaoApp)}" />
+               app:layout_constraintStart_toStartOf="parent" />
 
            <Button
-               android:id="@+id/button2"
+               android:id="@+id/btn_atualizar"
                style="@style/botaoOpcao"
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
                android:layout_marginEnd="32dp"
-               android:text="Iniciar atualização"
-               app:layout_constraintBottom_toBottomOf="@+id/button"
-               app:layout_constraintEnd_toEndOf="parent"
-               android:onClick="@{(view) -> activity.onAtualizarClick()}" />
+               android:text="@string/iniciar_atualizacao"
+               app:layout_constraintBottom_toBottomOf="@+id/btn_cancelar"
+               app:layout_constraintEnd_toEndOf="parent"/>
 
 
        </androidx.constraintlayout.widget.ConstraintLayout>

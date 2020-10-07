@@ -18,17 +18,15 @@ public class AnomaliasModule {
     static AnomaliaDao provideAnomaliaResultadoDao(VvmshBaseDados vvmshBaseDados){
 
         AnomaliaDao dao = vvmshBaseDados.obterAnomaliaDao();
-
-        //Timber.d("Providing NoteDao: " + dao);
         return dao;
     }
 
 
     @AnomaliasScope
     @Provides
-    AnomaliaRepositorio provideAnomaliaRepositorioo(AnomaliaDao anomaliaDao, TipoDao tipoDao, ResultadoDao resultadoDao) {
+    AnomaliaRepositorio provideAnomaliaRepositorioo(int idApi, AnomaliaDao anomaliaDao, TipoDao tipoDao, ResultadoDao resultadoDao) {
 
-        AnomaliaRepositorio repositorio = new AnomaliaRepositorio(anomaliaDao, tipoDao, resultadoDao);
+        AnomaliaRepositorio repositorio = new AnomaliaRepositorio(idApi, anomaliaDao, tipoDao, resultadoDao);
 
         //Timber.d("Providing PokemonRepository: " + repository);
         return repositorio;

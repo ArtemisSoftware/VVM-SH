@@ -362,9 +362,9 @@ public class OpcoesViewModel extends BaseViewModel {
     //------------------
 
 
-
     /**
-     * Metodo que permite obter a atualizacao da api
+     * Metodo que permite obter a atualizacao da app
+     * @param idUtilizador o identificador do utilizador
      */
     public void obterAtualizacao(String idUtilizador) {
 

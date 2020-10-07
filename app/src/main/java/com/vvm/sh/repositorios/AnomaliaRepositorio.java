@@ -10,22 +10,26 @@ import com.vvm.sh.ui.anomalias.modelos.AnomaliaRegistada;
 import com.vvm.sh.baseDados.entidades.AnomaliaResultado;
 import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.util.constantes.TiposConstantes;
+import com.vvm.sh.util.metodos.TiposUtil;
 
 import java.util.List;
 
 import io.reactivex.Flowable;
 import io.reactivex.Maybe;
+import io.reactivex.Observable;
 import io.reactivex.Single;
 
-public class AnomaliaRepositorio {
+public class AnomaliaRepositorio implements Repositorio<AnomaliaResultado>{
 
+    private final int idApi;
     private final AnomaliaDao anomaliaDao;
     private final TipoDao tipoDao;
     public final ResultadoDao resultadoDao;
 
-    public AnomaliaRepositorio(@NonNull AnomaliaDao anomaliaDao,
+    public AnomaliaRepositorio(int idApi, @NonNull AnomaliaDao anomaliaDao,
                                @NonNull TipoDao tipoDao, @NonNull ResultadoDao resultadoDao) {
 
+        this.idApi = idApi;
         this.anomaliaDao = anomaliaDao;
         this.tipoDao = tipoDao;
         this.resultadoDao = resultadoDao;
@@ -37,7 +41,7 @@ public class AnomaliaRepositorio {
      * @param idTarefa o identificador da tarefa
      * @return uma lista de registos
      */
-    public Flowable<List<Anomalia>> obterAnomalias(int idTarefa) {
+    public Single<List<Anomalia>> obterAnomalias(int idTarefa) {
         return anomaliaDao.obterAnomalias(idTarefa);
     }
 
@@ -47,8 +51,8 @@ public class AnomaliaRepositorio {
      * @param idTarefa o identificador da tarefa
      * @return uma lista de registos
      */
-    public Flowable<List<AnomaliaRegistada>> obterAnomaliasRegistadas(int idTarefa) {
-        return anomaliaDao.obterAnomaliasRegistadas(idTarefa, TiposConstantes.MetodosTipos.TIPOS_ANOMALIA);
+    public Observable<List<AnomaliaRegistada>> obterAnomaliasRegistadas(int idTarefa) {
+        return anomaliaDao.obterAnomaliasRegistadas(idTarefa, idApi);
     }
 
 
@@ -58,8 +62,19 @@ public class AnomaliaRepositorio {
      * @return uma anomalia
      */
     public Maybe<AnomaliaRegistada> obterAnomaliaRegistada(int id) {
-        return anomaliaDao.obterAnomaliasRegistada(id, TiposConstantes.MetodosTipos.TIPOS_ANOMALIA);
+        return anomaliaDao.obterAnomaliasRegistada(id, idApi);
     }
+
+
+    /**
+     * Metodo que permite obter os tipos de anomalias
+     * @return uma lista de tipos
+     */
+    public Single<List<Tipo>> obterTiposAnomalias(){
+        return tipoDao.obterTipos_(TiposUtil.MetodosTipos.TIPOS_ANOMALIAS, idApi);
+    }
+
+
 
 
     /**
@@ -74,21 +89,20 @@ public class AnomaliaRepositorio {
 
 
 
-
+    @Override
     public Single<Long> inserir(AnomaliaResultado anomalia) {
         return anomaliaDao.inserir(anomalia);
     }
 
+    @Override
     public Single<Integer> atualizar(AnomaliaResultado anomalia) {
         return anomaliaDao.atualizar(anomalia);
     }
 
-
-    public Flowable<List<Tipo>> obterTiposAnomalias(){
-        return tipoDao.obterTipos(TiposConstantes.MetodosTipos.TIPOS_ANOMALIA);
+    @Override
+    public Single<Integer> remover(AnomaliaResultado item) {
+        return null;
     }
-
-
 
 
 }

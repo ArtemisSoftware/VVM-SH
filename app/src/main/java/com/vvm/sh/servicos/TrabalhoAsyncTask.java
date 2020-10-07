@@ -146,6 +146,9 @@ public class TrabalhoAsyncTask extends AsyncTask<ISessao, Void, Void> {
      */
     private void inserirPlanoAcao(IPlanoAcao planoAcao, int idTarefa) {
 
+        if(planoAcao == null){
+            return;
+        }
 
         PlanoAcao registo = DownloadMapping.INSTANCE.map(planoAcao);
         registo.idTarefa = idTarefa;

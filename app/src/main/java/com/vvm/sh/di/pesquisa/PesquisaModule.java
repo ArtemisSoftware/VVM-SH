@@ -1,6 +1,7 @@
 package com.vvm.sh.di.pesquisa;
 
 import com.vvm.sh.api.SegurancaAlimentarApi;
+import com.vvm.sh.api.SegurancaHigieneApi;
 import com.vvm.sh.api.SegurancaTrabalhoApi;
 import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.baseDados.dao.AtualizacaoDao;
@@ -67,7 +68,7 @@ public class PesquisaModule {
 
     @PesquisaScope
     @Provides
-    VersaoAppRepositorio provideVersaoAppRepositorio(SegurancaAlimentarApi segurancaAlimentarApi) {
+    VersaoAppRepositorio provideVersaoAppRepositorio(SegurancaHigieneApi segurancaAlimentarApi) {
 
         VersaoAppRepositorio repositorio = new VersaoAppRepositorio(segurancaAlimentarApi);
 
@@ -89,4 +90,6 @@ public class PesquisaModule {
         //Timber.d("Providing PokemonRepository: " + repository);
         return repositorio;
     }
+
+    //TODO: criar repositorio de pesquisa
 }

@@ -129,8 +129,7 @@ abstract public class TipoDao implements BaseDao<Tipo> {
     @Query("SELECT * FROM tipos WHERE tipo = :tipo AND api = :api AND ativo = 1")
     abstract public Flowable<List<Tipo>> obterTipos(String tipo, int api);
 
-    @Query("SELECT * FROM tipos WHERE tipo = :tipo AND api = :api AND ativo = 1")
-    abstract public Single<List<Tipo>> obterTipos_(String tipo, int api);
+
 
     @Query("SELECT * FROM tipos WHERE tipo = :tipo AND api = :api AND idPai = :idPai AND ativo = 1")
     abstract public Single<List<Tipo>> obterTipos_(String tipo, int api, String idPai);
@@ -168,6 +167,15 @@ abstract public class TipoDao implements BaseDao<Tipo> {
             "FROM tipos as tp " +
             "WHERE tipo = :tipo AND codigo = :codigo AND api = :api AND ativo = 1")
     abstract public Observable<List<Medida>> obterMedidas(String tipo, String codigo, int api, List<Integer> registos);
+
+
+
+
+    //-------------------------
+
+
+    @Query("SELECT * FROM tipos WHERE tipo = :tipo AND api = :api AND ativo = 1")
+    abstract public Single<List<Tipo>> obterTipos_(String tipo, int api);
 
 
 

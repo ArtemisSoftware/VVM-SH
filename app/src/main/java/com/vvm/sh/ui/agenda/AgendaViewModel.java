@@ -71,8 +71,8 @@ public class AgendaViewModel extends BaseViewModel {
         agenda.setValue(new Agenda());
 
         Observable<Agenda> observables = Observable.zip(
-                agendaRepositorio.obterMarcacoes(idUtilizador, data).toObservable(),
-                agendaRepositorio.obterCompletude(idUtilizador, data).toObservable(),
+                agendaRepositorio.obterMarcacoes(idUtilizador, data),
+                agendaRepositorio.obterCompletude(idUtilizador, data),
 
                 new BiFunction<List<Marcacao>, Integer, Agenda>() {
                     @Override
@@ -155,7 +155,7 @@ public class AgendaViewModel extends BaseViewModel {
 
         showProgressBar(true);
 
-        agendaRepositorio.obterCompletude(idUtilizador, data).toObservable()
+        agendaRepositorio.obterCompletude(idUtilizador, data)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(

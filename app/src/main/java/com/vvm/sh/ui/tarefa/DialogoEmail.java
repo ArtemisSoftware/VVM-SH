@@ -83,6 +83,10 @@ public class DialogoEmail extends BaseDaggerDialogoPersistenteFragment {
                         dialogo.sucesso(listener);
                         break;
 
+                    case ERRO:
+
+                        dialogo.erro(recurso.messagem);
+                        break;
                     default:
                         break;
                 }

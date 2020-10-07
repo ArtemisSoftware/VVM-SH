@@ -2,6 +2,7 @@ package com.vvm.sh.api.modelos.pedido;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -17,17 +18,17 @@ public class ITarefa {
     public String notas;
 
     @SerializedName("ActivExecutadas")
-    public List<IAtividadeExecutada> atividadesExecutadas;
+    public List<IAtividadeExecutada> atividadesExecutadas = new ArrayList<>();
 
     @SerializedName("Ocorrencias")
-    public List<IOcorrencia> ocorrencias;
+    public List<IOcorrencia> ocorrencias = new ArrayList<>();
 
 
     @SerializedName("Anomalias")
-    public List<IAnomalia> anomalias;
+    public List<IAnomalia> anomalias = new ArrayList<>();
 
     @SerializedName("ActivPendentes")
-    public List<IAtividadePendente> atividadesPendentes;
+    public List<IAtividadePendente> atividadesPendentes = new ArrayList<>();
 
 
     @SerializedName("Dados")
@@ -39,19 +40,19 @@ public class ITarefa {
 
 
     @SerializedName("Moradas")
-    public List<IMorada> moradas;
+    public List<IMorada> moradas = new ArrayList<>();
 
     @SerializedName("ParqueExtintores")
-    public List<IParqueExtintor> parqueExtintores;
+    public List<IParqueExtintor> parqueExtintores = new ArrayList<>();
 
     @SerializedName("MoradasExtintores")
-    public List<IMorada> moradasExtintores;
+    public List<IMorada> moradasExtintores = new ArrayList<>();
 
     @SerializedName("TiposExtintor")
-    public List<ITipoExtintor> tiposExtintor;
+    public List<ITipoExtintor> tiposExtintor = new ArrayList<>();
 
     @SerializedName("QuadroPessoal")
-    public List<IColaborador> quadroPessoal;
+    public List<IColaborador> quadroPessoal = new ArrayList<>();
 //
 //    @SerializedName("AvaliacaoRiscosAnterior")
 //    public List<IAvaliacaoRiscosAnterior> avaliacaoRiscosAnterior;

@@ -26,56 +26,29 @@ public class AutenticacaoRepositorio {
         this.utilizadorDao = utilizadorDao;
     }
 
+    //---------------------
+    //OBTER
+    //---------------------
+
     /**
-     * Metodo que permite obter os utilizadores existentes no ws
-     * @return os utilizadores
+     * Metodo que permite pedir os utilizadores aos web services
+     * @return uma listagem de utilizadores
      */
-    /*
-    public Flowable<IUtilizadorListagem> obterUtilizadores() {
-
-        return Single.merge(apiST.obterUtilizadores(apiST.HEADER), apiSA.obterUtilizadores(apiSA.HEADER));
-    }
-*/
-/*
-    public Single<IUtilizadorListagem> obterUtilizadores() {
-
-
-        return Single.zip(apiST.obterUtilizadores(apiST.HEADER), apiSA.obterUtilizadores(apiSA.HEADER), new BiFunction<IUtilizadorListagem, IUtilizadorListagem, IUtilizadorListagem>() {
-            @Override
-            public IUtilizadorListagem apply(IUtilizadorListagem iUtilizadorListagem, IUtilizadorListagem iUtilizadorListagem2) throws Exception {
-
-
-                IUtilizadorListagem lolo = new IUtilizadorListagem();
-
-
-                lolo.dadosNovos = iUtilizadorListagem.dadosNovos;
-                lolo.dadosNovos.addAll(iUtilizadorListagem2.dadosNovos);
-
-                return lolo;
-            }
-        });
-
-    }
-*/
-
     public Observable<IUtilizadorListagem> obterUtilizadores() {
 
+        return Observable.zip(apiST.obterUtilizadores(apiST.HEADER).toObservable(), apiSA.obterUtilizadores(apiSA.HEADER).toObservable(),
+                new BiFunction<IUtilizadorListagem, IUtilizadorListagem, IUtilizadorListagem>() {
+                @Override
+                public IUtilizadorListagem apply(IUtilizadorListagem iUtilizadorListagem, IUtilizadorListagem iUtilizadorListagem2) throws Exception {
 
-        return Observable.zip(apiST.obterUtilizadores(apiST.HEADER).toObservable(), apiSA.obterUtilizadores(apiSA.HEADER).toObservable(), new BiFunction<IUtilizadorListagem, IUtilizadorListagem, IUtilizadorListagem>() {
-            @Override
-            public IUtilizadorListagem apply(IUtilizadorListagem iUtilizadorListagem, IUtilizadorListagem iUtilizadorListagem2) throws Exception {
+                    IUtilizadorListagem utilizadores = new IUtilizadorListagem();
 
+                    utilizadores.dadosNovos = iUtilizadorListagem.dadosNovos;
+                    utilizadores.dadosNovos.addAll(iUtilizadorListagem2.dadosNovos);
 
-                IUtilizadorListagem lolo = new IUtilizadorListagem();
-
-
-                lolo.dadosNovos = iUtilizadorListagem.dadosNovos;
-                lolo.dadosNovos.addAll(iUtilizadorListagem2.dadosNovos);
-
-                return lolo;
-            }
+                    return utilizadores;
+                }
         });
-
     }
 
 
@@ -87,7 +60,6 @@ public class AutenticacaoRepositorio {
      * @return os dados do utilizador
      */
     public Single<Utilizador> obterUtilizador(String idUtilizador) {
-
         return utilizadorDao.obterUtilizador(idUtilizador);
     }
 

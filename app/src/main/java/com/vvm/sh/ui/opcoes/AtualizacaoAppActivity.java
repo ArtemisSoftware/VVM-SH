@@ -1,26 +1,35 @@
 package com.vvm.sh.ui.opcoes;
 
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
+import android.view.View;
 
 import com.vvm.sh.R;
 import com.vvm.sh.api.modelos.VersaoApp;
 import com.vvm.sh.databinding.ActivityAtualizacaoAppBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
+import com.vvm.sh.ui.pesquisa.PesquisaActivity;
+import com.vvm.sh.ui.pesquisa.modelos.Pesquisa;
 import com.vvm.sh.util.AtualizacaoUI;
+import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.interfaces.OnPermissaoConcedidaListener;
 import com.vvm.sh.util.metodos.DiretoriasUtil;
 import com.vvm.sh.util.metodos.NotificacaoUtil;
 import com.vvm.sh.util.metodos.PermissoesUtil;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
+import com.vvm.sh.util.metodos.TiposUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import javax.inject.Inject;
+
+import butterknife.OnClick;
 
 public class AtualizacaoAppActivity extends BaseDaggerActivity {
 
@@ -42,7 +51,6 @@ public class AtualizacaoAppActivity extends BaseDaggerActivity {
         activityAtualizacaoAppBinding = (ActivityAtualizacaoAppBinding) activityBinding;
         activityAtualizacaoAppBinding.setLifecycleOwner(this);
         activityAtualizacaoAppBinding.setViewmodel(viewModel);
-        activityAtualizacaoAppBinding.setActivity(this);
 
         subscreverObservadores();
 
@@ -62,6 +70,15 @@ public class AtualizacaoAppActivity extends BaseDaggerActivity {
     @Override
     protected void subscreverObservadores() {
 
+        viewModel.observarVersaoApp().observe(this, new Observer<VersaoApp>() {
+            @Override
+            public void onChanged(VersaoApp versaoApp) {
+
+                if(versaoApp.atualizar == false){
+                    dialogo.alerta(getString(R.string.atualizacao), getString(R.string.app_atualizada), listenerActivity);
+                }
+            }
+        });
     }
 
 
@@ -121,7 +138,6 @@ public class AtualizacaoAppActivity extends BaseDaggerActivity {
      */
     private void imprimirProgresso(AtualizacaoUI.Comunicado comunicado){
 
-
         if(comunicado.obterLimite() != Sintaxe.SEM_REGISTO){
             if(activityAtualizacaoAppBinding.progressBarProgresso.getMax() != comunicado.obterLimite()){
                 activityAtualizacaoAppBinding.progressBarProgresso.setMax(comunicado.obterLimite());
@@ -138,8 +154,10 @@ public class AtualizacaoAppActivity extends BaseDaggerActivity {
     //Eventos
     //----------------------
 
+    @OnClick(R.id.btn_cancelar)
+    public void btn_cancelar_OnClickListener(View view) {
 
-    public void onCancelarClick(VersaoApp versaoApp) {
+        VersaoApp versaoApp = viewModel.versaoApp.getValue();
 
         if(versaoApp.atualizar == true) {
             NotificacaoUtil.notificarAtualizacaoApp(getApplication(), versaoApp.versao);
@@ -148,8 +166,8 @@ public class AtualizacaoAppActivity extends BaseDaggerActivity {
         finish();
     }
 
-
-    public void onAtualizarClick() {
+    @OnClick(R.id.btn_atualizar)
+    public void btn_atualizar_OnClickListener(View view) {
 
         activityAtualizacaoAppBinding.progressBarProgresso.setProgress(0);
         activityAtualizacaoAppBinding.txtTituloProgresso.setText(Sintaxe.SEM_TEXTO);
@@ -168,5 +186,7 @@ public class AtualizacaoAppActivity extends BaseDaggerActivity {
 
         PermissoesUtil.pedirPermissoesEscritaLeitura(this, listener);
     }
+
+
 
 }

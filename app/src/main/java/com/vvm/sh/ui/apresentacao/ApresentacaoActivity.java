@@ -3,6 +3,7 @@ package com.vvm.sh.ui.apresentacao;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.viewpager.widget.ViewPager;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.view.View;
@@ -12,6 +13,7 @@ import android.widget.TextView;
 import com.vvm.sh.R;
 import com.vvm.sh.ui.apresentacao.modelos.Introducao;
 import com.vvm.sh.ui.apresentacao.modelos.IntroducaoFactory;
+import com.vvm.sh.ui.autenticacao.AutenticacaoActivity;
 import com.vvm.sh.util.constantes.AppConfig;
 import com.vvm.sh.util.constantes.Apresentacoes;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
@@ -69,8 +71,6 @@ public class ApresentacaoActivity extends AppCompatActivity implements ViewPager
     private void obterApresentacao(){
 
         if(PreferenciasUtil.obterPrimeiraUtilizacao(this) == true){
-
-            PreferenciasUtil.fixarPrimeiraUtilizacao(this, false);
 
             iniciarApresentacao(Apresentacoes.PAGINAS_BOAS_VINDAS);
 
@@ -135,7 +135,18 @@ public class ApresentacaoActivity extends AppCompatActivity implements ViewPager
      * Metodo que permite terminar a apresentacao
      */
     private void terminarApresentacao() {
-        finish();
+
+        if(PreferenciasUtil.obterPrimeiraUtilizacao(this) == true) {
+
+            PreferenciasUtil.fixarPrimeiraUtilizacao(this, false);
+
+            finish();
+            Intent intent = new Intent(this, AutenticacaoActivity.class);
+            startActivity(intent);
+        }
+        else {
+            finish();
+        }
     }
 
 

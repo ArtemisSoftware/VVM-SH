@@ -9,6 +9,7 @@ import java.util.Date;
 import java.util.List;
 
 import io.reactivex.Flowable;
+import io.reactivex.Observable;
 
 public class AgendaRepositorio {
 
@@ -26,7 +27,7 @@ public class AgendaRepositorio {
      * @param data a data das marcacaoes
      * @return uma lista de marcacaoes
      */
-    public Flowable<List<Marcacao>> obterMarcacoes(String idUtilizador, long data){
+    public Observable<List<Marcacao>> obterMarcacoes(String idUtilizador, long data){
         return agendaDao.obterMarcacoes(idUtilizador, data);
     }
 
@@ -36,7 +37,7 @@ public class AgendaRepositorio {
      * @param data a data a validar
      * @return o estado da completude
      */
-    public Flowable<Integer> obterCompletude(String idUtilizador, long data){
+    public Observable<Integer> obterCompletude(String idUtilizador, long data){
         return agendaDao.obterCompletude(idUtilizador, data);
     }
 

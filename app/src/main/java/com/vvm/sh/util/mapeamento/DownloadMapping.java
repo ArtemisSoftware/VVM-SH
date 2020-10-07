@@ -68,6 +68,7 @@ public interface DownloadMapping {
     Atualizacao map(ITipoTemplateAvrLevantamentoListagem levantamentos);
 
     @Mapping(target = "descricao", source = "metodo")
+    @Mapping(target = "tipo", ignore = true)
     Atualizacao map(ITipoTemplateAvrRiscoListagem riscos);
 
 

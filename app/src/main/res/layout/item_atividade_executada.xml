@@ -22,6 +22,7 @@
     </data>
 
 
+
     <androidx.cardview.widget.CardView
         style="@style/cartao">
 
@@ -29,34 +30,67 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="16dp"
+                android:orientation="horizontal"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                android:gravity="center_vertical">
+
+                <TextView
+                    style="@style/textoDetalhe"
+                    android:text="@{DatasUtil.converterData(atividade.dataExecucao, DatasUtil.FORMATO_DD_MM_YYYY), default=dataExecucao}"
+                     />
+
+                <TextView
+                    android:layout_marginLeft="16dp"
+                    style="@style/subTituloCartao"
+                    android:text="@{atividade.descricao, default=atividade}"  />
+
+            </LinearLayout>
+            <!--
 
             <TextView
                 android:id="@+id/textView13"
                 style="@style/textoDetalhe"
-                android:text="@{DatasUtil.converterData(atividade.dataExecucao, DatasUtil.FORMATO_DD_MM_YYYY), default=dataExecucao}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginBottom="16dp"
+                android:text="@{DatasUtil.converterData(atividade.dataExecucao, DatasUtil.FORMATO_DD_MM_YYYY), default=dataExecucao}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent" />
+                app:layout_constraintTop_toTopOf="parent"
+
+                android:layout_weight="3"/>
 
             <TextView
                 android:id="@+id/textView14"
                 style="@style/subTituloCartao"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
-                android:text="@{atividade.descricao, default=atividade}"
+                android:layout_marginEnd="16dp"
+                android:text="@string/lorem_ipsum_texto"
                 app:layout_constraintBottom_toBottomOf="@+id/textView13"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toEndOf="@+id/textView13"
-                app:layout_constraintTop_toTopOf="@+id/textView13" />
+                app:layout_constraintTop_toTopOf="@+id/textView13"
+
+                android:layout_weight="1"/>
+            -->
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+        <!--
+
+                android:text="@{atividade.descricao, default=atividade}"  -->
 
     </androidx.cardview.widget.CardView>
 

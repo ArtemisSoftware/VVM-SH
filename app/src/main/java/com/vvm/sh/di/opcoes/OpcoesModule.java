@@ -1,6 +1,7 @@
 package com.vvm.sh.di.opcoes;
 
 import com.vvm.sh.api.SegurancaAlimentarApi;
+import com.vvm.sh.api.SegurancaHigieneApi;
 import com.vvm.sh.api.SegurancaTrabalhoApi;
 import com.vvm.sh.baseDados.dao.AtualizacaoDao;
 import com.vvm.sh.baseDados.dao.TipoDao;
@@ -18,11 +19,9 @@ public class OpcoesModule {
 
     @OpcoesScope
     @Provides
-    VersaoAppRepositorio provideVersaoAppRepositorio(SegurancaAlimentarApi segurancaAlimentarApi) {
+    VersaoAppRepositorio provideVersaoAppRepositorio(SegurancaHigieneApi segurancaHigieneApi) {
 
-        VersaoAppRepositorio repositorio = new VersaoAppRepositorio(segurancaAlimentarApi);
-
-        //Timber.d("Providing PokemonRepository: " + repository);
+        VersaoAppRepositorio repositorio = new VersaoAppRepositorio(segurancaHigieneApi);
         return repositorio;
     }
 
@@ -33,8 +32,6 @@ public class OpcoesModule {
     static AtualizacaoDao provideAtualizacaoDao(VvmshBaseDados vvmshBaseDados){
 
         AtualizacaoDao dao = vvmshBaseDados.obterAtualizacaoDao();
-
-        //Timber.d("Providing NoteDao: " + dao);
         return dao;
     }
 
@@ -47,8 +44,6 @@ public class OpcoesModule {
                                              AtualizacaoDao atualizacaoDao, TipoDao tipoDao) {
 
         TiposRepositorio repositorio = new TiposRepositorio(segurancaAlimentarApi, segurancaTrabalhoApi, atualizacaoDao, tipoDao);
-
-        //Timber.d("Providing PokemonRepository: " + repository);
         return repositorio;
     }
 }

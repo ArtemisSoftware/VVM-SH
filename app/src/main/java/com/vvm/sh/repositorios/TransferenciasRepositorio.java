@@ -65,8 +65,8 @@ public class TransferenciasRepositorio {
      */
     public Single<ISessao> obterTrabalho(String idUtilizador) {
         //TODO: rever isto para poder escolher a api ou as duas
-        //return apiSA.obterTrabalho(SegurancaAlimentarApi.HEADER, idUtilizador);
-        return apiST.obterTrabalho(SegurancaTrabalhoApi.HEADER, idUtilizador);
+        return apiSA.obterTrabalho(SegurancaAlimentarApi.HEADER, idUtilizador);
+        //return apiST.obterTrabalho(SegurancaTrabalhoApi.HEADER, idUtilizador);
     }
 
 
@@ -79,8 +79,8 @@ public class TransferenciasRepositorio {
     public Single<ISessao> obterTrabalho(String idUtilizador, String data) {
 
         //TODO: rever isto para poder escolher a api ou as duas
-        //return apiSA.obterTrabalho(SegurancaAlimentarApi.HEADER, idUtilizador, data);
-        return apiST.obterTrabalho(SegurancaTrabalhoApi.HEADER, idUtilizador, data);
+        return apiSA.obterTrabalho(SegurancaAlimentarApi.HEADER, idUtilizador, data);
+        //return apiST.obterTrabalho(SegurancaTrabalhoApi.HEADER, idUtilizador, data);
     }
 
 

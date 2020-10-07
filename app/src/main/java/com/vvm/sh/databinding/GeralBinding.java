@@ -3,6 +3,7 @@ package com.vvm.sh.databinding;
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.databinding.BindingAdapter;
 
@@ -108,4 +109,21 @@ public class GeralBinding {
         }
     }
 
+
+
+    @BindingAdapter({"arrayTexto"})
+    public static void setFormatarTexto(TextView view, String [] texto) {
+
+        if(texto == null){
+            return;
+        }
+
+        String resultado = "";
+
+        for (String item : texto) {
+            resultado += item + "\n";
+        }
+
+        view.setText(resultado);
+    }
 }

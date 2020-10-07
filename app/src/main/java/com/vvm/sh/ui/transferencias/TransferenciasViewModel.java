@@ -578,8 +578,11 @@ public class TransferenciasViewModel extends BaseViewModel {
     //------------------------
 
 
+    /**
+     * Metodo que permite obter os tipos
+     * @param handlerUI um handler para as mensagens
+     */
     public void obterTipos(Handler handlerUI) {
-
 
         tiposRepositorio.obterAtualizacoes()
                 .map(new Function<List<Atualizacao>, List<TiposUtil.MetodoApi>>() {
@@ -621,68 +624,11 @@ public class TransferenciasViewModel extends BaseViewModel {
 
     }
 
-
-//
-//    public void obterTipos(Handler handlerUI){
-//
-//
-//        tiposRepositorio.obterAtualizacoes()
-//                .map(new Function<List<Atualizacao>, List<Atualizacao>>() {
-//                    @Override
-//                    public List<Atualizacao> apply(List<Atualizacao> atualizacoes) throws Exception {
-//
-//                        List<String> tipos = new LinkedList(Arrays.asList(TiposConstantes.MetodosTipos.TIPOS));
-//
-//                        for (Atualizacao atualizacao: atualizacoes) {
-//
-//                            if(tipos.contains(atualizacao.descricao) == true){
-//                                tipos.remove(atualizacao.descricao);
-//                            }
-//                        }
-//
-//                        for (String tipo: tipos) {
-//                            atualizacoes.add(new Atualizacao(tipo, ""));
-//                        }
-//
-//
-//                        return atualizacoes;
-//                    }
-//                })
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(
-//
-//                        new MaybeObserver<List<Atualizacao>>() {
-//                            @Override
-//                            public void onSubscribe(Disposable d) {
-//                                disposables.add(d);
-//                            }
-//
-//                            @Override
-//                            public void onSuccess(List<Atualizacao> atualizacoes) {
-//                                carregarTipos(atualizacoes, handlerUI);
-//                            }
-//
-//                            @Override
-//                            public void onError(Throwable e) {
-//
-//                            }
-//
-//                            @Override
-//                            public void onComplete() {
-//
-//                            }
-//                        }
-//
-//                );
-//
-//
-//
-//
-//    }
-//
-//
-
+    /**
+     * Metoodo que permite carregar os tipos
+     * @param atualizacoes as atualizações dos tipos
+     * @param handlerUI um handler para as mensagens
+     */
     private void carregarTipos(List<TiposUtil.MetodoApi> atualizacoes, Handler handlerUI){
 
         showProgressBar(true);

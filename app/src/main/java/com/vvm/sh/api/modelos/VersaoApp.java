@@ -11,37 +11,37 @@ import java.util.Arrays;
 public class VersaoApp {
 
 
-    //-{"emTeste":true,"versaoTeste":"1.46.77","textoTeste":["Atualicação 1","Nova Funcionalidade"],"utilizadoresTeste":["500005"," 4153"],"versaoProducao":"1.42.31","textoProducao":["Atualização 145","Nova funcionalidade para todos"]}
+    @SerializedName("emTeste")
+    private boolean atualizacaoTeste;
 
 
-
-
-
-    @SerializedName("versaoApp")
+    @SerializedName("versaoTeste")
     private String versaoTeste;
 
-    @SerializedName("Texto")
-    private String textoTeste;
+    @SerializedName("textoTeste")
+    private String [] textoTeste;
+
+    @SerializedName("utilizadoresTeste")
+    private String [] utilizadoresTeste;
+
+
 
     @SerializedName("versaoProducao")
     private String versaoProducao;
 
     @SerializedName("textoProducao")
-    private String textoProducao;
+    private String [] textoProducao;
 
 
-    @SerializedName("versaoTeste")
-    private boolean atualizacaoTeste;
 
-    @SerializedName("utilizadoresTeste")
-    private String [] utilizadoresTeste;
+
 
 
     @Expose(serialize = false)
     public String versao;
 
     @Expose(serialize = false)
-    public String texto;
+    public String [] texto;
 
     @Expose(serialize = false)
     public boolean atualizar;
@@ -52,23 +52,6 @@ public class VersaoApp {
 
     @Expose(serialize = false)
     public File ficheiro;
-
-
-    public VersaoApp(String versaoTeste, String textoTeste, String versaoProducao, String textoProducao,
-                     String [] utilizadoresTeste, boolean atualizacaoTeste){
-
-
-        this.versaoTeste = versaoTeste;
-        this.textoTeste = textoTeste;
-
-        this.versaoProducao = versaoProducao;
-        this.textoProducao = textoProducao;
-
-        this.utilizadoresTeste = utilizadoresTeste;
-        this.atualizacaoTeste = atualizacaoTeste;
-        //this.VERSAO_APP_TESTE = Boolean.parseBoolean(versaoTeste);
-
-    }
 
 
     /**
@@ -110,7 +93,7 @@ public class VersaoApp {
                 atualizar = true;
             }
             else{
-                texto = "A aplicação já se encontra atualizada.";
+                texto = new String[]{ "A aplicação já se encontra atualizada."};
             }
         }
         catch(NumberFormatException e){	}
@@ -119,23 +102,5 @@ public class VersaoApp {
 
 
 
-
-
-
-    /**
-     * Metodo que permite fixar o ficheiro da versao da api
-     * @param ficheiro o ficheiro da versao da api
-     */
-    public void fixarFicheiro(File ficheiro){
-        this.ficheiro = ficheiro;
-    }
-
-    /**
-     * Metodo que permite obter o ficheiro da versao da api
-     * @return um ficheiro
-     */
-    public File obterFicheiro(){
-        return ficheiro;
-    }
 
 }

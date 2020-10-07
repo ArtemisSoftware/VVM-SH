@@ -65,6 +65,7 @@ public class CarregamentoActivity extends BaseDaggerActivity {
         return viewModel;
     }
 
+
     @Override
     protected void subscreverObservadores() {
 
@@ -72,10 +73,7 @@ public class CarregamentoActivity extends BaseDaggerActivity {
             @Override
             public void onChanged(Recurso recurso) {
 
-
                 switch (recurso.status){
-
-
 
                     case ERRO:
 
@@ -93,6 +91,9 @@ public class CarregamentoActivity extends BaseDaggerActivity {
     //Metodos locais
     //----------------------------------------
 
+    /**
+     * Metod que permite terminar a atualizacao
+     */
     private void terminarAtualizacao() {
         activityCarregamentoBinding.crlProsseguir.setVisibility(View.VISIBLE);
     }

@@ -90,7 +90,7 @@ public class DownloadApkAsyncTask extends AsyncTask<VersaoApp, Void, Void> {
         }
 
         DownloadManager.Request pedido = new DownloadManager.Request(Uri.parse(versaoApp.urlDownload));
-        pedido.setDescription(versaoApp.texto);
+        pedido.setDescription(versaoApp.texto.toString());
         pedido.setTitle(contexto.getString(R.string.atualizacao_v) + versaoApp.versao);
         pedido.setDestinationInExternalPublicDir("/" + DiretoriasUtil.DOWNLOAD, nomeFicheiro);
         pedido.setAllowedNetworkTypes(DownloadManager.Request.NETWORK_WIFI);

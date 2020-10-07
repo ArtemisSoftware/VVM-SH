@@ -3,6 +3,7 @@ package com.vvm.sh.di;
 
 import com.vvm.sh.api.ApiConstantes;
 import com.vvm.sh.api.SegurancaAlimentarApi;
+import com.vvm.sh.api.SegurancaHigieneApi;
 import com.vvm.sh.api.SegurancaTrabalhoApi;
 import com.vvm.sh.util.interceptores.WebServiceInterceptor;
 
@@ -80,6 +81,15 @@ public class RedeModule {
 
     @Provides
     @Singleton
+    SegurancaAlimentarApi provideSegurancaAlimentarApiInterface(@Named("SegurancaAlimentarRetrofit") Retrofit retrofit) {
+
+        SegurancaAlimentarApi api = retrofit.create(SegurancaAlimentarApi.class);
+        return api;
+    }
+
+
+    @Provides
+    @Singleton
     @Named("SegurancaTrabalhoRetrofit")
     Retrofit provideSegurancaTrabalhoRetrofit(OkHttpClient okHttpClient) {
 
@@ -95,28 +105,36 @@ public class RedeModule {
     }
 
 
-
-
-
-    @Provides
-    @Singleton
-    SegurancaAlimentarApi provideSegurancaAlimentarApiInterface(@Named("SegurancaAlimentarRetrofit") Retrofit retrofit) {
-
-        SegurancaAlimentarApi api = retrofit.create(SegurancaAlimentarApi.class);
-
-        //Timber.d("Providing FlickrApi: " + api);
-        return api;
-    }
-
-
     @Provides
     @Singleton
     SegurancaTrabalhoApi provideSegurancaTrabalhoApiInterface(@Named("SegurancaTrabalhoRetrofit") Retrofit retrofit) {
 
         SegurancaTrabalhoApi api = retrofit.create(SegurancaTrabalhoApi.class);
-
-        //Timber.d("Providing FlickrApi: " + api);
         return api;
     }
 
+
+    @Provides
+    @Singleton
+    @Named("SegurancaHigieneRetrofit")
+    Retrofit provideSegurancaHigieneRetrofit(OkHttpClient okHttpClient) {
+
+        Retrofit retrofit = new Retrofit.Builder()
+                .baseUrl(SegurancaHigieneApi.URL_BASE)
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+                .client(okHttpClient)
+                .addConverterFactory(GsonConverterFactory.create())
+                .build();
+
+        return retrofit;
+    }
+
+
+    @Provides
+    @Singleton
+    SegurancaHigieneApi provideSegurancaHigieneApiInterface(@Named("SegurancaHigieneRetrofit") Retrofit retrofit) {
+
+        SegurancaHigieneApi api = retrofit.create(SegurancaHigieneApi.class);
+        return api;
+    }
 }

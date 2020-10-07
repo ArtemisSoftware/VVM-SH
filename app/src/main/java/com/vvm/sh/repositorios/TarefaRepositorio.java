@@ -46,7 +46,7 @@ public class TarefaRepositorio {
      * @param idTarefa o identificador da tarefa
      * @return os dados da tarefa
      */
-    public Flowable<TarefaDia> obterTarefa(int idTarefa) {
+    public Observable<TarefaDia> obterTarefa(int idTarefa) {
         return tarefaDao.obterTarefaDia(idTarefa);
     }
 
@@ -56,7 +56,7 @@ public class TarefaRepositorio {
      * @param idTarefa o identificador da tarefa
      * @return uma lista de registos
      */
-    public Flowable<List<AtividadeExecutada>> obterAtividadesExecutadas(int idTarefa) {
+    public Single<List<AtividadeExecutada>> obterAtividadesExecutadas(int idTarefa) {
         return tarefaDao.obterAtividades(idTarefa);
     }
 

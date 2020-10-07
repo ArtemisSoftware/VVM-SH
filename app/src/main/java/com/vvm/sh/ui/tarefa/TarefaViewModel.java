@@ -13,6 +13,7 @@ import com.vvm.sh.baseDados.entidades.EmailResultado;
 import com.vvm.sh.ui.tarefa.modelos.OpcaoCliente;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.ResultadoId;
+import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.constantes.TiposConstantes;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
@@ -37,6 +38,7 @@ import io.reactivex.schedulers.Schedulers;
 public class TarefaViewModel extends BaseViewModel {
 
     private final TarefaRepositorio tarefaRepositorio;
+    private final int idApi;
 
     public MutableLiveData<TarefaDia> tarefaDia;
     public MutableLiveData<List<AtividadeExecutada>> atividadesExecutadas;
@@ -49,8 +51,8 @@ public class TarefaViewModel extends BaseViewModel {
 
 
     @Inject
-    public TarefaViewModel(TarefaRepositorio tarefaRepositorio){
-
+    public TarefaViewModel(int idApi, TarefaRepositorio tarefaRepositorio){
+        this.idApi = idApi;
         this.tarefaRepositorio = tarefaRepositorio;
         tarefaDia = new MutableLiveData<>();
         opcoesCliente = new MutableLiveData<>();
@@ -75,67 +77,56 @@ public class TarefaViewModel extends BaseViewModel {
 
         if(tarefaDia.getValue().email == null){
 
-            tarefaRepositorio.inserir(email).toObservable()
+            tarefaRepositorio.inserir(email)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(
 
-                            new Observer<Long>() {
+                            new SingleObserver<Long>() {
                                 @Override
                                 public void onSubscribe(Disposable d) {
                                     disposables.add(d);
                                 }
 
                                 @Override
-                                public void onNext(Long aLong) {
+                                public void onSuccess(Long aLong) {
                                     messagemLiveData.setValue(Recurso.successo());
+                                    gravarResultado(tarefaRepositorio.resultadoDao, email.idTarefa, ResultadoId.EMAIL);
                                 }
 
                                 @Override
                                 public void onError(Throwable e) {
                                     messagemLiveData.setValue(Recurso.erro(e.getMessage()));
-                                }
-
-                                @Override
-                                public void onComplete() {
-
                                 }
                             }
                     );
         }
         else{
 
-            tarefaRepositorio.atualizar(email).toObservable()
+            tarefaRepositorio.atualizar(email)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(
 
-                            new Observer<Integer>() {
+                            new SingleObserver<Integer>() {
                                 @Override
                                 public void onSubscribe(Disposable d) {
                                     disposables.add(d);
                                 }
 
                                 @Override
-                                public void onNext(Integer integer) {
+                                public void onSuccess(Integer integer) {
                                     messagemLiveData.setValue(Recurso.successo());
+                                    gravarResultado(tarefaRepositorio.resultadoDao, email.idTarefa, ResultadoId.EMAIL);
                                 }
 
                                 @Override
                                 public void onError(Throwable e) {
                                     messagemLiveData.setValue(Recurso.erro(e.getMessage()));
                                 }
-
-                                @Override
-                                public void onComplete() {
-
-                                }
                             }
                     );
         }
-
-        gravarResultado(tarefaRepositorio.resultadoDao, email.idTarefa, ResultadoId.EMAIL);
-
     }
 
 
@@ -309,19 +300,19 @@ public class TarefaViewModel extends BaseViewModel {
 
 
     //--------------------
-    //OBTER
+    //OBTER - tarefa
     //--------------------
 
 
     /**
      * Metodo que permite obter os dados tarefa
-     * @param idTarefa
+     * @param idTarefa o identificador da tarefa
      */
     public void obterTarefa(int idTarefa){
 
         showProgressBar(true);
 
-        tarefaRepositorio.obterTarefa(idTarefa).toObservable()
+        tarefaRepositorio.obterTarefa(idTarefa)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -365,6 +356,9 @@ public class TarefaViewModel extends BaseViewModel {
     }
 
 
+    //--------------------
+    //OBTER - atividades executadas
+    //--------------------
 
     /**
      * Metodo que permite obter as atividades executadas
@@ -374,31 +368,26 @@ public class TarefaViewModel extends BaseViewModel {
 
         showProgressBar(true);
 
-        tarefaRepositorio.obterAtividadesExecutadas(idTarefa).toObservable()
+        tarefaRepositorio.obterAtividadesExecutadas(idTarefa)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
 
-                        new Observer<List<AtividadeExecutada>>() {
+                        new SingleObserver<List<AtividadeExecutada>>() {
                             @Override
                             public void onSubscribe(Disposable d) {
                                 disposables.add(d);
                             }
 
                             @Override
-                            public void onNext(List<AtividadeExecutada> registos) {
-
+                            public void onSuccess(List<AtividadeExecutada> registos) {
                                 atividadesExecutadas.setValue(registos);
                                 showProgressBar(false);
                             }
 
                             @Override
                             public void onError(Throwable e) {
-                                showProgressBar(false);
-                            }
-
-                            @Override
-                            public void onComplete() {
+                                formatarErro(e);
                                 showProgressBar(false);
                             }
                         }
@@ -500,7 +489,7 @@ public class TarefaViewModel extends BaseViewModel {
 
 
     /**
-     * Metodo que permite obter os dados do cliente
+     * Metodo que permite obter as opcoes do cliente
      */
     private void obterOpcoesCliente() {
 
@@ -508,11 +497,14 @@ public class TarefaViewModel extends BaseViewModel {
         items.add(OpcaoCliente.informacao());
         items.add(OpcaoCliente.email());
         items.add(OpcaoCliente.crossSelling());
-        items.add(OpcaoCliente.sinistralidade());
-        items.add(OpcaoCliente.parqueExtintores());
-        items.add(OpcaoCliente.quadroPessoal());
-        items.add(OpcaoCliente.registoVisita());
-        items.add(OpcaoCliente.planoAcao());
+
+        if(idApi == Identificadores.App.APP_ST) {
+            items.add(OpcaoCliente.sinistralidade());
+            items.add(OpcaoCliente.parqueExtintores());
+            items.add(OpcaoCliente.quadroPessoal());
+            items.add(OpcaoCliente.registoVisita());
+            items.add(OpcaoCliente.planoAcao());
+        }
 
         opcoesCliente.setValue(items);
     }
@@ -530,7 +522,6 @@ public class TarefaViewModel extends BaseViewModel {
         items.add(TiposConstantes.Email.EMAIL_NAO_AUTORIZADO);
 
         opcoesEmail.setValue(items);
-
     }
 
 

@@ -74,16 +74,18 @@ abstract public class AveriguacaoDao implements BaseDao<RelatorioAveriguacaoResu
             "WHERE id = :id")
     abstract public Single<AveriguacaoRegisto> obterRegisto(int id);
 
-
+    //https://mega.nz/folder/jqJAlYyL#Js1gkGWstR3F9O3gKrINgw
+    //http://linkunshortner.glitch.me/
 
     //https://mega.nz/folder/9aIhXIrR#U9QHq_13tly4SYRLn10ykg
 
-    //https://mega.nz/folder/9aIhXIrR#U9QHq_13tly4SYRLn10ykg/folder/YaJQAaZR --ca
+    //https://mega.nz/folder/qEMGzZTA#sDhaYSkVzwqIQL9q03KbHw/folder/WQdEyRqA -mand mus
+    //https://mega.nz/folder/qEMGzZTA#sDhaYSkVzwqIQL9q03KbHw/folder/bUcSARKJ --per bit
     //https://mega.nz/folder/9aIhXIrR#U9QHq_13tly4SYRLn10ykg/folder/JHZWBCxY
     //https://mega.nz/folder/9aIhXIrR#U9QHq_13tly4SYRLn10ykg/folder/AbYCAQ4I --sph
     //https://mega.nz/folder/9aIhXIrR#U9QHq_13tly4SYRLn10ykg/folder/BLB03SaJ --sv bo
-    //https://mega.nz/folder/9aIhXIrR#U9QHq_13tly4SYRLn10ykg/folder/IGY0QAqI --m mk
-    //https://mega.nz/folder/9aIhXIrR#U9QHq_13tly4SYRLn10ykg/folder/JGJACIrY --k vong +
+    //https://mega.nz/folder/9aIhXIrR#U9QHq_13tly4SYRLn10ykg/folder/IGY0QAqI --m mk + https://mega.nz/folder/qEMGzZTA#sDhaYSkVzwqIQL9q03KbHw/folder/SBUAGbAQ
+
     //https://mega.nz/folder/9aIhXIrR#U9QHq_13tly4SYRLn10ykg/folder/MXYUEajZ --jn
     //https://mega.nz/folder/9aIhXIrR#U9QHq_13tly4SYRLn10ykg/folder/sXI0RCqY --js lo
     //https://mega.nz/folder/9aIhXIrR#U9QHq_13tly4SYRLn10ykg/folder/deIGzI4a --gia
@@ -95,9 +97,11 @@ abstract public class AveriguacaoDao implements BaseDao<RelatorioAveriguacaoResu
     //https://mega.nz/folder/1RADSQzY#iFdVNCrgfF_mdyUhUw1luQ --st ro
     //https://mega.nz/folder/9aIhXIrR#U9QHq_13tly4SYRLn10ykg/folder/caQQxabT
 
-
-
 //--https://mega.nz/folder/SohilbpA#Ahm58e1cpLlmECfstygiXA/folder/XooCxDID mm
-    //--https://mega.nz/folder/qEMGzZTA#sDhaYSkVzwqIQL9q03KbHw/folder/zJd0FLja
+
+    //res
+    //sph + https://mega.nz/folder/OK5SyYCK#_9iSmqHs33w0mNhBjq9G8Q
+    //https://mega.nz/folder/9aIhXIrR#U9QHq_13tly4SYRLn10ykg/folder/JGJACIrY --k vong +
+    //https://mega.nz/folder/9aIhXIrR#U9QHq_13tly4SYRLn10ykg/folder/YaJQAaZR --ca
 }
 

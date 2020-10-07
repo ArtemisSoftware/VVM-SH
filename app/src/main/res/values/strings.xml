@@ -448,4 +448,6 @@
     <string name="medidas_avaliacao">Medidas de avaliação</string>
     <string name="gerir_templates">Gerir templates</string>
     <string name="gerir_checklists">Gerir checklists</string>
+    <string name="iniciar_atualizacao">Iniciar atualização</string>
+    <string name="app_atualizada">A app já se encontra atualizada</string>
 </resources>

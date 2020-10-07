@@ -1186,9 +1186,9 @@ public class DataBinderMapperImpl extends DataBinderMapper {
       sKeys.put(2, "opcao");
       sKeys.put(3, "tipo");
       sKeys.put(4, "listenerRegisto");
-      sKeys.put(5, "activity");
-      sKeys.put(6, "levantamento");
-      sKeys.put(7, "propostas");
+      sKeys.put(5, "levantamento");
+      sKeys.put(6, "propostas");
+      sKeys.put(7, "activity");
       sKeys.put(8, "idArea");
       sKeys.put(9, "upload");
       sKeys.put(10, "listener");

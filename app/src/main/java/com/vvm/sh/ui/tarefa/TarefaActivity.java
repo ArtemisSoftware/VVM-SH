@@ -35,7 +35,7 @@ import javax.inject.Inject;
 import butterknife.OnClick;
 
 public class TarefaActivity extends BaseDaggerActivity
-        implements OnTarefaListener/*, DialogoEmail.DialogEmailListener*/ {
+        implements OnTarefaListener {
 
     private ActivityTarefaBinding activityTarefaBinding;
 
@@ -136,10 +136,6 @@ public class TarefaActivity extends BaseDaggerActivity
                 dialogo.show(getSupportFragmentManager(), "example dialog");
                 break;
 
-//            case OpcaoClienteRecyclerAdapter.OPCAO_ANOMALIA:
-//
-//                intent = new Intent(this, RegistoAnomaliasActivity.class);
-//                break;
 
             default:
                 break;

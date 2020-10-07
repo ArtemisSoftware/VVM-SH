@@ -7,11 +7,13 @@ import com.vvm.sh.baseDados.BaseDao;
 import com.vvm.sh.baseDados.entidades.Anomalia;
 import com.vvm.sh.ui.anomalias.modelos.AnomaliaRegistada;
 import com.vvm.sh.baseDados.entidades.AnomaliaResultado;
+import com.vvm.sh.util.metodos.TiposUtil;
 
 import java.util.List;
 
 import io.reactivex.Flowable;
 import io.reactivex.Maybe;
+import io.reactivex.Observable;
 import io.reactivex.Single;
 
 @Dao
@@ -19,21 +21,21 @@ abstract public class AnomaliaDao implements BaseDao<AnomaliaResultado> {
 
 
     @Query("SELECT * FROM anomalias WHERE idTarefa = :idTarefa")
-    abstract public Flowable<List<Anomalia>> obterAnomalias(int idTarefa);
+    abstract public Single<List<Anomalia>> obterAnomalias(int idTarefa);
 
 
     @Query("SELECT * " +
             "FROM anomaliasResultado as anm_res " +
-            "LEFT JOIN (SELECT id, descricao FROM tipos WHERE tipo = :tipo) as tp ON anm_res.idAnomalia = tp.id " +
+            "LEFT JOIN (SELECT id, descricao FROM tipos WHERE tipo = '" + TiposUtil.MetodosTipos.TIPOS_ANOMALIAS + "' AND api = :api) as tp ON anm_res.idAnomalia = tp.id " +
             "WHERE idTarefa = :idTarefa")
-    abstract public Flowable<List<AnomaliaRegistada>> obterAnomaliasRegistadas(int idTarefa, String tipo);
+    abstract public Observable<List<AnomaliaRegistada>> obterAnomaliasRegistadas(int idTarefa, int api);
 
 
     @Query("SELECT * " +
             "FROM anomaliasResultado as anm_res " +
-            "LEFT JOIN (SELECT id, descricao FROM tipos WHERE tipo = :tipo) as tp ON anm_res.idAnomalia = tp.id " +
+            "LEFT JOIN (SELECT id, descricao FROM tipos WHERE tipo = '" + TiposUtil.MetodosTipos.TIPOS_ANOMALIAS + "' AND api = :api) as tp ON anm_res.idAnomalia = tp.id " +
             "WHERE anm_res.id = :id")
-    abstract public Maybe<AnomaliaRegistada> obterAnomaliasRegistada(int id, String tipo);
+    abstract public Maybe<AnomaliaRegistada> obterAnomaliasRegistada(int id, int api);
 
 
 

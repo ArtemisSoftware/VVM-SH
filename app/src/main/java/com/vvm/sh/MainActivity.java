@@ -27,6 +27,7 @@ import com.vvm.sh.ui.transferencias.UploadTrabalhoActivity;
 import com.vvm.sh.ui.tarefa.TarefaActivity;
 import com.vvm.sh.ui.agenda.adaptadores.OnAgendaListener;
 import com.vvm.sh.util.Recurso;
+import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.interfaces.OnDialogoListener;
 import com.vvm.sh.util.metodos.DatasUtil;
@@ -280,6 +281,7 @@ public class MainActivity extends BaseDaggerActivity
     public void btn_download_on_demand_OnClickListener(View view) {
 
         Intent intent = new Intent(this, DownloadTrabalhoActivity.class);
+        intent.putExtra(getString(R.string.argumento_download), Identificadores.Download.DOWNLOAD_TRABALHO_DIA);
         startActivity(intent);
     }
 

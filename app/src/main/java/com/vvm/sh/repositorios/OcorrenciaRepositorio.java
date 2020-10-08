@@ -12,21 +12,25 @@ import com.vvm.sh.ui.ocorrencias.modelos.OcorrenciaBase;
 import com.vvm.sh.ui.ocorrencias.modelos.OcorrenciaRegisto;
 import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.util.constantes.TiposConstantes;
+import com.vvm.sh.util.metodos.TiposUtil;
 
 import java.util.List;
 
 import io.reactivex.Flowable;
+import io.reactivex.Observable;
 import io.reactivex.Single;
 
-public class OcorrenciaRepositorio {
+public class OcorrenciaRepositorio implements Repositorio<OcorrenciaResultado>{
 
+    private final int idApi;
     private final OcorrenciaDao ocorrenciaDao;
     private final TipoDao tipoDao;
     public final ResultadoDao resultadoDao;
 
-    public OcorrenciaRepositorio(@NonNull OcorrenciaDao ocorrenciaDao,
+    public OcorrenciaRepositorio(int idApi, @NonNull OcorrenciaDao ocorrenciaDao,
                                  @NonNull TipoDao tipoDao, @NonNull ResultadoDao resultadoDao) {
 
+        this.idApi = idApi;
         this.ocorrenciaDao = ocorrenciaDao;
         this.resultadoDao = resultadoDao;
         this.tipoDao = tipoDao;
@@ -39,7 +43,7 @@ public class OcorrenciaRepositorio {
      * @param idTarefa o identificador da tarefa
      * @return uma lista de registos
      */
-    public Flowable<List<Ocorrencia>> obterOcorrencias(int idTarefa) {
+    public Single<List<Ocorrencia>> obterOcorrencias(int idTarefa) {
         return ocorrenciaDao.obterOcorrencias(idTarefa);
     }
 
@@ -48,8 +52,8 @@ public class OcorrenciaRepositorio {
      * Obter grupos de ocorrencias
      * @return uma lista
      */
-    public Flowable<List<Tipo>> obterOcorrencias() {
-        return tipoDao.obterTipos(TiposConstantes.MetodosTipos.TIPIFICACAO_OCORRENCIA, "");
+    public Single<List<Tipo>> obterOcorrencias() {
+        return tipoDao.obterTipos_(TiposUtil.MetodosTipos.TIPIFICACAO_OCORRENCIA, idApi, "");
     }
 
 
@@ -60,8 +64,8 @@ public class OcorrenciaRepositorio {
      * @param idOcorrencia o identificador do grupo de ocorrencias
      * @return uma lista
      */
-    public Flowable<List<OcorrenciaBase>> obterRegistoOcorrencias(int idTarefa, int idOcorrencia) {
-        return ocorrenciaDao.obterOcorrencias(idTarefa, TiposConstantes.MetodosTipos.TIPIFICACAO_OCORRENCIA, idOcorrencia);
+    public Observable<List<OcorrenciaBase>> obterRegistoOcorrencias(int idTarefa, int idOcorrencia) {
+        return ocorrenciaDao.obterOcorrencias(idTarefa, idOcorrencia, idApi);
     }
 
 
@@ -70,8 +74,8 @@ public class OcorrenciaRepositorio {
      * @param idTarefa o identificador da tarefa
      * @return uma lista de registos
      */
-    public Flowable<List<OcorrenciaRegisto>> obterOcorrenciasRegistadas(int idTarefa) {
-        return ocorrenciaDao.obterOcorrenciasRegistadas(idTarefa, TiposConstantes.MetodosTipos.TIPIFICACAO_OCORRENCIA);
+    public Observable<List<OcorrenciaRegisto>> obterOcorrenciasRegistadas(int idTarefa) {
+        return ocorrenciaDao.obterOcorrenciasRegistadas(idTarefa, idApi);
     }
 
 
@@ -83,7 +87,7 @@ public class OcorrenciaRepositorio {
      * @return uma ocorrencia
      */
     public Single<OcorrenciaBase> obterRegistoOcorrencia(int idTarefa, int id, int idTipo){
-        return ocorrenciaDao.obterOcorrenciaRegistada(idTarefa, TiposConstantes.MetodosTipos.TIPIFICACAO_OCORRENCIA, id, idTipo);
+        return ocorrenciaDao.obterOcorrenciaRegistada(idTarefa, id, idTipo, idApi);
     }
 
 
@@ -98,46 +102,25 @@ public class OcorrenciaRepositorio {
      * @param id o identificador da ocorrencia
      * @return uma lista de historico
      */
-    public Flowable<List<OcorrenciaHistorico>> obterHistorico(int id) {
+    public Single<List<OcorrenciaHistorico>> obterHistorico(int id) {
         return ocorrenciaDao.obterHistorico(id);
     }
 
-    //-----
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    @Override
     public Single<Long> inserir(OcorrenciaResultado ocorrencia){
         return ocorrenciaDao.inserir(ocorrencia);
     }
 
+    @Override
     public Single<Integer> atualizar(OcorrenciaResultado ocorrencia){
         return ocorrenciaDao.atualizar(ocorrencia);
     }
 
-
-
-
-
-
-
-
-
-    public Flowable<Tipo> obterOcorrencia(int id) {
-        return tipoDao.obterTipo(TiposConstantes.MetodosTipos.TIPIFICACAO_OCORRENCIA, id);
+    @Override
+    public Single<Integer> remover(OcorrenciaResultado item) {
+        return null;
     }
 
 }

@@ -78,27 +78,63 @@
                     android:id="@+id/txt_data"
                     style="@style/textoDetalhe"
                     android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
                     android:text="@string/data"
+                    app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintEnd_toEndOf="@+id/imageView7"
                     app:layout_constraintStart_toStartOf="@+id/imageView7"
                     app:layout_constraintTop_toBottomOf="@+id/txt_titulo" />
 
 
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+        </com.google.android.material.card.MaterialCardView>
+
+
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_tipos"
+            style="@style/cartao"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:strokeWidth="1dp"
+            app:cardElevation="0dp"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@+id/card">
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <TextView
+                    android:id="@+id/txt_titulo_tipos"
+                    style="@style/subTituloCartao"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/atualizar_tipos"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
                 <androidx.constraintlayout.widget.ConstraintLayout
-                    android:id="@+id/lnr_lyt_progresso"
-                    android:layout_width="match_parent"
+                    android:id="@+id/lnr_lyt_progresso_tipos"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
+                    android:layout_marginTop="16dp"
                     android:layout_marginBottom="8dp"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintEnd_toEndOf="@+id/imageView7"
-                    app:layout_constraintStart_toStartOf="@+id/imageView7"
-                    app:layout_constraintTop_toBottomOf="@+id/txt_data">
+                    app:layout_constraintStart_toStartOf="@+id/txt_titulo_tipos"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_titulo_tipos">
 
                     <!-- android:visibility="@{viewmodel.versaoApp.atualizar ? View.VISIBLE : View.GONE}" -->
 
                     <ProgressBar
-                        android:id="@+id/progressBar_progresso"
+                        android:id="@+id/progressBar_progresso_tipos"
                         style="?android:attr/progressBarStyleHorizontal"
                         android:layout_width="500dp"
                         android:layout_height="wrap_content"
@@ -111,24 +147,23 @@
                         app:layout_constraintVertical_bias="0.19999999" />
 
                     <TextView
-                        android:id="@+id/txt_titulo_progresso"
+                        android:id="@+id/txt_titulo_progresso_tipos"
                         style="@style/textoDetalhe"
                         android:layout_marginTop="8dp"
                         android:layout_marginBottom="64dp"
                         app:layout_constraintBottom_toTopOf="@+id/button"
-                        app:layout_constraintStart_toStartOf="@+id/progressBar_progresso"
-                        app:layout_constraintTop_toBottomOf="@+id/progressBar_progresso"
+                        app:layout_constraintStart_toStartOf="@+id/progressBar_progresso_tipos"
+                        app:layout_constraintTop_toBottomOf="@+id/progressBar_progresso_tipos"
                         app:layout_constraintVertical_bias="0.07999998" />
 
                     <TextView
-                        android:id="@+id/txt_progresso"
+                        android:id="@+id/txt_progresso_tipos"
                         style="@style/textoDetalhe"
-                        app:layout_constraintEnd_toEndOf="@+id/progressBar_progresso"
-                        app:layout_constraintTop_toTopOf="@+id/txt_titulo_progresso" />
+                        app:layout_constraintEnd_toEndOf="@+id/progressBar_progresso_tipos"
+                        app:layout_constraintTop_toTopOf="@+id/txt_titulo_progresso_tipos" />
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
-
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -139,6 +174,92 @@
         </com.google.android.material.card.MaterialCardView>
 
 
+
+
+        <com.google.android.material.card.MaterialCardView
+            android:id="@+id/card_trabalho"
+            style="@style/cartao"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:strokeWidth="1dp"
+            app:cardElevation="0dp"
+            android:visibility="gone"
+            app:layout_constraintTop_toBottomOf="@+id/card_tipos">
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content">
+
+
+                <TextView
+                    android:id="@+id/txt_titulo_trabalho"
+                    style="@style/subTituloCartao"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/download_trabalho"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:id="@+id/lnr_lyt_progresso_trabalho"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="8dp"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/txt_titulo_trabalho"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_titulo_trabalho">
+
+                    <!-- android:visibility="@{viewmodel.versaoApp.atualizar ? View.VISIBLE : View.GONE}" -->
+
+                    <ProgressBar
+                        android:id="@+id/progressBar_progresso_trabalho"
+                        style="?android:attr/progressBarStyleHorizontal"
+                        android:layout_width="500dp"
+                        android:layout_height="wrap_content"
+                        android:max="100"
+                        android:progress="0"
+                        app:layout_constraintBottom_toTopOf="@+id/button"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        app:layout_constraintVertical_bias="0.19999999" />
+
+                    <TextView
+                        android:id="@+id/txt_titulo_progresso_trabalho"
+                        style="@style/textoDetalhe"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="64dp"
+                        app:layout_constraintBottom_toTopOf="@+id/button"
+                        app:layout_constraintStart_toStartOf="@+id/progressBar_progresso_trabalho"
+                        app:layout_constraintTop_toBottomOf="@+id/progressBar_progresso_trabalho"
+                        app:layout_constraintVertical_bias="0.07999998" />
+
+                    <TextView
+                        android:id="@+id/txt_progresso_trabalho"
+                        style="@style/textoDetalhe"
+                        app:layout_constraintEnd_toEndOf="@+id/progressBar_progresso_trabalho"
+                        app:layout_constraintTop_toTopOf="@+id/txt_titulo_progresso_trabalho" />
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+        </com.google.android.material.card.MaterialCardView>
+
+
+
+
+
+
+
         <TextView
             android:id="@+id/txt_sub_titulo"
             style="@style/tituloCartao"
@@ -146,7 +267,7 @@
             android:text="@string/tarefas_pendentes"
             android:visibility="gone"
             app:layout_constraintStart_toStartOf="@+id/card"
-            app:layout_constraintTop_toBottomOf="@+id/card" />
+            app:layout_constraintTop_toBottomOf="@+id/card_tipos" />
 
 
 

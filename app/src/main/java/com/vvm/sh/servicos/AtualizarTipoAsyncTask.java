@@ -2,6 +2,7 @@ package com.vvm.sh.servicos;
 
 import android.database.sqlite.SQLiteConstraintException;
 import android.os.AsyncTask;
+import android.os.Handler;
 
 import com.vvm.sh.api.modelos.pedido.ITipoListagem;
 import com.vvm.sh.api.modelos.pedido.ITipo;
@@ -9,6 +10,7 @@ import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.repositorios.TiposRepositorio;
 import com.vvm.sh.baseDados.entidades.Atualizacao;
 import com.vvm.sh.baseDados.entidades.Tipo;
+import com.vvm.sh.util.AtualizacaoUI;
 import com.vvm.sh.util.excepcoes.TipoInexistenteException;
 import com.vvm.sh.util.mapeamento.DownloadMapping;
 import com.vvm.sh.util.metodos.TiposUtil;
@@ -21,10 +23,12 @@ public class AtualizarTipoAsyncTask extends AsyncTask<List<ITipoListagem>, Void,
     private String errorMessage;
     private VvmshBaseDados vvmshBaseDados;
     private TiposRepositorio repositorio;
+    private AtualizacaoUI atualizacaoUI;
 
-    public AtualizarTipoAsyncTask(VvmshBaseDados vvmshBaseDados, TiposRepositorio repositorio){
+    public AtualizarTipoAsyncTask(VvmshBaseDados vvmshBaseDados, Handler handlerUI, TiposRepositorio repositorio){
         this.vvmshBaseDados = vvmshBaseDados;
         this.repositorio = repositorio;
+        this.atualizacaoUI = new AtualizacaoUI(handlerUI);
     }
 
 
@@ -44,6 +48,8 @@ public class AtualizarTipoAsyncTask extends AsyncTask<List<ITipoListagem>, Void,
 
                     try {
 
+                        String registoTipo = "";
+
                         for (TiposUtil.MetodoApi metodo : TiposUtil.obterMetodos()){
 
                             Atualizacao atualizacao = null;
@@ -61,6 +67,8 @@ public class AtualizarTipoAsyncTask extends AsyncTask<List<ITipoListagem>, Void,
 
                             if(atualizacao != null) {
 
+                                registoTipo = atualizacao.descricao;
+
                                 List<Tipo> tipos = new ArrayList<>();
 
                                 for (ITipoListagem resposta : registos) {
@@ -69,14 +77,13 @@ public class AtualizarTipoAsyncTask extends AsyncTask<List<ITipoListagem>, Void,
 
                                 repositorio.atualizarTipo(atualizacao, tipos);
                             }
-
                         }
+
+                        atualizacaoUI.atualizarUI(AtualizacaoUI.Codigo.CONCLUIR_ATUALIZACAO_TIPO, "Tipo " + registoTipo + " atualizado com sucesso");
                     }
                     catch (TipoInexistenteException throwable) {
                         errorMessage = throwable.getMessage();
                     }
-
-
 
 
                 }

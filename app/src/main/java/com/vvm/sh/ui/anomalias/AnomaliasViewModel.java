@@ -37,7 +37,6 @@ public class AnomaliasViewModel extends BaseViewModel {
     public MutableLiveData<List<Tipo>> tiposAnomalias;
     public MutableLiveData<AnomaliaRegistada> anomaliaRegistada;
 
-    public MutableLiveData<List<Tipo>> estados;
 
 
     @Inject
@@ -48,7 +47,7 @@ public class AnomaliasViewModel extends BaseViewModel {
         tiposAnomalias = new MutableLiveData<>();
         anomaliaRegistada = new MutableLiveData<>();
         anomaliasResultados = new MutableLiveData<>();
-        estados = new MutableLiveData<>();
+
     }
 
 
@@ -294,17 +293,6 @@ public class AnomaliasViewModel extends BaseViewModel {
     //MISC
     //--------------------
 
-
-    /**
-     * Metodo que permite obter as opcoes dos registos
-     */
-    private void obterOpcoesRegistos() {
-        List<Tipo> estado = new ArrayList<>();
-
-        estado.add(TiposConstantes.OpcoesRegistos.CONSULTAR);
-        estado.add(TiposConstantes.OpcoesRegistos.NOVOS_REGISTOS);
-        estados.setValue(estado);
-    }
 
 
 

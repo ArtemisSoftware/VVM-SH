@@ -66,16 +66,7 @@ public class DialogoAtividadePendente extends BaseDaggerDialogFragment {
         viewModel = ViewModelProviders.of(this, providerFactory).get(AtividadesPendentesViewModel.class);
         binding = (DialogoAtividadePendenteBinding) activityBaseBinding;
 
-
         formatarDialogo();
-
-        builder.setNegativeButton(getString(R.string.cancelar), new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                terminarDialogo();
-            }
-        });
-
     }
 
     @Override
@@ -93,10 +84,20 @@ public class DialogoAtividadePendente extends BaseDaggerDialogFragment {
 
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        AlertDialog d = (AlertDialog) getDialog();
+        if (d != null) {
+            d.getButton(DialogInterface.BUTTON_POSITIVE).setVisibility(View.GONE);
+
+        }
+    }
 
     //-------------------------
     //Metodos locais
     //-------------------------
+
 
     /**
      * Metodo que permite formatar as opcoes do dialogo

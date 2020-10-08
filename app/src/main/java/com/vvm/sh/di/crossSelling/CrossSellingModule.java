@@ -18,19 +18,15 @@ public class CrossSellingModule {
     static CrossSellingDao provideCrossSellingDao(VvmshBaseDados vvmshBaseDados){
 
         CrossSellingDao dao = vvmshBaseDados.obterCrossSellingDao();
-
-        //Timber.d("Providing NoteDao: " + dao);
         return dao;
     }
 
 
     @CrossSellingScope
     @Provides
-    CrossSellingRepositorio provideCrossSellingRepositorio(CrossSellingDao crossSellingDao, TipoDao tipoDao, ResultadoDao resultadoDao) {
+    CrossSellingRepositorio provideCrossSellingRepositorio(int idApi, CrossSellingDao crossSellingDao, TipoDao tipoDao, ResultadoDao resultadoDao) {
 
-        CrossSellingRepositorio repositorio = new CrossSellingRepositorio(crossSellingDao, tipoDao, resultadoDao);
-
-        //Timber.d("Providing PokemonRepository: " + repository);
+        CrossSellingRepositorio repositorio = new CrossSellingRepositorio(idApi, crossSellingDao, tipoDao, resultadoDao);
         return repositorio;
     }
 

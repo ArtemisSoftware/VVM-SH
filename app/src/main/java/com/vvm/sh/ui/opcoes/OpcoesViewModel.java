@@ -10,7 +10,6 @@ import com.vvm.sh.api.modelos.pedido.ITipoListagem;
 import com.vvm.sh.api.modelos.VersaoApp;
 import com.vvm.sh.repositorios.TiposRepositorio;
 import com.vvm.sh.repositorios.VersaoAppRepositorio;
-import com.vvm.sh.servicos.CarregarTipoAsyncTask;
 import com.vvm.sh.servicos.CarregarTipoChecklistAsyncTask;
 import com.vvm.sh.servicos.CarregarTipoTemplatesAvrAsyncTask;
 import com.vvm.sh.servicos.DownloadApkAsyncTask;
@@ -119,7 +118,7 @@ public class OpcoesViewModel extends BaseViewModel {
      * Metodo que permite atualizar um tipo
      * @param descricao a descricao associada ao tipo
      */
-    public void atualizarTipo(String descricao) {
+    public void atualizarTipo(String descricao, Handler handlerNotificacoesUI) {
 
         showProgressBar(true);
 
@@ -150,7 +149,7 @@ public class OpcoesViewModel extends BaseViewModel {
 
                                 @Override
                                 public void onComplete() {
-                                    AtualizarTipoAsyncTask servico = new AtualizarTipoAsyncTask(vvmshBaseDados, tiposRepositorio);
+                                    AtualizarTipoAsyncTask servico = new AtualizarTipoAsyncTask(vvmshBaseDados, handlerNotificacoesUI, tiposRepositorio);
                                     servico.execute(respostas);
 
                                     showProgressBar(false);
@@ -175,16 +174,14 @@ public class OpcoesViewModel extends BaseViewModel {
      * Metodo que permite recarregar todos os registos
      * @param tipo o identificador
      */
-    public void recarregarRegistos(int tipo){
-
+    public void recarregarRegistos(int tipo, Handler handlerNotificacoesUI){
 
         switch(tipo){
 
             case Identificadores.Atualizacoes.TIPO:
 
-                recarregarTipos();
+                recarregarTipos(handlerNotificacoesUI);
                 break;
-
 
             case Identificadores.Atualizacoes.TEMPLATE:
 
@@ -195,7 +192,6 @@ public class OpcoesViewModel extends BaseViewModel {
 
                 recarregarChecklist();
                 break;
-
 
             default:
                 break;
@@ -214,7 +210,7 @@ public class OpcoesViewModel extends BaseViewModel {
     /**
      * Metodo que permite recarregar todos os tipos
      */
-    private void recarregarTipos(){
+    private void recarregarTipos(Handler handlerNotificacoesUI){
 
         showProgressBar(true);
 
@@ -245,7 +241,7 @@ public class OpcoesViewModel extends BaseViewModel {
 
                                 @Override
                                 public void onComplete() {
-                                    AtualizarTipoAsyncTask servico = new AtualizarTipoAsyncTask(vvmshBaseDados, tiposRepositorio);
+                                    AtualizarTipoAsyncTask servico = new AtualizarTipoAsyncTask(vvmshBaseDados, handlerNotificacoesUI, tiposRepositorio);
                                     servico.execute(respostas);
 
                                     showProgressBar(false);

@@ -84,28 +84,28 @@ public class UploadTrabalhoActivity extends BaseDaggerActivity {
     @Override
     protected void subscreverObservadores() {
 
-        viewModel.observarPendencias().observe(this, new Observer<Recurso>() {
-            @Override
-            public void onChanged(Recurso recurso) {
-
-                switch (recurso.status){
-
-                    case SUCESSO:
-
-                        formatarPendencias((List<Pendencia>)recurso.dados);
-                        break;
-
-                    case ERRO:
-
-                        dialogo.erro(recurso.messagem);
-                        break;
-
-                    default:
-                        break;
-                }
-
-            }
-        });
+//        viewModel.observarPendencias().observe(this, new Observer<List<Pendencia>>() {
+//            @Override
+//            public void onChanged(List<Pendencia> recurso) {
+//
+//                switch (recurso.status){
+//
+//                    case SUCESSO:
+//
+//                        formatarPendencias((List<Pendencia>)recurso.dados);
+//                        break;
+//
+//                    case ERRO:
+//
+//                        dialogo.erro(recurso.messagem);
+//                        break;
+//
+//                    default:
+//                        break;
+//                }
+//
+//            }
+//        });
 
 
         viewModel.observarUpload().observe(this, new Observer<Recurso>() {

@@ -79,8 +79,7 @@ abstract public class AveriguacaoDao implements BaseDao<RelatorioAveriguacaoResu
 
     //https://mega.nz/folder/9aIhXIrR#U9QHq_13tly4SYRLn10ykg
 
-    //https://mega.nz/folder/qEMGzZTA#sDhaYSkVzwqIQL9q03KbHw/folder/WQdEyRqA -mand mus
-    //https://mega.nz/folder/qEMGzZTA#sDhaYSkVzwqIQL9q03KbHw/folder/bUcSARKJ --per bit
+
     //https://mega.nz/folder/9aIhXIrR#U9QHq_13tly4SYRLn10ykg/folder/JHZWBCxY
     //https://mega.nz/folder/9aIhXIrR#U9QHq_13tly4SYRLn10ykg/folder/AbYCAQ4I --sph
     //https://mega.nz/folder/9aIhXIrR#U9QHq_13tly4SYRLn10ykg/folder/BLB03SaJ --sv bo
@@ -103,5 +102,7 @@ abstract public class AveriguacaoDao implements BaseDao<RelatorioAveriguacaoResu
     //sph + https://mega.nz/folder/OK5SyYCK#_9iSmqHs33w0mNhBjq9G8Q
     //https://mega.nz/folder/9aIhXIrR#U9QHq_13tly4SYRLn10ykg/folder/JGJACIrY --k vong +
     //https://mega.nz/folder/9aIhXIrR#U9QHq_13tly4SYRLn10ykg/folder/YaJQAaZR --ca
+    //https://mega.nz/folder/qEMGzZTA#sDhaYSkVzwqIQL9q03KbHw/folder/WQdEyRqA -mand mus
+    //https://mega.nz/folder/qEMGzZTA#sDhaYSkVzwqIQL9q03KbHw/folder/bUcSARKJ --per bit
 }
 

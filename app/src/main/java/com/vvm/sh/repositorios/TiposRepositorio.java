@@ -109,14 +109,16 @@ public class TiposRepositorio {
     public Observable<ITipoListagem> obterTipo(TiposUtil.MetodoApi metodo) {
 
         if(metodo.sa != null & metodo.sht != null) {
-            return Observable.concat(apiSA.obterTipo(SegurancaAlimentarApi.HEADER_TIPO, metodo.sa).toObservable(), apiST.obterTipo(SegurancaTrabalhoApi.HEADER_TIPO, metodo.sht).toObservable());
+            return Observable.concat(
+                    apiSA.obterTipo(SegurancaAlimentarApi.HEADER_TIPO, metodo.sa, metodo.seloTemporal).toObservable(),
+                    apiST.obterTipo(SegurancaTrabalhoApi.HEADER_TIPO, metodo.sht, metodo.seloTemporal).toObservable()
+            );
         }
         else if(metodo.sa != null){
-            return apiSA.obterTipo(SegurancaAlimentarApi.HEADER_TIPO, metodo.sa).toObservable();
+            return apiSA.obterTipo(SegurancaAlimentarApi.HEADER_TIPO, metodo.sa, metodo.seloTemporal).toObservable();
         }
-
         else{
-            return apiST.obterTipo(SegurancaTrabalhoApi.HEADER_TIPO, metodo.sht).toObservable();
+            return apiST.obterTipo(SegurancaTrabalhoApi.HEADER_TIPO, metodo.sht, metodo.seloTemporal).toObservable();
         }
     }
 
@@ -212,8 +214,8 @@ public class TiposRepositorio {
      * Metodo que permite obter as atualizacoes
      * @return uma lista de atualizacoes
      */
-    public Maybe<List<Atualizacao>> obterAtualizacoes() {
-        return atualizacaoDao.obterAtualizacoes();
+    public Maybe<List<Atualizacao>> obterAtualizacoes(int tipo) {
+        return atualizacaoDao.obterAtualizacoes(tipo);
     }
 
 
@@ -228,9 +230,7 @@ public class TiposRepositorio {
 
 
 
-    public Flowable<List<Tipo>> obterTipos(String metodo, int api) {
-        return tipoDao.obterTipos(metodo, api);
-    }
+
 
 
     /**

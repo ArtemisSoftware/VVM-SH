@@ -70,7 +70,7 @@ public class CarregarTipoAsyncTask extends AsyncTask<List<ITipoListagem>, Void, 
 
                         repositorio.carregarTipo(atualizacao, dadosNovos, dadosAlterados);
 
-                        atualizacaoUI.atualizarUI(AtualizacaoUI.Codigo.PROCESSAMENTO_DADOS, atualizacao.descricao, ++index, respostas.size());
+                        atualizacaoUI.atualizarUI(AtualizacaoUI.Codigo.PROCESSAMENTO_TIPOS, atualizacao.descricao, ++index, respostas.size());
                     }
 
                     atualizacaoUI.atualizarUI(AtualizacaoUI.Codigo.PROCESSAMENTO_TIPOS_CONCLUIDO, "Concluido", index, respostas.size());

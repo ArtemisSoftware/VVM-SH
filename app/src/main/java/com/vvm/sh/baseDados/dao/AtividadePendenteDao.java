@@ -15,6 +15,7 @@ import java.util.List;
 
 import io.reactivex.Flowable;
 import io.reactivex.Maybe;
+import io.reactivex.Observable;
 import io.reactivex.Single;
 
 
@@ -50,9 +51,6 @@ abstract public class AtividadePendenteDao implements BaseDao<AtividadePendenteR
             "SELECT idTarefa, IFNULL(COUNT(*), 0) as ct_averiguacao, tipo FROM relatorioAveriguacao GROUP BY idTarefa " +
             ") as rel_averiguacao " +
 
-
-
-
             //formacao validacao
 
             "LEFT JOIN (" +
@@ -63,7 +61,9 @@ abstract public class AtividadePendenteDao implements BaseDao<AtividadePendenteR
 
 
             "WHERE atp.idTarefa = :idTarefa")
-    abstract public Flowable<List<AtividadePendenteRegisto>> obterAtividades(int idTarefa);
+    abstract public Observable<List<AtividadePendenteRegisto>> obterAtividades(int idTarefa);
+
+
 
     @Transaction
     @Query("SELECT *, " +

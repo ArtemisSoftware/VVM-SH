@@ -39,6 +39,11 @@ public abstract class BaseViewModel extends ViewModel {
     public MutableLiveData<Integer> loading;
 
 
+
+    public MutableLiveData<List<Tipo>> estados;
+
+
+
     @Inject
     protected VvmshBaseDados vvmshBaseDados;
 
@@ -47,6 +52,7 @@ public abstract class BaseViewModel extends ViewModel {
         this.disposables = new CompositeDisposable();
         messagemLiveData = new MutableLiveData<>();
         loading = new MutableLiveData<>();
+        estados = new MutableLiveData<>();
 
         showProgressBar(false);
     }
@@ -87,6 +93,19 @@ public abstract class BaseViewModel extends ViewModel {
     }
 
 
+    /**
+     * Metodo que permite obter as opcoes dos registos
+     */
+    protected void obterOpcoesRegistos() {
+        List<Tipo> estado = new ArrayList<>();
+
+        estado.add(TiposConstantes.OpcoesRegistos.CONSULTAR);
+        estado.add(TiposConstantes.OpcoesRegistos.NOVOS_REGISTOS);
+        estados.setValue(estado);
+    }
+
+
+
     protected List<CategoriaProfissionalResultado> ObterCategoriasProfissionais(List<Tipo> registo, int id, int origem){
 
 
@@ -117,7 +136,7 @@ public abstract class BaseViewModel extends ViewModel {
 
             Codigo codigo = gson.fromJson(e.getMessage(), Codigo.class);
 
-            messagemLiveData.setValue(Recurso.erro(codigo, "Upload"));
+            messagemLiveData.setValue(Recurso.erro(codigo, "Upload/Download"));
         }
         else if (e instanceof MetodoWsInvalidoException){
 

@@ -4,6 +4,8 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.view.Menu;
 import android.view.MenuItem;
 
@@ -12,6 +14,7 @@ import com.vvm.sh.databinding.ActivityTiposBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.opcoes.adaptadores.OnTipoListener;
+import com.vvm.sh.util.AtualizacaoUI;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
@@ -96,6 +99,42 @@ public class TiposActivity extends BaseDaggerActivity
 
 
 
+
+    //----------------------------------------
+    //HANDLER (notificacoes para o ui)
+    //----------------------------------------
+
+
+    final Handler handlerNotificacoesUI = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+
+            AtualizacaoUI.Comunicado comunicado = (AtualizacaoUI.Comunicado) msg.obj;
+
+            switch (comunicado.obterCodigo()) {
+
+                case CONCLUIR_ATUALIZACAO_TIPO:
+
+                    dialogo.sucesso(Sintaxe.Palavras.ATUALIZACAO, comunicado.obterDados());
+                    break;
+
+
+                default:
+                    //TODO: alerta de erro
+
+                    //--Alerta de erro
+                    //if(comunicado.obterMensagem() != null)
+                    //--AlertaUI.erro(dialogo, comunicado.obterMensagem())
+                    break;
+            }
+
+            super.handleMessage(msg);
+        }
+    };
+
+
+
+
     //---------------------
     //Eventos
     //---------------------
@@ -103,7 +142,7 @@ public class TiposActivity extends BaseDaggerActivity
 
     @Override
     public void OnTipoLongPressListener(String metodo) {
-        viewModel.atualizarTipo(metodo);
+        viewModel.atualizarTipo(metodo, handlerNotificacoesUI);
     }
 
 
@@ -125,7 +164,7 @@ public class TiposActivity extends BaseDaggerActivity
 
             case R.id.item_recarregar_geral:
 
-                viewModel.recarregarRegistos(bundle.getInt(getString(R.string.argumento_id_tipo)));
+                viewModel.recarregarRegistos(bundle.getInt(getString(R.string.argumento_id_tipo)), handlerNotificacoesUI);
                 break;
 
             default:

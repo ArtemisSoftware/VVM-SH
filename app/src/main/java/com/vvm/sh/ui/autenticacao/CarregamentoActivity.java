@@ -1,6 +1,5 @@
 package com.vvm.sh.ui.autenticacao;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -15,7 +14,6 @@ import com.vvm.sh.databinding.ActivityCarregamentoBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.apresentacao.ApresentacaoActivity;
-import com.vvm.sh.ui.opcoes.OpcoesViewModel;
 import com.vvm.sh.ui.transferencias.TransferenciasViewModel;
 import com.vvm.sh.util.AtualizacaoUI;
 import com.vvm.sh.util.Recurso;
@@ -52,7 +50,7 @@ public class CarregamentoActivity extends BaseDaggerActivity {
 
         subscreverObservadores();
 
-        viewModel.obterTipos(handlerNotificacoesUI);
+        viewModel.atualizarTipos(handlerNotificacoesUI);
     }
 
     @Override
@@ -87,6 +85,44 @@ public class CarregamentoActivity extends BaseDaggerActivity {
     }
 
 
+
+    final Handler handlerNotificacoesUI = new Handler(){
+        @Override
+        public void handleMessage(Message msg) {
+
+            AtualizacaoUI.Comunicado comunicado = (AtualizacaoUI.Comunicado) msg.obj;
+
+            switch (comunicado.obterCodigo()) {
+
+                case PROCESSAMENTO_TIPOS:
+
+                    imprimirProgresso(comunicado);
+                    break;
+
+                case PROCESSAMENTO_TIPOS_CONCLUIDO:
+
+                    terminarAtualizacao();
+                    break;
+
+
+
+                default:
+                    //TODO: alerta de erro
+
+                    //--Alerta de erro
+                    //if(comunicado.obterMensagem() != null)
+                    //--AlertaUI.erro(dialogo, comunicado.obterMensagem())
+                    break;
+            }
+
+            super.handleMessage(msg);
+        }
+    };
+
+
+
+
+
     //----------------------------------------
     //Metodos locais
     //----------------------------------------
@@ -95,6 +131,7 @@ public class CarregamentoActivity extends BaseDaggerActivity {
      * Metod que permite terminar a atualizacao
      */
     private void terminarAtualizacao() {
+        activityCarregamentoBinding.txtSubTitulo.setVisibility(View.VISIBLE);
         activityCarregamentoBinding.crlProsseguir.setVisibility(View.VISIBLE);
     }
 
@@ -149,41 +186,6 @@ public class CarregamentoActivity extends BaseDaggerActivity {
     //----------------------------------------
     //HANDLER (notificacoes para o ui)
     //----------------------------------------
-
-
-    final Handler handlerNotificacoesUI = new Handler(){
-        @Override
-        public void handleMessage(Message msg) {
-
-            AtualizacaoUI.Comunicado comunicado = (AtualizacaoUI.Comunicado) msg.obj;
-
-            switch (comunicado.obterCodigo()) {
-
-                case PROCESSAMENTO_DADOS:
-
-                    imprimirProgresso(comunicado);
-                    break;
-
-                case PROCESSAMENTO_TIPOS_CONCLUIDO:
-
-                    terminarAtualizacao();
-                    break;
-
-
-
-                default:
-                    //TODO: alerta de erro
-
-                    //--Alerta de erro
-                    //if(comunicado.obterMensagem() != null)
-                    //--AlertaUI.erro(dialogo, comunicado.obterMensagem())
-                    break;
-            }
-
-            super.handleMessage(msg);
-        }
-    };
-
 
 
 

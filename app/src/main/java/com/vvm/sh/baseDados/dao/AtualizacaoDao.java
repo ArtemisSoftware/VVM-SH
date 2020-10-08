@@ -7,6 +7,7 @@ import androidx.room.Update;
 
 import com.vvm.sh.baseDados.BaseDao;
 import com.vvm.sh.baseDados.entidades.Atualizacao;
+import com.vvm.sh.util.constantes.Identificadores;
 
 import java.util.List;
 
@@ -30,8 +31,8 @@ abstract public class AtualizacaoDao implements BaseDao<Atualizacao> {
     abstract public boolean existeRegisto(String descricao);
 
 
-    @Query("SELECT * FROM atualizacoes WHERE descricao")
-    abstract public Maybe<List<Atualizacao>> obterAtualizacoes();
+    @Query("SELECT * FROM atualizacoes WHERE tipo = :tipo")
+    abstract public Maybe<List<Atualizacao>> obterAtualizacoes(int tipo);
 
 
 

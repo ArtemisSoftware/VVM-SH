@@ -28,7 +28,13 @@ public class MensagensUtil {
 
         dialogo.setTitleText(titulo)
                 .setContentText(mensagem)
-                .show();
+                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+                    @Override
+                    public void onClick(SweetAlertDialog sDialog) {
+//                        sDialog.dismissWithAnimation();
+                        sDialog.dismiss();
+                    }
+                });
     }
 
 

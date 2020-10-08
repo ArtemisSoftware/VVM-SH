@@ -74,7 +74,8 @@ public abstract class BaseDaggerDialogFragment extends DaggerDialogFragment {
 
         subscreverObservadores();
 
-        return alertDialogBuilder.create();
+        final AlertDialog dialogo = alertDialogBuilder.create();
+        return dialogo;
     }
 
 
@@ -83,6 +84,15 @@ public abstract class BaseDaggerDialogFragment extends DaggerDialogFragment {
     //Metodos locais
     //------------------------
 
+
+    /**
+     * Metodo que permite formatar o dialogo
+     * @param dialogo o dialogo a formatar
+     * @return um dialogo formatado
+     */
+    protected AlertDialog formatarDialogo(AlertDialog dialogo){
+        return dialogo;
+    }
 
     /**
      * Metodo que permite terminar o dialogo

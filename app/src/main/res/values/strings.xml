@@ -450,4 +450,8 @@
     <string name="gerir_checklists">Gerir checklists</string>
     <string name="iniciar_atualizacao">Iniciar atualização</string>
     <string name="app_atualizada">A app já se encontra atualizada</string>
+    <string name="data_execucao_">Data de execução:</string>
+    <string name="atualizar_tipos">Atualizar tipos</string>
+    <string name="argumento_download">tipoDownload</string>
+    <string name="iniciar_app">Iniciar app</string>
 </resources>

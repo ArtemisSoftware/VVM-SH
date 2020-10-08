@@ -107,7 +107,8 @@ public class AtividadesPendentesBinding {
 
             view.setText(view.getContext().getString(R.string.executada));
             chipDrawable.setChipBackgroundColorResource(R.color.cor_executado);
-            view.setChipIcon(view.getContext().getResources().getDrawable(R.drawable.ic_executado_24dp));
+            view.setChipIcon(view.getContext().getResources().getDrawable(R.drawable.ic_validado));
+            view.getChipIcon().setTint(view.getContext().getResources().getColor(R.color.cor_branco));
         }
         else{
             view.setText(view.getContext().getString(R.string.nao_executado));

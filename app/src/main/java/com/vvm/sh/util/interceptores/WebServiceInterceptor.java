@@ -2,8 +2,8 @@ package com.vvm.sh.util.interceptores;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import com.vvm.sh.api.SegurancaAlimentarApi;
 import com.vvm.sh.api.modelos.pedido.Codigo;
+import com.vvm.sh.api.modelos.pedido.ISessao;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.excepcoes.MetodoWsInvalidoException;
@@ -83,14 +83,11 @@ public class WebServiceInterceptor implements Interceptor {
 
             String conteudo = respostaWS.substring(inicio, fim);
 
-            Codigo codigo = gson.fromJson(conteudo, Codigo.class);
-
-            validarCodigo(codigo);
+            validarConteudo(gson, conteudo);
 
 
             JSONObject resposta = new JSONObject(conteudo);
             resposta.put("metodo", metodo);
-            resposta.put("api", api);
             resposta.put("api", api);
             return resposta.toString();
 
@@ -107,12 +104,25 @@ public class WebServiceInterceptor implements Interceptor {
     }
 
 
+
     /**
-     * Metodo que permite validar o código da resposta do web service
-     * @param codigo codigo a validar
+     * Metodo que permite validar o conteudo da resposta do web service
+     * @param gson
+     * @param conteudo os dados a validar
      * @throws RespostaWsInvalidaException
      */
-    private void validarCodigo(Codigo codigo) throws RespostaWsInvalidaException {
+    private void validarConteudo(Gson gson, String conteudo) throws RespostaWsInvalidaException {
+
+        ISessao sessao = gson.fromJson(conteudo, ISessao.class);
+
+        if(sessao.sessoes != null){
+            if(sessao.sessoes.get(0).trabalho.size() == 0){
+                throw new RespostaWsInvalidaException(gson.toJson(Codigo_101, Codigo.class));
+            }
+        }
+
+        Codigo codigo = gson.fromJson(conteudo, Codigo.class);
+
 
         switch (codigo.codigo){
 
@@ -141,8 +151,6 @@ public class WebServiceInterceptor implements Interceptor {
         }
 
         if(codigo.mensagem != null) {
-
-            Gson gson = new GsonBuilder().create();
             throw new RespostaWsInvalidaException(gson.toJson(codigo, Codigo.class));
         }
     }

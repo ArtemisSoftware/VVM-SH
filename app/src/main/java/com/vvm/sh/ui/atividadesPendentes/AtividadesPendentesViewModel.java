@@ -62,68 +62,55 @@ public class AtividadesPendentesViewModel extends BaseViewModel {
 
         if(this.atividade.getValue().resultado == null){
 
-            atividadePendenteRepositorio.inserir(atividade).toObservable()
+            atividadePendenteRepositorio.inserir(atividade)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(
 
-                            new Observer<Long>() {
+                            new SingleObserver<Long>() {
                                 @Override
                                 public void onSubscribe(Disposable d) {
                                     disposables.add(d);
                                 }
 
                                 @Override
-                                public void onNext(Long aLong) {
+                                public void onSuccess(Long aLong) {
                                     messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_GRAVADOS_SUCESSO));
+                                    gravarResultado(atividadePendenteRepositorio.resultadoDao, idTarefa, ResultadoId.ATIVIDADE_PENDENTE);
                                 }
 
                                 @Override
                                 public void onError(Throwable e) {
-                                    messagemLiveData.setValue(Recurso.erro(e.getMessage()));
-                                }
-
-                                @Override
-                                public void onComplete() {
 
                                 }
                             }
-
                     );
         }
         else{
-            atividadePendenteRepositorio.atualizar(atividade).toObservable()
+            atividadePendenteRepositorio.atualizar(atividade)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(
 
-                            new Observer<Integer>() {
+                            new SingleObserver<Integer>() {
                                 @Override
                                 public void onSubscribe(Disposable d) {
                                     disposables.add(d);
                                 }
 
                                 @Override
-                                public void onNext(Integer aLong) {
+                                public void onSuccess(Integer integer) {
                                     messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_EDITADOS_SUCESSO));
+                                    gravarResultado(atividadePendenteRepositorio.resultadoDao, idTarefa, ResultadoId.ATIVIDADE_PENDENTE);
                                 }
 
                                 @Override
                                 public void onError(Throwable e) {
-                                    messagemLiveData.setValue(Recurso.erro(e.getMessage()));
-                                }
-
-                                @Override
-                                public void onComplete() {
 
                                 }
                             }
-
                     );
         }
-
-        ResultadoAsyncTask servico = new ResultadoAsyncTask(vvmshBaseDados, atividadePendenteRepositorio.resultadoDao);
-        servico.execute(new Resultado(idTarefa, ResultadoId.ATIVIDADE_PENDENTE));
 
     }
 
@@ -207,11 +194,10 @@ public class AtividadesPendentesViewModel extends BaseViewModel {
 
         showProgressBar(true);
 
-        atividadePendenteRepositorio.obterAtividades(idTarefa).toObservable()
+        atividadePendenteRepositorio.obterAtividades(idTarefa)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-
 
                         new Observer<List<AtividadePendenteRegisto>>() {
                             @Override
@@ -236,7 +222,6 @@ public class AtividadesPendentesViewModel extends BaseViewModel {
                                 showProgressBar(false);
                             }
                         }
-
                 );
 
     }
@@ -250,19 +235,19 @@ public class AtividadesPendentesViewModel extends BaseViewModel {
 
         obterTipos();
 
-        atividadePendenteRepositorio.obterAtividadeResultado(id).toObservable()
+        atividadePendenteRepositorio.obterAtividadeResultado(id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
 
-                        new Observer<AtividadePendenteRegisto>() {
+                        new MaybeObserver<AtividadePendenteRegisto>() {
                             @Override
                             public void onSubscribe(Disposable d) {
                                 disposables.add(d);
                             }
 
                             @Override
-                            public void onNext(AtividadePendenteRegisto registo) {
+                            public void onSuccess(AtividadePendenteRegisto registo) {
                                 atividade.setValue(registo);
                             }
 
@@ -276,7 +261,6 @@ public class AtividadesPendentesViewModel extends BaseViewModel {
 
                             }
                         }
-
                 );
     }
 
@@ -289,20 +273,19 @@ public class AtividadesPendentesViewModel extends BaseViewModel {
 
         showProgressBar(true);
 
-        atividadePendenteRepositorio.obterTiposAnomalias().toObservable()
+        atividadePendenteRepositorio.obterTiposAnomalias()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
 
-                        new Observer<List<Tipo>>() {
+                        new SingleObserver<List<Tipo>>() {
                             @Override
                             public void onSubscribe(Disposable d) {
                                 disposables.add(d);
                             }
 
                             @Override
-                            public void onNext(List<Tipo> registos) {
-
+                            public void onSuccess(List<Tipo> registos) {
                                 tiposAnomalias.setValue(registos);
                                 showProgressBar(false);
                             }
@@ -311,15 +294,8 @@ public class AtividadesPendentesViewModel extends BaseViewModel {
                             public void onError(Throwable e) {
                                 showProgressBar(false);
                             }
-
-                            @Override
-                            public void onComplete() {
-                                showProgressBar(false);
-                            }
                         }
-
                 );
-
     }
 
 

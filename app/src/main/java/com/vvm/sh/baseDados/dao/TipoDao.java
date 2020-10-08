@@ -109,8 +109,7 @@ abstract public class TipoDao implements BaseDao<Tipo> {
 
 
 
-    @Query("SELECT * FROM tipos WHERE tipo = :tipo AND idPai = '' AND ativo = 1")
-    abstract public Single<List<Tipo>> obterCrossSellingProdutos(String tipo);
+
 
 
 
@@ -131,8 +130,7 @@ abstract public class TipoDao implements BaseDao<Tipo> {
 
 
 
-    @Query("SELECT * FROM tipos WHERE tipo = :tipo AND api = :api AND idPai = :idPai AND ativo = 1")
-    abstract public Single<List<Tipo>> obterTipos_(String tipo, int api, String idPai);
+
 
 
 
@@ -177,6 +175,7 @@ abstract public class TipoDao implements BaseDao<Tipo> {
     @Query("SELECT * FROM tipos WHERE tipo = :tipo AND api = :api AND ativo = 1")
     abstract public Single<List<Tipo>> obterTipos_(String tipo, int api);
 
-
+    @Query("SELECT * FROM tipos WHERE tipo = :tipo AND api = :api AND idPai = :idPai AND ativo = 1")
+    abstract public Single<List<Tipo>> obterTipos_(String tipo, int api, String idPai);
 
 }

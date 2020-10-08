@@ -1,6 +1,8 @@
 package com.vvm.sh.util.constantes;
 
 import com.vvm.sh.R;
+import com.vvm.sh.api.modelos.pedido.Codigo;
+import com.vvm.sh.util.metodos.TiposUtil;
 
 public class Identificadores {
 
@@ -227,13 +229,14 @@ public class Identificadores {
         public static final String AVERIGUACAO_AUDITORIA = "Auditoria";
     }
 
-    public class CodigosWs {
+    public static class CodigosWs {
 
         public static final int ID_100 = 100;
         public static final String MSG_100 = "Sucesso no envio de dados";
 
         public static final int CODIGO_101 = 101;
         public static final String MSG_101 = "Não existe trabalho para download";
+        public static final Codigo Codigo_101 = new Codigo(CODIGO_101, MSG_101);
 
         public static final int CODIGO_400 = 400;
         public static final String MSG_400 = "Ocorreu um erro.";
@@ -270,6 +273,7 @@ public class Identificadores {
         public static final int ID_601 = 601;
         public static final String MSG_601 = "Comunicação com o web service realizada sem header";
 
+
     }
 
 
@@ -298,4 +302,9 @@ public class Identificadores {
         public static final int CHECKLIST = 3;
     }
 
+    public class Download {
+        public static final int DOWNLOAD_TRABALHO_DIA = 1;
+        public static final int RECARREGAR_TRABALHO_DIA = 2;
+        public static final int RECARREGAR_TAREFA = 3;
+    }
 }

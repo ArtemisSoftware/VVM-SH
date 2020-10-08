@@ -20,7 +20,7 @@ import com.vvm.sh.util.constantes.Identificadores;
 
 import java.util.List;
 
-public class UploadBinding {
+public class TransferenciasBinding {
 
     @BindingAdapter({"uploads"})
     public static void setUploads(RecyclerView view, Recurso recurso) {
@@ -56,14 +56,8 @@ public class UploadBinding {
 
 
     @BindingAdapter({"pendencias"})
-    public static void setPendencias(RecyclerView view, Recurso recurso) {
+    public static void setPendencias(RecyclerView view, List<Pendencia> items) {
 
-
-        if(recurso == null){
-            return;
-        }
-
-        List<Pendencia> items = (List<Pendencia>) recurso.dados;
 
         if(items == null){
             return;

@@ -10,7 +10,9 @@ import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.ui.crossSelling.modelos.CrossSelling;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.ResultadoId;
+import com.vvm.sh.util.constantes.TiposConstantes;
 import com.vvm.sh.util.metodos.ConversorUtil;
+import com.vvm.sh.util.metodos.TiposUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import java.util.List;
@@ -19,6 +21,7 @@ import javax.inject.Inject;
 
 import io.reactivex.Observable;
 import io.reactivex.Observer;
+import io.reactivex.Single;
 import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -61,40 +64,71 @@ public class CrossSellingViewModel extends BaseViewModel {
      */
     public void gravar(CrossSellingResultado registo) {
 
-        crossSellingRepositorio.inserir(registo).toObservable()
+        crossSellingRepositorio.inserir(registo)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-
-                        new Observer<Long>() {
+                        new SingleObserver<Long>() {
                             @Override
                             public void onSubscribe(Disposable d) {
                                 disposables.add(d);
                             }
 
                             @Override
-                            public void onNext(Long aLong) {
-
+                            public void onSuccess(Long aLong) {
                                 messagemLiveData.setValue(Recurso.successo());
+                                gravarResultado(crossSellingRepositorio.resultadoDao, registo.idTarefa, ResultadoId.CROSS_SELLING);
                             }
 
                             @Override
                             public void onError(Throwable e) {
 
                             }
+                        }
+                );
+    }
+
+
+
+    //---------------------------
+    //REMOVER
+    //---------------------------
+
+
+    /**
+     * Metodo que permite remover um registo
+     * @param crossSelling os dados do registo
+     */
+    public void remover(CrossSelling crossSelling) {
+
+        crossSellingRepositorio.remover(crossSelling)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new SingleObserver<Integer>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
 
                             @Override
-                            public void onComplete() {
+                            public void onSuccess(Integer integer) {
+                                gravarResultado(crossSellingRepositorio.resultadoDao, crossSelling.idTarefa, ResultadoId.CROSS_SELLING);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
 
                             }
                         }
-
                 );
 
 
-        ResultadoAsyncTask servico = new ResultadoAsyncTask(vvmshBaseDados, crossSellingRepositorio.resultadoDao);
-        servico.execute(new Resultado(registo.idTarefa, ResultadoId.CROSS_SELLING));
+
     }
+
+
 
 
     //----------------------
@@ -102,8 +136,10 @@ public class CrossSellingViewModel extends BaseViewModel {
     //----------------------
 
 
+
     /**
      * Metodo que permite obter os produtos existentes
+     * @param idTarefa o identificador da tarefa
      */
     public void obterProdutos(int idTarefa){
 
@@ -125,12 +161,14 @@ public class CrossSellingViewModel extends BaseViewModel {
                                 produtos.setValue(tipos);
                                 sinaletica.setValue(ConversorUtil.converter_String_Para_Boolean(tipos.get(0).detalhe));
                                 showProgressBar(false);
-                                obterCrossSelling(idTarefa, tipos.get(0));
+                                if(tipos.size() != 0) {
+                                    obterCrossSelling(idTarefa, tipos.get(0));
+                                }
                             }
 
                             @Override
                             public void onError(Throwable e) {
-
+                                showProgressBar(false);
                             }
                         }
                 );
@@ -138,8 +176,10 @@ public class CrossSellingViewModel extends BaseViewModel {
 
 
 
+
     /**
      * Metodo que permite obter o cross selling de um produto
+     * @param idTarefa o identificador da tarefa
      * @param produto os dados do produto
      */
     public void obterCrossSelling(int idTarefa, Tipo produto){
@@ -148,7 +188,7 @@ public class CrossSellingViewModel extends BaseViewModel {
 
         showProgressBar(true);
 
-        crossSellingRepositorio.obterCrossSelling(idTarefa, produto.id + "").toObservable()
+        crossSellingRepositorio.obterCrossSelling(idTarefa, produto.id + "")
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -190,98 +230,46 @@ public class CrossSellingViewModel extends BaseViewModel {
      */
     public void obterSinaletica(){
 
-        Observable<Sinaletica> observables = Observable.zip(crossSellingRepositorio.obterDimensoes().toObservable(), crossSellingRepositorio.obterTipos().toObservable(),
-                new BiFunction<List<Tipo>, List<Tipo>, Sinaletica>() {
-            @Override
-            public Sinaletica apply(List<Tipo> dimensoes, List<Tipo> tipos) throws Exception {
-
-                Sinaletica sinaletica = new Sinaletica();
-                sinaletica.dimensoes = dimensoes;
-                sinaletica.tipos = tipos;
-
-                return sinaletica;
-            }
-        });
-
         showProgressBar(true);
 
-        observables
+        Single<Sinaletica> single = Single.zip(
+                crossSellingRepositorio.obterDimensoes(), crossSellingRepositorio.obterTipos(),
+                new BiFunction<List<Tipo>, List<Tipo>, Sinaletica>() {
+                    @Override
+                    public Sinaletica apply(List<Tipo> dimensoes, List<Tipo> tipos) throws Exception {
+                        Sinaletica sinaletica = new Sinaletica();
+                        sinaletica.dimensoes = dimensoes;
+                        sinaletica.tipos = tipos;
+
+                        return sinaletica;
+                    }
+                }
+        );
+
+        single
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
 
-                        new Observer<Sinaletica>() {
-                            @Override
-                            public void onSubscribe(Disposable d) {
-
-                            }
-
-                            @Override
-                            public void onNext(Sinaletica o) {
-                                dimensoes.setValue(o.dimensoes);
-                                tipos.setValue(o.tipos);
-                                showProgressBar(false);
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-                                showProgressBar(false);
-                            }
-
-                            @Override
-                            public void onComplete() {
-                                showProgressBar(false);
-                            }
-                        }
-                );
-
-    }
-
-
-    //---------------------------
-    //REMOVER
-    //---------------------------
-
-
-    /**
-     * Metodo que permite remover um registo
-     * @param crossSelling os dados do registo
-     */
-    public void remover(CrossSelling crossSelling) {
-
-        crossSellingRepositorio.remover(crossSelling).toObservable()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-
-                        new Observer<Integer>() {
+                        new SingleObserver<Sinaletica>() {
                             @Override
                             public void onSubscribe(Disposable d) {
                                 disposables.add(d);
                             }
 
                             @Override
-                            public void onNext(Integer aLong) {
-
-                                messagemLiveData.setValue(Recurso.successo());
+                            public void onSuccess(Sinaletica sinaletica) {
+                                dimensoes.setValue(sinaletica.dimensoes);
+                                tipos.setValue(sinaletica.tipos);
+                                showProgressBar(false);
                             }
 
                             @Override
                             public void onError(Throwable e) {
-
-                            }
-
-                            @Override
-                            public void onComplete() {
-
+                                showProgressBar(false);
                             }
                         }
-
                 );
-        
-        
-        ResultadoAsyncTask servico = new ResultadoAsyncTask(vvmshBaseDados, crossSellingRepositorio.resultadoDao);
-        servico.execute(new Resultado(crossSelling.idTarefa, ResultadoId.CROSS_SELLING));
     }
 
 

@@ -1,5 +1,6 @@
 package com.vvm.sh.ui.transferencias;
 
+import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -7,9 +8,11 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Message;
 import android.view.View;
+import android.widget.LinearLayout;
+import android.widget.ProgressBar;
+import android.widget.TextView;
 
 import com.vvm.sh.R;
-import com.vvm.sh.api.modelos.pedido.Codigo;
 import com.vvm.sh.baseDados.entidades.Tarefa;
 import com.vvm.sh.databinding.ActivityDownloadTrabalhoBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
@@ -17,6 +20,7 @@ import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.transferencias.modelos.Pendencia;
 import com.vvm.sh.util.AtualizacaoUI;
 import com.vvm.sh.util.Recurso;
+import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.interfaces.OnDialogoListener;
 import com.vvm.sh.util.metodos.DatasUtil;
@@ -48,12 +52,24 @@ public class DownloadTrabalhoActivity extends BaseDaggerActivity {
         activityDownloadTrabalhoBinding = (ActivityDownloadTrabalhoBinding) activityBinding;
         activityDownloadTrabalhoBinding.setLifecycleOwner(this);
         activityDownloadTrabalhoBinding.setViewmodel(viewModel);
-        //activityTrabalhoBinding.setActivity(this);
 
         subscreverObservadores();
 
         Bundle bundle = getIntent().getExtras();
 
+        switch (bundle.getInt(getString(R.string.argumento_download))){
+
+            case Identificadores.Download.DOWNLOAD_TRABALHO_DIA:
+
+                downloadTrabalhoDia();
+                break;
+
+
+            default:
+                break;
+        }
+
+        /*
         if(bundle != null){
 
             if(bundle.getBoolean(getString(R.string.argumento_recarregar_tarefa)) == true){
@@ -72,7 +88,7 @@ public class DownloadTrabalhoActivity extends BaseDaggerActivity {
             activityDownloadTrabalhoBinding.txtData.setText(DatasUtil.obterDataAtual(DatasUtil.FORMATO_DD_MM_YYYY));
             viewModel.obterPendencias(PreferenciasUtil.obterIdUtilizador(this));
         }
-
+*/
     }
 
     @Override
@@ -88,6 +104,12 @@ public class DownloadTrabalhoActivity extends BaseDaggerActivity {
     @Override
     protected void subscreverObservadores() {
 
+        viewModel.observarPendencias().observe(this, new Observer<List<Pendencia>>() {
+            @Override
+            public void onChanged(List<Pendencia> pendencias) {
+                formatarPendencias(pendencias);
+            }
+        });
 
         viewModel.observarMessagem().observe(this, new Observer<Recurso>() {
             @Override
@@ -111,30 +133,6 @@ public class DownloadTrabalhoActivity extends BaseDaggerActivity {
             }
         });
 
-
-        viewModel.observarPendencias().observe(this, new Observer<Recurso>() {
-            @Override
-            public void onChanged(Recurso recurso) {
-
-                switch (recurso.status){
-
-                    case SUCESSO:
-
-                        formatarPendencias((List<Pendencia>)recurso.dados);
-                        break;
-
-                    case ERRO:
-
-                        dialogo.erro(recurso.messagem);
-                        break;
-
-                    default:
-                        break;
-                }
-            }
-        });
-
-
     }
 
 
@@ -143,15 +141,24 @@ public class DownloadTrabalhoActivity extends BaseDaggerActivity {
     //----------------------
 
     /**
+     * Metodo que permite iniciar o download do trabalho do dia
+     */
+    private void downloadTrabalhoDia(){
+        activityDownloadTrabalhoBinding.txtData.setText(DatasUtil.obterDataAtual(DatasUtil.FORMATO_DD_MM_YYYY));
+        viewModel.obterPendencias(PreferenciasUtil.obterIdUtilizador(this));
+    }
+
+
+
+    /**
      * Metodo que permite formatar as pendencias
      * @param registos os registos pendentes
      */
     private void formatarPendencias(List<Pendencia> registos) {
 
         if(registos.size() == 0) {
-
-            //--viewModel.obterResumo(handlerNotificacoesUI);
-            obterTrabalho();
+            activityDownloadTrabalhoBinding.cardTipos.setVisibility(View.VISIBLE);
+            viewModel.atualizarTipos(handlerNotificacoesUI);
         }
         else{
 
@@ -170,22 +177,37 @@ public class DownloadTrabalhoActivity extends BaseDaggerActivity {
      */
     private void obterTrabalho(){
 
+        activityDownloadTrabalhoBinding.cardTrabalho.setVisibility(View.VISIBLE);
         Bundle bundle = getIntent().getExtras();
 
-        if(bundle != null){
+        switch (bundle.getInt(getString(R.string.argumento_download))){
 
-            OnDialogoListener listener = new OnDialogoListener() {
-                @Override
-                public void onExecutar() {
-                    viewModel.obterUpload(PreferenciasUtil.obterIdUtilizador(getApplication()), bundle.getLong(getString(R.string.argumento_data)), handlerNotificacoesUI);
-                }
-            };
+            case Identificadores.Download.DOWNLOAD_TRABALHO_DIA:
 
-            dialogo.alerta_OpcaoCancelar(getString(R.string.recarregar_trabalho_dia), getString(R.string.recarregar_trabalho_perder_dados), listener);
+                viewModel.obterTrabalho(PreferenciasUtil.obterIdUtilizador(this), handlerNotificacoesUI);
+                break;
+
+
+            default:
+                break;
         }
-        else{
-            viewModel.obterTrabalho(PreferenciasUtil.obterIdUtilizador(this), handlerNotificacoesUI);
-        }
+
+
+//
+//        if(bundle != null){
+//
+//            OnDialogoListener listener = new OnDialogoListener() {
+//                @Override
+//                public void onExecutar() {
+//                    viewModel.obterUpload(PreferenciasUtil.obterIdUtilizador(getApplication()), bundle.getLong(getString(R.string.argumento_data)), handlerNotificacoesUI);
+//                }
+//            };
+//
+//            dialogo.alerta_OpcaoCancelar(getString(R.string.recarregar_trabalho_dia), getString(R.string.recarregar_trabalho_perder_dados), listener);
+//        }
+//        else{
+//            viewModel.obterTrabalho(PreferenciasUtil.obterIdUtilizador(this), handlerNotificacoesUI);
+//        }
     }
 
 
@@ -219,16 +241,28 @@ public class DownloadTrabalhoActivity extends BaseDaggerActivity {
 
             switch (comunicado.obterCodigo()) {
 
-                case PROCESSAMENTO_DADOS:
+                case PROCESSAMENTO_TIPOS:
 
-                    imprimirProgresso(comunicado);
+                    imprimirProgresso(activityDownloadTrabalhoBinding.lnrLytProgressoTipos,
+                            activityDownloadTrabalhoBinding.progressBarProgressoTipos,
+                            activityDownloadTrabalhoBinding.txtProgressoTipos,
+                            activityDownloadTrabalhoBinding.txtTituloProgressoTipos,  comunicado);
                     break;
+
 
                 case PROCESSAMENTO_TIPOS_CONCLUIDO:
 
                     obterTrabalho();
                     break;
 
+
+                case PROCESSAMENTO_TRABALHO:
+
+                    imprimirProgresso(activityDownloadTrabalhoBinding.lnrLytProgressoTrabalho,
+                            activityDownloadTrabalhoBinding.progressBarProgressoTrabalho,
+                            activityDownloadTrabalhoBinding.txtProgressoTrabalho,
+                            activityDownloadTrabalhoBinding.txtTituloProgressoTrabalho,  comunicado);
+                    break;
 
                 case PROCESSAMENTO_DOWNLOAD_CONCLUIDO:
 
@@ -255,18 +289,18 @@ public class DownloadTrabalhoActivity extends BaseDaggerActivity {
      * Metodo que permite apresentar o progresso da execucao de um servico
      * @param comunicado os dados da execucao
      */
-    private void imprimirProgresso(AtualizacaoUI.Comunicado comunicado){
+    private void imprimirProgresso(ConstraintLayout lnrLytProgresso, ProgressBar progressBarProgresso, TextView txtProgresso, TextView txtTituloProgresso, AtualizacaoUI.Comunicado comunicado){
 
-        activityDownloadTrabalhoBinding.lnrLytProgresso.setVisibility(View.VISIBLE);
+        lnrLytProgresso.setVisibility(View.VISIBLE);
 
         if(comunicado.obterLimite() != Sintaxe.SEM_REGISTO){
-            if(activityDownloadTrabalhoBinding.progressBarProgresso.getMax() != comunicado.obterLimite()){
-                activityDownloadTrabalhoBinding.progressBarProgresso.setMax(comunicado.obterLimite());
+            if(progressBarProgresso.getMax() != comunicado.obterLimite()){
+                progressBarProgresso.setMax(comunicado.obterLimite());
             }
         }
 
-        activityDownloadTrabalhoBinding.txtProgresso.setText(comunicado.obterPosicao() + "/" + comunicado.obterLimite());
-        activityDownloadTrabalhoBinding.txtTituloProgresso.setText(comunicado.obterMensagem());
-        activityDownloadTrabalhoBinding.progressBarProgresso.setProgress(comunicado.obterPosicao());
+        txtProgresso.setText(comunicado.obterPosicao() + "/" + comunicado.obterLimite());
+        txtTituloProgresso.setText(comunicado.obterMensagem());
+        progressBarProgresso.setProgress(comunicado.obterPosicao());
     }
 }

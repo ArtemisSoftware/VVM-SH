@@ -12,6 +12,7 @@
         <import type="android.view.View"/>
         <import type="com.vvm.sh.util.metodos.DatasUtil"/>
         <import type="com.vvm.sh.util.metodos.StringUtil"/>
+        <import type="com.vvm.sh.util.constantes.Identificadores"/>
 
         <variable
             name="listener"
@@ -20,6 +21,7 @@
         <variable
             name="atividade"
             type="com.vvm.sh.ui.atividadesPendentes.modelos.AtividadePendenteRegisto" />
+
 
     </data>
 
@@ -125,6 +127,44 @@
             </LinearLayout>
 
 
+
+            <LinearLayout
+                android:id="@+id/linearLayout4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:visibility="@{atividade.resultado.idEstado == Identificadores.Estados.ESTADO_EXECUTADO ? View.VISIBLE : View.GONE}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/textView2"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+                app:layout_constraintVertical_bias="0.0">
+
+                <!--
+
+                android:visibility="@{atividade.possuiRelatorio ? View.VISIBLE : View.GONE}"
+                -->
+
+                <TextView
+                    style="@style/textoDetalhe"
+                    android:text="@string/data_execucao_" />
+
+                <TextView
+                    android:id="@+id/textView5"
+                    style="@style/textoDetalhe"
+                    android:layout_marginLeft="8dp"
+                    android:text="@{DatasUtil.converterData(atividade.resultado.dataExecucao, DatasUtil.FORMATO_DD_MM_YYYY) , default=data}" />
+                <!-- android:text="@{anomalia.tipo, default=relatorio}" -->
+
+
+
+
+            </LinearLayout>
+
+
+
             <!--  -->
 
             <com.google.android.material.chip.Chip
@@ -137,7 +177,7 @@
                 android:layout_marginTop="16dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/linearLayout1"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout2"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout4"
                 android:theme="@style/Theme.MaterialComponents.Light" />
 
 

@@ -13,6 +13,7 @@ import com.vvm.sh.ui.ocorrencias.modelos.OcorrenciaRegisto;
 import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.ResultadoId;
+import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.constantes.TiposConstantes;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
@@ -42,7 +43,6 @@ public class OcorrenciasViewModel extends BaseViewModel {
     public MutableLiveData<List<Tipo>> dias;
 
     public MutableLiveData<List<OcorrenciaHistorico>> historico;
-    public MutableLiveData<List<Tipo>> estados;
 
     @Inject
     public OcorrenciasViewModel(OcorrenciaRepositorio ocorrenciaRepositorio){
@@ -55,7 +55,6 @@ public class OcorrenciasViewModel extends BaseViewModel {
         ocorrencia = new MutableLiveData<>();
         dias = new MutableLiveData<>();
         historico = new MutableLiveData<>();
-        estados = new MutableLiveData<>();
     }
 
 
@@ -64,80 +63,106 @@ public class OcorrenciasViewModel extends BaseViewModel {
     //-----------------------
 
 
-
+    /**
+     * Metodo que permite gravar um registo
+     * @param registo os dados do registo
+     */
     public void gravar(OcorrenciaResultado registo) {
 
         if(ocorrencia.getValue().resultado.id == 0){
 
-            ocorrenciaRepositorio.inserir(registo).toObservable()
+            ocorrenciaRepositorio.inserir(registo)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(
 
-
-                            new Observer<Long>() {
+                            new SingleObserver<Long>() {
                                 @Override
                                 public void onSubscribe(Disposable d) {
-
+                                    disposables.add(d);
                                 }
 
                                 @Override
-                                public void onNext(Long aLong) {
-                                    messagemLiveData.setValue(Recurso.successo());
+                                public void onSuccess(Long aLong) {
+                                    messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_GRAVADOS_SUCESSO));
+                                    gravarResultado(ocorrenciaRepositorio.resultadoDao, registo.idTarefa, ResultadoId.OCORRENCIA);
                                 }
 
                                 @Override
                                 public void onError(Throwable e) {
 
                                 }
-
-                                @Override
-                                public void onComplete() {
-
-                                }
                             }
-
                     );
         }
         else{
-            ocorrenciaRepositorio.atualizar(registo).toObservable()
+            ocorrenciaRepositorio.atualizar(registo)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(
 
-
-                            new Observer<Integer>() {
+                            new SingleObserver<Integer>() {
                                 @Override
                                 public void onSubscribe(Disposable d) {
-
+                                    disposables.add(d);
                                 }
 
                                 @Override
-                                public void onNext(Integer integer) {
-                                    messagemLiveData.setValue(Recurso.successo());
+                                public void onSuccess(Integer integer) {
+                                    messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_EDITADOS_SUCESSO));
+                                    gravarResultado(ocorrenciaRepositorio.resultadoDao, registo.idTarefa, ResultadoId.OCORRENCIA);
                                 }
 
                                 @Override
                                 public void onError(Throwable e) {
 
                                 }
-
-                                @Override
-                                public void onComplete() {
-
-                                }
                             }
-
                     );
         }
 
-
-        ResultadoAsyncTask servico = new ResultadoAsyncTask(vvmshBaseDados, ocorrenciaRepositorio.resultadoDao);
-        servico.execute(new Resultado(registo.idTarefa, ResultadoId.OCORRENCIA));
-
-
     }
 
+
+
+    //---------------------
+    //REMOVER
+    //---------------------
+
+
+    /**
+     * Metodo que permite remover uma ocorrencia registada
+     * @param idTarefa o identificador da tarefa
+     * @param id o identificador da ocorrencia
+     */
+    public void remover(int idTarefa, int id) {
+
+        ocorrenciaRepositorio.remover(idTarefa, id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new SingleObserver<Integer>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onSuccess(Integer integer) {
+
+                                gravarResultado(ocorrenciaRepositorio.resultadoDao, idTarefa, ResultadoId.OCORRENCIA);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                messagemLiveData.setValue(Recurso.erro(e.getMessage()));
+                            }
+                        }
+
+                );
+
+    }
 
 
 
@@ -156,21 +181,19 @@ public class OcorrenciasViewModel extends BaseViewModel {
         obterOcorrenciasInseridas(idTarefa);
         obterOpcoesRegistos();
 
-        ocorrenciaRepositorio.obterOcorrencias(idTarefa).toObservable()
+        ocorrenciaRepositorio.obterOcorrencias(idTarefa)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
 
-
-                        new Observer<List<Ocorrencia>>() {
+                        new SingleObserver<List<Ocorrencia>>() {
                             @Override
                             public void onSubscribe(Disposable d) {
                                 disposables.add(d);
                             }
 
                             @Override
-                            public void onNext(List<Ocorrencia> resultado) {
-
+                            public void onSuccess(List<Ocorrencia> resultado) {
                                 ocorrencias.setValue(resultado);
                                 showProgressBar(false);
                             }
@@ -179,13 +202,7 @@ public class OcorrenciasViewModel extends BaseViewModel {
                             public void onError(Throwable e) {
                                 showProgressBar(false);
                             }
-
-                            @Override
-                            public void onComplete() {
-                                showProgressBar(false);
-                            }
                         }
-
                 );
 
     }
@@ -199,7 +216,7 @@ public class OcorrenciasViewModel extends BaseViewModel {
 
         showProgressBar(true);
 
-        ocorrenciaRepositorio.obterOcorrenciasRegistadas(idTarefa).toObservable()
+        ocorrenciaRepositorio.obterOcorrenciasRegistadas(idTarefa)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -240,36 +257,32 @@ public class OcorrenciasViewModel extends BaseViewModel {
 
         showProgressBar(true);
 
-        ocorrenciaRepositorio.obterOcorrencias().toObservable()
+        ocorrenciaRepositorio.obterOcorrencias()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
 
-                        new Observer<List<Tipo>>() {
+                        new SingleObserver<List<Tipo>>() {
                             @Override
                             public void onSubscribe(Disposable d) {
                                 disposables.add(d);
                             }
 
                             @Override
-                            public void onNext(List<Tipo> resultado) {
-
+                            public void onSuccess(List<Tipo> resultado) {
                                 ocorrenciasGeral.setValue(resultado);
                                 showProgressBar(false);
-                                obterRegistosOcorrencias(idTarefa, resultado.get(0).id);
+
+                                if(resultado.size() != 0) {
+                                    obterRegistosOcorrencias(idTarefa, resultado.get(0).id);
+                                }
                             }
 
                             @Override
                             public void onError(Throwable e) {
                                 showProgressBar(false);
                             }
-
-                            @Override
-                            public void onComplete() {
-                                showProgressBar(false);
-                            }
                         }
-
                 );
 
     }
@@ -284,7 +297,7 @@ public class OcorrenciasViewModel extends BaseViewModel {
 
         showProgressBar(true);
 
-        ocorrenciaRepositorio.obterRegistoOcorrencias(idTarefa, id).toObservable()
+        ocorrenciaRepositorio.obterRegistoOcorrencias(idTarefa, id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -298,18 +311,13 @@ public class OcorrenciasViewModel extends BaseViewModel {
                             @Override
                             public void onNext(List<OcorrenciaBase> resultado) {
 
-
-                                List<OcorrenciaRegisto> lolo = new ArrayList<>();
-
+                                List<OcorrenciaRegisto> resultados = new ArrayList<>();
 
                                 for(OcorrenciaBase item : resultado){
-
-                                    lolo.add(new OcorrenciaRegisto(item));
-
+                                    resultados.add(new OcorrenciaRegisto(item));
                                 }
 
-
-                                ocorrenciasRegistos.setValue(lolo);
+                                ocorrenciasRegistos.setValue(resultados);
                                 showProgressBar(false);
                             }
 
@@ -376,21 +384,19 @@ public class OcorrenciasViewModel extends BaseViewModel {
 
         showProgressBar(true);
 
-        ocorrenciaRepositorio.obterHistorico(id).toObservable()
+        ocorrenciaRepositorio.obterHistorico(id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
 
-
-                        new Observer<List<OcorrenciaHistorico>>() {
+                        new SingleObserver<List<OcorrenciaHistorico>>() {
                             @Override
                             public void onSubscribe(Disposable d) {
                                 disposables.add(d);
                             }
 
                             @Override
-                            public void onNext(List<OcorrenciaHistorico> resultado) {
-
+                            public void onSuccess(List<OcorrenciaHistorico> resultado) {
                                 historico.setValue(resultado);
                                 showProgressBar(false);
                             }
@@ -399,56 +405,12 @@ public class OcorrenciasViewModel extends BaseViewModel {
                             public void onError(Throwable e) {
                                 showProgressBar(false);
                             }
-
-                            @Override
-                            public void onComplete() {
-                                showProgressBar(false);
-                            }
                         }
 
                 );
     }
 
 
-
-
-    //---------------------
-    //REMOVER
-    //---------------------
-
-
-    /**
-     * Metodo que permite remover uma ocorrencia registada
-     * @param idTarefa o identificador da tarefa
-     * @param id o identificador da ocorrencia
-     */
-    public void remover(int idTarefa, int id) {
-
-        ocorrenciaRepositorio.remover(idTarefa, id)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-
-                        new SingleObserver<Integer>() {
-                            @Override
-                            public void onSubscribe(Disposable d) {
-                                disposables.add(d);
-                            }
-
-                            @Override
-                            public void onSuccess(Integer integer) {
-
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-                                messagemLiveData.setValue(Recurso.erro(e.getMessage()));
-                            }
-                        }
-
-                );
-
-    }
 
 
 
@@ -456,17 +418,6 @@ public class OcorrenciasViewModel extends BaseViewModel {
     //MISC
     //------------------
 
-
-    /**
-     * Metodo que permite obter as opcoes dos registos
-     */
-    private void obterOpcoesRegistos() {
-        List<Tipo> estado = new ArrayList<>();
-
-        estado.add(TiposConstantes.OpcoesRegistos.CONSULTAR);
-        estado.add(TiposConstantes.OpcoesRegistos.NOVOS_REGISTOS);
-        estados.setValue(estado);
-    }
 
 
     /**

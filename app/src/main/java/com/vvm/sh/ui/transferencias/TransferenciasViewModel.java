@@ -58,7 +58,7 @@ public class TransferenciasViewModel extends BaseViewModel {
     private final TiposRepositorio tiposRepositorio;
 
     public MutableLiveData<Recurso> uploads;
-    public MutableLiveData<Recurso> pendencias;
+    public MutableLiveData<List<Pendencia>> pendencias;
 
     @Inject
     public TransferenciasViewModel(TransferenciasRepositorio transferenciasRepositorio, TiposRepositorio tiposRepositorio){
@@ -69,13 +69,232 @@ public class TransferenciasViewModel extends BaseViewModel {
         this.pendencias = new MutableLiveData<>();
     }
 
-    public MutableLiveData<Recurso> observarPendencias(){
+    public MutableLiveData<List<Pendencia>> observarPendencias(){
         return pendencias;
     }
 
     public MutableLiveData<Recurso> observarUpload(){
         return uploads;
     }
+
+
+
+
+
+
+    //-----------------------
+    //PENDENCIAS
+    //-----------------------
+
+
+
+    /**
+     * Metodo que permite obter as pendencias
+     * @param idUtilizador o identificador do utilizador
+     */
+    public void obterPendencias(String idUtilizador) {
+
+        Observable<List<Pendencia>> observable = transferenciasRepositorio.obterPendencias(idUtilizador).toObservable();
+        obterPendencias(observable);
+    }
+
+
+    /**
+     * Metodo que permite obter as pendencias
+     * @param idUtilizador o identificador do utilizador
+     * @param data a data das pendencias
+     */
+    public void obterPendencias(String idUtilizador, long data) {
+
+        Observable<List<Pendencia>> observable = transferenciasRepositorio.obterPendencias(idUtilizador, data).toObservable();
+        obterPendencias(observable);
+    }
+
+
+    /**
+     * Metodo que permite obter as pendencias
+     * @param observable
+     */
+    private void obterPendencias(Observable<List<Pendencia>> observable){
+
+        showProgressBar(true);
+
+        observable
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new Observer<List<Pendencia>>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onNext(List<Pendencia> registos) {
+                                pendencias.setValue(registos);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onComplete() {
+                                showProgressBar(false);
+                            }
+                        }
+
+                );
+    }
+
+
+
+
+    //---------------------
+    //DOWNLOAD
+    //---------------------
+
+
+
+    /**
+     * Metodo que permite obter o trabalho do dia
+     * @param idUtilizador o identificador do utilizador
+     */
+    public void obterTrabalho(String idUtilizador, Handler handler){
+
+        showProgressBar(true);
+
+        transferenciasRepositorio.obterTrabalho(idUtilizador)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new SingleObserver<ISessao>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onSuccess(ISessao iSessao) {
+                                TrabalhoAsyncTask servico = new TrabalhoAsyncTask(vvmshBaseDados, transferenciasRepositorio, handler, idUtilizador);
+                                servico.execute(iSessao);
+
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                showProgressBar(false);
+                                formatarErro(e);
+                            }
+                        }
+
+                );
+
+    }
+
+
+
+    /**
+     * Metodo que permite obter o trabalho de um dia especifico
+     * @param idUtilizador o identificador do utilizador
+     * @param data a data do trabalho
+     */
+    public void obterTrabalho(String idUtilizador, String data, Handler handler){
+
+        showProgressBar(true);
+
+        transferenciasRepositorio.obterTrabalho(idUtilizador, data).toObservable()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new Observer<ISessao>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onNext(ISessao sessao) {
+
+                                RecarregarTrabalhoAsyncTask servico = new RecarregarTrabalhoAsyncTask(vvmshBaseDados, transferenciasRepositorio, handler, idUtilizador, DatasUtil.converterDataLong(data, DatasUtil.FORMATO_YYYY_MM_DD));
+                                servico.execute(sessao);
+
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                                showProgressBar(false);
+                                formatarErro(e);
+                            }
+
+                            @Override
+                            public void onComplete() {
+
+                            }
+                        }
+                );
+
+    }
+
+
+
+    /**
+     * Metodo que permite recarregar uma tarefa
+     * @param tarefa os dados da tarefa a recarregar
+     */
+    public void recarregarTarefa(Tarefa tarefa, Handler handler){
+
+        showProgressBar(true);
+
+        transferenciasRepositorio.obterTrabalho(tarefa.idUtilizador).toObservable()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new Observer<ISessao>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onNext(ISessao sessao) {
+
+                                RecarregarTarefaAsyncTask servico = new RecarregarTarefaAsyncTask(vvmshBaseDados, transferenciasRepositorio, handler, tarefa);
+                                servico.execute(sessao);
+
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                                showProgressBar(false);
+                                formatarErro(e);
+                            }
+
+                            @Override
+                            public void onComplete() {
+
+                            }
+                        }
+
+                );
+
+    }
+
+
+
+
+
+
 
 
 
@@ -328,263 +547,18 @@ public class TransferenciasViewModel extends BaseViewModel {
     }
 
 
-
-    //-----------------------
-    //PENDENCIAS
-    //-----------------------
-
-
-
-    /**
-     * Metodo que permite obter as pendencias
-     * @param idUtilizador o identificador do utilizador
-     */
-    public void obterPendencias(String idUtilizador) {
-
-        Observable<List<Pendencia>> observable = transferenciasRepositorio.obterPendencias(idUtilizador).toObservable();
-        obterPendencias(observable);
-    }
-
-
-    /**
-     * Metodo que permite obter as pendencias
-     * @param idUtilizador o identificador do utilizador
-     * @param data a data das pendencias
-     */
-    public void obterPendencias(String idUtilizador, long data) {
-
-        Observable<List<Pendencia>> observable = transferenciasRepositorio.obterPendencias(idUtilizador, data).toObservable();
-        obterPendencias(observable);
-    }
-
-
-    /**
-     * Metodo que permite obter as pendencias
-     * @param observable
-     */
-    private void obterPendencias(Observable<List<Pendencia>> observable){
-
-        showProgressBar(true);
-
-        observable
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-
-                        new Observer<List<Pendencia>>() {
-                            @Override
-                            public void onSubscribe(Disposable d) {
-                                disposables.add(d);
-                            }
-
-                            @Override
-                            public void onNext(List<Pendencia> registos) {
-                                pendencias.setValue(Recurso.successo(registos));
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-                                showProgressBar(false);
-                            }
-
-                            @Override
-                            public void onComplete() {
-                                showProgressBar(false);
-                            }
-                        }
-
-                );
-    }
-
-
-
-
-    //---------------------
-    //DOWNLOAD
-    //---------------------
-
-
-
-    /**
-     * Metodo que permite obter o trabalho do dia
-     * @param idUtilizador o identificador do utilizador
-     */
-    public void obterTrabalho(String idUtilizador, Handler handler){
-
-        showProgressBar(true);
-
-        transferenciasRepositorio.obterTrabalho(idUtilizador).toObservable()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-
-
-                        new Observer<ISessao>() {
-                            @Override
-                            public void onSubscribe(Disposable d) {
-                                disposables.add(d);
-                            }
-
-                            @Override
-                            public void onNext(ISessao sessao) {
-
-                                TrabalhoAsyncTask servico = new TrabalhoAsyncTask(vvmshBaseDados, transferenciasRepositorio, handler, idUtilizador);
-                                servico.execute(sessao);
-
-                                showProgressBar(false);
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-
-                                showProgressBar(false);
-
-                                if (e instanceof RespostaWsInvalidaException){
-
-                                    showProgressBar(false);
-
-                                    Gson gson = new GsonBuilder().create();
-                                    Codigo codigo = gson.fromJson(e.getMessage(), Codigo.class);
-
-                                    messagemLiveData.setValue(Recurso.erro(codigo, "Download"));
-                                }
-                            }
-
-                            @Override
-                            public void onComplete() {
-
-                            }
-                        }
-
-                );
-
-    }
-
-
-
-    /**
-     * Metodo que permite obter o trabalho de um dia especifico
-     * @param idUtilizador o identificador do utilizador
-     * @param data a data do trabalho
-     */
-    public void obterTrabalho(String idUtilizador, String data, Handler handler){
-
-        showProgressBar(true);
-
-        transferenciasRepositorio.obterTrabalho(idUtilizador, data).toObservable()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-
-                        new Observer<ISessao>() {
-                            @Override
-                            public void onSubscribe(Disposable d) {
-                                disposables.add(d);
-                            }
-
-                            @Override
-                            public void onNext(ISessao sessao) {
-
-                                RecarregarTrabalhoAsyncTask servico = new RecarregarTrabalhoAsyncTask(vvmshBaseDados, transferenciasRepositorio, handler, idUtilizador, DatasUtil.converterDataLong(data, DatasUtil.FORMATO_YYYY_MM_DD));
-                                servico.execute(sessao);
-
-                                showProgressBar(false);
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-
-                                showProgressBar(false);
-
-                                if (e instanceof RespostaWsInvalidaException){
-
-                                    Gson gson = new GsonBuilder().create();
-                                    Codigo codigo = gson.fromJson(e.getMessage(), Codigo.class);
-
-                                    messagemLiveData.setValue(Recurso.erro(codigo, Sintaxe.Palavras.DOWNLOAD));
-                                }
-                            }
-
-                            @Override
-                            public void onComplete() {
-
-                            }
-                        }
-
-                );
-
-    }
-
-
-
-    /**
-     * Metodo que permite recarregar uma tarefa
-     * @param tarefa os dados da tarefa a recarregar
-     */
-    public void recarregarTarefa(Tarefa tarefa, Handler handler){
-
-        showProgressBar(true);
-
-        transferenciasRepositorio.obterTrabalho(tarefa.idUtilizador).toObservable()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-
-                        new Observer<ISessao>() {
-                            @Override
-                            public void onSubscribe(Disposable d) {
-                                disposables.add(d);
-                            }
-
-                            @Override
-                            public void onNext(ISessao sessao) {
-
-                                RecarregarTarefaAsyncTask servico = new RecarregarTarefaAsyncTask(vvmshBaseDados, transferenciasRepositorio, handler, tarefa);
-                                servico.execute(sessao);
-
-                                showProgressBar(false);
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-
-                                showProgressBar(false);
-
-                                if (e instanceof RespostaWsInvalidaException){
-
-                                    showProgressBar(false);
-
-                                    Gson gson = new GsonBuilder().create();
-                                    Codigo codigo = gson.fromJson(e.getMessage(), Codigo.class);
-
-                                    messagemLiveData.setValue(Recurso.erro(codigo, Sintaxe.Palavras.DOWNLOAD));
-                                }
-                            }
-
-                            @Override
-                            public void onComplete() {
-
-                            }
-                        }
-
-                );
-
-    }
-
-
-
     //------------------------
     //TIPOS
     //------------------------
 
 
     /**
-     * Metodo que permite obter os tipos
+     * Metodo que permite atualizar os tipos
      * @param handlerUI um handler para as mensagens
      */
-    public void obterTipos(Handler handlerUI) {
+    public void atualizarTipos(Handler handlerUI) {
 
-        tiposRepositorio.obterAtualizacoes()
+        tiposRepositorio.obterAtualizacoes(Identificadores.Atualizacoes.TIPO )
                 .map(new Function<List<Atualizacao>, List<TiposUtil.MetodoApi>>() {
                     @Override
                     public List<TiposUtil.MetodoApi> apply(List<Atualizacao> atualizacoes) throws Exception {
@@ -617,11 +591,7 @@ public class TransferenciasViewModel extends BaseViewModel {
 
                             }
                         }
-
                 );
-
-
-
     }
 
     /**

@@ -8,6 +8,7 @@ import com.vvm.sh.baseDados.BaseDao;
 import com.vvm.sh.ui.atividadesPendentes.modelos.AtividadePendenteRegisto;
 import com.vvm.sh.baseDados.entidades.AtividadePendenteResultado;
 import com.vvm.sh.util.constantes.Identificadores;
+import com.vvm.sh.util.metodos.TiposUtil;
 
 import static com.vvm.sh.util.constantes.Identificadores.Relatorios.*;
 
@@ -41,6 +42,8 @@ abstract public class AtividadePendenteDao implements BaseDao<AtividadePendenteR
 
 
             "CASE WHEN idRelatorio = " + ID_RELATORIO_FORMACAO + " AND IFNULL(ct_formando, 0) > 0 THEN  1 " +
+            "WHEN  idRelatorio = " + ID_RELATORIO_ILUMINACAO + " AND validade_aval_amb_ilum = 1 THEN  1 "+
+            "WHEN  idRelatorio = " + ID_RELATORIO_TEMPERATURA_HUMIDADE + " AND validade_aval_amb_temperatura = 1 THEN  1 "+
             "ELSE 0 END as relatorioCompleto " +
 
             "FROM atividadesPendentes as atp " +
@@ -51,6 +54,7 @@ abstract public class AtividadePendenteDao implements BaseDao<AtividadePendenteR
             "SELECT idTarefa, IFNULL(COUNT(*), 0) as ct_averiguacao, tipo FROM relatorioAveriguacao GROUP BY idTarefa " +
             ") as rel_averiguacao " +
 
+
             //formacao validacao
 
             "LEFT JOIN (" +
@@ -58,6 +62,77 @@ abstract public class AtividadePendenteDao implements BaseDao<AtividadePendenteR
             "FROM acoesFormacaoResultado as ac_form " +
             "LEFT JOIN (SELECT idAtividade, COUNT(id) as ct_formando FROM formandosResultado WHERE selecionado = 1 GROUP BY idAtividade) as frm ON ac_form.idAtividade = frm.idAtividade " +
             ") as ac_form ON atp.id = ac_form.idAtividade " +
+
+
+            //avaliacao ambiental - temperatura + humidade
+
+            "LEFT JOIN( " +
+
+            "SELECT idAtividade,  " +
+            "CASE " +
+            "WHEN marca IS NULL OR numeroSerie IS NULL OR data IS NULL THEN 0 " +
+            "WHEN  avaliacoesValido = 0 THEN 0 " +
+            "ELSE 1 " +
+            "END as validade_aval_amb_temperatura " +
+
+            "FROM relatorioAmbientalResultado as rel_amb_res " +
+
+            "LEFT JOIN( " +
+
+            "SELECT idRelatorio, " +
+            "CASE WHEN COUNT(VALIDO) = SUM(VALIDO) AND COUNT(VALIDO) > 0 THEN 1 ELSE 0 END as avaliacoesValido " +
+            "FROM (" +
+            "SELECT  idRelatorio,	" +
+            "CASE WHEN  (CAST(temperatura AS INTEGER) < 18 OR CAST(temperatura AS INTEGER) > 22) AND  IFNULL(numeroMedidas, 0)  = 0 THEN 0	" +
+            "WHEN  (CAST(humidadeRelativa AS INTEGER) < 50 OR CAST(humidadeRelativa AS INTEGER) > 70) AND  IFNULL(numeroMedidas, 0)  = 0 THEN 0 " +
+            "ELSE 1 END as valido  " +
+
+
+            "FROM avaliacoesAmbientaisResultado as av_amb_res	" +
+
+            "LEFT JOIN (SELECT id, COUNT(idMedida) as numeroMedidas FROM medidasResultado WHERE origem = " + Identificadores.Origens.ORIGEM_RELATORIO_TEMPERATURA_HUMIDADE_MEDIDAS_RECOMENDADAS + " GROUP BY id) as ct_medidas " +
+            "ON av_amb_res.id = ct_medidas.id	" +
+            ") as validacao " +
+            "GROUP BY idRelatorio" +
+
+            ") as vald_iluminacao ON rel_amb_res.id = vald_iluminacao.idRelatorio " +
+
+            ") as avl_amb_term ON atp.id = avl_amb_term.idAtividade " +
+
+            //avaliacao ambiental - iluminacao
+
+            "LEFT JOIN( " +
+
+            "SELECT idAtividade,  " +
+            "CASE " +
+            "WHEN marca IS NULL OR numeroSerie IS NULL OR data IS NULL THEN 0 " +
+            "WHEN  avaliacoesValido = 0 THEN 0 " +
+            "ELSE 1 " +
+            "END as validade_aval_amb_ilum " +
+
+            "FROM relatorioAmbientalResultado as rel_amb_res " +
+
+            "LEFT JOIN( " +
+
+            "SELECT idRelatorio, " +
+            "CASE WHEN COUNT(VALIDO) = SUM(VALIDO) AND COUNT(VALIDO) > 0 THEN 1 ELSE 0 END as avaliacoesValido "  +
+
+            "FROM(   " +
+            "SELECT idRelatorio,   " +
+            "CASE WHEN CAST(emedioLx AS INTEGER) <  (CAST(eLx AS INTEGER) - ((10 * CAST(eLx AS INTEGER)) / 100)) AND IFNULL(numeroMedidas, 0) = 0 THEN 0  " +
+            "ELSE 1 END as valido  " +
+            "FROM avaliacoesAmbientaisResultado as av_amb_res  " +
+
+            "LEFT JOIN (SELECT id, COUNT(idMedida) as numeroMedidas FROM medidasResultado WHERE origem = " + Identificadores.Origens.ORIGEM_RELATORIO_ILUMINACAO_MEDIDAS_RECOMENDADAS + " GROUP BY id) as ct_medidas " +
+            "ON av_amb_res.id = ct_medidas.id  " +
+            ") as validacao " +
+            "GROUP BY idRelatorio" +
+
+            ") as vald_iluminacao ON rel_amb_res.id = vald_iluminacao.idRelatorio " +
+
+            ") as avl_amb_ilum ON atp.id = avl_amb_ilum.idAtividade " +
+
+
 
 
             "WHERE atp.idTarefa = :idTarefa")

@@ -97,6 +97,8 @@
                         android:id="@+id/spnr_area_posto_trabalho"
                         android:layout_width="400dp"
                         android:hint="@string/areaPostoTrabalho"
+                        tipos="@{viewmodel.areas}"
+                        id="@{viewmodel.avaliacao.resultado.idArea}"
                         android:layout_height="wrap_content"
                         app:layout_constraintStart_toStartOf="@+id/textView18"
                         app:layout_constraintTop_toBottomOf="@+id/textview31" />
@@ -161,7 +163,7 @@
 
                             <TextView
                                 android:id="@+id/txt_categorias_profissionais"
-                                android:text="@string/categorias_profissionais"
+                                listagemTipos="@{viewmodel.categoriasProfissionais}"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 style="@style/textoDetalhe" />
@@ -172,14 +174,9 @@
 
                         <at.markushi.ui.CircleButton
                             android:id="@+id/crl_btn_pesquisar_categorias_profissionais"
-                            android:layout_width="64dip"
-                            android:layout_height="64dip"
-                            android:src="@drawable/ic_calendario"
-                            app:cb_color="#99CC00"
-                            app:cb_pressedRingWidth="8dip" />
+                            style="@style/btnPesquisa" />
 
                     </LinearLayout>
-
 
 
 
@@ -246,7 +243,7 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/txt_inp_temperatura"
                             style="@style/modifiedEditText"
-                            android:text="@{StringUtil.converterString(viewmodel.avaliacao.resultado.temperatura)}"
+                            android:text="@{StringUtil.converterStringEspaco(viewmodel.avaliacao.resultado.temperatura)}"
                             android:maxLength="15"
                             android:inputType="numberDecimal"
                             android:maxLines="1"/>
@@ -285,7 +282,7 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/txt_inp_humidade_relativa"
                             style="@style/modifiedEditText"
-                            android:text="@{StringUtil.converterString(viewmodel.avaliacao.resultado.humidadeRelativa)}"
+                            android:text="@{StringUtil.converterStringEspaco(viewmodel.avaliacao.resultado.humidadeRelativa)}"
                             android:maxLength="15"
                             android:inputType="numberDecimal"
                             android:maxLines="1"/>
@@ -306,27 +303,53 @@
                         app:layout_constraintTop_toTopOf="@+id/textview34" />
 
 
+                    <LinearLayout
+                        android:id="@+id/lnr_lyt_medidas"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/distancia_vertical_formulario"
+                        android:layout_marginEnd="8dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:visibility="gone"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
+                        app:layout_constraintStart_toStartOf="@+id/textView18"
+                        app:layout_constraintTop_toBottomOf="@+id/textview34">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/textview43"
+                                style="@style/textoInput"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:text="@string/medidas_recomendadas" />
+
+
+                            <TextView
+                                android:id="@+id/txt_medidas"
+                                style="@style/textoDetalhe"
+                                listagemTipos="@{viewmodel.medidas}"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content" />
+
+
+                        </LinearLayout>
+
+
+                        <at.markushi.ui.CircleButton
+                            android:id="@+id/crl_btn_pesquisar_medidas"
+                            style="@style/btnPesquisa" />
+
+                    </LinearLayout>
 
 
                     <!--
-
-                                        <TextView
-                                            android:id="@+id/textview36"
-                                            android:layout_width="match_parent"
-                                            android:layout_height="wrap_content"
-                                            android:text="@string/genero"
-                                            android:layout_marginTop="@dimen/distancia_vertical_formulario"
-                                            app:layout_constraintStart_toStartOf="@+id/textView18"
-                                            app:layout_constraintTop_toBottomOf="@+id/textview35"
-                                            style="@style/textoInput" />
-
-                                        <com.jaredrummler.materialspinner.MaterialSpinner
-                                            android:id="@+id/spnr_genero"
-                                            android:layout_width="400dp"
-                                            android:hint="@string/genero"
-                                            android:layout_height="wrap_content"
-                                            app:layout_constraintStart_toStartOf="@+id/textView18"
-                                            app:layout_constraintTop_toBottomOf="@+id/textview36" />
 
 
 

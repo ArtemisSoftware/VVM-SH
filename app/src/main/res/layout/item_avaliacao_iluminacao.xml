@@ -12,11 +12,11 @@
 
         <variable
             name="avaliacao"
-            type="com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.AvaliacaoAmbiental" />
+            type="com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.modelos.AvaliacaoAmbiental" />
 
         <variable
             name="listener"
-            type="com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.OnAvaliacaoAmbientalListener"/>
+            type="com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.adaptadores.OnAvaliacaoAmbientalListener"/>
 
     </data>
 
@@ -133,20 +133,27 @@
                 app:layout_constraintTop_toTopOf="@+id/textView50" />
 
 
+
+
             <LinearLayout
                 android:id="@+id/linearLayout"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
                 android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/textView"
-                app:layout_constraintTop_toBottomOf="@+id/textView50">
+                app:layout_constraintTop_toBottomOf="@+id/textView50"
+                android:weightSum="2">
 
 
                 <LinearLayout
                     android:id="@+id/linearLayout1"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="1"
                     android:orientation="vertical">
 
 
@@ -158,17 +165,20 @@
                     <TextView
                         android:id="@+id/textView54"
                         style="@style/textoDetalhe"
-                        listagemTipos="@{avaliacao.categoriasProfissionais}" />
+                        listagemTipos="@{avaliacao.categoriasProfissionais}"
+                        android:layout_marginTop="8dp"/>
 
                 </LinearLayout>
 
 
                 <LinearLayout
                     android:id="@+id/linearLayout2"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_marginLeft="32dp"
+                    android:layout_weight="1"
                     android:orientation="vertical"
-                    android:layout_marginLeft="32dp">
+                    android:paddingRight="18dp">
 
                     <TextView
                         android:id="@+id/textView53"
@@ -178,15 +188,12 @@
                     <TextView
                         android:id="@+id/textView56"
                         style="@style/textoDetalhe"
-                        android:layout_marginTop="8dp"
-                        android:text="TextView" />
+                        listagemTipos="@{avaliacao.medidas}"
+                        android:layout_marginTop="8dp"/>
 
                 </LinearLayout>
 
             </LinearLayout>
-
-
-
 
 
 
@@ -224,15 +231,6 @@
                     android:layout_height="wrap_content"
                     android:theme="@style/Theme.MaterialComponents.Light" />
 
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chip2"
-                    android:backgroundTint="@color/cor_pendente"
-                    app:chipIcon="@drawable/ic_alerta_24dp"
-                    android:text="@string/clicar_completar_registo"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:theme="@style/Theme.MaterialComponents.Light"
-                    android:visibility="@{avaliacao.necessitaMedidas == true ? View.VISIBLE : View.GONE}" />
 
             </com.google.android.material.chip.ChipGroup>
 

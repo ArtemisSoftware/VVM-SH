@@ -14,10 +14,18 @@ public class ResultadoAsyncTask extends AsyncTask<Resultado, Void, Void> {
     private VvmshBaseDados vvmshBaseDados;
 
     private ResultadoDao resultadoDao;
+    private int idAtividade;
 
     public ResultadoAsyncTask(VvmshBaseDados vvmshBaseDados, ResultadoDao resultadoDao){
         this.vvmshBaseDados = vvmshBaseDados;
         this.resultadoDao = resultadoDao;
+        this.idAtividade = 0;
+    }
+
+    public ResultadoAsyncTask(VvmshBaseDados vvmshBaseDados, ResultadoDao resultadoDao, int idAtividade){
+        this.vvmshBaseDados = vvmshBaseDados;
+        this.resultadoDao = resultadoDao;
+        this.idAtividade = idAtividade;
     }
 
 
@@ -34,7 +42,12 @@ public class ResultadoAsyncTask extends AsyncTask<Resultado, Void, Void> {
             public void run(){
 
                 try {
-                    resultadoDao.upsert(resposta);
+                    if(idAtividade == 0) {
+                        resultadoDao.upsert(resposta);
+                    }
+                    else{
+                        resultadoDao.upsert(resposta, idAtividade);
+                    }
                 }
                 catch(SQLiteConstraintException throwable){
                     errorMessage = throwable.getMessage();

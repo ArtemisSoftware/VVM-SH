@@ -11,6 +11,7 @@ import java.util.Date;
 import java.util.List;
 
 import io.reactivex.Flowable;
+import io.reactivex.Maybe;
 import io.reactivex.Observable;
 
 @Dao
@@ -37,5 +38,8 @@ public abstract class AgendaDao {
     abstract public Observable<Integer> obterCompletude(String idUtilizador, long data);
 
     @Query("SELECT DISTINCT data FROM tarefas WHERE idUtilizador = :idUtilizador ")
-    abstract public Flowable<List<Date>> obterDatas(String idUtilizador);
+    abstract public Maybe<List<Date>> obterDatas(String idUtilizador);
+
+
+
 }

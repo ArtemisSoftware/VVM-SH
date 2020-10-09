@@ -12,11 +12,13 @@ import com.vvm.sh.baseDados.entidades.CategoriaProfissionalResultado;
 import com.vvm.sh.baseDados.entidades.MedidaResultado;
 import com.vvm.sh.baseDados.entidades.RelatorioAmbientalResultado;
 import com.vvm.sh.baseDados.entidades.Tipo;
-import com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.AvaliacaoAmbiental;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.modelos.AvaliacaoAmbiental;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.modelos.RelatorioAmbiental;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.metodos.TiposUtil;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 import io.reactivex.Flowable;
@@ -24,6 +26,7 @@ import io.reactivex.Maybe;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.functions.BiFunction;
+import io.reactivex.functions.Function3;
 
 public class AvaliacaoAmbientalRepositorio {
 
@@ -82,21 +85,14 @@ public class AvaliacaoAmbientalRepositorio {
 
 
 
-    public Observable<RelatorioAmbiental> obterValidadeRelatorio(int idAtividade, int tipo) {
-        return avaliacaoAmbientalDao.obterValidadeRelatorio(idAtividade, tipo);
-    }
-
-
-
-
     /**
      * Metodo que permite obter os dados gerais do relatorio
      * @param idAtividade o identificador da atividade
-     * @param tipo o tipo de relatorio
+     * @param origem a origem do relatorio
      * @return os dados
      */
-    public Maybe<RelatorioAmbientalResultado> obterGeral(int idAtividade, int tipo) {
-        return avaliacaoAmbientalDao.obterGeral(idAtividade, tipo);
+    public Maybe<RelatorioAmbientalResultado> obterGeral(int idAtividade, int origem) {
+        return avaliacaoAmbientalDao.obterGeral(idAtividade, origem);
     }
 
 
@@ -131,6 +127,76 @@ public class AvaliacaoAmbientalRepositorio {
 
 
 
+
+
+    /**
+     * Metodo que permite obter o relatorio
+     * @param idAtividade o identificador da atividade
+     * @param origem a origem do relatorio
+     * @return os dados do relatorio
+     */
+    public Observable<RelatorioAmbiental> obterRelatorio(int idAtividade, int origem) {
+
+        if(origem == Identificadores.Origens.ORIGEM_RELATORIO_ILUMINACAO) {
+            return avaliacaoAmbientalDao.obterRelatorioIlumiacao(idAtividade, origem);
+        }
+        else{
+            return avaliacaoAmbientalDao.obterRelatorioTermico(idAtividade, origem);
+        }
+    }
+
+
+    /**
+     * Metodo que permite obter as avaliacoes
+     * @param idRelatorio o identificador do relatorio
+     * @param origem a origem do relatorio
+     * @return os registos
+     */
+    public Observable<List<AvaliacaoAmbiental>> obterAvaliacoes(int idRelatorio, int origem) {
+
+        if(origem == Identificadores.Origens.ORIGEM_RELATORIO_ILUMINACAO) {
+
+            return avaliacaoAmbientalDao.obterAvaliacoesIluminacao(idRelatorio);
+        }
+        else{
+            return avaliacaoAmbientalDao.obterAvaliacoesTemperaturaHumidade(idRelatorio);
+        }
+    }
+
+
+    /**
+     * Metodo que permite obter as categorias profissionais
+     * @param id o identificador do registo
+     * @param origem a origem do relatorio
+     * @return uma lista de tipos
+     */
+    public Maybe<List<Tipo>> obterCategoriasProfissionais(int id, int origem){
+        return categoriaProfissionalDao.obterTipoCategoriasProfissionais(id, origem);
+    }
+
+
+    /**
+     * Metodo que permite obter as medidas
+     * @param id o identificador do registo
+     * @param origem a origem do relatorio
+     * @return uma lista de medidas
+     */
+    public Maybe<List<Tipo>> obterMedidas(int id, int origem){
+        if(origem == Identificadores.Origens.ORIGEM_RELATORIO_ILUMINACAO) {
+
+            return medidaDao.obterTipoMedidas(id, TiposUtil.MetodosTipos.MEDIDAS_ILUMINACAO_TERMICO, Identificadores.Origens.ORIGEM_RELATORIO_ILUMINACAO_MEDIDAS_RECOMENDADAS);
+        }
+        else{
+            return medidaDao.obterTipoMedidas(id, TiposUtil.MetodosTipos.MEDIDAS_ILUMINACAO_TERMICO, Identificadores.Origens.ORIGEM_RELATORIO_TEMPERATURA_HUMIDADE_MEDIDAS_RECOMENDADAS);
+        }
+    }
+
+
+
+
+
+
+
     /**
      * Metodo que permite obter a medida recomendada
      * @param idAtividade o identificador da atividade
@@ -150,23 +216,6 @@ public class AvaliacaoAmbientalRepositorio {
 
 
 
-    /**
-     * Metodo que permite obter as avaliacoes
-     * @param idRelatorio o identificador do relatorio
-     * @param tipo o tipo de relatorio
-     * @return os registos
-     */
-    public Observable<List<AvaliacaoAmbiental>> obterAvaliacoes(int idRelatorio, int tipo) {
-
-        if(tipo == Identificadores.Relatorios.ID_RELATORIO_ILUMINACAO) {
-
-            return avaliacaoAmbientalDao.obterAvaliacoesIluminacao(idRelatorio);
-        }
-        else{
-            return avaliacaoAmbientalDao.obterAvaliacoesTemperaturaHumidade(idRelatorio);
-        }
-    }
-
 
 
     public Maybe<Boolean> obterValidadeAvaliacoes(int idAtividade, int tipo) {
@@ -181,27 +230,6 @@ public class AvaliacaoAmbientalRepositorio {
     }
 
 
-    public Maybe<List<Tipo>> obterCategoriasProfissionais(int id, int tipo){
-        if(tipo == Identificadores.Relatorios.ID_RELATORIO_ILUMINACAO) {
-
-            return categoriaProfissionalDao.obterTipoCategoriasProfissionais(id, Identificadores.Origens.AVALIACAO_AMBIENTAL_ILUMINACAO_CATEGORIAS_PROFISSIONAIS);
-        }
-        else{
-            return categoriaProfissionalDao.obterTipoCategoriasProfissionais(id, Identificadores.Origens.ORIGEM_RELATORIO_TEMPERATURA_HUMIDADE);
-        }
-    }
-
-
-    public Observable<List<MedidaResultado>> obterMedidas(int id, int tipo){
-        if(tipo == Identificadores.Relatorios.ID_RELATORIO_ILUMINACAO) {
-
-            return medidaDao.obterMedidas(id, Identificadores.Origens.ORIGEM_RELATORIO_ILUMINACAO);
-        }
-        else{
-            return medidaDao.obterMedidas(id, Identificadores.Origens.ORIGEM_RELATORIO_TEMPERATURA_HUMIDADE);
-        }
-    }
-
 
 
 
@@ -209,29 +237,29 @@ public class AvaliacaoAmbientalRepositorio {
     /**
      * Metodo que permite obter uma avaliacao
      * @param id o identificador da avaliacao
-     * @param tipo  o tipo de relatorio
+     * @param origem a origem do relatorio
      * @return um registo
      */
-    public Maybe<AvaliacaoAmbiental> obterAvaliacao(int id, int tipo) {
+    public Maybe<AvaliacaoAmbiental> obterAvaliacao(int id, int origem) {
 
-        int origemCategorias = Identificadores.Origens.AVALIACAO_AMBIENTAL_ILUMINACAO_CATEGORIAS_PROFISSIONAIS;
+        int origemMedidas = Identificadores.Origens.ORIGEM_RELATORIO_TEMPERATURA_HUMIDADE_MEDIDAS_RECOMENDADAS;
 
-        if(tipo == Identificadores.Relatorios.ID_RELATORIO_TEMPERATURA_HUMIDADE) {
-            origemCategorias = Identificadores.Origens.ORIGEM_RELATORIO_ILUMINACAO; //TODO: mudar isto para termico
+        if(origem == Identificadores.Origens.ORIGEM_RELATORIO_ILUMINACAO) {
+            origemMedidas = Identificadores.Origens.ORIGEM_RELATORIO_ILUMINACAO_MEDIDAS_RECOMENDADAS;
         }
-
 
         Maybe<AvaliacaoAmbiental> maybe = Maybe.zip(
                 avaliacaoAmbientalDao.obterAvaliacao(id),
-                categoriaProfissionalDao.obterTipoCategoriasProfissionais(id, origemCategorias),
-                new BiFunction<AvaliacaoAmbientalResultado, List<Tipo>, AvaliacaoAmbiental>() {
+                categoriaProfissionalDao.obterTipoCategoriasProfissionais(id, origem),
+                medidaDao.obterTipoMedidas(id, TiposUtil.MetodosTipos.MEDIDAS_ILUMINACAO_TERMICO, origemMedidas),
+                new Function3<AvaliacaoAmbientalResultado, List<Tipo>, List<Tipo>, AvaliacaoAmbiental>() {
                     @Override
-                    public AvaliacaoAmbiental apply(AvaliacaoAmbientalResultado avaliacaoAmbientalResultado, List<Tipo> categoriasProfissionais) throws Exception {
-
+                    public AvaliacaoAmbiental apply(AvaliacaoAmbientalResultado avaliacaoAmbientalResultado, List<Tipo> categoriasProfissionais, List<Tipo> medidas) throws Exception {
                         AvaliacaoAmbiental resultado = new AvaliacaoAmbiental();
 
                         resultado.resultado = avaliacaoAmbientalResultado;
                         resultado.categoriasProfissionais = categoriasProfissionais;
+                        resultado.medidas = medidas;
 
                         return resultado;
                     }
@@ -239,6 +267,36 @@ public class AvaliacaoAmbientalRepositorio {
 
         return maybe;
     }
+
+
+    /**
+     * Metodo que permite remover uma avaliacao
+     * @param registo os dados da avaliacao
+     * @return
+     */
+    public Single<Object> removerAvaliacao(AvaliacaoAmbientalResultado registo, int origem) {
+
+        int origemMedidas = Identificadores.Origens.ORIGEM_RELATORIO_TEMPERATURA_HUMIDADE_MEDIDAS_RECOMENDADAS;
+
+        if(origem == Identificadores.Origens.ORIGEM_RELATORIO_ILUMINACAO) {
+            origemMedidas = Identificadores.Origens.ORIGEM_RELATORIO_ILUMINACAO_MEDIDAS_RECOMENDADAS;
+        }
+
+        Single<Object> single = Single.zip(
+                avaliacaoAmbientalDao.remover(registo),
+                categoriaProfissionalDao.remover(registo.id, origem),
+                medidaDao.remover(registo.id, origemMedidas),
+                new Function3<Integer, Integer, Integer, Object>() {
+                    @Override
+                    public Object apply(Integer integer, Integer integer2, Integer integer3) throws Exception {
+                        return integer & integer2 & integer3;
+                    }
+                });
+
+        return single;
+    }
+
+
 
 
 
@@ -266,38 +324,53 @@ public class AvaliacaoAmbientalRepositorio {
 
 
 
-    public Single<Object> removerAvaliacao(AvaliacaoAmbientalResultado registo, int tipo) {
+    public Flowable<Object> atualizarAvaliacao(AvaliacaoAmbientalResultado registo, List<CategoriaProfissionalResultado> categorias, List<MedidaResultado> medidas, int origem, int origemMedidas){
 
-        Single<Object> single = null;
-
-        if(tipo == Identificadores.Relatorios.ID_RELATORIO_ILUMINACAO) {
-
-            single = Single.zip(
-                    avaliacaoAmbientalDao.remover(registo),
-                    categoriaProfissionalDao.remover(registo.id, Identificadores.Origens.AVALIACAO_AMBIENTAL_ILUMINACAO_CATEGORIAS_PROFISSIONAIS),
-                    new BiFunction<Integer, Integer, Object>() {
-                        @Override
-                        public Object apply(Integer integer, Integer integer2) throws Exception {
-                            return integer & integer2;
-                        }
-                    });
-
-            return single;
-        }
-        else{
-            return single;
-        }
-    }
-
-
-    public Flowable<Object> atualizarAvaliacao(AvaliacaoAmbientalResultado registo, List<CategoriaProfissionalResultado> categorias){
-
-        Flowable<Object> single = Single.merge(avaliacaoAmbientalDao.atualizar(registo),
-                categoriaProfissionalDao.remover(registo.id, Identificadores.Origens.AVALIACAO_AMBIENTAL_ILUMINACAO_CATEGORIAS_PROFISSIONAIS),
-                categoriaProfissionalDao.inserir(categorias));
+        Flowable<Object> single = Single.merge(Arrays.asList(avaliacaoAmbientalDao.atualizar(registo),
+                categoriaProfissionalDao.remover(registo.id, origem),
+                medidaDao.remover(registo.id, origemMedidas),
+                categoriaProfissionalDao.inserir(categorias),
+                medidaDao.inserir(medidas)));
 
         return single;
 
     }
 
+
+    public Observable<Object> atualizarAvaliacao__(AvaliacaoAmbientalResultado registo){
+
+       return Observable.zip(avaliacaoAmbientalDao.atualizar(registo).toObservable(), avaliacaoAmbientalDao.atualizar(registo).toObservable(), new BiFunction<Integer, Integer, Object>() {
+           @Override
+           public Object apply(Integer integer, Integer integer2) throws Exception {
+               return null;
+           }
+       });
+
+    }
+
+    public Observable inserir(int idRegisto, List<Integer> categoriasProfissionais, List<Integer> medidas, int origem, int origemMedidas) {
+
+        List<CategoriaProfissionalResultado> categorias = new ArrayList<>();
+
+        for(int idCategoria : categoriasProfissionais){
+            categorias.add(new CategoriaProfissionalResultado(idRegisto, idCategoria, origem));
+        }
+
+        List<MedidaResultado> registosMedidas = new ArrayList<>();
+
+        for(int idMedida : medidas){
+            registosMedidas.add(new MedidaResultado(idRegisto, origemMedidas, idMedida));
+        }
+
+        return Observable.zip(
+                categoriaProfissionalDao.inserir(categorias).toObservable(),
+                medidaDao.inserir(registosMedidas).toObservable(),
+                new BiFunction<List<Long>, List<Long>, Object>() {
+                    @Override
+                    public Object apply(List<Long> longs, List<Long> longs2) throws Exception {
+                        return longs;
+                    }
+                }
+        );
+    }
 }

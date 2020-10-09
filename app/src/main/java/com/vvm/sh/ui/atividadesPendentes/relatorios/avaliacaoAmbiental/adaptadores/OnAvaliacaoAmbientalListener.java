@@ -1,4 +1,4 @@
-package com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental;
+package com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.adaptadores;
 
 import com.vvm.sh.baseDados.entidades.AvaliacaoAmbientalResultado;
 

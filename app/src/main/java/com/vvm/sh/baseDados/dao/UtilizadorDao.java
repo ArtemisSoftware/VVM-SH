@@ -15,6 +15,8 @@ abstract public class UtilizadorDao implements BaseDao<Utilizador> {
     @Query("DELETE FROM utilizadores WHERE id = :idUtilizador")
     abstract public Completable remover(String idUtilizador);
 
+    @Query("DELETE FROM utilizadores")
+    abstract public Completable remover();
 
     @Query("SELECT * FROM utilizadores WHERE id = :idUtilizador")
     abstract public Single<Utilizador> obterUtilizador(String idUtilizador);

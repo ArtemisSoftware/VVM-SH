@@ -203,42 +203,36 @@ public class TransferenciasViewModel extends BaseViewModel {
      * @param idUtilizador o identificador do utilizador
      * @param data a data do trabalho
      */
-    public void obterTrabalho(String idUtilizador, String data, Handler handler){
+    public void recarregarTrabalho(String idUtilizador, String data, Handler handler){
 
         showProgressBar(true);
 
-        transferenciasRepositorio.obterTrabalho(idUtilizador, data).toObservable()
+        transferenciasRepositorio.obterTrabalho(idUtilizador, data)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
 
-                        new Observer<ISessao>() {
+                        new SingleObserver<ISessao>() {
                             @Override
                             public void onSubscribe(Disposable d) {
                                 disposables.add(d);
                             }
 
                             @Override
-                            public void onNext(ISessao sessao) {
-
+                            public void onSuccess(ISessao iSessao) {
                                 RecarregarTrabalhoAsyncTask servico = new RecarregarTrabalhoAsyncTask(vvmshBaseDados, transferenciasRepositorio, handler, idUtilizador, DatasUtil.converterDataLong(data, DatasUtil.FORMATO_YYYY_MM_DD));
-                                servico.execute(sessao);
+                                servico.execute(iSessao);
 
                                 showProgressBar(false);
                             }
 
                             @Override
                             public void onError(Throwable e) {
-
                                 showProgressBar(false);
                                 formatarErro(e);
                             }
-
-                            @Override
-                            public void onComplete() {
-
-                            }
                         }
+
                 );
 
     }
@@ -253,49 +247,35 @@ public class TransferenciasViewModel extends BaseViewModel {
 
         showProgressBar(true);
 
-        transferenciasRepositorio.obterTrabalho(tarefa.idUtilizador).toObservable()
+        transferenciasRepositorio.obterTrabalho(tarefa.idUtilizador)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
 
-                        new Observer<ISessao>() {
+                        new SingleObserver<ISessao>() {
                             @Override
                             public void onSubscribe(Disposable d) {
                                 disposables.add(d);
                             }
 
                             @Override
-                            public void onNext(ISessao sessao) {
-
+                            public void onSuccess(ISessao iSessao) {
                                 RecarregarTarefaAsyncTask servico = new RecarregarTarefaAsyncTask(vvmshBaseDados, transferenciasRepositorio, handler, tarefa);
-                                servico.execute(sessao);
+                                servico.execute(iSessao);
 
                                 showProgressBar(false);
                             }
 
                             @Override
                             public void onError(Throwable e) {
-
                                 showProgressBar(false);
                                 formatarErro(e);
-                            }
-
-                            @Override
-                            public void onComplete() {
-
                             }
                         }
 
                 );
 
     }
-
-
-
-
-
-
-
 
 
 

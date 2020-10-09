@@ -123,7 +123,7 @@ public class AvaliacaoAmbientalResultado {
     }
 
     @Ignore
-    public AvaliacaoAmbientalResultado(int idRealtorio, int idArea, String anexoArea, int homens, int mulheres, double temperatura, double humidadeRelativa) {
+    public AvaliacaoAmbientalResultado(int idRelatorio, int idArea, String anexoArea, int homens, int mulheres, double temperatura, double humidadeRelativa) {
 
         this.idRelatorio = idRelatorio;
         this.idArea = idArea;

@@ -194,42 +194,59 @@ public class TiposUtil {
 
 
 
-//                    METODO_ATIVIDADES_RELATORIO_VISITA,
-//
-//                    METODO_CATEGORIAS_PROFISSIONAIS,
-//                    METODO_CONDICOES_CLIMATERICAS,
-//                    METODO_CONCLUSAO_MEDIDAS_RECOMENDADAS,
+                    METODO_ATIVIDADES_RELATORIO_VISITA,
+
+                    METODO_CATEGORIAS_PROFISSIONAIS,
+                    METODO_CONDICOES_CLIMATERICAS,
+                    METODO_CONCLUSAO_MEDIDAS_RECOMENDADAS,
 
 
+
+
+
+                    /**/
                     METODO_CROSS_SELLING_PRODUTOS,
                     METODO_CROSS_SELLING_DIMENSAO,
                     METODO_CROSS_SELLING_TIPO,
                     METODO_CURSOS,
 
-//                    METODO_ILUMINANCIA,
-//
-//                    METODO_MEDIDAS_ILUMINACAO_TERMICO,
-//                    METODO_MEDIDAS_PREVENCAO_RECOMENDADAS,
-//
-//                    METODO_RISCOS,
-//                    METODO_RISCOS_ESPECIFICOS,
-//
-//                    METODO_TEMPLATE_AVALIACAO_RISCOS,
 
+
+
+
+
+                    METODO_ILUMINANCIA,
+
+                    METODO_MEDIDAS_ILUMINACAO_TERMICO,
+                    METODO_MEDIDAS_PREVENCAO_RECOMENDADAS,
+
+                    METODO_RISCOS,
+                    METODO_RISCOS_ESPECIFICOS,
+
+                    METODO_TEMPLATE_AVALIACAO_RISCOS,
+
+
+
+
+
+                    /**/
                     METODO_TIPOS_ANOMALIA,
                     METODO_TIPIFICACAO_OCORRENCIA,
+
+
+
+
                     
-                    
-//                    METODO_TIPOS_AREA,
-//                    METODO_TIPOS_CHECKLIST,
-//                    METODO_TIPOS_ILUMINACAO,
-//                    METODO_TIPOS_NC,
-//                    METODO_TIPOS_ND,
-//                    METODO_TIPOS_NE,
-//                    METODO_TIPOS_NI,
-//                    METODO_TIPOS_MAQUINA,
-//                    METODO_TIPOS_UTS,
-//                    METODO_TIPOS_VULNERABILIDADES
+                    METODO_TIPOS_AREA,
+                    METODO_TIPOS_CHECKLIST,
+                    METODO_TIPOS_ILUMINACAO,
+                    METODO_TIPOS_NC,
+                    METODO_TIPOS_ND,
+                    METODO_TIPOS_NE,
+                    METODO_TIPOS_NI,
+                    METODO_TIPOS_MAQUINA,
+                    METODO_TIPOS_UTS,
+                    METODO_TIPOS_VULNERABILIDADES
             };
         }
     }

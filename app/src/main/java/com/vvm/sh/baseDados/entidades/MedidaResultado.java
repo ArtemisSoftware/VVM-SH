@@ -21,4 +21,9 @@ public class MedidaResultado {
     public int idMedida;
 
 
+    public MedidaResultado(int id, int origem, int idMedida) {
+        this.id = id;
+        this.origem = origem;
+        this.idMedida = idMedida;
+    }
 }

@@ -45,11 +45,19 @@ public class Identificadores {
         public static final int ORIGEM_WS = 4;
 
         public static final int ORIGEM_RELATORIO_ILUMINACAO = 5;
+        public static final int ORIGEM_RELATORIO_ILUMINACAO_MEDIDAS_RECOMENDADAS = 51;
         public static final int ORIGEM_RELATORIO_TEMPERATURA_HUMIDADE = 6;
+        public static final int ORIGEM_RELATORIO_TEMPERATURA_HUMIDADE_MEDIDAS_RECOMENDADAS = 61;
+
+
+
+
+
+
         public static final int ORIGEM_LEVANTAMENTO_RISCO = 7;
         public static final int LEVANTAMENTO_CATEGORIAS_PROFISSIONAIS = 8;
 
-        public static final int AVALIACAO_AMBIENTAL_ILUMINACAO_CATEGORIAS_PROFISSIONAIS = 9;
+        //public static final int AVALIACAO_AMBIENTAL_ILUMINACAO_CATEGORIAS_PROFISSIONAIS = 9;
 
         public static final int CATEGORIAS_PROFISSIONAIS_VULNERABILIDADE_HOMENS = 10;
         public static final int CATEGORIAS_PROFISSIONAIS_VULNERABILIDADE_MULHERES = 11;
@@ -62,6 +70,8 @@ public class Identificadores {
 
         public static final int PROPOSTA_CONDICOES_ST = 15;
         public static final int PROPOSTA_MEDIDAS_AVALIACAO = 16;
+
+        public static final int AVALIACAO_AMBIENTAL_TEMPERATURA_HUMIDADE= 17;
     }
 
 

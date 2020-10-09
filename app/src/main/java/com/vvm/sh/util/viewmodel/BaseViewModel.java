@@ -77,6 +77,14 @@ public abstract class BaseViewModel extends ViewModel {
     }
 
 
+    protected void gravarResultado(ResultadoDao resultadoDao, int idTarefa, int idAtividade, ResultadoId idResultado){
+
+        ResultadoAsyncTask servico = new ResultadoAsyncTask(vvmshBaseDados, resultadoDao, idAtividade);
+        servico.execute(new Resultado(idTarefa, idResultado));
+    }
+
+
+
 
 
     /**

@@ -1,28 +1,27 @@
-package com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental;
+package com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.adaptadores;
 
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.widget.CompoundButton;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
-import com.vvm.sh.databinding.ItemAvaliacaoIluminacaoBinding;
+import com.vvm.sh.databinding.ItemAvaliacaoTemperaturaHumidadeBinding;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
 
-public class IluminacaoViewHolder extends RecyclerView.ViewHolder
+public class TemperaturaHumidadeViewHolder extends RecyclerView.ViewHolder
         implements View.OnClickListener, View.OnCreateContextMenuListener, MenuItem.OnMenuItemClickListener{
 
-    public ItemAvaliacaoIluminacaoBinding binding;
+    public ItemAvaliacaoTemperaturaHumidadeBinding binding;
 
     private OnAvaliacaoAmbientalListener listener;
 
 
-    public IluminacaoViewHolder(@NonNull View itemView, OnAvaliacaoAmbientalListener listener) {
+    public TemperaturaHumidadeViewHolder(@NonNull View itemView, OnAvaliacaoAmbientalListener listener) {
         super(itemView);
 
         binding = DataBindingUtil.bind(itemView);
@@ -40,7 +39,6 @@ public class IluminacaoViewHolder extends RecyclerView.ViewHolder
     public void onClick(View v) {
         this.listener.OnAvaliacaoClick(binding.getAvaliacao().resultado);
     }
-
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {

@@ -57,6 +57,8 @@ public class TransferenciasRepositorio {
     //---------------------------
     //API
     //---------------------------
+    //TODO: rever isto para poder escolher a api ou as duas
+    private boolean sa = false;
 
     /**
      * Metodo que permite obter o trabalho do dia para um utilizador
@@ -64,9 +66,13 @@ public class TransferenciasRepositorio {
      * @return o trabalho
      */
     public Single<ISessao> obterTrabalho(String idUtilizador) {
-        //TODO: rever isto para poder escolher a api ou as duas
-        return apiSA.obterTrabalho(SegurancaAlimentarApi.HEADER, idUtilizador);
-        //return apiST.obterTrabalho(SegurancaTrabalhoApi.HEADER, idUtilizador);
+
+        if(sa) {
+            return apiSA.obterTrabalho(SegurancaAlimentarApi.HEADER, idUtilizador);
+        }
+        else{
+            return apiST.obterTrabalho(SegurancaTrabalhoApi.HEADER, idUtilizador);
+        }
     }
 
 
@@ -78,9 +84,12 @@ public class TransferenciasRepositorio {
      */
     public Single<ISessao> obterTrabalho(String idUtilizador, String data) {
 
-        //TODO: rever isto para poder escolher a api ou as duas
-        return apiSA.obterTrabalho(SegurancaAlimentarApi.HEADER, idUtilizador, data);
-        //return apiST.obterTrabalho(SegurancaTrabalhoApi.HEADER, idUtilizador, data);
+        if(sa) {
+            return apiSA.obterTrabalho(SegurancaAlimentarApi.HEADER, idUtilizador, data);
+        }
+        else {
+            return apiST.obterTrabalho(SegurancaTrabalhoApi.HEADER, idUtilizador, data);
+        }
     }
 
 

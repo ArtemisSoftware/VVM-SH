@@ -12,11 +12,11 @@
 
         <variable
             name="avaliacao"
-            type="com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.AvaliacaoAmbiental" />
+            type="com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.modelos.AvaliacaoAmbiental" />
 
         <variable
             name="listener"
-            type="com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.OnAvaliacaoAmbientalListener"/>
+            type="com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.adaptadores.OnAvaliacaoAmbientalListener"/>
 
     </data>
 
@@ -32,19 +32,14 @@
             android:layout_height="wrap_content">
 
 
-            <TextView
-                android:id="@+id/textView53"
-                style="@style/textoDescritivo"
-                android:layout_marginStart="82dp"
-                android:text="@string/medidas_recomendadas"
-                app:layout_constraintStart_toEndOf="@+id/textView52"
-                app:layout_constraintTop_toTopOf="@+id/textView52" />
+
 
             <TextView
                 android:id="@+id/textView49"
                 style="@style/textoDetalhe"
                 android:layout_marginStart="16dp"
 
+                android:text="@{StringUtil.converterString(avaliacao.resultado.mulheres)}"
                 app:layout_constraintBottom_toBottomOf="@+id/textView46"
                 app:layout_constraintStart_toEndOf="@+id/textView48"
                 app:layout_constraintTop_toTopOf="@+id/textView46" />
@@ -58,35 +53,14 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
-
-
-            <com.google.android.material.chip.ChipGroup
-                android:id="@+id/chipGroup"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp"
-                android:theme="@style/Theme.MaterialComponents.Light"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/textView"
-                app:layout_constraintTop_toBottomOf="@+id/textView54">
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chip"
-
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:theme="@style/Theme.MaterialComponents.Light" />
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chip2"
-
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:theme="@style/Theme.MaterialComponents.Light"
-                    android:visibility="gone" />
-
-            </com.google.android.material.chip.ChipGroup>
+            <TextView
+                android:id="@+id/textView82"
+                style="@style/textoDetalhe"
+                android:layout_marginStart="16dp"
+                android:text="@{avaliacao.resultado.anexoArea}"
+                app:layout_constraintBottom_toBottomOf="@+id/textView"
+                app:layout_constraintStart_toEndOf="@+id/textView"
+                app:layout_constraintTop_toTopOf="@+id/textView" />
 
             <TextView
                 android:id="@+id/textView37"
@@ -112,9 +86,27 @@
                 style="@style/textoDetalhe"
                 android:layout_marginStart="16dp"
 
+                android:text="@{StringUtil.converterString(avaliacao.resultado.temperatura)}"
                 app:layout_constraintBottom_toBottomOf="@+id/textView44"
                 app:layout_constraintStart_toEndOf="@+id/textView44"
                 app:layout_constraintTop_toTopOf="@+id/textView44" />
+
+            <TextView
+                android:id="@+id/textView57"
+                style="@style/textoDetalhe"
+                android:text="@string/humidadeRelativa_percentagem_"
+                android:layout_marginStart="32dp"
+                app:layout_constraintStart_toEndOf="@+id/textView45"
+                app:layout_constraintTop_toTopOf="@+id/textView44" />
+
+            <TextView
+                android:id="@+id/textView58"
+                android:text="@{StringUtil.converterString(avaliacao.resultado.humidadeRelativa)}"
+                style="@style/textoDetalhe"
+                android:layout_marginStart="16dp"
+                app:layout_constraintBottom_toBottomOf="@+id/textView57"
+                app:layout_constraintStart_toEndOf="@+id/textView57"
+                app:layout_constraintTop_toTopOf="@+id/textView57" />
 
             <TextView
                 android:id="@+id/textView46"
@@ -129,6 +121,7 @@
                 style="@style/textoDetalhe"
                 android:layout_marginStart="16dp"
 
+                android:text="@{StringUtil.converterString(avaliacao.resultado.homens)}"
                 app:layout_constraintBottom_toBottomOf="@+id/textView46"
                 app:layout_constraintStart_toEndOf="@+id/textView46"
                 app:layout_constraintTop_toTopOf="@+id/textView46" />
@@ -143,46 +136,97 @@
                 app:layout_constraintTop_toTopOf="@+id/textView46" />
 
 
-
-            <TextView
-                android:id="@+id/textView52"
-                style="@style/textoDescritivo"
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="@string/categorias_profissionais"
+                android:layout_marginEnd="16dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/textView"
-                app:layout_constraintTop_toBottomOf="@+id/textView46" />
+                app:layout_constraintTop_toBottomOf="@+id/textView46"
+                android:weightSum="2">
 
-            <TextView
-                android:id="@+id/textView54"
-                style="@style/textoDetalhe"
-                android:layout_marginTop="8dp"
-                android:text="TextView"
+
+                <LinearLayout
+                    android:id="@+id/linearLayout1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+
+                    <TextView
+                        android:id="@+id/textView52"
+                        style="@style/textoDescritivo"
+                        android:text="@string/categorias_profissionais" />
+
+                    <TextView
+                        android:id="@+id/textView54"
+                        style="@style/textoDetalhe"
+                        listagemTipos="@{avaliacao.categoriasProfissionais}"
+                        android:layout_marginTop="8dp"/>
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/linearLayout2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="32dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:paddingRight="18dp">
+
+                    <TextView
+                        android:id="@+id/textView53"
+                        style="@style/textoDescritivo"
+                        android:text="@string/medidas_recomendadas" />
+
+                    <TextView
+                        android:id="@+id/textView56"
+                        style="@style/textoDetalhe"
+                        listagemTipos="@{avaliacao.medidas}"
+                        android:layout_marginTop="8dp"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:theme="@style/Theme.MaterialComponents.Light"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/textView"
-                app:layout_constraintTop_toBottomOf="@+id/textView52" />
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout">
 
-            <TextView
-                android:id="@+id/textView56"
-                style="@style/textoDetalhe"
-                android:layout_marginTop="8dp"
-                android:text="TextView"
-                app:layout_constraintStart_toStartOf="@+id/textView53"
-                app:layout_constraintTop_toBottomOf="@+id/textView53" />
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip"
+                    completudeRelatorio="@{avaliacao.valido}"
 
-            <TextView
-                android:id="@+id/textView57"
-                style="@style/textoDetalhe"
-                android:text="@string/humidadeRelativa_percentagem_"
-                android:layout_marginStart="32dp"
-                app:layout_constraintStart_toEndOf="@+id/textView45"
-                app:layout_constraintTop_toTopOf="@+id/textView44" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/Theme.MaterialComponents.Light" />
 
-            <TextView
-                android:id="@+id/textView58"
-                style="@style/textoDetalhe"
-                android:layout_marginStart="16dp"
-                app:layout_constraintBottom_toBottomOf="@+id/textView57"
-                app:layout_constraintStart_toEndOf="@+id/textView57"
-                app:layout_constraintTop_toTopOf="@+id/textView57" />
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip2"
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:theme="@style/Theme.MaterialComponents.Light"
+                    android:visibility="gone" />
+
+            </com.google.android.material.chip.ChipGroup>
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

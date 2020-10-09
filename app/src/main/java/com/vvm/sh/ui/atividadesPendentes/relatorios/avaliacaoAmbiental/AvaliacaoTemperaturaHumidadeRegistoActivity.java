@@ -12,6 +12,8 @@ import android.widget.TextView;
 import com.google.android.material.textfield.TextInputEditText;
 import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
+import com.mobsandgeeks.saripaar.annotation.DecimalMax;
+import com.mobsandgeeks.saripaar.annotation.DecimalMin;
 import com.mobsandgeeks.saripaar.annotation.Max;
 import com.mobsandgeeks.saripaar.annotation.Min;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
@@ -21,6 +23,7 @@ import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.databinding.ActivityAvaliacaoTemperaturaHumidadeRegistoBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
+import com.vvm.sh.ui.pesquisa.PesquisaMedidasActivity;
 import com.vvm.sh.ui.pesquisa.modelos.Pesquisa;
 import com.vvm.sh.ui.pesquisa.PesquisaActivity;
 import com.vvm.sh.util.Recurso;
@@ -56,7 +59,7 @@ public class AvaliacaoTemperaturaHumidadeRegistoActivity extends BaseDaggerActiv
 
     private Validator validador;
 
-    private List<Integer> categoriasProfissionais;
+
 
     @NotEmpty(message = Sintaxe.Alertas.PREENCHIMENTO_OBRIGATORIO)
     @BindView(R.id.txt_inp_numero_homens)
@@ -70,12 +73,18 @@ public class AvaliacaoTemperaturaHumidadeRegistoActivity extends BaseDaggerActiv
     @BindView(R.id.txt_inp_temperatura)
     TextInputEditText txt_inp_temperatura;
 
-    @Max(value = 100, message = Sintaxe.Alertas.VALOR_INVALIDO)
-    @Min(value = 0, message = Sintaxe.Alertas.VALOR_INVALIDO)
+    @DecimalMax(value = 100, sequence = 3, message = Sintaxe.Alertas.VALOR_INVALIDO)
+    @DecimalMin(value = 0, sequence = 2, message = Sintaxe.Alertas.VALOR_INVALIDO)
     @NotEmpty(message = Sintaxe.Alertas.PREENCHIMENTO_OBRIGATORIO)
     @BindView(R.id.txt_inp_humidade_relativa)
     TextInputEditText txt_inp_humidade_relativa;
 
+    @NotEmpty(message = Sintaxe.Alertas.PREENCHIMENTO_OBRIGATORIO)
+    @BindView(R.id.txt_categorias_profissionais)
+    TextView txt_categorias_profissionais;
+
+    private List<Integer> categoriasProfissionais;
+    private List<Integer> medidas;
 
 
     @Override
@@ -97,7 +106,7 @@ public class AvaliacaoTemperaturaHumidadeRegistoActivity extends BaseDaggerActiv
 
         if(bundle != null) {
 
-            int id = bundle.getInt(getString(R.string.argumento_id_relatorio));
+            int id = bundle.getInt(getString(R.string.argumento_id_avaliacao), -1);
             viewModel.obterAvalicao(id, Identificadores.Origens.ORIGEM_RELATORIO_TEMPERATURA_HUMIDADE);
         }
         else{
@@ -118,6 +127,7 @@ public class AvaliacaoTemperaturaHumidadeRegistoActivity extends BaseDaggerActiv
     @Override
     protected void subscreverObservadores() {
 
+
         viewModel.observarMessagem().observe(this, new Observer<Recurso>() {
             @Override
             public void onChanged(Recurso recurso) {
@@ -126,7 +136,8 @@ public class AvaliacaoTemperaturaHumidadeRegistoActivity extends BaseDaggerActiv
 
                     case SUCESSO:
 
-                        avancarRelatorio();
+                        dialogo.sucesso(recurso.messagem);
+                        limparRegisto();
                         break;
 
                     case ERRO:
@@ -149,51 +160,50 @@ public class AvaliacaoTemperaturaHumidadeRegistoActivity extends BaseDaggerActiv
 
 
     /**
-     * Metodo que permite calcular o nivel de temperatura
-     * @return true quando for valido ou false caso contrario
+     * Metodo que permite calcular o nivel de temperatura e humidade
+     * @return  true quando for valido ou false caso contrario
      */
-    private boolean calcularNivelTemperatura() {
+    private boolean calcularNivelTemperaturaHumidade() {
 
-        boolean resultado = true;
+        boolean resultadoTemperatura = true;
 
-        try{
+        try {
 
-            int temperatura = Integer.parseInt(activityAvaliacaoTemperaturaHumidadeRegistoBinding.txtInpTemperatura.getText().toString());
+            double temperatura = Double.parseDouble(activityAvaliacaoTemperaturaHumidadeRegistoBinding.txtInpTemperatura.getText().toString());
 
-            if(temperatura < 18 || temperatura > 22){
-                resultado = false;
+            if (temperatura < 18 || temperatura > 22) {
+                resultadoTemperatura = false;
             }
-        }
-        catch(NumberFormatException | NullPointerException e){
-            resultado = true;
+        } catch (NumberFormatException | NullPointerException e) {
+            resultadoTemperatura = true;
         }
 
-        return resultado;
+
+        boolean resultadoHumidade = true;
+
+        try {
+
+            double humidade = Double.parseDouble(activityAvaliacaoTemperaturaHumidadeRegistoBinding.txtInpHumidadeRelativa.getText().toString());
+
+            if (humidade < 50 || humidade > 70) {
+                resultadoHumidade = false;
+            }
+        } catch (NumberFormatException | NullPointerException e) {
+            resultadoHumidade = true;
+        }
+
+
+        if ((resultadoHumidade & resultadoTemperatura) == false) {
+            activityAvaliacaoTemperaturaHumidadeRegistoBinding.txtNivelDificienteTemperatura.setVisibility(View.VISIBLE);
+            activityAvaliacaoTemperaturaHumidadeRegistoBinding.lnrLytMedidas.setVisibility(View.VISIBLE);
+        } else {
+            activityAvaliacaoTemperaturaHumidadeRegistoBinding.txtNivelDificienteTemperatura.setVisibility(View.GONE);
+            activityAvaliacaoTemperaturaHumidadeRegistoBinding.lnrLytMedidas.setVisibility(View.GONE);
+        }
+
+        return (resultadoHumidade & resultadoTemperatura);
     }
 
-
-    /**
-     * Metodo que permite calcular o nivel de humidade
-     * @return true quando for valido ou false caso contrario
-     */
-    private boolean calcularNivelHumidade() {
-
-        boolean resultado = true;
-
-        try{
-
-            int humidade = Integer.parseInt(activityAvaliacaoTemperaturaHumidadeRegistoBinding.txtInpHumidadeRelativa.getText().toString());
-
-            if(humidade < 50 || humidade > 70){
-                resultado = false;
-            }
-        }
-        catch(NumberFormatException | NullPointerException e){
-            resultado = true;
-        }
-
-        return resultado;
-    }
 
 
     /**
@@ -201,32 +211,21 @@ public class AvaliacaoTemperaturaHumidadeRegistoActivity extends BaseDaggerActiv
      */
     private void limparRegisto() {
 
-        //TODO: testar isto
-
         viewModel.avaliacao.setValue(null);
 
-        /*
-        ((EditText) vista.findViewById(R.id.edit_txt_temperatura)).setText(AppIF.SEM_TEXTO);
-		((EditText) vista.findViewById(R.id.edit_txt_humidade_relativa)).setText(AppIF.SEM_TEXTO);
+        activityAvaliacaoTemperaturaHumidadeRegistoBinding.txtInpTemperatura.setText(Sintaxe.SEM_TEXTO);
+        activityAvaliacaoTemperaturaHumidadeRegistoBinding.txtInpHumidadeRelativa.setText(Sintaxe.SEM_TEXTO);
+        activityAvaliacaoTemperaturaHumidadeRegistoBinding.txtInpNumeroHomens.setText(Sintaxe.SEM_TEXTO);
+        activityAvaliacaoTemperaturaHumidadeRegistoBinding.txtInpNumeroMulheres.setText(Sintaxe.SEM_TEXTO);
 
-		((EditText) vista.findViewById(R.id.edit_txt_homens)).setText(AppIF.SEM_TEXTO);
-		((EditText) vista.findViewById(R.id.edit_txt_mulheres)).setText(AppIF.SEM_TEXTO);
-        */
+        activityAvaliacaoTemperaturaHumidadeRegistoBinding.txtCategoriasProfissionais.setText(Sintaxe.SEM_TEXTO);
         categoriasProfissionais = new ArrayList<>();
+
+        activityAvaliacaoTemperaturaHumidadeRegistoBinding.txtMedidas.setText(Sintaxe.SEM_TEXTO);
+        medidas = new ArrayList<>();
     }
 
 
-    private void avancarRelatorio() {
-
-        if(calcularNivelTemperatura() == false || calcularNivelHumidade() == false){
-
-            //--dialogoMedidasRecomendadas();
-        }
-        else{
-            limparRegisto();
-        }
-
-    }
 
     //----------------------
     //EVENTOS
@@ -236,23 +235,13 @@ public class AvaliacaoTemperaturaHumidadeRegistoActivity extends BaseDaggerActiv
     @OnTextChanged(value = R.id.txt_inp_temperatura, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
     public void txt_inp_temperatura_OnTextChanged(CharSequence text) {
 
-        if(calcularNivelTemperatura() == false){
-            activityAvaliacaoTemperaturaHumidadeRegistoBinding.txtNivelDificienteTemperatura.setVisibility(View.VISIBLE);
-        }
-        else{
-            activityAvaliacaoTemperaturaHumidadeRegistoBinding.txtNivelDificienteTemperatura.setVisibility(View.GONE);
-        }
+        calcularNivelTemperaturaHumidade();
     }
 
     @OnTextChanged(value = R.id.txt_inp_humidade_relativa, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
     public void txt_inp_humidade_relativa_OnTextChanged(CharSequence text) {
 
-        if(calcularNivelHumidade() == false){
-            activityAvaliacaoTemperaturaHumidadeRegistoBinding.txtNivelDificienteHumidadeRelativa.setVisibility(View.VISIBLE);
-        }
-        else{
-            activityAvaliacaoTemperaturaHumidadeRegistoBinding.txtNivelDificienteHumidadeRelativa.setVisibility(View.GONE);
-        }
+        calcularNivelTemperaturaHumidade();
     }
 
 
@@ -270,25 +259,60 @@ public class AvaliacaoTemperaturaHumidadeRegistoActivity extends BaseDaggerActiv
     }
 
 
+    @OnClick(R.id.crl_btn_pesquisar_medidas)
+    public void crl_btn_pesquisar_medidas_OnClickListener(View view) {
+
+        Pesquisa pesquisa = new Pesquisa(true,
+                TiposUtil.MetodosTipos.MEDIDAS_ILUMINACAO_TERMICO,
+                Identificadores.Codigos.TERMICO, Identificadores.Origens.AVALIACAO_AMBIENTAL_TEMPERATURA_HUMIDADE,
+                viewModel.obterRegistosSelecionados(viewModel.medidas.getValue()));
+
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(getString(R.string.argumento_configuracao_pesquisa), pesquisa);
+
+        Intent intent = new Intent(this, PesquisaMedidasActivity.class);
+        intent.putExtras(bundle);
+        startActivityForResult(intent, Identificadores.CodigoAtividade.PESQUISA_MEDIDAS_RECOMENDADAS);
+
+    }
+
+
+
+
+    @OnClick(R.id.fab_gravar)
+    public void fab_gravar_OnClickListener(View view) {
+        validador.validate();
+    }
+
+
 
     @Override
     public void onValidationSucceeded() {
 
         Bundle bundle = getIntent().getExtras();
         int idRealtorio = bundle.getInt(getString(R.string.argumento_id_relatorio));
+        int idAtividade = bundle.getInt(getString(R.string.argumento_id_atividade));
+
+        if(calcularNivelTemperaturaHumidade() == false & activityAvaliacaoTemperaturaHumidadeRegistoBinding.txtMedidas.getText().toString().equals("") == true){
+
+            activityAvaliacaoTemperaturaHumidadeRegistoBinding.txtMedidas.setError(Sintaxe.Alertas.PREENCHIMENTO_OBRIGATORIO);
+            return;
+        }
+
 
         Tipo area = (Tipo) activityAvaliacaoTemperaturaHumidadeRegistoBinding.spnrAreaPostoTrabalho.getItems().get(activityAvaliacaoTemperaturaHumidadeRegistoBinding.spnrAreaPostoTrabalho.getSelectedIndex());
         String anexoArea = activityAvaliacaoTemperaturaHumidadeRegistoBinding.txtInpDescricaoArea.getText().toString();
 
         int homens = Integer.parseInt(activityAvaliacaoTemperaturaHumidadeRegistoBinding.txtInpNumeroHomens.getText().toString());
         int mulheres = Integer.parseInt(activityAvaliacaoTemperaturaHumidadeRegistoBinding.txtInpNumeroMulheres.getText().toString());
-        double temperatura = Double.parseDouble(activityAvaliacaoTemperaturaHumidadeRegistoBinding.txtInpTemperatura.getText().toString());
-        double humidadeRelativa = Integer.parseInt(activityAvaliacaoTemperaturaHumidadeRegistoBinding.txtInpHumidadeRelativa.getText().toString());
+        double temperatura = Double.parseDouble(activityAvaliacaoTemperaturaHumidadeRegistoBinding.txtInpTemperatura.getText().toString().replace(",","."));
+        double humidadeRelativa = Double.parseDouble(activityAvaliacaoTemperaturaHumidadeRegistoBinding.txtInpHumidadeRelativa.getText().toString().replace(",","."));
 
 
         AvaliacaoAmbientalResultado registo = new AvaliacaoAmbientalResultado(idRealtorio, area.id, anexoArea, homens, mulheres, temperatura, humidadeRelativa);
 
-        viewModel.gravar(registo, categoriasProfissionais, calcularNivelHumidade(), calcularNivelTemperatura());
+        viewModel.gravar(PreferenciasUtil.obterIdTarefa(this), idAtividade, registo, categoriasProfissionais, medidas, calcularNivelTemperaturaHumidade(),
+                Identificadores.Origens.ORIGEM_RELATORIO_TEMPERATURA_HUMIDADE, Identificadores.Origens.ORIGEM_RELATORIO_TEMPERATURA_HUMIDADE_MEDIDAS_RECOMENDADAS);
     }
 
     @Override
@@ -318,9 +342,17 @@ public class AvaliacaoTemperaturaHumidadeRegistoActivity extends BaseDaggerActiv
 
             if(resultCode == RESULT_OK){
 
-                ArrayList<Integer> resultado = data.getIntegerArrayListExtra(getString(R.string.resultado_pesquisa));
+                categoriasProfissionais = data.getIntegerArrayListExtra(getString(R.string.resultado_pesquisa));
+                viewModel.fixarCategoriasProfissionais(categoriasProfissionais);
+            }
+        }
 
-                viewModel.fixarCategoriasProfissionais(resultado);
+        if (requestCode == Identificadores.CodigoAtividade.PESQUISA_MEDIDAS_RECOMENDADAS) {
+
+            if(resultCode == RESULT_OK){
+
+                medidas = data.getIntegerArrayListExtra(getString(R.string.resultado_pesquisa));
+                viewModel.fixarMedidas(TiposUtil.MetodosTipos.MEDIDAS_ILUMINACAO_TERMICO, Identificadores.Codigos.TERMICO, medidas);
             }
         }
     }

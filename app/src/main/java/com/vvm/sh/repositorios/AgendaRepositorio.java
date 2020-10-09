@@ -3,21 +3,26 @@ package com.vvm.sh.repositorios;
 import androidx.annotation.NonNull;
 
 import com.vvm.sh.baseDados.dao.AgendaDao;
+import com.vvm.sh.baseDados.dao.UtilizadorDao;
 import com.vvm.sh.ui.agenda.modelos.Marcacao;
 
 import java.util.Date;
 import java.util.List;
 
+import io.reactivex.Completable;
 import io.reactivex.Flowable;
+import io.reactivex.Maybe;
 import io.reactivex.Observable;
 
 public class AgendaRepositorio {
 
     private final AgendaDao agendaDao;
+    private final UtilizadorDao utilizadorDao;
 
-    public AgendaRepositorio(@NonNull AgendaDao agendaDao) {
+    public AgendaRepositorio(@NonNull AgendaDao agendaDao, @NonNull UtilizadorDao utilizadorDao) {
 
         this.agendaDao = agendaDao;
+        this.utilizadorDao = utilizadorDao;
     }
 
 
@@ -47,10 +52,17 @@ public class AgendaRepositorio {
      * @param idUtilizador  o identificador do utilizador
      * @return uma lista de datas
      */
-    public Flowable<List<Date>> obterDatas(String idUtilizador){
+    public Maybe<List<Date>> obterDatas(String idUtilizador){
         return agendaDao.obterDatas(idUtilizador);
     }
 
 
+    /**
+     * Metodo que permite terminar a sessao do utilizador
+     * @return
+     */
+    public Completable terminarSessao(){
+        return utilizadorDao.remover();
+    }
 
 }

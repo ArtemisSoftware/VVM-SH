@@ -64,32 +64,23 @@ public class DownloadTrabalhoActivity extends BaseDaggerActivity {
                 downloadTrabalhoDia();
                 break;
 
+            case Identificadores.Download.RECARREGAR_TRABALHO_DIA:
+
+                recarregarTrabalhoDia();
+                break;
+
+            case Identificadores.Download.RECARREGAR_TAREFA:
+
+                recarregarTarefa();
+                break;
 
             default:
                 break;
         }
 
-        /*
-        if(bundle != null){
-
-            if(bundle.getBoolean(getString(R.string.argumento_recarregar_tarefa)) == true){
-
-                activityDownloadTrabalhoBinding.txtTitulo.setText(getString(R.string.recarregar_tarefa));
-                viewModel.recarregarTarefa((Tarefa) bundle.get(getString(R.string.argumento_tarefa)), handlerNotificacoesUI);
-            }
-            else {
-                activityDownloadTrabalhoBinding.txtTitulo.setText(getString(R.string.recarregar_trabalho_dia));
-                activityDownloadTrabalhoBinding.txtData.setText(DatasUtil.converterData(bundle.getLong(getString(R.string.argumento_data)), DatasUtil.FORMATO_DD_MM_YYYY));
-                viewModel.obterTrabalho(PreferenciasUtil.obterIdUtilizador(this), DatasUtil.converterData(bundle.getLong(getString(R.string.argumento_data)), DatasUtil.FORMATO_YYYY_MM_DD), handlerNotificacoesUI);
-                //viewModel.obterPendencias(PreferenciasUtil.obterIdUtilizador(this), bundle.getLong(getString(R.string.argumento_data)));
-            }
-        }
-        else {
-            activityDownloadTrabalhoBinding.txtData.setText(DatasUtil.obterDataAtual(DatasUtil.FORMATO_DD_MM_YYYY));
-            viewModel.obterPendencias(PreferenciasUtil.obterIdUtilizador(this));
-        }
-*/
     }
+
+
 
     @Override
     protected int obterLayout() {
@@ -149,6 +140,31 @@ public class DownloadTrabalhoActivity extends BaseDaggerActivity {
     }
 
 
+    /**
+     * Metodo que permite recarregar o trabalho de um dia especifico
+     */
+    private void recarregarTrabalhoDia() {
+
+        Bundle bundle = getIntent().getExtras();
+        activityDownloadTrabalhoBinding.txtTitulo.setText(getString(R.string.recarregar_trabalho_dia));
+        activityDownloadTrabalhoBinding.txtData.setText(DatasUtil.converterData(bundle.getLong(getString(R.string.argumento_data)), DatasUtil.FORMATO_DD_MM_YYYY));
+        activityDownloadTrabalhoBinding.cardTrabalho.setVisibility(View.VISIBLE);
+
+        viewModel.recarregarTrabalho(PreferenciasUtil.obterIdUtilizador(this), DatasUtil.converterData(bundle.getLong(getString(R.string.argumento_data)), DatasUtil.FORMATO_YYYY_MM_DD), handlerNotificacoesUI);
+        //--viewModel.obterPendencias(PreferenciasUtil.obterIdUtilizador(this), bundle.getLong(getString(R.string.argumento_data)));
+    }
+
+    /**
+     * Metodo que permite recarregar uma tarefa especifica
+     */
+    private void recarregarTarefa(){
+
+        Bundle bundle = getIntent().getExtras();
+        activityDownloadTrabalhoBinding.txtTitulo.setText(getString(R.string.recarregar_tarefa));
+        viewModel.recarregarTarefa((Tarefa) bundle.get(getString(R.string.argumento_tarefa)), handlerNotificacoesUI);
+    }
+
+
 
     /**
      * Metodo que permite formatar as pendencias
@@ -187,27 +203,27 @@ public class DownloadTrabalhoActivity extends BaseDaggerActivity {
                 viewModel.obterTrabalho(PreferenciasUtil.obterIdUtilizador(this), handlerNotificacoesUI);
                 break;
 
+            case Identificadores.Download.RECARREGAR_TRABALHO_DIA:
+
+                OnDialogoListener listener = new OnDialogoListener() {
+                    @Override
+                    public void onExecutar() {
+                        viewModel.recarregarTrabalho(PreferenciasUtil.obterIdUtilizador(getApplication()), DatasUtil.converterData(bundle.getLong(getString(R.string.argumento_data)), DatasUtil.FORMATO_YYYY_MM_DD), handlerNotificacoesUI);
+                    }
+                };
+
+                dialogo.alerta_OpcaoCancelar(getString(R.string.recarregar_trabalho_dia), getString(R.string.recarregar_trabalho_perder_dados), listener);
+                break;
+
+            case Identificadores.Download.RECARREGAR_TAREFA:
+                viewModel.recarregarTarefa(bundle.getParcelable(getString(R.string.argumento_tarefa)), handlerNotificacoesUI);
+                break;
+
 
             default:
                 break;
         }
 
-
-//
-//        if(bundle != null){
-//
-//            OnDialogoListener listener = new OnDialogoListener() {
-//                @Override
-//                public void onExecutar() {
-//                    viewModel.obterUpload(PreferenciasUtil.obterIdUtilizador(getApplication()), bundle.getLong(getString(R.string.argumento_data)), handlerNotificacoesUI);
-//                }
-//            };
-//
-//            dialogo.alerta_OpcaoCancelar(getString(R.string.recarregar_trabalho_dia), getString(R.string.recarregar_trabalho_perder_dados), listener);
-//        }
-//        else{
-//            viewModel.obterTrabalho(PreferenciasUtil.obterIdUtilizador(this), handlerNotificacoesUI);
-//        }
     }
 
 

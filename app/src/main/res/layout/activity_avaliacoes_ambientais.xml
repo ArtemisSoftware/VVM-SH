@@ -9,7 +9,7 @@
 
         <variable
             name="listener"
-            type="com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.OnAvaliacaoAmbientalListener"/>
+            type="com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.adaptadores.OnAvaliacaoAmbientalListener"/>
 
         <variable
             name="viewmodel"

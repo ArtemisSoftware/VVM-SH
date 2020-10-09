@@ -1,8 +1,7 @@
-package com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental;
+package com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.adaptadores;
 
 import android.content.Context;
 import android.view.LayoutInflater;
-import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -12,8 +11,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.vvm.sh.R;
 import com.vvm.sh.databinding.ItemAvaliacaoIluminacaoBinding;
 import com.vvm.sh.databinding.ItemAvaliacaoTemperaturaHumidadeBinding;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.modelos.AvaliacaoAmbiental;
 import com.vvm.sh.util.constantes.Identificadores;
-import com.vvm.sh.util.metodos.PreferenciasUtil;
 
 import java.util.ArrayList;
 import java.util.List;

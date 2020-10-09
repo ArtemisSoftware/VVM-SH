@@ -67,20 +67,27 @@
         <activity
             android:name=".ui.atividadesPendentes.relatorios.levantamentos.LevantamentosActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ui.atividadesPendentes.relatorios.avaliacaoAmbiental.AvaliacaoTemperaturaHumidadeRegistoActivity" />
+        <activity android:name=".ui.atividadesPendentes.relatorios.avaliacaoAmbiental.AvaliacaoTemperaturaHumidadeRegistoActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.pesquisa.PesquisaActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.atividadesPendentes.relatorios.avaliacaoAmbiental.RelatorioAvaliacaoAmbientalActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.atividadesPendentes.relatorios.avaliacaoAmbiental.AvaliacaoIluminacaoRegistoActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ui.atividadesPendentes.relatorios.avaliacaoAmbiental.AvaliacoesAmbientaisActivity" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.atividadesPendentes.relatorios.avaliacaoAmbiental.AvaliacoesAmbientaisActivity"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.atividadesPendentes.relatorios.avaliacaoAmbiental.AvaliacaoGeralActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.quadroPessoal.QuadroPessoalActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -88,7 +95,8 @@
             android:name=".ui.quadroPessoal.ColaboradorActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity android:name=".ui.transferencias.UploadTrabalhoActivity" />
-        <activity android:name=".ui.autenticacao.CarregamentoActivity"></activity>
+        <activity android:name=".ui.autenticacao.CarregamentoActivity"
+            android:screenOrientation="portrait"/>
         <activity android:name=".ui.ocorrencias.OcorrenciasHistoricoActivity" />
         <activity android:name=".ui.opcoes.AtualizacaoAppActivity" />
         <activity android:name=".ui.contaUtilizador.OpcoesAvancadasActivity" />
@@ -97,12 +105,16 @@
         <activity
             android:name=".ui.AssinaturaActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ui.opcoes.TiposActivity" />
+        <activity android:name=".ui.opcoes.TiposActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.autenticacao.PerfilActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ui.autenticacao.AutenticacaoActivity" />
-        <activity android:name=".ui.apresentacao.ApresentacaoActivity" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.autenticacao.AutenticacaoActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.apresentacao.ApresentacaoActivity"
+            android:screenOrientation="portrait"/>
         <activity android:name=".carregamentos.CarregamentoTiposActivity" />
 
         <activity
@@ -117,36 +129,44 @@
         <activity
             android:name=".ui.ocorrencias.RegistarOcorrenciaActivity"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ui.ocorrencias.OcorrenciasRegistoActivity" />
+        <activity android:name=".ui.ocorrencias.OcorrenciasRegistoActivity"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.anomalias.AnomaliasActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
 
         <activity
             android:name=".ui.ocorrencias.OcorrenciasActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.cliente.SinistralidadeActivity"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.atividadesPendentes.AtividadesPendentesActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.crossSelling.CrossSellingActivity"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.atividadesExecutadas.AtividadesExecutadasActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait"/>
         <activity
             android:name=".ui.cliente.InformacaoActivity"
-            android:theme="@style/AppTheme.NoActionBar" />
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.tarefa.TarefaActivity"
             android:theme="@style/AppTheme.NoActionBar"
             android:screenOrientation="portrait"/>
         <activity
             android:name=".MainActivity"
-            android:theme="@style/AppTheme.NoActionBar">
+            android:theme="@style/AppTheme.NoActionBar"
+            android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

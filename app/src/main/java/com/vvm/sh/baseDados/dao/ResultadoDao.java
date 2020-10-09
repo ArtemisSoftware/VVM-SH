@@ -1,12 +1,16 @@
 package com.vvm.sh.baseDados.dao;
 
 import androidx.room.Dao;
+import androidx.room.Delete;
 import androidx.room.Insert;
+import androidx.room.Query;
 import androidx.room.Transaction;
 import androidx.room.Update;
 
 import com.vvm.sh.baseDados.BaseDao;
 import com.vvm.sh.baseDados.entidades.Resultado;
+
+import io.reactivex.Single;
 
 @Dao
 abstract public class ResultadoDao implements BaseDao<Resultado> {
@@ -20,6 +24,11 @@ abstract public class ResultadoDao implements BaseDao<Resultado> {
     abstract public void atualizarRegisto(Resultado registo);
 
 
+    @Query("DELETE FROM atividadesPendentesResultado WHERE id = :idAtividade")
+    abstract public int remover(int idAtividade);
+
+
+
     @Transaction
     public void upsert(Resultado registo) {
 
@@ -28,5 +37,13 @@ abstract public class ResultadoDao implements BaseDao<Resultado> {
         if (id == -1) {
             atualizarRegisto(registo);
         }
+    }
+
+
+    @Transaction
+    public void upsert(Resultado registo, int idAtividade) {
+
+        remover(registo);
+        remover(idAtividade);
     }
 }

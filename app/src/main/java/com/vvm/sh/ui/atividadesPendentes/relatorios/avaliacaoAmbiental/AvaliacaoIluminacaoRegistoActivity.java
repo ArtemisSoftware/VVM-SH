@@ -208,24 +208,11 @@ public class AvaliacaoIluminacaoRegistoActivity extends BaseDaggerActivity
      */
     private void limparRegisto() {
 
-        //TODO: testar isto
-
         viewModel.avaliacao.setValue(null);
-
 
         activityAvaliacaoIluminacaoRegistoBinding.spnrTipoIluminacao.setSelectedIndex(0);
         activityAvaliacaoIluminacaoRegistoBinding.spnrGenero.setSelectedIndex(0);
         activityAvaliacaoIluminacaoRegistoBinding.spnrTipoIluminacao.setSelectedIndex(0);
-
-
-        /*
-
-        ((Spinner)vista.findViewById(R.id.spnr_sexo)).setSelection(0);
-
-        ((EditText) vista.findViewById(R.id.edit_txt_emedio_lx)).setText(AppIF.SEM_TEXTO);
-        ((Spinner)vista.findViewById(R.id.spnr_eLx)).setSelection(0);
-        ((Spinner)vista.findViewById(R.id.spnr_eLx_area)).setSelection(0);
-        */
 
         activityAvaliacaoIluminacaoRegistoBinding.txtInpNome.setText(Sintaxe.SEM_TEXTO);
         activityAvaliacaoIluminacaoRegistoBinding.txtInpEmedioLx.setText(Sintaxe.SEM_TEXTO);
@@ -313,63 +300,6 @@ public class AvaliacaoIluminacaoRegistoActivity extends BaseDaggerActivity
 
     }
 
-    //
-//    /**
-//     * Metodo que inicia o dialogo de medidas recomendadas
-//     */
-//    private void dialogoMedidasRecomendadas() {
-//
-//        final EscolhaMultipla registos = new EscolhaMultipla(((Item_AvaliacaoAmbiental) adaptador.obterRegistoSelecionado()).obterMedidas(IdentificadoresIF.ORIGEM_MEDIDAS_RECOMENDADAS),  obterMedidasRecomendadas());
-//
-//        AlertDialog.Builder builder = new AlertDialog.Builder(contexto);
-//        builder.setTitle(SintaxeIF.TITULO_MEDIDAS_RECOMENDADAS);
-//
-//        builder.setMultiChoiceItems(registos.obterListaBase(), registos.obterValoresMarcados(), new DialogInterface.OnMultiChoiceClickListener() {
-//
-//            @Override
-//            public void onClick(DialogInterface dialog,int posicao, boolean isChecked) {
-//
-//                if (isChecked == true){
-//                    registos.adicionarRegisto(posicao);
-//                }
-//                else{
-//                    registos.removerRegisto(posicao);
-//                }
-//            }
-//        });
-//
-//        builder.setPositiveButton(SintaxeIF.OPCAO_OK, new DialogInterface.OnClickListener() {
-//
-//            public void onClick(DialogInterface dialog,int id) {
-//
-//                adicionarMedidas(registos.obterMedidasSelecionadas());
-//                dialog.cancel();
-//            }
-//        });
-//
-//        AlertDialog alert = builder.create();
-//        alert.show();
-//    }
-//
-//    @Override
-//    protected Mapeamento obterMedidasRecomendadas() {
-//        return acessoBdRelatorio.obterMedidasRecomendadas(TiposBdIF_v3.SECCAO_MedidasIluminacaoTermico, "iluminacao");
-//    }
-//
-//    /**
-//     * Metodo que permite adicionar as medidas de uma avaliacao
-//     */
-//    protected void adicionarMedidas(ArrayList<String> idMedidas){
-//
-//        acessoBdRelatorio.gravarMedidas(adaptador.obterRegistoSelecionado().obterId(), idMedidas);
-//
-//        MetodosMensagens.gerarToast(contexto, SintaxeIF.DADOS_GRAVADOS_SUCESSO);
-//        adaptador.atualizar();
-//        ((IndiceRelatorioActivity) contexto).atualizar(idRelatorio);
-//    }
-//
-
-
 
 
 
@@ -390,7 +320,7 @@ public class AvaliacaoIluminacaoRegistoActivity extends BaseDaggerActivity
     public void onValidationSucceeded() {
 
 
-        if(calcularNivelIluminacao() == false & medidas.size() == 0){
+        if(calcularNivelIluminacao() == false & activityAvaliacaoIluminacaoRegistoBinding.txtMedidas.getText().toString().equals("") == true){
 
             activityAvaliacaoIluminacaoRegistoBinding.txtMedidas.setError(Sintaxe.Alertas.PREENCHIMENTO_OBRIGATORIO);
             return;
@@ -398,6 +328,7 @@ public class AvaliacaoIluminacaoRegistoActivity extends BaseDaggerActivity
 
         Bundle bundle = getIntent().getExtras();
         int idRealtorio = bundle.getInt(getString(R.string.argumento_id_relatorio));
+        int idAtividade = bundle.getInt(getString(R.string.argumento_id_atividade));
 
         Tipo area = (Tipo) activityAvaliacaoIluminacaoRegistoBinding.spnrAreaPostoTrabalho.getItems().get(activityAvaliacaoIluminacaoRegistoBinding.spnrAreaPostoTrabalho.getSelectedIndex());
         String anexoArea = activityAvaliacaoIluminacaoRegistoBinding.txtInpDescricaoArea.getText().toString();
@@ -411,7 +342,8 @@ public class AvaliacaoIluminacaoRegistoActivity extends BaseDaggerActivity
 
         AvaliacaoAmbientalResultado registo = new AvaliacaoAmbientalResultado(idRealtorio, area.id, anexoArea, nome, sexo.id, tipoIluminacao.id, emedioLx, elxArea.id, elx.id, elx.codigo);
 
-        viewModel.gravar(registo, categoriasProfissionais, calcularNivelIluminacao());
+        viewModel.gravar(PreferenciasUtil.obterIdTarefa(this), idAtividade,registo, categoriasProfissionais, medidas, calcularNivelIluminacao(),
+                Identificadores.Origens.ORIGEM_RELATORIO_ILUMINACAO, Identificadores.Origens.ORIGEM_RELATORIO_ILUMINACAO_MEDIDAS_RECOMENDADAS);
 
     }
 

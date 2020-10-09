@@ -5,7 +5,6 @@ import androidx.lifecycle.MutableLiveData;
 import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.baseDados.entidades.TrabalhadorVulneravelResultado;
 import com.vvm.sh.repositorios.TrabalhadoresVulneraveisRepositorio;
-import com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.AvaliacaoAmbiental;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.trabalhadoresVulneraveis.modelos.TrabalhadorVulneravel;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.constantes.Identificadores;
@@ -23,7 +22,6 @@ import io.reactivex.Observer;
 import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
-import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 public class TrabalhadoresVulneraveisViewModel extends BaseViewModel {

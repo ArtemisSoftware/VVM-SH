@@ -1,4 +1,4 @@
-package com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental;
+package com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.modelos;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Embedded;
@@ -35,6 +35,8 @@ public class AvaliacaoAmbiental {
     @Ignore
     public List<Tipo> categoriasProfissionais;
 
+    @Ignore
+    public List<Tipo> medidas;
 
     public String obterLocal() {
         return local.replaceAll("(\\r|\\n|\\t)", "");

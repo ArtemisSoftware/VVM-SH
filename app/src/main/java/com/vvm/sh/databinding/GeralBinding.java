@@ -99,7 +99,8 @@ public class GeralBinding {
 
             view.setText(view.getContext().getString(R.string.completo));
             chipDrawable.setChipBackgroundColorResource(R.color.cor_completo);
-            view.setChipIcon(view.getContext().getResources().getDrawable(R.drawable.ic_executado_24dp));
+            view.setChipIcon(view.getContext().getResources().getDrawable(R.drawable.ic_validado));
+            view.getChipIcon().setTint(view.getContext().getResources().getColor(R.color.cor_branco));
 
         }
         else{

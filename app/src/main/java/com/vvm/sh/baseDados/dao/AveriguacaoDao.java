@@ -80,17 +80,25 @@ abstract public class AveriguacaoDao implements BaseDao<RelatorioAveriguacaoResu
     //https://mega.nz/folder/9aIhXIrR#U9QHq_13tly4SYRLn10ykg
 
 
+    //https://mega.nz/folder/aQ1S3Y4I#9JTNLSLe0WYrIF1YH6KuTQ/folder/7FMnHCLI
+    //https://mega.nz/folder/aQ1S3Y4I#9JTNLSLe0WYrIF1YH6KuTQ/folder/OUMyhIwR
+    //https://mega.nz/folder/aQ1S3Y4I#9JTNLSLe0WYrIF1YH6KuTQ/folder/LVMwQKpL
+    //https://mega.nz/folder/aQ1S3Y4I#9JTNLSLe0WYrIF1YH6KuTQ/folder/7NNyWQgR
+    //https://mega.nz/folder/aQ1S3Y4I#9JTNLSLe0WYrIF1YH6KuTQ/folder/fNMC3Qob
+    //https://mega.nz/folder/aQ1S3Y4I#9JTNLSLe0WYrIF1YH6KuTQ/folder/fMdyRI4A
+    //https://mega.nz/folder/aQ1S3Y4I#9JTNLSLe0WYrIF1YH6KuTQ/folder/3IUGlAYT
+    //https://mega.nz/folder/aQ1S3Y4I#9JTNLSLe0WYrIF1YH6KuTQ/folder/6dFEWCKa
+    //https://mega.nz/folder/aQ1S3Y4I#9JTNLSLe0WYrIF1YH6KuTQ/folder/OEVkQQbS
+    //https://mega.nz/folder/aQ1S3Y4I#9JTNLSLe0WYrIF1YH6KuTQ/folder/vNE2XQKQ
+    //https://mega.nz/folder/aQ1S3Y4I#9JTNLSLe0WYrIF1YH6KuTQ/folder/6JE2zSjY
+
     //https://mega.nz/folder/9aIhXIrR#U9QHq_13tly4SYRLn10ykg/folder/JHZWBCxY
     //https://mega.nz/folder/9aIhXIrR#U9QHq_13tly4SYRLn10ykg/folder/AbYCAQ4I --sph
-    //https://mega.nz/folder/9aIhXIrR#U9QHq_13tly4SYRLn10ykg/folder/BLB03SaJ --sv bo
     //https://mega.nz/folder/9aIhXIrR#U9QHq_13tly4SYRLn10ykg/folder/IGY0QAqI --m mk + https://mega.nz/folder/qEMGzZTA#sDhaYSkVzwqIQL9q03KbHw/folder/SBUAGbAQ
 
     //https://mega.nz/folder/9aIhXIrR#U9QHq_13tly4SYRLn10ykg/folder/MXYUEajZ --jn
     //https://mega.nz/folder/9aIhXIrR#U9QHq_13tly4SYRLn10ykg/folder/sXI0RCqY --js lo
-    //https://mega.nz/folder/9aIhXIrR#U9QHq_13tly4SYRLn10ykg/folder/deIGzI4a --gia
     //https://mega.nz/folder/9aIhXIrR#U9QHq_13tly4SYRLn10ykg/folder/1fI2WagQ --fth
-    //https://mega.nz/folder/9aIhXIrR#U9QHq_13tly4SYRLn10ykg/folder/BDZmEILA --brw
-    //https://mega.nz/folder/9aIhXIrR#U9QHq_13tly4SYRLn10ykg/folder/lTQ0UKZa
     //https://mega.nz/folder/9aIhXIrR#U9QHq_13tly4SYRLn10ykg/folder/NWY2gAID --an de
 
     //https://mega.nz/folder/1RADSQzY#iFdVNCrgfF_mdyUhUw1luQ --st ro

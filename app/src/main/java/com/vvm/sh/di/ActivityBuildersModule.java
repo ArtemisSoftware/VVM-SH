@@ -62,6 +62,7 @@ import com.vvm.sh.ui.atividadesPendentes.relatorios.FormacaoActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.FormandoActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.AvaliacaoGeralActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.AvaliacaoIluminacaoRegistoActivity;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.AvaliacaoTemperaturaHumidadeRegistoActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.AvaliacoesAmbientaisActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.RelatorioAvaliacaoAmbientalActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.averiguacao.AveriguacaoActivity;
@@ -505,4 +506,39 @@ public abstract class ActivityBuildersModule {
             modules = { TransferenciasViewModelsModule.class, TransferenciasModule.class }
     )
     abstract CarregamentoActivity contributeCarregamentoActivity();
+
+
+    //----------------------
+    //Avaliacao ambiental
+    //----------------------
+
+    @AvaliacaoAmbientalScope
+    @ContributesAndroidInjector(
+            modules = { AvaliacaoAmbientalViewModelsModule.class, AvaliacaoAmbientalModule.class }
+    )
+    abstract RelatorioAvaliacaoAmbientalActivity contributeRelatorioAvaliacaoAmbientalActivity();
+
+    @AvaliacaoAmbientalScope
+    @ContributesAndroidInjector(
+            modules = { AvaliacaoAmbientalViewModelsModule.class, AvaliacaoAmbientalModule.class }
+    )
+    abstract AvaliacaoGeralActivity contributeAvaliacaoGeralActivity();
+
+    @AvaliacaoAmbientalScope
+    @ContributesAndroidInjector(
+            modules = { AvaliacaoAmbientalViewModelsModule.class, AvaliacaoAmbientalModule.class }
+    )
+    abstract AvaliacoesAmbientaisActivity contributeAvaliacoesAmbientaisActivity();
+
+    @AvaliacaoAmbientalScope
+    @ContributesAndroidInjector(
+            modules = { AvaliacaoAmbientalViewModelsModule.class, AvaliacaoAmbientalModule.class }
+    )
+    abstract AvaliacaoTemperaturaHumidadeRegistoActivity contributeAvaliacaoTemperaturaHumidadeRegistoActivity();
+
+    @AvaliacaoAmbientalScope
+    @ContributesAndroidInjector(
+            modules = { AvaliacaoAmbientalViewModelsModule.class, AvaliacaoAmbientalModule.class }
+    )
+    abstract AvaliacaoIluminacaoRegistoActivity contributeAvaliacaoAvaliacaoIluminacaoRegistoActivity();
 }

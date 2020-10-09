@@ -96,10 +96,11 @@ public class AvaliacaoGeralActivity extends BaseDaggerActivity
 
             int idAtividade = bundle.getInt(getString(R.string.argumento_id_atividade));
             int tipo = bundle.getInt(getString(R.string.argumento_tipo_relatorio));
+            int origem = bundle.getInt(getString(R.string.argumento_origem_relatorio));
 
             activityAvaliacaoGeralBinding.setTipo(tipo);
 
-            viewModel.obterGeral(idAtividade, tipo);
+            viewModel.obterGeral(idAtividade, origem);
         }
         else{
             finish();
@@ -143,13 +144,9 @@ public class AvaliacaoGeralActivity extends BaseDaggerActivity
         });
     }
 
-
-
     //--------------------
     //Metodos locais
     //--------------------
-
-
 
     /**
      * Metodo que permite ativar a validacao de campos especificos
@@ -179,7 +176,11 @@ public class AvaliacaoGeralActivity extends BaseDaggerActivity
 
                     Intent intent = new Intent(AvaliacaoGeralActivity.this, AvaliacoesAmbientaisActivity.class);
                     Bundle bundle = getIntent().getExtras();
+                    int origem = bundle.getInt(getString(R.string.argumento_origem_relatorio));
+                    int idAtividade = bundle.getInt(getString(R.string.argumento_id_atividade));
                     bundle.putInt(getString(R.string.argumento_id_relatorio), ConversorUtil.converter_long_Para_int((long)recurso.dados));
+                    bundle.putInt(getString(R.string.argumento_origem_relatorio), origem);
+                    bundle.putInt(getString(R.string.argumento_id_atividade), idAtividade);
                     intent.putExtras(bundle);
                     startActivity(intent);
                     finish();
@@ -237,7 +238,7 @@ public class AvaliacaoGeralActivity extends BaseDaggerActivity
 
             Bundle bundle = getIntent().getExtras();
             int idAtividade = bundle.getInt(getString(R.string.argumento_id_atividade));
-            int tipo = bundle.getInt(getString(R.string.argumento_tipo_relatorio));
+            int origem = bundle.getInt(getString(R.string.argumento_origem_relatorio));
             int idRelatorio = bundle.getInt(getString(R.string.argumento_id_relatorio),0);
 
             String marca = activityAvaliacaoGeralBinding.txtInpMarca.getText().toString();;
@@ -249,9 +250,9 @@ public class AvaliacaoGeralActivity extends BaseDaggerActivity
             Date inicio = DatasUtil.converterString(activityAvaliacaoGeralBinding.txtInpData.getText().toString() + " " + activityAvaliacaoGeralBinding.txtInpInicio.getText().toString(), DatasUtil.DATA_FORMATO_DD_MM_YYYY__HH_MM);
             Date termino = DatasUtil.converterString(activityAvaliacaoGeralBinding.txtInpData.getText().toString() + " " + activityAvaliacaoGeralBinding.txtInpTermino.getText().toString(), DatasUtil.DATA_FORMATO_DD_MM_YYYY__HH_MM);
 
-            RelatorioAmbientalResultado registo = new RelatorioAmbientalResultado(idAtividade, tipo, marca, numeroSerie, data, inicio, termino, nebulosidade);
+            RelatorioAmbientalResultado registo = new RelatorioAmbientalResultado(idAtividade, origem, marca, numeroSerie, data, inicio, termino, nebulosidade);
 
-            viewModel.gravar(idRelatorio, registo);
+            viewModel.gravar(PreferenciasUtil.obterIdTarefa(this), idRelatorio, registo);
         }
         else{
             activityAvaliacaoGeralBinding.txtInpInicio.setError(Sintaxe.Alertas.HORARIO_INVALIDO);

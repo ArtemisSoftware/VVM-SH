@@ -5,23 +5,6 @@ import com.vvm.sh.baseDados.entidades.Tipo;
 public class TiposConstantes {
 
 
-    public static class MetodosTipos{
-
-        public static final String CROSS_SELLING_PRODUTOS = "GetCrossSellingProdutos";
-        public static final String CROSS_SELLING_DIMENSAO = "GetCrossSellingTpDimensao";
-        public static final String CROSS_SELLING_TIPO = "GetCrossSellingTpTipo";
-        public static final String TIPOS_ANOMALIA = "GetTiposAnomalia";
-        public static final String TIPIFICACAO_OCORRENCIA = "GetTipificacoesOcorrencia_New";
-
-        public static final String TIPOS [] = new String []{
-
-                CROSS_SELLING_PRODUTOS, CROSS_SELLING_DIMENSAO, CROSS_SELLING_TIPO,
-                TIPOS_ANOMALIA,
-                TIPIFICACAO_OCORRENCIA,
-
-        };
-    }
-
     /**
      * Classe com contantes do email
      */

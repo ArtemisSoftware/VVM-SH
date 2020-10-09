@@ -64,14 +64,12 @@ public class MainActivity extends BaseDaggerActivity
     @Override
     protected void intActivity(Bundle savedInstanceState) {
 
-
         viewModel = ViewModelProviders.of(this, providerFactory).get(AgendaViewModel.class);
 
         activityMainBinding = (ActivityMainBinding) activityBinding;
         activityMainBinding.setLifecycleOwner(this);
         activityMainBinding.setViewmodel(viewModel);
         activityMainBinding.setListener(this);
-        //activityTrabalhoBinding.setActivity(this);
 
         setSupportActionBar(activityMainBinding.toolbar);
         completude = false;
@@ -96,26 +94,18 @@ public class MainActivity extends BaseDaggerActivity
     @Override
     protected void subscreverObservadores() {
 
-        viewModel.observarDatas().observe(this, new Observer<Recurso>() {
+        viewModel.observarMessagem().observe(this, new Observer<Recurso>() {
             @Override
             public void onChanged(Recurso recurso) {
+                terminarSessao();
+            }
+        });
 
-                switch (recurso.status){
 
-                    case SUCESSO:
-
-                        dialogoDatas((List<Date>) recurso.dados);
-                        break;
-
-                    case ERRO:
-
-                        dialogo.erro(recurso.messagem);
-                        break;
-
-                    default:
-                        break;
-                }
-
+        viewModel.observarDatas().observe(this, new Observer<List<Date>>() {
+            @Override
+            public void onChanged(List<Date> datas) {
+                dialogoDatas((List<Date>) datas);
             }
         });
 
@@ -167,7 +157,7 @@ public class MainActivity extends BaseDaggerActivity
         OnDialogoListener listener = new OnDialogoListener() {
             @Override
             public void onExecutar() {
-                terminarSessao();
+               viewModel.terminarSessao();
             }
         };
 
@@ -189,7 +179,7 @@ public class MainActivity extends BaseDaggerActivity
             iniciarApp();
         }
         else if(validarSessao() == false){
-            terminarSessao();
+            viewModel.terminarSessao();
         }
         else{
 
@@ -252,6 +242,7 @@ public class MainActivity extends BaseDaggerActivity
             @Override
             public void onExecutar() {
                 Intent intent = new Intent(MainActivity.this, DownloadTrabalhoActivity.class);
+                intent.putExtra(getString(R.string.argumento_download), Identificadores.Download.RECARREGAR_TAREFA);
                 intent.putExtra(getString(R.string.argumento_tarefa), marcacao.tarefa);
                 intent.putExtra(getString(R.string.argumento_recarregar_tarefa), true);
                 startActivity(intent);
@@ -286,9 +277,6 @@ public class MainActivity extends BaseDaggerActivity
     }
 
 
-
-
-
     @Override
     public void recarregarTrabalho() {
 
@@ -297,6 +285,7 @@ public class MainActivity extends BaseDaggerActivity
             public void onExecutar() {
 
                 Intent intent = new Intent(MainActivity.this, DownloadTrabalhoActivity.class);
+                intent.putExtra(getString(R.string.argumento_download), Identificadores.Download.RECARREGAR_TRABALHO_DIA);
                 intent.putExtra(getString(R.string.argumento_data), DatasUtil.converterDataLong(activityMainBinding.txtData.getText().toString(), DatasUtil.FORMATO_DD_MMMM_YYYY));
                 startActivity(intent);
             }
@@ -319,7 +308,6 @@ public class MainActivity extends BaseDaggerActivity
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu_principal, menu);
-
         return true;
     }
 
@@ -357,7 +345,7 @@ public class MainActivity extends BaseDaggerActivity
 
             case R.id.item_terminar_sessao:
 
-                terminarSessao();
+                viewModel.terminarSessao();
                 break;
 
 

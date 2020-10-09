@@ -1,5 +1,6 @@
 package com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental;
 
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
@@ -11,16 +12,20 @@ import com.vvm.sh.baseDados.entidades.AvaliacaoAmbientalResultado;
 import com.vvm.sh.databinding.ActivityAvaliacoesAmbientaisBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.adaptadores.OnAvaliacaoAmbientalListener;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.modelos.AvaliacaoAmbiental;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
 import butterknife.OnClick;
 
 public class AvaliacoesAmbientaisActivity extends BaseDaggerActivity
-        implements OnAvaliacaoAmbientalListener{
+        implements OnAvaliacaoAmbientalListener {
 
 
     private ActivityAvaliacoesAmbientaisBinding activityAvaliacoesAmbientaisBinding;
@@ -53,9 +58,10 @@ public class AvaliacoesAmbientaisActivity extends BaseDaggerActivity
 
             int id = bundle.getInt(getString(R.string.argumento_id_relatorio));
             int tipo = bundle.getInt(getString(R.string.argumento_tipo_relatorio));
+            int origem = bundle.getInt(getString(R.string.argumento_origem_relatorio));
 
             activityAvaliacoesAmbientaisBinding.setTipo(tipo);
-            viewModel.obterAvalicoes(id, tipo);
+            viewModel.obterAvalicoes(id, origem);
         }
         else{
             finish();
@@ -76,6 +82,15 @@ public class AvaliacoesAmbientaisActivity extends BaseDaggerActivity
     @Override
     protected void subscreverObservadores() {
 
+        viewModel.observarAvaliacoes().observe(this, new Observer<List<AvaliacaoAmbiental>>() {
+            @Override
+            public void onChanged(List<AvaliacaoAmbiental> registos) {
+
+                if(registos.size() == 0){
+                    iniciarAvaliacao(getIntent().getExtras());
+                }
+            }
+        });
     }
 
 
@@ -93,6 +108,8 @@ public class AvaliacoesAmbientaisActivity extends BaseDaggerActivity
         if(bundle != null) {
 
             int tipo = bundle.getInt(getString(R.string.argumento_tipo_relatorio));
+            int id = bundle.getInt(getString(R.string.argumento_id_relatorio));
+            int idAtividade = bundle.getInt(getString(R.string.argumento_id_atividade));
 
             switch (tipo){
 
@@ -113,6 +130,8 @@ public class AvaliacoesAmbientaisActivity extends BaseDaggerActivity
             }
 
             if(intent != null) {
+                intent.putExtra(getString(R.string.argumento_id_relatorio), id);
+                intent.putExtra(getString(R.string.argumento_id_atividade), idAtividade);
 
                 intent.putExtras(bundle);
                 startActivity(intent);
@@ -145,9 +164,10 @@ public class AvaliacoesAmbientaisActivity extends BaseDaggerActivity
     public void onRemoverClick(AvaliacaoAmbientalResultado registo) {
 
         Bundle bundle = getIntent().getExtras();
-        int tipo = bundle.getInt(getString(R.string.argumento_tipo_relatorio));
+        int origem = bundle.getInt(getString(R.string.argumento_origem_relatorio));
+        int idAtividade = bundle.getInt(getString(R.string.argumento_id_atividade));
 
-        viewModel.remover(registo, tipo);
+        viewModel.remover(PreferenciasUtil.obterIdTarefa(this), idAtividade, registo, origem);
     }
 
 

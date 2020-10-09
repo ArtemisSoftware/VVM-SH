@@ -50,14 +50,12 @@ public class RelatorioAvaliacaoAmbientalActivity extends BaseDaggerActivity {
 
         if(bundle != null) {
 
-            formatarRelatorio(bundle.getInt(getString(R.string.argumento_tipo_relatorio)));
-
             int idAtividade = bundle.getInt(getString(R.string.argumento_id_atividade));
             int tipo = bundle.getInt(getString(R.string.argumento_tipo_relatorio));
 
             activityRelatorioAvaliacaoAmbientalBinding.setTipo(tipo);
 
-            viewModel.obterValidadeRelatorio(idAtividade, tipo);
+            formatarRelatorio(idAtividade, tipo);
         }
         else{
             finish();
@@ -102,9 +100,13 @@ public class RelatorioAvaliacaoAmbientalActivity extends BaseDaggerActivity {
 
     /**
      * Metodo que permite formatar a apresentacao do relatorio
+     * @param idAtividade o identificador da atividade
      * @param tipo o tipo de relatorio
      */
-    private void formatarRelatorio(int tipo) {
+    private void formatarRelatorio(int idAtividade, int tipo) {
+
+        Bundle bundle = getIntent().getExtras();
+
 
         switch (tipo){
 
@@ -112,12 +114,16 @@ public class RelatorioAvaliacaoAmbientalActivity extends BaseDaggerActivity {
 
                 activityRelatorioAvaliacaoAmbientalBinding.imgBanner.setImageResource(R.drawable.iluminacao_banner);
                 activityRelatorioAvaliacaoAmbientalBinding.txtTitulo.setText(getString(R.string.iluminacao));
+                getIntent().putExtra(getString(R.string.argumento_origem_relatorio), Identificadores.Origens.ORIGEM_RELATORIO_ILUMINACAO);
+                viewModel.obterRelatorio(idAtividade, Identificadores.Origens.ORIGEM_RELATORIO_ILUMINACAO);
                 break;
 
             case Identificadores.Relatorios.ID_RELATORIO_TEMPERATURA_HUMIDADE:
 
                 activityRelatorioAvaliacaoAmbientalBinding.imgBanner.setImageResource(R.drawable.termico_banner);
                 activityRelatorioAvaliacaoAmbientalBinding.txtTitulo.setText(getString(R.string.temperatura_humidade));
+                getIntent().putExtra(getString(R.string.argumento_origem_relatorio), Identificadores.Origens.ORIGEM_RELATORIO_TEMPERATURA_HUMIDADE);
+                viewModel.obterRelatorio(idAtividade, Identificadores.Origens.ORIGEM_RELATORIO_TEMPERATURA_HUMIDADE);
                 break;
 
             default:
@@ -157,6 +163,8 @@ public class RelatorioAvaliacaoAmbientalActivity extends BaseDaggerActivity {
 
         if(bundle != null) {
 
+            int tipo = bundle.getInt(getString(R.string.argumento_tipo_relatorio));
+            bundle.putInt(getString(R.string.argumento_tipo_relatorio), tipo);
             bundle.putInt(getString(R.string.argumento_id_relatorio), relatorio.idRelatorio);
             intent.putExtras(bundle);
             startActivity(intent);

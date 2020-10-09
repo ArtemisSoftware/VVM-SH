@@ -136,158 +136,195 @@
                         android:theme="@style/Theme.MaterialComponents.Light" />
 
 
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="700dp"
+                        android:layout_marginTop="50dp"
+                        android:layout_marginEnd="16dp"
+                        android:padding="20dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/txt_titulo"
+                        app:layout_constraintTop_toBottomOf="@+id/chip">
 
 
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/card_geral"
+                            style="@style/cartaoMini"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
 
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/card_geral"
-                        style="@style/cartao"
-                        android:layout_marginTop="16dp"
-                        app:layout_constraintTop_toBottomOf="@+id/chip"
-                        app:layout_constraintStart_toStartOf="@+id/txt_titulo">
-
-                        <!-- android:onClick="@{() -> listener.showNoteDialog(note) }" -->
-
-
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
 
 
-                            <TextView
-                                android:id="@+id/textView2"
-                                style="@style/tituloCartao"
-                                android:text="@string/geral"
-                                android:layout_marginStart="16dp"
-                                android:layout_marginTop="16dp"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
+                                <TextView
+                                    android:id="@+id/textView2"
+                                    style="@style/tituloCartao"
+                                    android:layout_marginStart="16dp"
+                                    android:layout_marginTop="16dp"
+                                    android:layout_marginEnd="16dp"
+                                    android:text="@string/geral"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintHorizontal_bias="0.0"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
 
 
-                            <com.google.android.material.chip.Chip
-                                android:id="@+id/chip_geral"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="@dimen/distancia_vertical_titulo"
-                                android:layout_marginBottom="16dp"
-                                completudeRelatorio="@{viewmodel.relatorio.geralValido}"
-                                android:theme="@style/Theme.MaterialComponents.Light"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintStart_toStartOf="@+id/textView2"
-                                app:layout_constraintTop_toBottomOf="@+id/textView2" />
+                                <ImageView
+                                    android:id="@+id/imageView8"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/distancia_vertical_titulo"
+                                    app:layout_constraintStart_toStartOf="@+id/textView2"
+                                    app:layout_constraintTop_toBottomOf="@+id/textView2"
+                                    app:srcCompat="@drawable/ic_geral" />
 
 
+                                <com.google.android.material.chip.Chip
+                                    android:id="@+id/chip_geral"
+                                    completudeRelatorio="@{viewmodel.relatorio.geralValido}"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/distancia_vertical_titulo"
+                                    android:layout_marginBottom="16dp"
+                                    android:theme="@style/Theme.MaterialComponents.Light"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toStartOf="@+id/textView2"
+                                    app:layout_constraintTop_toBottomOf="@+id/imageView8" />
 
 
-                        </androidx.constraintlayout.widget.ConstraintLayout>
+                            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-                    </androidx.cardview.widget.CardView>
+                        </androidx.cardview.widget.CardView>
 
 
-
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/card_avaliacoes"
-                        style="@style/cartao"
-                        android:visibility="@{(viewmodel.relatorio.idRelatorio > 0) ? View.VISIBLE : View.GONE}"
-                        android:layout_marginTop="16dp"
-                        app:layout_constraintTop_toBottomOf="@+id/card_geral"
-                        app:layout_constraintStart_toStartOf="@+id/txt_titulo">
-
-                        <!-- android:onClick="@{() -> listener.showNoteDialog(note) }" -->
-
-
-                        <androidx.constraintlayout.widget.ConstraintLayout
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
-
-
-                            <TextView
-                                android:id="@+id/textView21"
-                                style="@style/tituloCartao"
-                                android:layout_marginStart="16dp"
-                                android:layout_marginTop="16dp"
-                                android:text="@string/avaliacoes"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
-
-
-                            <TextView
-                                android:id="@+id/textView66"
-                                style="@style/textoDetalhe"
-                                android:layout_marginTop="@dimen/distancia_vertical_titulo"
-                                android:text="@string/numero_de_registos_"
-                                app:layout_constraintStart_toStartOf="@+id/textView21"
-                                app:layout_constraintTop_toBottomOf="@+id/textView21" />
-
-
-                            <com.google.android.material.chip.Chip
-                                android:id="@+id/chip_avaliacoes"
-                                completudeRelatorio="@{viewmodel.relatorio.avaliacoesValido}"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="16dp"
-                                android:layout_marginBottom="16dp"
-                                android:theme="@style/Theme.MaterialComponents.Light"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintStart_toStartOf="@+id/textView21"
-                                app:layout_constraintTop_toBottomOf="@+id/textView66" />
-
-                            <TextView
-                                android:id="@+id/textView40"
-                                style="@style/textoDetalhe"
-                                android:layout_marginStart="16dp"
-                                android:text="@{StringUtil.converterString(viewmodel.relatorio.numeroAvaliacoes), default=0}"
-                                app:layout_constraintStart_toEndOf="@+id/textView66"
-                                app:layout_constraintTop_toTopOf="@+id/textView66" />
-                        </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-                    </androidx.cardview.widget.CardView>
-
-
-
-                    <androidx.cardview.widget.CardView
-                        android:id="@+id/card_medida_recomendada"
-                        style="@style/cartao"
-                        android:layout_marginTop="16dp"
-                        app:layout_constraintTop_toBottomOf="@+id/card_avaliacoes"
-                        app:layout_constraintStart_toStartOf="@+id/txt_titulo">
-
-                        <!-- android:onClick="@{() -> listener.showNoteDialog(note) }" -->
-
-
-                        <androidx.constraintlayout.widget.ConstraintLayout
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/card_avaliacoes"
+                            style="@style/cartaoMini"
+                            android:layout_marginStart="32dp"
                             android:visibility="@{(viewmodel.relatorio.idRelatorio > 0) ? View.VISIBLE : View.GONE}"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content">
+
+                            app:layout_constraintStart_toEndOf="@+id/card_geral"
+                            app:layout_constraintTop_toTopOf="@+id/card_geral">
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
 
 
-                            <TextView
-                                android:id="@+id/textView20"
-                                style="@style/tituloCartao"
-                                android:layout_marginStart="16dp"
-                                android:layout_marginTop="16dp"
-                                android:text="@string/medida_recomendada"
-                                app:layout_constraintStart_toStartOf="parent"
-                                app:layout_constraintTop_toTopOf="parent" />
-
-                            <TextView
-                                android:id="@+id/textView41"
-                                style="@style/textoDetalhe"
-                                android:layout_marginTop="@dimen/distancia_vertical_titulo"
-                                android:layout_marginEnd="16dp"
-                                android:layout_marginBottom="16dp"
-                                android:text="@{viewmodel.relatorio.medida}"
-                                app:layout_constraintBottom_toBottomOf="parent"
-                                app:layout_constraintStart_toStartOf="@+id/textView20"
-                                app:layout_constraintTop_toBottomOf="@+id/textView20"/>
+                                <TextView
+                                    android:id="@+id/textView21"
+                                    style="@style/tituloCartao"
+                                    android:layout_marginStart="16dp"
+                                    android:layout_marginTop="16dp"
+                                    android:layout_marginEnd="16dp"
+                                    android:text="@string/avaliacoes"
+                                    app:layout_constraintHorizontal_bias="0.0"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
 
 
-                        </androidx.constraintlayout.widget.ConstraintLayout>
+                                <ImageView
+                                    android:id="@+id/imageView9"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/distancia_vertical_titulo"
+                                    app:layout_constraintStart_toStartOf="@+id/textView21"
+                                    app:layout_constraintTop_toBottomOf="@+id/textView21"
+                                    app:srcCompat="@drawable/ic_listagem" />
 
 
-                    </androidx.cardview.widget.CardView>
+                                <TextView
+                                    android:id="@+id/textView66"
+                                    style="@style/textoDetalhe"
+                                    android:layout_marginTop="@dimen/distancia_vertical_titulo"
+                                    android:text="@string/numero_de_registos_"
+                                    app:layout_constraintStart_toStartOf="@+id/textView21"
+                                    app:layout_constraintTop_toBottomOf="@+id/imageView9" />
+
+
+                                <com.google.android.material.chip.Chip
+                                    android:id="@+id/chip_avaliacoes"
+
+                                    completudeRelatorio="@{viewmodel.relatorio.avaliacoesValido}"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="16dp"
+                                    android:layout_marginBottom="16dp"
+                                    android:theme="@style/Theme.MaterialComponents.Light"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toStartOf="@+id/textView21"
+                                    app:layout_constraintTop_toBottomOf="@+id/textView66" />
+
+                                <TextView
+                                    android:id="@+id/textView40"
+                                    style="@style/textoDetalhe"
+                                    android:layout_marginStart="16dp"
+                                    android:text="@{StringUtil.converterString(viewmodel.relatorio.numeroAvaliacoes)}"
+                                    app:layout_constraintStart_toEndOf="@+id/textView66"
+                                    app:layout_constraintTop_toTopOf="@+id/textView66" />
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+                        </androidx.cardview.widget.CardView>
+
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/card_medida_recomendada"
+                            style="@style/cartaoMini"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="32dp"
+                            android:layout_marginEnd="32dp"
+                            app:layout_constraintEnd_toEndOf="parent"
+                            app:layout_constraintHorizontal_bias="0.0"
+                            app:layout_constraintStart_toStartOf="@+id/card_geral"
+                            app:layout_constraintTop_toBottomOf="@+id/card_geral">
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:visibility="@{(viewmodel.relatorio.idRelatorio > 0) ? View.VISIBLE : View.GONE}">
+
+
+                                <TextView
+                                    android:id="@+id/textView20"
+                                    style="@style/tituloCartao"
+                                    android:layout_marginStart="16dp"
+                                    android:layout_marginTop="16dp"
+                                    android:text="@string/medida_recomendada"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+                                <TextView
+                                    android:id="@+id/textView41"
+                                    style="@style/textoDetalhe"
+                                    android:layout_marginTop="@dimen/distancia_vertical_titulo"
+                                    android:layout_marginEnd="16dp"
+                                    android:layout_marginBottom="16dp"
+                                    android:text="@string/lorem_ipsum_grande"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintHorizontal_bias="0.0"
+                                    android:paddingRight="32dp"
+                                    app:layout_constraintStart_toStartOf="@+id/textView20"
+                                    app:layout_constraintTop_toBottomOf="@+id/textView20" />
+
+
+                            </androidx.constraintlayout.widget.ConstraintLayout>
+
+                        </androidx.cardview.widget.CardView>
+
+
+                    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+
 
 
 

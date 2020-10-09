@@ -3,6 +3,7 @@ package com.vvm.sh.di.agenda;
 
 import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.baseDados.dao.AgendaDao;
+import com.vvm.sh.baseDados.dao.UtilizadorDao;
 import com.vvm.sh.repositorios.AgendaRepositorio;
 
 import dagger.Module;
@@ -20,14 +21,19 @@ public class AgendaModule {
         return dao;
     }
 
+    @AgendaScope
+    @Provides
+    static UtilizadorDao provideUtilizadorDao(VvmshBaseDados vvmshBaseDados){
+
+        UtilizadorDao dao = vvmshBaseDados.obterUtilizadorDao();
+        return dao;
+    }
 
     @AgendaScope
     @Provides
-    AgendaRepositorio provideAgendaRepositorio(AgendaDao agendaDao) {
+    AgendaRepositorio provideAgendaRepositorio(AgendaDao agendaDao, UtilizadorDao utilizadorDao) {
 
-        AgendaRepositorio repositorio = new AgendaRepositorio(agendaDao);
-
-        //Timber.d("Providing PokemonRepository: " + repository);
+        AgendaRepositorio repositorio = new AgendaRepositorio(agendaDao, utilizadorDao);
         return repositorio;
     }
 }

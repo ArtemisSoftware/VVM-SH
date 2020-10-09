@@ -138,6 +138,7 @@
     <string name="argumento_id_avaliacao">idAvaliacao</string>
     <string name="argumento_configuracao_pesquisa">configuracaoPesquisa</string>
 
+    <string name="argumento_origem_relatorio">origemRelatorio</string>
     <string name="argumento_registo_area">registoArea</string>
 
 

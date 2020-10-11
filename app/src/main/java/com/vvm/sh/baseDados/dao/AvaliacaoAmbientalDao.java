@@ -75,7 +75,44 @@ abstract public class AvaliacaoAmbientalDao {
 
 
 
+    //------------
+    //Iluminacao
 
+
+    @Query("SELECT rel_amb_res.id as idRelatorio, " +
+            "CASE WHEN marca IS NULL OR numeroSerie IS NULL OR data IS NULL THEN 0 ELSE 1 " +
+            "END as geralValido, " +
+            "numeroAvaliacoes, avaliacoesValido, medida " +
+
+            "FROM relatorioAmbientalResultado as rel_amb_res " +
+
+            "LEFT JOIN( " +
+
+            "SELECT idRelatorio, " +
+            "CASE WHEN COUNT(VALIDO) = SUM(VALIDO) AND COUNT(VALIDO) > 0 THEN 1 ELSE 0 END as avaliacoesValido," +
+            "CASE WHEN SUM(validade_medida_recomendada) > 0 AND COUNT(validade_medida_recomendada) > 0 THEN 2 ELSE 1 END as idMedidaRecomendada "  +
+
+            "FROM(   " +
+            "SELECT idRelatorio,   " +
+            "CASE WHEN CAST(emedioLx AS INTEGER) <  (CAST(eLx AS INTEGER) - ((10 * CAST(eLx AS INTEGER)) / 100)) AND IFNULL(numeroMedidas, 0) = 0 THEN 0  " +
+            "ELSE 1 END as valido,  " +
+            "CASE WHEN  CAST(emedioLx AS INTEGER) <  (CAST(eLx AS INTEGER) - ((10 * CAST(eLx AS INTEGER)) / 100)) THEN 1 ELSE 0 END as validade_medida_recomendada " +
+            "FROM avaliacoesAmbientaisResultado as av_amb_res  " +
+            "LEFT JOIN (SELECT id, COUNT(idMedida) as numeroMedidas FROM medidasResultado WHERE origem = " + Identificadores.Origens.ORIGEM_RELATORIO_ILUMINACAO_MEDIDAS_RECOMENDADAS + " GROUP BY id) as ct_medidas " +
+            "ON av_amb_res.id = ct_medidas.id  " +
+            ") as validacao " +
+            "GROUP BY idRelatorio" +
+
+            ") as vald_iluminacao ON rel_amb_res.id = vald_iluminacao.idRelatorio " +
+
+            "LEFT JOIN (SELECT idRelatorio, COUNT(id) as numeroAvaliacoes FROM avaliacoesAmbientaisResultado WHERE tipoIluminacao > 0 GROUP BY idRelatorio) as ct_avaliacoes " +
+            "ON rel_amb_res.id = ct_avaliacoes.idRelatorio " +
+
+            "LEFT JOIN (SELECT id, descricao as medida FROM tipos WHERE tipo = '" + TiposUtil.MetodosTipos.CONCLUSAO_MEDIDAS_RECOMENDADAS + "' AND codigo = 'iluminacao') as ccl " +
+            "ON vald_iluminacao.idMedidaRecomendada = ccl.id " +
+
+            "WHERE  idAtividade = :idAtividade AND tipo = :tipo")
+    abstract public Observable<RelatorioAmbiental> obterRelatorioIlumiacao(int idAtividade, int tipo);
 
 
 
@@ -83,8 +120,9 @@ abstract public class AvaliacaoAmbientalDao {
 
     @Query("SELECT *," +
 
-            "CASE WHEN  (CAST(emedioLx AS INTEGER) <  (CAST(eLx AS INTEGER) - ((10 * CAST(eLx AS INTEGER)) / 100))) = 0 THEN 1 " +
-            //--"WHEN  CAST(emedioLx AS INTEGER) <  (CAST(eLx AS INTEGER) - ((10 * CAST(eLx AS INTEGER)) / 100)) AND  IFNULL(numeroMedidas, 0) > 0 THEN 1 " +
+            "CASE " +
+            "WHEN  CAST(emedioLx AS INTEGER) <  (CAST(eLx AS INTEGER) - ((10 * CAST(eLx AS INTEGER)) / 100)) AND  IFNULL(numeroMedidas, 0) > 0 THEN 1 " +
+            "WHEN  (CAST(emedioLx AS INTEGER) <  (CAST(eLx AS INTEGER) - ((10 * CAST(eLx AS INTEGER)) / 100))) = 0 THEN 1 " +
             "ELSE 0 END as valido, " +
 
             "CASE WHEN  CAST(emedioLx AS INTEGER) <  (CAST(eLx AS INTEGER) - ((10 * CAST(eLx AS INTEGER)) / 100)) THEN 1  " +
@@ -96,6 +134,10 @@ abstract public class AvaliacaoAmbientalDao {
             "LEFT JOIN (SELECT id, descricao as local_geral FROM tipos WHERE tipo = '" + TiposUtil.MetodosTipos.ILUMINANCIA + "') as tp_local ON  av_am_res.eLxArea = tp_local.id " +
             "LEFT JOIN (SELECT id, codigo, descricao as local_especifico FROM tipos WHERE tipo = '" + TiposUtil.MetodosTipos.ILUMINANCIA + "') as tp_local_especifico ON  av_am_res.idElx = tp_local_especifico.id AND av_am_res.eLx = tp_local_especifico.codigo " +
             "LEFT JOIN (SELECT id, descricao as descricaoTipoIluminacao FROM tipos WHERE tipo = '" + TiposUtil.MetodosTipos.TIPOS_ILUMINACAO + "') as tp_iluminacao ON  av_am_res.tipoIluminacao = tp_iluminacao.id " +
+
+            "LEFT JOIN (SELECT id, COUNT(idMedida) as numeroMedidas FROM medidasResultado WHERE origem = " + Identificadores.Origens.ORIGEM_RELATORIO_ILUMINACAO_MEDIDAS_RECOMENDADAS + " GROUP BY id) as ct_medidas " +
+            "ON av_am_res.id = ct_medidas.id  " +
+
             "WHERE idRelatorio = :idRelatorio")
     abstract public Observable<List<AvaliacaoAmbiental>> obterAvaliacoesIluminacao(int idRelatorio);
 
@@ -135,41 +177,6 @@ abstract public class AvaliacaoAmbientalDao {
     //--------------
     //Validacao
     //--------------
-
-    @Query("SELECT rel_amb_res.id as idRelatorio, " +
-            "CASE WHEN marca IS NULL OR numeroSerie IS NULL OR data IS NULL THEN 0 ELSE 1 " +
-            "END as geralValido, " +
-            "numeroAvaliacoes, avaliacoesValido, medida " +
-
-            "FROM relatorioAmbientalResultado as rel_amb_res " +
-
-            "LEFT JOIN( " +
-
-            "SELECT idRelatorio, " +
-            "CASE WHEN COUNT(VALIDO) = SUM(VALIDO) AND COUNT(VALIDO) > 0 THEN 1 ELSE 0 END as avaliacoesValido," +
-            "CASE WHEN SUM(validade_medida_recomendada) > 0 AND COUNT(validade_medida_recomendada) > 0 THEN 2 ELSE 1 END as idMedidaRecomendada "  +
-
-            "FROM(   " +
-            "SELECT idRelatorio,   " +
-            "CASE WHEN CAST(emedioLx AS INTEGER) <  (CAST(eLx AS INTEGER) - ((10 * CAST(eLx AS INTEGER)) / 100)) AND IFNULL(numeroMedidas, 0) = 0 THEN 0  " +
-            "ELSE 1 END as valido,  " +
-            "CASE WHEN  CAST(emedioLx AS INTEGER) <  (CAST(eLx AS INTEGER) - ((10 * CAST(eLx AS INTEGER)) / 100)) THEN 1 ELSE 0 END as validade_medida_recomendada " +
-            "FROM avaliacoesAmbientaisResultado as av_amb_res  " +
-            "LEFT JOIN (SELECT id, COUNT(idMedida) as numeroMedidas FROM medidasResultado WHERE origem = " + Identificadores.Origens.ORIGEM_RELATORIO_ILUMINACAO_MEDIDAS_RECOMENDADAS + " GROUP BY id) as ct_medidas " +
-            "ON av_amb_res.id = ct_medidas.id  " +
-            ") as validacao " +
-            "GROUP BY idRelatorio" +
-
-            ") as vald_iluminacao ON rel_amb_res.id = vald_iluminacao.idRelatorio " +
-
-            "LEFT JOIN (SELECT idRelatorio, COUNT(id) as numeroAvaliacoes FROM avaliacoesAmbientaisResultado WHERE tipoIluminacao > 0 GROUP BY idRelatorio) as ct_avaliacoes " +
-            "ON rel_amb_res.id = ct_avaliacoes.idRelatorio " +
-
-            "LEFT JOIN (SELECT id, descricao as medida FROM tipos WHERE tipo = '" + TiposUtil.MetodosTipos.CONCLUSAO_MEDIDAS_RECOMENDADAS + "' AND codigo = 'iluminacao') as ccl " +
-            "ON vald_iluminacao.idMedidaRecomendada = ccl.id " +
-
-            "WHERE  idAtividade = :idAtividade AND tipo = :tipo")
-    abstract public Observable<RelatorioAmbiental> obterRelatorioIlumiacao(int idAtividade, int tipo);
 
 
 

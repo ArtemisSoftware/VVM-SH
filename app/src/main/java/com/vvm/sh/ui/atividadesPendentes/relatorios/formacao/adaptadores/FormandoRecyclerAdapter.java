@@ -1,4 +1,4 @@
-package com.vvm.sh.ui.atividadesPendentes.relatorios;
+package com.vvm.sh.ui.atividadesPendentes.relatorios.formacao.adaptadores;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.vvm.sh.R;
 import com.vvm.sh.databinding.ItemFormandoBinding;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.formacao.modelos.Formando;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
 
 import java.util.ArrayList;

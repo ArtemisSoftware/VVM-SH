@@ -4,7 +4,7 @@ import androidx.room.Dao;
 import androidx.room.Query;
 
 import com.vvm.sh.baseDados.BaseDao;
-import com.vvm.sh.ui.atividadesPendentes.relatorios.Formando;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.formacao.modelos.Formando;
 import com.vvm.sh.baseDados.entidades.FormandoResultado;
 import com.vvm.sh.util.constantes.Identificadores;
 

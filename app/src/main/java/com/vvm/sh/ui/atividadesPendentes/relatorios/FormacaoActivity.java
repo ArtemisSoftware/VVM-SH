@@ -10,6 +10,8 @@ import com.vvm.sh.R;
 import com.vvm.sh.databinding.ActivityFormacaoBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.formacao.adaptadores.OnFormacaoListener;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.formacao.modelos.Formando;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 

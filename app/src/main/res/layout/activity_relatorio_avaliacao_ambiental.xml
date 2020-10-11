@@ -21,7 +21,7 @@
         <!--
                 <variable
                     name="listener"
-                    type="com.vvm.sh.ui.atividadesPendentes.relatorios.OnFormacaoListener"/>
+                    type="com.vvm.sh.ui.atividadesPendentes.relatorios.formacao.adaptadores.OnFormacaoListener"/>
 
                 <variable
                     name="bloquear"
@@ -304,7 +304,7 @@
                                     android:layout_marginTop="@dimen/distancia_vertical_titulo"
                                     android:layout_marginEnd="16dp"
                                     android:layout_marginBottom="16dp"
-                                    android:text="@string/lorem_ipsum_grande"
+                                    android:text="@{viewmodel.relatorio.medida}"
                                     app:layout_constraintBottom_toBottomOf="parent"
                                     app:layout_constraintEnd_toEndOf="parent"
                                     app:layout_constraintHorizontal_bias="0.0"

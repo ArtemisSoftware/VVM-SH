@@ -11,9 +11,9 @@ import com.google.android.material.chip.ChipDrawable;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.vvm.sh.R;
 import com.vvm.sh.baseDados.entidades.AcaoFormacaoResultado;
-import com.vvm.sh.ui.atividadesPendentes.relatorios.Formando;
-import com.vvm.sh.ui.atividadesPendentes.relatorios.FormandoRecyclerAdapter;
-import com.vvm.sh.ui.atividadesPendentes.relatorios.OnFormacaoListener;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.formacao.modelos.Formando;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.formacao.adaptadores.FormandoRecyclerAdapter;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.formacao.adaptadores.OnFormacaoListener;
 import com.vvm.sh.baseDados.entidades.Tipo;
 
 import java.util.List;

@@ -1,4 +1,4 @@
-package com.vvm.sh.ui.atividadesPendentes.relatorios;
+package com.vvm.sh.ui.atividadesPendentes.relatorios.formacao.modelos;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Embedded;

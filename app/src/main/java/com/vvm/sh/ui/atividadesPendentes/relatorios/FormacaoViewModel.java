@@ -9,6 +9,8 @@ import com.vvm.sh.repositorios.FormacaoRepositorio;
 import com.vvm.sh.servicos.ResultadoAsyncTask;
 import com.vvm.sh.baseDados.entidades.Resultado;
 import com.vvm.sh.baseDados.entidades.Tipo;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.formacao.modelos.AcaoFormacao;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.formacao.modelos.Formando;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.ResultadoId;
 import com.vvm.sh.util.constantes.Identificadores;
@@ -21,7 +23,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import dagger.Module;
 import io.reactivex.MaybeObserver;
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;

@@ -231,16 +231,17 @@ public class AvaliacaoIluminacaoRegistoActivity extends BaseDaggerActivity
 
     @OnTextChanged(value = R.id.txt_inp_emedio_lx, callback = OnTextChanged.Callback.TEXT_CHANGED)
     public void txt_inp_emedio_lx_OnTextChanged(CharSequence text) {
+        calcularNivelIluminacao();
+//        if(viewModel.avaliacao.getValue() != null) {
+//
+//            if(text.toString().equals(viewModel.avaliacao.getValue().resultado.emedioLx + "") == false) {
+//                calcularNivelIluminacao();
+//            }
+//        }
+//        else{
+//            calcularNivelIluminacao();
+//        }
 
-        if(viewModel.avaliacao.getValue() != null) {
-
-            if(text.toString().equals(viewModel.avaliacao.getValue().resultado.emedioLx + "") == false) {
-                calcularNivelIluminacao();
-            }
-        }
-        else{
-            calcularNivelIluminacao();
-        }
     }
 
 

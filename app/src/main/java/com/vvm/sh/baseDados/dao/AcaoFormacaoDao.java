@@ -5,7 +5,7 @@ import androidx.room.Query;
 
 import com.vvm.sh.baseDados.BaseDao;
 import com.vvm.sh.baseDados.entidades.AcaoFormacaoResultado;
-import com.vvm.sh.ui.atividadesPendentes.relatorios.AcaoFormacao;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.formacao.modelos.AcaoFormacao;
 
 import io.reactivex.Flowable;
 

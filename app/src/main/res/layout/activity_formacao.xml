@@ -16,7 +16,7 @@
 
         <variable
             name="listener"
-            type="com.vvm.sh.ui.atividadesPendentes.relatorios.OnFormacaoListener"/>
+            type="com.vvm.sh.ui.atividadesPendentes.relatorios.formacao.adaptadores.OnFormacaoListener"/>
 
         <variable
             name="bloquear"

@@ -1,4 +1,4 @@
-package com.vvm.sh.ui.atividadesPendentes.relatorios;
+package com.vvm.sh.ui.atividadesPendentes.relatorios.formacao.adaptadores;
 
 import android.view.View;
 import android.widget.CheckBox;

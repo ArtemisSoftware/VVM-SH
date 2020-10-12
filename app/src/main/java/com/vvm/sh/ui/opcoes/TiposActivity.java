@@ -14,6 +14,7 @@ import com.vvm.sh.databinding.ActivityTiposBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.opcoes.adaptadores.OnTipoListener;
+import com.vvm.sh.ui.opcoes.modelos.ResumoChecklist;
 import com.vvm.sh.util.AtualizacaoUI;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.constantes.Sintaxe;
@@ -86,7 +87,7 @@ public class TiposActivity extends BaseDaggerActivity
 
                     case ERRO:
 
-                        dialogo.erro(recurso.messagem);
+                        dialogo.erro(recurso.messagem, (String) recurso.dados);
                         break;
 
                     default:
@@ -145,6 +146,10 @@ public class TiposActivity extends BaseDaggerActivity
         viewModel.atualizarTipo(metodo, handlerNotificacoesUI);
     }
 
+    @Override
+    public void OnTipoLongPressListener(ResumoChecklist resumo) {
+
+    }
 
 
     @Override

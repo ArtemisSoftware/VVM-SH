@@ -5,9 +5,10 @@ import androidx.lifecycle.MutableLiveData;
 import com.vvm.sh.baseDados.entidades.ImagemResultado;
 import com.vvm.sh.baseDados.entidades.RegistoVisitaResultado;
 import com.vvm.sh.baseDados.entidades.TrabalhoRealizadoResultado;
+import com.vvm.sh.documentos.RegistoVisita;
 import com.vvm.sh.repositorios.RegistoVisitaRepositorio;
 import com.vvm.sh.ui.registoVisita.modelos.DadosCliente;
-import com.vvm.sh.ui.registoVisita.modelos.RegistoVisita;
+import com.vvm.sh.ui.registoVisita.modelos.RelatorioRegistoVisita;
 import com.vvm.sh.ui.registoVisita.modelos.TrabalhoRealizado;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.ResultadoId;
@@ -32,7 +33,7 @@ public class RegistoVisitaViewModel extends BaseViewModel {
     private final RegistoVisitaRepositorio registoVisitaRepositorio;
 
 
-    public MutableLiveData<RegistoVisita> relatorio;
+    public MutableLiveData<RelatorioRegistoVisita> relatorio;
     public MutableLiveData<DadosCliente> registoVisita;
     public MutableLiveData<List<TrabalhoRealizado>> trabalhos;
 
@@ -234,14 +235,14 @@ public class RegistoVisitaViewModel extends BaseViewModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
 
-                        new Observer<RegistoVisita>() {
+                        new Observer<RelatorioRegistoVisita>() {
                             @Override
                             public void onSubscribe(Disposable d) {
                                 disposables.add(d);
                             }
 
                             @Override
-                            public void onNext(RegistoVisita registoVisita) {
+                            public void onNext(RelatorioRegistoVisita registoVisita) {
                                 relatorio.setValue(registoVisita);
                             }
 
@@ -343,7 +344,35 @@ public class RegistoVisitaViewModel extends BaseViewModel {
     }
 
 
+    public void obterDadosPdf(int idTarefa) {
 
+        registoVisitaRepositorio.obtePdf(idTarefa)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
 
+                        new MaybeObserver<RegistoVisita>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
 
+                            @Override
+                            public void onSuccess(RegistoVisita o) {
+
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+
+                            @Override
+                            public void onComplete() {
+
+                            }
+                        }
+
+                );
+    }
 }

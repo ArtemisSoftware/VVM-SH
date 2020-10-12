@@ -40,6 +40,18 @@
             app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
 
 
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/rcl_registos_checklist"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:tiposChecklist="@{viewmodel.tiposChecklist}"
+            app:onLongClick="@{listener}"
+            android:verticalSpacing="24dp"
+            tools:listitem="@layout/item_tipo"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+
+
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>

@@ -7,7 +7,7 @@ import androidx.room.Transaction;
 import com.vvm.sh.baseDados.BaseDao;
 import com.vvm.sh.baseDados.entidades.RegistoVisitaResultado;
 import com.vvm.sh.ui.registoVisita.modelos.DadosCliente;
-import com.vvm.sh.ui.registoVisita.modelos.RegistoVisita;
+import com.vvm.sh.ui.registoVisita.modelos.RelatorioRegistoVisita;
 import com.vvm.sh.util.constantes.Identificadores;
 
 import io.reactivex.Maybe;
@@ -43,7 +43,7 @@ abstract public class RegistoVisitaDao implements BaseDao<RegistoVisitaResultado
             "ON rg_visit_res.idTarefa = img.idTarefa " +
 
             "WHERE rg_visit_res.idTarefa =:idTarefa")
-    abstract public Observable<RegistoVisita> obterValidadeRegistoVisita(int idTarefa);
+    abstract public Observable<RelatorioRegistoVisita> obterValidadeRegistoVisita(int idTarefa);
 
 
     /**

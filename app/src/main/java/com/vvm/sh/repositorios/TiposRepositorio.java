@@ -82,6 +82,12 @@ public class TiposRepositorio {
     }
 
 
+    /**
+     * Metodo que permite obter as checklists do web service
+     * @param ids os identificadores das checklists
+     * @return
+     * @throws TipoInexistenteException
+     */
     public Observable<ITipoChecklist> obterChecklists(List<Integer> ids) throws TipoInexistenteException {
 
         List<Observable<ITipoChecklist>> pedidos = new ArrayList<>();

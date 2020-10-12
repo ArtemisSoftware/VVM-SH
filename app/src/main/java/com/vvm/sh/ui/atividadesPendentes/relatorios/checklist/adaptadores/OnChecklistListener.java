@@ -10,6 +10,8 @@ public interface OnChecklistListener {
         void OnItemClick(Item registo);
         void OnEditarClick(Item registo);
         void OnRemoverClick(Item registo);
+
+        void OnNaoAplicaveis(Item registo);
     }
 
     interface OnQuestaoListener{

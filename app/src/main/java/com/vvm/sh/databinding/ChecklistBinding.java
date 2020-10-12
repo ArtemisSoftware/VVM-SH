@@ -1,17 +1,26 @@
 package com.vvm.sh.databinding;
 
+import android.view.View;
+import android.widget.ImageView;
+
+import androidx.core.content.ContextCompat;
 import androidx.databinding.BindingAdapter;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipDrawable;
 import com.jaredrummler.materialspinner.MaterialSpinner;
+import com.vvm.sh.R;
 import com.vvm.sh.baseDados.entidades.AreaChecklist;
+import com.vvm.sh.baseDados.entidades.AtividadePendenteResultado;
 import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.adaptadores.ItemRecyclerAdapter;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.adaptadores.OnChecklistListener;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.adaptadores.QuestionarioRecyclerAdapter;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.modelos.Item;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.modelos.Questao;
+import com.vvm.sh.util.constantes.Identificadores;
 
 import java.util.List;
 
@@ -92,6 +101,27 @@ public class ChecklistBinding {
             }
         }
     }
+
+
+
+    @BindingAdapter({"completudeItem"})
+    public static void setCompletudeItem(ImageView view, Item item) {
+
+        if (item == null) {
+            return;
+        }
+
+        if(item.completos == item.total){
+            view.setBackgroundResource(R.drawable.ic_validado);
+            view.setColorFilter(ContextCompat.getColor(view.getContext(), R.color.cor_executado), android.graphics.PorterDuff.Mode.MULTIPLY);
+        }
+        else{
+            view.setBackgroundResource(R.drawable.ic_registo_incompleto);
+        }
+
+    }
+
+
 
 
 }

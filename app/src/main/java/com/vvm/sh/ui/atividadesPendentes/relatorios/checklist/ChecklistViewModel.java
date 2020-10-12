@@ -20,6 +20,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import io.reactivex.CompletableObserver;
 import io.reactivex.MaybeObserver;
 import io.reactivex.MaybeSource;
 import io.reactivex.Observer;
@@ -204,6 +205,40 @@ public class ChecklistViewModel extends BaseViewModel {
 
     }
 
+
+
+    public void gravarNaoAplicavel(int idAtividade, Item registo) {
+
+        checklistRepositorio.remover__(idAtividade, registo)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new CompletableObserver() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+
+                            }
+
+                            @Override
+                            public void onComplete() {
+
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+                        }
+
+                );
+
+    }
+
+
+    //----------------------
+    //REMOVER
+    //----------------------
 
     public void remover(int idAtividade) {
 
@@ -585,6 +620,7 @@ public class ChecklistViewModel extends BaseViewModel {
 
                 );
     }
+
 
 
 }

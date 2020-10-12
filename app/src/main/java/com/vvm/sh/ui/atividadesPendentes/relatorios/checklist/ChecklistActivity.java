@@ -146,6 +146,14 @@ public class ChecklistActivity extends BaseDaggerActivity
         viewModel.removerArea(registo.id);
     }
 
+    @Override
+    public void OnNaoAplicaveis(Item registo) {
+
+        Bundle bundle = getIntent().getExtras();
+        int idAtividade = bundle.getInt(getString(R.string.argumento_id_atividade));
+        viewModel.gravarNaoAplicavel(idAtividade, registo);
+    }
+
     //--------------------
     //EVENTOS
     //--------------------

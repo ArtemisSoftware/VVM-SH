@@ -97,6 +97,13 @@ public class RegistoVisitaActivity extends BaseDaggerActivity {
     }
 
 
+    @OnClick({R.id.fab_pre_visualizar})
+    public void fab_pre_visualizar_OnClickListener(View view) {
+        viewModel.obterDadosPdf(PreferenciasUtil.obterIdTarefa(this));
+    }
+
+
+
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

@@ -18,6 +18,8 @@ public class TiposUtil {
 
         public static String CHECKLISTS [] = {"Industria", "Restauração", "Comércio"};
         public static String ID_CHECKLISTS [] = {"1", "2", "3"};
+
+        public static final String CHECKLIST = "GetCheckListNovo";
     }
 
 
@@ -121,13 +123,18 @@ public class TiposUtil {
 
 
 
- 
 
 
-        private static class Checklist {
+
+        public static class Checklist {
 
             public static final String CHECKLIST = "CheckList";
-            public static final MetodoApi METODO_CHECKLIST = new MetodoApi(CHECKLIST, null, MetodosTiposSH.CHECKLIST);
+            public static final MetodoApi METODO_CHECKLIST = new MetodoApi(CHECKLIST, null, MetodosTiposChecklist.CHECKLIST);
+
+
+            public static final MetodoApi TIPOS [] = new MetodoApi []{
+                    METODO_CHECKLIST
+            };
         }
 
 
@@ -189,10 +196,6 @@ public class TiposUtil {
 
 
             public static final MetodoApi TIPOS [] = new MetodoApi []{
-
-
-
-
 
                     METODO_ATIVIDADES_RELATORIO_VISITA,
 
@@ -302,7 +305,19 @@ public class TiposUtil {
             catch (TipoInexistenteException e){}
         }
 
-        //TODO: completar com os restantes templates + checklist
+        for (MetodoApi item : MetodosTipos.Checklist.TIPOS) {
+
+            try {
+                if (item.registado(descricao) == true) {
+                    return item;
+                }
+            }
+            catch (TipoInexistenteException e){}
+        }
+
+
+
+        //TODO: completar com os restantes templates
 
         throw new TipoInexistenteException(descricao);
 

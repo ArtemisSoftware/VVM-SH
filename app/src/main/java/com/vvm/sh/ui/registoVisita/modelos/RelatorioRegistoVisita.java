@@ -2,7 +2,7 @@ package com.vvm.sh.ui.registoVisita.modelos;
 
 import androidx.room.Ignore;
 
-public class RegistoVisita {
+public class RelatorioRegistoVisita {
 
     public boolean clienteValido = false;
 
@@ -15,7 +15,7 @@ public class RegistoVisita {
     @Ignore
     public boolean valido = false;
 
-    public RegistoVisita(boolean clienteValido, boolean trabalhoValido, int numeroTrabalhos, boolean assinaturaValido) {
+    public RelatorioRegistoVisita(boolean clienteValido, boolean trabalhoValido, int numeroTrabalhos, boolean assinaturaValido) {
         this.clienteValido = clienteValido;
         this.trabalhoValido = trabalhoValido;
         this.numeroTrabalhos = numeroTrabalhos;

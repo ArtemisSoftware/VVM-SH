@@ -8,11 +8,12 @@ import com.vvm.sh.baseDados.dao.ResultadoDao;
 import com.vvm.sh.baseDados.dao.TrabalhosRealizadosDao;
 import com.vvm.sh.baseDados.entidades.ImagemResultado;
 import com.vvm.sh.baseDados.entidades.RegistoVisitaResultado;
-import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.baseDados.entidades.TrabalhoRealizadoResultado;
+import com.vvm.sh.documentos.RegistoVisita;
 import com.vvm.sh.ui.registoVisita.modelos.DadosCliente;
-import com.vvm.sh.ui.registoVisita.modelos.RegistoVisita;
+import com.vvm.sh.ui.registoVisita.modelos.RelatorioRegistoVisita;
 import com.vvm.sh.ui.registoVisita.modelos.TrabalhoRealizado;
+import com.vvm.sh.util.constantes.Identificadores;
 
 import java.util.List;
 
@@ -20,6 +21,7 @@ import io.reactivex.Flowable;
 import io.reactivex.Maybe;
 import io.reactivex.Observable;
 import io.reactivex.Single;
+import io.reactivex.functions.Function3;
 
 public class RegistoVisitaRepositorio {
 
@@ -86,7 +88,7 @@ public class RegistoVisitaRepositorio {
     }
 
 
-    public Observable<RegistoVisita> obterValidadeRegistoVisita(int idTarefa){
+    public Observable<RelatorioRegistoVisita> obterValidadeRegistoVisita(int idTarefa){
         return registoVisitaDao.obterValidadeRegistoVisita(idTarefa);
     }
 
@@ -94,6 +96,33 @@ public class RegistoVisitaRepositorio {
     public Flowable<? extends Number> gravarAssinatura(ImagemResultado imagemResultado) {
 
         return Single.concat(imagemDao.remover(imagemResultado.id, imagemResultado.origem), imagemDao.inserir(imagemResultado));
+
+    }
+
+
+    /**
+     * Metodo que permite obter os dados do pdf
+     * @param idTarefa o identificador da tarefa
+     * @return os dados do pdf
+     */
+    public Maybe<RegistoVisita> obtePdf(int idTarefa) {
+
+        return Maybe.zip(
+                registoVisitaDao.obterDadosCliente(idTarefa),
+                trabalhosRealizadosDao.obterTrabalhosRealizadosRegistados(idTarefa, api),
+                imagemDao.obterImagem(idTarefa, Identificadores.Imagens.IMAGEM_ASSINATURA_REGISTO_VISITA),
+                new Function3<DadosCliente, List<TrabalhoRealizado>, ImagemResultado, RegistoVisita>() {
+                    @Override
+                    public RegistoVisita apply(DadosCliente dadosCliente, List<TrabalhoRealizado> trabalhoRealizados, ImagemResultado imagemResultado) throws Exception {
+
+                        RegistoVisita registoVisita = new RegistoVisita();
+                        registoVisita.dadosCliente = dadosCliente;
+                        registoVisita.trabalhoRealizados = trabalhoRealizados;
+                        registoVisita.imagem = imagemResultado;
+
+                        return null;
+                    }
+                });
 
     }
 }

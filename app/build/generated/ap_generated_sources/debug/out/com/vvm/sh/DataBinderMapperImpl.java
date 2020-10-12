@@ -110,6 +110,7 @@ import com.vvm.sh.databinding.ItemPropostaCondicoesStBindingImpl;
 import com.vvm.sh.databinding.ItemPropostaMedidaAvalicaoBindingImpl;
 import com.vvm.sh.databinding.ItemRiscoBindingImpl;
 import com.vvm.sh.databinding.ItemTipoBindingImpl;
+import com.vvm.sh.databinding.ItemTipoChecklistBindingImpl;
 import com.vvm.sh.databinding.ItemTrabalhadorVulneravelBindingImpl;
 import com.vvm.sh.databinding.ItemTrabalhoRealizadoBindingImpl;
 import com.vvm.sh.databinding.ItemUploadBindingImpl;
@@ -332,13 +333,15 @@ public class DataBinderMapperImpl extends DataBinderMapper {
 
   private static final int LAYOUT_ITEMTIPO = 104;
 
-  private static final int LAYOUT_ITEMTRABALHADORVULNERAVEL = 105;
+  private static final int LAYOUT_ITEMTIPOCHECKLIST = 105;
 
-  private static final int LAYOUT_ITEMTRABALHOREALIZADO = 106;
+  private static final int LAYOUT_ITEMTRABALHADORVULNERAVEL = 106;
 
-  private static final int LAYOUT_ITEMUPLOAD = 107;
+  private static final int LAYOUT_ITEMTRABALHOREALIZADO = 107;
 
-  private static final SparseIntArray INTERNAL_LAYOUT_ID_LOOKUP = new SparseIntArray(107);
+  private static final int LAYOUT_ITEMUPLOAD = 108;
+
+  private static final SparseIntArray INTERNAL_LAYOUT_ID_LOOKUP = new SparseIntArray(108);
 
   static {
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.vvm.sh.R.layout.activity_acao_formacao, LAYOUT_ACTIVITYACAOFORMACAO);
@@ -445,6 +448,7 @@ public class DataBinderMapperImpl extends DataBinderMapper {
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.vvm.sh.R.layout.item_proposta_medida_avalicao, LAYOUT_ITEMPROPOSTAMEDIDAAVALICAO);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.vvm.sh.R.layout.item_risco, LAYOUT_ITEMRISCO);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.vvm.sh.R.layout.item_tipo, LAYOUT_ITEMTIPO);
+    INTERNAL_LAYOUT_ID_LOOKUP.put(com.vvm.sh.R.layout.item_tipo_checklist, LAYOUT_ITEMTIPOCHECKLIST);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.vvm.sh.R.layout.item_trabalhador_vulneravel, LAYOUT_ITEMTRABALHADORVULNERAVEL);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.vvm.sh.R.layout.item_trabalho_realizado, LAYOUT_ITEMTRABALHOREALIZADO);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.vvm.sh.R.layout.item_upload, LAYOUT_ITEMUPLOAD);
@@ -1091,6 +1095,12 @@ public class DataBinderMapperImpl extends DataBinderMapper {
         }
         throw new IllegalArgumentException("The tag for item_tipo is invalid. Received: " + tag);
       }
+      case  LAYOUT_ITEMTIPOCHECKLIST: {
+        if ("layout/item_tipo_checklist_0".equals(tag)) {
+          return new ItemTipoChecklistBindingImpl(component, view);
+        }
+        throw new IllegalArgumentException("The tag for item_tipo_checklist is invalid. Received: " + tag);
+      }
       case  LAYOUT_ITEMTRABALHADORVULNERAVEL: {
         if ("layout/item_trabalhador_vulneravel_0".equals(tag)) {
           return new ItemTrabalhadorVulneravelBindingImpl(component, view);
@@ -1223,7 +1233,7 @@ public class DataBinderMapperImpl extends DataBinderMapper {
   }
 
   private static class InnerLayoutIdLookup {
-    static final HashMap<String, Integer> sKeys = new HashMap<String, Integer>(107);
+    static final HashMap<String, Integer> sKeys = new HashMap<String, Integer>(108);
 
     static {
       sKeys.put("layout/activity_acao_formacao_0", com.vvm.sh.R.layout.activity_acao_formacao);
@@ -1330,6 +1340,7 @@ public class DataBinderMapperImpl extends DataBinderMapper {
       sKeys.put("layout/item_proposta_medida_avalicao_0", com.vvm.sh.R.layout.item_proposta_medida_avalicao);
       sKeys.put("layout/item_risco_0", com.vvm.sh.R.layout.item_risco);
       sKeys.put("layout/item_tipo_0", com.vvm.sh.R.layout.item_tipo);
+      sKeys.put("layout/item_tipo_checklist_0", com.vvm.sh.R.layout.item_tipo_checklist);
       sKeys.put("layout/item_trabalhador_vulneravel_0", com.vvm.sh.R.layout.item_trabalhador_vulneravel);
       sKeys.put("layout/item_trabalho_realizado_0", com.vvm.sh.R.layout.item_trabalho_realizado);
       sKeys.put("layout/item_upload_0", com.vvm.sh.R.layout.item_upload);

@@ -438,6 +438,7 @@ public class OpcoesViewModel extends BaseViewModel {
                             @Override
                             public void onError(Throwable e) {
                                 showProgressBar(false);
+                                formatarErro(e);
                             }
 
                             @Override

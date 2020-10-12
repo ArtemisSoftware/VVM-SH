@@ -92,8 +92,11 @@ abstract public class TipoDao implements BaseDao<Tipo> {
     abstract public Observable<List<ResumoTipo>> obterResumoTipos();
 
 
-    @Query("SELECT *, 0 as numeroAreas, 0 as numeroSeccoes, 0 as numeroItens " +
+    @Query("SELECT *, ct_areas as numeroAreas, ct_seccoes as numeroSeccoes, 0 as numeroItens " +
             "FROM checklist as chk " +
+            "LEFT JOIN (SELECT idChecklist, idArea, IFNULL(COUNT(descricao), 0) as ct_areas FROM areasChecklist GROUP BY idChecklist) as area_chk ON chk.id = area_chk.idChecklist " +
+            "LEFT JOIN (SELECT idChecklist, idArea, IFNULL(COUNT(idArea), 0) as ct_seccoes FROM seccoesChecklist GROUP BY idChecklist, idArea) as seccoes_chk " +
+            "ON chk.id = seccoes_chk.idChecklist AND area_chk.idArea = seccoes_chk.idArea " +
             "ORDER BY descricao ASC")
     abstract public Observable<List<ResumoChecklist>> obterResumoChecklist();
 

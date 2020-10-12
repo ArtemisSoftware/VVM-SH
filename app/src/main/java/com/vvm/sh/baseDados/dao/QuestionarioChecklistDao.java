@@ -7,10 +7,12 @@ import com.vvm.sh.baseDados.BaseDao;
 import com.vvm.sh.baseDados.entidades.QuestionarioChecklistResultado;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.modelos.Questao;
 import com.vvm.sh.util.constantes.Identificadores;
+import com.vvm.sh.util.constantes.TiposConstantes;
 import com.vvm.sh.util.metodos.TiposUtil;
 
 import java.util.List;
 
+import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 
@@ -66,5 +68,37 @@ abstract public class QuestionarioChecklistDao implements BaseDao<QuestionarioCh
 
     @Query("DELETE FROM areasChecklistResultado WHERE id = :id")
     abstract public Single<Integer> removerArea(int id);
+
+
+
+
+
+
+
+//    query = "INSERT INTO questionario_checklist_resultado (idRegistoArea, idSeccao, idItem, tipo, resposta)  ";
+//
+//    query += "SELECT " + idRegistoArea + " as idRegistoArea, idSeccao, idItem, chk_itens.tipo as tipo, '" + CheckListIF.NAO_APLICAVEL + "' as resposta    ";
+//    query += "FROM itens_checklist as chk_itens  ";
+//    query += "OUTER LEFT JOIN (SELECT idChecklist, idArea, idRegisto FROM areas_checklist_resultado) as ar_chk_res ON chk_itens.idChecklist = ar_chk_res.idChecklist AND chk_itens.idArea = ar_chk_res.idArea    ";
+//    query += "WHERE ar_chk_res.idRegisto = ? AND chk_itens.idSeccao = ?  AND chk_itens.tipo = ?   ";
+//
+//    argumentos = new String []{
+//        idRegistoArea, idSeccao,  CheckListIF.TIPO_QUESTAO
+//    };
+
+
+    @Query("DELETE FROM questionarioChecklistResultado WHERE idArea = :id AND idSeccao = :idSeccao")
+    abstract public Completable removerArea(int id, String idSeccao);
+
+
+    @Query("INSERT INTO questionarioChecklistResultado (idArea, idSeccao, idItem, tipo, resposta, origem)" +
+            "SELECT id as idArea, idSeccao, uid as idItem, tipo, :resposta as resposta, " + Identificadores.Origens.ORIGEM_BD + "  as origem " +
+            "FROM itensChecklist as chk_itens " +
+            "LEFT JOIN (SELECT idChecklist, idArea, id FROM areasChecklistResultado) as ar_chk_res " +
+            "ON chk_itens.idChecklist = ar_chk_res.idChecklist AND chk_itens.idArea = ar_chk_res.idArea " +
+            "WHERE ar_chk_res.id = :idRegistoArea AND chk_itens.tipo = :tipo AND chk_itens.idSeccao = :idSeccao")
+    abstract public Completable inserirNaoAplicavel(int idRegistoArea, String idSeccao, String tipo, String resposta);
+
+
 
 }

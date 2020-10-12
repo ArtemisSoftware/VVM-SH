@@ -13,6 +13,7 @@ import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.modelos.Item;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.modelos.Questao;
 import com.vvm.sh.util.constantes.Identificadores;
+import com.vvm.sh.util.constantes.TiposConstantes;
 import com.vvm.sh.util.metodos.TiposUtil;
 
 import java.util.ArrayList;
@@ -21,7 +22,6 @@ import java.util.List;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Single;
-import io.reactivex.functions.BiFunction;
 import io.reactivex.functions.Function4;
 
 public class ChecklistRepositorio {
@@ -162,5 +162,15 @@ public class ChecklistRepositorio {
 
     public Single<Integer> removerArea(int id) {
         return questionarioChecklistDao.removerArea(id);
+    }
+
+    public Completable remover__(int idAtividade, Item registo) {
+
+        Completable lolo2 = questionarioChecklistDao.removerArea(registo.idArea, registo.uid);
+                Completable lolo = questionarioChecklistDao.inserirNaoAplicavel(registo.id, registo.uid, Identificadores.Checklist.TIPO_QUESTAO, TiposConstantes.Checklist.NAO_APLICAVEL.descricao);
+        Completable all = Completable.concatArray(lolo2, lolo);
+
+        return all;
+
     }
 }

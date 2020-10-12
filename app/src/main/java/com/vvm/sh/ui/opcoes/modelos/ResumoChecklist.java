@@ -1,11 +1,15 @@
 package com.vvm.sh.ui.opcoes.modelos;
 
 import androidx.room.ColumnInfo;
+import androidx.room.Embedded;
+
+import com.vvm.sh.baseDados.entidades.CheckList;
+
 
 public class ResumoChecklist {
 
-    @ColumnInfo(name = "descricao")
-    public String descricao;
+    @Embedded
+    public CheckList checkList;
 
 
     @ColumnInfo(name = "numeroAreas")

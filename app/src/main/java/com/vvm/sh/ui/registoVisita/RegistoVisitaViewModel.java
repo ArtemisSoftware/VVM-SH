@@ -176,6 +176,48 @@ public class RegistoVisitaViewModel extends BaseViewModel {
     }
 
 
+
+    //---------------------
+    //REMOVER
+    //---------------------
+
+
+
+    /**
+     * Metodo que permite remover um trabalho realizado
+     * @param idTarefa o identificador da tarefa
+     * @param id o identificador do trabalho
+     */
+    public void remover(int idTarefa, int id) {
+
+        registoVisitaRepositorio.remover(idTarefa, id)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new SingleObserver<Object>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onSuccess(Object o) {
+                                gravarResultado(registoVisitaRepositorio.resultadoDao, idTarefa, ResultadoId.REGISTO_VISITA);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+                        }
+                );
+    }
+
+
+
+
+
     //--------------------
     //OBTER
     //--------------------
@@ -186,8 +228,6 @@ public class RegistoVisitaViewModel extends BaseViewModel {
      * @param idTarefa o identificador da tarefa
      */
     public void obterValidadeRegistoVisita(int idTarefa){
-
-        showProgressBar(true);
 
         registoVisitaRepositorio.obterValidadeRegistoVisita(idTarefa)
                 .subscribeOn(Schedulers.io())
@@ -203,17 +243,16 @@ public class RegistoVisitaViewModel extends BaseViewModel {
                             @Override
                             public void onNext(RegistoVisita registoVisita) {
                                 relatorio.setValue(registoVisita);
-                                showProgressBar(false);
                             }
 
                             @Override
                             public void onError(Throwable e) {
-                                showProgressBar(false);
+
                             }
 
                             @Override
                             public void onComplete() {
-                                showProgressBar(false);
+
                             }
                         }
 
@@ -304,43 +343,6 @@ public class RegistoVisitaViewModel extends BaseViewModel {
     }
 
 
-
-    //---------------------
-    //REMOVER
-    //---------------------
-
-
-
-    /**
-     * Metodo que permite remover um trabalho realizado
-     * @param idTarefa o identificador da tarefa
-     * @param id o identificador do trabalho
-     */
-    public void remover(int idTarefa, int id) {
-
-        registoVisitaRepositorio.remover(idTarefa, id)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-
-                        new SingleObserver<Object>() {
-                            @Override
-                            public void onSubscribe(Disposable d) {
-                                disposables.add(d);
-                            }
-
-                            @Override
-                            public void onSuccess(Object o) {
-                                gravarResultado(registoVisitaRepositorio.resultadoDao, idTarefa, ResultadoId.REGISTO_VISITA);
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-
-                            }
-                        }
-                );
-    }
 
 
 

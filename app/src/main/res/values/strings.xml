@@ -456,4 +456,7 @@
     <string name="atualizar_tipos">Atualizar tipos</string>
     <string name="argumento_download">tipoDownload</string>
     <string name="iniciar_app">Iniciar app</string>
+    <string name="numero_de_areas_">Número de áreas:</string>
+    <string name="numero_de_seccoes_">Número de secções:</string>
+    <string name="numero_de_itens_">Número de itens:</string>
 </resources>

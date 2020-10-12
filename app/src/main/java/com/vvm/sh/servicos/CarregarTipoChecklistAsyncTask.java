@@ -32,10 +32,10 @@ public class CarregarTipoChecklistAsyncTask extends AsyncTask<List<ITipoChecklis
      */
     private AtualizacaoUI atualizacaoUI;
 
-    public CarregarTipoChecklistAsyncTask(VvmshBaseDados vvmshBaseDados, TiposRepositorio repositorio){
+    public CarregarTipoChecklistAsyncTask(VvmshBaseDados vvmshBaseDados, Handler handler, TiposRepositorio repositorio){
         this.vvmshBaseDados = vvmshBaseDados;
         this.repositorio = repositorio;
-        //atualizacaoUI = new AtualizacaoUI(handler);
+        atualizacaoUI = new AtualizacaoUI(handler);
     }
 
 
@@ -52,6 +52,8 @@ public class CarregarTipoChecklistAsyncTask extends AsyncTask<List<ITipoChecklis
         this.vvmshBaseDados.runInTransaction(new Runnable(){
             @Override
             public void run(){
+
+                int index = 0;
 
                 try {
 
@@ -84,11 +86,12 @@ public class CarregarTipoChecklistAsyncTask extends AsyncTask<List<ITipoChecklis
                             }
                         }
 
-
                         repositorio.inserirChecklist(checkList, areas, seccoes, itens);
+                        atualizacaoUI.atualizarUI(AtualizacaoUI.Codigo.PROCESSAMENTO_CHECKLIST, checkList.descricao, ++index, respostas.size());
 
                     }
 
+                    atualizacaoUI.atualizarUI(AtualizacaoUI.Codigo.PROCESSAMENTO_CHECKLIST_CONCLUIDO, "Concluido", index, respostas.size());
                 }
                 catch(SQLiteConstraintException throwable){
                     errorMessage = throwable.getMessage();

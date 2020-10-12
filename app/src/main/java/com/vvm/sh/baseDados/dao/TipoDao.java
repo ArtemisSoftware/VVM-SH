@@ -15,6 +15,7 @@ import com.vvm.sh.baseDados.entidades.TipoTemplateAvrLevantamento;
 import com.vvm.sh.baseDados.entidades.TipoTemplateAvrRisco;
 import com.vvm.sh.baseDados.entidades.TipoTemplatesAVRMedidaRisco;
 import com.vvm.sh.baseDados.entidades.Tipo;
+import com.vvm.sh.ui.opcoes.modelos.ResumoChecklist;
 import com.vvm.sh.ui.opcoes.modelos.ResumoTipo;
 import com.vvm.sh.ui.pesquisa.modelos.Medida;
 import com.vvm.sh.util.constantes.Identificadores;
@@ -89,6 +90,13 @@ abstract public class TipoDao implements BaseDao<Tipo> {
             "WHERE atl.tipo = " + Identificadores.Atualizacoes.TIPO + " " +
             "ORDER BY descricao ASC")
     abstract public Observable<List<ResumoTipo>> obterResumoTipos();
+
+
+    @Query("SELECT *, 0 as numeroAreas, 0 as numeroSeccoes, 0 as numeroItens " +
+            "FROM checklist as chk " +
+            "ORDER BY descricao ASC")
+    abstract public Observable<List<ResumoChecklist>> obterResumoChecklist();
+
 
 
 //    @Query("SELECT descricao, numeroRegistosSA, numeroRegistosSHT, seloTemporal " +

@@ -19,6 +19,7 @@ import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.baseDados.entidades.TipoTemplateAvrLevantamento;
 import com.vvm.sh.baseDados.entidades.TipoTemplateAvrRisco;
 import com.vvm.sh.baseDados.entidades.TipoTemplatesAVRMedidaRisco;
+import com.vvm.sh.ui.opcoes.modelos.ResumoChecklist;
 import com.vvm.sh.ui.opcoes.modelos.ResumoTipo;
 import com.vvm.sh.ui.opcoes.modelos.TemplateAvr;
 import com.vvm.sh.ui.pesquisa.modelos.Medida;
@@ -52,36 +53,71 @@ public class TiposRepositorio {
     }
 
 
+    //------------
+    //tipos
+    //------------
+
+
+
     /**
      * Metodo que permite obter o resumo dos tipos
      * @return uma lista
      */
-    public Observable<List<ResumoTipo>> obterResumoTipos(int tipo) {
-
-        switch(tipo){
-
-            case Identificadores.Atualizacoes.TIPO:
-
-                return tipoDao.obterResumoTipos();
+    public Observable<List<ResumoTipo>> obterResumoTipos() {
+        return tipoDao.obterResumoTipos();
+    }
 
 
-            case Identificadores.Atualizacoes.TEMPLATE:
 
-                break;
+    //------------
+    //Checklist
+    //------------
 
-            case Identificadores.Atualizacoes.CHECKLIST:
+    /**
+     * Metodo que permite obter o resumo das checklists
+     * @return uma lista
+     */
+    public Observable<List<ResumoChecklist>> obterResumoChecklist() {
+        return tipoDao.obterResumoChecklist();
+    }
 
-                break;
 
+    public Observable<ITipoChecklist> obterChecklists(List<Integer> ids) throws TipoInexistenteException {
 
-            default:
-                break;
+        List<Observable<ITipoChecklist>> pedidos = new ArrayList<>();
 
+        for (int id: ids) {
+            pedidos.add(apiST.obterChecklist(SegurancaTrabalhoApi.HEADER_TIPO, id +"").toObservable());
         }
 
-        return null;
-
+        return Observable.concat(pedidos);
     }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     /**
@@ -174,17 +210,6 @@ public class TiposRepositorio {
 
 
 
-    public Observable<ITipoChecklist> obterChecklists(List<Integer> ids) throws TipoInexistenteException {
-
-        List<Observable<ITipoChecklist>> pedidos = new ArrayList<>();
-
-        for (int id: ids) {
-            pedidos.add(apiST.obterChecklist(SegurancaTrabalhoApi.HEADER_TIPO, id +"").toObservable());
-        }
-
-
-        return Observable.concat(pedidos);
-    }
 
 
     public Single<TemplateAvr> obterTemplateAvr() throws TipoInexistenteException {

@@ -15,6 +15,7 @@ import com.vvm.sh.servicos.CarregarTipoTemplatesAvrAsyncTask;
 import com.vvm.sh.servicos.DownloadApkAsyncTask;
 import com.vvm.sh.servicos.InstalarApkAsyncTask;
 import com.vvm.sh.servicos.AtualizarTipoAsyncTask;
+import com.vvm.sh.ui.opcoes.modelos.ResumoChecklist;
 import com.vvm.sh.ui.opcoes.modelos.ResumoTipo;
 import com.vvm.sh.ui.opcoes.modelos.TemplateAvr;
 import com.vvm.sh.util.Recurso;
@@ -27,6 +28,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
 import io.reactivex.Observer;
 import io.reactivex.SingleObserver;
@@ -42,6 +44,7 @@ public class OpcoesViewModel extends BaseViewModel {
     private final TiposRepositorio tiposRepositorio;
     public MutableLiveData<VersaoApp> versaoApp;
     public MutableLiveData<List<ResumoTipo>> tipos;
+    public MutableLiveData<List<ResumoChecklist>> tiposChecklist;
 
 
     @Inject
@@ -52,12 +55,50 @@ public class OpcoesViewModel extends BaseViewModel {
 
         versaoApp = new MutableLiveData<>();
         tipos = new MutableLiveData<>();
+        tiposChecklist = new MutableLiveData<>();
     }
 
 
     public MutableLiveData<VersaoApp> observarVersaoApp(){
         return versaoApp;
     }
+
+
+
+    /**
+     * Metodo que permite obter o resumo
+     * @param tipo o identificador do tipo
+     */
+    public void obterResumo(int tipo) {
+
+        switch(tipo){
+
+            case Identificadores.Atualizacoes.TIPO:
+
+                obterResumoTipo();
+                break;
+
+
+            case Identificadores.Atualizacoes.TEMPLATE:
+
+                break;
+
+            case Identificadores.Atualizacoes.CHECKLIST:
+
+                obterResumoChecklist();
+                break;
+
+            default:
+                break;
+
+        }
+
+
+    }
+
+
+
+
 
 
     //---------------------
@@ -68,13 +109,12 @@ public class OpcoesViewModel extends BaseViewModel {
 
     /**
      * Metodo que permite obter o resumo dos registos existentes
-     * @param tipo o identificador do resumo
      */
-    public void obterResumo(int tipo){
+    private void obterResumoTipo(){
 
         showProgressBar(true);
 
-        tiposRepositorio.obterResumoTipos(tipo)
+        tiposRepositorio.obterResumoTipos()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -106,6 +146,71 @@ public class OpcoesViewModel extends BaseViewModel {
                 );
 
     }
+
+
+
+
+    //---------------------
+    //OBTER - checklist
+    //---------------------
+
+
+    /**
+     * Metodo que permite obter o resumo dos registos existentes
+     */
+    private void obterResumoChecklist(){
+
+        showProgressBar(true);
+
+        tiposRepositorio.obterResumoChecklist()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new Observer<List<ResumoChecklist>>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onNext(List<ResumoChecklist> registos) {
+                                tiposChecklist.setValue(registos);
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onComplete() {
+                                showProgressBar(false);
+                            }
+                        }
+
+                );
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -190,7 +295,7 @@ public class OpcoesViewModel extends BaseViewModel {
 
             case Identificadores.Atualizacoes.CHECKLIST:
 
-                recarregarChecklist();
+                recarregarChecklist(handlerNotificacoesUI);
                 break;
 
             default:
@@ -302,11 +407,7 @@ public class OpcoesViewModel extends BaseViewModel {
     /**
      * Metodo que permite recarregar as checklists
      */
-    private void recarregarChecklist(){
-
-
-
-        //TODO: na primeira chamada isto pode dar problemas. rever
+    private void recarregarChecklist(Handler handlerNotificacoesUI){
 
         showProgressBar(true);
         List<ITipoChecklist> respostasChecklist = new ArrayList<>();
@@ -322,7 +423,6 @@ public class OpcoesViewModel extends BaseViewModel {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-
 
                         new Observer<ITipoChecklist>() {
                             @Override
@@ -342,7 +442,7 @@ public class OpcoesViewModel extends BaseViewModel {
 
                             @Override
                             public void onComplete() {
-                                CarregarTipoChecklistAsyncTask servico = new CarregarTipoChecklistAsyncTask(vvmshBaseDados, tiposRepositorio);
+                                CarregarTipoChecklistAsyncTask servico = new CarregarTipoChecklistAsyncTask(vvmshBaseDados, handlerNotificacoesUI, tiposRepositorio);
                                 servico.execute(respostasChecklist);
 
                                 showProgressBar(false);

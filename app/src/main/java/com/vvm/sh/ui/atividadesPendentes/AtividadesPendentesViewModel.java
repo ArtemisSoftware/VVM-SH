@@ -14,7 +14,6 @@ import com.vvm.sh.util.ResultadoId;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
-import java.net.HttpCookie;
 import java.util.List;
 
 import javax.inject.Inject;

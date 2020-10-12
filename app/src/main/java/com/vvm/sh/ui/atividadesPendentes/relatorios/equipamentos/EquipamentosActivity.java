@@ -11,6 +11,7 @@ import com.vvm.sh.baseDados.entidades.VerificacaoEquipamentoResultado;
 import com.vvm.sh.databinding.ActivityEquipamentosBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.equipamentos.modelos.Equipamento;
 import com.vvm.sh.ui.pesquisa.OnPesquisaListener;
 import com.vvm.sh.ui.pesquisa.adaptadores.PesquisaViewModel;
 import com.vvm.sh.util.Recurso;
@@ -185,16 +186,14 @@ public class EquipamentosActivity extends BaseDaggerActivity
             itens.add(new VerificacaoEquipamentoResultado(idAtividade, item.id, item.estado));
         }
 
-        viewModel.gravar(idAtividade, itens);
+        viewModel.gravar(PreferenciasUtil.obterIdTarefa(this), idAtividade, itens);
     }
 
 
     @OnClick(R.id.fab_adicionar_equipamento)
     public void fab_adicionar_equipamento_OnClickListener(View view) {
 
-
         activityEquipamentosBinding.fabMenu.close(true);
-
 
         DialogoEquipamento dialogo = new DialogoEquipamento();
         dialogo.show(getSupportFragmentManager(), "example dialog");

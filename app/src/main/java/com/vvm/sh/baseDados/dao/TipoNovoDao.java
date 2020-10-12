@@ -5,7 +5,7 @@ import androidx.room.Query;
 
 import com.vvm.sh.baseDados.BaseDao;
 import com.vvm.sh.baseDados.entidades.TipoNovo;
-import com.vvm.sh.ui.atividadesPendentes.relatorios.equipamentos.Equipamento;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.equipamentos.modelos.Equipamento;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.metodos.TiposUtil;
 

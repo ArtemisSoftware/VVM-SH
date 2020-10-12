@@ -212,7 +212,7 @@ public class TrabalhadorVulneravelRegistoActivity extends BaseDaggerActivity {
             registo.mulheres = quantidadeMulheres;
 
 
-            viewModel.gravar(registo);
+            viewModel.gravar(PreferenciasUtil.obterIdTarefa(this), registo);
         }
     }
 

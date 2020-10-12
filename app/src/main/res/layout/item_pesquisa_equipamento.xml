@@ -15,7 +15,7 @@
 
         <variable
             name="equipamento"
-            type="com.vvm.sh.ui.atividadesPendentes.relatorios.equipamentos.Equipamento" />
+            type="com.vvm.sh.ui.atividadesPendentes.relatorios.equipamentos.modelos.Equipamento" />
 
 
 

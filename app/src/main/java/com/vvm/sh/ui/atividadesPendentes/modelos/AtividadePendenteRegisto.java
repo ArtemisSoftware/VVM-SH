@@ -34,6 +34,14 @@ public class AtividadePendenteRegisto {
     public boolean relatorioCompleto;
 
 
+    @ColumnInfo(name = "validade_processo_produtivo")
+    public boolean completudeProcessoProdutivo;
+
+    @ColumnInfo(name = "validade_trabalhadores_vulneraveis")
+    public boolean completudeTrabalhadoresVulneraveis;
+
+    @ColumnInfo(name = "validade_equipamentos")
+    public boolean completudeEquipamentos;
 
     /**
      * Metodo que indica se existe um resultado

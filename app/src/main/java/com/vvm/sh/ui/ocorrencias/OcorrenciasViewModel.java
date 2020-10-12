@@ -3,8 +3,6 @@ package com.vvm.sh.ui.ocorrencias;
 import androidx.lifecycle.MutableLiveData;
 
 import com.vvm.sh.repositorios.OcorrenciaRepositorio;
-import com.vvm.sh.servicos.ResultadoAsyncTask;
-import com.vvm.sh.baseDados.entidades.Resultado;
 import com.vvm.sh.baseDados.entidades.Ocorrencia;
 import com.vvm.sh.baseDados.entidades.OcorrenciaHistorico;
 import com.vvm.sh.baseDados.entidades.OcorrenciaResultado;
@@ -14,7 +12,6 @@ import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.ResultadoId;
 import com.vvm.sh.util.constantes.Sintaxe;
-import com.vvm.sh.util.constantes.TiposConstantes;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import java.util.ArrayList;

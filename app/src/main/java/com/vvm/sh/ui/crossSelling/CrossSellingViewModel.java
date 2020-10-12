@@ -3,23 +3,18 @@ package com.vvm.sh.ui.crossSelling;
 import androidx.lifecycle.MutableLiveData;
 
 import com.vvm.sh.repositorios.CrossSellingRepositorio;
-import com.vvm.sh.servicos.ResultadoAsyncTask;
-import com.vvm.sh.baseDados.entidades.Resultado;
 import com.vvm.sh.baseDados.entidades.CrossSellingResultado;
 import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.ui.crossSelling.modelos.CrossSelling;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.ResultadoId;
-import com.vvm.sh.util.constantes.TiposConstantes;
 import com.vvm.sh.util.metodos.ConversorUtil;
-import com.vvm.sh.util.metodos.TiposUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import java.util.List;
 
 import javax.inject.Inject;
 
-import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.Single;
 import io.reactivex.SingleObserver;

@@ -43,8 +43,8 @@ public class TrabalhadoresVulneraveisRepositorio implements Repositorio<Trabalha
     public Single<Integer> atualizar(TrabalhadorVulneravelResultado registo, List<CategoriaProfissionalResultado> homens, List<CategoriaProfissionalResultado> mulheres) {
 
         Single<Integer> single = Single.zip(trabalhadoresVulneraveisDao.atualizar(registo),
-                categoriaProfissionalDao.remover(registo.id, Identificadores.Origens.CATEGORIAS_PROFISSIONAIS_VULNERABILIDADE_HOMENS),
-                categoriaProfissionalDao.remover(registo.id, Identificadores.Origens.CATEGORIAS_PROFISSIONAIS_VULNERABILIDADE_MULHERES),
+                categoriaProfissionalDao.remover(registo.id, Identificadores.Origens.VULNERABILIDADE_CATEGORIAS_PROFISSIONAIS_HOMENS),
+                categoriaProfissionalDao.remover(registo.id, Identificadores.Origens.VULNERABILIDADE_CATEGORIAS_PROFISSIONAIS_MULHERES),
                 categoriaProfissionalDao.inserir(homens),
                 categoriaProfissionalDao.inserir(mulheres),
                 new Function5<Integer, Integer, Integer, List<Long>, List<Long>, Integer>() {
@@ -90,8 +90,8 @@ public class TrabalhadoresVulneraveisRepositorio implements Repositorio<Trabalha
                         TrabalhadorVulneravel registo = ((TrabalhadorVulneravel) o);
 
                         Observable<Object> observables = Observable.zip(
-                                categoriaProfissionalDao.obterTipoCategoriasProfissionais(registo.resultado.id, Identificadores.Origens.CATEGORIAS_PROFISSIONAIS_VULNERABILIDADE_HOMENS).toObservable(),
-                                categoriaProfissionalDao.obterTipoCategoriasProfissionais(registo.resultado.id, Identificadores.Origens.CATEGORIAS_PROFISSIONAIS_VULNERABILIDADE_MULHERES).toObservable(),
+                                categoriaProfissionalDao.obterTipoCategoriasProfissionais(registo.resultado.id, Identificadores.Origens.VULNERABILIDADE_CATEGORIAS_PROFISSIONAIS_HOMENS).toObservable(),
+                                categoriaProfissionalDao.obterTipoCategoriasProfissionais(registo.resultado.id, Identificadores.Origens.VULNERABILIDADE_CATEGORIAS_PROFISSIONAIS_MULHERES).toObservable(),
                                 new BiFunction<List<Tipo>, List<Tipo>, Object>() {
                                     @Override
                                     public Object apply(List<Tipo> categoriasProfissionaisHomens, List<Tipo> categoriasProfissionaisMulheres) throws Exception {
@@ -212,11 +212,16 @@ public class TrabalhadoresVulneraveisRepositorio implements Repositorio<Trabalha
     }
 
 
+    /**
+     * Metodo que permite obter a vulnerabilidade
+     * @param id o identificador do registo da vulnerabilidade
+     * @return uma vulnerabilidade
+     */
     public Maybe<TrabalhadorVulneravel> obterVulnerabilidade(int id){
 
         Maybe<TrabalhadorVulneravel> maybe = Maybe.zip(trabalhadoresVulneraveisDao.obterVulnerabilidade(id, idApi).toMaybe(),
-                categoriaProfissionalDao.obterTipoCategoriasProfissionais(id, Identificadores.Origens.CATEGORIAS_PROFISSIONAIS_VULNERABILIDADE_HOMENS),
-                categoriaProfissionalDao.obterTipoCategoriasProfissionais(id, Identificadores.Origens.CATEGORIAS_PROFISSIONAIS_VULNERABILIDADE_MULHERES),
+                categoriaProfissionalDao.obterTipoCategoriasProfissionais(id, Identificadores.Origens.VULNERABILIDADE_CATEGORIAS_PROFISSIONAIS_HOMENS),
+                categoriaProfissionalDao.obterTipoCategoriasProfissionais(id, Identificadores.Origens.VULNERABILIDADE_CATEGORIAS_PROFISSIONAIS_MULHERES),
 
                 new Function3<TrabalhadorVulneravel, List<Tipo>, List<Tipo>, TrabalhadorVulneravel>() {
                     @Override
@@ -235,6 +240,9 @@ public class TrabalhadoresVulneraveisRepositorio implements Repositorio<Trabalha
     }
 
 
+
+
+
     public Single<List<Tipo>> obterTiposCategorias(List<Integer> resultado){
         return categoriaProfissionalDao.obterTiposCategorias(resultado, idApi);
     }
@@ -244,8 +252,8 @@ public class TrabalhadoresVulneraveisRepositorio implements Repositorio<Trabalha
     public Single<Integer> remover(TrabalhadorVulneravelResultado item) {
 
         Single<Integer> single = Single.zip(trabalhadoresVulneraveisDao.atualizar(item),
-                categoriaProfissionalDao.remover(item.id, Identificadores.Origens.CATEGORIAS_PROFISSIONAIS_VULNERABILIDADE_HOMENS),
-                categoriaProfissionalDao.remover(item.id, Identificadores.Origens.CATEGORIAS_PROFISSIONAIS_VULNERABILIDADE_MULHERES),
+                categoriaProfissionalDao.remover(item.id, Identificadores.Origens.VULNERABILIDADE_CATEGORIAS_PROFISSIONAIS_HOMENS),
+                categoriaProfissionalDao.remover(item.id, Identificadores.Origens.VULNERABILIDADE_CATEGORIAS_PROFISSIONAIS_MULHERES),
                 new Function3<Integer, Integer, Integer, Integer>() {
                     @Override
                     public Integer apply(Integer integer, Integer integer2, Integer integer3) throws Exception {

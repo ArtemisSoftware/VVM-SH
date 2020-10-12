@@ -219,6 +219,17 @@ public abstract class ActivityBuildersModule {
 
 
 
+    //----------------------
+    //Sinistralidade
+    //----------------------
+
+
+    @TarefaScope
+    @ContributesAndroidInjector(
+            modules = { TarefaViewModelsModule.class, TarefaModule.class }
+    )
+    abstract SinistralidadeActivity contributeSinistralidadeActivity();
+
 
 
 
@@ -303,6 +314,7 @@ public abstract class ActivityBuildersModule {
             modules = { AtividadesPendentesViewModelsModule.class, AtividadesPendentesModule.class }
     )
     abstract DialogoProcessoProdutivo contributeDialogoProcessoProdutivo();
+
 
 
     //----------------------
@@ -541,4 +553,33 @@ public abstract class ActivityBuildersModule {
             modules = { AvaliacaoAmbientalViewModelsModule.class, AvaliacaoAmbientalModule.class }
     )
     abstract AvaliacaoIluminacaoRegistoActivity contributeAvaliacaoAvaliacaoIluminacaoRegistoActivity();
+
+
+    //---------------------
+    //Checklist
+    //---------------------
+
+    @ChecklistScope
+    @ContributesAndroidInjector(
+            modules = { ChecklistViewModelsModule.class, ChecklistModule.class }
+    )
+    abstract ChecklistActivity contributeChecklistActivity();
+
+    @ChecklistScope
+    @ContributesAndroidInjector(
+            modules = { ChecklistViewModelsModule.class, ChecklistModule.class }
+    )
+    abstract QuestoesChecklistActivity contributeQuestoesChecklistActivity();
+
+    @ChecklistScope
+    @ContributesAndroidInjector(
+            modules = { ChecklistViewModelsModule.class, ChecklistModule.class }
+    )
+    abstract DialogoArea contributeDialogoArea();
+
+    @ChecklistScope
+    @ContributesAndroidInjector(
+            modules = { ChecklistViewModelsModule.class, ChecklistModule.class }
+    )
+    abstract DialogoPergunta contributeDialogoPergunta();
 }

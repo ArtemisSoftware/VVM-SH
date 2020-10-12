@@ -147,6 +147,7 @@ public class AvaliacaoIluminacaoRegistoActivity extends BaseDaggerActivity
             @Override
             public void onChanged(List<Tipo> tipos) {
                 viewModel.obterElx(tipos.get(0).id);
+                calcularNivelIluminacao();
             }
         });
 
@@ -184,18 +185,12 @@ public class AvaliacaoIluminacaoRegistoActivity extends BaseDaggerActivity
             resultado = false;
         };
 
-
-        if(resultado == true){
-            activityAvaliacaoIluminacaoRegistoBinding.lnrLytMedidas.setVisibility(View.GONE);
-        }
-        else{
-            activityAvaliacaoIluminacaoRegistoBinding.lnrLytMedidas.setVisibility(View.VISIBLE);
-        }
-
         if(resultado == false){
             activityAvaliacaoIluminacaoRegistoBinding.txtNivelDificiente.setVisibility(View.VISIBLE);
+            activityAvaliacaoIluminacaoRegistoBinding.lnrLytMedidas.setVisibility(View.VISIBLE);
         }
         else{
+            activityAvaliacaoIluminacaoRegistoBinding.lnrLytMedidas.setVisibility(View.GONE);
             activityAvaliacaoIluminacaoRegistoBinding.txtNivelDificiente.setVisibility(View.GONE);
         }
 
@@ -232,16 +227,6 @@ public class AvaliacaoIluminacaoRegistoActivity extends BaseDaggerActivity
     @OnTextChanged(value = R.id.txt_inp_emedio_lx, callback = OnTextChanged.Callback.TEXT_CHANGED)
     public void txt_inp_emedio_lx_OnTextChanged(CharSequence text) {
         calcularNivelIluminacao();
-//        if(viewModel.avaliacao.getValue() != null) {
-//
-//            if(text.toString().equals(viewModel.avaliacao.getValue().resultado.emedioLx + "") == false) {
-//                calcularNivelIluminacao();
-//            }
-//        }
-//        else{
-//            calcularNivelIluminacao();
-//        }
-
     }
 
 

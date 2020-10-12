@@ -128,7 +128,7 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
                                 @Override
                                 public void onSuccess(Long aLong) {
                                     messagemLiveData.setValue(Recurso.successo(aLong, Sintaxe.Frases.DADOS_GRAVADOS_SUCESSO));
-                                    gravarResultado(avaliacaoAmbientalRepositorio.resultadoDao, idTarefa, registo.idAtividade, ResultadoId.ATIVIDADE_PENDENTE);
+                                    abaterAtividadePendente(avaliacaoAmbientalRepositorio.resultadoDao, idTarefa, registo.idAtividade, ResultadoId.ATIVIDADE_PENDENTE);
                                 }
 
                                 @Override
@@ -153,7 +153,7 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
                                 @Override
                                 public void onSuccess(Integer integer) {
                                     messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_EDITADOS_SUCESSO));
-                                    gravarResultado(avaliacaoAmbientalRepositorio.resultadoDao, idTarefa, registo.idAtividade, ResultadoId.ATIVIDADE_PENDENTE);
+                                    abaterAtividadePendente(avaliacaoAmbientalRepositorio.resultadoDao, idTarefa, registo.idAtividade, ResultadoId.ATIVIDADE_PENDENTE);
                                 }
 
                                 @Override
@@ -210,7 +210,7 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
                                 @Override
                                 public void onSuccess(Object o) {
                                     messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_GRAVADOS_SUCESSO));
-                                    gravarResultado(avaliacaoAmbientalRepositorio.resultadoDao, idTarefa, idAtividade, ResultadoId.ATIVIDADE_PENDENTE);
+                                    abaterAtividadePendente(avaliacaoAmbientalRepositorio.resultadoDao, idTarefa, idAtividade, ResultadoId.ATIVIDADE_PENDENTE);
                                 }
 
                                 @Override
@@ -272,7 +272,7 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
                                 @Override
                                 public void accept(Object o) throws Exception {
                                     messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_EDITADOS_SUCESSO));
-                                    gravarResultado(avaliacaoAmbientalRepositorio.resultadoDao, idTarefa, idAtividade, ResultadoId.ATIVIDADE_PENDENTE);
+                                    abaterAtividadePendente(avaliacaoAmbientalRepositorio.resultadoDao, idTarefa, idAtividade, ResultadoId.ATIVIDADE_PENDENTE);
                                 }
                             }
                     );
@@ -315,7 +315,7 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
                             @Override
                             public void onSuccess(Object o) {
                                 messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_REMOVIDOS_SUCESSO));
-                                gravarResultado(avaliacaoAmbientalRepositorio.resultadoDao, idTarefa, idAtividade, ResultadoId.ATIVIDADE_PENDENTE);
+                                abaterAtividadePendente(avaliacaoAmbientalRepositorio.resultadoDao, idTarefa, idAtividade, ResultadoId.ATIVIDADE_PENDENTE);
                             }
 
                             @Override
@@ -529,6 +529,56 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
 
         showProgressBar(true);
 
+        Single.zip(avaliacaoAmbientalRepositorio.obterTipoIluminacao(), avaliacaoAmbientalRepositorio.obterAreas(), avaliacaoAmbientalRepositorio.obterElxArea(),
+                new Function3<List<Tipo>, List<Tipo>, List<Tipo>, TiposAvaliacao>() {
+                    @Override
+                    public TiposAvaliacao apply(List<Tipo> iluminacao, List<Tipo> areas, List<Tipo> elxArea) throws Exception {
+
+                        TiposAvaliacao registo = new TiposAvaliacao();
+                        registo.areas = areas;
+                        registo.tiposIluminacao = iluminacao;
+                        registo.elxArea = elxArea;
+                        return registo;
+                    }
+                }
+        )
+        .subscribeOn(Schedulers.io())
+        .observeOn(AndroidSchedulers.mainThread())
+        .subscribe(
+
+                new SingleObserver<TiposAvaliacao>() {
+                    @Override
+                    public void onSubscribe(Disposable d) {
+                        disposables.add(d);
+                    }
+
+                    @Override
+                    public void onSuccess(TiposAvaliacao tiposAvaliacao) {
+                        areas.setValue(tiposAvaliacao.areas);
+                        iluminacao.setValue(tiposAvaliacao.tiposIluminacao);
+                        elxArea.setValue(tiposAvaliacao.elxArea);
+                        obterGeneros(generos);
+                        showProgressBar(false);
+                        obterAvaliacaoAmbiental(id, origem);
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        showProgressBar(false);
+                    }
+                }
+
+        );
+
+    }
+
+
+    /**
+     * Metodo que permite obter a avaliacao
+     * @param id o identificador da avaliacao
+     * @param origem a origem da avaliacao
+     */
+    private void obterAvaliacaoAmbiental(int id, int origem){
         if(id != -1) {
 
             avaliacaoAmbientalRepositorio.obterAvaliacao(id, origem)
@@ -562,52 +612,7 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
                             }
                     );
         }
-
-        Single.zip(avaliacaoAmbientalRepositorio.obterTipoIluminacao(), avaliacaoAmbientalRepositorio.obterAreas(), avaliacaoAmbientalRepositorio.obterElxArea(),
-                new Function3<List<Tipo>, List<Tipo>, List<Tipo>, TiposAvaliacao>() {
-                    @Override
-                    public TiposAvaliacao apply(List<Tipo> iluminacao, List<Tipo> areas, List<Tipo> elxArea) throws Exception {
-
-                        TiposAvaliacao registo = new TiposAvaliacao();
-                        registo.areas = areas;
-                        registo.tiposIluminacao = iluminacao;
-                        registo.elxArea = elxArea;
-                        return registo;
-                    }
-                }
-        )
-        .subscribeOn(Schedulers.io())
-        .observeOn(AndroidSchedulers.mainThread())
-        .subscribe(
-
-                new SingleObserver<TiposAvaliacao>() {
-                    @Override
-                    public void onSubscribe(Disposable d) {
-                        disposables.add(d);
-                    }
-
-                    @Override
-                    public void onSuccess(TiposAvaliacao tiposAvaliacao) {
-                        areas.setValue(tiposAvaliacao.areas);
-                        iluminacao.setValue(tiposAvaliacao.tiposIluminacao);
-                        elxArea.setValue(tiposAvaliacao.elxArea);
-                        obterGeneros(generos);
-                        showProgressBar(false);
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        showProgressBar(false);
-                    }
-                }
-
-        );
-
-
     }
-
-
-
 
 
     //------------------

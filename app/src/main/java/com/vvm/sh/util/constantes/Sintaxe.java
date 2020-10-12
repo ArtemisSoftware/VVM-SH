@@ -96,6 +96,7 @@ public class Sintaxe {
         public static final String TIPO_NAO_REGISTADO = "O tipo não se encontra registado: ";
         public static final String TIPO_NAO_REGISTADOS = "Existem tipos não registados";
         public static final String VALOR_INVALIDO = "Valor inválido";
+        public static final String EQUIPAMENTO_REGISTADO = "O equipamento já se encontra registado";
     }
 
     public class Frases{
@@ -113,6 +114,7 @@ public class Sintaxe {
         public static final String DOWNLOAD_INDEFINIDO = "Download com estado indefinido";
         public static final String DADOS_VALIDADOS_SUCESSO = "Dados validados com sucesso";
         public static final String DADOS_REMOVIDOS_SUCESSO = "Dados removidos com sucesso";
+        public static final String EQUIPAMENTO_REGISTADO_SUCESSO = "Equipamento registado com sucesso";
     }
 
     public class API {

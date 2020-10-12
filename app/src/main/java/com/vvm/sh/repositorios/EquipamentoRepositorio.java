@@ -8,7 +8,7 @@ import com.vvm.sh.baseDados.dao.TipoNovoDao;
 import com.vvm.sh.baseDados.dao.VerificacaoEquipamentoDao;
 import com.vvm.sh.baseDados.entidades.TipoNovo;
 import com.vvm.sh.baseDados.entidades.VerificacaoEquipamentoResultado;
-import com.vvm.sh.ui.atividadesPendentes.relatorios.equipamentos.Equipamento;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.equipamentos.modelos.Equipamento;
 
 import java.util.List;
 
@@ -22,7 +22,7 @@ public class EquipamentoRepositorio{
     private final TipoNovoDao tipoNovoDao;
     private final TipoDao tipoDao;
     private final VerificacaoEquipamentoDao verificacaoEquipamentoDao;
-    private final ResultadoDao resultadoDao;
+    public final ResultadoDao resultadoDao;
 
 
     public EquipamentoRepositorio(int idApi, @NonNull TipoNovoDao tipoNovoDao, @NonNull TipoDao tipoDao, @NonNull VerificacaoEquipamentoDao verificacaoEquipamentoDao,

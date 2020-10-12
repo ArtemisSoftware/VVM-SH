@@ -1,7 +1,7 @@
 package com.vvm.sh.ui.pesquisa;
 
 import com.vvm.sh.baseDados.entidades.Tipo;
-import com.vvm.sh.ui.atividadesPendentes.relatorios.equipamentos.Equipamento;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.equipamentos.modelos.Equipamento;
 import com.vvm.sh.ui.pesquisa.modelos.Medida;
 
 public interface OnPesquisaListener {

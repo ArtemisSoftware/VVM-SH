@@ -7,6 +7,7 @@ import com.vvm.sh.baseDados.entidades.TrabalhadorVulneravelResultado;
 import com.vvm.sh.repositorios.TrabalhadoresVulneraveisRepositorio;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.trabalhadoresVulneraveis.modelos.TrabalhadorVulneravel;
 import com.vvm.sh.util.Recurso;
+import com.vvm.sh.util.ResultadoId;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
@@ -51,7 +52,10 @@ public class TrabalhadoresVulneraveisViewModel extends BaseViewModel {
     }
 
 
-
+    /**
+     * Metodo que permite inserir as vulnerabilidades caso elas não existam
+     * @param idAtividade o identificador da atividade
+     */
     public void validarVulnerabilidades(int idAtividade){
 
         showProgressBar(true);
@@ -70,9 +74,8 @@ public class TrabalhadoresVulneraveisViewModel extends BaseViewModel {
                             @Override
                             public void onComplete() {
 
-                                obterVulnerabilidades(idAtividade);
                                 showProgressBar(false);
-
+                                obterVulnerabilidades(idAtividade);
                             }
 
                             @Override
@@ -82,18 +85,22 @@ public class TrabalhadoresVulneraveisViewModel extends BaseViewModel {
                         }
                 );
 
-        //TODO:dar baixa da atividades pendente
     }
 
 
-    public void gravar(TrabalhadorVulneravelResultado registo) {
+    /**
+     * Metodo que permite gravar uma vulnerabilidade
+     * @param idTarefa o identificador da tarefa
+     * @param registo os dados do registo
+     */
+    public void gravar(int idTarefa, TrabalhadorVulneravelResultado registo) {
 
         resultadosVulnerabulidades = new ArrayList<>();
 
         trabalhadoresVulneraveisRepositorio.atualizar(
                 registo,
-                ObterCategoriasProfissionais(categoriasProfissionaisHomens.getValue(), registo.id, Identificadores.Origens.CATEGORIAS_PROFISSIONAIS_VULNERABILIDADE_HOMENS),
-                ObterCategoriasProfissionais(categoriasProfissionaisMulheres.getValue(), registo.id, Identificadores.Origens.CATEGORIAS_PROFISSIONAIS_VULNERABILIDADE_MULHERES)
+                ObterCategoriasProfissionais(categoriasProfissionaisHomens.getValue(), registo.id, Identificadores.Origens.VULNERABILIDADE_CATEGORIAS_PROFISSIONAIS_HOMENS),
+                ObterCategoriasProfissionais(categoriasProfissionaisMulheres.getValue(), registo.id, Identificadores.Origens.VULNERABILIDADE_CATEGORIAS_PROFISSIONAIS_MULHERES)
         )
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -102,12 +109,13 @@ public class TrabalhadoresVulneraveisViewModel extends BaseViewModel {
                         new SingleObserver<Integer>() {
                             @Override
                             public void onSubscribe(Disposable d) {
-
+                                disposables.add(d);
                             }
 
                             @Override
                             public void onSuccess(Integer integer) {
                                 messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_GRAVADOS_SUCESSO));
+                                abaterAtividadePendente(trabalhadoresVulneraveisRepositorio.resultadoDao, idTarefa, registo.idAtividade, ResultadoId.ATIVIDADE_PENDENTE);
                             }
 
                             @Override
@@ -117,11 +125,19 @@ public class TrabalhadoresVulneraveisViewModel extends BaseViewModel {
                         }
                 );
 
-        //TODO:dar baixa da atividades pendente
     }
 
 
-    public void remover(TrabalhadorVulneravelResultado resultado) {
+    //-------------------
+    //REMOVER
+    //-------------------
+
+    /**
+     * Metodo que permite remover os dados de uma vulnerabilidade
+     * @param idTarefa o identificador da tarefa
+     * @param resultado os dados da vulnerabilidade
+     */
+    public void remover(int idTarefa, TrabalhadorVulneravelResultado resultado) {
 
         resultadosVulnerabulidades = new ArrayList<>();
 
@@ -136,12 +152,12 @@ public class TrabalhadoresVulneraveisViewModel extends BaseViewModel {
                         new SingleObserver<Integer>() {
                             @Override
                             public void onSubscribe(Disposable d) {
-
+                                disposables.add(d);
                             }
 
                             @Override
                             public void onSuccess(Integer integer) {
-
+                                abaterAtividadePendente(trabalhadoresVulneraveisRepositorio.resultadoDao, idTarefa, resultado.idAtividade, ResultadoId.ATIVIDADE_PENDENTE);
                             }
 
                             @Override
@@ -149,11 +165,7 @@ public class TrabalhadoresVulneraveisViewModel extends BaseViewModel {
 
                             }
                         }
-
                 );
-
-
-        //TODO:dar baixa da atividades pendente
     }
 
 
@@ -161,40 +173,10 @@ public class TrabalhadoresVulneraveisViewModel extends BaseViewModel {
     //OBTER
     //----------------
 
-
-//    public void obterVulnerabilidades(int idAtividade){
-//
-//        trabalhadoresVulneraveisRepositorio.obterVulnerabilidades__(idAtividade)
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(
-//
-//                        new Observer<List<TrabalhadorVulneravel>>() {
-//                            @Override
-//                            public void onSubscribe(Disposable d) {
-//
-//                            }
-//
-//                            @Override
-//                            public void onNext(List<TrabalhadorVulneravel> trabalhadorVulneravels) {
-//
-//                                vulnerabilidades.setValue(trabalhadorVulneravels);
-//                            }
-//
-//                            @Override
-//                            public void onError(Throwable e) {
-//
-//                            }
-//
-//                            @Override
-//                            public void onComplete() {
-//
-//                            }
-//                        }
-//                );
-//    }
-
-
+    /**
+     * Metodo que permite obter as vulnerabilidades
+     * @param idAtividade o identificador da atividade
+     */
     public void obterVulnerabilidades(int idAtividade){
 
         showProgressBar(true);
@@ -207,7 +189,7 @@ public class TrabalhadoresVulneraveisViewModel extends BaseViewModel {
                     new Observer<Object>() {
                         @Override
                         public void onSubscribe(Disposable d) {
-
+                            disposables.add(d);
                         }
 
                         @Override
@@ -229,85 +211,34 @@ public class TrabalhadoresVulneraveisViewModel extends BaseViewModel {
                                 registos.add(item);
                             }
 
-
                             vulnerabilidades.setValue(registos);
-
-
+                            showProgressBar(false);
                         }
 
                         @Override
                         public void onError(Throwable e) {
-
+                            showProgressBar(false);
                         }
 
                         @Override
                         public void onComplete() {
-
+                            showProgressBar(false);
                         }
                     }
-
-/*
-                    new Observer<List<Object>>() {
-                        @Override
-                        public void onSubscribe(Disposable d) {
-
-                        }
-
-                        @Override
-                        public void onNext(List<Object> objects) {
-
-                            List<TrabalhadorVulneravel> registos = new ArrayList<>();
-
-                            for (Object o: objects) {
-
-                                registos.add((TrabalhadorVulneravel) o);
-                            }
-
-
-                            vulnerabilidades.setValue(registos);
-                        }
-
-                        @Override
-                        public void onError(Throwable e) {
-
-                        }
-
-                        @Override
-                        public void onComplete() {
-
-                        }
-
-                    }
-*/
-                    /*
-                    new Observer<List<TrabalhadorVulneravel>>() {
-                        @Override
-                        public void onSubscribe(Disposable d) {
-
-                        }
-
-                        @Override
-                        public void onNext(List<TrabalhadorVulneravel> registos) {
-                            vulnerabilidades.setValue(registos);
-                        }
-
-                        @Override
-                        public void onError(Throwable e) {
-
-                        }
-
-                        @Override
-                        public void onComplete() {
-
-                        }
-                    }
-*/
             );
     }
 
 
-    public void obterVulnerabilidade(int id){
+    //-------------------------
+    //OBTER
+    //-------------------------
 
+
+    /**
+     * Metodo que permite obter uma vulnerabilidade
+     * @param id o identificador do registo da vulnerabilidade
+     */
+    public void obterVulnerabilidade(int id){
 
         showProgressBar(true);
 
@@ -319,7 +250,7 @@ public class TrabalhadoresVulneraveisViewModel extends BaseViewModel {
                         new MaybeObserver<TrabalhadorVulneravel>() {
                             @Override
                             public void onSubscribe(Disposable d) {
-                                
+                                disposables.add(d);
                             }
 
                             @Override
@@ -332,19 +263,28 @@ public class TrabalhadoresVulneraveisViewModel extends BaseViewModel {
 
                             @Override
                             public void onError(Throwable e) {
-
+                                showProgressBar(false);
                             }
 
                             @Override
                             public void onComplete() {
-
+                                showProgressBar(false);
                             }
                         }
-
                 );
     }
 
 
+    //-------------------------
+    //MISC
+    //-------------------------
+
+
+    /**
+     * Metodo que permite fixar as categorias profissionais
+     * @param homens true se for as categorias para homens e false para categorias para mulheres
+     * @param categoriasProfissionais
+     */
     public void fixarCategoriasProfissionais(boolean homens, ArrayList<Integer> categoriasProfissionais) {
 
         trabalhadoresVulneraveisRepositorio.obterTiposCategorias(categoriasProfissionais)
@@ -366,8 +306,6 @@ public class TrabalhadoresVulneraveisViewModel extends BaseViewModel {
                                 else{
                                     categoriasProfissionaisMulheres.setValue(tipos);
                                 }
-
-
                             }
 
                             @Override

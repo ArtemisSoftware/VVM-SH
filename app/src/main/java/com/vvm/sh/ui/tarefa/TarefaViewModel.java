@@ -152,6 +152,7 @@ public class TarefaViewModel extends BaseViewModel {
                                 @Override
                                 public void onSuccess(Long aLong) {
                                     messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_GRAVADOS_SUCESSO));
+                                    gravarResultado(tarefaRepositorio.resultadoDao, sinistralidade.idTarefa, ResultadoId.SINISTRALIDADE);
                                     showProgressBar(false);
                                 }
 
@@ -177,6 +178,7 @@ public class TarefaViewModel extends BaseViewModel {
                                 @Override
                                 public void onSuccess(Integer integer) {
                                     messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_EDITADOS_SUCESSO));
+                                    gravarResultado(tarefaRepositorio.resultadoDao, sinistralidade.idTarefa, ResultadoId.SINISTRALIDADE);
                                     showProgressBar(false);
                                 }
 
@@ -395,6 +397,10 @@ public class TarefaViewModel extends BaseViewModel {
     }
 
 
+    //--------------------
+    //OBTER - sinistralidade
+    //--------------------
+
     /**
      * Metodo que permite obter a sinistralidade
      * @param idTarefa o identificador da tarefa
@@ -432,6 +438,18 @@ public class TarefaViewModel extends BaseViewModel {
                         }
                 );
     }
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     public void obterExtintores(int idTarefa) {

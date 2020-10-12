@@ -44,7 +44,11 @@ abstract public class AtividadePendenteDao implements BaseDao<AtividadePendenteR
             "CASE WHEN idRelatorio = " + ID_RELATORIO_FORMACAO + " AND IFNULL(ct_formando, 0) > 0 THEN  1 " +
             "WHEN  idRelatorio = " + ID_RELATORIO_ILUMINACAO + " AND validade_aval_amb_ilum = 1 THEN  1 "+
             "WHEN  idRelatorio = " + ID_RELATORIO_TEMPERATURA_HUMIDADE + " AND validade_aval_amb_temperatura = 1 THEN  1 "+
-            "ELSE 0 END as relatorioCompleto " +
+            "WHEN  idRelatorio = " + ID_RELATORIO_AVALIACAO_RISCO + " AND  (validade_processo_produtivo AND validade_equipamentos) = 1 THEN 1 "+
+            "ELSE 0 END as relatorioCompleto," +
+
+            "validade_processo_produtivo, validade_trabalhadores_vulneraveis, validade_equipamentos " +
+            " " +
 
             "FROM atividadesPendentes as atp " +
 
@@ -133,6 +137,38 @@ abstract public class AtividadePendenteDao implements BaseDao<AtividadePendenteR
             ") as avl_amb_ilum ON atp.id = avl_amb_ilum.idAtividade " +
 
 
+            //processo produtivo
+
+            "LEFT JOIN (   " +
+            "SELECT id as idAtividade, CASE WHEN descricao IS NULL OR descricao = '' THEN 0 ELSE 1 END as validade_processo_produtivo FROM processosProdutivosResultado  " +
+
+            ") as process_prod_res ON atp.id = process_prod_res.idAtividade " +
+
+
+            //trabalhadore vulneraveis
+
+            "LEFT JOIN(   " +
+            "SELECT tb_vul_res.idAtividade as idAtividade, CASE WHEN COUNT(tb_vul_res.id) > 0 THEN 1 ELSE 0 END as validade_trabalhadores_vulneraveis    " +
+            "FROM trabalhadoresVulneraveisResultado as tb_vul_res     " +
+            "LEFT JOIN (SELECT id, homens  FROM categoriasProfissionaisResultado WHERE origem = " + Identificadores.Origens.VULNERABILIDADE_CATEGORIAS_PROFISSIONAIS_HOMENS + " GROUP BY id ) as ctPro_homens " +
+            "ON  tb_vul_res.id = ctPro_homens.id    " +
+            "LEFT JOIN (SELECT id, mulheres  FROM categoriasProfissionaisResultado WHERE origem = " + Identificadores.Origens.VULNERABILIDADE_CATEGORIAS_PROFISSIONAIS_MULHERES + " GROUP BY id) as ctPro_mulheres " +
+            "ON  tb_vul_res.id = ctPro_mulheres.id   " +
+            "WHERE IFNULL(ctPro_homens.homens,0) != 0 OR IFNULL(ctPro_mulheres.mulheres,0) != 0   " +
+            ") as vld_tbr_vul ON atp.id = vld_tbr_vul.idAtividade		   " +
+
+
+            //equipamentos
+
+
+            "LEFT JOIN (    " +
+            "SELECT idAtividade, CASE WHEN IFNULL(COUNT (idEquipamento), 0) > 0 THEN 1 ELSE 0 END as validade_equipamentos     "+
+            "FROM verificacaoEquipamentosResultado     "+
+            "GROUP by idAtividade    "+
+            ")as vld_eqp ON atp.id = vld_eqp.idAtividade	    "+
+
+
+
 
 
             "WHERE atp.idTarefa = :idTarefa")
@@ -157,7 +193,9 @@ abstract public class AtividadePendenteDao implements BaseDao<AtividadePendenteR
             "ELSE 0 END as possuiRelatorio, " +
 
             "CASE WHEN idRelatorio = " + ID_RELATORIO_FORMACAO + " AND IFNULL(ct_formando, 0) > 0 THEN  1 " +
-            "ELSE 0 END as relatorioCompleto " +
+            "ELSE 0 END as relatorioCompleto, " +
+
+            "0 as validade_processo_produtivo, 0 as validade_trabalhadores_vulneraveis, 0 as validade_equipamentos " +
 
             "FROM atividadesPendentes as atp " +
 
@@ -174,6 +212,9 @@ abstract public class AtividadePendenteDao implements BaseDao<AtividadePendenteR
             "FROM acoesFormacaoResultado as ac_form " +
             "LEFT JOIN (SELECT idAtividade, COUNT(id) as ct_formando FROM formandosResultado WHERE selecionado = 1 GROUP BY idAtividade) as frm ON ac_form.idAtividade = frm.idAtividade " +
             ") as ac_form ON atp.id = ac_form.idAtividade " +
+
+
+
 
             "WHERE atp.id = :id")
     abstract public Maybe<AtividadePendenteRegisto> obterAtividade(int id);

@@ -7,9 +7,10 @@ import com.vvm.sh.baseDados.entidades.TipoNovo;
 import com.vvm.sh.baseDados.entidades.VerificacaoEquipamentoResultado;
 import com.vvm.sh.repositorios.EquipamentoRepositorio;
 import com.vvm.sh.repositorios.TiposRepositorio;
-import com.vvm.sh.ui.atividadesPendentes.relatorios.equipamentos.Equipamento;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.equipamentos.modelos.Equipamento;
 import com.vvm.sh.ui.pesquisa.modelos.Medida;
 import com.vvm.sh.util.Recurso;
+import com.vvm.sh.util.ResultadoId;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.excepcoes.TipoInexistenteException;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
@@ -27,7 +28,6 @@ import io.reactivex.SingleSource;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.BiFunction;
-import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
@@ -72,22 +72,22 @@ public class PesquisaViewModel extends BaseViewModel {
     }
 
 
+    /**
+     * Metodo que permite gravar um novo tipo
+     * @param registo
+     */
     public void gravar(TipoNovo registo) {
-
-        //TODO: verificar se já existe
-        //TODO: obter o numero provisorio e depois inserir
 
         equipamentoRepositorio.validarEquipamento(registo.descricao)
                 .flatMap(new Function<Boolean, SingleSource<?>>() {
                     @Override
                     public SingleSource<?> apply(Boolean resultado) throws Exception {
                         if(resultado == true) {
-
-                            throw new TipoInexistenteException("O equipamento já se encontra registado");
+                            throw new TipoInexistenteException(Sintaxe.Alertas.EQUIPAMENTO_REGISTADO);
                         }
                         else{
 
-                            registo.idProvisorio = 102;
+                            registo.idProvisorio = 102; //TODO: obter o numero provisorio e depois inserir
                             return equipamentoRepositorio.inserir(registo);
                         }
                     }
@@ -100,17 +100,17 @@ public class PesquisaViewModel extends BaseViewModel {
                         new SingleObserver<Object>() {
                             @Override
                             public void onSubscribe(Disposable d) {
-
+                                disposables.add(d);
                             }
 
                             @Override
                             public void onSuccess(Object o) {
-                                messagemLiveData.setValue(Recurso.successo("Equipamento registado com sucesso"));
+                                messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.EQUIPAMENTO_REGISTADO_SUCESSO ));
                             }
 
                             @Override
                             public void onError(Throwable e) {
-                                messagemLiveData.setValue(Recurso.erro(e.getMessage()));
+                                formatarErro(e);
                             }
                         }
 
@@ -118,7 +118,13 @@ public class PesquisaViewModel extends BaseViewModel {
     }
 
 
-    public void gravar(int idAtividade, List<VerificacaoEquipamentoResultado> itens) {
+    /**
+     * Metodo que permite gravar os equipamentos selecionados
+     * @param idTarefa o identificador da tarefa
+     * @param idAtividade o identificador da atividade
+     * @param itens os dados a gravar
+     */
+    public void gravar(int idTarefa, int idAtividade, List<VerificacaoEquipamentoResultado> itens) {
 
         equipamentoRepositorio.inserir(idAtividade, itens)
                 .subscribeOn(Schedulers.io())
@@ -128,12 +134,13 @@ public class PesquisaViewModel extends BaseViewModel {
                         new SingleObserver<List<Object>>() {
                             @Override
                             public void onSubscribe(Disposable d) {
-
+                                disposables.add(d);
                             }
 
                             @Override
                             public void onSuccess(List<Object> objects) {
                                 messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_GRAVADOS_SUCESSO));
+                                abaterAtividadePendente(equipamentoRepositorio.resultadoDao, idTarefa, idAtividade, ResultadoId.ATIVIDADE_PENDENTE);
                             }
 
                             @Override
@@ -150,6 +157,10 @@ public class PesquisaViewModel extends BaseViewModel {
     //-----------------------
 
 
+    /**
+     * Metodo que permite obter os equipamentos
+     * @param idAtividade o identificador da atividade
+     */
     public void obterEquipamentos(int idAtividade) {
 
         equipamentoRepositorio.obterEquipamentos(idAtividade)
@@ -160,7 +171,7 @@ public class PesquisaViewModel extends BaseViewModel {
                         new MaybeObserver<List<String>>() {
                             @Override
                             public void onSubscribe(Disposable d) {
-
+                                disposables.add(d);
                             }
 
                             @Override
@@ -181,6 +192,11 @@ public class PesquisaViewModel extends BaseViewModel {
                 );
     }
 
+
+    /**
+     * Metodo que permite obter os equipamentos
+     * @param registos os registos exitentes
+     */
     public void obterEquipamentos(List<String> registos) {
 
         showProgressBar(true);
@@ -204,7 +220,7 @@ public class PesquisaViewModel extends BaseViewModel {
                         new Observer<PesquisaEquipamentos>() {
                             @Override
                             public void onSubscribe(Disposable d) {
-
+                                disposables.add(d);
                             }
 
                             @Override
@@ -217,18 +233,81 @@ public class PesquisaViewModel extends BaseViewModel {
 
                             @Override
                             public void onError(Throwable e) {
-
+                                showProgressBar(false);
                             }
 
                             @Override
                             public void onComplete() {
-
+                                showProgressBar(false);
                             }
                         }
 
                 );
 
     }
+
+
+
+
+    //---------------------
+    //Misc
+    //---------------------
+
+    /**
+     * Metodo que permite pesquisar um equipamento
+     * @param idAtividade o identificador da atividade
+     * @param registos os registos
+     * @param pesquisa
+     */
+    public void pesquisarEquipamento(int idAtividade, List<String> registos, String pesquisa) {
+
+        equipamentoRepositorio.obterEquipamentos_Excluir(idAtividade, registos, pesquisa)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new MaybeObserver<List<Equipamento>>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onSuccess(List<Equipamento> registos) {
+                                equipamentos.setValue(registos);
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onComplete() {
+                                showProgressBar(false);
+                            }
+                        }
+
+                );
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -379,54 +458,19 @@ public class PesquisaViewModel extends BaseViewModel {
 
                             @Override
                             public void onError(Throwable e) {
-
-                            }
-
-                            @Override
-                            public void onComplete() {
-
-                            }
-                        }
-
-                );
-
-    }
-
-
-
-    public void pesquisarEquipamento(int idAtividade, List<String> registos, String pesquisa) {
-
-        equipamentoRepositorio.obterEquipamentos_Excluir(idAtividade, registos, pesquisa)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-
-                        new MaybeObserver<List<Equipamento>>() {
-                            @Override
-                            public void onSubscribe(Disposable d) {
-                                disposables.add(d);
-                            }
-
-                            @Override
-                            public void onSuccess(List<Equipamento> registos) {
-                                equipamentos.setValue(registos);
                                 showProgressBar(false);
                             }
 
                             @Override
-                            public void onError(Throwable e) {
-
-                            }
-
-                            @Override
                             public void onComplete() {
-
+                                showProgressBar(false);
                             }
                         }
 
                 );
 
     }
+
 
 
     //----------------------

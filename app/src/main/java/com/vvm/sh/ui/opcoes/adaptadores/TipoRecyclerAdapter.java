@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.vvm.sh.R;
 import com.vvm.sh.databinding.ItemTipoBinding;
-import com.vvm.sh.ui.opcoes.modelos.Colecao;
 import com.vvm.sh.ui.opcoes.modelos.ResumoTipo;
 
 import java.util.ArrayList;

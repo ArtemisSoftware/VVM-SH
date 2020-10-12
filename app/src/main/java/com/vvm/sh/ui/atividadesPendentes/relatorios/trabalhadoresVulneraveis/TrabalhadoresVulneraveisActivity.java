@@ -83,7 +83,7 @@ public class TrabalhadoresVulneraveisActivity extends BaseDaggerActivity
     @Override
     public void onRemoverClick(TrabalhadorVulneravel vulnerabilidade) {
 
-        viewModel.remover(vulnerabilidade.resultado);
+        viewModel.remover(PreferenciasUtil.obterIdTarefa(this), vulnerabilidade.resultado);
 
     }
 }

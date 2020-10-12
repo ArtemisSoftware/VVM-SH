@@ -1,4 +1,4 @@
-package com.vvm.sh.ui.atividadesPendentes.relatorios.equipamentos;
+package com.vvm.sh.ui.atividadesPendentes.relatorios.equipamentos.modelos;
 
 import androidx.room.ColumnInfo;
 

@@ -144,7 +144,7 @@ public class SinistralidadeActivity extends BaseDaggerActivity
 
             activitySinistralidadeBinding.txtInpIncidencia.setText(formatoDecimal.format((acidentesComBaixa * 1000) / totalTrabalhadores));
 
-            activitySinistralidadeBinding.txtInpGravidade.setText(formatoDecimal.format((diasUteisPerdidos * 1000000) / totalHorasTrabalhadas));
+            activitySinistralidadeBinding.txtInpGravidade.setText(formatoDecimal.format((diasUteisPerdidos * 1000) / totalHorasTrabalhadas));
 
 
             double indiceGravidade = Double.parseDouble(activitySinistralidadeBinding.txtInpGravidade.getText().toString().replaceAll(",","."));

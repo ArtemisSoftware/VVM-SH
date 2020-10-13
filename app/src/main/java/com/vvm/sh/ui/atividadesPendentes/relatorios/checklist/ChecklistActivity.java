@@ -28,7 +28,7 @@ import javax.inject.Inject;
 import butterknife.OnClick;
 
 public class ChecklistActivity extends BaseDaggerActivity
-    implements OnChecklistListener.OnItemListener {
+    implements OnChecklistListener.OnItemListener, OnChecklistListener.OnAlterarChecklistListener {
 
 
     private ActivityChecklistBinding activityRegistoVisitaBinding;
@@ -194,19 +194,17 @@ public class ChecklistActivity extends BaseDaggerActivity
     @OnClick({R.id.fab_eliminar})
     public void fab_eliminar_OnClickListener(View view) {
 
-        OnDialogoListener listener = new OnDialogoListener() {
-            @Override
-            public void onExecutar() {
-                Bundle bundle = getIntent().getExtras();
-                int idAtividade = bundle.getInt(getString(R.string.argumento_id_atividade));
-                viewModel.remover(idAtividade);
-            }
-        };
-
-        dialogo.alerta(getString(R.string.eliminar_checklist), getString(R.string.eliminar_checklist_dados), listener);
+        DialogoChecklist dialogo = DialogoChecklist.newInstance();
+        dialogo.show(getSupportFragmentManager(), "example dialog");
 
     }
 
 
+    @Override
+    public void OnAlterarCheckClick(int idChecklist) {
+        Bundle bundle = getIntent().getExtras();
+        int idAtividade = bundle.getInt(getString(R.string.argumento_id_atividade));
 
+        viewModel.remover(PreferenciasUtil.obterIdTarefa(this), idAtividade, idChecklist);
+    }
 }

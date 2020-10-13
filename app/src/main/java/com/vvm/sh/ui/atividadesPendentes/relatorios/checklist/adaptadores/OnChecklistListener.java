@@ -25,4 +25,10 @@ public interface OnChecklistListener {
 
         void OnRegistarFoto();
     }
+
+    interface OnAlterarChecklistListener{
+
+        void OnAlterarCheckClick(int idChecklist);
+    }
+
 }

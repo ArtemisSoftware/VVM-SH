@@ -115,7 +115,7 @@ public class TrabalhadoresVulneraveisViewModel extends BaseViewModel {
                             @Override
                             public void onSuccess(Integer integer) {
                                 messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_GRAVADOS_SUCESSO));
-                                abaterAtividadePendente(trabalhadoresVulneraveisRepositorio.resultadoDao, idTarefa, registo.idAtividade, ResultadoId.ATIVIDADE_PENDENTE);
+                                abaterAtividadePendente(trabalhadoresVulneraveisRepositorio.resultadoDao, idTarefa, registo.idAtividade);
                             }
 
                             @Override
@@ -157,7 +157,7 @@ public class TrabalhadoresVulneraveisViewModel extends BaseViewModel {
 
                             @Override
                             public void onSuccess(Integer integer) {
-                                abaterAtividadePendente(trabalhadoresVulneraveisRepositorio.resultadoDao, idTarefa, resultado.idAtividade, ResultadoId.ATIVIDADE_PENDENTE);
+                                abaterAtividadePendente(trabalhadoresVulneraveisRepositorio.resultadoDao, idTarefa, resultado.idAtividade);
                             }
 
                             @Override

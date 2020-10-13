@@ -5,6 +5,7 @@ import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
@@ -54,4 +55,23 @@ public class PropostaPlanoAcaoResultado {
     @ColumnInfo(name = "selecionado", defaultValue = Sintaxe.Codigos.NAO_SELECIONADO)
     public boolean selecionado;
 
+
+    @Ignore
+    public PropostaPlanoAcaoResultado(int idAtividade, int idQuestaoChecklist) {
+        this.idAtividade = idAtividade;
+        this.origem = Identificadores.Origens.CHECKLIST;
+        this.idQuestaoChecklis = idQuestaoChecklist;
+        this.selecionado = true;
+    }
+
+    public PropostaPlanoAcaoResultado(int idAtividade, int id, int origem, int idQuestaoChecklis, int idMedida, int idNi, int idPrazo, boolean selecionado) {
+        this.idAtividade = idAtividade;
+        this.id = id;
+        this.origem = origem;
+        this.idQuestaoChecklis = idQuestaoChecklis;
+        this.idMedida = idMedida;
+        this.idNi = idNi;
+        this.idPrazo = idPrazo;
+        this.selecionado = selecionado;
+    }
 }

@@ -1,0 +1,62 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+
+    </data>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/eliminar_checklist_dados"/>
+
+
+        <RadioGroup
+            android:id="@+id/rd_gp_concluir_actividade"
+            android:layout_width="match_parent"
+            android:layout_marginTop="16dp"
+            android:layout_height="wrap_content">
+
+
+            <RadioButton
+                android:id="@+id/rd_btn_comercio"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:text="@string/comercio"/>
+
+            <RadioButton
+                android:id="@+id/rd_btn_industria"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:text="@string/industria" />
+
+
+            <RadioButton
+                android:id="@+id/rd_btn_restauracao"
+                android:layout_width="wrap_content"
+                android:layout_height="50dp"
+                android:text="@string/restauracao" />
+
+
+
+        </RadioGroup>
+
+
+
+    </LinearLayout>
+
+
+</layout>

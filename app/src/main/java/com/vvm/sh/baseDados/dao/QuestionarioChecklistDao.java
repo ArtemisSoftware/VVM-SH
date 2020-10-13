@@ -75,20 +75,21 @@ abstract public class QuestionarioChecklistDao implements BaseDao<QuestionarioCh
 
 
 
-//    query = "INSERT INTO questionario_checklist_resultado (idRegistoArea, idSeccao, idItem, tipo, resposta)  ";
-//
-//    query += "SELECT " + idRegistoArea + " as idRegistoArea, idSeccao, idItem, chk_itens.tipo as tipo, '" + CheckListIF.NAO_APLICAVEL + "' as resposta    ";
-//    query += "FROM itens_checklist as chk_itens  ";
-//    query += "OUTER LEFT JOIN (SELECT idChecklist, idArea, idRegisto FROM areas_checklist_resultado) as ar_chk_res ON chk_itens.idChecklist = ar_chk_res.idChecklist AND chk_itens.idArea = ar_chk_res.idArea    ";
-//    query += "WHERE ar_chk_res.idRegisto = ? AND chk_itens.idSeccao = ?  AND chk_itens.tipo = ?   ";
-//
-//    argumentos = new String []{
-//        idRegistoArea, idSeccao,  CheckListIF.TIPO_QUESTAO
-//    };
+
+    //-------------------
+    //Remover area
+    //-------------------
+
+    @Query("DELETE FROM propostaPlanoAcaoResultado WHERE idQuestaoChecklis IN (" +
+            "SELECT id " +
+            "FROM questionarioChecklistResultado as quest_res " +
+            "WHERE idArea = :idRegistoArea" +
+            ")")
+    abstract public Completable removerPropostaPlanoAcao_ST(int idRegistoArea);
 
 
-    @Query("DELETE FROM questionarioChecklistResultado WHERE idArea = :id AND idSeccao = :idSeccao")
-    abstract public Completable removerArea(int id, String idSeccao);
+    @Query("DELETE FROM questionarioChecklistResultado WHERE idArea = :id AND idSeccao = :idSeccao AND tipo = :tipo")
+    abstract public Completable removerArea(int id, String idSeccao, String tipo);
 
 
     @Query("INSERT INTO questionarioChecklistResultado (idArea, idSeccao, idItem, tipo, resposta, origem)" +
@@ -99,6 +100,19 @@ abstract public class QuestionarioChecklistDao implements BaseDao<QuestionarioCh
             "WHERE ar_chk_res.id = :idRegistoArea AND chk_itens.tipo = :tipo AND chk_itens.idSeccao = :idSeccao")
     abstract public Completable inserirNaoAplicavel(int idRegistoArea, String idSeccao, String tipo, String resposta);
 
+    //-------------------
+    //Remover checklist
+    //-------------------
 
 
+    @Query("DELETE FROM propostaPlanoAcaoResultado WHERE idQuestaoChecklis IN (" +
+            "SELECT id " +
+            "FROM questionarioChecklistResultado as quest_res " +
+            "WHERE idArea IN (SELECT id FROM areasChecklistResultado WHERE idAtividade = :idAtividade)" +
+            ")")
+    abstract public Completable removerPropostaPlanoAcao_ST_Checklist(int idAtividade);
+
+
+    @Query("DELETE FROM questionarioChecklistResultado WHERE idArea IN (SELECT id FROM areasChecklistResultado WHERE idAtividade = :idAtividade)")
+    abstract public Completable removerArea_Checklist(int idAtividade);
 }

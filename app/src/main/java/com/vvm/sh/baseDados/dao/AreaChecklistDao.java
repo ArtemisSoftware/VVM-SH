@@ -40,7 +40,7 @@ abstract public class AreaChecklistDao implements BaseDao<AreaChecklistResultado
 
 
     @Query("SELECT area_chk_res.idArea as idArea, id, descricao, IFNULL(subDescricao,'') as subDescricao, " +
-            "" + Identificadores.Checklist.TIPO_AREA + " as tipo, 0 as completos, total, '' as uid " +
+            "" + Identificadores.Checklist.TIPO_AREA + " as tipo, completos, seccoes_total.total as total, '' as uid " +
             "FROM areasChecklistResultado as area_chk_res " +
 
             "LEFT JOIN (SELECT idArea, descricao, idChecklist FROM areasChecklist) as area_chk " +
@@ -48,6 +48,34 @@ abstract public class AreaChecklistDao implements BaseDao<AreaChecklistResultado
 
             "LEFT JOIN (SELECT idChecklist, idArea, COUNT(*) as total FROM seccoesChecklist GROUP BY idChecklist, idArea) as seccoes_total " +
             "ON area_chk_res.idChecklist = seccoes_total.idChecklist AND area_chk_res.idArea = seccoes_total.idArea " +
+
+
+
+            "LEFT JOIN(" +
+            "SELECT idRegisto, SUM(valido) as completos, COUNT(valido) as total " +
+            "FROM(" +
+            " " +
+            "SELECT idAtividade, ar_chk_res.id as idRegisto, chk_scs.idSeccao as idSeccao, chk_scs.descricao as seccao, chk_scs.tipo as tipo, " +
+            "IFNULL(numeroRespostas,0) as numeroRespostas, total, " +
+            "CASE " +
+            "WHEN itens.tipo = 'q' AND IFNULL(numeroRespostas,0) = 0 THEN 0 " +
+            "WHEN itens.tipo = 'q' AND IFNULL(numeroRespostas,0) != total THEN 0 " +
+            "ELSE 1 END as valido " +
+            "FROM areasChecklistResultado as ar_chk_res " +
+
+            "LEFT JOIN (SELECT idChecklist, idArea, uid as idSeccao, descricao, tipo FROM seccoesChecklist) as chk_scs " +
+            "ON ar_chk_res.idChecklist = chk_scs.idChecklist AND ar_chk_res.idArea = chk_scs.idArea " +
+
+            "LEFT JOIN (SELECT idChecklist, idArea, idSeccao, COUNT(tipo) as total, tipo FROM itensChecklist WHERE tipo = 'q' GROUP BY idChecklist, idArea, idSeccao) as itens " +
+            "ON ar_chk_res.idChecklist = itens.idChecklist AND ar_chk_res.idArea = itens.idArea AND chk_scs.idSeccao = itens.idSeccao " +
+
+            "LEFT JOIN(SELECT idArea, idSeccao, COUNT(id) as numeroRespostas FROM questionarioChecklistResultado WHERE tipo = 'q' GROUP BY idArea, idSeccao) as qst_res " +
+            "ON ar_chk_res.id = qst_res.idArea AND chk_scs.idSeccao = qst_res.idSeccao" +
+            "" +
+            ") as validade " +
+            "GROUP BY idRegisto " +
+            ") as validade_areas ON area_chk_res.id = validade_areas.idRegisto " +
+
 
 
             "WHERE area_chk_res.idChecklist = :idChecklist AND idAtividade = :idAtividade " +
@@ -168,17 +196,20 @@ abstract public class AreaChecklistDao implements BaseDao<AreaChecklistResultado
 //        query += "ELSE 1 END as valido   ";
 //        query += "FROM areas_checklist_resultado as ar_chk_res   ";
 //        query += "OUTER LEFT JOIN (SELECT idChecklist, idArea, idSeccao, seccao, tipo  FROM seccoes_checklist) as chk_scs ON ar_chk_res.idChecklist = chk_scs.idChecklist AND ar_chk_res.idArea = chk_scs.idArea   ";
+
 //        query += "OUTER LEFT JOIN (   ";
 //        query += "SELECT   COUNT(tipo)as total, idChecklist, idArea, idSeccao, tipo FROM itens_checklist   ";
 //        query += "WHERE    tipo = 'q'    ";
 //        query += "GROUP BY idChecklist, idArea , idSeccao   ";
 //        query += ") as itens    ";
 //        query += "ON ar_chk_res.idChecklist = itens.idChecklist AND ar_chk_res.idArea = itens.idArea AND chk_scs.idSeccao = itens.idSeccao   ";
+
 //        query += "OUTER LEFT JOIN (   ";
 //        query += "SELECT idRegistoArea, idSeccao, COUNT(idItem) as numeroRespostas FROM questionario_checklist_resultado   ";
 //        query += "WHERE  tipo = 'q'   ";
 //        query += "GROUP BY idRegistoArea, idSeccao   ";
 //        query += ") as qst_res ON ar_chk_res.idRegisto = qst_res.idRegistoArea AND chk_scs.idSeccao = qst_res.idSeccao   ";
+
 //        query += ")T1   ";
 //        query += "WHERE idAtividadePendente = ? AND idRegisto = ?   ";
 //

@@ -13,6 +13,7 @@ import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.constantes.TiposConstantes;
+import com.vvm.sh.util.metodos.ConversorUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import java.util.ArrayList;
@@ -21,8 +22,6 @@ import java.util.List;
 import javax.inject.Inject;
 
 import io.reactivex.CompletableObserver;
-import io.reactivex.MaybeObserver;
-import io.reactivex.MaybeSource;
 import io.reactivex.Observer;
 import io.reactivex.SingleObserver;
 import io.reactivex.SingleSource;
@@ -78,6 +77,149 @@ public class ChecklistViewModel extends BaseViewModel {
     //GRAVAR
     //--------------------
 
+
+
+    /**
+     * Metodo que permite inserir a area geral caso ela não exista
+     * @param idAtividade o identificador da atividade
+     * @param idChecklist o identificador da checklist
+     */
+    public void inserirAreaGeral(int idTarefa, int idAtividade, int idChecklist){
+
+        checklistRepositorio.validarAreaGeral(idAtividade, idChecklist)
+                .flatMap(new Function<Boolean, SingleSource<?>>() {
+                    @Override
+                    public SingleSource<?> apply(Boolean existe) throws Exception {
+
+                        if(existe == false){
+                            AreaChecklistResultado resultado = new AreaChecklistResultado(idAtividade, idChecklist, Identificadores.Checklist.ID_AREA_GERAL, Identificadores.Checklist.AREA_GERAL_SUB_DESCRICAO);
+                            return checklistRepositorio.inserir(resultado);
+                        }
+
+                        return null;
+                    }
+                })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new SingleObserver<Object>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onSuccess(Object o) {
+                                abaterAtividadePendente(checklistRepositorio.resultadoDao, idTarefa, idAtividade);
+                                obterAreas(idAtividade, idChecklist);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                obterAreas(idAtividade, idChecklist);
+                            }
+                        }
+                );
+    }
+
+
+    /**
+     * Metodo que permite inserir uma nova área
+     * @param area
+     */
+    public void inserNovaArea(int idTarefa, AreaChecklistResultado area){
+
+        checklistRepositorio.validarSubDescricaoArea(area.idAtividade, area.idChecklist, area.idArea, area.subDescricao)
+                .flatMap(new Function<Boolean, SingleSource<?>>() {
+                    @Override
+                    public SingleSource<?> apply(Boolean resultado) throws Exception {
+
+                        if(resultado == false){
+                            return checklistRepositorio.inserir(area);
+                        }
+
+                        return null;
+                    }
+                })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new SingleObserver<Object>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onSuccess(Object o) {
+                                abaterAtividadePendente(checklistRepositorio.resultadoDao, idTarefa, area.idAtividade);
+                                messagemLiveData.setValue(Recurso.successo(true, Sintaxe.Frases.DADOS_GRAVADOS_SUCESSO));
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                messagemLiveData.setValue(Recurso.erro("A descrição já existe"));
+                            }
+                        }
+
+                );
+
+    }
+
+
+
+    /**
+     * Metodo que permite inserir uma nova área
+     * @param area
+     */
+    public void editarArea(int idTarefa, AreaChecklistResultado area){
+
+        checklistRepositorio.validarSubDescricaoArea(area.idAtividade, area.idChecklist, area.idArea, area.subDescricao)
+                .flatMap(new Function<Boolean, SingleSource<?>>() {
+                    @Override
+                    public SingleSource<?> apply(Boolean resultado) throws Exception {
+
+                        if(resultado == false){
+                            return checklistRepositorio.atualizar(area);
+                        }
+
+                        return null;
+                    }
+                })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new SingleObserver<Object>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onSuccess(Object o) {
+                                abaterAtividadePendente(checklistRepositorio.resultadoDao, idTarefa, area.idAtividade);
+                                messagemLiveData.setValue(Recurso.successo(false, Sintaxe.Frases.DADOS_GRAVADOS_SUCESSO));
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                messagemLiveData.setValue(Recurso.erro("A descrição já existe"));
+                            }
+                        }
+
+                );
+
+    }
+
+
+
+
+
+
+
     public void inserArea(AreaChecklistResultado area){
 
         checklistRepositorio.inserir(area)
@@ -108,63 +250,38 @@ public class ChecklistViewModel extends BaseViewModel {
 
 
 
-    public void inserNovaArea(AreaChecklistResultado area){
-
-        checklistRepositorio.validarSubDescricaoArea(area.idAtividade, area.idChecklist, area.idArea, area.subDescricao)
-                .flatMap(new Function<Boolean, SingleSource<?>>() {
-                    @Override
-                    public SingleSource<?> apply(Boolean resultado) throws Exception {
 
 
-                        if(resultado == false){
-                            return checklistRepositorio.inserir(area);
-                        }
 
-                        return null;
-                    }
-                })
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-
-                        new SingleObserver<Object>() {
-                            @Override
-                            public void onSubscribe(Disposable d) {
-
-                            }
-
-                            @Override
-                            public void onSuccess(Object o) {
-                                messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_GRAVADOS_SUCESSO));
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-                                messagemLiveData.setValue(Recurso.erro("A descrição já existe"));
-                            }
-                        }
-
-                );
-
-    }
-
-
-    public void inserir(int idRegisto, QuestionarioChecklistResultado resultado) {
+    /**
+     * Metodo que permite gravar uma questão
+     * @param idAtividade o identificador da atividade
+     * @param idRegisto o identificador do registo da questão
+     * @param resultado os dados da questao
+     */
+    public void inserir(int idTarefa, int idAtividade, int idRegisto, QuestionarioChecklistResultado resultado) {
 
         if(idRegisto == 0) {
             checklistRepositorio.inserir(resultado)
+                    .flatMap(new Function<Long, SingleSource<?>>() {
+                        @Override
+                        public SingleSource<?> apply(Long aLong) throws Exception {
+                            return checklistRepositorio.gravarPropostaPlanoAcao(idAtividade, ConversorUtil.converter_long_Para_int(aLong), resultado);
+                        }
+                    })
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(
 
-                            new SingleObserver<Long>() {
+                            new SingleObserver<Object>() {
                                 @Override
                                 public void onSubscribe(Disposable d) {
                                     disposables.add(d);
                                 }
 
                                 @Override
-                                public void onSuccess(Long aLong) {
+                                public void onSuccess(Object o) {
+                                    abaterAtividadePendente(checklistRepositorio.resultadoDao, idTarefa, idAtividade);
                                     messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_GRAVADOS_SUCESSO));
                                 }
 
@@ -180,18 +297,24 @@ public class ChecklistViewModel extends BaseViewModel {
             resultado.id = idRegisto;
 
             checklistRepositorio.atualizar(resultado)
+                    .flatMap(new Function<Integer, SingleSource<?>>() {
+                        @Override
+                        public SingleSource<?> apply(Integer integer) throws Exception {
+                            return checklistRepositorio.gravarPropostaPlanoAcao(idAtividade, idRegisto, resultado);
+                        }
+                    })
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(
 
-                            new SingleObserver<Integer>() {
+                            new SingleObserver<Object>() {
                                 @Override
                                 public void onSubscribe(Disposable d) {
                                     disposables.add(d);
                                 }
 
                                 @Override
-                                public void onSuccess(Integer aLong) {
+                                public void onSuccess(Object o) {
                                     messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_EDITADOS_SUCESSO));
                                 }
 
@@ -206,10 +329,13 @@ public class ChecklistViewModel extends BaseViewModel {
     }
 
 
+    /**
+     * Metodo que permite gravar a secção como não aplicavel
+     * @param registo os dados da seccao
+     */
+    public void gravarNaoAplicavel(int idTarefa, int idAtividade, Item registo) {
 
-    public void gravarNaoAplicavel(int idAtividade, Item registo) {
-
-        checklistRepositorio.remover__(idAtividade, registo)
+        checklistRepositorio.gravarNaoAplicavel(registo)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -217,12 +343,12 @@ public class ChecklistViewModel extends BaseViewModel {
                         new CompletableObserver() {
                             @Override
                             public void onSubscribe(Disposable d) {
-
+                                disposables.add(d);
                             }
 
                             @Override
                             public void onComplete() {
-
+                                abaterAtividadePendente(checklistRepositorio.resultadoDao, idTarefa, idAtividade);
                             }
 
                             @Override
@@ -240,22 +366,22 @@ public class ChecklistViewModel extends BaseViewModel {
     //REMOVER
     //----------------------
 
-    public void remover(int idAtividade) {
+    public void remover(int idTarefa, int idAtividade, int idNovaChecklist) {
 
-        checklistRepositorio.remover(idAtividade)
+        checklistRepositorio.removerChecklist(idAtividade)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
 
-                        new SingleObserver<Integer>() {
+                        new CompletableObserver() {
                             @Override
                             public void onSubscribe(Disposable d) {
-
+                                disposables.add(d);
                             }
 
                             @Override
-                            public void onSuccess(Integer integer) {
-                                messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_REMOVIDOS_SUCESSO));
+                            public void onComplete() {
+                                inserirAreaGeral(idTarefa, idAtividade, idNovaChecklist);
                             }
 
                             @Override
@@ -300,6 +426,45 @@ public class ChecklistViewModel extends BaseViewModel {
     //--------------------
     //OBTER
     //--------------------
+
+
+    /**
+     * Metodo que permite obter as areas para criar uma nova área
+     * @param idChecklist o identificador da checklist
+     */
+    public void obterAreasChecklist(int idChecklist){
+
+        checklistRepositorio.obterAreasChecklist(idChecklist)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new SingleObserver<List<AreaChecklist>>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onSuccess(List<AreaChecklist> areaChecklists) {
+                                tipoAreas.setValue(areaChecklists);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+                        }
+                );
+    }
+
+
+
+
+
+
+
+
 
 
     public void obterChecklist(int idAtividade){
@@ -408,34 +573,6 @@ public class ChecklistViewModel extends BaseViewModel {
 
 
 
-
-    public void obterAreasChecklist(int idChecklist){
-
-        checklistRepositorio.obterAreasChecklist(idChecklist)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-
-                        new SingleObserver<List<AreaChecklist>>() {
-                            @Override
-                            public void onSubscribe(Disposable d) {
-
-                            }
-
-                            @Override
-                            public void onSuccess(List<AreaChecklist> areaChecklists) {
-                                tipoAreas.setValue(areaChecklists);
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-
-                            }
-                        }
-                );
-    }
-
-
     public void obterQuestoes(Item item){
 
         showProgressBar(true);
@@ -477,49 +614,6 @@ public class ChecklistViewModel extends BaseViewModel {
     //--------------------
     //MiSC
     //--------------------
-
-
-    public void inserirAreaGeral(int idAtividade, int idChecklist){
-
-
-        checklistRepositorio.validarAreaGeral(idAtividade, idChecklist)
-                .flatMap(new Function<Boolean, SingleSource<?>>() {
-                    @Override
-                    public SingleSource<?> apply(Boolean existe) throws Exception {
-
-                        if(existe == false){
-                            AreaChecklistResultado resultado = new AreaChecklistResultado(idAtividade, idChecklist, Identificadores.Checklist.ID_AREA_GERAL, Identificadores.Checklist.AREA_GERAL_SUB_DESCRICAO);
-
-                            return checklistRepositorio.inserir(resultado);
-                        }
-
-                        return null;
-                    }
-                })
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-
-                        new SingleObserver<Object>() {
-                            @Override
-                            public void onSubscribe(Disposable d) {
-                                disposables.add(d);
-                            }
-
-                            @Override
-                            public void onSuccess(Object o) {
-                                obterAreas(idAtividade, idChecklist);
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-                                obterAreas(idAtividade, idChecklist);
-                            }
-                        }
-
-                );
-
-    }
 
 
 

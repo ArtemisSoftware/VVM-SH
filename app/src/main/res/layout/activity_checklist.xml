@@ -278,7 +278,7 @@
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_acao_formacao"
                 app:fab_size="mini"
-                app:fab_label="@string/acao_formacao" />
+                app:fab_label="@string/alterar_checklist" />
 
         </com.github.clans.fab.FloatingActionMenu>
 

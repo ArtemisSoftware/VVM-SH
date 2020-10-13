@@ -3,11 +3,13 @@ package com.vvm.sh.repositorios;
 import androidx.annotation.NonNull;
 
 import com.vvm.sh.baseDados.dao.AreaChecklistDao;
+import com.vvm.sh.baseDados.dao.PropostaPlanoAcaoDao;
 import com.vvm.sh.baseDados.dao.QuestionarioChecklistDao;
 import com.vvm.sh.baseDados.dao.ResultadoDao;
 import com.vvm.sh.baseDados.dao.TipoDao;
 import com.vvm.sh.baseDados.entidades.AreaChecklist;
 import com.vvm.sh.baseDados.entidades.AreaChecklistResultado;
+import com.vvm.sh.baseDados.entidades.PropostaPlanoAcaoResultado;
 import com.vvm.sh.baseDados.entidades.QuestionarioChecklistResultado;
 import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.modelos.Item;
@@ -22,12 +24,15 @@ import java.util.List;
 import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Single;
+import io.reactivex.SingleSource;
+import io.reactivex.functions.BiFunction;
 import io.reactivex.functions.Function4;
 
 public class ChecklistRepositorio {
 
     private final AreaChecklistDao areaChecklistDao;
     private final QuestionarioChecklistDao questionarioChecklistDao;
+    private final PropostaPlanoAcaoDao propostaPlanoAcaoDao;
     private final TipoDao tipoDao;
     public final ResultadoDao resultadoDao;
     private int api;
@@ -35,10 +40,12 @@ public class ChecklistRepositorio {
 
 
     public ChecklistRepositorio(@NonNull int api, @NonNull AreaChecklistDao areaChecklistDao, @NonNull QuestionarioChecklistDao questionarioChecklistDao,
+                                @NonNull PropostaPlanoAcaoDao propostaPlanoAcaoDao,
                                          @NonNull TipoDao tipoDao, @NonNull ResultadoDao resultadoDao) {
 
         this.areaChecklistDao = areaChecklistDao;
         this.questionarioChecklistDao = questionarioChecklistDao;
+        this.propostaPlanoAcaoDao = propostaPlanoAcaoDao;
         this.tipoDao = tipoDao;
         this.resultadoDao = resultadoDao;
 
@@ -62,6 +69,24 @@ public class ChecklistRepositorio {
     public Single<Long> inserir(QuestionarioChecklistResultado registo){
         return questionarioChecklistDao.inserir(registo);
     }
+
+    public SingleSource<? extends Object> gravarPropostaPlanoAcao(int idAtividade, int idQuestao, QuestionarioChecklistResultado registo) {
+
+        if(registo.resposta.equals(TiposConstantes.Checklist.NAO.descricao) == true){
+
+            PropostaPlanoAcaoResultado propostaPlanoAcaoResultado = new PropostaPlanoAcaoResultado(idAtividade, idQuestao);
+            return Single.zip(propostaPlanoAcaoDao.remover(idQuestao), propostaPlanoAcaoDao.inserir(propostaPlanoAcaoResultado), new BiFunction<Integer, Long, Object>() {
+                @Override
+                public Object apply(Integer integer, Long aLong) throws Exception {
+                    return integer;
+                }
+            });
+        }
+        else{
+            return propostaPlanoAcaoDao.remover(idQuestao);
+        }
+    }
+
 
 
     /**
@@ -107,6 +132,14 @@ public class ChecklistRepositorio {
     }
 
 
+    /**
+     * Metodo que indica se uma subdescricao já está associada a uma area
+     * @param idAtividade
+     * @param idChecklist
+     * @param idArea
+     * @param subDescricao
+     * @return
+     */
     public Single<Boolean> validarSubDescricaoArea(int idAtividade, int idChecklist, int idArea, String subDescricao){
         return areaChecklistDao.validarSubDescricaoArea(idAtividade, idChecklist, idArea, subDescricao);
     }
@@ -164,13 +197,38 @@ public class ChecklistRepositorio {
         return questionarioChecklistDao.removerArea(id);
     }
 
-    public Completable remover__(int idAtividade, Item registo) {
+    /**
+     * Metodo que permite gravar uma secção como na aplicavel
+     * @param registo o registo da seccao
+     * @return
+     */
+    public Completable gravarNaoAplicavel(Item registo) {
 
-        Completable lolo2 = questionarioChecklistDao.removerArea(registo.idArea, registo.uid);
-                Completable lolo = questionarioChecklistDao.inserirNaoAplicavel(registo.id, registo.uid, Identificadores.Checklist.TIPO_QUESTAO, TiposConstantes.Checklist.NAO_APLICAVEL.descricao);
-        Completable all = Completable.concatArray(lolo2, lolo);
+        Completable removerPropostaPlanoAcao_ST = questionarioChecklistDao.removerPropostaPlanoAcao_ST(registo.id);
+        Completable removerArea = questionarioChecklistDao.removerArea(registo.id, registo.uid, Identificadores.Checklist.TIPO_QUESTAO);
+        Completable inserirNaoAplicavel = questionarioChecklistDao.inserirNaoAplicavel(registo.id, registo.uid, Identificadores.Checklist.TIPO_QUESTAO, TiposConstantes.Checklist.NAO_APLICAVEL.descricao);
 
-        return all;
+        Completable completable = Completable.concatArray(removerPropostaPlanoAcao_ST, removerArea, inserirNaoAplicavel);
+
+        return completable;
 
     }
+
+
+    /**
+     * Metodo que permite remover a checklist
+     * @param idAtividade o identificador da atividade
+     * @return
+     */
+    public Completable removerChecklist(int idAtividade) {
+
+        Completable removerPropostaPlanoAcao_ST = questionarioChecklistDao.removerPropostaPlanoAcao_ST_Checklist(idAtividade);
+        Completable removerArea = questionarioChecklistDao.removerArea_Checklist(idAtividade);
+
+        Completable completable = Completable.concatArray(removerPropostaPlanoAcao_ST, removerArea);
+
+        return completable;
+
+    }
+
 }

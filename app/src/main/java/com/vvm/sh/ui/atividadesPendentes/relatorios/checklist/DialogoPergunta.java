@@ -18,6 +18,7 @@ import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.modelos.Item;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.constantes.TiposConstantes;
+import com.vvm.sh.util.metodos.PreferenciasUtil;
 
 import javax.inject.Inject;
 
@@ -36,6 +37,7 @@ public class DialogoPergunta  extends BaseDaggerDialogoPersistenteFragment
     private static final String ARGUMENTO_ID_REGISTO = "idRegisto";
     private static final String ARGUMENTO_TIPO_QUESTAO = "tipoQuestao";
     private static final String ARGUMENTO_NUMERO_UT = "numeroUt";
+    private static final String ARGUMENTO_ID_ATIVIDADE = "idAtividade";
 
 
     public DialogoPergunta() {
@@ -43,20 +45,21 @@ public class DialogoPergunta  extends BaseDaggerDialogoPersistenteFragment
     }
 
 
-    public static DialogoPergunta newInstance(Item item, String idQuestao, String tipoQuestao, int idRegisto) {
+    public static DialogoPergunta newInstance(Item item, int idAtividade, String idQuestao, String tipoQuestao, int idRegisto) {
         DialogoPergunta fragmento = new DialogoPergunta();
 
         Bundle args = new Bundle();
         args.putParcelable(ARGUMENTO_ITEM, item);
         args.putString(ARGUMENTO_ID_QUESTAO, idQuestao);
         args.putString(ARGUMENTO_TIPO_QUESTAO, tipoQuestao);
+        args.putInt(ARGUMENTO_ID_ATIVIDADE, idAtividade);
         args.putInt(ARGUMENTO_ID_REGISTO, idRegisto);
         fragmento.setArguments(args);
         return fragmento;
     }
 
 
-    public static DialogoPergunta newInstance(Item item, String idQuestao, String tipoQuestao, int idRegisto, int numeroUt) {
+    public static DialogoPergunta newInstance(Item item, int idAtividade, String idQuestao, String tipoQuestao, int idRegisto, int numeroUt) {
         DialogoPergunta fragmento = new DialogoPergunta();
 
         Bundle args = new Bundle();
@@ -64,6 +67,7 @@ public class DialogoPergunta  extends BaseDaggerDialogoPersistenteFragment
         args.putString(ARGUMENTO_ID_QUESTAO, idQuestao);
         args.putString(ARGUMENTO_TIPO_QUESTAO, tipoQuestao);
         args.putInt(ARGUMENTO_ID_REGISTO, idRegisto);
+        args.putInt(ARGUMENTO_ID_ATIVIDADE, idAtividade);
         args.putInt(ARGUMENTO_NUMERO_UT, numeroUt);
         fragmento.setArguments(args);
         return fragmento;
@@ -136,6 +140,7 @@ public class DialogoPergunta  extends BaseDaggerDialogoPersistenteFragment
 
         Item item = getArguments().getParcelable(ARGUMENTO_ITEM);
         String idQuestao = getArguments().getString(ARGUMENTO_ID_QUESTAO);
+        int idAtividade = getArguments().getInt(ARGUMENTO_ID_ATIVIDADE);
         int idRegisto = getArguments().getInt(ARGUMENTO_ID_REGISTO);
 
         String tipo = getArguments().getString(ARGUMENTO_TIPO_QUESTAO);
@@ -198,7 +203,7 @@ public class DialogoPergunta  extends BaseDaggerDialogoPersistenteFragment
 
 
         if(resultado != null) {
-            viewModel.inserir(idRegisto, resultado);
+            viewModel.inserir(PreferenciasUtil.obterIdTarefa(getContext()), idAtividade, idRegisto, resultado);
         }
     }
 

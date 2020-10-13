@@ -13,6 +13,7 @@ import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerDialogoPersistenteFragment;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.modelos.Item;
 import com.vvm.sh.util.Recurso;
+import com.vvm.sh.util.metodos.PreferenciasUtil;
 
 import javax.inject.Inject;
 
@@ -70,9 +71,10 @@ public class DialogoArea extends BaseDaggerDialogoPersistenteFragment {
 
 
         if(verificarArgumentos(ARGUMENTO_ITEM) == true){
+            binding.spnrAreas.setEnabled(false);
 
             binding.setIdArea(((Item) getArguments().getParcelable(ARGUMENTO_ITEM)).idArea);
-            binding.txtInpDescricaoArea.setText(((Item) getArguments().getParcelable(ARGUMENTO_ITEM)).descricao);
+            binding.txtInpDescricaoArea.setText(((Item) getArguments().getParcelable(ARGUMENTO_ITEM)).subDescricao);
             viewModel.obterAreasChecklist(getArguments().getInt(ARGUMENTO_ID_CHECKLIST));
         }
         else if(verificarArgumentos(ARGUMENTO_ID_CHECKLIST) == true){
@@ -108,8 +110,14 @@ public class DialogoArea extends BaseDaggerDialogoPersistenteFragment {
 
                     case SUCESSO:
 
-                        dialogo.sucesso(recurso.messagem);
-                        binding.txtInpDescricaoArea.setText("");
+                        if((boolean)recurso.dados == true) {
+
+                            dialogo.sucesso(recurso.messagem);
+                            binding.txtInpDescricaoArea.setText("");
+                        }
+                        else{
+                            dialogo.sucesso(recurso.messagem, listener);
+                        }
                         break;
 
                     case ERRO:
@@ -143,7 +151,16 @@ public class DialogoArea extends BaseDaggerDialogoPersistenteFragment {
             resultado.subDescricao = descricao;
         }
 
-        viewModel.inserNovaArea(resultado);
+        if(verificarArgumentos(ARGUMENTO_ITEM) == true) {
+
+            Item item = getArguments().getParcelable(ARGUMENTO_ITEM);
+
+            resultado.id = item.id;
+            viewModel.editarArea(PreferenciasUtil.obterIdTarefa(getContext()), resultado);
+        }
+        else {
+            viewModel.inserNovaArea(PreferenciasUtil.obterIdTarefa(getContext()), resultado);
+        }
     }
 
 

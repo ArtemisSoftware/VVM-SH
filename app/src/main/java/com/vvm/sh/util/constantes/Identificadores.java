@@ -50,9 +50,10 @@ public class Identificadores {
         public static final int ORIGEM_RELATORIO_TEMPERATURA_HUMIDADE_MEDIDAS_RECOMENDADAS = 61;
 
 
-        public static final int VULNERABILIDADE_CATEGORIAS_PROFISSIONAIS_HOMENS = 10;
-        public static final int VULNERABILIDADE_CATEGORIAS_PROFISSIONAIS_MULHERES = 11;
+        public static final int VULNERABILIDADE_CATEGORIAS_PROFISSIONAIS_HOMENS = 70;
+        public static final int VULNERABILIDADE_CATEGORIAS_PROFISSIONAIS_MULHERES = 71;
 
+        public static final int CHECKLIST = 8;
 
 /**/
         public static final int ORIGEM_LEVANTAMENTO_RISCO = 7;
@@ -72,6 +73,7 @@ public class Identificadores {
         public static final int PROPOSTA_MEDIDAS_AVALIACAO = 16;
 
         public static final int AVALIACAO_AMBIENTAL_TEMPERATURA_HUMIDADE= 17;
+
     }
 
 

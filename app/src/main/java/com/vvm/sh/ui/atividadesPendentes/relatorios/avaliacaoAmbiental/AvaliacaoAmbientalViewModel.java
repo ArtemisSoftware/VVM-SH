@@ -128,7 +128,7 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
                                 @Override
                                 public void onSuccess(Long aLong) {
                                     messagemLiveData.setValue(Recurso.successo(aLong, Sintaxe.Frases.DADOS_GRAVADOS_SUCESSO));
-                                    abaterAtividadePendente(avaliacaoAmbientalRepositorio.resultadoDao, idTarefa, registo.idAtividade, ResultadoId.ATIVIDADE_PENDENTE);
+                                    abaterAtividadePendente(avaliacaoAmbientalRepositorio.resultadoDao, idTarefa, registo.idAtividade);
                                 }
 
                                 @Override
@@ -153,7 +153,7 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
                                 @Override
                                 public void onSuccess(Integer integer) {
                                     messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_EDITADOS_SUCESSO));
-                                    abaterAtividadePendente(avaliacaoAmbientalRepositorio.resultadoDao, idTarefa, registo.idAtividade, ResultadoId.ATIVIDADE_PENDENTE);
+                                    abaterAtividadePendente(avaliacaoAmbientalRepositorio.resultadoDao, idTarefa, registo.idAtividade);
                                 }
 
                                 @Override
@@ -210,7 +210,7 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
                                 @Override
                                 public void onSuccess(Object o) {
                                     messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_GRAVADOS_SUCESSO));
-                                    abaterAtividadePendente(avaliacaoAmbientalRepositorio.resultadoDao, idTarefa, idAtividade, ResultadoId.ATIVIDADE_PENDENTE);
+                                    abaterAtividadePendente(avaliacaoAmbientalRepositorio.resultadoDao, idTarefa, idAtividade);
                                 }
 
                                 @Override
@@ -272,7 +272,7 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
                                 @Override
                                 public void accept(Object o) throws Exception {
                                     messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_EDITADOS_SUCESSO));
-                                    abaterAtividadePendente(avaliacaoAmbientalRepositorio.resultadoDao, idTarefa, idAtividade, ResultadoId.ATIVIDADE_PENDENTE);
+                                    abaterAtividadePendente(avaliacaoAmbientalRepositorio.resultadoDao, idTarefa, idAtividade);
                                 }
                             }
                     );
@@ -315,7 +315,7 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
                             @Override
                             public void onSuccess(Object o) {
                                 messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_REMOVIDOS_SUCESSO));
-                                abaterAtividadePendente(avaliacaoAmbientalRepositorio.resultadoDao, idTarefa, idAtividade, ResultadoId.ATIVIDADE_PENDENTE);
+                                abaterAtividadePendente(avaliacaoAmbientalRepositorio.resultadoDao, idTarefa, idAtividade);
                             }
 
                             @Override

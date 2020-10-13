@@ -111,7 +111,7 @@ public class ChecklistActivity extends BaseDaggerActivity
             public void onChanged(Tipo tipo) {
                 checklist = tipo;
 
-                viewModel.inserirAreaGeral(getIntent().getExtras().getInt(getString(R.string.argumento_id_atividade)), checklist.id);
+                viewModel.inserirAreaGeral(PreferenciasUtil.obterIdTarefa(getApplicationContext()), getIntent().getExtras().getInt(getString(R.string.argumento_id_atividade)), checklist.id);
             }
         });
 
@@ -130,14 +130,25 @@ public class ChecklistActivity extends BaseDaggerActivity
 
         }
         else{
+
+            Bundle bundle = getIntent().getExtras();
+            int idAtividade = bundle.getInt(getString(R.string.argumento_id_atividade));
+
             Intent intent = new Intent(this, QuestoesChecklistActivity.class);
             intent.putExtra(getString(R.string.argumento_registo_area), registo);
+            intent.putExtra(getString(R.string.argumento_id_atividade), idAtividade);
             startActivity(intent);
         }
     }
 
     @Override
     public void OnEditarClick(Item registo) {
+
+        Bundle bundle = getIntent().getExtras();
+        int idAtividade = bundle.getInt(getString(R.string.argumento_id_atividade));
+
+        DialogoArea dialogo = DialogoArea.newInstance(idAtividade, checklist.id, registo);
+        dialogo.show(getSupportFragmentManager(), "example dialog");
 
     }
 
@@ -151,7 +162,8 @@ public class ChecklistActivity extends BaseDaggerActivity
 
         Bundle bundle = getIntent().getExtras();
         int idAtividade = bundle.getInt(getString(R.string.argumento_id_atividade));
-        viewModel.gravarNaoAplicavel(idAtividade, registo);
+
+        viewModel.gravarNaoAplicavel(PreferenciasUtil.obterIdTarefa(this), idAtividade, registo);
     }
 
     //--------------------

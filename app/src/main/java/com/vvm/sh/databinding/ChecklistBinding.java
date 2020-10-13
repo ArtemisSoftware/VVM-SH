@@ -112,11 +112,11 @@ public class ChecklistBinding {
         }
 
         if(item.completos == item.total){
-            view.setBackgroundResource(R.drawable.ic_validado);
-            view.setColorFilter(ContextCompat.getColor(view.getContext(), R.color.cor_executado), android.graphics.PorterDuff.Mode.MULTIPLY);
+            view.setImageResource(R.drawable.ic_validado);
+            view.setColorFilter(view.getContext().getResources().getColor(R.color.cor_executado));
         }
         else{
-            view.setBackgroundResource(R.drawable.ic_registo_incompleto);
+            view.setImageResource(R.drawable.ic_registo_incompleto);
         }
 
     }

@@ -140,7 +140,7 @@ public class PesquisaViewModel extends BaseViewModel {
                             @Override
                             public void onSuccess(List<Object> objects) {
                                 messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_GRAVADOS_SUCESSO));
-                                abaterAtividadePendente(equipamentoRepositorio.resultadoDao, idTarefa, idAtividade, ResultadoId.ATIVIDADE_PENDENTE);
+                                abaterAtividadePendente(equipamentoRepositorio.resultadoDao, idTarefa, idAtividade);
                             }
 
                             @Override

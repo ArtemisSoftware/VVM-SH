@@ -120,7 +120,7 @@ public class RegistoVisitaRepositorio {
                         registoVisita.trabalhoRealizados = trabalhoRealizados;
                         registoVisita.imagem = imagemResultado;
 
-                        return null;
+                        return registoVisita;
                     }
                 });
 

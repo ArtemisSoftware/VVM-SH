@@ -118,8 +118,9 @@ public class QuestoesChecklistActivity extends BaseDaggerActivity
 
         Bundle bundle = getIntent().getExtras();
         Item item = bundle.getParcelable(getString(R.string.argumento_registo_area));
+        int idAtividade = bundle.getInt(getString(R.string.argumento_id_atividade));
 
-        DialogoPergunta dialogo = DialogoPergunta.newInstance(item, questao.registo.uid, questao.registo.tipo, questao.id);
+        DialogoPergunta dialogo = DialogoPergunta.newInstance(item, idAtividade, questao.registo.uid, questao.registo.tipo, questao.id);
         dialogo.show(getSupportFragmentManager(), "example dialog");
     }
 
@@ -128,8 +129,9 @@ public class QuestoesChecklistActivity extends BaseDaggerActivity
 
         Bundle bundle = getIntent().getExtras();
         Item item = bundle.getParcelable(getString(R.string.argumento_registo_area));
+        int idAtividade = bundle.getInt(getString(R.string.argumento_id_atividade));
 
-        DialogoPergunta dialogo = DialogoPergunta.newInstance(item, questao.registo.uid, questao.registo.tipo, questao.id);
+        DialogoPergunta dialogo = DialogoPergunta.newInstance(item, idAtividade, questao.registo.uid, questao.registo.tipo, questao.id);
         dialogo.show(getSupportFragmentManager(), "example dialog");
     }
 
@@ -138,8 +140,9 @@ public class QuestoesChecklistActivity extends BaseDaggerActivity
 
         Bundle bundle = getIntent().getExtras();
         Item item = bundle.getParcelable(getString(R.string.argumento_registo_area));
+        int idAtividade = bundle.getInt(getString(R.string.argumento_id_atividade));
 
-        DialogoPergunta dialogo = DialogoPergunta.newInstance(item, questao.registo.uid, questao.registo.tipo, questao.id, numeroUt);
+        DialogoPergunta dialogo = DialogoPergunta.newInstance(item, idAtividade, questao.registo.uid, questao.registo.tipo, questao.id, numeroUt);
         dialogo.show(getSupportFragmentManager(), "example dialog");
     }
 

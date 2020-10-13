@@ -47,6 +47,8 @@ abstract public class PropostaPlanoAcaoDao implements BaseDao<PropostaPlanoAcaoR
     abstract public Observable<List<Proposta>> obterPropostasSt(int idAtividade);
 
 
+    @Query("DELETE FROM propostaPlanoAcaoResultado WHERE idQuestaoChecklis = :idQuestao")
+    abstract public Single<Integer> remover(int idQuestao);
 
 //    String query = "SELECT idMedida,  idPlano, medida, selecionado, MIN(idRegisto)   ";
 //    query += "FROM planoAcaoAVR_resultado as pl_ac_avr_res	   ";

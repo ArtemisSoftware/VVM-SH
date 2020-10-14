@@ -70,6 +70,7 @@ public class PerigoTarefaActivity extends BaseDaggerActivity {
 
                     case SUCESSO:
 
+                        viewModel.obterRelatorio((Integer) recurso.dados);
                         dialogo.sucesso(recurso.messagem, listenerActivity);
                         break;
 
@@ -99,7 +100,7 @@ public class PerigoTarefaActivity extends BaseDaggerActivity {
 
         LevantamentoRiscoResultado registo = new LevantamentoRiscoResultado(idAtividade, tarefa, perigo);
 
-        viewModel.gravar(registo);
+        viewModel.gravar(PreferenciasUtil.obterIdTarefa(this), registo);
     }
 
 }

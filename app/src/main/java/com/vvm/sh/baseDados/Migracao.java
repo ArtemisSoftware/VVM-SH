@@ -16,12 +16,50 @@ public class Migracao {
         Migration migrations [] =  new Migration []{
                 MIGRACAO_1_2, MIGRACAO_2_3, MIGRACAO_3_4, MIGRACAO_4_5, MIGRACAO_5_6, MIGRACAO_6_7, MIGRACAO_7_8, MIGRACAO_8_9, MIGRACAO_9_10, MIGRACAO_10_11,
                 MIGRACAO_11_12, MIGRACAO_12_13, MIGRACAO_13_14, MIGRACAO_14_15, MIGRACAO_15_16, MIGRACAO_16_17, MIGRACAO_17_18, MIGRACAO_18_19, MIGRACAO_19_20,
-                MIGRACAO_20_21, MIGRACAO_21_22, MIGRACAO_22_23, MIGRACAO_23_24, MIGRACAO_24_25, MIGRACAO_25_26, MIGRACAO_26_27
+                MIGRACAO_20_21, MIGRACAO_21_22, MIGRACAO_22_23, MIGRACAO_23_24, MIGRACAO_24_25, MIGRACAO_25_26, MIGRACAO_26_27, MIGRACAO_27_28
 
         };
 
         return migrations;
     }
+
+
+
+
+    public static final Migration MIGRACAO_27_28 = new Migration(27, 28) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            try {
+
+
+                database.execSQL("DROP TABLE IF EXISTS 'riscosResultado' ");
+                database.execSQL("DROP INDEX IF EXISTS index_riscosResultado_idLevantamento ");
+
+                database.execSQL("CREATE TABLE IF NOT EXISTS 'riscosResultado' ("
+                        + "'idLevantamento' INTEGER NOT NULL, "
+                        + "'id' INTEGER PRIMARY KEY NOT NULL, "
+                        + "'idRisco' INTEGER NOT NULL, "
+                        + "'idRiscoEspecifico' INTEGER NOT NULL, "
+                        + "'consequencias' TEXT NOT NULL, "
+                        + "'nd' TEXT NOT NULL, "
+                        + "'ne' TEXT NOT NULL, "
+                        + "'nc' TEXT NOT NULL, "
+                        + "'ni' TEXT NOT NULL, "
+                        + "'idTipoRisco' INTEGER NOT NULL, "
+                        + "'origem' INTEGER NOT NULL DEFAULT " + Identificadores.Origens.ORIGEM_BD + " ,  "
+                        + "FOREIGN KEY (idLevantamento) REFERENCES levantamentosRiscoResultado (id)  ON DELETE CASCADE)  ");
+
+                database.execSQL("CREATE INDEX index_riscosResultado_idLevantamento ON riscosResultado (idLevantamento)");
+
+
+
+            }
+            catch(SQLException | IllegalStateException e){
+                Log.e("Migracao", "erro MIGRACAO_26_27: " + e.getMessage());
+                //Timber.e("erro MIGRACAO_2_3: " + e.getMessage());
+            }
+        }
+    };
 
 
 

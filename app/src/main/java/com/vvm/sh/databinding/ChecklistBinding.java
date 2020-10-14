@@ -124,4 +124,30 @@ public class ChecklistBinding {
 
 
 
+    @BindingAdapter({"imagemChecklist"})
+    public static void setImagemChecklist(ImageView view, int id) {
+
+        switch (id){
+
+            case 4:
+
+                view.setBackgroundResource(R.drawable.comercio_banner);
+                break;
+
+            case 5:
+
+                view.setBackgroundResource(R.drawable.industria_banner);
+                break;
+
+            case 6:
+
+                view.setBackgroundResource(R.drawable.restauracao_banner);
+                break;
+
+            default:
+                break;
+
+        }
+    }
+
 }

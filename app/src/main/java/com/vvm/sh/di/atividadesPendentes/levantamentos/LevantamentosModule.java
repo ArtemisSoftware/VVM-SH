@@ -3,6 +3,7 @@ package com.vvm.sh.di.atividadesPendentes.levantamentos;
 import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.baseDados.dao.CategoriaProfissionalDao;
 import com.vvm.sh.baseDados.dao.LevantamentoDao;
+import com.vvm.sh.baseDados.dao.MedidaDao;
 import com.vvm.sh.baseDados.dao.ResultadoDao;
 import com.vvm.sh.baseDados.dao.RiscoDao;
 import com.vvm.sh.baseDados.dao.TipoDao;
@@ -44,11 +45,20 @@ public class LevantamentosModule {
 
     @LevantamentosScope
     @Provides
+    static MedidaDao provideProvidesMedidaDao(VvmshBaseDados vvmshBaseDados){
+
+        MedidaDao dao = vvmshBaseDados.obterMedidaDao();
+        return dao;
+    }
+
+
+    @LevantamentosScope
+    @Provides
     LevantamentoRepositorio provideLevantamentoRepositorio(int idApi, LevantamentoDao levantamentoDao, CategoriaProfissionalDao categoriaProfissionalDao,
-                                                           RiscoDao riscoDao,
+                                                           RiscoDao riscoDao, MedidaDao medidaDao,
                                                            TipoDao tipoDao, ResultadoDao resultadoDao) {
 
-        LevantamentoRepositorio repositorio = new LevantamentoRepositorio(idApi, levantamentoDao, categoriaProfissionalDao, riscoDao, tipoDao, resultadoDao);
+        LevantamentoRepositorio repositorio = new LevantamentoRepositorio(idApi, levantamentoDao, categoriaProfissionalDao, riscoDao, medidaDao, tipoDao, resultadoDao);
 
         //Timber.d("Providing PokemonRepository: " + repository);
         return repositorio;

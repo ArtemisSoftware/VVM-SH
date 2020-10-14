@@ -31,81 +31,22 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
-
-            <TextView
-                android:id="@+id/textView77"
-                style="@style/textoDetalhe"
-                android:layout_marginTop="8dp"
-                android:text="TextView"
-                app:layout_constraintStart_toStartOf="@+id/textView75"
-                app:layout_constraintTop_toBottomOf="@+id/textView75" />
-
             <TextView
                 android:id="@+id/textView"
                 style="@style/tituloCartao"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
-
+                android:text="@{risco.risco, default=risco}"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+
+
+
+
+
+
             <!-- android:text="@{formando.resultado.nome, default=nome}" -->
-
-            <TextView
-                android:id="@+id/textView2"
-                style="@style/textoDetalhe"
-                android:layout_marginTop="@dimen/distancia_vertical_titulo"
-                android:text="@string/risco_"
-                app:layout_constraintStart_toStartOf="@+id/textView"
-                app:layout_constraintTop_toBottomOf="@+id/textView" />
-
-            <TextView
-                android:id="@+id/textView3"
-                style="@style/textoDetalhe"
-                android:layout_marginStart="16dp"
-                android:text="@{risco.risco, default=risco}"
-                app:layout_constraintStart_toEndOf="@+id/textView2"
-                app:layout_constraintTop_toTopOf="@+id/textView2" />
-
-            <!-- android:text="@{formando.resultado.biCartaoCidadao, default=identificacao}" -->
-
-            <com.google.android.material.chip.ChipGroup
-                android:id="@+id/chipGroup"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp"
-                android:theme="@style/Theme.MaterialComponents.Light"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/textView"
-                app:layout_constraintTop_toBottomOf="@+id/textView76">
-
-                <com.google.android.material.chip.Chip
-                    android:id="@+id/chip"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-
-                    android:theme="@style/Theme.MaterialComponents.Light" />
-
-
-            </com.google.android.material.chip.ChipGroup>
-
-
-            <TextView
-                android:id="@+id/textView37"
-
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintEnd_toEndOf="parent" />
-
-            <!--
-
-                            android:text="@{StringUtil.converterString(formando.resultado.id), default=id}"
-                android:visibility="@{BuildConfig.DEBUG ? View.VISIBLE : View.GONE}"
-            -->
 
             <TextView
                 android:id="@+id/textView68"
@@ -113,16 +54,17 @@
                 android:layout_marginTop="8dp"
                 android:text="@string/risco_especifico_"
                 app:layout_constraintStart_toStartOf="@+id/textView"
-                app:layout_constraintTop_toBottomOf="@+id/textView2" />
+                app:layout_constraintTop_toBottomOf="@+id/textView"  />
 
             <TextView
                 android:id="@+id/textView69"
                 style="@style/textoDetalhe"
                 android:layout_marginStart="16dp"
-                android:text="TextView"
+                android:text="@{risco.riscoEspecifico, default=risco}"
                 app:layout_constraintBottom_toBottomOf="@+id/textView68"
                 app:layout_constraintStart_toEndOf="@+id/textView68"
                 app:layout_constraintTop_toTopOf="@+id/textView68" />
+
 
             <TextView
                 android:id="@+id/textView70"
@@ -141,6 +83,28 @@
                 app:layout_constraintStart_toEndOf="@+id/textView70"
                 app:layout_constraintTop_toTopOf="@+id/textView70" />
 
+
+
+
+            <!-- android:text="@{formando.resultado.biCartaoCidadao, default=identificacao}" -->
+
+
+
+
+
+
+            <!--
+
+                            android:text="@{StringUtil.converterString(formando.resultado.id), default=id}"
+                android:visibility="@{BuildConfig.DEBUG ? View.VISIBLE : View.GONE}"
+            -->
+
+
+
+
+
+
+
             <TextView
                 android:id="@+id/textView72"
                 style="@style/textoDetalhe"
@@ -158,29 +122,110 @@
                 app:layout_constraintStart_toEndOf="@+id/textView72"
                 app:layout_constraintTop_toTopOf="@+id/textView72" />
 
-            <TextView
-                android:id="@+id/textView74"
-                style="@style/textoDescritivo"
+
+
+
+
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="16dp"
-                android:text="@string/medidas_existentes"
+                android:layout_marginEnd="16dp"
+                android:orientation="horizontal"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintHorizontal_bias="0.0"
                 app:layout_constraintStart_toStartOf="@+id/textView"
-                app:layout_constraintTop_toBottomOf="@+id/textView72" />
+                app:layout_constraintTop_toBottomOf="@+id/textView72"
+                android:weightSum="2">
+
+
+                <LinearLayout
+                    android:id="@+id/linearLayout1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+
+                    <TextView
+                        android:id="@+id/textView52"
+                        style="@style/textoDescritivo"
+                        android:text="@string/medidas_existentes" />
+
+                    <TextView
+                        android:id="@+id/textView54"
+                        style="@style/textoDetalhe"
+                        listagemTipos="@{risco.medidasExistentes}"
+                        android:layout_marginTop="8dp"/>
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/linearLayout2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="32dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:paddingRight="18dp">
+
+                    <TextView
+                        android:id="@+id/textView53"
+                        style="@style/textoDescritivo"
+                        android:text="@string/medidas_recomendadas" />
+
+                    <TextView
+                        android:id="@+id/textView56"
+                        style="@style/textoDetalhe"
+                        listagemTipos="@{risco.medidasRecomendadas}"
+                        android:layout_marginTop="8dp"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
+
+
+            <com.google.android.material.chip.ChipGroup
+                android:id="@+id/chipGroup"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:theme="@style/Theme.MaterialComponents.Light"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/textView"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    completudeRelatorio="@{risco.valido}"
+                    android:theme="@style/Theme.MaterialComponents.Light" />
+
+
+            </com.google.android.material.chip.ChipGroup>
+
+
+
 
             <TextView
-                android:id="@+id/textView75"
-                style="@style/textoDescritivo"
-                android:layout_marginStart="126dp"
-                android:text="@string/medidas_recomendadas"
-                app:layout_constraintStart_toEndOf="@+id/textView74"
-                app:layout_constraintTop_toTopOf="@+id/textView74" />
+                android:id="@+id/textView37"
+                android:text="@{StringUtil.converterString(risco.resultado.id), default=id}"
+                android:visibility="@{BuildConfig.DEBUG ? View.VISIBLE : View.GONE}"
 
-            <TextView
-                android:id="@+id/textView76"
-                style="@style/textoDetalhe"
-                android:layout_marginTop="8dp"
-                android:text="TextView"
-                app:layout_constraintStart_toStartOf="@+id/textView"
-                app:layout_constraintTop_toBottomOf="@+id/textView74" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="8dp"
+                android:layout_marginBottom="8dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent" />
+
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

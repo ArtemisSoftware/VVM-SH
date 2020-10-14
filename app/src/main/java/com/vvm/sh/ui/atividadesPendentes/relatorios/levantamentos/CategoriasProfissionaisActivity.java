@@ -78,7 +78,9 @@ public class CategoriasProfissionaisActivity extends BaseDaggerActivity
     @Override
     public void OnCategoriaProfissionalClick(CategoriaProfissional registo) {
 
-        DialogoCategoriasProfissionais dialogo = DialogoCategoriasProfissionais.newInstance(registo);
+        Bundle bundle = getIntent().getExtras();
+        int idAtividade = bundle.getInt(getString(R.string.argumento_id_atividade));
+        DialogoCategoriasProfissionais dialogo = DialogoCategoriasProfissionais.newInstance(idAtividade, registo);
         dialogo.show(getSupportFragmentManager(), "Dialogo");
     }
 
@@ -86,7 +88,9 @@ public class CategoriasProfissionaisActivity extends BaseDaggerActivity
     @Override
     public void OnRemoverClick(CategoriaProfissional categoria) {
 
-        viewModel.remover(categoria.categoria);
+        Bundle bundle = getIntent().getExtras();
+        int idAtividade = bundle.getInt(getString(R.string.argumento_id_atividade));
+        viewModel.remover(PreferenciasUtil.obterIdTarefa(this), idAtividade, categoria.categoria);
     }
 
 
@@ -121,7 +125,8 @@ public class CategoriasProfissionaisActivity extends BaseDaggerActivity
 
                 Bundle bundle = getIntent().getExtras();
                 int id = bundle.getInt(getString(R.string.argumento_id_levantamento));
-                viewModel.gravarCategoriasProfissionais(id, resultado);
+                int idAtividade = bundle.getInt(getString(R.string.argumento_id_atividade));
+                viewModel.gravarCategoriasProfissionais(PreferenciasUtil.obterIdTarefa(this), idAtividade, id, resultado);
             }
         }
     }

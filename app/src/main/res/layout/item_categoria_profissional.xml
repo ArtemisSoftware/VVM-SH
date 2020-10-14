@@ -25,7 +25,6 @@
         style="@style/cartao">
 
 
-
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
@@ -43,17 +42,38 @@
             <TextView
                 android:id="@+id/textView2"
                 style="@style/textoDetalhe"
-                android:text="@string/homens_"
                 android:layout_marginTop="@dimen/distancia_vertical_titulo"
+                android:text="@string/homens_"
                 app:layout_constraintStart_toStartOf="@+id/textView"
                 app:layout_constraintTop_toBottomOf="@+id/textView" />
 
             <TextView
                 android:id="@+id/textView3"
                 style="@style/textoDetalhe"
+                android:layout_marginStart="16dp"
                 android:text="@{StringUtil.converterString(categoria.categoria.homens), default=homens}"
-                app:layout_constraintStart_toStartOf="@+id/textView67"
+                app:layout_constraintBottom_toBottomOf="@+id/textView2"
+                app:layout_constraintStart_toEndOf="@+id/textView2"
                 app:layout_constraintTop_toTopOf="@+id/textView2" />
+
+
+            <TextView
+                android:id="@+id/textView65"
+                style="@style/textoDetalhe"
+                android:layout_marginStart="32dp"
+                android:text="@string/mulheres_"
+                app:layout_constraintBottom_toBottomOf="@+id/textView2"
+                app:layout_constraintStart_toEndOf="@+id/textView3"
+                app:layout_constraintTop_toTopOf="@+id/textView2" />
+
+            <TextView
+                android:id="@+id/textView67"
+                style="@style/textoDetalhe"
+                android:layout_marginStart="16dp"
+                android:text="@{StringUtil.converterString(categoria.categoria.mulheres), default=mulheres}"
+                app:layout_constraintBottom_toBottomOf="@+id/textView65"
+                app:layout_constraintStart_toEndOf="@+id/textView65"
+                app:layout_constraintTop_toTopOf="@+id/textView65" />
 
 
             <com.google.android.material.chip.ChipGroup
@@ -69,52 +89,34 @@
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chip"
+                    completudeRelatorio="@{categoria.valido}"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    completudeRelatorio="@{categoria.valido}"
                     android:theme="@style/Theme.MaterialComponents.Light" />
 
 
             </com.google.android.material.chip.ChipGroup>
 
 
-
-
             <TextView
                 android:id="@+id/textView37"
-                android:text="@{StringUtil.converterString(categoria.categoria.id), default=id}"
-                android:visibility="@{BuildConfig.DEBUG ? View.VISIBLE : View.GONE}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
                 android:layout_marginBottom="8dp"
+                android:text="@{StringUtil.converterString(categoria.categoria.id), default=id}"
+                android:visibility="@{BuildConfig.DEBUG ? View.VISIBLE : View.GONE}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
 
-            <TextView
-                android:id="@+id/textView65"
-                style="@style/textoDetalhe"
-                android:layout_marginTop="8dp"
-                android:text="@string/mulheres_"
-                app:layout_constraintStart_toStartOf="@+id/textView"
-                app:layout_constraintTop_toBottomOf="@+id/textView2" />
-
-            <TextView
-                android:id="@+id/textView67"
-                style="@style/textoDetalhe"
-                android:layout_marginStart="16dp"
-                android:text="@{StringUtil.converterString(categoria.categoria.mulheres), default=mulheres}"
-                app:layout_constraintBottom_toBottomOf="@+id/textView65"
-                app:layout_constraintStart_toEndOf="@+id/textView65"
-                app:layout_constraintTop_toTopOf="@+id/textView65" />
 
             <TextView
                 android:id="@+id/txt_detalhe"
                 style="@style/textoDetalhe"
-                android:visibility="@{categoria.completarRegisto() ? View.VISIBLE : View.GONE}"
                 android:layout_marginEnd="32dp"
                 android:layout_marginBottom="24dp"
                 android:text="@string/clicar_completar_registo"
+                android:visibility="@{categoria.completarRegisto() ? View.VISIBLE : View.GONE}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
 

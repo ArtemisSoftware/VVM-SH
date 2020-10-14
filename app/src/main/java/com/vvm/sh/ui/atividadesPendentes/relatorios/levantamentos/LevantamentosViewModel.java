@@ -4,9 +4,11 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.vvm.sh.baseDados.entidades.CategoriaProfissionalResultado;
 import com.vvm.sh.baseDados.entidades.LevantamentoRiscoResultado;
+import com.vvm.sh.baseDados.entidades.MedidaResultado;
 import com.vvm.sh.baseDados.entidades.RiscoResultado;
 import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.repositorios.LevantamentoRepositorio;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.modelos.AvaliacaoAmbiental;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.modelos.CategoriaProfissional;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.modelos.Levantamento;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.modelos.RelatorioLevantamento;
@@ -14,20 +16,30 @@ import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.modelos.Risco;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.constantes.Sintaxe;
+import com.vvm.sh.util.metodos.ConversorUtil;
 import com.vvm.sh.util.metodos.TiposUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
+
+import org.reactivestreams.Subscription;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
+import io.reactivex.FlowableSubscriber;
 import io.reactivex.MaybeObserver;
+import io.reactivex.Observable;
+import io.reactivex.ObservableSource;
 import io.reactivex.Observer;
 import io.reactivex.Single;
 import io.reactivex.SingleObserver;
+import io.reactivex.SingleSource;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.BiFunction;
+import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
 import io.reactivex.functions.Function4;
 import io.reactivex.functions.Function5;
 import io.reactivex.schedulers.Schedulers;
@@ -48,13 +60,19 @@ public class LevantamentosViewModel extends BaseViewModel {
 
 
     public MutableLiveData<List<Risco>> riscos;
-    public MutableLiveData<RiscoResultado> risco;
+    public MutableLiveData<Risco> risco;
+
+    private List<Risco> resultadosRiscos;
+
     public MutableLiveData<List<Tipo>> tiposRiscos;
     public MutableLiveData<List<Tipo>> tipoRiscoEspecifico;
     public MutableLiveData<List<Tipo>> tiposNd;
     public MutableLiveData<List<Tipo>> tiposNe;
     public MutableLiveData<List<Tipo>> tiposNc;
     public List<Tipo> tiposNi;
+
+    public MutableLiveData<List<Tipo>> medidasRecomendadas;
+    public MutableLiveData<List<Tipo>> medidasExistentes;
 
     @Inject
     public LevantamentosViewModel(LevantamentoRepositorio levantamentoRepositorio){
@@ -76,6 +94,11 @@ public class LevantamentosViewModel extends BaseViewModel {
         tiposNc = new MutableLiveData<>();
         tiposNi = new ArrayList<>();
 
+
+        resultadosRiscos = new ArrayList<>();
+        medidasRecomendadas = new MutableLiveData<>();
+        medidasExistentes = new MutableLiveData<>();
+
     }
 
 
@@ -84,13 +107,20 @@ public class LevantamentosViewModel extends BaseViewModel {
         return tiposRiscos;
     }
 
+    public MutableLiveData<Risco> observarRisco(){
+        return risco;
+    }
+
+    //-------------------
+    //GRAVAR
+    //------------------
 
 
     /**
      * Metodo que permite gravar um registo
      * @param registo os dados
      */
-    public void gravar(LevantamentoRiscoResultado registo){
+    public void gravar(int idTarefa, LevantamentoRiscoResultado registo){
 
         if(levantamento.getValue() == null){
 
@@ -102,12 +132,13 @@ public class LevantamentosViewModel extends BaseViewModel {
                             new SingleObserver<Long>() {
                                 @Override
                                 public void onSubscribe(Disposable d) {
-
+                                    disposables.add(d);
                                 }
 
                                 @Override
                                 public void onSuccess(Long aLong) {
-                                    messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_GRAVADOS_SUCESSO));
+                                    messagemLiveData.setValue(Recurso.successo(ConversorUtil.converter_long_Para_int(aLong), Sintaxe.Frases.DADOS_GRAVADOS_SUCESSO));
+                                    abaterAtividadePendente(levantamentoRepositorio.resultadoDao, idTarefa, registo.idAtividade);
                                 }
 
                                 @Override
@@ -135,6 +166,7 @@ public class LevantamentosViewModel extends BaseViewModel {
                                 @Override
                                 public void onSuccess(Integer integer) {
                                     messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_EDITADOS_SUCESSO));
+                                    abaterAtividadePendente(levantamentoRepositorio.resultadoDao, idTarefa, registo.idAtividade);
                                 }
 
                                 @Override
@@ -144,15 +176,17 @@ public class LevantamentosViewModel extends BaseViewModel {
                             }
                     );
         }
-
-        //TODO: remover atividade pendente + adicionar resultado
-
     }
 
 
-
-    public void gravarCategoriasProfissionais(int idRegisto, ArrayList<Integer> resultado) {
-
+    /**
+     * MEtodo que permite gravar as categorias profissionais
+     * @param idTarefa
+     * @param idAtividade
+     * @param idRegisto
+     * @param resultado uma lista de identificadores de categorias profissionais
+     */
+    public void gravarCategoriasProfissionais(int idTarefa, int idAtividade, int idRegisto, ArrayList<Integer> resultado) {
 
         List<CategoriaProfissionalResultado> registos = new ArrayList<>();
 
@@ -172,7 +206,6 @@ public class LevantamentosViewModel extends BaseViewModel {
             }
         }
 
-
         levantamentoRepositorio.inserir(registos)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -180,12 +213,13 @@ public class LevantamentosViewModel extends BaseViewModel {
                         new SingleObserver<List<Long>>() {
                             @Override
                             public void onSubscribe(Disposable d) {
-
+                                disposables.add(d);
                             }
 
                             @Override
                             public void onSuccess(List<Long> longs) {
                                 messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_GRAVADOS_SUCESSO));
+                                abaterAtividadePendente(levantamentoRepositorio.resultadoDao, idTarefa, idAtividade);
                             }
 
                             @Override
@@ -194,36 +228,169 @@ public class LevantamentosViewModel extends BaseViewModel {
                             }
                         }
                 );
-
-
-        //TODO: remover atividade pendente + adicionar resultado
     }
+
+
 
     /**
      * Metodo que permite atualizar uma categoria profissional
      * @param registo os dados a atualizar
      */
-    public void atualizarCategoriaProfissional(CategoriaProfissionalResultado registo) {
+    public void atualizarCategoriaProfissional(int idTarefa, int idAtividade, CategoriaProfissionalResultado registo) {
 
-        levantamentoRepositorio.atualizar(registo).toObservable()
+        levantamentoRepositorio.atualizar(registo)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
 
-                        new Observer<Integer>() {
+                        new SingleObserver<Integer>() {
                             @Override
                             public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onSuccess(Integer integer) {
+                                messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_EDITADOS_SUCESSO));
+                                abaterAtividadePendente(levantamentoRepositorio.resultadoDao, idTarefa, idAtividade);
+
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+                        }
+                );
+    }
+
+
+
+
+    public void gravar(int idTarefa, int idAtividade, RiscoResultado registo, List<Integer> medidasExistentes, List<Integer> medidasRecomendadas) {
+
+
+        if(risco.getValue() == null){
+
+            levantamentoRepositorio.inserir(registo)
+                    .flatMap(new Function<Long, SingleSource<?>>() {
+                        @Override
+                        public SingleSource<?> apply(Long aLong) throws Exception {
+                            int idRegisto = ConversorUtil.converter_long_Para_int(aLong);
+                            return Single.fromObservable(levantamentoRepositorio.inserir(idRegisto, medidasExistentes, medidasRecomendadas));
+                        }
+                    })
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+
+                            new SingleObserver<Object>() {
+                                @Override
+                                public void onSubscribe(Disposable d) {
+                                    disposables.add(d);
+                                }
+
+                                @Override
+                                public void onSuccess(Object o) {
+                                    messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_GRAVADOS_SUCESSO));
+                                    abaterAtividadePendente(levantamentoRepositorio.resultadoDao, idTarefa, idAtividade);
+                                }
+
+                                @Override
+                                public void onError(Throwable e) {
+
+                                }
+                            }
+                    );
+        }
+        else{
+
+//            registo.id = risco.getValue().id;
+//
+//
+//            List<MedidaResultado> medidasExistentesRegistas = new ArrayList<>();
+//
+//            if(medidasExistentes == null){
+//
+//                for (Tipo medida : risco.getValue().medidasExistentes) {
+//                    medidasExistentesRegistas.add(new MedidaResultado(registo.id, Identificadores.Origens.LEVANTAMENTO_MEDIDAS_ADOPTADAS, medida.id));
+//                }
+//            }
+//            else {
+//
+//                for (int idMedida : medidasExistentes) {
+//                    medidasExistentesRegistas.add(new MedidaResultado(registo.id, Identificadores.Origens.LEVANTAMENTO_MEDIDAS_ADOPTADAS, idMedida));
+//                }
+//            }
+//
+//
+//            List<MedidaResultado> medidasRecomendadasRegistas = new ArrayList<>();
+//
+//            if(medidasExistentes == null){
+//
+//                for (Tipo medida : risco.getValue().medidasRecomendadas) {
+//                    medidasRecomendadasRegistas.add(new MedidaResultado(registo.id, Identificadores.Origens.LEVANTAMENTO_MEDIDAS_RECOMENDADAS, medida.id));
+//                }
+//            }
+//            else {
+//
+//                for (int idMedida : medidasRecomendadas) {
+//                    medidasRecomendadasRegistas.add(new MedidaResultado(registo.id, Identificadores.Origens.LEVANTAMENTO_MEDIDAS_RECOMENDADAS, idMedida));
+//                }
+//            }
+//
+//
+//
+//            Disposable d = levantamentoRepositorio.atualizarRisco(registo, medidasExistentesRegistas, medidasRecomendadasRegistas)
+//                    .toList()
+//                    .subscribeOn(Schedulers.io())
+//                    .observeOn(AndroidSchedulers.mainThread())
+//                    .subscribe(
+//
+//                            new Consumer<Object>() {
+//                                @Override
+//                                public void accept(Object o) throws Exception {
+//                                    messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_EDITADOS_SUCESSO));
+//                                    abaterAtividadePendente(levantamentoRepositorio.resultadoDao, idTarefa, idAtividade);
+//                                }
+//                            }
+//                    );
+//
+//            disposables.add(d);
+
+
+        }
+
+    }
+
+
+
+
+    //--------------------
+    //REMOVER
+    //--------------------
+
+    public void remover(int idTarefa, Levantamento levantamento) {
+
+        levantamentoRepositorio.remover(levantamento)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new FlowableSubscriber<Integer>() {
+                            @Override
+                            public void onSubscribe(Subscription s) {
 
                             }
 
                             @Override
                             public void onNext(Integer integer) {
-                                messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_EDITADOS_SUCESSO));
+
                             }
 
                             @Override
-                            public void onError(Throwable e) {
-                                messagemLiveData.setValue(Recurso.erro(e.getMessage()));
+                            public void onError(Throwable t) {
+
                             }
 
                             @Override
@@ -232,12 +399,16 @@ public class LevantamentosViewModel extends BaseViewModel {
                             }
                         }
                 );
-
-        //TODO: remover atividade pendente + adicionar resultado
     }
 
 
-    public void remover(CategoriaProfissionalResultado categoria) {
+    /**
+     * Metodo que permite remover uma categoria profissional
+     * @param idTarefa o identificador da tarefa
+     * @param idAtividade o identificador da atividade
+     * @param categoria a categoria profissional
+     */
+    public void remover(int idTarefa, int idAtividade, CategoriaProfissionalResultado categoria) {
 
         levantamentoRepositorio.remover(categoria)
                 .subscribeOn(Schedulers.io())
@@ -247,12 +418,13 @@ public class LevantamentosViewModel extends BaseViewModel {
                         new SingleObserver<Integer>() {
                             @Override
                             public void onSubscribe(Disposable d) {
-
+                                disposables.add(d);
                             }
 
                             @Override
                             public void onSuccess(Integer integer) {
                                 messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_REMOVIDOS_SUCESSO));
+                                abaterAtividadePendente(levantamentoRepositorio.resultadoDao, idTarefa, idAtividade);
                             }
 
                             @Override
@@ -260,10 +432,8 @@ public class LevantamentosViewModel extends BaseViewModel {
 
                             }
                         }
-
                 );
 
-        //TODO: remover atividade pendente + adicionar resultado
     }
 
     //--------------------
@@ -319,6 +489,9 @@ public class LevantamentosViewModel extends BaseViewModel {
      */
     public void obterRelatorio(int id) {
 
+//        RelatorioLevantamento registo = new RelatorioLevantamento();
+//        relatorio.setValue(registo);
+
         levantamentoRepositorio.obterRelatorio(id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -327,7 +500,7 @@ public class LevantamentosViewModel extends BaseViewModel {
                         new Observer<RelatorioLevantamento>() {
                             @Override
                             public void onSubscribe(Disposable d) {
-
+                                disposables.add(d);
                             }
 
                             @Override
@@ -351,6 +524,10 @@ public class LevantamentosViewModel extends BaseViewModel {
 
 
 
+    //------------------------
+    //OBTER
+    //------------------------
+
 
     /**
      * Metodo que permite obter um levantamento
@@ -366,7 +543,7 @@ public class LevantamentosViewModel extends BaseViewModel {
                         new MaybeObserver<LevantamentoRiscoResultado>() {
                             @Override
                             public void onSubscribe(Disposable d) {
-
+                                disposables.add(d);
                             }
 
                             @Override
@@ -387,6 +564,11 @@ public class LevantamentosViewModel extends BaseViewModel {
                 );
     }
 
+
+    /**
+     * Metodo que permite obter as categorias profissionais
+     * @param id o identificador do levantamento
+     */
     public void obterCategoriasProfissionais(int id) {
 
         levantamentoRepositorio.obterCategoriasProfissionais(id)
@@ -397,12 +579,11 @@ public class LevantamentosViewModel extends BaseViewModel {
                         new Observer<List<CategoriaProfissional>>() {
                             @Override
                             public void onSubscribe(Disposable d) {
-
+                                disposables.add(d);
                             }
 
                             @Override
                             public void onNext(List<CategoriaProfissional> registos) {
-
                                 categoriasProfissionais.setValue(registos);
                             }
 
@@ -420,21 +601,69 @@ public class LevantamentosViewModel extends BaseViewModel {
                 );
     }
 
+
+    /**
+     * Metodo que permite obter os riscos
+     * @param id o identificador do levantamento
+     */
     public void obteRiscos(int id) {
 
         levantamentoRepositorio.obterRiscos(id)
+                .flatMap(new Function<List<Risco>, ObservableSource<?>>() {
+                    @Override
+                    public ObservableSource<?> apply(List<Risco> riscos) throws Exception {
+                        return Observable.fromIterable(riscos);
+                    }
+                })
+                .flatMap(new Function<Object, ObservableSource<?>>() {
+                    @Override
+                    public ObservableSource<?> apply(Object o) throws Exception {
+                        Risco registo = (Risco) o;
+
+                        Observable<Risco> observables = Observable.zip(
+                                levantamentoRepositorio.obterMedidas(registo.resultado.id, TiposUtil.MetodosTipos.MEDIDAS_PREVENCAO_ADOPTADAS, Identificadores.Origens.LEVANTAMENTO_MEDIDAS_ADOPTADAS).toObservable(),
+                                levantamentoRepositorio.obterMedidas(registo.resultado.id, TiposUtil.MetodosTipos.MEDIDAS_PREVENCAO_RECOMENDADAS, Identificadores.Origens.LEVANTAMENTO_MEDIDAS_RECOMENDADAS).toObservable(),
+                                new BiFunction<List<Tipo>, List<Tipo>, Risco>() {
+                                    @Override
+                                    public Risco apply(List<Tipo> medidasExistentes, List<Tipo> medidasRecomendadas) throws Exception {
+
+                                        registo.medidasExistentes = medidasExistentes;
+                                        registo.medidasRecomendadas = medidasRecomendadas;
+                                        return registo;
+                                    }
+                                }
+                        );
+
+                        return observables;
+                    }
+                })
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
 
-                        new Observer<List<Risco>>() {
+                        new Observer<Object>() {
                             @Override
                             public void onSubscribe(Disposable d) {
-
+                                disposables.add(d);
                             }
 
                             @Override
-                            public void onNext(List<Risco> registos) {
+                            public void onNext(Object o) {
+                                resultadosRiscos.add((Risco) o);
+                                List<Risco> registos = new ArrayList<>();
+
+                                for (Risco item : resultadosRiscos) {
+
+                                    for(int index = 0; index < registos.size(); ++index){
+
+                                        if(registos.get(index).resultado.id == item.resultado.id){
+                                            registos.remove(index);
+                                            break;
+                                        }
+                                    }
+                                    registos.add(item);
+                                }
+
                                 riscos.setValue(registos);
                             }
 
@@ -449,11 +678,12 @@ public class LevantamentosViewModel extends BaseViewModel {
                             }
                         }
 
+
                 );
     }
 
 
-    public void obteRisco(int id) {
+    public void obterLevamentoRisco(int id) {
 
 
         Single.zip(levantamentoRepositorio.obterTipos(TiposUtil.MetodosTipos.RISCOS),
@@ -482,16 +712,17 @@ public class LevantamentosViewModel extends BaseViewModel {
                 new SingleObserver<TiposRiscos>() {
                     @Override
                     public void onSubscribe(Disposable d) {
-
+                        disposables.add(d);
                     }
 
                     @Override
                     public void onSuccess(TiposRiscos registo) {
-                        tiposRiscos.setValue(registo.riscos);
                         tiposNc.setValue(registo.nc);
                         tiposNd.setValue(registo.nd);
                         tiposNe.setValue(registo.ne);
                         tiposNi = registo.ni;
+                        tiposRiscos.setValue(registo.riscos);
+                        obterRisco(id);
                     }
 
                     @Override
@@ -502,19 +733,24 @@ public class LevantamentosViewModel extends BaseViewModel {
 
         );
 
+    }
+
+    private void obterRisco(int id) {
         levantamentoRepositorio.obterRisco(id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
 
-                        new MaybeObserver<RiscoResultado>() {
+                        new MaybeObserver<Risco>() {
                             @Override
                             public void onSubscribe(Disposable d) {
-
+                                disposables.add(d);
                             }
 
                             @Override
-                            public void onSuccess(RiscoResultado registo) {
+                            public void onSuccess(Risco registo) {
+                                medidasExistentes.setValue(registo.medidasExistentes);
+                                medidasRecomendadas.setValue(registo.medidasRecomendadas);
                                 risco.setValue(registo);
                             }
 
@@ -592,6 +828,77 @@ public class LevantamentosViewModel extends BaseViewModel {
                 );
     }
 
+
+
+    /**
+     * Metodo que permite fixar as medidas
+     * @param metodo
+     * @param resultado
+     */
+    public void fixarMedidasRecomendadas(String metodo, List<Integer> resultado) {
+
+        levantamentoRepositorio.obterTipos_Incluir(metodo, resultado).toObservable()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new Observer<List<Tipo>>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onNext(List<Tipo> tipos) {
+                                medidasRecomendadas.setValue(tipos);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+
+                            @Override
+                            public void onComplete() {
+
+                            }
+                        }
+
+                );
+    }
+
+
+    public void fixarMedidasExistentes(String metodo, List<Integer> resultado) {
+
+        levantamentoRepositorio.obterTipos_Incluir(metodo, resultado).toObservable()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new Observer<List<Tipo>>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onNext(List<Tipo> tipos) {
+                                medidasExistentes.setValue(tipos);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+
+                            @Override
+                            public void onComplete() {
+
+                            }
+                        }
+
+                );
+    }
 
 
     private class TiposRiscos{

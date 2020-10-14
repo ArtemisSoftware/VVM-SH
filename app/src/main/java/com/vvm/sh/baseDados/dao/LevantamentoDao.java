@@ -49,6 +49,7 @@ abstract public class LevantamentoDao implements BaseDao<LevantamentoRiscoResult
             "CASE WHEN tarefa IS NULL OR perigo IS NULL THEN 0  ELSE 1 END as validadePerigoTarefa, " +
             "vald_categorias_prof.valido as validadeCategoriasProfissionais, count_categorias as numeroCategoriasProfissionais " +
             "FROM levantamentosRiscoResultado as lv_risco_res " +
+
             "" +
             "LEFT JOIN( " +
             "SELECT idRegisto, CASE WHEN COUNT(VALIDO) = SUM(VALIDO) AND COUNT(VALIDO) > 0 THEN 1 ELSE 0 END valido " +

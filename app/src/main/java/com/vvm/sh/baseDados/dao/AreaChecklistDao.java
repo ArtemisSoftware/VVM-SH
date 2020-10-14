@@ -24,15 +24,18 @@ abstract public class AreaChecklistDao implements BaseDao<AreaChecklistResultado
     @Query("SELECT tp.* " +
             "FROM tipos as tp " +
             "LEFT JOIN( " +
-            "SELECT atp.id as idAtividade, CASE WHEN area_chk_res.idChecklist IS NULL THEN  atp.idChecklist ELSE area_chk_res.idChecklist END as idChecklist " +
+            "SELECT atp.id as idAtividade, " +
+            "CASE " +
+            "WHEN area_chk_res.idChecklist IS NULL THEN  atp.idChecklist " +
+            "ELSE area_chk_res.idChecklist END as idChecklist " +
             "FROM atividadesPendentes as atp " +
             "LEFT JOIN (SELECT idChecklist, idAtividade FROM areasChecklistResultado WHERE idArea = " + Identificadores.Checklist.ID_AREA_GERAL + " ) as area_chk_res " +
-            "ON atp.id = area_chk_res.idChecklist AND atp.id = area_chk_res.idAtividade " +
+            "ON atp.id = area_chk_res.idAtividade  " +
             ") as chk_res " +
             "ON tp.id = chk_res.idChecklist " +
 
             "WHERE tipo = '" + TiposUtil.MetodosTipos.TIPOS_CHECKLIST + "' AND api = :api AND idAtividade = :idAtividade")
-    abstract public Single<Tipo> obterChecklist(int idAtividade, int api);
+    abstract public Observable<Tipo> obterChecklist(int idAtividade, int api);
 
 
 

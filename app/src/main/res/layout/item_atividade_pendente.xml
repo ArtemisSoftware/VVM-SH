@@ -148,7 +148,7 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            style="@style/textoDetalhe"
+                            style="@style/textoNota"
                             android:text="@string/processoProdutivo" />
 
                         <de.hdodenhof.circleimageview.CircleImageView
@@ -167,7 +167,7 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            style="@style/textoDetalhe"
+                            style="@style/textoNota"
                             android:text="@string/trabalhadoresVulneraveis" />
 
                         <de.hdodenhof.circleimageview.CircleImageView
@@ -186,7 +186,7 @@
                         android:orientation="horizontal">
 
                         <TextView
-                            style="@style/textoDetalhe"
+                            style="@style/textoNota"
                             android:text="@string/equipamentos" />
 
                         <de.hdodenhof.circleimageview.CircleImageView
@@ -199,6 +199,43 @@
 
 
                 </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/linearLayout31"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal"
+                    android:visibility="@{atividade.atividade.idRelatorio == Identificadores.Relatorios.ID_RELATORIO_AVALIACAO_RISCO ? View.VISIBLE : View.GONE}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/textView111"
+                    app:layout_constraintTop_toBottomOf="@+id/linearLayout3"
+                    app:layout_constraintVertical_bias="0.0">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            style="@style/textoNota"
+                            android:text="@string/planoAcao" />
+
+                        <de.hdodenhof.circleimageview.CircleImageView
+                            android:id="@+id/img_plano_acao"
+                            completudeRelatorio="@{atividade.completudePlanoAcao}"
+                            android:layout_width="19dp"
+                            android:layout_height="19dp"
+                            android:layout_marginLeft="8dp" />
+                    </LinearLayout>
+
+
+                </LinearLayout>
+
+
 
 
             </androidx.constraintlayout.widget.ConstraintLayout>

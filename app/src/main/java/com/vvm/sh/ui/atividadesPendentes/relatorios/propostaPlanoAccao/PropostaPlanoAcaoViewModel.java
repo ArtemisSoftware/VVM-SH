@@ -121,7 +121,6 @@ public class PropostaPlanoAcaoViewModel extends BaseViewModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
 
-
                         new Observer<List<Proposta>>() {
                             @Override
                             public void onSubscribe(Disposable d) {

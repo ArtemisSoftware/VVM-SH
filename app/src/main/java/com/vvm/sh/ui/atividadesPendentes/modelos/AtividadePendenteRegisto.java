@@ -43,6 +43,9 @@ public class AtividadePendenteRegisto {
     @ColumnInfo(name = "validade_equipamentos")
     public boolean completudeEquipamentos;
 
+    @ColumnInfo(name = "validade_proposta_plano_acao")
+    public boolean completudePlanoAcao;
+
     /**
      * Metodo que indica se existe um resultado
      * @return true caso exista

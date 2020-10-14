@@ -474,14 +474,14 @@ public class ChecklistViewModel extends BaseViewModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
 
-                        new SingleObserver<Tipo>() {
+                        new Observer<Tipo>() {
                             @Override
                             public void onSubscribe(Disposable d) {
-
+                                disposables.add(d);
                             }
 
                             @Override
-                            public void onSuccess(Tipo tipo) {
+                            public void onNext(Tipo tipo) {
                                 checklist.setValue(tipo);
                             }
 
@@ -489,8 +489,12 @@ public class ChecklistViewModel extends BaseViewModel {
                             public void onError(Throwable e) {
 
                             }
-                        }
 
+                            @Override
+                            public void onComplete() {
+
+                            }
+                        }
                 );
 
     }

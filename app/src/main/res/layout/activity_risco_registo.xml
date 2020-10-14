@@ -95,7 +95,8 @@
                         android:id="@+id/spnr_risco"
                         android:layout_width="400dp"
                         android:hint="@string/risco"
-                        tipos_="@{viewmodel.tiposRiscos}"
+                        tipos="@{viewmodel.tiposRiscos}"
+                        id="@{viewmodel.risco.resultado.idRisco}"
                         android:layout_height="wrap_content"
                         app:layout_constraintStart_toStartOf="@+id/textView18"
                         app:layout_constraintTop_toBottomOf="@+id/textview31" />
@@ -116,7 +117,8 @@
                         android:id="@+id/spnr_risco_especifico"
                         android:layout_width="400dp"
                         android:hint="@string/risco_especifico"
-                        tipos_="@{viewmodel.tipoRiscoEspecifico}"
+                        tipos="@{viewmodel.tipoRiscoEspecifico}"
+                        id="@{viewmodel.risco.resultado.idRiscoEspecifico}"
                         android:layout_height="wrap_content"
                         app:layout_constraintStart_toStartOf="@+id/textView18"
                         app:layout_constraintTop_toBottomOf="@+id/textview32" />
@@ -137,6 +139,7 @@
                             android:id="@+id/txt_inp_consequencias"
                             style="@style/modifiedEditText"
                             android:inputType="textMultiLine"
+                            android:text="@{viewmodel.risco.resultado.consequencias}"
                             android:gravity="top|left"
                             android:minLines="5"
                             android:maxLines="5"/>
@@ -263,12 +266,18 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/distancia_vertical_formulario"
+                        android:layout_marginEnd="8dp"
+                        android:gravity="center_vertical"
+                        android:visibility="visible"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="@+id/textView18"
                         app:layout_constraintTop_toBottomOf="@+id/linearLayout2">
 
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_weight="1"
                             android:orientation="vertical">
 
                             <TextView
@@ -280,7 +289,7 @@
 
                             <TextView
                                 android:id="@+id/txt_medidas_existentes"
-                                android:text="@string/nenhuma_medida_selecionada"
+                                listagemTipos="@{viewmodel.medidasExistentes}"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 style="@style/textoDetalhe" />
@@ -291,20 +300,13 @@
 
                         <at.markushi.ui.CircleButton
                             android:id="@+id/crl_btn_pesquisar_medidas_existentes"
-                            android:layout_width="64dip"
-                            android:layout_height="64dip"
-                            android:src="@drawable/ic_calendario"
-                            app:cb_color="#99CC00"
-                            app:cb_pressedRingWidth="8dip" />
-
+                            style="@style/btnPesquisa" />
 
                         <at.markushi.ui.CircleButton
                             android:id="@+id/crl_btn_pesquisar_medidas_existentes_limpar"
-                            android:layout_width="64dip"
-                            android:layout_height="64dip"
-                            android:src="@drawable/ic_calendario"
-                            app:cb_color="#99CC00"
-                            app:cb_pressedRingWidth="8dip" />
+                            style="@style/btnLimpar" />
+
+
 
                     </LinearLayout>
 
@@ -314,32 +316,38 @@
 
                     <LinearLayout
                         android:id="@+id/linearlayout4"
-                        android:orientation="horizontal"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
                         android:layout_marginTop="@dimen/distancia_vertical_formulario"
+                        android:layout_marginEnd="8dp"
+                        android:gravity="center_vertical"
+                        android:orientation="horizontal"
+                        android:visibility="visible"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintHorizontal_bias="0.0"
                         app:layout_constraintStart_toStartOf="@+id/textView18"
                         app:layout_constraintTop_toBottomOf="@+id/linearlayout3">
 
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_weight="1"
                             android:orientation="vertical">
 
                             <TextView
+                                android:id="@+id/textview43"
+                                style="@style/textoInput"
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
-                                android:text="@string/medidas_recomendadas"
-                                style="@style/textoInput" />
+                                android:text="@string/medidas_recomendadas" />
 
 
                             <TextView
                                 android:id="@+id/txt_medidas_recomendadas"
-                                android:text="@string/nenhuma_medida_selecionada"
+                                style="@style/textoDetalhe"
+                                listagemTipos="@{viewmodel.medidasRecomendadas}"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                style="@style/textoDetalhe" />
+                                android:layout_height="wrap_content" />
 
 
                         </LinearLayout>
@@ -347,22 +355,15 @@
 
                         <at.markushi.ui.CircleButton
                             android:id="@+id/crl_btn_pesquisar_medidas_recomendadas"
-                            android:layout_width="64dip"
-                            android:layout_height="64dip"
-                            android:src="@drawable/ic_calendario"
-                            app:cb_color="#99CC00"
-                            app:cb_pressedRingWidth="8dip" />
-
+                            style="@style/btnPesquisa" />
 
                         <at.markushi.ui.CircleButton
                             android:id="@+id/crl_btn_pesquisar_medidas_recomendadas_limpar"
-                            android:layout_width="64dip"
-                            android:layout_height="64dip"
-                            android:src="@drawable/ic_calendario"
-                            app:cb_color="#99CC00"
-                            app:cb_pressedRingWidth="8dip" />
+                            style="@style/btnLimpar" />
 
                     </LinearLayout>
+
+
 
 
 
@@ -390,7 +391,7 @@
                             android:layout_height="64dip"
                             android:src="@drawable/ic_calendario"
                             app:cb_color="#99CC00"
-                            app:cb_pressedRingWidth="8dip" />
+                            app:cb_pressedRingWidth="8dip"/>
 
 
                         <at.markushi.ui.CircleButton

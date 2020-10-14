@@ -15,14 +15,19 @@ import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.vvm.sh.R;
+import com.vvm.sh.baseDados.entidades.RiscoResultado;
 import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.databinding.ActivityRiscoRegistoBinding;
 import com.vvm.sh.ui.BaseDaggerActivity;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.modelos.Risco;
+import com.vvm.sh.ui.pesquisa.PesquisaMedidasActivity;
+import com.vvm.sh.ui.pesquisa.modelos.Pesquisa;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.metodos.ConversorUtil;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
+import com.vvm.sh.util.metodos.TiposUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import java.util.ArrayList;
@@ -86,7 +91,7 @@ public class RiscoRegistoActivity extends BaseDaggerActivity
         if(bundle != null) {
 
             int id = bundle.getInt(getString(R.string.argumento_id));
-            viewModel.obteRisco(id);
+            viewModel.obterLevamentoRisco(id);
         }
 
 
@@ -114,6 +119,7 @@ public class RiscoRegistoActivity extends BaseDaggerActivity
                     case SUCESSO:
 
                         limparRegisto();
+                        dialogo.sucesso(recurso.messagem);
                         break;
 
                     case ERRO:
@@ -130,6 +136,18 @@ public class RiscoRegistoActivity extends BaseDaggerActivity
             @Override
             public void onChanged(List<Tipo> tipos) {
                 viewModel.obteRiscoEspecifico(tipos.get(0).id);
+
+            }
+        });
+
+
+        viewModel.observarRisco().observe(this, new Observer<Risco>() {
+            @Override
+            public void onChanged(Risco risco) {
+                if(risco != null) {
+                    viewModel.obteRiscoEspecifico(risco.resultado.idRisco);
+                }
+
             }
         });
     }
@@ -148,10 +166,8 @@ public class RiscoRegistoActivity extends BaseDaggerActivity
 
         //TODO: testar isto
 
-        //--viewModel.avaliacao.setValue(null);
+        viewModel.risco.setValue(null);
 
-//        ((Button) vista.findViewById(R.id.btn_adicionar_medidas_existentes)).setText(SintaxeIF.NENHUMA_MEDIDA_SELECIONADA);
-//        ((Button) vista.findViewById(R.id.btn_adicionar_medidas_recomendadas)).setText(SintaxeIF.NENHUMA_MEDIDA_SELECIONADA);
 //        ((Button) vista.findViewById(R.id.btn_galeria)).setText(SintaxeIF.GALERIA);
 //
 //        ((Spinner) vista.findViewById(R.id.spnr_nd)).setSelection(0);
@@ -166,6 +182,8 @@ public class RiscoRegistoActivity extends BaseDaggerActivity
 
         medidasExistentes = new ArrayList<>();
         medidasRecomendadas = new ArrayList<>();
+        activityRiscoRegistoBinding.txtMedidasExistentes.setText(getString(R.string.nenhuma_medida_selecionada));
+        activityRiscoRegistoBinding.txtMedidasRecomendadas.setText(getString(R.string.nenhuma_medida_selecionada));
     }
 
 
@@ -232,6 +250,8 @@ public class RiscoRegistoActivity extends BaseDaggerActivity
             Tipo risco = (Tipo) activityRiscoRegistoBinding.spnrRisco.getItems().get(position);
 
             viewModel.obteRiscoEspecifico(risco.id);
+            activityRiscoRegistoBinding.txtMedidasExistentes.setText(getString(R.string.nenhuma_medida_selecionada));
+            activityRiscoRegistoBinding.txtMedidasRecomendadas.setText(getString(R.string.nenhuma_medida_selecionada));
             medidasExistentes.clear();
             medidasRecomendadas.clear();
         }
@@ -244,6 +264,8 @@ public class RiscoRegistoActivity extends BaseDaggerActivity
         public void onItemSelected(MaterialSpinner view, int position, long id, Object item) {
 
             estatisticaRisco();
+            activityRiscoRegistoBinding.txtMedidasExistentes.setText(getString(R.string.nenhuma_medida_selecionada));
+            activityRiscoRegistoBinding.txtMedidasRecomendadas.setText(getString(R.string.nenhuma_medida_selecionada));
             medidasExistentes.clear();
             medidasRecomendadas.clear();
         }
@@ -264,14 +286,19 @@ public class RiscoRegistoActivity extends BaseDaggerActivity
 
     @OnClick(R.id.crl_btn_pesquisar_medidas_existentes)
     public void crl_btn_pesquisar_medidas_existentes_OnClickListener(View view) {
-//        Pesquisa pesquisa = new Pesquisa(true, TiposUtil.MetodosTipos.CATEGORIAS_PROFISSIONAIS, viewModel.obterRegistosSelecionados());
-//
-//        Bundle bundle = new Bundle();
-//        bundle.putParcelable(getString(R.string.argumento_configuracao_pesquisa), pesquisa);
-//
-//        Intent intent = new Intent(this, PesquisaActivity.class);
-//        intent.putExtras(bundle);
-//        startActivityForResult(intent, Identificadores.CodigoAtividade.PESQUISA);
+
+        Tipo riscoEspecifico = (Tipo) activityRiscoRegistoBinding.spnrRiscoEspecifico.getItems().get(activityRiscoRegistoBinding.spnrRiscoEspecifico.getSelectedIndex());
+
+
+        Pesquisa pesquisa = new Pesquisa(true,
+                TiposUtil.MetodosTipos.MEDIDAS_PREVENCAO_ADOPTADAS, new ArrayList<>(), riscoEspecifico.id + "");
+
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(getString(R.string.argumento_configuracao_pesquisa), pesquisa);
+
+        Intent intent = new Intent(this, PesquisaMedidasActivity.class);
+        intent.putExtras(bundle);
+        startActivityForResult(intent, Identificadores.CodigoAtividade.PESQUISA_MEDIDAS_ADOPTADAS);
     }
 
 
@@ -285,14 +312,19 @@ public class RiscoRegistoActivity extends BaseDaggerActivity
 
     @OnClick(R.id.crl_btn_pesquisar_medidas_recomendadas)
     public void crl_btn_pesquisar_medidas_recomendadas_OnClickListener(View view) {
-//        Pesquisa pesquisa = new Pesquisa(true, TiposUtil.MetodosTipos.CATEGORIAS_PROFISSIONAIS, viewModel.obterRegistosSelecionados());
-//
-//        Bundle bundle = new Bundle();
-//        bundle.putParcelable(getString(R.string.argumento_configuracao_pesquisa), pesquisa);
-//
-//        Intent intent = new Intent(this, PesquisaActivity.class);
-//        intent.putExtras(bundle);
-//        startActivityForResult(intent, Identificadores.CodigoAtividade.PESQUISA);
+
+
+        Tipo riscoEspecifico = (Tipo) activityRiscoRegistoBinding.spnrRiscoEspecifico.getItems().get(activityRiscoRegistoBinding.spnrRiscoEspecifico.getSelectedIndex());
+
+        Pesquisa pesquisa = new Pesquisa(true,
+                TiposUtil.MetodosTipos.MEDIDAS_PREVENCAO_RECOMENDADAS, new ArrayList<>(), riscoEspecifico.id + "");
+
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(getString(R.string.argumento_configuracao_pesquisa), pesquisa);
+
+        Intent intent = new Intent(this, PesquisaMedidasActivity.class);
+        intent.putExtras(bundle);
+        startActivityForResult(intent, Identificadores.CodigoAtividade.PESQUISA_MEDIDAS_RECOMENDADAS);
     }
 
     @OnClick(R.id.crl_btn_pesquisar_medidas_recomendadas_limpar)
@@ -318,15 +350,17 @@ public class RiscoRegistoActivity extends BaseDaggerActivity
     public void onValidationSucceeded() {
 
         if(medidasExistentes.size() == 0 & medidasRecomendadas.size() == 0) {
-            //((TextView) view).setError(message);
+            activityRiscoRegistoBinding.txtMedidasExistentes.setError(Sintaxe.Alertas.PREENCHIMENTO_OBRIGATORIO);
+            activityRiscoRegistoBinding.txtMedidasRecomendadas.setError(Sintaxe.Alertas.PREENCHIMENTO_OBRIGATORIO);
         }
         else{
 
             Bundle bundle = getIntent().getExtras();
             int idLevantamento = bundle.getInt(getString(R.string.argumento_id_levantamento));
+            int idAtividade = bundle.getInt(getString(R.string.argumento_id_atividade));
 
             Tipo risco = (Tipo) activityRiscoRegistoBinding.spnrRisco.getItems().get(activityRiscoRegistoBinding.spnrRisco.getSelectedIndex());
-            Tipo riscoEspecifico = (Tipo) activityRiscoRegistoBinding.spnrRiscoEspecifico.getItems().get(activityRiscoRegistoBinding.spnrRisco.getSelectedIndex());
+            Tipo riscoEspecifico = (Tipo) activityRiscoRegistoBinding.spnrRiscoEspecifico.getItems().get(activityRiscoRegistoBinding.spnrRiscoEspecifico.getSelectedIndex());
 
             String consequencias = activityRiscoRegistoBinding.txtInpConsequencias.getText().toString();
 
@@ -338,8 +372,9 @@ public class RiscoRegistoActivity extends BaseDaggerActivity
 
 
 
-            //--RiscoResultado registo = new RegistoResultado(idLevantamento, risco.id, riscoEspecifico.id, nd.obterDescricao(), ne.obterDescricao(), nc.obterDescricao(), ni,medidasExistentes, medidasRecomendadas, imagens)
-            //--viewModel.gravar(registo);
+            RiscoResultado registo = new RiscoResultado(idLevantamento, risco.id, riscoEspecifico.id, consequencias, nd.obterDescricao(), ne.obterDescricao(), nc.obterDescricao(), ni);
+            //RiscoResultado registo = new RiscoResultado(idLevantamento, risco.id, riscoEspecifico.id, consequencias, nd.id, ne.id, nc.id, ni);
+            viewModel.gravar(PreferenciasUtil.obterIdTarefa(this), idAtividade, registo, medidasExistentes, medidasRecomendadas);
         }
 
     }
@@ -369,13 +404,21 @@ public class RiscoRegistoActivity extends BaseDaggerActivity
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if (requestCode == Identificadores.CodigoAtividade.PESQUISA) {
+        if (requestCode == Identificadores.CodigoAtividade.PESQUISA_MEDIDAS_RECOMENDADAS) {
 
             if(resultCode == RESULT_OK){
 
-                //ArrayList<Integer> resultado = data.getIntegerArrayListExtra(getString(R.string.resultado_pesquisa));
+                medidasRecomendadas = data.getIntegerArrayListExtra(getString(R.string.resultado_pesquisa));
+                viewModel.fixarMedidasRecomendadas(TiposUtil.MetodosTipos.MEDIDAS_PREVENCAO_RECOMENDADAS,  medidasRecomendadas);
+            }
+        }
 
-                //viewModel.fixarCategoriasProfissionais(resultado);
+        if (requestCode == Identificadores.CodigoAtividade.PESQUISA_MEDIDAS_ADOPTADAS) {
+
+            if(resultCode == RESULT_OK){
+
+                medidasExistentes = data.getIntegerArrayListExtra(getString(R.string.resultado_pesquisa));
+                viewModel.fixarMedidasExistentes(TiposUtil.MetodosTipos.MEDIDAS_PREVENCAO_ADOPTADAS,  medidasExistentes);
             }
         }
     }

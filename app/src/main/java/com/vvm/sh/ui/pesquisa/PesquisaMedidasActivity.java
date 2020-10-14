@@ -57,7 +57,15 @@ public class PesquisaMedidasActivity extends BaseDaggerActivity implements OnPes
 
             pesquisa = bundle.getParcelable(getString(R.string.argumento_configuracao_pesquisa));
             activityPesquisaMedidasBinding.setPesquisa(pesquisa);
-            viewModel.obterMedidas(pesquisa.metodo, pesquisa.codigo, pesquisa.registosSelecionados);
+            if(pesquisa.codigo != null) {
+                viewModel.obterMedidas(pesquisa.metodo, pesquisa.codigo, pesquisa.registosSelecionados);
+            }
+            else if(pesquisa.idPai != null) {
+                viewModel.obterMedidas(pesquisa.metodo, pesquisa.registosSelecionados, pesquisa.idPai);
+            }
+            else{
+                viewModel.obterMedidas(pesquisa.metodo, pesquisa.registosSelecionados);
+            }
         }
         else{
             finish();

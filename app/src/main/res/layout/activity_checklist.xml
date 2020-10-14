@@ -53,7 +53,7 @@
 
                 <ImageView
                     app:layout_collapseMode="parallax"
-                    android:src="@drawable/checklist_banner"
+                    imagemChecklist="@{viewmodel.checklist.id}"
                     android:contentDescription="@string/relatorio"
                     android:scaleType="centerCrop"
                     android:layout_width="match_parent"

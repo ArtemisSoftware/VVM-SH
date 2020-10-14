@@ -55,9 +55,13 @@ public class Identificadores {
 
         public static final int CHECKLIST = 8;
 
+
+        public static final int LEVANTAMENTO_CATEGORIAS_PROFISSIONAIS = 9;
+        public static final int LEVANTAMENTO_MEDIDAS_RECOMENDADAS = 91;
+        public static final int LEVANTAMENTO_MEDIDAS_ADOPTADAS = 92;
+
 /**/
         public static final int ORIGEM_LEVANTAMENTO_RISCO = 7;
-        public static final int LEVANTAMENTO_CATEGORIAS_PROFISSIONAIS = 8;
 
         //public static final int AVALIACAO_AMBIENTAL_ILUMINACAO_CATEGORIAS_PROFISSIONAIS = 9;
 
@@ -116,6 +120,7 @@ public class Identificadores {
         public static final int PESQUISA_CATEGORIAS_PROFISSIONAIS_HOMENS = 3;
         public static final int PESQUISA_CATEGORIAS_PROFISSIONAIS_MULHERES = 4;
         public static final int PESQUISA_MEDIDAS_RECOMENDADAS = 5;
+        public static final int PESQUISA_MEDIDAS_ADOPTADAS = 6;
     }
 
 

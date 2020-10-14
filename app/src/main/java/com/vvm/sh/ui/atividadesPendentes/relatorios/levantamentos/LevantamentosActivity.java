@@ -82,7 +82,6 @@ public class LevantamentosActivity extends BaseDaggerActivity
      */
     private void initLevantamento(LevantamentoRiscoResultado registo){
 
-
         activityLevantamentosBinding.rclRegistos.setVisibility(View.GONE);
         activityLevantamentosBinding.lnrLytLevantamento.setVisibility(View.VISIBLE);
         activityLevantamentosBinding.fabMenu.setVisibility(View.GONE);
@@ -134,7 +133,7 @@ public class LevantamentosActivity extends BaseDaggerActivity
 
     @Override
     public void OnRemoverClick(Levantamento levantamento) {
-
+        viewModel.remover(PreferenciasUtil.obterIdTarefa(this), levantamento);
     }
 
     @Override
@@ -166,6 +165,7 @@ public class LevantamentosActivity extends BaseDaggerActivity
 
         Bundle bundle = getIntent().getExtras();
         int idAtividade = bundle.getInt(getString(R.string.argumento_id_atividade));
+        bundle.putInt(getString(R.string.argumento_id_atividade), idAtividade);
 
         Intent intent = new Intent(this, PerigoTarefaActivity.class);
         intent.putExtras(bundle);
@@ -176,9 +176,13 @@ public class LevantamentosActivity extends BaseDaggerActivity
     @OnClick({R.id.card_categorias_profissionais})
     public void card_categorias_profissionais_OnClickListener(View view) {
 
+        Bundle bundleOriginal = getIntent().getExtras();
+        int idAtividade = bundleOriginal.getInt(getString(R.string.argumento_id_atividade));
+
         Bundle bundle = new Bundle();
         int id = Integer.parseInt(activityLevantamentosBinding.txtIdLevantamento.getText().toString());
         bundle.putInt(getString(R.string.argumento_id_levantamento), id);
+        bundle.putInt(getString(R.string.argumento_id_atividade), idAtividade);
 
         Intent intent = new Intent(this, CategoriasProfissionaisActivity.class);
         intent.putExtras(bundle);
@@ -190,9 +194,13 @@ public class LevantamentosActivity extends BaseDaggerActivity
     @OnClick({R.id.card_riscos})
     public void card_riscos_OnClickListener(View view) {
 
+        Bundle bundleOriginal = getIntent().getExtras();
+        int idAtividade = bundleOriginal.getInt(getString(R.string.argumento_id_atividade));
+
         Bundle bundle = new Bundle();
         int id = Integer.parseInt(activityLevantamentosBinding.txtIdLevantamento.getText().toString());
         bundle.putInt(getString(R.string.argumento_id_levantamento), id);
+        bundle.putInt(getString(R.string.argumento_id_atividade), idAtividade);
 
         Intent intent = new Intent(this, RiscosActivity.class);
         intent.putExtras(bundle);

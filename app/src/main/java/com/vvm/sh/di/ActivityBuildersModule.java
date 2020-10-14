@@ -71,6 +71,7 @@ import com.vvm.sh.ui.atividadesPendentes.relatorios.averiguacao.DialogoAveriguac
 import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.ChecklistActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.ChecklistViewModel;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.DialogoArea;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.DialogoChecklist;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.DialogoPergunta;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.QuestoesChecklistActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.equipamentos.DialogoEquipamento;
@@ -360,25 +361,7 @@ public abstract class ActivityBuildersModule {
 
 
 
-    @LevantamentosScope
-    @ContributesAndroidInjector(
-            modules = { LevantamentosViewModelsModule.class, LevantamentosModule.class }
-    )
-    abstract DialogoCategoriasProfissionais contributeDialogoCategoriasProfissionais();
 
-
-    @LevantamentosScope
-    @ContributesAndroidInjector(
-            modules = { LevantamentosViewModelsModule.class, LevantamentosModule.class }
-    )
-    abstract RiscosActivity contributeRiscosActivity();
-
-
-    @LevantamentosScope
-    @ContributesAndroidInjector(
-            modules = { LevantamentosViewModelsModule.class, LevantamentosModule.class }
-    )
-    abstract RiscoRegistoActivity contributeRiscoRegistoActivity();
 
     //----------------------
     //Pesquisa
@@ -582,4 +565,65 @@ public abstract class ActivityBuildersModule {
             modules = { ChecklistViewModelsModule.class, ChecklistModule.class }
     )
     abstract DialogoPergunta contributeDialogoPergunta();
+
+    @ChecklistScope
+    @ContributesAndroidInjector(
+            modules = { ChecklistViewModelsModule.class, ChecklistModule.class }
+    )
+    abstract DialogoChecklist contributeDialogoChecklist();
+
+
+
+    //----------------------
+    //Parque Extintores
+    //-----------------------
+
+    @TarefaScope
+    @ContributesAndroidInjector(
+            modules = { TarefaViewModelsModule.class, TarefaModule.class }
+    )
+    abstract ExtintoresActivity contributeExtintoresActivity();
+
+    //----------------------
+    //Levantamentos
+    //-----------------------
+
+
+    @LevantamentosScope
+    @ContributesAndroidInjector(
+            modules = { LevantamentosViewModelsModule.class, LevantamentosModule.class }
+    )
+    abstract LevantamentosActivity contributeLevantamentosActivity();
+
+    @LevantamentosScope
+    @ContributesAndroidInjector(
+            modules = { LevantamentosViewModelsModule.class, LevantamentosModule.class }
+    )
+    abstract PerigoTarefaActivity contributePerigoTarefaActivity();
+
+    @LevantamentosScope
+    @ContributesAndroidInjector(
+            modules = { LevantamentosViewModelsModule.class, LevantamentosModule.class }
+    )
+    abstract CategoriasProfissionaisActivity contributeCategoriasProfissionaisActivity();
+
+    @LevantamentosScope
+    @ContributesAndroidInjector(
+            modules = { LevantamentosViewModelsModule.class, LevantamentosModule.class }
+    )
+    abstract DialogoCategoriasProfissionais contributeDialogoCategoriasProfissionais();
+
+
+    @LevantamentosScope
+    @ContributesAndroidInjector(
+            modules = { LevantamentosViewModelsModule.class, LevantamentosModule.class }
+    )
+    abstract RiscosActivity contributeRiscosActivity();
+
+
+    @LevantamentosScope
+    @ContributesAndroidInjector(
+            modules = { LevantamentosViewModelsModule.class, LevantamentosModule.class }
+    )
+    abstract RiscoRegistoActivity contributeRiscoRegistoActivity();
 }

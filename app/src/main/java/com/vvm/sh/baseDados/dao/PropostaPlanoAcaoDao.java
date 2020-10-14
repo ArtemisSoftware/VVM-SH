@@ -41,8 +41,16 @@ abstract public class PropostaPlanoAcaoDao implements BaseDao<PropostaPlanoAcaoR
 
 
 
-    @Query("SELECT * , 'lolo' as descricao, " + Identificadores.Origens.PROPOSTA_CONDICOES_ST + " as tipo " +
+    @Query("SELECT * , descricao, " + Identificadores.Origens.PROPOSTA_CONDICOES_ST + " as tipo " +
             "FROM propostaPlanoAcaoResultado as prop_pl_accao_res " +
+            "LEFT JOIN(" +
+            "SELECT quest_chk_res.id as id, uid || ' ' || descricao as descricao " +
+            "FROM questionarioChecklistResultado as quest_chk_res " +
+            "LEFT JOIN (SELECT idChecklist, idArea, id FROM areasChecklistResultado) as area_chk_res " +
+            "ON quest_chk_res.idArea = area_chk_res.id " +
+            "LEFT JOIN (SELECT idChecklist, idArea, idSeccao, uid, descricao FROM itensChecklist) as itens_chk " +
+            "ON area_chk_res.idChecklist = itens_chk.idChecklist AND area_chk_res.idArea = itens_chk.idArea AND quest_chk_res.idItem = itens_chk.uid " +
+            ") as descricao ON prop_pl_accao_res.idQuestaoChecklis = descricao.id " +
             "WHERE idAtividade = :idAtividade")
     abstract public Observable<List<Proposta>> obterPropostasSt(int idAtividade);
 

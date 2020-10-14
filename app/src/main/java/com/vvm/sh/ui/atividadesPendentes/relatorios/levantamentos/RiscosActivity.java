@@ -92,7 +92,9 @@ public class RiscosActivity extends BaseDaggerActivity
     public void OnRiscoClick(Risco registo) {
 
         Bundle bundle = getIntent().getExtras();
+        bundle.putInt(getString(R.string.argumento_id), registo.resultado.id);
         Intent intent = new Intent(this, RiscoRegistoActivity.class);
+
         intent.putExtras(bundle);
         startActivity(intent);
     }

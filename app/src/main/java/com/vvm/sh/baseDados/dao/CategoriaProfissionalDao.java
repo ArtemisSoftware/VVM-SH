@@ -56,4 +56,5 @@ abstract public class CategoriaProfissionalDao implements BaseDao<CategoriaProfi
     abstract public Single<List<Tipo>> obterTiposCategorias(List<Integer> registos, int api);
 
 
+
 }

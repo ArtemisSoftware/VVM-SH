@@ -13,6 +13,7 @@ import com.vvm.sh.ui.BaseDaggerDialogoPersistenteFragment;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.modelos.CategoriaProfissional;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.constantes.Identificadores;
+import com.vvm.sh.util.metodos.PreferenciasUtil;
 
 import javax.inject.Inject;
 
@@ -28,6 +29,8 @@ public class DialogoCategoriasProfissionais extends BaseDaggerDialogoPersistente
 
 
     private static final String ARGUMENTO_ID = "id";
+
+    private static final String ARGUMENTO_ID_ATIVIDADE = "idAtividade";
     private static final String ARGUMENTO_ID_CATEGORIA = "idCategoria";
 
     private static final String ARGUMENTO_ID_REGISTO = "idRegisto";
@@ -41,11 +44,12 @@ public class DialogoCategoriasProfissionais extends BaseDaggerDialogoPersistente
     }
 
 
-    public static DialogoCategoriasProfissionais newInstance(CategoriaProfissional registo) {
+    public static DialogoCategoriasProfissionais newInstance(int idAtividade, CategoriaProfissional registo) {
         DialogoCategoriasProfissionais fragmento = new DialogoCategoriasProfissionais();
 
         Bundle args = new Bundle();
         args.putInt(ARGUMENTO_ID, registo.categoria.id);
+        args.putInt(ARGUMENTO_ID_ATIVIDADE, idAtividade);
         args.putInt(ARGUMENTO_ID_REGISTO, registo.categoria.idRegisto);
         args.putInt(ARGUMENTO_ID_CATEGORIA, registo.categoria.idCategoriaProfissional);
         args.putInt(ARGUMENTO_HOMENS, registo.categoria.homens);
@@ -121,6 +125,7 @@ public class DialogoCategoriasProfissionais extends BaseDaggerDialogoPersistente
         int idRegisto = getArguments().getInt(ARGUMENTO_ID_REGISTO);
         int homens = 0;
         int mulheres = 0;
+        int idAtividade = getArguments().getInt(ARGUMENTO_ID_ATIVIDADE);
 
         try{
             homens = Integer.parseInt(binding.txtInpHomens.getText().toString());
@@ -139,7 +144,7 @@ public class DialogoCategoriasProfissionais extends BaseDaggerDialogoPersistente
 
         CategoriaProfissionalResultado registo = new CategoriaProfissionalResultado(id, idCategoria, idRegisto, Identificadores.Origens.LEVANTAMENTO_CATEGORIAS_PROFISSIONAIS, homens, mulheres);
 
-        viewModel.atualizarCategoriaProfissional(registo);
+        viewModel.atualizarCategoriaProfissional(PreferenciasUtil.obterIdTarefa(getContext()), idAtividade, registo);
 
     }
 }

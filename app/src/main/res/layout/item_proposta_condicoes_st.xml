@@ -8,6 +8,8 @@
     <data>
 
 
+        <import type="com.vvm.sh.BuildConfig"/>
+        <import type="android.view.View"/>
         <import type="com.vvm.sh.util.metodos.StringUtil"/>
 
         <variable
@@ -31,6 +33,8 @@
             <TextView
                 android:id="@+id/textView13"
                 style="@style/textoDetalhe"
+
+                android:visibility="@{BuildConfig.DEBUG ? View.VISIBLE : View.GONE}"
                 android:text="@{StringUtil.converterString(proposta.resultado.id)}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

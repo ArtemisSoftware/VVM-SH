@@ -114,5 +114,9 @@ abstract public class QuestionarioChecklistDao implements BaseDao<QuestionarioCh
 
 
     @Query("DELETE FROM questionarioChecklistResultado WHERE idArea IN (SELECT id FROM areasChecklistResultado WHERE idAtividade = :idAtividade)")
+    abstract public Completable removerQuestoes_Checklist(int idAtividade);
+
+    @Query("DELETE FROM areasChecklistResultado WHERE idAtividade = :idAtividade")
     abstract public Completable removerArea_Checklist(int idAtividade);
+
 }

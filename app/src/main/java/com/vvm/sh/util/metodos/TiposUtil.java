@@ -54,6 +54,7 @@ public class TiposUtil {
 
         public static final String MEDIDAS_ILUMINACAO_TERMICO = "GetMedidasIluminacaoTermico";
         public static final String MEDIDAS_PREVENCAO_RECOMENDADAS = "GetMedidasPrevencaoRecomendadas";
+        public static final String MEDIDAS_PREVENCAO_ADOPTADAS = "GetMedidasPrevencaoAdoptadas";
 
         public static final String RISCOS = "GetRiscos";
         public static final String RISCOS_ESPECIFICOS = "GetRiscosEspecificos";
@@ -100,6 +101,7 @@ public class TiposUtil {
 
         public static final String MEDIDAS_ILUMINACAO_TERMICO = "Medidas_Iluminacao_Termico";
         public static final String MEDIDAS_PREVENCAO_RECOMENDADAS = "Medidas_Prevencao_Recomendadas";
+        public static final String MEDIDAS_PREVENCAO_ADOPTADAS = "Medidas_Prevencao_Adoptadas";
 
         public static final String RISCOS = "Riscos";
         public static final String RISCOS_ESPECIFICOS = "Riscos_Especificos";
@@ -170,6 +172,7 @@ public class TiposUtil {
 
             public static final MetodoApi METODO_MEDIDAS_ILUMINACAO_TERMICO = new MetodoApi(MEDIDAS_ILUMINACAO_TERMICO, null, MetodosTiposSH.MEDIDAS_ILUMINACAO_TERMICO);
             public static final MetodoApi METODO_MEDIDAS_PREVENCAO_RECOMENDADAS = new MetodoApi(MEDIDAS_PREVENCAO_RECOMENDADAS, null, MetodosTiposSH.MEDIDAS_PREVENCAO_RECOMENDADAS);
+            public static final MetodoApi METODO_MEDIDAS_PREVENCAO_ADOPTADAS = new MetodoApi(MEDIDAS_PREVENCAO_ADOPTADAS, null, MetodosTiposSH.MEDIDAS_PREVENCAO_ADOPTADAS);
 
 
             public static final MetodoApi METODO_RISCOS = new MetodoApi(RISCOS, null, MetodosTiposSH.RISCOS);
@@ -222,6 +225,7 @@ public class TiposUtil {
 
                     METODO_MEDIDAS_ILUMINACAO_TERMICO,
                     METODO_MEDIDAS_PREVENCAO_RECOMENDADAS,
+                    METODO_MEDIDAS_PREVENCAO_ADOPTADAS,
 
                     METODO_RISCOS,
                     METODO_RISCOS_ESPECIFICOS,

@@ -115,7 +115,7 @@ public class ChecklistRepositorio {
     }
 
 
-    public Single<Tipo> obterChecklist(int idAtividade){
+    public Observable<Tipo> obterChecklist(int idAtividade){
         return areaChecklistDao.obterChecklist(idAtividade, api);
     }
 
@@ -223,9 +223,11 @@ public class ChecklistRepositorio {
     public Completable removerChecklist(int idAtividade) {
 
         Completable removerPropostaPlanoAcao_ST = questionarioChecklistDao.removerPropostaPlanoAcao_ST_Checklist(idAtividade);
+        Completable removerQuestoes = questionarioChecklistDao.removerQuestoes_Checklist(idAtividade);
         Completable removerArea = questionarioChecklistDao.removerArea_Checklist(idAtividade);
+        //Completable completable = Completable.concatArray(removerArea);
 
-        Completable completable = Completable.concatArray(removerPropostaPlanoAcao_ST, removerArea);
+        Completable completable = Completable.concatArray(removerPropostaPlanoAcao_ST, removerQuestoes, removerArea);
 
         return completable;
 

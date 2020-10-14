@@ -7,7 +7,6 @@ import androidx.lifecycle.ViewModelProviders;
 import android.os.Bundle;
 
 import com.vvm.sh.R;
-import com.vvm.sh.databinding.ActivityPlanoAccaoBinding;
 import com.vvm.sh.databinding.ActivityPropostaPlanoAccaoBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
@@ -79,7 +78,7 @@ public class PropostaPlanoAccaoActivity extends BaseDaggerActivity implements On
 
     @Override
     protected BaseViewModel obterBaseViewModel() {
-        return null;
+        return viewModel;
     }
 
     @Override
@@ -110,7 +109,7 @@ public class PropostaPlanoAccaoActivity extends BaseDaggerActivity implements On
 
     private void setupViewPager(){
 
-        AnuidadePagerAdapter adapter = new AnuidadePagerAdapter(getSupportFragmentManager());
+        PropostaPagerAdapter adapter = new PropostaPagerAdapter(getSupportFragmentManager());
 
         condicoesStFragment = new CondicoesStFragment();
         medidasAvaliacaoFragment = new MedidasAvaliacaoFragment();

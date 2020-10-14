@@ -222,6 +222,7 @@ public class TarefaViewModel extends BaseViewModel {
                                 @Override
                                 public void onSuccess(Long aLong) {
                                     messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_GRAVADOS_SUCESSO));
+                                    gravarResultado(tarefaRepositorio.resultadoDao, registo.parqueExtintor.idTarefa, ResultadoId.PARQUE_EXTINTOR);
                                 }
 
                                 @Override
@@ -247,6 +248,7 @@ public class TarefaViewModel extends BaseViewModel {
                                 @Override
                                 public void onSuccess(Integer integer) {
                                     messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_EDITADOS_SUCESSO));
+                                    gravarResultado(tarefaRepositorio.resultadoDao, registo.parqueExtintor.idTarefa, ResultadoId.PARQUE_EXTINTOR);
                                 }
 
                                 @Override
@@ -258,7 +260,6 @@ public class TarefaViewModel extends BaseViewModel {
                     );
         }
 
-        gravarResultado(tarefaRepositorio.resultadoDao, registo.parqueExtintor.idTarefa, ResultadoId.PARQUE_EXTINTOR);
     }
 
 
@@ -440,18 +441,14 @@ public class TarefaViewModel extends BaseViewModel {
     }
 
 
+    //--------------------
+    //OBTER - extintores
+    //--------------------
 
-
-
-
-
-
-
-
-
-
-
-
+    /**
+     * Metodo que permite obter os extintores
+     * @param idTarefa o identificador da tarefa
+     */
     public void obterExtintores(int idTarefa) {
 
         estatistica.setValue(0);

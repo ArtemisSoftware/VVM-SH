@@ -260,21 +260,21 @@ public class LevantamentoRepositorio {
 
 
 
-        public Single<Object> duplicar(int idLevantamentoOriginal, LevantamentoRiscoResultado resultado) {
-
-        return levantamentoDao.inserir(resultado)
-                .map(new Function<Long, Object>() {
-                    @Override
-                    public Object apply(Long aLong) throws Exception {
-                        return categoriaProfissionalDao.duplicarCategorias(idLevantamentoOriginal, ConversorUtil.converter_long_Para_int(aLong));
-                    }
-                })
-                .map(new Function<Object, Object>() {
-                    @Override
-                    public Object apply(Object o) throws Exception {
-                        return riscoDao.obterRiscos(idLevantamentoOriginal, idApi);
-                    }
-                });
-    }
+//        public Single<Object> duplicar(int idLevantamentoOriginal, LevantamentoRiscoResultado resultado) {
+//
+//        return levantamentoDao.inserir(resultado)
+//                .map(new Function<Long, Object>() {
+//                    @Override
+//                    public Object apply(Long aLong) throws Exception {
+//                        return categoriaProfissionalDao.duplicarCategorias(idLevantamentoOriginal, ConversorUtil.converter_long_Para_int(aLong));
+//                    }
+//                })
+//                .map(new Function<Object, Object>() {
+//                    @Override
+//                    public Object apply(Object o) throws Exception {
+//                        return riscoDao.obterRiscos(idLevantamentoOriginal, idApi);
+//                    }
+//                });
+//    }
 
 }

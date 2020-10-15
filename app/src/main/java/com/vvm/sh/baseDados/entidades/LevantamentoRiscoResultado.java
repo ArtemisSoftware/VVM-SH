@@ -63,4 +63,12 @@ public class LevantamentoRiscoResultado {
         this.perigo = perigo;
         this.origem = Identificadores.Origens.ORIGEM_BD;
     }
+
+    @Ignore
+    public LevantamentoRiscoResultado(LevantamentoRiscoResultado levantamento) {
+        this.idAtividade = levantamento.idAtividade;
+        this.tarefa = levantamento.tarefa;
+        this.perigo = levantamento.perigo;
+        this.origem = Identificadores.Origens.ORIGEM_BD;
+    }
 }

@@ -8,18 +8,17 @@ import com.vvm.sh.baseDados.dao.MedidaDao;
 import com.vvm.sh.baseDados.dao.ResultadoDao;
 import com.vvm.sh.baseDados.dao.RiscoDao;
 import com.vvm.sh.baseDados.dao.TipoDao;
-import com.vvm.sh.baseDados.entidades.AvaliacaoAmbientalResultado;
 import com.vvm.sh.baseDados.entidades.CategoriaProfissionalResultado;
 import com.vvm.sh.baseDados.entidades.LevantamentoRiscoResultado;
 import com.vvm.sh.baseDados.entidades.MedidaResultado;
 import com.vvm.sh.baseDados.entidades.RiscoResultado;
 import com.vvm.sh.baseDados.entidades.Tipo;
-import com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.modelos.AvaliacaoAmbiental;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.modelos.CategoriaProfissional;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.modelos.Levantamento;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.modelos.RelatorioLevantamento;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.modelos.Risco;
 import com.vvm.sh.util.constantes.Identificadores;
+import com.vvm.sh.util.metodos.ConversorUtil;
 import com.vvm.sh.util.metodos.TiposUtil;
 
 import java.util.ArrayList;
@@ -31,6 +30,7 @@ import io.reactivex.Maybe;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.functions.BiFunction;
+import io.reactivex.functions.Function;
 import io.reactivex.functions.Function3;
 
 public class LevantamentoRepositorio {
@@ -161,6 +161,8 @@ public class LevantamentoRepositorio {
     public Flowable<Integer> remover(Levantamento levantamento){
 
         return Single.concatArray(
+                medidaDao.removerMedidasRisco(levantamento.resultado.id),
+                riscoDao.removerRiscos(levantamento.resultado.id),
                 categoriaProfissionalDao.remover(levantamento.resultado.id, Identificadores.Origens.LEVANTAMENTO_CATEGORIAS_PROFISSIONAIS),
                 levantamentoDao.remover(levantamento.resultado)
         );
@@ -212,7 +214,6 @@ public class LevantamentoRepositorio {
 
     public Flowable<Object> atualizarRisco(RiscoResultado registo, List<MedidaResultado> medidasExistentesRegistas, List<MedidaResultado> medidasRecomendadasRegistas) {
 
-
             Flowable<Object> single = Single.merge(Arrays.asList(riscoDao.atualizar(registo),
                     medidaDao.remover(registo.id, Identificadores.Origens.LEVANTAMENTO_MEDIDAS_ADOPTADAS),
                     medidaDao.remover(registo.id, Identificadores.Origens.LEVANTAMENTO_MEDIDAS_RECOMENDADAS),
@@ -220,8 +221,6 @@ public class LevantamentoRepositorio {
                     medidaDao.inserir(medidasRecomendadasRegistas)));
 
             return single;
-
-
 
     }
 
@@ -257,6 +256,25 @@ public class LevantamentoRepositorio {
                 });
 
         return maybe;
+    }
+
+
+
+        public Single<Object> duplicar(int idLevantamentoOriginal, LevantamentoRiscoResultado resultado) {
+
+        return levantamentoDao.inserir(resultado)
+                .map(new Function<Long, Object>() {
+                    @Override
+                    public Object apply(Long aLong) throws Exception {
+                        return categoriaProfissionalDao.duplicarCategorias(idLevantamentoOriginal, ConversorUtil.converter_long_Para_int(aLong));
+                    }
+                })
+                .map(new Function<Object, Object>() {
+                    @Override
+                    public Object apply(Object o) throws Exception {
+                        return riscoDao.obterRiscos(idLevantamentoOriginal, idApi);
+                    }
+                });
     }
 
 }

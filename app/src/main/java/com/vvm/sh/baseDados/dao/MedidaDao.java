@@ -10,6 +10,7 @@ import com.vvm.sh.baseDados.BaseDao;
 import com.vvm.sh.baseDados.entidades.CategoriaProfissionalResultado;
 import com.vvm.sh.baseDados.entidades.MedidaResultado;
 import com.vvm.sh.baseDados.entidades.Tipo;
+import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.metodos.TiposUtil;
 
 import java.util.List;
@@ -42,4 +43,10 @@ abstract public class MedidaDao implements BaseDao<MedidaResultado> {
 
     @Query("DELETE FROM medidasResultado WHERE id = :id AND origem = :origem")
     abstract public Single<Integer> remover(int id, int origem);
+
+
+    @Query("DELETE FROM medidasResultado " +
+            "WHERE id IN(SELECT id FROM riscosResultado WHERE idLevantamento = :idLevantamento) " +
+            "AND (origem = " + Identificadores.Origens.LEVANTAMENTO_MEDIDAS_RECOMENDADAS + " OR origem =" + Identificadores.Origens.LEVANTAMENTO_MEDIDAS_ADOPTADAS + ")")
+    abstract public Single<Integer> removerMedidasRisco(int idLevantamento);
 }

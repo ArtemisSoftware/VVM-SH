@@ -59,6 +59,7 @@ public class Identificadores {
         public static final int LEVANTAMENTO_CATEGORIAS_PROFISSIONAIS = 9;
         public static final int LEVANTAMENTO_MEDIDAS_RECOMENDADAS = 91;
         public static final int LEVANTAMENTO_MEDIDAS_ADOPTADAS = 92;
+        public static final int LEVANTAMENTO_DUPLICACADO = 93;
 
 /**/
         public static final int ORIGEM_LEVANTAMENTO_RISCO = 7;

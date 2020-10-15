@@ -117,7 +117,7 @@
                 android:id="@+id/textView73"
                 style="@style/textoDetalhe"
                 android:layout_marginStart="16dp"
-                android:text="TextView"
+                android:text="@{risco.resultado.ni}"
                 app:layout_constraintBottom_toBottomOf="@+id/textView72"
                 app:layout_constraintStart_toEndOf="@+id/textView72"
                 app:layout_constraintTop_toTopOf="@+id/textView72" />

@@ -8,6 +8,7 @@ import com.vvm.sh.baseDados.entidades.MedidaResultado;
 import com.vvm.sh.baseDados.entidades.RiscoResultado;
 import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.repositorios.LevantamentoRepositorio;
+import com.vvm.sh.servicos.levantamentos.DuplicarLevantamentoAsyncTask;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.modelos.AvaliacaoAmbiental;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.modelos.CategoriaProfissional;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.modelos.Levantamento;
@@ -305,65 +306,92 @@ public class LevantamentosViewModel extends BaseViewModel {
         }
         else{
 
-//            registo.id = risco.getValue().id;
-//
-//
-//            List<MedidaResultado> medidasExistentesRegistas = new ArrayList<>();
-//
-//            if(medidasExistentes == null){
-//
-//                for (Tipo medida : risco.getValue().medidasExistentes) {
-//                    medidasExistentesRegistas.add(new MedidaResultado(registo.id, Identificadores.Origens.LEVANTAMENTO_MEDIDAS_ADOPTADAS, medida.id));
-//                }
-//            }
-//            else {
-//
-//                for (int idMedida : medidasExistentes) {
-//                    medidasExistentesRegistas.add(new MedidaResultado(registo.id, Identificadores.Origens.LEVANTAMENTO_MEDIDAS_ADOPTADAS, idMedida));
-//                }
-//            }
-//
-//
-//            List<MedidaResultado> medidasRecomendadasRegistas = new ArrayList<>();
-//
-//            if(medidasExistentes == null){
-//
-//                for (Tipo medida : risco.getValue().medidasRecomendadas) {
-//                    medidasRecomendadasRegistas.add(new MedidaResultado(registo.id, Identificadores.Origens.LEVANTAMENTO_MEDIDAS_RECOMENDADAS, medida.id));
-//                }
-//            }
-//            else {
-//
-//                for (int idMedida : medidasRecomendadas) {
-//                    medidasRecomendadasRegistas.add(new MedidaResultado(registo.id, Identificadores.Origens.LEVANTAMENTO_MEDIDAS_RECOMENDADAS, idMedida));
-//                }
-//            }
-//
-//
-//
-//            Disposable d = levantamentoRepositorio.atualizarRisco(registo, medidasExistentesRegistas, medidasRecomendadasRegistas)
-//                    .toList()
-//                    .subscribeOn(Schedulers.io())
-//                    .observeOn(AndroidSchedulers.mainThread())
-//                    .subscribe(
-//
-//                            new Consumer<Object>() {
-//                                @Override
-//                                public void accept(Object o) throws Exception {
-//                                    messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_EDITADOS_SUCESSO));
-//                                    abaterAtividadePendente(levantamentoRepositorio.resultadoDao, idTarefa, idAtividade);
-//                                }
-//                            }
-//                    );
-//
-//            disposables.add(d);
+            registo.id = risco.getValue().resultado.id;
 
+
+            List<MedidaResultado> medidasExistentesRegistas = new ArrayList<>();
+
+            if(medidasExistentes == null){
+
+                for (Tipo medida : risco.getValue().medidasExistentes) {
+                    medidasExistentesRegistas.add(new MedidaResultado(registo.id, Identificadores.Origens.LEVANTAMENTO_MEDIDAS_ADOPTADAS, medida.id));
+                }
+            }
+            else {
+
+                for (int idMedida : medidasExistentes) {
+                    medidasExistentesRegistas.add(new MedidaResultado(registo.id, Identificadores.Origens.LEVANTAMENTO_MEDIDAS_ADOPTADAS, idMedida));
+                }
+            }
+
+
+            List<MedidaResultado> medidasRecomendadasRegistas = new ArrayList<>();
+
+            if(medidasExistentes == null){
+
+                for (Tipo medida : risco.getValue().medidasRecomendadas) {
+                    medidasRecomendadasRegistas.add(new MedidaResultado(registo.id, Identificadores.Origens.LEVANTAMENTO_MEDIDAS_RECOMENDADAS, medida.id));
+                }
+            }
+            else {
+
+                for (int idMedida : medidasRecomendadas) {
+                    medidasRecomendadasRegistas.add(new MedidaResultado(registo.id, Identificadores.Origens.LEVANTAMENTO_MEDIDAS_RECOMENDADAS, idMedida));
+                }
+            }
+
+
+            Disposable d = levantamentoRepositorio.atualizarRisco(registo, medidasExistentesRegistas, medidasRecomendadasRegistas)
+                    .toList()
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+
+                            new Consumer<Object>() {
+                                @Override
+                                public void accept(Object o) throws Exception {
+                                    messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_EDITADOS_SUCESSO));
+                                    abaterAtividadePendente(levantamentoRepositorio.resultadoDao, idTarefa, idAtividade);
+                                }
+                            }
+                    );
+
+            disposables.add(d);
 
         }
 
     }
 
 
+    public void duplicar(int idTarefa, int idAtividade, LevantamentoRiscoResultado levantamento) {
+
+
+        LevantamentoRiscoResultado resultado = new LevantamentoRiscoResultado(levantamento);
+
+        levantamentoRepositorio.inserir(resultado)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new SingleObserver<Long>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+
+                            }
+
+                            @Override
+                            public void onSuccess(Long aLong) {
+                                DuplicarLevantamentoAsyncTask servico = new DuplicarLevantamentoAsyncTask(vvmshBaseDados, levantamento.id);
+                                servico.execute(ConversorUtil.converter_long_Para_int(aLong));
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+                        }
+                );
+    }
 
 
     //--------------------
@@ -470,7 +498,7 @@ public class LevantamentosViewModel extends BaseViewModel {
 
                             @Override
                             public void onError(Throwable e) {
-
+                                showProgressBar(false);
                             }
 
                             @Override
@@ -735,6 +763,8 @@ public class LevantamentosViewModel extends BaseViewModel {
 
     }
 
+
+
     private void obterRisco(int id) {
         levantamentoRepositorio.obterRisco(id)
                 .subscribeOn(Schedulers.io())
@@ -899,6 +929,8 @@ public class LevantamentosViewModel extends BaseViewModel {
 
                 );
     }
+
+
 
 
     private class TiposRiscos{

@@ -66,18 +66,6 @@
                 app:layout_constraintTop_toBottomOf="@+id/textView100" />
 
 
-            <ImageView
-                android:id="@+id/imageView3"
-
-                android:layout_width="32dp"
-                android:layout_height="32dp"
-                android:layout_marginStart="16dp"
-                android:layout_marginEnd="16dp"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="1.0"
-                app:layout_constraintStart_toEndOf="@+id/textView"
-                app:layout_constraintTop_toTopOf="@+id/textView"
-                app:srcCompat="@drawable/ic_relatorio" />
             <!--
 
 
@@ -87,39 +75,100 @@
 
 
 
-            <TextView
-                android:id="@+id/textView96"
-                style="@style/textoDetalhe"
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/distancia_vertical_titulo"
-                android:text="@string/perigo_"
+                android:orientation="horizontal"
                 app:layout_constraintStart_toStartOf="@+id/textView"
-                app:layout_constraintTop_toBottomOf="@+id/textView" />
+                app:layout_constraintTop_toBottomOf="@+id/textView"
+                android:weightSum="2">
+
+
+                <LinearLayout
+                    android:id="@+id/linearLayout1"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
+
+
+                    <TextView
+                        android:id="@+id/textView52"
+                        style="@style/textoDescritivo"
+                        android:text="@string/perigo" />
+
+                    <TextView
+                        android:id="@+id/textView54"
+                        style="@style/textoDetalhe"
+                        android:text="@{levantamento.resultado.perigo}"
+                        android:layout_marginTop="8dp"/>
+
+                </LinearLayout>
+
+
+                <LinearLayout
+                    android:id="@+id/linearLayout2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="32dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical"
+                    android:paddingRight="18dp">
+
+                    <TextView
+                        android:id="@+id/textView53"
+                        style="@style/textoDescritivo"
+                        android:text="@string/tarefa" />
+
+                    <TextView
+                        android:id="@+id/textView56"
+                        style="@style/textoDetalhe"
+                        android:text="@{levantamento.resultado.tarefa}"
+                        android:layout_marginTop="8dp"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+
 
             <TextView
-                android:id="@+id/textView97"
+                android:id="@+id/textView102"
+                style="@style/textoDetalhe"
+                android:layout_marginTop="16dp"
+                android:text="@string/categorias_profissionais_"
+                app:layout_constraintStart_toStartOf="@+id/textView"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+
+            <TextView
+                android:id="@+id/textView103"
                 style="@style/textoDetalhe"
                 android:layout_marginStart="16dp"
-                android:text="@{levantamento.resultado.perigo}"
-                app:layout_constraintStart_toEndOf="@+id/textView96"
-                app:layout_constraintTop_toTopOf="@+id/textView96" />
-
-
+                android:text="@{StringUtil.converterString(levantamento.numeroCategoriasProfissionais)}"
+                app:layout_constraintStart_toEndOf="@+id/textView102"
+                app:layout_constraintTop_toTopOf="@+id/textView102" />
 
             <TextView
-                android:id="@+id/textView98"
+                android:id="@+id/textView104"
                 style="@style/textoDetalhe"
-                android:layout_marginTop="8dp"
-                android:text="@string/tarefa_"
-                app:layout_constraintStart_toStartOf="@+id/textView"
-                app:layout_constraintTop_toBottomOf="@+id/textView96" />
+                android:layout_marginStart="32dp"
+                android:text="@string/riscos_"
+                app:layout_constraintBottom_toBottomOf="@+id/textView102"
+                app:layout_constraintStart_toEndOf="@+id/textView103"
+                app:layout_constraintTop_toTopOf="@+id/textView102" />
 
             <TextView
-                android:id="@+id/textView99"
+                android:id="@+id/textView105"
                 style="@style/textoDetalhe"
                 android:layout_marginStart="16dp"
-                android:text="@{levantamento.resultado.tarefa}"
-                app:layout_constraintStart_toEndOf="@+id/textView98"
-                app:layout_constraintTop_toTopOf="@+id/textView98" />
+                android:text="@{StringUtil.converterString(levantamento.numeroRiscos)}"
+                app:layout_constraintStart_toEndOf="@+id/textView104"
+                app:layout_constraintTop_toTopOf="@+id/textView104" />
+
+
+
 
             <TextView
                 android:id="@+id/textView100"
@@ -149,37 +198,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
 
-            <TextView
-                android:id="@+id/textView102"
-                style="@style/textoDetalhe"
-                android:layout_marginTop="16dp"
-                android:text="@string/categorias_profissionais_"
-                app:layout_constraintStart_toStartOf="@+id/textView"
-                app:layout_constraintTop_toBottomOf="@+id/textView98" />
 
-            <TextView
-                android:id="@+id/textView103"
-                style="@style/textoDetalhe"
-                android:layout_marginStart="16dp"
-                android:text="@{StringUtil.converterString(levantamento.numeroCategoriasProfissionais)}"
-                app:layout_constraintStart_toEndOf="@+id/textView102"
-                app:layout_constraintTop_toTopOf="@+id/textView102" />
-
-            <TextView
-                android:id="@+id/textView104"
-                style="@style/textoDetalhe"
-                android:layout_marginTop="8dp"
-                android:text="@string/riscos_"
-                app:layout_constraintStart_toStartOf="@+id/textView"
-                app:layout_constraintTop_toBottomOf="@+id/textView102" />
-
-            <TextView
-                android:id="@+id/textView105"
-                style="@style/textoDetalhe"
-                android:layout_marginStart="16dp"
-                android:text="@{StringUtil.converterString(levantamento.numeroRiscos)}"
-                app:layout_constraintStart_toEndOf="@+id/textView104"
-                app:layout_constraintTop_toTopOf="@+id/textView104" />
 
             <!--
 

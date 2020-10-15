@@ -1,5 +1,6 @@
 package com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos;
 
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
@@ -13,6 +14,7 @@ import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.adaptadores.OnLevantamentoListener;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.modelos.Levantamento;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.modelos.Risco;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
@@ -72,6 +74,7 @@ public class LevantamentosActivity extends BaseDaggerActivity
     @Override
     protected void subscreverObservadores() {
 
+
     }
 
 
@@ -129,6 +132,7 @@ public class LevantamentosActivity extends BaseDaggerActivity
     @Override
     public void OnDuplicarClick(Levantamento levantamento) {
 
+        viewModel.duplicar(PreferenciasUtil.obterIdTarefa(this), levantamento.resultado.idAtividade, levantamento.resultado);
     }
 
     @Override

@@ -11,8 +11,10 @@ import com.vvm.sh.util.metodos.TiposUtil;
 
 import java.util.List;
 
+import io.reactivex.Completable;
 import io.reactivex.Maybe;
 import io.reactivex.Observable;
+import io.reactivex.Single;
 
 @Dao
 abstract public class RiscoDao implements BaseDao<RiscoResultado> {
@@ -46,4 +48,14 @@ abstract public class RiscoDao implements BaseDao<RiscoResultado> {
     @Query("SELECT * FROM riscosResultado WHERE id = :id")
     abstract public Maybe<RiscoResultado> obterRisco(int id);
 
+
+    @Query("DELETE FROM riscosResultado WHERE idLevantamento = :idLevantamento ")
+    abstract public Single<Integer> removerRiscos(int idLevantamento);
+
+
+
+    @Query("INSERT INTO riscosResultado (idLevantamento, idRisco, idRiscoEspecifico, consequencias, origem, nd, ne, nc) " +
+            "SELECT :idLevantamentoNovo as idLevantamento, idRisco, idRiscoEspecifico, consequencias, " + Identificadores.Origens.LEVANTAMENTO_DUPLICACADO + " as origem, nd, ne, nc " +
+            "FROM riscosResultado WHERE idLevantamento = :idLevantamentoOriginal ")
+    abstract public Completable duplicarRiscos(int idLevantamentoOriginal, int idLevantamentoNovo);
 }

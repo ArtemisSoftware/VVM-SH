@@ -15,6 +15,7 @@ import com.vvm.sh.util.metodos.TiposUtil;
 
 import java.util.List;
 
+import io.reactivex.Completable;
 import io.reactivex.Maybe;
 import io.reactivex.Observable;
 import io.reactivex.Single;
@@ -56,5 +57,11 @@ abstract public class CategoriaProfissionalDao implements BaseDao<CategoriaProfi
     abstract public Single<List<Tipo>> obterTiposCategorias(List<Integer> registos, int api);
 
 
+
+
+    @Query("INSERT INTO categoriasProfissionaisResultado(id, origem, idCategoriaProfissional, homens, mulheres) " +
+            "SELECT :idLevantamentoNovo  as id, origem, idCategoriaProfissional, homens, mulheres " +
+            "FROM categoriasProfissionaisResultado WHERE id = :idLevantamentoOriginal ")
+    abstract public Completable duplicarCategorias(int idLevantamentoOriginal, int idLevantamentoNovo);
 
 }

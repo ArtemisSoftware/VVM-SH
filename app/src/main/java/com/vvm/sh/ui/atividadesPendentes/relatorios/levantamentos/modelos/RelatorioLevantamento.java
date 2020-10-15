@@ -21,11 +21,11 @@ public class RelatorioLevantamento {
     @ColumnInfo(name = "validadeCategoriasProfissionais")
     public boolean validadeCategoriasProfissionais;
 
-
-    @Ignore
+    @ColumnInfo(name = "validadeRiscos")
     public boolean validadeRiscos;
 
-    @Ignore
+
+    @ColumnInfo(name = "valido")
     public boolean valido;
 
 }

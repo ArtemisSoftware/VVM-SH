@@ -58,10 +58,4 @@ abstract public class CategoriaProfissionalDao implements BaseDao<CategoriaProfi
 
 
 
-
-    @Query("INSERT INTO categoriasProfissionaisResultado(id, origem, idCategoriaProfissional, homens, mulheres) " +
-            "SELECT :idLevantamentoNovo  as id, origem, idCategoriaProfissional, homens, mulheres " +
-            "FROM categoriasProfissionaisResultado WHERE id = :idLevantamentoOriginal ")
-    abstract public Completable duplicarCategorias(int idLevantamentoOriginal, int idLevantamentoNovo);
-
 }

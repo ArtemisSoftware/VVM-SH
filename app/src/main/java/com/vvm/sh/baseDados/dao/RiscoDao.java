@@ -54,8 +54,5 @@ abstract public class RiscoDao implements BaseDao<RiscoResultado> {
 
 
 
-    @Query("INSERT INTO riscosResultado (idLevantamento, idRisco, idRiscoEspecifico, consequencias, origem, nd, ne, nc) " +
-            "SELECT :idLevantamentoNovo as idLevantamento, idRisco, idRiscoEspecifico, consequencias, " + Identificadores.Origens.LEVANTAMENTO_DUPLICACADO + " as origem, nd, ne, nc " +
-            "FROM riscosResultado WHERE idLevantamento = :idLevantamentoOriginal ")
-    abstract public Completable duplicarRiscos(int idLevantamentoOriginal, int idLevantamentoNovo);
+
 }

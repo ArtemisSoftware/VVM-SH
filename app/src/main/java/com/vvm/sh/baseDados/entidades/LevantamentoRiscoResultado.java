@@ -41,19 +41,21 @@ public class LevantamentoRiscoResultado {
     @ColumnInfo(name = "idModelo")
     public int idModelo;
 
-
+    @ColumnInfo(name = "idTipoLevantamento")
+    public int idTipoLevantamento;
 
     @NonNull
     public int origem;
 
 
-    public LevantamentoRiscoResultado(int idAtividade, int id, String tarefa, String perigo, int idModelo, int origem) {
+    public LevantamentoRiscoResultado(int idAtividade, int id, String tarefa, String perigo, int idModelo, int origem, int idTipoLevantamento) {
         this.idAtividade = idAtividade;
         this.id = id;
         this.tarefa = tarefa;
         this.perigo = perigo;
         this.idModelo = idModelo;
         this.origem = origem;
+        this.idTipoLevantamento = idTipoLevantamento;
     }
 
     @Ignore

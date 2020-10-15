@@ -40,7 +40,7 @@ abstract public class LevantamentoAvaliacaoDao {
 
 
 
-    @Query(" INSERT INTO propostaPlanoAcaoResultado (idAtividade, idQuestaoChecklis, origem, idMedida) " +
+    @Query(" INSERT INTO propostaPlanoAcaoResultado (idAtividade, idQuestao, origem, idMedida) " +
             "SELECT :idAtividade as idAtividade,  rsc_res.id as idQuestaoChecklis, " + Identificadores.Origens.ORIGEM_LEVANTAMENTO_RISCO + " as origem, idMedida " +
             "FROM riscosResultado as rsc_res " +
             "LEFT JOIN (SELECT id, idMedida FROM medidasResultado WHERE origem = :origem) med_res ON rsc_res.id = med_res.id " +

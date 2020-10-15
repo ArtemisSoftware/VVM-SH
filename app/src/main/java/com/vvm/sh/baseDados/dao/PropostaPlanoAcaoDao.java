@@ -50,12 +50,12 @@ abstract public class PropostaPlanoAcaoDao implements BaseDao<PropostaPlanoAcaoR
             "ON quest_chk_res.idArea = area_chk_res.id " +
             "LEFT JOIN (SELECT idChecklist, idArea, idSeccao, uid, descricao FROM itensChecklist) as itens_chk " +
             "ON area_chk_res.idChecklist = itens_chk.idChecklist AND area_chk_res.idArea = itens_chk.idArea AND quest_chk_res.idItem = itens_chk.uid " +
-            ") as descricao ON prop_pl_accao_res.idQuestaoChecklis = descricao.id " +
+            ") as descricao ON prop_pl_accao_res.idQuestao = descricao.id " +
             "WHERE idAtividade = :idAtividade")
     abstract public Observable<List<Proposta>> obterPropostasSt(int idAtividade);
 
 
-    @Query("DELETE FROM propostaPlanoAcaoResultado WHERE idQuestaoChecklis = :idQuestao")
+    @Query("DELETE FROM propostaPlanoAcaoResultado WHERE idQuestao = :idQuestao")
     abstract public Single<Integer> remover(int idQuestao);
 
 //    String query = "SELECT idMedida,  idPlano, medida, selecionado, MIN(idRegisto)   ";
@@ -82,4 +82,22 @@ abstract public class PropostaPlanoAcaoDao implements BaseDao<PropostaPlanoAcaoR
     @Query("UPDATE propostaPlanoAcaoResultado SET selecionado = :selecionado WHERE idAtividade = :idAtividade AND id = :id AND origem = " + Identificadores.Origens.PROPOSTA_MEDIDAS_AVALIACAO + "")
     abstract public Completable selecionar(int idAtividade, int id, boolean selecionado);
 
+//    query = "INSERT INTO planoAcaoAVR_resultado (id, idRegisto, origem, idMedida, selecionado)  ";
+//    query += "SELECT " + idAtividade + " as id,  idRegisto, " + IdentificadoresIF.ORIGEM_LEVANTAMENTO_RISCO + " as origem, idMedida, 1 as selecionado  ";
+//    query += "FROM riscos_resultado as rsc_res  ";
+//    query += "OUTER LEFT JOIN (SELECT id, idMedida FROM medidas_resultado WHERE origem = ?) med_res ON rsc_res.idRegisto = med_res.id   ";
+//    query += "WHERE  rsc_res.idLevantamento IN (SELECT idLevantamento FROM levantamentosRisco_resultado WHERE id = ? AND idModelo= ? )  ";
+//
+//    argumentos = new String []{
+//        IdentificadoresIF.ORIGEM_RISCO_MEDIDAS_RECOMENDADAS + "", idAtividade, idModelo
+//    };
+
+
+
+    @Query("INSERT INTO propostaPlanoAcaoResultado (idAtividade, idQuestao, origem, idMedida, selecionado) " +
+            "SELECT :idAtividade as idAtividade,  rsc_res.id as id, " + Identificadores.Origens.ORIGEM_LEVANTAMENTO_RISCO + " as origem, idMedida, 1 as selecionado " +
+            "FROM riscosResultado as rsc_res  " +
+            "LEFT JOIN (SELECT id, idMedida FROM medidasResultado WHERE origem = :origem) med_res ON rsc_res.id = med_res.id " +
+            "WHERE  rsc_res.idLevantamento IN (SELECT idLevantamento FROM levantamentosRiscoResultado WHERE idAtividade = :idAtividade AND idModelo = :idModelo )")
+    abstract public Completable inserirModelo(int idAtividade, int idModelo, int origem);
 }

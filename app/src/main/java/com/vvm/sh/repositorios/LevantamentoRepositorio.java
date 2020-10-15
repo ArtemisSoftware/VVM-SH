@@ -5,6 +5,7 @@ import androidx.annotation.NonNull;
 import com.vvm.sh.baseDados.dao.CategoriaProfissionalDao;
 import com.vvm.sh.baseDados.dao.LevantamentoDao;
 import com.vvm.sh.baseDados.dao.MedidaDao;
+import com.vvm.sh.baseDados.dao.PropostaPlanoAcaoDao;
 import com.vvm.sh.baseDados.dao.ResultadoDao;
 import com.vvm.sh.baseDados.dao.RiscoDao;
 import com.vvm.sh.baseDados.dao.TipoDao;
@@ -25,6 +26,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 
+import io.reactivex.Completable;
 import io.reactivex.Flowable;
 import io.reactivex.Maybe;
 import io.reactivex.Observable;
@@ -39,6 +41,8 @@ public class LevantamentoRepositorio {
     private final int idApi;
     private final LevantamentoDao levantamentoDao;
     private final CategoriaProfissionalDao categoriaProfissionalDao;
+
+    private final PropostaPlanoAcaoDao propostaPlanoAcaoDao;
     private final RiscoDao riscoDao;
     private final MedidaDao medidaDao;
     private final TipoDao tipoDao;
@@ -46,12 +50,13 @@ public class LevantamentoRepositorio {
 
 
     public LevantamentoRepositorio(int idApi, @NonNull LevantamentoDao levantamentoDao, @NonNull CategoriaProfissionalDao categoriaProfissionalDao,
-                                   @NonNull RiscoDao riscoDao, @NonNull MedidaDao medidaDao,
+                                   @NonNull RiscoDao riscoDao, @NonNull MedidaDao medidaDao, @NonNull PropostaPlanoAcaoDao propostaPlanoAcaoDao,
                                    @NonNull TipoDao tipoDao, @NonNull ResultadoDao resultadoDao) {
 
         this.idApi = idApi;
 
         this.levantamentoDao = levantamentoDao;
+        this.propostaPlanoAcaoDao = propostaPlanoAcaoDao;
         this.riscoDao = riscoDao;
         this.categoriaProfissionalDao = categoriaProfissionalDao;
 
@@ -259,5 +264,17 @@ public class LevantamentoRepositorio {
     }
 
 
+    public Completable inserirModelo(int idAtividade, int idModelo) {
+
+        Completable completable = Completable.merge(Arrays.asList(
+                levantamentoDao.inserirModelo(idAtividade, idModelo),
+                riscoDao.inserirModelo(idAtividade, idModelo),
+                medidaDao.inserirMedidasRisco(idAtividade, idModelo, TiposUtil.MetodosTipos.MEDIDAS_PREVENCAO_ADOPTADAS, Identificadores.Origens.LEVANTAMENTO_MEDIDAS_ADOPTADAS, Identificadores.Origens.MEDIDAS_RISCO_EXISTENTES, idApi),
+                medidaDao.inserirMedidasRisco(idAtividade, idModelo, TiposUtil.MetodosTipos.MEDIDAS_PREVENCAO_RECOMENDADAS, Identificadores.Origens.LEVANTAMENTO_MEDIDAS_RECOMENDADAS, Identificadores.Origens.MEDIDAS_RISCO_RECOMENDADAS, idApi),
+                propostaPlanoAcaoDao.inserirModelo(idAtividade, idModelo, Identificadores.Origens.LEVANTAMENTO_MEDIDAS_RECOMENDADAS)));
+
+        return completable;
+
+    }
 
 }

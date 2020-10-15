@@ -29,6 +29,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import io.reactivex.CompletableObserver;
 import io.reactivex.FlowableSubscriber;
 import io.reactivex.MaybeObserver;
 import io.reactivex.Observable;
@@ -72,7 +73,6 @@ public class LevantamentosViewModel extends BaseViewModel {
     public MutableLiveData<List<Tipo>> tiposNd;
     public MutableLiveData<List<Tipo>> tiposNe;
     public MutableLiveData<List<Tipo>> tiposNc;
-    public MutableLiveData<List<Tipo>> tiposModelos;
     public List<Tipo> tiposNi;
 
     public MutableLiveData<List<Tipo>> medidasRecomendadas;
@@ -93,7 +93,6 @@ public class LevantamentosViewModel extends BaseViewModel {
         risco = new MutableLiveData<>();
 
 
-        tiposModelos = new MutableLiveData<>();
         tiposRiscos = new MutableLiveData<>();
         tipoRiscoEspecifico = new MutableLiveData<>();
         tiposNd = new MutableLiveData<>();
@@ -282,7 +281,6 @@ public class LevantamentosViewModel extends BaseViewModel {
      */
     public void gravar(int idTarefa, int idAtividade, RiscoResultado registo, List<Integer> medidasExistentes, List<Integer> medidasRecomendadas) {
 
-
         if(risco.getValue() == null){
 
             levantamentoRepositorio.inserir(registo)
@@ -380,7 +378,7 @@ public class LevantamentosViewModel extends BaseViewModel {
      * @param idTarefa
      * @param levantamento os dados do levantamento
      */
-    public void duplicar(int idTarefa, LevantamentoRiscoResultado levantamento) {
+    public void duplicarLevantamento(int idTarefa, LevantamentoRiscoResultado levantamento) {
 
         LevantamentoRiscoResultado resultado = new LevantamentoRiscoResultado(levantamento);
 
@@ -401,6 +399,34 @@ public class LevantamentosViewModel extends BaseViewModel {
                                 abaterAtividadePendente(levantamentoRepositorio.resultadoDao, idTarefa, levantamento.idAtividade);
                                 DuplicarLevantamentoAsyncTask servico = new DuplicarLevantamentoAsyncTask(vvmshBaseDados, levantamentoAvaliacaoRepositorio, levantamento);
                                 servico.execute(ConversorUtil.converter_long_Para_int(aLong));
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+                        }
+                );
+    }
+
+
+
+    public void inserirModelo(int idAtividade, int idModelo) {
+
+        levantamentoRepositorio.inserirModelo(idAtividade, idModelo)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new CompletableObserver() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+
+                            }
+
+                            @Override
+                            public void onComplete() {
+
                             }
 
                             @Override
@@ -859,7 +885,7 @@ public class LevantamentosViewModel extends BaseViewModel {
                         new SingleObserver<List<Tipo>>() {
                             @Override
                             public void onSubscribe(Disposable d) {
-
+                                disposables.add(d);
                             }
 
                             @Override
@@ -947,7 +973,6 @@ public class LevantamentosViewModel extends BaseViewModel {
 
                 );
     }
-
 
 
 

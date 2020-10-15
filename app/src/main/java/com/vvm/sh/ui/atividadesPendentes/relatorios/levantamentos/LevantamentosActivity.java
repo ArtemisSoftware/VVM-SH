@@ -1,6 +1,5 @@
 package com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos;
 
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
@@ -14,7 +13,6 @@ import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.adaptadores.OnLevantamentoListener;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.modelos.Levantamento;
-import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.modelos.Risco;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
@@ -131,8 +129,7 @@ public class LevantamentosActivity extends BaseDaggerActivity
 
     @Override
     public void OnDuplicarClick(Levantamento levantamento) {
-
-        viewModel.duplicar(PreferenciasUtil.obterIdTarefa(this), levantamento.resultado);
+        viewModel.duplicarLevantamento(PreferenciasUtil.obterIdTarefa(this), levantamento.resultado);
     }
 
     @Override
@@ -153,6 +150,17 @@ public class LevantamentosActivity extends BaseDaggerActivity
     public void fab_adicionar_levantamento_OnClickListener(View view) {
 
         initLevantamento(null);
+    }
+
+
+    @OnClick({R.id.fab_adicionar_modelo})
+    public void fab_adicionar_modelo_OnClickListener(View view) {
+
+        Bundle bundle = getIntent().getExtras();
+        int idAtividade = bundle.getInt(getString(R.string.argumento_id_atividade));
+
+        DialogoModelos dialogo = DialogoModelos.newInstance(idAtividade);
+        dialogo.show(getSupportFragmentManager(), "Dialogo");
     }
 
 

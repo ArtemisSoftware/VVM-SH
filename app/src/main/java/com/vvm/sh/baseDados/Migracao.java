@@ -16,12 +16,71 @@ public class Migracao {
         Migration migrations [] =  new Migration []{
                 MIGRACAO_1_2, MIGRACAO_2_3, MIGRACAO_3_4, MIGRACAO_4_5, MIGRACAO_5_6, MIGRACAO_6_7, MIGRACAO_7_8, MIGRACAO_8_9, MIGRACAO_9_10, MIGRACAO_10_11,
                 MIGRACAO_11_12, MIGRACAO_12_13, MIGRACAO_13_14, MIGRACAO_14_15, MIGRACAO_15_16, MIGRACAO_16_17, MIGRACAO_17_18, MIGRACAO_18_19, MIGRACAO_19_20,
-                MIGRACAO_20_21, MIGRACAO_21_22, MIGRACAO_22_23, MIGRACAO_23_24, MIGRACAO_24_25, MIGRACAO_25_26, MIGRACAO_26_27, MIGRACAO_27_28
+                MIGRACAO_20_21, MIGRACAO_21_22, MIGRACAO_22_23, MIGRACAO_23_24, MIGRACAO_24_25, MIGRACAO_25_26, MIGRACAO_26_27, MIGRACAO_27_28, MIGRACAO_28_29
 
         };
 
         return migrations;
     }
+
+
+
+    public static final Migration MIGRACAO_28_29 = new Migration(28, 29) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            try {
+
+
+                database.execSQL("DROP TABLE IF EXISTS 'levantamentosRiscoResultado' ");
+                database.execSQL("DROP INDEX IF EXISTS index_levantamentosRiscoResultado_idAtividade ");
+
+                database.execSQL("CREATE TABLE IF NOT EXISTS 'levantamentosRiscoResultado' ("
+                        + "'idAtividade' INTEGER NOT NULL, "
+                        + "'id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
+
+                        + "'tarefa' TEXT NOT NULL, "
+                        + "'perigo' TEXT NOT NULL, "
+                        + "'idModelo' INTEGER NOT NULL, "
+                        + "'idTipoLevantamento' INTEGER NOT NULL, "
+                        + "'origem' INTEGER NOT NULL, "
+
+                        + "FOREIGN KEY (idAtividade) REFERENCES atividadesPendentes (id)  ON DELETE CASCADE) ");
+
+                database.execSQL("CREATE INDEX index_levantamentosRiscoResultado_idAtividade ON levantamentosRiscoResultado (idAtividade)");
+
+
+
+
+
+
+
+                database.execSQL("DROP TABLE IF EXISTS 'propostaPlanoAcaoResultado' ");
+                database.execSQL("DROP INDEX IF EXISTS index_propostaPlanoAcaoResultado_idAtividade ");
+
+                database.execSQL("CREATE TABLE IF NOT EXISTS 'propostaPlanoAcaoResultado' ("
+                        + "'idAtividade' INTEGER NOT NULL, "
+                        + "'id' INTEGER PRIMARY KEY NOT NULL, "
+                        + "'origem' INTEGER NOT NULL DEFAULT " + Identificadores.VALOR_0 + " ,  "
+                        + "'idQuestao' INTEGER  NOT NULL DEFAULT " + Identificadores.VALOR_0 + " ,  "
+                        + "'idMedida' INTEGER  NOT NULL DEFAULT " + Identificadores.VALOR_0 + " ,  "
+                        + "'idNi' INTEGER  NOT NULL DEFAULT " + Identificadores.VALOR_0 + " ,  "
+                        + "'idPrazo' INTEGER  NOT NULL DEFAULT " + Identificadores.VALOR_0 + " ,  "
+                        + "'selecionado' INTEGER NOT NULL DEFAULT   " + Sintaxe.Codigos.NAO_SELECIONADO + " ,  "
+                        + "FOREIGN KEY (idAtividade) REFERENCES atividadesPendentes (id)  ON DELETE CASCADE)  ");
+
+
+                database.execSQL("CREATE INDEX index_propostaPlanoAcaoResultado_idAtividade ON propostaPlanoAcaoResultado (idAtividade)");
+
+
+
+            }
+            catch(SQLException | IllegalStateException e){
+                Log.e("Migracao", "erro MIGRACAO_26_27: " + e.getMessage());
+                //Timber.e("erro MIGRACAO_2_3: " + e.getMessage());
+            }
+        }
+    };
+
 
 
 

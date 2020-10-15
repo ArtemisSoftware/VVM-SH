@@ -38,8 +38,8 @@ public class PropostaPlanoAcaoResultado {
     public int origem;
 
 
-    @ColumnInfo(name = "idQuestaoChecklis", defaultValue = Identificadores.VALOR_0 + "")
-    public int idQuestaoChecklis;
+    @ColumnInfo(name = "idQuestao", defaultValue = Identificadores.VALOR_0 + "")
+    public int idQuestao;
 
     @ColumnInfo(name = "idMedida", defaultValue = Identificadores.VALOR_0 + "")
     public int idMedida;
@@ -60,15 +60,15 @@ public class PropostaPlanoAcaoResultado {
     public PropostaPlanoAcaoResultado(int idAtividade, int idQuestaoChecklist) {
         this.idAtividade = idAtividade;
         this.origem = Identificadores.Origens.CHECKLIST;
-        this.idQuestaoChecklis = idQuestaoChecklist;
+        this.idQuestao = idQuestaoChecklist;
         this.selecionado = true;
     }
 
-    public PropostaPlanoAcaoResultado(int idAtividade, int id, int origem, int idQuestaoChecklis, int idMedida, int idNi, int idPrazo, boolean selecionado) {
+    public PropostaPlanoAcaoResultado(int idAtividade, int id, int origem, int idQuestao, int idMedida, int idNi, int idPrazo, boolean selecionado) {
         this.idAtividade = idAtividade;
         this.id = id;
         this.origem = origem;
-        this.idQuestaoChecklis = idQuestaoChecklis;
+        this.idQuestao = idQuestao;
         this.idMedida = idMedida;
         this.idNi = idNi;
         this.idPrazo = idPrazo;

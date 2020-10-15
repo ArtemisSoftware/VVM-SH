@@ -80,7 +80,7 @@ abstract public class QuestionarioChecklistDao implements BaseDao<QuestionarioCh
     //Remover area
     //-------------------
 
-    @Query("DELETE FROM propostaPlanoAcaoResultado WHERE idQuestaoChecklis IN (" +
+    @Query("DELETE FROM propostaPlanoAcaoResultado WHERE idQuestao IN (" +
             "SELECT id " +
             "FROM questionarioChecklistResultado as quest_res " +
             "WHERE idArea = :idRegistoArea" +
@@ -105,7 +105,7 @@ abstract public class QuestionarioChecklistDao implements BaseDao<QuestionarioCh
     //-------------------
 
 
-    @Query("DELETE FROM propostaPlanoAcaoResultado WHERE idQuestaoChecklis IN (" +
+    @Query("DELETE FROM propostaPlanoAcaoResultado WHERE idQuestao IN (" +
             "SELECT id " +
             "FROM questionarioChecklistResultado as quest_res " +
             "WHERE idArea IN (SELECT id FROM areasChecklistResultado WHERE idAtividade = :idAtividade)" +

@@ -12,6 +12,7 @@ import com.vvm.sh.util.constantes.Identificadores;
 
 import java.util.List;
 
+import io.reactivex.Completable;
 import io.reactivex.Maybe;
 import io.reactivex.Observable;
 import io.reactivex.Single;
@@ -184,5 +185,12 @@ abstract public class LevantamentoDao implements BaseDao<LevantamentoRiscoResult
 
     @Query("SELECT * FROM tipos WHERE tipo = :tipo AND api = :api AND ativo = 1 AND id NOT IN (SELECT id FROM levantamentosRiscoResultado WHERE idAtividade = :idAtividade)")
     abstract public Single<List<Tipo>> obterModelos(int idAtividade, String tipo, int api);
+
+
+    @Query("INSERT INTO levantamentosRiscoResultado (idAtividade, tarefa, perigo, idModelo, idTipoLevantamento, origem) " +
+            "SELECT :idAtividade as idAtividade, tarefa, perigo, idModelo, id, " + Identificadores.Origens.ORIGEM_BD + " as origem " +
+            "FROM tipostemplateavrlevantamentos " +
+            "WHERE idModelo = :idModelo AND ativo = 1")
+    abstract public Completable inserirModelo(int idAtividade, int idModelo);
 
 }

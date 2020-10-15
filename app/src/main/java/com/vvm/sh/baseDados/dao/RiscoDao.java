@@ -53,6 +53,30 @@ abstract public class RiscoDao implements BaseDao<RiscoResultado> {
     abstract public Single<Integer> removerRiscos(int idLevantamento);
 
 
+//    query = "INSERT INTO riscos_resultado (idLevantamento, idRisco, idRiscoEspecifico, consequencias, origem, idTipoRisco )   ";
+//
+//    query += "SELECT lvr_res.idLevantamento, rsc_modelo.idRisco, rsc_modelo.idRiscoEspecifico, rsc_modelo.consequencias, " + IdentificadoresIF.ORIGEM_MODELO_LEVANTAMENTO + " as origem, rsc_modelo.id ";
+//
+//    query += "FROM levantamentosRisco_resultado as lvr_res  ";
+//
+//    query += "OUTER LEFT JOIN (  ";
+//    query += "SELECT id, idRisco, idRiscoEspecifico, consequencias, idLevantamento  FROM riscos_modelo  WHERE activo = 1 ";
+//    query += ") ";
+//    query += "as rsc_modelo ON lvr_res.idTipoLevantamento = rsc_modelo.idLevantamento  ";
+//    query += "WHERE idModelo= ? AND lvr_res.id = ?  ";
+//
+//    argumentos = new String []{
+//        /*AtualizacaoIF.CODIGO_TIPO_ATIVO, */idModelo, idAtividade
+//    };
 
-
+    @Query("INSERT INTO riscosResultado (idLevantamento, idRisco, idRiscoEspecifico, consequencias, origem, idTipoRisco, nd, ne, nc, ni) " +
+            "SELECT lvr_res.id as idLevantamento, rsc_modelo.idRisco, rsc_modelo.idRiscoEspecifico, rsc_modelo.consequencias, " + Identificadores.Origens.LEVANTAMENTO_MODELO + " as origem, rsc_modelo.id," +
+            " '' as nd, '' as ne, '' as nc, '' as ni " +
+            "FROM levantamentosRiscoResultado as lvr_res " +
+            "LEFT JOIN ( " +
+            "SELECT id, idRisco, idRiscoEspecifico, consequencias, idLevantamento  FROM tiposTemplateAvrRiscos  WHERE ativo = 1" +
+            ") " +
+            "as rsc_modelo ON lvr_res.idTipoLevantamento = rsc_modelo.idLevantamento " +
+            "WHERE idModelo= :idModelo AND lvr_res.idAtividade = :idAtividade  ")
+    public abstract Completable inserirModelo(int idAtividade, int idModelo);
 }

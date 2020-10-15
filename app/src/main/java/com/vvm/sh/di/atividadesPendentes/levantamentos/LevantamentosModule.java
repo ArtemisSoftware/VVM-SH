@@ -5,6 +5,7 @@ import com.vvm.sh.baseDados.dao.CategoriaProfissionalDao;
 import com.vvm.sh.baseDados.dao.LevantamentoAvaliacaoDao;
 import com.vvm.sh.baseDados.dao.LevantamentoDao;
 import com.vvm.sh.baseDados.dao.MedidaDao;
+import com.vvm.sh.baseDados.dao.PropostaPlanoAcaoDao;
 import com.vvm.sh.baseDados.dao.ResultadoDao;
 import com.vvm.sh.baseDados.dao.RiscoDao;
 import com.vvm.sh.baseDados.dao.TipoDao;
@@ -53,14 +54,22 @@ public class LevantamentosModule {
         return dao;
     }
 
+    @LevantamentosScope
+    @Provides
+    static PropostaPlanoAcaoDao provideProvidesPropostaPlanoAcaoDao(VvmshBaseDados vvmshBaseDados){
+
+        PropostaPlanoAcaoDao dao = vvmshBaseDados.obterPropostaPlanoAcaoDao();
+        return dao;
+    }
+
 
     @LevantamentosScope
     @Provides
     LevantamentoRepositorio provideLevantamentoRepositorio(int idApi, LevantamentoDao levantamentoDao, CategoriaProfissionalDao categoriaProfissionalDao,
-                                                           RiscoDao riscoDao, MedidaDao medidaDao,
+                                                           RiscoDao riscoDao, MedidaDao medidaDao, PropostaPlanoAcaoDao propostaPlanoAcaoDao,
                                                            TipoDao tipoDao, ResultadoDao resultadoDao) {
 
-        LevantamentoRepositorio repositorio = new LevantamentoRepositorio(idApi, levantamentoDao, categoriaProfissionalDao, riscoDao, medidaDao, tipoDao, resultadoDao);
+        LevantamentoRepositorio repositorio = new LevantamentoRepositorio(idApi, levantamentoDao, categoriaProfissionalDao, riscoDao, medidaDao, propostaPlanoAcaoDao, tipoDao, resultadoDao);
         return repositorio;
     }
 

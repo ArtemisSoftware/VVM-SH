@@ -132,7 +132,7 @@ public class LevantamentosActivity extends BaseDaggerActivity
     @Override
     public void OnDuplicarClick(Levantamento levantamento) {
 
-        viewModel.duplicar(PreferenciasUtil.obterIdTarefa(this), levantamento.resultado.idAtividade, levantamento.resultado);
+        viewModel.duplicar(PreferenciasUtil.obterIdTarefa(this), levantamento.resultado);
     }
 
     @Override

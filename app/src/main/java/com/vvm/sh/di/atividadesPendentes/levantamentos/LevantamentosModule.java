@@ -2,12 +2,14 @@ package com.vvm.sh.di.atividadesPendentes.levantamentos;
 
 import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.baseDados.dao.CategoriaProfissionalDao;
+import com.vvm.sh.baseDados.dao.LevantamentoAvaliacaoDao;
 import com.vvm.sh.baseDados.dao.LevantamentoDao;
 import com.vvm.sh.baseDados.dao.MedidaDao;
 import com.vvm.sh.baseDados.dao.ResultadoDao;
 import com.vvm.sh.baseDados.dao.RiscoDao;
 import com.vvm.sh.baseDados.dao.TipoDao;
 import com.vvm.sh.di.atividadesPendentes.avaliacaoAmbiental.AvaliacaoAmbientalScope;
+import com.vvm.sh.repositorios.LevantamentoAvaliacaoRepositorio;
 import com.vvm.sh.repositorios.LevantamentoRepositorio;
 
 import dagger.Module;
@@ -59,8 +61,23 @@ public class LevantamentosModule {
                                                            TipoDao tipoDao, ResultadoDao resultadoDao) {
 
         LevantamentoRepositorio repositorio = new LevantamentoRepositorio(idApi, levantamentoDao, categoriaProfissionalDao, riscoDao, medidaDao, tipoDao, resultadoDao);
+        return repositorio;
+    }
 
-        //Timber.d("Providing PokemonRepository: " + repository);
+
+    @LevantamentosScope
+    @Provides
+    static LevantamentoAvaliacaoDao provideProvidesLevantamentoAvaliacaoDao(VvmshBaseDados vvmshBaseDados){
+
+        LevantamentoAvaliacaoDao dao = vvmshBaseDados.obterLevantamentoAvaliacaoDao();
+        return dao;
+    }
+
+    @LevantamentosScope
+    @Provides
+    LevantamentoAvaliacaoRepositorio provideLevantamentoAvaliacaoRepositorio(LevantamentoAvaliacaoDao levantamentoAvaliacaoDao) {
+
+        LevantamentoAvaliacaoRepositorio repositorio = new LevantamentoAvaliacaoRepositorio(levantamentoAvaliacaoDao);
         return repositorio;
     }
 }

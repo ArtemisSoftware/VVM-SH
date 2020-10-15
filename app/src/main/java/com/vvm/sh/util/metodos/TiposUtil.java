@@ -147,6 +147,11 @@ public class TiposUtil {
 
             public static final MetodoApi METODO_TEMPLATE_AVALIACAO_RISCOS_LEVANTAMENTOS = new MetodoApi(TEMPLATE_AVALIACAO_RISCOS_LEVANTAMENTOS, null, MetodosTiposSH.TEMPLATE_AVALIACAO_RISCOS_LEVANTAMENTOS);
             public static final MetodoApi METODO_TEMPLATE_AVALIACAO_RISCOS_RISCOS = new MetodoApi(TEMPLATE_AVALIACAO_RISCOS_RISCOS, null, MetodosTiposSH.TEMPLATE_AVALIACAO_RISCOS_RISCOS);
+
+            public static final MetodoApi TIPOS [] = new MetodoApi []{
+                    METODO_TEMPLATE_AVALIACAO_RISCOS_LEVANTAMENTOS,
+                    METODO_TEMPLATE_AVALIACAO_RISCOS_RISCOS
+            };
         }
 
 
@@ -319,243 +324,20 @@ public class TiposUtil {
             catch (TipoInexistenteException e){}
         }
 
+        for (MetodoApi item : MetodosTipos.TemplateAvr.TIPOS) {
 
+            try {
+                if (item.registado(descricao) == true) {
+                    return item;
+                }
+            }
+            catch (TipoInexistenteException e){}
+        }
 
-        //TODO: completar com os restantes templates
 
         throw new TipoInexistenteException(descricao);
 
     }
-
-
-//    public static MetodoApi obterMetodos(String descricao) throws TipoInexistenteException {
-//
-//        MetodoApi metodo = null;
-//
-//
-//        switch (descricao){
-//
-//            case MetodosTipos.CROSS_SELLING_PRODUTOS:
-//
-//                metodo.sa = MetodosTiposSA.CROSS_SELLING_PRODUTOS;
-//                break;
-//
-//            case MetodosTipos.CROSS_SELLING_DIMENSAO:
-//
-//                metodo.sa = MetodosTiposSA.CROSS_SELLING_DIMENSAO;
-//                break;
-//
-//            case MetodosTipos.CROSS_SELLING_TIPO:
-//
-//                metodo.sa = MetodosTiposSA.CROSS_SELLING_TIPO;
-//                break;
-//
-//            case MetodosTipos.ANOMALIAS:
-//
-//                metodo.sa = MetodosTiposSA.TIPOS_ANOMALIA;
-//                break;
-//
-//            case MetodosTipos.TIPIFICACAO_OCORRENCIA:
-//
-//                metodo.sa = MetodosTiposSA.TIPIFICACAO_OCORRENCIA;
-//                break;
-//
-//
-//
-//
-//            case MetodosTiposSH.ATIVIDADES_RELATORIO_VISITA:
-//            case MetodosTipos.ATIVIDADES_RELATORIO_VISITA:
-//
-//                metodo = MetodosTipos.METODO_ATIVIDADES_RELATORIO_VISITA;
-//                break;
-//
-//
-//            case MetodosTiposSH.CATEGORIAS_PROFISSIONAIS:
-//            case MetodosTipos.CATEGORIAS_PROFISSIONAIS:
-//
-//                metodo = MetodosTipos.METODO_CATEGORIAS_PROFISSIONAIS;
-//                break;
-//
-//
-//            case MetodosTiposSH.CHECKLIST:
-//            case MetodosTipos.Checklist.CHECKLIST:
-//
-//                metodo = MetodosTipos.Checklist.METODO_CHECKLIST;
-//                break;
-//
-//
-//
-//            case MetodosTiposSH.CONDICOES_CLIMATERICAS:
-//            case MetodosTipos.CONDICOES_CLIMATERICAS:
-//
-//                metodo = MetodosTipos.METODO_CONDICOES_CLIMATERICAS;
-//                break;
-//
-//            case MetodosTiposSH.CONCLUSAO_MEDIDAS_RECOMENDADAS:
-//            case MetodosTipos.CONCLUSAO_MEDIDAS_RECOMENDADAS:
-//
-//                metodo = MetodosTipos.METODO_CONCLUSAO_MEDIDAS_RECOMENDADAS;
-//                break;
-//
-//            case MetodosTiposSH.CURSOS:
-//            case MetodosTipos.CURSOS:
-//
-//                metodo = MetodosTipos.METODO_CURSOS;
-//                break;
-//
-//
-//            case MetodosTiposSH.ILUMINANCIA:
-//            case MetodosTipos.ILUMINANCIA:
-//
-//                metodo = MetodosTipos.METODO_ILUMINANCIA;
-//                break;
-//
-//
-//
-//
-//
-//            case MetodosTiposSH.MEDIDAS_ILUMINACAO_TERMICO:
-//            case MetodosTipos.MEDIDAS_ILUMINACAO_TERMICO:
-//
-//                metodo = MetodosTipos.METODO_MEDIDAS_ILUMINACAO_TERMICO;
-//                break;
-//
-//
-//            case MetodosTiposSH.MEDIDAS_PREVENCAO_RECOMENDADAS:
-//            case MetodosTipos.MEDIDAS_PREVENCAO_RECOMENDADAS:
-//
-//                metodo = MetodosTipos.METODO_MEDIDAS_PREVENCAO_RECOMENDADAS;
-//                break;
-//
-//
-//
-//
-//            case MetodosTiposSH.RISCOS:
-//            case MetodosTipos.RISCOS:
-//
-//                metodo = MetodosTipos.METODO_RISCOS;
-//                break;
-//
-//
-//
-//            case MetodosTiposSH.RISCOS_ESPECIFICOS:
-//            case MetodosTipos.RISCOS_ESPECIFICOS:
-//
-//                metodo = MetodosTipos.METODO_RISCOS_ESPECIFICOS;
-//                break;
-//
-//
-//
-//
-//
-//
-//
-//
-//            case MetodosTiposSH.TEMPLATE_AVALIACAO_RISCOS:
-//            case MetodosTipos.TEMPLATE_AVALIACAO_RISCOS:
-//
-//                metodo = MetodosTipos.METODO_TEMPLATE_AVALIACAO_RISCOS;
-//                break;
-//
-//
-//            case MetodosTiposSH.TEMPLATE_AVALIACAO_RISCOS_LEVANTAMENTOS:
-//            case MetodosTipos.TemplateAvr.TEMPLATE_AVALIACAO_RISCOS_LEVANTAMENTOS:
-//
-//                metodo = MetodosTipos.TemplateAvr.METODO_TEMPLATE_AVALIACAO_RISCOS_LEVANTAMENTOS;
-//                break;
-//
-//            case MetodosTiposSH.TEMPLATE_AVALIACAO_RISCOS_RISCOS:
-//            case MetodosTipos.TemplateAvr.TEMPLATE_AVALIACAO_RISCOS_RISCOS:
-//
-//                metodo = MetodosTipos.TemplateAvr.METODO_TEMPLATE_AVALIACAO_RISCOS_RISCOS;
-//                break;
-//
-//
-//
-//
-//
-//            case MetodosTiposSH.TIPOS_AREA:
-//            case MetodosTipos.TIPOS_AREA:
-//
-//                metodo = MetodosTipos.METODO_TIPOS_AREA;
-//                break;
-//
-//
-//            case MetodosTiposSH.TIPOS_CHECKLIST:
-//            case MetodosTipos.TIPOS_CHECKLIST:
-//
-//                metodo = MetodosTipos.METODO_TIPOS_CHECKLIST;
-//                break;
-//
-//            case MetodosTiposSH.TIPOS_ILUMINACAO:
-//            case MetodosTipos.TIPOS_ILUMINACAO:
-//
-//                metodo = MetodosTipos.METODO_TIPOS_ILUMINACAO;
-//                break;
-//
-//
-//
-//
-//
-//            case MetodosTiposSH.TIPOS_NI:
-//            case MetodosTipos.TIPOS_NI:
-//
-//                metodo = MetodosTipos.METODO_TIPOS_NI;
-//                break;
-//
-//            case MetodosTiposSH.TIPOS_NC:
-//            case MetodosTipos.TIPOS_NC:
-//
-//                metodo = MetodosTipos.METODO_TIPOS_NC;
-//                break;
-//
-//
-//            case MetodosTiposSH.TIPOS_ND:
-//            case MetodosTipos.TIPOS_ND:
-//
-//                metodo = MetodosTipos.METODO_TIPOS_ND;
-//                break;
-//
-//
-//
-//
-//            case MetodosTiposSH.TIPOS_NE:
-//            case MetodosTipos.TIPOS_NE:
-//
-//                metodo = MetodosTipos.METODO_TIPOS_NE;
-//                break;
-//
-//
-//            case MetodosTiposSH.TIPOS_MAQUINA:
-//            case MetodosTipos.TIPOS_MAQUINA:
-//
-//                metodo = MetodosTipos.METODO_TIPOS_MAQUINA;
-//                break;
-//
-//
-//            case MetodosTiposSH.TIPOS_UTS:
-//            case MetodosTipos.TIPOS_UTS:
-//
-//                metodo = MetodosTipos.METODO_TIPOS_UTS;
-//                break;
-//
-//
-//            case MetodosTiposSH.TIPOS_VULNERABILIDADES:
-//            case MetodosTipos.TIPOS_VULNERABILIDADES:
-//
-//                metodo = MetodosTipos.METODO_TIPOS_VULNERABILIDADES;
-//                break;
-//
-//
-//            default:
-//                throw new TipoInexistenteException(descricao);
-//
-//        }
-//
-//
-//        return metodo;
-//    }
-//
 
 
 

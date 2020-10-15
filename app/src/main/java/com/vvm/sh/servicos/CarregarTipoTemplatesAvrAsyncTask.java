@@ -2,6 +2,7 @@ package com.vvm.sh.servicos;
 
 import android.database.sqlite.SQLiteConstraintException;
 import android.os.AsyncTask;
+import android.os.Handler;
 
 import com.vvm.sh.api.modelos.pedido.ITipoTemplateAvrLevantamento;
 import com.vvm.sh.api.modelos.pedido.ITipoTemplateAvrRisco;
@@ -34,10 +35,10 @@ public class CarregarTipoTemplatesAvrAsyncTask extends AsyncTask<TemplateAvr, Vo
      */
     private AtualizacaoUI atualizacaoUI;
 
-    public CarregarTipoTemplatesAvrAsyncTask(VvmshBaseDados vvmshBaseDados, TiposRepositorio repositorio){
+    public CarregarTipoTemplatesAvrAsyncTask(VvmshBaseDados vvmshBaseDados, Handler handlerUI, TiposRepositorio repositorio){
         this.vvmshBaseDados = vvmshBaseDados;
         this.repositorio = repositorio;
-        //atualizacaoUI = new AtualizacaoUI(handler);
+        atualizacaoUI = new AtualizacaoUI(handlerUI);
     }
 
 

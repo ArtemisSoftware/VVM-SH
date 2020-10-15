@@ -382,15 +382,13 @@ public class TiposRepositorio {
 
         //levantamento
 
-        if(dadosNovosLevantamento.size() == 0){
+        if(atualizacaoDao.existeRegisto(atualizacaoLevantamento.descricao) == true){
             atualizacaoDao.atualizarRegisto(atualizacaoLevantamento);
-        }
-        else if(dadosNovosLevantamento.size() != 0 & dadosAlteradosLevantamento.size() == 0){
-            atualizacaoDao.inserirRegisto(atualizacaoLevantamento);
         }
         else{
-            atualizacaoDao.atualizarRegisto(atualizacaoLevantamento);
+            atualizacaoDao.inserirRegisto(atualizacaoLevantamento);
         }
+
 
         tipoDao.inserirTemplateAvrLevantamento(dadosNovosLevantamento);
         tipoDao.atualizarTemplateAvrLevantamento(dadosAlteradosLevantamento);
@@ -398,15 +396,13 @@ public class TiposRepositorio {
 
         //riscos
 
-        if(dadosNovosRiscos.size() == 0){
+        if(atualizacaoDao.existeRegisto(atualizacaoRisco.descricao) == true){
             atualizacaoDao.atualizarRegisto(atualizacaoRisco);
-        }
-        else if(dadosNovosRiscos.size() != 0 & dadosAlteradosRiscos.size() == 0){
-            atualizacaoDao.inserirRegisto(atualizacaoRisco);
         }
         else{
-            atualizacaoDao.atualizarRegisto(atualizacaoRisco);
+            atualizacaoDao.inserirRegisto(atualizacaoRisco);
         }
+
 
         tipoDao.inserirTemplateAvrRisco(dadosNovosRiscos);
         tipoDao.atualizarTemplateAvrRisco(dadosAlteradosRiscos);

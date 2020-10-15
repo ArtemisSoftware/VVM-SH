@@ -47,11 +47,17 @@ public interface SegurancaTrabalhoApi {
     Single<ITipoListagem> obterTipo(@HeaderMap Map<String, String> headers, @Path("metodo") String metodo, @Query("dataT") String seloTemporal);
 
 
+
+
+
     @GET("GetActivPlaneaveis?dataT=")
     Single<ITipoAtividadePlaneavelListagem> obterTipoAtividadesPlaneaveis(@HeaderMap Map<String, String> headers);
 
     @GET("GetActivPlaneaveis")
     Single<ITipoAtividadePlaneavelListagem> obterTipoAtividadesPlaneaveis(@HeaderMap Map<String, String> headers, @Query("dataT") String seloTemporal);
+
+
+
 
 
     @GET("ObterTemplatesAVR_Levantamentos?dataT=")

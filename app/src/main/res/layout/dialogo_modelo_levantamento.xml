@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="java.util.List"/>
+        <import type="com.vvm.sh.util.metodos.StringUtil"/>
+
+        <variable
+            name="viewmodel"
+            type="com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.LevantamentosViewModel"/>
+
+    </data>
+
+
+    <LinearLayout
+        style="@style/temaDialogo"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/modelo"
+            style="@style/textoInput"
+            android:layout_marginTop="25dp" />
+
+
+        <com.jaredrummler.materialspinner.MaterialSpinner
+            android:id="@+id/spnr_modelo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/modelo"
+            tipos_="@{viewmodel.tiposModelos}"
+            app:layout_constraintStart_toStartOf="@+id/textView18" />
+
+
+    </LinearLayout>
+
+
+</layout>

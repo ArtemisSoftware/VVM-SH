@@ -7,6 +7,7 @@ import com.vvm.sh.baseDados.entidades.LevantamentoRiscoResultado;
 import com.vvm.sh.baseDados.entidades.MedidaResultado;
 import com.vvm.sh.baseDados.entidades.RiscoResultado;
 import com.vvm.sh.baseDados.entidades.Tipo;
+import com.vvm.sh.repositorios.LevantamentoAvaliacaoRepositorio;
 import com.vvm.sh.repositorios.LevantamentoRepositorio;
 import com.vvm.sh.servicos.levantamentos.DuplicarLevantamentoAsyncTask;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.modelos.AvaliacaoAmbiental;
@@ -48,6 +49,7 @@ import io.reactivex.schedulers.Schedulers;
 public class LevantamentosViewModel extends BaseViewModel {
 
     private final LevantamentoRepositorio levantamentoRepositorio;
+    private final LevantamentoAvaliacaoRepositorio levantamentoAvaliacaoRepositorio;
     public MutableLiveData<List<Tipo>> modelos;
 
 
@@ -70,15 +72,18 @@ public class LevantamentosViewModel extends BaseViewModel {
     public MutableLiveData<List<Tipo>> tiposNd;
     public MutableLiveData<List<Tipo>> tiposNe;
     public MutableLiveData<List<Tipo>> tiposNc;
+    public MutableLiveData<List<Tipo>> tiposModelos;
     public List<Tipo> tiposNi;
 
     public MutableLiveData<List<Tipo>> medidasRecomendadas;
     public MutableLiveData<List<Tipo>> medidasExistentes;
 
     @Inject
-    public LevantamentosViewModel(LevantamentoRepositorio levantamentoRepositorio){
+    public LevantamentosViewModel(LevantamentoRepositorio levantamentoRepositorio, LevantamentoAvaliacaoRepositorio levantamentoAvaliacaoRepositorio){
 
         this.levantamentoRepositorio = levantamentoRepositorio;
+        this.levantamentoAvaliacaoRepositorio = levantamentoAvaliacaoRepositorio;
+
         levantamentos = new MutableLiveData<>();
         relatorio = new MutableLiveData<>();
         levantamento = new MutableLiveData<>();
@@ -88,6 +93,7 @@ public class LevantamentosViewModel extends BaseViewModel {
         risco = new MutableLiveData<>();
 
 
+        tiposModelos = new MutableLiveData<>();
         tiposRiscos = new MutableLiveData<>();
         tipoRiscoEspecifico = new MutableLiveData<>();
         tiposNd = new MutableLiveData<>();
@@ -266,8 +272,14 @@ public class LevantamentosViewModel extends BaseViewModel {
     }
 
 
-
-
+    /**
+     * Metodo que permite gravar um risco
+     * @param idTarefa
+     * @param idAtividade
+     * @param registo
+     * @param medidasExistentes
+     * @param medidasRecomendadas
+     */
     public void gravar(int idTarefa, int idAtividade, RiscoResultado registo, List<Integer> medidasExistentes, List<Integer> medidasRecomendadas) {
 
 
@@ -363,8 +375,12 @@ public class LevantamentosViewModel extends BaseViewModel {
     }
 
 
-    public void duplicar(int idTarefa, int idAtividade, LevantamentoRiscoResultado levantamento) {
-
+    /**
+     * Metodo que permite duplicar um levantamento
+     * @param idTarefa
+     * @param levantamento os dados do levantamento
+     */
+    public void duplicar(int idTarefa, LevantamentoRiscoResultado levantamento) {
 
         LevantamentoRiscoResultado resultado = new LevantamentoRiscoResultado(levantamento);
 
@@ -376,12 +392,14 @@ public class LevantamentosViewModel extends BaseViewModel {
                         new SingleObserver<Long>() {
                             @Override
                             public void onSubscribe(Disposable d) {
-
+                                disposables.add(d);
                             }
 
                             @Override
                             public void onSuccess(Long aLong) {
-                                DuplicarLevantamentoAsyncTask servico = new DuplicarLevantamentoAsyncTask(vvmshBaseDados, levantamento.id);
+
+                                abaterAtividadePendente(levantamentoRepositorio.resultadoDao, idTarefa, levantamento.idAtividade);
+                                DuplicarLevantamentoAsyncTask servico = new DuplicarLevantamentoAsyncTask(vvmshBaseDados, levantamentoAvaliacaoRepositorio, levantamento);
                                 servico.execute(ConversorUtil.converter_long_Para_int(aLong));
                             }
 

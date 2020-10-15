@@ -290,7 +290,7 @@ public class OpcoesViewModel extends BaseViewModel {
 
             case Identificadores.Atualizacoes.TEMPLATE:
 
-                recarregarTemplates();
+                recarregarTemplates(handlerNotificacoesUI);
                 break;
 
             case Identificadores.Atualizacoes.CHECKLIST:
@@ -320,7 +320,6 @@ public class OpcoesViewModel extends BaseViewModel {
         showProgressBar(true);
 
         List<ITipoListagem> respostas = new ArrayList<>();
-
 
         try {
             tiposRepositorio.obterTipos()
@@ -366,7 +365,7 @@ public class OpcoesViewModel extends BaseViewModel {
     /**
      * Metodo que permite recarregar templates
      */
-    private void recarregarTemplates(){
+    private void recarregarTemplates(Handler handlerNotificacoesUI){
 
         showProgressBar(true);
 
@@ -386,7 +385,7 @@ public class OpcoesViewModel extends BaseViewModel {
                                 @Override
                                 public void onSuccess(TemplateAvr templateAvr) {
 
-                                    CarregarTipoTemplatesAvrAsyncTask servico = new CarregarTipoTemplatesAvrAsyncTask(vvmshBaseDados, tiposRepositorio);
+                                    CarregarTipoTemplatesAvrAsyncTask servico = new CarregarTipoTemplatesAvrAsyncTask(vvmshBaseDados, handlerNotificacoesUI, tiposRepositorio);
                                     servico.execute(templateAvr);
                                     showProgressBar(false);
                                 }

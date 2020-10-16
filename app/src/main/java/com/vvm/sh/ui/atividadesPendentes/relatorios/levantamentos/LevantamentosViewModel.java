@@ -74,6 +74,7 @@ public class LevantamentosViewModel extends BaseViewModel {
     public MutableLiveData<List<Tipo>> tiposNe;
     public MutableLiveData<List<Tipo>> tiposNc;
     public List<Tipo> tiposNi;
+    public MutableLiveData<List<Tipo>> tiposCategoriasProfissionais;
 
     public MutableLiveData<List<Tipo>> medidasRecomendadas;
     public MutableLiveData<List<Tipo>> medidasExistentes;
@@ -88,6 +89,7 @@ public class LevantamentosViewModel extends BaseViewModel {
         relatorio = new MutableLiveData<>();
         levantamento = new MutableLiveData<>();
         categoriasProfissionais = new MutableLiveData<>();
+        tiposCategoriasProfissionais = new MutableLiveData<>();
         modelos = new MutableLiveData<>();
         riscos = new MutableLiveData<>();
         risco = new MutableLiveData<>();
@@ -108,6 +110,9 @@ public class LevantamentosViewModel extends BaseViewModel {
     }
 
 
+    public MutableLiveData<List<Tipo>> observarTiposCategorias(){
+        return tiposCategoriasProfissionais;
+    }
 
     public MutableLiveData<List<Tipo>> observarRiscos(){
         return tiposRiscos;
@@ -411,7 +416,14 @@ public class LevantamentosViewModel extends BaseViewModel {
 
 
 
-    public void inserirModelo(int idAtividade, int idModelo) {
+
+    /**
+     * Metodo que permite inserir um modelo
+     * @param idTarefa o identificador da tarefa
+     * @param idAtividade
+     * @param idModelo o identificador do modelo
+     */
+    public void inserirModelo(int idTarefa, int idAtividade, int idModelo) {
 
         levantamentoRepositorio.inserirModelo(idAtividade, idModelo)
                 .subscribeOn(Schedulers.io())
@@ -421,12 +433,13 @@ public class LevantamentosViewModel extends BaseViewModel {
                         new CompletableObserver() {
                             @Override
                             public void onSubscribe(Disposable d) {
-
+                                disposables.add(d);
                             }
 
                             @Override
                             public void onComplete() {
-
+                                abaterAtividadePendente(levantamentoRepositorio.resultadoDao, idTarefa, idAtividade);
+                                messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_GRAVADOS_SUCESSO));
                             }
 
                             @Override
@@ -435,6 +448,42 @@ public class LevantamentosViewModel extends BaseViewModel {
                             }
                         }
                 );
+    }
+
+
+    /**
+     * Metodo que permite inserir o modelo de categorias profissionais
+     * @param idAtividade
+     * @param idModelo
+     * @param resultado
+     */
+    public void inserirModeloCategoriasProfissionais(int idTarefa, int idAtividade, int idModelo, List<CategoriaProfissionalResultado> resultado) {
+
+        levantamentoRepositorio.inserirModeloCategoriasProfissionais(idAtividade, idModelo, resultado)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new CompletableObserver() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onComplete() {
+
+                                abaterAtividadePendente(levantamentoRepositorio.resultadoDao, idTarefa, idAtividade);
+                                messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_GRAVADOS_SUCESSO));
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+                        }
+                );
+
     }
 
 
@@ -846,6 +895,33 @@ public class LevantamentosViewModel extends BaseViewModel {
     //MISC
     //---------------------
 
+    public void obterTiposCategoriasProfissionais(List<Integer> ids){
+
+        levantamentoRepositorio.obterTipoCategoriasProfissionais(ids)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new SingleObserver<List<Tipo>>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+
+                            }
+
+                            @Override
+                            public void onSuccess(List<Tipo> tipos) {
+                                tiposCategoriasProfissionais.setValue(tipos);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+                        }
+                );
+
+    }
+
 
     public void obteRiscoEspecifico(int id) {
 
@@ -874,8 +950,11 @@ public class LevantamentosViewModel extends BaseViewModel {
     }
 
 
+    /**
+     * Metodo que permite obter os modelos
+     * @param idAtividade
+     */
     public void obterModelos(int idAtividade){
-
 
         levantamentoRepositorio.obterModelos(idAtividade)
                 .subscribeOn(Schedulers.io())

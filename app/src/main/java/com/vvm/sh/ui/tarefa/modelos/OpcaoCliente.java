@@ -55,6 +55,11 @@ public class OpcaoCliente {
         return new OpcaoCliente(OPCAO_PLANO_ACAO, PLANO_ACAO, ICON_PLANO_ACAO, Identificadores.App.APP_ST);
     }
 
+    public static OpcaoCliente semTempo() {
+        return new OpcaoCliente(OPCAO_SEM_TEMPO, SEM_TEMPO, ICON_SEM_TEMPO, Identificadores.App.APP_ST);
+    }
+
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;

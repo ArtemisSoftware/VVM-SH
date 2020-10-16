@@ -464,4 +464,5 @@
     <string name="industria">Industria</string>
     <string name="restauracao">Restauração</string>
     <string name="modelo">Modelo</string>
+    <string name="argumento_id_modelo">idModelo</string>
 </resources>

@@ -27,6 +27,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import io.reactivex.Completable;
+import io.reactivex.CompletableSource;
 import io.reactivex.Flowable;
 import io.reactivex.Maybe;
 import io.reactivex.Observable;
@@ -116,7 +117,7 @@ public class LevantamentoRepositorio {
      * @return uma lista de registos
      */
     public Observable<List<Levantamento>> obterLevantamentos(int idAtividade){
-        return levantamentoDao.obterLevantamentos(idAtividade);
+        return levantamentoDao.obterLevantamentos(idAtividade, idApi);
     }
 
     /**
@@ -137,6 +138,10 @@ public class LevantamentoRepositorio {
         return categoriaProfissionalDao.obterCategoriasProfissionais(id, idApi, Identificadores.Origens.LEVANTAMENTO_CATEGORIAS_PROFISSIONAIS) ;
     }
 
+
+    public Single<List<Tipo>> obterTipoCategoriasProfissionais(List<Integer> ids){
+        return categoriaProfissionalDao.obterTiposCategorias(ids, idApi) ;
+    }
 
     public Observable<RelatorioLevantamento> obterRelatorio(int id){
         return levantamentoDao.obterRelatorio(id);
@@ -276,5 +281,20 @@ public class LevantamentoRepositorio {
         return completable;
 
     }
+
+    public Completable inserirModeloCategoriasProfissionais(int idAtividade, int idModelo, List<CategoriaProfissionalResultado> resultado) {
+
+        CompletableSource[] lolo = new CompletableSource[resultado.size()];
+
+        for(int index = 0; index < resultado.size(); ++index){
+            lolo[index] = categoriaProfissionalDao.inserirModeloCategoriaProfissional(idAtividade, idModelo, resultado.get(index).origem, resultado.get(index).idCategoriaProfissional, resultado.get(index).homens, resultado.get(index).mulheres);
+        }
+
+        Completable completable = Completable.merge(Arrays.asList(lolo));
+
+        return completable;
+
+    }
+
 
 }

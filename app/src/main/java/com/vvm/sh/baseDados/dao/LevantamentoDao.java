@@ -9,6 +9,7 @@ import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.modelos.Levantamento;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.modelos.RelatorioLevantamento;
 import com.vvm.sh.util.constantes.Identificadores;
+import com.vvm.sh.util.metodos.TiposUtil;
 
 import java.util.List;
 
@@ -24,11 +25,13 @@ abstract public class LevantamentoDao implements BaseDao<LevantamentoRiscoResult
 
 
 
-    @Query("SELECT *, 'lolo' as modelo, count_categorias as categoriasProfissionais, count_riscos as riscos, " +
+    @Query("SELECT *, modelo, count_categorias as categoriasProfissionais, count_riscos as riscos, " +
             "CASE WHEN (tarefa != '' AND perigo != '' AND valido_categorias_prof = 1 AND valido_riscos = 1) THEN 1  ELSE 0 END as valido, " +
             "0 as validadePerigoTarefa  " +
             "FROM levantamentosRiscoResultado as lv_riscos_res " +
 
+            "LEFT JOIN (SELECT id, descricao as modelo FROM tipos WHERE tipo = '" + TiposUtil.MetodosTipos.TEMPLATE_AVALIACAO_RISCOS + "' AND api = :api) as tp_modelo " +
+            "ON lv_riscos_res.idModelo = tp_modelo.id " +
 
             //riscos
 
@@ -74,7 +77,7 @@ abstract public class LevantamentoDao implements BaseDao<LevantamentoRiscoResult
 
 
             "WHERE lv_riscos_res.idAtividade = :idAtividade")
-    abstract public Observable<List<Levantamento>> obterLevantamentos(int idAtividade);
+    abstract public Observable<List<Levantamento>> obterLevantamentos(int idAtividade, int api);
 
 
 
@@ -93,7 +96,7 @@ abstract public class LevantamentoDao implements BaseDao<LevantamentoRiscoResult
             "CASE WHEN COUNT(VALIDO) = SUM(VALIDO) AND COUNT(VALIDO) > 0 THEN 1 ELSE 0 END valido   " +
             "FROM (			  " +
             "SELECT idLevantamento,			  " +
-            "CASE WHEN nd IS NULL THEN 0  			  " +
+            "CASE WHEN nd IS NULL OR nd = '' THEN 0  			  " +
             "WHEN numeroMedidasExistentes IS NULL AND numeroMedidasRecomendadas IS NULL THEN 0  			  " +
             "WHEN numeroMedidasExistentes = 0 OR numeroMedidasRecomendadas = 0 THEN 0 			  " +
             "ELSE 1 END as valido			  " +

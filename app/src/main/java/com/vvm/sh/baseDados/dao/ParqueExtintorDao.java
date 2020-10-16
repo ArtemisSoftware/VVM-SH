@@ -57,6 +57,8 @@ abstract public class ParqueExtintorDao implements BaseDao<ParqueExtintorResulta
     abstract public Completable atualizarValidacao(int idTarefa);
 
 
-
+    @Transaction
+    @Query("DELETE FROM parqueExtintoresResultado WHERE  id IN (SELECT id FROM parqueExtintores WHERE idTarefa = :idTarefa) ")
+    abstract public Completable removerExtintores(int idTarefa);
 
 }

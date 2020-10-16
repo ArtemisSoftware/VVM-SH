@@ -168,4 +168,8 @@ public class TarefaRepositorio {
         return parqueExtintorDao.atualizarValidacao(idTarefa);
     }
 
+    public Completable removerExtintores(int idTarefa) {
+        return parqueExtintorDao.removerExtintores(idTarefa);
+    }
+
 }

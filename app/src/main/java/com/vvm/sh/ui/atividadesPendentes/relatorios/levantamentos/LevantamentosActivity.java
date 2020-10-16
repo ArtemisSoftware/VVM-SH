@@ -1,5 +1,6 @@
 package com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos;
 
+import androidx.annotation.Nullable;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
@@ -13,8 +14,14 @@ import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.adaptadores.OnLevantamentoListener;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.modelos.Levantamento;
+import com.vvm.sh.ui.pesquisa.PesquisaActivity;
+import com.vvm.sh.ui.pesquisa.modelos.Pesquisa;
+import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
+import com.vvm.sh.util.metodos.TiposUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
+
+import java.util.ArrayList;
 
 import javax.inject.Inject;
 
@@ -32,6 +39,9 @@ public class LevantamentosActivity extends BaseDaggerActivity
 
 
     private LevantamentosViewModel viewModel;
+
+
+    private int idModelo;
 
 
     @Override
@@ -142,6 +152,21 @@ public class LevantamentosActivity extends BaseDaggerActivity
 
     }
 
+    @Override
+    public void dialogoCategoriasProfissionais(int idModelo) {
+
+       this.idModelo = idModelo;
+        Pesquisa pesquisa = new Pesquisa(true, TiposUtil.MetodosTipos.CATEGORIAS_PROFISSIONAIS/*, viewModel.obterRegistosSelecionados()*/);
+
+        Bundle bundle = new Bundle();
+        bundle.putParcelable(getString(R.string.argumento_configuracao_pesquisa), pesquisa);
+
+        Intent intent = new Intent(this, PesquisaActivity.class);
+        intent.putExtras(bundle);
+        startActivityForResult(intent, Identificadores.CodigoAtividade.PESQUISA);
+
+    }
+
     //-----------------------
     //EVENTOS
     //-----------------------
@@ -218,4 +243,26 @@ public class LevantamentosActivity extends BaseDaggerActivity
         intent.putExtras(bundle);
         startActivity(intent);
     }
+
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == Identificadores.CodigoAtividade.PESQUISA) {
+
+            if(resultCode == RESULT_OK){
+
+                ArrayList<Integer> resultado = data.getIntegerArrayListExtra(getString(R.string.resultado_pesquisa));
+
+                Bundle bundle = getIntent().getExtras();
+                int id = bundle.getInt(getString(R.string.argumento_id_levantamento));
+                int idAtividade = bundle.getInt(getString(R.string.argumento_id_atividade));
+
+                DialogoModeloCategoriasProfissionais dialogo = DialogoModeloCategoriasProfissionais.newInstance(idAtividade, this.idModelo , resultado);
+                dialogo.show(getSupportFragmentManager(), "Dialogo");
+            }
+        }
+    }
+
 }

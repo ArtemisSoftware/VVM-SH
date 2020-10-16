@@ -330,7 +330,7 @@ public class TarefaViewModel extends BaseViewModel {
                             public void onNext(TarefaDia registo) {
 
                                 tarefaDia.setValue(registo);
-                                obterOpcoesCliente();
+                                obterOpcoesCliente(registo);
                                 showProgressBar(false);
                             }
 
@@ -506,16 +506,29 @@ public class TarefaViewModel extends BaseViewModel {
     /**
      * Metodo que permite obter as opcoes do cliente
      */
-    private void obterOpcoesCliente() {
+    private void obterOpcoesCliente(TarefaDia registo) {
 
         List<OpcaoCliente> items = new ArrayList<>();
         items.add(OpcaoCliente.informacao());
+
+        if(registo.estadoBaixas == false) {
+            items.add(OpcaoCliente.semTempo());
+        }
+
         items.add(OpcaoCliente.email());
         items.add(OpcaoCliente.crossSelling());
 
         if(idApi == Identificadores.App.APP_ST) {
             items.add(OpcaoCliente.sinistralidade());
-            items.add(OpcaoCliente.parqueExtintores());
+
+
+            if(registo.existeAnomalias == true){
+                tarefaRepositorio.removerExtintores(registo.tarefa.idTarefa);
+            }
+            else if(registo.extintores == true){
+                items.add(OpcaoCliente.parqueExtintores());
+            }
+
             items.add(OpcaoCliente.quadroPessoal());
             items.add(OpcaoCliente.registoVisita());
             items.add(OpcaoCliente.planoAcao());

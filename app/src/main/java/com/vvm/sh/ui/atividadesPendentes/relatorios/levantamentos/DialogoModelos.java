@@ -12,9 +12,12 @@ import com.vvm.sh.databinding.DialogoCategoriaProfissionalBinding;
 import com.vvm.sh.databinding.DialogoModeloLevantamentoBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerDialogoPersistenteFragment;
+import com.vvm.sh.ui.atividadesPendentes.adaptadores.OnAtividadePendenteListener;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.adaptadores.OnLevantamentoListener;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.modelos.CategoriaProfissional;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.constantes.Identificadores;
+import com.vvm.sh.util.interfaces.OnDialogoListener;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
 
 import javax.inject.Inject;
@@ -28,6 +31,10 @@ public class DialogoModelos extends BaseDaggerDialogoPersistenteFragment {
     ViewModelProviderFactory providerFactory;
 
     private LevantamentosViewModel viewModel;
+
+
+
+    private OnLevantamentoListener.OnLevantamentoRegistoListener listenerAtividade;
 
 
     private static final String ARGUMENTO_ID = "id";
@@ -58,6 +65,7 @@ public class DialogoModelos extends BaseDaggerDialogoPersistenteFragment {
         binding = (DialogoModeloLevantamentoBinding) activityBaseBinding;
         binding.setViewmodel(viewModel);
 
+        listenerAtividade = (OnLevantamentoListener.OnLevantamentoRegistoListener) getContext();
 
         if(verificarArgumentos(ARGUMENTO_ID) == true){
 
@@ -90,6 +98,15 @@ public class DialogoModelos extends BaseDaggerDialogoPersistenteFragment {
 
                     case SUCESSO:
 
+
+                        listener = new OnDialogoListener() {
+                            @Override
+                            public void onExecutar() {
+                                Tipo modelo = (Tipo) binding.spnrModelo.getItems().get(binding.spnrModelo.getSelectedIndex());
+                                listenerAtividade.dialogoCategoriasProfissionais(modelo.id);
+                                terminarDialogo();
+                            }
+                        };
                         dialogo.sucesso(recurso.messagem, listener);
                         break;
 
@@ -112,7 +129,7 @@ public class DialogoModelos extends BaseDaggerDialogoPersistenteFragment {
         int idAtividade = getArguments().getInt(ARGUMENTO_ID);
         Tipo modelo = (Tipo) binding.spnrModelo.getItems().get(binding.spnrModelo.getSelectedIndex());
 
-        viewModel.inserirModelo(idAtividade, modelo.id);
+        viewModel.inserirModelo(PreferenciasUtil.obterIdTarefa(getContext()), idAtividade, modelo.id);
 
     }
 }

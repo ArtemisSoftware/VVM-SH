@@ -16,6 +16,8 @@ public interface OnLevantamentoListener {
         void OnRemoverClick(Levantamento levantamento);
 
         void OnGaleriaClick(Levantamento levantamento);
+
+        void dialogoCategoriasProfissionais(int idModelo);
     }
 
 

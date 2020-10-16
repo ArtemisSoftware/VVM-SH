@@ -183,6 +183,11 @@ public class Identificadores {
         public static final int ICON_PLANO_ACAO= R.drawable.ic_plano_acao;
 
 
+        public static final int OPCAO_SEM_TEMPO = 9;
+        public static final String SEM_TEMPO = "Sem tempo";
+        public static final int ICON_SEM_TEMPO= R.drawable.ic_sem_tempo_24;
+
+
         public static final int OPCAO_ANOMALIA = 6;
     }
 

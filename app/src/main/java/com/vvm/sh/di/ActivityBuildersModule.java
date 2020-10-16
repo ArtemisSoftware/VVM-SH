@@ -78,6 +78,7 @@ import com.vvm.sh.ui.atividadesPendentes.relatorios.equipamentos.DialogoEquipame
 import com.vvm.sh.ui.atividadesPendentes.relatorios.equipamentos.EquipamentosActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.CategoriasProfissionaisActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.DialogoCategoriasProfissionais;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.DialogoModeloCategoriasProfissionais;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.DialogoModelos;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.LevantamentosActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.PerigoTarefaActivity;
@@ -634,4 +635,11 @@ public abstract class ActivityBuildersModule {
             modules = { LevantamentosViewModelsModule.class, LevantamentosModule.class }
     )
     abstract DialogoModelos contributeDialogoModelos();
+
+
+    @LevantamentosScope
+    @ContributesAndroidInjector(
+            modules = { LevantamentosViewModelsModule.class, LevantamentosModule.class }
+    )
+    abstract DialogoModeloCategoriasProfissionais contributeDialogoModeloCategoriasProfissionais();
 }

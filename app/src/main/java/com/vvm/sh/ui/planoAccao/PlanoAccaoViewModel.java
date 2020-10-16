@@ -7,6 +7,7 @@ import com.vvm.sh.repositorios.PlanoAccaoRepositorio;
 import com.vvm.sh.ui.planoAccao.modelo.AtividadeRegisto;
 import com.vvm.sh.ui.planoAccao.modelo.Plano;
 import com.vvm.sh.util.Recurso;
+import com.vvm.sh.util.ResultadoId;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
@@ -48,9 +49,12 @@ public class PlanoAccaoViewModel extends BaseViewModel {
 
 
 
+    //----------------------------
+    //GRAVAR
+    //-----------------------------
 
 
-    public void gravar(PlanoAccaoResultado registo, PlanoAccaoResultado resultado) {
+    public void gravar(int idTarefa, PlanoAccaoResultado registo, PlanoAccaoResultado resultado) {
 
         if(registo == null){
             planoAccaoRepositorio.inserir(resultado)
@@ -61,12 +65,13 @@ public class PlanoAccaoViewModel extends BaseViewModel {
                             new SingleObserver<Long>() {
                                 @Override
                                 public void onSubscribe(Disposable d) {
-
+                                    disposables.add(d);
                                 }
 
                                 @Override
                                 public void onSuccess(Long aLong) {
                                     messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_GRAVADOS_SUCESSO));
+                                    gravarResultado(planoAccaoRepositorio.resultadoDao, idTarefa, ResultadoId.PLANO_ACAO);
 
                                 }
 
@@ -88,12 +93,13 @@ public class PlanoAccaoViewModel extends BaseViewModel {
                             new SingleObserver<Integer>() {
                                 @Override
                                 public void onSubscribe(Disposable d) {
-
+                                    disposables.add(d);
                                 }
 
                                 @Override
                                 public void onSuccess(Integer integer) {
                                     messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_EDITADOS_SUCESSO));
+                                    gravarResultado(planoAccaoRepositorio.resultadoDao, idTarefa, ResultadoId.PLANO_ACAO);
                                 }
 
                                 @Override
@@ -115,8 +121,11 @@ public class PlanoAccaoViewModel extends BaseViewModel {
     //---------------------
 
 
+    /**
+     * Metodo que permite as atividades
+     * @param idTarefa o identificador da tarefa
+     */
     public void obterAtividades(int idTarefa){
-
 
         planoAccaoRepositorio.obterPlano(idTarefa)
                 .subscribeOn(Schedulers.io())
@@ -126,7 +135,7 @@ public class PlanoAccaoViewModel extends BaseViewModel {
                         new SingleObserver<Plano>() {
                             @Override
                             public void onSubscribe(Disposable d) {
-
+                                disposables.add(d);
                             }
 
                             @Override
@@ -139,7 +148,6 @@ public class PlanoAccaoViewModel extends BaseViewModel {
 
                             }
                         }
-
                 );
 
 
@@ -151,7 +159,7 @@ public class PlanoAccaoViewModel extends BaseViewModel {
                         new Observer<List<AtividadeRegisto>>() {
                             @Override
                             public void onSubscribe(Disposable d) {
-
+                                disposables.add(d);
                             }
 
                             @Override

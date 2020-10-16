@@ -17,13 +17,14 @@ public class PropostaPlanoAcaoRepositorio {
 
     public final PropostaPlanoAcaoDao propostaPlanoAcaoDao;
     public final ResultadoDao resultadoDao;
+    public final int idApi;
 
-
-    public PropostaPlanoAcaoRepositorio(PropostaPlanoAcaoDao propostaPlanoAcaoDao,
+    public PropostaPlanoAcaoRepositorio(int idApi, PropostaPlanoAcaoDao propostaPlanoAcaoDao,
                                         @NonNull ResultadoDao resultadoDao) {
 
         this.propostaPlanoAcaoDao = propostaPlanoAcaoDao;
         this.resultadoDao = resultadoDao;
+        this.idApi = idApi;
     }
 
 
@@ -33,7 +34,7 @@ public class PropostaPlanoAcaoRepositorio {
 
 
     public Observable<List<Proposta>> obterMedidasAvaliacao(int idAtividade){
-        return propostaPlanoAcaoDao.obterMedidasAvaliacao(idAtividade);
+        return propostaPlanoAcaoDao.obterMedidasAvaliacao(idAtividade, idApi);
     }
 
 

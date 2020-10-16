@@ -25,9 +25,9 @@ public class PropostaPlanoAcaoModule {
 
     @PropostaPlanoAcaoScope
     @Provides
-    PropostaPlanoAcaoRepositorio providePropostaPlanoAcaoRepositorio(PropostaPlanoAcaoDao propostaPlanoAcaoDao, ResultadoDao resultadoDao) {
+    PropostaPlanoAcaoRepositorio providePropostaPlanoAcaoRepositorio(int idApi, PropostaPlanoAcaoDao propostaPlanoAcaoDao, ResultadoDao resultadoDao) {
 
-        PropostaPlanoAcaoRepositorio repositorio = new PropostaPlanoAcaoRepositorio(propostaPlanoAcaoDao, resultadoDao);
+        PropostaPlanoAcaoRepositorio repositorio = new PropostaPlanoAcaoRepositorio(idApi, propostaPlanoAcaoDao, resultadoDao);
         return repositorio;
     }
 

@@ -144,7 +144,7 @@ public class LevantamentosActivity extends BaseDaggerActivity
 
     @Override
     public void OnRemoverClick(Levantamento levantamento) {
-        viewModel.remover(PreferenciasUtil.obterIdTarefa(this), levantamento);
+        viewModel.removerLevantamento(PreferenciasUtil.obterIdTarefa(this), levantamento);
     }
 
     @Override

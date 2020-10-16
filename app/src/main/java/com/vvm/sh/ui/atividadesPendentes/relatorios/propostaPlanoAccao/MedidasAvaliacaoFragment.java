@@ -9,16 +9,19 @@ import androidx.fragment.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 
 import com.vvm.sh.R;
 import com.vvm.sh.databinding.FragmentPropostaMedidasAvaliacaoBinding;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.propostaPlanoAccao.adaptadores.OnPropostaPlanoAcaoListener;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.propostaPlanoAccao.modelos.Proposta;
+import com.vvm.sh.util.interfaces.OnCheckBoxItemListener;
 
 import java.util.List;
 
 
-public class MedidasAvaliacaoFragment extends Fragment {
+public class MedidasAvaliacaoFragment extends Fragment implements CheckBox.OnCheckedChangeListener {
 
     private FragmentPropostaMedidasAvaliacaoBinding binding;
 
@@ -31,7 +34,7 @@ public class MedidasAvaliacaoFragment extends Fragment {
 
 
     private OnPropostaPlanoAcaoListener listenerPropostas;
-
+    private OnPropostaPlanoAcaoListener.OnPropostaListener listenerProposta;
 
 
     public MedidasAvaliacaoFragment() {
@@ -53,11 +56,16 @@ public class MedidasAvaliacaoFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         binding = FragmentPropostaMedidasAvaliacaoBinding.inflate(inflater);
         binding.setListener(listenerPropostas);
+
+        binding.chkBoxItem.setOnCheckedChangeListener(this);
         return binding.getRoot();
     }
 
 
-
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        listenerProposta.OnSelecionarTudo(isChecked);
+    }
 
     //-------------------------
     //Medidas locais
@@ -80,6 +88,7 @@ public class MedidasAvaliacaoFragment extends Fragment {
         super.onAttach(context);
         if (context instanceof OnPropostaPlanoAcaoListener) {
             listenerPropostas = (OnPropostaPlanoAcaoListener) context;
+            listenerProposta = (OnPropostaPlanoAcaoListener.OnPropostaListener) context;
         } else {
             throw new RuntimeException(context.toString()  + " must implement OnPropostaPlanoAcaoListener");
         }
@@ -90,6 +99,7 @@ public class MedidasAvaliacaoFragment extends Fragment {
         super.onDetach();
         listenerPropostas = null;
     }
+
 
 
 }

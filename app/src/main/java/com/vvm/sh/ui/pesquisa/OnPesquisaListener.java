@@ -38,4 +38,6 @@ public interface OnPesquisaListener {
         void OnSelecionarClick(Medida registo, boolean selecionado);
     }
 
+
+
 }

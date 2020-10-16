@@ -84,6 +84,7 @@ public class PlanoAccaoActivity extends BaseDaggerActivity implements OnPlanoAti
             @Override
             public void onChanged(List<AtividadeRegisto> atividadeRegistos) {
                ((AnuidadePagerAdapter) activityPlanoAccaoBinding.viewpagerContainer.getAdapter()).atualizar(atividadeRegistos, ANUIDADE_1_FRAGMENT);
+               ((AnuidadePagerAdapter) activityPlanoAccaoBinding.viewpagerContainer.getAdapter()).atualizar(atividadeRegistos, ANUIDADE_2_FRAGMENT);
             }
         });
 
@@ -98,34 +99,12 @@ public class PlanoAccaoActivity extends BaseDaggerActivity implements OnPlanoAti
                 ((AnuidadePagerAdapter) activityPlanoAccaoBinding.viewpagerContainer.getAdapter()).atualizar(ANUIDADE_1_FRAGMENT, ano);
 
                 activityPlanoAccaoBinding.tab.getTabAt(ANUIDADE_2_FRAGMENT).setText(getString(R.string.anuidade) + " - " + (ano + 1));
+                ((AnuidadePagerAdapter) activityPlanoAccaoBinding.viewpagerContainer.getAdapter()).atualizar(ANUIDADE_2_FRAGMENT, ano + 1);
+
 
             }
         });
 
-
-//
-//        viewModel.observarMessagem().observe(this, new Observer<Recurso>() {
-//            @Override
-//            public void onChanged(Recurso recurso) {
-//
-//                switch (recurso.status){
-//
-//                    case SUCESSO:
-//
-//                        dialogo.sucesso(recurso.messagem);
-//                        break;
-//
-//                    case ERRO:
-//
-//                        dialogo.erro(recurso.messagem);
-//                        break;
-//
-//                }
-//            }
-//        });
-
-
-        //((InfoPagerAdapter) activityPokemonBinding.viewpagerContainer.getAdapter()).update((PokemonResponse) resource.data);
     }
 
 
@@ -175,13 +154,8 @@ public class PlanoAccaoActivity extends BaseDaggerActivity implements OnPlanoAti
             data = ano + "-" + mes + "-01";
         }
 
-
         PlanoAccaoResultado resultado = new PlanoAccaoResultado(PreferenciasUtil.obterIdTarefa(this), registo.atividade.id, registo.atividade.servId, data);
-
-
         viewModel.gravar(registo.resultado, resultado);
-
-
 
     }
 }

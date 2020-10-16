@@ -142,6 +142,7 @@ public class Identificadores {
         public static final int ID_PARQUE_EXTINTOR = 7;
         public static final int ID_QUADRO_PESSOAL = 8;
         public static final int ID_REGISTO_VISITA = 9;
+        public static final int ID_PLANO_ACAO = 10;
     }
 
     public class OpcoesCliente {

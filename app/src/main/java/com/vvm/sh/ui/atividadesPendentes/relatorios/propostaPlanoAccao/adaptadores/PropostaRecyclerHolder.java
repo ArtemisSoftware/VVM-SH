@@ -12,7 +12,9 @@ import com.vvm.sh.R;
 import com.vvm.sh.databinding.ItemPropostaCondicoesStBinding;
 import com.vvm.sh.databinding.ItemPropostaMedidaAvalicaoBinding;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.propostaPlanoAccao.modelos.Proposta;
+import com.vvm.sh.ui.crossSelling.adaptadores.CrossSellingViewHolder;
 import com.vvm.sh.util.constantes.Identificadores;
+import com.vvm.sh.util.metodos.PreferenciasUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -113,6 +115,7 @@ public class PropostaRecyclerHolder extends RecyclerView.Adapter<RecyclerView.Vi
             case MEDIDAS:
 
                 ((PropostaMedidaViewHolder) holder).binding.setProposta(proposta);
+                ((PropostaMedidaViewHolder)holder).binding.setBloquear(PreferenciasUtil.agendaEditavel(contexto));
                 ((PropostaMedidaViewHolder) holder).binding.executePendingBindings();
                 break;
 

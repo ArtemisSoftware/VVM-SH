@@ -24,17 +24,51 @@
         android:layout_height="match_parent">
 
 
-        <androidx.coordinatorlayout.widget.CoordinatorLayout
-            android:id="@+id/appbar_layout_activity"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
+
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
 
+            <androidx.cardview.widget.CardView
+                style="@style/cartao">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                    <CheckBox
+                        android:id="@+id/chkBoxItem"
+                        style="@style/textoDetalhe"
+                        android:text="@string/selecionar_tudo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
+                        android:layout_marginBottom="16dp"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent"
+                        />
+
+                    <!--
+
+                        android:enabled="@{bloquear}"
+                        android:checked="@{proposta.resultado.selecionado}"
+                    -->
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </androidx.cardview.widget.CardView>
 
 
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rcl_registos"
                 style="@style/lista"
+
                 propostas="@{propostas}"
                 listener="@{listener}"
                 tools:listitem="@layout/item_proposta_medida_avalicao"/>
@@ -45,10 +79,9 @@
                                 listener="@{listener}"
             -->
 
+</LinearLayout>
 
 
-
-        </androidx.coordinatorlayout.widget.CoordinatorLayout>
 
     </FrameLayout>
 </layout>

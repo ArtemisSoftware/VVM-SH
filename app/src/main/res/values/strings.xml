@@ -465,4 +465,5 @@
     <string name="restauracao">Restauração</string>
     <string name="modelo">Modelo</string>
     <string name="argumento_id_modelo">idModelo</string>
+    <string name="selecionar_tudo">Selecionar tudo</string>
 </resources>

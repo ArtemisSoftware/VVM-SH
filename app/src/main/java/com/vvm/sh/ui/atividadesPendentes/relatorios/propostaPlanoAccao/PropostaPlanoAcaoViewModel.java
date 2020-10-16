@@ -48,11 +48,13 @@ public class PropostaPlanoAcaoViewModel extends BaseViewModel {
     }
 
 
-
-
-
-
-    public void selecionarTudo(int idAtividade, boolean selecionado){
+    /**
+     * Metodo que permite selecionar todas as medidas
+     * @param idTarefa
+     * @param idAtividade
+     * @param selecionado
+     */
+    public void selecionarTudo(int idTarefa, int idAtividade, boolean selecionado){
 
         propostaPlanoAcaoRepositorio.selecionarTudo(idAtividade, selecionado)
                 .subscribeOn(Schedulers.io())
@@ -67,6 +69,7 @@ public class PropostaPlanoAcaoViewModel extends BaseViewModel {
 
                             @Override
                             public void onComplete() {
+                                abaterAtividadePendente(propostaPlanoAcaoRepositorio.resultadoDao, idTarefa, idAtividade);
 
                             }
 
@@ -79,7 +82,14 @@ public class PropostaPlanoAcaoViewModel extends BaseViewModel {
     }
 
 
-    public void selecionar(int idAtividade, int id, boolean selecionado){
+    /**
+     * Metodo que permite selecionar uma medida
+     * @param idTarefa
+     * @param idAtividade
+     * @param id
+     * @param selecionado
+     */
+    public void selecionar(int idTarefa, int idAtividade, int id, boolean selecionado){
 
         propostaPlanoAcaoRepositorio.selecionar(idAtividade, id, selecionado)
                 .subscribeOn(Schedulers.io())
@@ -94,6 +104,7 @@ public class PropostaPlanoAcaoViewModel extends BaseViewModel {
 
                             @Override
                             public void onComplete() {
+                                abaterAtividadePendente(propostaPlanoAcaoRepositorio.resultadoDao, idTarefa, idAtividade);
 
                             }
 

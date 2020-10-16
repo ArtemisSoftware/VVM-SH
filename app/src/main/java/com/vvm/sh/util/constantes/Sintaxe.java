@@ -55,6 +55,7 @@ public class Sintaxe {
         public static final String REGISTO_VISITA = "Registo de visita";
         public static final String DUPLICAR_REGISTO = "Duplicar registo";
         public static final String GALERIA = "Galeria";
+        public static final String PLANO_ACAO = "Plano ação";
     }
 
     public class Opcoes{

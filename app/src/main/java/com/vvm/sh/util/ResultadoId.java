@@ -24,6 +24,7 @@ public enum ResultadoId {
 
 
     QUADRO_PESSOAL(Identificadores.Resultados.ID_QUADRO_PESSOAL, Sintaxe.Palavras.QUADRO_PESSOAL),
+    PLANO_ACAO(Identificadores.Resultados.ID_PLANO_ACAO, Sintaxe.Palavras.PLANO_ACAO),
 
     REGISTO_VISITA(Identificadores.Resultados.ID_REGISTO_VISITA, Sintaxe.Palavras.REGISTO_VISITA);
 

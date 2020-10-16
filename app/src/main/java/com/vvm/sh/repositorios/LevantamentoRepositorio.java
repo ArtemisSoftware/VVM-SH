@@ -19,7 +19,6 @@ import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.modelos.Levant
 import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.modelos.RelatorioLevantamento;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.modelos.Risco;
 import com.vvm.sh.util.constantes.Identificadores;
-import com.vvm.sh.util.metodos.ConversorUtil;
 import com.vvm.sh.util.metodos.TiposUtil;
 
 import java.util.ArrayList;
@@ -33,7 +32,6 @@ import io.reactivex.Maybe;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.functions.BiFunction;
-import io.reactivex.functions.Function;
 import io.reactivex.functions.Function3;
 
 public class LevantamentoRepositorio {
@@ -168,14 +166,16 @@ public class LevantamentoRepositorio {
         return categoriaProfissionalDao.remover(categoria);
     }
 
-    public Flowable<Integer> remover(Levantamento levantamento){
+    public Single<List<Integer>> removerLevantamento(Levantamento levantamento){
 
         return Single.concatArray(
+                propostaPlanoAcaoDao.remover(levantamento.resultado.id, Identificadores.Origens.ORIGEM_LEVANTAMENTO_RISCO),
                 medidaDao.removerMedidasRisco(levantamento.resultado.id),
                 riscoDao.removerRiscos(levantamento.resultado.id),
                 categoriaProfissionalDao.remover(levantamento.resultado.id, Identificadores.Origens.LEVANTAMENTO_CATEGORIAS_PROFISSIONAIS),
                 levantamentoDao.remover(levantamento.resultado)
-        );
+        )
+                .toList();
     }
 
 
@@ -276,7 +276,7 @@ public class LevantamentoRepositorio {
                 riscoDao.inserirModelo(idAtividade, idModelo),
                 medidaDao.inserirMedidasRisco(idAtividade, idModelo, TiposUtil.MetodosTipos.MEDIDAS_PREVENCAO_ADOPTADAS, Identificadores.Origens.LEVANTAMENTO_MEDIDAS_ADOPTADAS, Identificadores.Origens.MEDIDAS_RISCO_EXISTENTES, idApi),
                 medidaDao.inserirMedidasRisco(idAtividade, idModelo, TiposUtil.MetodosTipos.MEDIDAS_PREVENCAO_RECOMENDADAS, Identificadores.Origens.LEVANTAMENTO_MEDIDAS_RECOMENDADAS, Identificadores.Origens.MEDIDAS_RISCO_RECOMENDADAS, idApi),
-                propostaPlanoAcaoDao.inserirModelo(idAtividade, idModelo, Identificadores.Origens.LEVANTAMENTO_MEDIDAS_RECOMENDADAS)));
+                propostaPlanoAcaoDao.inserirModelo(idAtividade, idModelo, Identificadores.Origens.LEVANTAMENTO_MEDIDAS_ADOPTADAS)));
 
         return completable;
 

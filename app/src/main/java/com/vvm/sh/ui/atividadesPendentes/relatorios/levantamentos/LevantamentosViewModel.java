@@ -10,7 +10,6 @@ import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.repositorios.LevantamentoAvaliacaoRepositorio;
 import com.vvm.sh.repositorios.LevantamentoRepositorio;
 import com.vvm.sh.servicos.levantamentos.DuplicarLevantamentoAsyncTask;
-import com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.modelos.AvaliacaoAmbiental;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.modelos.CategoriaProfissional;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.modelos.Levantamento;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.modelos.RelatorioLevantamento;
@@ -43,7 +42,6 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.BiFunction;
 import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
-import io.reactivex.functions.Function4;
 import io.reactivex.functions.Function5;
 import io.reactivex.schedulers.Schedulers;
 
@@ -491,31 +489,26 @@ public class LevantamentosViewModel extends BaseViewModel {
     //REMOVER
     //--------------------
 
-    public void remover(int idTarefa, Levantamento levantamento) {
+    public void removerLevantamento(int idTarefa, Levantamento levantamento) {
 
-        levantamentoRepositorio.remover(levantamento)
+        levantamentoRepositorio.removerLevantamento(levantamento)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
 
-                        new FlowableSubscriber<Integer>() {
+                        new SingleObserver<List<Integer>>() {
                             @Override
-                            public void onSubscribe(Subscription s) {
-
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
                             }
 
                             @Override
-                            public void onNext(Integer integer) {
-
+                            public void onSuccess(List<Integer> integers) {
+                                abaterAtividadePendente(levantamentoRepositorio.resultadoDao, idTarefa, levantamento.resultado.idAtividade);
                             }
 
                             @Override
-                            public void onError(Throwable t) {
-
-                            }
-
-                            @Override
-                            public void onComplete() {
+                            public void onError(Throwable e) {
 
                             }
                         }

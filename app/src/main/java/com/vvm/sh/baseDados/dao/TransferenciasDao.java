@@ -2,6 +2,7 @@ package com.vvm.sh.baseDados.dao;
 
 import androidx.room.Dao;
 import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Transaction;
 
@@ -163,7 +164,7 @@ abstract public class TransferenciasDao implements BaseDao<Resultado> {
     abstract public void inserirRegisto(Cliente registo);
 
 
-    @Insert
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
     abstract public List<Long> inserirAtividadesExecutadas(List<AtividadeExecutada> registos);
 
     @Insert

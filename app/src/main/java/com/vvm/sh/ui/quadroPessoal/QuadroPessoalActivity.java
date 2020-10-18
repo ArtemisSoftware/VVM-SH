@@ -4,8 +4,10 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.vvm.sh.R;
 import com.vvm.sh.baseDados.entidades.ColaboradorResultado;
@@ -52,6 +54,21 @@ public class QuadroPessoalActivity extends BaseDaggerActivity
 
 
         viewModel.obterQuadroPessoal(PreferenciasUtil.obterIdTarefa(this));
+
+
+        activityQuadroPessoalBinding.rclRegistos.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
+                super.onScrollStateChanged(recyclerView, newState);
+
+                if(!activityQuadroPessoalBinding.rclRegistos.canScrollVertically(1)  && newState == 1){
+
+                    viewModel.obterProximaPagina(PreferenciasUtil.obterIdTarefa(getApplicationContext()));
+                }
+            }
+        });
+
+
     }
 
     @Override

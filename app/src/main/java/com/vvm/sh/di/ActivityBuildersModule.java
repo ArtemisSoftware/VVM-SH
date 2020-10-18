@@ -642,4 +642,36 @@ public abstract class ActivityBuildersModule {
             modules = { LevantamentosViewModelsModule.class, LevantamentosModule.class }
     )
     abstract DialogoModeloCategoriasProfissionais contributeDialogoModeloCategoriasProfissionais();
+
+
+    //-----------------
+    //Quadro pessoal
+    //-----------------
+
+
+    @QuadroPessoalScope
+    @ContributesAndroidInjector(
+            modules = { QuadroPessoalViewModelsModule.class, QuadroPessoalModule.class }
+    )
+    abstract ColaboradorActivity contributeColaboradorActivity();
+
+    @QuadroPessoalScope
+    @ContributesAndroidInjector(
+            modules = { QuadroPessoalViewModelsModule.class, QuadroPessoalModule.class }
+    )
+    abstract DialogoColaborador contributeDialogoColaborador();
+
+    @QuadroPessoalScope
+    @ContributesAndroidInjector(
+            modules = { QuadroPessoalViewModelsModule.class, QuadroPessoalModule.class }
+    )
+    abstract DialogoOpcoesColaborador contributeDialogoOpcoesColaborador();
+
+    @QuadroPessoalScope
+    @ContributesAndroidInjector(
+            modules = { QuadroPessoalViewModelsModule.class, QuadroPessoalModule.class }
+    )
+    abstract QuadroPessoalActivity contributeQuadroPessoalActivity();
+
+
 }

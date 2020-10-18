@@ -421,4 +421,5 @@ public class TiposRepositorio {
         tipoDao.inserirTemplatesAVRMedidaRisco(medidas);
         tipoDao.inserirTemplatesAVRMedidaRisco(medidasAlteradas);
     }
+
 }

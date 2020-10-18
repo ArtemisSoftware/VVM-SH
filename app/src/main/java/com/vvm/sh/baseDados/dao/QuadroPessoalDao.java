@@ -8,6 +8,7 @@ import com.vvm.sh.baseDados.BaseDao;
 import com.vvm.sh.baseDados.entidades.ColaboradorResultado;
 import com.vvm.sh.baseDados.entidades.Morada;
 import com.vvm.sh.ui.quadroPessoal.modelos.ColaboradorRegisto;
+import com.vvm.sh.util.constantes.AppConfig;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.metodos.TiposUtil;
 
@@ -48,8 +49,8 @@ abstract public class QuadroPessoalDao implements BaseDao<ColaboradorResultado> 
             "ON  clb.idMorada = mrd.id  AND clb.idTarefa = mrd.idTarefa " +
             "LEFT JOIN (SELECT id, descricao as categoriaProfissional FROM tipos WHERE tipo = '" + TiposUtil.MetodosTipos.CATEGORIAS_PROFISSIONAIS + "') as tp_cat " +
             "ON clb.idCategoriaProfissional = tp_cat.id " +
-            "WHERE clb.idTarefa = :idTarefa ORDER BY nome ASC")
-    abstract public Observable<List<ColaboradorRegisto>> obterQuadroPessoal(int idTarefa);
+            "WHERE clb.idTarefa = :idTarefa  ORDER BY nome ASC LIMIT :offset OFFSET 0 ")
+    abstract public Observable<List<ColaboradorRegisto>> obterQuadroPessoal(int idTarefa, int offset);
 
 
 

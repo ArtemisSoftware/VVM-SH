@@ -9,6 +9,7 @@ import com.vvm.sh.baseDados.entidades.ColaboradorResultado;
 import com.vvm.sh.baseDados.entidades.Morada;
 import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.ui.quadroPessoal.modelos.ColaboradorRegisto;
+import com.vvm.sh.util.constantes.AppConfig;
 
 import java.util.List;
 
@@ -36,8 +37,8 @@ public class QuadroPessoalRepositorio implements Repositorio<ColaboradorResultad
      * @param idTarefa o identificador da tarefa
      * @return uma lista de registos
      */
-    public Observable<List<ColaboradorRegisto>> obterQuadroPessoal(int idTarefa) {
-        return quadroPessoalDao.obterQuadroPessoal(idTarefa);
+    public Observable<List<ColaboradorRegisto>> obterQuadroPessoal(int idTarefa, int offset) {
+        return quadroPessoalDao.obterQuadroPessoal(idTarefa, offset * AppConfig.OFFSET_QUERY);
     }
 
 

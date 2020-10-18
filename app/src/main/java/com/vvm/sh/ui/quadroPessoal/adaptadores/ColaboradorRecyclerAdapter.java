@@ -54,9 +54,11 @@ public class ColaboradorRecyclerAdapter extends RecyclerView.Adapter<RecyclerVie
     }
 
 
-    public void atualizar(List<ColaboradorRegisto> items) {
-        this.items.clear();
-        this.items.addAll(items);
+    public void atualizar(List<ColaboradorRegisto> lolo) {
+        //this.items.clear();
+        //this.items.addAll(lolo);
+
+        this.items = lolo;
         notifyDataSetChanged();
     }
 

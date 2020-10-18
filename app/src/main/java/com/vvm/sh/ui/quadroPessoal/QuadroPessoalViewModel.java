@@ -12,6 +12,7 @@ import com.vvm.sh.util.ResultadoId;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -35,6 +36,9 @@ public class QuadroPessoalViewModel extends BaseViewModel {
     public MutableLiveData<List<Morada>> moradas;
     public MutableLiveData<List<Tipo>> generos;
 
+
+    private int pagina;
+
     @Inject
     public QuadroPessoalViewModel(QuadroPessoalRepositorio quadroPessoalRepositorio){
 
@@ -43,6 +47,8 @@ public class QuadroPessoalViewModel extends BaseViewModel {
         colaborador = new MutableLiveData<>();
         moradas = new MutableLiveData<>();
         generos = new MutableLiveData<>();
+
+        pagina = 4;
     }
 
 
@@ -120,6 +126,18 @@ public class QuadroPessoalViewModel extends BaseViewModel {
     //--------------------
 
 
+    public void obterProximaPagina(int idTarefa){
+
+        ++pagina;
+        obterQuadroPessoal(idTarefa);
+//        if(!isQueryExhausted && !isPerformingQuery){
+//            pageNumber++;
+//            executeSearch();
+//        }
+    }
+
+
+
     /**
      * Metodo que permite obter o quadro pessoal
      * @param idTarefa o identificador da tarefa
@@ -128,7 +146,7 @@ public class QuadroPessoalViewModel extends BaseViewModel {
 
         showProgressBar(true);
 
-        quadroPessoalRepositorio.obterQuadroPessoal(idTarefa)
+        quadroPessoalRepositorio.obterQuadroPessoal(idTarefa, pagina)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -141,7 +159,16 @@ public class QuadroPessoalViewModel extends BaseViewModel {
 
                             @Override
                             public void onNext(List<ColaboradorRegisto> resultados) {
-                                colaboradores.setValue(resultados);
+
+                                if(colaboradores.getValue() == null){
+                                    colaboradores.setValue(resultados);
+                                }
+                                else {
+                                    List<ColaboradorRegisto> registos = colaboradores.getValue();
+
+                                    registos.addAll(resultados);
+                                    colaboradores.setValue(registos);
+                                }
                                 showProgressBar(false);
                             }
 

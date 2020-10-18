@@ -506,8 +506,6 @@ public class PesquisaViewModel extends BaseViewModel {
 
 
 
-
-
     public void pesquisar(String metodo, List<Integer> registos, String pesquisa) {
 
         tiposRepositorio.obterTipos_Excluir(metodo, registos, pesquisa, idApi)
@@ -562,7 +560,6 @@ public class PesquisaViewModel extends BaseViewModel {
 
         return resultado;
     }
-
 
 
 

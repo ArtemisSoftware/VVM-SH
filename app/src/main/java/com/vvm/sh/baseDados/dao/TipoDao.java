@@ -189,6 +189,13 @@ abstract public class TipoDao implements BaseDao<Tipo> {
             "WHERE tipo = :tipo AND api = :api AND ativo = 1 AND idPai = :idPai")
     abstract public Observable<List<Medida>> obterMedidas(String tipo, int api, List<Integer> registos, String idPai);
 
+
+
+
+
+
+
+
     //-------------------------
 
 

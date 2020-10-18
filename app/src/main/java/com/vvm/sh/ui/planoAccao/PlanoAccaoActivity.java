@@ -141,7 +141,6 @@ public class PlanoAccaoActivity extends BaseDaggerActivity implements OnPlanoAti
     @Override
     public void OnDataClick(AtividadeRegisto registo, int mes) {
 
-
         int ano = Integer.parseInt(viewModel.plano.getValue().cliente.dataContrato.split("-")[0]);
         ano = ano + activityPlanoAccaoBinding.tab.getSelectedTabPosition();
 
@@ -155,7 +154,7 @@ public class PlanoAccaoActivity extends BaseDaggerActivity implements OnPlanoAti
         }
 
         PlanoAccaoResultado resultado = new PlanoAccaoResultado(PreferenciasUtil.obterIdTarefa(this), registo.atividade.id, registo.atividade.servId, data);
-        viewModel.gravar(registo.resultado, resultado);
+        viewModel.gravar(PreferenciasUtil.obterIdTarefa(this), registo.resultado, resultado);
 
     }
 }

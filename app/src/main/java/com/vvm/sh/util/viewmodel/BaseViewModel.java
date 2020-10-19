@@ -47,12 +47,18 @@ public abstract class BaseViewModel extends ViewModel {
     @Inject
     protected VvmshBaseDados vvmshBaseDados;
 
+
+
+    protected boolean performingQuery;
+
+
     public BaseViewModel() {
 
         this.disposables = new CompositeDisposable();
         messagemLiveData = new MutableLiveData<>();
         loading = new MutableLiveData<>();
         estados = new MutableLiveData<>();
+        performingQuery = false;
 
         showProgressBar(false);
     }

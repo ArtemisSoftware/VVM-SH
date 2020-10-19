@@ -57,6 +57,11 @@ public class QuadroPessoalViewModel extends BaseViewModel {
     //GRAVAR
     //--------------------
 
+    /**
+     * Metodo que permite gravar um colaborador
+     * @param idResultado
+     * @param resultado
+     */
     public void gravar(int idResultado, ColaboradorResultado resultado) {
 
 
@@ -100,7 +105,7 @@ public class QuadroPessoalViewModel extends BaseViewModel {
                             new SingleObserver<Integer>() {
                                 @Override
                                 public void onSubscribe(Disposable d) {
-
+                                    disposables.add(d);
                                 }
 
                                 @Override
@@ -128,6 +133,13 @@ public class QuadroPessoalViewModel extends BaseViewModel {
 
 
     public void obterProximaPagina(int idTarefa){
+
+
+        if(performingQuery == true){
+            return;
+        }
+
+        performingQuery = true;
 
         ++pagina;
         obterQuadroPessoal(idTarefa);
@@ -173,16 +185,19 @@ public class QuadroPessoalViewModel extends BaseViewModel {
                                 }*/
                                 colaboradores.setValue(resultados);
                                 showProgressBar(false);
+                                performingQuery = false;
                             }
 
                             @Override
                             public void onError(Throwable e) {
                                 showProgressBar(false);
+                                performingQuery = false;
                             }
 
                             @Override
                             public void onComplete() {
                                 showProgressBar(false);
+                                performingQuery = false;
                             }
                         }
                 );

@@ -112,5 +112,6 @@
 
     <dimen name="tituloTamanho">28dp</dimen>
     <dimen name="textoTamanho">14dp</dimen>
+    <dimen name="recycler_carregamento_height">80dp</dimen>
 
 </resources>

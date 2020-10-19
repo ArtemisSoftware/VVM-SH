@@ -100,6 +100,7 @@ import com.vvm.sh.databinding.ItemCrossSellingBindingImpl;
 import com.vvm.sh.databinding.ItemExtintorBindingImpl;
 import com.vvm.sh.databinding.ItemFormandoBindingImpl;
 import com.vvm.sh.databinding.ItemLevantamentoBindingImpl;
+import com.vvm.sh.databinding.ItemLoadingBindingImpl;
 import com.vvm.sh.databinding.ItemMarcacaoBindingImpl;
 import com.vvm.sh.databinding.ItemOcorrenciaBindingImpl;
 import com.vvm.sh.databinding.ItemOcorrenciaHistoricoBindingImpl;
@@ -318,45 +319,47 @@ public class DataBinderMapperImpl extends DataBinderMapper {
 
   private static final int LAYOUT_ITEMLEVANTAMENTO = 94;
 
-  private static final int LAYOUT_ITEMMARCACAO = 95;
+  private static final int LAYOUT_ITEMLOADING = 95;
 
-  private static final int LAYOUT_ITEMOCORRENCIA = 96;
+  private static final int LAYOUT_ITEMMARCACAO = 96;
 
-  private static final int LAYOUT_ITEMOCORRENCIAHISTORICO = 97;
+  private static final int LAYOUT_ITEMOCORRENCIA = 97;
 
-  private static final int LAYOUT_ITEMOCORRENCIAREGISTO = 98;
+  private static final int LAYOUT_ITEMOCORRENCIAHISTORICO = 98;
 
-  private static final int LAYOUT_ITEMOPCAOCLIENTE = 99;
+  private static final int LAYOUT_ITEMOCORRENCIAREGISTO = 99;
 
-  private static final int LAYOUT_ITEMPENDENCIA = 100;
+  private static final int LAYOUT_ITEMOPCAOCLIENTE = 100;
 
-  private static final int LAYOUT_ITEMPESQUISA = 101;
+  private static final int LAYOUT_ITEMPENDENCIA = 101;
 
-  private static final int LAYOUT_ITEMPESQUISAEQUIPAMENTO = 102;
+  private static final int LAYOUT_ITEMPESQUISA = 102;
 
-  private static final int LAYOUT_ITEMPESQUISAMEDIDA = 103;
+  private static final int LAYOUT_ITEMPESQUISAEQUIPAMENTO = 103;
 
-  private static final int LAYOUT_ITEMPLANOACAONOTA = 104;
+  private static final int LAYOUT_ITEMPESQUISAMEDIDA = 104;
 
-  private static final int LAYOUT_ITEMPLANOACAOPROGRAMACAO = 105;
+  private static final int LAYOUT_ITEMPLANOACAONOTA = 105;
 
-  private static final int LAYOUT_ITEMPROPOSTACONDICOESST = 106;
+  private static final int LAYOUT_ITEMPLANOACAOPROGRAMACAO = 106;
 
-  private static final int LAYOUT_ITEMPROPOSTAMEDIDAAVALICAO = 107;
+  private static final int LAYOUT_ITEMPROPOSTACONDICOESST = 107;
 
-  private static final int LAYOUT_ITEMRISCO = 108;
+  private static final int LAYOUT_ITEMPROPOSTAMEDIDAAVALICAO = 108;
 
-  private static final int LAYOUT_ITEMTIPO = 109;
+  private static final int LAYOUT_ITEMRISCO = 109;
 
-  private static final int LAYOUT_ITEMTIPOCHECKLIST = 110;
+  private static final int LAYOUT_ITEMTIPO = 110;
 
-  private static final int LAYOUT_ITEMTRABALHADORVULNERAVEL = 111;
+  private static final int LAYOUT_ITEMTIPOCHECKLIST = 111;
 
-  private static final int LAYOUT_ITEMTRABALHOREALIZADO = 112;
+  private static final int LAYOUT_ITEMTRABALHADORVULNERAVEL = 112;
 
-  private static final int LAYOUT_ITEMUPLOAD = 113;
+  private static final int LAYOUT_ITEMTRABALHOREALIZADO = 113;
 
-  private static final SparseIntArray INTERNAL_LAYOUT_ID_LOOKUP = new SparseIntArray(113);
+  private static final int LAYOUT_ITEMUPLOAD = 114;
+
+  private static final SparseIntArray INTERNAL_LAYOUT_ID_LOOKUP = new SparseIntArray(114);
 
   static {
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.vvm.sh.R.layout.activity_acao_formacao, LAYOUT_ACTIVITYACAOFORMACAO);
@@ -453,6 +456,7 @@ public class DataBinderMapperImpl extends DataBinderMapper {
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.vvm.sh.R.layout.item_extintor, LAYOUT_ITEMEXTINTOR);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.vvm.sh.R.layout.item_formando, LAYOUT_ITEMFORMANDO);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.vvm.sh.R.layout.item_levantamento, LAYOUT_ITEMLEVANTAMENTO);
+    INTERNAL_LAYOUT_ID_LOOKUP.put(com.vvm.sh.R.layout.item_loading, LAYOUT_ITEMLOADING);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.vvm.sh.R.layout.item_marcacao, LAYOUT_ITEMMARCACAO);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.vvm.sh.R.layout.item_ocorrencia, LAYOUT_ITEMOCORRENCIA);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.vvm.sh.R.layout.item_ocorrencia_historico, LAYOUT_ITEMOCORRENCIAHISTORICO);
@@ -1048,6 +1052,12 @@ public class DataBinderMapperImpl extends DataBinderMapper {
         }
         throw new IllegalArgumentException("The tag for item_levantamento is invalid. Received: " + tag);
       }
+      case  LAYOUT_ITEMLOADING: {
+        if ("layout/item_loading_0".equals(tag)) {
+          return new ItemLoadingBindingImpl(component, view);
+        }
+        throw new IllegalArgumentException("The tag for item_loading is invalid. Received: " + tag);
+      }
       case  LAYOUT_ITEMMARCACAO: {
         if ("layout/item_marcacao_0".equals(tag)) {
           return new ItemMarcacaoBindingImpl(component, view);
@@ -1078,12 +1088,6 @@ public class DataBinderMapperImpl extends DataBinderMapper {
         }
         throw new IllegalArgumentException("The tag for item_opcao_cliente is invalid. Received: " + tag);
       }
-      case  LAYOUT_ITEMPENDENCIA: {
-        if ("layout/item_pendencia_0".equals(tag)) {
-          return new ItemPendenciaBindingImpl(component, view);
-        }
-        throw new IllegalArgumentException("The tag for item_pendencia is invalid. Received: " + tag);
-      }
     }
     return null;
   }
@@ -1091,6 +1095,12 @@ public class DataBinderMapperImpl extends DataBinderMapper {
   private final ViewDataBinding internalGetViewDataBinding2(DataBindingComponent component,
       View view, int internalId, Object tag) {
     switch(internalId) {
+      case  LAYOUT_ITEMPENDENCIA: {
+        if ("layout/item_pendencia_0".equals(tag)) {
+          return new ItemPendenciaBindingImpl(component, view);
+        }
+        throw new IllegalArgumentException("The tag for item_pendencia is invalid. Received: " + tag);
+      }
       case  LAYOUT_ITEMPESQUISA: {
         if ("layout/item_pesquisa_0".equals(tag)) {
           return new ItemPesquisaBindingImpl(component, view);
@@ -1283,7 +1293,7 @@ public class DataBinderMapperImpl extends DataBinderMapper {
   }
 
   private static class InnerLayoutIdLookup {
-    static final HashMap<String, Integer> sKeys = new HashMap<String, Integer>(113);
+    static final HashMap<String, Integer> sKeys = new HashMap<String, Integer>(114);
 
     static {
       sKeys.put("layout/activity_acao_formacao_0", com.vvm.sh.R.layout.activity_acao_formacao);
@@ -1380,6 +1390,7 @@ public class DataBinderMapperImpl extends DataBinderMapper {
       sKeys.put("layout/item_extintor_0", com.vvm.sh.R.layout.item_extintor);
       sKeys.put("layout/item_formando_0", com.vvm.sh.R.layout.item_formando);
       sKeys.put("layout/item_levantamento_0", com.vvm.sh.R.layout.item_levantamento);
+      sKeys.put("layout/item_loading_0", com.vvm.sh.R.layout.item_loading);
       sKeys.put("layout/item_marcacao_0", com.vvm.sh.R.layout.item_marcacao);
       sKeys.put("layout/item_ocorrencia_0", com.vvm.sh.R.layout.item_ocorrencia);
       sKeys.put("layout/item_ocorrencia_historico_0", com.vvm.sh.R.layout.item_ocorrencia_historico);

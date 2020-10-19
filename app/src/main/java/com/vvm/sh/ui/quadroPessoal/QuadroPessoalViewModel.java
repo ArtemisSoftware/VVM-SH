@@ -157,8 +157,6 @@ public class QuadroPessoalViewModel extends BaseViewModel {
      */
     public void obterQuadroPessoal(int idTarefa){
 
-        showProgressBar(true);
-
         quadroPessoalRepositorio.obterQuadroPessoal(idTarefa, pagina)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -168,6 +166,7 @@ public class QuadroPessoalViewModel extends BaseViewModel {
                             @Override
                             public void onSubscribe(Disposable d) {
                                 disposables.add(d);
+                                messagemLiveData.setValue(Recurso.loading(""));
                             }
 
                             @Override
@@ -184,19 +183,16 @@ public class QuadroPessoalViewModel extends BaseViewModel {
                                     colaboradores.setValue(registos);
                                 }*/
                                 colaboradores.setValue(resultados);
-                                showProgressBar(false);
                                 performingQuery = false;
                             }
 
                             @Override
                             public void onError(Throwable e) {
-                                showProgressBar(false);
                                 performingQuery = false;
                             }
 
                             @Override
                             public void onComplete() {
-                                showProgressBar(false);
                                 performingQuery = false;
                             }
                         }

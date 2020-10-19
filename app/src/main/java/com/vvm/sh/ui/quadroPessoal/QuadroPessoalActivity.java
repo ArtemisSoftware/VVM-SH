@@ -17,6 +17,8 @@ import com.vvm.sh.baseDados.entidades.ColaboradorResultado;
 import com.vvm.sh.databinding.ActivityQuadroPessoalBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.adaptadores.QuestionarioRecyclerAdapter;
+import com.vvm.sh.ui.quadroPessoal.adaptadores.ColaboradorRecyclerAdapter;
 import com.vvm.sh.ui.quadroPessoal.adaptadores.OnColaboradorListener;
 import com.vvm.sh.ui.quadroPessoal.adaptadores.OnOpcoesColaboradorListener;
 import com.vvm.sh.ui.quadroPessoal.modelos.ColaboradorRegisto;
@@ -55,7 +57,7 @@ public class QuadroPessoalActivity extends BaseDaggerActivity
 
         activityQuadroPessoalBinding.setBloquear(PreferenciasUtil.agendaEditavel(this));
 
-
+        subscreverObservadores();
         viewModel.obterQuadroPessoal(PreferenciasUtil.obterIdTarefa(this));
 
 
@@ -92,6 +94,14 @@ public class QuadroPessoalActivity extends BaseDaggerActivity
             public void onChanged(Recurso recurso) {
 
                 switch (recurso.status){
+
+                    case LOADING:
+
+                        if(((ColaboradorRecyclerAdapter)activityQuadroPessoalBinding.rclRegistos.getAdapter()) != null) {
+                            ((ColaboradorRecyclerAdapter) activityQuadroPessoalBinding.rclRegistos.getAdapter()).displayLoading();
+                        }
+                        break;
+
 
                     case SUCESSO:
 

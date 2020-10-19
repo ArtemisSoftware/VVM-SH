@@ -466,4 +466,5 @@
     <string name="modelo">Modelo</string>
     <string name="argumento_id_modelo">idModelo</string>
     <string name="selecionar_tudo">Selecionar tudo</string>
+    <string name="nao_existem_mais_resultados">Não existem mais resultados</string>
 </resources>

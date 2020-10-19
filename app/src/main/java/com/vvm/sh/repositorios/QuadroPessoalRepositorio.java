@@ -42,6 +42,10 @@ public class QuadroPessoalRepositorio implements Repositorio<ColaboradorResultad
     }
 
 
+    public Single<List<ColaboradorRegisto>> pesquisarQuadroPessoal(int idTarefa, String nome) {
+        return quadroPessoalDao.pesquisarQuadroPessoal(idTarefa, nome);
+    }
+
     /**
      * Metodo que permite obter um colaborador
      * @param id o identificador do colaborador

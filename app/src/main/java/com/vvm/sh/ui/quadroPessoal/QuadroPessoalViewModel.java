@@ -10,6 +10,7 @@ import com.vvm.sh.ui.quadroPessoal.modelos.ColaboradorRegisto;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.ResultadoId;
 import com.vvm.sh.util.constantes.Sintaxe;
+import com.vvm.sh.util.metodos.PreferenciasUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import java.util.ArrayList;
@@ -48,7 +49,7 @@ public class QuadroPessoalViewModel extends BaseViewModel {
         moradas = new MutableLiveData<>();
         generos = new MutableLiveData<>();
 
-        pagina = 4;
+        pagina = 1;
     }
 
 
@@ -160,6 +161,7 @@ public class QuadroPessoalViewModel extends BaseViewModel {
                             @Override
                             public void onNext(List<ColaboradorRegisto> resultados) {
 
+                                /*
                                 if(colaboradores.getValue() == null){
                                     colaboradores.setValue(resultados);
                                 }
@@ -168,7 +170,8 @@ public class QuadroPessoalViewModel extends BaseViewModel {
 
                                     registos.addAll(resultados);
                                     colaboradores.setValue(registos);
-                                }
+                                }*/
+                                colaboradores.setValue(resultados);
                                 showProgressBar(false);
                             }
 
@@ -303,6 +306,57 @@ public class QuadroPessoalViewModel extends BaseViewModel {
                 );
 
     }
+
+
+    //----------------------
+    //MISC
+    //----------------------
+
+
+    /**
+     * Metodo que permite pesquisar nomes
+     * @param idTarefa o identificador da tarefa
+     * @param nome o nome do colaborador
+     */
+    public void pesquisarQuadroPessoal(int idTarefa, String nome){
+
+        pagina = 1;
+
+        if(nome.equals("") == true){
+            colaboradores.setValue(new ArrayList<>());
+            obterQuadroPessoal(idTarefa);
+        }
+        else {
+
+            showProgressBar(true);
+
+            quadroPessoalRepositorio.pesquisarQuadroPessoal(idTarefa, nome)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+
+                            new SingleObserver<List<ColaboradorRegisto>>() {
+                                @Override
+                                public void onSubscribe(Disposable d) {
+                                    disposables.add(d);
+                                }
+
+                                @Override
+                                public void onSuccess(List<ColaboradorRegisto> registos) {
+                                    colaboradores.setValue(registos);
+                                    showProgressBar(false);
+                                }
+
+                                @Override
+                                public void onError(Throwable e) {
+                                    showProgressBar(false);
+                                }
+                            }
+                    );
+        }
+    }
+
+
 
 
     private class QuadroPessoal{

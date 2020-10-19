@@ -2,7 +2,10 @@ package com.vvm.sh.ui.quadroPessoal;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
+import androidx.appcompat.widget.SearchView;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.Observer;
@@ -28,7 +31,7 @@ import javax.inject.Inject;
 import butterknife.OnClick;
 
 public class QuadroPessoalActivity extends BaseDaggerActivity
-    implements OnColaboradorListener, OnOpcoesColaboradorListener {
+    implements OnColaboradorListener, OnOpcoesColaboradorListener, SearchView.OnQueryTextListener {
 
 
     private ActivityQuadroPessoalBinding activityQuadroPessoalBinding;
@@ -172,4 +175,36 @@ public class QuadroPessoalActivity extends BaseDaggerActivity
         Intent intent =  new Intent(this, ColaboradorActivity.class);
         startActivity(intent);
     }
+
+
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_quadro_pessoal, menu);
+        MenuItem mSearch = menu.findItem(R.id.appSearchBar);
+        SearchView mSearchView = (SearchView) mSearch.getActionView();
+        mSearchView.setQueryHint(getString(R.string.pesquisa));
+        mSearchView.setOnQueryTextListener(this);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        return super.onOptionsItemSelected(item);
+    }
+
+
+    @Override
+    public boolean onQueryTextSubmit(String query) {
+        viewModel.pesquisarQuadroPessoal(PreferenciasUtil.obterIdTarefa(this), query);
+        return false;
+    }
+
+    @Override
+    public boolean onQueryTextChange(String newText) {
+        viewModel.pesquisarQuadroPessoal(PreferenciasUtil.obterIdTarefa(this), newText);
+        return false;
+    }
+
 }

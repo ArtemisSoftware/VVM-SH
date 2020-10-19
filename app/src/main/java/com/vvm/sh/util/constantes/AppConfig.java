@@ -23,5 +23,5 @@ public class AppConfig {
 
 
     public static final int NUMERO_RESULTADOS_QUERY = 1;
-    public static final int OFFSET_QUERY  = 10;
+    public static final int OFFSET_QUERY  = 2;
 }

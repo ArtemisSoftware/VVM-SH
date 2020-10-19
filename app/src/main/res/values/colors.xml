@@ -173,4 +173,8 @@
     <color name="cor_programada">#33D933</color>
     <color name="cor_programada_fixa">#00FFFF</color>
     <color name="cor_reprogramada">#FFFF00</color>
+
+
+    <color name="cor_pontos_loading">#376DF6</color>
+
 </resources>

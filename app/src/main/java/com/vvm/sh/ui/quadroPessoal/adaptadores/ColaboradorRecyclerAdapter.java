@@ -49,6 +49,13 @@ public class ColaboradorRecyclerAdapter extends RecyclerView.Adapter<RecyclerVie
     }
 
     @Override
+    public int getItemViewType(int position) {
+        return this.items.get(position).obterEstado();
+    }
+
+
+
+    @Override
     public int getItemCount() {
         return items.size();
     }

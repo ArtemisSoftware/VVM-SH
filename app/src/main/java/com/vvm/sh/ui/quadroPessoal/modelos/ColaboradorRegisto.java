@@ -2,7 +2,9 @@ package com.vvm.sh.ui.quadroPessoal.modelos;
 
 import androidx.room.Ignore;
 
-public class ColaboradorRegisto {
+import com.vvm.sh.util.interfaces.EstadoModelo;
+
+public class ColaboradorRegisto implements EstadoModelo {
 
 
     public int id, origem, idResultado, idCategoriaProfissional;
@@ -17,7 +19,13 @@ public class ColaboradorRegisto {
     //private int imagemSituacao, origem, corOrigem;
 
 
+    @Ignore
+    public int estadoModelo;
 
+    @Ignore
+    public ColaboradorRegisto(int estadoModelo){
+        this.estadoModelo = estadoModelo;
+    }
 
     public ColaboradorRegisto(int id, String nome, String idMorada, String morada, String estado, int origem,
                               String posto, String idRegisto, int idResultado, long dataNascimento, String sexo,
@@ -29,6 +37,7 @@ public class ColaboradorRegisto {
                        */){
 
 
+        this.estadoModelo = EstadoModelo.MODELO;
         this.id = id;
         this.nome = nome;
         this.idMorada = idMorada;
@@ -69,6 +78,11 @@ public class ColaboradorRegisto {
 //        this.categoriaProfissional = categoriaProfissional;
 //        this.idCategoriaProfissional = idCategoriaProfissional;
 //        this.profissao = profissao;
+    }
+
+    @Override
+    public int obterEstado() {
+        return estadoModelo;
     }
 //
 //    /**

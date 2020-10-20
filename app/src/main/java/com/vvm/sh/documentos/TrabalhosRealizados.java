@@ -38,30 +38,17 @@ public class TrabalhosRealizados extends Section {
         cellConfiguration.verticalAlign = Element.ALIGN_TOP;
         cellConfiguration.rowspan = (int) Math.ceil(registos.size() / 2.0);
         cellConfiguration.backgroundColor = BaseColor.BLACK;
-        //--dimensao.adicionar_Rotacao(90);
+        cellConfiguration.rotation = 90;
 
         table.addCell(titulo, cellConfiguration);
-        table.addCell("checkbox");
-        table.addCell("texto");
-        table.addCell("checkbox");
-        table.addCell("texto");
 
-//        Phrase titulo = new Phrase(SintaxeIF.TITULO_TRABALHO_REALIZADOS, fontes.obterFonte_bold(FONTE_7, BaseColor.WHITE));
-//        DimensoesCelula dimensao = new DimensoesCelula();
-//        dimensao.adicionar_Alinhamento(Element.ALIGN_TOP, Element.ALIGN_TOP);
-//        dimensao.adicionar_Rotacao(90);
-//        dimensao.adicionar_RowSpan((int) Math.ceil(registos.size() / 2.0));
-//        dimensao.adicionar_CorFundo(BaseColor.BLACK);
-//
-//        tabela.adicionarCelula(titulo, dimensao);
-//
-//
-//        //imagem
-//
-//        DimensoesCelula formato_imagem = new DimensoesCelula();
-//        formato_imagem.adicionar_Alinhamento(Element.ALIGN_MIDDLE, Element.ALIGN_MIDDLE);
-//        formato_imagem.adicionar_AlinhamentoEsquerda(2);
-//        formato_imagem.adicionar_Altura(ALTURA_LINHA___TABELA_TRABALHOS_REALIZADOS);
+        //imagem
+
+        CellConfiguration cellConfiguration_imagem = new CellConfiguration();
+        cellConfiguration_imagem.horizontalAlign = Element. ALIGN_MIDDLE;
+        cellConfiguration_imagem.verticalAlign = Element.ALIGN_MIDDLE;
+        cellConfiguration_imagem.alignLeft = 2;
+        cellConfiguration_imagem.height = Pdf.RegistoVisita.ALTURA_LINHA___TABELA_TRABALHOS_REALIZADOS;
 
 //
         //texto
@@ -94,11 +81,13 @@ public class TrabalhosRealizados extends Section {
             table.addCell("SEM_TEXTO", formato_Texto);
             table.addCell("SEM_TEXTO", formato_Texto);
         }
-//
-//        DimensoesCelula formato = new DimensoesCelula();
+
+        CellConfiguration formato_tabela = new CellConfiguration();
+        formato_tabela.border = 0;
+
 //        formato.adicionar_CorFundo(BaseColor.WHITE, false);
 //        formato.adicionar_Borda(0);
-//        tabela.formatarTabela(formato);
+        table.formatBorder(formato_tabela);
 //        return tabela;
 
     }

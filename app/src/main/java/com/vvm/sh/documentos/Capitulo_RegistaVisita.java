@@ -15,6 +15,7 @@ public class Capitulo_RegistaVisita extends Chapter {
 
     public Capitulo_RegistaVisita(RegistoVisita registoVisita) {
         super(1);
+        this.registoVisita = registoVisita;
     }
 
 

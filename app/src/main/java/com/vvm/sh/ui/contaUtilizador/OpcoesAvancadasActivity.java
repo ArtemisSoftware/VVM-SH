@@ -8,6 +8,7 @@ import android.view.View;
 
 import com.google.android.material.button.MaterialButton;
 import com.jaredrummler.materialspinner.MaterialSpinner;
+import com.titan.pdfdocumentlibrary.TestPdfAsyncTask;
 import com.vvm.sh.R;
 import com.vvm.sh.ui.BaseActivity;
 import com.vvm.sh.ui.opcoes.TiposActivity;
@@ -144,8 +145,8 @@ public class OpcoesAvancadasActivity extends BaseActivity {
             public void executar() {
 
                 if(DiretoriasUtil.criarDirectoria(DiretoriasUtil.DIRETORIA_PDF) == true){
-//                    TestPdfAsyncTask task = new TestPdfAsyncTask(this);
-//                    task.execute(dir);
+                    TestPdfAsyncTask task = new TestPdfAsyncTask(OpcoesAvancadasActivity.this);
+                    task.execute(new File(DiretoriasUtil.DIRETORIA_PDF));
                 }
             }
         };

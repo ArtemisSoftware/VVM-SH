@@ -24,7 +24,7 @@ public class Cabecalho extends Section {
         CellConfiguration cellConfiguration = new CellConfiguration();
 
 
-        //--cellConfiguration.adicionar_Moldura(7, 7, 21f, 21f);
+        //--cellConfiguration.addFrame(7, 7, 21f, 21f);
         table.addCell(obterTabelaReferencia(), cellConfiguration);
     }
 

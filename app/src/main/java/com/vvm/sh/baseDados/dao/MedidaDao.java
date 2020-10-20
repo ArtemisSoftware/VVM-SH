@@ -42,14 +42,7 @@ abstract public class MedidaDao implements BaseDao<MedidaResultado> {
 
 
 
-    @Query("DELETE FROM medidasResultado WHERE id = :id AND origem = :origem")
-    abstract public Single<Integer> remover(int id, int origem);
 
-
-    @Query("DELETE FROM medidasResultado " +
-            "WHERE id IN(SELECT id FROM riscosResultado WHERE idLevantamento = :idLevantamento) " +
-            "AND (origem = " + Identificadores.Origens.LEVANTAMENTO_MEDIDAS_RECOMENDADAS + " OR origem =" + Identificadores.Origens.LEVANTAMENTO_MEDIDAS_ADOPTADAS + ")")
-    abstract public Single<Integer> removerMedidasRisco(int idLevantamento);
 
 
 
@@ -86,4 +79,24 @@ abstract public class MedidaDao implements BaseDao<MedidaResultado> {
             "")
     abstract public Completable inserirMedidasRisco(int idAtividade, int idModelo, String tipo, int origemMedidas, int origemModelo, int api);
 
+
+
+
+    //remover
+
+
+    @Query("DELETE FROM medidasResultado WHERE id = :id AND origem = :origem")
+    abstract public Single<Integer> remover(int id, int origem);
+
+
+    @Query("DELETE FROM medidasResultado " +
+            "WHERE id IN(SELECT id FROM riscosResultado WHERE idLevantamento = :idLevantamento) " +
+            "AND (origem = " + Identificadores.Origens.LEVANTAMENTO_MEDIDAS_RECOMENDADAS + " OR origem =" + Identificadores.Origens.LEVANTAMENTO_MEDIDAS_ADOPTADAS + ")")
+    abstract public Single<Integer> removerMedidasRisco_Levantamento(int idLevantamento);
+
+
+    @Query("DELETE FROM medidasResultado " +
+            "WHERE id =:idRisco " +
+            "AND (origem = " + Identificadores.Origens.LEVANTAMENTO_MEDIDAS_RECOMENDADAS + " OR origem =" + Identificadores.Origens.LEVANTAMENTO_MEDIDAS_ADOPTADAS + ")")
+    abstract public Single<Integer> removerMedidasRisco(int idRisco);
 }

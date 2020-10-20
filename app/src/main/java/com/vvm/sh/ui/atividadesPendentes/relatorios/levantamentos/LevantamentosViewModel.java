@@ -18,6 +18,7 @@ import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.modelos.Risco;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.constantes.Sintaxe;
+import com.vvm.sh.util.excepcoes.ModeloException;
 import com.vvm.sh.util.metodos.ConversorUtil;
 import com.vvm.sh.util.metodos.TiposUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
@@ -523,7 +524,37 @@ public class LevantamentosViewModel extends BaseViewModel {
     }
 
 
-    public void removerRisco(int obterIdTarefa, int idAtividade, Risco registo) {
+    /**
+     * Metodo que permite remover um risco
+     * @param idTarefa
+     * @param idAtividade
+     * @param registo
+     */
+    public void removerRisco(int idTarefa, int idAtividade, Risco registo) {
+
+        levantamentoRepositorio.removerRisco(registo.resultado)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new SingleObserver<List<Integer>>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onSuccess(List<Integer> integers) {
+                                abaterAtividadePendente(levantamentoRepositorio.resultadoDao, idTarefa, idAtividade);
+                                messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_REMOVIDOS_SUCESSO));
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+                        }
+                );
     }
 
 
@@ -737,6 +768,7 @@ public class LevantamentosViewModel extends BaseViewModel {
                 .flatMap(new Function<List<Risco>, ObservableSource<?>>() {
                     @Override
                     public ObservableSource<?> apply(List<Risco> riscos) throws Exception {
+
                         return Observable.fromIterable(riscos);
                     }
                 })
@@ -794,7 +826,7 @@ public class LevantamentosViewModel extends BaseViewModel {
 
                             @Override
                             public void onError(Throwable e) {
-
+                                riscos.setValue(new ArrayList<>());
                             }
 
                             @Override

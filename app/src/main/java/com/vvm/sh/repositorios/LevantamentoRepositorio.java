@@ -32,7 +32,6 @@ import io.reactivex.Flowable;
 import io.reactivex.Maybe;
 import io.reactivex.Observable;
 import io.reactivex.Single;
-import io.reactivex.functions.BiFunction;
 import io.reactivex.functions.Function3;
 
 public class LevantamentoRepositorio {
@@ -171,7 +170,7 @@ public class LevantamentoRepositorio {
 
         return Single.concatArray(
                 propostaPlanoAcaoDao.remover(levantamento.resultado.id, Identificadores.Origens.ORIGEM_LEVANTAMENTO_RISCO),
-                medidaDao.removerMedidasRisco(levantamento.resultado.id),
+                medidaDao.removerMedidasRisco_Levantamento(levantamento.resultado.id),
                 riscoDao.removerRiscos(levantamento.resultado.id),
                 categoriaProfissionalDao.remover(levantamento.resultado.id, Identificadores.Origens.LEVANTAMENTO_CATEGORIAS_PROFISSIONAIS),
                 levantamentoDao.remover(levantamento.resultado)
@@ -179,6 +178,16 @@ public class LevantamentoRepositorio {
         .toList();
     }
 
+
+    public Single<List<Integer>> removerRisco(RiscoResultado risco){
+
+        return Single.concatArray(
+                propostaPlanoAcaoDao.removerRisco(risco.id, Identificadores.Origens.ORIGEM_LEVANTAMENTO_RISCO),
+                medidaDao.removerMedidasRisco(risco.id),
+                riscoDao.remover(risco)
+        )
+                .toList();
+    }
 
 
 

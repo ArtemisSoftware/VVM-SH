@@ -34,7 +34,7 @@ public class TrabalhosRealizados extends Section {
         CellConfiguration cellConfiguration = new CellConfiguration();
         cellConfiguration.horizontalAlign = Element. ALIGN_TOP;
         cellConfiguration.verticalAlign = Element.ALIGN_TOP;
-        //--cellConfiguration.rowspan = (int) Math.ceil(registos.size() / 2.0);
+        cellConfiguration.rowspan = (int) Math.ceil(registos.size() / 2.0);
         cellConfiguration.backgroundColor = BaseColor.BLACK;
         //--dimensao.adicionar_Rotacao(90);
 
@@ -74,24 +74,24 @@ public class TrabalhosRealizados extends Section {
 //        Image naoPreenchido = MetodosPdf.imagemPdf(contexto.getResources(), IMAGEM_CHECKBOX_VAZIA_CINZENTA);
 //        naoPreenchido.scaleToFit(15, 15);
 //
-//        for (TrabalhoRealizado registo : registos) {
-//
-//            if(registo.obterSelecao() == true){
-//                tabela.adicionarCelula(preenchido, formato_imagem);
-//            }
-//            else{
-//                tabela.adicionarCelula(naoPreenchido, formato_imagem);
-//            }
-//
-//            Phrase frase = new Phrase(registo.obterDescricao(), fontes.obterFonte(FONTE_7));
-//            tabela.adicionarCelula(frase, formato_Texto);
-//        }
-//
-//        if ((registos.size() % 2) == 1) {
-//
-//            tabela.adicionarCelula(SEM_TEXTO, formato_Texto);
-//            tabela.adicionarCelula(SEM_TEXTO, formato_Texto);
-//        }
+        for (TrabalhoRealizado registo : registos) {
+
+            if(registo.selecionado() == true){
+                table.addCell(/*preenchido, formato_imagem*/"selecionado");
+            }
+            else{
+                table.addCell(/*naoPreenchido, formato_imagem*/"Não selecionado");
+            }
+
+            Phrase frase = new Phrase(registo.tipo.descricao, fontConfiguration.getFont(7f));
+            table.addCell(frase, formato_Texto);
+        }
+
+        if ((registos.size() % 2) == 1) {
+
+            table.addCell("SEM_TEXTO", formato_Texto);
+            table.addCell("SEM_TEXTO", formato_Texto);
+        }
 //
 //        DimensoesCelula formato = new DimensoesCelula();
 //        formato.adicionar_CorFundo(BaseColor.WHITE, false);

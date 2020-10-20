@@ -33,12 +33,15 @@ public class Pdf {
         public static final String CLIENTE = "Cliente";
         public static final String TECNICO = "Técnico";
         public static final String CAP_N = "CAP nº";
+        public static final String RELATORIO_VISITA = "Relatório de Visita e";
+        public static final String PEDIDO_INFORMACAO = "Pedido de Informação";
     }
 
     public class Fontes {
 
         public static final float FONTE_TEXTO = 7f;
         public static final float FONTE_ASSINATURA = 8f;
+        public static final float FONTE_CABECALHO = 11f;
     }
 
     public class RegistoVisita {

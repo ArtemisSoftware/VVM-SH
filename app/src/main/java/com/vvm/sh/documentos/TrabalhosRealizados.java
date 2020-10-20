@@ -8,6 +8,8 @@ import com.titan.pdfdocumentlibrary.elements.CellConfiguration;
 import com.titan.pdfdocumentlibrary.elements.FontConfiguration;
 import com.titan.pdfdocumentlibrary.elements.Table;
 import com.vvm.sh.ui.registoVisita.modelos.TrabalhoRealizado;
+import com.vvm.sh.util.constantes.Pdf;
+
 
 import java.util.List;
 
@@ -30,7 +32,7 @@ public class TrabalhosRealizados extends Section {
         FontConfiguration fontConfiguration = new FontConfiguration();
 
 
-        Phrase titulo = new Phrase("SintaxeIF.TITULO_TRABALHO_REALIZADOS", fontConfiguration.getFont(7f, true, BaseColor.WHITE));
+        Phrase titulo = new Phrase(Pdf.Texto.TRABALHOS_REALIZADOS, fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO, true, BaseColor.WHITE));
         CellConfiguration cellConfiguration = new CellConfiguration();
         cellConfiguration.horizontalAlign = Element. ALIGN_TOP;
         cellConfiguration.verticalAlign = Element.ALIGN_TOP;
@@ -66,7 +68,7 @@ public class TrabalhosRealizados extends Section {
 
         CellConfiguration formato_Texto = new CellConfiguration();
         formato_Texto.verticalAlign  = Element.ALIGN_MIDDLE;
-        formato_Texto.height  = 15; //--ALTURA_LINHA___TABELA_TRABALHOS_REALIZADOS);
+        formato_Texto.height  = Pdf.RegistoVisita.ALTURA_LINHA___TABELA_TRABALHOS_REALIZADOS;
 //
 //        Image preenchido = MetodosPdf.imagemPdf(contexto.getResources(), IMAGEM_CHECKBOX_CINZENTA);
 //        preenchido.scaleToFit(15, 15);

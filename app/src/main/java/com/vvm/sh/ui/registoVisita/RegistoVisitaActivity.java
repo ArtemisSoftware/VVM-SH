@@ -113,7 +113,7 @@ public class RegistoVisitaActivity extends BaseDaggerActivity {
             public void executar() {
 
                 if(DiretoriasUtil.criarDirectoria(DiretoriasUtil.DIRETORIA_PDF) == true){
-                    viewModel.obterDadosPdf(PreferenciasUtil.obterIdTarefa(RegistoVisitaActivity.this));
+                    viewModel.obterDadosPdf(RegistoVisitaActivity.this, PreferenciasUtil.obterIdTarefa(RegistoVisitaActivity.this));
                 }
             }
         };

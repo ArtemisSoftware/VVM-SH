@@ -351,7 +351,7 @@ public class RegistoVisitaViewModel extends BaseViewModel {
     }
 
 
-    public void obterDadosPdf(int idTarefa) {
+    public void obterDadosPdf(Context contexto, int idTarefa) {
 
         registoVisitaRepositorio.obtePdf(idTarefa)
                 .subscribeOn(Schedulers.io())
@@ -366,7 +366,7 @@ public class RegistoVisitaViewModel extends BaseViewModel {
 
                             @Override
                             public void onSuccess(RegistoVisita registo) {
-
+                                registoVisitaPdf(contexto, idTarefa, registo);
                             }
 
                             @Override
@@ -387,8 +387,8 @@ public class RegistoVisitaViewModel extends BaseViewModel {
     private void registoVisitaPdf(Context contexto, int idTarefa, RegistoVisita registo){
 
         Template registoVisitaTemplate = new RegistoVisita_Doc(contexto, idTarefa, registo);
-//        DocumentoPdfAsyncTask servico = new DocumentoPdfAsyncTask(contexto, registoVisitaTemplate);
-//        servico.execute();
+        DocumentoPdfAsyncTask servico = new DocumentoPdfAsyncTask(contexto, registoVisitaTemplate);
+        servico.execute();
     }
 
 

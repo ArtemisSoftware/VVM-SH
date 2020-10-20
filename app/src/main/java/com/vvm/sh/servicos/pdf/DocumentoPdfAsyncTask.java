@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 
 import com.titan.pdfdocumentlibrary.bundle.Template;
+import com.vvm.sh.util.metodos.MensagensUtil;
 
 public class DocumentoPdfAsyncTask extends AsyncTask<Void, Void, Void> {
 
@@ -29,6 +30,12 @@ public class DocumentoPdfAsyncTask extends AsyncTask<Void, Void, Void> {
     protected void onPostExecute(Void result) {
         super.onPostExecute(result);
 
-        this.template.openPdf();
+        try {
+            this.template.openPdf();
+        }
+        catch (IllegalArgumentException e){
+            MensagensUtil dialogo = new MensagensUtil(mContext);
+            dialogo.erro("erro", "Erro ao gerar pdf: " + e.getMessage());
+        }
     }
 }

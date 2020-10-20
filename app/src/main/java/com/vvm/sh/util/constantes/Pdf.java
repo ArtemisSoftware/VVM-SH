@@ -35,11 +35,18 @@ public class Pdf {
         public static final String CAP_N = "CAP nº";
         public static final String RELATORIO_VISITA = "Relatório de Visita e";
         public static final String PEDIDO_INFORMACAO = "Pedido de Informação";
+        public static final String TITULO_IDENTIFICACAO_CLIENTE = "Identificação do Cliente";
+        public static final String N_CLIENTE = "Nº Cliente";
+        public static final String N_ORDEM = "Nº Ordem";
+        public static final String EMPRESA = "Empresa";
+        public static final String RECEBIDO_POR = "Recebido por";
+        public static final String FUNCAO = "Função";
     }
 
     public class Fontes {
 
         public static final float FONTE_TEXTO = 7f;
+        public static final float FONTE_TEXTO_GRANDE = 9f;
         public static final float FONTE_ASSINATURA = 8f;
         public static final float FONTE_CABECALHO = 11f;
     }
@@ -47,7 +54,7 @@ public class Pdf {
     public class RegistoVisita {
 
         public static final float ALTURA____ENTRE_SECCOES = 3f/*151f*/;
-        public static final float ALTURA_LINHA___TABELA_IDENTIFICACAO_CLIENTE = 25f/*30f*/;
+        public static final int ALTURA_LINHA___TABELA_IDENTIFICACAO_CLIENTE = 25/*30f*/;
         public static final int ALTURA_LINHA___TABELA_TRABALHOS_REALIZADOS = 18/*21f*/;
         public static final float ALTURA_LINHA___TABELA_HOMOLOGACAO = 20f/*35f*/;
         public static final float ALTURA_LINHA___TABELA_OBSERVACAO = /*90f*/20f;

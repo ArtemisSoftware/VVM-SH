@@ -5,6 +5,7 @@ import androidx.lifecycle.MutableLiveData;
 import com.vvm.sh.baseDados.entidades.CategoriaProfissionalResultado;
 import com.vvm.sh.baseDados.entidades.LevantamentoRiscoResultado;
 import com.vvm.sh.baseDados.entidades.MedidaResultado;
+import com.vvm.sh.baseDados.entidades.PropostaPlanoAcaoResultado;
 import com.vvm.sh.baseDados.entidades.RiscoResultado;
 import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.repositorios.LevantamentoAvaliacaoRepositorio;
@@ -291,7 +292,7 @@ public class LevantamentosViewModel extends BaseViewModel {
                         @Override
                         public SingleSource<?> apply(Long aLong) throws Exception {
                             int idRegisto = ConversorUtil.converter_long_Para_int(aLong);
-                            return Single.fromObservable(levantamentoRepositorio.inserir(idRegisto, medidasExistentes, medidasRecomendadas));
+                            return Single.fromObservable(levantamentoRepositorio.inserir(idAtividade, idRegisto, medidasExistentes, medidasRecomendadas));
                         }
                     })
                     .subscribeOn(Schedulers.io())
@@ -324,7 +325,7 @@ public class LevantamentosViewModel extends BaseViewModel {
 
             List<MedidaResultado> medidasExistentesRegistas = new ArrayList<>();
 
-            if(medidasExistentes == null){
+            if(medidasExistentes.size() == 0){
 
                 for (Tipo medida : risco.getValue().medidasExistentes) {
                     medidasExistentesRegistas.add(new MedidaResultado(registo.id, Identificadores.Origens.LEVANTAMENTO_MEDIDAS_ADOPTADAS, medida.id));
@@ -340,7 +341,7 @@ public class LevantamentosViewModel extends BaseViewModel {
 
             List<MedidaResultado> medidasRecomendadasRegistas = new ArrayList<>();
 
-            if(medidasExistentes == null){
+            if(medidasRecomendadas.size() == 0){
 
                 for (Tipo medida : risco.getValue().medidasRecomendadas) {
                     medidasRecomendadasRegistas.add(new MedidaResultado(registo.id, Identificadores.Origens.LEVANTAMENTO_MEDIDAS_RECOMENDADAS, medida.id));
@@ -353,8 +354,14 @@ public class LevantamentosViewModel extends BaseViewModel {
                 }
             }
 
+            List<PropostaPlanoAcaoResultado> propostasRegistas = new ArrayList<>();
 
-            Disposable d = levantamentoRepositorio.atualizarRisco(registo, medidasExistentesRegistas, medidasRecomendadasRegistas)
+            for (MedidaResultado medida : medidasRecomendadasRegistas) {
+                propostasRegistas.add(new PropostaPlanoAcaoResultado(idAtividade, registo.id, medida.id));
+            }
+
+
+            Disposable d = levantamentoRepositorio.atualizarRisco(registo, medidasExistentesRegistas, medidasRecomendadasRegistas, propostasRegistas)
                     .toList()
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
@@ -513,6 +520,10 @@ public class LevantamentosViewModel extends BaseViewModel {
                             }
                         }
                 );
+    }
+
+
+    public void removerRisco(int obterIdTarefa, int idAtividade, Risco registo) {
     }
 
 
@@ -1045,6 +1056,7 @@ public class LevantamentosViewModel extends BaseViewModel {
 
                 );
     }
+
 
 
 

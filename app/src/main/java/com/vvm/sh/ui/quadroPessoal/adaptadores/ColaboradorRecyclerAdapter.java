@@ -10,8 +10,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.vvm.sh.R;
 import com.vvm.sh.databinding.ItemColaboradorBinding;
+import com.vvm.sh.databinding.ItemExaustoBinding;
 import com.vvm.sh.databinding.ItemLoadingBinding;
 import com.vvm.sh.ui.quadroPessoal.modelos.ColaboradorRegisto;
+import com.vvm.sh.util.adaptadores.ExaustoViewHolder;
 import com.vvm.sh.util.adaptadores.LoadingViewHolder;
 import com.vvm.sh.util.interfaces.EstadoModelo;
 
@@ -24,6 +26,8 @@ public class ColaboradorRecyclerAdapter extends RecyclerView.Adapter<RecyclerVie
     private List<ColaboradorRegisto> items = new ArrayList<>();
     private Context contexto;
     private OnColaboradorListener onItemListener;
+
+    private int estado = EstadoModelo.MODELO;
 
     public ColaboradorRecyclerAdapter(Context contexto, List<ColaboradorRegisto> items, OnColaboradorListener onItemListener) {
         this.items = items;
@@ -43,20 +47,17 @@ public class ColaboradorRecyclerAdapter extends RecyclerView.Adapter<RecyclerVie
                 ItemLoadingBinding itemLoadingBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.item_loading, parent, false);
                 return new LoadingViewHolder(itemLoadingBinding.getRoot());
 
-//
-//            case ModelState.EXHAUSTED:
-//
-//                ItemSearchExhaustedBinding itemSearchExhaustedBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.item_search_exhausted, parent, false);
-//                return new SearchExhaustedViewHolder(itemSearchExhaustedBinding.getRoot());
+
+            case EstadoModelo.EXHAUSTED:
+
+                ItemExaustoBinding itemExaustoBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.item_exausto, parent, false);
+                return new ExaustoViewHolder(itemExaustoBinding.getRoot());
 
 
             default:
                 ItemColaboradorBinding binding = DataBindingUtil.inflate(LayoutInflater.from(contexto), R.layout.item_colaborador, parent, false);
                 return new ColaboradorViewHolder(binding.getRoot(), this.onItemListener);
         }
-
-
-
 
     }
 
@@ -71,10 +72,10 @@ public class ColaboradorRecyclerAdapter extends RecyclerView.Adapter<RecyclerVie
                 ((LoadingViewHolder) holder).binding.executePendingBindings();
                 break;
 
-//            case ModelState.EXHAUSTED:
-//
-//                ((SearchExhaustedViewHolder) holder).binding.executePendingBindings();
-//                break;
+            case EstadoModelo.EXHAUSTED:
+
+                ((ExaustoViewHolder) holder).binding.executePendingBindings();
+                break;
 
             default:
 
@@ -102,6 +103,9 @@ public class ColaboradorRecyclerAdapter extends RecyclerView.Adapter<RecyclerVie
 
 
     public void atualizar(List<ColaboradorRegisto> lolo) {
+
+        manageQueryResult(lolo.size());
+
         //this.items.clear();
         //this.items.addAll(lolo);
 
@@ -112,18 +116,15 @@ public class ColaboradorRecyclerAdapter extends RecyclerView.Adapter<RecyclerVie
 
 
     public void displayLoading(){
-/*
+
         if(items.get(items.size() - 1).obterEstado() != EstadoModelo.EXHAUSTED) {
-*/
+
             if (!isLoading()) {
 
                 items.add(new ColaboradorRegisto(EstadoModelo.LOADING));
                 notifyDataSetChanged();
-
             }
-            /*
         }
-        */
     }
 
     private boolean isLoading(){
@@ -139,4 +140,36 @@ public class ColaboradorRecyclerAdapter extends RecyclerView.Adapter<RecyclerVie
     }
 
 
+    public void hideLoading_(){
+        if(isLoading()){
+
+            if (items.get(items.size() - 1).obterEstado() == EstadoModelo.LOADING) {
+                items.remove(items.size() - 1);
+            }
+        }
+    }
+
+
+
+    private void manageQueryResult(int results){
+
+        if(results == items.size()){
+
+            setQueryExhausted_();
+        }
+        else{
+            hideLoading_();
+        }
+    }
+
+
+    public void setQueryExhausted_(){
+
+        hideLoading_();
+
+        if(items.get(items.size() - 1).obterEstado() != EstadoModelo.EXHAUSTED) {
+            ColaboradorRegisto item = new ColaboradorRegisto(EstadoModelo.EXHAUSTED);
+            items.add(item);
+        }
+    }
 }

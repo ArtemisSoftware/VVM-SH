@@ -1,9 +1,12 @@
 package com.vvm.sh.baseDados.dao;
 
 import androidx.room.Dao;
+import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import com.vvm.sh.baseDados.BaseDao;
+import com.vvm.sh.baseDados.entidades.MedidaResultado;
 import com.vvm.sh.baseDados.entidades.PropostaPlanoAcaoResultado;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.propostaPlanoAccao.modelos.Proposta;
 import com.vvm.sh.util.constantes.Identificadores;
@@ -18,7 +21,8 @@ import io.reactivex.Single;
 @Dao
 abstract public class PropostaPlanoAcaoDao implements BaseDao<PropostaPlanoAcaoResultado> {
 
-
+    @Insert(onConflict = OnConflictStrategy.IGNORE)
+    abstract public Single<List<Long>> inserir(List<PropostaPlanoAcaoResultado> entity);
 
 //    String query = "SELECT idPlano, qst_chk_res.idItem as idMedida, item, tp_ni.ni, prazo,idNi, idPrazo, selecionado, MIN(pl_ac_avr_res.idRegisto) ";
 //
@@ -56,12 +60,6 @@ abstract public class PropostaPlanoAcaoDao implements BaseDao<PropostaPlanoAcaoR
     abstract public Observable<List<Proposta>> obterPropostasSt(int idAtividade);
 
 
-    @Query("DELETE FROM propostaPlanoAcaoResultado WHERE idQuestao = :idQuestao")
-    abstract public Single<Integer> remover(int idQuestao);
-
-    @Query("DELETE FROM propostaPlanoAcaoResultado WHERE idQuestao IN(SELECT id FROM riscosResultado WHERE idLevantamento =:idLevantamento ) AND origem = :origem")
-    abstract public Single<Integer> remover(int idLevantamento, int origem);
-
 
 //    String query = "SELECT idMedida,  idPlano, medida, selecionado, MIN(idRegisto)   ";
 //    query += "FROM planoAcaoAVR_resultado as pl_ac_avr_res	   ";
@@ -96,4 +94,22 @@ abstract public class PropostaPlanoAcaoDao implements BaseDao<PropostaPlanoAcaoR
             "LEFT JOIN (SELECT id, idMedida FROM medidasResultado WHERE origem = :origem) med_res ON rsc_res.id = med_res.id " +
             "WHERE  rsc_res.idLevantamento IN (SELECT idLevantamento FROM levantamentosRiscoResultado WHERE idAtividade = :idAtividade AND idModelo = :idModelo )")
     abstract public Completable inserirModelo(int idAtividade, int idModelo, int origem);
+
+
+
+
+
+    //remover
+
+
+    @Query("DELETE FROM propostaPlanoAcaoResultado WHERE idQuestao = :idQuestao AND origem = :origem")
+    abstract public Single<Integer> removerQuestoes(int idQuestao, int origem);
+
+    @Query("DELETE FROM propostaPlanoAcaoResultado WHERE idQuestao IN (SELECT id FROM riscosResultado WHERE idLevantamento =:idLevantamento ) AND origem = :origem")
+    abstract public Single<Integer> remover(int idLevantamento, int origem);
+
+
+    @Query("DELETE FROM propostaPlanoAcaoResultado WHERE idQuestao IN (SELECT id FROM riscosResultado WHERE id = :idRisco ) AND origem = :origem")
+    abstract public Single<Integer> remover_Risco(int idRisco, int origem);
+
 }

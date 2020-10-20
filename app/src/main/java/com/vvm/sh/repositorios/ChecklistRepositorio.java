@@ -75,7 +75,7 @@ public class ChecklistRepositorio {
         if(registo.resposta.equals(TiposConstantes.Checklist.NAO.descricao) == true){
 
             PropostaPlanoAcaoResultado propostaPlanoAcaoResultado = new PropostaPlanoAcaoResultado(idAtividade, idQuestao);
-            return Single.zip(propostaPlanoAcaoDao.remover(idQuestao), propostaPlanoAcaoDao.inserir(propostaPlanoAcaoResultado), new BiFunction<Integer, Long, Object>() {
+            return Single.zip(propostaPlanoAcaoDao.remover(idQuestao, Identificadores.Origens.CHECKLIST), propostaPlanoAcaoDao.inserir(propostaPlanoAcaoResultado), new BiFunction<Integer, Long, Object>() {
                 @Override
                 public Object apply(Integer integer, Long aLong) throws Exception {
                     return integer;
@@ -83,7 +83,7 @@ public class ChecklistRepositorio {
             });
         }
         else{
-            return propostaPlanoAcaoDao.remover(idQuestao);
+            return propostaPlanoAcaoDao.remover(idQuestao, Identificadores.Origens.CHECKLIST);
         }
     }
 

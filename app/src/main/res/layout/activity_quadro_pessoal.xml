@@ -20,6 +20,7 @@
             name="listener"
             type="com.vvm.sh.ui.quadroPessoal.adaptadores.OnColaboradorListener"/>
 
+
         <variable
             name="bloquear"
             type="Boolean"/>

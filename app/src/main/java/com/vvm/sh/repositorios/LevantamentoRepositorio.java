@@ -12,6 +12,7 @@ import com.vvm.sh.baseDados.dao.TipoDao;
 import com.vvm.sh.baseDados.entidades.CategoriaProfissionalResultado;
 import com.vvm.sh.baseDados.entidades.LevantamentoRiscoResultado;
 import com.vvm.sh.baseDados.entidades.MedidaResultado;
+import com.vvm.sh.baseDados.entidades.PropostaPlanoAcaoResultado;
 import com.vvm.sh.baseDados.entidades.RiscoResultado;
 import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.modelos.CategoriaProfissional;
@@ -175,7 +176,7 @@ public class LevantamentoRepositorio {
                 categoriaProfissionalDao.remover(levantamento.resultado.id, Identificadores.Origens.LEVANTAMENTO_CATEGORIAS_PROFISSIONAIS),
                 levantamentoDao.remover(levantamento.resultado)
         )
-                .toList();
+        .toList();
     }
 
 
@@ -196,7 +197,7 @@ public class LevantamentoRepositorio {
     }
 
 
-    public Observable inserir(int idRegisto, List<Integer> medidasExistentes, List<Integer> medidasRecomendadas) {
+    public Observable inserir(int idAtividade, int idRegisto, List<Integer> medidasExistentes, List<Integer> medidasRecomendadas) {
 
         List<MedidaResultado> registosMedidasExistentes = new ArrayList<>();
 
@@ -210,25 +211,37 @@ public class LevantamentoRepositorio {
             registosMedidasRecomendadas.add(new MedidaResultado(idRegisto, Identificadores.Origens.LEVANTAMENTO_MEDIDAS_RECOMENDADAS, idMedida));
         }
 
+
+        List<PropostaPlanoAcaoResultado> propostaPlanoAcaoResultados = new ArrayList<>();
+
+        for(int idMedida : medidasRecomendadas){
+            propostaPlanoAcaoResultados.add(new PropostaPlanoAcaoResultado(idAtividade, idRegisto, idMedida));
+        }
+
         return Observable.zip(
+                propostaPlanoAcaoDao.inserir(propostaPlanoAcaoResultados).toObservable(),
                 medidaDao.inserir(registosMedidasRecomendadas).toObservable(),
                 medidaDao.inserir(registosMedidasExistentes).toObservable(),
-                new BiFunction<List<Long>, List<Long>, Object>() {
+                new Function3<List<Long>, List<Long>, List<Long>, Object>() {
                     @Override
-                    public Object apply(List<Long> longs, List<Long> longs2) throws Exception {
+                    public Object apply(List<Long> longs, List<Long> longs2, List<Long> longs3) throws Exception {
                         return longs;
                     }
                 }
         );
     }
 
-    public Flowable<Object> atualizarRisco(RiscoResultado registo, List<MedidaResultado> medidasExistentesRegistas, List<MedidaResultado> medidasRecomendadasRegistas) {
+    public Flowable<Object> atualizarRisco(RiscoResultado registo, List<MedidaResultado> medidasExistentesRegistas, List<MedidaResultado> medidasRecomendadasRegistas, List<PropostaPlanoAcaoResultado> propostasRegistas) {
 
-            Flowable<Object> single = Single.merge(Arrays.asList(riscoDao.atualizar(registo),
+
+            Flowable<Object> single = Single.merge(Arrays.asList(
+                    riscoDao.atualizar(registo),
+                    propostaPlanoAcaoDao.remover(registo.id, Identificadores.Origens.ORIGEM_LEVANTAMENTO_RISCO),
                     medidaDao.remover(registo.id, Identificadores.Origens.LEVANTAMENTO_MEDIDAS_ADOPTADAS),
                     medidaDao.remover(registo.id, Identificadores.Origens.LEVANTAMENTO_MEDIDAS_RECOMENDADAS),
                     medidaDao.inserir(medidasExistentesRegistas),
-                    medidaDao.inserir(medidasRecomendadasRegistas)));
+                    medidaDao.inserir(medidasRecomendadasRegistas),
+                    propostaPlanoAcaoDao.inserir(propostasRegistas)));
 
             return single;
 

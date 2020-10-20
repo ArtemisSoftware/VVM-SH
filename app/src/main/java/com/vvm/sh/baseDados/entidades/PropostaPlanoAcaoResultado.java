@@ -57,12 +57,22 @@ public class PropostaPlanoAcaoResultado {
 
 
     @Ignore
-    public PropostaPlanoAcaoResultado(int idAtividade, int idQuestaoChecklist) {
+    public PropostaPlanoAcaoResultado(int idAtividade, int idQuestao) {
         this.idAtividade = idAtividade;
         this.origem = Identificadores.Origens.CHECKLIST;
-        this.idQuestao = idQuestaoChecklist;
+        this.idQuestao = idQuestao;
         this.selecionado = true;
     }
+
+    @Ignore
+    public PropostaPlanoAcaoResultado(int idAtividade, int idQuestao, int idMedida) {
+        this.idAtividade = idAtividade;
+        this.idMedida = idMedida;
+        this.origem = Identificadores.Origens.ORIGEM_LEVANTAMENTO_RISCO;
+        this.idQuestao = idQuestao;
+        this.selecionado = true;
+    }
+
 
     public PropostaPlanoAcaoResultado(int idAtividade, int id, int origem, int idQuestao, int idMedida, int idNi, int idPrazo, boolean selecionado) {
         this.idAtividade = idAtividade;

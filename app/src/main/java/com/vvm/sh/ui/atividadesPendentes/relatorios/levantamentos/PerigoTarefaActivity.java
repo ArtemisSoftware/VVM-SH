@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -13,6 +14,7 @@ import com.vvm.sh.databinding.ActivityLevantamentosBinding;
 import com.vvm.sh.databinding.ActivityPerigoTarefaBinding;
 import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.util.Recurso;
+import com.vvm.sh.util.interfaces.OnDialogoListener;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
@@ -70,8 +72,7 @@ public class PerigoTarefaActivity extends BaseDaggerActivity {
 
                     case SUCESSO:
 
-                        viewModel.obterRelatorio((Integer) recurso.dados);
-                        dialogo.sucesso(recurso.messagem, listenerActivity);
+                        dialogo.sucesso(recurso.messagem, obterListener((Integer) recurso.dados));
                         break;
 
                     case ERRO:
@@ -82,6 +83,35 @@ public class PerigoTarefaActivity extends BaseDaggerActivity {
                 }
             }
         });
+    }
+
+
+
+    private OnDialogoListener obterListener(int idLevantamento){
+
+        Bundle bundle = getIntent().getExtras();
+        int id = bundle.getInt(getString(R.string.argumento_id_levantamento));
+
+        if(id == 0) {
+
+            return new OnDialogoListener() {
+                @Override
+                public void onExecutar() {
+                    finish();
+
+                    Bundle bundle = getIntent().getExtras();
+                    bundle.putInt(getString(R.string.argumento_id_levantamento), idLevantamento);
+
+                    Intent intent = new Intent(getApplicationContext(), RelatorioLevantamentoActivity.class);
+                    intent.putExtras(bundle);
+                    startActivity(intent);
+
+                }
+            };
+        }
+        else{
+            return listenerActivity;
+        }
     }
 
 

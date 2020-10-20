@@ -82,6 +82,7 @@ import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.DialogoModeloC
 import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.DialogoModelos;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.LevantamentosActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.PerigoTarefaActivity;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.RelatorioLevantamentoActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.RiscoRegistoActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.RiscosActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.propostaPlanoAccao.PropostaPlanoAccaoActivity;
@@ -596,6 +597,13 @@ public abstract class ActivityBuildersModule {
             modules = { LevantamentosViewModelsModule.class, LevantamentosModule.class }
     )
     abstract LevantamentosActivity contributeLevantamentosActivity();
+
+
+    @LevantamentosScope
+    @ContributesAndroidInjector(
+            modules = { LevantamentosViewModelsModule.class, LevantamentosModule.class }
+    )
+    abstract RelatorioLevantamentoActivity contributeRelatorioLevantamentoActivity();
 
     @LevantamentosScope
     @ContributesAndroidInjector(

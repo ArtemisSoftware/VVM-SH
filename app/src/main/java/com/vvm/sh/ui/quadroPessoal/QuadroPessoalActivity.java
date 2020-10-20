@@ -10,6 +10,7 @@ import androidx.appcompat.widget.SearchView;
 import androidx.annotation.NonNull;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.vvm.sh.R;
@@ -25,8 +26,11 @@ import com.vvm.sh.ui.quadroPessoal.modelos.ColaboradorRegisto;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.constantes.Sintaxe;
+import com.vvm.sh.util.itens.PaginacaoListener;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
+
+import java.util.List;
 
 import javax.inject.Inject;
 
@@ -45,6 +49,12 @@ public class QuadroPessoalActivity extends BaseDaggerActivity
 
 
 
+    private int currentPage = PaginacaoListener.PAGE_START;
+    private boolean isLastPage = false;
+    private int totalPage = 10;
+    private boolean isLoading = false;
+    int itemCount = 0;
+
     @Override
     protected void intActivity(Bundle savedInstanceState) {
 
@@ -61,17 +71,23 @@ public class QuadroPessoalActivity extends BaseDaggerActivity
         viewModel.obterQuadroPessoal(PreferenciasUtil.obterIdTarefa(this));
 
 
+
+
         activityQuadroPessoalBinding.rclRegistos.addOnScrollListener(new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
                 super.onScrollStateChanged(recyclerView, newState);
 
-                if(!activityQuadroPessoalBinding.rclRegistos.canScrollVertically(1)  && newState == 1){
+
+                if(!activityQuadroPessoalBinding.rclRegistos.canScrollVertically(1)  /*&& newState==RecyclerView.SCROLL_STATE_IDLE*/){
 
                     viewModel.obterProximaPagina(PreferenciasUtil.obterIdTarefa(getApplicationContext()));
                 }
             }
         });
+
+
+
 
 
     }
@@ -102,7 +118,6 @@ public class QuadroPessoalActivity extends BaseDaggerActivity
                         }
                         break;
 
-
                     case SUCESSO:
 
                         dialogo.sucesso(recurso.messagem);
@@ -112,10 +127,23 @@ public class QuadroPessoalActivity extends BaseDaggerActivity
 
                         dialogo.erro(recurso.messagem);
                         break;
-
                 }
             }
         });
+
+//        viewModel.observarColaboradores().observe(this, new Observer<List<ColaboradorRegisto>>() {
+//            @Override
+//            public void onChanged(List<ColaboradorRegisto> colaboradorRegistos) {
+//                if (currentPage < totalPage) {
+//                    if(((ColaboradorRecyclerAdapter)activityQuadroPessoalBinding.rclRegistos.getAdapter()) != null) {
+//                        ((ColaboradorRecyclerAdapter) activityQuadroPessoalBinding.rclRegistos.getAdapter()).displayLoading();
+//                    }
+//                } else {
+//                    isLastPage = true;
+//                }
+//                isLoading = false;
+//            }
+//        });
     }
 
 

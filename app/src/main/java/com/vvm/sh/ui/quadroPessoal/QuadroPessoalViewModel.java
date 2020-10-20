@@ -53,6 +53,13 @@ public class QuadroPessoalViewModel extends BaseViewModel {
     }
 
 
+
+    public MutableLiveData<List<ColaboradorRegisto>> observarColaboradores(){
+        return colaboradores;
+    }
+
+
+
     //--------------------
     //GRAVAR
     //--------------------
@@ -182,6 +189,8 @@ public class QuadroPessoalViewModel extends BaseViewModel {
                                     registos.addAll(resultados);
                                     colaboradores.setValue(registos);
                                 }*/
+
+
                                 colaboradores.setValue(resultados);
                                 performingQuery = false;
                             }
@@ -354,6 +363,7 @@ public class QuadroPessoalViewModel extends BaseViewModel {
 
                                 @Override
                                 public void onSuccess(List<ColaboradorRegisto> registos) {
+
                                     colaboradores.setValue(registos);
                                     showProgressBar(false);
                                 }

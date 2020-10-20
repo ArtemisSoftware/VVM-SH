@@ -93,18 +93,29 @@ public class LevantamentosActivity extends BaseDaggerActivity
      */
     private void initLevantamento(LevantamentoRiscoResultado registo){
 
-        activityLevantamentosBinding.rclRegistos.setVisibility(View.GONE);
-        activityLevantamentosBinding.lnrLytLevantamento.setVisibility(View.VISIBLE);
         activityLevantamentosBinding.fabMenu.setVisibility(View.GONE);
 
-        int id = 0;
+        int idAtividade = getIntent().getExtras().getInt(getString(R.string.argumento_id_atividade));
+        Bundle bundle = new Bundle();
+        bundle.putInt(getString(R.string.argumento_id_atividade), idAtividade);
 
         if(registo != null){
-            id = registo.id;
-            activityLevantamentosBinding.txtIdLevantamento.setText(registo.id + "");
+            bundle.putInt(getString(R.string.argumento_id_levantamento), registo.id);
+
+
+            Intent intent = new Intent(this, RelatorioLevantamentoActivity.class);
+            intent.putExtras(bundle);
+            startActivity(intent);
+        }
+        else {
+
+            bundle.putInt(getString(R.string.argumento_id_levantamento), 0);
+            Intent intent = new Intent(this, PerigoTarefaActivity.class);
+            intent.putExtras(bundle);
+            startActivity(intent);
+
         }
 
-        viewModel.obterRelatorio(id);
 
         //int idLevantamento = Sintaxe.SEM_REGISTO;
 
@@ -175,6 +186,8 @@ public class LevantamentosActivity extends BaseDaggerActivity
     public void fab_adicionar_levantamento_OnClickListener(View view) {
 
         initLevantamento(null);
+
+        activityLevantamentosBinding.fabMenu.close(true);
     }
 
 
@@ -186,63 +199,10 @@ public class LevantamentosActivity extends BaseDaggerActivity
 
         DialogoModelos dialogo = DialogoModelos.newInstance(idAtividade);
         dialogo.show(getSupportFragmentManager(), "Dialogo");
+
+        activityLevantamentosBinding.fabMenu.close(true);
     }
 
-
-    @OnClick({R.id.card_levantamento})
-    public void card_levantamento_OnClickListener(View view) {
-
-        activityLevantamentosBinding.rclRegistos.setVisibility(View.VISIBLE);
-        activityLevantamentosBinding.lnrLytLevantamento.setVisibility(View.GONE);
-        activityLevantamentosBinding.fabMenu.setVisibility(View.VISIBLE);
-    }
-
-    @OnClick({R.id.card_perigo_tarefa})
-    public void card_perigo_tarefa_OnClickListener(View view) {
-
-        Bundle bundle = getIntent().getExtras();
-        int idAtividade = bundle.getInt(getString(R.string.argumento_id_atividade));
-        bundle.putInt(getString(R.string.argumento_id_atividade), idAtividade);
-
-        Intent intent = new Intent(this, PerigoTarefaActivity.class);
-        intent.putExtras(bundle);
-        startActivity(intent);
-    }
-
-
-    @OnClick({R.id.card_categorias_profissionais})
-    public void card_categorias_profissionais_OnClickListener(View view) {
-
-        Bundle bundleOriginal = getIntent().getExtras();
-        int idAtividade = bundleOriginal.getInt(getString(R.string.argumento_id_atividade));
-
-        Bundle bundle = new Bundle();
-        int id = Integer.parseInt(activityLevantamentosBinding.txtIdLevantamento.getText().toString());
-        bundle.putInt(getString(R.string.argumento_id_levantamento), id);
-        bundle.putInt(getString(R.string.argumento_id_atividade), idAtividade);
-
-        Intent intent = new Intent(this, CategoriasProfissionaisActivity.class);
-        intent.putExtras(bundle);
-        startActivity(intent);
-    }
-
-
-
-    @OnClick({R.id.card_riscos})
-    public void card_riscos_OnClickListener(View view) {
-
-        Bundle bundleOriginal = getIntent().getExtras();
-        int idAtividade = bundleOriginal.getInt(getString(R.string.argumento_id_atividade));
-
-        Bundle bundle = new Bundle();
-        int id = Integer.parseInt(activityLevantamentosBinding.txtIdLevantamento.getText().toString());
-        bundle.putInt(getString(R.string.argumento_id_levantamento), id);
-        bundle.putInt(getString(R.string.argumento_id_atividade), idAtividade);
-
-        Intent intent = new Intent(this, RiscosActivity.class);
-        intent.putExtras(bundle);
-        startActivity(intent);
-    }
 
 
     @Override

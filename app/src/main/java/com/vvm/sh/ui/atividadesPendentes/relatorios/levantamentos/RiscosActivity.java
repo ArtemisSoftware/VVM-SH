@@ -102,5 +102,9 @@ public class RiscosActivity extends BaseDaggerActivity
     @Override
     public void OnRemoverClick(Risco registo) {
 
+        Bundle bundle = getIntent().getExtras();
+        int idAtividade = bundle.getInt(getString(R.string.argumento_id_atividade));
+
+        viewModel.removerRisco(PreferenciasUtil.obterIdTarefa(this), idAtividade, registo);
     }
 }

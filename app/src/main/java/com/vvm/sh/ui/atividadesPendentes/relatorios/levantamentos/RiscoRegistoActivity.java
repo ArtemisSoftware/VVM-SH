@@ -146,6 +146,7 @@ public class RiscoRegistoActivity extends BaseDaggerActivity
             public void onChanged(Risco risco) {
                 if(risco != null) {
                     viewModel.obteRiscoEspecifico(risco.resultado.idRisco);
+                    calcularNP_NR();
                 }
 
             }
@@ -349,7 +350,8 @@ public class RiscoRegistoActivity extends BaseDaggerActivity
     @Override
     public void onValidationSucceeded() {
 
-        if(medidasExistentes.size() == 0 & medidasRecomendadas.size() == 0) {
+        if(activityRiscoRegistoBinding.txtMedidasExistentes.getText().toString().equals("") == true
+                & activityRiscoRegistoBinding.txtMedidasRecomendadas.getText().toString().equals("") == true) {
             activityRiscoRegistoBinding.txtMedidasExistentes.setError(Sintaxe.Alertas.PREENCHIMENTO_OBRIGATORIO);
             activityRiscoRegistoBinding.txtMedidasRecomendadas.setError(Sintaxe.Alertas.PREENCHIMENTO_OBRIGATORIO);
         }
@@ -373,7 +375,6 @@ public class RiscoRegistoActivity extends BaseDaggerActivity
 
 
             RiscoResultado registo = new RiscoResultado(idLevantamento, risco.id, riscoEspecifico.id, consequencias, nd.obterDescricao(), ne.obterDescricao(), nc.obterDescricao(), ni);
-            //RiscoResultado registo = new RiscoResultado(idLevantamento, risco.id, riscoEspecifico.id, consequencias, nd.id, ne.id, nc.id, ni);
             viewModel.gravar(PreferenciasUtil.obterIdTarefa(this), idAtividade, registo, medidasExistentes, medidasRecomendadas);
         }
 

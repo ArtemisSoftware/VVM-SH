@@ -82,7 +82,7 @@ abstract public class LevantamentoDao implements BaseDao<LevantamentoRiscoResult
 
 
     @Query("SELECT id, " +
-            "CASE WHEN tarefa IS NULL OR perigo IS NULL THEN 0  ELSE 1 END as validadePerigoTarefa, " +
+            "CASE WHEN (tarefa != '' AND perigo != '') THEN 1  ELSE 0 END as validadePerigoTarefa, " +
             "vald_categorias_prof.valido as validadeCategoriasProfissionais, " +
             "vald_riscos.valido as validadeRiscos," +
             "CASE WHEN vald_categorias_prof.valido = 1 AND vald_riscos.valido = 1 THEN 1 ELSE 0 END as valido, " +
@@ -125,10 +125,10 @@ abstract public class LevantamentoDao implements BaseDao<LevantamentoRiscoResult
 
 
 
-            "LEFT JOIN (SELECT idRegisto, COUNT(*) as count_categorias FROM categoriasProfissionaisResultado WHERE origem = " + Identificadores.Origens.LEVANTAMENTO_CATEGORIAS_PROFISSIONAIS + " GROUP BY idRegisto) " +
+            "LEFT JOIN (SELECT idRegisto, IFNULL(COUNT(*), 0) as count_categorias FROM categoriasProfissionaisResultado WHERE origem = " + Identificadores.Origens.LEVANTAMENTO_CATEGORIAS_PROFISSIONAIS + " GROUP BY idRegisto) " +
             "as ct_categorias ON lv_risco_res.id = ct_categorias.idRegisto " +
 
-            "LEFT JOIN (SELECT idLevantamento, COUNT(*) as count_riscos FROM riscosResultado GROUP BY idLevantamento) " +
+            "LEFT JOIN (SELECT idLevantamento, IFNULL(COUNT(*), 0) as count_riscos FROM riscosResultado GROUP BY idLevantamento) " +
             "as ct_riscos ON lv_risco_res.id = ct_riscos.idLevantamento " +
 
             "" +

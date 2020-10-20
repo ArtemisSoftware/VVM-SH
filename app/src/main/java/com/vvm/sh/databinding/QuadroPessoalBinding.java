@@ -13,6 +13,7 @@ import com.vvm.sh.ui.quadroPessoal.adaptadores.ColaboradorRecyclerAdapter;
 import com.vvm.sh.ui.quadroPessoal.modelos.ColaboradorRegisto;
 import com.vvm.sh.ui.quadroPessoal.adaptadores.OnColaboradorListener;
 import com.vvm.sh.util.constantes.Sintaxe;
+import com.vvm.sh.util.itens.PaginacaoListener;
 
 import java.util.List;
 
@@ -37,6 +38,8 @@ public class QuadroPessoalBinding {
             adapter = new ColaboradorRecyclerAdapter(view.getContext(), items, listener);
 
             view.setAdapter(adapter);
+
+
         }
         else{
             adapter.atualizar(items);

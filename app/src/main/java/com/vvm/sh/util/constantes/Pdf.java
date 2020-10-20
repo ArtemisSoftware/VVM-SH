@@ -41,6 +41,7 @@ public class Pdf {
         public static final String EMPRESA = "Empresa";
         public static final String RECEBIDO_POR = "Recebido por";
         public static final String FUNCAO = "Função";
+        public static final String OBSERVACOES = "Observações";
     }
 
     public class Fontes {
@@ -49,6 +50,7 @@ public class Pdf {
         public static final float FONTE_TEXTO_GRANDE = 9f;
         public static final float FONTE_ASSINATURA = 8f;
         public static final float FONTE_CABECALHO = 11f;
+        public static final float FONTE_ONSERVACAO = 8f;
     }
 
     public class RegistoVisita {

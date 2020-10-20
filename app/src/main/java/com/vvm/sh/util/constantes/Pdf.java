@@ -15,7 +15,7 @@ public class Pdf {
         public int ID_RUBRICA = 5;
 
 
-        public static final Index TRABALHOS_REALIZADOS = new Index(ID_TRABALHOS_REALIZADOS, "Trabalhos realizados");
+        public static final Index TRABALHOS_REALIZADOS = new Index(ID_TRABALHOS_REALIZADOS, Texto.TRABALHOS_REALIZADOS);
 
 
 //        put(SECCAO_CABECALHO, "Cabecalho");

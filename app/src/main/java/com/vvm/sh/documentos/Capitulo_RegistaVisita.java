@@ -10,7 +10,10 @@ import java.util.List;
 
 public class Capitulo_RegistaVisita extends Chapter {
 
-    public Capitulo_RegistaVisita() {
+    private RegistoVisita registoVisita;
+
+
+    public Capitulo_RegistaVisita(RegistoVisita registoVisita) {
         super(1);
     }
 
@@ -29,13 +32,6 @@ public class Capitulo_RegistaVisita extends Chapter {
 //        seccoes.add(SECCAO_OBSERVACAO);
 //        seccoes.add(SECCAO_RUBRICA);
 
-
-//        indexList.add(new Index(1, "Main Section"));
-//        indexList.add(new Index(2, "No border Section"));
-//        indexList.add(new Index(3, "Uneven Section"));
-//        indexList.add(new Index(4, "Empty cells Section"));
-//        indexList.add(new Index(5, "Uneven table Section"));
-//        indexList.add(new Index(6, "Font Section"));
         return indexList;
     }
 
@@ -48,7 +44,7 @@ public class Capitulo_RegistaVisita extends Chapter {
 
             case Pdf.Seccoes.ID_TRABALHOS_REALIZADOS:
 
-                //--section = new MainSection();
+                section = new TrabalhosRealizados(registoVisita.trabalhoRealizados);
                 break;
 
 

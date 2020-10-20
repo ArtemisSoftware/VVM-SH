@@ -11,11 +11,13 @@ import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.vvm.sh.R;
 import com.vvm.sh.ui.BaseActivity;
 import com.vvm.sh.ui.opcoes.TiposActivity;
+import com.vvm.sh.ui.registoVisita.RegistoVisitaActivity;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.interfaces.OnPermissaoConcedidaListener;
 import com.vvm.sh.util.metodos.BaseDadosUtil;
 import com.vvm.sh.util.metodos.DiretoriasUtil;
 import com.vvm.sh.util.metodos.PermissoesUtil;
+import com.vvm.sh.util.metodos.PreferenciasUtil;
 
 import java.io.File;
 
@@ -126,6 +128,24 @@ public class OpcoesAvancadasActivity extends BaseActivity {
                 } else if(Build.VERSION.SDK_INT>=21){
                     finishAndRemoveTask();
                     System.exit(0);
+                }
+            }
+        };
+
+        PermissoesUtil.pedirPermissoesEscritaLeitura(this, listener);
+    }
+
+
+    @OnClick(R.id.lnr_lyt_testar_pdf)
+    public void lnr_lyt_testar_pdf_OnClickListener(View view) {
+
+        OnPermissaoConcedidaListener listener = new OnPermissaoConcedidaListener() {
+            @Override
+            public void executar() {
+
+                if(DiretoriasUtil.criarDirectoria(DiretoriasUtil.DIRETORIA_PDF) == true){
+//                    TestPdfAsyncTask task = new TestPdfAsyncTask(this);
+//                    task.execute(dir);
                 }
             }
         };

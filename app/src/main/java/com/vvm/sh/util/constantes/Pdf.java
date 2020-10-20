@@ -29,11 +29,16 @@ public class Pdf {
 
     public class Texto {
         public static final String TRABALHOS_REALIZADOS = "Trabalhos realizados";
+        public static final String DATA = "Data";
+        public static final String CLIENTE = "Cliente";
+        public static final String TECNICO = "Técnico";
+        public static final String CAP_N = "CAP nº";
     }
 
     public class Fontes {
 
         public static final float FONTE_TEXTO = 7f;
+        public static final float FONTE_ASSINATURA = 8f;
     }
 
     public class RegistoVisita {

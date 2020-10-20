@@ -65,6 +65,8 @@ public class Tipo {
     }
 
 
+
+
     @Ignore
     public Tipo(int id, String descricao, String codigo) {
         this.id = id;

@@ -11,6 +11,7 @@ import com.vvm.sh.baseDados.BaseDao;
 import com.vvm.sh.baseDados.entidades.CategoriaProfissionalResultado;
 import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.modelos.CategoriaProfissional;
+import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.metodos.TiposUtil;
 
 import java.util.List;
@@ -64,4 +65,11 @@ abstract public class CategoriaProfissionalDao implements BaseDao<CategoriaProfi
             "FROM levantamentosRiscoResultado WHERE idAtividade = :idAtividade  AND idModelo = :idModelo ")
     abstract public Completable inserirModeloCategoriaProfissional(int idAtividade, int idModelo, int origem, int idCategoriaProfissional, int homens, int mulheres);
 
+
+    @Query("DELETE FROM categoriasProfissionaisResultado " +
+            "WHERE idRegisto IN(" +
+            "SELECT id FROM levantamentosRiscoResultado WHERE idAtividade =:idAtividade AND idModelo =:idModelo" +
+            ") " +
+            "AND origem = " + Identificadores.Origens.LEVANTAMENTO_CATEGORIAS_PROFISSIONAIS +"")
+    abstract public Completable removerModelo(int idAtividade, int idModelo);
 }

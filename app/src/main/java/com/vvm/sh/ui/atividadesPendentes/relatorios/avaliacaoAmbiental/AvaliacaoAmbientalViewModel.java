@@ -299,6 +299,7 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
      */
     public void remover(int idTarefa, int idAtividade, AvaliacaoAmbientalResultado registo, int origem) {
 
+        avaliacoes.setValue(new ArrayList<>());
         resultadosAvaliacoes.clear();
 
         avaliacaoAmbientalRepositorio.removerAvaliacao(registo, origem)
@@ -450,6 +451,7 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
                 .flatMap(new Function<List<AvaliacaoAmbiental>, ObservableSource<?>>() {
                     @Override
                     public ObservableSource<?> apply(List<AvaliacaoAmbiental> avaliacaoAmbientals) throws Exception {
+
                         return Observable.fromIterable(avaliacaoAmbientals);
                     }
                 })

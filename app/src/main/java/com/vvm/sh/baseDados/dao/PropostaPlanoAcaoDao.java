@@ -112,4 +112,8 @@ abstract public class PropostaPlanoAcaoDao implements BaseDao<PropostaPlanoAcaoR
     @Query("DELETE FROM propostaPlanoAcaoResultado WHERE idQuestao IN (SELECT id FROM riscosResultado WHERE id = :idRisco ) AND origem = :origem")
     abstract public Single<Integer> removerRisco(int idRisco, int origem);
 
+
+    @Query("DELETE FROM propostaPlanoAcaoResultado " +
+            "WHERE idQuestao IN (SELECT id FROM riscosResultado WHERE idLevantamento IN (SELECT id FROM levantamentosRiscoResultado WHERE idAtividade =:idAtividade AND idModelo =:idModelo) ) AND origem = :origem")
+    abstract public Completable removerModelo(int idAtividade, int idModelo, int origem);
 }

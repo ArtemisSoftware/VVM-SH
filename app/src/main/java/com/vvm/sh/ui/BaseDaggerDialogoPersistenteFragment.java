@@ -32,8 +32,8 @@ public abstract class BaseDaggerDialogoPersistenteFragment extends BaseDaggerDia
                 }
             });
 
-
-            dialogo.getButton(Dialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener(){
+            dialogo.getButton(AlertDialog.BUTTON_POSITIVE).setTag(1);
+            dialogo.getButton(AlertDialog.BUTTON_POSITIVE).setOnClickListener(new View.OnClickListener(){
                 @Override
                 public void onClick(View v){
                     clickPositivo();

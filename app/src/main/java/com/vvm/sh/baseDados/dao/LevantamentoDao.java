@@ -186,7 +186,9 @@ abstract public class LevantamentoDao implements BaseDao<LevantamentoRiscoResult
 
 
 
-    @Query("SELECT * FROM tipos WHERE tipo = :tipo AND api = :api AND ativo = 1 AND id NOT IN (SELECT id FROM levantamentosRiscoResultado WHERE idAtividade = :idAtividade)")
+    @Query("SELECT id, descricao, '' as codigo, '' as tipo, 0 as api, '' as idPai, 0 as ativo, CASE WHEN id IN (SELECT idModelo FROM levantamentosRiscoResultado WHERE idAtividade = :idAtividade) THEN 0 ELSE 1 END as detalhe " +
+            "FROM tipos " +
+            "WHERE tipo = :tipo AND api = :api AND ativo = 1 ")
     abstract public Single<List<Tipo>> obterModelos(int idAtividade, String tipo, int api);
 
 
@@ -195,5 +197,9 @@ abstract public class LevantamentoDao implements BaseDao<LevantamentoRiscoResult
             "FROM tipostemplateavrlevantamentos " +
             "WHERE idModelo = :idModelo AND ativo = 1")
     abstract public Completable inserirModelo(int idAtividade, int idModelo);
+
+
+    @Query("DELETE FROM levantamentosRiscoResultado  WHERE idModelo = :idModelo AND idAtividade =:idAtividade")
+    abstract public Completable removerModelo(int idAtividade, int idModelo);
 
 }

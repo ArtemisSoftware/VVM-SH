@@ -6,6 +6,7 @@ import com.itextpdf.text.pdf.PdfPageEvent;
 import com.itextpdf.text.pdf.PdfPageEventHelper;
 import com.titan.pdfdocumentlibrary.bundle.Chapter;
 import com.titan.pdfdocumentlibrary.bundle.Template;
+import com.vvm.sh.util.metodos.DiretoriasUtil;
 
 import java.io.File;
 import java.util.ArrayList;
@@ -16,8 +17,8 @@ public class RegistoVisita_Doc extends Template {
     private RegistoVisita registoVisita;
     private int idTarefa;
 
-    public RegistoVisita_Doc(Context context, File directory, int idTarefa, RegistoVisita registoVisita) {
-        super(context, directory);
+    public RegistoVisita_Doc(Context context, int idTarefa, RegistoVisita registoVisita) {
+        super(context, new File(DiretoriasUtil.DIRETORIA_PDF));
 
         this.registoVisita = registoVisita;
         this.idTarefa = idTarefa;

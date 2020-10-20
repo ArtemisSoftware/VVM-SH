@@ -17,7 +17,7 @@ public class DiretoriasUtil {
     public static final String DIRETORIA_PDF = DIRETORIA + "/" + "Pdf";
     public static final String DIRETORIA_LOG = DIRETORIA + "/" + "Logs";
 
-    private static String DIRETORIAS []= {DOWNLOAD/*, DIRETORIA_IMAGENS, DIRETORIA_PDF*/, BASE_DADOS/*, DIRETORIA_LOG*/};
+    private static String DIRETORIAS []= {DOWNLOAD, /*DIRETORIA_IMAGENS, */DIRETORIA_PDF, BASE_DADOS/*, DIRETORIA_LOG*/};
 
 
     /**
@@ -147,5 +147,15 @@ public class DiretoriasUtil {
         }
         return Environment.getExternalStorageDirectory().toString() + "/" + diretoria;
     }
+
+    /**
+     * Metodo que permite obter uma diretoria
+     * @param diretoria o nome da diretoria
+     * @return um File
+     */
+    public static File obterDiretoria(String diretoria){
+        return new File(obterCaminho(diretoria));
+    }
+
 
 }

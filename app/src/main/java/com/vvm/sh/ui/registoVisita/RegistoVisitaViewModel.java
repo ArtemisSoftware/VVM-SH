@@ -1,12 +1,17 @@
 package com.vvm.sh.ui.registoVisita;
 
+import android.content.Context;
+
 import androidx.lifecycle.MutableLiveData;
 
+import com.titan.pdfdocumentlibrary.bundle.Template;
 import com.vvm.sh.baseDados.entidades.ImagemResultado;
 import com.vvm.sh.baseDados.entidades.RegistoVisitaResultado;
 import com.vvm.sh.baseDados.entidades.TrabalhoRealizadoResultado;
 import com.vvm.sh.documentos.RegistoVisita;
+import com.vvm.sh.documentos.RegistoVisita_Doc;
 import com.vvm.sh.repositorios.RegistoVisitaRepositorio;
+import com.vvm.sh.servicos.pdf.DocumentoPdfAsyncTask;
 import com.vvm.sh.ui.registoVisita.modelos.DadosCliente;
 import com.vvm.sh.ui.registoVisita.modelos.RelatorioRegistoVisita;
 import com.vvm.sh.ui.registoVisita.modelos.TrabalhoRealizado;
@@ -14,8 +19,10 @@ import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.ResultadoId;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.constantes.Sintaxe;
+import com.vvm.sh.util.metodos.DiretoriasUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
+import java.io.File;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -358,7 +365,7 @@ public class RegistoVisitaViewModel extends BaseViewModel {
                             }
 
                             @Override
-                            public void onSuccess(RegistoVisita o) {
+                            public void onSuccess(RegistoVisita registo) {
 
                             }
 
@@ -375,4 +382,14 @@ public class RegistoVisitaViewModel extends BaseViewModel {
 
                 );
     }
+
+
+    private void registoVisitaPdf(Context contexto, int idTarefa, RegistoVisita registo){
+
+        Template registoVisitaTemplate = new RegistoVisita_Doc(contexto, idTarefa, registo);
+//        DocumentoPdfAsyncTask servico = new DocumentoPdfAsyncTask(contexto, registoVisitaTemplate);
+//        servico.execute();
+    }
+
+
 }

@@ -304,6 +304,21 @@ public class LevantamentoRepositorio {
 
     }
 
+
+    public Completable removerModelo(int idAtividade, int idModelo) {
+
+        Completable completable = Completable.merge(Arrays.asList(
+
+                propostaPlanoAcaoDao.removerModelo(idAtividade, idModelo, Identificadores.Origens.ORIGEM_LEVANTAMENTO_RISCO),
+                medidaDao.removerMedidasModelo(idAtividade, idModelo),
+                categoriaProfissionalDao.removerModelo(idAtividade, idModelo),
+                levantamentoDao.removerModelo(idAtividade, idModelo)));
+
+        return completable;
+
+    }
+
+
     public Completable inserirModeloCategoriasProfissionais(int idAtividade, int idModelo, List<CategoriaProfissionalResultado> resultado) {
 
         CompletableSource[] lolo = new CompletableSource[resultado.size()];

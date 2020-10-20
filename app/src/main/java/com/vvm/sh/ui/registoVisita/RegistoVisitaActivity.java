@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
+import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 
@@ -15,10 +16,17 @@ import com.vvm.sh.databinding.ActivityRegistoVisitaBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.AssinaturaActivity;
 import com.vvm.sh.ui.BaseDaggerActivity;
+import com.vvm.sh.ui.contaUtilizador.OpcoesAvancadasActivity;
 import com.vvm.sh.util.constantes.Identificadores;
+import com.vvm.sh.util.interfaces.OnPermissaoConcedidaListener;
+import com.vvm.sh.util.metodos.BaseDadosUtil;
+import com.vvm.sh.util.metodos.DiretoriasUtil;
 import com.vvm.sh.util.metodos.ImagemUtil;
+import com.vvm.sh.util.metodos.PermissoesUtil;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
+
+import java.io.File;
 
 import javax.inject.Inject;
 
@@ -99,7 +107,18 @@ public class RegistoVisitaActivity extends BaseDaggerActivity {
 
     @OnClick({R.id.fab_pre_visualizar})
     public void fab_pre_visualizar_OnClickListener(View view) {
-        viewModel.obterDadosPdf(PreferenciasUtil.obterIdTarefa(this));
+
+        OnPermissaoConcedidaListener listener = new OnPermissaoConcedidaListener() {
+            @Override
+            public void executar() {
+
+                if(DiretoriasUtil.criarDirectoria(DiretoriasUtil.DIRETORIA_PDF) == true){
+                    viewModel.obterDadosPdf(PreferenciasUtil.obterIdTarefa(RegistoVisitaActivity.this));
+                }
+            }
+        };
+
+        PermissoesUtil.pedirPermissoesEscritaLeitura(this, listener);
     }
 
 

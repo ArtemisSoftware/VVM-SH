@@ -93,8 +93,6 @@ public class LevantamentosActivity extends BaseDaggerActivity
      */
     private void initLevantamento(LevantamentoRiscoResultado registo){
 
-        activityLevantamentosBinding.fabMenu.setVisibility(View.GONE);
-
         int idAtividade = getIntent().getExtras().getInt(getString(R.string.argumento_id_atividade));
         Bundle bundle = new Bundle();
         bundle.putInt(getString(R.string.argumento_id_atividade), idAtividade);

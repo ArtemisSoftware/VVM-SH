@@ -99,4 +99,11 @@ abstract public class MedidaDao implements BaseDao<MedidaResultado> {
             "WHERE id =:idRisco " +
             "AND (origem = " + Identificadores.Origens.LEVANTAMENTO_MEDIDAS_RECOMENDADAS + " OR origem =" + Identificadores.Origens.LEVANTAMENTO_MEDIDAS_ADOPTADAS + ")")
     abstract public Single<Integer> removerMedidasRisco(int idRisco);
+
+
+
+    @Query("DELETE FROM medidasResultado " +
+            "WHERE id IN (SELECT id FROM riscosResultado WHERE idLevantamento IN (SELECT id FROM levantamentosRiscoResultado WHERE idAtividade = :idAtividade AND idModelo = :idModelo)) " +
+            "AND (origem = " + Identificadores.Origens.LEVANTAMENTO_MEDIDAS_RECOMENDADAS + " OR origem =" + Identificadores.Origens.LEVANTAMENTO_MEDIDAS_ADOPTADAS + ")")
+    public abstract Completable removerMedidasModelo(int idAtividade, int idModelo);
 }

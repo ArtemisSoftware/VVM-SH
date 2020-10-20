@@ -75,7 +75,7 @@ abstract public class AtividadePendenteDao implements BaseDao<AtividadePendenteR
             "SELECT idAtividade,  " +
             "CASE " +
             "WHEN marca IS NULL OR numeroSerie IS NULL OR data IS NULL THEN 0 " +
-            "WHEN  avaliacoesValido = 0 THEN 0 " +
+            "WHEN  IFNULL(avaliacoesValido, 0) = 0 THEN 0 " +
             "ELSE 1 " +
             "END as validade_aval_amb_temperatura " +
 
@@ -110,7 +110,7 @@ abstract public class AtividadePendenteDao implements BaseDao<AtividadePendenteR
             "SELECT idAtividade,  " +
             "CASE " +
             "WHEN marca IS NULL OR numeroSerie IS NULL OR data IS NULL THEN 0 " +
-            "WHEN  avaliacoesValido = 0 THEN 0 " +
+            "WHEN  IFNULL(avaliacoesValido, 0) = 0 THEN 0 " +
             "ELSE 1 " +
             "END as validade_aval_amb_ilum " +
 
@@ -123,8 +123,10 @@ abstract public class AtividadePendenteDao implements BaseDao<AtividadePendenteR
 
             "FROM(   " +
             "SELECT idRelatorio,   " +
-            "CASE WHEN CAST(emedioLx AS INTEGER) <  (CAST(eLx AS INTEGER) - ((10 * CAST(eLx AS INTEGER)) / 100)) AND IFNULL(numeroMedidas, 0) = 0 THEN 0  " +
-            "ELSE 1 END as valido  " +
+            "CASE " +
+            "WHEN  CAST(emedioLx AS INTEGER) <  (CAST(eLx AS INTEGER) - ((10 * CAST(eLx AS INTEGER)) / 100)) AND  IFNULL(numeroMedidas, 0) > 0 THEN 1 " +
+            "WHEN  (CAST(emedioLx AS INTEGER) <  (CAST(eLx AS INTEGER) - ((10 * CAST(eLx AS INTEGER)) / 100))) = 0 THEN 1 " +
+            "ELSE 0 END as valido " +
             "FROM avaliacoesAmbientaisResultado as av_amb_res  " +
 
             "LEFT JOIN (SELECT id, COUNT(idMedida) as numeroMedidas FROM medidasResultado WHERE origem = " + Identificadores.Origens.ORIGEM_RELATORIO_ILUMINACAO_MEDIDAS_RECOMENDADAS + " GROUP BY id) as ct_medidas " +

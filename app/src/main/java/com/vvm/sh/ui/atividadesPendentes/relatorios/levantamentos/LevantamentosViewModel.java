@@ -445,7 +445,7 @@ public class LevantamentosViewModel extends BaseViewModel {
                             @Override
                             public void onComplete() {
                                 abaterAtividadePendente(levantamentoRepositorio.resultadoDao, idTarefa, idAtividade);
-                                messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_GRAVADOS_SUCESSO));
+                                messagemLiveData.setValue(Recurso.successo(1, Sintaxe.Frases.DADOS_GRAVADOS_SUCESSO));
                             }
 
                             @Override
@@ -532,6 +532,8 @@ public class LevantamentosViewModel extends BaseViewModel {
      */
     public void removerRisco(int idTarefa, int idAtividade, Risco registo) {
 
+        riscos.setValue(new ArrayList<>());
+
         levantamentoRepositorio.removerRisco(registo.resultado)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -590,6 +592,39 @@ public class LevantamentosViewModel extends BaseViewModel {
                         }
                 );
 
+    }
+
+    /**
+     * Metodo que permite remover um modelo
+     * @param idTarefa
+     * @param idAtividade
+     * @param idModelo
+     */
+    public void removerModelo(int idTarefa, int idAtividade, int idModelo) {
+
+        levantamentoRepositorio.removerModelo(idAtividade, idModelo)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new CompletableObserver() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onComplete() {
+                                abaterAtividadePendente(levantamentoRepositorio.resultadoDao, idTarefa, idAtividade);
+                                messagemLiveData.setValue(Recurso.successo(2, Sintaxe.Frases.DADOS_REMOVIDOS_SUCESSO));
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+                        }
+                );
     }
 
     //--------------------

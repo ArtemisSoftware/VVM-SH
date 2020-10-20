@@ -1,10 +1,14 @@
 package com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.view.View;
 
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.vvm.sh.R;
 import com.vvm.sh.baseDados.entidades.CategoriaProfissionalResultado;
 import com.vvm.sh.baseDados.entidades.Tipo;
@@ -66,6 +70,7 @@ public class DialogoModelos extends BaseDaggerDialogoPersistenteFragment {
         binding.setViewmodel(viewModel);
 
         listenerAtividade = (OnLevantamentoListener.OnLevantamentoRegistoListener) getContext();
+        binding.spnrModelo.setOnItemSelectedListener(spnr_modelo_ItemSelected);
 
         if(verificarArgumentos(ARGUMENTO_ID) == true){
 
@@ -98,15 +103,26 @@ public class DialogoModelos extends BaseDaggerDialogoPersistenteFragment {
 
                     case SUCESSO:
 
+                        if((int)recurso.dados == 1) {
 
-                        listener = new OnDialogoListener() {
-                            @Override
-                            public void onExecutar() {
-                                Tipo modelo = (Tipo) binding.spnrModelo.getItems().get(binding.spnrModelo.getSelectedIndex());
-                                listenerAtividade.dialogoCategoriasProfissionais(modelo.id);
-                                terminarDialogo();
-                            }
-                        };
+
+                            listener = new OnDialogoListener() {
+                                @Override
+                                public void onExecutar() {
+                                    Tipo modelo = (Tipo) binding.spnrModelo.getItems().get(binding.spnrModelo.getSelectedIndex());
+                                    listenerAtividade.dialogoCategoriasProfissionais(modelo.id);
+                                    terminarDialogo();
+                                }
+                            };
+                        }
+                        else{
+                            listener = new OnDialogoListener() {
+                                @Override
+                                public void onExecutar() {
+                                    terminarDialogo();
+                                }
+                            };
+                        }
                         dialogo.sucesso(recurso.messagem, listener);
                         break;
 
@@ -129,7 +145,36 @@ public class DialogoModelos extends BaseDaggerDialogoPersistenteFragment {
         int idAtividade = getArguments().getInt(ARGUMENTO_ID);
         Tipo modelo = (Tipo) binding.spnrModelo.getItems().get(binding.spnrModelo.getSelectedIndex());
 
-        viewModel.inserirModelo(PreferenciasUtil.obterIdTarefa(getContext()), idAtividade, modelo.id);
+        AlertDialog d = (AlertDialog) getDialog();
+        int acao = (int) d.getButton(DialogInterface.BUTTON_POSITIVE).getTag();
 
+        if(acao == 1) {
+            viewModel.inserirModelo(PreferenciasUtil.obterIdTarefa(getContext()), idAtividade, modelo.id);
+        }
+        else{
+            viewModel.removerModelo(PreferenciasUtil.obterIdTarefa(getContext()), idAtividade, modelo.id);
+        }
     }
+
+
+    MaterialSpinner.OnItemSelectedListener spnr_modelo_ItemSelected = new MaterialSpinner.OnItemSelectedListener() {
+
+        @Override
+        public void onItemSelected(MaterialSpinner view, int position, long id, Object item) {
+
+            AlertDialog d = (AlertDialog) getDialog();
+            Tipo modelo = (Tipo) binding.spnrModelo.getItems().get(position);
+
+            if(modelo.detalhe.equals("0") == true){
+
+                d.getButton(DialogInterface.BUTTON_POSITIVE).setTag(0);
+                d.getButton(DialogInterface.BUTTON_POSITIVE).setText("Remover");
+
+            }
+            else{
+                d.getButton(DialogInterface.BUTTON_POSITIVE).setTag(1);
+                d.getButton(DialogInterface.BUTTON_POSITIVE).setText("Gravar");
+            }
+        }
+    };
 }

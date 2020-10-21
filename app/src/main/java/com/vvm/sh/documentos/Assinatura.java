@@ -81,7 +81,7 @@ public class Assinatura extends Section {
 
             CellConfiguration cellConfiguration2 = new CellConfiguration();
             cellConfiguration2.horizontalAlign = Element.ALIGN_CENTER;
-            table.addLine(frases, cellConfiguration2);
+            tabela.addLine(frases, cellConfiguration2);
 
         }
 

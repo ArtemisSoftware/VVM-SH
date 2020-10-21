@@ -38,5 +38,5 @@ abstract public class PdfDao {
             "FROM imagensResultado as img " +
             "LEFT JOIN (SELECT nome, cap FROM utilizadores WHERE id = :idUtilizador)" +
             "WHERE id = :id AND origem = :origem")
-    abstract public Maybe<Rubrica> obterRubrica(int id, int origem, int idUtilizador);
+    abstract public Maybe<Rubrica> obterRubrica(int id, int origem, String idUtilizador);
 }

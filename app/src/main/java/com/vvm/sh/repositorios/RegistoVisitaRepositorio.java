@@ -109,7 +109,7 @@ public class RegistoVisitaRepositorio {
      * @param idTarefa o identificador da tarefa
      * @return os dados do pdf
      */
-    public Maybe<RegistoVisita> obtePdf(int idTarefa, int idUtilizador) {
+    public Maybe<RegistoVisita> obtePdf(int idTarefa, String idUtilizador) {
 
         return Maybe.zip(
                 pdfDao.obterDadosCliente(idTarefa),

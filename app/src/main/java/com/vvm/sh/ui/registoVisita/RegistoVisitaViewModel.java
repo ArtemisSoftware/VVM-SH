@@ -351,9 +351,9 @@ public class RegistoVisitaViewModel extends BaseViewModel {
     }
 
 
-    public void obterDadosPdf(Context contexto, int idTarefa) {
+    public void obterDadosPdf(Context contexto, int idTarefa, String idUtilizador) {
 
-        registoVisitaRepositorio.obtePdf(idTarefa)
+        registoVisitaRepositorio.obtePdf(idTarefa, idUtilizador)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(

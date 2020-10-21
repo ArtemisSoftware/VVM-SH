@@ -1,4 +1,4 @@
-package com.vvm.sh.documentos;
+package com.vvm.sh.documentos.registoVisita.seccoes;
 
 import android.content.Context;
 

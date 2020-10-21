@@ -8,8 +8,8 @@ import com.titan.pdfdocumentlibrary.bundle.Template;
 import com.vvm.sh.baseDados.entidades.ImagemResultado;
 import com.vvm.sh.baseDados.entidades.RegistoVisitaResultado;
 import com.vvm.sh.baseDados.entidades.TrabalhoRealizadoResultado;
-import com.vvm.sh.documentos.RegistoVisita;
-import com.vvm.sh.documentos.RegistoVisita_Doc;
+import com.vvm.sh.documentos.registoVisita.modelos.RegistoVisita;
+import com.vvm.sh.documentos.registoVisita.RegistoVisita_Doc;
 import com.vvm.sh.repositorios.RegistoVisitaRepositorio;
 import com.vvm.sh.servicos.pdf.DocumentoPdfAsyncTask;
 import com.vvm.sh.ui.registoVisita.modelos.DadosCliente;
@@ -19,10 +19,8 @@ import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.ResultadoId;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.constantes.Sintaxe;
-import com.vvm.sh.util.metodos.DiretoriasUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
-import java.io.File;
 import java.util.List;
 
 import javax.inject.Inject;

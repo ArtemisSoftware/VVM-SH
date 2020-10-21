@@ -33,8 +33,7 @@ public class Identificadores {
 
 
     public static final int EXECUTADA = 2, PROGRAMADA_FIXA = 4, PROGRAMADA = 5, REPROGRAMADA = 6;
-
-
+    public static final int ID_FRASE_APOIO_REGISTO_VISITA = 1;
 
 
     public class Origens{

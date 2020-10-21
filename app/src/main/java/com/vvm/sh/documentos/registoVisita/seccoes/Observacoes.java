@@ -1,4 +1,4 @@
-package com.vvm.sh.documentos;
+package com.vvm.sh.documentos.registoVisita.seccoes;
 
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Phrase;
@@ -30,30 +30,29 @@ public class Observacoes extends Section {
     @Override
     protected void populateSection() {
 
-        try{
+        if(observacao == null)
+            return;
 
-            switch (tipo) {
+        if(observacao.equals("") == true)
+            return;
 
-                case Pdf.TipoObservacao.TIPO_FRASE:
+        switch (tipo) {
 
-                    table = obterFrase(observacao);
-                    break;
+            case Pdf.TipoObservacao.TIPO_FRASE:
 
-                case Pdf.TipoObservacao.TIPO_QUADRO:
+                table = obterFrase(observacao);
+                break;
 
-                    table = obterQuadro(observacao);
-                    break;
+            case Pdf.TipoObservacao.TIPO_QUADRO:
+
+                table = obterQuadro(observacao);
+                break;
 
 
-                default:
+            default:
 
-                    //--tabela = obterTabelaErro("Tipo de observacao inexistente");
-                    break;
-            }
-        }
-        catch(NullPointerException e){
-            table = new Table();
-            table.removeBorder();
+                //--tabela = obterTabelaErro("Tipo de observacao inexistente");
+                break;
         }
 
     }

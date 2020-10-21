@@ -4,11 +4,9 @@ import androidx.room.Dao;
 import androidx.room.Query;
 import androidx.room.Transaction;
 
-import com.vvm.sh.baseDados.entidades.ImagemResultado;
-import com.vvm.sh.documentos.Rubrica;
+import com.vvm.sh.documentos.modelos.Rubrica;
 import com.vvm.sh.ui.registoVisita.modelos.DadosCliente;
 import com.vvm.sh.ui.registoVisita.modelos.TrabalhoRealizado;
-import com.vvm.sh.util.metodos.DatasUtil;
 import com.vvm.sh.util.metodos.TiposUtil;
 
 import java.util.List;
@@ -39,4 +37,9 @@ abstract public class PdfDao {
             "LEFT JOIN (SELECT nome, cap FROM utilizadores WHERE id = :idUtilizador)" +
             "WHERE id = :id AND origem = :origem")
     abstract public Maybe<Rubrica> obterRubrica(int id, int origem, String idUtilizador);
+
+
+    @Query("SELECT detalhe FROM tipos WHERE id =:id AND tipo = '" + TiposUtil.MetodosTipos.FRASES_APOIO + "' AND ativo = 1 AND api = :api")
+    abstract public Maybe<String> obterFraseApoio(int id, int api);
+
 }

@@ -1,4 +1,4 @@
-package com.vvm.sh.documentos;
+package com.vvm.sh.documentos.modelos;
 
 import androidx.room.ColumnInfo;
 

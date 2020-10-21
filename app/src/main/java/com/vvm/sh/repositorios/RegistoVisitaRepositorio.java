@@ -10,8 +10,8 @@ import com.vvm.sh.baseDados.dao.TrabalhosRealizadosDao;
 import com.vvm.sh.baseDados.entidades.ImagemResultado;
 import com.vvm.sh.baseDados.entidades.RegistoVisitaResultado;
 import com.vvm.sh.baseDados.entidades.TrabalhoRealizadoResultado;
-import com.vvm.sh.documentos.RegistoVisita;
-import com.vvm.sh.documentos.Rubrica;
+import com.vvm.sh.documentos.registoVisita.modelos.RegistoVisita;
+import com.vvm.sh.documentos.modelos.Rubrica;
 import com.vvm.sh.ui.registoVisita.modelos.DadosCliente;
 import com.vvm.sh.ui.registoVisita.modelos.RelatorioRegistoVisita;
 import com.vvm.sh.ui.registoVisita.modelos.TrabalhoRealizado;
@@ -23,7 +23,7 @@ import io.reactivex.Flowable;
 import io.reactivex.Maybe;
 import io.reactivex.Observable;
 import io.reactivex.Single;
-import io.reactivex.functions.Function3;
+import io.reactivex.functions.Function4;
 
 public class RegistoVisitaRepositorio {
 
@@ -115,15 +115,16 @@ public class RegistoVisitaRepositorio {
                 pdfDao.obterDadosCliente(idTarefa),
                 pdfDao.obterTrabalhosRealizadosRegistados(idTarefa, api),
                 pdfDao.obterRubrica(idTarefa, Identificadores.Imagens.IMAGEM_ASSINATURA_REGISTO_VISITA, idUtilizador),
-                new Function3<DadosCliente, List<TrabalhoRealizado>, Rubrica, RegistoVisita>() {
+                pdfDao.obterFraseApoio(Identificadores.ID_FRASE_APOIO_REGISTO_VISITA, api),
+                new Function4<DadosCliente, List<TrabalhoRealizado>, Rubrica, String, RegistoVisita>() {
                     @Override
-                    public RegistoVisita apply(DadosCliente dadosCliente, List<TrabalhoRealizado> trabalhoRealizados, Rubrica rubrica) throws Exception {
+                    public RegistoVisita apply(DadosCliente dadosCliente, List<TrabalhoRealizado> trabalhoRealizados, Rubrica rubrica, String referencia) throws Exception {
 
                         RegistoVisita registoVisita = new RegistoVisita();
                         registoVisita.dadosCliente = dadosCliente;
                         registoVisita.trabalhoRealizados = trabalhoRealizados;
                         registoVisita.rubrica = rubrica;
-
+                        registoVisita.referencia = referencia;
                         return registoVisita;
                     }
                 });

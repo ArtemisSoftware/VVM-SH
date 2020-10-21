@@ -1,4 +1,4 @@
-package com.vvm.sh.documentos;
+package com.vvm.sh.documentos.registoVisita;
 
 import android.content.Context;
 
@@ -7,9 +7,10 @@ import com.itextpdf.text.pdf.PdfPageEventHelper;
 import com.titan.pdfdocumentlibrary.bundle.Chapter;
 import com.titan.pdfdocumentlibrary.bundle.Template;
 import com.vvm.sh.documentos.eventos.CabecalhoRodape;
+import com.vvm.sh.documentos.registoVisita.capitulos.Capitulo_RegistaVisita;
+import com.vvm.sh.documentos.registoVisita.modelos.RegistoVisita;
 import com.vvm.sh.util.metodos.DiretoriasUtil;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 

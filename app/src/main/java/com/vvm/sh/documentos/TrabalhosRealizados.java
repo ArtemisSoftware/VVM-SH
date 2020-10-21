@@ -45,45 +45,47 @@ public class TrabalhosRealizados extends Section {
 
         table.addCell(titulo, cellConfiguration);
 
-        //imagem
+        table.addEmptyCell();table.addEmptyCell();table.addEmptyCell();table.addEmptyCell();
 
-        CellConfiguration cellConfiguration_imagem = new CellConfiguration();
-        cellConfiguration_imagem.horizontalAlign = Element. ALIGN_MIDDLE;
-        cellConfiguration_imagem.verticalAlign = Element.ALIGN_MIDDLE;
-        cellConfiguration_imagem.alignLeft = 2;
-        cellConfiguration_imagem.height = Pdf.RegistoVisita.ALTURA_LINHA___TABELA_TRABALHOS_REALIZADOS;
-
-
-        //texto
-
-        CellConfiguration formato_Texto = new CellConfiguration();
-        formato_Texto.verticalAlign  = Element.ALIGN_MIDDLE;
-        formato_Texto.height  = Pdf.RegistoVisita.ALTURA_LINHA___TABELA_TRABALHOS_REALIZADOS;
-
-
-        for (TrabalhoRealizado registo : registos) {
-
-            if(registo.selecionado() == true){
-                table.addCell(contexto.getResources(), Pdf.Imagens.IMAGEM_CHECKBOX_CINZENTA, cellConfiguration_imagem);
-            }
-            else{
-                table.addCell(contexto.getResources(), Pdf.Imagens.IMAGEM_CHECKBOX_VAZIA_CINZENTA, cellConfiguration_imagem);
-            }
-
-            Phrase frase = new Phrase(registo.tipo.descricao, fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO));
-            table.addCell(frase, formato_Texto);
-        }
-
-        if ((registos.size() % 2) == 1) {
-
-            table.addEmptyCell(formato_Texto);
-            table.addEmptyCell(formato_Texto);
-        }
-
-        CellConfiguration formato_tabela = new CellConfiguration();
-        formato_tabela.border = 0;
-        formato_tabela.setOverLapColor(BaseColor.WHITE, true);
-        table.formatBorder(formato_tabela);
+//        //imagem
+//
+//        CellConfiguration cellConfiguration_imagem = new CellConfiguration();
+//        cellConfiguration_imagem.horizontalAlign = Element. ALIGN_MIDDLE;
+//        cellConfiguration_imagem.verticalAlign = Element.ALIGN_MIDDLE;
+//        cellConfiguration_imagem.alignLeft = 2;
+//        cellConfiguration_imagem.height = Pdf.RegistoVisita.ALTURA_LINHA___TABELA_TRABALHOS_REALIZADOS;
+//
+//
+//        //texto
+//
+//        CellConfiguration formato_Texto = new CellConfiguration();
+//        formato_Texto.verticalAlign  = Element.ALIGN_MIDDLE;
+//        formato_Texto.height  = Pdf.RegistoVisita.ALTURA_LINHA___TABELA_TRABALHOS_REALIZADOS;
+//
+//
+//        for (TrabalhoRealizado registo : registos) {
+//
+//            if(registo.selecionado() == true){
+//                table.addCell(contexto.getResources(), Pdf.Imagens.IMAGEM_CHECKBOX_CINZENTA, cellConfiguration_imagem);
+//            }
+//            else{
+//                table.addCell(contexto.getResources(), Pdf.Imagens.IMAGEM_CHECKBOX_VAZIA_CINZENTA, cellConfiguration_imagem);
+//            }
+//
+//            Phrase frase = new Phrase(registo.tipo.descricao, fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO));
+//            table.addCell(frase, formato_Texto);
+//        }
+//
+//        if ((registos.size() % 2) == 1) {
+//
+//            table.addEmptyCell(formato_Texto);
+//            table.addEmptyCell(formato_Texto);
+//        }
+//
+//        CellConfiguration formato_tabela = new CellConfiguration();
+//        formato_tabela.border = 0;
+//        formato_tabela.setOverLapColor(BaseColor.WHITE, false);
+//        //table.formatBorder(formato_tabela);
 
     }
 }

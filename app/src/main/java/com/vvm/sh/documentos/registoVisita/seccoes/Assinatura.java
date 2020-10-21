@@ -1,4 +1,4 @@
-package com.vvm.sh.documentos;
+package com.vvm.sh.documentos.registoVisita.seccoes;
 
 import android.content.Context;
 
@@ -11,7 +11,7 @@ import com.titan.pdfdocumentlibrary.elements.FontConfiguration;
 import com.titan.pdfdocumentlibrary.elements.Table;
 import com.titan.pdfdocumentlibrary.exception.PdfLineException;
 import com.titan.pdfdocumentlibrary.util.PdfUtil;
-import com.vvm.sh.baseDados.entidades.ImagemResultado;
+import com.vvm.sh.documentos.modelos.Rubrica;
 import com.vvm.sh.documentos.eventos.EspacoPreenchimento;
 import com.vvm.sh.util.constantes.Pdf;
 import com.vvm.sh.util.metodos.DatasUtil;

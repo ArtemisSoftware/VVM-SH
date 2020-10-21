@@ -1,6 +1,6 @@
-package com.vvm.sh.documentos;
+package com.vvm.sh.documentos.registoVisita.modelos;
 
-import com.vvm.sh.baseDados.entidades.ImagemResultado;
+import com.vvm.sh.documentos.modelos.Rubrica;
 import com.vvm.sh.ui.registoVisita.modelos.DadosCliente;
 import com.vvm.sh.ui.registoVisita.modelos.TrabalhoRealizado;
 
@@ -11,5 +11,5 @@ public class RegistoVisita {
     public DadosCliente dadosCliente;
     public List<TrabalhoRealizado> trabalhoRealizados;
     public Rubrica rubrica;
-    public String referencia = "8937456aji";
+    public String referencia = "";
 }

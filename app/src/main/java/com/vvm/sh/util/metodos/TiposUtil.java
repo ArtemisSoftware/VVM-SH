@@ -52,6 +52,9 @@ public class TiposUtil {
 
         public static final String CURSOS = "getCoursesInfo";
 
+
+        public static final String FRASES_APOIO = "Obter_FrasesApoio";
+
         public static final String MEDIDAS_ILUMINACAO_TERMICO = "GetMedidasIluminacaoTermico";
         public static final String MEDIDAS_PREVENCAO_RECOMENDADAS = "GetMedidasPrevencaoRecomendadas";
         public static final String MEDIDAS_PREVENCAO_ADOPTADAS = "GetMedidasPrevencaoAdoptadas";
@@ -98,6 +101,7 @@ public class TiposUtil {
         public static final String CONCLUSAO_MEDIDAS_RECOMENDADAS = "Conclusao_Medidas_Recomendadas";
         public static final String CURSOS = "Cursos";
 
+        public static final String FRASES_APOIO = "Frases_Apoio";
 
         public static final String MEDIDAS_ILUMINACAO_TERMICO = "Medidas_Iluminacao_Termico";
         public static final String MEDIDAS_PREVENCAO_RECOMENDADAS = "Medidas_Prevencao_Recomendadas";
@@ -171,6 +175,9 @@ public class TiposUtil {
             public static final MetodoApi METODO_CONCLUSAO_MEDIDAS_RECOMENDADAS = new MetodoApi(CONCLUSAO_MEDIDAS_RECOMENDADAS, null, MetodosTiposSH.CONCLUSAO_MEDIDAS_RECOMENDADAS);
             public static final MetodoApi METODO_CURSOS = new MetodoApi(CURSOS, MetodosTiposSA.CURSOS, MetodosTiposSH.CURSOS);
 
+            public static final MetodoApi METODO_FRASES_APOIO = new MetodoApi(FRASES_APOIO, null, MetodosTiposSH.FRASES_APOIO);
+
+
             public static final MetodoApi METODO_ILUMINANCIA = new MetodoApi(ILUMINANCIA, null, MetodosTiposSH.ILUMINANCIA);
 
 
@@ -224,7 +231,7 @@ public class TiposUtil {
 
 
 
-
+                    METODO_FRASES_APOIO,
 
                     METODO_ILUMINANCIA,
 

@@ -68,7 +68,13 @@ public class Pdf {
         public static final int ALTURA_LINHA___TABELA_IDENTIFICACAO_CLIENTE = 25/*30f*/;
         public static final int ALTURA_LINHA___TABELA_TRABALHOS_REALIZADOS = 18/*21f*/;
         public static final int ALTURA_LINHA___TABELA_HOMOLOGACAO = 20/*35f*/;
-        public static final int ALTURA_LINHA___TABELA_OBSERVACAO = /*90f*/20;
+        public static final int ALTURA_LINHA___TABELA_OBSERVACAO = /*90f*//*20*/10;
+
+
+        public static final String RODAPE_TITULO_SM_v2 = "VivaMais - Segurança e Saúde do Trabalho, SA";
+        public static final String RODAPE_TEXTO_1_SM = "Av. do Brasil, nº 7B 1700-062 Lisboa";
+        public static final String RODAPE_TEXTO_2_SM = "Capital Social: 2.385.000€ - Contribuinte: 504518569";
+        public static final String RODAPE_TEXTO_3_SM = "Tel.: 210317300 - Fax: 210317329 - E-mail: geral@vivamais.com";
     }
 
     public class Imagens {

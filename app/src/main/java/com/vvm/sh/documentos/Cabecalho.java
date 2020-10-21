@@ -31,10 +31,9 @@ public class Cabecalho extends Section {
         table.addEmptyCell();
 
         CellConfiguration cellConfiguration = new CellConfiguration();
-
-
         cellConfiguration.addFrame(7, 7, 21f, 21f);
         table.addCell(obterTabelaReferencia(), cellConfiguration);
+        table.removeBorder();
     }
 
     /**

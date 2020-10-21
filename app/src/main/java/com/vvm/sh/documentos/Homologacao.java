@@ -21,25 +21,13 @@ public class Homologacao  extends Section {
 
     @Override
     protected Table getMainTable() {
-        return new Table();
+        return new Table(new float[]{5f, 95f});
     }
 
     @Override
     protected void populateSection() {
-        table.addCell(obterTabelaAutorizacao());
-        //table.pintarRebordo(TINTA_BORDA_CELULA, 1.8f);
-        //table.quebrarTabela(false);
-    }
-
-
-    /**
-     * Metodo que permite obter a tabela de autorizacao
-     */
-    private Table obterTabelaAutorizacao() {
 
         FontConfiguration fontConfiguration = new FontConfiguration();
-
-        Table tabela = new Table(new float[]{5f, 95f});
 
         //imagem
 
@@ -50,12 +38,10 @@ public class Homologacao  extends Section {
         cellConfiguration.border = (Rectangle.BOTTOM | Rectangle.LEFT | Rectangle.TOP);
         cellConfiguration.height = Pdf.RegistoVisita.ALTURA_LINHA___TABELA_HOMOLOGACAO;
 
-//        Image imagem = MetodosPdf.imagemPdf(contexto.getResources(), IMAGEM_CHECKBOX_CINZENTA);
-//        imagem.scaleToFit(15, 15);
-
         table.addCell(contexto.getResources(), Pdf.Imagens.IMAGEM_CHECKBOX_CINZENTA, cellConfiguration);
 
         //texto
+
         CellConfiguration cellConfiguration_2 = new CellConfiguration();
         cellConfiguration_2.horizontalAlign = Element.ALIGN_LEFT;
         cellConfiguration_2.verticalAlign = Element.ALIGN_MIDDLE;
@@ -66,10 +52,10 @@ public class Homologacao  extends Section {
 
         Phrase frase = new Phrase(Pdf.Texto.HOMOLOGACAO_REGISTO_VISITA, fontConfiguration.getFont(Pdf.Fontes.FONTE_HOMOLOGACAO));
 
-        tabela.addCell(frase, cellConfiguration_2);
-
-        //--tabela.pintarRebordo(TINTA_BORDA_CELULA);
-        return tabela;
+        table.addCell(frase, cellConfiguration_2);
+        table.setBorderColor(Pdf.Cores.TINTA_BORDA_CELULA);
+        table.breakTable(false);
     }
+
 
 }

@@ -8,17 +8,19 @@ import com.itextpdf.text.ExceptionConverter;
 import com.itextpdf.text.Image;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.pdf.ColumnText;
+import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfName;
 import com.itextpdf.text.pdf.PdfPageEventHelper;
 import com.itextpdf.text.pdf.PdfTemplate;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.titan.pdfdocumentlibrary.elements.FontConfiguration;
+import com.vvm.sh.documentos.Rodape;
 
 import java.util.HashMap;
 
 public class CabecalhoRodape extends PdfPageEventHelper {
 
-//    private FooterSection footerSection;
+    private Rodape rodape;
 
     private HashMap<Integer, Integer> pagination;
 
@@ -28,10 +30,10 @@ public class CabecalhoRodape extends PdfPageEventHelper {
     public int chapterId;
 
 
-    public CabecalhoRodape(int chapterId){
+    public CabecalhoRodape(int chapterId, String referencia){
 
         this.chapterId = chapterId;
-//        footerSection = new FooterSection();
+        rodape = new Rodape(referencia);
     }
 
 
@@ -40,19 +42,26 @@ public class CabecalhoRodape extends PdfPageEventHelper {
     }
 
 
+    /**
+     * Metodo que permite fixar o rodape
+     * @param writer
+     * @param document
+     */
+    private void fixarRodape(PdfWriter writer, Document document){
+
+        PdfContentByte cb = writer.getDirectContent();
+
+        PdfContentByte canvasReferencia = writer.getDirectContent();
+        canvasReferencia.beginMarkedContentSequence(PdfName.ARTIFACT);
+        rodape.obterTabelaReferencia().getPdfTable().writeSelectedRows(0, -1, 15.7f* 36, 75, canvasReferencia);
+        canvasReferencia.endMarkedContentSequence();
 
 
-    private void setFooter(PdfWriter writer, Document document){
-
-//        PdfContentByte cb = writer.getDirectContent();
-//
-//
-//        PdfContentByte canvas = writer.getDirectContent();
-//        canvas.beginMarkedContentSequence(PdfName.ARTIFACT);
-//        footerSection.addPageNumberFooter(writer.getPageNumber(), total);
-//        footerSection.getSection().getPdfTable().writeSelectedRows(0, -1, 36, /*30*/90, canvas);
-//        canvas.endMarkedContentSequence();
-
+        PdfContentByte canvas = writer.getDirectContent();
+        canvas.beginMarkedContentSequence(PdfName.ARTIFACT);
+        rodape.adicionarNumeroPagina(writer.getPageNumber(), total);
+        rodape.getSection().getPdfTable().writeSelectedRows(0, -1, 36, /*30*/90, canvas);
+        canvas.endMarkedContentSequence();
     }
 
 
@@ -79,7 +88,7 @@ public class CabecalhoRodape extends PdfPageEventHelper {
     @Override
     public void onEndPage(PdfWriter writer, Document document) {
 
-        setFooter(writer, document);
+        fixarRodape(writer, document);
     }
 
 

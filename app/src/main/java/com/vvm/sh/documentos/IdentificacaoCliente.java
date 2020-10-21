@@ -22,28 +22,11 @@ public class IdentificacaoCliente extends Section {
 
     @Override
     protected Table getMainTable() {
-        return new Table();
+        return new Table(new float[]{0.4f, 1.3f, 4.8f, 1.3f, 4.8f});
     }
 
     @Override
     protected void populateSection() {
-        try {
-            table.addCell(obterTabelaCliente());
-        } catch (CloneNotSupportedException | PdfLineException e) {
-            e.printStackTrace();
-        }
-    }
-
-
-
-    /**
-     * Metodo que permite obter a tabela de cliente
-     * @return uma tabela
-     * @throws CloneNotSupportedException
-     */
-    private Table obterTabelaCliente() throws CloneNotSupportedException, PdfLineException /*throws Pdf_Exception, CloneNotSupportedException*/ {
-
-        Table tabela = new Table(new float[]{0.4f, 1.3f, 4.8f, 1.3f, 4.8f});
 
         FontConfiguration fontConfiguration = new FontConfiguration();
 
@@ -57,7 +40,7 @@ public class IdentificacaoCliente extends Section {
         cellConfiguration.backgroundColor = BaseColor.BLACK;
         cellConfiguration.rotation = 90;
 
-        tabela.addCell(titulo, cellConfiguration);
+        table.addCell(titulo, cellConfiguration);
 
         //numero cliente + numero ordem
 
@@ -66,61 +49,68 @@ public class IdentificacaoCliente extends Section {
         cellConfiguration_1.horizontalAlign = Element.ALIGN_LEFT;
         cellConfiguration_1.height = Pdf.RegistoVisita.ALTURA_LINHA___TABELA_IDENTIFICACAO_CLIENTE;
 
+        try {
+            CellConfiguration cellConfiguration_11 = (CellConfiguration) cellConfiguration_1.clone();
+            cellConfiguration_11.event = new EspacoPreenchimento();
 
-        CellConfiguration cellConfiguration_11 = (CellConfiguration) cellConfiguration_1.clone();
-        cellConfiguration_11.event = new EspacoPreenchimento();
+            CellConfiguration cellConfiguration_l1 [] = {cellConfiguration_1, cellConfiguration_11, cellConfiguration_1, cellConfiguration_11};
 
-        CellConfiguration cellConfiguration_l1 [] = {cellConfiguration_1, cellConfiguration_11, cellConfiguration_1, cellConfiguration_11};
+            Phrase [] linha = new Phrase []{
+                    new Phrase(Pdf.Texto.N_CLIENTE, fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO, false)),
+                    new Phrase(registo.cliente.numeroCliente, fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO_GRANDE) ),
 
-        Phrase [] linha = new Phrase []{
-                new Phrase(Pdf.Texto.N_CLIENTE, fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO, false)),
-                new Phrase(registo.cliente.numeroCliente, fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO_GRANDE) ),
-
-                new Phrase(Pdf.Texto.N_ORDEM, fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO, false)),
-                new Phrase(registo.tarefa.ordem, fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO_GRANDE))
-        };
-
-        tabela.addLine(linha, cellConfiguration_11, 1);
-
-
-        //empresa
-
-        CellConfiguration cellConfiguration_2 = new CellConfiguration();
-        cellConfiguration_2.verticalAlign = Element.ALIGN_MIDDLE;
-        cellConfiguration_2.horizontalAlign = Element.ALIGN_LEFT;
-        cellConfiguration_2.colSpan = 3;
-        cellConfiguration_2.event = new EspacoPreenchimento();
-
-        CellConfiguration dimensoes [] = {cellConfiguration_1, cellConfiguration_2};
-
-
-        linha = new Phrase []{
-                new Phrase(Pdf.Texto.EMPRESA, fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO)),
-                new Phrase(registo.cliente.nome, fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO_GRANDE))
-        };
-
-        tabela.addLine(linha, dimensoes, 1);
+                    new Phrase(Pdf.Texto.N_ORDEM, fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO, false)),
+                    new Phrase(registo.tarefa.ordem, fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO_GRANDE))
+            };
 
 
 
-        //recebido por + funcao
-
-        linha = new Phrase []{
-                new Phrase(Pdf.Texto.RECEBIDO_POR, fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO)),
-                new Phrase(registo.registo.recebidoPor, fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO_GRANDE)),
-
-                new Phrase(Pdf.Texto.FUNCAO, fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO)),
-                new Phrase(registo.registo.funcao, fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO_GRANDE))
-        };
-
-        tabela.addLine(linha, cellConfiguration_l1, 1);
+            table.addLine(linha, cellConfiguration_11, 1);
 
 
-        CellConfiguration cellConfiguration_3 = new CellConfiguration();
-        cellConfiguration_3.border = 0;
-        //cellConfiguration_3.adicionar_CorFundo(TINTA_CINZENTA, false);
-        //tabela.formatarTabela(formato);
-        return tabela;
+            //empresa
+
+            CellConfiguration cellConfiguration_2 = new CellConfiguration();
+            cellConfiguration_2.verticalAlign = Element.ALIGN_MIDDLE;
+            cellConfiguration_2.horizontalAlign = Element.ALIGN_LEFT;
+            cellConfiguration_2.colSpan = 3;
+            cellConfiguration_2.event = new EspacoPreenchimento();
+
+            CellConfiguration dimensoes [] = {cellConfiguration_1, cellConfiguration_2};
+
+
+            linha = new Phrase []{
+                    new Phrase(Pdf.Texto.EMPRESA, fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO)),
+                    new Phrase(registo.cliente.nome, fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO_GRANDE))
+            };
+
+            table.addLine(linha, dimensoes, 1);
+
+
+
+            //recebido por + funcao
+
+            linha = new Phrase []{
+                    new Phrase(Pdf.Texto.RECEBIDO_POR, fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO)),
+                    new Phrase(registo.registo.recebidoPor, fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO_GRANDE)),
+
+                    new Phrase(Pdf.Texto.FUNCAO, fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO)),
+                    new Phrase(registo.registo.funcao, fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO_GRANDE))
+            };
+
+            table.addLine(linha, cellConfiguration_l1, 1);
+
+
+            CellConfiguration cellConfiguration_3 = new CellConfiguration();
+            cellConfiguration_3.border = 0;
+            cellConfiguration_3.setOverLapColor(Pdf.Cores.TINTA_CINZENTA, false);
+            table.formatBorder(cellConfiguration_3);
+
+        }
+        catch (PdfLineException | CloneNotSupportedException e) {
+            e.printStackTrace();
+        }
     }
+
 
 }

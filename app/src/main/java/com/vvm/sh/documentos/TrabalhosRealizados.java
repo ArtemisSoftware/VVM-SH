@@ -35,7 +35,6 @@ public class TrabalhosRealizados extends Section {
 
         FontConfiguration fontConfiguration = new FontConfiguration();
 
-
         Phrase titulo = new Phrase(Pdf.Texto.TRABALHOS_REALIZADOS, fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO, true, BaseColor.WHITE));
         CellConfiguration cellConfiguration = new CellConfiguration();
         cellConfiguration.horizontalAlign = Element. ALIGN_TOP;
@@ -54,28 +53,21 @@ public class TrabalhosRealizados extends Section {
         cellConfiguration_imagem.alignLeft = 2;
         cellConfiguration_imagem.height = Pdf.RegistoVisita.ALTURA_LINHA___TABELA_TRABALHOS_REALIZADOS;
 
-//
+
         //texto
 
         CellConfiguration formato_Texto = new CellConfiguration();
         formato_Texto.verticalAlign  = Element.ALIGN_MIDDLE;
         formato_Texto.height  = Pdf.RegistoVisita.ALTURA_LINHA___TABELA_TRABALHOS_REALIZADOS;
-//
-//        Image preenchido = MetodosPdf.imagemPdf(contexto.getResources(), IMAGEM_CHECKBOX_CINZENTA);
-//        preenchido.scaleToFit(15, 15);
-//
-//        Image naoPreenchido = MetodosPdf.imagemPdf(contexto.getResources(), IMAGEM_CHECKBOX_VAZIA_CINZENTA);
-//        naoPreenchido.scaleToFit(15, 15);
-//
+
+
         for (TrabalhoRealizado registo : registos) {
 
             if(registo.selecionado() == true){
                 table.addCell(contexto.getResources(), Pdf.Imagens.IMAGEM_CHECKBOX_CINZENTA, cellConfiguration_imagem);
-                //table.addCell(/*preenchido, formato_imagem*/"selecionado");
             }
             else{
                 table.addCell(contexto.getResources(), Pdf.Imagens.IMAGEM_CHECKBOX_VAZIA_CINZENTA, cellConfiguration_imagem);
-                //table.addCell(/*naoPreenchido, formato_imagem*/"Não selecionado");
             }
 
             Phrase frase = new Phrase(registo.tipo.descricao, fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO));
@@ -84,16 +76,14 @@ public class TrabalhosRealizados extends Section {
 
         if ((registos.size() % 2) == 1) {
 
-            table.addCell("SEM_TEXTO", formato_Texto);
-            table.addCell("SEM_TEXTO", formato_Texto);
+            table.addEmptyCell(formato_Texto);
+            table.addEmptyCell(formato_Texto);
         }
 
         CellConfiguration formato_tabela = new CellConfiguration();
         formato_tabela.border = 0;
-
-//        formato.adicionar_CorFundo(BaseColor.WHITE, false);
+        formato_tabela.setOverLapColor(BaseColor.WHITE, true);
         table.formatBorder(formato_tabela);
-//        return tabela;
 
     }
 }

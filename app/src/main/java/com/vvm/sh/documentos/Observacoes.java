@@ -29,20 +29,6 @@ public class Observacoes extends Section {
 
     @Override
     protected void populateSection() {
-        table.addCell(obterTabelaObservacoes());
-        //--table.quebrarTabela(false);
-    }
-
-
-
-
-    /**
-     * Metodo que permite obter a tabela de observacoes
-     * @return  a tabela de observacoes
-     */
-    private Table obterTabelaObservacoes(){
-
-        Table tabela = null;
 
         try{
 
@@ -50,29 +36,29 @@ public class Observacoes extends Section {
 
                 case Pdf.TipoObservacao.TIPO_FRASE:
 
-                    tabela = obterFrase(observacao);
+                    table = obterFrase(observacao);
                     break;
 
                 case Pdf.TipoObservacao.TIPO_QUADRO:
 
-                    tabela = obterQuadro(observacao);
+                    table = obterQuadro(observacao);
                     break;
 
 
                 default:
-
 
                     //--tabela = obterTabelaErro("Tipo de observacao inexistente");
                     break;
             }
         }
         catch(NullPointerException e){
-            tabela = new Table();
-            //--tabela.removerRebordo();
+            table = new Table();
+            table.removeBorder();
         }
 
-        return tabela;
     }
+
+
 
 
     /**
@@ -100,7 +86,7 @@ public class Observacoes extends Section {
         tabela.addLine(frase, cellConfiguration);
 
 
-        //--tabela.quebrarTabela(false);
+        tabela.breakTable(false);
         return tabela;
     }
 
@@ -128,6 +114,7 @@ public class Observacoes extends Section {
 
         tabela.addCell(frase, cellConfiguration);
         tabela.setBorderColor(Pdf.Cores.TINTA_BORDA_CELULA);
+        tabela.breakTable(false);
         return tabela;
     }
 

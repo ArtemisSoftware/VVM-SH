@@ -69,12 +69,12 @@ public class Capitulo_RegistaVisita extends Chapter {
 
             case Pdf.Seccoes.ID_OBSERVACAO:
 
-                section = new Observacoes(registoVisita.dadosCliente.registo.observacao, Pdf.TipoObservacao.TIPO_FRASE);
+                section = new Observacoes(registoVisita.dadosCliente.registo.observacao, Pdf.TipoObservacao.TIPO_QUADRO);
                 break;
 
             case Pdf.Seccoes.ID_RUBRICA:
 
-                section = new Assinatura(registoVisita.rubrica);
+                section = new Assinatura(contexto, registoVisita.rubrica);
                 break;
 
 

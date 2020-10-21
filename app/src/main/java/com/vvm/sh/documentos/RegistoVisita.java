@@ -11,5 +11,5 @@ public class RegistoVisita {
     public DadosCliente dadosCliente;
     public List<TrabalhoRealizado> trabalhoRealizados;
     public Rubrica rubrica;
-
+    public String referencia = "8937456aji";
 }

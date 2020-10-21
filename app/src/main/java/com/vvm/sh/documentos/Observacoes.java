@@ -7,6 +7,7 @@ import com.titan.pdfdocumentlibrary.bundle.Section;
 import com.titan.pdfdocumentlibrary.elements.CellConfiguration;
 import com.titan.pdfdocumentlibrary.elements.FontConfiguration;
 import com.titan.pdfdocumentlibrary.elements.Table;
+import com.vvm.sh.documentos.eventos.TituloBorda;
 import com.vvm.sh.util.constantes.Pdf;
 
 public class Observacoes extends Section {
@@ -59,6 +60,7 @@ public class Observacoes extends Section {
 
 
                 default:
+
 
                     //--tabela = obterTabelaErro("Tipo de observacao inexistente");
                     break;
@@ -120,12 +122,12 @@ public class Observacoes extends Section {
         cellConfiguration.border = (Rectangle.LEFT | Rectangle.BOTTOM | Rectangle.RIGHT | Rectangle.TOP);
         cellConfiguration.alignTop = Pdf.RegistoVisita.ALTURA_LINHA___TABELA_OBSERVACAO;
         cellConfiguration.alignLeft = 8;
-//        dimensao.adicionar_Evento(new TituloBorda(SintaxeIF.OBSERVACOES, fontes, 17f, 3f));
+        cellConfiguration.event = new TituloBorda(Pdf.Texto.OBSERVACOES, 17f, 3f);
 
         Phrase frase = new Phrase(observacao, fontConfiguration.getFont(Pdf.Fontes.FONTE_ONSERVACAO));
 
         tabela.addCell(frase, cellConfiguration);
-//        tabela.pintarRebordo(TINTA_BORDA_CELULA);
+        tabela.setBorderColor(Pdf.Cores.TINTA_BORDA_CELULA);
         return tabela;
     }
 

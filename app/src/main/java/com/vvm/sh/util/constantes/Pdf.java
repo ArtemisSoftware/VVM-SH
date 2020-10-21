@@ -1,5 +1,6 @@
 package com.vvm.sh.util.constantes;
 
+import com.itextpdf.text.BaseColor;
 import com.titan.pdfdocumentlibrary.models.Index;
 import com.vvm.sh.R;
 
@@ -99,4 +100,8 @@ public class Pdf {
         public static final int TIPO_QUADRO = 2;
     }
 
+    public static class Cores {
+        public static final BaseColor TINTA_CINZENTA = new BaseColor(242, 242, 242);
+        public static final BaseColor TINTA_BORDA_CELULA = new BaseColor(179, 179, 179);
+    }
 }

@@ -12,7 +12,7 @@ public class Pdf {
         public static final int ID_CLIENTE = 1;
         public static final int ID_TRABALHOS_REALIZADOS = 2;
         public static final int ID_HOMOLOGACAO = 3;
-        public int ID_OBSERVACAO = 4;
+        public static final int ID_OBSERVACAO = 4;
         public static final int ID_RUBRICA = 5;
 
         public static final Index CABECALHO = new Index(ID_CABECALHO, Texto.CABECALHO);
@@ -20,13 +20,8 @@ public class Pdf {
         public static final Index TRABALHOS_REALIZADOS = new Index(ID_TRABALHOS_REALIZADOS, Texto.TRABALHOS_REALIZADOS);
 
         public static final Index HOMOLOGACAO = new Index(ID_HOMOLOGACAO, Texto.HOMOLOGACAO);
+        public static final Index OBSERVACAO = new Index(ID_OBSERVACAO, Texto.OBSERVACAO);
         public static final Index RUBRICA = new Index(ID_RUBRICA, Texto.RUBRICA);
-
-//        put(SECCAO_CABECALHO, "Cabecalho");
-//        put(SECCAO_CLIENTE, "Cliente");
-//        put(SECCAO_HOMOLOGACAO, "Homologacao");
-//        put(SECCAO_OBSERVACAO, "Observacao");
-//        put(SECCAO_RUBRICA, "Rubrica");
 
 
     }
@@ -53,6 +48,7 @@ public class Pdf {
         public static final String HOMOLOGACAO_REGISTO_VISITA = "O cliente aprova o Plano de Acção das atividades de SST apresentado e entregue pelo Técnico de segurança";
 
 
+        public static final String OBSERVACAO = "Observação";
     }
 
     public class Fontes {
@@ -89,5 +85,18 @@ public class Pdf {
         public static final int LOGOTIPO_VIVAMAIS = R.drawable.img_vivamais_logo;
     }
 
+    public class TipoObservacao {
+
+        /**
+         * A observacao - apresentada como uma frase
+         */
+        public static final int TIPO_FRASE = 1;
+
+
+        /**
+         * A observacao - apresentada como um quadro
+         */
+        public static final int TIPO_QUADRO = 2;
+    }
 
 }

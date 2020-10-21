@@ -10,6 +10,6 @@ public class RegistoVisita {
 
     public DadosCliente dadosCliente;
     public List<TrabalhoRealizado> trabalhoRealizados;
-    public ImagemResultado imagem;
+    public Rubrica rubrica;
 
 }

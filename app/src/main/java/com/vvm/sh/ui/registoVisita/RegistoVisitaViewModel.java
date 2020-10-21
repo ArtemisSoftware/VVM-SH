@@ -384,6 +384,12 @@ public class RegistoVisitaViewModel extends BaseViewModel {
     }
 
 
+    /**
+     * Metodo que permite gerar o pdf do registo de visita
+     * @param contexto
+     * @param idTarefa
+     * @param registo
+     */
     private void registoVisitaPdf(Context contexto, int idTarefa, RegistoVisita registo){
 
         Template registoVisitaTemplate = new RegistoVisita_Doc(contexto, idTarefa, registo);

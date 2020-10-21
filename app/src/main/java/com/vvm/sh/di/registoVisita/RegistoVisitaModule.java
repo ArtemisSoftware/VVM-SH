@@ -2,6 +2,7 @@ package com.vvm.sh.di.registoVisita;
 
 import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.baseDados.dao.ImagemDao;
+import com.vvm.sh.baseDados.dao.PdfDao;
 import com.vvm.sh.baseDados.dao.RegistoVisitaDao;
 import com.vvm.sh.baseDados.dao.ResultadoDao;
 import com.vvm.sh.baseDados.dao.TrabalhosRealizadosDao;
@@ -19,8 +20,6 @@ public class RegistoVisitaModule {
     static RegistoVisitaDao provideRegistoVisitaDao(VvmshBaseDados vvmshBaseDados){
 
         RegistoVisitaDao dao = vvmshBaseDados.obterRegistoVisitaDao();
-
-        //Timber.d("Providing NoteDao: " + dao);
         return dao;
     }
 
@@ -30,8 +29,15 @@ public class RegistoVisitaModule {
     static TrabalhosRealizadosDao providTrabalhosRealizadosDao(VvmshBaseDados vvmshBaseDados){
 
         TrabalhosRealizadosDao dao = vvmshBaseDados.obterTrabalhosRealizadosDao();
+        return dao;
+    }
 
-        //Timber.d("Providing NoteDao: " + dao);
+
+    @RegistoVisitaScope
+    @Provides
+    static PdfDao providePdfDao(VvmshBaseDados vvmshBaseDados){
+
+        PdfDao dao = vvmshBaseDados.obterPdfDao();
         return dao;
     }
 
@@ -40,11 +46,9 @@ public class RegistoVisitaModule {
     @RegistoVisitaScope
     @Provides
     RegistoVisitaRepositorio provideRegistoVisitaRepositorio(int api, RegistoVisitaDao registoVisitaDao,
-                                                             TrabalhosRealizadosDao trabalhosRealizadosDao, ImagemDao imagemDao, ResultadoDao resultadoDao) {
+                                                             TrabalhosRealizadosDao trabalhosRealizadosDao, ImagemDao imagemDao, PdfDao pdfDao, ResultadoDao resultadoDao) {
 
-        RegistoVisitaRepositorio repositorio = new RegistoVisitaRepositorio(api, registoVisitaDao, trabalhosRealizadosDao, imagemDao,resultadoDao);
-
-        //Timber.d("Providing PokemonRepository: " + repository);
+        RegistoVisitaRepositorio repositorio = new RegistoVisitaRepositorio(api, registoVisitaDao, trabalhosRealizadosDao, imagemDao, pdfDao, resultadoDao);
         return repositorio;
     }
 

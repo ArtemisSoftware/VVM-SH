@@ -27,7 +27,7 @@ public class Cabecalho extends Section {
     @Override
     protected void populateSection() {
 
-        //--table.addCell(MetodosPdf.imagemPdf(contexto.getResources(), LOGOTIPO_VIVAMAIS));
+        table.addCell(contexto.getResources(), Pdf.Imagens.LOGOTIPO_VIVAMAIS);
         table.addEmptyCell();
 
         CellConfiguration cellConfiguration = new CellConfiguration();

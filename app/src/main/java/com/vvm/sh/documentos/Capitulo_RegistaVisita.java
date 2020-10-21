@@ -29,13 +29,13 @@ public class Capitulo_RegistaVisita extends Chapter {
         List<Index> indexList = new ArrayList<>();
 
         indexList.add(Pdf.Seccoes.CABECALHO);
-
         indexList.add(Pdf.Seccoes.CLIENTE);
+
         indexList.add(Pdf.Seccoes.TRABALHOS_REALIZADOS);
         indexList.add(Pdf.Seccoes.HOMOLOGACAO);
-//
-//        seccoes.add(SECCAO_OBSERVACAO);
-        indexList.add(Pdf.Seccoes.RUBRICA);
+
+       indexList.add(Pdf.Seccoes.OBSERVACAO);
+       indexList.add(Pdf.Seccoes.RUBRICA);
 
         return indexList;
     }
@@ -66,9 +66,15 @@ public class Capitulo_RegistaVisita extends Chapter {
                 section = new Homologacao(contexto);
                 break;
 
+
+            case Pdf.Seccoes.ID_OBSERVACAO:
+
+                section = new Observacoes(registoVisita.dadosCliente.registo.observacao, Pdf.TipoObservacao.TIPO_FRASE);
+                break;
+
             case Pdf.Seccoes.ID_RUBRICA:
 
-                section = new Assinatura(registoVisita.imagem);
+                section = new Assinatura(registoVisita.rubrica);
                 break;
 
 

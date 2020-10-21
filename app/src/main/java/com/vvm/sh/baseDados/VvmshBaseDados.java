@@ -22,6 +22,7 @@ import com.vvm.sh.baseDados.dao.LevantamentoDao;
 import com.vvm.sh.baseDados.dao.MedidaDao;
 import com.vvm.sh.baseDados.dao.OcorrenciaDao;
 import com.vvm.sh.baseDados.dao.ParqueExtintorDao;
+import com.vvm.sh.baseDados.dao.PdfDao;
 import com.vvm.sh.baseDados.dao.PlanoAccaoDao;
 import com.vvm.sh.baseDados.dao.ProcessoProdutivoDao;
 import com.vvm.sh.baseDados.dao.PropostaPlanoAcaoDao;
@@ -234,4 +235,6 @@ public abstract class VvmshBaseDados extends RoomDatabase {
     public abstract PropostaPlanoAcaoDao obterPropostaPlanoAcaoDao();
 
     public abstract AveriguacaoDao obterAveriguacaoDao();
+
+    public abstract PdfDao obterPdfDao();
 }

@@ -11,23 +11,14 @@ import com.vvm.sh.util.constantes.Pdf;
 
 public class Observacoes extends Section {
 
-    /**
-     * A observacao - apresentada como uma frase
-     */
-    public static final int TIPO_FRASE = 1;
 
 
-    /**
-     * A observacao - apresentada como um quadro
-     */
-    public static final int TIPO_QUADRO = 2;
+    private final int tipo;
+    private String observacao;
 
-
-    private final int TIPO;
-
-
-    public Observacoes(int tipo) {
-        this.TIPO = tipo;
+    public Observacoes(String observacao, int tipo) {
+        this.tipo = tipo;
+        this.observacao = observacao;
     }
 
     @Override
@@ -53,16 +44,15 @@ public class Observacoes extends Section {
         Table tabela = null;
 
         try{
-            String observacao = "lolo";//acessoBd.obterCliente().obterObservacao();
 
-            switch (TIPO) {
+            switch (tipo) {
 
-                case TIPO_FRASE:
+                case Pdf.TipoObservacao.TIPO_FRASE:
 
                     tabela = obterFrase(observacao);
                     break;
 
-                case TIPO_QUADRO:
+                case Pdf.TipoObservacao.TIPO_QUADRO:
 
                     tabela = obterQuadro(observacao);
                     break;
@@ -128,10 +118,9 @@ public class Observacoes extends Section {
         cellConfiguration.horizontalAlign = Element.ALIGN_JUSTIFIED;
         cellConfiguration.verticalAlign = Element.ALIGN_CENTER;
         cellConfiguration.border = (Rectangle.LEFT | Rectangle.BOTTOM | Rectangle.RIGHT | Rectangle.TOP);
-
-//        dimensao.adicionar_AlturaTopo(ALTURA_LINHA___TABELA_OBSERVACAO);
+        cellConfiguration.alignTop = Pdf.RegistoVisita.ALTURA_LINHA___TABELA_OBSERVACAO;
+        cellConfiguration.alignLeft = 8;
 //        dimensao.adicionar_Evento(new TituloBorda(SintaxeIF.OBSERVACOES, fontes, 17f, 3f));
-//        dimensao.adicionar_AlinhamentoEsquerda(8);
 
         Phrase frase = new Phrase(observacao, fontConfiguration.getFont(Pdf.Fontes.FONTE_ONSERVACAO));
 

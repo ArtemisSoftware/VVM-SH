@@ -3,6 +3,7 @@ package com.vvm.sh.repositorios;
 import androidx.annotation.NonNull;
 
 import com.vvm.sh.baseDados.dao.ImagemDao;
+import com.vvm.sh.baseDados.dao.PdfDao;
 import com.vvm.sh.baseDados.dao.RegistoVisitaDao;
 import com.vvm.sh.baseDados.dao.ResultadoDao;
 import com.vvm.sh.baseDados.dao.TrabalhosRealizadosDao;
@@ -10,6 +11,7 @@ import com.vvm.sh.baseDados.entidades.ImagemResultado;
 import com.vvm.sh.baseDados.entidades.RegistoVisitaResultado;
 import com.vvm.sh.baseDados.entidades.TrabalhoRealizadoResultado;
 import com.vvm.sh.documentos.RegistoVisita;
+import com.vvm.sh.documentos.Rubrica;
 import com.vvm.sh.ui.registoVisita.modelos.DadosCliente;
 import com.vvm.sh.ui.registoVisita.modelos.RelatorioRegistoVisita;
 import com.vvm.sh.ui.registoVisita.modelos.TrabalhoRealizado;
@@ -29,17 +31,19 @@ public class RegistoVisitaRepositorio {
     private final RegistoVisitaDao registoVisitaDao;
     private final TrabalhosRealizadosDao trabalhosRealizadosDao;
     private final ImagemDao imagemDao;
+    private final PdfDao pdfDao;
     public final ResultadoDao resultadoDao;
     private final int api;
 
     public RegistoVisitaRepositorio(int api, @NonNull RegistoVisitaDao registoVisitaDao, @NonNull TrabalhosRealizadosDao trabalhosRealizadosDao,
-                                    @NonNull ImagemDao imagemDao,
+                                    @NonNull ImagemDao imagemDao, @NonNull PdfDao pdfDao,
                                     @NonNull ResultadoDao resultadoDao) {
 
         this.registoVisitaDao = registoVisitaDao;
         this.trabalhosRealizadosDao = trabalhosRealizadosDao;
         this.resultadoDao = resultadoDao;
         this.imagemDao = imagemDao;
+        this.pdfDao = pdfDao;
         this.api = api;
     }
 
@@ -105,20 +109,20 @@ public class RegistoVisitaRepositorio {
      * @param idTarefa o identificador da tarefa
      * @return os dados do pdf
      */
-    public Maybe<RegistoVisita> obtePdf(int idTarefa) {
+    public Maybe<RegistoVisita> obtePdf(int idTarefa, int idUtilizador) {
 
         return Maybe.zip(
-                registoVisitaDao.obterDadosCliente(idTarefa),
-                trabalhosRealizadosDao.obterTrabalhosRealizadosRegistados(idTarefa, api),
-                imagemDao.obterImagem(idTarefa, Identificadores.Imagens.IMAGEM_ASSINATURA_REGISTO_VISITA),
-                new Function3<DadosCliente, List<TrabalhoRealizado>, ImagemResultado, RegistoVisita>() {
+                pdfDao.obterDadosCliente(idTarefa),
+                pdfDao.obterTrabalhosRealizadosRegistados(idTarefa, api),
+                pdfDao.obterRubrica(idTarefa, Identificadores.Imagens.IMAGEM_ASSINATURA_REGISTO_VISITA, idUtilizador),
+                new Function3<DadosCliente, List<TrabalhoRealizado>, Rubrica, RegistoVisita>() {
                     @Override
-                    public RegistoVisita apply(DadosCliente dadosCliente, List<TrabalhoRealizado> trabalhoRealizados, ImagemResultado imagemResultado) throws Exception {
+                    public RegistoVisita apply(DadosCliente dadosCliente, List<TrabalhoRealizado> trabalhoRealizados, Rubrica rubrica) throws Exception {
 
                         RegistoVisita registoVisita = new RegistoVisita();
                         registoVisita.dadosCliente = dadosCliente;
                         registoVisita.trabalhoRealizados = trabalhoRealizados;
-                        registoVisita.imagem = imagemResultado;
+                        registoVisita.rubrica = rubrica;
 
                         return registoVisita;
                     }

@@ -7,6 +7,7 @@ import com.titan.pdfdocumentlibrary.bundle.Section;
 import com.titan.pdfdocumentlibrary.elements.CellConfiguration;
 import com.titan.pdfdocumentlibrary.elements.FontConfiguration;
 import com.titan.pdfdocumentlibrary.elements.Table;
+import com.titan.pdfdocumentlibrary.exception.PdfLineException;
 import com.vvm.sh.documentos.eventos.EspacoPreenchimento;
 import com.vvm.sh.ui.registoVisita.modelos.DadosCliente;
 import com.vvm.sh.util.constantes.Pdf;
@@ -28,7 +29,7 @@ public class IdentificacaoCliente extends Section {
     protected void populateSection() {
         try {
             table.addCell(obterTabelaCliente());
-        } catch (CloneNotSupportedException e) {
+        } catch (CloneNotSupportedException | PdfLineException e) {
             e.printStackTrace();
         }
     }
@@ -40,7 +41,7 @@ public class IdentificacaoCliente extends Section {
      * @return uma tabela
      * @throws CloneNotSupportedException
      */
-    private Table obterTabelaCliente() throws CloneNotSupportedException /*throws Pdf_Exception, CloneNotSupportedException*/ {
+    private Table obterTabelaCliente() throws CloneNotSupportedException, PdfLineException /*throws Pdf_Exception, CloneNotSupportedException*/ {
 
         Table tabela = new Table(new float[]{0.4f, 1.3f, 4.8f, 1.3f, 4.8f});
 
@@ -71,15 +72,15 @@ public class IdentificacaoCliente extends Section {
 
         CellConfiguration cellConfiguration_l1 [] = {cellConfiguration_1, cellConfiguration_11, cellConfiguration_1, cellConfiguration_11};
 
-//        Phrase [] linha = new Phrase []{
-//                new Phrase(Pdf.Texto.N_CLIENTE, fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO, false)),
-//                new Phrase(registo.obterNumero(), fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO_GRANDE) ),
-//
-//                new Phrase(Pdf.Texto.N_ORDEM, fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO, false)),
-//                new Phrase(registo.obterOrdem(), fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO_GRANDE))
-//        };
+        Phrase [] linha = new Phrase []{
+                new Phrase(Pdf.Texto.N_CLIENTE, fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO, false)),
+                new Phrase(registo.cliente.numeroCliente, fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO_GRANDE) ),
 
-        //---tabela.addLine(linha, cellConfiguration_11, 1);
+                new Phrase(Pdf.Texto.N_ORDEM, fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO, false)),
+                new Phrase(registo.tarefa.ordem, fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO_GRANDE))
+        };
+
+        tabela.addLine(linha, cellConfiguration_11, 1);
 
 
         //empresa
@@ -93,26 +94,26 @@ public class IdentificacaoCliente extends Section {
         CellConfiguration dimensoes [] = {cellConfiguration_1, cellConfiguration_2};
 
 
-//        linha = new Phrase []{
-//                new Phrase(Pdf.Texto.EMPRESA, fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO)),
-//                new Phrase(registo.obterEmpresa(), fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO_GRANDE))
-//        };
+        linha = new Phrase []{
+                new Phrase(Pdf.Texto.EMPRESA, fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO)),
+                new Phrase(registo.cliente.nome, fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO_GRANDE))
+        };
 
-        //--tabela.addLine(linha, dimensoes, 1);
+        tabela.addLine(linha, dimensoes, 1);
 
 
 
         //recebido por + funcao
 
-//        linha = new Phrase []{
-//                new Phrase(Pdf.Texto.RECEBIDO_POR, fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO)),
-//                new Phrase(registo.obterRecebidoPor(), fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO_GRANDE)),
-//
-//                new Phrase(Pdf.Texto.FUNCAO, fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO)),
-//                new Phrase(registo.obterFuncao(), fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO_GRANDE))
-//        };
+        linha = new Phrase []{
+                new Phrase(Pdf.Texto.RECEBIDO_POR, fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO)),
+                new Phrase(registo.registo.recebidoPor, fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO_GRANDE)),
 
-        //--tabela.addLine(linha, cellConfiguration_l1, 1);
+                new Phrase(Pdf.Texto.FUNCAO, fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO)),
+                new Phrase(registo.registo.funcao, fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO_GRANDE))
+        };
+
+        tabela.addLine(linha, cellConfiguration_l1, 1);
 
 
         CellConfiguration cellConfiguration_3 = new CellConfiguration();

@@ -10,12 +10,13 @@ import com.titan.pdfdocumentlibrary.exception.PdfLineException;
 import com.vvm.sh.baseDados.entidades.ImagemResultado;
 import com.vvm.sh.documentos.eventos.EspacoPreenchimento;
 import com.vvm.sh.util.constantes.Pdf;
+import com.vvm.sh.util.metodos.DatasUtil;
 
 public class Assinatura extends Section {
 
-    private ImagemResultado registo;
+    private Rubrica registo;
 
-    public Assinatura(ImagemResultado registo) {
+    public Assinatura(Rubrica registo) {
         this.registo = registo;
     }
 
@@ -56,20 +57,19 @@ public class Assinatura extends Section {
             cellConfiguration.event = new EspacoPreenchimento(0f, 10f);
 
 
+            Phrase frase = new Phrase(DatasUtil.obterDataAtual(DatasUtil.FORMATO_DD_MM_YYYY), fontConfiguration.getFont(Pdf.Fontes.FONTE_ASSINATURA));
+            tabela.addCell(frase, cellConfiguration);
 
-
-//            Phrase frase = new Phrase(registo.obterData(), fontConfiguration.getFont(Pdf.Fontes.FONTE_ASSINATURA));
-//            tabela.addCell(frase, cellConfiguration);
-//
 //            Image imagem = MetodosPdf.imagemPdf(contexto, registo.obterImagem());
 //            imagem.scaleToFit(120f, 180f);
-//            tabela.addCell(imagem, formato);
-//
-//            frase = new Phrase(registo.obterTecnico(), fontConfiguration.getFont(Pdf.Fontes.FONTE_ASSINATURA));
-//            tabela.addCell(frase, cellConfiguration);
-//
-//            frase = new Phrase(registo.obterCap(), fontConfiguration.getFont(Pdf.Fontes.FONTE_ASSINATURA));
-//            tabela.addCell(frase, cellConfiguration);
+//            tabela.addCell(imagem, cellConfiguration);
+            tabela.addEmptyCell();
+
+            frase = new Phrase(registo.nome, fontConfiguration.getFont(Pdf.Fontes.FONTE_ASSINATURA));
+            tabela.addCell(frase, cellConfiguration);
+
+            frase = new Phrase(registo.cap, fontConfiguration.getFont(Pdf.Fontes.FONTE_ASSINATURA));
+            tabela.addCell(frase, cellConfiguration);
 
 
             Phrase frases [] = {

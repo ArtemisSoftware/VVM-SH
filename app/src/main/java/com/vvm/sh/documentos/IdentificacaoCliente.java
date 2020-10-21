@@ -7,6 +7,7 @@ import com.titan.pdfdocumentlibrary.bundle.Section;
 import com.titan.pdfdocumentlibrary.elements.CellConfiguration;
 import com.titan.pdfdocumentlibrary.elements.FontConfiguration;
 import com.titan.pdfdocumentlibrary.elements.Table;
+import com.vvm.sh.documentos.eventos.EspacoPreenchimento;
 import com.vvm.sh.ui.registoVisita.modelos.DadosCliente;
 import com.vvm.sh.util.constantes.Pdf;
 
@@ -37,7 +38,6 @@ public class IdentificacaoCliente extends Section {
     /**
      * Metodo que permite obter a tabela de cliente
      * @return uma tabela
-     * @throws Pdf_Exception
      * @throws CloneNotSupportedException
      */
     private Table obterTabelaCliente() throws CloneNotSupportedException /*throws Pdf_Exception, CloneNotSupportedException*/ {
@@ -54,7 +54,7 @@ public class IdentificacaoCliente extends Section {
         cellConfiguration.verticalAlign = Element.ALIGN_MIDDLE;
         cellConfiguration.rowspan = 3;
         cellConfiguration.backgroundColor = BaseColor.BLACK;
-        //--dimensao.adicionar_Rotacao(90);
+        cellConfiguration.rotation = 90;
 
         tabela.addCell(titulo, cellConfiguration);
 
@@ -67,7 +67,7 @@ public class IdentificacaoCliente extends Section {
 
 
         CellConfiguration cellConfiguration_11 = (CellConfiguration) cellConfiguration_1.clone();
-        //--cellConfiguration_11.adicionar_Evento(new EspacoPreenchimento());
+        cellConfiguration_11.event = new EspacoPreenchimento();
 
         CellConfiguration cellConfiguration_l1 [] = {cellConfiguration_1, cellConfiguration_11, cellConfiguration_1, cellConfiguration_11};
 
@@ -88,7 +88,7 @@ public class IdentificacaoCliente extends Section {
         cellConfiguration_2.verticalAlign = Element.ALIGN_MIDDLE;
         cellConfiguration_2.horizontalAlign = Element.ALIGN_LEFT;
         cellConfiguration_2.colSpan = 3;
-        //--cellConfiguration_2.adicionar_Evento(new EspacoPreenchimento());
+        cellConfiguration_2.event = new EspacoPreenchimento();
 
         CellConfiguration dimensoes [] = {cellConfiguration_1, cellConfiguration_2};
 

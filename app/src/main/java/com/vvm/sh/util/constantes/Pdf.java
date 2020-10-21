@@ -1,6 +1,7 @@
 package com.vvm.sh.util.constantes;
 
 import com.titan.pdfdocumentlibrary.models.Index;
+import com.vvm.sh.R;
 
 public class Pdf {
 
@@ -61,4 +62,21 @@ public class Pdf {
         public static final float ALTURA_LINHA___TABELA_HOMOLOGACAO = 20f/*35f*/;
         public static final float ALTURA_LINHA___TABELA_OBSERVACAO = /*90f*/20f;
     }
+
+    public class Imagens {
+        /**
+         * 21 x 21 (pixels)
+         */
+        public static final int IMAGEM_CHECKBOX_CINZENTA = R.drawable.icon_chk_box_pdf;//img_chk_cinzento;
+
+        /**
+         * 21 x 21 (pixels)
+         */
+        public static final int IMAGEM_CHECKBOX_VAZIA_CINZENTA = R.drawable.icon_chk_box_vazia_pdf;//img_chk_vazio_cinzento;
+
+
+        public static final int LOGOTIPO_VIVAMAIS = R.drawable.img_vivamais_logo;
+    }
+
+
 }

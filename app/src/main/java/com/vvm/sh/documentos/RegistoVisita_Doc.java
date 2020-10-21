@@ -18,7 +18,7 @@ public class RegistoVisita_Doc extends Template {
     private int idTarefa;
 
     public RegistoVisita_Doc(Context context, int idTarefa, RegistoVisita registoVisita) {
-        super(context, new File(DiretoriasUtil.DIRETORIA_PDF));
+        super(context, DiretoriasUtil.obterDiretoria(DiretoriasUtil.DIRETORIA_PDF));
 
         this.registoVisita = registoVisita;
         this.idTarefa = idTarefa;

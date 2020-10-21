@@ -6,6 +6,10 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
 
+import androidx.core.content.FileProvider;
+
+import com.vvm.sh.BuildConfig;
+
 import java.io.File;
 
 public class DiretoriasUtil {
@@ -124,8 +128,7 @@ public class DiretoriasUtil {
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
 
-            //TODO: fazer file provider
-            uri = null;//FileProvider.getUriForFile(contexto, BuildConfig.APPLICATION_ID + ".provider", ficheiro);
+            uri = FileProvider.getUriForFile(contexto, BuildConfig.APPLICATION_ID + ".provider", ficheiro);
         }
         else{
             uri = Uri.fromFile(ficheiro);

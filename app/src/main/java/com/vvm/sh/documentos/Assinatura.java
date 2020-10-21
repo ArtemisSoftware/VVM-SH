@@ -8,6 +8,7 @@ import com.titan.pdfdocumentlibrary.elements.FontConfiguration;
 import com.titan.pdfdocumentlibrary.elements.Table;
 import com.titan.pdfdocumentlibrary.exception.PdfLineException;
 import com.vvm.sh.baseDados.entidades.ImagemResultado;
+import com.vvm.sh.documentos.eventos.EspacoPreenchimento;
 import com.vvm.sh.util.constantes.Pdf;
 
 public class Assinatura extends Section {
@@ -52,7 +53,7 @@ public class Assinatura extends Section {
             CellConfiguration cellConfiguration = new CellConfiguration();
             cellConfiguration.horizontalAlign = Element.ALIGN_CENTER;
             cellConfiguration.verticalAlign = Element.ALIGN_BOTTOM;
-            //--cellConfiguration.setEvent(new EspacoPreenchimento(0f, 10f));
+            cellConfiguration.event = new EspacoPreenchimento(0f, 10f);
 
 
 

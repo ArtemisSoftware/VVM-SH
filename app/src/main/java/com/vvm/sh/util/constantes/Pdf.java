@@ -8,16 +8,19 @@ public class Pdf {
     public static class Seccoes {
 
 
-        public int ID_CABECALHO = 0;
-        public int ID_CLIENTE = 1;
+        public static final int ID_CABECALHO = 0;
+        public static final int ID_CLIENTE = 1;
         public static final int ID_TRABALHOS_REALIZADOS = 2;
-        public int ID_HOMOLOGACAO = 3;
+        public static final int ID_HOMOLOGACAO = 3;
         public int ID_OBSERVACAO = 4;
-        public int ID_RUBRICA = 5;
+        public static final int ID_RUBRICA = 5;
 
-
+        public static final Index CABECALHO = new Index(ID_CABECALHO, Texto.CABECALHO);
+        public static final Index CLIENTE = new Index(ID_CLIENTE, Texto.CLIENTE);
         public static final Index TRABALHOS_REALIZADOS = new Index(ID_TRABALHOS_REALIZADOS, Texto.TRABALHOS_REALIZADOS);
 
+        public static final Index HOMOLOGACAO = new Index(ID_HOMOLOGACAO, Texto.HOMOLOGACAO);
+        public static final Index RUBRICA = new Index(ID_RUBRICA, Texto.RUBRICA);
 
 //        put(SECCAO_CABECALHO, "Cabecalho");
 //        put(SECCAO_CLIENTE, "Cliente");
@@ -43,6 +46,13 @@ public class Pdf {
         public static final String RECEBIDO_POR = "Recebido por";
         public static final String FUNCAO = "Função";
         public static final String OBSERVACOES = "Observações";
+        public static final String CABECALHO = "Cabeçalho";
+        public static final String RUBRICA = "Rubrica";
+        public static final String HOMOLOGACAO = "Homologação";
+
+        public static final String HOMOLOGACAO_REGISTO_VISITA = "O cliente aprova o Plano de Acção das atividades de SST apresentado e entregue pelo Técnico de segurança";
+
+
     }
 
     public class Fontes {
@@ -50,6 +60,7 @@ public class Pdf {
         public static final float FONTE_TEXTO = 7f;
         public static final float FONTE_TEXTO_GRANDE = 9f;
         public static final float FONTE_ASSINATURA = 8f;
+        public static final float FONTE_HOMOLOGACAO = 8f;
         public static final float FONTE_CABECALHO = 11f;
         public static final float FONTE_ONSERVACAO = 8f;
     }
@@ -59,8 +70,8 @@ public class Pdf {
         public static final float ALTURA____ENTRE_SECCOES = 3f/*151f*/;
         public static final int ALTURA_LINHA___TABELA_IDENTIFICACAO_CLIENTE = 25/*30f*/;
         public static final int ALTURA_LINHA___TABELA_TRABALHOS_REALIZADOS = 18/*21f*/;
-        public static final float ALTURA_LINHA___TABELA_HOMOLOGACAO = 20f/*35f*/;
-        public static final float ALTURA_LINHA___TABELA_OBSERVACAO = /*90f*/20f;
+        public static final int ALTURA_LINHA___TABELA_HOMOLOGACAO = 20/*35f*/;
+        public static final int ALTURA_LINHA___TABELA_OBSERVACAO = /*90f*/20;
     }
 
     public class Imagens {

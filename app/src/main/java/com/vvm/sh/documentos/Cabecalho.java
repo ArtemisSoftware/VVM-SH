@@ -1,5 +1,7 @@
 package com.vvm.sh.documentos;
 
+import android.content.Context;
+
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Phrase;
@@ -10,6 +12,13 @@ import com.titan.pdfdocumentlibrary.elements.Table;
 import com.vvm.sh.util.constantes.Pdf;
 
 public class Cabecalho extends Section {
+
+    private Context contexto;
+
+    public Cabecalho(Context contexto) {
+        this.contexto = contexto;
+    }
+
     @Override
     protected Table getMainTable() {
         return new Table(3);
@@ -24,7 +33,7 @@ public class Cabecalho extends Section {
         CellConfiguration cellConfiguration = new CellConfiguration();
 
 
-        //--cellConfiguration.addFrame(7, 7, 21f, 21f);
+        cellConfiguration.addFrame(7, 7, 21f, 21f);
         table.addCell(obterTabelaReferencia(), cellConfiguration);
     }
 

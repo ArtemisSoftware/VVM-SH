@@ -17,8 +17,8 @@ public class RegistoVisita_Doc extends Template {
     private RegistoVisita registoVisita;
     private int idTarefa;
 
-    public RegistoVisita_Doc(Context context, int idTarefa, RegistoVisita registoVisita) {
-        super(context, DiretoriasUtil.obterDiretoria(DiretoriasUtil.DIRETORIA_PDF));
+    public RegistoVisita_Doc(Context contexto, int idTarefa, RegistoVisita registoVisita) {
+        super(contexto, DiretoriasUtil.obterDiretoria(DiretoriasUtil.DIRETORIA_PDF));
 
         this.registoVisita = registoVisita;
         this.idTarefa = idTarefa;
@@ -32,7 +32,7 @@ public class RegistoVisita_Doc extends Template {
     @Override
     protected List<Chapter> getChapters() {
         List<Chapter> pages = new ArrayList<>();
-        pages.add(new Capitulo_RegistaVisita(this.registoVisita));
+        pages.add(new Capitulo_RegistaVisita(context, this.registoVisita));
         return pages;
     }
 

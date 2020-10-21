@@ -1,5 +1,7 @@
 package com.vvm.sh.documentos;
 
+import android.content.Context;
+
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Phrase;
@@ -16,9 +18,11 @@ import java.util.List;
 public class TrabalhosRealizados extends Section {
 
     private List<TrabalhoRealizado> registos;
+    private Context contexto;
 
-    public TrabalhosRealizados(List<TrabalhoRealizado> registos) {
+    public TrabalhosRealizados(Context contexto, List<TrabalhoRealizado> registos) {
         this.registos = registos;
+        this.contexto = contexto;
     }
 
     @Override
@@ -66,13 +70,15 @@ public class TrabalhosRealizados extends Section {
         for (TrabalhoRealizado registo : registos) {
 
             if(registo.selecionado() == true){
-                table.addCell(/*preenchido, formato_imagem*/"selecionado");
+                table.addCell(contexto.getResources(), Pdf.Imagens.IMAGEM_CHECKBOX_CINZENTA, cellConfiguration_imagem);
+                //table.addCell(/*preenchido, formato_imagem*/"selecionado");
             }
             else{
-                table.addCell(/*naoPreenchido, formato_imagem*/"Não selecionado");
+                table.addCell(contexto.getResources(), Pdf.Imagens.IMAGEM_CHECKBOX_VAZIA_CINZENTA, cellConfiguration_imagem);
+                //table.addCell(/*naoPreenchido, formato_imagem*/"Não selecionado");
             }
 
-            Phrase frase = new Phrase(registo.tipo.descricao, fontConfiguration.getFont(7f));
+            Phrase frase = new Phrase(registo.tipo.descricao, fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO));
             table.addCell(frase, formato_Texto);
         }
 
@@ -86,7 +92,6 @@ public class TrabalhosRealizados extends Section {
         formato_tabela.border = 0;
 
 //        formato.adicionar_CorFundo(BaseColor.WHITE, false);
-//        formato.adicionar_Borda(0);
         table.formatBorder(formato_tabela);
 //        return tabela;
 

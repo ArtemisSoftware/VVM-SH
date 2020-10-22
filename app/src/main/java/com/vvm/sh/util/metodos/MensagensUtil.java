@@ -1,10 +1,13 @@
 package com.vvm.sh.util.metodos;
 
 import android.app.Activity;
+import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.view.View;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.vvm.sh.R;
 import com.vvm.sh.api.modelos.pedido.Codigo;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.constantes.Sintaxe;
@@ -15,10 +18,12 @@ import cn.pedant.SweetAlert.SweetAlertDialog;
 public class MensagensUtil {
 
     private SweetAlertDialog dialogo;
+    private AlertDialog.Builder builder;
 
 
     public MensagensUtil(Context contexto) {
         dialogo = new SweetAlertDialog(contexto);
+        builder = new AlertDialog.Builder(contexto);
     }
 
 
@@ -330,6 +335,20 @@ public class MensagensUtil {
 
         View layout = atividade.findViewById(android.R.id.content);
         Snackbar.make(layout, mensagem, Snackbar.LENGTH_LONG).show();
+    }
+
+
+    public void terminarProgresso(){
+        builder.setView(R.layout.dialogo_progresso);
+        Dialog dialog = builder.create();
+        dialog.dismiss();
+    }
+
+    public void progresso(boolean show, String mensagem){
+        builder.setView(R.layout.dialogo_progresso);
+        Dialog dialog = builder.create();
+        if (show)dialog.show();
+        else dialog.dismiss();
     }
 
 }

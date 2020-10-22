@@ -51,7 +51,7 @@ public class IdentificacaoCliente extends Section {
 
         try {
             CellConfiguration cellConfiguration_11 = (CellConfiguration) cellConfiguration_1.clone();
-            cellConfiguration_11.event = new EspacoPreenchimento();
+            //cellConfiguration_11.event = new EspacoPreenchimento();
 
             CellConfiguration cellConfiguration_l1 [] = {cellConfiguration_1, cellConfiguration_11, cellConfiguration_1, cellConfiguration_11};
 

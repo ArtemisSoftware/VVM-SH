@@ -34,6 +34,13 @@ public class EnvioEmailAsyncTask extends AsyncTask<Email, Void, Void> {
     }
 
     @Override
+    protected void onPreExecute() {
+
+        dialogo.progresso(true, "A enviar o email");
+
+    }
+
+    @Override
     protected Void doInBackground(Email... emails) {
 
         Email email = emails[0];
@@ -118,6 +125,8 @@ public class EnvioEmailAsyncTask extends AsyncTask<Email, Void, Void> {
 
     @Override
     protected void onPostExecute(Void aVoid) {
+
+        dialogo.terminarProgresso();
 
         if(erro != null){
             dialogo.erro("Ocorreu um problema ao enviar o email: " + erro);

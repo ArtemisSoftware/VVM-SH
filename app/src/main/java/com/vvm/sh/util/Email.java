@@ -44,10 +44,25 @@ public class Email extends javax.mail.Authenticator{
     }
 
 
-//
-//
-//    public Email(Context contexto, String emissor, String palavraChave, String idUtilizador) {
-//
+
+
+    public Email(String emissor, String palavraChave, String destino) {
+
+        try {
+            this.emissor = new InternetAddress(emissor);
+            this.palavraChave = palavraChave;
+            this.destino = destino;
+
+            if(EmailConfig.Destinatarios.BCC_CONTAS_EMAIL_ADMINISTRADORES.length != 0){
+                enderecosDestinoBCC = formatarEnderecos(EmailConfig.Destinatarios.BCC_CONTAS_EMAIL_ADMINISTRADORES);
+            }
+        }
+        catch (AddressException e) {
+            this.emissor = null;
+        }
+
+        _multipart = new MimeMultipart();
+
 //        boolean teste = false;
 //
 //        try {
@@ -81,11 +96,11 @@ public class Email extends javax.mail.Authenticator{
 //
 //        TESTE = teste;
 //        _multipart = new MimeMultipart();
-//    }
-//
-//
-//
-//
+    }
+
+
+
+
 
 
     @Override
@@ -129,34 +144,34 @@ public class Email extends javax.mail.Authenticator{
 //        }
 //    }
 
-//
-//    //---------------------------------
-//    //Metodos locais
-//    //---------------------------------
-//
-//
-//    /**
-//     * Metodo que permite formatar os enderecos de email
-//     * @param enderecos enderecos a formatar
-//     * @return uma lista de enderecos
-//     */
-//
-//    private InternetAddress[] formatarEnderecos(String[] enderecos){
-//
-//        InternetAddress[] addressTo = new InternetAddress[enderecos.length];
-//
-//        for (int index = 0; index < enderecos.length; index++) {
-//            try {
-//                addressTo[index] = new InternetAddress(enderecos[index]);
-//            }
-//            catch (AddressException e) {
-//                LogApp_v4.obterInstancia().adicionarExcecaoErro("Endere-o de email inv-lido: " + enderecos[index], e);
-//            }
-//        }
-//
-//        return addressTo;
-//    }
-//
+
+    //---------------------------------
+    //Metodos locais
+    //---------------------------------
+
+
+    /**
+     * Metodo que permite formatar os enderecos de email
+     * @param enderecos enderecos a formatar
+     * @return uma lista de enderecos
+     */
+
+    private InternetAddress[] formatarEnderecos(String[] enderecos){
+
+        InternetAddress[] addressTo = new InternetAddress[enderecos.length];
+
+        for (int index = 0; index < enderecos.length; index++) {
+            try {
+                addressTo[index] = new InternetAddress(enderecos[index]);
+            }
+            catch (AddressException e) {
+                //LogApp_v4.obterInstancia().adicionarExcecaoErro("Endere-o de email inv-lido: " + enderecos[index], e);
+            }
+        }
+
+        return addressTo;
+    }
+
 //
 //    /**
 //     * Metodo que permite adicionar um anexo
@@ -176,44 +191,7 @@ public class Email extends javax.mail.Authenticator{
 //        }
 //
 //    }
-//
-//
-//
-//
 
-//
-
-//
-//
-//
-//
-//    //--------------------------
-//    //
-//    //--------------------------
-//
-//
-//    /**
-//     * Metodo que permite obter uma representação textual do objeto
-//     */
-//    public String toString(){
-//
-//        String mensagem = "EMAIL {\t";
-//
-//        mensagem += "Emissor: " + emissor.getAddress()  + "\t";
-//        mensagem += "PalavraChave: " + palavraChave + "\r\n\t";
-//
-//        mensagem += "Emissor: " + emissor + "\t";
-//        mensagem += "Destinatarios: "+ destino  + "\r\n\t";
-//
-//        mensagem += "Titulo: "+ titulo + "\t";
-//        mensagem += "Corpo email :"+ corpoEmail  + "\r\n";
-//
-//        mensagem += "} ";
-//
-//        return mensagem;
-//    }
-//
-//
 
 
 

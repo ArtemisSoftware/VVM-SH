@@ -10,9 +10,11 @@ import com.google.android.material.button.MaterialButton;
 import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.titan.pdfdocumentlibrary.TestPdfAsyncTask;
 import com.vvm.sh.R;
+import com.vvm.sh.servicos.email.EnvioEmailAsyncTask;
 import com.vvm.sh.ui.BaseActivity;
 import com.vvm.sh.ui.opcoes.TiposActivity;
 import com.vvm.sh.ui.registoVisita.RegistoVisitaActivity;
+import com.vvm.sh.util.Email;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.interfaces.OnPermissaoConcedidaListener;
 import com.vvm.sh.util.metodos.BaseDadosUtil;
@@ -96,8 +98,6 @@ public class OpcoesAvancadasActivity extends BaseActivity {
                         if(ficheiroBd == null)
                             return;
 
-
-                        //TODO: File provider implementar
                         Intent sharingIntent = new Intent(Intent.ACTION_SEND);
                         Uri screenshotUri = DiretoriasUtil.obterUri(OpcoesAvancadasActivity.this, ficheiroBd);
                         sharingIntent.setType("*/*");
@@ -154,5 +154,13 @@ public class OpcoesAvancadasActivity extends BaseActivity {
         PermissoesUtil.pedirPermissoesEscritaLeitura(this, listener);
     }
 
+
+    @OnClick(R.id.lnr_lyt_testar_envio_mail_pdf)
+    public void lnr_lyt_testar_envio_mail_pdf_OnClickListener(View view) {
+
+        Email email = new Email();
+        EnvioEmailAsyncTask servico = new EnvioEmailAsyncTask(OpcoesAvancadasActivity.this);
+        servico.execute(email);
+    }
 
 }

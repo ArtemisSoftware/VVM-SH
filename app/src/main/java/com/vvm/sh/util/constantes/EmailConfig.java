@@ -39,6 +39,14 @@ public class EmailConfig {
 
     }
 
+
+    public static class Destinatarios{
+
+        public final static String BCC_CONTAS_EMAIL_ADMINISTRADORES [] = {/*"patriciacandeias@vivamais.com"*/};
+    }
+
+
+
     /*......................email dos acordos................*/
 
 
@@ -46,7 +54,7 @@ public class EmailConfig {
 
     /*......................email dos acordos................*/
 
-    public String BCC_CONTAS_EMAIL_ADMINISTRADORES [] = {/*"patriciacandeias@vivamais.com"*/};
+
 
     public String CONTAS_EMAIL_DESTINATARIOS_TESTE [] = {"patriciacandeias@vivamais.com", "brunogomes@vivamais.com", };
 

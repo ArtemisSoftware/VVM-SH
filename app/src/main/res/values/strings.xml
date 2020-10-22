@@ -468,4 +468,5 @@
     <string name="selecionar_tudo">Selecionar tudo</string>
     <string name="nao_existem_mais_resultados">Não existem mais resultados</string>
     <string name="teste">Teste</string>
+    <string name="email_pdf">Email com pdf</string>
 </resources>

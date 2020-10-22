@@ -2,6 +2,7 @@ package com.vvm.sh.ui.imagens;
 
 import androidx.lifecycle.MutableLiveData;
 
+import com.vvm.sh.baseDados.entidades.ImagemResultado;
 import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.repositorios.AtividadePendenteRepositorio;
 import com.vvm.sh.repositorios.ImagemRepositorio;
@@ -14,12 +15,18 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+
 public class ImagemViewModel extends BaseViewModel {
 
     private final ImagemRepositorio imagemRepositorio;
 
     public MutableLiveData<List<Tipo>> galerias;
     public MutableLiveData<List<String>> caminhos;
+    public MutableLiveData<List<ImagemResultado>> imagens;
 
     @Inject
     public ImagemViewModel(ImagemRepositorio imagemRepositorio){
@@ -27,8 +34,42 @@ public class ImagemViewModel extends BaseViewModel {
         this.imagemRepositorio = imagemRepositorio;
         galerias = new MutableLiveData<>();
         caminhos = new MutableLiveData<>();
+        imagens = new MutableLiveData<>();
     }
 
+
+    public void obterImagens() {
+
+        imagemRepositorio.obterImagens()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new Observer<List<ImagemResultado>>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onNext(List<ImagemResultado> registos) {
+                                imagens.setValue(registos);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+
+                            @Override
+                            public void onComplete() {
+
+                            }
+                        }
+
+                );
+
+    }
 
 
     //---------------
@@ -69,4 +110,6 @@ public class ImagemViewModel extends BaseViewModel {
     public void obterCaminhoImagens(List<String> filePaths){
         caminhos.setValue(filePaths);
     }
+
+
 }

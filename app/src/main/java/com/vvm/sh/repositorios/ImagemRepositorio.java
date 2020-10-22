@@ -4,6 +4,11 @@ import androidx.annotation.NonNull;
 
 import com.vvm.sh.baseDados.dao.ImagemDao;
 import com.vvm.sh.baseDados.dao.ResultadoDao;
+import com.vvm.sh.baseDados.entidades.ImagemResultado;
+
+import java.util.List;
+
+import io.reactivex.Observable;
 
 public class ImagemRepositorio {
 
@@ -15,5 +20,9 @@ public class ImagemRepositorio {
 
         this.imagemDao = imagemDao;
         this.resultadoDao = resultadoDao;
+    }
+
+    public Observable<List<ImagemResultado>> obterImagens() {
+        return imagemDao.obterImagem();
     }
 }

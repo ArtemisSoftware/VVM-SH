@@ -7,10 +7,12 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.vvm.sh.R;
+import com.vvm.sh.baseDados.entidades.ImagemResultado;
 import com.vvm.sh.ui.agenda.adaptadores.MarcacaoRecyclerAdapter;
 import com.vvm.sh.ui.agenda.adaptadores.OnAgendaListener;
 import com.vvm.sh.ui.agenda.modelos.Marcacao;
 import com.vvm.sh.ui.imagens.adaptadores.BibliotecaAdapter;
+import com.vvm.sh.ui.imagens.adaptadores.ImagemRecyclerAdapter;
 
 import java.util.List;
 
@@ -42,6 +44,32 @@ public class ImagemBinding {
 
     }
 
+
+    @BindingAdapter({"imagens"})
+    public static void setTarefas(RecyclerView view, List<ImagemResultado> items/*, OnAgendaListener listener*/) {
+
+        if(items == null){
+            return;
+        }
+
+        RecyclerView.LayoutManager layoutManager = view.getLayoutManager();
+
+        if(layoutManager == null){
+            view.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        }
+
+        ImagemRecyclerAdapter adapter = (ImagemRecyclerAdapter) view.getAdapter();
+
+        if(adapter == null){
+            adapter = new ImagemRecyclerAdapter(view.getContext(), items/*, listener*/);
+
+            view.setAdapter(adapter);
+        }
+        else{
+            adapter.atualizar(items);
+        }
+
+    }
 
 
 }

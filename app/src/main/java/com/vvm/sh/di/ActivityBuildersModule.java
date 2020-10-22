@@ -92,6 +92,7 @@ import com.vvm.sh.ui.atividadesPendentes.relatorios.propostaPlanoAccao.PropostaP
 import com.vvm.sh.ui.atividadesPendentes.relatorios.trabalhadoresVulneraveis.TrabalhadorVulneravelRegistoActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.trabalhadoresVulneraveis.TrabalhadoresVulneraveisActivity;
 import com.vvm.sh.ui.imagens.BibliotecaImagensActivity;
+import com.vvm.sh.ui.imagens.ImagensActivity;
 import com.vvm.sh.ui.pesquisa.PesquisaMedidasActivity;
 import com.vvm.sh.ui.planoAccao.PlanoAccaoActivity;
 import com.vvm.sh.ui.registoVisita.DadosClienteActivity;
@@ -695,4 +696,11 @@ public abstract class ActivityBuildersModule {
             modules = { ImagensViewModelsModule.class, ImagensModule.class }
     )
     abstract BibliotecaImagensActivity contributeBibliotecaImagensActivity();
+
+
+    @ImagensScope
+    @ContributesAndroidInjector(
+            modules = { ImagensViewModelsModule.class, ImagensModule.class }
+    )
+    abstract ImagensActivity contributeImagensActivity();
 }

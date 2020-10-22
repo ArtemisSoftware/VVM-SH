@@ -4,9 +4,7 @@
 
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
-
-
+    <uses-permission android:name="android.permission.CAMERA" />
 
     <application
         android:name=".App"
@@ -18,9 +16,11 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.atividadesPendentes.relatorios.levantamentos.RelatorioLevantamentoActivity"
+        <activity android:name=".ui.imagens.BibliotecaImagensActivity"></activity>
+        <activity
+            android:name=".ui.atividadesPendentes.relatorios.levantamentos.RelatorioLevantamentoActivity"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.NoActionBar"/>
+            android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.atividadesPendentes.relatorios.averiguacao.AveriguacaoListagemActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -203,7 +203,6 @@
             android:screenOrientation="landscape"
             android:theme="@style/FinestWebViewTheme.Light" />
 
-
         <provider
             android:name=".util.GenericFileProvider"
             android:authorities="${applicationId}.provider"
@@ -211,7 +210,7 @@
             android:grantUriPermissions="true">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
-                android:resource="@xml/provider_paths"/>
+                android:resource="@xml/provider_paths" />
         </provider>
     </application>
 

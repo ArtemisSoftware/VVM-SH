@@ -51,7 +51,7 @@ public class IdentificacaoCliente extends Section {
 
         try {
             CellConfiguration cellConfiguration_11 = (CellConfiguration) cellConfiguration_1.clone();
-            //cellConfiguration_11.event = new EspacoPreenchimento();
+            //--cellConfiguration_11.event = new EspacoPreenchimento();
 
             CellConfiguration cellConfiguration_l1 [] = {cellConfiguration_1, cellConfiguration_11, cellConfiguration_1, cellConfiguration_11};
 
@@ -66,45 +66,45 @@ public class IdentificacaoCliente extends Section {
 
 
             table.addLine(linha, cellConfiguration_11, 1);
-//
-//
-//            //empresa
-//
-//            CellConfiguration cellConfiguration_2 = new CellConfiguration();
-//            cellConfiguration_2.verticalAlign = Element.ALIGN_MIDDLE;
-//            cellConfiguration_2.horizontalAlign = Element.ALIGN_LEFT;
-//            cellConfiguration_2.colSpan = 3;
-//            cellConfiguration_2.event = new EspacoPreenchimento();
-//
-//            CellConfiguration dimensoes [] = {cellConfiguration_1, cellConfiguration_2};
-//
-//
-//            linha = new Phrase []{
-//                    new Phrase(Pdf.Texto.EMPRESA, fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO)),
-//                    new Phrase(registo.cliente.nome, fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO_GRANDE))
-//            };
-//
-//            table.addLine(linha, dimensoes, 1);
-//
-//
-//
-//            //recebido por + funcao
-//
-//            linha = new Phrase []{
-//                    new Phrase(Pdf.Texto.RECEBIDO_POR, fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO)),
-//                    new Phrase(registo.registo.recebidoPor, fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO_GRANDE)),
-//
-//                    new Phrase(Pdf.Texto.FUNCAO, fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO)),
-//                    new Phrase(registo.registo.funcao, fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO_GRANDE))
-//            };
-//
-//            table.addLine(linha, cellConfiguration_l1, 1);
-//
-//
-//            CellConfiguration cellConfiguration_3 = new CellConfiguration();
-//            cellConfiguration_3.border = 0;
-//            cellConfiguration_3.setOverLapColor(Pdf.Cores.TINTA_CINZENTA, false);
-//            table.formatBorder(cellConfiguration_3);
+
+
+            //empresa
+
+            CellConfiguration cellConfiguration_2 = new CellConfiguration();
+            cellConfiguration_2.verticalAlign = Element.ALIGN_MIDDLE;
+            cellConfiguration_2.horizontalAlign = Element.ALIGN_LEFT;
+            cellConfiguration_2.colSpan = 3;
+            //--cellConfiguration_2.event = new EspacoPreenchimento();
+
+            CellConfiguration dimensoes [] = {cellConfiguration_1, cellConfiguration_2};
+
+
+            linha = new Phrase []{
+                    new Phrase(Pdf.Texto.EMPRESA, fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO)),
+                    new Phrase(registo.cliente.nome, fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO_GRANDE))
+            };
+
+            table.addLine(linha, dimensoes, 1);
+
+
+
+            //recebido por + funcao
+
+            linha = new Phrase []{
+                    new Phrase(Pdf.Texto.RECEBIDO_POR, fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO)),
+                    new Phrase(registo.registo.recebidoPor, fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO_GRANDE)),
+
+                    new Phrase(Pdf.Texto.FUNCAO, fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO)),
+                    new Phrase(registo.registo.funcao, fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO_GRANDE))
+            };
+
+            table.addLine(linha, cellConfiguration_l1, 1);
+
+
+            CellConfiguration cellConfiguration_3 = new CellConfiguration();
+            cellConfiguration_3.border = 0;
+            cellConfiguration_3.setOverLapColor(Pdf.Cores.TINTA_CINZENTA, false);
+            table.formatBorder(cellConfiguration_3);
 
         }
         catch (PdfLineException | CloneNotSupportedException e) {

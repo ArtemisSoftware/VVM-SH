@@ -48,10 +48,26 @@ public class PermissoesUtil {
 
 
 
+    private static final String[] PERMISSOES_IMAGEM = new String[]{
+            Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE
+    };
+
+
+    /**
+     * Metodo que permite pedir as permissoes para imagens
+     * @param contexto
+     * @param listener interface a executar quando a permissao é concedida
+     */
+    public static void pedirPermissoesImagem(final Activity contexto, OnPermissaoConcedidaListener listener) {
+        pedirPermissoesApp(contexto, PERMISSOES_IMAGEM, listener);
+    }
+
+
     private static final String[] PERMISSOES_APP = new String[]{
 
             Manifest.permission.READ_EXTERNAL_STORAGE,
             Manifest.permission.WRITE_EXTERNAL_STORAGE,
+            Manifest.permission.CAMERA
             //Manifest.permission.ACCESS_FINE_LOCATION
 
     };
@@ -66,11 +82,7 @@ public class PermissoesUtil {
     }
 
 
-/*
-    private static final String[] IMAGE_PERMISSIONS = new String[]{
-            Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE
-    };
-*/
+
 
 
 

@@ -21,7 +21,7 @@ public class DiretoriasUtil {
     public static final String DIRETORIA_PDF = DIRETORIA + "/" + "Pdf";
     public static final String DIRETORIA_LOG = DIRETORIA + "/" + "Logs";
 
-    private static String DIRETORIAS []= {DOWNLOAD, /*DIRETORIA_IMAGENS, */DIRETORIA_PDF, BASE_DADOS/*, DIRETORIA_LOG*/};
+    private static String DIRETORIAS []= {DOWNLOAD, DIRETORIA_IMAGENS, DIRETORIA_PDF, BASE_DADOS/*, DIRETORIA_LOG*/};
 
 
     /**

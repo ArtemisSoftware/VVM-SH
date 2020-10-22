@@ -283,7 +283,29 @@
             </LinearLayout>
 
 
+            <LinearLayout
+                android:id="@+id/lnr_lyt_testar_camera"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="16dp"
+                android:background="@color/branco"
+                android:elevation="0.2dp"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:padding="10dp"
+                app:layout_constraintStart_toStartOf="@+id/textview"
+                app:layout_constraintTop_toBottomOf="@+id/lnr_lyt_testar_envio_mail_pdf">
 
+                <TextView
+                    style="@style/textoDetalhe"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:gravity="center_vertical"
+                    android:drawableRight="@drawable/ic_teste_24"
+                    android:text="@string/camera" />
+            </LinearLayout>
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

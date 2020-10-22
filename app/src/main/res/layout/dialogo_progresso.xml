@@ -14,7 +14,7 @@
     <TextView
         android:layout_width="wrap_content"
         android:text="Loading..."
-        android:textAppearance="?android:textAppearanceSmall"
+        style="@style/textoDetalhe"
         android:layout_gravity="center_vertical"
         android:id="@+id/loading_msg"
         android:layout_toEndOf="@+id/loader"

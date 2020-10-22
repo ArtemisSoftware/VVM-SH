@@ -19,6 +19,7 @@ import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.interfaces.OnPermissaoConcedidaListener;
 import com.vvm.sh.util.metodos.BaseDadosUtil;
 import com.vvm.sh.util.metodos.DiretoriasUtil;
+import com.vvm.sh.util.metodos.ImagemUtil;
 import com.vvm.sh.util.metodos.PermissoesUtil;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
 
@@ -163,4 +164,20 @@ public class OpcoesAvancadasActivity extends BaseActivity {
         servico.execute(email);
     }
 
+
+    @OnClick(R.id.lnr_lyt_testar_camera)
+    public void lnr_lyt_testar_camera_OnClickListener(View view) {
+
+        OnPermissaoConcedidaListener listener = new OnPermissaoConcedidaListener() {
+            @Override
+            public void executar() {
+
+                if(DiretoriasUtil.criarDirectoria(DiretoriasUtil.DIRETORIA_IMAGENS) == true){
+                    ImagemUtil.abrirCamera(OpcoesAvancadasActivity.this);
+                }
+            }
+        };
+
+        PermissoesUtil.pedirPermissoesImagem(this, listener);
+    }
 }

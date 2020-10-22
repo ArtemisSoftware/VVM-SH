@@ -4,6 +4,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 
@@ -14,6 +15,7 @@ import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.adaptadores.OnChecklistListener;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.modelos.Item;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.modelos.Questao;
+import com.vvm.sh.ui.imagens.BibliotecaImagensActivity;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
@@ -148,7 +150,8 @@ public class QuestoesChecklistActivity extends BaseDaggerActivity
 
     @Override
     public void OnGaleriaClick() {
-        //TODO: abrir galeria
+        Intent intent = new Intent(this, BibliotecaImagensActivity.class);
+        startActivity(intent);
     }
 
     @Override

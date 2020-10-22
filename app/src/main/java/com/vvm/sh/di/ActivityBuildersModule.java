@@ -31,6 +31,9 @@ import com.vvm.sh.di.atividadesPendentes.propostaPlanoAcao.PropostaPlanoAcaoView
 import com.vvm.sh.di.atividadesPendentes.trabalhadoresVulneraveis.TrabalhadoresVulneraveisModule;
 import com.vvm.sh.di.atividadesPendentes.trabalhadoresVulneraveis.TrabalhadoresVulneraveisScope;
 import com.vvm.sh.di.atividadesPendentes.trabalhadoresVulneraveis.TrabalhadoresVulneraveisViewModelsModule;
+import com.vvm.sh.di.imagens.ImagensModule;
+import com.vvm.sh.di.imagens.ImagensScope;
+import com.vvm.sh.di.imagens.ImagensViewModelsModule;
 import com.vvm.sh.di.planoAccao.PlanoAccaoModule;
 import com.vvm.sh.di.planoAccao.PlanoAccaoScope;
 import com.vvm.sh.di.planoAccao.PlanoAccaoViewModelsModule;
@@ -88,6 +91,7 @@ import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.RiscosActivity
 import com.vvm.sh.ui.atividadesPendentes.relatorios.propostaPlanoAccao.PropostaPlanoAccaoActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.trabalhadoresVulneraveis.TrabalhadorVulneravelRegistoActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.trabalhadoresVulneraveis.TrabalhadoresVulneraveisActivity;
+import com.vvm.sh.ui.imagens.BibliotecaImagensActivity;
 import com.vvm.sh.ui.pesquisa.PesquisaMedidasActivity;
 import com.vvm.sh.ui.planoAccao.PlanoAccaoActivity;
 import com.vvm.sh.ui.registoVisita.DadosClienteActivity;
@@ -682,4 +686,13 @@ public abstract class ActivityBuildersModule {
     abstract QuadroPessoalActivity contributeQuadroPessoalActivity();
 
 
+    //-----------------
+    //Imagens
+    //-----------------
+
+    @ImagensScope
+    @ContributesAndroidInjector(
+            modules = { ImagensViewModelsModule.class, ImagensModule.class }
+    )
+    abstract BibliotecaImagensActivity contributeBibliotecaImagensActivity();
 }

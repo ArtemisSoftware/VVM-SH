@@ -1,57 +1,85 @@
 package com.vvm.sh.ui.imagens;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
 import android.widget.GridView;
 import android.widget.TextView;
 
+import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.vvm.sh.R;
+import com.vvm.sh.baseDados.entidades.Tipo;
+import com.vvm.sh.databinding.ActivityAtividadesPendentesBinding;
+import com.vvm.sh.databinding.ActivityBibliotecaImagensBinding;
+import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseActivity;
+import com.vvm.sh.ui.BaseDaggerActivity;
+import com.vvm.sh.ui.atividadesPendentes.AtividadesPendentesViewModel;
+import com.vvm.sh.util.metodos.DiretoriasUtil;
+import com.vvm.sh.util.metodos.PreferenciasUtil;
+import com.vvm.sh.util.viewmodel.BaseViewModel;
+
+import java.util.List;
+
+import javax.inject.Inject;
 
 import butterknife.BindView;
 
-public class BibliotecaImagensActivity extends BaseActivity {
+public class BibliotecaImagensActivity extends BaseDaggerActivity {
+
+
+    private ActivityBibliotecaImagensBinding activityBibliotecaImagensBinding;
+
+
+    @Inject
+    ViewModelProviderFactory providerFactory;
+
+
+    private ImagemViewModel viewModel;
+
+
+
 
     @BindView(R.id.gridView)
     GridView gridView;
 
 
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_biblioteca_imagens);
 
-        iniciarBiblioteca();
+    @Override
+    protected void intActivity(Bundle savedInstanceState) {
+
+        viewModel = ViewModelProviders.of(this, providerFactory).get(ImagemViewModel.class);
+
+        activityBibliotecaImagensBinding = (ActivityBibliotecaImagensBinding) activityBinding;
+        activityBibliotecaImagensBinding.setLifecycleOwner(this);
+        activityBibliotecaImagensBinding.setViewmodel(viewModel);
+
+        activityBibliotecaImagensBinding.spnrGaleria.setOnItemSelectedListener(spnr_galeria_ItemSelected);
+
+        subscreverObservadores();
+
+        viewModel.obterDiretoriasImagens();
+    }
+
+    @Override
+    protected int obterLayout() {
+        return R.layout.activity_biblioteca_imagens;
+    }
+
+    @Override
+    protected BaseViewModel obterBaseViewModel() {
+        return viewModel;
+    }
+
+    @Override
+    protected void subscreverObservadores() {
 
     }
 
 
     private void iniciarBiblioteca(){
-//        String rootDir = Environment.getExternalStorageDirectory().getPath();
-//
-//        //check for other folders indide "/storage/emulated/0/pictures"
-//        String picturesDir = rootDir + File.separator + "Pictures";
-//        directories.add(picturesDir);
-//        if (FileSearch.getDirectoryPaths(picturesDir) != null) {
-//            directories = FileSearch.getDirectoryPaths(picturesDir);
-//        }
-//        String cameraDir = rootDir + File.separator + "DCIM" + File.separator + "Camera";
-//        directories.add(cameraDir);
-//
-//        ArrayList<String> directoryNames = new ArrayList<>();
-//        for (int i = 0; i < directories.size(); i++) {
-//            Log.d(TAG, "init: directory: " + directories.get(i));
-//            int index = directories.get(i).lastIndexOf("/");
-//            String string = directories.get(i).substring(index);
-//            directoryNames.add(string);
-//        }
-//
-//        ArrayAdapter<String> adapter = new ArrayAdapter<String>(getActivity(),
-//                android.R.layout.simple_spinner_item, directoryNames);
-//        adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-//        directorySpinner.setAdapter(adapter);
-//
+
 //        directorySpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
 //            @Override
 //            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -73,10 +101,42 @@ public class BibliotecaImagensActivity extends BaseActivity {
     //Metodos locais
     //---------------------
 
-    private void carregarBibliotecas(){
+     private void setupGaleria(String selectedDirectory){
 
+        final List<String> imgURLs = DiretoriasUtil.getFilePaths(selectedDirectory);
+
+        if(imgURLs.size() > 0){
+
+
+
+//            gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+//                @Override
+//                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+//                    Log.d(TAG, "onItemClick: selected an image: " + imgURLs.get(position));
+//
+//                    setImage(imgURLs.get(position), galleryImage);
+//                    mSelectedImage = imgURLs.get(position);
+//                }
+//            });
+        }
     }
 
+
+
+    //-------------------
+    //Eventos
+    //--------------------
+
+
+    MaterialSpinner.OnItemSelectedListener spnr_galeria_ItemSelected = new MaterialSpinner.OnItemSelectedListener() {
+
+        @Override
+        public void onItemSelected(MaterialSpinner view, int position, long id, Object item) {
+
+            Tipo galeria = (Tipo) activityBibliotecaImagensBinding.spnrGaleria.getItems().get(position);
+            //setupGaleria(galeria);
+        }
+    };
 
 
 
@@ -141,39 +201,7 @@ public class BibliotecaImagensActivity extends BaseActivity {
 
 //
 //
-//    private void setupGridView(String selectedDirectory){
-//        Log.d(TAG, "setupGridView: directory chosen: " + selectedDirectory);
-//        final ArrayList<String> imgURLs = FileSearch.getFilePaths(selectedDirectory);
-//
-//        if(imgURLs.size() > 0){
-//            //set the grid column width
-//            int gridWidth = getResources().getDisplayMetrics().widthPixels;
-//            int imageWidth = gridWidth/NUM_GRID_COLUMNS;
-//            gridView.setColumnWidth(imageWidth);
-//
-//            //use the grid adapter to adapter the images to gridview
-//            GridImageAdapter adapter = new GridImageAdapter(getActivity(), R.layout.layout_grid_imageview, imgURLs);
-//            gridView.setAdapter(adapter);
-//
-//            //set the first image to be displayed when the activity fragment view is inflated
-//            try{
-//                setImage(imgURLs.get(0), galleryImage);
-//                mSelectedImage = imgURLs.get(0);
-//            }catch (ArrayIndexOutOfBoundsException e){
-//                Log.e(TAG, "setupGridView: ArrayIndexOutOfBoundsException: " +e.getMessage() );
-//            }
-//
-//            gridView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//                @Override
-//                public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-//                    Log.d(TAG, "onItemClick: selected an image: " + imgURLs.get(position));
-//
-//                    setImage(imgURLs.get(position), galleryImage);
-//                    mSelectedImage = imgURLs.get(position);
-//                }
-//            });
-//        }
-//    }
+
 //
 //
 //    private void setImage(String imgURL, ImageView imageView){

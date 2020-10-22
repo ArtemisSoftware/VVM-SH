@@ -11,6 +11,8 @@ import androidx.core.content.FileProvider;
 import com.vvm.sh.BuildConfig;
 
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 
 public class DiretoriasUtil {
 
@@ -160,5 +162,56 @@ public class DiretoriasUtil {
         return new File(obterCaminho(diretoria));
     }
 
+
+
+    /**
+     *  Metodo que pesquisa uma diretoria e retorna uma lista das suas sub diretorias
+     * @param diretoria
+     * @return
+     */
+    public static List<String> getDirectoryPaths(String diretoria){
+        List<String> pathArray = new ArrayList<>();
+        File file = null;
+        File[] listfiles = null;
+        try{
+            file = new File(diretoria);
+            listfiles = file.listFiles();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        try{
+            for(int i = 0; i < listfiles.length; i++){
+                if(listfiles[i].isDirectory()){
+                    pathArray.add(listfiles[i].getAbsolutePath());
+                }
+            }
+        }catch (NullPointerException e){
+            e.printStackTrace();
+        }
+        return pathArray;
+    }
+
+
+    public static List<String> getFilePaths(String directory){
+        List<String> pathArray = new ArrayList<>();
+        File file = null;
+        File[] listfiles = null;
+        try{
+            file = new File(directory);
+            listfiles = file.listFiles();
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        try{
+            for(int i = 0; i < listfiles.length; i++){
+                if(listfiles[i].isFile()){
+                    pathArray.add(listfiles[i].getAbsolutePath());
+                }
+            }
+        }catch (NullPointerException e){
+            e.printStackTrace();
+        }
+        return pathArray;
+    }
 
 }

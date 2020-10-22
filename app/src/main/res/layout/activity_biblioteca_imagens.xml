@@ -1,43 +1,107 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent">
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="java.util.List"/>
+
+
+        <variable
+            name="viewmodel"
+            type="com.vvm.sh.ui.imagens.ImagemViewModel"/>
+
+    </data>
+
+
 
     <RelativeLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/relLayout1">
-
-        <!-- gallery toolbar
-        <include layout="@layout/layout_gallerytoolbar"/>
--->
-    </RelativeLayout>
-
-
-    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:weightSum="100"
-        android:orientation="vertical"
-        android:layout_below="@id/relLayout1">
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/relLayout1">
+
+            <com.google.android.material.appbar.AppBarLayout
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:background="@color/cor_branco">
+
+                <androidx.appcompat.widget.Toolbar
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:id="@+id/profileToolBar">
+
+                    <RelativeLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent">
+
+                        <com.jaredrummler.materialspinner.MaterialSpinner
+                            android:id="@+id/spnr_galeria"
+                            android:layout_centerVertical="true"
+                            android:gravity="center_vertical"
+                            app:tipos_="@{viewmodel.galerias}"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:hint="@string/email"/>
 
 
 
-        <GridView
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="@string/gravar"
+                            android:layout_alignParentRight="true"
+                            android:layout_marginRight="15dp"
+                            android:textSize="20sp"
+                            android:textColor="@color/bg_screen2"
+                            android:layout_centerVertical="true"
+                            android:id="@+id/choose"
+                            />
+
+
+
+
+                    </RelativeLayout>
+
+
+                </androidx.appcompat.widget.Toolbar>
+
+
+
+            </com.google.android.material.appbar.AppBarLayout>
+        </RelativeLayout>
+
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:id="@+id/gridView"
-            android:numColumns="3"
-            android:verticalSpacing="1.5dp"
-            android:horizontalSpacing="1.5dp"
-            android:stretchMode="none"
-            android:gravity="center"
-            android:layout_marginTop="1dp">
+            android:weightSum="100"
+            android:orientation="vertical"
+            android:layout_below="@id/relLayout1">
 
 
 
-        </GridView>
+            <GridView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:id="@+id/gridView"
+                android:numColumns="3"
+                android:verticalSpacing="1.5dp"
+                android:horizontalSpacing="1.5dp"
+                android:stretchMode="none"
+                android:gravity="center"
+                android:layout_marginTop="1dp">
 
-    </LinearLayout>
 
-</RelativeLayout>
+
+            </GridView>
+
+        </LinearLayout>
+
+    </RelativeLayout>
+</layout>

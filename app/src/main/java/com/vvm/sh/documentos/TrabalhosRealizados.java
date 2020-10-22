@@ -83,9 +83,9 @@ public class TrabalhosRealizados extends Section {
         }
 
         CellConfiguration formato_tabela = new CellConfiguration();
-        //formato_tabela.border = 0;
-//        formato_tabela.setOverLapColor(BaseColor.WHITE, false);
-        table.formatBorder(formato_tabela);
+        formato_tabela.border = 0;
+        formato_tabela.setOverLapColor(BaseColor.WHITE, false);
+        table.formatCells(formato_tabela);
 
     }
 }

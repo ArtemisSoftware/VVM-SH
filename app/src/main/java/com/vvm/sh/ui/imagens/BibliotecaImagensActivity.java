@@ -134,6 +134,7 @@ public class BibliotecaImagensActivity extends BaseDaggerActivity {
         public void onItemSelected(MaterialSpinner view, int position, long id, Object item) {
 
             Tipo galeria = (Tipo) activityBibliotecaImagensBinding.spnrGaleria.getItems().get(position);
+            viewModel.obterCaminhoImagens(DiretoriasUtil.getFilePaths(galeria.codigo));
             //setupGaleria(galeria);
         }
     };

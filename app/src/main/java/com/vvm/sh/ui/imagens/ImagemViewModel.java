@@ -19,12 +19,14 @@ public class ImagemViewModel extends BaseViewModel {
     private final ImagemRepositorio imagemRepositorio;
 
     public MutableLiveData<List<Tipo>> galerias;
+    public MutableLiveData<List<String>> caminhos;
 
     @Inject
     public ImagemViewModel(ImagemRepositorio imagemRepositorio){
 
         this.imagemRepositorio = imagemRepositorio;
         galerias = new MutableLiveData<>();
+        caminhos = new MutableLiveData<>();
     }
 
 
@@ -63,4 +65,8 @@ public class ImagemViewModel extends BaseViewModel {
 
     }
 
+
+    public void obterCaminhoImagens(List<String> filePaths){
+        caminhos.setValue(filePaths);
+    }
 }

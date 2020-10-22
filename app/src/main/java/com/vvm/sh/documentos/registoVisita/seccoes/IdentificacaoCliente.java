@@ -51,7 +51,7 @@ public class IdentificacaoCliente extends Section {
 
         try {
             CellConfiguration cellConfiguration_11 = (CellConfiguration) cellConfiguration_1.clone();
-            //--cellConfiguration_11.event = new EspacoPreenchimento();
+            //cellConfiguration_11.event = new EspacoPreenchimento();
 
             CellConfiguration cellConfiguration_l1 [] = {cellConfiguration_1, cellConfiguration_11, cellConfiguration_1, cellConfiguration_11};
 
@@ -74,7 +74,7 @@ public class IdentificacaoCliente extends Section {
             cellConfiguration_2.verticalAlign = Element.ALIGN_MIDDLE;
             cellConfiguration_2.horizontalAlign = Element.ALIGN_LEFT;
             cellConfiguration_2.colSpan = 3;
-            //--cellConfiguration_2.event = new EspacoPreenchimento();
+            cellConfiguration_2.event = new EspacoPreenchimento();
 
             CellConfiguration dimensoes [] = {cellConfiguration_1, cellConfiguration_2};
 
@@ -104,7 +104,7 @@ public class IdentificacaoCliente extends Section {
             CellConfiguration cellConfiguration_3 = new CellConfiguration();
             cellConfiguration_3.border = 0;
             cellConfiguration_3.setOverLapColor(Pdf.Cores.TINTA_CINZENTA, false);
-            table.formatBorder(cellConfiguration_3);
+            table.formatCells(cellConfiguration_3);
 
         }
         catch (PdfLineException | CloneNotSupportedException e) {

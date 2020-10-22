@@ -10,6 +10,7 @@ import com.vvm.sh.R;
 import com.vvm.sh.ui.agenda.adaptadores.MarcacaoRecyclerAdapter;
 import com.vvm.sh.ui.agenda.adaptadores.OnAgendaListener;
 import com.vvm.sh.ui.agenda.modelos.Marcacao;
+import com.vvm.sh.ui.imagens.adaptadores.BibliotecaAdapter;
 
 import java.util.List;
 
@@ -31,17 +32,14 @@ public class ImagemBinding {
 //        //use the grid adapter to adapter the images to gridview
 //        GridImageAdapter adapter = new GridImageAdapter(getActivity(), R.layout.layout_grid_imageview, imgURLs);
 //        gridView.setAdapter(adapter);
-//
-//        MarcacaoRecyclerAdapter adapter = (MarcacaoRecyclerAdapter) view.getAdapter();
-//
-//        if(adapter == null){
-//            adapter = new MarcacaoRecyclerAdapter(view.getContext(), items, listener);
-//
-//            view.setAdapter(adapter);
-//        }
-//        else{
-//            adapter.atualizar(items);
-//        }
+
+        BibliotecaAdapter adapter = (BibliotecaAdapter) view.getAdapter();
+
+        if(adapter == null){
+            adapter = new BibliotecaAdapter(view.getContext(), items);
+            view.setAdapter(adapter);
+        }
+
     }
 
 

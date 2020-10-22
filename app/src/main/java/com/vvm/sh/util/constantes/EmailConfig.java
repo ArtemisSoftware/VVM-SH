@@ -3,24 +3,45 @@ package com.vvm.sh.util.constantes;
 public class EmailConfig {
 
 
+    /**
+     * Variaveis para um email de teste
+     */
+    public static class Teste{
+
+        public final static String EMISSOR = "gustavomaia@vivamais.com";
+        public final static String PALAVRA_CHAVE= "psyduckz";
+    }
+
+
+    public static class Configuracao{
+
+        public final static String CABECALHO_TIPO_CONTEUDO =  "Content-Type";
+        public final static String CABECALHO_FORMATO_DADOS =  "text/plain; charset=UTF-8";
+        public final static String CODIFICACAO_CORPO_EMAIL =  "UTF-8";
+        public final static String TIPO_CORPO_EMAIL =  "html";
+
+
+        /**
+         * Servidor smtp por omissão
+         */
+        public final static String SERVIDOR_SMTP = "smtp.gmail.com";
+
+        /**
+         * Porto smtp por omissão
+         */
+        public final static String PORTO_EMAIL = "465";//"587";
+
+
+        /**
+         * Porto socketfactory por omissão (default socketfactory port )
+         */
+        public final static String PORTO_SOCKET_EMAIL =  "465";//"587";
+
+    }
 
     /*......................email dos acordos................*/
 
-    /**
-     * Servidor smtp por omissão
-     */
-    public String SERVIDOR_SMTP = "smtp.gmail.com";
 
-    /**
-     * Porto smtp por omissão
-     */
-    public String PORTO_EMAIL = "465";//"587";
-
-
-    /**
-     * Porto socketfactory por omissão (default socketfactory port )
-     */
-    public String PORTO_SOCKET_EMAIL =  "465";//"587";
 
 
     /*......................email dos acordos................*/
@@ -40,10 +61,7 @@ public class EmailConfig {
     public String PALAVRAS_CHAVE = "Documentos_SST2";
 
 
-    /*......................variaveis para um email de teste................*/
 
-    public String EMISSOR_TESTE = "gustavomaia@vivamais.com";
-    public String PALAVRA_CHAVE_TESTE = "psyduckz";
 
 
     //public String EMISSOR_TESTE = "gustavo.isaac@b2b.com.pt";
@@ -65,8 +83,6 @@ public class EmailConfig {
     public String MIME_TIPO_PLAIN_TEXT = "plain/text";
     public String MIME_TIPO_TEXT_PLAIN = "text/plain";
 
-    public String CABECALHO_EMAIL__CONTEUDO =  "Content-Type";
-    public String CABECALHO_EMAIL__FORMATACAO_DADOS =  "text/plain; charset=UTF-8";
-    public String CODIFICACAO_CORPO_EMAIL =  "UTF-8";
-    public String TIPO_CORPO_EMAIL =  "html";
+
+
 }

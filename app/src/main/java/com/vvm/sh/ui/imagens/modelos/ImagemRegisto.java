@@ -4,7 +4,6 @@ import androidx.room.ColumnInfo;
 import androidx.room.Embedded;
 
 import com.vvm.sh.baseDados.entidades.ImagemResultado;
-import com.vvm.sh.baseDados.entidades.Tipo;
 
 public class ImagemRegisto {
 

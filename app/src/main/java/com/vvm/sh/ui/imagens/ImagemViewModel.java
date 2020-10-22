@@ -6,6 +6,7 @@ import com.vvm.sh.baseDados.entidades.ImagemResultado;
 import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.repositorios.AtividadePendenteRepositorio;
 import com.vvm.sh.repositorios.ImagemRepositorio;
+import com.vvm.sh.ui.imagens.modelos.ImagemRegisto;
 import com.vvm.sh.util.metodos.DiretoriasUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
@@ -26,7 +27,7 @@ public class ImagemViewModel extends BaseViewModel {
 
     public MutableLiveData<List<Tipo>> galerias;
     public MutableLiveData<List<String>> caminhos;
-    public MutableLiveData<List<ImagemResultado>> imagens;
+    public MutableLiveData<List<ImagemRegisto>> imagens;
 
     @Inject
     public ImagemViewModel(ImagemRepositorio imagemRepositorio){
@@ -48,14 +49,14 @@ public class ImagemViewModel extends BaseViewModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
 
-                        new Observer<List<ImagemResultado>>() {
+                        new Observer<List<ImagemRegisto>>() {
                             @Override
                             public void onSubscribe(Disposable d) {
                                 disposables.add(d);
                             }
 
                             @Override
-                            public void onNext(List<ImagemResultado> registos) {
+                            public void onNext(List<ImagemRegisto> registos) {
                                 imagens.setValue(registos);
                             }
 

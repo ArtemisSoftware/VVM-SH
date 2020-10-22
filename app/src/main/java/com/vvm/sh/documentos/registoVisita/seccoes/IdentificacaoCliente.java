@@ -50,8 +50,11 @@ public class IdentificacaoCliente extends Section {
         cellConfiguration_1.height = Pdf.RegistoVisita.ALTURA_LINHA___TABELA_IDENTIFICACAO_CLIENTE;
 
         try {
-            CellConfiguration cellConfiguration_11 = (CellConfiguration) cellConfiguration_1.clone();
-            //cellConfiguration_11.event = new EspacoPreenchimento();
+            CellConfiguration cellConfiguration_11 = new CellConfiguration();
+            cellConfiguration_11.verticalAlign = Element.ALIGN_MIDDLE;
+            cellConfiguration_11.horizontalAlign = Element.ALIGN_LEFT;
+            cellConfiguration_11.height = Pdf.RegistoVisita.ALTURA_LINHA___TABELA_IDENTIFICACAO_CLIENTE;
+            cellConfiguration_11.event = new EspacoPreenchimento();
 
             CellConfiguration cellConfiguration_l1 [] = {cellConfiguration_1, cellConfiguration_11, cellConfiguration_1, cellConfiguration_11};
 
@@ -107,7 +110,7 @@ public class IdentificacaoCliente extends Section {
             table.formatCells(cellConfiguration_3);
 
         }
-        catch (PdfLineException | CloneNotSupportedException e) {
+        catch (PdfLineException  e) {
             e.printStackTrace();
         }
     }

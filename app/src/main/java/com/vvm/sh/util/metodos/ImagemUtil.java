@@ -12,6 +12,8 @@ import android.util.Base64;
 
 import androidx.core.content.FileProvider;
 
+import com.vvm.sh.util.constantes.ImagemConstantes;
+
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.text.SimpleDateFormat;
@@ -63,6 +65,22 @@ public class ImagemUtil {
 
     public static void abrirCamera(Activity contexto){
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+
+
+        cameraIntent.putExtra(ImagemConstantes.INTENT_IMAGE_PICKER_OPTION, ImagemConstantes.REQUEST_IMAGE_CAPTURE);
+
+        // setting aspect ratio
+        cameraIntent.putExtra(ImagemConstantes.INTENT_LOCK_ASPECT_RATIO, true);
+        cameraIntent.putExtra(ImagemConstantes.INTENT_ASPECT_RATIO_X, 1); // 16x9, 1x1, 3:4, 3:2
+        cameraIntent.putExtra(ImagemConstantes.INTENT_ASPECT_RATIO_Y, 1);
+
+        // setting maximum bitmap width and height
+        cameraIntent.putExtra(ImagemConstantes.INTENT_SET_BITMAP_MAX_WIDTH_HEIGHT, true);
+        cameraIntent.putExtra(ImagemConstantes.INTENT_BITMAP_MAX_WIDTH, 1000);
+        cameraIntent.putExtra(ImagemConstantes.INTENT_BITMAP_MAX_HEIGHT, 1000);
+
+
+
 
         Uri mOutputUri = FileProvider.getUriForFile(
                 contexto,

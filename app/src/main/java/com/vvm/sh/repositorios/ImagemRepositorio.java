@@ -5,6 +5,7 @@ import androidx.annotation.NonNull;
 import com.vvm.sh.baseDados.dao.ImagemDao;
 import com.vvm.sh.baseDados.dao.ResultadoDao;
 import com.vvm.sh.baseDados.entidades.ImagemResultado;
+import com.vvm.sh.ui.imagens.modelos.ImagemRegisto;
 
 import java.util.List;
 
@@ -22,7 +23,7 @@ public class ImagemRepositorio {
         this.resultadoDao = resultadoDao;
     }
 
-    public Observable<List<ImagemResultado>> obterImagens() {
+    public Observable<List<ImagemRegisto>> obterImagens() {
         return imagemDao.obterImagem();
     }
 }

@@ -1,12 +1,19 @@
 package com.vvm.sh.databinding;
 
+import android.content.Context;
+import android.graphics.Bitmap;
 import android.widget.GridView;
+import android.widget.ImageView;
 
 import androidx.databinding.BindingAdapter;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
+import com.bumptech.glide.Glide;
+import com.bumptech.glide.request.RequestOptions;
+import com.bumptech.glide.request.target.SimpleTarget;
+import com.bumptech.glide.request.transition.Transition;
 import com.vvm.sh.R;
 import com.vvm.sh.baseDados.entidades.ImagemResultado;
 import com.vvm.sh.ui.agenda.adaptadores.MarcacaoRecyclerAdapter;
@@ -14,6 +21,7 @@ import com.vvm.sh.ui.agenda.adaptadores.OnAgendaListener;
 import com.vvm.sh.ui.agenda.modelos.Marcacao;
 import com.vvm.sh.ui.imagens.adaptadores.BibliotecaAdapter;
 import com.vvm.sh.ui.imagens.adaptadores.ImagemRecyclerAdapter;
+import com.vvm.sh.ui.imagens.modelos.ImagemRegisto;
 
 import java.util.List;
 
@@ -47,7 +55,7 @@ public class ImagemBinding {
 
 
     @BindingAdapter({"imagens"})
-    public static void setImagens(RecyclerView view, List<ImagemResultado> items/*, OnAgendaListener listener*/) {
+    public static void setImagens(RecyclerView view, List<ImagemRegisto> items/*, OnAgendaListener listener*/) {
 
         if(items == null){
             return;
@@ -71,6 +79,30 @@ public class ImagemBinding {
         }
 
     }
+
+
+
+    @BindingAdapter({"imagemL"})
+    public static void setImagem(ImageView view, byte[] imagem) {
+
+        Context context = view.getContext();
+
+        RequestOptions options = new RequestOptions()
+                //.placeholder(defaultImageUrl)
+                .error(R.drawable.ic_launcher_foreground);
+
+        Glide.with(context)
+                //.setDefaultRequestOptions(options)
+                .asBitmap()
+                .load(imagem)
+                .into(view);
+
+
+
+    }
+
+
+
 
 
 }

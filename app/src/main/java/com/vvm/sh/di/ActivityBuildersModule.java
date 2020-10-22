@@ -72,7 +72,6 @@ import com.vvm.sh.ui.atividadesPendentes.relatorios.averiguacao.AveriguacaoActiv
 import com.vvm.sh.ui.atividadesPendentes.relatorios.averiguacao.AveriguacaoListagemActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.averiguacao.DialogoAveriguacao;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.ChecklistActivity;
-import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.ChecklistViewModel;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.DialogoArea;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.DialogoChecklist;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.DialogoPergunta;
@@ -92,7 +91,7 @@ import com.vvm.sh.ui.atividadesPendentes.relatorios.propostaPlanoAccao.PropostaP
 import com.vvm.sh.ui.atividadesPendentes.relatorios.trabalhadoresVulneraveis.TrabalhadorVulneravelRegistoActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.trabalhadoresVulneraveis.TrabalhadoresVulneraveisActivity;
 import com.vvm.sh.ui.imagens.BibliotecaImagensActivity;
-import com.vvm.sh.ui.imagens.ImagensActivity;
+import com.vvm.sh.ui.imagens.GaleriaActivity;
 import com.vvm.sh.ui.pesquisa.PesquisaMedidasActivity;
 import com.vvm.sh.ui.planoAccao.PlanoAccaoActivity;
 import com.vvm.sh.ui.registoVisita.DadosClienteActivity;
@@ -702,5 +701,5 @@ public abstract class ActivityBuildersModule {
     @ContributesAndroidInjector(
             modules = { ImagensViewModelsModule.class, ImagensModule.class }
     )
-    abstract ImagensActivity contributeImagensActivity();
+    abstract GaleriaActivity contributeImagensActivity();
 }

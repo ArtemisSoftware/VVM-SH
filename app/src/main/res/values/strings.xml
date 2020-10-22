@@ -470,4 +470,8 @@
     <string name="teste">Teste</string>
     <string name="email_pdf">Email com pdf</string>
     <string name="camera">Camera</string>
+    <string name="intent_indisponivel">Intent indisponível</string>
+    <string name="abrir_camera">Abrir camera</string>
+    <string name="abrir_galeria">Abrir galeria</string>
+    <string name="imagem">Imagem</string>
 </resources>

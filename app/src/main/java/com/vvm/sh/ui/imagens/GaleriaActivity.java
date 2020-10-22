@@ -1,23 +1,21 @@
 package com.vvm.sh.ui.imagens;
 
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
 
 import com.vvm.sh.R;
-import com.vvm.sh.databinding.ActivityBibliotecaImagensBinding;
-import com.vvm.sh.databinding.ActivityImagensBinding;
+import com.vvm.sh.databinding.ActivityGaleriaBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import javax.inject.Inject;
 
-public class ImagensActivity extends BaseDaggerActivity {
+public class GaleriaActivity extends BaseDaggerActivity {
 
 
-    private ActivityImagensBinding activityImagensBinding;
+    private ActivityGaleriaBinding activityGaleriaBinding;
 
 
     @Inject
@@ -32,9 +30,9 @@ public class ImagensActivity extends BaseDaggerActivity {
 
         viewModel = ViewModelProviders.of(this, providerFactory).get(ImagemViewModel.class);
 
-        activityImagensBinding = (ActivityImagensBinding) activityBinding;
-        activityImagensBinding.setLifecycleOwner(this);
-        activityImagensBinding.setViewmodel(viewModel);
+        activityGaleriaBinding = (ActivityGaleriaBinding) activityBinding;
+        activityGaleriaBinding.setLifecycleOwner(this);
+        activityGaleriaBinding.setViewmodel(viewModel);
 
 
         subscreverObservadores();
@@ -44,7 +42,7 @@ public class ImagensActivity extends BaseDaggerActivity {
 
     @Override
     protected int obterLayout() {
-        return R.layout.activity_imagens;
+        return R.layout.activity_galeria;
     }
 
     @Override

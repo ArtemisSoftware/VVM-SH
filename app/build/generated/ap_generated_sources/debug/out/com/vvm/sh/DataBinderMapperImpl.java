@@ -406,7 +406,7 @@ public class DataBinderMapperImpl extends DataBinderMapper {
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.vvm.sh.R.layout.activity_extintores, LAYOUT_ACTIVITYEXTINTORES);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.vvm.sh.R.layout.activity_formacao, LAYOUT_ACTIVITYFORMACAO);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.vvm.sh.R.layout.activity_formando, LAYOUT_ACTIVITYFORMANDO);
-    INTERNAL_LAYOUT_ID_LOOKUP.put(com.vvm.sh.R.layout.activity_imagens, LAYOUT_ACTIVITYIMAGENS);
+    INTERNAL_LAYOUT_ID_LOOKUP.put(com.vvm.sh.R.layout.activity_galeria, LAYOUT_ACTIVITYIMAGENS);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.vvm.sh.R.layout.activity_informacao, LAYOUT_ACTIVITYINFORMACAO);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.vvm.sh.R.layout.activity_levantamentos, LAYOUT_ACTIVITYLEVANTAMENTOS);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.vvm.sh.R.layout.activity_main, LAYOUT_ACTIVITYMAIN);
@@ -1383,7 +1383,7 @@ public class DataBinderMapperImpl extends DataBinderMapper {
       sKeys.put("layout/activity_extintores_0", com.vvm.sh.R.layout.activity_extintores);
       sKeys.put("layout/activity_formacao_0", com.vvm.sh.R.layout.activity_formacao);
       sKeys.put("layout/activity_formando_0", com.vvm.sh.R.layout.activity_formando);
-      sKeys.put("layout/activity_imagens_0", com.vvm.sh.R.layout.activity_imagens);
+      sKeys.put("layout/activity_imagens_0", com.vvm.sh.R.layout.activity_galeria);
       sKeys.put("layout/activity_informacao_0", com.vvm.sh.R.layout.activity_informacao);
       sKeys.put("layout/activity_levantamentos_0", com.vvm.sh.R.layout.activity_levantamentos);
       sKeys.put("layout/activity_main_0", com.vvm.sh.R.layout.activity_main);

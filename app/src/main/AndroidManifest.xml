@@ -16,7 +16,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.imagens.ImagensActivity"></activity>
+        <activity android:name=".ui.imagens.ImagemActivity"></activity>
+        <activity android:name=".ui.imagens.GaleriaActivity" />
         <activity android:name=".ui.imagens.BibliotecaImagensActivity" />
         <activity
             android:name=".ui.atividadesPendentes.relatorios.levantamentos.RelatorioLevantamentoActivity"

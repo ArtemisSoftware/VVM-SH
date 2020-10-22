@@ -24,4 +24,6 @@ public interface OnAtividadePendenteListener {
     void OnIniciarAvaliacaoRiscos(int idAtividade);
 
     void OnIniciarEquipamentos(int idAtividade);
+
+    void OnCapaRelatorio(int idAtividade);
 }

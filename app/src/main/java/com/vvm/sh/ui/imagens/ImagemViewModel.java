@@ -38,6 +38,9 @@ public class ImagemViewModel extends BaseViewModel {
     }
 
 
+    /**
+     * Metodo que permite obter as imagens
+     */
     public void obterImagens() {
 
         imagemRepositorio.obterImagens()

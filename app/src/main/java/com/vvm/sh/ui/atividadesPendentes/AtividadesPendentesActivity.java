@@ -20,6 +20,7 @@ import com.vvm.sh.ui.atividadesPendentes.relatorios.equipamentos.EquipamentosAct
 import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.LevantamentosActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.propostaPlanoAccao.PropostaPlanoAccaoActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.trabalhadoresVulneraveis.TrabalhadoresVulneraveisActivity;
+import com.vvm.sh.ui.imagens.ImagensActivity;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
@@ -199,6 +200,13 @@ public class AtividadesPendentesActivity extends BaseDaggerActivity
     public void OnIniciarEquipamentos(int idAtividade) {
         Intent intent = new Intent(this, EquipamentosActivity.class);
         intent.putExtra(getString(R.string.argumento_id_atividade), idAtividade);
+        startActivity(intent);
+    }
+
+    @Override
+    public void OnCapaRelatorio(int idAtividade) {
+
+        Intent intent = new Intent(this, ImagensActivity.class);
         startActivity(intent);
     }
 

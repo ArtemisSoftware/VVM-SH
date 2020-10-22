@@ -5,6 +5,7 @@ import android.widget.GridView;
 import androidx.databinding.BindingAdapter;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.recyclerview.widget.StaggeredGridLayoutManager;
 
 import com.vvm.sh.R;
 import com.vvm.sh.baseDados.entidades.ImagemResultado;
@@ -46,7 +47,7 @@ public class ImagemBinding {
 
 
     @BindingAdapter({"imagens"})
-    public static void setTarefas(RecyclerView view, List<ImagemResultado> items/*, OnAgendaListener listener*/) {
+    public static void setImagens(RecyclerView view, List<ImagemResultado> items/*, OnAgendaListener listener*/) {
 
         if(items == null){
             return;
@@ -55,7 +56,7 @@ public class ImagemBinding {
         RecyclerView.LayoutManager layoutManager = view.getLayoutManager();
 
         if(layoutManager == null){
-            view.setLayoutManager(new LinearLayoutManager(view.getContext()));
+            view.setLayoutManager(new StaggeredGridLayoutManager(2, LinearLayoutManager.VERTICAL));
         }
 
         ImagemRecyclerAdapter adapter = (ImagemRecyclerAdapter) view.getAdapter();

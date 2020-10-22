@@ -6,12 +6,13 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.vvm.sh.databinding.ItemBibliotecaBinding;
+import com.vvm.sh.databinding.ItemImagemBinding;
 
-public class BibliotecaViewHolder extends RecyclerView.ViewHolder{
+public class ImagemViewHolder extends RecyclerView.ViewHolder{
 
-    ItemBibliotecaBinding binding;
+    ItemImagemBinding binding;
 
-    public BibliotecaViewHolder(View itemView) {
+    public ImagemViewHolder(View itemView) {
         super(itemView);
         binding = DataBindingUtil.bind(itemView);
 

@@ -4,6 +4,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.vvm.sh.baseDados.entidades.AreaChecklist;
 import com.vvm.sh.baseDados.entidades.AreaChecklistResultado;
+import com.vvm.sh.baseDados.entidades.ImagemResultado;
 import com.vvm.sh.baseDados.entidades.QuestionarioChecklistResultado;
 import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.repositorios.ChecklistRepositorio;
@@ -27,6 +28,7 @@ import io.reactivex.SingleObserver;
 import io.reactivex.SingleSource;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
@@ -362,10 +364,48 @@ public class ChecklistViewModel extends BaseViewModel {
     }
 
 
+    /**
+     * Metodo que permite gravar uma imagem
+     * @param idTarefa
+     * @param idAtividade o identificador da atividade
+     * @param resultado os dados da imagem
+     */
+    public void gravar(int idTarefa, int idAtividade, ImagemResultado resultado) {
+
+        checklistRepositorio.inserir(resultado)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new SingleObserver<Long>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onSuccess(Long aLong) {
+                                abaterAtividadePendente(checklistRepositorio.resultadoDao, idTarefa, idAtividade);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+                        }
+                );
+    }
+
     //----------------------
     //REMOVER
     //----------------------
 
+    /**
+     * Metodo que permite remover uma checklist
+     * @param idTarefa
+     * @param idAtividade
+     * @param idNovaChecklist o identificador da nova checklist a substituir a que será removida
+     */
     public void remover(int idTarefa, int idAtividade, int idNovaChecklist) {
 
         checklistRepositorio.removerChecklist(idAtividade)
@@ -394,6 +434,10 @@ public class ChecklistViewModel extends BaseViewModel {
     }
 
 
+    /**
+     * Metodo que permite remover uma area da checklist
+     * @param id o identificador do registo da area
+     */
     public void removerArea(int id) {
 
         checklistRepositorio.removerArea(id)
@@ -401,14 +445,14 @@ public class ChecklistViewModel extends BaseViewModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
 
-                        new SingleObserver<Integer>() {
+                        new SingleObserver<List<Integer>>() {
                             @Override
                             public void onSubscribe(Disposable d) {
-
+                                disposables.add(d);
                             }
 
                             @Override
-                            public void onSuccess(Integer integer) {
+                            public void onSuccess(List<Integer> integers) {
                                 messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_REMOVIDOS_SUCESSO));
                             }
 

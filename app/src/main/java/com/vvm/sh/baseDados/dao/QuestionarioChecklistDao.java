@@ -26,7 +26,7 @@ abstract public class QuestionarioChecklistDao implements BaseDao<QuestionarioCh
             "ut1Descricao, ut2Descricao, " +
             "ut1_CategoriasRisco, ut1_LocalRisco_A, ut1_LocalRisco_B, ut1_LocalRisco_C, ut1_LocalRisco_D, ut1_LocalRisco_E, ut1_LocalRisco_F, " +
             "ut2_CategoriasRisco, ut2_LocalRisco_A, ut2_LocalRisco_B, ut2_LocalRisco_C, ut2_LocalRisco_D, ut2_LocalRisco_E, ut2_LocalRisco_F," +
-            "0 as numeroImagens " +
+            "numeroImagens " +
             "FROM itensChecklist as it_chk " +
 
             "LEFT JOIN ( " +
@@ -52,6 +52,11 @@ abstract public class QuestionarioChecklistDao implements BaseDao<QuestionarioCh
 
             "LEFT JOIN (SELECT id, descricao as ut2Descricao FROM tipos WHERE tipo = '" + TiposUtil.MetodosTipos.TIPOS_UTS + "') as tp_ut_2 " +
             "ON qst.ut2 = tp_ut_2.id " +
+
+
+            "LEFT JOIN (SELECT id, IFNULL(COUNT (idImagem), 0) as numeroImagens FROM imagensResultado WHERE id =:idRegistoArea AND origem = " + Identificadores.Imagens.IMAGEM_CHECKLIST + " GROUP BY id, origem) as img " +
+            "ON area_chk_res.id = img.id " +
+
             "" +
 
 
@@ -69,7 +74,8 @@ abstract public class QuestionarioChecklistDao implements BaseDao<QuestionarioCh
     @Query("DELETE FROM areasChecklistResultado WHERE id = :id")
     abstract public Single<Integer> removerArea(int id);
 
-
+    @Query("DELETE FROM imagensResultado WHERE id = :id AND origem = " + Identificadores.Imagens.IMAGEM_CHECKLIST + "")
+    abstract public Single<Integer> removerImagensArea(int id);
 
 
 
@@ -118,5 +124,8 @@ abstract public class QuestionarioChecklistDao implements BaseDao<QuestionarioCh
 
     @Query("DELETE FROM areasChecklistResultado WHERE idAtividade = :idAtividade")
     abstract public Completable removerArea_Checklist(int idAtividade);
+
+    @Query("DELETE FROM imagensResultado WHERE id IN (SELECT id FROM areasChecklistResultado WHERE idAtividade = :idAtividade)")
+    abstract public Completable removerImagens_Checklist(int idAtividade);
 
 }

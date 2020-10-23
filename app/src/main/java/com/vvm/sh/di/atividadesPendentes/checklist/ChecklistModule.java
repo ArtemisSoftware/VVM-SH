@@ -2,6 +2,7 @@ package com.vvm.sh.di.atividadesPendentes.checklist;
 
 import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.baseDados.dao.AreaChecklistDao;
+import com.vvm.sh.baseDados.dao.ImagemDao;
 import com.vvm.sh.baseDados.dao.PropostaPlanoAcaoDao;
 import com.vvm.sh.baseDados.dao.QuestionarioChecklistDao;
 import com.vvm.sh.baseDados.dao.ResultadoDao;
@@ -41,10 +42,10 @@ public class ChecklistModule {
     @ChecklistScope
     @Provides
     ChecklistRepositorio provideChecklistRepositorio(int idApi, AreaChecklistDao areaChecklistDao, QuestionarioChecklistDao questionarioChecklistDao,
-                                                     PropostaPlanoAcaoDao propostaPlanoAcaoDao,
+                                                     PropostaPlanoAcaoDao propostaPlanoAcaoDao, ImagemDao imagemDao,
                                                      TipoDao tipoDao, ResultadoDao resultadoDao) {
 
-        ChecklistRepositorio repositorio = new ChecklistRepositorio(idApi, areaChecklistDao, questionarioChecklistDao, propostaPlanoAcaoDao, tipoDao, resultadoDao);
+        ChecklistRepositorio repositorio = new ChecklistRepositorio(idApi, areaChecklistDao, questionarioChecklistDao, propostaPlanoAcaoDao, imagemDao, tipoDao, resultadoDao);
 
         //Timber.d("Providing PokemonRepository: " + repository);
         return repositorio;

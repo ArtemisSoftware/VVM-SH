@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.vvm.sh.R;
 import com.vvm.sh.ui.contaUtilizador.OpcoesAvancadasActivity;
+import com.vvm.sh.util.constantes.ImagemConstantes;
 import com.vvm.sh.util.interfaces.OnPermissaoConcedidaListener;
 import com.vvm.sh.util.metodos.DiretoriasUtil;
 import com.vvm.sh.util.metodos.ImagemUtil;
@@ -37,13 +38,12 @@ public class ImagemActivity extends AppCompatActivity {
     public static final String INTENT_BITMAP_MAX_HEIGHT = "max_height";
 
 
-    public static final int REQUEST_IMAGE_CAPTURE = 0;
-    public static final int REQUEST_GALLERY_IMAGE = 1;
 
     private boolean lockAspectRatio = false, setBitmapMaxWidthHeight = false;
     private int ASPECT_RATIO_X = 16, ASPECT_RATIO_Y = 9, bitmapMaxWidth = 1000, bitmapMaxHeight = 1000;
     private int IMAGE_COMPRESSION = 80;
     public static String fileName;
+    public static Uri mOutputUri;
 
     public interface PickerOptionListener {
         void onTakeCameraSelected();
@@ -71,7 +71,7 @@ public class ImagemActivity extends AppCompatActivity {
         bitmapMaxHeight = intent.getIntExtra(INTENT_BITMAP_MAX_HEIGHT, bitmapMaxHeight);
 
         int requestCode = intent.getIntExtra(INTENT_IMAGE_PICKER_OPTION, -1);
-        if (requestCode == REQUEST_IMAGE_CAPTURE) {
+        if (requestCode == ImagemConstantes.REQUEST_IMAGE_CAPTURE) {
             takeCameraImage();
         } else {
             chooseImageFromGallery();
@@ -108,7 +108,15 @@ public class ImagemActivity extends AppCompatActivity {
             public void executar() {
 
                 if(DiretoriasUtil.criarDirectoria(DiretoriasUtil.DIRETORIA_IMAGENS) == true){
-                    ImagemUtil.abrirCamera(ImagemActivity.this);
+
+
+                    mOutputUri = FileProvider.getUriForFile(
+                            ImagemActivity.this,
+                            "com.vvm.sh.provider",
+                            ImagemUtil.getOutputMediaFile());
+
+
+                    ImagemUtil.abrirCamera(ImagemActivity.this, mOutputUri);
                 }
             }
         };
@@ -118,24 +126,18 @@ public class ImagemActivity extends AppCompatActivity {
     }
 
     private void chooseImageFromGallery() {
-//        Dexter.withActivity(this)
-//                .withPermissions(Manifest.permission.CAMERA, Manifest.permission.WRITE_EXTERNAL_STORAGE)
-//                .withListener(new MultiplePermissionsListener() {
-//                    @Override
-//                    public void onPermissionsChecked(MultiplePermissionsReport report) {
-//                        if (report.areAllPermissionsGranted()) {
-//                            Intent pickPhoto = new Intent(Intent.ACTION_PICK,
-//                                    android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
-//                            startActivityForResult(pickPhoto, REQUEST_GALLERY_IMAGE);
-//                        }
-//                    }
-//
-//                    @Override
-//                    public void onPermissionRationaleShouldBeShown(List<PermissionRequest> permissions, PermissionToken token) {
-//                        token.continuePermissionRequest();
-//                    }
-//                }).check();
 
+        OnPermissaoConcedidaListener listener = new OnPermissaoConcedidaListener() {
+            @Override
+            public void executar() {
+
+                if(DiretoriasUtil.criarDirectoria(DiretoriasUtil.DIRETORIA_IMAGENS) == true){
+                    ImagemUtil.abrirGaleria(ImagemActivity.this, false);
+                }
+            }
+        };
+
+        PermissoesUtil.pedirPermissoesImagem(this, listener);
     }
 
     @Override
@@ -143,14 +145,14 @@ public class ImagemActivity extends AppCompatActivity {
         super.onActivityResult(requestCode, resultCode, data);
 
         switch (requestCode) {
-            case REQUEST_IMAGE_CAPTURE:
+            case ImagemConstantes.REQUEST_IMAGE_CAPTURE:
                 if (resultCode == RESULT_OK) {
-                    cropImage(getCacheImagePath(fileName));
+                    cropImage(mOutputUri);
                 } else {
                     setResultCancelled();
                 }
                 break;
-            case REQUEST_GALLERY_IMAGE:
+            case ImagemConstantes.REQUEST_GALLERY_IMAGE:
                 if (resultCode == RESULT_OK) {
                     Uri imageUri = data.getData();
                     cropImage(imageUri);
@@ -226,8 +228,7 @@ public class ImagemActivity extends AppCompatActivity {
     }
 
     private static String queryName(ContentResolver resolver, Uri uri) {
-        Cursor returnCursor =
-                resolver.query(uri, null, null, null, null);
+        Cursor returnCursor = resolver.query(uri, null, null, null, null);
         assert returnCursor != null;
         int nameIndex = returnCursor.getColumnIndex(OpenableColumns.DISPLAY_NAME);
         returnCursor.moveToFirst();

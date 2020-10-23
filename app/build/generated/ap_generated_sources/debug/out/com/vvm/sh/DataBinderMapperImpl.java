@@ -32,7 +32,7 @@ import com.vvm.sh.databinding.ActivityEquipamentosBindingImpl;
 import com.vvm.sh.databinding.ActivityExtintoresBindingImpl;
 import com.vvm.sh.databinding.ActivityFormacaoBindingImpl;
 import com.vvm.sh.databinding.ActivityFormandoBindingImpl;
-import com.vvm.sh.databinding.ActivityImagensBindingImpl;
+import com.vvm.sh.databinding.ActivityGaleriaBindingImpl;
 import com.vvm.sh.databinding.ActivityInformacaoBindingImpl;
 import com.vvm.sh.databinding.ActivityLevantamentosBindingImpl;
 import com.vvm.sh.databinding.ActivityMainBindingImpl;
@@ -189,7 +189,7 @@ public class DataBinderMapperImpl extends DataBinderMapper {
 
   private static final int LAYOUT_ACTIVITYFORMANDO = 26;
 
-  private static final int LAYOUT_ACTIVITYIMAGENS = 27;
+  private static final int LAYOUT_ACTIVITYGALERIA = 27;
 
   private static final int LAYOUT_ACTIVITYINFORMACAO = 28;
 
@@ -406,7 +406,7 @@ public class DataBinderMapperImpl extends DataBinderMapper {
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.vvm.sh.R.layout.activity_extintores, LAYOUT_ACTIVITYEXTINTORES);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.vvm.sh.R.layout.activity_formacao, LAYOUT_ACTIVITYFORMACAO);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.vvm.sh.R.layout.activity_formando, LAYOUT_ACTIVITYFORMANDO);
-    INTERNAL_LAYOUT_ID_LOOKUP.put(com.vvm.sh.R.layout.activity_galeria, LAYOUT_ACTIVITYIMAGENS);
+    INTERNAL_LAYOUT_ID_LOOKUP.put(com.vvm.sh.R.layout.activity_galeria, LAYOUT_ACTIVITYGALERIA);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.vvm.sh.R.layout.activity_informacao, LAYOUT_ACTIVITYINFORMACAO);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.vvm.sh.R.layout.activity_levantamentos, LAYOUT_ACTIVITYLEVANTAMENTOS);
     INTERNAL_LAYOUT_ID_LOOKUP.put(com.vvm.sh.R.layout.activity_main, LAYOUT_ACTIVITYMAIN);
@@ -661,11 +661,11 @@ public class DataBinderMapperImpl extends DataBinderMapper {
         }
         throw new IllegalArgumentException("The tag for activity_formando is invalid. Received: " + tag);
       }
-      case  LAYOUT_ACTIVITYIMAGENS: {
-        if ("layout/activity_imagens_0".equals(tag)) {
-          return new ActivityImagensBindingImpl(component, view);
+      case  LAYOUT_ACTIVITYGALERIA: {
+        if ("layout/activity_galeria_0".equals(tag)) {
+          return new ActivityGaleriaBindingImpl(component, view);
         }
-        throw new IllegalArgumentException("The tag for activity_imagens is invalid. Received: " + tag);
+        throw new IllegalArgumentException("The tag for activity_galeria is invalid. Received: " + tag);
       }
       case  LAYOUT_ACTIVITYINFORMACAO: {
         if ("layout/activity_informacao_0".equals(tag)) {
@@ -1383,7 +1383,7 @@ public class DataBinderMapperImpl extends DataBinderMapper {
       sKeys.put("layout/activity_extintores_0", com.vvm.sh.R.layout.activity_extintores);
       sKeys.put("layout/activity_formacao_0", com.vvm.sh.R.layout.activity_formacao);
       sKeys.put("layout/activity_formando_0", com.vvm.sh.R.layout.activity_formando);
-      sKeys.put("layout/activity_imagens_0", com.vvm.sh.R.layout.activity_galeria);
+      sKeys.put("layout/activity_galeria_0", com.vvm.sh.R.layout.activity_galeria);
       sKeys.put("layout/activity_informacao_0", com.vvm.sh.R.layout.activity_informacao);
       sKeys.put("layout/activity_levantamentos_0", com.vvm.sh.R.layout.activity_levantamentos);
       sKeys.put("layout/activity_main_0", com.vvm.sh.R.layout.activity_main);

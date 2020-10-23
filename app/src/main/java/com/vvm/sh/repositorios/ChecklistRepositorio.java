@@ -3,12 +3,14 @@ package com.vvm.sh.repositorios;
 import androidx.annotation.NonNull;
 
 import com.vvm.sh.baseDados.dao.AreaChecklistDao;
+import com.vvm.sh.baseDados.dao.ImagemDao;
 import com.vvm.sh.baseDados.dao.PropostaPlanoAcaoDao;
 import com.vvm.sh.baseDados.dao.QuestionarioChecklistDao;
 import com.vvm.sh.baseDados.dao.ResultadoDao;
 import com.vvm.sh.baseDados.dao.TipoDao;
 import com.vvm.sh.baseDados.entidades.AreaChecklist;
 import com.vvm.sh.baseDados.entidades.AreaChecklistResultado;
+import com.vvm.sh.baseDados.entidades.ImagemResultado;
 import com.vvm.sh.baseDados.entidades.PropostaPlanoAcaoResultado;
 import com.vvm.sh.baseDados.entidades.QuestionarioChecklistResultado;
 import com.vvm.sh.baseDados.entidades.Tipo;
@@ -33,6 +35,7 @@ public class ChecklistRepositorio {
     private final AreaChecklistDao areaChecklistDao;
     private final QuestionarioChecklistDao questionarioChecklistDao;
     private final PropostaPlanoAcaoDao propostaPlanoAcaoDao;
+    private final ImagemDao imagemDao;
     private final TipoDao tipoDao;
     public final ResultadoDao resultadoDao;
     private int api;
@@ -40,12 +43,13 @@ public class ChecklistRepositorio {
 
 
     public ChecklistRepositorio(@NonNull int api, @NonNull AreaChecklistDao areaChecklistDao, @NonNull QuestionarioChecklistDao questionarioChecklistDao,
-                                @NonNull PropostaPlanoAcaoDao propostaPlanoAcaoDao,
+                                @NonNull PropostaPlanoAcaoDao propostaPlanoAcaoDao, @NonNull ImagemDao imagemDao,
                                          @NonNull TipoDao tipoDao, @NonNull ResultadoDao resultadoDao) {
 
         this.areaChecklistDao = areaChecklistDao;
         this.questionarioChecklistDao = questionarioChecklistDao;
         this.propostaPlanoAcaoDao = propostaPlanoAcaoDao;
+        this.imagemDao = imagemDao;
         this.tipoDao = tipoDao;
         this.resultadoDao = resultadoDao;
 
@@ -69,6 +73,11 @@ public class ChecklistRepositorio {
     public Single<Long> inserir(QuestionarioChecklistResultado registo){
         return questionarioChecklistDao.inserir(registo);
     }
+
+    public Single<Long> inserir(ImagemResultado registo){
+        return imagemDao.inserir(registo);
+    }
+
 
     public SingleSource<? extends Object> gravarPropostaPlanoAcao(int idAtividade, int idQuestao, QuestionarioChecklistResultado registo) {
 
@@ -193,8 +202,8 @@ public class ChecklistRepositorio {
         return questionarioChecklistDao.remover(idAtividade);
     }
 
-    public Single<Integer> removerArea(int id) {
-        return questionarioChecklistDao.removerArea(id);
+    public Single<List<Integer>> removerArea(int id) {
+        return Single.concat(questionarioChecklistDao.removerImagensArea(id), questionarioChecklistDao.removerArea(id)).toList();
     }
 
     /**
@@ -223,11 +232,12 @@ public class ChecklistRepositorio {
     public Completable removerChecklist(int idAtividade) {
 
         Completable removerPropostaPlanoAcao_ST = questionarioChecklistDao.removerPropostaPlanoAcao_ST_Checklist(idAtividade);
+        Completable removerImagens = questionarioChecklistDao.removerImagens_Checklist(idAtividade);
         Completable removerQuestoes = questionarioChecklistDao.removerQuestoes_Checklist(idAtividade);
         Completable removerArea = questionarioChecklistDao.removerArea_Checklist(idAtividade);
         //Completable completable = Completable.concatArray(removerArea);
 
-        Completable completable = Completable.concatArray(removerPropostaPlanoAcao_ST, removerQuestoes, removerArea);
+        Completable completable = Completable.concatArray(removerPropostaPlanoAcao_ST, removerImagens, removerQuestoes, removerArea);
 
         return completable;
 

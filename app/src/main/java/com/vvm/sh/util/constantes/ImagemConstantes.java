@@ -14,4 +14,5 @@ public class ImagemConstantes {
 
     public static final int REQUEST_IMAGE_CAPTURE = 10;
     public static final int REQUEST_GALLERY_IMAGE = 11;
+    public static final int REQUEST_IMAGE= 1000;
 }

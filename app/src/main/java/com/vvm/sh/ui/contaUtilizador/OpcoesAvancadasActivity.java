@@ -173,7 +173,7 @@ public class OpcoesAvancadasActivity extends BaseActivity {
             public void executar() {
 
                 if(DiretoriasUtil.criarDirectoria(DiretoriasUtil.DIRETORIA_IMAGENS) == true){
-                    ImagemUtil.abrirCamera(OpcoesAvancadasActivity.this);
+                    //ImagemUtil.abrirCamera(OpcoesAvancadasActivity.this);
                 }
             }
         };

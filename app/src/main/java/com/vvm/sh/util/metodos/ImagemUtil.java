@@ -63,7 +63,7 @@ public class ImagemUtil {
     }
 
 
-    public static void abrirCamera(Activity contexto){
+    public static void abrirCamera(Activity contexto, Uri mOutputUri){
         Intent cameraIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
 
 
@@ -79,21 +79,30 @@ public class ImagemUtil {
         cameraIntent.putExtra(ImagemConstantes.INTENT_BITMAP_MAX_WIDTH, 1000);
         cameraIntent.putExtra(ImagemConstantes.INTENT_BITMAP_MAX_HEIGHT, 1000);
 
-
-
-
-        Uri mOutputUri = FileProvider.getUriForFile(
-                contexto,
-                "com.vvm.sh.provider",
-                getOutputMediaFile());
-
-
         //mOutputUri = Uri.fromFile(getOutputMediaFile());
         cameraIntent.putExtra(MediaStore.EXTRA_OUTPUT, mOutputUri);
-        contexto.startActivityForResult(cameraIntent, 1);
+        contexto.startActivityForResult(cameraIntent, ImagemConstantes.REQUEST_IMAGE_CAPTURE);
     }
 
-    private static File getOutputMediaFile(){
+
+    /**
+     * Metodo que permite abrir a galeria de imagem para a selecoa de imagens
+     * @param contexto
+     * @param selecaoMultipla true caso seja para selecao multipla ou false caso contrário
+     */
+    public static void abrirGaleria(Activity contexto, boolean selecaoMultipla){
+        Intent pickPhoto = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        if(selecaoMultipla == true) {
+            pickPhoto.setType("image/*");
+            pickPhoto.putExtra(Intent.EXTRA_ALLOW_MULTIPLE, true);
+            pickPhoto.setAction(Intent.ACTION_GET_CONTENT);
+        }
+        contexto.startActivityForResult(pickPhoto/*Intent.createChooser(pickPhoto,"Select Picture")*/, ImagemConstantes.REQUEST_GALLERY_IMAGE);
+
+    }
+
+
+    public static File getOutputMediaFile(){
         File mediaStorageDir = DiretoriasUtil.obterDiretoria(DiretoriasUtil.DIRETORIA_IMAGENS);
 
         if (!mediaStorageDir.exists()){

@@ -2,11 +2,8 @@ package com.vvm.sh.api.modelos.envio;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Ut {
+public class Ut extends ItemSeccaoChecklist{
 
-
-    @SerializedName("idItem")
-    public String idItem;
 
     //ut1
 

@@ -12,6 +12,7 @@ import com.vvm.sh.api.modelos.envio.AtividadePendente;
 import com.vvm.sh.api.modelos.envio.AtividadePendenteExecutada;
 import com.vvm.sh.api.modelos.envio.AtividadePendenteNaoExecutada;
 import com.vvm.sh.api.modelos.bd.AtividadePendenteBd;
+import com.vvm.sh.api.modelos.envio.AvaliacaoRiscos;
 import com.vvm.sh.api.modelos.envio.CrossSelling;
 import com.vvm.sh.api.modelos.envio.DadosFormulario;
 import com.vvm.sh.api.modelos.envio.Email;
@@ -211,6 +212,16 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
     }
 
 
+    private AvaliacaoRiscos obterAvaliacaoRiscos(){
+
+        AvaliacaoRiscos avaliacaoRiscos = null;
+
+
+
+        return avaliacaoRiscos;
+    }
+
+
     /**
      * Metodo que permite obter o registo de visita
      * @param idTarefa o identificador da tarefa
@@ -285,6 +296,9 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
                 AtividadePendenteExecutada registo = UploadMapping.INSTANCE.mapeamento(item);
 
                 if(item.atividade.idRelatorio == Identificadores.Relatorios.ID_RELATORIO_FORMACAO){
+                    registo.formacao = obterAcaoFormacao(item.resultado.id);
+                }
+                else if(item.atividade.idRelatorio == Identificadores.Relatorios.ID_RELATORIO_AVALIACAO_RISCO){
                     registo.formacao = obterAcaoFormacao(item.resultado.id);
                 }
 

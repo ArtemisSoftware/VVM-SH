@@ -19,6 +19,6 @@ public class AtividadePendenteExecutada extends AtividadePendente {
     @SerializedName("formacao")
     public AcaoFormacao formacao;
 
-
-
+    @SerializedName("AvaliacaoRiscosNova")
+    public AvaliacaoRiscos avaliacaoRiscos;
 }

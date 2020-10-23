@@ -2,10 +2,8 @@ package com.vvm.sh.api.modelos.envio;
 
 import com.google.gson.annotations.SerializedName;
 
-public class Observacao {
+public class Observacao extends ItemSeccaoChecklist{
 
-    @SerializedName("idItem")
-    public String idItem;
 
     @SerializedName("resposta")
     public String resposta;

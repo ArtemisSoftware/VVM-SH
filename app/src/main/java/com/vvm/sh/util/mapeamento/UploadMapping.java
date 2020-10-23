@@ -1,6 +1,7 @@
 package com.vvm.sh.util.mapeamento;
 
 import com.vvm.sh.api.modelos.bd.AtividadePendenteBd;
+import com.vvm.sh.api.modelos.envio.Checklist;
 import com.vvm.sh.api.modelos.envio.RegistoVisita;
 import com.vvm.sh.api.modelos.envio.Sessao;
 import com.vvm.sh.api.modelos.envio.AcaoFormacao;
@@ -23,6 +24,7 @@ import com.vvm.sh.baseDados.entidades.Tarefa;
 import com.vvm.sh.baseDados.entidades.AnomaliaResultado;
 import com.vvm.sh.baseDados.entidades.OcorrenciaResultado;
 import com.vvm.sh.baseDados.entidades.AcaoFormacaoResultado;
+import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.baseDados.entidades.TrabalhoRealizadoResultado;
 import com.vvm.sh.ui.transferencias.modelos.DadosUpload;
 import com.vvm.sh.util.metodos.DatasUtil;
@@ -80,8 +82,13 @@ public interface UploadMapping {
 
     RegistoVisita map(RegistoVisitaResultado obterRegistoVisita);
 
-
     TrabalhoRealizado map(TrabalhoRealizadoResultado item);
+
+
+    @Mapping(target = "idChecklist", source = "id")
+    @Mapping(target = "versaoChecklist", source = "idPai")
+    Checklist mapeamento(Tipo obterChecklist);
+
 
     @Mapping(source = "idImagem", target = "idFoto")
     @Mapping(source = "imagem", target = "foto")

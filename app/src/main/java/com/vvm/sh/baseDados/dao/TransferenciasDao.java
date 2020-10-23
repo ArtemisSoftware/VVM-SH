@@ -6,9 +6,11 @@ import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 import androidx.room.Transaction;
 
+import com.vvm.sh.api.modelos.bd.AreaBd;
 import com.vvm.sh.api.modelos.bd.AtividadePendenteBd;
 import com.vvm.sh.api.modelos.bd.FormandoBd;
 import com.vvm.sh.api.modelos.bd.RegistoVisitaBd;
+import com.vvm.sh.api.modelos.envio.Checklist;
 import com.vvm.sh.api.modelos.envio.RegistoVisita;
 import com.vvm.sh.baseDados.BaseDao;
 import com.vvm.sh.baseDados.entidades.Anomalia;
@@ -31,11 +33,13 @@ import com.vvm.sh.baseDados.entidades.Tarefa;
 import com.vvm.sh.baseDados.entidades.AnomaliaResultado;
 import com.vvm.sh.baseDados.entidades.OcorrenciaResultado;
 import com.vvm.sh.baseDados.entidades.AcaoFormacaoResultado;
+import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.baseDados.entidades.TipoExtintor;
 import com.vvm.sh.baseDados.entidades.TrabalhoRealizadoResultado;
 import com.vvm.sh.ui.transferencias.modelos.Pendencia;
 import com.vvm.sh.ui.transferencias.modelos.Upload;
 import com.vvm.sh.util.constantes.Identificadores;
+import com.vvm.sh.util.metodos.TiposUtil;
 
 import java.util.List;
 
@@ -166,6 +170,20 @@ abstract public class TransferenciasDao implements BaseDao<Resultado> {
     abstract public List<TrabalhoRealizadoResultado> obterTrabalhoRealizado(int idTarefa);
 
 
+    @Query("SELECT * " +
+            "FROM areasChecklistResultado as ar_chk_res " +
+            "LEFT JOIN (SELECT id, idPai as versao FROM tipos WHERE tipo = '" + TiposUtil.MetodosTipos.TIPOS_CHECKLIST +"') as tp " +
+            "ON ar_chk_res.idChecklist = tp.id " +
+            "WHERE idAtividade =:idAtividade")
+    public abstract Tipo obterChecklist(int idAtividade);
+
+
+    @Query("SELECT *, descricao " +
+            "FROM areasChecklistResultado as ar_chk_res " +
+            "LEFT JOIN (SELECT idChecklist, idArea, descricao FROM areasChecklist) as chk_ar " +
+            "ON ar_chk_res.idChecklist = chk_ar.idChecklist AND ar_chk_res.idArea = chk_ar.idArea")
+    public abstract List<AreaBd> obterAreas(int idAtividade);
+
     //-------------------
     //TRABALHO
     //-------------------
@@ -225,6 +243,7 @@ abstract public class TransferenciasDao implements BaseDao<Resultado> {
 
     @Query("DELETE FROM tarefas WHERE idTarefa IN(SELECT idTarefa FROM tarefas WHERE idUtilizador = :idUtilizador AND data = :data)")
     abstract public void removerTrabalho(String idUtilizador, long data);
+
 
 
 }

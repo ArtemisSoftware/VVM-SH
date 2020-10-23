@@ -3,10 +3,12 @@ package com.vvm.sh.repositorios;
 import androidx.annotation.NonNull;
 
 import com.vvm.sh.api.SegurancaTrabalhoApi;
+import com.vvm.sh.api.modelos.bd.AreaBd;
 import com.vvm.sh.api.modelos.bd.AtividadePendenteBd;
 import com.vvm.sh.api.modelos.bd.FormandoBd;
 import com.vvm.sh.api.SegurancaAlimentarApi;
 import com.vvm.sh.api.modelos.bd.RegistoVisitaBd;
+import com.vvm.sh.api.modelos.envio.Checklist;
 import com.vvm.sh.api.modelos.pedido.ISessao;
 import com.vvm.sh.api.modelos.pedido.Codigo;
 import com.vvm.sh.baseDados.dao.TransferenciasDao;
@@ -29,6 +31,7 @@ import com.vvm.sh.baseDados.entidades.Tarefa;
 import com.vvm.sh.baseDados.entidades.AnomaliaResultado;
 import com.vvm.sh.baseDados.entidades.OcorrenciaResultado;
 import com.vvm.sh.baseDados.entidades.AcaoFormacaoResultado;
+import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.baseDados.entidades.TipoExtintor;
 import com.vvm.sh.baseDados.entidades.TrabalhoRealizadoResultado;
 import com.vvm.sh.ui.transferencias.modelos.Pendencia;
@@ -280,6 +283,13 @@ public class TransferenciasRepositorio {
         return transferenciasDao.obterImagens(ids);
     }
 
+    public Tipo obterChecklist(int idAtividade) {
+        return transferenciasDao.obterChecklist(idAtividade);
+    }
+
+    public List<AreaBd> obterAreas(int idAtividade) {
+        return transferenciasDao.obterAreas(idAtividade);
+    }
 
     //---------------------------
     //DOWNLOAD

@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.os.Handler;
 import android.provider.ContactsContract;
 
+import com.vvm.sh.api.modelos.bd.AreaBd;
 import com.vvm.sh.api.modelos.bd.RegistoVisitaBd;
 import com.vvm.sh.api.modelos.envio.AcaoFormacao;
 import com.vvm.sh.api.modelos.envio.Anomalia;
@@ -13,6 +14,7 @@ import com.vvm.sh.api.modelos.envio.AtividadePendenteExecutada;
 import com.vvm.sh.api.modelos.envio.AtividadePendenteNaoExecutada;
 import com.vvm.sh.api.modelos.bd.AtividadePendenteBd;
 import com.vvm.sh.api.modelos.envio.AvaliacaoRiscos;
+import com.vvm.sh.api.modelos.envio.Checklist;
 import com.vvm.sh.api.modelos.envio.CrossSelling;
 import com.vvm.sh.api.modelos.envio.DadosFormulario;
 import com.vvm.sh.api.modelos.envio.Email;
@@ -212,14 +214,7 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
     }
 
 
-    private AvaliacaoRiscos obterAvaliacaoRiscos(){
 
-        AvaliacaoRiscos avaliacaoRiscos = null;
-
-
-
-        return avaliacaoRiscos;
-    }
 
 
     /**
@@ -280,6 +275,36 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
     }
 
 
+    private AvaliacaoRiscos obterAvaliacaoRiscos(int idAtividade){
+
+        AvaliacaoRiscos avaliacaoRiscos = new AvaliacaoRiscos();
+
+        avaliacaoRiscos.checklist = obterChecklist(idAtividade);
+
+
+        return avaliacaoRiscos;
+    }
+
+    private List<Checklist> obterChecklist(int idAtividade) {
+
+        List<Checklist> registos = new ArrayList<>();
+
+        Checklist checklist = UploadMapping.INSTANCE.mapeamento(repositorio.obterChecklist(idAtividade));
+        checklist.versao = checklist.versao.split(".json")[0].split("_")[2];
+
+        for(AreaBd area : repositorio.obterAreas(idAtividade)){
+
+
+
+        }
+
+
+        registos.add(checklist);
+        return registos;
+
+    }
+
+
     /**
      * Metodo que permite obter as atividades pendentes
      * @param idTarefa o identificador da tarefa
@@ -299,7 +324,7 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
                     registo.formacao = obterAcaoFormacao(item.resultado.id);
                 }
                 else if(item.atividade.idRelatorio == Identificadores.Relatorios.ID_RELATORIO_AVALIACAO_RISCO){
-                    registo.formacao = obterAcaoFormacao(item.resultado.id);
+                    registo.avaliacaoRiscos = obterAvaliacaoRiscos(item.resultado.id);
                 }
 
                 registos.add(registo);

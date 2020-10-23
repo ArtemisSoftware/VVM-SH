@@ -129,7 +129,7 @@
                         android:id="@+id/chip"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-
+                        completudeRelatorio="@{viewmodel.completudeChecklist}"
                         android:layout_marginTop="16dp"
                         android:layout_marginBottom="8dp"
                         android:theme="@style/Theme.MaterialComponents.Light"

@@ -44,10 +44,10 @@ abstract public class AtividadePendenteDao implements BaseDao<AtividadePendenteR
             "CASE WHEN idRelatorio = " + ID_RELATORIO_FORMACAO + " AND IFNULL(ct_formando, 0) > 0 THEN  1 " +
             "WHEN  idRelatorio = " + ID_RELATORIO_ILUMINACAO + " AND validade_aval_amb_ilum = 1 THEN  1 "+
             "WHEN  idRelatorio = " + ID_RELATORIO_TEMPERATURA_HUMIDADE + " AND validade_aval_amb_temperatura = 1 THEN  1 "+
-            "WHEN  idRelatorio = " + ID_RELATORIO_AVALIACAO_RISCO + " AND  (validade_processo_produtivo AND validade_equipamentos AND validade_proposta_plano_acao) = 1 THEN 1 "+
+            "WHEN  idRelatorio = " + ID_RELATORIO_AVALIACAO_RISCO + " AND  (validade_processo_produtivo AND validade_equipamentos AND validade_proposta_plano_acao AND validade_checklist) = 1 THEN 1 "+
             "ELSE 0 END as relatorioCompleto," +
 
-            "validade_processo_produtivo, validade_trabalhadores_vulneraveis, validade_equipamentos, validade_proposta_plano_acao " +
+            "validade_processo_produtivo, validade_trabalhadores_vulneraveis, validade_equipamentos, validade_proposta_plano_acao, validade_checklist " +
             " " +
 
             "FROM atividadesPendentes as atp " +
@@ -179,6 +179,40 @@ abstract public class AtividadePendenteDao implements BaseDao<AtividadePendenteR
             ")as vld_eqp ON atp.id = vld_eqp.idAtividade	    "+
 
 
+            //checklist
+
+            "LEFT JOIN (    " +
+
+            "SELECT idAtividade,  "+
+            "CASE WHEN itens.tipo = 'q' AND IFNULL(numeroRespostas,0) = 0 THEN 0    "+
+            "WHEN itens.tipo = 'q' AND IFNULL(numeroRespostas,0) != total THEN 0    "+
+            "ELSE 1 END as validade_checklist    "+
+
+            "FROM areasChecklistResultado as ar_chk_res    "+
+
+            "LEFT JOIN (" +
+            "SELECT idChecklist, idArea, uid as idSeccao, tipo  " +
+            "FROM seccoesChecklist" +
+            ") as chk_scs " +
+            "ON ar_chk_res.idChecklist = chk_scs.idChecklist AND ar_chk_res.idArea = chk_scs.idArea    "+
+
+            "LEFT JOIN (    "+
+            "SELECT COUNT(tipo) as total, idChecklist, idArea, idSeccao, tipo " +
+            "FROM itensChecklist    "+
+            "WHERE  tipo = '"+ Identificadores.Checklist.TIPO_QUESTAO + "' "+
+            "GROUP BY idChecklist, idArea , idSeccao    "+
+            ") as itens     "+
+            "ON ar_chk_res.idChecklist = itens.idChecklist AND ar_chk_res.idArea = itens.idArea AND chk_scs.idSeccao = itens.idSeccao    "+
+
+            "LEFT JOIN (    "+
+            "SELECT idArea, idSeccao, COUNT(idItem) as numeroRespostas FROM questionarioChecklistResultado    "+
+            "WHERE  tipo = '"+ Identificadores.Checklist.TIPO_QUESTAO + "' "+
+            "GROUP BY idArea, idSeccao    "+
+            ") as qst_res ON ar_chk_res.id = qst_res.idArea AND chk_scs.idSeccao = qst_res.idSeccao    " +
+
+            "GROUP BY idAtividade"+
+
+            ") as vld_checklist ON atp.id = vld_checklist.idAtividade " +
 
 
 
@@ -422,7 +456,7 @@ abstract public class AtividadePendenteDao implements BaseDao<AtividadePendenteR
             "CASE WHEN idRelatorio = " + ID_RELATORIO_FORMACAO + " AND IFNULL(ct_formando, 0) > 0 THEN  1 " +
             "ELSE 0 END as relatorioCompleto, " +
 
-            "0 as validade_processo_produtivo, 0 as validade_trabalhadores_vulneraveis, 0 as validade_equipamentos, 0 as validade_proposta_plano_acao " +
+            "0 as validade_processo_produtivo, 0 as validade_trabalhadores_vulneraveis, 0 as validade_equipamentos, 0 as validade_proposta_plano_acao, 0 as validade_checklist " +
 
             "FROM atividadesPendentes as atp " +
 

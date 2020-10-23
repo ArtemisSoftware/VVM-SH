@@ -24,6 +24,7 @@ import javax.inject.Inject;
 
 import io.reactivex.CompletableObserver;
 import io.reactivex.Observer;
+import io.reactivex.Single;
 import io.reactivex.SingleObserver;
 import io.reactivex.SingleSource;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -46,6 +47,7 @@ public class ChecklistViewModel extends BaseViewModel {
     public MutableLiveData<List<Tipo>> tiposUts;
     public MutableLiveData<List<AreaChecklist>> tipoAreas;
 
+    public MutableLiveData<Boolean> completudeChecklist;
 
     public MutableLiveData<List<Questao>> questionario;
     public QuestionarioChecklistResultado resposta;
@@ -64,6 +66,9 @@ public class ChecklistViewModel extends BaseViewModel {
 
         tiposCategoriasRisco = new MutableLiveData<>();
         tiposUts = new MutableLiveData<>();
+
+
+        completudeChecklist = new MutableLiveData<>();
 
     }
 
@@ -268,7 +273,12 @@ public class ChecklistViewModel extends BaseViewModel {
                     .flatMap(new Function<Long, SingleSource<?>>() {
                         @Override
                         public SingleSource<?> apply(Long aLong) throws Exception {
-                            return checklistRepositorio.gravarPropostaPlanoAcao(idAtividade, ConversorUtil.converter_long_Para_int(aLong), resultado);
+                            if(resultado.tipo.equals(Identificadores.Checklist.TIPO_QUESTAO) == true) {
+                                return checklistRepositorio.gravarPropostaPlanoAcao(idAtividade, ConversorUtil.converter_long_Para_int(aLong), resultado);
+                            }
+                            else {
+                                return Single.just(aLong);
+                            }
                         }
                     })
                     .subscribeOn(Schedulers.io())
@@ -302,7 +312,13 @@ public class ChecklistViewModel extends BaseViewModel {
                     .flatMap(new Function<Integer, SingleSource<?>>() {
                         @Override
                         public SingleSource<?> apply(Integer integer) throws Exception {
-                            return checklistRepositorio.gravarPropostaPlanoAcao(idAtividade, idRegisto, resultado);
+
+                            if(resultado.tipo.equals(Identificadores.Checklist.TIPO_QUESTAO) == true) {
+                                return checklistRepositorio.gravarPropostaPlanoAcao(idAtividade, idRegisto, resultado);
+                            }
+                            else {
+                                return Single.just(integer);
+                            }
                         }
                     })
                     .subscribeOn(Schedulers.io())
@@ -317,6 +333,7 @@ public class ChecklistViewModel extends BaseViewModel {
 
                                 @Override
                                 public void onSuccess(Object o) {
+                                    abaterAtividadePendente(checklistRepositorio.resultadoDao, idTarefa, idAtividade);
                                     messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_EDITADOS_SUCESSO));
                                 }
 
@@ -422,6 +439,7 @@ public class ChecklistViewModel extends BaseViewModel {
                             @Override
                             public void onComplete() {
                                 inserirAreaGeral(idTarefa, idAtividade, idNovaChecklist);
+                                abaterAtividadePendente(checklistRepositorio.resultadoDao, idTarefa, idAtividade);
                             }
 
                             @Override
@@ -438,7 +456,7 @@ public class ChecklistViewModel extends BaseViewModel {
      * Metodo que permite remover uma area da checklist
      * @param id o identificador do registo da area
      */
-    public void removerArea(int id) {
+    public void removerArea(int idTarefa, int idAtividade, int id) {
 
         checklistRepositorio.removerArea(id)
                 .subscribeOn(Schedulers.io())
@@ -454,6 +472,7 @@ public class ChecklistViewModel extends BaseViewModel {
                             @Override
                             public void onSuccess(List<Integer> integers) {
                                 messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_REMOVIDOS_SUCESSO));
+                                abaterAtividadePendente(checklistRepositorio.resultadoDao, idTarefa, idAtividade);
                             }
 
                             @Override
@@ -527,6 +546,34 @@ public class ChecklistViewModel extends BaseViewModel {
                             @Override
                             public void onNext(Tipo tipo) {
                                 checklist.setValue(tipo);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+
+                            @Override
+                            public void onComplete() {
+
+                            }
+                        }
+                );
+
+        checklistRepositorio.obterCompletudeChecklist(idAtividade)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new Observer<Boolean>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onNext(Boolean registo) {
+                                completudeChecklist.setValue(registo);
                             }
 
                             @Override

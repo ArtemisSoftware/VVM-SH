@@ -2,6 +2,7 @@ package com.vvm.sh.ui.atividadesPendentes.modelos;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Embedded;
+import androidx.room.Ignore;
 import androidx.room.Relation;
 
 import com.vvm.sh.baseDados.entidades.AtividadePendente;
@@ -45,6 +46,18 @@ public class AtividadePendenteRegisto {
 
     @ColumnInfo(name = "validade_proposta_plano_acao")
     public boolean completudePlanoAcao;
+
+    @ColumnInfo(name = "validade_checklist")
+    public boolean completudeChecklist;
+
+
+    @Ignore
+    //@ColumnInfo(name = "validade_avaliacao_riscos")
+    public boolean completudeAvaliacaoRisco;
+
+    @Ignore
+    //@ColumnInfo(name = "validade_capa_relatorio")
+    public boolean completudeCapaRelatorio;
 
     /**
      * Metodo que indica se existe um resultado

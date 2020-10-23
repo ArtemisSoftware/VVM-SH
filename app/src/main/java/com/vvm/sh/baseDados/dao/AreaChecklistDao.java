@@ -21,6 +21,42 @@ import io.reactivex.Single;
 abstract public class AreaChecklistDao implements BaseDao<AreaChecklistResultado> {
 
 
+    @Query("SELECT valido " +
+            "FROM(" +
+            "SELECT idAtividade,  "+
+            "CASE WHEN itens.tipo = 'q' AND IFNULL(numeroRespostas,0) = 0 THEN 0    "+
+            "WHEN itens.tipo = 'q' AND IFNULL(numeroRespostas,0) != total THEN 0    "+
+            "ELSE 1 END as valido    "+
+
+            "FROM areasChecklistResultado as ar_chk_res    "+
+
+            "LEFT JOIN (" +
+            "SELECT idChecklist, idArea, uid as idSeccao, tipo  " +
+            "FROM seccoesChecklist" +
+            ") as chk_scs " +
+            "ON ar_chk_res.idChecklist = chk_scs.idChecklist AND ar_chk_res.idArea = chk_scs.idArea    "+
+
+            "LEFT JOIN (    "+
+            "SELECT COUNT(tipo) as total, idChecklist, idArea, idSeccao, tipo " +
+            "FROM itensChecklist    "+
+            "WHERE  tipo = '"+ Identificadores.Checklist.TIPO_QUESTAO + "' "+
+            "GROUP BY idChecklist, idArea , idSeccao    "+
+            ") as itens     "+
+            "ON ar_chk_res.idChecklist = itens.idChecklist AND ar_chk_res.idArea = itens.idArea AND chk_scs.idSeccao = itens.idSeccao    "+
+
+            "LEFT JOIN (    "+
+            "SELECT idArea, idSeccao, COUNT(idItem) as numeroRespostas FROM questionarioChecklistResultado    "+
+            "WHERE  tipo = '"+ Identificadores.Checklist.TIPO_QUESTAO + "' "+
+            "GROUP BY idArea, idSeccao    "+
+            ") as qst_res ON ar_chk_res.id = qst_res.idArea AND chk_scs.idSeccao = qst_res.idSeccao    "+
+
+            " )T1    " +
+            "WHERE idAtividade = :idAtividade "+
+            "GROUP BY idAtividade    ")
+    abstract public Observable<Boolean> obterCompletudeChecklist(int idAtividade);
+
+
+
     @Query("SELECT tp.* " +
             "FROM tipos as tp " +
             "LEFT JOIN( " +

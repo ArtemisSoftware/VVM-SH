@@ -159,7 +159,7 @@ abstract public class TransferenciasDao implements BaseDao<Resultado> {
             "FROM registoVisitaResultado as rg_vist_res " +
             "LEFT JOIN (SELECT idTarefa, idImagem FROM imagensResultado WHERE origem = " + Identificadores.Imagens.IMAGEM_ASSINATURA_REGISTO_VISITA + " ) as img " +
             "ON rg_vist_res.idTarefa = img.idTarefa " +
-            "WHERE idTarefa = :idTarefa")
+            "WHERE rg_vist_res.idTarefa = :idTarefa")
     abstract public RegistoVisitaBd obterRegistoVisita(int idTarefa);
 
     @Query("SELECT * FROM trabalhoRealizadoResultado WHERE idTarefa = :idTarefa")

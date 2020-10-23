@@ -150,7 +150,7 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
 
                     case ID_REGISTO_VISITA:
 
-                        //dadosFormulario.fixarRegistoVisita(resultado.idTarefa);
+                        dadosFormulario.registoVisita = obterRegistoVisita(resultado.idTarefa);
                         break;
 
                     default:

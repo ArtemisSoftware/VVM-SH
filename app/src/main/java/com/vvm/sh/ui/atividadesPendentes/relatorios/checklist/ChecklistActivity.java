@@ -154,7 +154,11 @@ public class ChecklistActivity extends BaseDaggerActivity
 
     @Override
     public void OnRemoverClick(Item registo) {
-        viewModel.removerArea(registo.id);
+
+        Bundle bundle = getIntent().getExtras();
+        int idAtividade = bundle.getInt(getString(R.string.argumento_id_atividade));
+
+        viewModel.removerArea(PreferenciasUtil.obterIdTarefa(this), idAtividade, registo.id);
     }
 
     @Override

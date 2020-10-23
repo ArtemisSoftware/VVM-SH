@@ -32,6 +32,12 @@ public class DadosFormulario {
     public AtividadesPendentesInfo atividadesPendentes;
 
 
+    //-sht
+
+    @SerializedName("RegistoVisita")
+    public RegistoVisita registoVisita;
+
+
 
     public DadosFormulario() {
 
@@ -136,4 +142,5 @@ public class DadosFormulario {
         this.atividadesPendentes.dataRegisto = DatasUtil.obterDataAtual(DatasUtil.DATA_FORMATO_YYYY_MM_DD__HH_MM_SS);
         this.atividadesPendentes.dados = atividadesPendentes;
     }
+
 }

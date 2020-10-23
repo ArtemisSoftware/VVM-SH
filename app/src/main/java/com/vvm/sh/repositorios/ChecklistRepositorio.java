@@ -123,6 +123,9 @@ public class ChecklistRepositorio {
         return areaChecklistDao.validarAreaGeral(idAtividade, idChecklist);
     }
 
+    public Observable<Boolean> obterCompletudeChecklist(int idAtividade){
+        return areaChecklistDao.obterCompletudeChecklist(idAtividade);
+    }
 
     public Observable<Tipo> obterChecklist(int idAtividade){
         return areaChecklistDao.obterChecklist(idAtividade, api);

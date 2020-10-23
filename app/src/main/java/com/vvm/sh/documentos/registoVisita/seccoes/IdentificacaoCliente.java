@@ -68,7 +68,7 @@ public class IdentificacaoCliente extends Section {
 
 
 
-            table.addLine(linha, cellConfiguration_11, 1);
+            table.addLine(linha, cellConfiguration_l1, 1);
 
 
             //empresa

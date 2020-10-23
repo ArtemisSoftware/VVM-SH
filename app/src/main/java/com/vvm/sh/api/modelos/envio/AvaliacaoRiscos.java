@@ -6,6 +6,6 @@ import java.util.List;
 
 public class AvaliacaoRiscos {
 
-//    @SerializedName("formandos")
+//    @SerializedName("Checklist")
 //    public List<Formando> formandos;
 }

@@ -6,6 +6,7 @@ import com.vvm.sh.api.SegurancaTrabalhoApi;
 import com.vvm.sh.api.modelos.bd.AtividadePendenteBd;
 import com.vvm.sh.api.modelos.bd.FormandoBd;
 import com.vvm.sh.api.SegurancaAlimentarApi;
+import com.vvm.sh.api.modelos.bd.RegistoVisitaBd;
 import com.vvm.sh.api.modelos.pedido.ISessao;
 import com.vvm.sh.api.modelos.pedido.Codigo;
 import com.vvm.sh.baseDados.dao.TransferenciasDao;
@@ -29,6 +30,7 @@ import com.vvm.sh.baseDados.entidades.AnomaliaResultado;
 import com.vvm.sh.baseDados.entidades.OcorrenciaResultado;
 import com.vvm.sh.baseDados.entidades.AcaoFormacaoResultado;
 import com.vvm.sh.baseDados.entidades.TipoExtintor;
+import com.vvm.sh.baseDados.entidades.TrabalhoRealizadoResultado;
 import com.vvm.sh.ui.transferencias.modelos.Pendencia;
 import com.vvm.sh.ui.transferencias.modelos.Upload;
 
@@ -250,6 +252,24 @@ public class TransferenciasRepositorio {
         return transferenciasDao.obterTarefa(idTarefa);
     }
 
+
+    /**
+     * Metodo que permite obter o registo de visita
+     * @param idTarefa o identificador da tarefa
+     * @return o registo de visita
+     */
+    public RegistoVisitaBd obterRegistoVisita(int idTarefa) {
+        return transferenciasDao.obterRegistoVisita(idTarefa);
+    }
+
+    /**
+     * Metodo que permite obter o trabalho realizado
+     * @param idTarefa o identificador da tarefa
+     * @return os registos
+     */
+    public List<TrabalhoRealizadoResultado> obterTrabalhoRealizado(int idTarefa) {
+        return transferenciasDao.obterTrabalhoRealizado(idTarefa);
+    }
 
     /**
      * Metodo que permite obter as imagens

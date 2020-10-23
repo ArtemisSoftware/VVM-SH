@@ -3,7 +3,9 @@ package com.vvm.sh.servicos;
 import android.database.sqlite.SQLiteConstraintException;
 import android.os.AsyncTask;
 import android.os.Handler;
+import android.provider.ContactsContract;
 
+import com.vvm.sh.api.modelos.bd.RegistoVisitaBd;
 import com.vvm.sh.api.modelos.envio.AcaoFormacao;
 import com.vvm.sh.api.modelos.envio.Anomalia;
 import com.vvm.sh.api.modelos.envio.AtividadePendente;
@@ -17,10 +19,13 @@ import com.vvm.sh.api.modelos.envio.Formando;
 import com.vvm.sh.api.modelos.bd.FormandoBd;
 import com.vvm.sh.api.modelos.envio.Imagem;
 import com.vvm.sh.api.modelos.envio.Ocorrencia;
+import com.vvm.sh.api.modelos.envio.RegistoVisita;
+import com.vvm.sh.api.modelos.envio.TrabalhoRealizado;
 import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.baseDados.entidades.CrossSellingResultado;
 import com.vvm.sh.baseDados.entidades.ImagemResultado;
 import com.vvm.sh.baseDados.entidades.Resultado;
+import com.vvm.sh.baseDados.entidades.TrabalhoRealizadoResultado;
 import com.vvm.sh.repositorios.TransferenciasRepositorio;
 import com.vvm.sh.baseDados.entidades.AnomaliaResultado;
 import com.vvm.sh.baseDados.entidades.OcorrenciaResultado;
@@ -30,6 +35,7 @@ import com.vvm.sh.util.AtualizacaoUI;
 import com.vvm.sh.util.constantes.AppConfig;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.mapeamento.UploadMapping;
+import com.vvm.sh.util.metodos.DatasUtil;
 
 import org.json.JSONArray;
 
@@ -142,6 +148,11 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
                         break;
 
 
+                    case ID_REGISTO_VISITA:
+
+                        //dadosFormulario.fixarRegistoVisita(resultado.idTarefa);
+                        break;
+
                     default:
                         break;
                 }
@@ -200,6 +211,32 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
     }
 
 
+    /**
+     * Metodo que permite obter o registo de visita
+     * @param idTarefa o identificador da tarefa
+     * @return os dados do registo
+     */
+    private RegistoVisita obterRegistoVisita(int idTarefa){
+
+        RegistoVisitaBd registo = repositorio.obterRegistoVisita(idTarefa);
+
+        RegistoVisita registoVisita = UploadMapping.INSTANCE.map(registo.resultado);
+        registoVisita.data = DatasUtil.obterDataAtual(DatasUtil.DATA_FORMATO_YYYY_MM_DD__HH_MM_SS);
+        registoVisita.album = new ArrayList<>();
+        registoVisita.album.add(registo.idImagem + "");
+
+        List<TrabalhoRealizado> registos = new ArrayList<>();
+
+        for (TrabalhoRealizadoResultado item : repositorio.obterTrabalhoRealizado(idTarefa)) {
+
+            TrabalhoRealizado trabalhoRealizado = UploadMapping.INSTANCE.map(item);
+            registos.add(trabalhoRealizado);
+        }
+
+        registoVisita.trabalhosRealizados = registos;
+        return registoVisita;
+
+    }
 
 
     /**

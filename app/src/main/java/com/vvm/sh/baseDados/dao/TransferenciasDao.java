@@ -8,6 +8,8 @@ import androidx.room.Transaction;
 
 import com.vvm.sh.api.modelos.bd.AtividadePendenteBd;
 import com.vvm.sh.api.modelos.bd.FormandoBd;
+import com.vvm.sh.api.modelos.bd.RegistoVisitaBd;
+import com.vvm.sh.api.modelos.envio.RegistoVisita;
 import com.vvm.sh.baseDados.BaseDao;
 import com.vvm.sh.baseDados.entidades.Anomalia;
 import com.vvm.sh.baseDados.entidades.AtividadeExecutada;
@@ -22,6 +24,7 @@ import com.vvm.sh.baseDados.entidades.OcorrenciaHistorico;
 import com.vvm.sh.baseDados.entidades.ParqueExtintor;
 import com.vvm.sh.baseDados.entidades.PlanoAcao;
 import com.vvm.sh.baseDados.entidades.PlanoAcaoAtividade;
+import com.vvm.sh.baseDados.entidades.RegistoVisitaResultado;
 import com.vvm.sh.baseDados.entidades.Resultado;
 import com.vvm.sh.baseDados.entidades.EmailResultado;
 import com.vvm.sh.baseDados.entidades.Tarefa;
@@ -29,6 +32,7 @@ import com.vvm.sh.baseDados.entidades.AnomaliaResultado;
 import com.vvm.sh.baseDados.entidades.OcorrenciaResultado;
 import com.vvm.sh.baseDados.entidades.AcaoFormacaoResultado;
 import com.vvm.sh.baseDados.entidades.TipoExtintor;
+import com.vvm.sh.baseDados.entidades.TrabalhoRealizadoResultado;
 import com.vvm.sh.ui.transferencias.modelos.Pendencia;
 import com.vvm.sh.ui.transferencias.modelos.Upload;
 import com.vvm.sh.util.constantes.Identificadores;
@@ -150,6 +154,16 @@ abstract public class TransferenciasDao implements BaseDao<Resultado> {
     @Query("SELECT * FROM imagensResultado WHERE idImagem IN(:ids)")
     abstract public List<ImagemResultado> obterImagens(List<Integer> ids);
 
+
+    @Query("SELECT * " +
+            "FROM registoVisitaResultado as rg_vist_res " +
+            "LEFT JOIN (SELECT idTarefa, idImagem FROM imagensResultado WHERE origem = " + Identificadores.Imagens.IMAGEM_ASSINATURA_REGISTO_VISITA + " ) as img " +
+            "ON rg_vist_res.idTarefa = img.idTarefa " +
+            "WHERE idTarefa = :idTarefa")
+    abstract public RegistoVisitaBd obterRegistoVisita(int idTarefa);
+
+    @Query("SELECT * FROM trabalhoRealizadoResultado WHERE idTarefa = :idTarefa")
+    abstract public List<TrabalhoRealizadoResultado> obterTrabalhoRealizado(int idTarefa);
 
 
     //-------------------

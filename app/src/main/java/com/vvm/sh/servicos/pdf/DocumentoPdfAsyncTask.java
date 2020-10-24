@@ -9,12 +9,19 @@ import com.vvm.sh.util.metodos.MensagensUtil;
 
 public class DocumentoPdfAsyncTask extends AsyncTask<Void, Void, Void> {
 
-    private Context mContext;
+    private Context contexto;
     private Template template;
+    private MensagensUtil dialogo;
 
-    public DocumentoPdfAsyncTask(Context context, Template template){
-        mContext = context;
+    public DocumentoPdfAsyncTask(Context contexto, Template template){
+        this.contexto = contexto;
         this.template = template;
+        dialogo = new MensagensUtil(contexto);
+    }
+
+    @Override
+    protected void onPreExecute() {
+        dialogo.progresso(true, Sintaxe.Frases.GERAR_PRE_VISUALIZACAO_PDF);
     }
 
 
@@ -31,11 +38,13 @@ public class DocumentoPdfAsyncTask extends AsyncTask<Void, Void, Void> {
     protected void onPostExecute(Void result) {
         super.onPostExecute(result);
 
+        dialogo.terminarProgresso();
+
         try {
             this.template.openPdf();
         }
         catch (IllegalArgumentException e){
-            MensagensUtil dialogo = new MensagensUtil(mContext);
+            MensagensUtil dialogo = new MensagensUtil(contexto);
             dialogo.erro("erro", Sintaxe.Alertas.ERRO_GERAR_PDF + e.getMessage());
         }
     }

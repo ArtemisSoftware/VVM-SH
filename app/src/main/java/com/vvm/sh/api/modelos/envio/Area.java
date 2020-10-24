@@ -10,7 +10,7 @@ public class Area {
     public String idArea;
 
     @SerializedName("area")
-    public String area;
+    public String descricao;
 
     @SerializedName("descricaoArea")
     public String subDescricao;

@@ -21,12 +21,18 @@ import com.vvm.sh.api.modelos.envio.Email;
 import com.vvm.sh.api.modelos.envio.Formando;
 import com.vvm.sh.api.modelos.bd.FormandoBd;
 import com.vvm.sh.api.modelos.envio.Imagem;
+import com.vvm.sh.api.modelos.envio.ItemSeccaoChecklist;
+import com.vvm.sh.api.modelos.envio.Observacao;
 import com.vvm.sh.api.modelos.envio.Ocorrencia;
+import com.vvm.sh.api.modelos.envio.Pergunta;
 import com.vvm.sh.api.modelos.envio.RegistoVisita;
+import com.vvm.sh.api.modelos.envio.Seccao;
 import com.vvm.sh.api.modelos.envio.TrabalhoRealizado;
+import com.vvm.sh.api.modelos.envio.Ut;
 import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.baseDados.entidades.CrossSellingResultado;
 import com.vvm.sh.baseDados.entidades.ImagemResultado;
+import com.vvm.sh.baseDados.entidades.QuestionarioChecklistResultado;
 import com.vvm.sh.baseDados.entidades.Resultado;
 import com.vvm.sh.baseDados.entidades.TrabalhoRealizadoResultado;
 import com.vvm.sh.repositorios.TransferenciasRepositorio;
@@ -287,14 +293,46 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
 
     private List<Checklist> obterChecklist(int idAtividade) {
 
+        int index = -1;
         List<Checklist> registos = new ArrayList<>();
 
         Checklist checklist = UploadMapping.INSTANCE.mapeamento(repositorio.obterChecklist(idAtividade));
         checklist.versao = checklist.versao.split(".json")[0].split("_")[2];
 
+        checklist.areas = new ArrayList<>();
+
         for(AreaBd area : repositorio.obterAreas(idAtividade)){
 
+            ++index;
+            checklist.areas.add(UploadMapping.INSTANCE.map(area));
+            checklist.areas.get(index).seccoes = new ArrayList<>();
 
+            for(String idSeccao : repositorio.obterSeccoes(area.resultado.id)){
+
+                List<ItemSeccaoChecklist> itens = new ArrayList<>();
+
+                for(QuestionarioChecklistResultado item : repositorio.obterItens(area.resultado.id, idSeccao, Identificadores.Checklist.TIPO_QUESTAO)){
+                    Pergunta pergunta = UploadMapping.INSTANCE.mapPerguntaChecklist(item);
+                    itens.add(pergunta);
+                }
+
+                for(QuestionarioChecklistResultado item : repositorio.obterItens(area.resultado.id, idSeccao, Identificadores.Checklist.TIPO_UTS)){
+                    Ut ut = UploadMapping.INSTANCE.mapUtChecklist(item);
+                    itens.add(ut);
+                }
+
+                for(QuestionarioChecklistResultado item : repositorio.obterItens(area.resultado.id, idSeccao, Identificadores.Checklist.TIPO_OBSERVACOES)){
+                    Observacao observacao = UploadMapping.INSTANCE.mapObservacaoChecklist(item);
+                    itens.add(observacao);
+                }
+
+                for(ImagemResultado imagem : repositorio.obterImagens(area.resultado.id, Identificadores.Imagens.IMAGEM_CHECKLIST)){
+                    //TODO: duvidas em relacao a isto, deveria ser uma lista de ids
+                    //itens.add(UploadMapping.INSTANCE.mapImagemChecklist(imagem));
+                }
+
+                checklist.areas.get(index).seccoes.add(new Seccao(idSeccao, itens));
+            }
 
         }
 

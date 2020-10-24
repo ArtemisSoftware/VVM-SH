@@ -13,6 +13,7 @@ import com.vvm.sh.util.constantes.Identificadores;
 
 import java.util.List;
 
+import io.reactivex.Completable;
 import io.reactivex.Flowable;
 import io.reactivex.Observable;
 import io.reactivex.Single;
@@ -61,4 +62,20 @@ public abstract class TarefaDao implements BaseDao<Tarefa> {
     @Query("SELECT * FROM atividadeExecutadas WHERE idTarefa = :idTarefa")
     abstract public Single<List<AtividadeExecutada>> obterAtividades(int idTarefa);
 
+
+
+    @Query("UPDATE atividadesPendentesResultado " +
+            "SET " +
+            "idEstado = " + Identificadores.Estados.ESTADO_NAO_EXECUTADO +" , idAnomalia = :idAnomalia ,observacao = :observacao " +
+            "WHERE id IN(SELECT id FROM  atividadesPendentes WHERE idTarefa = :idTarefa )  ")
+    abstract public Completable atualizarAnomalia(int idTarefa, int idAnomalia, String observacao);
+
+
+
+    @Query("INSERT INTO atividadesPendentesResultado(id, idEstado, idAnomalia, observacao) " +
+            "SELECT atp.id, " +  Identificadores.Estados.ESTADO_NAO_EXECUTADO + " as estado, :idAnomalia as idAnomalia , :observacao as observacao " +
+            "FROM atividadesPendentes as atp  " +
+            "LEFT JOIN (SELECT id FROM  atividadesPendentesResultado) as atp_res ON  atp.id = atp_res.id " +
+            "WHERE  atp_res.id IS NULL AND idTarefa = :idTarefa")
+    abstract public Completable inserirAnomalia(int idTarefa, int idAnomalia, String observacao);
 }

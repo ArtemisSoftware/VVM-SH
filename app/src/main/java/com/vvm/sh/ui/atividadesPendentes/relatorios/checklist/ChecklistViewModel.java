@@ -463,14 +463,14 @@ public class ChecklistViewModel extends BaseViewModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
 
-                        new SingleObserver<List<Integer>>() {
+                        new CompletableObserver() {
                             @Override
                             public void onSubscribe(Disposable d) {
                                 disposables.add(d);
                             }
 
                             @Override
-                            public void onSuccess(List<Integer> integers) {
+                            public void onComplete() {
                                 messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_REMOVIDOS_SUCESSO));
                                 abaterAtividadePendente(checklistRepositorio.resultadoDao, idTarefa, idAtividade);
                             }

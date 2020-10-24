@@ -267,7 +267,7 @@
                 android:enabled="@{bloquear}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_formandos_24dp"
+                android:src="@drawable/ic_area"
                 app:fab_size="mini"
                 app:fab_label="@string/adicionar_area" />
 
@@ -276,7 +276,7 @@
                 android:enabled="@{bloquear}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_acao_formacao"
+                android:src="@drawable/ic_substituir"
                 app:fab_size="mini"
                 app:fab_label="@string/alterar_checklist" />
 

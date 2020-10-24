@@ -117,6 +117,7 @@ public class ChecklistBinding {
         }
         else{
             view.setImageResource(R.drawable.ic_registo_incompleto);
+            view.clearColorFilter();
         }
 
     }

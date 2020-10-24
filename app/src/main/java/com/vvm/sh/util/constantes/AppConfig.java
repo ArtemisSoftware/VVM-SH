@@ -2,6 +2,13 @@ package com.vvm.sh.util.constantes;
 
 public class AppConfig {
 
+
+    /**
+     * Quando a true <br>
+     *     o email é sempre enviado para o administrador
+     */
+    public static final boolean VERSAO_TESTE = true;
+
     public static final String MIME_VERSAO_APP = "application/vnd.android.package-archive";
     /*
     public static final String MIME_TIPO_PLAIN_TEXT = "plain/text";
@@ -24,4 +31,6 @@ public class AppConfig {
 
     public static final int NUMERO_RESULTADOS_QUERY = 1;
     public static final int OFFSET_QUERY  = 2;
+
+
 }

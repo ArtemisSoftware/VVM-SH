@@ -173,6 +173,22 @@
                                     app:layout_constraintTop_toBottomOf="@+id/textView2"
                                     app:srcCompat="@drawable/ic_geral" />
 
+                                <TextView
+                                    android:id="@+id/textView67"
+                                    style="@style/textoDetalhe"
+                                    android:layout_marginTop="@dimen/distancia_vertical_titulo"
+                                    android:text="@string/email_"
+                                    app:layout_constraintStart_toStartOf="@+id/textView2"
+                                    app:layout_constraintTop_toBottomOf="@+id/imageView8" />
+
+                                <TextView
+                                    android:id="@+id/textView47"
+                                    style="@style/textoDetalhe"
+                                    android:layout_marginStart="16dp"
+                                    android:text="@{StringUtil.converterString(viewmodel.relatorio.email)}"
+                                    app:layout_constraintStart_toEndOf="@+id/textView67"
+                                    app:layout_constraintTop_toTopOf="@+id/textView67" />
+
 
                                 <com.google.android.material.chip.Chip
                                     android:id="@+id/chip_geral"
@@ -184,7 +200,7 @@
                                     android:theme="@style/Theme.MaterialComponents.Light"
                                     app:layout_constraintBottom_toBottomOf="parent"
                                     app:layout_constraintStart_toStartOf="@+id/textView2"
-                                    app:layout_constraintTop_toBottomOf="@+id/imageView8" />
+                                    app:layout_constraintTop_toBottomOf="@+id/textView67" />
 
 
                             </androidx.constraintlayout.widget.ConstraintLayout>
@@ -236,6 +252,13 @@
                                     app:layout_constraintStart_toStartOf="@+id/textView21"
                                     app:layout_constraintTop_toBottomOf="@+id/imageView9" />
 
+                                <TextView
+                                    android:id="@+id/textView40"
+                                    style="@style/textoDetalhe"
+                                    android:layout_marginStart="16dp"
+                                    android:text="@{StringUtil.converterString(viewmodel.relatorio.numeroTrabalhos)}"
+                                    app:layout_constraintStart_toEndOf="@+id/textView66"
+                                    app:layout_constraintTop_toTopOf="@+id/textView66" />
 
                                 <com.google.android.material.chip.Chip
                                     android:id="@+id/chip_avaliacoes"
@@ -250,13 +273,7 @@
                                     app:layout_constraintStart_toStartOf="@+id/textView21"
                                     app:layout_constraintTop_toBottomOf="@+id/textView66" />
 
-                                <TextView
-                                    android:id="@+id/textView40"
-                                    style="@style/textoDetalhe"
-                                    android:layout_marginStart="16dp"
-                                    android:text="@{StringUtil.converterString(viewmodel.relatorio.numeroTrabalhos)}"
-                                    app:layout_constraintStart_toEndOf="@+id/textView66"
-                                    app:layout_constraintTop_toTopOf="@+id/textView66" />
+
                             </androidx.constraintlayout.widget.ConstraintLayout>
 
 
@@ -318,6 +335,9 @@
 
 
                         </androidx.cardview.widget.CardView>
+
+
+
 
 
                     </androidx.constraintlayout.widget.ConstraintLayout>

@@ -13,15 +13,12 @@ import com.vvm.sh.R;
 import com.vvm.sh.servicos.email.EnvioEmailAsyncTask;
 import com.vvm.sh.ui.BaseActivity;
 import com.vvm.sh.ui.opcoes.TiposActivity;
-import com.vvm.sh.ui.registoVisita.RegistoVisitaActivity;
-import com.vvm.sh.util.Email;
+import com.vvm.sh.util.email.Email;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.interfaces.OnPermissaoConcedidaListener;
 import com.vvm.sh.util.metodos.BaseDadosUtil;
 import com.vvm.sh.util.metodos.DiretoriasUtil;
-import com.vvm.sh.util.metodos.ImagemUtil;
 import com.vvm.sh.util.metodos.PermissoesUtil;
-import com.vvm.sh.util.metodos.PreferenciasUtil;
 
 import java.io.File;
 

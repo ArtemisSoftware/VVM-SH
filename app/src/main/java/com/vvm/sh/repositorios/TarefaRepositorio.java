@@ -172,4 +172,9 @@ public class TarefaRepositorio {
         return parqueExtintorDao.removerExtintores(idTarefa);
     }
 
+
+    public Completable inserirAnomalia(int idTarefa, int idAnomalia, String observacao) {
+        return Completable.concatArray(tarefaDao.atualizarAnomalia(idTarefa, idAnomalia, observacao), tarefaDao.inserirAnomalia(idTarefa, idAnomalia, observacao));
+    }
+
 }

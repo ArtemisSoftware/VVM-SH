@@ -1,7 +1,12 @@
 package com.vvm.sh.util.mapeamento;
 
+import com.vvm.sh.api.modelos.bd.AreaBd;
 import com.vvm.sh.api.modelos.bd.AtividadePendenteBd;
+import com.vvm.sh.api.modelos.envio.Area;
 import com.vvm.sh.api.modelos.envio.Checklist;
+import com.vvm.sh.api.modelos.envio.ItemSeccaoChecklist;
+import com.vvm.sh.api.modelos.envio.Observacao;
+import com.vvm.sh.api.modelos.envio.Pergunta;
 import com.vvm.sh.api.modelos.envio.RegistoVisita;
 import com.vvm.sh.api.modelos.envio.Sessao;
 import com.vvm.sh.api.modelos.envio.AcaoFormacao;
@@ -15,10 +20,13 @@ import com.vvm.sh.api.modelos.envio.Formando;
 import com.vvm.sh.api.modelos.envio.Imagem;
 import com.vvm.sh.api.modelos.envio.Ocorrencia;
 import com.vvm.sh.api.modelos.envio.TrabalhoRealizado;
+import com.vvm.sh.api.modelos.envio.Ut;
 import com.vvm.sh.baseDados.entidades.CrossSellingResultado;
 import com.vvm.sh.baseDados.entidades.EmailResultado;
 import com.vvm.sh.baseDados.entidades.FormandoResultado;
 import com.vvm.sh.baseDados.entidades.ImagemResultado;
+import com.vvm.sh.baseDados.entidades.ItemChecklist;
+import com.vvm.sh.baseDados.entidades.QuestionarioChecklistResultado;
 import com.vvm.sh.baseDados.entidades.RegistoVisitaResultado;
 import com.vvm.sh.baseDados.entidades.Tarefa;
 import com.vvm.sh.baseDados.entidades.AnomaliaResultado;
@@ -85,9 +93,49 @@ public interface UploadMapping {
     TrabalhoRealizado map(TrabalhoRealizadoResultado item);
 
 
+
+
+
+
     @Mapping(target = "idChecklist", source = "id")
-    @Mapping(target = "versaoChecklist", source = "idPai")
-    Checklist mapeamento(Tipo obterChecklist);
+    //@Mapping(target = "versaoChecklist", source = "idPai")
+    Checklist mapeamento(Tipo checklist);
+
+    @Mapping(target = "idItem", source = "idItem")
+    @Mapping(target = "resposta", source = "resposta")
+    @Mapping(target = "nr", source = "nr")
+    Pergunta mapPerguntaChecklist(QuestionarioChecklistResultado questao);
+
+    @Mapping(target = "idItem", source = "idItem")
+    @Mapping(target = "resposta", source = "resposta")
+    Observacao mapObservacaoChecklist(QuestionarioChecklistResultado observacao);
+
+    @Mapping(target = "idItem", source = "idItem")
+    @Mapping(target = "idUT1", source = "ut1")
+    @Mapping(target = "idCategoriasRiscoUT_1", source = "ut1_CategoriasRisco")
+    @Mapping(target = "localRiscoA_ut_1", source = "ut1_LocalRisco_A")
+    @Mapping(target = "localRiscoB_ut_1", source = "ut1_LocalRisco_B")
+    @Mapping(target = "localRiscoC_ut_1", source = "ut1_LocalRisco_C")
+    @Mapping(target = "localRiscoD_ut_1", source = "ut1_LocalRisco_D")
+    @Mapping(target = "localRiscoE_ut_1", source = "ut1_LocalRisco_E")
+    @Mapping(target = "localRiscoF_ut_1", source = "ut1_LocalRisco_F")
+    @Mapping(target = "idUT2", source = "ut2")
+    @Mapping(target = "idCategoriasRiscoUT_2", source = "ut2_CategoriasRisco")
+    @Mapping(target = "localRiscoA_ut_2", source = "ut2_LocalRisco_A")
+    @Mapping(target = "localRiscoB_ut_2", source = "ut2_LocalRisco_B")
+    @Mapping(target = "localRiscoC_ut_2", source = "ut2_LocalRisco_C")
+    @Mapping(target = "localRiscoD_ut_2", source = "ut2_LocalRisco_D")
+    @Mapping(target = "localRiscoE_ut_2", source = "ut2_LocalRisco_E")
+    @Mapping(target = "localRiscoF_ut_2", source = "ut2_LocalRisco_F")
+    Ut mapUtChecklist(QuestionarioChecklistResultado ut);
+
+//    @Mapping(target = "idItem", source = "idImagem")
+//    ItemSeccaoChecklist mapImagemChecklist(ImagemResultado imagem);
+
+    //@Mapping(target = "idArea", source = "area.resultado.idArea")
+    @Mapping(target = "descricao", source = "descricao")
+    //@Mapping(target = "descricaoArea", source = "area.resultado.subDescricao")
+    Area map(AreaBd area);
 
 
     @Mapping(source = "idImagem", target = "idFoto")

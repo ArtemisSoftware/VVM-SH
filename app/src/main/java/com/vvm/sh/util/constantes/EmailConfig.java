@@ -2,6 +2,9 @@ package com.vvm.sh.util.constantes;
 
 public class EmailConfig {
 
+    public final static String ENDERECO_EMAIL =  "documentossst2@vivamais.com";
+    public final static String PALAVRAS_CHAVE = "Documentos_SST2";
+
 
     /**
      * Variaveis para um email de teste
@@ -10,6 +13,9 @@ public class EmailConfig {
 
         public final static String EMISSOR = "gustavomaia@vivamais.com";
         public final static String PALAVRA_CHAVE= "psyduckz";
+
+        public final static String TITULO_EMAIL= "Email de teste";
+        public final static String CORPO_EMAIL= "Corpo de teste para o email de teste.";
     }
 
 
@@ -40,6 +46,9 @@ public class EmailConfig {
     }
 
 
+
+
+
     public static class Destinatarios{
 
         public final static String BCC_CONTAS_EMAIL_ADMINISTRADORES [] = {/*"patriciacandeias@vivamais.com"*/};
@@ -65,15 +74,13 @@ public class EmailConfig {
 
     /*......................variaveis para um email de acordo................*/
 
-    public String ENDERECO_EMAIL =  "documentossst2@vivamais.com";
-    public String PALAVRAS_CHAVE = "Documentos_SST2";
+
 
 
 
 
 
     //public String EMISSOR_TESTE = "gustavo.isaac@b2b.com.pt";
-    //public String PALAVRA_CHAVE_TESTE = "Trivalor.qzeroo1";
 
 
     //

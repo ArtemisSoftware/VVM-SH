@@ -1,13 +1,11 @@
 package com.vvm.sh.ui.registoVisita;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
-import android.graphics.drawable.BitmapDrawable;
-import android.net.Uri;
 import android.os.Bundle;
 import android.view.View;
 
@@ -16,17 +14,14 @@ import com.vvm.sh.databinding.ActivityRegistoVisitaBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.AssinaturaActivity;
 import com.vvm.sh.ui.BaseDaggerActivity;
-import com.vvm.sh.ui.contaUtilizador.OpcoesAvancadasActivity;
+import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.interfaces.OnPermissaoConcedidaListener;
-import com.vvm.sh.util.metodos.BaseDadosUtil;
 import com.vvm.sh.util.metodos.DiretoriasUtil;
 import com.vvm.sh.util.metodos.ImagemUtil;
 import com.vvm.sh.util.metodos.PermissoesUtil;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
-
-import java.io.File;
 
 import javax.inject.Inject;
 
@@ -73,6 +68,24 @@ public class RegistoVisitaActivity extends BaseDaggerActivity {
     @Override
     protected void subscreverObservadores() {
 
+        viewModel.observarMessagem().observe(this, new Observer<Recurso>() {
+            @Override
+            public void onChanged(Recurso recurso) {
+
+                switch (recurso.status){
+
+                    case SUCESSO:
+
+                        break;
+
+                    case ERRO:
+
+                        dialogo.erro(recurso.messagem);
+                        break;
+
+                }
+            }
+        });
     }
 
 
@@ -113,13 +126,32 @@ public class RegistoVisitaActivity extends BaseDaggerActivity {
             public void executar() {
 
                 if(DiretoriasUtil.criarDirectoria(DiretoriasUtil.DIRETORIA_PDF) == true){
-                    viewModel.obterDadosPdf(RegistoVisitaActivity.this, PreferenciasUtil.obterIdTarefa(RegistoVisitaActivity.this), PreferenciasUtil.obterIdUtilizador(RegistoVisitaActivity.this));
+                    viewModel.preVisualizarPdf(RegistoVisitaActivity.this, PreferenciasUtil.obterIdTarefa(RegistoVisitaActivity.this), PreferenciasUtil.obterIdUtilizador(RegistoVisitaActivity.this));
                 }
             }
         };
 
         PermissoesUtil.pedirPermissoesEscritaLeitura(this, listener);
     }
+
+
+
+    @OnClick({R.id.fab_enviar})
+    public void fab_enviar_OnClickListener(View view) {
+
+        OnPermissaoConcedidaListener listener = new OnPermissaoConcedidaListener() {
+            @Override
+            public void executar() {
+
+                if(DiretoriasUtil.criarDirectoria(DiretoriasUtil.DIRETORIA_PDF) == true){
+                    viewModel.enviarPdf(RegistoVisitaActivity.this, PreferenciasUtil.obterIdTarefa(RegistoVisitaActivity.this), PreferenciasUtil.obterIdUtilizador(RegistoVisitaActivity.this));
+                }
+            }
+        };
+
+        PermissoesUtil.pedirPermissoesEscritaLeitura(this, listener);
+    }
+
 
 
 

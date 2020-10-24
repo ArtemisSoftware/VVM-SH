@@ -26,6 +26,7 @@ import com.vvm.sh.baseDados.entidades.OcorrenciaHistorico;
 import com.vvm.sh.baseDados.entidades.ParqueExtintor;
 import com.vvm.sh.baseDados.entidades.PlanoAcao;
 import com.vvm.sh.baseDados.entidades.PlanoAcaoAtividade;
+import com.vvm.sh.baseDados.entidades.QuestionarioChecklistResultado;
 import com.vvm.sh.baseDados.entidades.RegistoVisitaResultado;
 import com.vvm.sh.baseDados.entidades.Resultado;
 import com.vvm.sh.baseDados.entidades.EmailResultado;
@@ -158,6 +159,10 @@ abstract public class TransferenciasDao implements BaseDao<Resultado> {
     @Query("SELECT * FROM imagensResultado WHERE idImagem IN(:ids)")
     abstract public List<ImagemResultado> obterImagens(List<Integer> ids);
 
+    @Query("SELECT * FROM imagensResultado WHERE id = :id AND origem =:origem")
+    abstract public List<ImagemResultado> obterImagens(int id, int origem);
+
+
 
     @Query("SELECT * " +
             "FROM registoVisitaResultado as rg_vist_res " +
@@ -170,19 +175,28 @@ abstract public class TransferenciasDao implements BaseDao<Resultado> {
     abstract public List<TrabalhoRealizadoResultado> obterTrabalhoRealizado(int idTarefa);
 
 
-    @Query("SELECT * " +
-            "FROM areasChecklistResultado as ar_chk_res " +
-            "LEFT JOIN (SELECT id, idPai as versao FROM tipos WHERE tipo = '" + TiposUtil.MetodosTipos.TIPOS_CHECKLIST +"') as tp " +
-            "ON ar_chk_res.idChecklist = tp.id " +
-            "WHERE idAtividade =:idAtividade")
+    @Query("SELECT tp.* " +
+            "FROM tipos as tp " +
+            "LEFT JOIN (SELECT idChecklist FROM areasChecklistResultado WHERE idAtividade =:idAtividade) as ar_chk_res " +
+            "ON tp.id = ar_chk_res.idChecklist " +
+            "WHERE tipo = '" + TiposUtil.MetodosTipos.TIPOS_CHECKLIST +"'")
     public abstract Tipo obterChecklist(int idAtividade);
 
 
     @Query("SELECT *, descricao " +
             "FROM areasChecklistResultado as ar_chk_res " +
             "LEFT JOIN (SELECT idChecklist, idArea, descricao FROM areasChecklist) as chk_ar " +
-            "ON ar_chk_res.idChecklist = chk_ar.idChecklist AND ar_chk_res.idArea = chk_ar.idArea")
+            "ON ar_chk_res.idChecklist = chk_ar.idChecklist AND ar_chk_res.idArea = chk_ar.idArea AND idAtividade =:idAtividade")
     public abstract List<AreaBd> obterAreas(int idAtividade);
+
+
+    @Query("SELECT DISTINCT idSeccao FROM questionarioChecklistResultado  WHERE idArea =:idRegistoArea")
+    public abstract List<String> obterSeccoes(int idRegistoArea);
+
+
+
+    @Query("SELECT * FROM questionarioChecklistResultado  WHERE idArea =:idRegistoArea AND idSeccao = :idSeccao AND tipo =:tipo")
+    public abstract List<QuestionarioChecklistResultado> obterItens(int idRegistoArea, String idSeccao, String tipo);
 
     //-------------------
     //TRABALHO

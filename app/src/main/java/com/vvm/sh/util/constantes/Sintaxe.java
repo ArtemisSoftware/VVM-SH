@@ -13,6 +13,8 @@ public class Sintaxe {
     public static final CharSequence ARROBA = "@";
 
 
+
+
     public class Titulos{
 
         public static final String AGENDA = "Agenda";
@@ -59,6 +61,7 @@ public class Sintaxe {
 
         public static final String CHECKLIST = "Checklist";
         public static final String RISCO = "Risco";
+        public static final String ANOMALIA = "Anomalia";
     }
 
     public class Opcoes{
@@ -103,6 +106,10 @@ public class Sintaxe {
         public static final String EQUIPAMENTO_REGISTADO = "O equipamento já se encontra registado";
         public static final String MARCAR_QUESTOES_NAO_APLICAVEL = "Marcar todas as questões como não aplicáveis?";
         public static final String ERRO_GERAR_PDF =  "Erro ao gerar pdf: ";
+        public static final String INSERIR_ANOMALIA_FALTA_TEMPO = "Deseja inserir a Anomalia: Não visitado por Falta de Tempo?";
+        public static final String NAO_EXISTEM_DOCUMENTOS = "Não existem documentos";
+        public static final String EMAIL_CAMPOS_INVALIDOS = "Os campos do emails são inválidos";
+        public static final String PROBLEMA_EMAIL = "Ocorreu um problema ao enviar o email: ";
     }
 
     public class Frases{
@@ -121,6 +128,10 @@ public class Sintaxe {
         public static final String DADOS_VALIDADOS_SUCESSO = "Dados validados com sucesso";
         public static final String DADOS_REMOVIDOS_SUCESSO = "Dados removidos com sucesso";
         public static final String EQUIPAMENTO_REGISTADO_SUCESSO = "Equipamento registado com sucesso";
+        public static final String ANOMALIA_FALTA_TEMPO = "Não visitado por Falta de Tempo";
+        public static final String GERAR_PDF = "A gerar o pdf...";
+        public static final String GERAR_PRE_VISUALIZACAO_PDF = "A gerar a pré-visiualização do pdf...";
+        public static final String ENVIAR_EMAIL = "A enviar o email...";
     }
 
     public class API {

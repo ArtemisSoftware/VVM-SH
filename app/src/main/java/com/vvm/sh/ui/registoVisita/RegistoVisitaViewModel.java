@@ -5,12 +5,14 @@ import android.content.Context;
 import androidx.lifecycle.MutableLiveData;
 
 import com.titan.pdfdocumentlibrary.bundle.Template;
+import com.vvm.sh.R;
 import com.vvm.sh.baseDados.entidades.ImagemResultado;
 import com.vvm.sh.baseDados.entidades.RegistoVisitaResultado;
 import com.vvm.sh.baseDados.entidades.TrabalhoRealizadoResultado;
 import com.vvm.sh.documentos.registoVisita.modelos.RegistoVisita;
 import com.vvm.sh.documentos.registoVisita.RegistoVisita_Doc;
 import com.vvm.sh.repositorios.RegistoVisitaRepositorio;
+import com.vvm.sh.servicos.EnvioRegistoVisitaAsyncTask;
 import com.vvm.sh.servicos.pdf.DocumentoPdfAsyncTask;
 import com.vvm.sh.ui.registoVisita.modelos.DadosCliente;
 import com.vvm.sh.ui.registoVisita.modelos.RelatorioRegistoVisita;
@@ -34,6 +36,10 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 public class RegistoVisitaViewModel extends BaseViewModel {
+
+    private final int PRE_VISUALIZAR_PDF = 1;
+    private final int ENVIAR_PDF = 2;
+
 
     private final RegistoVisitaRepositorio registoVisitaRepositorio;
 
@@ -349,7 +355,39 @@ public class RegistoVisitaViewModel extends BaseViewModel {
     }
 
 
-    public void obterDadosPdf(Context contexto, int idTarefa, String idUtilizador) {
+    //-----------------------
+    //Misc
+    //------------------------
+
+    /**
+     * Metodo que permite pre visualizar o pdf
+     * @param contexto
+     * @param idTarefa
+     * @param idUtilizador
+     */
+    public void preVisualizarPdf(Context contexto, int idTarefa, String idUtilizador){
+        gerarPdf(contexto, idTarefa, idUtilizador, PRE_VISUALIZAR_PDF);
+    }
+
+
+    /**
+     * Metodo que permite enviar o pdf
+     * @param contexto
+     * @param idTarefa
+     * @param idUtilizador
+     */
+    public void enviarPdf(Context contexto, int idTarefa, String idUtilizador){
+        gerarPdf(contexto, idTarefa, idUtilizador, ENVIAR_PDF);
+    }
+
+
+    /**
+     * Metodo que permite pré-visualizar o pdf
+     * @param contexto
+     * @param idTarefa
+     * @param idUtilizador
+     */
+    private void gerarPdf(Context contexto, int idTarefa, String idUtilizador, int acao) {
 
         registoVisitaRepositorio.obtePdf(idTarefa, idUtilizador)
                 .subscribeOn(Schedulers.io())
@@ -364,7 +402,12 @@ public class RegistoVisitaViewModel extends BaseViewModel {
 
                             @Override
                             public void onSuccess(RegistoVisita registo) {
-                                registoVisitaPdf(contexto, idTarefa, registo);
+                                if(acao == PRE_VISUALIZAR_PDF) {
+                                    preVisualizarPdf(contexto, idTarefa, registo);
+                                }
+                                else{
+                                    enviarPdf(contexto, idTarefa, registo);
+                                }
                             }
 
                             @Override
@@ -383,17 +426,42 @@ public class RegistoVisitaViewModel extends BaseViewModel {
 
 
     /**
-     * Metodo que permite gerar o pdf do registo de visita
+     * Metodo que permite pre visualizar o pdf do registo de visita
      * @param contexto
      * @param idTarefa
      * @param registo
      */
-    private void registoVisitaPdf(Context contexto, int idTarefa, RegistoVisita registo){
+    private void preVisualizarPdf(Context contexto, int idTarefa, RegistoVisita registo){
 
         Template registoVisitaTemplate = new RegistoVisita_Doc(contexto, idTarefa, registo);
         DocumentoPdfAsyncTask servico = new DocumentoPdfAsyncTask(contexto, registoVisitaTemplate);
         servico.execute();
     }
+
+
+
+    /**
+     * Metodo que permite pre visualizar o pdf do registo de visita
+     * @param contexto
+     * @param idTarefa
+     * @param registo
+     */
+    private void enviarPdf(Context contexto, int idTarefa, RegistoVisita registo){
+
+        if(registo.credenciaisEmail.destino == null){
+            messagemLiveData.setValue(Recurso.erro(contexto.getString(R.string.nao_existe_email_associado)));
+        }
+        else if(registo.credenciaisEmail.destino.equals("") == true){
+            messagemLiveData.setValue(Recurso.erro(contexto.getString(R.string.nao_existe_email_associado)));
+        }
+        else {
+
+            EnvioRegistoVisitaAsyncTask servico = new EnvioRegistoVisitaAsyncTask(contexto, registo.credenciaisEmail);
+            servico.execute(new RegistoVisita_Doc(contexto, idTarefa, registo));
+        }
+    }
+
+
 
 
 }

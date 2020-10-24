@@ -1,26 +1,27 @@
 package com.vvm.sh.ui.registoVisita.modelos;
 
+import androidx.room.ColumnInfo;
 import androidx.room.Ignore;
 
 public class RelatorioRegistoVisita {
 
-    public boolean clienteValido = false;
+    @ColumnInfo(name = "clienteValido")
+    public boolean clienteValido;
 
-    public boolean trabalhoValido = false;
+    @ColumnInfo(name = "trabalhoValido")
+    public boolean trabalhoValido;
 
-    public int numeroTrabalhos = 0;
+    @ColumnInfo(name = "numeroTrabalhos")
+    public int numeroTrabalhos;
 
-    public boolean assinaturaValido = false;
+    @ColumnInfo(name = "email")
+    public String email;
 
-    @Ignore
-    public boolean valido = false;
+    @ColumnInfo(name = "assinaturaValido")
+    public boolean assinaturaValido;
 
-    public RelatorioRegistoVisita(boolean clienteValido, boolean trabalhoValido, int numeroTrabalhos, boolean assinaturaValido) {
-        this.clienteValido = clienteValido;
-        this.trabalhoValido = trabalhoValido;
-        this.numeroTrabalhos = numeroTrabalhos;
-        this.assinaturaValido = assinaturaValido;
+    @ColumnInfo(name = "valido")
+    public boolean valido;
 
-        this.valido = assinaturaValido & trabalhoValido & assinaturaValido;
-    }
+
 }

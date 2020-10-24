@@ -36,6 +36,11 @@ public class Identificadores {
     public static final int ID_FRASE_APOIO_REGISTO_VISITA = 1;
 
 
+    public static final int ID_ANOMALIA_FALTA_TEMPO = -99;
+
+    public static final int ID_EMAIL_REGISTO_VISITA_KMED = 3;
+    public static final int ID_EMAIL_REGISTO_VISITA_VM = 2;
+
     public class Origens{
 
         public static final int ORIGEM_BD = 1;

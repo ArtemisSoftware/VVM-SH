@@ -15,6 +15,8 @@ import com.vvm.sh.documentos.modelos.Rubrica;
 import com.vvm.sh.ui.registoVisita.modelos.DadosCliente;
 import com.vvm.sh.ui.registoVisita.modelos.RelatorioRegistoVisita;
 import com.vvm.sh.ui.registoVisita.modelos.TrabalhoRealizado;
+import com.vvm.sh.util.email.CredenciaisEmail;
+import com.vvm.sh.util.email.Email;
 import com.vvm.sh.util.constantes.Identificadores;
 
 import java.util.List;
@@ -23,7 +25,7 @@ import io.reactivex.Flowable;
 import io.reactivex.Maybe;
 import io.reactivex.Observable;
 import io.reactivex.Single;
-import io.reactivex.functions.Function4;
+import io.reactivex.functions.Function5;
 
 public class RegistoVisitaRepositorio {
 
@@ -112,19 +114,21 @@ public class RegistoVisitaRepositorio {
     public Maybe<RegistoVisita> obtePdf(int idTarefa, String idUtilizador) {
 
         return Maybe.zip(
+                registoVisitaDao.obterDadosEmail(idTarefa, api),
                 pdfDao.obterDadosCliente(idTarefa),
                 pdfDao.obterTrabalhosRealizadosRegistados(idTarefa, api),
                 pdfDao.obterRubrica(idTarefa, Identificadores.Imagens.IMAGEM_ASSINATURA_REGISTO_VISITA, idUtilizador),
                 pdfDao.obterFraseApoio(Identificadores.ID_FRASE_APOIO_REGISTO_VISITA, api),
-                new Function4<DadosCliente, List<TrabalhoRealizado>, Rubrica, String, RegistoVisita>() {
+                new Function5<CredenciaisEmail, DadosCliente, List<TrabalhoRealizado>, Rubrica, String, RegistoVisita>() {
                     @Override
-                    public RegistoVisita apply(DadosCliente dadosCliente, List<TrabalhoRealizado> trabalhoRealizados, Rubrica rubrica, String referencia) throws Exception {
+                    public RegistoVisita apply(CredenciaisEmail credenciaisEmail, DadosCliente dadosCliente, List<TrabalhoRealizado> trabalhoRealizados, Rubrica rubrica, String referencia) throws Exception {
 
                         RegistoVisita registoVisita = new RegistoVisita();
                         registoVisita.dadosCliente = dadosCliente;
                         registoVisita.trabalhoRealizados = trabalhoRealizados;
                         registoVisita.rubrica = rubrica;
                         registoVisita.referencia = referencia;
+                        registoVisita.credenciaisEmail = credenciaisEmail;
                         return registoVisita;
                     }
                 });

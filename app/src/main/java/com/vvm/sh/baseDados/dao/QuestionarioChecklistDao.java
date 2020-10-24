@@ -71,11 +71,8 @@ abstract public class QuestionarioChecklistDao implements BaseDao<QuestionarioCh
     @Query("DELETE FROM areasChecklistResultado WHERE idAtividade = :idAtividade")
     abstract public Single<Integer> remover(int idAtividade);
 
-    @Query("DELETE FROM areasChecklistResultado WHERE id = :id")
-    abstract public Single<Integer> removerArea(int id);
 
-    @Query("DELETE FROM imagensResultado WHERE id = :id AND origem = " + Identificadores.Imagens.IMAGEM_CHECKLIST + "")
-    abstract public Single<Integer> removerImagensArea(int id);
+
 
 
 
@@ -93,6 +90,9 @@ abstract public class QuestionarioChecklistDao implements BaseDao<QuestionarioCh
             ")")
     abstract public Completable removerPropostaPlanoAcao_ST(int idRegistoArea);
 
+    @Query("DELETE FROM questionarioChecklistResultado WHERE idArea = :id")
+    abstract public Completable removerArea(int id);
+
 
     @Query("DELETE FROM questionarioChecklistResultado WHERE idArea = :id AND idSeccao = :idSeccao AND tipo = :tipo")
     abstract public Completable removerArea(int id, String idSeccao, String tipo);
@@ -106,6 +106,9 @@ abstract public class QuestionarioChecklistDao implements BaseDao<QuestionarioCh
             "WHERE ar_chk_res.id = :idRegistoArea AND chk_itens.tipo = :tipo AND chk_itens.idSeccao = :idSeccao")
     abstract public Completable inserirNaoAplicavel(int idRegistoArea, String idSeccao, String tipo, String resposta);
 
+    @Query("DELETE FROM imagensResultado WHERE id = :id AND origem = " + Identificadores.Imagens.IMAGEM_CHECKLIST + "")
+    abstract public Completable removerImagensArea(int id);
+
     //-------------------
     //Remover checklist
     //-------------------
@@ -115,7 +118,7 @@ abstract public class QuestionarioChecklistDao implements BaseDao<QuestionarioCh
             "SELECT id " +
             "FROM questionarioChecklistResultado as quest_res " +
             "WHERE idArea IN (SELECT id FROM areasChecklistResultado WHERE idAtividade = :idAtividade)" +
-            ")")
+            ") AND origem = " + Identificadores.Origens.CHECKLIST + " ")
     abstract public Completable removerPropostaPlanoAcao_ST_Checklist(int idAtividade);
 
 
@@ -125,7 +128,7 @@ abstract public class QuestionarioChecklistDao implements BaseDao<QuestionarioCh
     @Query("DELETE FROM areasChecklistResultado WHERE idAtividade = :idAtividade")
     abstract public Completable removerArea_Checklist(int idAtividade);
 
-    @Query("DELETE FROM imagensResultado WHERE id IN (SELECT id FROM areasChecklistResultado WHERE idAtividade = :idAtividade)")
+    @Query("DELETE FROM imagensResultado WHERE id IN (SELECT id FROM areasChecklistResultado WHERE idAtividade = :idAtividade) AND origem = " + Identificadores.Imagens.IMAGEM_CHECKLIST + " ")
     abstract public Completable removerImagens_Checklist(int idAtividade);
 
 }

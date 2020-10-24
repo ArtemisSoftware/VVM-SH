@@ -1,24 +1,40 @@
-package com.vvm.sh.util;
+package com.vvm.sh.util.email;
 
+import androidx.room.Ignore;
+
+import com.vvm.sh.util.constantes.AppConfig;
 import com.vvm.sh.util.constantes.EmailConfig;
 import com.vvm.sh.util.constantes.Sintaxe;
 
+import javax.activation.DataHandler;
+import javax.activation.DataSource;
+import javax.activation.FileDataSource;
+import javax.mail.BodyPart;
+import javax.mail.MessagingException;
 import javax.mail.Multipart;
 import javax.mail.PasswordAuthentication;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
+import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMultipart;
 
 public class Email extends javax.mail.Authenticator{
 
-    public String destino, palavraChave, titulo, corpoEmail;
+    public String destino, titulo, corpoEmail;
+
+    public String palavraChave;
+
+
+    public boolean autenticacaoSmtp, _debuggable, resultadoEnvio;
+
     public InternetAddress emissor;
     public InternetAddress[] enderecosDestinoBCC;
-    public boolean autenticacaoSmtp, _debuggable, resultadoEnvio;
     public Multipart _multipart;
 
 
+
     private boolean teste;
+
 
     public Email() {
 
@@ -31,9 +47,8 @@ public class Email extends javax.mail.Authenticator{
             this.emissor = null;
         }
 
-        this.titulo = "teste 1 2 3";
-
-        this.corpoEmail = "Email de teste. Não aceitamos cabelo postiço";
+        this.titulo = EmailConfig.Teste.TITULO_EMAIL;
+        this.corpoEmail = EmailConfig.Teste.CORPO_EMAIL;
 
         _multipart = new MimeMultipart();
 
@@ -46,21 +61,25 @@ public class Email extends javax.mail.Authenticator{
 
 
 
-    public Email(String emissor, String palavraChave, String destino) {
+    public Email(CredenciaisEmail credenciaisEmail) {
 
         try {
-            this.emissor = new InternetAddress(emissor);
-            this.palavraChave = palavraChave;
-            this.destino = destino;
+            this.emissor = new InternetAddress(EmailConfig.ENDERECO_EMAIL);
+            this.palavraChave = EmailConfig.PALAVRAS_CHAVE;
+            this.destino = credenciaisEmail.destino;
 
             if(EmailConfig.Destinatarios.BCC_CONTAS_EMAIL_ADMINISTRADORES.length != 0){
                 enderecosDestinoBCC = formatarEnderecos(EmailConfig.Destinatarios.BCC_CONTAS_EMAIL_ADMINISTRADORES);
             }
+
+
         }
         catch (AddressException e) {
             this.emissor = null;
         }
 
+        this.titulo = credenciaisEmail.titulo;
+        this.corpoEmail = credenciaisEmail.corpoEmail;
         _multipart = new MimeMultipart();
 
 //        boolean teste = false;
@@ -133,18 +152,6 @@ public class Email extends javax.mail.Authenticator{
     }
 
 
-//    /**
-//     * Metodo que permite fixar o email de destino
-//     * @param endereco o endereco de email de destino
-//     */
-//    public void fixarDestinario(String endereco) {
-//
-//        if(!TESTE){
-//            this.destino = endereco;
-//        }
-//    }
-
-
     //---------------------------------
     //Metodos locais
     //---------------------------------
@@ -172,30 +179,23 @@ public class Email extends javax.mail.Authenticator{
         return addressTo;
     }
 
-//
-//    /**
-//     * Metodo que permite adicionar um anexo
-//     * @param filename
-//     */
-//    public void adicionarAnexo(String filename) {
-//
-//        BodyPart messageBodyPart = new MimeBodyPart();
-//        DataSource source = new FileDataSource(filename);
-//        try {
-//            messageBodyPart.setDataHandler(new DataHandler(source));
-//            messageBodyPart.setFileName(filename.split("/")[filename.split("/").length -1]);
-//            _multipart.addBodyPart(messageBodyPart);
-//        }
-//        catch (MessagingException e) {
-//            e.printStackTrace();
-//        }
-//
-//    }
 
+    /**
+     * Metodo que permite adicionar um anexo
+     * @param ficheiro o caminho para o ficheiro
+     */
+    public void adicionarAnexo(String ficheiro) {
 
-
-
-
-
+        BodyPart messageBodyPart = new MimeBodyPart();
+        DataSource source = new FileDataSource(ficheiro);
+        try {
+            messageBodyPart.setDataHandler(new DataHandler(source));
+            messageBodyPart.setFileName(ficheiro.split("/")[ficheiro.split("/").length -1]);
+            _multipart.addBodyPart(messageBodyPart);
+        }
+        catch (MessagingException e) {
+            e.printStackTrace();
+        }
+    }
 
 }

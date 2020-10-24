@@ -25,6 +25,7 @@ import com.vvm.sh.baseDados.entidades.OcorrenciaHistorico;
 import com.vvm.sh.baseDados.entidades.ParqueExtintor;
 import com.vvm.sh.baseDados.entidades.PlanoAcao;
 import com.vvm.sh.baseDados.entidades.PlanoAcaoAtividade;
+import com.vvm.sh.baseDados.entidades.QuestionarioChecklistResultado;
 import com.vvm.sh.baseDados.entidades.Resultado;
 import com.vvm.sh.baseDados.entidades.EmailResultado;
 import com.vvm.sh.baseDados.entidades.Tarefa;
@@ -283,12 +284,24 @@ public class TransferenciasRepositorio {
         return transferenciasDao.obterImagens(ids);
     }
 
+    public List<ImagemResultado> obterImagens(int id, int origem) {
+        return transferenciasDao.obterImagens(id, origem);
+    }
+
     public Tipo obterChecklist(int idAtividade) {
         return transferenciasDao.obterChecklist(idAtividade);
     }
 
     public List<AreaBd> obterAreas(int idAtividade) {
         return transferenciasDao.obterAreas(idAtividade);
+    }
+
+    public List<String> obterSeccoes(int idRegistoArea) {
+        return transferenciasDao.obterSeccoes(idRegistoArea);
+    }
+
+    public List<QuestionarioChecklistResultado> obterItens(int idRegistoArea, String idSeccao, String tipo) {
+        return transferenciasDao.obterItens(idRegistoArea, idSeccao, tipo);
     }
 
     //---------------------------

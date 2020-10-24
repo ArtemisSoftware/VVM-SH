@@ -27,6 +27,8 @@ import com.vvm.sh.ui.tarefa.modelos.OpcaoCliente;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.constantes.Url;
+import com.vvm.sh.util.interfaces.OnDialogoListener;
+import com.vvm.sh.util.metodos.DatasUtil;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
@@ -77,6 +79,23 @@ public class TarefaActivity extends BaseDaggerActivity
 
     }
 
+
+    //------------------------
+    //Metodos locais
+    //------------------------
+
+    private void gravarAnomalia() {
+
+
+        OnDialogoListener listener = new OnDialogoListener() {
+            @Override
+            public void onExecutar() {
+                viewModel.gravarAnomalia(PreferenciasUtil.obterIdTarefa(TarefaActivity.this));
+            }
+        };
+
+        dialogo.alerta(Sintaxe.Palavras.ANOMALIA, Sintaxe.Alertas.INSERIR_ANOMALIA_FALTA_TEMPO, listener);
+    }
 
 
     //---------------------
@@ -134,6 +153,11 @@ public class TarefaActivity extends BaseDaggerActivity
 
                 DialogoEmail dialogo = new DialogoEmail();
                 dialogo.show(getSupportFragmentManager(), "example dialog");
+                break;
+
+            case Identificadores.OpcoesCliente.OPCAO_SEM_TEMPO:
+
+                gravarAnomalia();
                 break;
 
 

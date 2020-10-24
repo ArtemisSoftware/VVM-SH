@@ -300,6 +300,37 @@ public class TarefaViewModel extends BaseViewModel {
     }
 
 
+    public void gravarAnomalia(int idTarefa) {
+
+        showProgressBar(true);
+
+        tarefaRepositorio.inserirAnomalia(idTarefa, Identificadores.ID_ANOMALIA_FALTA_TEMPO, Sintaxe.Frases.ANOMALIA_FALTA_TEMPO)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new CompletableObserver() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onComplete() {
+                                messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_VALIDADOS_SUCESSO));
+                                gravarResultado(tarefaRepositorio.resultadoDao, idTarefa, ResultadoId.ATIVIDADE_PENDENTE);
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                showProgressBar(false);
+                            }
+                        }
+                );
+
+
+    }
 
 
     //--------------------
@@ -551,6 +582,7 @@ public class TarefaViewModel extends BaseViewModel {
 
         opcoesEmail.setValue(items);
     }
+
 
 
 

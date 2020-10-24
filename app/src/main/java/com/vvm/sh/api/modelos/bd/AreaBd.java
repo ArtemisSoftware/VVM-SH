@@ -10,7 +10,6 @@ public class AreaBd {
     @Embedded
     public AreaChecklistResultado resultado;
 
-
     @ColumnInfo(name = "descricao")
     public String descricao;
 }

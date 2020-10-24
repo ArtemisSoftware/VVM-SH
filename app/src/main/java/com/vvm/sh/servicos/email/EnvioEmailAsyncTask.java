@@ -3,7 +3,7 @@ package com.vvm.sh.servicos.email;
 import android.content.Context;
 import android.os.AsyncTask;
 
-import com.vvm.sh.util.Email;
+import com.vvm.sh.util.email.Email;
 import com.vvm.sh.util.constantes.EmailConfig;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.metodos.MensagensUtil;
@@ -17,7 +17,6 @@ import javax.mail.BodyPart;
 import javax.mail.MessagingException;
 import javax.mail.Session;
 import javax.mail.Transport;
-import javax.mail.internet.AddressException;
 import javax.mail.internet.MimeBodyPart;
 import javax.mail.internet.MimeMessage;
 
@@ -35,9 +34,7 @@ public class EnvioEmailAsyncTask extends AsyncTask<Email, Void, Void> {
 
     @Override
     protected void onPreExecute() {
-
-        dialogo.progresso(true, "A enviar o email");
-
+        dialogo.progresso(true, Sintaxe.Frases.ENVIAR_EMAIL);
     }
 
     @Override
@@ -53,7 +50,6 @@ public class EnvioEmailAsyncTask extends AsyncTask<Email, Void, Void> {
             boolean resultado = false;
 
             if(email.validarDadosEmail() == true) {
-
 
                 Session sessao = Session.getInstance(propriedades, email);
                 MimeMessage mensagem = new MimeMessage(sessao);
@@ -106,17 +102,13 @@ public class EnvioEmailAsyncTask extends AsyncTask<Email, Void, Void> {
                 }
             }
             else{
-                erro = "Os campos do emails são inválidos";
+                erro = Sintaxe.Alertas.EMAIL_CAMPOS_INVALIDOS;
             }
             email.resultadoEnvio = resultado;
 
         }
         catch(Exception e) {
-
             erro = e.getMessage();
-
-//            LogApp_v4.obterInstancia(FONTE, LogIF.ID_LOG_GERAL).adicionarTexto("Ocorreu um problema ao enviar o email.");
-//            LogApp_v4.obterInstancia(FONTE, LogIF.ID_LOG_GERAL).adicionarExcecaoErro(e);
         }
 
 
@@ -129,7 +121,7 @@ public class EnvioEmailAsyncTask extends AsyncTask<Email, Void, Void> {
         dialogo.terminarProgresso();
 
         if(erro != null){
-            dialogo.erro("Ocorreu um problema ao enviar o email: " + erro);
+            dialogo.erro(Sintaxe.Alertas.PROBLEMA_EMAIL  + erro);
         }
         else{
             dialogo.sucesso(Sintaxe.Frases.DADOS_ENVIADOS_SUCESSO);

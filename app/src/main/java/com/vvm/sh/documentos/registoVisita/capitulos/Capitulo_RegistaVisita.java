@@ -5,7 +5,7 @@ import android.content.Context;
 import com.titan.pdfdocumentlibrary.bundle.Chapter;
 import com.titan.pdfdocumentlibrary.bundle.Section;
 import com.titan.pdfdocumentlibrary.models.Index;
-import com.vvm.sh.documentos.TrabalhosRealizados;
+import com.vvm.sh.documentos.registoVisita.seccoes.TrabalhosRealizados;
 import com.vvm.sh.documentos.registoVisita.modelos.RegistoVisita;
 import com.vvm.sh.documentos.registoVisita.seccoes.Assinatura;
 import com.vvm.sh.documentos.registoVisita.seccoes.Cabecalho;

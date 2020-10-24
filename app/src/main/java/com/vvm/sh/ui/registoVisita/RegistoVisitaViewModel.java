@@ -5,14 +5,12 @@ import android.content.Context;
 import androidx.lifecycle.MutableLiveData;
 
 import com.titan.pdfdocumentlibrary.bundle.Template;
-import com.vvm.sh.R;
 import com.vvm.sh.baseDados.entidades.ImagemResultado;
 import com.vvm.sh.baseDados.entidades.RegistoVisitaResultado;
 import com.vvm.sh.baseDados.entidades.TrabalhoRealizadoResultado;
-import com.vvm.sh.documentos.registoVisita.modelos.RegistoVisita;
-import com.vvm.sh.documentos.registoVisita.RegistoVisita_Doc;
+import com.vvm.sh.documentos.registoVisita.RegistoVisita;
 import com.vvm.sh.repositorios.RegistoVisitaRepositorio;
-import com.vvm.sh.servicos.EnvioRegistoVisitaAsyncTask;
+import com.vvm.sh.servicos.pdf.EnvioRegistoVisitaAsyncTask;
 import com.vvm.sh.servicos.pdf.DocumentoPdfAsyncTask;
 import com.vvm.sh.ui.registoVisita.modelos.DadosCliente;
 import com.vvm.sh.ui.registoVisita.modelos.RelatorioRegistoVisita;
@@ -396,14 +394,14 @@ public class RegistoVisitaViewModel extends BaseViewModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
 
-                        new MaybeObserver<RegistoVisita>() {
+                        new MaybeObserver<com.vvm.sh.documentos.registoVisita.modelos.RegistoVisita>() {
                             @Override
                             public void onSubscribe(Disposable d) {
                                 disposables.add(d);
                             }
 
                             @Override
-                            public void onSuccess(RegistoVisita registo) {
+                            public void onSuccess(com.vvm.sh.documentos.registoVisita.modelos.RegistoVisita registo) {
                                 if(acao == PRE_VISUALIZAR_PDF) {
                                     preVisualizarPdf(contexto, idTarefa, registo);
                                 }
@@ -434,9 +432,9 @@ public class RegistoVisitaViewModel extends BaseViewModel {
      * @param idTarefa
      * @param registo
      */
-    private void preVisualizarPdf(Context contexto, int idTarefa, RegistoVisita registo){
+    private void preVisualizarPdf(Context contexto, int idTarefa, com.vvm.sh.documentos.registoVisita.modelos.RegistoVisita registo){
 
-        Template registoVisitaTemplate = new RegistoVisita_Doc(contexto, idTarefa, registo);
+        Template registoVisitaTemplate = new RegistoVisita(contexto, idTarefa, registo);
         DocumentoPdfAsyncTask servico = new DocumentoPdfAsyncTask(contexto, registoVisitaTemplate);
         servico.execute();
     }
@@ -449,19 +447,10 @@ public class RegistoVisitaViewModel extends BaseViewModel {
      * @param idTarefa
      * @param registo
      */
-    private void enviarPdf(Context contexto, int idTarefa, RegistoVisita registo){
+    private void enviarPdf(Context contexto, int idTarefa, com.vvm.sh.documentos.registoVisita.modelos.RegistoVisita registo){
 
-        if(registo.credenciaisEmail.destino == null){
-            messagemLiveData.setValue(Recurso.erro(contexto.getString(R.string.nao_existe_email_associado)));
-        }
-        else if(registo.credenciaisEmail.destino.equals("") == true){
-            messagemLiveData.setValue(Recurso.erro(contexto.getString(R.string.nao_existe_email_associado)));
-        }
-        else {
-
-            EnvioRegistoVisitaAsyncTask servico = new EnvioRegistoVisitaAsyncTask(contexto, registo.credenciaisEmail);
-            servico.execute(new RegistoVisita_Doc(contexto, idTarefa, registo));
-        }
+        EnvioRegistoVisitaAsyncTask servico = new EnvioRegistoVisitaAsyncTask(contexto, registo.credenciaisEmail, vvmshBaseDados, registoVisitaRepositorio, idTarefa);
+        servico.execute(new RegistoVisita(contexto, idTarefa, registo));
     }
 
 

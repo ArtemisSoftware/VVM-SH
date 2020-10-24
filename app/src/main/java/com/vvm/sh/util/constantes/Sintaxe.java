@@ -62,6 +62,7 @@ public class Sintaxe {
         public static final String CHECKLIST = "Checklist";
         public static final String RISCO = "Risco";
         public static final String ANOMALIA = "Anomalia";
+        public static final String PDF = "Pdf";
     }
 
     public class Opcoes{
@@ -108,8 +109,10 @@ public class Sintaxe {
         public static final String ERRO_GERAR_PDF =  "Erro ao gerar pdf: ";
         public static final String INSERIR_ANOMALIA_FALTA_TEMPO = "Deseja inserir a Anomalia: Não visitado por Falta de Tempo?";
         public static final String NAO_EXISTEM_DOCUMENTOS = "Não existem documentos";
-        public static final String EMAIL_CAMPOS_INVALIDOS = "Os campos do emails são inválidos";
+        public static final String EMAIL_CAMPOS_INVALIDOS = "Os campos do email são inválidos";
         public static final String PROBLEMA_EMAIL = "Ocorreu um problema ao enviar o email: ";
+        public static final String DADOS_INCOMPLETOS_PDF = "Dados incompletos. Pré-visualização indisponível";
+        public static final String EMAIL_NAO_ASSOCIADO = "Dados incompletos. Não existem um email associado";
     }
 
     public class Frases{

@@ -47,7 +47,7 @@ public class EnvioEmailAsyncTask extends AsyncTask<Email, Void, Void> {
             inicializarMail();
 
             Properties propriedades = fixarPropriedadesLigacao(email);
-            boolean resultado = false;
+
 
             if(email.validarDadosEmail() == true) {
 
@@ -94,7 +94,7 @@ public class EnvioEmailAsyncTask extends AsyncTask<Email, Void, Void> {
                     //enviar email
                     Transport.send(mensagem);
 
-                    resultado =  true;
+                    completarEnvio();
                 }
                 catch (MessagingException e) {
                     e.printStackTrace();
@@ -104,7 +104,6 @@ public class EnvioEmailAsyncTask extends AsyncTask<Email, Void, Void> {
             else{
                 erro = Sintaxe.Alertas.EMAIL_CAMPOS_INVALIDOS;
             }
-            email.resultadoEnvio = resultado;
 
         }
         catch(Exception e) {
@@ -176,5 +175,10 @@ public class EnvioEmailAsyncTask extends AsyncTask<Email, Void, Void> {
     }
 
 
-
+    /**
+     * Metodo que permite completar o envio
+     */
+    protected void completarEnvio(){
+        erro = null;
+    }
 }

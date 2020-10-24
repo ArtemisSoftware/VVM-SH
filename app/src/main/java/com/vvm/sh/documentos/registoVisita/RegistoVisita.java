@@ -14,12 +14,12 @@ import com.vvm.sh.util.metodos.DiretoriasUtil;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RegistoVisita_Doc extends Template {
+public class RegistoVisita extends Template {
 
-    private RegistoVisita registoVisita;
+    private com.vvm.sh.documentos.registoVisita.modelos.RegistoVisita registoVisita;
     private int idTarefa;
 
-    public RegistoVisita_Doc(Context contexto, int idTarefa, RegistoVisita registoVisita) {
+    public RegistoVisita(Context contexto, int idTarefa, com.vvm.sh.documentos.registoVisita.modelos.RegistoVisita registoVisita) {
         super(contexto, DiretoriasUtil.obterDiretoria(DiretoriasUtil.DIRETORIA_PDF));
 
         this.registoVisita = registoVisita;

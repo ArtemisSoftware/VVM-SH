@@ -16,6 +16,7 @@ import com.vvm.sh.ui.AssinaturaActivity;
 import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.constantes.Identificadores;
+import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.interfaces.OnPermissaoConcedidaListener;
 import com.vvm.sh.util.metodos.DiretoriasUtil;
 import com.vvm.sh.util.metodos.ImagemUtil;
@@ -132,7 +133,7 @@ public class RegistoVisitaActivity extends BaseDaggerActivity {
         };
 
         if(viewModel.relatorio.getValue().valido == false){
-            dialogo.alerta("Pdf", "Dados incompletos. Pré-visualização indisponível");
+            dialogo.alerta(Sintaxe.Palavras.PDF, Sintaxe.Alertas.DADOS_INCOMPLETOS_PDF);
         }
         else {
             PermissoesUtil.pedirPermissoesEscritaLeitura(this, listener);
@@ -155,7 +156,10 @@ public class RegistoVisitaActivity extends BaseDaggerActivity {
         };
 
         if(viewModel.relatorio.getValue().valido == false){
-            dialogo.alerta("Pdf", "Dados incompletos. Impossível enviar pdf");
+            dialogo.alerta(Sintaxe.Palavras.PDF, Sintaxe.Alertas.DADOS_INCOMPLETOS_PDF);
+        }
+        else if(viewModel.relatorio.getValue().email.equals("") == true){
+            dialogo.alerta(Sintaxe.Palavras.PDF, Sintaxe.Alertas.EMAIL_NAO_ASSOCIADO);
         }
         else {
             PermissoesUtil.pedirPermissoesEscritaLeitura(this, listener);

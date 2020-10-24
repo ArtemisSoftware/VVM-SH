@@ -3,9 +3,11 @@ package com.vvm.sh.baseDados.dao;
 import androidx.room.Dao;
 import androidx.room.Query;
 import androidx.room.Transaction;
+import androidx.room.Update;
 
 import com.vvm.sh.baseDados.BaseDao;
 import com.vvm.sh.baseDados.entidades.RegistoVisitaResultado;
+import com.vvm.sh.baseDados.entidades.Resultado;
 import com.vvm.sh.ui.registoVisita.modelos.DadosCliente;
 import com.vvm.sh.ui.registoVisita.modelos.RelatorioRegistoVisita;
 import com.vvm.sh.util.email.CredenciaisEmail;
@@ -90,4 +92,12 @@ abstract public class RegistoVisitaDao implements BaseDao<RegistoVisitaResultado
             "WHERE clt.idTarefa = :idTarefa")
     abstract public Maybe<CredenciaisEmail> obterDadosEmail(int idTarefa, int api);
 
+
+    //---------------
+    //Misc
+    //----------------
+
+
+    @Query("UPDATE registoVisitaResultado SET sincronizacao = 1 WHERE idTarefa =:idTarefa")
+    abstract public void sincronizar(int idTarefa);
 }

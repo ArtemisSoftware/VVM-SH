@@ -2,11 +2,14 @@ package com.vvm.sh.baseDados.entidades;
 
 
 import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
+
+import com.vvm.sh.util.constantes.Sintaxe;
 
 import static androidx.room.ForeignKey.CASCADE;
 
@@ -31,8 +34,9 @@ public class RegistoVisitaResultado {
     public String observacao;
 
 
-    //@NonNull
-    //public int sincronizacao;
+    @NonNull
+    @ColumnInfo(name = "sincronizacao", defaultValue = Sintaxe.Codigos.NAO_SELECIONADO)
+    public boolean sincronizacao;
 
 
     @Ignore

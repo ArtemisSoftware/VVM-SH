@@ -22,7 +22,7 @@ public class Email extends javax.mail.Authenticator{
     public String palavraChave;
 
 
-    public boolean autenticacaoSmtp, _debuggable, resultadoEnvio;
+    public boolean autenticacaoSmtp, _debuggable;
 
     public InternetAddress emissor;
     public InternetAddress[] enderecosDestinoBCC;
@@ -49,7 +49,6 @@ public class Email extends javax.mail.Authenticator{
 
         _multipart = new MimeMultipart();
 
-        resultadoEnvio = false;
         _debuggable = false; // debug mode on or off - default off
         autenticacaoSmtp = true; // smtp authentication - default on
         teste = true;

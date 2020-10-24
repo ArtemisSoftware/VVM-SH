@@ -134,4 +134,12 @@ public class RegistoVisitaRepositorio {
                 });
 
     }
+
+    /**
+     * Metodo que permite sincronizar o envio do email
+     * @param idTarefa o identificador da tarefa
+     */
+    public void sincronizar(int idTarefa) {
+        registoVisitaDao.sincronizar(idTarefa);
+    }
 }

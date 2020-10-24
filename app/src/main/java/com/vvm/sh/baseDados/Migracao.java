@@ -23,6 +23,32 @@ public class Migracao {
         return migrations;
     }
 
+    public static final Migration MIGRACAO_29_30 = new Migration(29, 30) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            try {
+
+
+                database.execSQL("DROP TABLE IF EXISTS 'registoVisitaResultado' ");
+
+                database.execSQL("CREATE TABLE IF NOT EXISTS 'registoVisitaResultado' ("
+                        + "'idTarefa' INTEGER NOT NULL , "
+                        + "'recebidoPor' TEXT NOT NULL, "
+                        + "'funcao' TEXT NOT NULL, "
+                        + "'observacao' TEXT, "
+                        + "'sincronizacao' INTEGER NOT NULL DEFAULT   " + Sintaxe.Codigos.NAO_SELECIONADO + " ,  "
+                        + "PRIMARY KEY (idTarefa), "
+                        + "FOREIGN KEY (idTarefa) REFERENCES tarefas (idTarefa)  ON DELETE CASCADE) ");
+
+            }
+            catch(SQLException | IllegalStateException e){
+                Log.e("Migracao", "erro MIGRACAO_29_30: " + e.getMessage());
+                //Timber.e("erro MIGRACAO_2_3: " + e.getMessage());
+            }
+        }
+    };
+
+
 
 
     public static final Migration MIGRACAO_28_29 = new Migration(28, 29) {

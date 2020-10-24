@@ -72,7 +72,8 @@ public class Email extends javax.mail.Authenticator{
         catch (AddressException e) {
             this.emissor = null;
         }
-
+        _debuggable = false; // debug mode on or off - default off
+        autenticacaoSmtp = true; // smtp authentication - default on
         this.titulo = credenciaisEmail.titulo;
         this.corpoEmail = credenciaisEmail.corpoEmail;
         _multipart = new MimeMultipart();

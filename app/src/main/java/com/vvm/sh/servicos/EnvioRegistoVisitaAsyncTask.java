@@ -57,7 +57,7 @@ public class EnvioRegistoVisitaAsyncTask extends AsyncTask<Template, Void, Crede
         }
         else{
             Email email = new Email(credenciaisEmail);
-            //--email.adicionarAnexo(template.getPdfFile().getAbsolutePath(););
+            email.adicionarAnexo(template.getPdfFile().getAbsolutePath());
             EnvioEmailAsyncTask servico = new EnvioEmailAsyncTask(contexto);
             servico.execute(email);
         }

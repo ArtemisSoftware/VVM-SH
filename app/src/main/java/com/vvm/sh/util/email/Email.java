@@ -1,8 +1,5 @@
 package com.vvm.sh.util.email;
 
-import androidx.room.Ignore;
-
-import com.vvm.sh.util.constantes.AppConfig;
 import com.vvm.sh.util.constantes.EmailConfig;
 import com.vvm.sh.util.constantes.Sintaxe;
 
@@ -39,9 +36,9 @@ public class Email extends javax.mail.Authenticator{
     public Email() {
 
         try {
-            this.emissor = new InternetAddress(EmailConfig.Teste.EMISSOR);
+            this.emissor = new InternetAddress(EmailConfig.Teste.ENDERECO_EMAIL);
             this.palavraChave = EmailConfig.Teste.PALAVRA_CHAVE;
-            this.destino = EmailConfig.Teste.EMISSOR;
+            this.destino = EmailConfig.Teste.ENDERECO_EMAIL;
         }
         catch (AddressException e) {
             this.emissor = null;
@@ -64,15 +61,13 @@ public class Email extends javax.mail.Authenticator{
     public Email(CredenciaisEmail credenciaisEmail) {
 
         try {
-            this.emissor = new InternetAddress(EmailConfig.ENDERECO_EMAIL);
-            this.palavraChave = EmailConfig.PALAVRAS_CHAVE;
+            this.emissor = new InternetAddress(credenciaisEmail.emissor);
+            this.palavraChave = credenciaisEmail.palavraChave;
             this.destino = credenciaisEmail.destino;
 
             if(EmailConfig.Destinatarios.BCC_CONTAS_EMAIL_ADMINISTRADORES.length != 0){
                 enderecosDestinoBCC = formatarEnderecos(EmailConfig.Destinatarios.BCC_CONTAS_EMAIL_ADMINISTRADORES);
             }
-
-
         }
         catch (AddressException e) {
             this.emissor = null;

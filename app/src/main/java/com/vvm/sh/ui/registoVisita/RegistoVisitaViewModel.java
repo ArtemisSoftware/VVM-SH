@@ -389,6 +389,8 @@ public class RegistoVisitaViewModel extends BaseViewModel {
      */
     private void gerarPdf(Context contexto, int idTarefa, String idUtilizador, int acao) {
 
+        showProgressBar(true);
+
         registoVisitaRepositorio.obtePdf(idTarefa, idUtilizador)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -408,16 +410,17 @@ public class RegistoVisitaViewModel extends BaseViewModel {
                                 else{
                                     enviarPdf(contexto, idTarefa, registo);
                                 }
+                                showProgressBar(false);
                             }
 
                             @Override
                             public void onError(Throwable e) {
-
+                                showProgressBar(false);
                             }
 
                             @Override
                             public void onComplete() {
-
+                                showProgressBar(false);
                             }
                         }
 

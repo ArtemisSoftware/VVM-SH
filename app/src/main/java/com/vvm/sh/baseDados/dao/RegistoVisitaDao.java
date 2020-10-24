@@ -26,7 +26,7 @@ abstract public class RegistoVisitaDao implements BaseDao<RegistoVisitaResultado
     abstract public Maybe<DadosCliente> obterDadosCliente(int idTarefa);
 
     @Query("SELECT clienteValido, trabalhoValido, numeroTrabalhos, email, assinaturaValido, " +
-            "CASE WHEN clienteValido = 1 AND trabalhoValido = 1 AND assinaturaValido = 1 THEN 1 ELSE 0 END as valido " +
+            "CASE WHEN clienteValido = 1 AND trabalhoValido = 1 AND assinaturaValido = 1 AND email != '' THEN 1 ELSE 0 END as valido " +
 
             "FROM ( " +
             "SELECT rg_visit_res.idTarefa as idTarefa, CASE WHEN recebidoPor IS NULL OR funcao IS NULL THEN 0  ELSE 1 END as clienteValido, " +

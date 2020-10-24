@@ -3,7 +3,7 @@ package com.vvm.sh.util.constantes;
 public class EmailConfig {
 
     public final static String ENDERECO_EMAIL =  "documentossst2@vivamais.com";
-    public final static String PALAVRAS_CHAVE = "Documentos_SST2";
+    public final static String PALAVRA_CHAVE = "Documentos_SST2";
 
 
     /**
@@ -11,7 +11,7 @@ public class EmailConfig {
      */
     public static class Teste{
 
-        public final static String EMISSOR = "gustavomaia@vivamais.com";
+        public final static String ENDERECO_EMAIL = "gustavomaia@vivamais.com";
         public final static String PALAVRA_CHAVE= "psyduckz";
 
         public final static String TITULO_EMAIL= "Email de teste";

@@ -131,7 +131,12 @@ public class RegistoVisitaActivity extends BaseDaggerActivity {
             }
         };
 
-        PermissoesUtil.pedirPermissoesEscritaLeitura(this, listener);
+        if(viewModel.relatorio.getValue().valido == false){
+            dialogo.alerta("Pdf", "Dados incompletos. Pré-visualização indisponível");
+        }
+        else {
+            PermissoesUtil.pedirPermissoesEscritaLeitura(this, listener);
+        }
     }
 
 
@@ -149,7 +154,12 @@ public class RegistoVisitaActivity extends BaseDaggerActivity {
             }
         };
 
-        PermissoesUtil.pedirPermissoesEscritaLeitura(this, listener);
+        if(viewModel.relatorio.getValue().valido == false){
+            dialogo.alerta("Pdf", "Dados incompletos. Impossível enviar pdf");
+        }
+        else {
+            PermissoesUtil.pedirPermissoesEscritaLeitura(this, listener);
+        }
     }
 
 

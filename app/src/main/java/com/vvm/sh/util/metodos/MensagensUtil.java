@@ -19,6 +19,7 @@ public class MensagensUtil {
 
     private SweetAlertDialog dialogo;
     private AlertDialog.Builder builder;
+    private Dialog dialogoProgresso;
 
 
     public MensagensUtil(Context contexto) {
@@ -339,16 +340,17 @@ public class MensagensUtil {
 
 
     public void terminarProgresso(){
-        builder.setView(R.layout.dialogo_progresso);
-        Dialog dialog = builder.create();
-        dialog.dismiss();
+       if(dialogoProgresso != null) {
+           dialogoProgresso.dismiss();
+           dialogoProgresso = null;
+       }
     }
 
     public void progresso(boolean show, String mensagem){
         builder.setView(R.layout.dialogo_progresso);
-        Dialog dialog = builder.create();
-        if (show)dialog.show();
-        else dialog.dismiss();
+        dialogoProgresso = builder.create();
+        if (show)dialogoProgresso.show();
+        else dialogoProgresso.dismiss();
     }
 
 }

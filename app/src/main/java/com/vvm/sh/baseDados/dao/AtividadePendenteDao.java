@@ -159,15 +159,21 @@ abstract public class AtividadePendenteDao implements BaseDao<AtividadePendenteR
             //trabalhadore vulneraveis
 
             "LEFT JOIN(   " +
-            "SELECT tb_vul_res.idAtividade as idAtividade, CASE WHEN COUNT(tb_vul_res.id) > 0 THEN 1 ELSE 0 END as validade_trabalhadores_vulneraveis    " +
-            "FROM trabalhadoresVulneraveisResultado as tb_vul_res     " +
-            "LEFT JOIN (SELECT id, homens  FROM categoriasProfissionaisResultado WHERE origem = " + Identificadores.Origens.VULNERABILIDADE_CATEGORIAS_PROFISSIONAIS_HOMENS + " GROUP BY id ) as ctPro_homens " +
-            "ON  tb_vul_res.id = ctPro_homens.id    " +
-            "LEFT JOIN (SELECT id, mulheres  FROM categoriasProfissionaisResultado WHERE origem = " + Identificadores.Origens.VULNERABILIDADE_CATEGORIAS_PROFISSIONAIS_MULHERES + " GROUP BY id) as ctPro_mulheres " +
-            "ON  tb_vul_res.id = ctPro_mulheres.id   " +
-            "WHERE IFNULL(ctPro_homens.homens,0) != 0 OR IFNULL(ctPro_mulheres.mulheres,0) != 0   " +
-            ") as vld_tbr_vul ON atp.id = vld_tbr_vul.idAtividade		   " +
 
+            "SELECT idAtividade, CASE WHEN IFNULL(COUNT(contagem), 0)  > 0 THEN 1 ELSE 0 END as validade_trabalhadores_vulneraveis " +
+            "FROM ( " +
+
+            "SELECT tb_vul_res.idAtividade as idAtividade, " +
+            "(ct_homens + ct_mulheres) as contagem " +
+            "FROM trabalhadoresVulneraveisResultado as tb_vul_res     " +
+
+            "LEFT JOIN (SELECT id, IFNULL(COUNT(homens), 0) as ct_homens  FROM categoriasProfissionaisResultado WHERE origem = " + Identificadores.Origens.VULNERABILIDADE_CATEGORIAS_PROFISSIONAIS_HOMENS + " GROUP BY id ) as ctPro_homens " +
+            "ON  tb_vul_res.id = ctPro_homens.id    " +
+
+            "LEFT JOIN (SELECT id, IFNULL(COUNT(mulheres), 0) as ct_mulheres  FROM categoriasProfissionaisResultado WHERE origem = " + Identificadores.Origens.VULNERABILIDADE_CATEGORIAS_PROFISSIONAIS_MULHERES + " GROUP BY id) as ctPro_mulheres " +
+            "ON  tb_vul_res.id = ctPro_mulheres.id   " +
+            ")" +
+            ") as vld_tbr_vul ON atp.id = vld_tbr_vul.idAtividade " +
 
             //equipamentos
 

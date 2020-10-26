@@ -4,7 +4,7 @@ import com.google.gson.annotations.SerializedName;
 
 import java.util.List;
 
-public class AvaliacaoTemperaturaHumidade {
+public class AvaliacaoIluminacao {
 
     @SerializedName("idArea")
     public String idArea;
@@ -20,16 +20,21 @@ public class AvaliacaoTemperaturaHumidade {
 
 
 
-    @SerializedName("mulheres")
-    public String mulheres;
 
-    @SerializedName("homens")
-    public String homens;
+    @SerializedName("idTipoIluminacao")
+    public String idTipoIluminacao;
 
-    @SerializedName("temperatura")
-    public String temperatura;
+    @SerializedName("emedioElx")
+    public String emedioElx;
 
-    @SerializedName("humidadeRelativa")
-    public String humidadeRelativa;
+    @SerializedName("idElx")
+    public String idElx;
+
+    @SerializedName("nome")
+    public String nome;
+
+    @SerializedName("sexo")
+    public String sexo;
+
 
 }

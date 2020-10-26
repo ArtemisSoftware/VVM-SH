@@ -3,7 +3,6 @@ package com.vvm.sh.servicos;
 import android.database.sqlite.SQLiteConstraintException;
 import android.os.AsyncTask;
 import android.os.Handler;
-import android.provider.ContactsContract;
 
 import com.vvm.sh.api.modelos.bd.AreaBd;
 import com.vvm.sh.api.modelos.bd.RegistoVisitaBd;
@@ -14,6 +13,7 @@ import com.vvm.sh.api.modelos.envio.AtividadePendente;
 import com.vvm.sh.api.modelos.envio.AtividadePendenteExecutada;
 import com.vvm.sh.api.modelos.envio.AtividadePendenteNaoExecutada;
 import com.vvm.sh.api.modelos.bd.AtividadePendenteBd;
+import com.vvm.sh.api.modelos.envio.AvaliacaoIluminacao;
 import com.vvm.sh.api.modelos.envio.AvaliacaoRiscos;
 import com.vvm.sh.api.modelos.envio.AvaliacaoTemperaturaHumidade;
 import com.vvm.sh.api.modelos.envio.Checklist;
@@ -322,7 +322,7 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
         int index = -1;
         List<Checklist> registos = new ArrayList<>();
 
-        Checklist checklist = UploadMapping.INSTANCE.mapeamento(repositorio.obterChecklist(idAtividade));
+        Checklist checklist = UploadMapping.INSTANCE.mapeamentoTemperaturaHumidade(repositorio.obterChecklist(idAtividade));
         checklist.versao = checklist.versao.split(".json")[0].split("_")[2];
 
         checklist.areas = new ArrayList<>();
@@ -382,7 +382,7 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
 
             if(item.resultado.idEstado == Identificadores.Estados.ESTADO_EXECUTADO){
 
-                AtividadePendenteExecutada registo = UploadMapping.INSTANCE.mapeamento(item);
+                AtividadePendenteExecutada registo = UploadMapping.INSTANCE.mapeamentoTemperaturaHumidade(item);
 
 //                if(item.atividade.idRelatorio == Identificadores.Relatorios.ID_RELATORIO_FORMACAO){
 //                    registo.formacao = obterAcaoFormacao(item.resultado.id);
@@ -410,15 +410,20 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
     private RelatorioAmbiental obterRelatorioIluminacao(int idAtividade) {
 
         RelatorioAmbientalBd registo = repositorio.obterRelatorioIluminacao(idAtividade);
-        RelatorioAmbiental relatorioAmbiental = UploadMapping.INSTANCE.mapeamento(registo);
+        RelatorioAmbiental relatorioAmbiental = UploadMapping.INSTANCE.mapeamentoTemperaturaHumidade(registo);
         relatorioAmbiental.equipamento = Sintaxe.Palavras.EQUIPAMENTO_RELATORIO_ILUMINACAO;
 
-        for(AvaliacaoAmbientalResultado avaliacao : repositorio.obterAvaliacoesAmbiental(registo.resultado.id)){
-            
-            
-            
+        for(AvaliacaoAmbientalResultado item : repositorio.obterAvaliacoesAmbiental(registo.resultado.id)){
+
+            List<Integer> categoriasProfissionais = repositorio.obterCategoriasProfissionais(item.id, Identificadores.Origens.ORIGEM_RELATORIO_ILUMINACAO);
+            List<Integer> medidas = repositorio.obterMedidas(item.id, Identificadores.Origens.ORIGEM_RELATORIO_ILUMINACAO_MEDIDAS_RECOMENDADAS);
+
+            AvaliacaoIluminacao avaliacao = UploadMapping.INSTANCE.mapeamentoIluminacao(item);
+            avaliacao.categoriasProfissionais = categoriasProfissionais;
+            avaliacao.medidasRecomendadas = medidas;
+
+            relatorioAmbiental.avaliacoes.add(avaliacao);
         }
-        
 
         return relatorioAmbiental;
     }
@@ -426,7 +431,7 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
     private RelatorioAmbiental obterRelatorioTemperaturaHumidade(int idAtividade) {
         
         RelatorioAmbientalBd registo = repositorio.obterRelatorioIluminacao(idAtividade);
-        RelatorioAmbiental relatorioAmbiental = UploadMapping.INSTANCE.mapeamento(registo);
+        RelatorioAmbiental relatorioAmbiental = UploadMapping.INSTANCE.mapeamentoTemperaturaHumidade(registo);
         relatorioAmbiental.equipamento = Sintaxe.Palavras.EQUIPAMENTO_RELATORIO_TEMPERATURA_HUMIDADE;
 
         for(AvaliacaoAmbientalResultado item : repositorio.obterAvaliacoesAmbiental(registo.resultado.id)){
@@ -434,9 +439,11 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
             List<Integer> categoriasProfissionais = repositorio.obterCategoriasProfissionais(item.id, Identificadores.Origens.ORIGEM_RELATORIO_TEMPERATURA_HUMIDADE);
             List<Integer> medidas = repositorio.obterMedidas(item.id, Identificadores.Origens.ORIGEM_RELATORIO_TEMPERATURA_HUMIDADE_MEDIDAS_RECOMENDADAS);
 
-            AvaliacaoTemperaturaHumidade avaliacao = UploadMapping.INSTANCE.mapeamento(item);
+            AvaliacaoTemperaturaHumidade avaliacao = UploadMapping.INSTANCE.mapeamentoTemperaturaHumidade(item);
             avaliacao.categoriasProfissionais = categoriasProfissionais;
             avaliacao.medidasRecomendadas = medidas;
+
+            relatorioAmbiental.avaliacoes.add(avaliacao);
         }
         
         return relatorioAmbiental;

@@ -282,7 +282,7 @@
                 android:enabled="@{bloquear}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_formandos_24dp"
+                android:src="@drawable/ic_novo_equipamento"
                 app:fab_size="mini"
                 app:fab_label="@string/adicionar_equipamento" />
 

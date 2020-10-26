@@ -247,7 +247,7 @@
     <color name="cor_sincronizado">#15D2A7</color>
     <color name="cor_nao_sincronizado">#ff0033</color>
     <color name="cor_trancado">#FFA000</color>
-    <color name="cor_enviado">#4688F2</color>
+    <color name="cor_enviado">#8059ADEC</color>
 
     <color name="cor_app_sa">#FF1565C0</color>
     <color name="cor_app_sht">#7200CA</color>

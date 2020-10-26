@@ -174,7 +174,8 @@ public class TrabalhadorVulneravelRegistoActivity extends BaseDaggerActivity {
     @OnClick(R.id.crl_btn_pesquisar_categorias_profissionais_homens)
     public void crl_btn_pesquisar_categorias_profissionais_homens_OnClickListener(View view) {
 
-        Pesquisa pesquisa = new Pesquisa(true, TiposUtil.MetodosTipos.CATEGORIAS_PROFISSIONAIS/*, viewModel.obterRegistosSelecionados()*/);
+        Pesquisa pesquisa = new Pesquisa(true, TiposUtil.MetodosTipos.CATEGORIAS_PROFISSIONAIS,
+                                        viewModel.obterRegistosSelecionados(viewModel.categoriasProfissionaisHomens.getValue()));
 
         Bundle bundle = new Bundle();
         bundle.putParcelable(getString(R.string.argumento_configuracao_pesquisa), pesquisa);
@@ -189,7 +190,8 @@ public class TrabalhadorVulneravelRegistoActivity extends BaseDaggerActivity {
     @OnClick(R.id.crl_btn_pesquisar_categorias_profissionais_mulheres)
     public void crl_btn_pesquisar_categorias_profissionais_mulheres_OnClickListener(View view) {
 
-        Pesquisa pesquisa = new Pesquisa(true, TiposUtil.MetodosTipos.CATEGORIAS_PROFISSIONAIS/*, viewModel.obterRegistosSelecionados()*/);
+        Pesquisa pesquisa = new Pesquisa(true, TiposUtil.MetodosTipos.CATEGORIAS_PROFISSIONAIS,
+                                        viewModel.obterRegistosSelecionados(viewModel.categoriasProfissionaisMulheres.getValue()));
 
         Bundle bundle = new Bundle();
         bundle.putParcelable(getString(R.string.argumento_configuracao_pesquisa), pesquisa);

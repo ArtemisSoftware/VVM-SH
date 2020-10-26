@@ -107,6 +107,25 @@ public abstract class BaseViewModel extends ViewModel {
     }
 
 
+
+
+    public ArrayList<Integer> obterRegistosSelecionados(List<Tipo> registos){
+
+        ArrayList<Integer> resultado = new ArrayList<>();
+
+        if(registos != null) {
+
+            for (Tipo item : registos) {
+                resultado.add(item.id);
+            }
+        }
+
+        return resultado;
+    }
+
+
+
+
     /**
      * Metodo que permite obter as opcoes dos registos
      */

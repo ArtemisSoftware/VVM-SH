@@ -46,7 +46,7 @@ public class RegistoVisitaBinding {
 
 
     @BindingAdapter({"completudeSincronizacao"})
-    public static void setCompletudeRelatorio(Chip view, boolean estado) {
+    public static void setCompletudeSincronizacao(Chip view, boolean estado) {
 
         ChipDrawable chipDrawable = (ChipDrawable) view.getChipDrawable();
 
@@ -64,8 +64,8 @@ public class RegistoVisitaBinding {
         }
     }
 
-    @BindingAdapter({"completudeSincronizacao"})
-    public static void setCompletudeSincronizacao(CardView view, boolean estado) {
+    @BindingAdapter({"sincronizacao"})
+    public static void setSincronizacao(CardView view, boolean estado) {
 
         if(estado == true){
             view.setEnabled(false);

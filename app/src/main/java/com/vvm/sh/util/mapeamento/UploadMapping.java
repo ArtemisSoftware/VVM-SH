@@ -4,6 +4,7 @@ import com.vvm.sh.api.modelos.bd.AreaBd;
 import com.vvm.sh.api.modelos.bd.AtividadePendenteBd;
 import com.vvm.sh.api.modelos.bd.RelatorioAmbientalBd;
 import com.vvm.sh.api.modelos.envio.Area;
+import com.vvm.sh.api.modelos.envio.AvaliacaoIluminacao;
 import com.vvm.sh.api.modelos.envio.AvaliacaoTemperaturaHumidade;
 import com.vvm.sh.api.modelos.envio.Checklist;
 import com.vvm.sh.api.modelos.envio.ItemSeccaoChecklist;
@@ -77,7 +78,7 @@ public interface UploadMapping {
     @Mapping(source = "atividade.servId", target = "servId")
     @Mapping(source = "resultado.tempoExecucao", target = "tempoExecucao")
     @Mapping(source = "resultado.dataExecucao", target = "dataExecucao", dateFormat = DatasUtil.FORMATO_YYYY_MM_DD)
-    AtividadePendenteExecutada mapeamento(AtividadePendenteBd item);
+    AtividadePendenteExecutada mapeamentoTemperaturaHumidade(AtividadePendenteBd item);
 
 
     @Mapping(source = "data", target = "data", dateFormat = DatasUtil.FORMATO_YYYY_MM_DD)
@@ -105,7 +106,7 @@ public interface UploadMapping {
 
     @Mapping(target = "idChecklist", source = "id")
     //@Mapping(target = "versaoChecklist", source = "idPai")
-    Checklist mapeamento(Tipo checklist);
+    Checklist mapeamentoTemperaturaHumidade(Tipo checklist);
 
     @Mapping(target = "idItem", source = "idItem")
     @Mapping(target = "resposta", source = "resposta")
@@ -145,14 +146,16 @@ public interface UploadMapping {
 
     TrabalhadorVulneravel map(TrabalhadorVulneravelResultado item);
 
-    @Mapping(target = "idMedidaRecomendada", source = "medidaRecomendada")
+    @Mapping(target = "medidaRecomendada", source = "idMedidaRecomendada")
     @Mapping(target = "marca", source = "relatorio.resultado.marca")
-    RelatorioAmbiental mapeamento(RelatorioAmbientalBd relatorio);
+    RelatorioAmbiental mapeamentoTemperaturaHumidade(RelatorioAmbientalBd relatorio);
 
 
     @Mapping(target = "descricaoArea", source = "anexoArea")
-    AvaliacaoTemperaturaHumidade mapeamento(AvaliacaoAmbientalResultado item);
+    AvaliacaoTemperaturaHumidade mapeamentoTemperaturaHumidade(AvaliacaoAmbientalResultado item);
 
+    @Mapping(target = "idTipoIluminacao", source = "tipoIluminacao")
+    AvaliacaoIluminacao mapeamentoIluminacao(AvaliacaoAmbientalResultado item);
 
 
 

@@ -2,6 +2,7 @@ package com.vvm.sh.api.modelos.envio;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class RelatorioAmbiental {
@@ -32,7 +33,7 @@ public class RelatorioAmbiental {
     public String equipamento;
 
     @SerializedName("avaliacoes")
-    public List<AvaliacaoAmbiental> avaliacoes;
+    public List<AvaliacaoAmbiental> avaliacoes = new ArrayList<>();
 
 
 }

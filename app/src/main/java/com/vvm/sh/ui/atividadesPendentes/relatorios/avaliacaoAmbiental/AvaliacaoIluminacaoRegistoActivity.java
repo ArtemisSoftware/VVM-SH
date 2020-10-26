@@ -257,7 +257,8 @@ public class AvaliacaoIluminacaoRegistoActivity extends BaseDaggerActivity
     @OnClick(R.id.crl_btn_pesquisar_categorias_profissionais)
     public void crl_btn_pesquisar_categorias_profissionais_OnClickListener(View view) {
 
-        Pesquisa pesquisa = new Pesquisa(true, TiposUtil.MetodosTipos.CATEGORIAS_PROFISSIONAIS, viewModel.obterRegistosSelecionados());
+        Pesquisa pesquisa = new Pesquisa(true, TiposUtil.MetodosTipos.CATEGORIAS_PROFISSIONAIS,
+                                         viewModel.obterRegistosSelecionados(viewModel.categoriasProfissionais.getValue()));
 
         Bundle bundle = new Bundle();
         bundle.putParcelable(getString(R.string.argumento_configuracao_pesquisa), pesquisa);

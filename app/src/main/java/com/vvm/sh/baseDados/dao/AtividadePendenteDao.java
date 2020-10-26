@@ -167,11 +167,11 @@ abstract public class AtividadePendenteDao implements BaseDao<AtividadePendenteR
             "(ct_homens + ct_mulheres) as contagem " +
             "FROM trabalhadoresVulneraveisResultado as tb_vul_res     " +
 
-            "LEFT JOIN (SELECT id, IFNULL(COUNT(homens), 0) as ct_homens  FROM categoriasProfissionaisResultado WHERE origem = " + Identificadores.Origens.VULNERABILIDADE_CATEGORIAS_PROFISSIONAIS_HOMENS + " GROUP BY id ) as ctPro_homens " +
-            "ON  tb_vul_res.id = ctPro_homens.id    " +
+            "LEFT JOIN (SELECT idRegisto , IFNULL(COUNT(homens), 0) as ct_homens  FROM categoriasProfissionaisResultado WHERE origem = " + Identificadores.Origens.VULNERABILIDADE_CATEGORIAS_PROFISSIONAIS_HOMENS + " GROUP BY idRegisto  ) as ctPro_homens " +
+            "ON  tb_vul_res.id = ctPro_homens.idRegisto     " +
 
-            "LEFT JOIN (SELECT id, IFNULL(COUNT(mulheres), 0) as ct_mulheres  FROM categoriasProfissionaisResultado WHERE origem = " + Identificadores.Origens.VULNERABILIDADE_CATEGORIAS_PROFISSIONAIS_MULHERES + " GROUP BY id) as ctPro_mulheres " +
-            "ON  tb_vul_res.id = ctPro_mulheres.id   " +
+            "LEFT JOIN (SELECT idRegisto , IFNULL(COUNT(mulheres), 0) as ct_mulheres  FROM categoriasProfissionaisResultado WHERE origem = " + Identificadores.Origens.VULNERABILIDADE_CATEGORIAS_PROFISSIONAIS_MULHERES + " GROUP BY idRegisto ) as ctPro_mulheres " +
+            "ON  tb_vul_res.id = ctPro_mulheres.idRegisto    " +
             ")" +
             ") as vld_tbr_vul ON atp.id = vld_tbr_vul.idAtividade " +
 

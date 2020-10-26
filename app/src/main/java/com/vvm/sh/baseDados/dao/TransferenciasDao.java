@@ -228,7 +228,7 @@ abstract public class TransferenciasDao implements BaseDao<Resultado> {
 
 
 
-    @Query("SELECT rel_amb_res.*, idMedidaRecomendada " +
+    @Query("SELECT *, idMedidaRecomendada " +
             "FROM relatorioAmbientalResultado as rel_amb_res " +
 
             "LEFT JOIN(  " +
@@ -247,7 +247,7 @@ abstract public class TransferenciasDao implements BaseDao<Resultado> {
     public abstract RelatorioAmbientalBd obterRelatorioTemperaturaHumidade(int idAtividade);
 
 
-    @Query("SELECT rel_amb_res.*, idMedidaRecomendada " +
+    @Query("SELECT *, idMedidaRecomendada " +
             "FROM relatorioAmbientalResultado as rel_amb_res " +
             "LEFT JOIN ( " +
             "SELECT idRelatorio, CASE WHEN SUM(VALIDO) > 0 AND COUNT(VALIDO) > 0 THEN 2 ELSE 1 END as idMedidaRecomendada " +

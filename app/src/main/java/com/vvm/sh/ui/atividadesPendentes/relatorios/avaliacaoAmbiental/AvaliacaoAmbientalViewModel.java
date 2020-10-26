@@ -731,39 +731,6 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
 
 
 
-    /**
-     * Metodo que permite obter os registos selecionados
-     * @return uma lista de resultados
-     */
-    public ArrayList<Integer> obterRegistosSelecionados(){
-
-        ArrayList<Integer> resultado = new ArrayList<>();
-
-//        for (Tipo item : categoriasProfissionais.getValue()) {
-//            resultado.add(item.id);
-//        }
-
-        return resultado;
-    }
-
-
-
-    public ArrayList<Integer> obterRegistosSelecionados(List<Tipo> registos){
-
-        ArrayList<Integer> resultado = new ArrayList<>();
-
-        if(registos != null) {
-
-            for (Tipo item : registos) {
-                resultado.add(item.id);
-            }
-        }
-
-        return resultado;
-    }
-
-
-
 
     //-----------------
     //Classe

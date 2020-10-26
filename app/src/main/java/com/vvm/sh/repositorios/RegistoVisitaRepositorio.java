@@ -10,13 +10,12 @@ import com.vvm.sh.baseDados.dao.TrabalhosRealizadosDao;
 import com.vvm.sh.baseDados.entidades.ImagemResultado;
 import com.vvm.sh.baseDados.entidades.RegistoVisitaResultado;
 import com.vvm.sh.baseDados.entidades.TrabalhoRealizadoResultado;
-import com.vvm.sh.documentos.registoVisita.modelos.RegistoVisita;
+import com.vvm.sh.documentos.registoVisita.modelos.DadosRegistoVisita;
 import com.vvm.sh.documentos.modelos.Rubrica;
 import com.vvm.sh.ui.registoVisita.modelos.DadosCliente;
 import com.vvm.sh.ui.registoVisita.modelos.RelatorioRegistoVisita;
 import com.vvm.sh.ui.registoVisita.modelos.TrabalhoRealizado;
 import com.vvm.sh.util.email.CredenciaisEmail;
-import com.vvm.sh.util.email.Email;
 import com.vvm.sh.util.constantes.Identificadores;
 
 import java.util.List;
@@ -94,8 +93,8 @@ public class RegistoVisitaRepositorio {
     }
 
 
-    public Observable<RelatorioRegistoVisita> obterValidadeRegistoVisita(int idTarefa){
-        return registoVisitaDao.obterValidadeRegistoVisita(idTarefa);
+    public Observable<RelatorioRegistoVisita> obterRelatorioRegistoVisita(int idTarefa){
+        return registoVisitaDao.obterRelatorioRegistoVisita(idTarefa);
     }
 
 
@@ -111,7 +110,7 @@ public class RegistoVisitaRepositorio {
      * @param idTarefa o identificador da tarefa
      * @return os dados do pdf
      */
-    public Maybe<RegistoVisita> obtePdf(int idTarefa, String idUtilizador) {
+    public Maybe<DadosRegistoVisita> obtePdf(int idTarefa, String idUtilizador) {
 
         return Maybe.zip(
                 registoVisitaDao.obterDadosEmail(idTarefa, api),
@@ -119,11 +118,11 @@ public class RegistoVisitaRepositorio {
                 pdfDao.obterTrabalhosRealizadosRegistados(idTarefa, api),
                 pdfDao.obterRubrica(idTarefa, Identificadores.Imagens.IMAGEM_ASSINATURA_REGISTO_VISITA, idUtilizador),
                 pdfDao.obterFraseApoio(Identificadores.ID_FRASE_APOIO_REGISTO_VISITA, api),
-                new Function5<CredenciaisEmail, DadosCliente, List<TrabalhoRealizado>, Rubrica, String, RegistoVisita>() {
+                new Function5<CredenciaisEmail, DadosCliente, List<TrabalhoRealizado>, Rubrica, String, DadosRegistoVisita>() {
                     @Override
-                    public RegistoVisita apply(CredenciaisEmail credenciaisEmail, DadosCliente dadosCliente, List<TrabalhoRealizado> trabalhoRealizados, Rubrica rubrica, String referencia) throws Exception {
+                    public DadosRegistoVisita apply(CredenciaisEmail credenciaisEmail, DadosCliente dadosCliente, List<TrabalhoRealizado> trabalhoRealizados, Rubrica rubrica, String referencia) throws Exception {
 
-                        RegistoVisita registoVisita = new RegistoVisita();
+                        DadosRegistoVisita registoVisita = new DadosRegistoVisita();
                         registoVisita.dadosCliente = dadosCliente;
                         registoVisita.trabalhoRealizados = trabalhoRealizados;
                         registoVisita.rubrica = rubrica;

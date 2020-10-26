@@ -34,9 +34,11 @@ import com.vvm.sh.baseDados.entidades.OcorrenciaResultado;
 import com.vvm.sh.baseDados.entidades.AcaoFormacaoResultado;
 import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.baseDados.entidades.TipoExtintor;
+import com.vvm.sh.baseDados.entidades.TrabalhadorVulneravelResultado;
 import com.vvm.sh.baseDados.entidades.TrabalhoRealizadoResultado;
 import com.vvm.sh.ui.transferencias.modelos.Pendencia;
 import com.vvm.sh.ui.transferencias.modelos.Upload;
+import com.vvm.sh.util.constantes.Identificadores;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -301,8 +303,25 @@ public class TransferenciasRepositorio {
     }
 
     public List<QuestionarioChecklistResultado> obterItens(int idRegistoArea, String idSeccao, String tipo) {
-        return transferenciasDao.obterItens(idRegistoArea, idSeccao, tipo);
+        return transferenciasDao.obterItens(idRegistoArea,idSeccao, tipo);
     }
+
+    public List<TrabalhadorVulneravelResultado> obterTrabalhadoresVulneraveis(int idAtividade) {
+        return transferenciasDao.obterTrabalhadoresVulneraveis(idAtividade);
+    }
+
+    public int obterNumeroHomens_TrabalhadoresVulneraveis(int id) {
+        return transferenciasDao.obterNumeroHomens_TrabalhadoresVulneraveis(id, Identificadores.Origens.VULNERABILIDADE_CATEGORIAS_PROFISSIONAIS_HOMENS);
+    }
+
+    public int obterNumeroMulheres_TrabalhadoresVulneraveis(int id) {
+        return transferenciasDao.obterNumeroMulheres_TrabalhadoresVulneraveis(id, Identificadores.Origens.VULNERABILIDADE_CATEGORIAS_PROFISSIONAIS_MULHERES);
+    }
+
+    public List<Integer> obterCategoriasProfissionais_TrabalhadoresVulneraveis(int id, int origem) {
+        return transferenciasDao.obterCategoriasProfissionais_TrabalhadoresVulneraveis(id, origem);
+    }
+
 
     //---------------------------
     //DOWNLOAD

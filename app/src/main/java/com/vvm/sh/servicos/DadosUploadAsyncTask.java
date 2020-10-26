@@ -27,6 +27,7 @@ import com.vvm.sh.api.modelos.envio.Ocorrencia;
 import com.vvm.sh.api.modelos.envio.Pergunta;
 import com.vvm.sh.api.modelos.envio.RegistoVisita;
 import com.vvm.sh.api.modelos.envio.Seccao;
+import com.vvm.sh.api.modelos.envio.TrabalhadorVulneravel;
 import com.vvm.sh.api.modelos.envio.TrabalhoRealizado;
 import com.vvm.sh.api.modelos.envio.Ut;
 import com.vvm.sh.baseDados.VvmshBaseDados;
@@ -34,6 +35,7 @@ import com.vvm.sh.baseDados.entidades.CrossSellingResultado;
 import com.vvm.sh.baseDados.entidades.ImagemResultado;
 import com.vvm.sh.baseDados.entidades.QuestionarioChecklistResultado;
 import com.vvm.sh.baseDados.entidades.Resultado;
+import com.vvm.sh.baseDados.entidades.TrabalhadorVulneravelResultado;
 import com.vvm.sh.baseDados.entidades.TrabalhoRealizadoResultado;
 import com.vvm.sh.repositorios.TransferenciasRepositorio;
 import com.vvm.sh.baseDados.entidades.AnomaliaResultado;
@@ -286,9 +288,28 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
         AvaliacaoRiscos avaliacaoRiscos = new AvaliacaoRiscos();
 
         avaliacaoRiscos.checklist = obterChecklist(idAtividade);
-
+        avaliacaoRiscos.trabalhadoresVulneraveis = obterTrabalhadoresVulneraveis(idAtividade);
 
         return avaliacaoRiscos;
+    }
+
+    private List<TrabalhadorVulneravel> obterTrabalhadoresVulneraveis(int idAtividade) {
+
+        List<TrabalhadorVulneravel> registos = new ArrayList<>();
+
+        for(TrabalhadorVulneravelResultado item : repositorio.obterTrabalhadoresVulneraveis(idAtividade)){
+            TrabalhadorVulneravel registo = UploadMapping.INSTANCE.map(item);
+
+            registo.quantidadeHomens = repositorio.obterNumeroHomens_TrabalhadoresVulneraveis(item.id) + "";
+            registo.quantidadeMulheres = repositorio.obterNumeroMulheres_TrabalhadoresVulneraveis(item.id) + "";
+
+            registo.categoriasProfissionaisHomens = repositorio.obterCategoriasProfissionais_TrabalhadoresVulneraveis(item.id, Identificadores.Origens.VULNERABILIDADE_CATEGORIAS_PROFISSIONAIS_HOMENS);
+            registo.categoriasProfissionaisMulheres = repositorio.obterCategoriasProfissionais_TrabalhadoresVulneraveis(item.id, Identificadores.Origens.VULNERABILIDADE_CATEGORIAS_PROFISSIONAIS_MULHERES);
+
+            registos.add(registo);
+        }
+
+        return registos;
     }
 
     private List<Checklist> obterChecklist(int idAtividade) {

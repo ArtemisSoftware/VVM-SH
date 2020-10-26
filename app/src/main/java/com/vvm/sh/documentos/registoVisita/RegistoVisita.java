@@ -8,7 +8,7 @@ import com.titan.pdfdocumentlibrary.bundle.Chapter;
 import com.titan.pdfdocumentlibrary.bundle.Template;
 import com.vvm.sh.documentos.eventos.CabecalhoRodape;
 import com.vvm.sh.documentos.registoVisita.capitulos.Capitulo_RegistaVisita;
-import com.vvm.sh.documentos.registoVisita.modelos.RegistoVisita;
+import com.vvm.sh.documentos.registoVisita.modelos.DadosRegistoVisita;
 import com.vvm.sh.util.metodos.DiretoriasUtil;
 
 import java.util.ArrayList;
@@ -16,10 +16,10 @@ import java.util.List;
 
 public class RegistoVisita extends Template {
 
-    private com.vvm.sh.documentos.registoVisita.modelos.RegistoVisita registoVisita;
+    private DadosRegistoVisita registoVisita;
     private int idTarefa;
 
-    public RegistoVisita(Context contexto, int idTarefa, com.vvm.sh.documentos.registoVisita.modelos.RegistoVisita registoVisita) {
+    public RegistoVisita(Context contexto, int idTarefa, DadosRegistoVisita registoVisita) {
         super(contexto, DiretoriasUtil.obterDiretoria(DiretoriasUtil.DIRETORIA_PDF));
 
         this.registoVisita = registoVisita;

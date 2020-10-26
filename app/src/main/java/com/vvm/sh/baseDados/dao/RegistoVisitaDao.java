@@ -27,12 +27,13 @@ abstract public class RegistoVisitaDao implements BaseDao<RegistoVisitaResultado
     @Query("SELECT * FROM tarefas WHERE idTarefa =:idTarefa")
     abstract public Maybe<DadosCliente> obterDadosCliente(int idTarefa);
 
-    @Query("SELECT clienteValido, trabalhoValido, numeroTrabalhos, email, assinaturaValido, " +
+    @Query("SELECT clienteValido, trabalhoValido, numeroTrabalhos, email, assinaturaValido, sincronizacao, " +
             "CASE WHEN clienteValido = 1 AND trabalhoValido = 1 AND assinaturaValido = 1 AND email != '' THEN 1 ELSE 0 END as valido " +
 
             "FROM ( " +
-            "SELECT rg_visit_res.idTarefa as idTarefa, CASE WHEN recebidoPor IS NULL OR funcao IS NULL THEN 0  ELSE 1 END as clienteValido, " +
-            "trabalhoValido, numeroTrabalhos, email, " +
+            "SELECT rg_visit_res.idTarefa as idTarefa, " +
+            "CASE WHEN recebidoPor IS NULL OR funcao IS NULL THEN 0  ELSE 1 END as clienteValido, " +
+            "trabalhoValido, numeroTrabalhos, email, sincronizacao, " +
             "CASE WHEN IFNULL(img.idTarefa, 0) = 0 THEN 0 ELSE 1 END as assinaturaValido " +
 
             "FROM registoVisitaResultado as rg_visit_res " +
@@ -65,7 +66,7 @@ abstract public class RegistoVisitaDao implements BaseDao<RegistoVisitaResultado
             ") as registo_visita " +
 
             "WHERE registo_visita.idTarefa =:idTarefa")
-    abstract public Observable<RelatorioRegistoVisita> obterValidadeRegistoVisita(int idTarefa);
+    abstract public Observable<RelatorioRegistoVisita> obterRelatorioRegistoVisita(int idTarefa);
 
 
 

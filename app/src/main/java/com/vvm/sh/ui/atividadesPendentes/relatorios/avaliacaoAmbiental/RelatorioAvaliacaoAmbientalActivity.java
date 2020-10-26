@@ -77,7 +77,6 @@ public class RelatorioAvaliacaoAmbientalActivity extends BaseDaggerActivity {
     @Override
     protected void subscreverObservadores() {
 
-
         viewModel.observarRelatorio().observe(this, new Observer<RelatorioAmbiental>() {
             @Override
             public void onChanged(RelatorioAmbiental registo) {
@@ -87,10 +86,8 @@ public class RelatorioAvaliacaoAmbientalActivity extends BaseDaggerActivity {
                 if(relatorio.idRelatorio == 0){
                     card_geral_OnClickListener(null);
                 }
-
             }
         });
-
     }
 
 
@@ -106,7 +103,6 @@ public class RelatorioAvaliacaoAmbientalActivity extends BaseDaggerActivity {
     private void formatarRelatorio(int idAtividade, int tipo) {
 
         Bundle bundle = getIntent().getExtras();
-
 
         switch (tipo){
 

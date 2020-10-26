@@ -6,7 +6,7 @@ import java.util.List;
 
 public class TrabalhadorVulneravel {
 
-    @SerializedName("idColaborador")
+    @SerializedName("idVulnerabilidade")
     public String id;
 
     @SerializedName("quantidadeHomens")

@@ -348,6 +348,8 @@ public class MensagensUtil {
 
     public void progresso(boolean show, String mensagem){
         builder.setView(R.layout.dialogo_progresso);
+
+        //TODO: adicionar mensagem ao layout
         dialogoProgresso = builder.create();
         if (show)dialogoProgresso.show();
         else dialogoProgresso.dismiss();

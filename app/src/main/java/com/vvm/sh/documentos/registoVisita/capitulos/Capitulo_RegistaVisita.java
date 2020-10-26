@@ -6,7 +6,7 @@ import com.titan.pdfdocumentlibrary.bundle.Chapter;
 import com.titan.pdfdocumentlibrary.bundle.Section;
 import com.titan.pdfdocumentlibrary.models.Index;
 import com.vvm.sh.documentos.registoVisita.seccoes.TrabalhosRealizados;
-import com.vvm.sh.documentos.registoVisita.modelos.RegistoVisita;
+import com.vvm.sh.documentos.registoVisita.modelos.DadosRegistoVisita;
 import com.vvm.sh.documentos.registoVisita.seccoes.Assinatura;
 import com.vvm.sh.documentos.registoVisita.seccoes.Cabecalho;
 import com.vvm.sh.documentos.registoVisita.seccoes.Homologacao;
@@ -20,10 +20,10 @@ import java.util.List;
 public class Capitulo_RegistaVisita extends Chapter {
 
     private Context contexto;
-    private RegistoVisita registoVisita;
+    private DadosRegistoVisita registoVisita;
 
 
-    public Capitulo_RegistaVisita(Context contexto, RegistoVisita registoVisita) {
+    public Capitulo_RegistaVisita(Context contexto, DadosRegistoVisita registoVisita) {
         super(1);
         this.contexto = contexto;
         this.registoVisita = registoVisita;

@@ -23,5 +23,7 @@ public class RelatorioRegistoVisita {
     @ColumnInfo(name = "valido")
     public boolean valido;
 
+    @ColumnInfo(name = "sincronizacao")
+    public boolean sincronizacao;
 
 }

@@ -19,6 +19,7 @@ import com.vvm.sh.api.modelos.envio.Email;
 import com.vvm.sh.api.modelos.envio.Formando;
 import com.vvm.sh.api.modelos.envio.Imagem;
 import com.vvm.sh.api.modelos.envio.Ocorrencia;
+import com.vvm.sh.api.modelos.envio.TrabalhadorVulneravel;
 import com.vvm.sh.api.modelos.envio.TrabalhoRealizado;
 import com.vvm.sh.api.modelos.envio.Ut;
 import com.vvm.sh.baseDados.entidades.CrossSellingResultado;
@@ -33,6 +34,7 @@ import com.vvm.sh.baseDados.entidades.AnomaliaResultado;
 import com.vvm.sh.baseDados.entidades.OcorrenciaResultado;
 import com.vvm.sh.baseDados.entidades.AcaoFormacaoResultado;
 import com.vvm.sh.baseDados.entidades.Tipo;
+import com.vvm.sh.baseDados.entidades.TrabalhadorVulneravelResultado;
 import com.vvm.sh.baseDados.entidades.TrabalhoRealizadoResultado;
 import com.vvm.sh.ui.transferencias.modelos.DadosUpload;
 import com.vvm.sh.util.metodos.DatasUtil;
@@ -136,6 +138,9 @@ public interface UploadMapping {
     @Mapping(target = "descricao", source = "descricao")
     //@Mapping(target = "descricaoArea", source = "area.resultado.subDescricao")
     Area map(AreaBd area);
+
+    TrabalhadorVulneravel map(TrabalhadorVulneravelResultado item);
+
 
 
     @Mapping(source = "idImagem", target = "idFoto")

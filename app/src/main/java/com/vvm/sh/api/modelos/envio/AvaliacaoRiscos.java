@@ -8,4 +8,7 @@ public class AvaliacaoRiscos {
 
     @SerializedName("Checklist")
     public List<Checklist> checklist;
+
+    @SerializedName("Vulnerabilidades")
+    public List<TrabalhadorVulneravel> trabalhadoresVulneraveis;
 }

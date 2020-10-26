@@ -53,7 +53,7 @@ public class RegistoVisitaActivity extends BaseDaggerActivity {
 
         subscreverObservadores();
 
-        viewModel.obterValidadeRegistoVisita(PreferenciasUtil.obterIdTarefa(this));
+        viewModel.obterRelatorioRegistoVisita(PreferenciasUtil.obterIdTarefa(this));
     }
 
     @Override

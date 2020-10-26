@@ -8,7 +8,7 @@ import com.vvm.sh.util.email.Email;
 
 import java.util.List;
 
-public class RegistoVisita {
+public class DadosRegistoVisita {
 
     public DadosCliente dadosCliente;
     public List<TrabalhoRealizado> trabalhoRealizados;

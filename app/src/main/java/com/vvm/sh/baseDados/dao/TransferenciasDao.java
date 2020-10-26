@@ -36,6 +36,7 @@ import com.vvm.sh.baseDados.entidades.OcorrenciaResultado;
 import com.vvm.sh.baseDados.entidades.AcaoFormacaoResultado;
 import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.baseDados.entidades.TipoExtintor;
+import com.vvm.sh.baseDados.entidades.TrabalhadorVulneravelResultado;
 import com.vvm.sh.baseDados.entidades.TrabalhoRealizadoResultado;
 import com.vvm.sh.ui.transferencias.modelos.Pendencia;
 import com.vvm.sh.ui.transferencias.modelos.Upload;
@@ -197,6 +198,29 @@ abstract public class TransferenciasDao implements BaseDao<Resultado> {
 
     @Query("SELECT * FROM questionarioChecklistResultado  WHERE idArea =:idRegistoArea AND idSeccao = :idSeccao AND tipo =:tipo")
     public abstract List<QuestionarioChecklistResultado> obterItens(int idRegistoArea, String idSeccao, String tipo);
+
+
+
+
+
+
+
+    @Query("SELECT * FROM trabalhadoresVulneraveisResultado WHERE idAtividade = :idAtividade")
+    public abstract List<TrabalhadorVulneravelResultado> obterTrabalhadoresVulneraveis(int idAtividade);
+
+
+    @Query("SELECT DISTINCT IFNULL(homens, 0) as ct_homens FROM categoriasProfissionaisResultado WHERE id = :id AND origem = :origem")
+    public abstract int obterNumeroHomens_TrabalhadoresVulneraveis(int id, int origem);
+
+
+    @Query("SELECT DISTINCT IFNULL(mulheres, 0) as ct_mulheres FROM categoriasProfissionaisResultado WHERE id = :id AND origem = :origem")
+    public abstract int obterNumeroMulheres_TrabalhadoresVulneraveis(int id, int origem);
+
+    @Query("SELECT idCategoriaProfissional FROM categoriasProfissionaisResultado WHERE idRegisto = :id AND origem = :origem")
+    public abstract List<Integer> obterCategoriasProfissionais_TrabalhadoresVulneraveis(int id, int origem);
+
+
+
 
     //-------------------
     //TRABALHO

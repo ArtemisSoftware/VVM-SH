@@ -3,6 +3,7 @@ package com.vvm.sh.repositorios;
 import androidx.annotation.NonNull;
 
 import com.vvm.sh.baseDados.dao.CategoriaProfissionalDao;
+import com.vvm.sh.baseDados.dao.ImagemDao;
 import com.vvm.sh.baseDados.dao.LevantamentoDao;
 import com.vvm.sh.baseDados.dao.MedidaDao;
 import com.vvm.sh.baseDados.dao.PropostaPlanoAcaoDao;
@@ -10,6 +11,7 @@ import com.vvm.sh.baseDados.dao.ResultadoDao;
 import com.vvm.sh.baseDados.dao.RiscoDao;
 import com.vvm.sh.baseDados.dao.TipoDao;
 import com.vvm.sh.baseDados.entidades.CategoriaProfissionalResultado;
+import com.vvm.sh.baseDados.entidades.ImagemResultado;
 import com.vvm.sh.baseDados.entidades.LevantamentoRiscoResultado;
 import com.vvm.sh.baseDados.entidades.MedidaResultado;
 import com.vvm.sh.baseDados.entidades.PropostaPlanoAcaoResultado;
@@ -33,6 +35,7 @@ import io.reactivex.Maybe;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.functions.Function3;
+import io.reactivex.functions.Function4;
 
 public class LevantamentoRepositorio {
 
@@ -44,13 +47,15 @@ public class LevantamentoRepositorio {
     private final PropostaPlanoAcaoDao propostaPlanoAcaoDao;
     private final RiscoDao riscoDao;
     private final MedidaDao medidaDao;
+
+    private final ImagemDao imagemDao;
     private final TipoDao tipoDao;
     public final ResultadoDao resultadoDao;
 
 
     public LevantamentoRepositorio(int idApi, @NonNull LevantamentoDao levantamentoDao, @NonNull CategoriaProfissionalDao categoriaProfissionalDao,
                                    @NonNull RiscoDao riscoDao, @NonNull MedidaDao medidaDao, @NonNull PropostaPlanoAcaoDao propostaPlanoAcaoDao,
-                                   @NonNull TipoDao tipoDao, @NonNull ResultadoDao resultadoDao) {
+                                   @NonNull ImagemDao imagemDao, @NonNull TipoDao tipoDao, @NonNull ResultadoDao resultadoDao) {
 
         this.idApi = idApi;
 
@@ -61,6 +66,7 @@ public class LevantamentoRepositorio {
 
 
         this.medidaDao = medidaDao;
+        this.imagemDao = imagemDao;
         this.tipoDao = tipoDao;
         this.resultadoDao = resultadoDao;
     }
@@ -169,6 +175,7 @@ public class LevantamentoRepositorio {
     public Single<List<Integer>> removerLevantamento(Levantamento levantamento){
 
         return Single.concatArray(
+                riscoDao.removerImagemLevantamento(levantamento.resultado.id),
                 propostaPlanoAcaoDao.remover(levantamento.resultado.id, Identificadores.Origens.ORIGEM_LEVANTAMENTO_RISCO),
                 medidaDao.removerMedidasRisco_Levantamento(levantamento.resultado.id),
                 riscoDao.removerRiscos(levantamento.resultado.id),
@@ -182,6 +189,7 @@ public class LevantamentoRepositorio {
     public Single<List<Integer>> removerRisco(RiscoResultado risco){
 
         return Single.concatArray(
+                imagemDao.remover(risco.id, Identificadores.Imagens.IMAGEM_RISCO),
                 propostaPlanoAcaoDao.removerRisco(risco.id, Identificadores.Origens.ORIGEM_LEVANTAMENTO_RISCO),
                 medidaDao.removerMedidasRisco(risco.id),
                 riscoDao.remover(risco)
@@ -206,7 +214,7 @@ public class LevantamentoRepositorio {
     }
 
 
-    public Observable inserir(int idAtividade, int idRegisto, List<Integer> medidasExistentes, List<Integer> medidasRecomendadas) {
+    public Observable inserir(int idAtividade, int idRegisto, List<Integer> medidasExistentes, List<Integer> medidasRecomendadas, ImagemResultado imagemResultado) {
 
         List<MedidaResultado> registosMedidasExistentes = new ArrayList<>();
 
@@ -227,7 +235,9 @@ public class LevantamentoRepositorio {
             propostaPlanoAcaoResultados.add(new PropostaPlanoAcaoResultado(idAtividade, idRegisto, idMedida));
         }
 
-        return Observable.zip(
+        if(imagemResultado.imagem.length == 0) {
+
+            return Observable.zip(
                 propostaPlanoAcaoDao.inserir(propostaPlanoAcaoResultados).toObservable(),
                 medidaDao.inserir(registosMedidasRecomendadas).toObservable(),
                 medidaDao.inserir(registosMedidasExistentes).toObservable(),
@@ -237,22 +247,45 @@ public class LevantamentoRepositorio {
                         return longs;
                     }
                 }
-        );
+            );
+
+        }
+        else{
+            return Observable.zip(
+                    imagemDao.inserir(imagemResultado).toObservable(),
+                    propostaPlanoAcaoDao.inserir(propostaPlanoAcaoResultados).toObservable(),
+                    medidaDao.inserir(registosMedidasRecomendadas).toObservable(),
+                    medidaDao.inserir(registosMedidasExistentes).toObservable(),
+                    new Function4<Long, List<Long>, List<Long>, List<Long>, Object>() {
+                        @Override
+                        public Object apply(Long aLong, List<Long> longs, List<Long> longs2, List<Long> longs3) throws Exception {
+                            return longs;
+                        }
+                    }
+            );
+        }
     }
 
-    public Flowable<Object> atualizarRisco(RiscoResultado registo, List<MedidaResultado> medidasExistentesRegistas, List<MedidaResultado> medidasRecomendadasRegistas, List<PropostaPlanoAcaoResultado> propostasRegistas) {
+    public Flowable<Object> atualizarRisco(RiscoResultado registo, List<MedidaResultado> medidasExistentesRegistas, List<MedidaResultado> medidasRecomendadasRegistas, List<PropostaPlanoAcaoResultado> propostasRegistas, ImagemResultado imagemResultado) {
+
+        List<Single<?>> acoes = Arrays.asList(
+                imagemDao.remover(registo.id, Identificadores.Imagens.IMAGEM_RISCO),
+                riscoDao.atualizar(registo),
+                propostaPlanoAcaoDao.remover(registo.id, Identificadores.Origens.ORIGEM_LEVANTAMENTO_RISCO),
+                medidaDao.remover(registo.id, Identificadores.Origens.LEVANTAMENTO_MEDIDAS_ADOPTADAS),
+                medidaDao.remover(registo.id, Identificadores.Origens.LEVANTAMENTO_MEDIDAS_RECOMENDADAS),
+                medidaDao.inserir(medidasExistentesRegistas),
+                medidaDao.inserir(medidasRecomendadasRegistas),
+                propostaPlanoAcaoDao.inserir(propostasRegistas));
 
 
-            Flowable<Object> single = Single.merge(Arrays.asList(
-                    riscoDao.atualizar(registo),
-                    propostaPlanoAcaoDao.remover(registo.id, Identificadores.Origens.ORIGEM_LEVANTAMENTO_RISCO),
-                    medidaDao.remover(registo.id, Identificadores.Origens.LEVANTAMENTO_MEDIDAS_ADOPTADAS),
-                    medidaDao.remover(registo.id, Identificadores.Origens.LEVANTAMENTO_MEDIDAS_RECOMENDADAS),
-                    medidaDao.inserir(medidasExistentesRegistas),
-                    medidaDao.inserir(medidasRecomendadasRegistas),
-                    propostaPlanoAcaoDao.inserir(propostasRegistas)));
+        if(imagemResultado.imagem.length != 0){
+            acoes.add(imagemDao.inserir(imagemResultado));
+        }
 
-            return single;
+        Flowable<Object> single = Single.merge(acoes);
+
+        return single;
 
     }
 
@@ -312,6 +345,7 @@ public class LevantamentoRepositorio {
                 propostaPlanoAcaoDao.removerModelo(idAtividade, idModelo, Identificadores.Origens.ORIGEM_LEVANTAMENTO_RISCO),
                 medidaDao.removerMedidasModelo(idAtividade, idModelo),
                 categoriaProfissionalDao.removerModelo(idAtividade, idModelo),
+                riscoDao.removerImagemModelo(idAtividade, idModelo),
                 levantamentoDao.removerModelo(idAtividade, idModelo)));
 
         return completable;

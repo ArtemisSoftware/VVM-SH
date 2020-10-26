@@ -41,11 +41,13 @@ import com.vvm.sh.baseDados.entidades.OcorrenciaResultado;
 import com.vvm.sh.baseDados.entidades.AcaoFormacaoResultado;
 import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.baseDados.entidades.TipoExtintor;
+import com.vvm.sh.baseDados.entidades.TipoNovo;
 import com.vvm.sh.baseDados.entidades.TrabalhadorVulneravelResultado;
 import com.vvm.sh.baseDados.entidades.TrabalhoRealizadoResultado;
 import com.vvm.sh.ui.transferencias.modelos.Pendencia;
 import com.vvm.sh.ui.transferencias.modelos.Upload;
 import com.vvm.sh.util.constantes.Identificadores;
+import com.vvm.sh.util.constantes.TiposConstantes;
 import com.vvm.sh.util.metodos.TiposUtil;
 
 import java.util.List;
@@ -274,6 +276,36 @@ abstract public class TransferenciasDao implements BaseDao<Resultado> {
 
     @Query("SELECT idCategoriaProfissional FROM categoriasProfissionaisResultado WHERE id = :id AND origem = :origem")
     public abstract List<Integer> obterCategoriasProfissionais(int id, int origem);
+
+
+
+
+    @Query("SELECT " +
+            "CASE  " +
+            "WHEN codigo = " + Identificadores.ESTADO_PENDENTE + " THEN '" + Identificadores.Codigos.EQUIPAMENTO  + "' || idEquipamento " +
+            "ELSE idEquipamento END as equipamento " +
+            "FROM verificacaoEquipamentosResultado WHERE idAtividade = :idAtividade")
+    public abstract List<String> obterEquipamentos(int idAtividade);
+
+
+    @Query("SELECT tp.* " +
+            "FROM tiposNovos as tp " +
+            "LEFT JOIN (SELECT idEquipamento, codigo, idAtividade FROM verificacaoEquipamentosResultado) as ve_res ON tp.id = ve_res.idEquipamento " +
+            "WHERE tipo = '" + TiposUtil.MetodosTipos.TIPOS_MAQUINA + "' AND estado = " + Identificadores.ESTADO_PENDENTE + " " +
+            "AND ve_res.codigo = " + Identificadores.ESTADO_PENDENTE + " " +
+            "AND idAtividade IN (SELECT id FROM atividadesPendentes WHERE idTarefa IN(:idsTarefas))  ")
+    public abstract List<TipoNovo> obterNovosEquipamentos(List<Integer> idsTarefas);
+
+
+
+    @Query("SELECT descricao FROM processosProdutivosResultado WHERE id =:idAtividade")
+    public abstract String obterProcessoProdutivo(int idAtividade);
+
+
+
+
+
+
 
     //-------------------
     //TRABALHO

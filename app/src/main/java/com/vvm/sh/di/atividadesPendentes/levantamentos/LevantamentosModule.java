@@ -2,6 +2,7 @@ package com.vvm.sh.di.atividadesPendentes.levantamentos;
 
 import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.baseDados.dao.CategoriaProfissionalDao;
+import com.vvm.sh.baseDados.dao.ImagemDao;
 import com.vvm.sh.baseDados.dao.LevantamentoAvaliacaoDao;
 import com.vvm.sh.baseDados.dao.LevantamentoDao;
 import com.vvm.sh.baseDados.dao.MedidaDao;
@@ -66,10 +67,10 @@ public class LevantamentosModule {
     @LevantamentosScope
     @Provides
     LevantamentoRepositorio provideLevantamentoRepositorio(int idApi, LevantamentoDao levantamentoDao, CategoriaProfissionalDao categoriaProfissionalDao,
-                                                           RiscoDao riscoDao, MedidaDao medidaDao, PropostaPlanoAcaoDao propostaPlanoAcaoDao,
+                                                           RiscoDao riscoDao, MedidaDao medidaDao, PropostaPlanoAcaoDao propostaPlanoAcaoDao, ImagemDao imagemDao,
                                                            TipoDao tipoDao, ResultadoDao resultadoDao) {
 
-        LevantamentoRepositorio repositorio = new LevantamentoRepositorio(idApi, levantamentoDao, categoriaProfissionalDao, riscoDao, medidaDao, propostaPlanoAcaoDao, tipoDao, resultadoDao);
+        LevantamentoRepositorio repositorio = new LevantamentoRepositorio(idApi, levantamentoDao, categoriaProfissionalDao, riscoDao, medidaDao, propostaPlanoAcaoDao, imagemDao, tipoDao, resultadoDao);
         return repositorio;
     }
 

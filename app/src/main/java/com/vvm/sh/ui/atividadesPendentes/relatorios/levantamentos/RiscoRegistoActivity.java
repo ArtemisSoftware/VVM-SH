@@ -5,7 +5,10 @@ import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.view.View;
 import android.widget.TextView;
 
@@ -15,21 +18,26 @@ import com.mobsandgeeks.saripaar.ValidationError;
 import com.mobsandgeeks.saripaar.Validator;
 import com.mobsandgeeks.saripaar.annotation.NotEmpty;
 import com.vvm.sh.R;
+import com.vvm.sh.baseDados.entidades.ImagemResultado;
 import com.vvm.sh.baseDados.entidades.RiscoResultado;
 import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.databinding.ActivityRiscoRegistoBinding;
 import com.vvm.sh.ui.BaseDaggerActivity;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.modelos.Item;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.modelos.Risco;
 import com.vvm.sh.ui.pesquisa.PesquisaMedidasActivity;
 import com.vvm.sh.ui.pesquisa.modelos.Pesquisa;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.constantes.Identificadores;
+import com.vvm.sh.util.constantes.ImagemConstantes;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.metodos.ConversorUtil;
+import com.vvm.sh.util.metodos.ImagemUtil;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
 import com.vvm.sh.util.metodos.TiposUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -160,26 +168,13 @@ public class RiscoRegistoActivity extends BaseDaggerActivity
     //-------------------
 
 
+
     /**
      * Metodo que permite limpar o registo
      */
     private void limparRegisto() {
 
-        //TODO: testar isto
-
         viewModel.risco.setValue(null);
-
-//        ((Button) vista.findViewById(R.id.btn_galeria)).setText(SintaxeIF.GALERIA);
-//
-//        ((Spinner) vista.findViewById(R.id.spnr_nd)).setSelection(0);
-//        ((Spinner) vista.findViewById(R.id.spnr_ne)).setSelection(0);
-//        ((Spinner) vista.findViewById(R.id.spnr_nc)).setSelection(0);
-//        ((Spinner) vista.findViewById(R.id.spnr_risco)).setSelection(0);
-//        ((Spinner) vista.findViewById(R.id.spnr_risco)).setEnabled(true);
-//        ((Spinner) vista.findViewById(R.id.spnr_risco_especifico)).setSelection(0);
-//        ((Spinner) vista.findViewById(R.id.spnr_risco_especifico)).setEnabled(true);
-//        calcularNP_NR(vista);
-//        ((Button) vista.findViewById(R.id.btn_galeria)).setVisibility(View.GONE);
 
         medidasExistentes = new ArrayList<>();
         medidasRecomendadas = new ArrayList<>();
@@ -292,7 +287,9 @@ public class RiscoRegistoActivity extends BaseDaggerActivity
 
 
         Pesquisa pesquisa = new Pesquisa(true,
-                TiposUtil.MetodosTipos.MEDIDAS_PREVENCAO_ADOPTADAS, new ArrayList<>(), riscoEspecifico.id + "");
+                TiposUtil.MetodosTipos.MEDIDAS_PREVENCAO_ADOPTADAS,
+                viewModel.obterRegistosSelecionados(viewModel.medidasExistentes.getValue()),
+                riscoEspecifico.id + "");
 
         Bundle bundle = new Bundle();
         bundle.putParcelable(getString(R.string.argumento_configuracao_pesquisa), pesquisa);
@@ -302,10 +299,8 @@ public class RiscoRegistoActivity extends BaseDaggerActivity
         startActivityForResult(intent, Identificadores.CodigoAtividade.PESQUISA_MEDIDAS_ADOPTADAS);
     }
 
-
     @OnClick(R.id.crl_btn_pesquisar_medidas_existentes_limpar)
     public void crl_btn_pesquisar_medidas_existentes_limpar_OnClickListener(View view) {
-
 
         medidasExistentes.clear();
         activityRiscoRegistoBinding.txtMedidasExistentes.setText(getString(R.string.nenhuma_medida_selecionada));
@@ -318,7 +313,9 @@ public class RiscoRegistoActivity extends BaseDaggerActivity
         Tipo riscoEspecifico = (Tipo) activityRiscoRegistoBinding.spnrRiscoEspecifico.getItems().get(activityRiscoRegistoBinding.spnrRiscoEspecifico.getSelectedIndex());
 
         Pesquisa pesquisa = new Pesquisa(true,
-                TiposUtil.MetodosTipos.MEDIDAS_PREVENCAO_RECOMENDADAS, new ArrayList<>(), riscoEspecifico.id + "");
+                TiposUtil.MetodosTipos.MEDIDAS_PREVENCAO_RECOMENDADAS,
+                viewModel.obterRegistosSelecionados(viewModel.medidasRecomendadas.getValue()),
+                riscoEspecifico.id + "");
 
         Bundle bundle = new Bundle();
         bundle.putParcelable(getString(R.string.argumento_configuracao_pesquisa), pesquisa);
@@ -330,6 +327,22 @@ public class RiscoRegistoActivity extends BaseDaggerActivity
 
     @OnClick(R.id.crl_btn_pesquisar_medidas_recomendadas_limpar)
     public void crl_btn_pesquisar_medidas_recomendadas_limpar_OnClickListener(View view) {
+
+        medidasRecomendadas.clear();
+        activityRiscoRegistoBinding.txtMedidasRecomendadas.setText(getString(R.string.nenhuma_medida_selecionada));
+    }
+
+
+
+    @OnClick(R.id.crl_adicionar_imagem)
+    public void crl_adicionar_imagem_OnClickListener(View view) {
+
+        ImagemUtil.apresentarOpcoesCaptura(this);
+    }
+
+
+    @OnClick(R.id.crl_galeria)
+    public void crl_galeria_OnClickListener(View view) {
 
         medidasRecomendadas.clear();
         activityRiscoRegistoBinding.txtMedidasRecomendadas.setText(getString(R.string.nenhuma_medida_selecionada));
@@ -371,8 +384,6 @@ public class RiscoRegistoActivity extends BaseDaggerActivity
             Tipo nc = (Tipo) activityRiscoRegistoBinding.spnrNc.getItems().get(activityRiscoRegistoBinding.spnrNc.getSelectedIndex());
 
             String ni = activityRiscoRegistoBinding.txtNi.getText().toString();
-
-
 
             RiscoResultado registo = new RiscoResultado(idLevantamento, risco.id, riscoEspecifico.id, consequencias, nd.obterDescricao(), ne.obterDescricao(), nc.obterDescricao(), ni);
             viewModel.gravar(PreferenciasUtil.obterIdTarefa(this), idAtividade, registo, medidasExistentes, medidasRecomendadas);
@@ -422,6 +433,22 @@ public class RiscoRegistoActivity extends BaseDaggerActivity
                 viewModel.fixarMedidasExistentes(TiposUtil.MetodosTipos.MEDIDAS_PREVENCAO_ADOPTADAS,  medidasExistentes);
             }
         }
+
+
+        if (requestCode == ImagemConstantes.REQUEST_IMAGE) {
+            if (resultCode == RESULT_OK) {
+                Uri uri = data.getParcelableExtra("path");
+
+                try {
+                    Bitmap bitmap = MediaStore.Images.Media.getBitmap(this.getContentResolver(), uri);
+                    viewModel.imagem.setValue(ImagemUtil.converter(bitmap));
+                }
+                catch (IOException e) {
+                    dialogo.alerta(Sintaxe.Palavras.IMAGEM , Sintaxe.Alertas.ERRO_GERAR_IMAGEM + e.getMessage());
+                }
+            }
+        }
+
     }
 
 

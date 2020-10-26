@@ -12,6 +12,8 @@ import android.util.Base64;
 
 import androidx.core.content.FileProvider;
 
+import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.RiscoRegistoActivity;
+import com.vvm.sh.ui.imagens.ImagemActivity;
 import com.vvm.sh.util.constantes.ImagemConstantes;
 
 import java.io.ByteArrayOutputStream;
@@ -115,4 +117,52 @@ public class ImagemUtil {
         return new File(mediaStorageDir.getPath() + File.separator +
                 "IMG_"+ timeStamp + ".jpg");
     }
+
+
+
+    public static void apresentarOpcoesCaptura(Activity activity) {
+
+        ImagemActivity.showImagePickerOptions(activity, new ImagemActivity.PickerOptionListener() {
+            @Override
+            public void onTakeCameraSelected() {
+                launchCameraIntent(activity);
+            }
+
+            @Override
+            public void onChooseGallerySelected() {
+                launchGalleryIntent(activity);
+            }
+        });
+    }
+
+
+    private static void launchCameraIntent(Activity activity) {
+        Intent intent = new Intent(activity, ImagemActivity.class);
+        intent.putExtra(ImagemActivity.INTENT_IMAGE_PICKER_OPTION, ImagemConstantes.REQUEST_IMAGE_CAPTURE);
+
+        // setting aspect ratio
+        intent.putExtra(ImagemActivity.INTENT_LOCK_ASPECT_RATIO, true);
+        intent.putExtra(ImagemActivity.INTENT_ASPECT_RATIO_X, 1); // 16x9, 1x1, 3:4, 3:2
+        intent.putExtra(ImagemActivity.INTENT_ASPECT_RATIO_Y, 1);
+
+        // setting maximum bitmap width and height
+        intent.putExtra(ImagemActivity.INTENT_SET_BITMAP_MAX_WIDTH_HEIGHT, true);
+        intent.putExtra(ImagemActivity.INTENT_BITMAP_MAX_WIDTH, 1000);
+        intent.putExtra(ImagemActivity.INTENT_BITMAP_MAX_HEIGHT, 1000);
+
+        activity.startActivityForResult(intent, ImagemConstantes.REQUEST_IMAGE);
+    }
+
+    private static void launchGalleryIntent(Activity activity) {
+        Intent intent = new Intent(activity, ImagemActivity.class);
+        intent.putExtra(ImagemActivity.INTENT_IMAGE_PICKER_OPTION, ImagemConstantes.REQUEST_GALLERY_IMAGE);
+
+        // setting aspect ratio
+        intent.putExtra(ImagemActivity.INTENT_LOCK_ASPECT_RATIO, true);
+        intent.putExtra(ImagemActivity.INTENT_ASPECT_RATIO_X, 1); // 16x9, 1x1, 3:4, 3:2
+        intent.putExtra(ImagemActivity.INTENT_ASPECT_RATIO_Y, 1);
+        activity.startActivityForResult(intent, ImagemConstantes.REQUEST_IMAGE);
+    }
+
+
 }

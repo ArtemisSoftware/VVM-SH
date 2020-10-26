@@ -294,7 +294,8 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
 
         avaliacaoRiscos.checklist = obterChecklist(idAtividade);
         avaliacaoRiscos.trabalhadoresVulneraveis = obterTrabalhadoresVulneraveis(idAtividade);
-
+        avaliacaoRiscos.equipamentos = repositorio.obterEquipamentos(idAtividade);
+        avaliacaoRiscos.processoProdutivo = repositorio.obterProcessoProdutivo(idAtividade);
         return avaliacaoRiscos;
     }
 

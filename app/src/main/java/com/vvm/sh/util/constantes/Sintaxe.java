@@ -66,6 +66,7 @@ public class Sintaxe {
 
         public static final String EQUIPAMENTO_RELATORIO_TEMPERATURA_HUMIDADE = "Termohigrómetro";
         public static final String EQUIPAMENTO_RELATORIO_ILUMINACAO = "Luxómetro";
+        public static final String IMAGEM = "Imagem";
     }
 
     public class Opcoes{
@@ -116,6 +117,7 @@ public class Sintaxe {
         public static final String PROBLEMA_EMAIL = "Ocorreu um problema ao enviar o email: ";
         public static final String DADOS_INCOMPLETOS_PDF = "Dados incompletos. Pré-visualização indisponível";
         public static final String EMAIL_NAO_ASSOCIADO = "Dados incompletos. Não existem um email associado";
+        public static final String ERRO_GERAR_IMAGEM = "Erro ao gerar imagem: ";
     }
 
     public class Frases{

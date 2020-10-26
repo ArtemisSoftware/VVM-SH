@@ -3,6 +3,7 @@ package com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos;
 import androidx.lifecycle.MutableLiveData;
 
 import com.vvm.sh.baseDados.entidades.CategoriaProfissionalResultado;
+import com.vvm.sh.baseDados.entidades.ImagemResultado;
 import com.vvm.sh.baseDados.entidades.LevantamentoRiscoResultado;
 import com.vvm.sh.baseDados.entidades.MedidaResultado;
 import com.vvm.sh.baseDados.entidades.PropostaPlanoAcaoResultado;
@@ -78,6 +79,7 @@ public class LevantamentosViewModel extends BaseViewModel {
 
     public MutableLiveData<List<Tipo>> medidasRecomendadas;
     public MutableLiveData<List<Tipo>> medidasExistentes;
+    public MutableLiveData<byte[]> imagem;
 
     @Inject
     public LevantamentosViewModel(LevantamentoRepositorio levantamentoRepositorio, LevantamentoAvaliacaoRepositorio levantamentoAvaliacaoRepositorio){
@@ -106,6 +108,7 @@ public class LevantamentosViewModel extends BaseViewModel {
         resultadosRiscos = new ArrayList<>();
         medidasRecomendadas = new MutableLiveData<>();
         medidasExistentes = new MutableLiveData<>();
+        imagem = new MutableLiveData<>();
 
     }
 
@@ -286,6 +289,8 @@ public class LevantamentosViewModel extends BaseViewModel {
      */
     public void gravar(int idTarefa, int idAtividade, RiscoResultado registo, List<Integer> medidasExistentes, List<Integer> medidasRecomendadas) {
 
+
+
         if(risco.getValue() == null){
 
             levantamentoRepositorio.inserir(registo)
@@ -293,7 +298,10 @@ public class LevantamentosViewModel extends BaseViewModel {
                         @Override
                         public SingleSource<?> apply(Long aLong) throws Exception {
                             int idRegisto = ConversorUtil.converter_long_Para_int(aLong);
-                            return Single.fromObservable(levantamentoRepositorio.inserir(idAtividade, idRegisto, medidasExistentes, medidasRecomendadas));
+
+                            ImagemResultado imagemResultado = new ImagemResultado(idTarefa, idRegisto, Identificadores.Imagens.IMAGEM_RISCO, imagem.getValue());
+
+                            return Single.fromObservable(levantamentoRepositorio.inserir(idAtividade, idRegisto, medidasExistentes, medidasRecomendadas, imagemResultado));
                         }
                     })
                     .subscribeOn(Schedulers.io())
@@ -362,7 +370,11 @@ public class LevantamentosViewModel extends BaseViewModel {
             }
 
 
-            Disposable d = levantamentoRepositorio.atualizarRisco(registo, medidasExistentesRegistas, medidasRecomendadasRegistas, propostasRegistas)
+            ImagemResultado imagemResultado = new ImagemResultado(idTarefa, registo.id, Identificadores.Imagens.IMAGEM_RISCO, imagem.getValue());
+
+
+
+            Disposable d = levantamentoRepositorio.atualizarRisco(registo, medidasExistentesRegistas, medidasRecomendadasRegistas, propostasRegistas, imagemResultado)
                     .toList()
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())

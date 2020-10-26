@@ -184,11 +184,16 @@
 
     <style name="btnLimpar" parent="btnCircular">
         <item name="cb_color">@color/cor_amarelo</item>
-        <item name="android:src">@drawable/ic_pesquisa_24dp</item>
+        <item name="android:src">@drawable/ic_apagar</item>
     </style>
 
+    <style name="btnImagem" parent="btnEditar">
+        <item name="android:src">@drawable/ic_camera_24dp</item>
+    </style>
 
-
+    <style name="btnGaleria" parent="btnEditar">
+        <item name="android:src">@drawable/ic_galeria_24dp</item>
+    </style>
 
 
     <style name="LoginTheme" parent="Theme.AppCompat.Light.DarkActionBar">

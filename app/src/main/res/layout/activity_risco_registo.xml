@@ -171,6 +171,7 @@
                             android:id="@+id/spnr_nd"
                             android:layout_width="80dp"
                             tipos_="@{viewmodel.tiposNd}"
+                            descricao="@{viewmodel.risco.resultado.nd}"
                             android:layout_height="wrap_content" />
 
 
@@ -187,6 +188,7 @@
                             android:id="@+id/spnr_ne"
                             android:layout_width="80dp"
                             tipos_="@{viewmodel.tiposNe}"
+                            descricao="@{viewmodel.risco.resultado.ne}"
                             android:layout_height="wrap_content" />
 
 
@@ -225,6 +227,7 @@
                         <com.jaredrummler.materialspinner.MaterialSpinner
                             android:id="@+id/spnr_nc"
                             tipos_="@{viewmodel.tiposNc}"
+                            descricao="@{viewmodel.risco.resultado.nc}"
                             android:layout_width="110dp"
                             android:layout_height="wrap_content" />
 
@@ -387,20 +390,12 @@
 
                         <at.markushi.ui.CircleButton
                             android:id="@+id/crl_adicionar_imagem"
-                            android:layout_width="64dip"
-                            android:layout_height="64dip"
-                            android:src="@drawable/ic_calendario"
-                            app:cb_color="#99CC00"
-                            app:cb_pressedRingWidth="8dip"/>
+                            style="@style/btnImagem"/>
 
 
                         <at.markushi.ui.CircleButton
                             android:id="@+id/crl_galeria"
-                            android:layout_width="64dip"
-                            android:layout_height="64dip"
-                            android:src="@drawable/ic_calendario"
-                            app:cb_color="#99CC00"
-                            app:cb_pressedRingWidth="8dip" />
+                            style="@style/btnGaleria"/>
 
 
 
@@ -412,6 +407,13 @@
                     </LinearLayout>
 
 
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        imagemL="@{viewmodel.imagem}"
+                        android:layout_marginTop="@dimen/distancia_vertical_formulario"
+                        app:layout_constraintStart_toStartOf="@+id/textView18"
+                        app:layout_constraintTop_toBottomOf="@+id/linearlayout5"/>
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

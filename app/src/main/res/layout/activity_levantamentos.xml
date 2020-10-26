@@ -85,46 +85,47 @@
 
 
 
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_centerHorizontal="true">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone"
-            android:orientation="vertical"
-            android:gravity="center"
-            android:layout_gravity="center">
-
-            <!-- android:visibility="@{viewmodel.agenda.marcacaos.size() == 0 ? View.VISIBLE : View.GONE}"  -->
-
-            <ImageView
-                android:layout_width="200dp"
-                android:layout_height="200dp"
-                android:src="@drawable/ic_sem_trabalho"
-                android:tint="@color/cor_alerta_medio"/>
-
-            <TextView
-                style="@style/textoDetalhe"
-                android:text="@string/registos_inexistentes"
-                android:layout_marginTop="32dp"/>
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:gravity="center"
+                android:layout_gravity="center"
+                android:layout_marginTop="100dp"
+                android:visibility="@{viewmodel.levantamentos.size() == 0 ? View.VISIBLE : View.GONE}">
 
 
-        </LinearLayout>
+                <ImageView
+                    android:layout_width="200dp"
+                    android:layout_height="200dp"
+                    android:src="@drawable/ic_sem_trabalho"
+                    android:tint="@color/cor_alerta_medio"/>
+
+                <TextView
+                    style="@style/textoDetalhe"
+                    android:text="@string/registos_inexistentes"
+                    android:layout_marginTop="32dp"/>
+
+
+            </LinearLayout>
 
 
 
 
 
-        <androidx.recyclerview.widget.RecyclerView
+
+
+            <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcl_registos"
             style="@style/lista"
-            android:visibility="visible"
+
+                android:visibility="@{viewmodel.levantamentos.size() > 0 ? View.VISIBLE : View.GONE}"
             levantamentos="@{viewmodel.levantamentos}"
             listener="@{listener}"
             tools:listitem="@layout/item_levantamento"/>
@@ -135,10 +136,9 @@
                             listener="@{listener}"
         -->
 
+            </LinearLayout>
 
 
-
-        </LinearLayout>
         </androidx.core.widget.NestedScrollView>
 
         <com.github.clans.fab.FloatingActionMenu

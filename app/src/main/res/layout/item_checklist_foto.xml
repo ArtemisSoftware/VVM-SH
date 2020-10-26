@@ -79,15 +79,13 @@
 
                 <at.markushi.ui.CircleButton
                     android:id="@+id/crl_btn_registar"
-                    style="@style/btnEditar"
-                    android:src="@drawable/ic_camera_24dp"
+                    style="@style/btnImagem"
                     android:layout_marginEnd="1dp" />
 
 
                 <at.markushi.ui.CircleButton
                     android:id="@+id/crl_btn_galeria"
-                    style="@style/btnEditar"
-                    android:src="@drawable/ic_galeria_24dp"
+                    style="@style/btnGaleria"
                     android:layout_marginEnd="1dp" />
 
             </LinearLayout>

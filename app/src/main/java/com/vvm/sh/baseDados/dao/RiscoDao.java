@@ -52,6 +52,17 @@ abstract public class RiscoDao implements BaseDao<RiscoResultado> {
     @Query("DELETE FROM riscosResultado WHERE idLevantamento = :idLevantamento ")
     abstract public Single<Integer> removerRiscos(int idLevantamento);
 
+    @Query("DELETE FROM imagensResultado WHERE id IN (SELECT id FROM riscosResultado WHERE idLevantamento = :idLevantamento) " +
+            "AND origem =" + Identificadores.Imagens.IMAGEM_RISCO + " ")
+    abstract public Single<Integer> removerImagemLevantamento(int idLevantamento);
+
+
+    @Query("DELETE FROM imagensResultado WHERE id IN (" +
+            "SELECT id FROM levantamentosRiscoResultado WHERE idAtividade =:idAtividade AND idModelo =:idModelo" +
+            ") " +
+            "AND origem =" + Identificadores.Imagens.IMAGEM_RISCO + " ")
+    abstract public Completable removerImagemModelo(int idAtividade, int idModelo);
+
 
 //    query = "INSERT INTO riscos_resultado (idLevantamento, idRisco, idRiscoEspecifico, consequencias, origem, idTipoRisco )   ";
 //

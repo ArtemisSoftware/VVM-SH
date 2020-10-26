@@ -343,6 +343,15 @@ public class TransferenciasRepositorio {
         return transferenciasDao.obterMedidas(idRegisto, origem);
     }
 
+    public List<String> obterEquipamentos(int idAtividade) {
+        return transferenciasDao.obterEquipamentos(idAtividade);
+    }
+
+    public String obterProcessoProdutivo(int idAtividade) {
+        return transferenciasDao.obterProcessoProdutivo(idAtividade);
+    }
+
+
     //---------------------------
     //DOWNLOAD
     //---------------------------

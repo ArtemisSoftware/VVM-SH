@@ -89,6 +89,28 @@ public class GeralBinding {
     }
 
 
+    @BindingAdapter({"tipos_", "descricao"})
+    public static void setTiposDescricao(MaterialSpinner view, List<Tipo> registos, String descricao) {
+
+        if (registos == null)
+            return;
+
+        view.setItems(registos);
+
+        if(descricao != null) {
+
+            for (int index = 0; index < registos.size(); ++index) {
+
+                if(registos.get(index).descricao.equals(descricao)){
+                    view.setSelectedIndex(index);
+                    break;
+                }
+            }
+        }
+    }
+
+
+
 
     @BindingAdapter({"completudeRelatorio"})
     public static void setCompletudeRelatorio(Chip view, boolean estado) {

@@ -325,6 +325,7 @@ public class Identificadores {
     public class Codigos {
         public static final String ILUMINACAO = "iluminacao";
         public static final String TERMICO = "termico";
+        public static final String EQUIPAMENTO = "eq";
     }
 
     public class Atualizacoes {

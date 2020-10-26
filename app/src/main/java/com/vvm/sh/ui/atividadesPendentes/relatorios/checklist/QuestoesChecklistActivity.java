@@ -25,6 +25,7 @@ import com.vvm.sh.ui.imagens.ImagemActivity;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.constantes.ImagemConstantes;
+import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.metodos.ImagemUtil;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
@@ -137,7 +138,7 @@ public class QuestoesChecklistActivity extends BaseDaggerActivity
             viewModel.gravar(PreferenciasUtil.obterIdTarefa(this), idAtividade, resultado);
         }
         catch (IOException e) {
-            e.printStackTrace();
+            dialogo.alerta(Sintaxe.Palavras.IMAGEM , Sintaxe.Alertas.ERRO_GERAR_IMAGEM + e.getMessage());
         }
 
     }
@@ -251,8 +252,6 @@ public class QuestoesChecklistActivity extends BaseDaggerActivity
                 Uri uri = data.getParcelableExtra("path");
 
                 gravarImagem(uri);
-
-
 
             }
         }

@@ -10,6 +10,7 @@ import com.vvm.sh.api.modelos.bd.AreaBd;
 import com.vvm.sh.api.modelos.bd.AtividadePendenteBd;
 import com.vvm.sh.api.modelos.bd.FormandoBd;
 import com.vvm.sh.api.modelos.bd.RegistoVisitaBd;
+import com.vvm.sh.api.modelos.bd.RelatorioAmbientalBd;
 import com.vvm.sh.api.modelos.envio.Checklist;
 import com.vvm.sh.api.modelos.envio.RegistoVisita;
 import com.vvm.sh.api.modelos.envio.RelatorioAmbiental;
@@ -17,6 +18,7 @@ import com.vvm.sh.baseDados.BaseDao;
 import com.vvm.sh.baseDados.entidades.Anomalia;
 import com.vvm.sh.baseDados.entidades.AtividadeExecutada;
 import com.vvm.sh.baseDados.entidades.AtividadePendente;
+import com.vvm.sh.baseDados.entidades.AvaliacaoAmbientalResultado;
 import com.vvm.sh.baseDados.entidades.Cliente;
 import com.vvm.sh.baseDados.entidades.Colaborador;
 import com.vvm.sh.baseDados.entidades.CrossSellingResultado;
@@ -224,31 +226,27 @@ abstract public class TransferenciasDao implements BaseDao<Resultado> {
 
 
 
-//    String query = "SELECT rel_amb_res.idRelatorio as idRelatorio, marca, nSerie, medidaRecomendada, data, inicio, termino, idNebulosidade, idMedidaRecomendada   ";
-//    query += "FROM relatorioAmbiental_resultado as rel_amb_res ";
-//
-//    query += "OUTER LEFT JOIN(    ";
-//    query += "SELECT CASE WHEN SUM(VALIDO) > 0 AND COUNT(VALIDO) > 0 THEN 3 ELSE 4 END as  idMedidaRecomendada, idRelatorio   ";
-//    query += "FROM (    ";
-//    query += "SELECT CASE WHEN  (CAST(temperatura AS INTEGER) < 18 OR CAST(temperatura AS INTEGER) > 22) OR CAST(humidadeRelativa AS INTEGER) < 50 OR CAST(humidadeRelativa AS INTEGER) > 70 THEN 0    ";
-//    query += "ELSE 1 END as VALIDO, idRelatorio   ";
-//    query += " FROM avaliacaoAmbiental_resultado    ";
-//    query += ") as medidas     ";
-//    query += "GROUP BY idRelatorio	    ";
-//
-//    query += ") as med ON rel_amb_res.idRelatorio = med.idRelatorio     ";
-//
-//    query += "WHERE id = ? AND idTipoRelatorio = ? ";
-//
-//    String argumentos [] = {
-//            idAtividade, IdentificadoresIF.ORIGEM_RELATORIO_TEMPERATURA_HUMIDADE + ""
-//    };
+    @Query("SELECT rel_amb_res.*, idMedidaRecomendada " +
+            "FROM relatorioAmbientalResultado as rel_amb_res " +
 
-    @Query("" +
-            "")
-    public abstract List<RelatorioAmbiental> obterRelatorioIluminacao(int idAtividade);
+            "LEFT JOIN(  " +
+            "SELECT CASE WHEN SUM(VALIDO) > 0 AND COUNT(VALIDO) > 0 THEN 3 ELSE 4 END as  idMedidaRecomendada, idRelatorio " +
+            "FROM ( " +
+            "SELECT idRelatorio, " +
+            "CASE " +
+            "WHEN (CAST(temperatura AS INTEGER) < 18 OR CAST(temperatura AS INTEGER) > 22) OR CAST(humidadeRelativa AS INTEGER) < 50 OR CAST(humidadeRelativa AS INTEGER) > 70 THEN 0 " +
+            "ELSE 1 END as VALIDO " +
+            "FROM avaliacoesAmbientaisResultado  " +
+            ") as medidas  " +
+            "GROUP BY idRelatorio " +
+            ") as med ON rel_amb_res.id = med.idRelatorio " +
+
+            "WHERE idAtividade = :idAtividade AND tipo = "+ Identificadores.Origens.ORIGEM_RELATORIO_TEMPERATURA_HUMIDADE + " ")
+    public abstract RelatorioAmbientalBd obterRelatorioTemperaturaHumidade(int idAtividade);
 
 
+    @Query("SELECT * FROM avaliacoesAmbientaisResultado WHERE idRelatorio = :idRelatorio")
+    public abstract List<AvaliacaoAmbientalResultado> obterAvaliacoes(int idRelatorio);
 
     //-------------------
     //TRABALHO

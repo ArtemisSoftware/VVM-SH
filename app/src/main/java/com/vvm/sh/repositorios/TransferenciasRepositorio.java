@@ -8,13 +8,14 @@ import com.vvm.sh.api.modelos.bd.AtividadePendenteBd;
 import com.vvm.sh.api.modelos.bd.FormandoBd;
 import com.vvm.sh.api.SegurancaAlimentarApi;
 import com.vvm.sh.api.modelos.bd.RegistoVisitaBd;
-import com.vvm.sh.api.modelos.envio.Checklist;
+import com.vvm.sh.api.modelos.bd.RelatorioAmbientalBd;
 import com.vvm.sh.api.modelos.pedido.ISessao;
 import com.vvm.sh.api.modelos.pedido.Codigo;
 import com.vvm.sh.baseDados.dao.TransferenciasDao;
 import com.vvm.sh.baseDados.entidades.Anomalia;
 import com.vvm.sh.baseDados.entidades.AtividadeExecutada;
 import com.vvm.sh.baseDados.entidades.AtividadePendente;
+import com.vvm.sh.baseDados.entidades.AvaliacaoAmbientalResultado;
 import com.vvm.sh.baseDados.entidades.Cliente;
 import com.vvm.sh.baseDados.entidades.Colaborador;
 import com.vvm.sh.baseDados.entidades.CrossSellingResultado;
@@ -322,6 +323,25 @@ public class TransferenciasRepositorio {
         return transferenciasDao.obterCategoriasProfissionais_TrabalhadoresVulneraveis(id, origem);
     }
 
+    public RelatorioAmbientalBd obterRelatorioIluminacao(int idAtividade) {
+        return transferenciasDao.obterRelatorioIluminacao(idAtividade);
+    }
+
+    public RelatorioAmbientalBd obterRelatorioTemperaturaHumidade(int idAtividade) {
+        return transferenciasDao.obterRelatorioTemperaturaHumidade(idAtividade);
+    }
+
+    public List<AvaliacaoAmbientalResultado> obterAvaliacoesAmbiental(int idRelatorio) {
+        return transferenciasDao.obterAvaliacoesAmbiental(idRelatorio);
+    }
+
+    public List<Integer> obterCategoriasProfissionais(int idRegisto, int origem) {
+        return transferenciasDao.obterCategoriasProfissionais(idRegisto, origem);
+    }
+
+    public List<Integer> obterMedidas(int idRegisto, int origem) {
+        return transferenciasDao.obterMedidas(idRegisto, origem);
+    }
 
     //---------------------------
     //DOWNLOAD

@@ -2,6 +2,8 @@ package com.vvm.sh.api.modelos.envio;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 public class RelatorioAmbiental {
 
 
@@ -12,7 +14,7 @@ public class RelatorioAmbiental {
     public String numeroSerie;
 
     @SerializedName("medidaRecomendada")
-    public String medidaRecomendada;
+    public int medidaRecomendada;
 
     @SerializedName("dataAvaliacao")
     public String dataAvaliacao;
@@ -26,8 +28,11 @@ public class RelatorioAmbiental {
     @SerializedName("nebulosidade")
     public String nebulosidade;
 
-//    @SerializedName("avaliacoes")
-//    public String avaliacoes;
+    @SerializedName("equipamento")
+    public String equipamento;
+
+    @SerializedName("avaliacoes")
+    public List<AvaliacaoAmbiental> avaliacoes;
 
 
 }

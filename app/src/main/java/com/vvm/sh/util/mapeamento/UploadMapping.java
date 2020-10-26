@@ -2,12 +2,15 @@ package com.vvm.sh.util.mapeamento;
 
 import com.vvm.sh.api.modelos.bd.AreaBd;
 import com.vvm.sh.api.modelos.bd.AtividadePendenteBd;
+import com.vvm.sh.api.modelos.bd.RelatorioAmbientalBd;
 import com.vvm.sh.api.modelos.envio.Area;
+import com.vvm.sh.api.modelos.envio.AvaliacaoTemperaturaHumidade;
 import com.vvm.sh.api.modelos.envio.Checklist;
 import com.vvm.sh.api.modelos.envio.ItemSeccaoChecklist;
 import com.vvm.sh.api.modelos.envio.Observacao;
 import com.vvm.sh.api.modelos.envio.Pergunta;
 import com.vvm.sh.api.modelos.envio.RegistoVisita;
+import com.vvm.sh.api.modelos.envio.RelatorioAmbiental;
 import com.vvm.sh.api.modelos.envio.Sessao;
 import com.vvm.sh.api.modelos.envio.AcaoFormacao;
 import com.vvm.sh.api.modelos.envio.Anomalia;
@@ -22,6 +25,7 @@ import com.vvm.sh.api.modelos.envio.Ocorrencia;
 import com.vvm.sh.api.modelos.envio.TrabalhadorVulneravel;
 import com.vvm.sh.api.modelos.envio.TrabalhoRealizado;
 import com.vvm.sh.api.modelos.envio.Ut;
+import com.vvm.sh.baseDados.entidades.AvaliacaoAmbientalResultado;
 import com.vvm.sh.baseDados.entidades.CrossSellingResultado;
 import com.vvm.sh.baseDados.entidades.EmailResultado;
 import com.vvm.sh.baseDados.entidades.FormandoResultado;
@@ -97,7 +101,7 @@ public interface UploadMapping {
 
 
 
-
+    //TODO: verificar e completar
 
     @Mapping(target = "idChecklist", source = "id")
     //@Mapping(target = "versaoChecklist", source = "idPai")
@@ -140,6 +144,15 @@ public interface UploadMapping {
     Area map(AreaBd area);
 
     TrabalhadorVulneravel map(TrabalhadorVulneravelResultado item);
+
+    @Mapping(target = "idMedidaRecomendada", source = "medidaRecomendada")
+    @Mapping(target = "marca", source = "relatorio.resultado.marca")
+    RelatorioAmbiental mapeamento(RelatorioAmbientalBd relatorio);
+
+
+    @Mapping(target = "descricaoArea", source = "anexoArea")
+    AvaliacaoTemperaturaHumidade mapeamento(AvaliacaoAmbientalResultado item);
+
 
 
 

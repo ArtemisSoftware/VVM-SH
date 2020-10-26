@@ -19,10 +19,12 @@ import com.vvm.sh.baseDados.entidades.Anomalia;
 import com.vvm.sh.baseDados.entidades.AtividadeExecutada;
 import com.vvm.sh.baseDados.entidades.AtividadePendente;
 import com.vvm.sh.baseDados.entidades.AvaliacaoAmbientalResultado;
+import com.vvm.sh.baseDados.entidades.CategoriaProfissionalResultado;
 import com.vvm.sh.baseDados.entidades.Cliente;
 import com.vvm.sh.baseDados.entidades.Colaborador;
 import com.vvm.sh.baseDados.entidades.CrossSellingResultado;
 import com.vvm.sh.baseDados.entidades.ImagemResultado;
+import com.vvm.sh.baseDados.entidades.MedidaResultado;
 import com.vvm.sh.baseDados.entidades.Morada;
 import com.vvm.sh.baseDados.entidades.Ocorrencia;
 import com.vvm.sh.baseDados.entidades.OcorrenciaHistorico;
@@ -245,8 +247,33 @@ abstract public class TransferenciasDao implements BaseDao<Resultado> {
     public abstract RelatorioAmbientalBd obterRelatorioTemperaturaHumidade(int idAtividade);
 
 
+    @Query("SELECT rel_amb_res.*, idMedidaRecomendada " +
+            "FROM relatorioAmbientalResultado as rel_amb_res " +
+            "LEFT JOIN ( " +
+            "SELECT idRelatorio, CASE WHEN SUM(VALIDO) > 0 AND COUNT(VALIDO) > 0 THEN 2 ELSE 1 END as idMedidaRecomendada " +
+            "FROM ( " +
+            "SELECT CASE WHEN  CAST(emedioLx AS INTEGER) <  (CAST(eLx AS INTEGER) - ((10 * CAST(eLx AS INTEGER)) / 100)) THEN 1  ELSE 0 END as VALIDO,  idRelatorio " +
+            "FROM avaliacoesAmbientaisResultado " +
+            ") as medidas " +
+            "GROUP BY idRelatorio " +
+            ") as med ON rel_amb_res.id = med.idRelatorio  " +
+            "WHERE idAtividade = :idAtividade AND tipo = "+ Identificadores.Origens.ORIGEM_RELATORIO_ILUMINACAO + " ")
+    public abstract RelatorioAmbientalBd obterRelatorioIluminacao(int idAtividade);
+
+
+
+
+
     @Query("SELECT * FROM avaliacoesAmbientaisResultado WHERE idRelatorio = :idRelatorio")
-    public abstract List<AvaliacaoAmbientalResultado> obterAvaliacoes(int idRelatorio);
+    public abstract List<AvaliacaoAmbientalResultado> obterAvaliacoesAmbiental(int idRelatorio);
+
+
+
+    @Query("SELECT idMedida FROM medidasResultado WHERE id = :id AND origem = :origem")
+    public abstract List<Integer> obterMedidas(int id, int origem);
+
+    @Query("SELECT idCategoriaProfissional FROM categoriasProfissionaisResultado WHERE id = :id AND origem = :origem")
+    public abstract List<Integer> obterCategoriasProfissionais(int id, int origem);
 
     //-------------------
     //TRABALHO

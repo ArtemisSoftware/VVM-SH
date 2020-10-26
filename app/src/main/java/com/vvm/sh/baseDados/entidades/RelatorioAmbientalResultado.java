@@ -54,12 +54,6 @@ public class RelatorioAmbientalResultado {
     public int idNebulosidade;
 
 
-    //TODO:Verificar
-
-//    @NonNull
-//    public String medidaRecomendada;
-
-
     public RelatorioAmbientalResultado(int idAtividade, int id, int tipo, @NonNull String marca, @NonNull String numeroSerie, @NonNull Date data, @NonNull Date inicio, @NonNull Date termino, int idNebulosidade) {
         this.idAtividade = idAtividade;
         this.id = id;

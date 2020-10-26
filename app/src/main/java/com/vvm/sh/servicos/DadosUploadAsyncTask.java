@@ -7,6 +7,7 @@ import android.provider.ContactsContract;
 
 import com.vvm.sh.api.modelos.bd.AreaBd;
 import com.vvm.sh.api.modelos.bd.RegistoVisitaBd;
+import com.vvm.sh.api.modelos.bd.RelatorioAmbientalBd;
 import com.vvm.sh.api.modelos.envio.AcaoFormacao;
 import com.vvm.sh.api.modelos.envio.Anomalia;
 import com.vvm.sh.api.modelos.envio.AtividadePendente;
@@ -14,6 +15,7 @@ import com.vvm.sh.api.modelos.envio.AtividadePendenteExecutada;
 import com.vvm.sh.api.modelos.envio.AtividadePendenteNaoExecutada;
 import com.vvm.sh.api.modelos.bd.AtividadePendenteBd;
 import com.vvm.sh.api.modelos.envio.AvaliacaoRiscos;
+import com.vvm.sh.api.modelos.envio.AvaliacaoTemperaturaHumidade;
 import com.vvm.sh.api.modelos.envio.Checklist;
 import com.vvm.sh.api.modelos.envio.CrossSelling;
 import com.vvm.sh.api.modelos.envio.DadosFormulario;
@@ -26,11 +28,13 @@ import com.vvm.sh.api.modelos.envio.Observacao;
 import com.vvm.sh.api.modelos.envio.Ocorrencia;
 import com.vvm.sh.api.modelos.envio.Pergunta;
 import com.vvm.sh.api.modelos.envio.RegistoVisita;
+import com.vvm.sh.api.modelos.envio.RelatorioAmbiental;
 import com.vvm.sh.api.modelos.envio.Seccao;
 import com.vvm.sh.api.modelos.envio.TrabalhadorVulneravel;
 import com.vvm.sh.api.modelos.envio.TrabalhoRealizado;
 import com.vvm.sh.api.modelos.envio.Ut;
 import com.vvm.sh.baseDados.VvmshBaseDados;
+import com.vvm.sh.baseDados.entidades.AvaliacaoAmbientalResultado;
 import com.vvm.sh.baseDados.entidades.CrossSellingResultado;
 import com.vvm.sh.baseDados.entidades.ImagemResultado;
 import com.vvm.sh.baseDados.entidades.QuestionarioChecklistResultado;
@@ -45,6 +49,7 @@ import com.vvm.sh.ui.transferencias.modelos.Upload;
 import com.vvm.sh.util.AtualizacaoUI;
 import com.vvm.sh.util.constantes.AppConfig;
 import com.vvm.sh.util.constantes.Identificadores;
+import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.mapeamento.UploadMapping;
 import com.vvm.sh.util.metodos.DatasUtil;
 
@@ -379,12 +384,17 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
 
                 AtividadePendenteExecutada registo = UploadMapping.INSTANCE.mapeamento(item);
 
-                if(item.atividade.idRelatorio == Identificadores.Relatorios.ID_RELATORIO_FORMACAO){
-                    registo.formacao = obterAcaoFormacao(item.resultado.id);
-                }
-                else if(item.atividade.idRelatorio == Identificadores.Relatorios.ID_RELATORIO_AVALIACAO_RISCO){
-                    registo.avaliacaoRiscos = obterAvaliacaoRiscos(item.resultado.id);
-                }
+//                if(item.atividade.idRelatorio == Identificadores.Relatorios.ID_RELATORIO_FORMACAO){
+//                    registo.formacao = obterAcaoFormacao(item.resultado.id);
+//                }
+//                else if(item.atividade.idRelatorio == Identificadores.Relatorios.ID_RELATORIO_AVALIACAO_RISCO){
+//                    registo.avaliacaoRiscos = obterAvaliacaoRiscos(item.resultado.id);
+//                }
+
+                registo.formacao = obterAcaoFormacao(item.resultado.id);
+                registo.avaliacaoRiscos = obterAvaliacaoRiscos(item.resultado.id);
+                registo.iluminacao = obterRelatorioIluminacao(item.resultado.id);
+                registo.temperaturaHumidade = obterRelatorioTemperaturaHumidade(item.resultado.id);
 
                 registos.add(registo);
             }
@@ -396,6 +406,43 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
 
         return registos;
     }
+
+    private RelatorioAmbiental obterRelatorioIluminacao(int idAtividade) {
+
+        RelatorioAmbientalBd registo = repositorio.obterRelatorioIluminacao(idAtividade);
+        RelatorioAmbiental relatorioAmbiental = UploadMapping.INSTANCE.mapeamento(registo);
+        relatorioAmbiental.equipamento = Sintaxe.Palavras.EQUIPAMENTO_RELATORIO_ILUMINACAO;
+
+        for(AvaliacaoAmbientalResultado avaliacao : repositorio.obterAvaliacoesAmbiental(registo.resultado.id)){
+            
+            
+            
+        }
+        
+
+        return relatorioAmbiental;
+    }
+
+    private RelatorioAmbiental obterRelatorioTemperaturaHumidade(int idAtividade) {
+        
+        RelatorioAmbientalBd registo = repositorio.obterRelatorioIluminacao(idAtividade);
+        RelatorioAmbiental relatorioAmbiental = UploadMapping.INSTANCE.mapeamento(registo);
+        relatorioAmbiental.equipamento = Sintaxe.Palavras.EQUIPAMENTO_RELATORIO_TEMPERATURA_HUMIDADE;
+
+        for(AvaliacaoAmbientalResultado item : repositorio.obterAvaliacoesAmbiental(registo.resultado.id)){
+
+            List<Integer> categoriasProfissionais = repositorio.obterCategoriasProfissionais(item.id, Identificadores.Origens.ORIGEM_RELATORIO_TEMPERATURA_HUMIDADE);
+            List<Integer> medidas = repositorio.obterMedidas(item.id, Identificadores.Origens.ORIGEM_RELATORIO_TEMPERATURA_HUMIDADE_MEDIDAS_RECOMENDADAS);
+
+            AvaliacaoTemperaturaHumidade avaliacao = UploadMapping.INSTANCE.mapeamento(item);
+            avaliacao.categoriasProfissionais = categoriasProfissionais;
+            avaliacao.medidasRecomendadas = medidas;
+        }
+        
+        return relatorioAmbiental;
+    }
+
+
 
 
     /**

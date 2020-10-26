@@ -21,4 +21,12 @@ public class AtividadePendenteExecutada extends AtividadePendente {
 
     @SerializedName("AvaliacaoRiscosNova")
     public AvaliacaoRiscos avaliacaoRiscos;
+
+    @SerializedName("RelatorioIluminacao")
+    public RelatorioAmbiental iluminacao;
+
+
+    @SerializedName("RelatorioTemperaturaHumidade")
+    public RelatorioAmbiental temperaturaHumidade;
+
 }

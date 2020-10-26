@@ -63,6 +63,9 @@ public class Sintaxe {
         public static final String RISCO = "Risco";
         public static final String ANOMALIA = "Anomalia";
         public static final String PDF = "Pdf";
+
+        public static final String EQUIPAMENTO_RELATORIO_TEMPERATURA_HUMIDADE = "Termohigrómetro";
+        public static final String EQUIPAMENTO_RELATORIO_ILUMINACAO = "Luxómetro";
     }
 
     public class Opcoes{

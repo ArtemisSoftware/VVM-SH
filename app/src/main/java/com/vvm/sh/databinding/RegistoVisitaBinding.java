@@ -65,7 +65,7 @@ public class RegistoVisitaBinding {
     }
 
     @BindingAdapter({"completudeSincronizacao"})
-    public static void setCompletudeRelatorio(CardView view, boolean estado) {
+    public static void setCompletudeSincronizacao(CardView view, boolean estado) {
 
         if(estado == true){
             view.setEnabled(false);

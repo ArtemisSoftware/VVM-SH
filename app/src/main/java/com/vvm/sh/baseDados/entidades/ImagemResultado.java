@@ -46,4 +46,5 @@ public class ImagemResultado {
         this.origem = origem;
         this.imagem = imagem;
     }
+
 }

@@ -17,8 +17,10 @@ public class Risco {
 
 	@SerializedName("nc")
 	public String nc;
+
 	@SerializedName("nd")
 	public String nd;
+
 	@SerializedName("ne")
 	public String ne;
 

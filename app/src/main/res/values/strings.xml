@@ -476,4 +476,5 @@
     <string name="imagem">Imagem</string>
     <string name="capaRelatorio">Capa do relatório</string>
     <string name="nao_existe_email_associado">Email não enviado. Não existe um email associado</string>
+    <string name="imagem_">Imagens:</string>
 </resources>

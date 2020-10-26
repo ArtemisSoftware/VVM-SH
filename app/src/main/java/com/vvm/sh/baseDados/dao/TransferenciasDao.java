@@ -24,6 +24,7 @@ import com.vvm.sh.baseDados.entidades.Cliente;
 import com.vvm.sh.baseDados.entidades.Colaborador;
 import com.vvm.sh.baseDados.entidades.CrossSellingResultado;
 import com.vvm.sh.baseDados.entidades.ImagemResultado;
+import com.vvm.sh.baseDados.entidades.LevantamentoRiscoResultado;
 import com.vvm.sh.baseDados.entidades.MedidaResultado;
 import com.vvm.sh.baseDados.entidades.Morada;
 import com.vvm.sh.baseDados.entidades.Ocorrencia;
@@ -35,6 +36,7 @@ import com.vvm.sh.baseDados.entidades.QuestionarioChecklistResultado;
 import com.vvm.sh.baseDados.entidades.RegistoVisitaResultado;
 import com.vvm.sh.baseDados.entidades.Resultado;
 import com.vvm.sh.baseDados.entidades.EmailResultado;
+import com.vvm.sh.baseDados.entidades.RiscoResultado;
 import com.vvm.sh.baseDados.entidades.Tarefa;
 import com.vvm.sh.baseDados.entidades.AnomaliaResultado;
 import com.vvm.sh.baseDados.entidades.OcorrenciaResultado;
@@ -170,6 +172,8 @@ abstract public class TransferenciasDao implements BaseDao<Resultado> {
     @Query("SELECT * FROM imagensResultado WHERE id = :id AND origem =:origem")
     abstract public List<ImagemResultado> obterImagens(int id, int origem);
 
+    @Query("SELECT idImagem FROM imagensResultado WHERE id = :id AND origem =:origem")
+    abstract public List<Integer> obterImagens_(int id, int origem);
 
 
     @Query("SELECT * " +
@@ -302,6 +306,11 @@ abstract public class TransferenciasDao implements BaseDao<Resultado> {
     public abstract String obterProcessoProdutivo(int idAtividade);
 
 
+    @Query("SELECT * FROM levantamentosRiscoResultado WHERE id =:idAtividade")
+    public abstract List<LevantamentoRiscoResultado> obterLevantamentos(int idAtividade);
+
+    @Query("SELECT * FROM riscosResultado WHERE id =:idAtividade")
+    public abstract List<RiscoResultado> obterRiscos(int idAtividade);
 
 
 

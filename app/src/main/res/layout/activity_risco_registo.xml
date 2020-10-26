@@ -383,7 +383,6 @@
 
 
                         <TextView
-                            android:padding="12dp"
                             style="@style/textoDetalhe"
                             android:text="@string/fotografias_"/>
 
@@ -394,8 +393,8 @@
 
 
                         <at.markushi.ui.CircleButton
-                            android:id="@+id/crl_galeria"
-                            style="@style/btnGaleria"/>
+                            android:id="@+id/crl_btn_imagem_limpar"
+                            style="@style/btnLimpar" />
 
 
 
@@ -408,8 +407,9 @@
 
 
                     <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:id="@+id/img_foto"
+                        android:layout_width="200dp"
+                        android:layout_height="200dp"
                         imagemL="@{viewmodel.imagem}"
                         android:layout_marginTop="@dimen/distancia_vertical_formulario"
                         app:layout_constraintStart_toStartOf="@+id/textView18"

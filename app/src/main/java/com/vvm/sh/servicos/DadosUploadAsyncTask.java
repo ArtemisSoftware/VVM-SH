@@ -29,6 +29,7 @@ import com.vvm.sh.api.modelos.envio.Ocorrencia;
 import com.vvm.sh.api.modelos.envio.Pergunta;
 import com.vvm.sh.api.modelos.envio.RegistoVisita;
 import com.vvm.sh.api.modelos.envio.RelatorioAmbiental;
+import com.vvm.sh.api.modelos.envio.Risco;
 import com.vvm.sh.api.modelos.envio.Seccao;
 import com.vvm.sh.api.modelos.envio.TrabalhadorVulneravel;
 import com.vvm.sh.api.modelos.envio.TrabalhoRealizado;
@@ -37,8 +38,10 @@ import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.baseDados.entidades.AvaliacaoAmbientalResultado;
 import com.vvm.sh.baseDados.entidades.CrossSellingResultado;
 import com.vvm.sh.baseDados.entidades.ImagemResultado;
+import com.vvm.sh.baseDados.entidades.LevantamentoRiscoResultado;
 import com.vvm.sh.baseDados.entidades.QuestionarioChecklistResultado;
 import com.vvm.sh.baseDados.entidades.Resultado;
+import com.vvm.sh.baseDados.entidades.RiscoResultado;
 import com.vvm.sh.baseDados.entidades.TrabalhadorVulneravelResultado;
 import com.vvm.sh.baseDados.entidades.TrabalhoRealizadoResultado;
 import com.vvm.sh.repositorios.TransferenciasRepositorio;
@@ -296,6 +299,8 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
         avaliacaoRiscos.trabalhadoresVulneraveis = obterTrabalhadoresVulneraveis(idAtividade);
         avaliacaoRiscos.equipamentos = repositorio.obterEquipamentos(idAtividade);
         avaliacaoRiscos.processoProdutivo = repositorio.obterProcessoProdutivo(idAtividade);
+
+        obterLevantamentoRisco(idAtividade);
         return avaliacaoRiscos;
     }
 
@@ -370,6 +375,71 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
     }
 
 
+    private RelatorioAmbiental obterRelatorioIluminacao(int idAtividade) {
+
+        RelatorioAmbientalBd registo = repositorio.obterRelatorioIluminacao(idAtividade);
+        RelatorioAmbiental relatorioAmbiental = UploadMapping.INSTANCE.mapeamentoTemperaturaHumidade(registo);
+        relatorioAmbiental.equipamento = Sintaxe.Palavras.EQUIPAMENTO_RELATORIO_ILUMINACAO;
+
+        for(AvaliacaoAmbientalResultado item : repositorio.obterAvaliacoesAmbiental(registo.resultado.id)){
+
+            List<Integer> categoriasProfissionais = repositorio.obterCategoriasProfissionais(item.id, Identificadores.Origens.ORIGEM_RELATORIO_ILUMINACAO);
+            List<Integer> medidas = repositorio.obterMedidas(item.id, Identificadores.Origens.ORIGEM_RELATORIO_ILUMINACAO_MEDIDAS_RECOMENDADAS);
+
+            AvaliacaoIluminacao avaliacao = UploadMapping.INSTANCE.mapeamentoIluminacao(item);
+            avaliacao.categoriasProfissionais = categoriasProfissionais;
+            avaliacao.medidasRecomendadas = medidas;
+
+            relatorioAmbiental.avaliacoes.add(avaliacao);
+        }
+
+        return relatorioAmbiental;
+    }
+
+    private RelatorioAmbiental obterRelatorioTemperaturaHumidade(int idAtividade) {
+
+        RelatorioAmbientalBd registo = repositorio.obterRelatorioIluminacao(idAtividade);
+        RelatorioAmbiental relatorioAmbiental = UploadMapping.INSTANCE.mapeamentoTemperaturaHumidade(registo);
+        relatorioAmbiental.equipamento = Sintaxe.Palavras.EQUIPAMENTO_RELATORIO_TEMPERATURA_HUMIDADE;
+
+        for(AvaliacaoAmbientalResultado item : repositorio.obterAvaliacoesAmbiental(registo.resultado.id)){
+
+            List<Integer> categoriasProfissionais = repositorio.obterCategoriasProfissionais(item.id, Identificadores.Origens.ORIGEM_RELATORIO_TEMPERATURA_HUMIDADE);
+            List<Integer> medidas = repositorio.obterMedidas(item.id, Identificadores.Origens.ORIGEM_RELATORIO_TEMPERATURA_HUMIDADE_MEDIDAS_RECOMENDADAS);
+
+            AvaliacaoTemperaturaHumidade avaliacao = UploadMapping.INSTANCE.mapeamentoTemperaturaHumidade(item);
+            avaliacao.categoriasProfissionais = categoriasProfissionais;
+            avaliacao.medidasRecomendadas = medidas;
+
+            relatorioAmbiental.avaliacoes.add(avaliacao);
+        }
+
+        return relatorioAmbiental;
+    }
+
+
+    private void obterLevantamentoRisco(int idAtividade) {
+
+      for(LevantamentoRiscoResultado itemLevantamento : repositorio.obterLevantamentos(idAtividade)){
+
+            for(RiscoResultado item : repositorio.obterRiscos(itemLevantamento.id)){
+
+                Risco risco = UploadMapping.INSTANCE.map(item);
+                risco.idsMedidasExistentes = repositorio.obterMedidas(item.id, Identificadores.Origens.LEVANTAMENTO_MEDIDAS_ADOPTADAS);
+                risco.idsMedidasRecomendadas = repositorio.obterMedidas(item.id, Identificadores.Origens.LEVANTAMENTO_MEDIDAS_RECOMENDADAS);
+                risco.album = repositorio.obterImagens_(item.id, Identificadores.Imagens.IMAGEM_RISCO);
+            }
+
+        }
+
+
+
+
+
+
+    }
+
+
     /**
      * Metodo que permite obter as atividades pendentes
      * @param idTarefa o identificador da tarefa
@@ -407,50 +477,6 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
 
         return registos;
     }
-
-    private RelatorioAmbiental obterRelatorioIluminacao(int idAtividade) {
-
-        RelatorioAmbientalBd registo = repositorio.obterRelatorioIluminacao(idAtividade);
-        RelatorioAmbiental relatorioAmbiental = UploadMapping.INSTANCE.mapeamentoTemperaturaHumidade(registo);
-        relatorioAmbiental.equipamento = Sintaxe.Palavras.EQUIPAMENTO_RELATORIO_ILUMINACAO;
-
-        for(AvaliacaoAmbientalResultado item : repositorio.obterAvaliacoesAmbiental(registo.resultado.id)){
-
-            List<Integer> categoriasProfissionais = repositorio.obterCategoriasProfissionais(item.id, Identificadores.Origens.ORIGEM_RELATORIO_ILUMINACAO);
-            List<Integer> medidas = repositorio.obterMedidas(item.id, Identificadores.Origens.ORIGEM_RELATORIO_ILUMINACAO_MEDIDAS_RECOMENDADAS);
-
-            AvaliacaoIluminacao avaliacao = UploadMapping.INSTANCE.mapeamentoIluminacao(item);
-            avaliacao.categoriasProfissionais = categoriasProfissionais;
-            avaliacao.medidasRecomendadas = medidas;
-
-            relatorioAmbiental.avaliacoes.add(avaliacao);
-        }
-
-        return relatorioAmbiental;
-    }
-
-    private RelatorioAmbiental obterRelatorioTemperaturaHumidade(int idAtividade) {
-        
-        RelatorioAmbientalBd registo = repositorio.obterRelatorioIluminacao(idAtividade);
-        RelatorioAmbiental relatorioAmbiental = UploadMapping.INSTANCE.mapeamentoTemperaturaHumidade(registo);
-        relatorioAmbiental.equipamento = Sintaxe.Palavras.EQUIPAMENTO_RELATORIO_TEMPERATURA_HUMIDADE;
-
-        for(AvaliacaoAmbientalResultado item : repositorio.obterAvaliacoesAmbiental(registo.resultado.id)){
-
-            List<Integer> categoriasProfissionais = repositorio.obterCategoriasProfissionais(item.id, Identificadores.Origens.ORIGEM_RELATORIO_TEMPERATURA_HUMIDADE);
-            List<Integer> medidas = repositorio.obterMedidas(item.id, Identificadores.Origens.ORIGEM_RELATORIO_TEMPERATURA_HUMIDADE_MEDIDAS_RECOMENDADAS);
-
-            AvaliacaoTemperaturaHumidade avaliacao = UploadMapping.INSTANCE.mapeamentoTemperaturaHumidade(item);
-            avaliacao.categoriasProfissionais = categoriasProfissionais;
-            avaliacao.medidasRecomendadas = medidas;
-
-            relatorioAmbiental.avaliacoes.add(avaliacao);
-        }
-        
-        return relatorioAmbiental;
-    }
-
-
 
 
     /**

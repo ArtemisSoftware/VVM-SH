@@ -53,7 +53,6 @@ public class DuplicarLevantamentoAsyncTask  extends AsyncTask<Integer, Void, Voi
                     duplicarMedidas(idLevantamentoNovo, Identificadores.Origens.LEVANTAMENTO_MEDIDAS_RECOMENDADAS);
                     duplicarMedidas(idLevantamentoNovo, Identificadores.Origens.LEVANTAMENTO_MEDIDAS_ADOPTADAS);
 
-
                     repositorio.duplicarPlanoAcao(levantamento.idAtividade, idLevantamentoNovo, Identificadores.Origens.LEVANTAMENTO_MEDIDAS_RECOMENDADAS);
                 }
                 catch(SQLiteConstraintException throwable){

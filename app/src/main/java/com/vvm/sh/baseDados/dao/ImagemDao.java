@@ -24,7 +24,7 @@ abstract public class ImagemDao implements BaseDao<ImagemResultado> {
 
 
     @Query("SELECT * FROM imagensResultado WHERE id = :id AND origem = :origem")
-    abstract public Maybe<ImagemResultado> obterImagem(int id, int origem);
+    abstract public Maybe<List<ImagemResultado>> obterImagem(int id, int origem);
 
     @Query("SELECT *, " +
             "CASE " +

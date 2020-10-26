@@ -20,6 +20,7 @@ import com.vvm.sh.baseDados.entidades.Cliente;
 import com.vvm.sh.baseDados.entidades.Colaborador;
 import com.vvm.sh.baseDados.entidades.CrossSellingResultado;
 import com.vvm.sh.baseDados.entidades.ImagemResultado;
+import com.vvm.sh.baseDados.entidades.LevantamentoRiscoResultado;
 import com.vvm.sh.baseDados.entidades.Morada;
 import com.vvm.sh.baseDados.entidades.Ocorrencia;
 import com.vvm.sh.baseDados.entidades.OcorrenciaHistorico;
@@ -29,6 +30,7 @@ import com.vvm.sh.baseDados.entidades.PlanoAcaoAtividade;
 import com.vvm.sh.baseDados.entidades.QuestionarioChecklistResultado;
 import com.vvm.sh.baseDados.entidades.Resultado;
 import com.vvm.sh.baseDados.entidades.EmailResultado;
+import com.vvm.sh.baseDados.entidades.RiscoResultado;
 import com.vvm.sh.baseDados.entidades.Tarefa;
 import com.vvm.sh.baseDados.entidades.AnomaliaResultado;
 import com.vvm.sh.baseDados.entidades.OcorrenciaResultado;
@@ -291,6 +293,10 @@ public class TransferenciasRepositorio {
         return transferenciasDao.obterImagens(id, origem);
     }
 
+    public List<Integer> obterImagens_(int id, int origem) {
+        return transferenciasDao.obterImagens_(id, origem);
+    }
+
     public Tipo obterChecklist(int idAtividade) {
         return transferenciasDao.obterChecklist(idAtividade);
     }
@@ -351,6 +357,14 @@ public class TransferenciasRepositorio {
         return transferenciasDao.obterProcessoProdutivo(idAtividade);
     }
 
+
+    public List<LevantamentoRiscoResultado> obterLevantamentos(int idAtividade) {
+        return transferenciasDao.obterLevantamentos(idAtividade);
+    }
+
+    public List<RiscoResultado> obterRiscos(int idLevantamento) {
+        return transferenciasDao.obterRiscos(idLevantamento);
+    }
 
     //---------------------------
     //DOWNLOAD

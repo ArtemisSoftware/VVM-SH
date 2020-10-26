@@ -940,8 +940,12 @@ public class LevantamentosViewModel extends BaseViewModel {
     }
 
 
-
+    /**
+     * Metodo que permite obter um risco
+     * @param id o identificador do risco
+     */
     private void obterRisco(int id) {
+
         levantamentoRepositorio.obterRisco(id)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -957,6 +961,13 @@ public class LevantamentosViewModel extends BaseViewModel {
                             public void onSuccess(Risco registo) {
                                 medidasExistentes.setValue(registo.medidasExistentes);
                                 medidasRecomendadas.setValue(registo.medidasRecomendadas);
+
+                                if(registo.imagem.size() != 0) {
+                                    imagem.setValue(registo.imagem.get(0).imagem);
+                                }
+                                else{
+                                    imagem.setValue(new byte[]{});
+                                }
                                 risco.setValue(registo);
                             }
 

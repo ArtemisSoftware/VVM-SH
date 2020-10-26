@@ -20,7 +20,7 @@ import io.reactivex.Single;
 abstract public class RiscoDao implements BaseDao<RiscoResultado> {
 
 
-    @Query("SELECT *, risco, riscoEspecifico, " +
+    @Query("SELECT *, risco, riscoEspecifico, numeroImagens, " +
             "CASE WHEN nd IS NULL OR nd = '' THEN 0 "+
             "WHEN numeroMedidasExistentes IS NULL AND numeroMedidasRecomendadas IS NULL THEN 0 "+
             "WHEN numeroMedidasExistentes = 0 OR numeroMedidasRecomendadas = 0 THEN 0 "+
@@ -40,9 +40,14 @@ abstract public class RiscoDao implements BaseDao<RiscoResultado> {
             "WHERE origem =  " + Identificadores.Origens.LEVANTAMENTO_MEDIDAS_RECOMENDADAS +" GROUP BY id) as med_recomendadas " +
             "ON  risco_res.id = med_recomendadas.id	"+
 
+            "LEFT JOIN (SELECT id, COUNT(idImagem) as numeroImagens  FROM imagensResultado " +
+            "WHERE origem = " + Identificadores.Imagens.IMAGEM_RISCO +" GROUP BY id) as img " +
+            "ON  risco_res.id = img.id " +
+
 
             "WHERE idLevantamento = :idLevantamento")
     abstract public Observable<List<Risco>> obterRiscos(int idLevantamento, int api);
+
 
 
     @Query("SELECT * FROM riscosResultado WHERE id = :id")

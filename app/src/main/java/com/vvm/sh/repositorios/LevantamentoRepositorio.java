@@ -26,6 +26,7 @@ import com.vvm.sh.util.metodos.TiposUtil;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 
 import io.reactivex.Completable;
@@ -268,7 +269,7 @@ public class LevantamentoRepositorio {
 
     public Flowable<Object> atualizarRisco(RiscoResultado registo, List<MedidaResultado> medidasExistentesRegistas, List<MedidaResultado> medidasRecomendadasRegistas, List<PropostaPlanoAcaoResultado> propostasRegistas, ImagemResultado imagemResultado) {
 
-        List<Single<?>> acoes = Arrays.asList(
+        List<Single<?>> acoes = new LinkedList<>(Arrays.asList(
                 imagemDao.remover(registo.id, Identificadores.Imagens.IMAGEM_RISCO),
                 riscoDao.atualizar(registo),
                 propostaPlanoAcaoDao.remover(registo.id, Identificadores.Origens.ORIGEM_LEVANTAMENTO_RISCO),
@@ -276,7 +277,7 @@ public class LevantamentoRepositorio {
                 medidaDao.remover(registo.id, Identificadores.Origens.LEVANTAMENTO_MEDIDAS_RECOMENDADAS),
                 medidaDao.inserir(medidasExistentesRegistas),
                 medidaDao.inserir(medidasRecomendadasRegistas),
-                propostaPlanoAcaoDao.inserir(propostasRegistas));
+                propostaPlanoAcaoDao.inserir(propostasRegistas)));
 
 
         if(imagemResultado.imagem.length != 0){
@@ -305,20 +306,23 @@ public class LevantamentoRepositorio {
 
         Maybe<Risco> maybe = Maybe.zip(
                 riscoDao.obterRisco(id),
+                imagemDao.obterImagem(id, Identificadores.Imagens.IMAGEM_RISCO),
                 medidaDao.obterTipoMedidas(id, TiposUtil.MetodosTipos.MEDIDAS_PREVENCAO_RECOMENDADAS, Identificadores.Origens.LEVANTAMENTO_MEDIDAS_RECOMENDADAS),
                 medidaDao.obterTipoMedidas(id, TiposUtil.MetodosTipos.MEDIDAS_PREVENCAO_ADOPTADAS, Identificadores.Origens.LEVANTAMENTO_MEDIDAS_ADOPTADAS),
-                new Function3<RiscoResultado, List<Tipo>, List<Tipo>, Risco>() {
+                new Function4<RiscoResultado, List<ImagemResultado>, List<Tipo>, List<Tipo>, Risco>() {
                     @Override
-                    public Risco apply(RiscoResultado risco, List<Tipo> medidasRecomendadas, List<Tipo> medidasExistentes) throws Exception {
+                    public Risco apply(RiscoResultado risco, List<ImagemResultado> imagens, List<Tipo> medidasRecomendadas, List<Tipo> medidasExistentes) throws Exception {
                         Risco resultado = new Risco();
 
                         resultado.resultado = risco;
+                        resultado.imagem = imagens;
                         resultado.medidasRecomendadas = medidasRecomendadas;
                         resultado.medidasExistentes = medidasExistentes;
 
                         return resultado;
                     }
-                });
+                }
+        );
 
         return maybe;
     }

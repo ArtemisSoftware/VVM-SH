@@ -341,11 +341,10 @@ public class RiscoRegistoActivity extends BaseDaggerActivity
     }
 
 
-    @OnClick(R.id.crl_galeria)
+    @OnClick(R.id.crl_btn_imagem_limpar)
     public void crl_galeria_OnClickListener(View view) {
 
-        medidasRecomendadas.clear();
-        activityRiscoRegistoBinding.txtMedidasRecomendadas.setText(getString(R.string.nenhuma_medida_selecionada));
+        viewModel.imagem.setValue(new byte []{});
     }
 
 

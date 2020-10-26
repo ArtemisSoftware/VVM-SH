@@ -16,7 +16,9 @@ abstract public class LevantamentoAvaliacaoDao {
 
     @Query("INSERT INTO categoriasProfissionaisResultado(idRegisto, origem, idCategoriaProfissional, homens, mulheres) " +
             "SELECT :idLevantamentoNovo  as idRegisto, origem, idCategoriaProfissional, homens, mulheres " +
-            "FROM categoriasProfissionaisResultado WHERE idRegisto = :idLevantamentoOriginal ")
+            "FROM categoriasProfissionaisResultado " +
+            "WHERE idRegisto = :idLevantamentoOriginal " +
+            "AND origem = " + Identificadores.Origens.LEVANTAMENTO_CATEGORIAS_PROFISSIONAIS +" ")
     abstract public void duplicarCategorias(int idLevantamentoOriginal, int idLevantamentoNovo);
 
 
@@ -44,6 +46,6 @@ abstract public class LevantamentoAvaliacaoDao {
             "SELECT :idAtividade as idAtividade,  rsc_res.id as idQuestaoChecklis, " + Identificadores.Origens.ORIGEM_LEVANTAMENTO_RISCO + " as origem, idMedida " +
             "FROM riscosResultado as rsc_res " +
             "LEFT JOIN (SELECT id, idMedida FROM medidasResultado WHERE origem = :origem) med_res ON rsc_res.id = med_res.id " +
-            "WHERE  rsc_res.idLevantamento = :idLevantamentoNovo ")
+            "WHERE  rsc_res.idLevantamento = :idLevantamentoNovo AND idMedida IS NOT NULL")
     abstract public void duplicarPlanoAcao(int idAtividade, int idLevantamentoNovo, int origem);
 }

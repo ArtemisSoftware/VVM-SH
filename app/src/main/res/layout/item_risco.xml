@@ -100,18 +100,13 @@
             -->
 
 
-
-
-
-
-
             <TextView
                 android:id="@+id/textView72"
                 style="@style/textoDetalhe"
                 android:layout_marginTop="16dp"
                 android:text="@string/ni_"
                 app:layout_constraintStart_toStartOf="@+id/textView"
-                app:layout_constraintTop_toBottomOf="@+id/textView70" />
+                app:layout_constraintTop_toBottomOf="@+id/textView75" />
 
             <TextView
                 android:id="@+id/textView73"
@@ -225,6 +220,21 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
 
+            <TextView
+                android:id="@+id/textView75"
+                style="@style/textoDetalhe"
+                android:layout_marginTop="8dp"
+                android:text="@string/imagem_"
+                app:layout_constraintStart_toStartOf="@+id/textView"
+                app:layout_constraintTop_toBottomOf="@+id/textView70" />
+
+            <TextView
+                android:id="@+id/textView76"
+                style="@style/textoDetalhe"
+                android:layout_marginStart="16dp"
+                android:text="@{StringUtil.converterString(risco.numeroImagens)}"
+                app:layout_constraintStart_toEndOf="@+id/textView75"
+                app:layout_constraintTop_toTopOf="@+id/textView75" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

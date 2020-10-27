@@ -40,28 +40,7 @@ public class AnomaliaRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.V
 
         Anomalia registo = items.get(position);
         ((AnomaliaViewHolder)holder).binding.setAnomalia(registo);
-
         ((AnomaliaViewHolder)holder).binding.executePendingBindings();
-
-        //TODO: adaptar o bloco abaixo
-
-            /*
-    Anomalia registo = (Anomalia) item;
-
-        txt_observacao.setText(registo.obterObservacao());
-
-        if(registo.obterTipoAnomalia() == Anomalia.TIPO_ANOMALIA) {
-            txt_data.setText(registo.obterData());
-            txt_contacto.setText(registo.obterContacto());
-            txt_tipo.setText(registo.obterTipoSA());
-        }
-        else{
-            lnr_lyt_data.setVisibility(View.GONE);
-            lnr_lyt_contacto.setVisibility(View.GONE);
-            lnr_lyt_tipo.setVisibility(View.GONE);
-        }
-    */
-
     }
 
     @Override

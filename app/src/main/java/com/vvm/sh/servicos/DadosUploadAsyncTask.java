@@ -292,7 +292,7 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
     }
 
 
-    private AvaliacaoRiscos obterAvaliacaoRiscos(int idAtividade){
+    private AvaliacaoRiscos obterAvaliacaoRiscos(int idTarefa, int idAtividade){
 
         AvaliacaoRiscos avaliacaoRiscos = new AvaliacaoRiscos();
 
@@ -301,6 +301,8 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
         avaliacaoRiscos.equipamentos = repositorio.obterEquipamentos(idAtividade);
         avaliacaoRiscos.processoProdutivo = repositorio.obterProcessoProdutivo(idAtividade);
         avaliacaoRiscos.levantamentosRisco = obterLevantamentoRisco(idAtividade);
+        avaliacaoRiscos.propostasPlanoAcao = repositorio.obterPropostaPlanoAcao(idAtividade);
+        avaliacaoRiscos.capaRelatorio = repositorio.obterCapaRelatorio(idTarefa);
         return avaliacaoRiscos;
     }
 
@@ -467,7 +469,7 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
 //                }
 
                 registo.formacao = obterAcaoFormacao(item.resultado.id);
-                registo.avaliacaoRiscos = obterAvaliacaoRiscos(item.resultado.id);
+                registo.avaliacaoRiscos = obterAvaliacaoRiscos(idTarefa, item.resultado.id);
                 registo.iluminacao = obterRelatorioIluminacao(item.resultado.id);
                 registo.temperaturaHumidade = obterRelatorioTemperaturaHumidade(item.resultado.id);
 

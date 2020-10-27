@@ -313,8 +313,11 @@ abstract public class TransferenciasDao implements BaseDao<Resultado> {
     public abstract List<RiscoResultado> obterRiscos(int idAtividade);
 
 
+    @Query("SELECT DISTINCT idMedida FROM propostaPlanoAcaoResultado WHERE idAtividade =:idAtividade AND selecionado = 1 AND origem = " + Identificadores.Origens.PROPOSTA_MEDIDAS_AVALIACAO + " ")
+    public abstract List<Integer> obterPropostaPlanoAcao(int idAtividade);
 
-
+    @Query("SELECT idImagem FROM imagensResultado WHERE idTarefa = :idTarefa AND capaRelatorio = 1")
+    public abstract Integer obterCapaRelatorio(int idTarefa);
 
     //-------------------
     //TRABALHO

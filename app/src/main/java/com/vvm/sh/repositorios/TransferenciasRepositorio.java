@@ -366,6 +366,14 @@ public class TransferenciasRepositorio {
         return transferenciasDao.obterRiscos(idLevantamento);
     }
 
+    public List<Integer> obterPropostaPlanoAcao(int idAtividade) {
+        return transferenciasDao.obterPropostaPlanoAcao(idAtividade);
+    }
+
+    public int obterCapaRelatorio(int idTarefa) {
+        return transferenciasDao.obterCapaRelatorio(idTarefa);
+    }
+
     //---------------------------
     //DOWNLOAD
     //---------------------------

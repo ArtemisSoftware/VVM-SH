@@ -8,6 +8,8 @@ import androidx.room.ForeignKey;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
+import com.vvm.sh.util.constantes.Sintaxe;
+
 import static androidx.room.ForeignKey.CASCADE;
 
 @Entity(tableName = "imagensResultado",
@@ -34,6 +36,11 @@ public class ImagemResultado {
     @NonNull
     @ColumnInfo(name = "origem")
     public int origem;
+
+    @NonNull
+    @ColumnInfo(name = "capaRelatorio", defaultValue = Sintaxe.Codigos.NAO_SELECIONADO)
+    public boolean capaRelatorio;
+
 
     @NonNull
     @ColumnInfo(name = "imagem" , typeAffinity = ColumnInfo.BLOB)

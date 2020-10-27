@@ -23,6 +23,36 @@ public class Migracao {
         return migrations;
     }
 
+
+    public static final Migration MIGRACAO_30_31 = new Migration(30, 31) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            try {
+
+
+                database.execSQL("DROP TABLE IF EXISTS imagensResultado");
+                database.execSQL("DROP INDEX IF EXISTS index_imagensResultado_idTarefa");
+
+                database.execSQL("CREATE TABLE IF NOT EXISTS 'imagensResultado' ("
+                        + "'idTarefa' INTEGER NOT NULL , "
+                        + "'idImagem' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
+                        + "'id' INTEGER NOT NULL, "
+                        + "'origem' INTEGER NOT NULL, "
+                        + "'capaRelatorio' INTEGER NOT NULL DEFAULT   " + Sintaxe.Codigos.NAO_SELECIONADO + " ,  "
+                        + "'imagem' BLOB NOT NULL, "
+                        + "FOREIGN KEY (idTarefa) REFERENCES tarefas (idTarefa)  ON DELETE CASCADE) ");
+
+                database.execSQL("CREATE INDEX index_imagensResultado_idTarefa ON imagensResultado (idTarefa)");
+
+            }
+            catch(SQLException | IllegalStateException e){
+                Log.e("Migracao", "erro MIGRACAO_29_30: " + e.getMessage());
+                //Timber.e("erro MIGRACAO_2_3: " + e.getMessage());
+            }
+        }
+    };
+
+
     public static final Migration MIGRACAO_29_30 = new Migration(29, 30) {
         @Override
         public void migrate(SupportSQLiteDatabase database) {

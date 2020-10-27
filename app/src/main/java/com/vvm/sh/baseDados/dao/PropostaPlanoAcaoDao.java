@@ -24,29 +24,8 @@ abstract public class PropostaPlanoAcaoDao implements BaseDao<PropostaPlanoAcaoR
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     abstract public Single<List<Long>> inserir(List<PropostaPlanoAcaoResultado> entity);
 
-//    String query = "SELECT idPlano, qst_chk_res.idItem as idMedida, item, tp_ni.ni, prazo,idNi, idPrazo, selecionado, MIN(pl_ac_avr_res.idRegisto) ";
-//
-//    query += "FROM planoAcaoAVR_resultado as pl_ac_avr_res   ";
-//    query += "OUTER LEFT JOIN (SELECT idRegisto, idChecklist,idArea  FROM areas_checklist_resultado) as ar_chk_res ON pl_ac_avr_res.idRegisto = ar_chk_res.idRegisto   ";
-//
-//    query += "OUTER LEFT JOIN (SELECT idRegistoArea, idItem, idSeccao FROM questionario_checklist_resultado WHERE tipo = 'q') as qst_chk_res    ";
-//    query += "ON ar_chk_res.idRegisto = qst_chk_res.idRegistoArea AND pl_ac_avr_res.idMedida = qst_chk_res.idItem   ";
-//
-//    query += "OUTER LEFT JOIN (SELECT idChecklist, idArea, idSeccao, idItem, item FROM itens_checklist) as it_chk   ";
-//    query += "ON ar_chk_res.idChecklist = it_chk.idChecklist AND ar_chk_res.idArea = it_chk.idArea AND qst_chk_res.idSeccao = it_chk.idSeccao AND qst_chk_res.idItem = it_chk.idItem   ";
-//
-//    query += "OUTER LEFT JOIN (SELECT id, descricao as prazo FROM tipos WHERE tipo = 'PrazosImplementacao') as tp_prazo ON pl_ac_avr_res.idPrazo = tp_prazo.id   ";
-//    query += "OUTER LEFT JOIN (SELECT id, descricao as ni FROM tipos WHERE tipo = 'GetTiposNI') as tp_ni ON pl_ac_avr_res.idNi = tp_ni.id   ";
-//    query += "WHERE pl_ac_avr_res.id = ? AND pl_ac_avr_res.origem = ?		   ";
-//    query += "GROUP BY qst_chk_res.idItem ";
-//    query += "ORDER BY qst_chk_res.idItem   ";
-//
-//
-//    String argumentos [] = { idRelatorio, IdentificadoresIF.ORIGEM_CHECKLIST + "" };
 
-
-
-    @Query("SELECT * , descricao, " + Identificadores.Origens.PROPOSTA_CONDICOES_ST + " as tipo " +
+    @Query("SELECT DISTINCT * , descricao, " + Identificadores.Origens.PROPOSTA_CONDICOES_ST + " as tipo " +
             "FROM propostaPlanoAcaoResultado as prop_pl_accao_res " +
             "LEFT JOIN(" +
             "SELECT quest_chk_res.id as id, uid || ' ' || descricao as descricao " +
@@ -61,19 +40,7 @@ abstract public class PropostaPlanoAcaoDao implements BaseDao<PropostaPlanoAcaoR
 
 
 
-//    String query = "SELECT idMedida,  idPlano, medida, selecionado, MIN(idRegisto)   ";
-//    query += "FROM planoAcaoAVR_resultado as pl_ac_avr_res	   ";
-//    query += "OUTER LEFT JOIN (SELECT id, descricao as medida FROM tipos WHERE tipo = 'MedidasPrevencaoRecomendadas') as tp_medidas ON pl_ac_avr_res.idMedida = tp_medidas.id   ";
-//    query += "WHERE pl_ac_avr_res.id = ? AND pl_ac_avr_res.origem = ?	AND medida IS NOT NULL		   ";
-//    query += "GROUP BY idMedida ";
-//    query += "ORDER BY selecionado DESC, idMedida ASC   ";
-//
-//    String argumentos [] = {
-//            idRelatorio, IdentificadoresIF.ORIGEM_LEVANTAMENTO_RISCO + ""
-//    };
-
-
-    @Query("SELECT * , descricao, " + Identificadores.Origens.PROPOSTA_MEDIDAS_AVALIACAO + " as tipo " +
+    @Query("SELECT DISTINCT * , descricao, " + Identificadores.Origens.PROPOSTA_MEDIDAS_AVALIACAO + " as tipo " +
             "FROM propostaPlanoAcaoResultado as prop_pl_accao_res " +
             "LEFT JOIN (SELECT id, descricao FROM tipos WHERE tipo = '" + TiposUtil.MetodosTipos.MEDIDAS_PREVENCAO_RECOMENDADAS + "' AND ativo = 1 AND api =:api) as tp_med " +
             "ON prop_pl_accao_res.idMedida = tp_med.id " +

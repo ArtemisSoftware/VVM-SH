@@ -40,6 +40,7 @@ public class Identificadores {
 
     public static final int ID_EMAIL_REGISTO_VISITA_KMED = 3;
     public static final int ID_EMAIL_REGISTO_VISITA_VM = 2;
+    public static final String UTILIZADOR_INVALIDO = "000";
 
     public class Origens{
 

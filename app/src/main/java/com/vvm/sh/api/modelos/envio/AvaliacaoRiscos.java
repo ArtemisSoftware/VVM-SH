@@ -21,9 +21,10 @@ public class AvaliacaoRiscos {
     @SerializedName("levantamentosRisco")
     public List<Levantamento> levantamentosRisco;
 
-//    RelatorioPlanoAcao
-//            capaRelatorio
+    @SerializedName("RelatorioPlanoAcao")
+    public List<Integer> propostasPlanoAcao;
 
-//				jAvaliacao.put(JsonEnvioIF.RELATORIO_PLANO_ACAO, acessoBd.obterPlanoAcao_AVR(idAtividade));
-//				jAvaliacao.put(JsonEnvioIF.CAPA_RELATORIO, acessoBd.obterCapaRelatorio(idTarefa));
+    @SerializedName("capaRelatorio")
+    public Integer capaRelatorio;
+
 }

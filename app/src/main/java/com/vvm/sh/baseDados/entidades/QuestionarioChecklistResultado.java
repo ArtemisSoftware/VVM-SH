@@ -139,6 +139,16 @@ public class QuestionarioChecklistResultado {
         this.observacao = observacao;
     }
 
+
+    @Ignore
+    public QuestionarioChecklistResultado(Item item, String idQuestao) {
+        this.idArea = item.id;
+        this.idSeccao = item.uid;
+        this.idItem = idQuestao;
+        this.tipo = Identificadores.Checklist.TIPO_FOTOS;
+    }
+
+
     public QuestionarioChecklistResultado(Item item, String idQuestao, int numeroUt, int ut, int ut_CategoriasRisco,
                                           boolean ut_LocalRisco_A, boolean ut_LocalRisco_B, boolean ut_LocalRisco_C,
                                           boolean ut_LocalRisco_D, boolean ut_LocalRisco_E, boolean ut_LocalRisco_F) {

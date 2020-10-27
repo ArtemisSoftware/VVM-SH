@@ -187,6 +187,11 @@
         <item name="android:src">@drawable/ic_apagar</item>
     </style>
 
+    <style name="btnEliminar" parent="btnCircular">
+        <item name="cb_color">@color/cor_vermelho</item>
+        <item name="android:src">@drawable/ic_apagar</item>
+    </style>
+
     <style name="btnImagem" parent="btnEditar">
         <item name="android:src">@drawable/ic_camera_24dp</item>
     </style>

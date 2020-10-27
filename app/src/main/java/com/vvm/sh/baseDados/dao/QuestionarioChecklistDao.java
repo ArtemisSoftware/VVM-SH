@@ -54,8 +54,13 @@ abstract public class QuestionarioChecklistDao implements BaseDao<QuestionarioCh
             "ON qst.ut2 = tp_ut_2.id " +
 
 
-            "LEFT JOIN (SELECT id, IFNULL(COUNT (idImagem), 0) as numeroImagens FROM imagensResultado WHERE id =:idRegistoArea AND origem = " + Identificadores.Imagens.IMAGEM_CHECKLIST + " GROUP BY id, origem) as img " +
-            "ON area_chk_res.id = img.id " +
+            "LEFT JOIN (" +
+            "SELECT :idRegistoArea as idRegistoArea, id, IFNULL(COUNT (idImagem), 0) as numeroImagens " +
+            "FROM imagensResultado " +
+            "WHERE id = (SELECT id FROM questionarioChecklistResultado WHERE idArea =:idRegistoArea AND idSeccao =:idSeccao AND tipo =:tipo) " +
+            "AND origem = " + Identificadores.Imagens.IMAGEM_CHECKLIST + " " +
+            "GROUP BY id, origem) as img " +
+            "ON area_chk_res.id = img.idRegistoArea " +
 
             "" +
 
@@ -90,12 +95,16 @@ abstract public class QuestionarioChecklistDao implements BaseDao<QuestionarioCh
             ")")
     abstract public Completable removerPropostaPlanoAcao_ST(int idRegistoArea);
 
-    @Query("DELETE FROM questionarioChecklistResultado WHERE idArea = :id")
+
+    @Query("DELETE FROM areasChecklistResultado WHERE idArea = :id")
     abstract public Completable removerArea(int id);
+
+    @Query("DELETE FROM questionarioChecklistResultado WHERE idArea = :id")
+    abstract public Completable removerQuestionario(int id);
 
 
     @Query("DELETE FROM questionarioChecklistResultado WHERE idArea = :id AND idSeccao = :idSeccao AND tipo = :tipo")
-    abstract public Completable removerArea(int id, String idSeccao, String tipo);
+    abstract public Completable removerQuestionario(int id, String idSeccao, String tipo);
 
 
     @Query("INSERT INTO questionarioChecklistResultado (idArea, idSeccao, idItem, tipo, resposta, origem)" +
@@ -106,7 +115,7 @@ abstract public class QuestionarioChecklistDao implements BaseDao<QuestionarioCh
             "WHERE ar_chk_res.id = :idRegistoArea AND chk_itens.tipo = :tipo AND chk_itens.idSeccao = :idSeccao")
     abstract public Completable inserirNaoAplicavel(int idRegistoArea, String idSeccao, String tipo, String resposta);
 
-    @Query("DELETE FROM imagensResultado WHERE id = :id AND origem = " + Identificadores.Imagens.IMAGEM_CHECKLIST + "")
+    @Query("DELETE FROM imagensResultado WHERE id = (SELECT id FROM questionarioChecklistResultado WHERE idArea =:id AND tipo ='" + Identificadores.Checklist.TIPO_FOTOS + "') AND origem = " + Identificadores.Imagens.IMAGEM_CHECKLIST + "")
     abstract public Completable removerImagensArea(int id);
 
     //-------------------
@@ -128,7 +137,10 @@ abstract public class QuestionarioChecklistDao implements BaseDao<QuestionarioCh
     @Query("DELETE FROM areasChecklistResultado WHERE idAtividade = :idAtividade")
     abstract public Completable removerArea_Checklist(int idAtividade);
 
-    @Query("DELETE FROM imagensResultado WHERE id IN (SELECT id FROM areasChecklistResultado WHERE idAtividade = :idAtividade) AND origem = " + Identificadores.Imagens.IMAGEM_CHECKLIST + " ")
+    @Query("DELETE FROM imagensResultado " +
+            "WHERE id IN (SELECT id FROM questionarioChecklistResultado " +
+            "WHERE idArea IN (SELECT id FROM areasChecklistResultado WHERE idAtividade = :idAtividade) AND tipo ='" + Identificadores.Checklist.TIPO_FOTOS + "') "+
+            "AND origem = " + Identificadores.Imagens.IMAGEM_CHECKLIST + " ")
     abstract public Completable removerImagens_Checklist(int idAtividade);
 
 }

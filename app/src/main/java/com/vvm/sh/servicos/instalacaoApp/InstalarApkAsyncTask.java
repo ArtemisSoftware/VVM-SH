@@ -1,4 +1,4 @@
-package com.vvm.sh.servicos;
+package com.vvm.sh.servicos.instalacaoApp;
 
 import android.content.Context;
 import android.content.Intent;

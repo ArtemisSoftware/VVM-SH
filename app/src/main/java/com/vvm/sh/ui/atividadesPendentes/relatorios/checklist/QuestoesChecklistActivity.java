@@ -1,7 +1,6 @@
 package com.vvm.sh.ui.atividadesPendentes.relatorios.checklist;
 
 import androidx.annotation.Nullable;
-import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
@@ -14,14 +13,15 @@ import android.view.View;
 
 import com.vvm.sh.R;
 import com.vvm.sh.baseDados.entidades.ImagemResultado;
+import com.vvm.sh.baseDados.entidades.QuestionarioChecklistResultado;
 import com.vvm.sh.databinding.ActivityQuestoesChecklistBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.adaptadores.OnChecklistListener;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.modelos.Item;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.modelos.Questao;
-import com.vvm.sh.ui.imagens.BibliotecaImagensActivity;
-import com.vvm.sh.ui.imagens.ImagemActivity;
+import com.vvm.sh.ui.imagens.GaleriaActivity;
+import com.vvm.sh.ui.imagens.modelos.Galeria;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.constantes.ImagemConstantes;
@@ -48,6 +48,9 @@ public class QuestoesChecklistActivity extends BaseDaggerActivity
 
 
     private ChecklistViewModel viewModel;
+
+
+    private Questao questaoFoto;
 
 
     @Override
@@ -133,9 +136,10 @@ public class QuestoesChecklistActivity extends BaseDaggerActivity
             Item item = bundle.getParcelable(getString(R.string.argumento_registo_area));
             int idAtividade = bundle.getInt(getString(R.string.argumento_id_atividade));
 
+            QuestionarioChecklistResultado registo = new QuestionarioChecklistResultado(item, questaoFoto.registo.uid);
             ImagemResultado resultado = new ImagemResultado(PreferenciasUtil.obterIdTarefa(this), item.id, Identificadores.Imagens.IMAGEM_CHECKLIST, ImagemUtil.converter(bitmap));
 
-            viewModel.gravar(PreferenciasUtil.obterIdTarefa(this), idAtividade, resultado);
+            viewModel.gravar(PreferenciasUtil.obterIdTarefa(this), idAtividade, questaoFoto.id, registo, resultado);
         }
         catch (IOException e) {
             dialogo.alerta(Sintaxe.Palavras.IMAGEM , Sintaxe.Alertas.ERRO_GERAR_IMAGEM + e.getMessage());
@@ -148,13 +152,6 @@ public class QuestoesChecklistActivity extends BaseDaggerActivity
     //EVENTOS
     //--------------------
 
-
-    @OnClick({R.id.fab_nao_aplicavel})
-    public void fab_nao_aplicavel_OnClickListener(View view) {
-
-//        Intent intent = new Intent(this, DadosClienteActivity.class);
-//        startActivity(intent);
-    }
 
     @Override
     public void OnPerguntaClick(Questao questao) {
@@ -190,59 +187,25 @@ public class QuestoesChecklistActivity extends BaseDaggerActivity
     }
 
     @Override
-    public void OnGaleriaClick() {
-        Intent intent = new Intent(this, BibliotecaImagensActivity.class);
+    public void OnGaleriaClick(Questao questao) {
+        Galeria galeria = new Galeria(Identificadores.Imagens.IMAGEM_CHECKLIST, questao.id);
+
+        Intent intent = new Intent(this, GaleriaActivity.class);
+        intent.putExtra(getString(R.string.argumento_galeria), galeria);
         startActivity(intent);
     }
 
     @Override
-    public void OnRegistarFoto() {
-        showImagePickerOptions();
+    public void OnRegistarFoto(Questao questao) {
+
+        questaoFoto = questao;
+        ImagemUtil.apresentarOpcoesCaptura(this);
     }
 
 
 
-    private void showImagePickerOptions() {
-        ImagemActivity.showImagePickerOptions(this, new ImagemActivity.PickerOptionListener() {
-            @Override
-            public void onTakeCameraSelected() {
-                launchCameraIntent();
-            }
 
-            @Override
-            public void onChooseGallerySelected() {
-                launchGalleryIntent();
-            }
-        });
-    }
 
-    private void launchCameraIntent() {
-        Intent intent = new Intent(this, ImagemActivity.class);
-        intent.putExtra(ImagemActivity.INTENT_IMAGE_PICKER_OPTION, ImagemConstantes.REQUEST_IMAGE_CAPTURE);
-
-        // setting aspect ratio
-        intent.putExtra(ImagemActivity.INTENT_LOCK_ASPECT_RATIO, true);
-        intent.putExtra(ImagemActivity.INTENT_ASPECT_RATIO_X, 1); // 16x9, 1x1, 3:4, 3:2
-        intent.putExtra(ImagemActivity.INTENT_ASPECT_RATIO_Y, 1);
-
-        // setting maximum bitmap width and height
-        intent.putExtra(ImagemActivity.INTENT_SET_BITMAP_MAX_WIDTH_HEIGHT, true);
-        intent.putExtra(ImagemActivity.INTENT_BITMAP_MAX_WIDTH, 1000);
-        intent.putExtra(ImagemActivity.INTENT_BITMAP_MAX_HEIGHT, 1000);
-
-        startActivityForResult(intent, ImagemConstantes.REQUEST_IMAGE);
-    }
-
-    private void launchGalleryIntent() {
-        Intent intent = new Intent(this, ImagemActivity.class);
-        intent.putExtra(ImagemActivity.INTENT_IMAGE_PICKER_OPTION, ImagemConstantes.REQUEST_GALLERY_IMAGE);
-
-        // setting aspect ratio
-        intent.putExtra(ImagemActivity.INTENT_LOCK_ASPECT_RATIO, true);
-        intent.putExtra(ImagemActivity.INTENT_ASPECT_RATIO_X, 1); // 16x9, 1x1, 3:4, 3:2
-        intent.putExtra(ImagemActivity.INTENT_ASPECT_RATIO_Y, 1);
-        startActivityForResult(intent, ImagemConstantes.REQUEST_IMAGE);
-    }
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {

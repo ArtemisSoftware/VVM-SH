@@ -23,7 +23,15 @@ public class ImagemRepositorio {
         this.resultadoDao = resultadoDao;
     }
 
-    public Observable<List<ImagemRegisto>> obterImagens() {
-        return imagemDao.obterImagem();
+    public Observable<List<ImagemRegisto>> obterImagemLevantamento(int idLevantamento) {
+        return imagemDao.obterImagemLevantamento(idLevantamento);
+    }
+
+    public Observable<List<ImagemRegisto>> obterGaleria(int id, int origem) {
+        return imagemDao.obterGaleria(id, origem);
+    }
+
+    public Observable<List<ImagemRegisto>> obterGaleria(int idTarefa) {
+        return imagemDao.obterGaleria(idTarefa);
     }
 }

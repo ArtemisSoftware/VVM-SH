@@ -140,6 +140,7 @@
 
     <string name="argumento_origem_relatorio">origemRelatorio</string>
     <string name="argumento_registo_area">registoArea</string>
+    <string name="argumento_galeria">galeria</string>
 
 
     <string name="resultado_imagem">imagem</string>

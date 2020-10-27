@@ -32,7 +32,8 @@ abstract public class CategoriaProfissionalDao implements BaseDao<CategoriaProfi
     @Query("DELETE FROM categoriasProfissionaisResultado WHERE idRegisto = :idRegisto AND origem = :origem")
     abstract public Single<Integer> remover(int idRegisto, int origem);
 
-
+    @Query("DELETE FROM categoriasProfissionaisResultado WHERE idRegisto IN (:idsRegisto) AND origem = :origem")
+    abstract public Single<Integer> remover(List<Integer> idsRegisto, int origem);
 
     @Transaction
     @Query("SELECT *, descricao, " +

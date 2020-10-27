@@ -35,8 +35,10 @@ public class LevantamentoAvaliacaoRepositorio {
         return levantamentoAvaliacaoDao.obterRiscos(idLevantamentoNovo);
     }
 
-    public void duplicarMedidas(int id, int origem, int idMedida){
-        levantamentoAvaliacaoDao.duplicarMedidas(id, origem, idMedida);
+
+
+    public void duplicarMedidas(int id, int idNovo, int origem){
+        levantamentoAvaliacaoDao.duplicarMedidas(id, idNovo, origem);
     }
 
     public void duplicarPlanoAcao(int idAtividade, int idLevantamentoNovo, int origem){

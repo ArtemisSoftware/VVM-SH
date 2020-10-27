@@ -32,7 +32,7 @@
 
             imagens="@{viewmodel.imagens}"
 
-            tools:listitem="@layout/item_trabalho_realizado"/>
+            tools:listitem="@layout/item_imagem"/>
 
 <!--
 listener="@{listener}"

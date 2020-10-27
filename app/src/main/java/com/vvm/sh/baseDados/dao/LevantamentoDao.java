@@ -40,7 +40,7 @@ abstract public class LevantamentoDao implements BaseDao<LevantamentoRiscoResult
             "CASE WHEN COUNT(VALIDO) = SUM(VALIDO) AND COUNT(VALIDO) > 0 THEN 1 ELSE 0 END valido_riscos   " +
             "FROM (			  " +
             "SELECT idLevantamento,			  " +
-            "CASE WHEN nd IS NULL THEN 0  			  " +
+            "CASE WHEN nd IS NULL OR nd ='' THEN 0  			  " +
             "WHEN numeroMedidasExistentes IS NULL AND numeroMedidasRecomendadas IS NULL THEN 0  			  " +
             "WHEN numeroMedidasExistentes = 0 OR numeroMedidasRecomendadas = 0 THEN 0 			  " +
             "ELSE 1 END as valido			  " +
@@ -202,4 +202,7 @@ abstract public class LevantamentoDao implements BaseDao<LevantamentoRiscoResult
     @Query("DELETE FROM levantamentosRiscoResultado  WHERE idModelo = :idModelo AND idAtividade =:idAtividade")
     abstract public Completable removerModelo(int idAtividade, int idModelo);
 
+
+    @Query("DELETE FROM levantamentosRiscoResultado  WHERE id IN(:idsLevantamento)")
+    abstract public Single<Integer> remover(List<Integer> idsLevantamento);
 }

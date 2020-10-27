@@ -387,30 +387,66 @@ public class ChecklistViewModel extends BaseViewModel {
      * @param idAtividade o identificador da atividade
      * @param resultado os dados da imagem
      */
-    public void gravar(int idTarefa, int idAtividade, ImagemResultado resultado) {
+    public void gravar(int idTarefa, int idAtividade, int idRegisto, QuestionarioChecklistResultado questao, ImagemResultado resultado) {
 
-        checklistRepositorio.inserir(resultado)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
+        if(idRegisto == 0){
 
-                        new SingleObserver<Long>() {
-                            @Override
-                            public void onSubscribe(Disposable d) {
-                                disposables.add(d);
-                            }
+            checklistRepositorio.inserir(questao)
+                    .flatMap(new Function<Long, SingleSource<?>>() {
+                        @Override
+                        public SingleSource<?> apply(Long aLong) throws Exception {
 
-                            @Override
-                            public void onSuccess(Long aLong) {
-                                abaterAtividadePendente(checklistRepositorio.resultadoDao, idTarefa, idAtividade);
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-
-                            }
+                            resultado.id = ConversorUtil.converter_long_Para_int(aLong);
+                            return  checklistRepositorio.inserir(resultado);
                         }
-                );
+                    })
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+
+                            new SingleObserver<Object>() {
+                                @Override
+                                public void onSubscribe(Disposable d) {
+                                    disposables.add(d);
+                                }
+
+                                @Override
+                                public void onSuccess(Object o) {
+                                    abaterAtividadePendente(checklistRepositorio.resultadoDao, idTarefa, idAtividade);
+                                }
+
+                                @Override
+                                public void onError(Throwable e) {
+
+                                }
+                            }
+                    );
+        }
+        else {
+            resultado.id = idRegisto;
+            checklistRepositorio.inserir(resultado)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+
+                            new SingleObserver<Long>() {
+                                @Override
+                                public void onSubscribe(Disposable d) {
+                                    disposables.add(d);
+                                }
+
+                                @Override
+                                public void onSuccess(Long aLong) {
+                                    abaterAtividadePendente(checklistRepositorio.resultadoDao, idTarefa, idAtividade);
+                                }
+
+                                @Override
+                                public void onError(Throwable e) {
+
+                                }
+                            }
+                    );
+        }
     }
 
     //----------------------

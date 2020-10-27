@@ -208,10 +208,11 @@ public class ChecklistRepositorio {
     public Completable removerArea(int id) {
 
         Completable removerPropostaPlanoAcao_ST = questionarioChecklistDao.removerPropostaPlanoAcao_ST(id);
-        Completable removerArea = questionarioChecklistDao.removerArea(id);
+        Completable removerQuestionario = questionarioChecklistDao.removerQuestionario(id);
         Completable removerImagens = questionarioChecklistDao.removerImagensArea(id);
+        Completable removerArea = questionarioChecklistDao.removerArea(id);
 
-        Completable completable = Completable.concatArray(removerPropostaPlanoAcao_ST, removerImagens, removerArea);
+        Completable completable = Completable.concatArray(removerPropostaPlanoAcao_ST, removerImagens, removerQuestionario, removerArea);
         return completable;
     }
 
@@ -223,7 +224,7 @@ public class ChecklistRepositorio {
     public Completable gravarNaoAplicavel(Item registo) {
 
         Completable removerPropostaPlanoAcao_ST = questionarioChecklistDao.removerPropostaPlanoAcao_ST(registo.id);
-        Completable removerArea = questionarioChecklistDao.removerArea(registo.id, registo.uid, Identificadores.Checklist.TIPO_QUESTAO);
+        Completable removerArea = questionarioChecklistDao.removerQuestionario(registo.id, registo.uid, Identificadores.Checklist.TIPO_QUESTAO);
         Completable inserirNaoAplicavel = questionarioChecklistDao.inserirNaoAplicavel(registo.id, registo.uid, Identificadores.Checklist.TIPO_QUESTAO, TiposConstantes.Checklist.NAO_APLICAVEL.descricao);
 
         Completable completable = Completable.concatArray(removerPropostaPlanoAcao_ST, removerArea, inserirNaoAplicavel);

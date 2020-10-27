@@ -175,7 +175,7 @@ public class RiscoRegistoActivity extends BaseDaggerActivity
     private void limparRegisto() {
 
         viewModel.risco.setValue(null);
-
+        viewModel.imagem.setValue(new byte[]{});
         medidasExistentes = new ArrayList<>();
         medidasRecomendadas = new ArrayList<>();
         activityRiscoRegistoBinding.txtMedidasExistentes.setText(getString(R.string.nenhuma_medida_selecionada));

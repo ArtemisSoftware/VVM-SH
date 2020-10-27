@@ -8,6 +8,7 @@ import com.vvm.sh.api.modelos.envio.AvaliacaoIluminacao;
 import com.vvm.sh.api.modelos.envio.AvaliacaoTemperaturaHumidade;
 import com.vvm.sh.api.modelos.envio.Checklist;
 import com.vvm.sh.api.modelos.envio.ItemSeccaoChecklist;
+import com.vvm.sh.api.modelos.envio.Levantamento;
 import com.vvm.sh.api.modelos.envio.Observacao;
 import com.vvm.sh.api.modelos.envio.Pergunta;
 import com.vvm.sh.api.modelos.envio.RegistoVisita;
@@ -33,6 +34,7 @@ import com.vvm.sh.baseDados.entidades.EmailResultado;
 import com.vvm.sh.baseDados.entidades.FormandoResultado;
 import com.vvm.sh.baseDados.entidades.ImagemResultado;
 import com.vvm.sh.baseDados.entidades.ItemChecklist;
+import com.vvm.sh.baseDados.entidades.LevantamentoRiscoResultado;
 import com.vvm.sh.baseDados.entidades.QuestionarioChecklistResultado;
 import com.vvm.sh.baseDados.entidades.RegistoVisitaResultado;
 import com.vvm.sh.baseDados.entidades.RiscoResultado;
@@ -161,6 +163,7 @@ public interface UploadMapping {
 
 
     Risco map(RiscoResultado item);
+    Levantamento map(LevantamentoRiscoResultado item);
 
 
     @Mapping(source = "idImagem", target = "idFoto")

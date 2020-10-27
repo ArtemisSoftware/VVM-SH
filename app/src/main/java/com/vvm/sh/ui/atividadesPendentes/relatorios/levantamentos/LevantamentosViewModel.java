@@ -536,6 +536,33 @@ public class LevantamentosViewModel extends BaseViewModel {
     }
 
 
+    public void removerLevantamentos(int idTarefa, int idAtividade, List<Integer> idsLevantamento) {
+
+        levantamentoRepositorio.removerLevantamentos(idsLevantamento)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new SingleObserver<List<Integer>>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onSuccess(List<Integer> integers) {
+                                abaterAtividadePendente(levantamentoRepositorio.resultadoDao, idTarefa, idAtividade);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+                        }
+                );
+    }
+
+
     /**
      * Metodo que permite remover um risco
      * @param idTarefa
@@ -544,7 +571,7 @@ public class LevantamentosViewModel extends BaseViewModel {
      */
     public void removerRisco(int idTarefa, int idAtividade, Risco registo) {
 
-        riscos.setValue(new ArrayList<>());
+        resultadosRiscos.clear();
 
         levantamentoRepositorio.removerRisco(registo.resultado)
                 .subscribeOn(Schedulers.io())
@@ -888,7 +915,6 @@ public class LevantamentosViewModel extends BaseViewModel {
 
 
     public void obterLevamentoRisco(int id) {
-
 
         Single.zip(levantamentoRepositorio.obterTipos(TiposUtil.MetodosTipos.RISCOS),
                 levantamentoRepositorio.obterTipos(TiposUtil.MetodosTipos.TIPOS_NC),

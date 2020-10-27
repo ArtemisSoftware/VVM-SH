@@ -12,8 +12,11 @@ import com.vvm.sh.baseDados.entidades.LevantamentoRiscoResultado;
 import com.vvm.sh.databinding.ActivityLevantamentosBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.adaptadores.LevantamentoRecyclerAdapter;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.adaptadores.OnLevantamentoListener;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.modelos.Levantamento;
+import com.vvm.sh.ui.imagens.GaleriaActivity;
+import com.vvm.sh.ui.imagens.modelos.Galeria;
 import com.vvm.sh.ui.pesquisa.PesquisaActivity;
 import com.vvm.sh.ui.pesquisa.modelos.Pesquisa;
 import com.vvm.sh.util.constantes.Identificadores;
@@ -25,6 +28,7 @@ import java.util.ArrayList;
 
 import javax.inject.Inject;
 
+import butterknife.OnCheckedChanged;
 import butterknife.OnClick;
 
 public class LevantamentosActivity extends BaseDaggerActivity
@@ -159,6 +163,11 @@ public class LevantamentosActivity extends BaseDaggerActivity
     @Override
     public void OnGaleriaClick(Levantamento levantamento) {
 
+        Galeria galeria = new Galeria(Galeria.GALERIA_LEVANTAMENTO, levantamento.resultado.id);
+
+        Intent intent = new Intent(this, GaleriaActivity.class);
+        intent.putExtra(getString(R.string.argumento_galeria), galeria);
+        startActivity(intent);
     }
 
     @Override
@@ -180,11 +189,27 @@ public class LevantamentosActivity extends BaseDaggerActivity
     //EVENTOS
     //-----------------------
 
+    @OnCheckedChanged(R.id.chk_selecionado)
+    public void chk_selecionado_onCheckedChange(boolean checked) {
+
+        LevantamentoRecyclerAdapter adapter = (LevantamentoRecyclerAdapter) activityLevantamentosBinding.rclRegistos.getAdapter();
+        adapter.selecionarTudo(checked);
+    }
+
+    @OnClick({R.id.crl_btn_eliminar})
+    public void crl_btn_eliminar_OnClickListener(View view) {
+
+        int idAtividade = getIntent().getExtras().getInt(getString(R.string.argumento_id_atividade));
+        LevantamentoRecyclerAdapter adapter = (LevantamentoRecyclerAdapter) activityLevantamentosBinding.rclRegistos.getAdapter();
+        viewModel.removerLevantamentos(PreferenciasUtil.obterIdTarefa(this), idAtividade, adapter.obterSelecionados());
+    }
+
+
+
     @OnClick({R.id.fab_adicionar_levantamento})
     public void fab_adicionar_levantamento_OnClickListener(View view) {
 
         initLevantamento(null);
-
         activityLevantamentosBinding.fabMenu.close(true);
     }
 

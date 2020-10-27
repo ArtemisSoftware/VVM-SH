@@ -21,9 +21,9 @@ public interface OnChecklistListener {
 
         void OnUtClick(Questao registo, int numeroUt);
 
-        void OnGaleriaClick();
+        void OnGaleriaClick(Questao questao);
 
-        void OnRegistarFoto();
+        void OnRegistarFoto(Questao questao);
     }
 
     interface OnAlterarChecklistListener{

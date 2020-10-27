@@ -117,7 +117,37 @@
 
 
 
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal"
+                android:visibility="@{viewmodel.levantamentos.size() > 0 ? View.VISIBLE : View.GONE}"
+                android:gravity="right|end"
+                android:layout_gravity="center_vertical">
 
+                <CheckBox
+                    android:id="@+id/chk_selecionado"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/selecionar_tudo"/>
+
+
+                <View
+                    android:id="@+id/divider_2"
+                    android:layout_width="1dp"
+                    android:layout_height="38dp"
+                    android:layout_marginLeft="16dp"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:background="@color/cor_separador" />
+
+
+                <at.markushi.ui.CircleButton
+                    android:id="@+id/crl_btn_eliminar"
+                    style="@style/btnEliminar"
+                    android:layout_marginStart="8dp" />
+
+            </LinearLayout>
 
 
 

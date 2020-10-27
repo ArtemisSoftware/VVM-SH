@@ -187,6 +187,22 @@ public class LevantamentoRepositorio {
     }
 
 
+    public Single<List<Integer>> removerLevantamentos(List<Integer> idsLevantamentos){
+
+        return Single.concatArray(
+                riscoDao.removerImagemLevantamento(idsLevantamentos),
+                propostaPlanoAcaoDao.remover(idsLevantamentos, Identificadores.Origens.ORIGEM_LEVANTAMENTO_RISCO),
+                medidaDao.removerMedidasRisco_Levantamento(idsLevantamentos),
+                riscoDao.removerRiscos(idsLevantamentos),
+                categoriaProfissionalDao.remover(idsLevantamentos, Identificadores.Origens.LEVANTAMENTO_CATEGORIAS_PROFISSIONAIS),
+                levantamentoDao.remover(idsLevantamentos)
+        )
+                .toList();
+    }
+
+
+
+
     public Single<List<Integer>> removerRisco(RiscoResultado risco){
 
         return Single.concatArray(

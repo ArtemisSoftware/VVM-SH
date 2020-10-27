@@ -12,8 +12,8 @@ import com.vvm.sh.repositorios.TiposRepositorio;
 import com.vvm.sh.repositorios.VersaoAppRepositorio;
 import com.vvm.sh.servicos.CarregarTipoChecklistAsyncTask;
 import com.vvm.sh.servicos.CarregarTipoTemplatesAvrAsyncTask;
-import com.vvm.sh.servicos.DownloadApkAsyncTask;
-import com.vvm.sh.servicos.InstalarApkAsyncTask;
+import com.vvm.sh.servicos.instalacaoApp.DownloadApkAsyncTask;
+import com.vvm.sh.servicos.instalacaoApp.InstalarApkAsyncTask;
 import com.vvm.sh.servicos.AtualizarTipoAsyncTask;
 import com.vvm.sh.ui.opcoes.modelos.ResumoChecklist;
 import com.vvm.sh.ui.opcoes.modelos.ResumoTipo;
@@ -28,7 +28,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
 import io.reactivex.Observer;
 import io.reactivex.SingleObserver;

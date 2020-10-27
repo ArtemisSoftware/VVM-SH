@@ -72,47 +72,12 @@ public class DuplicarLevantamentoAsyncTask  extends AsyncTask<Integer, Void, Voi
      */
     private void duplicarMedidas(int idLevantamentoNovo, int origem) {
 
-        List<MedidaResultado> medidas = repositorio.obterMedidas(levantamento.id, origem);
+        List<RiscoResultado> riscosNovos = repositorio.obterRiscos(idLevantamentoNovo);
+        List<RiscoResultado> riscos = repositorio.obterRiscos(levantamento.id);
 
-        HashMap<Integer, ArrayList<Integer>> info = new HashMap<Integer, ArrayList<Integer>>();
-
-        for (int i = 0; i < medidas.size(); ++i) {
-
-            if(info.containsKey(medidas.get(i).id) == true){
-
-                ArrayList<Integer> registos =  info.get(medidas.get(i).id);
-                registos.add(medidas.get(i).idMedida);
-
-                info.put(medidas.get(i).id, registos);
-            }
-            else{
-
-                ArrayList<Integer> registos =  new ArrayList<Integer>();
-                registos.add(medidas.get(i).idMedida);
-                info.put(medidas.get(i).id, registos);
-            }
-
+        for(int index = 0; index < riscos.size(); ++index){
+            repositorio.duplicarMedidas(riscos.get(index).id, riscosNovos.get(index).id, origem);
         }
 
-        //riscos do novo levantamento
-
-        List<RiscoResultado> riscos = repositorio.obterRiscos(idLevantamentoNovo);
-
-        ArrayList<Integer> ids =  new ArrayList<Integer>();
-        for (int i = 0; i < riscos.size(); ++i) {
-            ids.add(riscos.get(i).id);
-        }
-
-
-        int index = 0;
-        Collection<ArrayList<Integer>> grupoMedidas = info.values();
-
-        for (ArrayList<Integer> medidas_ : grupoMedidas) {
-
-            for (int idMedida : medidas_) {
-                repositorio.duplicarMedidas(ids.get(index), origem, idMedida);
-            }
-            ++index;
-        }
     }
 }

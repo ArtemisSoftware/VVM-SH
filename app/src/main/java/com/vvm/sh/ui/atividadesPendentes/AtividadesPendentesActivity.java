@@ -21,6 +21,7 @@ import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.LevantamentosA
 import com.vvm.sh.ui.atividadesPendentes.relatorios.propostaPlanoAccao.PropostaPlanoAccaoActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.trabalhadoresVulneraveis.TrabalhadoresVulneraveisActivity;
 import com.vvm.sh.ui.imagens.GaleriaActivity;
+import com.vvm.sh.ui.imagens.modelos.Galeria;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
@@ -206,7 +207,10 @@ public class AtividadesPendentesActivity extends BaseDaggerActivity
     @Override
     public void OnCapaRelatorio(int idAtividade) {
 
+        Galeria galeria = new Galeria(Galeria.GALERIA_CAPA_RELATORIO, PreferenciasUtil.obterIdTarefa(this));
+
         Intent intent = new Intent(this, GaleriaActivity.class);
+        intent.putExtra(getString(R.string.argumento_galeria), galeria);
         startActivity(intent);
     }
 

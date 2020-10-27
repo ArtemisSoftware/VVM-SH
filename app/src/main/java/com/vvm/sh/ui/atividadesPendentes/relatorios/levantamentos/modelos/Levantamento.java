@@ -2,6 +2,7 @@ package com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.modelos;
 
 import androidx.room.ColumnInfo;
 import androidx.room.Embedded;
+import androidx.room.Ignore;
 
 import com.vvm.sh.baseDados.entidades.LevantamentoRiscoResultado;
 
@@ -26,4 +27,7 @@ public class Levantamento {
     @ColumnInfo(name = "valido")
     public boolean valido;
 
+
+    @Ignore
+    public boolean selecionado;
 }

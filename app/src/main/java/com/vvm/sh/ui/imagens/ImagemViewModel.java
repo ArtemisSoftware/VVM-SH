@@ -6,7 +6,9 @@ import com.vvm.sh.baseDados.entidades.ImagemResultado;
 import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.repositorios.AtividadePendenteRepositorio;
 import com.vvm.sh.repositorios.ImagemRepositorio;
+import com.vvm.sh.ui.imagens.modelos.Galeria;
 import com.vvm.sh.ui.imagens.modelos.ImagemRegisto;
+import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.metodos.DiretoriasUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
@@ -16,6 +18,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -42,36 +45,62 @@ public class ImagemViewModel extends BaseViewModel {
     /**
      * Metodo que permite obter as imagens
      */
-    public void obterImagens() {
+    public void obterGaleria(Galeria galeria) {
 
-        imagemRepositorio.obterImagens()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
+        Observable<List<ImagemRegisto>> observable = null;
 
-                        new Observer<List<ImagemRegisto>>() {
-                            @Override
-                            public void onSubscribe(Disposable d) {
-                                disposables.add(d);
+        switch (galeria.idGaleria){
+
+            case Galeria.GALERIA_LEVANTAMENTO:
+
+                observable = imagemRepositorio.obterImagemLevantamento(galeria.id);
+                break;
+
+            case Identificadores.Imagens.IMAGEM_CHECKLIST:
+
+                observable = imagemRepositorio.obterGaleria(galeria.id, galeria.idGaleria);
+                break;
+
+            case Galeria.GALERIA_CAPA_RELATORIO:
+
+                observable = imagemRepositorio.obterGaleria(galeria.id, galeria.idGaleria);
+                break;
+
+            default:
+                break;
+        }
+
+        if(observable != null) {
+
+            observable
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+
+                            new Observer<List<ImagemRegisto>>() {
+                                @Override
+                                public void onSubscribe(Disposable d) {
+                                    disposables.add(d);
+                                }
+
+                                @Override
+                                public void onNext(List<ImagemRegisto> registos) {
+                                    imagens.setValue(registos);
+                                }
+
+                                @Override
+                                public void onError(Throwable e) {
+
+                                }
+
+                                @Override
+                                public void onComplete() {
+
+                                }
                             }
 
-                            @Override
-                            public void onNext(List<ImagemRegisto> registos) {
-                                imagens.setValue(registos);
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-
-                            }
-
-                            @Override
-                            public void onComplete() {
-
-                            }
-                        }
-
-                );
+                    );
+        }
 
     }
 

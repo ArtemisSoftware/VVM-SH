@@ -44,10 +44,10 @@ abstract public class AtividadePendenteDao implements BaseDao<AtividadePendenteR
             "CASE WHEN idRelatorio = " + ID_RELATORIO_FORMACAO + " AND IFNULL(ct_formando, 0) > 0 THEN  1 " +
             "WHEN  idRelatorio = " + ID_RELATORIO_ILUMINACAO + " AND validade_aval_amb_ilum = 1 THEN  1 "+
             "WHEN  idRelatorio = " + ID_RELATORIO_TEMPERATURA_HUMIDADE + " AND validade_aval_amb_temperatura = 1 THEN  1 "+
-            "WHEN  idRelatorio = " + ID_RELATORIO_AVALIACAO_RISCO + " AND  (validade_processo_produtivo AND validade_equipamentos AND validade_proposta_plano_acao AND validade_checklist) = 1 THEN 1 "+
+            "WHEN  idRelatorio = " + ID_RELATORIO_AVALIACAO_RISCO + " AND  (validade_processo_produtivo AND validade_equipamentos AND validade_proposta_plano_acao AND validade_checklist AND validade_avaliacao_riscos) = 1 THEN 1 "+
             "ELSE 0 END as relatorioCompleto," +
 
-            "validade_processo_produtivo, validade_trabalhadores_vulneraveis, validade_equipamentos, validade_proposta_plano_acao, validade_checklist " +
+            "validade_processo_produtivo, validade_trabalhadores_vulneraveis, validade_equipamentos, validade_proposta_plano_acao, validade_checklist, validade_avaliacao_riscos " +
             " " +
 
             "FROM atividadesPendentes as atp " +
@@ -219,6 +219,94 @@ abstract public class AtividadePendenteDao implements BaseDao<AtividadePendenteR
             "GROUP BY idAtividade"+
 
             ") as vld_checklist ON atp.id = vld_checklist.idAtividade " +
+
+
+            //levantamento de risco
+
+            "LEFT JOIN (    " +
+            "SELECT idAtividade, CASE WHEN COUNT(valido) = SUM(valido) AND COUNT(valido) > 0 THEN 1 ELSE 0 END validade_avaliacao_riscos " +
+            "FROM( " +
+            "SELECT idAtividade, CASE WHEN (tarefa != '' AND perigo != '' AND valido_categorias_prof = 1 AND valido_riscos = 1) THEN 1  ELSE 0 END as valido " +
+            "FROM levantamentosRiscoResultado as lv_riscos_res " +
+
+            "LEFT JOIN(" +
+            "SELECT idLevantamento, " +
+            "CASE WHEN COUNT(VALIDO) = SUM(VALIDO) AND COUNT(VALIDO) > 0 THEN 1 ELSE 0 END valido_riscos   " +
+            "FROM (			  " +
+            "SELECT idLevantamento,			  " +
+            "CASE WHEN nd IS NULL OR nd = '' THEN 0   			  " +
+            "WHEN numeroMedidasExistentes IS NULL AND numeroMedidasRecomendadas IS NULL THEN 0  			  " +
+            "WHEN numeroMedidasExistentes = 0 OR numeroMedidasRecomendadas = 0 THEN 0 			  " +
+            "ELSE 1 END as valido			  " +
+            "FROM riscosResultado  as rsc_res			  " +
+            "LEFT JOIN (SELECT id, COUNT(idMedida) as numeroMedidasExistentes  FROM medidasResultado " +
+            "WHERE origem = "+ Identificadores.Origens.LEVANTAMENTO_MEDIDAS_ADOPTADAS +" GROUP BY id) as med_existentes " +
+            "ON rsc_res.id = med_existentes.id " +
+            "LEFT JOIN (SELECT id, COUNT(idMedida) as numeroMedidasRecomendadas  FROM medidasResultado " +
+            "WHERE origem = "+ Identificadores.Origens.LEVANTAMENTO_MEDIDAS_RECOMENDADAS +" GROUP BY id) as med_recomendadas " +
+            "ON rsc_res.id = med_recomendadas.id			  " +
+            ") as resultado " +
+            "GROUP BY idLevantamento " +
+            ") as vald_riscos ON lv_riscos_res.id = vald_riscos.idLevantamento	" +
+
+            "LEFT JOIN( " +
+            "SELECT idRegisto as idLevantamento, CASE WHEN COUNT(VALIDO) = SUM(VALIDO) AND COUNT(VALIDO) > 0 THEN 1 ELSE 0 END valido_categorias_prof " +
+            "FROM( " +
+            "SELECT idRegisto, CASE WHEN (homens = 0 AND mulheres = 0) OR (homens IS NULL AND mulheres IS NULL) THEN 0 ELSE 1 END as valido " +
+            "FROM categoriasProfissionaisResultado " +
+            "WHERE origem = " + Identificadores.Origens.LEVANTAMENTO_CATEGORIAS_PROFISSIONAIS + " " +
+            ")" +
+            "GROUP BY idRegisto   " +
+            ") as vald_categorias_prof ON lv_riscos_res.id = vald_categorias_prof.idLevantamento " +
+
+
+            ") " +
+            "GROUP BY idAtividade " +
+            ") as vld_avaliacao_riscos ON atp.id = vld_avaliacao_riscos.idAtividade	    " +
+
+
+
+
+
+
+
+//
+//    query += "OUTER LEFT JOIN (    ";
+//    query += "SELECT idAtividade, CASE WHEN COUNT(lv_rsc_valido) = SUM(lv_rsc_valido) AND COUNT(lv_rsc_valido) > 0 THEN 1 ELSE 0 END lv_rsc_valido ";
+//    query += "FROM( ";
+//
+//    query += "SELECT id as idAtividade, CASE WHEN (ct_pro_valido + rsc_valido) = 2 THEN 1 ELSE 0 END as lv_rsc_valido            ";
+//    query += "FROM levantamentosRisco_resultado as lv_rsc_res     ";
+//    query += "OUTER LEFT JOIN(    ";
+//    query += "SELECT CASE WHEN COUNT(VALIDO) = SUM(VALIDO) AND COUNT(VALIDO) > 0 THEN 1 ELSE 0 END ct_pro_valido, idLevantamento    ";
+//    query += "FROM(    ";
+//    query += "SELECT CASE WHEN (homens = 0 AND mulheres = 0) OR (homens IS NULL AND mulheres IS NULL) THEN 0 ELSE 1 END as valido, id as idLevantamento, origem    ";
+//    query += "FROM categoriasProfissionais_resultado     ";
+//    query += ") as resultado    ";
+//    query += "WHERE origem = ?     ";
+//    query += "GROUP BY idLevantamento    ";
+//    query += ") as ct_pro ON lv_rsc_res.idLevantamento = ct_pro.idLevantamento    ";
+//    query += "OUTER LEFT JOIN(    ";
+//    query += "SELECT CASE WHEN COUNT(VALIDO) = SUM(VALIDO) AND COUNT(VALIDO) > 0 THEN 1 ELSE 0 END rsc_valido, idLevantamento    ";
+//    query += "FROM (    ";
+//    query += "SELECT idLevantamento,    ";
+//    query += "CASE WHEN nd IS NULL THEN 0    ";
+//    query += "WHEN numeroMedidasExistentes IS NULL AND numeroMedidasRecomendadas IS NULL THEN 0      ";
+//    query += "WHEN numeroMedidasExistentes = 0 OR numeroMedidasRecomendadas = 0 THEN 0     ";
+//    query += "ELSE 1 END as valido    ";
+//    query += "FROM riscos_resultado  as rsc_res    ";
+//    query += "OUTER LEFT JOIN (SELECT id, COUNT(idMedida) as numeroMedidasExistentes  FROM medidas_resultado WHERE origem = ? GROUP BY id) as med_existentes ON  rsc_res.idRegisto = med_existentes.id     ";
+//    query += "OUTER LEFT JOIN (SELECT id, COUNT(idMedida) as numeroMedidasRecomendadas  FROM medidas_resultado WHERE origem = ? GROUP BY id) as med_recomendadas ON  rsc_res.idRegisto = med_recomendadas.id    ";
+//    query += ") as resultado    ";
+//    query += "GROUP BY idLevantamento    ";
+//    query += ") as rsc ON lv_rsc_res.idLevantamento = rsc.idLevantamento    ";
+//
+//    //query += "GROUP BY id    ";
+//    query += ") ";
+//    query += "GROUP BY idAtividade ";
+//    query += ") as vld_avaliacao_riscos ON atp.id = vld_avaliacao_riscos.idAtividade	    ";
+
+
 
 
 
@@ -462,7 +550,7 @@ abstract public class AtividadePendenteDao implements BaseDao<AtividadePendenteR
             "CASE WHEN idRelatorio = " + ID_RELATORIO_FORMACAO + " AND IFNULL(ct_formando, 0) > 0 THEN  1 " +
             "ELSE 0 END as relatorioCompleto, " +
 
-            "0 as validade_processo_produtivo, 0 as validade_trabalhadores_vulneraveis, 0 as validade_equipamentos, 0 as validade_proposta_plano_acao, 0 as validade_checklist " +
+            "0 as validade_processo_produtivo, 0 as validade_trabalhadores_vulneraveis, 0 as validade_equipamentos, 0 as validade_proposta_plano_acao, 0 as validade_checklist, 0 as validade_avaliacao_riscos " +
 
             "FROM atividadesPendentes as atp " +
 

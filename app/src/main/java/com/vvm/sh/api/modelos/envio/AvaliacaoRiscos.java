@@ -18,8 +18,12 @@ public class AvaliacaoRiscos {
     @SerializedName("processoProdutivo")
     public String processoProdutivo;
 
+    @SerializedName("levantamentosRisco")
+    public List<Levantamento> levantamentosRisco;
+
+//    RelatorioPlanoAcao
+//            capaRelatorio
 
 //				jAvaliacao.put(JsonEnvioIF.RELATORIO_PLANO_ACAO, acessoBd.obterPlanoAcao_AVR(idAtividade));
 //				jAvaliacao.put(JsonEnvioIF.CAPA_RELATORIO, acessoBd.obterCapaRelatorio(idTarefa));
-//				jAvaliacao.put(JsonEnvioIF.LEVANTAMENTOS_RISCO, acessoBd.obterLevantamentos(idAtividade));
 }

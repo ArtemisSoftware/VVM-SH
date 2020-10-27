@@ -24,6 +24,7 @@ import com.vvm.sh.api.modelos.envio.Formando;
 import com.vvm.sh.api.modelos.bd.FormandoBd;
 import com.vvm.sh.api.modelos.envio.Imagem;
 import com.vvm.sh.api.modelos.envio.ItemSeccaoChecklist;
+import com.vvm.sh.api.modelos.envio.Levantamento;
 import com.vvm.sh.api.modelos.envio.Observacao;
 import com.vvm.sh.api.modelos.envio.Ocorrencia;
 import com.vvm.sh.api.modelos.envio.Pergunta;
@@ -299,8 +300,7 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
         avaliacaoRiscos.trabalhadoresVulneraveis = obterTrabalhadoresVulneraveis(idAtividade);
         avaliacaoRiscos.equipamentos = repositorio.obterEquipamentos(idAtividade);
         avaliacaoRiscos.processoProdutivo = repositorio.obterProcessoProdutivo(idAtividade);
-
-        obterLevantamentoRisco(idAtividade);
+        avaliacaoRiscos.levantamentosRisco = obterLevantamentoRisco(idAtividade);
         return avaliacaoRiscos;
     }
 
@@ -418,9 +418,13 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
     }
 
 
-    private void obterLevantamentoRisco(int idAtividade) {
+    private List<Levantamento> obterLevantamentoRisco(int idAtividade) {
 
-      for(LevantamentoRiscoResultado itemLevantamento : repositorio.obterLevantamentos(idAtividade)){
+        List<Levantamento> registos = new ArrayList<>();
+
+        for(LevantamentoRiscoResultado itemLevantamento : repositorio.obterLevantamentos(idAtividade)){
+
+            Levantamento levantamento = UploadMapping.INSTANCE.map(itemLevantamento);
 
             for(RiscoResultado item : repositorio.obterRiscos(itemLevantamento.id)){
 
@@ -428,15 +432,15 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
                 risco.idsMedidasExistentes = repositorio.obterMedidas(item.id, Identificadores.Origens.LEVANTAMENTO_MEDIDAS_ADOPTADAS);
                 risco.idsMedidasRecomendadas = repositorio.obterMedidas(item.id, Identificadores.Origens.LEVANTAMENTO_MEDIDAS_RECOMENDADAS);
                 risco.album = repositorio.obterImagens_(item.id, Identificadores.Imagens.IMAGEM_RISCO);
+
+                levantamento.riscos.add(risco);
             }
 
+            levantamento.categoriasProfissionais = repositorio.obterCategoriasProfissionais(itemLevantamento.id, Identificadores.Origens.LEVANTAMENTO_CATEGORIAS_PROFISSIONAIS);
+            registos.add(levantamento);
         }
 
-
-
-
-
-
+        return registos;
     }
 
 

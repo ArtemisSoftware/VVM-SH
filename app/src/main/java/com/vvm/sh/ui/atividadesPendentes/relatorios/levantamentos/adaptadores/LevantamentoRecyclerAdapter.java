@@ -2,6 +2,7 @@ package com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.adaptadores;
 
 import android.content.Context;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
@@ -10,7 +11,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.vvm.sh.R;
 import com.vvm.sh.databinding.ItemLevantamentoBinding;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.formacao.adaptadores.FormandoViewHolder;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.modelos.Levantamento;
+import com.vvm.sh.util.metodos.PreferenciasUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -46,6 +49,9 @@ public class LevantamentoRecyclerAdapter extends RecyclerView.Adapter<RecyclerVi
         ((LevantamentoViewHolder)holder).binding.setListener((OnLevantamentoListener.OnLevantamentoRegistoListener) contexto);
         ((LevantamentoViewHolder)holder).binding.executePendingBindings();
 
+        if(PreferenciasUtil.agendaEditavel(contexto) == false){
+            ((LevantamentoViewHolder)holder).binding.chkSelecionado.setVisibility(View.GONE);
+        }
 
     }
 
@@ -62,5 +68,28 @@ public class LevantamentoRecyclerAdapter extends RecyclerView.Adapter<RecyclerVi
     }
 
 
+    public void selecionarTudo(boolean checked) {
+
+        for(int index = 0; index < this.items.size(); ++index){
+            this.items.get(index).selecionado = checked;
+        }
+
+        notifyDataSetChanged();
+    }
+
+
+    public List<Integer> obterSelecionados() {
+
+        List<Integer> registos = new ArrayList<>();
+
+        for(int index = 0; index < this.items.size(); ++index){
+
+            if(this.items.get(index).selecionado == true) {
+                registos.add(this.items.get(index).resultado.id);
+            }
+        }
+
+        return  registos;
+    }
 
 }

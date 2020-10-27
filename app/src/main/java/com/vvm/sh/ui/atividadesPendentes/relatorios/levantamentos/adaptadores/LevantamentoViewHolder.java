@@ -4,6 +4,8 @@ import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 
 import androidx.annotation.NonNull;
 import androidx.databinding.DataBindingUtil;
@@ -15,7 +17,7 @@ import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
 
 public class LevantamentoViewHolder extends RecyclerView.ViewHolder
-        implements View.OnClickListener, View.OnCreateContextMenuListener, MenuItem.OnMenuItemClickListener{
+        implements View.OnClickListener, View.OnCreateContextMenuListener, MenuItem.OnMenuItemClickListener, CheckBox.OnCheckedChangeListener {
 
     public ItemLevantamentoBinding binding;
 
@@ -29,10 +31,16 @@ public class LevantamentoViewHolder extends RecyclerView.ViewHolder
 
         this.listener = listener;
         itemView.setOnClickListener(this);
+        binding.chkSelecionado.setOnCheckedChangeListener(this);
 
         if(PreferenciasUtil.agendaEditavel(itemView.getContext()) == true) {
             itemView.setOnCreateContextMenuListener(this);
         }
+    }
+
+    @Override
+    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+        binding.getLevantamento().selecionado = isChecked;
     }
 
 
@@ -48,7 +56,7 @@ public class LevantamentoViewHolder extends RecyclerView.ViewHolder
         menu.setHeaderTitle(Sintaxe.Palavras.OPCOES);
         MenuItem duplicar = menu.add(Menu.NONE, 1, 1, Sintaxe.Palavras.DUPLICAR_REGISTO);
         MenuItem remover = menu.add(Menu.NONE, 2, 2, Sintaxe.Palavras.REMOVER);
-        MenuItem galeria = menu.add(Menu.NONE, 2, 2, Sintaxe.Palavras.GALERIA);
+        MenuItem galeria = menu.add(Menu.NONE, 3, 3, Sintaxe.Palavras.GALERIA);
 
         duplicar.setOnMenuItemClickListener(this);
         remover.setOnMenuItemClickListener(this);

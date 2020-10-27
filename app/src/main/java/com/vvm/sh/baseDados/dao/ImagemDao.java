@@ -31,7 +31,29 @@ abstract public class ImagemDao implements BaseDao<ImagemResultado> {
             "WHEN origem = " + Identificadores.Imagens.IMAGEM_CHECKLIST + " THEN '" + Sintaxe.Palavras.CHECKLIST + "' " +
             "WHEN origem = " + Identificadores.Imagens.IMAGEM_RISCO + " THEN '" + Sintaxe.Palavras.RISCO + "' " +
             "ELSE '' END as descricao " +
-            "FROM imagensResultado")
-    abstract public Observable<List<ImagemRegisto>> obterImagem();
+            "FROM imagensResultado " +
+            "WHERE id IN(SELECT id FROM riscosResultado WHERE idLevantamento =:idLevantamento) " +
+            "AND origem = " + Identificadores.Imagens.IMAGEM_RISCO + " ")
+    abstract public Observable<List<ImagemRegisto>> obterImagemLevantamento(int idLevantamento);
 
+
+    @Query("SELECT *, " +
+            "CASE " +
+            "WHEN origem = " + Identificadores.Imagens.IMAGEM_CHECKLIST + " THEN '" + Sintaxe.Palavras.CHECKLIST + "' " +
+            "WHEN origem = " + Identificadores.Imagens.IMAGEM_RISCO + " THEN '" + Sintaxe.Palavras.RISCO + "' " +
+            "ELSE '' END as descricao " +
+            "FROM imagensResultado " +
+            "WHERE origem != " + Identificadores.Imagens.IMAGEM_ASSINATURA_REGISTO_VISITA + " AND  origem != " + Identificadores.Imagens.IMAGEM_ASSINATURA_FORMANDO + " " +
+            "AND idTarefa =:idTarefa")
+    abstract public Observable<List<ImagemRegisto>> obterGaleria(int idTarefa);
+
+
+    @Query("SELECT *, " +
+            "CASE " +
+            "WHEN origem = " + Identificadores.Imagens.IMAGEM_CHECKLIST + " THEN '" + Sintaxe.Palavras.CHECKLIST + "' " +
+            "WHEN origem = " + Identificadores.Imagens.IMAGEM_RISCO + " THEN '" + Sintaxe.Palavras.RISCO + "' " +
+            "ELSE '' END as descricao " +
+            "FROM imagensResultado " +
+            "WHERE id = :id AND origem = :origem")
+    abstract public Observable<List<ImagemRegisto>> obterGaleria(int id, int origem);
 }

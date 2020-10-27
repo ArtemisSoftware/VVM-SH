@@ -31,10 +31,10 @@ public class FotoViewHolder extends RecyclerView.ViewHolder implements View.OnCl
     public void onClick(View v) {
 
         if(v.getId() == R.id.crl_btn_galeria) {
-            onItemListener.OnGaleriaClick();
+            onItemListener.OnGaleriaClick(binding.getQuestao());
         }
         else{
-            onItemListener.OnRegistarFoto();
+            onItemListener.OnRegistarFoto(binding.getQuestao());
         }
     }
 }

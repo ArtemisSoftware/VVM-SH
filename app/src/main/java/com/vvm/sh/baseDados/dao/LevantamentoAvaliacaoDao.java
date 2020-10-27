@@ -36,10 +36,10 @@ abstract public class LevantamentoAvaliacaoDao {
     abstract public List<RiscoResultado> obterRiscos(int idLevantamentoNovo);
 
 
-    @Query("INSERT INTO medidasResultado (id,origem,idMedida) VALUES (:id, :origem, :idMedida) ")
-    abstract public void duplicarMedidas(int id, int origem, int idMedida);
 
-
+    @Query("INSERT INTO medidasResultado (id,origem,idMedida) " +
+            "SELECT :idNovo as id, origem, idMedida FROM  medidasResultado WHERE id =:id AND origem =:origem")
+    abstract public void duplicarMedidas(int id, int idNovo, int origem);
 
 
     @Query(" INSERT INTO propostaPlanoAcaoResultado (idAtividade, idQuestao, origem, idMedida) " +

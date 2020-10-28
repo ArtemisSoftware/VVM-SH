@@ -6,6 +6,7 @@ import com.vvm.sh.api.SegurancaTrabalhoApi;
 import com.vvm.sh.api.modelos.bd.AreaBd;
 import com.vvm.sh.api.modelos.bd.AtividadePendenteBd;
 import com.vvm.sh.api.modelos.bd.AtividadePlanoAcaoBd;
+import com.vvm.sh.api.modelos.bd.ColaboradorBd;
 import com.vvm.sh.api.modelos.bd.FormandoBd;
 import com.vvm.sh.api.SegurancaAlimentarApi;
 import com.vvm.sh.api.modelos.bd.RegistoVisitaBd;
@@ -32,6 +33,7 @@ import com.vvm.sh.baseDados.entidades.QuestionarioChecklistResultado;
 import com.vvm.sh.baseDados.entidades.Resultado;
 import com.vvm.sh.baseDados.entidades.EmailResultado;
 import com.vvm.sh.baseDados.entidades.RiscoResultado;
+import com.vvm.sh.baseDados.entidades.SinistralidadeResultado;
 import com.vvm.sh.baseDados.entidades.Tarefa;
 import com.vvm.sh.baseDados.entidades.AnomaliaResultado;
 import com.vvm.sh.baseDados.entidades.OcorrenciaResultado;
@@ -377,6 +379,15 @@ public class TransferenciasRepositorio {
 
     public List<AtividadePlanoAcaoBd> obterPlanoAcao(int idTarefa) {
         return transferenciasDao.obterPlanoAcao(idTarefa);
+    }
+
+
+    public SinistralidadeResultado obterSinistralidade(int idTarefa) {
+        return transferenciasDao.obterSinistralidade(idTarefa);
+    }
+
+    public List<ColaboradorBd> obterColaboradores(int idTarefa) {
+        return transferenciasDao.obterColaboradores(idTarefa);
     }
 
 

@@ -15,8 +15,6 @@ public class ColaboradorRegisto implements EstadoModelo {
 
 
     public long dataNascimento, dataAdmissaoFuncao, dataAdmissao;
-    //private String idMorada, morada, idColaborador, posto, dataNascimento, dataAdmissao, dataAdmissaoFuncao, genero, categoriaProfissional, idCategoriaProfissional, situacao, profissao, nacionalidade;
-    //private int imagemSituacao, origem, corOrigem;
 
 
     @Ignore
@@ -30,11 +28,7 @@ public class ColaboradorRegisto implements EstadoModelo {
     public ColaboradorRegisto(int id, String nome, String idMorada, String morada, String estado, int origem,
                               String posto, String idRegisto, int idResultado, long dataNascimento, String sexo,
                               int idCategoriaProfissional, String categoriaProfissional, String profissao,
-                              long dataAdmissao, long dataAdmissaoFuncao/*, String nacionalidade,
-                              ,
-                              String situacao,
-                        String categoriaProfissional, String idCategoriaProfissional,
-                       */){
+                              long dataAdmissao, long dataAdmissaoFuncao){
 
 
         this.estadoModelo = EstadoModelo.MODELO;

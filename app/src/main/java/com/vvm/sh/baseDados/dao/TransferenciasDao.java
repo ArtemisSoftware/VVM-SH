@@ -10,6 +10,7 @@ import com.vvm.sh.api.modelos.bd.AreaBd;
 import com.vvm.sh.api.modelos.bd.AtividadePendenteBd;
 import com.vvm.sh.api.modelos.bd.AtividadePlanoAcaoBd;
 import com.vvm.sh.api.modelos.bd.ColaboradorBd;
+import com.vvm.sh.api.modelos.bd.ExtintorBd;
 import com.vvm.sh.api.modelos.bd.FormandoBd;
 import com.vvm.sh.api.modelos.bd.RegistoVisitaBd;
 import com.vvm.sh.api.modelos.bd.RelatorioAmbientalBd;
@@ -347,6 +348,15 @@ abstract public class TransferenciasDao implements BaseDao<Resultado> {
             "LEFT JOIN (SELECT nome, id, estado FROM colaboradores) as clb ON clb_res.id = clb.id " +
             "WHERE idTarefa = :idTarefa ")
     public abstract List<ColaboradorBd> obterColaboradores(int idTarefa);
+
+
+
+
+
+    @Query("SELECT * FROM parqueExtintoresResultado  " +
+            "WHERE id IN (SELECT id FROM parqueExtintores WHERE idTarefa) AND valido = 1")
+    public abstract List<ExtintorBd> obterExtintores(int idTarefa);
+
 
     //-------------------
     //TRABALHO

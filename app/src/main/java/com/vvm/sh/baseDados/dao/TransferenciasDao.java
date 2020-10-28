@@ -358,6 +358,13 @@ abstract public class TransferenciasDao implements BaseDao<Resultado> {
     public abstract List<ExtintorBd> obterExtintores(int idTarefa);
 
 
+
+    @Query("SELECT IFNULL(COUNT(pae.id), 0) as inalterado " +
+            "FROM  parqueExtintores as pae  " +
+            "LEFT JOIN(SELECT id, valido FROM  parqueExtintoresResultado) as pae_res ON  pae.id = pae_res.id " +
+            "WHERE idTarefa = :idTarefa  AND valido != 1 ")
+    public abstract Integer obterNumeroExtintoresInalterados(int idTarefa);
+
     //-------------------
     //TRABALHO
     //-------------------

@@ -6,6 +6,8 @@ import android.os.Handler;
 
 import com.vvm.sh.api.modelos.bd.AreaBd;
 import com.vvm.sh.api.modelos.bd.AtividadePlanoAcaoBd;
+import com.vvm.sh.api.modelos.bd.ColaboradorBd;
+import com.vvm.sh.api.modelos.bd.ExtintorBd;
 import com.vvm.sh.api.modelos.bd.RegistoVisitaBd;
 import com.vvm.sh.api.modelos.bd.RelatorioAmbientalBd;
 import com.vvm.sh.api.modelos.envio.AcaoFormacao;
@@ -19,9 +21,12 @@ import com.vvm.sh.api.modelos.envio.AvaliacaoIluminacao;
 import com.vvm.sh.api.modelos.envio.AvaliacaoRiscos;
 import com.vvm.sh.api.modelos.envio.AvaliacaoTemperaturaHumidade;
 import com.vvm.sh.api.modelos.envio.Checklist;
+import com.vvm.sh.api.modelos.envio.Colaborador;
 import com.vvm.sh.api.modelos.envio.CrossSelling;
 import com.vvm.sh.api.modelos.envio.DadosFormulario;
 import com.vvm.sh.api.modelos.envio.Email;
+import com.vvm.sh.api.modelos.envio.Equipamento;
+import com.vvm.sh.api.modelos.envio.Extintor;
 import com.vvm.sh.api.modelos.envio.Formando;
 import com.vvm.sh.api.modelos.bd.FormandoBd;
 import com.vvm.sh.api.modelos.envio.Imagem;
@@ -29,11 +34,13 @@ import com.vvm.sh.api.modelos.envio.ItemSeccaoChecklist;
 import com.vvm.sh.api.modelos.envio.Levantamento;
 import com.vvm.sh.api.modelos.envio.Observacao;
 import com.vvm.sh.api.modelos.envio.Ocorrencia;
+import com.vvm.sh.api.modelos.envio.ParqueExtintor;
 import com.vvm.sh.api.modelos.envio.Pergunta;
 import com.vvm.sh.api.modelos.envio.RegistoVisita;
 import com.vvm.sh.api.modelos.envio.RelatorioAmbiental;
 import com.vvm.sh.api.modelos.envio.Risco;
 import com.vvm.sh.api.modelos.envio.Seccao;
+import com.vvm.sh.api.modelos.envio.Sinistralidade;
 import com.vvm.sh.api.modelos.envio.TrabalhadorVulneravel;
 import com.vvm.sh.api.modelos.envio.TrabalhoRealizado;
 import com.vvm.sh.api.modelos.envio.Ut;
@@ -45,6 +52,7 @@ import com.vvm.sh.baseDados.entidades.LevantamentoRiscoResultado;
 import com.vvm.sh.baseDados.entidades.QuestionarioChecklistResultado;
 import com.vvm.sh.baseDados.entidades.Resultado;
 import com.vvm.sh.baseDados.entidades.RiscoResultado;
+import com.vvm.sh.baseDados.entidades.TipoNovo;
 import com.vvm.sh.baseDados.entidades.TrabalhadorVulneravelResultado;
 import com.vvm.sh.baseDados.entidades.TrabalhoRealizadoResultado;
 import com.vvm.sh.repositorios.TransferenciasRepositorio;
@@ -182,15 +190,21 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
                         break;
 
 
-//                    case ID_SINISTRALIDADE:
-//
-//                        dadosFormulario.fixarSinistralidade(obterSinistralidade(resultado.idTarefa));
-//                        break;
-//
-//                    case ID_QUADRO_PESSOAL:
-//
-//                        dadosFormulario.fixarQuadroPessoal(obterQuadroPessoal(resultado.idTarefa));
-//                        break;
+                    case ID_SINISTRALIDADE:
+
+                        dadosFormulario.sinistralidade = obterSinistralidade(resultado.idTarefa);
+                        break;
+
+                    case ID_QUADRO_PESSOAL:
+
+                        dadosFormulario.fixarQuadroPessoal(obterQuadroPessoal(resultado.idTarefa));
+                        break;
+
+
+                    case ID_PARQUE_EXTINTOR:
+
+                        dadosFormulario.parqueExtintor = obterParqueExtintor(resultado.idTarefa);
+                        break;
 
                     default:
                         break;
@@ -201,9 +215,68 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
             dadosFormulario.id = UploadMapping.INSTANCE.map(repositorio.obterTarefa(upload.tarefa.idTarefa));
 
             dadosUpload.fixarDados(dadosFormulario);
-
+            dadosUpload.equipamentos = obterEquipamentos(upload.resultados);
             atualizacaoUI.atualizarUI(AtualizacaoUI.Codigo.PROCESSAMENTO_DADOS, "Tarefa: " + upload.tarefa.idTarefa, posicao, resposta.size());
         }
+    }
+
+    private ParqueExtintor obterParqueExtintor(int idTarefa) {
+
+        List<Extintor> registos = new ArrayList<>();
+
+        for (ExtintorBd item : repositorio.obterParqueExtintor(idTarefa)) {
+
+            Extintor registo = UploadMapping.INSTANCE.map(item.extintor, item.resultado);
+
+            registos.add(registo);
+        }
+
+        ParqueExtintor parqueExtintor = new ParqueExtintor();
+        parqueExtintor.extintores = registos;
+        parqueExtintor.inalterado = repositorio.obterNumeroExtintoresInalterados(idTarefa) + "";
+        return parqueExtintor;
+    }
+
+    private List<Equipamento> obterEquipamentos(List<Resultado> resultados) {
+
+        List<Integer> ids = new ArrayList<>();
+        List<Equipamento> registos = new ArrayList<>();
+
+        for(Resultado item : resultados){
+            ids.add(item.id);
+        }
+
+        for (TipoNovo item : repositorio.obterNovosEquipamentos(ids)) {
+
+            Equipamento equipamento = UploadMapping.INSTANCE.map(item);
+            equipamento.id = Identificadores.Codigos.EQUIPAMENTO + item.idProvisorio;
+            equipamento.idUtilizador = idUtilizador;
+            registos.add(equipamento);
+        }
+
+        return registos;
+    }
+
+
+    private List<Colaborador> obterQuadroPessoal(int idTarefa) {
+
+        List<Colaborador> registos = new ArrayList<>();
+
+        for (ColaboradorBd item : repositorio.obterQuadroPessoal(idTarefa)) {
+
+            Colaborador colaborador = UploadMapping.INSTANCE.map(item);
+            colaborador.dataAdmissao = DatasUtil.converterData(item.dataAdmissao, DatasUtil.FORMATO_YYYY_MM_DD);
+            colaborador.dataNascimento = DatasUtil.converterData(item.dataNascimento, DatasUtil.FORMATO_YYYY_MM_DD);
+            colaborador.dataAdmissaoFuncao = DatasUtil.converterData(item.dataAdmissaoFuncao, DatasUtil.FORMATO_YYYY_MM_DD);
+            registos.add(colaborador);
+        }
+
+        return registos;
+    }
+
+    private Sinistralidade obterSinistralidade(int idTarefa) {
+
+        return UploadMapping.INSTANCE.map(repositorio.obterSinistralidade(idTarefa));
     }
 
 
@@ -266,6 +339,7 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
         registoVisita.data = DatasUtil.obterDataAtual(DatasUtil.DATA_FORMATO_YYYY_MM_DD__HH_MM_SS);
         registoVisita.album = new ArrayList<>();
         registoVisita.album.add(registo.idImagem + "");
+        idImagens.add(registo.idImagem);
 
         List<TrabalhoRealizado> registos = new ArrayList<>();
 
@@ -349,7 +423,7 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
         int index = -1;
         List<Checklist> registos = new ArrayList<>();
 
-        Checklist checklist = UploadMapping.INSTANCE.mapeamentoTemperaturaHumidade(repositorio.obterChecklist(idAtividade));
+        Checklist checklist = UploadMapping.INSTANCE.map(repositorio.obterChecklist(idAtividade));
         checklist.versao = checklist.versao.split(".json")[0].split("_")[2];
 
         checklist.areas = new ArrayList<>();
@@ -382,6 +456,7 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
                 for(ImagemResultado imagem : repositorio.obterImagens(area.resultado.id, Identificadores.Imagens.IMAGEM_CHECKLIST)){
                     //TODO: duvidas em relacao a isto, deveria ser uma lista de ids
                     //itens.add(UploadMapping.INSTANCE.mapImagemChecklist(imagem));
+                    //idImagens.add(registo.idImagem);
                 }
 
                 checklist.areas.get(index).seccoes.add(new Seccao(idSeccao, itens));
@@ -399,7 +474,7 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
     private RelatorioAmbiental obterRelatorioIluminacao(int idAtividade) {
 
         RelatorioAmbientalBd registo = repositorio.obterRelatorioIluminacao(idAtividade);
-        RelatorioAmbiental relatorioAmbiental = UploadMapping.INSTANCE.mapeamentoTemperaturaHumidade(registo);
+        RelatorioAmbiental relatorioAmbiental = UploadMapping.INSTANCE.map(registo);
         relatorioAmbiental.equipamento = Sintaxe.Palavras.EQUIPAMENTO_RELATORIO_ILUMINACAO;
 
         for(AvaliacaoAmbientalResultado item : repositorio.obterAvaliacoesAmbiental(registo.resultado.id)){
@@ -419,8 +494,8 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
 
     private RelatorioAmbiental obterRelatorioTemperaturaHumidade(int idAtividade) {
 
-        RelatorioAmbientalBd registo = repositorio.obterRelatorioIluminacao(idAtividade);
-        RelatorioAmbiental relatorioAmbiental = UploadMapping.INSTANCE.mapeamentoTemperaturaHumidade(registo);
+        RelatorioAmbientalBd registo = repositorio.obterRelatorioTemperaturaHumidade(idAtividade);
+        RelatorioAmbiental relatorioAmbiental = UploadMapping.INSTANCE.map(registo);
         relatorioAmbiental.equipamento = Sintaxe.Palavras.EQUIPAMENTO_RELATORIO_TEMPERATURA_HUMIDADE;
 
         for(AvaliacaoAmbientalResultado item : repositorio.obterAvaliacoesAmbiental(registo.resultado.id)){
@@ -428,7 +503,7 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
             List<Integer> categoriasProfissionais = repositorio.obterCategoriasProfissionais(item.id, Identificadores.Origens.ORIGEM_RELATORIO_TEMPERATURA_HUMIDADE);
             List<Integer> medidas = repositorio.obterMedidas(item.id, Identificadores.Origens.ORIGEM_RELATORIO_TEMPERATURA_HUMIDADE_MEDIDAS_RECOMENDADAS);
 
-            AvaliacaoTemperaturaHumidade avaliacao = UploadMapping.INSTANCE.mapeamentoTemperaturaHumidade(item);
+            AvaliacaoTemperaturaHumidade avaliacao = UploadMapping.INSTANCE.map(item);
             avaliacao.categoriasProfissionais = categoriasProfissionais;
             avaliacao.medidasRecomendadas = medidas;
 
@@ -453,7 +528,7 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
                 risco.idsMedidasExistentes = repositorio.obterMedidas(item.id, Identificadores.Origens.LEVANTAMENTO_MEDIDAS_ADOPTADAS);
                 risco.idsMedidasRecomendadas = repositorio.obterMedidas(item.id, Identificadores.Origens.LEVANTAMENTO_MEDIDAS_RECOMENDADAS);
                 risco.album = repositorio.obterImagens_(item.id, Identificadores.Imagens.IMAGEM_RISCO);
-
+                //--idImagens.add(registo.idImagem);
                 levantamento.riscos.add(risco);
             }
 

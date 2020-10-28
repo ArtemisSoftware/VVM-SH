@@ -2,6 +2,7 @@ package com.vvm.sh.ui.transferencias.modelos;
 
 import com.vvm.sh.BuildConfig;
 import com.vvm.sh.api.modelos.envio.DadosFormulario;
+import com.vvm.sh.api.modelos.envio.Equipamento;
 import com.vvm.sh.api.modelos.envio.Imagem;
 
 import java.util.ArrayList;
@@ -19,11 +20,13 @@ public class DadosUpload {
 
     public HashMap<Integer, List<Imagem>> imagens;
     public List<DadosFormulario> dados;
+    public List<Equipamento> equipamentos;
 
     public DadosUpload(String idUtilizador) {
 
         this.idBloco = 0;
         this.dados = new ArrayList<>();
+        this.equipamentos = new ArrayList<>();
         this.imagens = new HashMap<>();
         this.idUtilizador = idUtilizador;
         this.idUpload = UUID.randomUUID().toString();

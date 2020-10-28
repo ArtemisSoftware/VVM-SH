@@ -34,12 +34,20 @@ public class DadosFormulario {
 
     //-sht
 
+    @SerializedName("Sinistralidade")
+    public Sinistralidade sinistralidade;
 
     @SerializedName("PlanoAccao")
     public AtividadePlanoAcaoInfo planoAcao;
 
+    @SerializedName("QuadroPessoal")
+    public QuadroPessoalInfo quadroPessoal;
+
     @SerializedName("RegistoVisita")
     public RegistoVisita registoVisita;
+
+    @SerializedName("extintores")
+    public ParqueExtintor parqueExtintor;
 
 
 
@@ -134,7 +142,18 @@ public class DadosFormulario {
         }
     }
 
+    public class QuadroPessoalInfo{
 
+        @SerializedName("dataRegisto")
+        public String dataRegisto;
+
+        @SerializedName("dados")
+        public List<Colaborador> dados;
+
+        public QuadroPessoalInfo() {
+            this.dados = new ArrayList<>();
+        }
+    }
 
     public void fixarEmail(Email email){
         this.email.dataRegisto = DatasUtil.obterDataAtual(DatasUtil.DATA_FORMATO_YYYY_MM_DD__HH_MM_SS);
@@ -166,4 +185,9 @@ public class DadosFormulario {
         this.planoAcao.dados = atividadesPlano;
     }
 
+
+    public void fixarQuadroPessoal(List<Colaborador> colaboradores) {
+        this.quadroPessoal.dataRegisto = DatasUtil.obterDataAtual(DatasUtil.DATA_FORMATO_YYYY_MM_DD__HH_MM_SS);
+        this.quadroPessoal.dados = colaboradores;
+    }
 }

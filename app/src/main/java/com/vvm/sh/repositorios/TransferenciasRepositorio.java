@@ -7,6 +7,7 @@ import com.vvm.sh.api.modelos.bd.AreaBd;
 import com.vvm.sh.api.modelos.bd.AtividadePendenteBd;
 import com.vvm.sh.api.modelos.bd.AtividadePlanoAcaoBd;
 import com.vvm.sh.api.modelos.bd.ColaboradorBd;
+import com.vvm.sh.api.modelos.bd.ExtintorBd;
 import com.vvm.sh.api.modelos.bd.FormandoBd;
 import com.vvm.sh.api.SegurancaAlimentarApi;
 import com.vvm.sh.api.modelos.bd.RegistoVisitaBd;
@@ -40,6 +41,7 @@ import com.vvm.sh.baseDados.entidades.OcorrenciaResultado;
 import com.vvm.sh.baseDados.entidades.AcaoFormacaoResultado;
 import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.baseDados.entidades.TipoExtintor;
+import com.vvm.sh.baseDados.entidades.TipoNovo;
 import com.vvm.sh.baseDados.entidades.TrabalhadorVulneravelResultado;
 import com.vvm.sh.baseDados.entidades.TrabalhoRealizadoResultado;
 import com.vvm.sh.ui.transferencias.modelos.Pendencia;
@@ -386,10 +388,21 @@ public class TransferenciasRepositorio {
         return transferenciasDao.obterSinistralidade(idTarefa);
     }
 
-    public List<ColaboradorBd> obterColaboradores(int idTarefa) {
+    public List<ColaboradorBd> obterQuadroPessoal(int idTarefa) {
         return transferenciasDao.obterColaboradores(idTarefa);
     }
 
+    public List<TipoNovo> obterNovosEquipamentos(List<Integer> idsTarefas) {
+        return transferenciasDao.obterNovosEquipamentos(idsTarefas);
+    }
+
+    public List<ExtintorBd> obterParqueExtintor(int idTarefa) {
+        return transferenciasDao.obterExtintores(idTarefa);
+    }
+
+    public Integer obterNumeroExtintoresInalterados(int idTarefa) {
+        return transferenciasDao.obterNumeroExtintoresInalterados(idTarefa);
+    }
 
     //---------------------------
     //DOWNLOAD

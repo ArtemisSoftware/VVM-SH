@@ -3,12 +3,17 @@ package com.vvm.sh.util.mapeamento;
 import com.vvm.sh.api.modelos.bd.AreaBd;
 import com.vvm.sh.api.modelos.bd.AtividadePendenteBd;
 import com.vvm.sh.api.modelos.bd.AtividadePlanoAcaoBd;
+import com.vvm.sh.api.modelos.bd.ColaboradorBd;
+import com.vvm.sh.api.modelos.bd.ExtintorBd;
 import com.vvm.sh.api.modelos.bd.RelatorioAmbientalBd;
 import com.vvm.sh.api.modelos.envio.Area;
 import com.vvm.sh.api.modelos.envio.AtividadePlanoAcao;
 import com.vvm.sh.api.modelos.envio.AvaliacaoIluminacao;
 import com.vvm.sh.api.modelos.envio.AvaliacaoTemperaturaHumidade;
 import com.vvm.sh.api.modelos.envio.Checklist;
+import com.vvm.sh.api.modelos.envio.Colaborador;
+import com.vvm.sh.api.modelos.envio.Equipamento;
+import com.vvm.sh.api.modelos.envio.Extintor;
 import com.vvm.sh.api.modelos.envio.ItemSeccaoChecklist;
 import com.vvm.sh.api.modelos.envio.Levantamento;
 import com.vvm.sh.api.modelos.envio.Observacao;
@@ -27,6 +32,7 @@ import com.vvm.sh.api.modelos.envio.Email;
 import com.vvm.sh.api.modelos.envio.Formando;
 import com.vvm.sh.api.modelos.envio.Imagem;
 import com.vvm.sh.api.modelos.envio.Ocorrencia;
+import com.vvm.sh.api.modelos.envio.Sinistralidade;
 import com.vvm.sh.api.modelos.envio.TrabalhadorVulneravel;
 import com.vvm.sh.api.modelos.envio.TrabalhoRealizado;
 import com.vvm.sh.api.modelos.envio.Ut;
@@ -37,14 +43,18 @@ import com.vvm.sh.baseDados.entidades.FormandoResultado;
 import com.vvm.sh.baseDados.entidades.ImagemResultado;
 import com.vvm.sh.baseDados.entidades.ItemChecklist;
 import com.vvm.sh.baseDados.entidades.LevantamentoRiscoResultado;
+import com.vvm.sh.baseDados.entidades.ParqueExtintor;
+import com.vvm.sh.baseDados.entidades.ParqueExtintorResultado;
 import com.vvm.sh.baseDados.entidades.QuestionarioChecklistResultado;
 import com.vvm.sh.baseDados.entidades.RegistoVisitaResultado;
 import com.vvm.sh.baseDados.entidades.RiscoResultado;
+import com.vvm.sh.baseDados.entidades.SinistralidadeResultado;
 import com.vvm.sh.baseDados.entidades.Tarefa;
 import com.vvm.sh.baseDados.entidades.AnomaliaResultado;
 import com.vvm.sh.baseDados.entidades.OcorrenciaResultado;
 import com.vvm.sh.baseDados.entidades.AcaoFormacaoResultado;
 import com.vvm.sh.baseDados.entidades.Tipo;
+import com.vvm.sh.baseDados.entidades.TipoNovo;
 import com.vvm.sh.baseDados.entidades.TrabalhadorVulneravelResultado;
 import com.vvm.sh.baseDados.entidades.TrabalhoRealizadoResultado;
 import com.vvm.sh.ui.transferencias.modelos.DadosUpload;
@@ -116,7 +126,7 @@ public interface UploadMapping {
 
     @Mapping(target = "idChecklist", source = "id")
     //@Mapping(target = "versaoChecklist", source = "idPai")
-    Checklist mapeamentoTemperaturaHumidade(Tipo checklist);
+    Checklist map(Tipo checklist);
 
     @Mapping(target = "idItem", source = "idItem")
     @Mapping(target = "resposta", source = "resposta")
@@ -158,11 +168,11 @@ public interface UploadMapping {
 
     @Mapping(target = "medidaRecomendada", source = "idMedidaRecomendada")
     @Mapping(target = "marca", source = "relatorio.resultado.marca")
-    RelatorioAmbiental mapeamentoTemperaturaHumidade(RelatorioAmbientalBd relatorio);
+    RelatorioAmbiental map(RelatorioAmbientalBd relatorio);
 
 
     @Mapping(target = "descricaoArea", source = "anexoArea")
-    AvaliacaoTemperaturaHumidade mapeamentoTemperaturaHumidade(AvaliacaoAmbientalResultado item);
+    AvaliacaoTemperaturaHumidade map(AvaliacaoAmbientalResultado item);
 
     @Mapping(target = "idTipoIluminacao", source = "tipoIluminacao")
     AvaliacaoIluminacao mapeamentoIluminacao(AvaliacaoAmbientalResultado item);
@@ -176,10 +186,27 @@ public interface UploadMapping {
     @Mapping(source = "imagem", target = "foto")
     Imagem map(ImagemResultado item);
 
-    @Mapping(source = "dados", target = "dadosFormulario")
-    @Mapping(source = "versao", target = "versaoApp")
-    @Mapping(source = "idBloco", target = "numeroFicheiroImagens")
+    @Mapping(target = "dadosFormulario", source = "dados")
+    @Mapping(target = "novasMaquinas", source = "equipamentos")
+    @Mapping(target = "versaoApp", source = "versao")
+    @Mapping(target = "numeroFicheiroImagens", source = "idBloco")
     BlocoDados map(DadosUpload dadosUpload);
 
 
+
+    @Mapping(target = "diasUteis", source = "diasUteisPerdidos")
+    Sinistralidade map(SinistralidadeResultado item);
+
+    @Mapping(target = "idColaborador", source = "id")
+    @Mapping(target = "genero", source = "sexo")
+    @Mapping(target = "dataAdmissao", ignore = true)
+    @Mapping(target = "dataAdmissaoFuncao", ignore = true)
+    @Mapping(target = "dataNascimento", ignore = true)
+    Colaborador map(ColaboradorBd item);
+
+    @Mapping(target = "id", ignore = true)
+    Equipamento map(TipoNovo item);
+
+    @Mapping(target = "idServico", source = "extintor.idServico")
+    Extintor map(ParqueExtintor extintor, ParqueExtintorResultado resultado);
 }

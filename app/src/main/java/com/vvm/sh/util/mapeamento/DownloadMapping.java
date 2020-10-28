@@ -5,6 +5,8 @@ import com.vvm.sh.api.modelos.pedido.IMorada;
 import com.vvm.sh.api.modelos.pedido.IParqueExtintor;
 import com.vvm.sh.api.modelos.pedido.IPlanoAcao;
 import com.vvm.sh.api.modelos.pedido.ITipo;
+import com.vvm.sh.api.modelos.pedido.ITipoAtividadePlaneavel;
+import com.vvm.sh.api.modelos.pedido.ITipoAtividadePlaneavelListagem;
 import com.vvm.sh.api.modelos.pedido.ITipoChecklist;
 import com.vvm.sh.api.modelos.pedido.ITipoExtintor;
 import com.vvm.sh.api.modelos.pedido.ITipoListagem;
@@ -33,6 +35,7 @@ import com.vvm.sh.baseDados.entidades.Tarefa;
 import com.vvm.sh.baseDados.entidades.Anomalia;
 import com.vvm.sh.baseDados.entidades.AtividadeExecutada;
 import com.vvm.sh.baseDados.entidades.AtividadePendente;
+import com.vvm.sh.baseDados.entidades.TipoAtividadePlaneavel;
 import com.vvm.sh.baseDados.entidades.TipoExtintor;
 import com.vvm.sh.baseDados.entidades.TipoTemplateAvrLevantamento;
 import com.vvm.sh.baseDados.entidades.TipoTemplateAvrRisco;
@@ -70,6 +73,11 @@ public interface DownloadMapping {
     @Mapping(target = "descricao", source = "metodo")
     @Mapping(target = "tipo", ignore = true)
     Atualizacao map(ITipoTemplateAvrRiscoListagem riscos);
+
+    @Mapping(target = "descricao", source = "metodo")
+    @Mapping(target = "tipo", constant = Identificadores.Atualizacoes.ATIVIDADES_PLANEAVEIS + "")
+    Atualizacao map(ITipoAtividadePlaneavelListagem resposta);
+
 
 
     @Mapping(source = "item.id", target = "id")
@@ -163,4 +171,7 @@ public interface DownloadMapping {
 
     TipoTemplateAvrRisco map(ITipoTemplateAvrRisco item);
 
+
+    @Mapping(source = "item.codigo", target = "codigo")
+    TipoAtividadePlaneavel map(ITipoAtividadePlaneavel item, ITipoAtividadePlaneavelListagem resposta);
 }

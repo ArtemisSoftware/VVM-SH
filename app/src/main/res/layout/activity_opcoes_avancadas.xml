@@ -129,13 +129,41 @@
             </LinearLayout>
 
 
+            <LinearLayout
+                android:id="@+id/lnr_lyt_atividades_planeaveis"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_marginTop="16dp"
+                android:background="@color/branco"
+                android:elevation="0.2dp"
+                android:foreground="?android:attr/selectableItemBackground"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:outlineProvider="bounds"
+                android:padding="10dp"
+                app:layout_constraintStart_toStartOf="@+id/textview"
+                app:layout_constraintTop_toBottomOf="@+id/lnr_lyt_checklist">
+
+                <TextView
+                    style="@style/textoDetalhe"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:drawableRight="@drawable/ic_seta_direita_24dp"
+                    android:gravity="center_vertical"
+                    android:text="@string/gerir_atividades_planeaveis" />
+            </LinearLayout>
+
+
+
+
             <TextView
                 android:id="@+id/textview3"
                 style="@style/tituloCartao"
                 android:layout_marginTop="32dp"
                 android:text="@string/dados"
                 app:layout_constraintStart_toStartOf="@+id/textview"
-                app:layout_constraintTop_toBottomOf="@+id/lnr_lyt_checklist" />
+                app:layout_constraintTop_toBottomOf="@+id/lnr_lyt_atividades_planeaveis" />
 
 
             <View

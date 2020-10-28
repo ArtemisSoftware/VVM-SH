@@ -87,6 +87,7 @@ public class TiposUtil {
 
     public static class MetodosTipos{
 
+
         public static final String ATIVIDADES_RELATORIO_VISITA = "Atividades_Relatorio_Visita";
 
         public static final String CROSS_SELLING_PRODUTOS = "CrossSelling_Produtos";
@@ -140,6 +141,18 @@ public class TiposUtil {
 
             public static final MetodoApi TIPOS [] = new MetodoApi []{
                     METODO_CHECKLIST
+            };
+        }
+
+
+        public static class AtividadesPlaneaveis {
+
+            public static final String ATIVIDADES_PLANEAVEIS = "Actividades_Planeaveis";
+
+            public static final MetodoApi METODO_ATIVIDADES_PLANEAVEIS = new MetodoApi(ATIVIDADES_PLANEAVEIS, null, MetodosTiposSH.ATIVIDADES_PLANEAVEIS);
+
+            public static final MetodoApi TIPOS [] = new MetodoApi []{
+                    METODO_ATIVIDADES_PLANEAVEIS
             };
         }
 
@@ -332,6 +345,17 @@ public class TiposUtil {
         }
 
         for (MetodoApi item : MetodosTipos.TemplateAvr.TIPOS) {
+
+            try {
+                if (item.registado(descricao) == true) {
+                    return item;
+                }
+            }
+            catch (TipoInexistenteException e){}
+        }
+
+
+        for (MetodoApi item : MetodosTipos.AtividadesPlaneaveis.TIPOS) {
 
             try {
                 if (item.registado(descricao) == true) {

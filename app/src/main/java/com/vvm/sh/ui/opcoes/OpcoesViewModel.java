@@ -1,10 +1,12 @@
 package com.vvm.sh.ui.opcoes;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Handler;
 
 import androidx.lifecycle.MutableLiveData;
 
+import com.vvm.sh.api.modelos.pedido.ITipoAtividadePlaneavelListagem;
 import com.vvm.sh.api.modelos.pedido.ITipoChecklist;
 import com.vvm.sh.api.modelos.pedido.ITipoListagem;
 import com.vvm.sh.api.modelos.VersaoApp;
@@ -15,6 +17,7 @@ import com.vvm.sh.servicos.CarregarTipoTemplatesAvrAsyncTask;
 import com.vvm.sh.servicos.instalacaoApp.DownloadApkAsyncTask;
 import com.vvm.sh.servicos.instalacaoApp.InstalarApkAsyncTask;
 import com.vvm.sh.servicos.AtualizarTipoAsyncTask;
+import com.vvm.sh.servicos.tipos.CarregarTipoAtividadesPlaneaveisAsyncTask;
 import com.vvm.sh.ui.opcoes.modelos.ResumoChecklist;
 import com.vvm.sh.ui.opcoes.modelos.ResumoTipo;
 import com.vvm.sh.ui.opcoes.modelos.TemplateAvr;
@@ -44,7 +47,6 @@ public class OpcoesViewModel extends BaseViewModel {
     public MutableLiveData<VersaoApp> versaoApp;
     public MutableLiveData<List<ResumoTipo>> tipos;
     public MutableLiveData<List<ResumoChecklist>> tiposChecklist;
-
 
     @Inject
     public OpcoesViewModel(VersaoAppRepositorio versaoAppRepositorio, TiposRepositorio tiposRepositorio){
@@ -85,6 +87,12 @@ public class OpcoesViewModel extends BaseViewModel {
             case Identificadores.Atualizacoes.CHECKLIST:
 
                 obterResumoChecklist();
+                break;
+
+
+            case Identificadores.Atualizacoes.ATIVIDADES_PLANEAVEIS:
+
+                obterResumoAtividadesPlaneaveis();
                 break;
 
             default:
@@ -194,6 +202,46 @@ public class OpcoesViewModel extends BaseViewModel {
     }
 
 
+    /**
+     * Metodo que permite obter o resumo dos registos existentes
+     */
+    private void obterResumoAtividadesPlaneaveis(){
+
+        showProgressBar(true);
+
+        tiposRepositorio.obterResumoAtividadesPlaneaveis()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new Observer<List<ResumoTipo>>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onNext(List<ResumoTipo> registos) {
+                                tipos.setValue(registos);
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onComplete() {
+                                showProgressBar(false);
+                            }
+                        }
+
+
+                );
+
+    }
+
 
 
 
@@ -278,7 +326,7 @@ public class OpcoesViewModel extends BaseViewModel {
      * Metodo que permite recarregar todos os registos
      * @param tipo o identificador
      */
-    public void recarregarRegistos(int tipo, Handler handlerNotificacoesUI){
+    public void recarregarRegistos(int tipo, Activity activity, Handler handlerNotificacoesUI){
 
         switch(tipo){
 
@@ -295,6 +343,11 @@ public class OpcoesViewModel extends BaseViewModel {
             case Identificadores.Atualizacoes.CHECKLIST:
 
                 recarregarChecklist(handlerNotificacoesUI);
+                break;
+
+            case Identificadores.Atualizacoes.ATIVIDADES_PLANEAVEIS:
+
+                recarregarAtividadesPlaneaveis(activity, handlerNotificacoesUI);
                 break;
 
             default:
@@ -450,6 +503,53 @@ public class OpcoesViewModel extends BaseViewModel {
 
                 );
     }
+
+
+
+    /**
+     * Metodo que permite recarregar as atividades planeaveis
+     */
+    private void recarregarAtividadesPlaneaveis(Activity atividade, Handler handlerNotificacoesUI){
+
+        showProgressBar(true);
+
+        List<ITipoListagem> respostas = new ArrayList<>();
+
+        try {
+            tiposRepositorio.obterAtividadesPlaneaveis()
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+
+                            new SingleObserver<ITipoAtividadePlaneavelListagem>() {
+                                @Override
+                                public void onSubscribe(Disposable d) {
+                                    disposables.add(d);
+                                }
+
+                                @Override
+                                public void onSuccess(ITipoAtividadePlaneavelListagem iTipoAtividadePlaneavelListagem) {
+                                    CarregarTipoAtividadesPlaneaveisAsyncTask servico = new CarregarTipoAtividadesPlaneaveisAsyncTask(atividade, vvmshBaseDados, handlerNotificacoesUI, tiposRepositorio);
+                                    servico.execute(iTipoAtividadePlaneavelListagem);
+
+                                    showProgressBar(false);
+                                }
+
+                                @Override
+                                public void onError(Throwable e) {
+                                    showProgressBar(false);
+                                }
+                            }
+                    );
+        } catch (TipoInexistenteException e) {
+            showProgressBar(false);
+            messagemLiveData.setValue(Recurso.erro(e.getMessage()));
+        }
+
+
+    }
+
+
 
 
     //------------------

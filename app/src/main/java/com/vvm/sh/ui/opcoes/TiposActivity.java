@@ -169,7 +169,7 @@ public class TiposActivity extends BaseDaggerActivity
 
             case R.id.item_recarregar_geral:
 
-                viewModel.recarregarRegistos(bundle.getInt(getString(R.string.argumento_id_tipo)), handlerNotificacoesUI);
+                viewModel.recarregarRegistos( bundle.getInt(getString(R.string.argumento_id_tipo)), TiposActivity.this, handlerNotificacoesUI);
                 break;
 
             default:

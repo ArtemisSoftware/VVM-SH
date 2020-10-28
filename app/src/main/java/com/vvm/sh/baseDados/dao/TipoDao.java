@@ -11,6 +11,7 @@ import com.vvm.sh.baseDados.entidades.AreaChecklist;
 import com.vvm.sh.baseDados.entidades.CheckList;
 import com.vvm.sh.baseDados.entidades.ItemChecklist;
 import com.vvm.sh.baseDados.entidades.SeccaoChecklist;
+import com.vvm.sh.baseDados.entidades.TipoAtividadePlaneavel;
 import com.vvm.sh.baseDados.entidades.TipoTemplateAvrLevantamento;
 import com.vvm.sh.baseDados.entidades.TipoTemplateAvrRisco;
 import com.vvm.sh.baseDados.entidades.TipoTemplatesAVRMedidaRisco;
@@ -75,6 +76,12 @@ abstract public class TipoDao implements BaseDao<Tipo> {
     @Update
     abstract public Integer atualizarTemplatesAVRMedidaRisco(List<TipoTemplatesAVRMedidaRisco> tipo);
 
+    @Insert
+    abstract public List<Long> inserirAtividadesPlaneaiveis(List<TipoAtividadePlaneavel> registo);
+
+    @Update
+    abstract public Integer atualizarAtividadesPlaneaiveis(List<TipoAtividadePlaneavel> tipo);
+
 
     @Query("DELETE FROM tiposTemplatesAVRMedidasRisco WHERE id = :id AND origem = :origem")
     abstract public void removerTemplatesAVRMedidaRisco(int id, int origem);
@@ -101,6 +108,13 @@ abstract public class TipoDao implements BaseDao<Tipo> {
     abstract public Observable<List<ResumoChecklist>> obterResumoChecklist();
 
 
+
+    @Query("SELECT *, 0 as numeroRegistosSA, numeroRegistosSHT " +
+            "FROM atualizacoes as atl " +
+            "LEFT JOIN (SELECT " + Identificadores.Atualizacoes.ATIVIDADES_PLANEAVEIS + " as tipo, COUNT(id) as numeroRegistosSHT FROM tiposAtividadesPlaneaveis WHERE ativo = 1) as tp_sht ON atl.tipo = tp_sht.tipo " +
+            "WHERE atl.tipo = " + Identificadores.Atualizacoes.ATIVIDADES_PLANEAVEIS + " " +
+            "ORDER BY descricao ASC")
+    abstract public Observable<List<ResumoTipo>> obterResumoAtividadesPlaneaveis();
 
 //    @Query("SELECT descricao, numeroRegistosSA, numeroRegistosSHT, seloTemporal " +
 //            "FROM(" +

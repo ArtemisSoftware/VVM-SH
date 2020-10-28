@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 
 import com.vvm.sh.api.SegurancaAlimentarApi;
 import com.vvm.sh.api.SegurancaTrabalhoApi;
+import com.vvm.sh.api.modelos.pedido.ITipoAtividadePlaneavelListagem;
 import com.vvm.sh.api.modelos.pedido.ITipoChecklist;
 import com.vvm.sh.api.modelos.pedido.ITipoListagem;
 import com.vvm.sh.api.modelos.pedido.ITipoTemplateAvrLevantamentoListagem;
@@ -16,6 +17,7 @@ import com.vvm.sh.baseDados.entidades.CheckList;
 import com.vvm.sh.baseDados.entidades.ItemChecklist;
 import com.vvm.sh.baseDados.entidades.SeccaoChecklist;
 import com.vvm.sh.baseDados.entidades.Tipo;
+import com.vvm.sh.baseDados.entidades.TipoAtividadePlaneavel;
 import com.vvm.sh.baseDados.entidades.TipoTemplateAvrLevantamento;
 import com.vvm.sh.baseDados.entidades.TipoTemplateAvrRisco;
 import com.vvm.sh.baseDados.entidades.TipoTemplatesAVRMedidaRisco;
@@ -101,11 +103,22 @@ public class TiposRepositorio {
 
 
 
+    //------------
+    //Atividades planeaveis
+    //------------
+
+    /**
+     * Metodo que permite obter o resumo das atividades planeaveis
+     * @return uma lista
+     */
+    public Observable<List<ResumoTipo>> obterResumoAtividadesPlaneaveis() {
+        return tipoDao.obterResumoAtividadesPlaneaveis();
+    }
 
 
-
-
-
+    public Single<ITipoAtividadePlaneavelListagem> obterAtividadesPlaneaveis() throws TipoInexistenteException {
+        return apiST.obterTipoAtividadesPlaneaveis(SegurancaTrabalhoApi.HEADER_TIPO);
+    }
 
 
 
@@ -238,6 +251,8 @@ public class TiposRepositorio {
 
         return single;
     }
+
+
 
 
 
@@ -420,6 +435,26 @@ public class TiposRepositorio {
 
         tipoDao.inserirTemplatesAVRMedidaRisco(medidas);
         tipoDao.inserirTemplatesAVRMedidaRisco(medidasAlteradas);
+    }
+
+
+
+    /**
+     * Metodo que permite carregar um tipo<br>
+     *     1->Remover a atualizacao e os dados<br>
+     *     2->Inserir novo timestamp<br>
+     *     3->inserir novos dados
+     * @param atualizacao os dados da atualizacao
+     * @param dadosNovos os dados a inserir
+     * @param dadosAlteradaos os dados a alterar
+     */
+    public void carregarAtividadesPlaneaveis(Atualizacao atualizacao, List<TipoAtividadePlaneavel> dadosNovos, List<TipoAtividadePlaneavel> dadosAlteradaos){
+
+        atualizacaoDao.remover(atualizacao.descricao);
+
+        atualizacaoDao.inserirRegisto(atualizacao);
+        tipoDao.inserirAtividadesPlaneaiveis(dadosNovos);
+        tipoDao.atualizarAtividadesPlaneaiveis(dadosAlteradaos);
     }
 
 }

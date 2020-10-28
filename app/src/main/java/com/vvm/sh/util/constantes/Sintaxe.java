@@ -140,6 +140,7 @@ public class Sintaxe {
         public static final String GERAR_PDF = "A gerar o pdf...";
         public static final String GERAR_PRE_VISUALIZACAO_PDF = "A gerar a pré-visiualização do pdf...";
         public static final String ENVIAR_EMAIL = "A enviar o email...";
+        public static final String CARREGAR_ATIVIDADES_PLANEAVEIS = "A carregar atividades planeaveis...";
     }
 
     public class API {

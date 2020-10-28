@@ -76,6 +76,15 @@ public class OpcoesAvancadasActivity extends BaseActivity {
     }
 
 
+    @OnClick(R.id.lnr_lyt_atividades_planeaveis)
+    public void lnr_lyt_atividades_planeaveis_OnClickListener(View view) {
+
+        Intent intent;
+        intent = new Intent(this, TiposActivity.class);
+        intent.putExtra(getString(R.string.argumento_id_tipo), Identificadores.Atualizacoes.ATIVIDADES_PLANEAVEIS);
+        startActivity(intent);
+    }
+
 
 
     @OnClick(R.id.lnr_lyt_exportar_bd)

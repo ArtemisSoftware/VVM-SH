@@ -8,6 +8,7 @@ import androidx.room.Transaction;
 
 import com.vvm.sh.api.modelos.bd.AreaBd;
 import com.vvm.sh.api.modelos.bd.AtividadePendenteBd;
+import com.vvm.sh.api.modelos.bd.AtividadePlanoAcaoBd;
 import com.vvm.sh.api.modelos.bd.FormandoBd;
 import com.vvm.sh.api.modelos.bd.RegistoVisitaBd;
 import com.vvm.sh.api.modelos.bd.RelatorioAmbientalBd;
@@ -320,22 +321,14 @@ abstract public class TransferenciasDao implements BaseDao<Resultado> {
     public abstract Integer obterCapaRelatorio(int idTarefa);
 
 
-//    String query = "SELECT IFNULL(pla_res.servID, '') as servID, data, servicoTP, ordem ";
-//    query += "FROM planoAcao_resultado as pla_res ";
-//    query += "OUTER LEFT JOIN (SELECT idTarefa, servicoTP FROM clientes) as clt ON pla_res.idTarefa = clt.idTarefa ";
-//    query += "OUTER LEFT JOIN (SELECT DISTINCT servId, ordem  FROM actividadesPlaneaveis) as act_pln ON pla_res.servID = act_pln.servId ";
-//    query += "WHERE pla_res.idTarefa = ? ";
-//
-//    String argumentos [] = {
-//            idTarefa + ""
-//    };
+
 
     @Query("SELECT IFNULL(plano_acao_res.servId, '') as servId, data, servicoTp, ordem " +
             "FROM planoAccaoResultado as plano_acao_res " +
             "LEFT JOIN (SELECT idTarefa, servicoTp FROM clientes) as clt ON plano_acao_res.idTarefa = clt.idTarefa " +
             "LEFT JOIN (SELECT DISTINCT servId, ordem  FROM tiposAtividadesPlaneaveis) as act_pln ON plano_acao_res.servId = act_pln.servId " +
-            "WHERE idTarefa = :idTarefa ")
-    public abstract Integer obterPlanoAcao(int idTarefa);
+            "WHERE plano_acao_res.idTarefa = :idTarefa ")
+    public abstract List<AtividadePlanoAcaoBd> obterPlanoAcao(int idTarefa);
 
     //-------------------
     //TRABALHO

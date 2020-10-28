@@ -333,6 +333,7 @@ public class Identificadores {
         public static final int TIPO = 1;
         public static final int TEMPLATE = 2;
         public static final int CHECKLIST = 3;
+        public static final int ATIVIDADES_PLANEAVEIS = 4;
     }
 
     public class Download {

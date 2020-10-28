@@ -1,5 +1,6 @@
-package com.vvm.sh.servicos;
+package com.vvm.sh.servicos.tipos;
 
+import android.app.Activity;
 import android.database.sqlite.SQLiteConstraintException;
 import android.os.AsyncTask;
 import android.os.Handler;
@@ -16,7 +17,9 @@ import com.vvm.sh.repositorios.TiposRepositorio;
 import com.vvm.sh.ui.opcoes.modelos.TemplateAvr;
 import com.vvm.sh.util.AtualizacaoUI;
 import com.vvm.sh.util.constantes.Identificadores;
+import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.mapeamento.DownloadMapping;
+import com.vvm.sh.util.metodos.MensagensUtil;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -28,6 +31,7 @@ public class CarregarTipoTemplatesAvrAsyncTask extends AsyncTask<TemplateAvr, Vo
     private String errorMessage;
     private VvmshBaseDados vvmshBaseDados;
     private TiposRepositorio repositorio;
+    private MensagensUtil dialogo;
 
 
     /**
@@ -35,10 +39,16 @@ public class CarregarTipoTemplatesAvrAsyncTask extends AsyncTask<TemplateAvr, Vo
      */
     private AtualizacaoUI atualizacaoUI;
 
-    public CarregarTipoTemplatesAvrAsyncTask(VvmshBaseDados vvmshBaseDados, Handler handlerUI, TiposRepositorio repositorio){
+    public CarregarTipoTemplatesAvrAsyncTask(Activity activity, VvmshBaseDados vvmshBaseDados, Handler handlerUI, TiposRepositorio repositorio){
         this.vvmshBaseDados = vvmshBaseDados;
         this.repositorio = repositorio;
         atualizacaoUI = new AtualizacaoUI(handlerUI);
+        dialogo = new MensagensUtil(activity);
+    }
+
+    @Override
+    protected void onPreExecute() {
+        dialogo.progresso(true, Sintaxe.Frases.CARREGAR_TEMPLATES);
     }
 
 
@@ -58,7 +68,6 @@ public class CarregarTipoTemplatesAvrAsyncTask extends AsyncTask<TemplateAvr, Vo
 
                 try {
 
-
                     List<TipoTemplateAvrLevantamento> dadosNovos = new ArrayList<>();
                     List<TipoTemplateAvrLevantamento> dadosAlterados = new ArrayList<>();
 
@@ -75,14 +84,13 @@ public class CarregarTipoTemplatesAvrAsyncTask extends AsyncTask<TemplateAvr, Vo
                     }
 
 
-
-
                     List<TipoTemplateAvrRisco> dadosNovosRiscos = new ArrayList<>();
                     List<TipoTemplateAvrRisco> dadosAlteradosRiscos = new ArrayList<>();
 
-                    List<TipoTemplatesAVRMedidaRisco> medidas = new ArrayList<>();
-                    List<TipoTemplatesAVRMedidaRisco> medidasAlteradas = new ArrayList<>();
-
+                    List<TipoTemplatesAVRMedidaRisco> medidasExistentes = new ArrayList<>();
+                    List<TipoTemplatesAVRMedidaRisco> medidasAlteradasExistentes = new ArrayList<>();
+                    List<TipoTemplatesAVRMedidaRisco> medidasRecomendadas = new ArrayList<>();
+                    List<TipoTemplatesAVRMedidaRisco> medidasAlteradasRecomendadas = new ArrayList<>();
 
                     Atualizacao atualizacaoRisco = DownloadMapping.INSTANCE.map(resposta.riscos);
 
@@ -92,11 +100,11 @@ public class CarregarTipoTemplatesAvrAsyncTask extends AsyncTask<TemplateAvr, Vo
                         dadosNovosRiscos.add(registo);
 
                         for(int medida : item.medidasExistentes){
-                            medidas.add(new TipoTemplatesAVRMedidaRisco(registo.id, Identificadores.Origens.MEDIDAS_RISCO_EXISTENTES, medida));
+                            medidasExistentes.add(new TipoTemplatesAVRMedidaRisco(registo.id, Identificadores.Origens.MEDIDAS_RISCO_EXISTENTES, medida));
                         }
 
                         for(int medida : item.medidasRecomendadas){
-                            medidas.add(new TipoTemplatesAVRMedidaRisco(registo.id, Identificadores.Origens.MEDIDAS_RISCO_RECOMENDADAS, medida));
+                            medidasRecomendadas.add(new TipoTemplatesAVRMedidaRisco(registo.id, Identificadores.Origens.MEDIDAS_RISCO_RECOMENDADAS, medida));
                         }
                     }
 
@@ -106,17 +114,19 @@ public class CarregarTipoTemplatesAvrAsyncTask extends AsyncTask<TemplateAvr, Vo
                         dadosAlteradosRiscos.add(registo);
 
                         for(int medida : item.medidasExistentes){
-                            medidasAlteradas.add(new TipoTemplatesAVRMedidaRisco(registo.id, Identificadores.Origens.MEDIDAS_RISCO_EXISTENTES, medida));
+                            medidasAlteradasExistentes.add(new TipoTemplatesAVRMedidaRisco(registo.id, Identificadores.Origens.MEDIDAS_RISCO_EXISTENTES, medida));
                         }
 
                         for(int medida : item.medidasRecomendadas){
-                            medidasAlteradas.add(new TipoTemplatesAVRMedidaRisco(registo.id, Identificadores.Origens.MEDIDAS_RISCO_RECOMENDADAS, medida));
+                            medidasAlteradasRecomendadas.add(new TipoTemplatesAVRMedidaRisco(registo.id, Identificadores.Origens.MEDIDAS_RISCO_RECOMENDADAS, medida));
                         }
                     }
 
 
 
-                    repositorio.carregarTipoTemplateAvr(atualizacao, dadosNovos, dadosAlterados, atualizacaoRisco, dadosNovosRiscos, medidas, dadosAlteradosRiscos, medidasAlteradas);
+                    repositorio.carregarTipoTemplateAvr(atualizacao, dadosNovos, dadosAlterados,
+                                                        atualizacaoRisco, dadosNovosRiscos, dadosAlteradosRiscos,
+                                                        medidasExistentes, medidasAlteradasExistentes, medidasRecomendadas, medidasAlteradasRecomendadas);
 
 
 
@@ -128,5 +138,10 @@ public class CarregarTipoTemplatesAvrAsyncTask extends AsyncTask<TemplateAvr, Vo
         });
 
         return null;
+    }
+
+    @Override
+    protected void onPostExecute(Void aVoid) {
+        dialogo.terminarProgresso();
     }
 }

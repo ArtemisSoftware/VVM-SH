@@ -5,6 +5,7 @@ import androidx.annotation.NonNull;
 import com.vvm.sh.api.SegurancaTrabalhoApi;
 import com.vvm.sh.api.modelos.bd.AreaBd;
 import com.vvm.sh.api.modelos.bd.AtividadePendenteBd;
+import com.vvm.sh.api.modelos.bd.AtividadePlanoAcaoBd;
 import com.vvm.sh.api.modelos.bd.FormandoBd;
 import com.vvm.sh.api.SegurancaAlimentarApi;
 import com.vvm.sh.api.modelos.bd.RegistoVisitaBd;
@@ -373,6 +374,11 @@ public class TransferenciasRepositorio {
     public int obterCapaRelatorio(int idTarefa) {
         return transferenciasDao.obterCapaRelatorio(idTarefa);
     }
+
+    public List<AtividadePlanoAcaoBd> obterPlanoAcao(int idTarefa) {
+        return transferenciasDao.obterPlanoAcao(idTarefa);
+    }
+
 
     //---------------------------
     //DOWNLOAD

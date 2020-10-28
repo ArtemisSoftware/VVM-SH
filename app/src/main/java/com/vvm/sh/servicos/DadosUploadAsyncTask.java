@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 import android.os.Handler;
 
 import com.vvm.sh.api.modelos.bd.AreaBd;
+import com.vvm.sh.api.modelos.bd.AtividadePlanoAcaoBd;
 import com.vvm.sh.api.modelos.bd.RegistoVisitaBd;
 import com.vvm.sh.api.modelos.bd.RelatorioAmbientalBd;
 import com.vvm.sh.api.modelos.envio.AcaoFormacao;
@@ -13,6 +14,7 @@ import com.vvm.sh.api.modelos.envio.AtividadePendente;
 import com.vvm.sh.api.modelos.envio.AtividadePendenteExecutada;
 import com.vvm.sh.api.modelos.envio.AtividadePendenteNaoExecutada;
 import com.vvm.sh.api.modelos.bd.AtividadePendenteBd;
+import com.vvm.sh.api.modelos.envio.AtividadePlanoAcao;
 import com.vvm.sh.api.modelos.envio.AvaliacaoIluminacao;
 import com.vvm.sh.api.modelos.envio.AvaliacaoRiscos;
 import com.vvm.sh.api.modelos.envio.AvaliacaoTemperaturaHumidade;
@@ -172,6 +174,23 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
 
                         dadosFormulario.registoVisita = obterRegistoVisita(resultado.idTarefa);
                         break;
+
+
+                    case ID_PLANO_ACAO:
+
+                        dadosFormulario.fixarAtividadePlanoAcao(obterPlanoAcao(resultado.idTarefa));
+                        break;
+
+
+//                    case ID_SINISTRALIDADE:
+//
+//                        dadosFormulario.fixarSinistralidade(obterSinistralidade(resultado.idTarefa));
+//                        break;
+//
+//                    case ID_QUADRO_PESSOAL:
+//
+//                        dadosFormulario.fixarQuadroPessoal(obterQuadroPessoal(resultado.idTarefa));
+//                        break;
 
                     default:
                         break;
@@ -483,6 +502,21 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
 
         return registos;
     }
+
+
+    private List<AtividadePlanoAcao> obterPlanoAcao(int idTarefa) {
+
+        List<AtividadePlanoAcao> registos = new ArrayList<>();
+
+        for (AtividadePlanoAcaoBd item : repositorio.obterPlanoAcao(idTarefa)) {
+
+            AtividadePlanoAcao registo = UploadMapping.INSTANCE.map(item);
+            registos.add(registo);
+        }
+
+        return registos;
+    }
+
 
 
     /**

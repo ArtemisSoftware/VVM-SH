@@ -66,12 +66,12 @@ public interface DownloadMapping {
     Atualizacao map(ITipoListagem resposta);
 
 
-
     @Mapping(target = "descricao", source = "metodo")
+    @Mapping(target = "tipo", constant = Identificadores.Atualizacoes.TEMPLATE + "")
     Atualizacao map(ITipoTemplateAvrLevantamentoListagem levantamentos);
 
     @Mapping(target = "descricao", source = "metodo")
-    @Mapping(target = "tipo", ignore = true)
+    @Mapping(target = "tipo", constant = Identificadores.Atualizacoes.TEMPLATE + "")
     Atualizacao map(ITipoTemplateAvrRiscoListagem riscos);
 
     @Mapping(target = "descricao", source = "metodo")

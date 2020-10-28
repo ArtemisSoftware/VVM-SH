@@ -9,6 +9,7 @@ import androidx.room.Transaction;
 import com.vvm.sh.api.modelos.bd.AreaBd;
 import com.vvm.sh.api.modelos.bd.AtividadePendenteBd;
 import com.vvm.sh.api.modelos.bd.AtividadePlanoAcaoBd;
+import com.vvm.sh.api.modelos.bd.ColaboradorBd;
 import com.vvm.sh.api.modelos.bd.FormandoBd;
 import com.vvm.sh.api.modelos.bd.RegistoVisitaBd;
 import com.vvm.sh.api.modelos.bd.RelatorioAmbientalBd;
@@ -38,6 +39,7 @@ import com.vvm.sh.baseDados.entidades.RegistoVisitaResultado;
 import com.vvm.sh.baseDados.entidades.Resultado;
 import com.vvm.sh.baseDados.entidades.EmailResultado;
 import com.vvm.sh.baseDados.entidades.RiscoResultado;
+import com.vvm.sh.baseDados.entidades.SinistralidadeResultado;
 import com.vvm.sh.baseDados.entidades.Tarefa;
 import com.vvm.sh.baseDados.entidades.AnomaliaResultado;
 import com.vvm.sh.baseDados.entidades.OcorrenciaResultado;
@@ -47,6 +49,7 @@ import com.vvm.sh.baseDados.entidades.TipoExtintor;
 import com.vvm.sh.baseDados.entidades.TipoNovo;
 import com.vvm.sh.baseDados.entidades.TrabalhadorVulneravelResultado;
 import com.vvm.sh.baseDados.entidades.TrabalhoRealizadoResultado;
+import com.vvm.sh.ui.quadroPessoal.modelos.ColaboradorRegisto;
 import com.vvm.sh.ui.transferencias.modelos.Pendencia;
 import com.vvm.sh.ui.transferencias.modelos.Upload;
 import com.vvm.sh.util.constantes.Identificadores;
@@ -329,6 +332,21 @@ abstract public class TransferenciasDao implements BaseDao<Resultado> {
             "LEFT JOIN (SELECT DISTINCT servId, ordem  FROM tiposAtividadesPlaneaveis) as act_pln ON plano_acao_res.servId = act_pln.servId " +
             "WHERE plano_acao_res.idTarefa = :idTarefa ")
     public abstract List<AtividadePlanoAcaoBd> obterPlanoAcao(int idTarefa);
+
+    @Query("SELECT * FROM sinistralidadesResultado WHERE idTarefa = :idTarefa ")
+    public abstract SinistralidadeResultado obterSinistralidade(int idTarefa);
+
+
+
+
+    @Query("SELECT clb_res.idRegisto as id, " +
+            "IFNULL(clb_res.nome, clb.nome) as nome, " +
+            "idMorada, sexo, " +
+            "IFNULL(clb_res.estado, clb.estado) as estado , dataNascimento, dataAdmissao, dataAdmissaoFuncao, idCategoriaProfissional, posto, profissao " +
+            "FROM colaboradoresResultado as clb_res " +
+            "LEFT JOIN (SELECT nome, id, estado FROM colaboradores) as clb ON clb_res.id = clb.id " +
+            "WHERE idTarefa = :idTarefa ")
+    public abstract List<ColaboradorBd> obterColaboradores(int idTarefa);
 
     //-------------------
     //TRABALHO

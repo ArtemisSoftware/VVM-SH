@@ -32,6 +32,7 @@ import com.vvm.sh.util.metodos.TiposUtil;
 import java.util.ArrayList;
 import java.util.List;
 
+import io.reactivex.Completable;
 import io.reactivex.Flowable;
 import io.reactivex.Maybe;
 import io.reactivex.Observable;
@@ -121,8 +122,13 @@ public class TiposRepositorio {
     }
 
 
+    //------------
+    //templates
+    //------------
 
-
+    public Observable<List<ResumoTipo>> obterResumoTemplate() {
+        return tipoDao.obterResumoTemplates();
+    }
 
 
 
@@ -364,11 +370,14 @@ public class TiposRepositorio {
     }
 
 
-    public void inserirChecklist(Atualizacao atualizacao, List<Tipo> tipos){
+    public void carregarChecklist(Atualizacao atualizacao, List<Tipo> tipos){
         atualizacaoDao.remover(atualizacao.descricao);
         atualizacaoDao.inserirRegisto(atualizacao);
         tipoDao.inserir(tipos);
     }
+
+
+
 
     /**
      * Metodo que permite inserir uma checklist
@@ -377,11 +386,9 @@ public class TiposRepositorio {
      * @param seccoes
      * @param itens
      */
-    public void inserirChecklist(CheckList checkList, List<AreaChecklist> areas, List<SeccaoChecklist> seccoes, List<ItemChecklist> itens) {
-
+    public void carregarChecklist(CheckList checkList, List<AreaChecklist> areas, List<SeccaoChecklist> seccoes, List<ItemChecklist> itens) {
 
         tipoDao.remover(checkList);
-
 
         tipoDao.inserir(checkList);
         tipoDao.inserirAreasChecklist(areas);
@@ -390,51 +397,74 @@ public class TiposRepositorio {
 
     }
 
+
+
     public void carregarTipoTemplateAvr(Atualizacao atualizacaoLevantamento, List<TipoTemplateAvrLevantamento> dadosNovosLevantamento, List<TipoTemplateAvrLevantamento> dadosAlteradosLevantamento,
                                         Atualizacao atualizacaoRisco,
-                                        List<TipoTemplateAvrRisco> dadosNovosRiscos, List<TipoTemplatesAVRMedidaRisco> medidas,
-                                        List<TipoTemplateAvrRisco> dadosAlteradosRiscos, List<TipoTemplatesAVRMedidaRisco> medidasAlteradas) {
+                                        List<TipoTemplateAvrRisco> dadosNovosRiscos, List<TipoTemplateAvrRisco> dadosAlteradosRiscos,
+                                        List<TipoTemplatesAVRMedidaRisco> medidasExistentes, List<TipoTemplatesAVRMedidaRisco> medidasAlteradasExistentes,
+                                        List<TipoTemplatesAVRMedidaRisco> medidasRecomendadas, List<TipoTemplatesAVRMedidaRisco> medidasAlteradasRecomendadas) {
+
+
+        atualizacaoDao.remover(atualizacaoRisco.descricao);
+        atualizacaoDao.remover(atualizacaoLevantamento.descricao);
+
+        tipoDao.removerTemplatesAVRMedidaRisco();
+        tipoDao.removerTemplatesAVRRisco();
+        tipoDao.removerTemplatesAVRLevantamentos();
+
 
         //levantamento
 
-        if(atualizacaoDao.existeRegisto(atualizacaoLevantamento.descricao) == true){
-            atualizacaoDao.atualizarRegisto(atualizacaoLevantamento);
-        }
-        else{
-            atualizacaoDao.inserirRegisto(atualizacaoLevantamento);
-        }
-
-
+        atualizacaoDao.inserirRegisto(atualizacaoLevantamento);
         tipoDao.inserirTemplateAvrLevantamento(dadosNovosLevantamento);
         tipoDao.atualizarTemplateAvrLevantamento(dadosAlteradosLevantamento);
 
 
         //riscos
 
-        if(atualizacaoDao.existeRegisto(atualizacaoRisco.descricao) == true){
-            atualizacaoDao.atualizarRegisto(atualizacaoRisco);
-        }
-        else{
-            atualizacaoDao.inserirRegisto(atualizacaoRisco);
-        }
-
-
+        atualizacaoDao.inserirRegisto(atualizacaoRisco);
         tipoDao.inserirTemplateAvrRisco(dadosNovosRiscos);
         tipoDao.atualizarTemplateAvrRisco(dadosAlteradosRiscos);
 
-        /*Medidas*/
 
-        for(TipoTemplateAvrRisco item : dadosAlteradosRiscos){
+        //medidas
 
-            tipoDao.removerTemplatesAVRMedidaRisco(item.id, Identificadores.Origens.MEDIDAS_RISCO_RECOMENDADAS);
-            tipoDao.removerTemplatesAVRMedidaRisco(item.id, Identificadores.Origens.MEDIDAS_RISCO_EXISTENTES);
+        List<TipoTemplatesAVRMedidaRisco> medidas = new ArrayList<>();
+        List<TipoTemplatesAVRMedidaRisco> medidasAlteradas = new ArrayList<>();
+
+        for(TipoTemplatesAVRMedidaRisco item : medidasExistentes){
+
+            if(tipoDao.filtrarMedidaExistentesTemplate(item.id) == true){
+                medidas.add(item);
+            }
+        }
+
+        for(TipoTemplatesAVRMedidaRisco item : medidasAlteradasExistentes){
+
+            if(tipoDao.filtrarMedidaExistentesTemplate(item.id) == true){
+                medidasAlteradas.add(item);
+            }
         }
 
 
-        //TODO: verificar se as medidas estão ativias , depois filtrar e depois inserir
+        for(TipoTemplatesAVRMedidaRisco item : medidasRecomendadas){
+
+            if(tipoDao.filtrarMedidaRecomendadasTemplate(item.id) == true){
+                medidas.add(item);
+            }
+        }
+
+        for(TipoTemplatesAVRMedidaRisco item : medidasAlteradasRecomendadas){
+
+            if(tipoDao.filtrarMedidaRecomendadasTemplate(item.id) == true){
+                medidasAlteradas.add(item);
+            }
+        }
 
         tipoDao.inserirTemplatesAVRMedidaRisco(medidas);
         tipoDao.inserirTemplatesAVRMedidaRisco(medidasAlteradas);
+
     }
 
 
@@ -451,10 +481,12 @@ public class TiposRepositorio {
     public void carregarAtividadesPlaneaveis(Atualizacao atualizacao, List<TipoAtividadePlaneavel> dadosNovos, List<TipoAtividadePlaneavel> dadosAlteradaos){
 
         atualizacaoDao.remover(atualizacao.descricao);
+        tipoDao.removerAtividadesPlaneaveis();
 
         atualizacaoDao.inserirRegisto(atualizacao);
         tipoDao.inserirAtividadesPlaneaiveis(dadosNovos);
         tipoDao.atualizarAtividadesPlaneaiveis(dadosAlteradaos);
     }
+
 
 }

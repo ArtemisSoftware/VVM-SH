@@ -12,8 +12,8 @@ import com.vvm.sh.api.modelos.pedido.ITipoListagem;
 import com.vvm.sh.api.modelos.VersaoApp;
 import com.vvm.sh.repositorios.TiposRepositorio;
 import com.vvm.sh.repositorios.VersaoAppRepositorio;
-import com.vvm.sh.servicos.CarregarTipoChecklistAsyncTask;
-import com.vvm.sh.servicos.CarregarTipoTemplatesAvrAsyncTask;
+import com.vvm.sh.servicos.tipos.CarregarTipoChecklistAsyncTask;
+import com.vvm.sh.servicos.tipos.CarregarTipoTemplatesAvrAsyncTask;
 import com.vvm.sh.servicos.instalacaoApp.DownloadApkAsyncTask;
 import com.vvm.sh.servicos.instalacaoApp.InstalarApkAsyncTask;
 import com.vvm.sh.servicos.AtualizarTipoAsyncTask;
@@ -82,6 +82,7 @@ public class OpcoesViewModel extends BaseViewModel {
 
             case Identificadores.Atualizacoes.TEMPLATE:
 
+                obterResumoTemplate();
                 break;
 
             case Identificadores.Atualizacoes.CHECKLIST:
@@ -200,6 +201,50 @@ public class OpcoesViewModel extends BaseViewModel {
                 );
 
     }
+
+
+
+    /**
+     * Metodo que permite obter o resumo dos templates existentes
+     */
+    private void obterResumoTemplate(){
+
+        showProgressBar(true);
+
+        tiposRepositorio.obterResumoTemplate()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new Observer<List<ResumoTipo>>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onNext(List<ResumoTipo> registos) {
+                                tipos.setValue(registos);
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onComplete() {
+                                showProgressBar(false);
+                            }
+                        }
+
+
+                );
+
+    }
+
+
 
 
     /**
@@ -337,12 +382,12 @@ public class OpcoesViewModel extends BaseViewModel {
 
             case Identificadores.Atualizacoes.TEMPLATE:
 
-                recarregarTemplates(handlerNotificacoesUI);
+                recarregarTemplates(activity, handlerNotificacoesUI);
                 break;
 
             case Identificadores.Atualizacoes.CHECKLIST:
 
-                recarregarChecklist(handlerNotificacoesUI);
+                recarregarChecklist(activity, handlerNotificacoesUI);
                 break;
 
             case Identificadores.Atualizacoes.ATIVIDADES_PLANEAVEIS:
@@ -417,7 +462,7 @@ public class OpcoesViewModel extends BaseViewModel {
     /**
      * Metodo que permite recarregar templates
      */
-    private void recarregarTemplates(Handler handlerNotificacoesUI){
+    private void recarregarTemplates(Activity atividade, Handler handlerNotificacoesUI){
 
         showProgressBar(true);
 
@@ -437,7 +482,7 @@ public class OpcoesViewModel extends BaseViewModel {
                                 @Override
                                 public void onSuccess(TemplateAvr templateAvr) {
 
-                                    CarregarTipoTemplatesAvrAsyncTask servico = new CarregarTipoTemplatesAvrAsyncTask(vvmshBaseDados, handlerNotificacoesUI, tiposRepositorio);
+                                    CarregarTipoTemplatesAvrAsyncTask servico = new CarregarTipoTemplatesAvrAsyncTask(atividade, vvmshBaseDados, handlerNotificacoesUI, tiposRepositorio);
                                     servico.execute(templateAvr);
                                     showProgressBar(false);
                                 }
@@ -458,7 +503,7 @@ public class OpcoesViewModel extends BaseViewModel {
     /**
      * Metodo que permite recarregar as checklists
      */
-    private void recarregarChecklist(Handler handlerNotificacoesUI){
+    private void recarregarChecklist(Activity atividade, Handler handlerNotificacoesUI){
 
         showProgressBar(true);
         List<ITipoChecklist> respostasChecklist = new ArrayList<>();
@@ -494,7 +539,7 @@ public class OpcoesViewModel extends BaseViewModel {
 
                             @Override
                             public void onComplete() {
-                                CarregarTipoChecklistAsyncTask servico = new CarregarTipoChecklistAsyncTask(vvmshBaseDados, handlerNotificacoesUI, tiposRepositorio);
+                                CarregarTipoChecklistAsyncTask servico = new CarregarTipoChecklistAsyncTask(atividade, vvmshBaseDados, handlerNotificacoesUI, tiposRepositorio);
                                 servico.execute(respostasChecklist);
 
                                 showProgressBar(false);

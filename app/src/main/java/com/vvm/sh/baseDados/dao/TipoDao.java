@@ -83,10 +83,27 @@ abstract public class TipoDao implements BaseDao<Tipo> {
     abstract public Integer atualizarAtividadesPlaneaiveis(List<TipoAtividadePlaneavel> tipo);
 
 
-    @Query("DELETE FROM tiposTemplatesAVRMedidasRisco WHERE id = :id AND origem = :origem")
-    abstract public void removerTemplatesAVRMedidaRisco(int id, int origem);
+    @Query("SELECT CASE WHEN ativo = 1 THEN 1 ELSE 0 END valido " +
+            "FROM tipos WHERE id  =:id AND tipo ='" + TiposUtil.MetodosTipos.MEDIDAS_PREVENCAO_RECOMENDADAS +"' ")
+    abstract public boolean filtrarMedidaRecomendadasTemplate(int id);
+
+    @Query("SELECT CASE WHEN ativo = 1 THEN 1 ELSE 0 END valido " +
+            "FROM tipos WHERE id  =:id AND tipo ='" + TiposUtil.MetodosTipos.MEDIDAS_PREVENCAO_ADOPTADAS +"' ")
+    abstract public boolean filtrarMedidaExistentesTemplate(int id);
 
 
+    @Query("DELETE FROM tiposTemplateAvrLevantamentos ")
+    abstract public void removerTemplatesAVRLevantamentos();
+
+    @Query("DELETE FROM tiposTemplateAvrRiscos ")
+    abstract public void removerTemplatesAVRRisco();
+
+    @Query("DELETE FROM tiposTemplatesAVRMedidasRisco ")
+    abstract public void removerTemplatesAVRMedidaRisco();
+
+
+    @Query("DELETE FROM tiposAtividadesPlaneaveis ")
+    abstract public void removerAtividadesPlaneaveis();
 
 
 
@@ -99,11 +116,18 @@ abstract public class TipoDao implements BaseDao<Tipo> {
     abstract public Observable<List<ResumoTipo>> obterResumoTipos();
 
 
-    @Query("SELECT *, ct_areas as numeroAreas, ct_seccoes as numeroSeccoes, 0 as numeroItens " +
+    @Query("SELECT *, ct_areas as numeroAreas, ct_seccoes as numeroSeccoes, ct_itens as numeroItens " +
             "FROM checklist as chk " +
-            "LEFT JOIN (SELECT idChecklist, idArea, IFNULL(COUNT(descricao), 0) as ct_areas FROM areasChecklist GROUP BY idChecklist) as area_chk ON chk.id = area_chk.idChecklist " +
-            "LEFT JOIN (SELECT idChecklist, idArea, IFNULL(COUNT(idArea), 0) as ct_seccoes FROM seccoesChecklist GROUP BY idChecklist, idArea) as seccoes_chk " +
-            "ON chk.id = seccoes_chk.idChecklist AND area_chk.idArea = seccoes_chk.idArea " +
+
+            "LEFT JOIN (SELECT idChecklist, IFNULL(COUNT(descricao), 0) as ct_areas FROM areasChecklist GROUP BY idChecklist) as area_chk " +
+            "ON chk.id = area_chk.idChecklist " +
+
+            "LEFT JOIN (SELECT idChecklist, IFNULL(COUNT(uid), 0) as ct_seccoes FROM seccoesChecklist GROUP BY idChecklist, idArea) as seccoes_chk " +
+            "ON chk.id = seccoes_chk.idChecklist " +
+
+            "LEFT JOIN (SELECT idChecklist, IFNULL(COUNT(uid), 0) as ct_itens FROM itensChecklist GROUP BY idChecklist, idArea, idSeccao) as itens_chk " +
+            "ON chk.id = itens_chk.idChecklist " +
+
             "ORDER BY descricao ASC")
     abstract public Observable<List<ResumoChecklist>> obterResumoChecklist();
 
@@ -111,26 +135,32 @@ abstract public class TipoDao implements BaseDao<Tipo> {
 
     @Query("SELECT *, 0 as numeroRegistosSA, numeroRegistosSHT " +
             "FROM atualizacoes as atl " +
-            "LEFT JOIN (SELECT " + Identificadores.Atualizacoes.ATIVIDADES_PLANEAVEIS + " as tipo, COUNT(id) as numeroRegistosSHT FROM tiposAtividadesPlaneaveis WHERE ativo = 1) as tp_sht ON atl.tipo = tp_sht.tipo " +
+            "LEFT JOIN (SELECT " + Identificadores.Atualizacoes.ATIVIDADES_PLANEAVEIS + " as tipo, COUNT(id) as numeroRegistosSHT FROM tiposAtividadesPlaneaveis WHERE ativo = 1) as tp_sht " +
+            "ON atl.tipo = tp_sht.tipo " +
             "WHERE atl.tipo = " + Identificadores.Atualizacoes.ATIVIDADES_PLANEAVEIS + " " +
             "ORDER BY descricao ASC")
     abstract public Observable<List<ResumoTipo>> obterResumoAtividadesPlaneaveis();
 
-//    @Query("SELECT descricao, numeroRegistosSA, numeroRegistosSHT, seloTemporal " +
-//            "FROM(" +
-//            "" +
-//            "SELECT descricao, 0 as numeroRegistosSA, numeroRegistosSHT, seloTemporal, atl.tipo " +
-//            "FROM atualizacoes as atl " +
-//            "LEFT JOIN (SELECT IFNULL(COUNT(id), 0) as numeroRegistosSHT FROM tiposTemplateAvrLevantamentos WHERE ativo = 1) as tp_temp_lv " +
-//            "ON atl.descricao = '" + TiposUtil.MetodosTipos.TemplateAvr.TEMPLATE_AVALIACAO_RISCOS_LEVANTAMENTOS + "' "+
-//            ") as templates " +
-//            "" +
-//            "" +
-//            "" +
-//            "" +
-//            "WHERE templates.tipo = " + Identificadores.Atualizacoes.TEMPLATE + " " +
-//            "ORDER BY descricao ASC")
-//    abstract public Observable<List<ResumoTipo>> obterResumoTemplates();
+
+    @Query("SELECT *, 0 as numeroRegistosSA, numeroRegistosSHT, seloTemporal " +
+            "FROM atualizacoes as atl " +
+
+            "LEFT JOIN (" +
+            "SELECT '" + TiposUtil.MetodosTipos.TemplateAvr.TEMPLATE_AVALIACAO_RISCOS_LEVANTAMENTOS + "' as tipo, COUNT(id) as numeroRegistosSHT FROM tiposTemplateAvrLevantamentos WHERE ativo = 1 " +
+            "UNION " +
+            "SELECT '" + TiposUtil.MetodosTipos.TemplateAvr.TEMPLATE_AVALIACAO_RISCOS_RISCOS + "' as tipo, COUNT(id) as numeroRegistosSHT FROM tiposTemplateAvrRiscos WHERE ativo = 1 " +
+            ") as tp ON atl.descricao = tp.tipo " +
+            "WHERE atl.tipo = " + Identificadores.Atualizacoes.TEMPLATE + " " +
+            "ORDER BY descricao ASC")
+    abstract public Observable<List<ResumoTipo>> obterResumoTemplates();
+
+
+
+
+
+
+
+
 
 
 

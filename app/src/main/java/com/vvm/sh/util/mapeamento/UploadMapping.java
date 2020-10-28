@@ -2,8 +2,10 @@ package com.vvm.sh.util.mapeamento;
 
 import com.vvm.sh.api.modelos.bd.AreaBd;
 import com.vvm.sh.api.modelos.bd.AtividadePendenteBd;
+import com.vvm.sh.api.modelos.bd.AtividadePlanoAcaoBd;
 import com.vvm.sh.api.modelos.bd.RelatorioAmbientalBd;
 import com.vvm.sh.api.modelos.envio.Area;
+import com.vvm.sh.api.modelos.envio.AtividadePlanoAcao;
 import com.vvm.sh.api.modelos.envio.AvaliacaoIluminacao;
 import com.vvm.sh.api.modelos.envio.AvaliacaoTemperaturaHumidade;
 import com.vvm.sh.api.modelos.envio.Checklist;
@@ -104,7 +106,11 @@ public interface UploadMapping {
     TrabalhoRealizado map(TrabalhoRealizadoResultado item);
 
 
-
+    @Mapping(target = "servId", source = "servId")
+    @Mapping(target = "servicoTP", source = "servicoTp")
+    @Mapping(target = "ordem", source = "ordem")
+    @Mapping(target = "data", source = "data")
+    AtividadePlanoAcao map(AtividadePlanoAcaoBd item);
 
     //TODO: verificar e completar
 

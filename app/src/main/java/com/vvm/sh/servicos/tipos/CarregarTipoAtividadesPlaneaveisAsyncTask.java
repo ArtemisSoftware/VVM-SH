@@ -93,14 +93,6 @@ public class CarregarTipoAtividadesPlaneaveisAsyncTask extends AsyncTask<ITipoAt
 
     @Override
     protected void onPostExecute(Void aVoid) {
-
         dialogo.terminarProgresso();
-
-        if(errorMessage != null){
-            //--dialogo.erro(Sintaxe.Alertas.PROBLEMA_EMAIL  + erro);
-        }
-        else{
-            //--dialogo.sucesso(Sintaxe.Frases.DADOS_ENVIADOS_SUCESSO);
-        }
     }
 }

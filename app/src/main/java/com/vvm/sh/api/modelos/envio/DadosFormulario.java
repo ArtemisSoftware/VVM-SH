@@ -34,6 +34,10 @@ public class DadosFormulario {
 
     //-sht
 
+
+    @SerializedName("PlanoAccao")
+    public AtividadePlanoAcaoInfo planoAcao;
+
     @SerializedName("RegistoVisita")
     public RegistoVisita registoVisita;
 
@@ -117,6 +121,20 @@ public class DadosFormulario {
     }
 
 
+    public class AtividadePlanoAcaoInfo{
+
+        @SerializedName("dataRegisto")
+        public String dataRegisto;
+
+        @SerializedName("dados")
+        public List<AtividadePlanoAcao> dados;
+
+        public AtividadePlanoAcaoInfo() {
+            this.dados = new ArrayList<>();
+        }
+    }
+
+
 
     public void fixarEmail(Email email){
         this.email.dataRegisto = DatasUtil.obterDataAtual(DatasUtil.DATA_FORMATO_YYYY_MM_DD__HH_MM_SS);
@@ -141,6 +159,11 @@ public class DadosFormulario {
     public void fixarAtividadesPendentes(List<AtividadePendente> atividadesPendentes) {
         this.atividadesPendentes.dataRegisto = DatasUtil.obterDataAtual(DatasUtil.DATA_FORMATO_YYYY_MM_DD__HH_MM_SS);
         this.atividadesPendentes.dados = atividadesPendentes;
+    }
+
+    public void fixarAtividadePlanoAcao(List<AtividadePlanoAcao> atividadesPlano) {
+        this.planoAcao.dataRegisto = DatasUtil.obterDataAtual(DatasUtil.DATA_FORMATO_YYYY_MM_DD__HH_MM_SS);
+        this.planoAcao.dados = atividadesPlano;
     }
 
 }

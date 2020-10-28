@@ -1,5 +1,6 @@
-package com.vvm.sh.servicos;
+package com.vvm.sh.servicos.tipos;
 
+import android.app.Activity;
 import android.database.sqlite.SQLiteConstraintException;
 import android.os.AsyncTask;
 import android.os.Handler;
@@ -7,16 +8,14 @@ import android.os.Handler;
 import com.vvm.sh.api.modelos.pedido.ITipoChecklist;
 import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.baseDados.entidades.AreaChecklist;
-import com.vvm.sh.baseDados.entidades.Atualizacao;
 import com.vvm.sh.baseDados.entidades.CheckList;
 import com.vvm.sh.baseDados.entidades.ItemChecklist;
 import com.vvm.sh.baseDados.entidades.SeccaoChecklist;
 import com.vvm.sh.repositorios.TiposRepositorio;
 import com.vvm.sh.util.AtualizacaoUI;
-import com.vvm.sh.util.excepcoes.TipoInexistenteException;
+import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.mapeamento.DownloadMapping;
-import com.vvm.sh.util.metodos.DatasUtil;
-import com.vvm.sh.util.metodos.TiposUtil;
+import com.vvm.sh.util.metodos.MensagensUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,17 +25,25 @@ public class CarregarTipoChecklistAsyncTask extends AsyncTask<List<ITipoChecklis
     private String errorMessage;
     private VvmshBaseDados vvmshBaseDados;
     private TiposRepositorio repositorio;
+    private MensagensUtil dialogo;
 
     /**
      * Permite enviar mensagens para fora do servico
      */
     private AtualizacaoUI atualizacaoUI;
 
-    public CarregarTipoChecklistAsyncTask(VvmshBaseDados vvmshBaseDados, Handler handler, TiposRepositorio repositorio){
+    public CarregarTipoChecklistAsyncTask(Activity activity, VvmshBaseDados vvmshBaseDados, Handler handler, TiposRepositorio repositorio){
         this.vvmshBaseDados = vvmshBaseDados;
         this.repositorio = repositorio;
         atualizacaoUI = new AtualizacaoUI(handler);
+        dialogo = new MensagensUtil(activity);
     }
+
+    @Override
+    protected void onPreExecute() {
+        dialogo.progresso(true, Sintaxe.Frases.CARREGAR_CHECKLISTS);
+    }
+
 
 
     @Override
@@ -86,7 +93,7 @@ public class CarregarTipoChecklistAsyncTask extends AsyncTask<List<ITipoChecklis
                             }
                         }
 
-                        repositorio.inserirChecklist(checkList, areas, seccoes, itens);
+                        repositorio.carregarChecklist(checkList, areas, seccoes, itens);
                         atualizacaoUI.atualizarUI(AtualizacaoUI.Codigo.PROCESSAMENTO_CHECKLIST, checkList.descricao, ++index, respostas.size());
 
                     }
@@ -100,5 +107,11 @@ public class CarregarTipoChecklistAsyncTask extends AsyncTask<List<ITipoChecklis
         });
 
         return null;
+    }
+
+
+    @Override
+    protected void onPostExecute(Void aVoid) {
+        dialogo.terminarProgresso();
     }
 }

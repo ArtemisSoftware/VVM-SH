@@ -1,5 +1,6 @@
 package com.vvm.sh.databinding;
 
+import android.view.View;
 import android.widget.TextView;
 
 import androidx.databinding.BindingAdapter;
@@ -97,6 +98,30 @@ public class TransferenciasBinding {
         }
 
         view.setText(texto);
+    }
+
+    @BindingAdapter({"pendencias", "uploads"})
+    public static void setTextoUpload(TextView view, List<Pendencia> pendencias, List<Upload> uploads) {
+
+        if(pendencias != null){
+
+            if(pendencias.size() != 0){
+                view.setText(view.getContext().getString(R.string.tarefas_pendentes));
+            }
+        }
+
+
+        if(uploads != null){
+
+            if(uploads.size() != 0){
+                view.setText(view.getContext().getString(R.string.tarefas_upload));
+            }
+            else{
+
+                view.setVisibility(View.GONE);
+            }
+        }
+
     }
 
 

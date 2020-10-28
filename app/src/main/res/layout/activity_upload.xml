@@ -6,6 +6,7 @@
     <data>
 
         <import type="java.util.List"/>
+        <import type="android.view.View"/>
 
 
         <variable
@@ -130,6 +131,8 @@
             style="@style/tituloCartao"
             android:layout_marginTop="16dp"
             android:text="@string/upload_dados"
+            pendencias="@{viewmodel.pendencias}"
+            uploads="@{viewmodel.uploads_}"
             app:layout_constraintStart_toStartOf="@+id/card"
             app:layout_constraintTop_toBottomOf="@+id/card" />
 
@@ -152,7 +155,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:verticalSpacing="24dp"
-            android:visibility="gone"
+            android:visibility="@{viewmodel.pendencias.size() > 0 ? View.VISIBLE : View.GONE}"
             app:layout_constraintEnd_toEndOf="@+id/imageView"
             app:layout_constraintStart_toStartOf="@+id/card"
             app:layout_constraintTop_toBottomOf="@+id/txt_sub_titulo"

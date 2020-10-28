@@ -6,6 +6,7 @@ import com.vvm.sh.baseDados.dao.AtualizacaoDao;
 import com.vvm.sh.baseDados.dao.TipoDao;
 import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.baseDados.dao.TransferenciasDao;
+import com.vvm.sh.baseDados.dao.UploadDao;
 import com.vvm.sh.repositorios.TiposRepositorio;
 import com.vvm.sh.repositorios.TransferenciasRepositorio;
 
@@ -19,13 +20,23 @@ public class TransferenciasModule {
 
     @TransferenciasScope
     @Provides
-    static TransferenciasDao provideUploadDao(VvmshBaseDados vvmshBaseDados){
+    static TransferenciasDao provideTransferenciasDaoo(VvmshBaseDados vvmshBaseDados){
 
         TransferenciasDao dao = vvmshBaseDados.obterTransferenciasDao();
 
         //Timber.d("Providing NoteDao: " + dao);
         return dao;
     }
+
+
+    @TransferenciasScope
+    @Provides
+    static UploadDao provideUploadDao(VvmshBaseDados vvmshBaseDados){
+
+        UploadDao dao = vvmshBaseDados.obterUploadDao();
+        return dao;
+    }
+
 
     @TransferenciasScope
     @Provides
@@ -40,7 +51,8 @@ public class TransferenciasModule {
 
     @TransferenciasScope
     @Provides
-    TransferenciasRepositorio provideUploadRepositorio(SegurancaAlimentarApi segurancaAlimentarApi, SegurancaTrabalhoApi segurancaTrabalhoApi, TransferenciasDao transferenciasDao) {
+    TransferenciasRepositorio provideUploadRepositorio(SegurancaAlimentarApi segurancaAlimentarApi, SegurancaTrabalhoApi segurancaTrabalhoApi,
+                                                       TransferenciasDao transferenciasDao) {
 
         TransferenciasRepositorio repositorio = new TransferenciasRepositorio(segurancaAlimentarApi, segurancaTrabalhoApi, transferenciasDao);
 

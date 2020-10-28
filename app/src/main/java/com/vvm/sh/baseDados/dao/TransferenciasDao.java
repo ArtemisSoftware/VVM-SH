@@ -353,8 +353,9 @@ abstract public class TransferenciasDao implements BaseDao<Resultado> {
 
 
 
+    @Transaction
     @Query("SELECT * FROM parqueExtintoresResultado  " +
-            "WHERE id IN (SELECT id FROM parqueExtintores WHERE idTarefa) AND valido = 1")
+            "WHERE id IN (SELECT id FROM parqueExtintores WHERE idTarefa =:idTarefa) AND valido = 1")
     public abstract List<ExtintorBd> obterExtintores(int idTarefa);
 
 

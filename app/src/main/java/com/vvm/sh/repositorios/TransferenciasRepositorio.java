@@ -63,7 +63,8 @@ public class TransferenciasRepositorio {
     private final TransferenciasDao transferenciasDao;
 
 
-    public TransferenciasRepositorio(@NonNull SegurancaAlimentarApi apiSA, @NonNull SegurancaTrabalhoApi apiST, @NonNull TransferenciasDao transferenciasDao) {
+    public TransferenciasRepositorio(@NonNull SegurancaAlimentarApi apiSA, @NonNull SegurancaTrabalhoApi apiST,
+                                     @NonNull TransferenciasDao transferenciasDao) {
         this.apiSA = apiSA;
         this.apiST = apiST;
         this.transferenciasDao = transferenciasDao;

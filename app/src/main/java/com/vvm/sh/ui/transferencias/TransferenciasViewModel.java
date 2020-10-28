@@ -43,6 +43,7 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import io.reactivex.Maybe;
 import io.reactivex.MaybeObserver;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
@@ -59,6 +60,7 @@ public class TransferenciasViewModel extends BaseViewModel {
 
     public MutableLiveData<Recurso> uploads;
     public MutableLiveData<List<Pendencia>> pendencias;
+    public MutableLiveData<List<Upload>> uploads_;
 
     @Inject
     public TransferenciasViewModel(TransferenciasRepositorio transferenciasRepositorio, TiposRepositorio tiposRepositorio){
@@ -66,6 +68,7 @@ public class TransferenciasViewModel extends BaseViewModel {
         this.transferenciasRepositorio = transferenciasRepositorio;
         this.tiposRepositorio = tiposRepositorio;
         this.uploads = new MutableLiveData<>();
+        this.uploads_ = new MutableLiveData<>();
         this.pendencias = new MutableLiveData<>();
     }
 
@@ -93,9 +96,7 @@ public class TransferenciasViewModel extends BaseViewModel {
      * @param idUtilizador o identificador do utilizador
      */
     public void obterPendencias(String idUtilizador) {
-
-        Observable<List<Pendencia>> observable = transferenciasRepositorio.obterPendencias(idUtilizador).toObservable();
-        obterPendencias(observable);
+        obterPendencias(transferenciasRepositorio.obterPendencias(idUtilizador));
     }
 
 
@@ -105,9 +106,7 @@ public class TransferenciasViewModel extends BaseViewModel {
      * @param data a data das pendencias
      */
     public void obterPendencias(String idUtilizador, long data) {
-
-        Observable<List<Pendencia>> observable = transferenciasRepositorio.obterPendencias(idUtilizador, data).toObservable();
-        obterPendencias(observable);
+        obterPendencias(transferenciasRepositorio.obterPendencias(idUtilizador, data));
     }
 
 
@@ -115,7 +114,7 @@ public class TransferenciasViewModel extends BaseViewModel {
      * Metodo que permite obter as pendencias
      * @param observable
      */
-    private void obterPendencias(Observable<List<Pendencia>> observable){
+    private void obterPendencias(Maybe<List<Pendencia>> observable){
 
         showProgressBar(true);
 
@@ -124,14 +123,14 @@ public class TransferenciasViewModel extends BaseViewModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
 
-                        new Observer<List<Pendencia>>() {
+                        new MaybeObserver<List<Pendencia>>() {
                             @Override
                             public void onSubscribe(Disposable d) {
                                 disposables.add(d);
                             }
 
                             @Override
-                            public void onNext(List<Pendencia> registos) {
+                            public void onSuccess(List<Pendencia> registos) {
                                 pendencias.setValue(registos);
                             }
 
@@ -145,7 +144,6 @@ public class TransferenciasViewModel extends BaseViewModel {
                                 showProgressBar(false);
                             }
                         }
-
                 );
     }
 
@@ -347,6 +345,7 @@ public class TransferenciasViewModel extends BaseViewModel {
                             @Override
                             public void onNext(List<Upload> resultado) {
 
+                                uploads_.setValue(resultado);
                                 uploads.setValue(Recurso.successo(resultado));
                                 showProgressBar(false);
 

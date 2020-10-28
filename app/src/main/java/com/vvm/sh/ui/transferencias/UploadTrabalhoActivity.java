@@ -84,6 +84,14 @@ public class UploadTrabalhoActivity extends BaseDaggerActivity {
     @Override
     protected void subscreverObservadores() {
 
+        viewModel.observarPendencias().observe(this, new Observer<List<Pendencia>>() {
+            @Override
+            public void onChanged(List<Pendencia> pendencias) {
+
+                formatarPendencias(pendencias);
+            }
+        });
+
 //        viewModel.observarPendencias().observe(this, new Observer<List<Pendencia>>() {
 //            @Override
 //            public void onChanged(List<Pendencia> recurso) {
@@ -108,28 +116,28 @@ public class UploadTrabalhoActivity extends BaseDaggerActivity {
 //        });
 
 
-        viewModel.observarUpload().observe(this, new Observer<Recurso>() {
-            @Override
-            public void onChanged(Recurso recurso) {
+                viewModel.observarUpload().observe(this, new Observer<Recurso>() {
+                    @Override
+                    public void onChanged(Recurso recurso) {
 
-                switch (recurso.status){
+                        switch (recurso.status) {
 
-                    case SUCESSO:
+                            case SUCESSO:
 
-                        formatarUploads((List<Upload>)recurso.dados);
-                        break;
+                                formatarUploads((List<Upload>) recurso.dados);
+                                break;
 
-                    case ERRO:
+                            case ERRO:
 
-                        dialogo.erro(recurso.messagem);
-                        break;
+                                dialogo.erro(recurso.messagem);
+                                break;
 
-                    default:
-                        break;
-                }
+                            default:
+                                break;
+                        }
 
-            }
-        });
+                    }
+                });
 
 
         viewModel.observarMessagem().observe(this, new Observer<Recurso>() {
@@ -179,12 +187,10 @@ public class UploadTrabalhoActivity extends BaseDaggerActivity {
             };
 
             dialogo.alerta(getString(R.string.upload), getString(R.string.upload_dados_inexistentes), listener);
-            activityUploadBinding.txtSubTitulo.setVisibility(View.GONE);
             activityUploadBinding.lnrLytProgresso.setVisibility(View.GONE);
         }
         else{
 
-            activityUploadBinding.txtSubTitulo.setText(getString(R.string.tarefas_upload));
             activityUploadBinding.lnrLytProgresso.setVisibility(View.VISIBLE);
             activityUploadBinding.rclRegistos.setVisibility(View.VISIBLE);
         }
@@ -210,7 +216,6 @@ public class UploadTrabalhoActivity extends BaseDaggerActivity {
         }
         else{
 
-            activityUploadBinding.txtSubTitulo.setText(getString(R.string.tarefas_pendentes));
             activityUploadBinding.lnrLytProgresso.setVisibility(View.GONE);
             activityUploadBinding.rclRegistosPendencias.setVisibility(View.VISIBLE);
             dialogo.alerta(getString(R.string.pendencias), getString(R.string.pendencias_tarefas_upload));

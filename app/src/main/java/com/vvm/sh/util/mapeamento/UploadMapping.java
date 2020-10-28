@@ -208,5 +208,6 @@ public interface UploadMapping {
     Equipamento map(TipoNovo item);
 
     @Mapping(target = "idServico", source = "extintor.idServico")
+    @Mapping(target = "dataValidade", ignore = true)
     Extintor map(ParqueExtintor extintor, ParqueExtintorResultado resultado);
 }

@@ -1,5 +1,6 @@
 package com.vvm.sh.ui.agenda.modelos;
 
+import androidx.room.ColumnInfo;
 import androidx.room.Embedded;
 import androidx.room.Relation;
 
@@ -25,4 +26,8 @@ public class Marcacao {
             entityColumn = "idTarefa"
     )
     public Cliente cliente;
+
+
+    @ColumnInfo(name = "estado_sinc")
+    public int estadoSincronizacao;
 }

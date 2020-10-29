@@ -4,6 +4,7 @@ import android.graphics.Color;
 import android.view.View;
 import android.widget.ImageView;
 
+import androidx.core.content.ContextCompat;
 import androidx.databinding.BindingAdapter;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -92,6 +93,35 @@ public class AgendaBinding {
 
     }
 
+
+
+
+    @BindingAdapter({"completudeMarcacao"})
+    public static void setCompletudeMarcacao(ImageView view, int completude) {
+
+
+        switch (completude){
+
+            case SINCRONIZADO:
+
+                view.setVisibility(View.GONE);
+                break;
+
+
+            case NAO_SINCRONIZADO:
+
+                view.setBackgroundResource(R.drawable.ic_pronto_sincronizar);
+                view.setColorFilter(ContextCompat.getColor(view.getContext(), R.color.cor_pronto_para_upload), android.graphics.PorterDuff.Mode.MULTIPLY);
+                view.setVisibility(View.VISIBLE);
+                break;
+
+            default:
+                view.setVisibility(View.GONE);
+                break;
+
+        }
+
+    }
 
 
 

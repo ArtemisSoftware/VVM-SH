@@ -90,6 +90,17 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
 
+            <ImageView
+                android:id="@+id/imageView12"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="16dp"
+                android:layout_marginBottom="8dp"
+                completudeMarcacao="@{marcacao.estadoSincronizacao}"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="@+id/textView34"
+                app:srcCompat="@drawable/ic_pronto_sincronizar" />
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

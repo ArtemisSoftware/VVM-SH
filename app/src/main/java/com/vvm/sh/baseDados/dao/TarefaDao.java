@@ -43,8 +43,6 @@ public abstract class TarefaDao implements BaseDao<Tarefa> {
             "GROUP BY atp.idTarefa " +
             ") as atp ON trf.idTarefa = atp.idTarefa " +
 
-
-
             "LEFT JOIN(" +
             "SELECT atp.idTarefa as idTarefa, CASE WHEN IFNULL(COUNT(atp_res.id), 0) > 0 THEN 1 ELSE 0 END existeAnomalias " +
             "FROM atividadesPendentesResultado as atp_res " +
@@ -52,8 +50,6 @@ public abstract class TarefaDao implements BaseDao<Tarefa> {
             "WHERE idAnomalia > 0 GROUP BY atp.idTarefa " +
             ") as anom ON trf.idTarefa = anom.idTarefa " +
             "" +
-
-
 
             "WHERE trf.idTarefa = :idTarefa ")
     abstract public Observable<TarefaDia> obterTarefaDia(int idTarefa);

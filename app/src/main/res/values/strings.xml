@@ -479,4 +479,5 @@
     <string name="nao_existe_email_associado">Email não enviado. Não existe um email associado</string>
     <string name="imagem_">Imagens:</string>
     <string name="gerir_atividades_planeaveis">Gerir atividades planeáveis</string>
+    <string name="pendente">Pendente</string>
 </resources>

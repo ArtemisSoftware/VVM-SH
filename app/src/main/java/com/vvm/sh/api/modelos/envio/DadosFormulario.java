@@ -58,6 +58,12 @@ public class DadosFormulario {
         crossSelling = new CrossSellingInfo();
         ocorrencias = new OcorrenciasInfo();
         atividadesPendentes = new AtividadesPendentesInfo();
+
+        sinistralidade = new Sinistralidade();
+        planoAcao = new AtividadePlanoAcaoInfo();
+        quadroPessoal = new QuadroPessoalInfo();
+        registoVisita = new RegistoVisita();
+        parqueExtintor = new ParqueExtintor();
     }
 
 

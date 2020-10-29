@@ -9,6 +9,7 @@ import com.vvm.sh.baseDados.dao.TransferenciasDao;
 import com.vvm.sh.baseDados.dao.UploadDao;
 import com.vvm.sh.repositorios.TiposRepositorio;
 import com.vvm.sh.repositorios.TransferenciasRepositorio;
+import com.vvm.sh.repositorios.UploadRepositorio;
 
 import dagger.Module;
 import dagger.Provides;
@@ -51,12 +52,10 @@ public class TransferenciasModule {
 
     @TransferenciasScope
     @Provides
-    TransferenciasRepositorio provideUploadRepositorio(SegurancaAlimentarApi segurancaAlimentarApi, SegurancaTrabalhoApi segurancaTrabalhoApi,
+    TransferenciasRepositorio provideTransferenciasRepositorio(SegurancaAlimentarApi segurancaAlimentarApi, SegurancaTrabalhoApi segurancaTrabalhoApi,
                                                        TransferenciasDao transferenciasDao) {
 
         TransferenciasRepositorio repositorio = new TransferenciasRepositorio(segurancaAlimentarApi, segurancaTrabalhoApi, transferenciasDao);
-
-        //Timber.d("Providing PokemonRepository: " + repository);
         return repositorio;
     }
 
@@ -70,4 +69,15 @@ public class TransferenciasModule {
         //Timber.d("Providing PokemonRepository: " + repository);
         return repositorio;
     }
+
+
+    @TransferenciasScope
+    @Provides
+    UploadRepositorio provideUploadRepositorio(UploadDao uploadDao) {
+
+        UploadRepositorio repositorio = new UploadRepositorio(uploadDao);
+        return repositorio;
+    }
+
+
 }

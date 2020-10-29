@@ -52,12 +52,14 @@ import com.vvm.sh.baseDados.entidades.LevantamentoRiscoResultado;
 import com.vvm.sh.baseDados.entidades.QuestionarioChecklistResultado;
 import com.vvm.sh.baseDados.entidades.Resultado;
 import com.vvm.sh.baseDados.entidades.RiscoResultado;
+import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.baseDados.entidades.TipoNovo;
 import com.vvm.sh.baseDados.entidades.TrabalhadorVulneravelResultado;
 import com.vvm.sh.baseDados.entidades.TrabalhoRealizadoResultado;
 import com.vvm.sh.repositorios.TransferenciasRepositorio;
 import com.vvm.sh.baseDados.entidades.AnomaliaResultado;
 import com.vvm.sh.baseDados.entidades.OcorrenciaResultado;
+import com.vvm.sh.repositorios.UploadRepositorio;
 import com.vvm.sh.ui.transferencias.modelos.DadosUpload;
 import com.vvm.sh.ui.transferencias.modelos.Upload;
 import com.vvm.sh.util.AtualizacaoUI;
@@ -78,7 +80,7 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
 
     private String errorMessage, idUtilizador;
     private VvmshBaseDados vvmshBaseDados;
-    private TransferenciasRepositorio repositorio;
+    private UploadRepositorio repositorio;
     private JSONArray dadosTarefas = new JSONArray();
     private List<Integer> idImagens;
     private DadosUpload dadosUpload;
@@ -86,7 +88,7 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
     private AtualizacaoUI atualizacaoUI;
 
 
-    public DadosUploadAsyncTask(VvmshBaseDados vvmshBaseDados, Handler handler, TransferenciasRepositorio repositorio, String idUtilizador){
+    public DadosUploadAsyncTask(VvmshBaseDados vvmshBaseDados, Handler handler, UploadRepositorio repositorio, String idUtilizador){
         this.vvmshBaseDados = vvmshBaseDados;
         this.repositorio = repositorio;
         this.idUtilizador = idUtilizador;
@@ -423,7 +425,8 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
         int index = -1;
         List<Checklist> registos = new ArrayList<>();
 
-        Checklist checklist = UploadMapping.INSTANCE.map(repositorio.obterChecklist(idAtividade));
+        Tipo tipoChecklist = repositorio.obterChecklist(idAtividade);
+        Checklist checklist = UploadMapping.INSTANCE.map(tipoChecklist);
         checklist.versao = checklist.versao.split(".json")[0].split("_")[2];
 
         checklist.areas = new ArrayList<>();

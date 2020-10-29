@@ -17,6 +17,7 @@ import com.vvm.sh.baseDados.entidades.Atualizacao;
 import com.vvm.sh.baseDados.entidades.Tarefa;
 import com.vvm.sh.repositorios.TiposRepositorio;
 import com.vvm.sh.repositorios.TransferenciasRepositorio;
+import com.vvm.sh.repositorios.UploadRepositorio;
 import com.vvm.sh.servicos.CarregarTipoAsyncTask;
 import com.vvm.sh.servicos.DadosUploadAsyncTask;
 import com.vvm.sh.servicos.RecarregarTarefaAsyncTask;
@@ -56,6 +57,7 @@ import io.reactivex.schedulers.Schedulers;
 public class TransferenciasViewModel extends BaseViewModel {
 
     private final TransferenciasRepositorio transferenciasRepositorio;
+    private final UploadRepositorio uploadRepositorio;
     private final TiposRepositorio tiposRepositorio;
 
     public MutableLiveData<Recurso> uploads;
@@ -63,9 +65,10 @@ public class TransferenciasViewModel extends BaseViewModel {
     public MutableLiveData<List<Upload>> uploads_;
 
     @Inject
-    public TransferenciasViewModel(TransferenciasRepositorio transferenciasRepositorio, TiposRepositorio tiposRepositorio){
+    public TransferenciasViewModel(TransferenciasRepositorio transferenciasRepositorio, TiposRepositorio tiposRepositorio, UploadRepositorio uploadRepositorio){
 
         this.transferenciasRepositorio = transferenciasRepositorio;
+        this.uploadRepositorio = uploadRepositorio;
         this.tiposRepositorio = tiposRepositorio;
         this.uploads = new MutableLiveData<>();
         this.uploads_ = new MutableLiveData<>();
@@ -132,6 +135,7 @@ public class TransferenciasViewModel extends BaseViewModel {
                             @Override
                             public void onSuccess(List<Pendencia> registos) {
                                 pendencias.setValue(registos);
+                                showProgressBar(false);
                             }
 
                             @Override
@@ -350,7 +354,7 @@ public class TransferenciasViewModel extends BaseViewModel {
                                 showProgressBar(false);
 
                                 if(resultado.size() != 0) {
-                                    DadosUploadAsyncTask servico = new DadosUploadAsyncTask(vvmshBaseDados, handler, transferenciasRepositorio, idUtilizador);
+                                    DadosUploadAsyncTask servico = new DadosUploadAsyncTask(vvmshBaseDados, handler, uploadRepositorio, idUtilizador);
                                     servico.execute(resultado);
                                 }
                             }

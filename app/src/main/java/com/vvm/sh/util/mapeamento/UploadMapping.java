@@ -125,7 +125,7 @@ public interface UploadMapping {
     //TODO: verificar e completar
 
     @Mapping(target = "idChecklist", source = "id")
-    //@Mapping(target = "versaoChecklist", source = "idPai")
+    @Mapping(target = "versao", source = "idPai")
     Checklist map(Tipo checklist);
 
     @Mapping(target = "idItem", source = "idItem")
@@ -159,9 +159,9 @@ public interface UploadMapping {
 //    @Mapping(target = "idItem", source = "idImagem")
 //    ItemSeccaoChecklist mapImagemChecklist(ImagemResultado imagem);
 
-    //@Mapping(target = "idArea", source = "area.resultado.idArea")
+    @Mapping(target = "idArea", source = "area.resultado.idArea")
     @Mapping(target = "descricao", source = "descricao")
-    //@Mapping(target = "descricaoArea", source = "area.resultado.subDescricao")
+    @Mapping(target = "subDescricao", source = "area.resultado.subDescricao")
     Area map(AreaBd area);
 
     TrabalhadorVulneravel map(TrabalhadorVulneravelResultado item);

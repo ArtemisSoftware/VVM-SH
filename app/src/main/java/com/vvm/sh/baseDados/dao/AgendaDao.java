@@ -19,7 +19,19 @@ public abstract class AgendaDao {
 
 
     @Transaction
-    @Query("SELECT * FROM tarefas WHERE data = :data AND idUtilizador = :idUtilizador")
+    @Query("SELECT *, " +
+            "CASE WHEN total = ct_sinc THEN " + Identificadores.Sincronizacao.SINCRONIZADO +" " +
+            "WHEN total = ct_nao_sinc THEN " + Identificadores.Sincronizacao.NAO_SINCRONIZADO + " " +
+            "ELSE " + Identificadores.Sincronizacao.SEM_SINCRONIZACAO + " END as estado_sinc " +
+            "FROM tarefas as trf " +
+            "LEFT JOIN (" +
+            "SELECT idTarefa, count(*) AS total, " +
+            "sum(case when sincronizado = 1 then 1 else 0 end) AS ct_sinc, " +
+            "sum(case when sincronizado = 0 then 1 else 0 end) AS ct_nao_sinc " +
+            "FROM resultados WHERE id = " + Identificadores.Resultados.ID_ATIVIDADE_PENDENTE + " " +
+            "GROUP BY idTarefa" +
+            ") as sinc ON trf.idTarefa = sinc.idTarefa " +
+            "WHERE data = :data AND idUtilizador = :idUtilizador")
     abstract public Observable<List<Marcacao>> obterMarcacoes(String idUtilizador, long data);
 
 

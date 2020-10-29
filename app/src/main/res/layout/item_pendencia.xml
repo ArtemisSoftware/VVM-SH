@@ -35,31 +35,44 @@
                 android:layout_width="40dp"
                 android:layout_height="40dp"
                 android:layout_marginStart="16dp"
-                app:layout_constraintBottom_toBottomOf="@+id/textView4"
+                android:layout_marginTop="32dp"
+                android:layout_marginBottom="32dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/textView"
+                app:layout_constraintTop_toTopOf="parent"
                 app:srcCompat="@mipmap/ic_launcher" />
 
 
             <TextView
                 android:id="@+id/textView"
                 style="@style/tituloCartao"
-                android:layout_marginStart="24dp"
                 android:layout_marginTop="16dp"
                 android:text="@{StringUtil.formatarHtml(pendencia.cliente.nome), default=cliente}"
-                app:layout_constraintStart_toEndOf="@+id/imageView5"
+                app:layout_constraintStart_toStartOf="@+id/textView4"
                 app:layout_constraintTop_toTopOf="parent" />
-
 
             <TextView
                 android:id="@+id/textView4"
                 style="@style/textoDetalhe"
-                android:layout_marginTop="16dp"
-                android:layout_marginBottom="16dp"
+                android:layout_marginStart="24dp"
+                android:layout_marginTop="8dp"
                 android:text="@{DatasUtil.converterData(pendencia.tarefa.data, DatasUtil.FORMATO_DD_MM_YYYY), default=data}"
-                app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/textView"
+                app:layout_constraintStart_toEndOf="@+id/imageView5"
                 app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip"
+                android:text="@string/pendente"
+                app:chipIcon="@drawable/ic_appintro_indicator_selected"
+                app:chipBackgroundColor="@color/cor_pendente"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="12dp"
+                android:layout_marginBottom="16dp"
+                android:theme="@style/Theme.MaterialComponents.Light"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/textView4"
+                app:layout_constraintTop_toBottomOf="@+id/textView4" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

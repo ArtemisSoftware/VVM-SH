@@ -280,4 +280,6 @@
 
     <color name="cor_pontos_loading">#376DF6</color>
 
+
+    <color name="cor_pronto_para_upload">#57A8D8</color>
 </resources>

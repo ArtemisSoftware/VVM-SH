@@ -11,7 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.vvm.sh.R;
 import com.vvm.sh.databinding.ItemPesquisaEquipamentoBinding;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.equipamentos.modelos.Equipamento;
-import com.vvm.sh.ui.pesquisa.OnPesquisaListener;
+import com.vvm.sh.ui.pesquisa.adaptadores.OnPesquisaListener;
 
 import java.util.ArrayList;
 import java.util.List;

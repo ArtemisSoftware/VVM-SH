@@ -7,7 +7,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.equipamentos.modelos.Equipamento;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.equipamentos.adaptadores.EquipamentoRecyclerHolder;
-import com.vvm.sh.ui.pesquisa.OnPesquisaListener;
+import com.vvm.sh.ui.pesquisa.adaptadores.OnPesquisaListener;
 import com.vvm.sh.ui.pesquisa.adaptadores.PesquisaMedidaRecyclerAdapter;
 import com.vvm.sh.ui.pesquisa.adaptadores.PesquisaRecyclerAdapter;
 import com.vvm.sh.ui.pesquisa.modelos.Medida;
@@ -176,26 +176,7 @@ public class PesquisaBinding {
             return;
         }
 
-        //List<Tipo> lolo = items;
-
-        List<Medida> lolo = new ArrayList<>();
-
-        int i = 0;
-        for (Medida item : items) {
-
-            lolo.add(item);
-
-            if(i == 14){
-                break;
-            }
-
-            ++i;
-        }
-
-        //TODO: fazer paginacao
-
         RecyclerView.LayoutManager layoutManager = view.getLayoutManager();
-
 
         if(layoutManager == null){
             view.setLayoutManager(new LinearLayoutManager(view.getContext()));
@@ -204,12 +185,12 @@ public class PesquisaBinding {
         PesquisaMedidaRecyclerAdapter adapter = (PesquisaMedidaRecyclerAdapter) view.getAdapter();
 
         if(adapter == null){
-            adapter = new PesquisaMedidaRecyclerAdapter(view.getContext(), lolo, listener);
+            adapter = new PesquisaMedidaRecyclerAdapter(view.getContext(), items, listener);
 
             view.setAdapter(adapter);
         }
         else{
-            adapter.atualizar(lolo);
+            adapter.atualizar(items);
         }
 
     }

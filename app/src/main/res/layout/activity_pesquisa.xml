@@ -12,16 +12,16 @@
 
         <variable
             name="viewmodel"
-            type="com.vvm.sh.ui.pesquisa.adaptadores.PesquisaViewModel"/>
+            type="com.vvm.sh.ui.pesquisa.PesquisaViewModel"/>
 
 
         <variable
             name="listenerRegisto"
-            type="com.vvm.sh.ui.pesquisa.OnPesquisaListener.OnPesquisaRegistoListener"/>
+            type="com.vvm.sh.ui.pesquisa.adaptadores.OnPesquisaListener.OnPesquisaRegistoListener"/>
 
         <variable
             name="listenerSelecionado"
-            type="com.vvm.sh.ui.pesquisa.OnPesquisaListener.OnPesquisaSelecionadoListener"/>
+            type="com.vvm.sh.ui.pesquisa.adaptadores.OnPesquisaListener.OnPesquisaSelecionadoListener"/>
 
         <variable
             name="pesquisa"

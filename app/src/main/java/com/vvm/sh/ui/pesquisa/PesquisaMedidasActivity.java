@@ -1,17 +1,18 @@
 package com.vvm.sh.ui.pesquisa;
 
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.Toast;
 
 import com.vvm.sh.R;
-import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.databinding.ActivityPesquisaMedidasBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
-import com.vvm.sh.ui.pesquisa.adaptadores.PesquisaViewModel;
+import com.vvm.sh.ui.pesquisa.adaptadores.OnPesquisaListener;
 import com.vvm.sh.ui.pesquisa.modelos.Medida;
 import com.vvm.sh.ui.pesquisa.modelos.Pesquisa;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
@@ -23,7 +24,8 @@ import javax.inject.Inject;
 
 import butterknife.OnClick;
 
-public class PesquisaMedidasActivity extends BaseDaggerActivity implements OnPesquisaListener.OnPesquisaMedidaListener {
+public class PesquisaMedidasActivity extends BaseDaggerActivity
+        implements OnPesquisaListener.OnPesquisaMedidaListener {
 
 
     private ActivityPesquisaMedidasBinding activityPesquisaMedidasBinding;
@@ -55,17 +57,12 @@ public class PesquisaMedidasActivity extends BaseDaggerActivity implements OnPes
 
         if(bundle != null) {
 
+            activityPesquisaMedidasBinding.rclRegistos.addOnScrollListener(rcl_registos_scroll_listener);
             pesquisa = bundle.getParcelable(getString(R.string.argumento_configuracao_pesquisa));
             activityPesquisaMedidasBinding.setPesquisa(pesquisa);
-            if(pesquisa.codigo != null) {
-                viewModel.obterMedidas(pesquisa.metodo, pesquisa.codigo, pesquisa.registosSelecionados);
-            }
-            else if(pesquisa.idPai != null) {
-                viewModel.obterMedidas(pesquisa.metodo, pesquisa.registosSelecionados, pesquisa.idPai);
-            }
-            else{
-                viewModel.obterMedidas(pesquisa.metodo, pesquisa.registosSelecionados);
-            }
+
+            viewModel.obterMedidas(pesquisa);
+
         }
         else{
             finish();
@@ -104,6 +101,19 @@ public class PesquisaMedidasActivity extends BaseDaggerActivity implements OnPes
     //-----------------------
     //EVENTOS
     //-----------------------
+
+
+    RecyclerView.OnScrollListener rcl_registos_scroll_listener = new RecyclerView.OnScrollListener() {
+        @Override
+        public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+            super.onScrollStateChanged(recyclerView, newState);
+
+            if (!recyclerView.canScrollVertically(1) & newState == 2) {
+                viewModel.carregarMedidas(pesquisa);
+            }
+        }
+    };
+
 
 
     @OnClick(R.id.fab_gravar)

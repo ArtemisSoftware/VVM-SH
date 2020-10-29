@@ -9,7 +9,7 @@
 
         <variable
             name="viewmodel"
-            type="com.vvm.sh.ui.pesquisa.adaptadores.PesquisaViewModel"/>
+            type="com.vvm.sh.ui.pesquisa.PesquisaViewModel"/>
 
     </data>
 

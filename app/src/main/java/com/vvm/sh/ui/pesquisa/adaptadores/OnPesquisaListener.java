@@ -1,4 +1,4 @@
-package com.vvm.sh.ui.pesquisa;
+package com.vvm.sh.ui.pesquisa.adaptadores;
 
 import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.equipamentos.modelos.Equipamento;

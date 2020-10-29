@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.vvm.sh.R;
 import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.databinding.ItemPesquisaBinding;
-import com.vvm.sh.ui.pesquisa.OnPesquisaListener;
 
 import java.util.ArrayList;
 import java.util.List;

@@ -7,7 +7,7 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.vvm.sh.databinding.ItemPesquisaEquipamentoBinding;
-import com.vvm.sh.ui.pesquisa.OnPesquisaListener;
+import com.vvm.sh.ui.pesquisa.adaptadores.OnPesquisaListener;
 
 public class EquipamentoViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 

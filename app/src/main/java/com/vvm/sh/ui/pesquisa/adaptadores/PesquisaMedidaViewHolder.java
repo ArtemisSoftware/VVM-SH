@@ -7,7 +7,6 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.vvm.sh.databinding.ItemPesquisaMedidaBinding;
-import com.vvm.sh.ui.pesquisa.OnPesquisaListener;
 
 public class PesquisaMedidaViewHolder extends RecyclerView.ViewHolder implements CheckBox.OnClickListener {
 
@@ -27,6 +26,7 @@ public class PesquisaMedidaViewHolder extends RecyclerView.ViewHolder implements
 
     @Override
     public void onClick(View v) {
+        binding.getMedida().selecionado = ((CheckBox) v).isChecked();
         onItemListener.OnSelecionarClick(binding.getMedida(), ((CheckBox) v).isChecked());
     }
 }

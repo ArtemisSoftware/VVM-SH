@@ -29,8 +29,7 @@ public class AppConfig {
     public static final long TEMPO_CONSULTA_UPLOAD = 3200;
 
 
-    public static final int NUMERO_RESULTADOS_QUERY = 1;
-    public static final int OFFSET_QUERY  = 2;
+    public static final int NUMERO_RESULTADOS_QUERY = 15;
 
-
+    public static final boolean sa = false;
 }

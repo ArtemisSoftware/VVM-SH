@@ -12,16 +12,16 @@
 
         <variable
             name="viewmodel"
-            type="com.vvm.sh.ui.pesquisa.adaptadores.PesquisaViewModel"/>
+            type="com.vvm.sh.ui.pesquisa.PesquisaViewModel"/>
 
 
         <variable
             name="listenerSelecionado"
-            type="com.vvm.sh.ui.pesquisa.OnPesquisaListener.OnPesquisaEquipamentoSelecionadoListener"/>
+            type="com.vvm.sh.ui.pesquisa.adaptadores.OnPesquisaListener.OnPesquisaEquipamentoSelecionadoListener"/>
 
         <variable
             name="listenerRegisto"
-            type="com.vvm.sh.ui.pesquisa.OnPesquisaListener.OnPesquisaEquipamentoRegistoListener"/>
+            type="com.vvm.sh.ui.pesquisa.adaptadores.OnPesquisaListener.OnPesquisaEquipamentoRegistoListener"/>
 
 
         <variable
@@ -154,7 +154,7 @@
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rcl_registos_selecionados"
                         style="@style/lista"
-                        android:layout_height="120dp"
+                        android:layout_height="@dimen/tamanho_lista_pesquisa_selecionada"
                         android:layout_marginTop="@dimen/distancia_vertical_formulario"
 
                         equipamentosSelecionado="@{viewmodel.equipamentosSelecionados}"

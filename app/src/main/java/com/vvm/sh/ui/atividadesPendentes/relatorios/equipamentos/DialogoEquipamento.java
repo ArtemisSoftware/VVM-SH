@@ -14,10 +14,11 @@ import com.vvm.sh.baseDados.entidades.TipoNovo;
 import com.vvm.sh.databinding.DialogoEquipamentoBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerDialogoPersistenteFragment;
-import com.vvm.sh.ui.pesquisa.adaptadores.PesquisaViewModel;
+import com.vvm.sh.ui.pesquisa.PesquisaViewModel;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.constantes.TiposConstantes;
+import com.vvm.sh.util.metodos.PreferenciasUtil;
 
 import java.util.List;
 
@@ -86,6 +87,7 @@ public class DialogoEquipamento extends BaseDaggerDialogoPersistenteFragment
 
                     case SUCESSO:
 
+                        PreferenciasUtil.incrementarContagemMaquina(getContext());
                         dialogo.sucesso(recurso.messagem, listener);
                         break;
 
@@ -116,7 +118,8 @@ public class DialogoEquipamento extends BaseDaggerDialogoPersistenteFragment
 
         TipoNovo resultado = new TipoNovo(TiposConstantes.TiposNovos.TIPOS_MAQUINA, equipamento);
 
-        viewModel.gravar(resultado);
+        int idProvisorio = PreferenciasUtil.obterContagemMaquina(getContext());
+        viewModel.gravar(idProvisorio, resultado);
 
     }
 

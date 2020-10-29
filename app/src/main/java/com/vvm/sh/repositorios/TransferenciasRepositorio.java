@@ -25,6 +25,7 @@ import com.vvm.sh.baseDados.entidades.TipoExtintor;
 import com.vvm.sh.ui.transferencias.modelos.Pendencia;
 import com.vvm.sh.ui.transferencias.modelos.Sessao;
 import com.vvm.sh.ui.transferencias.modelos.Upload;
+import com.vvm.sh.util.constantes.AppConfig;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -54,8 +55,7 @@ public class TransferenciasRepositorio {
     //---------------------------
     //API
     //---------------------------
-    //TODO: rever isto para poder escolher a api ou as duas
-    private boolean sa = false;
+
 
     /**
      * Metodo que permite obter o trabalho do dia para um utilizador
@@ -64,7 +64,7 @@ public class TransferenciasRepositorio {
      */
     public Single<Sessao> obterTrabalho(String idUtilizador) {
 
-        if(sa) {
+        if(AppConfig.sa) {
 
             return apiSA.obterTrabalho(SegurancaAlimentarApi.HEADER, idUtilizador)
                     .map(new Function<ISessao, Sessao>() {
@@ -104,7 +104,7 @@ public class TransferenciasRepositorio {
      */
     public Single<Sessao> obterTrabalho(String idUtilizador, String data) {
 
-        if(sa) {
+        if(AppConfig.sa) {
 
             return apiSA.obterTrabalho(SegurancaAlimentarApi.HEADER, idUtilizador, data)
                     .map(new Function<ISessao, Sessao>() {

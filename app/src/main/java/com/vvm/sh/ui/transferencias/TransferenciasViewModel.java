@@ -1,5 +1,6 @@
 package com.vvm.sh.ui.transferencias;
 
+import android.content.Context;
 import android.os.Handler;
 
 import androidx.lifecycle.MutableLiveData;
@@ -25,6 +26,7 @@ import com.vvm.sh.servicos.RecarregarTrabalhoAsyncTask;
 import com.vvm.sh.servicos.TrabalhoAsyncTask;
 import com.vvm.sh.ui.transferencias.modelos.DadosUpload;
 import com.vvm.sh.ui.transferencias.modelos.Pendencia;
+import com.vvm.sh.ui.transferencias.modelos.Sessao;
 import com.vvm.sh.ui.transferencias.modelos.Upload;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.constantes.Identificadores;
@@ -34,6 +36,7 @@ import com.vvm.sh.util.excepcoes.RespostaWsInvalidaException;
 import com.vvm.sh.util.excepcoes.TipoInexistenteException;
 import com.vvm.sh.util.mapeamento.UploadMapping;
 import com.vvm.sh.util.metodos.DatasUtil;
+import com.vvm.sh.util.metodos.PreferenciasUtil;
 import com.vvm.sh.util.metodos.TiposUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
@@ -162,7 +165,7 @@ public class TransferenciasViewModel extends BaseViewModel {
      * Metodo que permite obter o trabalho do dia
      * @param idUtilizador o identificador do utilizador
      */
-    public void obterTrabalho(String idUtilizador, Handler handler){
+    public void obterTrabalho(Context contexto, String idUtilizador, Handler handler){
 
         showProgressBar(true);
 
@@ -171,16 +174,18 @@ public class TransferenciasViewModel extends BaseViewModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
 
-                        new SingleObserver<ISessao>() {
+                        new SingleObserver<Sessao>() {
                             @Override
                             public void onSubscribe(Disposable d) {
                                 disposables.add(d);
                             }
 
                             @Override
-                            public void onSuccess(ISessao iSessao) {
+                            public void onSuccess(Sessao sessao) {
                                 TrabalhoAsyncTask servico = new TrabalhoAsyncTask(vvmshBaseDados, transferenciasRepositorio, handler, idUtilizador);
-                                servico.execute(iSessao);
+                                servico.execute(sessao.iSessao);
+
+                                PreferenciasUtil.fixarContagemMaquina(contexto, sessao.iContagemTipoMaquina);
 
                                 showProgressBar(false);
                             }
@@ -191,9 +196,7 @@ public class TransferenciasViewModel extends BaseViewModel {
                                 formatarErro(e);
                             }
                         }
-
                 );
-
     }
 
 
@@ -203,7 +206,7 @@ public class TransferenciasViewModel extends BaseViewModel {
      * @param idUtilizador o identificador do utilizador
      * @param data a data do trabalho
      */
-    public void recarregarTrabalho(String idUtilizador, String data, Handler handler){
+    public void recarregarTrabalho(Context contexto, String idUtilizador, String data, Handler handler){
 
         showProgressBar(true);
 
@@ -212,16 +215,18 @@ public class TransferenciasViewModel extends BaseViewModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
 
-                        new SingleObserver<ISessao>() {
+                        new SingleObserver<Sessao>() {
                             @Override
                             public void onSubscribe(Disposable d) {
                                 disposables.add(d);
                             }
 
                             @Override
-                            public void onSuccess(ISessao iSessao) {
+                            public void onSuccess(Sessao sessao) {
                                 RecarregarTrabalhoAsyncTask servico = new RecarregarTrabalhoAsyncTask(vvmshBaseDados, transferenciasRepositorio, handler, idUtilizador, DatasUtil.converterDataLong(data, DatasUtil.FORMATO_YYYY_MM_DD));
-                                servico.execute(iSessao);
+                                servico.execute(sessao.iSessao);
+
+                                PreferenciasUtil.fixarContagemMaquina(contexto, sessao.iContagemTipoMaquina);
 
                                 showProgressBar(false);
                             }
@@ -232,9 +237,7 @@ public class TransferenciasViewModel extends BaseViewModel {
                                 formatarErro(e);
                             }
                         }
-
                 );
-
     }
 
 
@@ -243,7 +246,7 @@ public class TransferenciasViewModel extends BaseViewModel {
      * Metodo que permite recarregar uma tarefa
      * @param tarefa os dados da tarefa a recarregar
      */
-    public void recarregarTarefa(Tarefa tarefa, Handler handler){
+    public void recarregarTarefa(Context contexto, Tarefa tarefa, Handler handler){
 
         showProgressBar(true);
 
@@ -252,29 +255,28 @@ public class TransferenciasViewModel extends BaseViewModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
 
-                        new SingleObserver<ISessao>() {
+                        new SingleObserver<Sessao>() {
                             @Override
                             public void onSubscribe(Disposable d) {
                                 disposables.add(d);
                             }
 
                             @Override
-                            public void onSuccess(ISessao iSessao) {
+                            public void onSuccess(Sessao sessao) {
                                 RecarregarTarefaAsyncTask servico = new RecarregarTarefaAsyncTask(vvmshBaseDados, transferenciasRepositorio, handler, tarefa);
-                                servico.execute(iSessao);
+                                servico.execute(sessao.iSessao);
+
+                                PreferenciasUtil.fixarContagemMaquina(contexto, sessao.iContagemTipoMaquina);
 
                                 showProgressBar(false);
                             }
 
                             @Override
                             public void onError(Throwable e) {
-                                showProgressBar(false);
-                                formatarErro(e);
+
                             }
                         }
-
                 );
-
     }
 
 

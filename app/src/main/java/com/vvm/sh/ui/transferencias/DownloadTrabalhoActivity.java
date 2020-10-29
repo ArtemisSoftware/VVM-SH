@@ -150,7 +150,7 @@ public class DownloadTrabalhoActivity extends BaseDaggerActivity {
         activityDownloadTrabalhoBinding.txtData.setText(DatasUtil.converterData(bundle.getLong(getString(R.string.argumento_data)), DatasUtil.FORMATO_DD_MM_YYYY));
         activityDownloadTrabalhoBinding.cardTrabalho.setVisibility(View.VISIBLE);
 
-        viewModel.recarregarTrabalho(PreferenciasUtil.obterIdUtilizador(this), DatasUtil.converterData(bundle.getLong(getString(R.string.argumento_data)), DatasUtil.FORMATO_YYYY_MM_DD), handlerNotificacoesUI);
+        viewModel.recarregarTrabalho(this, PreferenciasUtil.obterIdUtilizador(this), DatasUtil.converterData(bundle.getLong(getString(R.string.argumento_data)), DatasUtil.FORMATO_YYYY_MM_DD), handlerNotificacoesUI);
         //--viewModel.obterPendencias(PreferenciasUtil.obterIdUtilizador(this), bundle.getLong(getString(R.string.argumento_data)));
     }
 
@@ -161,7 +161,7 @@ public class DownloadTrabalhoActivity extends BaseDaggerActivity {
 
         Bundle bundle = getIntent().getExtras();
         activityDownloadTrabalhoBinding.txtTitulo.setText(getString(R.string.recarregar_tarefa));
-        viewModel.recarregarTarefa((Tarefa) bundle.get(getString(R.string.argumento_tarefa)), handlerNotificacoesUI);
+        viewModel.recarregarTarefa(this, (Tarefa) bundle.get(getString(R.string.argumento_tarefa)), handlerNotificacoesUI);
     }
 
 
@@ -200,7 +200,7 @@ public class DownloadTrabalhoActivity extends BaseDaggerActivity {
 
             case Identificadores.Download.DOWNLOAD_TRABALHO_DIA:
 
-                viewModel.obterTrabalho(PreferenciasUtil.obterIdUtilizador(this), handlerNotificacoesUI);
+                viewModel.obterTrabalho(this, PreferenciasUtil.obterIdUtilizador(this), handlerNotificacoesUI);
                 break;
 
             case Identificadores.Download.RECARREGAR_TRABALHO_DIA:
@@ -208,7 +208,7 @@ public class DownloadTrabalhoActivity extends BaseDaggerActivity {
                 OnDialogoListener listener = new OnDialogoListener() {
                     @Override
                     public void onExecutar() {
-                        viewModel.recarregarTrabalho(PreferenciasUtil.obterIdUtilizador(getApplication()), DatasUtil.converterData(bundle.getLong(getString(R.string.argumento_data)), DatasUtil.FORMATO_YYYY_MM_DD), handlerNotificacoesUI);
+                        viewModel.recarregarTrabalho(DownloadTrabalhoActivity.this, PreferenciasUtil.obterIdUtilizador(getApplication()), DatasUtil.converterData(bundle.getLong(getString(R.string.argumento_data)), DatasUtil.FORMATO_YYYY_MM_DD), handlerNotificacoesUI);
                     }
                 };
 
@@ -216,7 +216,7 @@ public class DownloadTrabalhoActivity extends BaseDaggerActivity {
                 break;
 
             case Identificadores.Download.RECARREGAR_TAREFA:
-                viewModel.recarregarTarefa(bundle.getParcelable(getString(R.string.argumento_tarefa)), handlerNotificacoesUI);
+                viewModel.recarregarTarefa(this, bundle.getParcelable(getString(R.string.argumento_tarefa)), handlerNotificacoesUI);
                 break;
 
 

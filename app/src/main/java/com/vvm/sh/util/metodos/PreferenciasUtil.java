@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 
 import com.vvm.sh.BuildConfig;
+import com.vvm.sh.api.modelos.pedido.IContagemTipoMaquina;
 import com.vvm.sh.baseDados.entidades.Tarefa;
 import com.vvm.sh.ui.apresentacao.ApresentacaoActivity;
 import com.vvm.sh.util.constantes.Identificadores;
@@ -21,6 +22,7 @@ public class PreferenciasUtil {
     private static final String AGENDA_EDITAVEL = "tarefa_ativa";
     private static final String DATA_VALIDADE_AUTENTICACAO = "validade_autenticacao";
     private static final String TOKEN = "token";
+    private static final String ID_CONTAGEM_MAQUINA = "id_contagem_maquinas";
 
     private static final String PREFERENCIAS_UTILIZADOR [] = { ID_UTILIZADOR, ID_TAREFA, AGENDA_EDITAVEL, DATA_VALIDADE_AUTENTICACAO, TOKEN , ID_API };
 
@@ -77,6 +79,54 @@ public class PreferenciasUtil {
         editor.commit();
     }
 
+
+    /**
+     * Metodo que permite fixar a contagem de maquinas
+     * @param contexto
+     * @param contagemTipoMaquina os dados da contagem
+     */
+    public static void fixarContagemMaquina(Context contexto, IContagemTipoMaquina contagemTipoMaquina){
+
+        if(contagemTipoMaquina == null){
+            return;
+        }
+
+        String pacote = contexto.getPackageName();
+
+        SharedPreferences preferencias = contexto.getSharedPreferences(pacote, Context.MODE_PRIVATE); // 0 - for private mode
+        SharedPreferences.Editor editor = preferencias.edit();
+        editor.putInt(ID_CONTAGEM_MAQUINA, contagemTipoMaquina.contagem);
+
+        editor.commit();
+    }
+
+
+
+    /**
+     * Metodo que permite obter a contagem de maquinas
+     * @param contexto
+     * @return o numero a usar no equipamento a inserir
+     */
+    public static int obterContagemMaquina(Context contexto) {
+
+        String pacote = contexto.getPackageName();
+
+        SharedPreferences preferencias = contexto.getSharedPreferences(pacote, Context.MODE_PRIVATE);
+        return preferencias.getInt(ID_CONTAGEM_MAQUINA, 0);
+    }
+
+    /**
+     * Metodo que permite incrementar a contagem de maquinas
+     * @param contexto
+     */
+    public static void incrementarContagemMaquina(Context contexto) {
+
+        int id = obterContagemMaquina(contexto);
+        IContagemTipoMaquina contagemTipoMaquina = new IContagemTipoMaquina();
+        contagemTipoMaquina.contagem = (id + 1);
+
+        fixarContagemMaquina(contexto, contagemTipoMaquina);
+    }
 
 
 

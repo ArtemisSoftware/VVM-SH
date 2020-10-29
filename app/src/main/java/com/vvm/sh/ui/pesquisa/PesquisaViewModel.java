@@ -1,4 +1,4 @@
-package com.vvm.sh.ui.pesquisa.adaptadores;
+package com.vvm.sh.ui.pesquisa;
 
 import androidx.lifecycle.MutableLiveData;
 
@@ -9,8 +9,10 @@ import com.vvm.sh.repositorios.EquipamentoRepositorio;
 import com.vvm.sh.repositorios.TiposRepositorio;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.equipamentos.modelos.Equipamento;
 import com.vvm.sh.ui.pesquisa.modelos.Medida;
+import com.vvm.sh.ui.pesquisa.modelos.Pesquisa;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.ResultadoId;
+import com.vvm.sh.util.constantes.AppConfig;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.excepcoes.TipoInexistenteException;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
@@ -76,7 +78,7 @@ public class PesquisaViewModel extends BaseViewModel {
      * Metodo que permite gravar um novo tipo
      * @param registo
      */
-    public void gravar(TipoNovo registo) {
+    public void gravar(int idProvisorio, TipoNovo registo) {
 
         equipamentoRepositorio.validarEquipamento(registo.descricao)
                 .flatMap(new Function<Boolean, SingleSource<?>>() {
@@ -87,7 +89,7 @@ public class PesquisaViewModel extends BaseViewModel {
                         }
                         else{
 
-                            registo.idProvisorio = 102; //TODO: obter o numero provisorio e depois inserir
+                            registo.idProvisorio = idProvisorio;
                             return equipamentoRepositorio.inserir(registo);
                         }
                     }
@@ -394,47 +396,24 @@ public class PesquisaViewModel extends BaseViewModel {
 
 
 
+    //--------------------
+    //Pesquisar medidas
+    //--------------------
+
+
+
+
+    /**
+     * Metodo que permite obter as medidas
+     * @param metodo o nome do metodo das medidas
+     * @param codigo o codigo das medidas
+     * @param registos os registos a excluir
+     */
     public void obterMedidas(String metodo, String codigo, List<Integer> registos){
 
         showProgressBar(true);
 
         tiposRepositorio.obterMedidas(metodo, codigo, idApi, registos)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-
-                        new Observer<List<Medida>>() {
-                            @Override
-                            public void onSubscribe(Disposable d) {
-
-                            }
-
-                            @Override
-                            public void onNext(List<Medida> registos) {
-                                medidas.setValue(registos);
-                                showProgressBar(false);
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-
-                            }
-
-                            @Override
-                            public void onComplete() {
-                                showProgressBar(false);
-                            }
-                        }
-
-                );
-    }
-
-
-    public void obterMedidas(String metodo, List<Integer> registos, String idPai){
-
-        showProgressBar(true);
-
-        tiposRepositorio.obterMedidas(metodo, idApi, registos, idPai)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -453,7 +432,95 @@ public class PesquisaViewModel extends BaseViewModel {
 
                             @Override
                             public void onError(Throwable e) {
+                                showProgressBar(false);
+                            }
 
+                            @Override
+                            public void onComplete() {
+                                showProgressBar(false);
+                            }
+                        }
+                );
+    }
+
+
+    private int pagina = 0;
+
+
+
+    /**
+     * Metodo que permite medidas
+     * @param pesquisa
+     */
+    public void obterMedidas(Pesquisa pesquisa){
+
+        if(pesquisa.codigo != null) {
+            obterMedidas(pesquisa.metodo, pesquisa.codigo, pesquisa.registosSelecionados);
+        }
+        else if(pesquisa.idPai != null) {
+            obterMedidas(pesquisa.metodo, pesquisa.registosSelecionados, pesquisa.idPai);
+        }
+        else{
+            obterMedidas(pesquisa.metodo, pesquisa.registosSelecionados);
+        }
+    }
+
+
+    /**
+     * Metodo que permite carregar mais medidas
+     * @param pesquisa
+     */
+    public void carregarMedidas(Pesquisa pesquisa){
+
+        pagina += AppConfig.NUMERO_RESULTADOS_QUERY;
+        obterMedidas(pesquisa);
+    }
+
+
+    private void adicionarMedidas(List<Medida> registos){
+
+       List<Medida> resultados = medidas.getValue();
+
+       if(resultados == null){
+           resultados = new ArrayList<>();
+       }
+
+       resultados.addAll(registos);
+       medidas.setValue(resultados);
+    }
+
+
+
+    /**
+     * Metodo que permite obter as medidas
+     * @param metodo
+     * @param registos os registos a excluir
+     * @param idPai
+     */
+    private void obterMedidas(String metodo, List<Integer> registos, String idPai){
+
+        showProgressBar(true);
+
+        tiposRepositorio.obterMedidas(metodo, idApi, registos, idPai, pagina)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new Observer<List<Medida>>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onNext(List<Medida> registos) {
+                                adicionarMedidas(registos);
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                showProgressBar(false);
                             }
 
                             @Override

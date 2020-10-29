@@ -5,5 +5,5 @@ import com.google.gson.annotations.SerializedName;
 public class IContagemTipoMaquina {
 
     @SerializedName("contagem")
-    public String contagem;
+    public int contagem;
 }

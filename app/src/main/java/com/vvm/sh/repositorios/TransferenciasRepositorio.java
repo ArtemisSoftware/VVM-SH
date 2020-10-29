@@ -3,56 +3,36 @@ package com.vvm.sh.repositorios;
 import androidx.annotation.NonNull;
 
 import com.vvm.sh.api.SegurancaTrabalhoApi;
-import com.vvm.sh.api.modelos.bd.AreaBd;
-import com.vvm.sh.api.modelos.bd.AtividadePendenteBd;
-import com.vvm.sh.api.modelos.bd.AtividadePlanoAcaoBd;
-import com.vvm.sh.api.modelos.bd.ColaboradorBd;
-import com.vvm.sh.api.modelos.bd.ExtintorBd;
-import com.vvm.sh.api.modelos.bd.FormandoBd;
 import com.vvm.sh.api.SegurancaAlimentarApi;
-import com.vvm.sh.api.modelos.bd.RegistoVisitaBd;
-import com.vvm.sh.api.modelos.bd.RelatorioAmbientalBd;
+import com.vvm.sh.api.modelos.pedido.IContagemTipoMaquina;
 import com.vvm.sh.api.modelos.pedido.ISessao;
 import com.vvm.sh.api.modelos.pedido.Codigo;
 import com.vvm.sh.baseDados.dao.TransferenciasDao;
 import com.vvm.sh.baseDados.entidades.Anomalia;
 import com.vvm.sh.baseDados.entidades.AtividadeExecutada;
 import com.vvm.sh.baseDados.entidades.AtividadePendente;
-import com.vvm.sh.baseDados.entidades.AvaliacaoAmbientalResultado;
 import com.vvm.sh.baseDados.entidades.Cliente;
 import com.vvm.sh.baseDados.entidades.Colaborador;
-import com.vvm.sh.baseDados.entidades.CrossSellingResultado;
-import com.vvm.sh.baseDados.entidades.ImagemResultado;
-import com.vvm.sh.baseDados.entidades.LevantamentoRiscoResultado;
 import com.vvm.sh.baseDados.entidades.Morada;
 import com.vvm.sh.baseDados.entidades.Ocorrencia;
 import com.vvm.sh.baseDados.entidades.OcorrenciaHistorico;
 import com.vvm.sh.baseDados.entidades.ParqueExtintor;
 import com.vvm.sh.baseDados.entidades.PlanoAcao;
 import com.vvm.sh.baseDados.entidades.PlanoAcaoAtividade;
-import com.vvm.sh.baseDados.entidades.QuestionarioChecklistResultado;
 import com.vvm.sh.baseDados.entidades.Resultado;
-import com.vvm.sh.baseDados.entidades.EmailResultado;
-import com.vvm.sh.baseDados.entidades.RiscoResultado;
-import com.vvm.sh.baseDados.entidades.SinistralidadeResultado;
 import com.vvm.sh.baseDados.entidades.Tarefa;
-import com.vvm.sh.baseDados.entidades.AnomaliaResultado;
-import com.vvm.sh.baseDados.entidades.OcorrenciaResultado;
-import com.vvm.sh.baseDados.entidades.AcaoFormacaoResultado;
-import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.baseDados.entidades.TipoExtintor;
-import com.vvm.sh.baseDados.entidades.TipoNovo;
-import com.vvm.sh.baseDados.entidades.TrabalhadorVulneravelResultado;
-import com.vvm.sh.baseDados.entidades.TrabalhoRealizadoResultado;
 import com.vvm.sh.ui.transferencias.modelos.Pendencia;
+import com.vvm.sh.ui.transferencias.modelos.Sessao;
 import com.vvm.sh.ui.transferencias.modelos.Upload;
-import com.vvm.sh.util.constantes.Identificadores;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Maybe;
 import io.reactivex.Single;
+import io.reactivex.functions.BiFunction;
+import io.reactivex.functions.Function;
 
 public class TransferenciasRepositorio {
 
@@ -82,13 +62,36 @@ public class TransferenciasRepositorio {
      * @param idUtilizador o identificador do utilizador
      * @return o trabalho
      */
-    public Single<ISessao> obterTrabalho(String idUtilizador) {
+    public Single<Sessao> obterTrabalho(String idUtilizador) {
 
         if(sa) {
-            return apiSA.obterTrabalho(SegurancaAlimentarApi.HEADER, idUtilizador);
+
+            return apiSA.obterTrabalho(SegurancaAlimentarApi.HEADER, idUtilizador)
+                    .map(new Function<ISessao, Sessao>() {
+                        @Override
+                        public Sessao apply(ISessao iSessao) throws Exception {
+                            Sessao sessao = new Sessao();
+                            sessao.iSessao = iSessao;
+                            return sessao;
+                        }
+                    });
+
         }
-        else{
-            return apiST.obterTrabalho(SegurancaTrabalhoApi.HEADER, idUtilizador);
+        else {
+            return Single.zip(
+                    apiST.obterTrabalho(SegurancaTrabalhoApi.HEADER, idUtilizador),
+                    apiST.obterContagemTiposMaquinas(SegurancaTrabalhoApi.HEADER, idUtilizador),
+                    new BiFunction<ISessao, IContagemTipoMaquina, Sessao>() {
+                        @Override
+                        public Sessao apply(ISessao iSessao, IContagemTipoMaquina iContagemTipoMaquina) throws Exception {
+
+                            Sessao sessao = new Sessao();
+                            sessao.iContagemTipoMaquina = iContagemTipoMaquina;
+                            sessao.iSessao = iSessao;
+                            return sessao;
+                        }
+                    }
+            );
         }
     }
 
@@ -99,14 +102,38 @@ public class TransferenciasRepositorio {
      * @param data da data do dia (YYYY-mm-dd)
      * @return o trabalho do dia
      */
-    public Single<ISessao> obterTrabalho(String idUtilizador, String data) {
+    public Single<Sessao> obterTrabalho(String idUtilizador, String data) {
 
         if(sa) {
-            return apiSA.obterTrabalho(SegurancaAlimentarApi.HEADER, idUtilizador, data);
+
+            return apiSA.obterTrabalho(SegurancaAlimentarApi.HEADER, idUtilizador, data)
+                    .map(new Function<ISessao, Sessao>() {
+                        @Override
+                        public Sessao apply(ISessao iSessao) throws Exception {
+                            Sessao sessao = new Sessao();
+                            sessao.iSessao = iSessao;
+                            return sessao;
+                        }
+                    });
+
         }
         else {
-            return apiST.obterTrabalho(SegurancaTrabalhoApi.HEADER, idUtilizador, data);
+            return Single.zip(
+                    apiST.obterTrabalho(SegurancaTrabalhoApi.HEADER, idUtilizador, data),
+                    apiST.obterContagemTiposMaquinas(SegurancaTrabalhoApi.HEADER, idUtilizador),
+                    new BiFunction<ISessao, IContagemTipoMaquina, Sessao>() {
+                        @Override
+                        public Sessao apply(ISessao iSessao, IContagemTipoMaquina iContagemTipoMaquina) throws Exception {
+
+                            Sessao sessao = new Sessao();
+                            sessao.iContagemTipoMaquina = iContagemTipoMaquina;
+                            sessao.iSessao = iSessao;
+                            return sessao;
+                        }
+                    }
+            );
         }
+
     }
 
 

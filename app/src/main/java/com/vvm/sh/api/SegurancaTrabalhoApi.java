@@ -96,4 +96,6 @@ public interface SegurancaTrabalhoApi {
     Single<Codigo> obterContagemMaquinas(@HeaderMap Map<String, String> headers, @Query("utilizador") String idUtilizador);
 
 
+    @GET("ObterContagemTiposMaquina")
+    Single<ITipoChecklist> obterContagemTiposMaquinas(@HeaderMap Map<String, String> headers, @Query("utilizador") String id);
 }

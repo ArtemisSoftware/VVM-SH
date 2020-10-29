@@ -56,7 +56,6 @@ import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.baseDados.entidades.TipoNovo;
 import com.vvm.sh.baseDados.entidades.TrabalhadorVulneravelResultado;
 import com.vvm.sh.baseDados.entidades.TrabalhoRealizadoResultado;
-import com.vvm.sh.repositorios.TransferenciasRepositorio;
 import com.vvm.sh.baseDados.entidades.AnomaliaResultado;
 import com.vvm.sh.baseDados.entidades.OcorrenciaResultado;
 import com.vvm.sh.repositorios.UploadRepositorio;
@@ -217,10 +216,14 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
             dadosFormulario.id = UploadMapping.INSTANCE.map(repositorio.obterTarefa(upload.tarefa.idTarefa));
 
             dadosUpload.fixarDados(dadosFormulario);
-            dadosUpload.equipamentos = obterEquipamentos(upload.resultados);
             atualizacaoUI.atualizarUI(AtualizacaoUI.Codigo.PROCESSAMENTO_DADOS, "Tarefa: " + upload.tarefa.idTarefa, posicao, resposta.size());
         }
+
+
+        dadosUpload.equipamentos = obterEquipamentos(resposta);
     }
+
+
 
     private ParqueExtintor obterParqueExtintor(int idTarefa) {
 
@@ -239,13 +242,13 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
         return parqueExtintor;
     }
 
-    private List<Equipamento> obterEquipamentos(List<Resultado> resultados) {
+    private List<Equipamento> obterEquipamentos(List<Upload> resposta) {
 
         List<Integer> ids = new ArrayList<>();
         List<Equipamento> registos = new ArrayList<>();
 
-        for(Resultado item : resultados){
-            ids.add(item.id);
+        for(Upload item : resposta){
+            ids.add(item.tarefa.idTarefa);
         }
 
         for (TipoNovo item : repositorio.obterNovosEquipamentos(ids)) {
@@ -260,6 +263,11 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
     }
 
 
+    /**
+     * Metodo que permite obter o quadro pessoal
+     * @param idTarefa o identificador da tarefa
+     * @return uma lista de colaboradores
+     */
     private List<Colaborador> obterQuadroPessoal(int idTarefa) {
 
         List<Colaborador> registos = new ArrayList<>();
@@ -276,8 +284,13 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
         return registos;
     }
 
-    private Sinistralidade obterSinistralidade(int idTarefa) {
 
+    /**
+     * Metodo que permite obter a sinistralidade
+     * @param idTarefa o identificador da tarefa
+     * @return a sinistralidade
+     */
+    private Sinistralidade obterSinistralidade(int idTarefa) {
         return UploadMapping.INSTANCE.map(repositorio.obterSinistralidade(idTarefa));
     }
 
@@ -353,7 +366,6 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
 
         registoVisita.trabalhosRealizados = registos;
         return registoVisita;
-
     }
 
 
@@ -397,7 +409,10 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
         avaliacaoRiscos.processoProdutivo = repositorio.obterProcessoProdutivo(idAtividade);
         avaliacaoRiscos.levantamentosRisco = obterLevantamentoRisco(idAtividade);
         avaliacaoRiscos.propostasPlanoAcao = repositorio.obterPropostaPlanoAcao(idAtividade);
-        avaliacaoRiscos.capaRelatorio = repositorio.obterCapaRelatorio(idTarefa);
+        try {
+            avaliacaoRiscos.capaRelatorio = repositorio.obterCapaRelatorio(idTarefa) + "";
+        }
+        catch (NullPointerException e){}
         return avaliacaoRiscos;
     }
 
@@ -407,9 +422,6 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
 
         for(TrabalhadorVulneravelResultado item : repositorio.obterTrabalhadoresVulneraveis(idAtividade)){
             TrabalhadorVulneravel registo = UploadMapping.INSTANCE.map(item);
-
-            registo.quantidadeHomens = repositorio.obterNumeroHomens_TrabalhadoresVulneraveis(item.id) + "";
-            registo.quantidadeMulheres = repositorio.obterNumeroMulheres_TrabalhadoresVulneraveis(item.id) + "";
 
             registo.categoriasProfissionaisHomens = repositorio.obterCategoriasProfissionais_TrabalhadoresVulneraveis(item.id, Identificadores.Origens.VULNERABILIDADE_CATEGORIAS_PROFISSIONAIS_HOMENS);
             registo.categoriasProfissionaisMulheres = repositorio.obterCategoriasProfissionais_TrabalhadoresVulneraveis(item.id, Identificadores.Origens.VULNERABILIDADE_CATEGORIAS_PROFISSIONAIS_MULHERES);
@@ -426,6 +438,7 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
         List<Checklist> registos = new ArrayList<>();
 
         Tipo tipoChecklist = repositorio.obterChecklist(idAtividade);
+
         Checklist checklist = UploadMapping.INSTANCE.map(tipoChecklist);
         checklist.versao = checklist.versao.split(".json")[0].split("_")[2];
 
@@ -478,6 +491,9 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
 
         RelatorioAmbientalBd registo = repositorio.obterRelatorioIluminacao(idAtividade);
         RelatorioAmbiental relatorioAmbiental = UploadMapping.INSTANCE.map(registo);
+        relatorioAmbiental.inicio = DatasUtil.converterData(registo.resultado.inicio, DatasUtil.HORA_FORMATO_HH_MM);
+        relatorioAmbiental.termino =  DatasUtil.converterData(registo.resultado.termino, DatasUtil.HORA_FORMATO_HH_MM);
+        relatorioAmbiental.dataAvaliacao = DatasUtil.converterData(registo.resultado.data, DatasUtil.FORMATO_YYYY_MM_DD);
         relatorioAmbiental.equipamento = Sintaxe.Palavras.EQUIPAMENTO_RELATORIO_ILUMINACAO;
 
         for(AvaliacaoAmbientalResultado item : repositorio.obterAvaliacoesAmbiental(registo.resultado.id)){
@@ -499,6 +515,9 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
 
         RelatorioAmbientalBd registo = repositorio.obterRelatorioTemperaturaHumidade(idAtividade);
         RelatorioAmbiental relatorioAmbiental = UploadMapping.INSTANCE.map(registo);
+        relatorioAmbiental.inicio = DatasUtil.converterData(registo.resultado.inicio, DatasUtil.HORA_FORMATO_HH_MM);
+        relatorioAmbiental.termino =  DatasUtil.converterData(registo.resultado.termino, DatasUtil.HORA_FORMATO_HH_MM);
+        relatorioAmbiental.dataAvaliacao = DatasUtil.converterData(registo.resultado.data, DatasUtil.FORMATO_YYYY_MM_DD);
         relatorioAmbiental.equipamento = Sintaxe.Palavras.EQUIPAMENTO_RELATORIO_TEMPERATURA_HUMIDADE;
 
         for(AvaliacaoAmbientalResultado item : repositorio.obterAvaliacoesAmbiental(registo.resultado.id)){
@@ -524,6 +543,7 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
         for(LevantamentoRiscoResultado itemLevantamento : repositorio.obterLevantamentos(idAtividade)){
 
             Levantamento levantamento = UploadMapping.INSTANCE.map(itemLevantamento);
+            levantamento.riscos = new ArrayList<>();
 
             for(RiscoResultado item : repositorio.obterRiscos(itemLevantamento.id)){
 
@@ -531,7 +551,7 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
                 risco.idsMedidasExistentes = repositorio.obterMedidas(item.id, Identificadores.Origens.LEVANTAMENTO_MEDIDAS_ADOPTADAS);
                 risco.idsMedidasRecomendadas = repositorio.obterMedidas(item.id, Identificadores.Origens.LEVANTAMENTO_MEDIDAS_RECOMENDADAS);
                 risco.album = repositorio.obterImagens_(item.id, Identificadores.Imagens.IMAGEM_RISCO);
-                //--idImagens.add(registo.idImagem);
+                idImagens.addAll(risco.album);
                 levantamento.riscos.add(risco);
             }
 
@@ -556,24 +576,44 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
 
             if(item.resultado.idEstado == Identificadores.Estados.ESTADO_EXECUTADO){
 
-                AtividadePendenteExecutada registo = UploadMapping.INSTANCE.mapeamentoTemperaturaHumidade(item);
+                AtividadePendenteExecutada registo = UploadMapping.INSTANCE.mapeamentoAtividadeExecutada(item);
 
-//                if(item.atividade.idRelatorio == Identificadores.Relatorios.ID_RELATORIO_FORMACAO){
-//                    registo.formacao = obterAcaoFormacao(item.resultado.id);
-//                }
-//                else if(item.atividade.idRelatorio == Identificadores.Relatorios.ID_RELATORIO_AVALIACAO_RISCO){
-//                    registo.avaliacaoRiscos = obterAvaliacaoRiscos(item.resultado.id);
-//                }
+                switch (item.atividade.idRelatorio){
 
-                registo.formacao = obterAcaoFormacao(item.resultado.id);
-                registo.avaliacaoRiscos = obterAvaliacaoRiscos(idTarefa, item.resultado.id);
-                registo.iluminacao = obterRelatorioIluminacao(item.resultado.id);
-                registo.temperaturaHumidade = obterRelatorioTemperaturaHumidade(item.resultado.id);
+                    case Identificadores.Relatorios.ID_RELATORIO_FORMACAO:
+
+                        registo.formacao = obterAcaoFormacao(item.resultado.id);
+                        break;
+
+                    case Identificadores.Relatorios.ID_RELATORIO_AVALIACAO_RISCO:
+
+                        registo.avaliacaoRiscos = obterAvaliacaoRiscos(idTarefa, item.resultado.id);
+                        break;
+
+                    case Identificadores.Relatorios.ID_RELATORIO_ILUMINACAO:
+
+                        registo.iluminacao = obterRelatorioIluminacao(item.resultado.id);
+                        break;
+
+                    case Identificadores.Relatorios.ID_RELATORIO_TEMPERATURA_HUMIDADE:
+
+                        registo.temperaturaHumidade = obterRelatorioTemperaturaHumidade(item.resultado.id);
+                        break;
+
+                    default:
+                        break;
+                }
+
+//
+//                registo.formacao = obterAcaoFormacao(item.resultado.id);
+//                registo.avaliacaoRiscos = obterAvaliacaoRiscos(idTarefa, item.resultado.id);
+//                registo.iluminacao = obterRelatorioIluminacao(item.resultado.id);
+//                registo.temperaturaHumidade = obterRelatorioTemperaturaHumidade(item.resultado.id);
 
                 registos.add(registo);
             }
             else {
-                AtividadePendenteNaoExecutada registo = UploadMapping.INSTANCE.map(item);
+                AtividadePendenteNaoExecutada registo = UploadMapping.INSTANCE.mapAtividadeNaoExecutada(item);
                 registos.add(registo);
             }
         }

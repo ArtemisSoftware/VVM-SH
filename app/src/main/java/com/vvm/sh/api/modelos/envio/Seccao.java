@@ -15,6 +15,6 @@ public class Seccao {
 
     public Seccao(String idSeccao, List<ItemSeccaoChecklist> dados) {
         this.idSeccao = idSeccao;
-        this.dados = new ArrayList<>();
+        this.dados = dados;
     }
 }

@@ -9,20 +9,13 @@ import java.util.List;
 public enum ResultadoId {
 
     EMAIL(Identificadores.Resultados.ID_EMAIL, Sintaxe.Palavras.EMAIL),
-
     ANOMALIA_CLIENTE(Identificadores.Resultados.ID_ANOMALIA_CLIENTE, Sintaxe.Palavras.ANOMALIA_CLIENTE),
-
     ATIVIDADE_PENDENTE(Identificadores.Resultados.ID_ATIVIDADE_PENDENTE, Sintaxe.Palavras.ATIVIDADE_PENDENTE),
-
     CROSS_SELLING(Identificadores.Resultados.ID_CROSS_SELLING, Sintaxe.Palavras.CROSS_SELLING),
-
     OCORRENCIA(Identificadores.Resultados.ID_OCORRENCIA, Sintaxe.Palavras.OCORRENCIA),
 
     SINISTRALIDADE(Identificadores.Resultados.ID_SINISTRALIDADE, Sintaxe.Palavras.SINISTRALIDADE),
-
     PARQUE_EXTINTOR(Identificadores.Resultados.ID_PARQUE_EXTINTOR, Sintaxe.Palavras.PARQUE_EXTINTOR),
-
-
     QUADRO_PESSOAL(Identificadores.Resultados.ID_QUADRO_PESSOAL, Sintaxe.Palavras.QUADRO_PESSOAL),
     PLANO_ACAO(Identificadores.Resultados.ID_PLANO_ACAO, Sintaxe.Palavras.PLANO_ACAO),
 
@@ -59,6 +52,9 @@ public enum ResultadoId {
         registos.add(SINISTRALIDADE);
         registos.add(PARQUE_EXTINTOR);
         registos.add(QUADRO_PESSOAL);
+        registos.add(PLANO_ACAO);
+
+        registos.add(REGISTO_VISITA);
 
         for (ResultadoId item: registos) {
 

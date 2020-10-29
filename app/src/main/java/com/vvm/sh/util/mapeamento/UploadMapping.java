@@ -47,6 +47,7 @@ import com.vvm.sh.baseDados.entidades.ParqueExtintor;
 import com.vvm.sh.baseDados.entidades.ParqueExtintorResultado;
 import com.vvm.sh.baseDados.entidades.QuestionarioChecklistResultado;
 import com.vvm.sh.baseDados.entidades.RegistoVisitaResultado;
+import com.vvm.sh.baseDados.entidades.RelatorioAmbientalResultado;
 import com.vvm.sh.baseDados.entidades.RiscoResultado;
 import com.vvm.sh.baseDados.entidades.SinistralidadeResultado;
 import com.vvm.sh.baseDados.entidades.Tarefa;
@@ -89,12 +90,12 @@ public interface UploadMapping {
     @Mapping(source = "atividade.servId", target = "servId")
     @Mapping(source = "resultado.idAnomalia", target = "idAnomalia")
     @Mapping(source = "resultado.observacao", target = "observacao")
-    AtividadePendenteNaoExecutada map(AtividadePendenteBd item);
+    AtividadePendenteNaoExecutada mapAtividadeNaoExecutada(AtividadePendenteBd item);
 
     @Mapping(source = "atividade.servId", target = "servId")
     @Mapping(source = "resultado.tempoExecucao", target = "tempoExecucao")
     @Mapping(source = "resultado.dataExecucao", target = "dataExecucao", dateFormat = DatasUtil.FORMATO_YYYY_MM_DD)
-    AtividadePendenteExecutada mapeamentoTemperaturaHumidade(AtividadePendenteBd item);
+    AtividadePendenteExecutada mapeamentoAtividadeExecutada(AtividadePendenteBd item);
 
 
     @Mapping(source = "data", target = "data", dateFormat = DatasUtil.FORMATO_YYYY_MM_DD)
@@ -128,13 +129,20 @@ public interface UploadMapping {
     @Mapping(target = "versao", source = "idPai")
     Checklist map(Tipo checklist);
 
-    @Mapping(target = "idItem", source = "idItem")
-    @Mapping(target = "resposta", source = "resposta")
-    @Mapping(target = "nr", source = "nr")
-    Pergunta mapPerguntaChecklist(QuestionarioChecklistResultado questao);
+    @Mapping(target = "idArea", source = "area.resultado.idArea")
+    @Mapping(target = "descricao", source = "descricao")
+    @Mapping(target = "subDescricao", source = "area.resultado.subDescricao")
+    Area map(AreaBd area);
+
+
 
     @Mapping(target = "idItem", source = "idItem")
     @Mapping(target = "resposta", source = "resposta")
+    @Mapping(target = "nr", source = "ni")
+    Pergunta mapPerguntaChecklist(QuestionarioChecklistResultado questao);
+
+    @Mapping(target = "idItem", source = "idItem")
+    @Mapping(target = "resposta", source = "observacao")
     Observacao mapObservacaoChecklist(QuestionarioChecklistResultado observacao);
 
     @Mapping(target = "idItem", source = "idItem")
@@ -159,22 +167,26 @@ public interface UploadMapping {
 //    @Mapping(target = "idItem", source = "idImagem")
 //    ItemSeccaoChecklist mapImagemChecklist(ImagemResultado imagem);
 
-    @Mapping(target = "idArea", source = "area.resultado.idArea")
-    @Mapping(target = "descricao", source = "descricao")
-    @Mapping(target = "subDescricao", source = "area.resultado.subDescricao")
-    Area map(AreaBd area);
 
+    @Mapping(target = "quantidadeHomens", source = "homens")
+    @Mapping(target = "quantidadeMulheres", source = "mulheres")
     TrabalhadorVulneravel map(TrabalhadorVulneravelResultado item);
 
     @Mapping(target = "medidaRecomendada", source = "idMedidaRecomendada")
     @Mapping(target = "marca", source = "relatorio.resultado.marca")
+    @Mapping(target = "numeroSerie", source = "relatorio.resultado.numeroSerie")
+    @Mapping(target = "nebulosidade", source = "relatorio.resultado.idNebulosidade")
     RelatorioAmbiental map(RelatorioAmbientalBd relatorio);
+
+
 
 
     @Mapping(target = "descricaoArea", source = "anexoArea")
     AvaliacaoTemperaturaHumidade map(AvaliacaoAmbientalResultado item);
 
     @Mapping(target = "idTipoIluminacao", source = "tipoIluminacao")
+    @Mapping(target = "emedioElx", source = "emedioLx")
+    @Mapping(target = "descricaoArea", source = "anexoArea")
     AvaliacaoIluminacao mapeamentoIluminacao(AvaliacaoAmbientalResultado item);
 
 
@@ -210,4 +222,5 @@ public interface UploadMapping {
     @Mapping(target = "idServico", source = "extintor.idServico")
     @Mapping(target = "dataValidade", ignore = true)
     Extintor map(ParqueExtintor extintor, ParqueExtintorResultado resultado);
+
 }

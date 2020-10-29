@@ -60,9 +60,8 @@ public class TransferenciasViewModel extends BaseViewModel {
     private final UploadRepositorio uploadRepositorio;
     private final TiposRepositorio tiposRepositorio;
 
-    public MutableLiveData<Recurso> uploads;
     public MutableLiveData<List<Pendencia>> pendencias;
-    public MutableLiveData<List<Upload>> uploads_;
+    public MutableLiveData<List<Upload>> uploads;
 
     @Inject
     public TransferenciasViewModel(TransferenciasRepositorio transferenciasRepositorio, TiposRepositorio tiposRepositorio, UploadRepositorio uploadRepositorio){
@@ -71,7 +70,6 @@ public class TransferenciasViewModel extends BaseViewModel {
         this.uploadRepositorio = uploadRepositorio;
         this.tiposRepositorio = tiposRepositorio;
         this.uploads = new MutableLiveData<>();
-        this.uploads_ = new MutableLiveData<>();
         this.pendencias = new MutableLiveData<>();
     }
 
@@ -79,7 +77,7 @@ public class TransferenciasViewModel extends BaseViewModel {
         return pendencias;
     }
 
-    public MutableLiveData<Recurso> observarUpload(){
+    public MutableLiveData<List<Upload>> observarUpload(){
         return uploads;
     }
 
@@ -349,8 +347,7 @@ public class TransferenciasViewModel extends BaseViewModel {
                             @Override
                             public void onNext(List<Upload> resultado) {
 
-                                uploads_.setValue(resultado);
-                                uploads.setValue(Recurso.successo(resultado));
+                                uploads.setValue(resultado);
                                 showProgressBar(false);
 
                                 if(resultado.size() != 0) {
@@ -502,7 +499,7 @@ public class TransferenciasViewModel extends BaseViewModel {
      */
     private void sincronizar(){
 
-        transferenciasRepositorio.sincronizar((List<Upload>) uploads.getValue().dados)
+        transferenciasRepositorio.sincronizar(uploads.getValue())
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(

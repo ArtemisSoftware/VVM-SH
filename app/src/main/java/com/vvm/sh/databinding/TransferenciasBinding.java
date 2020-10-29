@@ -24,13 +24,7 @@ import java.util.List;
 public class TransferenciasBinding {
 
     @BindingAdapter({"uploads"})
-    public static void setUploads(RecyclerView view, Recurso recurso) {
-
-        if(recurso == null){
-            return;
-        }
-
-        List<Upload> items = (List<Upload>) recurso.dados;
+    public static void setUploads(RecyclerView view, List<Upload> items) {
 
         if(items == null){
             return;
@@ -52,6 +46,7 @@ public class TransferenciasBinding {
         else{
             adapter.atualizar(items);
         }
+
 
     }
 

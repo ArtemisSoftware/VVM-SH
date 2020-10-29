@@ -25,6 +25,6 @@ public class AvaliacaoRiscos {
     public List<Integer> propostasPlanoAcao;
 
     @SerializedName("capaRelatorio")
-    public Integer capaRelatorio;
+    public String capaRelatorio = null;
 
 }

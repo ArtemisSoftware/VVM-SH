@@ -90,30 +90,13 @@ public class UploadTrabalhoActivity extends BaseDaggerActivity {
             }
         });
 
+        viewModel.observarUpload().observe(this, new Observer<List<Upload>>() {
+            @Override
+            public void onChanged(List<Upload> uploads) {
+                formatarUploads(uploads);
+            }
+        });
 
-
-                viewModel.observarUpload().observe(this, new Observer<Recurso>() {
-                    @Override
-                    public void onChanged(Recurso recurso) {
-
-                        switch (recurso.status) {
-
-                            case SUCESSO:
-
-                                formatarUploads((List<Upload>) recurso.dados);
-                                break;
-
-                            case ERRO:
-
-                                dialogo.erro(recurso.messagem);
-                                break;
-
-                            default:
-                                break;
-                        }
-
-                    }
-                });
 
 
         viewModel.observarMessagem().observe(this, new Observer<Recurso>() {
@@ -189,10 +172,8 @@ public class UploadTrabalhoActivity extends BaseDaggerActivity {
             }
         }
         else{
-
             activityUploadBinding.lnrLytProgresso.setVisibility(View.GONE);
             dialogo.alerta(getString(R.string.pendencias), getString(R.string.pendencias_tarefas_upload));
-
         }
     }
 

@@ -118,7 +118,7 @@ abstract public class UploadDao {
             "FROM tipos as tp " +
             "LEFT JOIN (SELECT idChecklist FROM areasChecklistResultado WHERE idAtividade =:idAtividade) as ar_chk_res " +
             "ON tp.id = ar_chk_res.idChecklist " +
-            "WHERE tipo = '" + TiposUtil.MetodosTipos.TIPOS_CHECKLIST +"'")
+            "WHERE tipo = '" + TiposUtil.MetodosTipos.TIPOS_CHECKLIST +"' AND idChecklist IS NOT NULL ")
     public abstract Tipo obterChecklist(int idAtividade);
 
 
@@ -205,7 +205,7 @@ abstract public class UploadDao {
     @Query("SELECT idMedida FROM medidasResultado WHERE id = :id AND origem = :origem")
     public abstract List<Integer> obterMedidas(int id, int origem);
 
-    @Query("SELECT idCategoriaProfissional FROM categoriasProfissionaisResultado WHERE id = :id AND origem = :origem")
+    @Query("SELECT idCategoriaProfissional FROM categoriasProfissionaisResultado WHERE idRegisto = :id AND origem = :origem")
     public abstract List<Integer> obterCategoriasProfissionais(int id, int origem);
 
 
@@ -221,7 +221,7 @@ abstract public class UploadDao {
 
     @Query("SELECT tp.* " +
             "FROM tiposNovos as tp " +
-            "LEFT JOIN (SELECT idEquipamento, codigo, idAtividade FROM verificacaoEquipamentosResultado) as ve_res ON tp.id = ve_res.idEquipamento " +
+            "LEFT JOIN (SELECT idEquipamento, codigo, idAtividade FROM verificacaoEquipamentosResultado) as ve_res ON tp.idProvisorio = ve_res.idEquipamento " +
             "WHERE tipo = '" + TiposUtil.MetodosTipos.TIPOS_MAQUINA + "' AND estado = " + Identificadores.ESTADO_PENDENTE + " " +
             "AND ve_res.codigo = " + Identificadores.ESTADO_PENDENTE + " " +
             "AND idAtividade IN (SELECT id FROM atividadesPendentes WHERE idTarefa IN(:idsTarefas))  ")
@@ -233,14 +233,16 @@ abstract public class UploadDao {
     public abstract String obterProcessoProdutivo(int idAtividade);
 
 
-    @Query("SELECT * FROM levantamentosRiscoResultado WHERE id =:idAtividade")
+    @Query("SELECT * FROM levantamentosRiscoResultado WHERE idAtividade =:idAtividade")
     public abstract List<LevantamentoRiscoResultado> obterLevantamentos(int idAtividade);
 
-    @Query("SELECT * FROM riscosResultado WHERE id =:idAtividade")
-    public abstract List<RiscoResultado> obterRiscos(int idAtividade);
+    @Query("SELECT * FROM riscosResultado WHERE idLevantamento =:idLevantamento")
+    public abstract List<RiscoResultado> obterRiscos(int idLevantamento);
 
 
-    @Query("SELECT DISTINCT idMedida FROM propostaPlanoAcaoResultado WHERE idAtividade =:idAtividade AND selecionado = 1 AND origem = " + Identificadores.Origens.PROPOSTA_MEDIDAS_AVALIACAO + " ")
+    @Query("SELECT DISTINCT idMedida FROM propostaPlanoAcaoResultado " +
+            "WHERE idAtividade =:idAtividade " +
+            "AND selecionado = 1 AND origem = " + Identificadores.Origens.ORIGEM_LEVANTAMENTO_RISCO + " ")
     public abstract List<Integer> obterPropostaPlanoAcao(int idAtividade);
 
     @Query("SELECT idImagem FROM imagensResultado WHERE idTarefa = :idTarefa AND capaRelatorio = 1")

@@ -5,6 +5,7 @@ import com.vvm.sh.api.SegurancaHigieneApi;
 import com.vvm.sh.api.SegurancaTrabalhoApi;
 import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.baseDados.dao.AtualizacaoDao;
+import com.vvm.sh.baseDados.dao.PesquisaDao;
 import com.vvm.sh.baseDados.dao.ResultadoDao;
 import com.vvm.sh.baseDados.dao.TipoDao;
 import com.vvm.sh.baseDados.dao.TipoNovoDao;
@@ -12,6 +13,7 @@ import com.vvm.sh.baseDados.dao.VerificacaoEquipamentoDao;
 import com.vvm.sh.baseDados.entidades.VerificacaoEquipamentoResultado;
 import com.vvm.sh.di.opcoes.OpcoesScope;
 import com.vvm.sh.repositorios.EquipamentoRepositorio;
+import com.vvm.sh.repositorios.PesquisaRepositorio;
 import com.vvm.sh.repositorios.TiposRepositorio;
 import com.vvm.sh.repositorios.VersaoAppRepositorio;
 
@@ -86,10 +88,17 @@ public class PesquisaModule {
     TiposRepositorio provideTiposRepositorio(SegurancaAlimentarApi segurancaAlimentarApi, SegurancaTrabalhoApi segurancaTrabalhoApi, AtualizacaoDao atualizacaoDao, TipoDao tipoDao) {
 
         TiposRepositorio repositorio = new TiposRepositorio(segurancaAlimentarApi, segurancaTrabalhoApi, atualizacaoDao, tipoDao);
-
-        //Timber.d("Providing PokemonRepository: " + repository);
         return repositorio;
     }
 
-    //TODO: criar repositorio de pesquisa
+
+
+    @PesquisaScope
+    @Provides
+    PesquisaRepositorio providePesquisaRepositorio(int idApi, PesquisaDao pesquisaDao) {
+
+        PesquisaRepositorio repositorio = new PesquisaRepositorio(idApi, pesquisaDao);
+        return repositorio;
+    }
+
 }

@@ -302,17 +302,13 @@ public class TiposRepositorio {
 
 
 
-    public Observable<List<Medida>> obterMedidas(String metodo, String codigo, int api, List<Integer> registos) {
-        return tipoDao.obterMedidas(metodo, codigo, api, registos);
-    }
+
 
     public Observable<List<Medida>> obterMedidas(String metodo, int api, List<Integer> registos) {
         return tipoDao.obterMedidas(metodo, api, registos);
     }
 
-    public Observable<List<Medida>> obterMedidas(String metodo, int api, List<Integer> registos, String idPai, int pagina) {
-        return tipoDao.obterMedidas(metodo, api, registos, idPai, pagina);
-    }
+
 
 
 

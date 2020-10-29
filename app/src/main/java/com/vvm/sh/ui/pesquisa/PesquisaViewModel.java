@@ -6,6 +6,7 @@ import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.baseDados.entidades.TipoNovo;
 import com.vvm.sh.baseDados.entidades.VerificacaoEquipamentoResultado;
 import com.vvm.sh.repositorios.EquipamentoRepositorio;
+import com.vvm.sh.repositorios.PesquisaRepositorio;
 import com.vvm.sh.repositorios.TiposRepositorio;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.equipamentos.modelos.Equipamento;
 import com.vvm.sh.ui.pesquisa.modelos.Medida;
@@ -37,6 +38,8 @@ public class PesquisaViewModel extends BaseViewModel {
 
     private final TiposRepositorio tiposRepositorio;
     private final EquipamentoRepositorio equipamentoRepositorio;
+
+    private final PesquisaRepositorio pesquisaRepositorio;
     private final int idApi;
 
     public MutableLiveData<List<Tipo>> tiposSelecionados;
@@ -53,10 +56,11 @@ public class PesquisaViewModel extends BaseViewModel {
     public MutableLiveData<List<Medida>> medidas;
 
     @Inject
-    public PesquisaViewModel(int idApi, TiposRepositorio tiposRepositorio, EquipamentoRepositorio equipamentoRepositorio){
+    public PesquisaViewModel(int idApi, TiposRepositorio tiposRepositorio, EquipamentoRepositorio equipamentoRepositorio, PesquisaRepositorio pesquisaRepositorio){
 
         this.equipamentoRepositorio = equipamentoRepositorio;
         this.tiposRepositorio = tiposRepositorio;
+        this.pesquisaRepositorio = pesquisaRepositorio;
         this.idApi = idApi;
 
         tiposSelecionados = new MutableLiveData<>();
@@ -403,45 +407,6 @@ public class PesquisaViewModel extends BaseViewModel {
 
 
 
-    /**
-     * Metodo que permite obter as medidas
-     * @param metodo o nome do metodo das medidas
-     * @param codigo o codigo das medidas
-     * @param registos os registos a excluir
-     */
-    public void obterMedidas(String metodo, String codigo, List<Integer> registos){
-
-        showProgressBar(true);
-
-        tiposRepositorio.obterMedidas(metodo, codigo, idApi, registos)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-
-                        new Observer<List<Medida>>() {
-                            @Override
-                            public void onSubscribe(Disposable d) {
-                                disposables.add(d);
-                            }
-
-                            @Override
-                            public void onNext(List<Medida> registos) {
-                                medidas.setValue(registos);
-                                showProgressBar(false);
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-                                showProgressBar(false);
-                            }
-
-                            @Override
-                            public void onComplete() {
-                                showProgressBar(false);
-                            }
-                        }
-                );
-    }
 
 
     private int pagina = 0;
@@ -501,7 +466,7 @@ public class PesquisaViewModel extends BaseViewModel {
 
         showProgressBar(true);
 
-        tiposRepositorio.obterMedidas(metodo, idApi, registos, idPai, pagina)
+        pesquisaRepositorio.obterMedidas(metodo, idApi, registos, idPai, pagina)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -531,6 +496,49 @@ public class PesquisaViewModel extends BaseViewModel {
 
                 );
     }
+
+
+
+    /**
+     * Metodo que permite obter as medidas
+     * @param metodo o nome do metodo das medidas
+     * @param codigo o codigo das medidas
+     * @param registos os registos a excluir
+     */
+    private void obterMedidas(String metodo, String codigo, List<Integer> registos){
+
+        showProgressBar(true);
+
+        pesquisaRepositorio.obterMedidas(metodo, codigo, idApi, registos, pagina)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new Observer<List<Medida>>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onNext(List<Medida> registos) {
+                                medidas.setValue(registos);
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onComplete() {
+                                showProgressBar(false);
+                            }
+                        }
+                );
+    }
+
 
 
 

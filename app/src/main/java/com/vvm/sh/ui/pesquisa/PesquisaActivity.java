@@ -1,5 +1,6 @@
 package com.vvm.sh.ui.pesquisa;
 
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.RecyclerView;
 
@@ -13,7 +14,11 @@ import com.vvm.sh.databinding.ActivityPesquisaBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.pesquisa.adaptadores.OnPesquisaListener;
+import com.vvm.sh.ui.pesquisa.adaptadores.PesquisaMedidaRecyclerAdapter;
+import com.vvm.sh.ui.pesquisa.adaptadores.PesquisaRecyclerAdapter;
 import com.vvm.sh.ui.pesquisa.modelos.Pesquisa;
+import com.vvm.sh.ui.quadroPessoal.adaptadores.ColaboradorRecyclerAdapter;
+import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
@@ -61,6 +66,8 @@ public class PesquisaActivity extends BaseDaggerActivity
             activityPesquisaBinding.setPesquisa(pesquisa);
             activityPesquisaBinding.rclRegistos.addOnScrollListener(rcl_registos_scroll_listener);
 
+            subscreverObservadores();
+
             viewModel.obterRegistos(pesquisa, false);
         }
         else{
@@ -81,6 +88,31 @@ public class PesquisaActivity extends BaseDaggerActivity
     @Override
     protected void subscreverObservadores() {
 
+        viewModel.observarMessagem().observe(this, new Observer<Recurso>() {
+            @Override
+            public void onChanged(Recurso recurso) {
+
+                switch (recurso.status){
+
+                    case LOADING:
+
+                        if(((PesquisaRecyclerAdapter)activityPesquisaBinding.rclRegistos.getAdapter()) != null) {
+                            ((PesquisaRecyclerAdapter) activityPesquisaBinding.rclRegistos.getAdapter()).displayLoading();
+                        }
+                        break;
+
+                    case SUCESSO:
+
+                        dialogo.sucesso(recurso.messagem);
+                        break;
+
+                    case ERRO:
+
+                        dialogo.erro(recurso.messagem);
+                        break;
+                }
+            }
+        });
     }
 
 
@@ -127,6 +159,11 @@ public class PesquisaActivity extends BaseDaggerActivity
             super.onScrollStateChanged(recyclerView, newState);
 
             if (!recyclerView.canScrollVertically(1) & newState == 2) {
+
+                if(((PesquisaRecyclerAdapter)activityPesquisaBinding.rclRegistos.getAdapter()) != null) {
+                    ((PesquisaRecyclerAdapter) activityPesquisaBinding.rclRegistos.getAdapter()).displayLoading();
+                }
+
 
                 if (activityPesquisaBinding.txtInpPesquisa.getText().toString().equals(Sintaxe.SEM_TEXTO) == true) {
                     viewModel.carregarRegistos(pesquisa);

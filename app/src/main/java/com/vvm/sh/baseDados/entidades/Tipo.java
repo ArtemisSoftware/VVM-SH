@@ -8,6 +8,7 @@ import androidx.room.Ignore;
 import androidx.room.Index;
 
 import com.vvm.sh.baseDados.entidades.Atualizacao;
+import com.vvm.sh.util.interfaces.EstadoModelo;
 
 import static androidx.room.ForeignKey.CASCADE;
 
@@ -19,7 +20,7 @@ import static androidx.room.ForeignKey.CASCADE;
                                     parentColumns = "descricao",
                                     childColumns = "tipo",
                                     onDelete = CASCADE))
-public class Tipo {
+public class Tipo implements EstadoModelo {
 
     @NonNull
     public int id;
@@ -103,6 +104,8 @@ public class Tipo {
         this.detalhe = detalhe;
         this.tipo = tipo;
         this.api = api;
+
+        this.estadoModelo = EstadoModelo.MODELO;
     }
 
 
@@ -137,5 +140,20 @@ public class Tipo {
     @Override
     public String toString() {
         return descricao.replaceAll("(\\r|\\n|\\t)", "");
+    }
+
+
+    @Ignore
+    public int estadoModelo;
+
+    @Ignore
+    public Tipo(int estadoModelo){
+        this.estadoModelo = estadoModelo;
+    }
+
+
+    @Override
+    public int obterEstado() {
+        return estadoModelo;
     }
 }

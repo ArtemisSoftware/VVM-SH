@@ -114,6 +114,10 @@ public class ColaboradorRecyclerAdapter extends RecyclerView.Adapter<RecyclerVie
     }
 
 
+    //-------------------
+    //
+    //-------------------
+
 
     public void displayLoading(){
 

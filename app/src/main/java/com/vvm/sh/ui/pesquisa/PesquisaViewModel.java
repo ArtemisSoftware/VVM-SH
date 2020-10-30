@@ -597,15 +597,20 @@ public class PesquisaViewModel extends BaseViewModel {
      * @param registos as novos registos a adicionar
      */
     private void adicionarRegistos(List<Tipo> registos){
-
-        List<Tipo> resultados = tipos.getValue();
-
-        if(resultados == null){
-            resultados = new ArrayList<>();
-        }
-
-        resultados.addAll(registos);
-        tipos.setValue(resultados);
+        tipos.setValue(registos);
+//        List<Tipo> resultados = tipos.getValue();
+//
+//        if(resultados == null){
+//            tipos.setValue(registos);
+//        }
+//        else{
+//            if(registos.size() == resultados.size()){
+//                return;
+//            }
+//            else{
+//                tipos.setValue(registos);
+//            }
+//        }
     }
 
     //----------------------

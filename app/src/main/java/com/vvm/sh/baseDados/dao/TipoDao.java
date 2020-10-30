@@ -190,15 +190,10 @@ abstract public class TipoDao implements BaseDao<Tipo> {
 
 
 
-    @Query("SELECT * FROM tipos WHERE tipo = :tipo AND api = :api AND id NOT IN (:registos) AND ativo = 1")
-    abstract public Flowable<List<Tipo>> obterTipos_Excluir(String tipo, List<Integer> registos, int api);
 
     @Query("SELECT * FROM tipos WHERE tipo = :tipo AND api = :api AND id NOT IN (:registos) AND descricao LIKE '%' || :pesquisa || '%' AND ativo = 1")
     abstract public Maybe<List<Tipo>> obterTipos_Excluir(String tipo, List<Integer> registos, String pesquisa, int api);
 
-
-    @Query("SELECT * FROM tipos WHERE tipo = :tipo AND api = :api AND id IN (:registos) AND ativo = 1")
-    abstract public Flowable<List<Tipo>> obterTipos_Incluir(String tipo, List<Integer> registos, int api);
 
 
 
@@ -221,10 +216,6 @@ abstract public class TipoDao implements BaseDao<Tipo> {
 
 
 
-    @Query("SELECT *, CASE WHEN id IN (:registos) THEN 1 ELSE 0 END as selecionado " +
-            "FROM tipos as tp " +
-            "WHERE tipo = :tipo AND api = :api AND ativo = 1")
-    abstract public Observable<List<Medida>> obterMedidas(String tipo, int api, List<Integer> registos);
 
 
 

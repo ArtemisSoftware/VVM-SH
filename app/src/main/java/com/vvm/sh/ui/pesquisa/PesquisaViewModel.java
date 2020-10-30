@@ -11,8 +11,8 @@ import com.vvm.sh.repositorios.TiposRepositorio;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.equipamentos.modelos.Equipamento;
 import com.vvm.sh.ui.pesquisa.modelos.Medida;
 import com.vvm.sh.ui.pesquisa.modelos.Pesquisa;
+import com.vvm.sh.ui.pesquisa.modelos.PesquisaTipos;
 import com.vvm.sh.util.Recurso;
-import com.vvm.sh.util.ResultadoId;
 import com.vvm.sh.util.constantes.AppConfig;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.excepcoes.TipoInexistenteException;
@@ -38,7 +38,6 @@ public class PesquisaViewModel extends BaseViewModel {
 
     private final TiposRepositorio tiposRepositorio;
     private final EquipamentoRepositorio equipamentoRepositorio;
-
     private final PesquisaRepositorio pesquisaRepositorio;
     private final int idApi;
 
@@ -54,6 +53,10 @@ public class PesquisaViewModel extends BaseViewModel {
 
 
     public MutableLiveData<List<Medida>> medidas;
+
+
+    private int pagina = 0;
+    private int limite = AppConfig.NUMERO_RESULTADOS_QUERY;
 
     @Inject
     public PesquisaViewModel(int idApi, TiposRepositorio tiposRepositorio, EquipamentoRepositorio equipamentoRepositorio, PesquisaRepositorio pesquisaRepositorio){
@@ -294,9 +297,7 @@ public class PesquisaViewModel extends BaseViewModel {
                                 showProgressBar(false);
                             }
                         }
-
                 );
-
     }
 
 
@@ -314,72 +315,83 @@ public class PesquisaViewModel extends BaseViewModel {
 
 
 
+    public void obterRegistos(Pesquisa pesquisa, boolean reiniciar){
 
+        if(reiniciar == true){
+            limite = AppConfig.NUMERO_RESULTADOS_QUERY;
+            tipos.setValue(new ArrayList<>());
+        }
 
+        obterRegistos_(pesquisa.metodo, pesquisa.registosSelecionados);
+    }
 
-    public void obterRegistos(String metodo, List<Integer> registos){
+    public void carregarRegistos(Pesquisa pesquisa){
+        limite += AppConfig.NUMERO_RESULTADOS_QUERY;
+        obterRegistos_(pesquisa.metodo, pesquisa.registosSelecionados);
+    }
 
-        showProgressBar(true);
+    private void obterRegistos_(String metodo, List<Integer> registos){
 
-        Observable<PesquisaTipos> observables = Observable.zip(
-                tiposRepositorio.obterTipos_Excluir(metodo, registos, idApi).toObservable(),
-                tiposRepositorio.obterTipos_Incluir(metodo, registos, idApi).toObservable(),
-                new BiFunction<List<Tipo>, List<Tipo>, PesquisaTipos>() {
-                    @Override
-                    public PesquisaTipos apply(List<Tipo> tipos, List<Tipo> tiposSelecionados) throws Exception {
-
-                        return new PesquisaTipos(tipos, tiposSelecionados);
-                    }
-                });
-
-
-        observables
+        pesquisaRepositorio.obterRegistos(metodo, registos, limite)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
 
-                        new Observer<PesquisaTipos>() {
+                        new SingleObserver<PesquisaTipos>() {
                             @Override
                             public void onSubscribe(Disposable d) {
                                 disposables.add(d);
                             }
 
                             @Override
-                            public void onNext(PesquisaTipos pesquisaTipos) {
-
-                                tipos.setValue(pesquisaTipos.registos);
+                            public void onSuccess(PesquisaTipos pesquisaTipos) {
+                                adicionarRegistos(pesquisaTipos.registos);
                                 tiposSelecionados.setValue(pesquisaTipos.registado);
                                 showProgressBar(false);
                             }
 
                             @Override
                             public void onError(Throwable e) {
-
-                            }
-
-                            @Override
-                            public void onComplete() {
-
+                                showProgressBar(false);
                             }
                         }
                 );
+    }
 
-        /*
-        tiposRepositorio.obterTipos_Excluir(metodo, registos, idApi).toObservable()
+
+
+
+    public void obterPesquisa(Pesquisa pesquisa, String texto, boolean reiniciar){
+
+        if(reiniciar == true){
+            limite = AppConfig.NUMERO_RESULTADOS_QUERY;
+            tipos.setValue(new ArrayList<>());
+        }
+
+        pesquisar(pesquisa.metodo, pesquisa.registosSelecionados, texto);
+    }
+
+    public void carregarPesquisa(Pesquisa pesquisa, String texto){
+        limite += AppConfig.NUMERO_RESULTADOS_QUERY;
+        pesquisar(pesquisa.metodo, pesquisa.registosSelecionados, texto);
+    }
+
+    private void pesquisar(String metodo, List<Integer> registos, String texto) {
+
+        pesquisaRepositorio.pesquisar(metodo, registos, texto, limite)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
 
-                        new Observer<List<Tipo>>() {
+                        new MaybeObserver<List<Tipo>>() {
                             @Override
                             public void onSubscribe(Disposable d) {
                                 disposables.add(d);
                             }
 
                             @Override
-                            public void onNext(List<Tipo> registos) {
-
-                                tipos.setValue(registos);
+                            public void onSuccess(List<Tipo> registos) {
+                                adicionarRegistos(registos);
                                 showProgressBar(false);
                             }
 
@@ -395,21 +407,16 @@ public class PesquisaViewModel extends BaseViewModel {
                         }
 
                 );
-        */
+
     }
+
+
 
 
 
     //--------------------
     //Pesquisar medidas
     //--------------------
-
-
-
-
-
-
-    private int pagina = 0;
 
 
 
@@ -442,18 +449,6 @@ public class PesquisaViewModel extends BaseViewModel {
     }
 
 
-    private void adicionarMedidas(List<Medida> registos){
-
-       List<Medida> resultados = medidas.getValue();
-
-       if(resultados == null){
-           resultados = new ArrayList<>();
-       }
-
-       resultados.addAll(registos);
-       medidas.setValue(resultados);
-    }
-
 
 
     /**
@@ -466,30 +461,25 @@ public class PesquisaViewModel extends BaseViewModel {
 
         showProgressBar(true);
 
-        pesquisaRepositorio.obterMedidas(metodo, idApi, registos, idPai, pagina)
+        pesquisaRepositorio.obterMedidas(metodo, registos, idPai, pagina)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
 
-                        new Observer<List<Medida>>() {
+                        new SingleObserver<List<Medida>>() {
                             @Override
                             public void onSubscribe(Disposable d) {
                                 disposables.add(d);
                             }
 
                             @Override
-                            public void onNext(List<Medida> registos) {
+                            public void onSuccess(List<Medida> registos) {
                                 adicionarMedidas(registos);
                                 showProgressBar(false);
                             }
 
                             @Override
                             public void onError(Throwable e) {
-                                showProgressBar(false);
-                            }
-
-                            @Override
-                            public void onComplete() {
                                 showProgressBar(false);
                             }
                         }
@@ -509,20 +499,20 @@ public class PesquisaViewModel extends BaseViewModel {
 
         showProgressBar(true);
 
-        pesquisaRepositorio.obterMedidas(metodo, codigo, idApi, registos, pagina)
+        pesquisaRepositorio.obterMedidas(metodo, codigo, registos, pagina)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
 
-                        new Observer<List<Medida>>() {
+                        new SingleObserver<List<Medida>>() {
                             @Override
                             public void onSubscribe(Disposable d) {
                                 disposables.add(d);
                             }
 
                             @Override
-                            public void onNext(List<Medida> registos) {
-                                medidas.setValue(registos);
+                            public void onSuccess(List<Medida> registos) {
+                                adicionarMedidas(registos);
                                 showProgressBar(false);
                             }
 
@@ -530,73 +520,34 @@ public class PesquisaViewModel extends BaseViewModel {
                             public void onError(Throwable e) {
                                 showProgressBar(false);
                             }
-
-                            @Override
-                            public void onComplete() {
-                                showProgressBar(false);
-                            }
                         }
                 );
     }
 
 
-
-
-    public void obterMedidas(String metodo, List<Integer> registos){
+    /**
+     * Metodo que permite obter as medidas
+     * @param metodo o nome do metodo das medidas
+     * @param registos os registos a excluir
+     */
+    private void obterMedidas(String metodo, List<Integer> registos){
 
         showProgressBar(true);
 
-        tiposRepositorio.obterMedidas(metodo, idApi, registos)
+        pesquisaRepositorio.obterMedidas(metodo, registos, pagina)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
 
-                        new Observer<List<Medida>>() {
-                            @Override
-                            public void onSubscribe(Disposable d) {
-
-                            }
-
-                            @Override
-                            public void onNext(List<Medida> registos) {
-                                medidas.setValue(registos);
-                                showProgressBar(false);
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-
-                            }
-
-                            @Override
-                            public void onComplete() {
-                                showProgressBar(false);
-                            }
-                        }
-
-                );
-    }
-
-
-
-
-
-    public void pesquisar(String metodo, List<Integer> registos, String pesquisa) {
-
-        tiposRepositorio.obterTipos_Excluir(metodo, registos, pesquisa, idApi)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-
-                        new MaybeObserver<List<Tipo>>() {
+                        new SingleObserver<List<Medida>>() {
                             @Override
                             public void onSubscribe(Disposable d) {
                                 disposables.add(d);
                             }
 
                             @Override
-                            public void onSuccess(List<Tipo> registos) {
-                                tipos.setValue(registos);
+                            public void onSuccess(List<Medida> registos) {
+                                adicionarMedidas(registos);
                                 showProgressBar(false);
                             }
 
@@ -604,16 +555,19 @@ public class PesquisaViewModel extends BaseViewModel {
                             public void onError(Throwable e) {
                                 showProgressBar(false);
                             }
-
-                            @Override
-                            public void onComplete() {
-                                showProgressBar(false);
-                            }
                         }
 
                 );
-
     }
+
+
+
+
+
+
+
+
+
 
 
 
@@ -621,38 +575,43 @@ public class PesquisaViewModel extends BaseViewModel {
     //
     //----------------------
 
+
     /**
-     * Metodo que permite obter os registos selecionados
-     * @return uma lista de resultados
+     * Metodo que permite adicionar novas medidas
+     * @param registos as novas medidas a adicionar
      */
-    public ArrayList<Integer> obterRegistosSelecionados(){
+    private void adicionarMedidas(List<Medida> registos){
 
-        ArrayList<Integer> resultado = new ArrayList<>();
+        List<Medida> resultados = medidas.getValue();
 
-        for (Tipo item : tiposSelecionados.getValue()) {
-            resultado.add(item.id);
+        if(resultados == null){
+            resultados = new ArrayList<>();
         }
 
-        return resultado;
+        resultados.addAll(registos);
+        medidas.setValue(resultados);
     }
 
+    /**
+     * Metodo que permite adicionar novos registos
+     * @param registos as novos registos a adicionar
+     */
+    private void adicionarRegistos(List<Tipo> registos){
 
+        List<Tipo> resultados = tipos.getValue();
+
+        if(resultados == null){
+            resultados = new ArrayList<>();
+        }
+
+        resultados.addAll(registos);
+        tipos.setValue(resultados);
+    }
 
     //----------------------
     //classe
     //----------------------
 
-
-    private class PesquisaTipos{
-
-        List<Tipo> registos;
-        List<Tipo> registado;
-
-        public PesquisaTipos(List<Tipo> registos, List<Tipo> registado) {
-            this.registos = registos;
-            this.registado = registado;
-        }
-    }
 
 
     private class PesquisaEquipamentos{

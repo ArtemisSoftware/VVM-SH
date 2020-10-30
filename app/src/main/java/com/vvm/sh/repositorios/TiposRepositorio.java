@@ -285,28 +285,6 @@ public class TiposRepositorio {
 
 
 
-    /**
-     * Metodo que permite obter uma lista de tipo excluido determinados registos
-     * @param metodo o nome do metodo associado ao tipo
-     * @param registos os registos a excluir
-     * @param api o identificador da apiSA
-     * @return uma lista de registos
-     */
-    public Flowable<List<Tipo>> obterTipos_Excluir(String metodo, List<Integer> registos, int api) {
-        return tipoDao.obterTipos_Excluir(metodo, registos, api);
-    }
-
-    public Maybe<List<Tipo>> obterTipos_Excluir(String metodo, List<Integer> registos, String pesquisa, int api) {
-        return tipoDao.obterTipos_Excluir(metodo, registos, pesquisa, api);
-    }
-
-
-
-
-
-    public Observable<List<Medida>> obterMedidas(String metodo, int api, List<Integer> registos) {
-        return tipoDao.obterMedidas(metodo, api, registos);
-    }
 
 
 
@@ -314,16 +292,7 @@ public class TiposRepositorio {
 
 
 
-    /**
-     * Metodo que permite obter uma lista de tipos apenas com base em registos especificos
-     * @param metodo o nome do metodo associado ao tipo
-     * @param registos os registos a incluir
-     * @param api o identificador da apiSA
-     * @return uma lista de registos
-     */
-    public Flowable<List<Tipo>> obterTipos_Incluir(String metodo, List<Integer> registos, int api) {
-        return tipoDao.obterTipos_Incluir(metodo, registos, api);
-    }
+
 
 
 

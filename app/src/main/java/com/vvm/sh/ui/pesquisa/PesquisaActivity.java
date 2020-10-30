@@ -1,6 +1,7 @@
 package com.vvm.sh.ui.pesquisa;
 
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -13,6 +14,7 @@ import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.pesquisa.adaptadores.OnPesquisaListener;
 import com.vvm.sh.ui.pesquisa.modelos.Pesquisa;
+import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
@@ -57,7 +59,9 @@ public class PesquisaActivity extends BaseDaggerActivity
 
             pesquisa = bundle.getParcelable(getString(R.string.argumento_configuracao_pesquisa));
             activityPesquisaBinding.setPesquisa(pesquisa);
-            viewModel.obterRegistos(pesquisa.metodo, pesquisa.registosSelecionados);
+            activityPesquisaBinding.rclRegistos.addOnScrollListener(rcl_registos_scroll_listener);
+
+            viewModel.obterRegistos(pesquisa, false);
         }
         else{
             finish();
@@ -96,7 +100,7 @@ public class PesquisaActivity extends BaseDaggerActivity
             pesquisa.registosSelecionados.clear();
             pesquisa.registosSelecionados.add(registo.id);
         }
-        viewModel.obterRegistos(pesquisa.metodo, pesquisa.registosSelecionados);
+        viewModel.obterRegistos(pesquisa, false);
     }
 
     @Override
@@ -109,7 +113,7 @@ public class PesquisaActivity extends BaseDaggerActivity
             pesquisa.registosSelecionados.clear();
         }
 
-        viewModel.obterRegistos(pesquisa.metodo, pesquisa.registosSelecionados);
+        viewModel.obterRegistos(pesquisa, false);
     }
 
 
@@ -117,12 +121,31 @@ public class PesquisaActivity extends BaseDaggerActivity
     //EVENTOS
     //-----------------------
 
+    RecyclerView.OnScrollListener rcl_registos_scroll_listener = new RecyclerView.OnScrollListener() {
+        @Override
+        public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+            super.onScrollStateChanged(recyclerView, newState);
 
+            if (!recyclerView.canScrollVertically(1) & newState == 2) {
+
+                if (activityPesquisaBinding.txtInpPesquisa.getText().toString().equals(Sintaxe.SEM_TEXTO) == true) {
+                    viewModel.carregarRegistos(pesquisa);
+                } else {
+                    viewModel.carregarPesquisa(pesquisa, activityPesquisaBinding.txtInpPesquisa.getText().toString());
+                }
+            }
+        };
+    };
 
     @OnTextChanged(value = R.id.txt_inp_pesquisa, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
     public void txt_inp_pesquisa_OnTextChanged(CharSequence text) {
 
-        viewModel.pesquisar(pesquisa.metodo, pesquisa.registosSelecionados, text.toString());
+        if(text.toString().equals(Sintaxe.SEM_TEXTO) == true){
+            viewModel.obterRegistos(pesquisa, true);
+        }
+        else {
+            viewModel.obterPesquisa(pesquisa, text.toString(), true);
+        }
     }
 
 
@@ -131,7 +154,7 @@ public class PesquisaActivity extends BaseDaggerActivity
     public void crl_btn_limpar_OnClickListener(View view) {
 
         pesquisa.registosSelecionados.clear();
-        viewModel.obterRegistos(pesquisa.metodo, pesquisa.registosSelecionados);
+        viewModel.obterRegistos(pesquisa, true);
     }
 
 

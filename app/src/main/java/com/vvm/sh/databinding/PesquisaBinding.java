@@ -25,23 +25,6 @@ public class PesquisaBinding {
             return;
         }
 
-        //List<Tipo> lolo = items;
-
-        List<Tipo> lolo = new ArrayList<>();
-
-        int i = 0;
-        for (Tipo item : items) {
-
-            lolo.add(item);
-
-            if(i == 14){
-                break;
-            }
-
-            ++i;
-        }
-
-        //TODO: fazer paginacao
 
         RecyclerView.LayoutManager layoutManager = view.getLayoutManager();
 
@@ -53,12 +36,12 @@ public class PesquisaBinding {
         PesquisaRecyclerAdapter adapter = (PesquisaRecyclerAdapter) view.getAdapter();
 
         if(adapter == null){
-            adapter = new PesquisaRecyclerAdapter(view.getContext(), lolo, listener);
+            adapter = new PesquisaRecyclerAdapter(view.getContext(), items, listener);
 
             view.setAdapter(adapter);
         }
         else{
-            adapter.atualizar(lolo);
+            adapter.atualizar(items);
         }
 
     }

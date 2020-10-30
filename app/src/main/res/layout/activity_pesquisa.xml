@@ -157,7 +157,7 @@
                     <androidx.recyclerview.widget.RecyclerView
                         android:id="@+id/rcl_registos_selecionados"
                         style="@style/lista"
-                        android:layout_height="80dp"
+                        android:layout_height="@dimen/tamanho_lista_pesquisa_selecionada"
                         android:layout_marginTop="@dimen/distancia_vertical_formulario"
 
                         pesquisaSelecionado="@{viewmodel.tiposSelecionados}"

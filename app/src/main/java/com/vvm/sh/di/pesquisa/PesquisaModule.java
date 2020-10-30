@@ -56,6 +56,16 @@ public class PesquisaModule {
 
     @PesquisaScope
     @Provides
+    static PesquisaDao providePesquisaDao(VvmshBaseDados vvmshBaseDados){
+
+        PesquisaDao dao = vvmshBaseDados.obterPesquisaDao();
+        return dao;
+    }
+
+
+
+    @PesquisaScope
+    @Provides
     EquipamentoRepositorio provideEquipamentoRepositorio(int idApi, TipoNovoDao tipoNovoDao, TipoDao tipoDao, VerificacaoEquipamentoDao verificacaoEquipamentoDao,
                                                          ResultadoDao resultadoDao) {
 

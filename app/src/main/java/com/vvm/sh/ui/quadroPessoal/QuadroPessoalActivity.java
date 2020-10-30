@@ -8,6 +8,7 @@ import android.view.View;
 import androidx.appcompat.widget.SearchView;
 
 import androidx.annotation.NonNull;
+import androidx.core.widget.NestedScrollView;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -19,6 +20,7 @@ import com.vvm.sh.databinding.ActivityQuadroPessoalBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.adaptadores.QuestionarioRecyclerAdapter;
+import com.vvm.sh.ui.pesquisa.adaptadores.PesquisaRecyclerAdapter;
 import com.vvm.sh.ui.quadroPessoal.adaptadores.ColaboradorRecyclerAdapter;
 import com.vvm.sh.ui.quadroPessoal.adaptadores.OnColaboradorListener;
 import com.vvm.sh.ui.quadroPessoal.adaptadores.OnOpcoesColaboradorListener;
@@ -49,12 +51,6 @@ public class QuadroPessoalActivity extends BaseDaggerActivity
 
 
 
-    private int currentPage = PaginacaoListener.PAGE_START;
-    private boolean isLastPage = false;
-    private int totalPage = 10;
-    private boolean isLoading = false;
-    int itemCount = 0;
-
     @Override
     protected void intActivity(Bundle savedInstanceState) {
 
@@ -66,29 +62,10 @@ public class QuadroPessoalActivity extends BaseDaggerActivity
         activityQuadroPessoalBinding.setViewmodel(viewModel);
 
         activityQuadroPessoalBinding.setBloquear(PreferenciasUtil.agendaEditavel(this));
+        activityQuadroPessoalBinding.nsv.setOnScrollChangeListener(nested_scroll_listener);
 
         subscreverObservadores();
-        viewModel.obterQuadroPessoal(PreferenciasUtil.obterIdTarefa(this));
-
-
-
-
-        activityQuadroPessoalBinding.rclRegistos.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(@NonNull RecyclerView recyclerView, int newState) {
-                super.onScrollStateChanged(recyclerView, newState);
-
-
-                if(!activityQuadroPessoalBinding.rclRegistos.canScrollVertically(1)  /*&& newState==RecyclerView.SCROLL_STATE_IDLE*/){
-
-                    viewModel.obterProximaPagina(PreferenciasUtil.obterIdTarefa(getApplicationContext()));
-                }
-            }
-        });
-
-
-
-
+        viewModel.obterRegistos(PreferenciasUtil.obterIdTarefa(this), true);
 
     }
 
@@ -111,13 +88,6 @@ public class QuadroPessoalActivity extends BaseDaggerActivity
 
                 switch (recurso.status){
 
-                    case LOADING:
-
-                        if(((ColaboradorRecyclerAdapter)activityQuadroPessoalBinding.rclRegistos.getAdapter()) != null) {
-                            ((ColaboradorRecyclerAdapter) activityQuadroPessoalBinding.rclRegistos.getAdapter()).displayLoading();
-                        }
-                        break;
-
                     case SUCESSO:
 
                         dialogo.sucesso(recurso.messagem);
@@ -131,20 +101,14 @@ public class QuadroPessoalActivity extends BaseDaggerActivity
             }
         });
 
-//        viewModel.observarColaboradores().observe(this, new Observer<List<ColaboradorRegisto>>() {
-//            @Override
-//            public void onChanged(List<ColaboradorRegisto> colaboradorRegistos) {
-//                if (currentPage < totalPage) {
-//                    if(((ColaboradorRecyclerAdapter)activityQuadroPessoalBinding.rclRegistos.getAdapter()) != null) {
-//                        ((ColaboradorRecyclerAdapter) activityQuadroPessoalBinding.rclRegistos.getAdapter()).displayLoading();
-//                    }
-//                } else {
-//                    isLastPage = true;
-//                }
-//                isLoading = false;
-//            }
-//        });
     }
+
+
+    //---------------------
+    //Metodos locais
+    //---------------------
+
+
 
 
     @Override
@@ -172,11 +136,9 @@ public class QuadroPessoalActivity extends BaseDaggerActivity
     @Override
     public void OnDemitirColaborador(ColaboradorRegisto registo) {
 
-
         int origem = Identificadores.Origens.ORIGEM_WS;
 
         ColaboradorResultado resultado = new ColaboradorResultado(PreferenciasUtil.obterIdTarefa(this), registo.id, Sintaxe.Palavras.DEMITIDO, origem);
-
         viewModel.gravar(registo.idResultado, resultado);
     }
 
@@ -186,7 +148,6 @@ public class QuadroPessoalActivity extends BaseDaggerActivity
         int origem = Identificadores.Origens.ORIGEM_WS;
 
         ColaboradorResultado resultado = new ColaboradorResultado(PreferenciasUtil.obterIdTarefa(this), registo.id, Sintaxe.Palavras.READEMITIDO, origem);
-
         viewModel.gravar(registo.idResultado, resultado);
     }
 
@@ -205,6 +166,24 @@ public class QuadroPessoalActivity extends BaseDaggerActivity
     //----------------------
     //EVENTOS
     //----------------------
+
+
+    NestedScrollView.OnScrollChangeListener nested_scroll_listener = new NestedScrollView.OnScrollChangeListener() {
+        @Override
+        public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+            if(v.getChildAt(v.getChildCount() - 1) != null) {
+                if ((scrollY >= (v.getChildAt(v.getChildCount() - 1).getMeasuredHeight() - v.getMeasuredHeight())) &&
+                        scrollY > oldScrollY) {
+
+                    if(((ColaboradorRecyclerAdapter)activityQuadroPessoalBinding.rclRegistos.getAdapter()) != null) {
+                        ((ColaboradorRecyclerAdapter) activityQuadroPessoalBinding.rclRegistos.getAdapter()).displayLoading();
+                    }
+
+                    viewModel.carregarRegistos(PreferenciasUtil.obterIdTarefa(QuadroPessoalActivity.this));
+                }
+            }
+        }
+    };
 
 
     @OnClick({R.id.fab_adicionar})

@@ -102,14 +102,16 @@ public class ColaboradorRecyclerAdapter extends RecyclerView.Adapter<RecyclerVie
     }
 
 
-    public void atualizar(List<ColaboradorRegisto> lolo) {
+    public void atualizar(List<ColaboradorRegisto> items) {
 
-        manageQueryResult(lolo.size());
-
+        int original = this.items.size();
+        int novo = items.size();
         //this.items.clear();
         //this.items.addAll(lolo);
 
-        this.items = lolo;
+        this.items = items;
+        manageQueryResult(original, novo);
+
         notifyDataSetChanged();
     }
 
@@ -155,9 +157,9 @@ public class ColaboradorRecyclerAdapter extends RecyclerView.Adapter<RecyclerVie
 
 
 
-    private void manageQueryResult(int results){
+    private void manageQueryResult(int original, int novo){
 
-        if(results == items.size()){
+        if(original == (novo + 1)){
 
             setQueryExhausted_();
         }
@@ -171,9 +173,12 @@ public class ColaboradorRecyclerAdapter extends RecyclerView.Adapter<RecyclerVie
 
         hideLoading_();
 
-        if(items.get(items.size() - 1).obterEstado() != EstadoModelo.EXHAUSTED) {
-            ColaboradorRegisto item = new ColaboradorRegisto(EstadoModelo.EXHAUSTED);
-            items.add(item);
+        try {
+            if (items.get(items.size() - 1).obterEstado() != EstadoModelo.EXHAUSTED) {
+                ColaboradorRegisto item = new ColaboradorRegisto(EstadoModelo.EXHAUSTED);
+                items.add(item);
+            }
         }
+        catch (IndexOutOfBoundsException e){}
     }
 }

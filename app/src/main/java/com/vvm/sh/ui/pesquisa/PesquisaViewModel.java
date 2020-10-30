@@ -383,28 +383,47 @@ public class PesquisaViewModel extends BaseViewModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
 
-                        new MaybeObserver<List<Tipo>>() {
+                        new SingleObserver<PesquisaTipos>() {
                             @Override
                             public void onSubscribe(Disposable d) {
                                 disposables.add(d);
                             }
 
                             @Override
-                            public void onSuccess(List<Tipo> registos) {
-                                adicionarRegistos(registos);
+                            public void onSuccess(PesquisaTipos registo) {
+                                tiposSelecionados.setValue(registo.registado);
+                                adicionarRegistos(registo.registos);
                                 showProgressBar(false);
                             }
 
                             @Override
                             public void onError(Throwable e) {
-                                showProgressBar(false);
-                            }
 
-                            @Override
-                            public void onComplete() {
-                                showProgressBar(false);
                             }
                         }
+
+//                        new MaybeObserver<List<Tipo>>() {
+//                            @Override
+//                            public void onSubscribe(Disposable d) {
+//                                disposables.add(d);
+//                            }
+//
+//                            @Override
+//                            public void onSuccess(List<Tipo> registos) {
+//                                adicionarRegistos(registos);
+//                                showProgressBar(false);
+//                            }
+//
+//                            @Override
+//                            public void onError(Throwable e) {
+//                                showProgressBar(false);
+//                            }
+//
+//                            @Override
+//                            public void onComplete() {
+//                                showProgressBar(false);
+//                            }
+//                        }
 
                 );
 

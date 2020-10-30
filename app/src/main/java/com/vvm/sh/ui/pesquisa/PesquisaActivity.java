@@ -14,10 +14,8 @@ import com.vvm.sh.databinding.ActivityPesquisaBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.pesquisa.adaptadores.OnPesquisaListener;
-import com.vvm.sh.ui.pesquisa.adaptadores.PesquisaMedidaRecyclerAdapter;
 import com.vvm.sh.ui.pesquisa.adaptadores.PesquisaRecyclerAdapter;
 import com.vvm.sh.ui.pesquisa.modelos.Pesquisa;
-import com.vvm.sh.ui.quadroPessoal.adaptadores.ColaboradorRecyclerAdapter;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
@@ -88,31 +86,6 @@ public class PesquisaActivity extends BaseDaggerActivity
     @Override
     protected void subscreverObservadores() {
 
-        viewModel.observarMessagem().observe(this, new Observer<Recurso>() {
-            @Override
-            public void onChanged(Recurso recurso) {
-
-                switch (recurso.status){
-
-                    case LOADING:
-
-                        if(((PesquisaRecyclerAdapter)activityPesquisaBinding.rclRegistos.getAdapter()) != null) {
-                            ((PesquisaRecyclerAdapter) activityPesquisaBinding.rclRegistos.getAdapter()).displayLoading();
-                        }
-                        break;
-
-                    case SUCESSO:
-
-                        dialogo.sucesso(recurso.messagem);
-                        break;
-
-                    case ERRO:
-
-                        dialogo.erro(recurso.messagem);
-                        break;
-                }
-            }
-        });
     }
 
 
@@ -120,6 +93,23 @@ public class PesquisaActivity extends BaseDaggerActivity
     //Metodos locais
     //--------------------
 
+    /**
+     * Metodo que permite obter os registos
+     * @param reiniciar true caso se pretenda reiniciar a pesquisa
+     */
+    private void obterRegistos(boolean reiniciar){
+
+        if (activityPesquisaBinding.txtInpPesquisa.getText().toString().equals(Sintaxe.SEM_TEXTO) == true) {
+            viewModel.obterRegistos(pesquisa, reiniciar);
+        }
+        else {
+            viewModel.obterPesquisa(pesquisa, activityPesquisaBinding.txtInpPesquisa.getText().toString(), reiniciar);
+        }
+    }
+
+    //-----------------------
+    //EVENTOS
+    //-----------------------
 
     @Override
     public void OnSelecionarClick(Tipo registo) {
@@ -132,7 +122,8 @@ public class PesquisaActivity extends BaseDaggerActivity
             pesquisa.registosSelecionados.clear();
             pesquisa.registosSelecionados.add(registo.id);
         }
-        viewModel.obterRegistos(pesquisa, false);
+
+        obterRegistos(false);
     }
 
     @Override
@@ -145,13 +136,11 @@ public class PesquisaActivity extends BaseDaggerActivity
             pesquisa.registosSelecionados.clear();
         }
 
-        viewModel.obterRegistos(pesquisa, false);
+        obterRegistos(false);
     }
 
 
-    //-----------------------
-    //EVENTOS
-    //-----------------------
+
 
     RecyclerView.OnScrollListener rcl_registos_scroll_listener = new RecyclerView.OnScrollListener() {
         @Override
@@ -176,13 +165,7 @@ public class PesquisaActivity extends BaseDaggerActivity
 
     @OnTextChanged(value = R.id.txt_inp_pesquisa, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
     public void txt_inp_pesquisa_OnTextChanged(CharSequence text) {
-
-        if(text.toString().equals(Sintaxe.SEM_TEXTO) == true){
-            viewModel.obterRegistos(pesquisa, true);
-        }
-        else {
-            viewModel.obterPesquisa(pesquisa, text.toString(), true);
-        }
+        obterRegistos(true);
     }
 
 
@@ -190,7 +173,7 @@ public class PesquisaActivity extends BaseDaggerActivity
     @OnClick(R.id.crl_btn_limpar)
     public void crl_btn_limpar_OnClickListener(View view) {
 
-        pesquisa.registosSelecionados.clear();
+        activityPesquisaBinding.txtInpPesquisa.setText(Sintaxe.SEM_TEXTO);
         viewModel.obterRegistos(pesquisa, true);
     }
 

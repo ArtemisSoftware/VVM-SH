@@ -49,8 +49,6 @@ public abstract class BaseViewModel extends ViewModel {
 
 
 
-    protected boolean performingQuery;
-
 
     public BaseViewModel() {
 
@@ -58,7 +56,6 @@ public abstract class BaseViewModel extends ViewModel {
         messagemLiveData = new MutableLiveData<>();
         loading = new MutableLiveData<>();
         estados = new MutableLiveData<>();
-        performingQuery = false;
 
         showProgressBar(false);
     }

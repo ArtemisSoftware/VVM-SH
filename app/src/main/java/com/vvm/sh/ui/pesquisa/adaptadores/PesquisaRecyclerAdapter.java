@@ -113,10 +113,12 @@ public class PesquisaRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.V
 
         int original = this.items.size();
         int novo = items.size();
-        if(original != novo) {
-            this.items.clear();
+//        if(original != novo) {
+//            this.items.clear();
+//            this.items.addAll(items);
+//        }
+                    this.items.clear();
             this.items.addAll(items);
-        }
         manageQueryResult(original, novo);
         notifyDataSetChanged();
     }

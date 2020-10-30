@@ -191,7 +191,6 @@ public class TarefaViewModel extends BaseViewModel {
                     );
         }
 
-        gravarResultado(tarefaRepositorio.resultadoDao, sinistralidade.idTarefa, ResultadoId.SINISTRALIDADE);
     }
 
 

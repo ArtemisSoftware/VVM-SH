@@ -37,8 +37,8 @@ public class QuadroPessoalRepositorio implements Repositorio<ColaboradorResultad
      * @param idTarefa o identificador da tarefa
      * @return uma lista de registos
      */
-    public Observable<List<ColaboradorRegisto>> obterQuadroPessoal(int idTarefa, int offset) {
-        return quadroPessoalDao.obterQuadroPessoal(idTarefa, offset * AppConfig.NUMERO_RESULTADOS_QUERY);
+    public Observable<List<ColaboradorRegisto>> obterQuadroPessoal(int idTarefa, int pagina) {
+        return quadroPessoalDao.obterQuadroPessoal(idTarefa, pagina);
     }
 
 

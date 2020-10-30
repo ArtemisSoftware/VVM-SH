@@ -77,7 +77,24 @@ public class PesquisaRepositorio {
 
 
 
-    public Maybe<List<Tipo>> pesquisar(String metodo, List<Integer> registos, String pesquisa, int pagina) {
-        return pesquisaDao.pesquisar(metodo, registos, pesquisa, idApi, pagina);
+//    public Maybe<List<Tipo>> pesquisar(String metodo, List<Integer> registos, String pesquisa, int pagina) {
+//
+//        return pesquisaDao.pesquisar(metodo, registos, pesquisa, idApi, pagina);
+//    }
+
+
+    public Single<PesquisaTipos> pesquisar(String metodo, List<Integer> registos, String pesquisa, int pagina){
+
+        return Single.zip(
+                pesquisaDao.pesquisar(metodo, registos, pesquisa, idApi, pagina).toSingle(),
+                pesquisaDao.obterTipos_Incluir(metodo, registos, idApi),
+                new BiFunction<List<Tipo>, List<Tipo>, PesquisaTipos>() {
+                    @Override
+                    public PesquisaTipos apply(List<Tipo> tipos, List<Tipo> tiposSelecionados) throws Exception {
+                        return new PesquisaTipos(tipos, tiposSelecionados);
+                    }
+                }
+        );
     }
+
 }

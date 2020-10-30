@@ -6,9 +6,11 @@ import com.vvm.sh.baseDados.entidades.ColaboradorResultado;
 import com.vvm.sh.baseDados.entidades.Morada;
 import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.repositorios.QuadroPessoalRepositorio;
+import com.vvm.sh.ui.pesquisa.modelos.Pesquisa;
 import com.vvm.sh.ui.quadroPessoal.modelos.ColaboradorRegisto;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.ResultadoId;
+import com.vvm.sh.util.constantes.AppConfig;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
@@ -39,6 +41,8 @@ public class QuadroPessoalViewModel extends BaseViewModel {
 
 
     private int pagina;
+
+    private int limite = AppConfig.NUMERO_RESULTADOS_QUERY;
 
     @Inject
     public QuadroPessoalViewModel(QuadroPessoalRepositorio quadroPessoalRepositorio){
@@ -139,32 +143,29 @@ public class QuadroPessoalViewModel extends BaseViewModel {
     //--------------------
 
 
-    public void obterProximaPagina(int idTarefa){
+    public void obterRegistos(int idTarefa, boolean reiniciar){
 
-
-        if(performingQuery == true){
-            return;
+        if(reiniciar == true){
+            limite = AppConfig.NUMERO_RESULTADOS_QUERY;
+            colaboradores.setValue(new ArrayList<>());
         }
 
-        performingQuery = true;
-
-        ++pagina;
         obterQuadroPessoal(idTarefa);
-//        if(!isQueryExhausted && !isPerformingQuery){
-//            pageNumber++;
-//            executeSearch();
-//        }
     }
 
+    public void carregarRegistos(int idTarefa){
+        limite += AppConfig.NUMERO_RESULTADOS_QUERY;
+        obterQuadroPessoal(idTarefa);
+    }
 
 
     /**
      * Metodo que permite obter o quadro pessoal
      * @param idTarefa o identificador da tarefa
      */
-    public void obterQuadroPessoal(int idTarefa){
+    private void obterQuadroPessoal(int idTarefa){
 
-        quadroPessoalRepositorio.obterQuadroPessoal(idTarefa, pagina)
+        quadroPessoalRepositorio.obterQuadroPessoal(idTarefa, limite)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -173,44 +174,32 @@ public class QuadroPessoalViewModel extends BaseViewModel {
                             @Override
                             public void onSubscribe(Disposable d) {
                                 disposables.add(d);
-                                messagemLiveData.setValue(Recurso.loading(""));
                             }
 
                             @Override
                             public void onNext(List<ColaboradorRegisto> resultados) {
 
-                                /*
-                                if(colaboradores.getValue() == null){
-                                    colaboradores.setValue(resultados);
-                                }
-                                else {
-                                    List<ColaboradorRegisto> registos = colaboradores.getValue();
-
-                                    registos.addAll(resultados);
-                                    colaboradores.setValue(registos);
-                                }*/
-
-
                                 colaboradores.setValue(resultados);
-                                performingQuery = false;
                             }
 
                             @Override
                             public void onError(Throwable e) {
-                                performingQuery = false;
+
                             }
 
                             @Override
                             public void onComplete() {
-                                performingQuery = false;
+
                             }
                         }
                 );
     }
 
 
-    public void obterColaborador(int idTarefa){
 
+
+
+    public void obterColaborador(int idTarefa){
 
         quadroPessoalRepositorio.obterMoradas(idTarefa)
                 .subscribeOn(Schedulers.io())

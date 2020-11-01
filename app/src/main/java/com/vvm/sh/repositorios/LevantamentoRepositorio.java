@@ -121,8 +121,8 @@ public class LevantamentoRepositorio {
      * @param idAtividade o identificador da atividade
      * @return uma lista de registos
      */
-    public Observable<List<Levantamento>> obterLevantamentos(int idAtividade){
-        return levantamentoDao.obterLevantamentos(idAtividade, idApi);
+    public Observable<List<Levantamento>> obterLevantamentos(int idAtividade, int pagina){
+        return levantamentoDao.obterLevantamentos(idAtividade, idApi, pagina);
     }
 
     /**
@@ -351,7 +351,7 @@ public class LevantamentoRepositorio {
                 riscoDao.inserirModelo(idAtividade, idModelo),
                 medidaDao.inserirMedidasRisco(idAtividade, idModelo, TiposUtil.MetodosTipos.MEDIDAS_PREVENCAO_ADOPTADAS, Identificadores.Origens.LEVANTAMENTO_MEDIDAS_ADOPTADAS, Identificadores.Origens.MEDIDAS_RISCO_EXISTENTES, idApi),
                 medidaDao.inserirMedidasRisco(idAtividade, idModelo, TiposUtil.MetodosTipos.MEDIDAS_PREVENCAO_RECOMENDADAS, Identificadores.Origens.LEVANTAMENTO_MEDIDAS_RECOMENDADAS, Identificadores.Origens.MEDIDAS_RISCO_RECOMENDADAS, idApi),
-                propostaPlanoAcaoDao.inserirModelo(idAtividade, idModelo, Identificadores.Origens.LEVANTAMENTO_MEDIDAS_ADOPTADAS)));
+                propostaPlanoAcaoDao.inserirModelo(idAtividade, idModelo)));
 
         return completable;
 

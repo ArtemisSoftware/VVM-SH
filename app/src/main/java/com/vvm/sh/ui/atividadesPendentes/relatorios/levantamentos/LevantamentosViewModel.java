@@ -17,6 +17,7 @@ import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.modelos.Levant
 import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.modelos.RelatorioLevantamento;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.modelos.Risco;
 import com.vvm.sh.util.Recurso;
+import com.vvm.sh.util.constantes.AppConfig;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.excepcoes.ModeloException;
@@ -670,18 +671,30 @@ public class LevantamentosViewModel extends BaseViewModel {
     //OBTER
     //--------------------
 
+    public void obterRegistos(int idAtividade, boolean reiniciar){
+
+        if(reiniciar == true){
+            limite = AppConfig.NUMERO_RESULTADOS_QUERY;
+            levantamentos.setValue(new ArrayList<>());
+        }
+
+        obterLevantamentos(idAtividade);
+    }
+
+    public void carregarRegistos(int idAtividade){
+        limite += AppConfig.NUMERO_RESULTADOS_QUERY;
+        obterLevantamentos(idAtividade);
+    }
+
 
 
     /**
      * Metodo que permite obter os levantamentos
      * @param idAtividade o identificador da atividade
      */
-    public void obterLevantamentos(int idAtividade) {
+    private void obterLevantamentos(int idAtividade) {
 
-        showProgressBar(true);
-
-
-        levantamentoRepositorio.obterLevantamentos(idAtividade)
+        levantamentoRepositorio.obterLevantamentos(idAtividade, limite)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -695,17 +708,16 @@ public class LevantamentosViewModel extends BaseViewModel {
                             @Override
                             public void onNext(List<Levantamento> registos) {
                                 levantamentos.setValue(registos);
-                                showProgressBar(false);
                             }
 
                             @Override
                             public void onError(Throwable e) {
-                                showProgressBar(false);
+
                             }
 
                             @Override
                             public void onComplete() {
-                                showProgressBar(false);
+
                             }
                         }
                 );

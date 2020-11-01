@@ -16,6 +16,7 @@ import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.servicos.ResultadoAsyncTask;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.ResultadoId;
+import com.vvm.sh.util.constantes.AppConfig;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.constantes.TiposConstantes;
 import com.vvm.sh.util.excepcoes.MetodoWsInvalidoException;
@@ -47,6 +48,7 @@ public abstract class BaseViewModel extends ViewModel {
     @Inject
     protected VvmshBaseDados vvmshBaseDados;
 
+    protected int limite = AppConfig.NUMERO_RESULTADOS_QUERY;
 
 
 

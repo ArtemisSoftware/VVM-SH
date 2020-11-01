@@ -75,7 +75,7 @@ abstract public class MedidaDao implements BaseDao<MedidaResultado> {
             "ON rsc_modelo.id = rsc_res.idTipoRisco " +
 
             "WHERE origem = :origemModelo " +
-            "AND rsc_res.idLevantamento IN (SELECT idLevantamento FROM levantamentosRiscoResultado WHERE idAtividade = :idAtividade AND idModelo= :idModelo) " +
+            "AND rsc_res.idLevantamento IN (SELECT id FROM levantamentosRiscoResultado WHERE idAtividade = :idAtividade AND idModelo= :idModelo) " +
             "")
     abstract public Completable inserirMedidasRisco(int idAtividade, int idModelo, String tipo, int origemMedidas, int origemModelo, int api);
 

@@ -42,7 +42,6 @@ public class QuadroPessoalViewModel extends BaseViewModel {
 
     private int pagina;
 
-    private int limite = AppConfig.NUMERO_RESULTADOS_QUERY;
 
     @Inject
     public QuadroPessoalViewModel(QuadroPessoalRepositorio quadroPessoalRepositorio){

@@ -10,6 +10,7 @@ import com.vvm.sh.api.modelos.pedido.ITipoAtividadePlaneavelListagem;
 import com.vvm.sh.api.modelos.pedido.ITipoChecklist;
 import com.vvm.sh.api.modelos.pedido.ITipoListagem;
 import com.vvm.sh.api.modelos.VersaoApp;
+import com.vvm.sh.repositorios.CarregamentoTiposRepositorio;
 import com.vvm.sh.repositorios.TiposRepositorio;
 import com.vvm.sh.repositorios.VersaoAppRepositorio;
 import com.vvm.sh.servicos.tipos.CarregarTipoChecklistAsyncTask;
@@ -44,15 +45,18 @@ public class OpcoesViewModel extends BaseViewModel {
 
     private final VersaoAppRepositorio versaoAppRepositorio;
     private final TiposRepositorio tiposRepositorio;
+    private final CarregamentoTiposRepositorio carregamentoTiposRepositorio;
+
     public MutableLiveData<VersaoApp> versaoApp;
     public MutableLiveData<List<ResumoTipo>> tipos;
     public MutableLiveData<List<ResumoChecklist>> tiposChecklist;
 
     @Inject
-    public OpcoesViewModel(VersaoAppRepositorio versaoAppRepositorio, TiposRepositorio tiposRepositorio){
+    public OpcoesViewModel(VersaoAppRepositorio versaoAppRepositorio, CarregamentoTiposRepositorio carregamentoTiposRepositorio, TiposRepositorio tiposRepositorio){
 
         this.versaoAppRepositorio = versaoAppRepositorio;
         this.tiposRepositorio = tiposRepositorio;
+        this.carregamentoTiposRepositorio = carregamentoTiposRepositorio;
 
         versaoApp = new MutableLiveData<>();
         tipos = new MutableLiveData<>();
@@ -315,7 +319,7 @@ public class OpcoesViewModel extends BaseViewModel {
      * Metodo que permite atualizar um tipo
      * @param descricao a descricao associada ao tipo
      */
-    public void atualizarTipo(String descricao, Handler handlerNotificacoesUI) {
+    public void atualizarTipo(Context contexto, String descricao, Handler handlerNotificacoesUI) {
 
         showProgressBar(true);
 
@@ -346,7 +350,7 @@ public class OpcoesViewModel extends BaseViewModel {
 
                                 @Override
                                 public void onComplete() {
-                                    AtualizarTipoAsyncTask servico = new AtualizarTipoAsyncTask(vvmshBaseDados, handlerNotificacoesUI, tiposRepositorio);
+                                    AtualizarTipoAsyncTask servico = new AtualizarTipoAsyncTask(contexto, vvmshBaseDados, handlerNotificacoesUI, carregamentoTiposRepositorio);
                                     servico.execute(respostas);
 
                                     showProgressBar(false);
@@ -442,8 +446,9 @@ public class OpcoesViewModel extends BaseViewModel {
 
                                 @Override
                                 public void onComplete() {
-                                    AtualizarTipoAsyncTask servico = new AtualizarTipoAsyncTask(vvmshBaseDados, handlerNotificacoesUI, tiposRepositorio);
-                                    servico.execute(respostas);
+                                    //TODO: Complear
+                                    //AtualizarTipoAsyncTask servico = new AtualizarTipoAsyncTask(vvmshBaseDados, handlerNotificacoesUI, tiposRepositorio);
+                                    //servico.execute(respostas);
 
                                     showProgressBar(false);
                                 }

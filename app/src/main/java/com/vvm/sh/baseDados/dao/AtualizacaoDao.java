@@ -24,6 +24,11 @@ abstract public class AtualizacaoDao implements BaseDao<Atualizacao> {
     @Update
     abstract public void atualizarRegisto(Atualizacao atualizacao);
 
+
+
+
+
+
     @Query("DELETE FROM atualizacoes WHERE descricao = :descricao ")
     abstract public void remover(String descricao);
 

@@ -33,12 +33,22 @@ import io.reactivex.Single;
 @Dao
 abstract public class TipoDao implements BaseDao<Tipo> {
 
+    //-------------------
+    //Tipos
+    //--------------------
+
 
     @Insert
     abstract public List<Long> inserir(List<Tipo> tipo);
 
     @Update
     abstract public Integer atualizar(List<Tipo> tipo);
+
+    @Query("DELETE FROM tipos WHERE tipo = :tipo ")
+    abstract public void removerTipo(String tipo);
+
+
+
 
 
     @Delete
@@ -82,6 +92,10 @@ abstract public class TipoDao implements BaseDao<Tipo> {
 
     @Update
     abstract public Integer atualizarAtividadesPlaneaiveis(List<TipoAtividadePlaneavel> tipo);
+
+
+
+
 
 
     @Query("SELECT CASE WHEN ativo = 1 THEN 1 ELSE 0 END valido " +

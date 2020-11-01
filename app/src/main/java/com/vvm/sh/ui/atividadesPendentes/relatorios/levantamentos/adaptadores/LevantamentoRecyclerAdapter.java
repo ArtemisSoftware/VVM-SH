@@ -13,6 +13,8 @@ import com.vvm.sh.R;
 import com.vvm.sh.databinding.ItemLevantamentoBinding;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.formacao.adaptadores.FormandoViewHolder;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.modelos.Levantamento;
+import com.vvm.sh.ui.quadroPessoal.modelos.ColaboradorRegisto;
+import com.vvm.sh.util.interfaces.EstadoModelo;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
 
 import java.util.ArrayList;
@@ -62,8 +64,12 @@ public class LevantamentoRecyclerAdapter extends RecyclerView.Adapter<RecyclerVi
 
 
     public void atualizar(List<Levantamento> items){
-        this.items.clear();
-        this.items.addAll(items);
+
+        int original = this.items.size();
+        int novo = items.size();
+
+        this.items = items;
+        manageQueryResult(original, novo);
         notifyDataSetChanged();
     }
 
@@ -92,4 +98,70 @@ public class LevantamentoRecyclerAdapter extends RecyclerView.Adapter<RecyclerVi
         return  registos;
     }
 
+
+    //-------------------
+    //
+    //-------------------
+
+
+    public void displayLoading(){
+
+        if(items.get(items.size() - 1).obterEstado() != EstadoModelo.EXHAUSTED) {
+
+            if (!isLoading()) {
+
+                items.add(new Levantamento(EstadoModelo.LOADING));
+                notifyDataSetChanged();
+            }
+        }
+    }
+
+    private boolean isLoading(){
+
+        if(items != null){
+            if (items.size() > 0) {
+                if (items.get(items.size() - 1).obterEstado() == EstadoModelo.LOADING) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+
+    public void hideLoading_(){
+        if(isLoading()){
+
+            if (items.get(items.size() - 1).obterEstado() == EstadoModelo.LOADING) {
+                items.remove(items.size() - 1);
+            }
+        }
+    }
+
+
+
+    private void manageQueryResult(int original, int novo){
+
+        if(original == (novo + 1)){
+
+            setQueryExhausted_();
+        }
+        else{
+            hideLoading_();
+        }
+    }
+
+
+    public void setQueryExhausted_(){
+
+        hideLoading_();
+
+        try {
+            if (items.get(items.size() - 1).obterEstado() != EstadoModelo.EXHAUSTED) {
+                Levantamento item = new Levantamento(EstadoModelo.EXHAUSTED);
+                items.add(item);
+            }
+        }
+        catch (IndexOutOfBoundsException e){}
+    }
 }

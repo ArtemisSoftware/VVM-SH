@@ -118,6 +118,7 @@ public class Sintaxe {
         public static final String DADOS_INCOMPLETOS_PDF = "Dados incompletos. Pré-visualização indisponível";
         public static final String EMAIL_NAO_ASSOCIADO = "Dados incompletos. Não existem um email associado";
         public static final String ERRO_GERAR_IMAGEM = "Erro ao gerar imagem: ";
+        public static final String ERRO_ATUALIZAR_TIPO = "Erro ao atualizar tipo: ";
     }
 
     public class Frases{
@@ -143,6 +144,8 @@ public class Sintaxe {
         public static final String CARREGAR_ATIVIDADES_PLANEAVEIS = "A carregar atividades planeaveis...";
         public static final String CARREGAR_TEMPLATES = "A carregar templates...";
         public static final String CARREGAR_CHECKLISTS = "A carregar checklists...";
+        public static final String ATUALIZAR_TIPO = "A atualizar o tipo...";
+        public static final String DADOS_ATUALIZADOS_SUCESSO = "Dados atualizados com sucesso";
     }
 
     public class API {

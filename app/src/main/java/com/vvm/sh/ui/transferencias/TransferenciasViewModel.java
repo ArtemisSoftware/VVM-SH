@@ -611,7 +611,6 @@ public class TransferenciasViewModel extends BaseViewModel {
                             public void onError(Throwable e) {
                                 showProgressBar(false);
                                 formatarErro(e);
-                                //messagemLiveData.setValue(Recurso.erro(e.getMessage()));
                             }
 
                             @Override

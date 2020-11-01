@@ -1,6 +1,7 @@
 package com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos;
 
 import androidx.annotation.Nullable;
+import androidx.core.widget.NestedScrollView;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
@@ -19,6 +20,8 @@ import com.vvm.sh.ui.imagens.GaleriaActivity;
 import com.vvm.sh.ui.imagens.modelos.Galeria;
 import com.vvm.sh.ui.pesquisa.PesquisaActivity;
 import com.vvm.sh.ui.pesquisa.modelos.Pesquisa;
+import com.vvm.sh.ui.quadroPessoal.QuadroPessoalActivity;
+import com.vvm.sh.ui.quadroPessoal.adaptadores.ColaboradorRecyclerAdapter;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
 import com.vvm.sh.util.metodos.TiposUtil;
@@ -58,6 +61,7 @@ public class LevantamentosActivity extends BaseDaggerActivity
         activityLevantamentosBinding.setViewmodel(viewModel);
         activityLevantamentosBinding.setListener(this);
         activityLevantamentosBinding.setBloquear(PreferenciasUtil.agendaEditavel(this));
+        activityLevantamentosBinding.nsv.setOnScrollChangeListener(nested_scroll_listener);
 
         subscreverObservadores();
 
@@ -66,7 +70,7 @@ public class LevantamentosActivity extends BaseDaggerActivity
         if(bundle != null) {
 
             int idAtividade = bundle.getInt(getString(R.string.argumento_id_atividade));
-            viewModel.obterLevantamentos(idAtividade);
+            viewModel.obterRegistos(idAtividade, false);
         }
         else{
             finish();
@@ -104,7 +108,6 @@ public class LevantamentosActivity extends BaseDaggerActivity
         if(registo != null){
             bundle.putInt(getString(R.string.argumento_id_levantamento), registo.id);
 
-
             Intent intent = new Intent(this, RelatorioLevantamentoActivity.class);
             intent.putExtras(bundle);
             startActivity(intent);
@@ -115,32 +118,7 @@ public class LevantamentosActivity extends BaseDaggerActivity
             Intent intent = new Intent(this, PerigoTarefaActivity.class);
             intent.putExtras(bundle);
             startActivity(intent);
-
         }
-
-
-        //int idLevantamento = Sintaxe.SEM_REGISTO;
-
-        //Bundle bundle = getIntent().getExtras();
-
-//
-
-//        try{
-//            idLevantamento = adaptador.obterRegistoSelecionado().obterId();
-//        }
-//        catch(NullPointerException w){
-//            idLevantamento = acessoBdLevantamentos.copiar(((Levantamentos_Adaptador) adaptador).obterUltimoRegisto());
-//
-//            MetodosMensagens.gerarToast(this, SintaxeIF.DADOS_GRAVADOS_SUCESSO);
-//
-//            terminarRegisto();
-//            atualizarEstatistica();
-//        }
-
-//        Intent intent = new Intent(this, IndiceLevantamentoActivity.class);
-//        bundle.putString(BundleIF.ID_RELATORIO, idLevantamento);
-//        intent.putExtras(bundle);
-//        startActivityForResult(intent, CodigoAtividadeIF.LEVANTAMENTO_RISCOS);
     }
 
 
@@ -188,6 +166,26 @@ public class LevantamentosActivity extends BaseDaggerActivity
     //-----------------------
     //EVENTOS
     //-----------------------
+
+
+    NestedScrollView.OnScrollChangeListener nested_scroll_listener = new NestedScrollView.OnScrollChangeListener() {
+        @Override
+        public void onScrollChange(NestedScrollView v, int scrollX, int scrollY, int oldScrollX, int oldScrollY) {
+            if(v.getChildAt(v.getChildCount() - 1) != null) {
+                if ((scrollY >= (v.getChildAt(v.getChildCount() - 1).getMeasuredHeight() - v.getMeasuredHeight())) &&
+                        scrollY > oldScrollY) {
+
+                    if(((LevantamentoRecyclerAdapter)activityLevantamentosBinding.rclRegistos.getAdapter()) != null) {
+                        ((LevantamentoRecyclerAdapter) activityLevantamentosBinding.rclRegistos.getAdapter()).displayLoading();
+                    }
+
+                    int idAtividade = getIntent().getExtras().getInt(getString(R.string.argumento_id_atividade));
+                    viewModel.carregarRegistos(idAtividade);
+                }
+            }
+        }
+    };
+
 
     @OnCheckedChanged(R.id.chk_selecionado)
     public void chk_selecionado_onCheckedChange(boolean checked) {

@@ -76,8 +76,9 @@ abstract public class LevantamentoDao implements BaseDao<LevantamentoRiscoResult
             "as ct_riscos ON lv_riscos_res.id = ct_riscos.idLevantamento " +
 
 
-            "WHERE lv_riscos_res.idAtividade = :idAtividade")
-    abstract public Observable<List<Levantamento>> obterLevantamentos(int idAtividade, int api);
+            "WHERE lv_riscos_res.idAtividade = :idAtividade " +
+            "LIMIT :offset OFFSET 0 ")
+    abstract public Observable<List<Levantamento>> obterLevantamentos(int idAtividade, int api, int offset);
 
 
 

@@ -5,6 +5,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.view.View;
+import android.widget.TextView;
 
 import com.google.android.material.snackbar.Snackbar;
 import com.vvm.sh.R;
@@ -349,8 +350,11 @@ public class MensagensUtil {
     public void progresso(boolean show, String mensagem){
         builder.setView(R.layout.dialogo_progresso);
 
-        //TODO: adicionar mensagem ao layout
         dialogoProgresso = builder.create();
+
+        TextView alertTextView = (TextView) dialogoProgresso.findViewById(R.id.txt_mensagem);
+        alertTextView.setText(mensagem);
+
         if (show)dialogoProgresso.show();
         else dialogoProgresso.dismiss();
     }

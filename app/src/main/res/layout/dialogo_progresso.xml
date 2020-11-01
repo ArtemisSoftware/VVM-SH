@@ -12,11 +12,11 @@
         android:layout_width="45dp"
         android:layout_height="45dp" />
     <TextView
+        android:id="@+id/txt_mensagem"
         android:layout_width="wrap_content"
         android:text="Loading..."
         style="@style/textoDetalhe"
         android:layout_gravity="center_vertical"
-        android:id="@+id/loading_msg"
         android:layout_toEndOf="@+id/loader"
         android:layout_height="wrap_content" />
 

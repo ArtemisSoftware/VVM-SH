@@ -58,9 +58,10 @@ abstract public class PropostaPlanoAcaoDao implements BaseDao<PropostaPlanoAcaoR
     @Query("INSERT INTO propostaPlanoAcaoResultado (idAtividade, idQuestao, origem, idMedida, selecionado) " +
             "SELECT :idAtividade as idAtividade,  rsc_res.id as id, " + Identificadores.Origens.ORIGEM_LEVANTAMENTO_RISCO + " as origem, idMedida, 1 as selecionado " +
             "FROM riscosResultado as rsc_res  " +
-            "LEFT JOIN (SELECT id, idMedida FROM medidasResultado WHERE origem = :origem) med_res ON rsc_res.id = med_res.id " +
-            "WHERE  rsc_res.idLevantamento IN (SELECT idLevantamento FROM levantamentosRiscoResultado WHERE idAtividade = :idAtividade AND idModelo = :idModelo )")
-    abstract public Completable inserirModelo(int idAtividade, int idModelo, int origem);
+            "LEFT JOIN (SELECT id, idMedida FROM medidasResultado WHERE origem = " + Identificadores.Origens.LEVANTAMENTO_MEDIDAS_RECOMENDADAS + " AND idMedida IS NOT NULL) med_res ON rsc_res.id = med_res.id " +
+            "WHERE  rsc_res.idLevantamento IN (SELECT id FROM levantamentosRiscoResultado WHERE idAtividade = :idAtividade AND idModelo = :idModelo ) " +
+            "AND idMedida IS NOT NULL")
+    abstract public Completable inserirModelo(int idAtividade, int idModelo);
 
 
 

@@ -306,9 +306,15 @@ public class TiposRepositorio {
      * @param tipos os dados do tipo
      */
     public void atualizarTipo(Atualizacao atualizacao, List<Tipo> tipos){
-        atualizacaoDao.remover(atualizacao.descricao);
-        atualizacaoDao.inserirRegisto(atualizacao);
-        tipoDao.inserir(tipos);
+
+        if(atualizacaoDao.existeRegisto(atualizacao.descricao) == true){
+            atualizacaoDao.atualizarRegisto(atualizacao);
+        }
+        else{
+            atualizacaoDao.inserirRegisto(atualizacao);
+        }
+
+//        tipoDao.inserir(tipos);
     }
 
 

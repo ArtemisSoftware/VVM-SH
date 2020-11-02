@@ -268,7 +268,7 @@ public class DownloadTrabalhoActivity extends BaseDaggerActivity {
 
                 case PROCESSAMENTO_TIPOS_CONCLUIDO:
 
-                    //--obterTrabalho();
+                    obterTrabalho();
                     break;
 
 

@@ -97,7 +97,7 @@ public class AtualizarTipoAtividadesPlaneaveisAsyncTask extends AsyncTask<List<O
             }
         });
 
-        return null;
+        return tipoRespostas;
     }
 
 
@@ -106,7 +106,7 @@ public class AtualizarTipoAtividadesPlaneaveisAsyncTask extends AsyncTask<List<O
     protected void onPostExecute(List<Object>[] objects) {
         super.onPostExecute(objects);
 
-//        AtualizarTipoAtividadesPlaneaveisAsyncTask servico = new AtualizarTipoAtividadesPlaneaveisAsyncTask(vvmshBaseDados, handlerUI, repositorio);
-//        servico.execute(objects);
+        AtualizarTipoTemplatesAvrAsyncTask servico = new AtualizarTipoTemplatesAvrAsyncTask(vvmshBaseDados, handlerUI, repositorio);
+        servico.execute(objects);
     }
 }

@@ -122,6 +122,11 @@ abstract public class TipoDao implements BaseDao<Tipo> {
     @Query("DELETE FROM tiposTemplatesAVRMedidasRisco ")
     abstract public void removerTemplatesAVRMedidaRisco();
 
+    @Query("DELETE FROM tiposTemplatesAVRMedidasRisco WHERE id =:id AND origem =:origem")
+    abstract public void removerTemplatesAVRMedidaRisco(int id, int origem);
+
+
+
 
     @Query("DELETE FROM tiposAtividadesPlaneaveis ")
     abstract public void removerAtividadesPlaneaveis();

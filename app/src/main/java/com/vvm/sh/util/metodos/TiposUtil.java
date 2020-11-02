@@ -443,6 +443,7 @@ public class TiposUtil {
 
                 MetodoApi registo = obterMetodos(item.descricao);
                 registo.seloTemporal = item.seloTemporal;
+                registo.tipo = item.tipo;
                 registos.add(registo);
 
             } catch (TipoInexistenteException e) {
@@ -453,6 +454,8 @@ public class TiposUtil {
         
         if(registos.size() == 0){
             List<MetodoApi> tipos = new LinkedList(Arrays.asList(MetodosTipos.Tipos.TIPOS));
+            tipos.addAll(new LinkedList(Arrays.asList(MetodosTipos.TemplateAvr.TIPOS)));
+            tipos.addAll(new LinkedList(Arrays.asList(MetodosTipos.AtividadesPlaneaveis.TIPOS)));
             return tipos;
         }
 
@@ -464,6 +467,7 @@ public class TiposUtil {
 
         public String descricao, sa, sht;
         public String seloTemporal = "";
+        public int tipo;
 
         public MetodoApi(String descricao, String sa, String sht) {
             this.descricao = descricao;

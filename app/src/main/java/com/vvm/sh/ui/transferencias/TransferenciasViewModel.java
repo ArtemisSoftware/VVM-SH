@@ -39,11 +39,15 @@ import com.vvm.sh.util.metodos.PreferenciasUtil;
 import com.vvm.sh.util.metodos.TiposUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
+import org.reactivestreams.Publisher;
+import org.reactivestreams.Subscription;
+
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
+import io.reactivex.FlowableSubscriber;
 import io.reactivex.Maybe;
 import io.reactivex.MaybeObserver;
 import io.reactivex.Observable;
@@ -540,13 +544,7 @@ public class TransferenciasViewModel extends BaseViewModel {
      */
     public void atualizarTipos(Activity activity, Handler handlerUI) {
 
-        tiposRepositorio.obterAtualizacoes(Identificadores.Atualizacoes.TIPO)
-                .map(new Function<List<Atualizacao>, List<TiposUtil.MetodoApi>>() {
-                    @Override
-                    public List<TiposUtil.MetodoApi> apply(List<Atualizacao> atualizacoes) throws Exception {
-                        return TiposUtil.fixarSeloTemporal(atualizacoes);
-                    }
-                })
+        tiposRepositorio.obterAtualizacoes()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -572,7 +570,41 @@ public class TransferenciasViewModel extends BaseViewModel {
 
                             }
                         }
+
                 );
+//        tiposRepositorio.obterAtualizacoes(Identificadores.Atualizacoes.TIPO)
+//                .map(new Function<List<Atualizacao>, List<TiposUtil.MetodoApi>>() {
+//                    @Override
+//                    public List<TiposUtil.MetodoApi> apply(List<Atualizacao> atualizacoes) throws Exception {
+//                        return TiposUtil.fixarSeloTemporal(atualizacoes);
+//                    }
+//                })
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(
+//
+//                        new MaybeObserver<List<TiposUtil.MetodoApi>>() {
+//                            @Override
+//                            public void onSubscribe(Disposable d) {
+//                                disposables.add(d);
+//                            }
+//
+//                            @Override
+//                            public void onSuccess(List<TiposUtil.MetodoApi> atualizacoes) {
+//                                atualizarTipos(activity, atualizacoes, handlerUI);
+//                            }
+//
+//                            @Override
+//                            public void onError(Throwable e) {
+//
+//                            }
+//
+//                            @Override
+//                            public void onComplete() {
+//
+//                            }
+//                        }
+//                );
     }
 
 
@@ -590,27 +622,27 @@ public class TransferenciasViewModel extends BaseViewModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
 
-                        new SingleObserver<List<ITipoListagem>>() {
+                        new SingleObserver<List<Object>>() {
                             @Override
                             public void onSubscribe(Disposable d) {
                                 disposables.add(d);
                             }
 
                             @Override
-                            public void onSuccess(List<ITipoListagem> iTipoListagems) {
+                            public void onSuccess(List<Object> registos) {
+
                                 showProgressBar(false);
 
                                 AtualizarTipoAsyncTask servico = new AtualizarTipoAsyncTask(activity, vvmshBaseDados, handlerUI, carregamentoTiposRepositorio);
-                                servico.execute(iTipoListagems);
-
+                                servico.execute(registos);
                             }
 
                             @Override
                             public void onError(Throwable e) {
-                                showProgressBar(false);
-                                formatarErro(e);
+
                             }
                         }
+
                 );
     }
 

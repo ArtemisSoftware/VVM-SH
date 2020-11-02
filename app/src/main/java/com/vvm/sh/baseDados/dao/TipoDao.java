@@ -50,6 +50,16 @@ abstract public class TipoDao implements BaseDao<Tipo> {
 
 
 
+    @Insert
+    abstract public List<Long> inserirAtividadesPlaneaiveis(List<TipoAtividadePlaneavel> registo);
+
+    @Update
+    abstract public Integer atualizarAtividadesPlaneaiveis(List<TipoAtividadePlaneavel> tipo);
+
+
+
+
+
 
     @Delete
     abstract public Integer remover(CheckList registo);
@@ -87,11 +97,7 @@ abstract public class TipoDao implements BaseDao<Tipo> {
     @Update
     abstract public Integer atualizarTemplatesAVRMedidaRisco(List<TipoTemplatesAVRMedidaRisco> tipo);
 
-    @Insert
-    abstract public List<Long> inserirAtividadesPlaneaiveis(List<TipoAtividadePlaneavel> registo);
 
-    @Update
-    abstract public Integer atualizarAtividadesPlaneaiveis(List<TipoAtividadePlaneavel> tipo);
 
 
 

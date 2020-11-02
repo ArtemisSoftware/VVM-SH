@@ -11,19 +11,20 @@ import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.baseDados.entidades.Atualizacao;
 import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.repositorios.CarregamentoTiposRepositorio;
+import com.vvm.sh.servicos.tipos.atualizacao.AtualizarTipoAtividadesPlaneaveisAsyncTask;
 import com.vvm.sh.util.AtualizacaoUI;
-import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.mapeamento.DownloadMapping;
-import com.vvm.sh.util.metodos.MensagensUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class AtualizarTipoAsyncTask extends AsyncTask<List<ITipoListagem>, Void, Void> {
+public class AtualizarTipoAsyncTask extends AsyncTask<List<Object>, Void, List<Object>[]> {
 
     private String errorMessage;
+    private Handler handlerUI;
     private VvmshBaseDados vvmshBaseDados;
     private CarregamentoTiposRepositorio repositorio;
+
 
 
     /**
@@ -35,16 +36,28 @@ public class AtualizarTipoAsyncTask extends AsyncTask<List<ITipoListagem>, Void,
         this.vvmshBaseDados = vvmshBaseDados;
         this.repositorio = repositorio;
         atualizacaoUI = new AtualizacaoUI(handlerUI);
+
+        this.handlerUI = handlerUI;
     }
 
 
+
     @Override
-    protected Void doInBackground(List<ITipoListagem>... tipoRespostas) {
+    protected List<Object>[] doInBackground(List<Object>... tipoRespostas) {
 
         if(tipoRespostas[0] == null)
             return null;
 
-        List<ITipoListagem> respostas = tipoRespostas[0];
+        List<Object> respostas = tipoRespostas[0];
+        List<ITipoListagem> dados = new ArrayList<>();
+
+        for (Object item : respostas) {
+
+            if (item instanceof ITipoListagem) {
+                dados.add((ITipoListagem) item);
+            }
+        }
+
 
         this.vvmshBaseDados.runInTransaction(new Runnable(){
             @Override
@@ -54,19 +67,26 @@ public class AtualizarTipoAsyncTask extends AsyncTask<List<ITipoListagem>, Void,
 
                     int index = 0;
 
-                    for (ITipoListagem resposta : respostas) {
+                    for (ITipoListagem resposta : dados) {
 
                         Atualizacao atualizacao = DownloadMapping.INSTANCE.map(resposta);
 
-                        List<Tipo> dadosNovos = obterTipos(resposta, resposta.dadosNovos);
-                        List<Tipo> dadosAlterados = obterTipos(resposta, resposta.dadosAlterados);
+                        List<Tipo> dadosNovos = new ArrayList<>();
+                        List<Tipo> dadosAlterados = new ArrayList<>();
+
+                        for (ITipo item : resposta.dadosNovos) {
+                            dadosNovos.add(DownloadMapping.INSTANCE.map(item, resposta));
+                        }
+
+                        for (ITipo item : resposta.dadosAlterados) {
+                            dadosAlterados.add(DownloadMapping.INSTANCE.map(item, resposta));
+                        }
 
                         repositorio.atualizarTipo(atualizacao, dadosNovos, dadosAlterados);
 
-                        atualizacaoUI.atualizarUI(AtualizacaoUI.Codigo.PROCESSAMENTO_TIPOS, atualizacao.descricao, ++index, respostas.size());
-                    }
+                        atualizacaoUI.atualizarUI(AtualizacaoUI.Codigo.PROCESSAMENTO_TIPOS, atualizacao.descricao, ++index, dados.size());
 
-                    atualizacaoUI.atualizarUI(AtualizacaoUI.Codigo.PROCESSAMENTO_TIPOS_CONCLUIDO, "Concluido", index, respostas.size());
+                    }
                 }
                 catch(SQLiteConstraintException throwable){
                     errorMessage = throwable.getMessage();
@@ -74,27 +94,15 @@ public class AtualizarTipoAsyncTask extends AsyncTask<List<ITipoListagem>, Void,
             }
         });
 
-        return null;
+        return tipoRespostas;
     }
 
 
-    /**
-     * Metodo que permite obter os tipos
-     * @param resposta os dados dos tipos
-     * @return uma lista de tipos
-     */
-    private List<Tipo> obterTipos(ITipoListagem resposta, List<ITipo> dados) {
+    @Override
+    protected void onPostExecute(List<Object>[] objects) {
+        super.onPostExecute(objects);
 
-        List<Tipo> tipos = new ArrayList<>();
-
-        for (ITipo item : dados) {
-
-            Tipo resultado = DownloadMapping.INSTANCE.map(item, resposta);
-            tipos.add(resultado);
-        }
-
-        return tipos;
+        AtualizarTipoAtividadesPlaneaveisAsyncTask servico = new AtualizarTipoAtividadesPlaneaveisAsyncTask(vvmshBaseDados, handlerUI, repositorio);
+        servico.execute(objects);
     }
-
-
 }

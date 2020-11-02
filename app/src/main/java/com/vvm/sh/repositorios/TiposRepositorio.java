@@ -24,6 +24,7 @@ import com.vvm.sh.baseDados.entidades.TipoTemplatesAVRMedidaRisco;
 import com.vvm.sh.ui.opcoes.modelos.ResumoChecklist;
 import com.vvm.sh.ui.opcoes.modelos.ResumoTipo;
 import com.vvm.sh.ui.opcoes.modelos.TemplateAvr;
+import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.excepcoes.TipoInexistenteException;
 import com.vvm.sh.util.metodos.TiposUtil;
 
@@ -35,6 +36,7 @@ import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.SingleSource;
 import io.reactivex.functions.BiFunction;
+import io.reactivex.functions.Function3;
 
 public class TiposRepositorio {
 
@@ -99,25 +101,50 @@ public class TiposRepositorio {
     }
 
 
-    public Single<List<ITipoListagem>> obterTipos(List<TiposUtil.MetodoApi> atualizacoes) {
+    public Single<List<Object>> obterTipos(List<TiposUtil.MetodoApi> atualizacoes) {
 
         List<SingleSource> tipos = new ArrayList<>();
 
         for(TiposUtil.MetodoApi metodo : atualizacoes){
 
-            if(metodo.sa != null & metodo.sht != null) {
+            if(metodo.tipo == Identificadores.Atualizacoes.TIPO) {
 
-                tipos.add(apiSA.obterTipo(SegurancaAlimentarApi.HEADER_TIPO, metodo.sa, metodo.seloTemporal));
-                tipos.add(apiST.obterTipo(SegurancaTrabalhoApi.HEADER_TIPO, metodo.sht, metodo.seloTemporal));
+                if (metodo.sa != null & metodo.sht != null) {
+
+                    tipos.add(apiSA.obterTipo(SegurancaAlimentarApi.HEADER_TIPO, metodo.sa, metodo.seloTemporal));
+                    tipos.add(apiST.obterTipo(SegurancaTrabalhoApi.HEADER_TIPO, metodo.sht, metodo.seloTemporal));
+
+                } else if (metodo.sa != null) {
+                    tipos.add(apiSA.obterTipo(SegurancaAlimentarApi.HEADER_TIPO, metodo.sa, metodo.seloTemporal));
+                } else {
+                    tipos.add(apiST.obterTipo(SegurancaTrabalhoApi.HEADER_TIPO, metodo.sht, metodo.seloTemporal));
+                }
+            }
+
+            if(metodo.tipo == Identificadores.Atualizacoes.ATIVIDADES_PLANEAVEIS) {
 
             }
-            else if(metodo.sa != null){
-                tipos.add(apiSA.obterTipo(SegurancaAlimentarApi.HEADER_TIPO, metodo.sa, metodo.seloTemporal));
+
+            if(metodo.tipo == Identificadores.Atualizacoes.ATIVIDADES_PLANEAVEIS) {
+
+                if(metodo.descricao.equals(TiposUtil.MetodosTipos.AtividadesPlaneaveis.ATIVIDADES_PLANEAVEIS) == true){
+                    tipos.add(apiST.obterTipoAtividadesPlaneaveis(SegurancaTrabalhoApi.HEADER_TIPO, metodo.seloTemporal));
+                }
             }
-            else{
-                tipos.add(apiST.obterTipo(SegurancaTrabalhoApi.HEADER_TIPO, metodo.sht, metodo.seloTemporal));
+
+            if(metodo.tipo == Identificadores.Atualizacoes.TEMPLATE) {
+
+                if(metodo.descricao.equals(TiposUtil.MetodosTipos.TemplateAvr.TEMPLATE_AVALIACAO_RISCOS_LEVANTAMENTOS) == true){
+                    tipos.add(apiST.obterTipoTemplatesAVR_Levantamentos(SegurancaTrabalhoApi.HEADER_TIPO, metodo.seloTemporal));
+                }
+
+                if(metodo.descricao.equals(TiposUtil.MetodosTipos.TemplateAvr.TEMPLATE_AVALIACAO_RISCOS_RISCOS) == true){
+                    tipos.add(apiST.obterTipoTemplatesAVR_Riscos(SegurancaTrabalhoApi.HEADER_TIPO, metodo.seloTemporal));
+                }
+
             }
         }
+
 
         SingleSource[] source = new SingleSource[tipos.size()];
 
@@ -126,7 +153,6 @@ public class TiposRepositorio {
         }
 
         return Single.concatArray(source).toList();
-
     }
 
 
@@ -230,6 +256,40 @@ public class TiposRepositorio {
 
 
 
+    public Single<List<ITipoListagem>> obterTipos_(List<TiposUtil.MetodoApi> atualizacoes) {
+
+        List<SingleSource> tipos = new ArrayList<>();
+
+        for(TiposUtil.MetodoApi metodo : atualizacoes){
+
+            if(metodo.sa != null & metodo.sht != null) {
+
+                tipos.add(apiSA.obterTipo(SegurancaAlimentarApi.HEADER_TIPO, metodo.sa, metodo.seloTemporal));
+                tipos.add(apiST.obterTipo(SegurancaTrabalhoApi.HEADER_TIPO, metodo.sht, metodo.seloTemporal));
+
+            }
+            else if(metodo.sa != null){
+                tipos.add(apiSA.obterTipo(SegurancaAlimentarApi.HEADER_TIPO, metodo.sa, metodo.seloTemporal));
+            }
+            else{
+                tipos.add(apiST.obterTipo(SegurancaTrabalhoApi.HEADER_TIPO, metodo.sht, metodo.seloTemporal));
+            }
+        }
+
+        SingleSource[] source = new SingleSource[tipos.size()];
+
+        for(int index = 0; index < tipos.size(); ++index){
+            source[index] = tipos.get(index);
+        }
+
+        return Single.concatArray(source).toList();
+    }
+
+
+
+
+
+
 
 
 
@@ -271,8 +331,23 @@ public class TiposRepositorio {
      * Metodo que permite obter as atualizacoes
      * @return uma lista de atualizacoes
      */
-    public Maybe<List<Atualizacao>> obterAtualizacoes(int tipo) {
-        return atualizacaoDao.obterAtualizacoes(tipo);
+    public Maybe<List<TiposUtil.MetodoApi>> obterAtualizacoes() {
+
+        return Maybe.zip(
+                atualizacaoDao.obterAtualizacoes(Identificadores.Atualizacoes.TIPO),
+                atualizacaoDao.obterAtualizacoes(Identificadores.Atualizacoes.TEMPLATE),
+                atualizacaoDao.obterAtualizacoes(Identificadores.Atualizacoes.ATIVIDADES_PLANEAVEIS),
+                new Function3<List<Atualizacao>, List<Atualizacao>, List<Atualizacao>, List<TiposUtil.MetodoApi>>() {
+                    @Override
+                    public List<TiposUtil.MetodoApi> apply(List<Atualizacao> atualizacaos, List<Atualizacao> atualizacaos2, List<Atualizacao> atualizacaos3) throws Exception {
+
+                        List<TiposUtil.MetodoApi> atualizacoes = TiposUtil.fixarSeloTemporal(atualizacaos);
+                        atualizacoes.addAll(TiposUtil.fixarSeloTemporal(atualizacaos2));
+                        atualizacoes.addAll(TiposUtil.fixarSeloTemporal(atualizacaos3));
+                        return atualizacoes;
+                    }
+                }
+        );
     }
 
 

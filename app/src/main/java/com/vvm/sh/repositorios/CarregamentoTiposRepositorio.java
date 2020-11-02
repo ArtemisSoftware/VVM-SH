@@ -8,6 +8,7 @@ import com.vvm.sh.baseDados.dao.AtualizacaoDao;
 import com.vvm.sh.baseDados.dao.TipoDao;
 import com.vvm.sh.baseDados.entidades.Atualizacao;
 import com.vvm.sh.baseDados.entidades.Tipo;
+import com.vvm.sh.baseDados.entidades.TipoAtividadePlaneavel;
 
 import java.util.List;
 
@@ -65,4 +66,29 @@ public class CarregamentoTiposRepositorio {
         tipoDao.inserir(dadosNovos);
         tipoDao.atualizar(dadosAlteradaos);
     }
+
+
+
+    /**
+     * Metodo que permite atualizar um tipo<br>
+     *     1->Atualizar timestamp<br>
+     *     2->inserir novos dados
+     * @param atualizacao os dados da atualizacao
+     * @param tiposNovos tipos novos a inserir
+     * @param tiposAlterados tipos a alterar
+     */
+    public void atualizarTipoAtividadesPlaneaveis(Atualizacao atualizacao, List<TipoAtividadePlaneavel> tiposNovos, List<TipoAtividadePlaneavel> tiposAlterados){
+
+        if(atualizacaoDao.existeRegisto(atualizacao.descricao) == true){
+            atualizacaoDao.atualizarRegisto(atualizacao);
+        }
+        else{
+            atualizacaoDao.inserirRegisto(atualizacao);
+        }
+
+        tipoDao.inserirAtividadesPlaneaiveis(tiposNovos);
+        tipoDao.atualizarAtividadesPlaneaiveis(tiposAlterados);
+    }
+
+
 }

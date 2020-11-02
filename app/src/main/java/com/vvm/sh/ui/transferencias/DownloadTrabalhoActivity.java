@@ -174,7 +174,7 @@ public class DownloadTrabalhoActivity extends BaseDaggerActivity {
 
         if(registos.size() == 0) {
             activityDownloadTrabalhoBinding.cardTipos.setVisibility(View.VISIBLE);
-            viewModel.atualizarTipos(handlerNotificacoesUI);
+            viewModel.atualizarTipos(this, handlerNotificacoesUI);
         }
         else{
 
@@ -268,7 +268,7 @@ public class DownloadTrabalhoActivity extends BaseDaggerActivity {
 
                 case PROCESSAMENTO_TIPOS_CONCLUIDO:
 
-                    obterTrabalho();
+                    //--obterTrabalho();
                     break;
 
 

@@ -1,25 +1,26 @@
 package com.vvm.sh.ui.transferencias;
 
+import android.app.Activity;
 import android.content.Context;
 import android.os.Handler;
 
 import androidx.lifecycle.MutableLiveData;
 
 import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.himanshurawat.hasher.HashType;
 import com.himanshurawat.hasher.Hasher;
 import com.vvm.sh.api.BlocoDados;
 import com.vvm.sh.api.BlocoImagens;
 import com.vvm.sh.api.modelos.pedido.ITipoListagem;
 import com.vvm.sh.api.modelos.pedido.Codigo;
-import com.vvm.sh.api.modelos.pedido.ISessao;
 import com.vvm.sh.baseDados.entidades.Atualizacao;
 import com.vvm.sh.baseDados.entidades.Tarefa;
+import com.vvm.sh.repositorios.CarregamentoTiposRepositorio;
 import com.vvm.sh.repositorios.TiposRepositorio;
 import com.vvm.sh.repositorios.TransferenciasRepositorio;
 import com.vvm.sh.repositorios.UploadRepositorio;
-import com.vvm.sh.servicos.CarregarTipoAsyncTask;
+import com.vvm.sh.servicos.tipos.AtualizarTipoAsyncTask;
+import com.vvm.sh.servicos.tipos.CarregarTipoAsyncTask;
 import com.vvm.sh.servicos.DadosUploadAsyncTask;
 import com.vvm.sh.servicos.RecarregarTarefaAsyncTask;
 import com.vvm.sh.servicos.RecarregarTrabalhoAsyncTask;
@@ -31,9 +32,7 @@ import com.vvm.sh.ui.transferencias.modelos.Upload;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.constantes.Sintaxe;
-import com.vvm.sh.util.constantes.TiposConstantes;
 import com.vvm.sh.util.excepcoes.RespostaWsInvalidaException;
-import com.vvm.sh.util.excepcoes.TipoInexistenteException;
 import com.vvm.sh.util.mapeamento.UploadMapping;
 import com.vvm.sh.util.metodos.DatasUtil;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
@@ -41,8 +40,6 @@ import com.vvm.sh.util.metodos.TiposUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.LinkedList;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -62,16 +59,19 @@ public class TransferenciasViewModel extends BaseViewModel {
     private final TransferenciasRepositorio transferenciasRepositorio;
     private final UploadRepositorio uploadRepositorio;
     private final TiposRepositorio tiposRepositorio;
+    private final CarregamentoTiposRepositorio carregamentoTiposRepositorio;
 
     public MutableLiveData<List<Pendencia>> pendencias;
     public MutableLiveData<List<Upload>> uploads;
 
     @Inject
-    public TransferenciasViewModel(TransferenciasRepositorio transferenciasRepositorio, TiposRepositorio tiposRepositorio, UploadRepositorio uploadRepositorio){
+    public TransferenciasViewModel(TransferenciasRepositorio transferenciasRepositorio, TiposRepositorio tiposRepositorio, UploadRepositorio uploadRepositorio, CarregamentoTiposRepositorio carregamentoTiposRepositorio){
 
         this.transferenciasRepositorio = transferenciasRepositorio;
         this.uploadRepositorio = uploadRepositorio;
         this.tiposRepositorio = tiposRepositorio;
+        this.carregamentoTiposRepositorio = carregamentoTiposRepositorio;
+
         this.uploads = new MutableLiveData<>();
         this.pendencias = new MutableLiveData<>();
     }
@@ -538,13 +538,12 @@ public class TransferenciasViewModel extends BaseViewModel {
      * Metodo que permite atualizar os tipos
      * @param handlerUI um handler para as mensagens
      */
-    public void atualizarTipos(Handler handlerUI) {
+    public void atualizarTipos(Activity activity, Handler handlerUI) {
 
-        tiposRepositorio.obterAtualizacoes(Identificadores.Atualizacoes.TIPO )
+        tiposRepositorio.obterAtualizacoes(Identificadores.Atualizacoes.TIPO)
                 .map(new Function<List<Atualizacao>, List<TiposUtil.MetodoApi>>() {
                     @Override
                     public List<TiposUtil.MetodoApi> apply(List<Atualizacao> atualizacoes) throws Exception {
-
                         return TiposUtil.fixarSeloTemporal(atualizacoes);
                     }
                 })
@@ -560,7 +559,7 @@ public class TransferenciasViewModel extends BaseViewModel {
 
                             @Override
                             public void onSuccess(List<TiposUtil.MetodoApi> atualizacoes) {
-                                carregarTipos(atualizacoes, handlerUI);
+                                atualizarTipos(activity, atualizacoes, handlerUI);
                             }
 
                             @Override
@@ -576,35 +575,34 @@ public class TransferenciasViewModel extends BaseViewModel {
                 );
     }
 
+
     /**
      * Metoodo que permite carregar os tipos
      * @param atualizacoes as atualizações dos tipos
      * @param handlerUI um handler para as mensagens
      */
-    private void carregarTipos(List<TiposUtil.MetodoApi> atualizacoes, Handler handlerUI){
+    private void atualizarTipos(Activity activity, List<TiposUtil.MetodoApi> atualizacoes, Handler handlerUI){
 
         showProgressBar(true);
 
-        List<ITipoListagem> respostas = new ArrayList<>();
-        List<Observable<ITipoListagem>> pedidos = new ArrayList<>();
-
-        for(TiposUtil.MetodoApi atualizacao : atualizacoes){
-            pedidos.add(tiposRepositorio.obterTipo(atualizacao));
-        }
-
-        Observable.concat(pedidos)
+        tiposRepositorio.obterTipos(atualizacoes)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-                        new Observer<ITipoListagem>() {
+
+                        new SingleObserver<List<ITipoListagem>>() {
                             @Override
                             public void onSubscribe(Disposable d) {
                                 disposables.add(d);
                             }
 
                             @Override
-                            public void onNext(ITipoListagem iTipoListagem) {
-                                respostas.add(iTipoListagem);
+                            public void onSuccess(List<ITipoListagem> iTipoListagems) {
+                                showProgressBar(false);
+
+                                AtualizarTipoAsyncTask servico = new AtualizarTipoAsyncTask(activity, vvmshBaseDados, handlerUI, carregamentoTiposRepositorio);
+                                servico.execute(iTipoListagems);
+
                             }
 
                             @Override
@@ -612,19 +610,8 @@ public class TransferenciasViewModel extends BaseViewModel {
                                 showProgressBar(false);
                                 formatarErro(e);
                             }
-
-                            @Override
-                            public void onComplete() {
-
-                                CarregarTipoAsyncTask servico = new CarregarTipoAsyncTask(vvmshBaseDados, handlerUI, tiposRepositorio);
-                                servico.execute(respostas);
-                                showProgressBar(false);
-                            }
                         }
-
-                    );
-
-
+                );
     }
 
 

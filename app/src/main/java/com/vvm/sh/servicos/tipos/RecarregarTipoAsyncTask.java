@@ -1,4 +1,4 @@
-package com.vvm.sh.servicos;
+package com.vvm.sh.servicos.tipos;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteConstraintException;
@@ -9,20 +9,16 @@ import com.vvm.sh.api.modelos.pedido.ITipoListagem;
 import com.vvm.sh.api.modelos.pedido.ITipo;
 import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.repositorios.CarregamentoTiposRepositorio;
-import com.vvm.sh.repositorios.TiposRepositorio;
 import com.vvm.sh.baseDados.entidades.Atualizacao;
 import com.vvm.sh.baseDados.entidades.Tipo;
-import com.vvm.sh.util.AtualizacaoUI;
 import com.vvm.sh.util.constantes.Sintaxe;
-import com.vvm.sh.util.excepcoes.TipoInexistenteException;
 import com.vvm.sh.util.mapeamento.DownloadMapping;
 import com.vvm.sh.util.metodos.MensagensUtil;
-import com.vvm.sh.util.metodos.TiposUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class AtualizarTipoAsyncTask extends AsyncTask<List<ITipoListagem>, Void, Void> {
+public class RecarregarTipoAsyncTask extends AsyncTask<List<ITipoListagem>, Void, Void> {
 
     private String errorMessage;
     private VvmshBaseDados vvmshBaseDados;
@@ -30,7 +26,7 @@ public class AtualizarTipoAsyncTask extends AsyncTask<List<ITipoListagem>, Void,
 
     private MensagensUtil dialogo;
 
-    public AtualizarTipoAsyncTask(Context contexto, VvmshBaseDados vvmshBaseDados, Handler handlerUI, CarregamentoTiposRepositorio repositorio){
+    public RecarregarTipoAsyncTask(Context contexto, VvmshBaseDados vvmshBaseDados, Handler handlerUI, CarregamentoTiposRepositorio repositorio){
         this.vvmshBaseDados = vvmshBaseDados;
         this.repositorio = repositorio;
         dialogo = new MensagensUtil(contexto);
@@ -55,44 +51,14 @@ public class AtualizarTipoAsyncTask extends AsyncTask<List<ITipoListagem>, Void,
 
                 try {
 
-                    try {
+                    ITipoListagem resposta = respostas.get(0);
 
-                        String registoTipo = "";
+                    Atualizacao atualizacao = DownloadMapping.INSTANCE.map(resposta);
 
-                        for (TiposUtil.MetodoApi metodo : TiposUtil.obterMetodos()){
+                    List<Tipo> dadosNovos = obterTipos(resposta, resposta.dadosNovos);
+                    List<Tipo> dadosAlterados = obterTipos(resposta, resposta.dadosAlterados);
 
-                            Atualizacao atualizacao = null;
-                            List<ITipoListagem> registos = new ArrayList<>();
-
-                            for (ITipoListagem tipo : respostas) {
-
-                                if(tipo.metodo.equals(metodo.descricao) == true){
-
-                                    atualizacao = DownloadMapping.INSTANCE.map(tipo);
-                                    registos.add(tipo);
-                                }
-                            }
-
-
-                            if(atualizacao != null) {
-
-                                registoTipo = atualizacao.descricao;
-
-                                List<Tipo> tipos = new ArrayList<>();
-
-                                for (ITipoListagem resposta : registos) {
-                                    tipos.addAll(obterTipos(resposta));
-                                }
-
-                                //TODO:COmplear
-                                //repositorio.atualizarTipo(atualizacao, tipos);
-                            }
-                        }
-                    }
-                    catch (TipoInexistenteException throwable) {
-                        errorMessage = throwable.getMessage();
-                    }
-
+                    repositorio.carregarTipo(atualizacao, dadosNovos, dadosAlterados);
 
                 }
                 catch(SQLiteConstraintException throwable){
@@ -110,11 +76,11 @@ public class AtualizarTipoAsyncTask extends AsyncTask<List<ITipoListagem>, Void,
      * @param resposta os dados dos tipos
      * @return uma lista de tipos
      */
-    private List<Tipo> obterTipos(ITipoListagem resposta) {
+    private List<Tipo> obterTipos(ITipoListagem resposta, List<ITipo> dados) {
 
         List<Tipo> tipos = new ArrayList<>();
 
-        for (ITipo item : resposta.dadosNovos) {
+        for (ITipo item : dados) {
 
             Tipo resultado = DownloadMapping.INSTANCE.map(item, resposta);
             tipos.add(resultado);

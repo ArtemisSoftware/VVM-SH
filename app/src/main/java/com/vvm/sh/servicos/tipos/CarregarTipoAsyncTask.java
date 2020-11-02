@@ -1,5 +1,6 @@
-package com.vvm.sh.servicos;
+package com.vvm.sh.servicos.tipos;
 
+import android.content.Context;
 import android.database.sqlite.SQLiteConstraintException;
 import android.os.AsyncTask;
 import android.os.Handler;
@@ -9,10 +10,13 @@ import com.vvm.sh.api.modelos.pedido.ITipoListagem;
 import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.baseDados.entidades.Atualizacao;
 import com.vvm.sh.baseDados.entidades.Tipo;
+import com.vvm.sh.repositorios.CarregamentoTiposRepositorio;
 import com.vvm.sh.repositorios.TiposRepositorio;
 import com.vvm.sh.util.AtualizacaoUI;
 import com.vvm.sh.util.constantes.Identificadores;
+import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.mapeamento.DownloadMapping;
+import com.vvm.sh.util.metodos.MensagensUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,19 +25,26 @@ public class CarregarTipoAsyncTask extends AsyncTask<List<ITipoListagem>, Void, 
 
     private String errorMessage;
     private VvmshBaseDados vvmshBaseDados;
-    private TiposRepositorio repositorio;
-
+    private CarregamentoTiposRepositorio repositorio;
+    private MensagensUtil dialogo;
 
     /**
      * Permite enviar mensagens para fora do servico
      */
     private AtualizacaoUI atualizacaoUI;
 
-    public CarregarTipoAsyncTask(VvmshBaseDados vvmshBaseDados, Handler handler, TiposRepositorio repositorio){
+    public CarregarTipoAsyncTask(Context contexto, VvmshBaseDados vvmshBaseDados, Handler handler, CarregamentoTiposRepositorio repositorio){
         this.vvmshBaseDados = vvmshBaseDados;
         this.repositorio = repositorio;
         atualizacaoUI = new AtualizacaoUI(handler);
+        dialogo = new MensagensUtil(contexto);
     }
+
+    @Override
+    protected void onPreExecute() {
+        dialogo.progresso(true, Sintaxe.Frases.CARREGAR_TIPOS);
+    }
+
 
 
     @Override
@@ -83,5 +94,19 @@ public class CarregarTipoAsyncTask extends AsyncTask<List<ITipoListagem>, Void, 
         });
 
         return null;
+    }
+
+
+    @Override
+    protected void onPostExecute(Void aVoid) {
+
+        dialogo.terminarProgresso();
+
+        if(errorMessage != null){
+            dialogo.erro(Sintaxe.Alertas.ERRO_CARREGAMENTO  + errorMessage);
+        }
+        else{
+            dialogo.sucesso(Sintaxe.Frases.DADOS_CARREGADOS_SUCESSO);
+        }
     }
 }

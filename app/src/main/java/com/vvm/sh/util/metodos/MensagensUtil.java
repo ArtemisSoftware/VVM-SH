@@ -352,10 +352,11 @@ public class MensagensUtil {
 
         dialogoProgresso = builder.create();
 
-        TextView alertTextView = (TextView) dialogoProgresso.findViewById(R.id.txt_mensagem);
-        alertTextView.setText(mensagem);
-
-        if (show)dialogoProgresso.show();
+        if (show){
+            dialogoProgresso.show();
+            TextView alertTextView = (TextView) dialogoProgresso.findViewById(R.id.txt_mensagem);
+            alertTextView.setText(mensagem);
+        }
         else dialogoProgresso.dismiss();
     }
 

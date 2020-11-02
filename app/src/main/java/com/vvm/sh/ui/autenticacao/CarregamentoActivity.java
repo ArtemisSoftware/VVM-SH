@@ -50,7 +50,7 @@ public class CarregamentoActivity extends BaseDaggerActivity {
 
         subscreverObservadores();
 
-        viewModel.atualizarTipos(handlerNotificacoesUI);
+        viewModel.atualizarTipos(this, handlerNotificacoesUI);
     }
 
     @Override

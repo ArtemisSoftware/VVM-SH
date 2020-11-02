@@ -24,19 +24,16 @@ import com.vvm.sh.baseDados.entidades.TipoTemplatesAVRMedidaRisco;
 import com.vvm.sh.ui.opcoes.modelos.ResumoChecklist;
 import com.vvm.sh.ui.opcoes.modelos.ResumoTipo;
 import com.vvm.sh.ui.opcoes.modelos.TemplateAvr;
-import com.vvm.sh.ui.pesquisa.modelos.Medida;
-import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.excepcoes.TipoInexistenteException;
 import com.vvm.sh.util.metodos.TiposUtil;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import io.reactivex.Completable;
-import io.reactivex.Flowable;
 import io.reactivex.Maybe;
 import io.reactivex.Observable;
 import io.reactivex.Single;
+import io.reactivex.SingleSource;
 import io.reactivex.functions.BiFunction;
 
 public class TiposRepositorio {
@@ -68,6 +65,102 @@ public class TiposRepositorio {
      */
     public Observable<List<ResumoTipo>> obterResumoTipos() {
         return tipoDao.obterResumoTipos();
+    }
+
+
+
+    /**
+     * Metodo que permite obter todos os tipos
+     * @return os dados de todos os tipos
+     * @throws TipoInexistenteException
+     */
+    public Single<List<ITipoListagem>> obterTipos() throws TipoInexistenteException {
+
+        List<SingleSource> tipos = new ArrayList<>();
+
+        for(TiposUtil.MetodoApi metodo : TiposUtil.obterMetodos()) {
+
+            if(metodo.sa != null){
+                tipos.add(apiSA.obterTipo(SegurancaAlimentarApi.HEADER_TIPO, metodo.sa));
+            }
+
+            if(metodo.sht != null){
+                tipos.add(apiST.obterTipo(SegurancaTrabalhoApi.HEADER_TIPO, metodo.sht));
+            }
+        }
+
+        SingleSource[] source = new SingleSource[tipos.size()];
+
+        for(int index = 0; index < tipos.size(); ++index){
+            source[index] = tipos.get(index);
+        }
+
+        return Single.concatArray(source).toList();
+    }
+
+
+    public Single<List<ITipoListagem>> obterTipos(List<TiposUtil.MetodoApi> atualizacoes) {
+
+        List<SingleSource> tipos = new ArrayList<>();
+
+        for(TiposUtil.MetodoApi metodo : atualizacoes){
+
+            if(metodo.sa != null & metodo.sht != null) {
+
+                tipos.add(apiSA.obterTipo(SegurancaAlimentarApi.HEADER_TIPO, metodo.sa, metodo.seloTemporal));
+                tipos.add(apiST.obterTipo(SegurancaTrabalhoApi.HEADER_TIPO, metodo.sht, metodo.seloTemporal));
+
+            }
+            else if(metodo.sa != null){
+                tipos.add(apiSA.obterTipo(SegurancaAlimentarApi.HEADER_TIPO, metodo.sa, metodo.seloTemporal));
+            }
+            else{
+                tipos.add(apiST.obterTipo(SegurancaTrabalhoApi.HEADER_TIPO, metodo.sht, metodo.seloTemporal));
+            }
+        }
+
+        SingleSource[] source = new SingleSource[tipos.size()];
+
+        for(int index = 0; index < tipos.size(); ++index){
+            source[index] = tipos.get(index);
+        }
+
+        return Single.concatArray(source).toList();
+
+    }
+
+
+
+    /**
+     * Metodo que permite obter um tipo a partir do web service
+     * @param resumo os dados da atualizacao do tipo
+     * @return os dados de um tipo
+     */
+    public Single<List<ITipoListagem>> obterTipo(ResumoTipo resumo) throws TipoInexistenteException {
+
+        TiposUtil.MetodoApi metodo = TiposUtil.obterMetodos(resumo.atualizacao.descricao);
+        List<SingleSource> tipos = new ArrayList<>();
+
+        if(metodo.sa != null & metodo.sht != null) {
+
+            tipos.add(apiSA.obterTipo(SegurancaAlimentarApi.HEADER_TIPO, metodo.sa));
+            tipos.add(apiST.obterTipo(SegurancaTrabalhoApi.HEADER_TIPO, metodo.sht));
+
+        }
+        else if(metodo.sa != null){
+            tipos.add(apiSA.obterTipo(SegurancaAlimentarApi.HEADER_TIPO, metodo.sa));
+        }
+        else{
+            tipos.add(apiST.obterTipo(SegurancaTrabalhoApi.HEADER_TIPO, metodo.sht));
+        }
+
+        SingleSource[] source = new SingleSource[tipos.size()];
+
+        for(int index = 0; index < tipos.size(); ++index){
+            source[index] = tipos.get(index);
+        }
+
+        return Single.concatArray(source).toList();
     }
 
 
@@ -144,94 +237,6 @@ public class TiposRepositorio {
 
 
 
-
-    /**
-     * Metodo que permite obter um tipo a partir do web service
-     * @param descricao o metodo associado ao tipo
-     * @return os dados de um tipo
-     */
-    public Observable<ITipoListagem> obterTipo(String descricao) throws TipoInexistenteException {
-
-        TiposUtil.MetodoApi metodo = TiposUtil.obterMetodos(descricao);
-
-        if(metodo.sa != null & metodo.sht != null) {
-            return Observable.concat(apiSA.obterTipo(SegurancaAlimentarApi.HEADER_TIPO, metodo.sa).toObservable(), apiST.obterTipo(SegurancaTrabalhoApi.HEADER_TIPO, metodo.sht).toObservable());
-        }
-        else if(metodo.sa != null){
-            return apiSA.obterTipo(SegurancaAlimentarApi.HEADER_TIPO, metodo.sa).toObservable();
-        }
-
-        else{
-            return apiST.obterTipo(SegurancaTrabalhoApi.HEADER_TIPO, metodo.sht).toObservable();
-        }
-    }
-
-
-    public Observable<ITipoListagem> obterTipo(TiposUtil.MetodoApi metodo) {
-
-        if(metodo.sa != null & metodo.sht != null) {
-            return Observable.concat(
-                    apiSA.obterTipo(SegurancaAlimentarApi.HEADER_TIPO, metodo.sa, metodo.seloTemporal).toObservable(),
-                    apiST.obterTipo(SegurancaTrabalhoApi.HEADER_TIPO, metodo.sht, metodo.seloTemporal).toObservable()
-            );
-        }
-        else if(metodo.sa != null){
-            return apiSA.obterTipo(SegurancaAlimentarApi.HEADER_TIPO, metodo.sa, metodo.seloTemporal).toObservable();
-        }
-        else{
-            return apiST.obterTipo(SegurancaTrabalhoApi.HEADER_TIPO, metodo.sht, metodo.seloTemporal).toObservable();
-        }
-    }
-
-
-    /**
-     * Metodo que permite obter todos os tipos
-     * @return os dados de todos os tipos
-     */
-    public Observable<ITipoListagem> obterTipos() throws TipoInexistenteException {
-
-        List<Observable<ITipoListagem>> pedidos = new ArrayList<>();
-
-        for(TiposUtil.MetodoApi metodo : TiposUtil.obterMetodos()) {
-
-            if(metodo.sa != null){
-                pedidos.add(apiSA.obterTipo(SegurancaAlimentarApi.HEADER_TIPO, metodo.sa).toObservable());
-            }
-
-            if(metodo.sht != null){
-                pedidos.add(apiST.obterTipo(SegurancaTrabalhoApi.HEADER_TIPO, metodo.sht).toObservable());
-            }
-        }
-
-        return Observable.concat(pedidos);
-    }
-
-
-
-    /**
-     * Metodo que permite obter os tipos com o seu selo temporal
-     * @param atualizacoes as atualizacoes dos tipos
-     * @return os dados dos tipos
-     */
-    public Observable<ITipoListagem> obterTipos(List<Atualizacao> atualizacoes) throws TipoInexistenteException {
-
-        List<Observable<ITipoListagem>> pedidos = new ArrayList<>();
-
-        for(Atualizacao atualizacao : atualizacoes){
-
-            TiposUtil.MetodoApi metodo = TiposUtil.obterMetodos(atualizacao.descricao);
-
-            if(metodo.sa != null){
-                pedidos.add(apiSA.obterTipo(SegurancaAlimentarApi.HEADER_TIPO, metodo.sa, atualizacao.seloTemporal).toObservable());
-            }
-
-            if(metodo.sa != null){
-                pedidos.add(apiST.obterTipo(SegurancaTrabalhoApi.HEADER_TIPO, metodo.sht, atualizacao.seloTemporal).toObservable());
-            }
-        }
-
-        return Observable.concat(pedidos);
-    }
 
 
 

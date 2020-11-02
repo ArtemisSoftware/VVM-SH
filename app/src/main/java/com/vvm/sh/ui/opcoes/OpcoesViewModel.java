@@ -13,11 +13,12 @@ import com.vvm.sh.api.modelos.VersaoApp;
 import com.vvm.sh.repositorios.CarregamentoTiposRepositorio;
 import com.vvm.sh.repositorios.TiposRepositorio;
 import com.vvm.sh.repositorios.VersaoAppRepositorio;
+import com.vvm.sh.servicos.tipos.CarregarTipoAsyncTask;
 import com.vvm.sh.servicos.tipos.CarregarTipoChecklistAsyncTask;
 import com.vvm.sh.servicos.tipos.CarregarTipoTemplatesAvrAsyncTask;
 import com.vvm.sh.servicos.instalacaoApp.DownloadApkAsyncTask;
 import com.vvm.sh.servicos.instalacaoApp.InstalarApkAsyncTask;
-import com.vvm.sh.servicos.AtualizarTipoAsyncTask;
+import com.vvm.sh.servicos.tipos.RecarregarTipoAsyncTask;
 import com.vvm.sh.servicos.tipos.CarregarTipoAtividadesPlaneaveisAsyncTask;
 import com.vvm.sh.ui.opcoes.modelos.ResumoChecklist;
 import com.vvm.sh.ui.opcoes.modelos.ResumoTipo;
@@ -104,9 +105,8 @@ public class OpcoesViewModel extends BaseViewModel {
                 break;
 
         }
-
-
     }
+
 
 
 
@@ -311,49 +311,82 @@ public class OpcoesViewModel extends BaseViewModel {
 
 
     //---------------------
-    //ATUALIZAR
+    //RECARREGAR - registo
     //---------------------
+
+
+
+    /**
+     * Metodo que permite obter o resumo
+     * @param contexto
+     * @param idTipo
+     * @param descricao
+     * @param handlerNotificacoesUI
+     */
+    public void recarregar(Activity contexto, int idTipo, ResumoTipo descricao, Handler handlerNotificacoesUI) {
+
+        switch(idTipo){
+
+            case Identificadores.Atualizacoes.TIPO:
+
+                recarregarTipo(contexto, descricao, handlerNotificacoesUI);
+                break;
+
+
+            case Identificadores.Atualizacoes.TEMPLATE:
+
+
+                break;
+
+
+            case Identificadores.Atualizacoes.ATIVIDADES_PLANEAVEIS:
+
+                break;
+
+            default:
+                break;
+
+        }
+    }
+
+
+    public void recarregar(Activity contexto, ResumoChecklist descricao, Handler handlerNotificacoesUI) {
+        //TODO: completar
+    }
 
 
     /**
      * Metodo que permite atualizar um tipo
      * @param descricao a descricao associada ao tipo
      */
-    public void atualizarTipo(Context contexto, String descricao, Handler handlerNotificacoesUI) {
+    private void recarregarTipo(Activity contexto, ResumoTipo descricao, Handler handlerNotificacoesUI) {
 
         showProgressBar(true);
-
-        List<ITipoListagem> respostas = new ArrayList<>();
-
 
         try {
             tiposRepositorio.obterTipo(descricao)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(
-                            new Observer<ITipoListagem>() {
+
+                            new SingleObserver<List<ITipoListagem>>() {
                                 @Override
                                 public void onSubscribe(Disposable d) {
                                     disposables.add(d);
                                 }
 
                                 @Override
-                                public void onNext(ITipoListagem iTipoListagem) {
-                                    respostas.add(iTipoListagem);
+                                public void onSuccess(List<ITipoListagem> iTipoListagems) {
+                                    RecarregarTipoAsyncTask servico = new RecarregarTipoAsyncTask(contexto, vvmshBaseDados, handlerNotificacoesUI, carregamentoTiposRepositorio);
+                                    servico.execute(iTipoListagems);
+
+                                    showProgressBar(false);
                                 }
 
                                 @Override
                                 public void onError(Throwable e) {
                                     showProgressBar(false);
                                     messagemLiveData.setValue(Recurso.erro(e.getMessage()));
-                                }
-
-                                @Override
-                                public void onComplete() {
-                                    AtualizarTipoAsyncTask servico = new AtualizarTipoAsyncTask(contexto, vvmshBaseDados, handlerNotificacoesUI, carregamentoTiposRepositorio);
-                                    servico.execute(respostas);
-
-                                    showProgressBar(false);
                                 }
                             }
                     );
@@ -381,7 +414,7 @@ public class OpcoesViewModel extends BaseViewModel {
 
             case Identificadores.Atualizacoes.TIPO:
 
-                recarregarTipos(handlerNotificacoesUI);
+                recarregarTipos(activity, handlerNotificacoesUI);
                 break;
 
             case Identificadores.Atualizacoes.TEMPLATE:
@@ -416,26 +449,32 @@ public class OpcoesViewModel extends BaseViewModel {
     /**
      * Metodo que permite recarregar todos os tipos
      */
-    private void recarregarTipos(Handler handlerNotificacoesUI){
+    private void recarregarTipos(Activity activity, Handler handlerNotificacoesUI){
 
         showProgressBar(true);
 
         List<ITipoListagem> respostas = new ArrayList<>();
 
         try {
+
             tiposRepositorio.obterTipos()
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(
-                            new Observer<ITipoListagem>() {
+
+                            new SingleObserver<List<ITipoListagem>>() {
                                 @Override
                                 public void onSubscribe(Disposable d) {
                                     disposables.add(d);
                                 }
 
                                 @Override
-                                public void onNext(ITipoListagem iTipoListagem) {
-                                    respostas.add(iTipoListagem);
+                                public void onSuccess(List<ITipoListagem> iTipoListagems) {
+
+                                    showProgressBar(false);
+
+                                    CarregarTipoAsyncTask servico = new CarregarTipoAsyncTask(activity, vvmshBaseDados, handlerNotificacoesUI, carregamentoTiposRepositorio);
+                                    servico.execute(iTipoListagems);
                                 }
 
                                 @Override
@@ -443,18 +482,9 @@ public class OpcoesViewModel extends BaseViewModel {
                                     showProgressBar(false);
                                     messagemLiveData.setValue(Recurso.erro(e.getMessage()));
                                 }
-
-                                @Override
-                                public void onComplete() {
-                                    //TODO: Complear
-                                    //AtualizarTipoAsyncTask servico = new AtualizarTipoAsyncTask(vvmshBaseDados, handlerNotificacoesUI, tiposRepositorio);
-                                    //servico.execute(respostas);
-
-                                    showProgressBar(false);
-                                }
                             }
-
                     );
+
         } catch (TipoInexistenteException e) {
             showProgressBar(false);
             messagemLiveData.setValue(Recurso.erro(e.getMessage()));
@@ -465,7 +495,7 @@ public class OpcoesViewModel extends BaseViewModel {
 
 
     /**
-     * Metodo que permite recarregar templates
+     * Metodo que permite recarregar todos os templates
      */
     private void recarregarTemplates(Activity atividade, Handler handlerNotificacoesUI){
 
@@ -506,7 +536,7 @@ public class OpcoesViewModel extends BaseViewModel {
 
 
     /**
-     * Metodo que permite recarregar as checklists
+     * Metodo que permite recarregar todas as checklists
      */
     private void recarregarChecklist(Activity atividade, Handler handlerNotificacoesUI){
 
@@ -557,7 +587,7 @@ public class OpcoesViewModel extends BaseViewModel {
 
 
     /**
-     * Metodo que permite recarregar as atividades planeaveis
+     * Metodo que permite recarregar todas as atividades planeaveis
      */
     private void recarregarAtividadesPlaneaveis(Activity atividade, Handler handlerNotificacoesUI){
 

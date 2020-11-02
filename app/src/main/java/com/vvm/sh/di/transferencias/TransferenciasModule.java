@@ -7,6 +7,8 @@ import com.vvm.sh.baseDados.dao.TipoDao;
 import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.baseDados.dao.TransferenciasDao;
 import com.vvm.sh.baseDados.dao.UploadDao;
+import com.vvm.sh.di.opcoes.OpcoesScope;
+import com.vvm.sh.repositorios.CarregamentoTiposRepositorio;
 import com.vvm.sh.repositorios.TiposRepositorio;
 import com.vvm.sh.repositorios.TransferenciasRepositorio;
 import com.vvm.sh.repositorios.UploadRepositorio;
@@ -65,8 +67,6 @@ public class TransferenciasModule {
     TiposRepositorio provideTiposRepositorio(SegurancaAlimentarApi segurancaAlimentarApi, SegurancaTrabalhoApi segurancaTrabalhoApi, AtualizacaoDao atualizacaoDao, TipoDao tipoDao) {
 
         TiposRepositorio repositorio = new TiposRepositorio(segurancaAlimentarApi, segurancaTrabalhoApi, atualizacaoDao, tipoDao);
-
-        //Timber.d("Providing PokemonRepository: " + repository);
         return repositorio;
     }
 
@@ -79,5 +79,12 @@ public class TransferenciasModule {
         return repositorio;
     }
 
+    @TransferenciasScope
+    @Provides
+    CarregamentoTiposRepositorio provideCarregamentoTiposRepositorio(AtualizacaoDao atualizacaoDao, TipoDao tipoDao) {
+
+        CarregamentoTiposRepositorio repositorio = new CarregamentoTiposRepositorio(atualizacaoDao, tipoDao);
+        return repositorio;
+    }
 
 }

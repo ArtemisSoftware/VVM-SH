@@ -22,6 +22,7 @@ import com.vvm.sh.baseDados.entidades.PlanoAcaoAtividade;
 import com.vvm.sh.baseDados.entidades.Resultado;
 import com.vvm.sh.baseDados.entidades.Tarefa;
 import com.vvm.sh.baseDados.entidades.TipoExtintor;
+import com.vvm.sh.ui.transferencias.modelos.DadosPendencia;
 import com.vvm.sh.ui.transferencias.modelos.Pendencia;
 import com.vvm.sh.ui.transferencias.modelos.Sessao;
 import com.vvm.sh.ui.transferencias.modelos.Upload;
@@ -168,12 +169,35 @@ public class TransferenciasRepositorio {
      * @param idUtilizador o identificador do utilizador
      * @return uma lista de pendencias
      */
-    public Maybe<List<Pendencia>> obterPendencias(String idUtilizador){
-        return transferenciasDao.obterPendencias(idUtilizador);
+    public Maybe<DadosPendencia> obterPendencias(String idUtilizador){
+
+        return Maybe.zip(transferenciasDao.obterPendencias(idUtilizador), transferenciasDao.existemDadosUpload(idUtilizador),
+                new BiFunction<List<Pendencia>, Boolean, DadosPendencia>() {
+                    @Override
+                    public DadosPendencia apply(List<Pendencia> pendencias, Boolean aBoolean) throws Exception {
+
+                        DadosPendencia dadosPendencia = new DadosPendencia();
+                        dadosPendencia.dadosUpload = aBoolean;
+                        dadosPendencia.pendencias = pendencias;
+                        return dadosPendencia;
+                    }
+                });
+
     }
 
-    public Maybe<List<Pendencia>> obterPendencias(String idUtilizador, long data){
-        return transferenciasDao.obterPendencias(idUtilizador, data);
+    public Maybe<DadosPendencia> obterPendencias(String idUtilizador, long data){
+
+        return Maybe.zip(transferenciasDao.obterPendencias(idUtilizador, data), transferenciasDao.existemDadosUpload(idUtilizador),
+                new BiFunction<List<Pendencia>, Boolean, DadosPendencia>() {
+                    @Override
+                    public DadosPendencia apply(List<Pendencia> pendencias, Boolean aBoolean) throws Exception {
+
+                        DadosPendencia dadosPendencia = new DadosPendencia();
+                        dadosPendencia.dadosUpload = aBoolean;
+                        dadosPendencia.pendencias = pendencias;
+                        return dadosPendencia;
+                    }
+                });
     }
 
 

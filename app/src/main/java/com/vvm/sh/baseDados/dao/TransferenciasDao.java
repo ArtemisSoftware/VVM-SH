@@ -94,6 +94,13 @@ abstract public class TransferenciasDao implements BaseDao<Resultado> {
 
 
 
+    @Transaction
+    @Query("SELECT CASE WHEN IFNULL(COUNT(*), 0) > 0 THEN 1 ELSE 0 END dadosUpload " +
+            "FROM resultados " +
+            "WHERE idTarefa IN (SELECT idTarefa FROM tarefas WHERE idUtilizador =:idUtilizador) " +
+            "AND sincronizado = 0")
+    abstract public Maybe<Boolean> existemDadosUpload(String idUtilizador);
+
 
 
 

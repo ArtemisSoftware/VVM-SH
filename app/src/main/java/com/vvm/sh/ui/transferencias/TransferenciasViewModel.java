@@ -25,6 +25,7 @@ import com.vvm.sh.servicos.DadosUploadAsyncTask;
 import com.vvm.sh.servicos.RecarregarTarefaAsyncTask;
 import com.vvm.sh.servicos.RecarregarTrabalhoAsyncTask;
 import com.vvm.sh.servicos.TrabalhoAsyncTask;
+import com.vvm.sh.ui.transferencias.modelos.DadosPendencia;
 import com.vvm.sh.ui.transferencias.modelos.DadosUpload;
 import com.vvm.sh.ui.transferencias.modelos.Pendencia;
 import com.vvm.sh.ui.transferencias.modelos.Sessao;
@@ -122,25 +123,33 @@ public class TransferenciasViewModel extends BaseViewModel {
      * Metodo que permite obter as pendencias
      * @param observable
      */
-    private void obterPendencias(Maybe<List<Pendencia>> observable){
+    private void obterPendencias(Maybe<DadosPendencia> maybe){
 
         showProgressBar(true);
 
-        observable
+        maybe
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
 
-                        new MaybeObserver<List<Pendencia>>() {
+                        new MaybeObserver<DadosPendencia>() {
                             @Override
                             public void onSubscribe(Disposable d) {
                                 disposables.add(d);
                             }
 
                             @Override
-                            public void onSuccess(List<Pendencia> registos) {
-                                pendencias.setValue(registos);
-                                showProgressBar(false);
+                            public void onSuccess(DadosPendencia dadosPendencia) {
+
+                                if(dadosPendencia.pendencias.size() > 0){
+                                    pendencias.setValue(dadosPendencia.pendencias);
+                                }
+                                else if(dadosPendencia.dadosUpload == true){
+
+                                }
+                                else{
+
+                                }
                             }
 
                             @Override
@@ -570,41 +579,7 @@ public class TransferenciasViewModel extends BaseViewModel {
 
                             }
                         }
-
                 );
-//        tiposRepositorio.obterAtualizacoes(Identificadores.Atualizacoes.TIPO)
-//                .map(new Function<List<Atualizacao>, List<TiposUtil.MetodoApi>>() {
-//                    @Override
-//                    public List<TiposUtil.MetodoApi> apply(List<Atualizacao> atualizacoes) throws Exception {
-//                        return TiposUtil.fixarSeloTemporal(atualizacoes);
-//                    }
-//                })
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .subscribe(
-//
-//                        new MaybeObserver<List<TiposUtil.MetodoApi>>() {
-//                            @Override
-//                            public void onSubscribe(Disposable d) {
-//                                disposables.add(d);
-//                            }
-//
-//                            @Override
-//                            public void onSuccess(List<TiposUtil.MetodoApi> atualizacoes) {
-//                                atualizarTipos(activity, atualizacoes, handlerUI);
-//                            }
-//
-//                            @Override
-//                            public void onError(Throwable e) {
-//
-//                            }
-//
-//                            @Override
-//                            public void onComplete() {
-//
-//                            }
-//                        }
-//                );
     }
 
 
@@ -639,7 +614,8 @@ public class TransferenciasViewModel extends BaseViewModel {
 
                             @Override
                             public void onError(Throwable e) {
-
+                                showProgressBar(false);
+                                formatarErro(e);
                             }
                         }
 

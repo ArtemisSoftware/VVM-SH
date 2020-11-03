@@ -12,6 +12,7 @@ import com.vvm.sh.api.modelos.bd.ExtintorBd;
 import com.vvm.sh.api.modelos.bd.FormandoBd;
 import com.vvm.sh.api.modelos.bd.RegistoVisitaBd;
 import com.vvm.sh.api.modelos.bd.RelatorioAmbientalBd;
+import com.vvm.sh.api.modelos.bd.RelatorioAveriguacaoBd;
 import com.vvm.sh.baseDados.entidades.AcaoFormacaoResultado;
 import com.vvm.sh.baseDados.entidades.AnomaliaResultado;
 import com.vvm.sh.baseDados.entidades.AvaliacaoAmbientalResultado;
@@ -21,6 +22,7 @@ import com.vvm.sh.baseDados.entidades.ImagemResultado;
 import com.vvm.sh.baseDados.entidades.LevantamentoRiscoResultado;
 import com.vvm.sh.baseDados.entidades.OcorrenciaResultado;
 import com.vvm.sh.baseDados.entidades.QuestionarioChecklistResultado;
+import com.vvm.sh.baseDados.entidades.RelatorioAveriguacaoResultado;
 import com.vvm.sh.baseDados.entidades.RiscoResultado;
 import com.vvm.sh.baseDados.entidades.SinistralidadeResultado;
 import com.vvm.sh.baseDados.entidades.Tarefa;
@@ -293,5 +295,23 @@ abstract public class UploadDao {
     @Query("SELECT idImagem FROM imagensResultado WHERE id = :id AND origem =:origem")
     abstract public List<Integer> obterImagens_(int id, int origem);
 
+
+
+
+
+
+
+    @Query("SELECT rel_avg_res.id as idRelatorio, descricao, trf.data as data " +
+            "FROM relatorioAveriguacao as rel_avg_res " +
+            "LEFT JOIN (SELECT idTarefa, data FROM tarefas) as trf " +
+            "ON rel_avg_res.idTarefa = trf.idTarefa " +
+            "WHERE rel_avg_res.idTarefa = :idTarefa")
+    abstract public List<RelatorioAveriguacaoBd> obterRelatorioAveriguacao(int idTarefa);
+
+
+    @Query("SELECT  * " +
+            "FROM relatorioAveriguacaoResultado  " +
+            "WHERE idRelatorio =:idRelatorio ")
+    abstract public List<RelatorioAveriguacaoResultado> obterMedidasAveriguacao(int idRelatorio);
 
 }

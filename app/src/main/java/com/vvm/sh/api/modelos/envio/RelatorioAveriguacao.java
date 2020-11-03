@@ -13,6 +13,6 @@ public class RelatorioAveriguacao {
     @SerializedName("dataRelatorio")
     public String dataRelatorio;
 
-//    @SerializedName("medidas")
-//    public List<AvaliacaoAmbiental> avaliacoes = new ArrayList<>();
+    @SerializedName("medidas")
+    public List<MedidaAveriguacao> medidas = new ArrayList<>();
 }

@@ -31,7 +31,8 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcl_registos"
             style="@style/lista"
-
+            averiguacaoRegistos="@{viewmodel.averiguacoes}"
+            listener="@{listener}"
             tools:listitem="@layout/item_averiguacao"/>
 
         <!--

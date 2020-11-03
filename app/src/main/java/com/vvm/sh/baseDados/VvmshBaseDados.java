@@ -51,6 +51,7 @@ import com.vvm.sh.baseDados.entidades.ColaboradorResultado;
 import com.vvm.sh.baseDados.entidades.ImagemResultado;
 import com.vvm.sh.baseDados.entidades.ItemChecklist;
 import com.vvm.sh.baseDados.entidades.LevantamentoRiscoResultado;
+import com.vvm.sh.baseDados.entidades.MedidaAveriguacao;
 import com.vvm.sh.baseDados.entidades.MedidaResultado;
 import com.vvm.sh.baseDados.entidades.Morada;
 import com.vvm.sh.baseDados.entidades.ParqueExtintor;
@@ -112,7 +113,7 @@ import com.vvm.sh.baseDados.entidades.VerificacaoEquipamentoResultado;
                     Cliente.class, AtividadeExecutada.class, Anomalia.class, AtividadePendente.class, Ocorrencia.class, OcorrenciaHistorico.class,
                     Morada.class,
                     ParqueExtintor.class, TipoExtintor.class, Colaborador.class, PlanoAcao.class, PlanoAcaoAtividade.class,
-                    RelatorioAveriguacao.class, RelatorioAuditoriaMedida.class, RelatorioAvaliacaoRiscosMedida.class,
+                    RelatorioAveriguacao.class, RelatorioAuditoriaMedida.class, RelatorioAvaliacaoRiscosMedida.class, MedidaAveriguacao.class,
 
                     //Resultado
 

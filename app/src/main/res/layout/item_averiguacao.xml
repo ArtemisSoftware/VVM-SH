@@ -47,99 +47,30 @@
                 android:visibility="@{crossSelling.possuiSinaletica ? View.VISIBLE : View.GONE}"
             -->
 
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/cstLyt1"
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
 
+                estado="@{averiguacao.implementado}"
                 android:layout_marginTop="16dp"
-                app:layout_constraintStart_toStartOf="@+id/txt1"
-                app:layout_constraintTop_toBottomOf="@+id/txt1">
-
-
-                <TextView
-                    android:id="@+id/textView63"
-                    style="@style/textoDetalhe"
-                    android:text="TextView"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-            </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-            <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/cstLyt2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
+                android:layout_marginBottom="0dp"
+                android:theme="@style/Theme.MaterialComponents.Light"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/txt1"
-                app:layout_constraintTop_toBottomOf="@+id/cstLyt1">
+                app:layout_constraintTop_toBottomOf="@+id/txt1" />
 
 
-                <TextView
-                    android:id="@+id/textView631"
-                    style="@style/textoDetalhe"
-                    android:layout_marginTop="8dp"
-                    android:layout_marginBottom="8dp"
-                    android:text="@string/dataImplementacao_"
-                    app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent" />
-
-                <TextView
-                    android:id="@+id/textView64"
-                    style="@style/textoDetalhe"
-                    android:layout_marginStart="16dp"
-                    android:text="TextView"
-                    app:layout_constraintStart_toEndOf="@+id/textView631"
-                    app:layout_constraintTop_toTopOf="@+id/textView631" />
-
-                <TextView
-                    android:id="@+id/textView107"
-                    style="@style/textoDetalhe"
-                    android:layout_marginStart="32dp"
-                    android:text="@string/risco_"
-                    app:layout_constraintStart_toEndOf="@+id/textView64"
-                    app:layout_constraintTop_toTopOf="@+id/textView631" />
-
-                <TextView
-                    android:id="@+id/textView110"
-                    style="@style/textoDetalhe"
-                    android:layout_marginStart="16dp"
-                    android:text="TextView"
-                    app:layout_constraintStart_toEndOf="@+id/textView107"
-                    app:layout_constraintTop_toTopOf="@+id/textView631" />
-
-                <TextView
-                    android:id="@+id/textView108"
-                    style="@style/textoDetalhe"
-                    android:layout_marginStart="32dp"
-                    android:text="@string/ponderacao_"
-                    app:layout_constraintStart_toEndOf="@+id/textView110"
-                    app:layout_constraintTop_toTopOf="@+id/textView631" />
-
-                <TextView
-                    android:id="@+id/textView109"
-                    style="@style/textoDetalhe"
-                    android:layout_marginStart="16dp"
-                    android:text="TextView"
-                    app:layout_constraintStart_toEndOf="@+id/textView108"
-                    app:layout_constraintTop_toTopOf="@+id/textView631" />
-
-
-            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
             <TextView
                 android:id="@+id/textView39"
 
-                android:text="@{StringUtil.converterString(averiguacao.id), default=id}"
+                android:text="@{StringUtil.converterString(averiguacao.idRelatorio), default=id}"
                 android:visibility="@{BuildConfig.DEBUG ? View.VISIBLE : View.GONE}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
-                android:layout_marginBottom="8dp"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
 

@@ -13,6 +13,7 @@ import com.vvm.sh.baseDados.entidades.AtividadeExecutada;
 import com.vvm.sh.baseDados.entidades.AtividadePendente;
 import com.vvm.sh.baseDados.entidades.Cliente;
 import com.vvm.sh.baseDados.entidades.Colaborador;
+import com.vvm.sh.baseDados.entidades.MedidaAveriguacao;
 import com.vvm.sh.baseDados.entidades.MedidaResultado;
 import com.vvm.sh.baseDados.entidades.Morada;
 import com.vvm.sh.baseDados.entidades.Ocorrencia;
@@ -382,7 +383,7 @@ public class TransferenciasRepositorio {
         return transferenciasDao.inserirRelatorioAveriguacao(relatorio);
     }
 
-    public void inserirMedidas(List<MedidaResultado> registos) {
-        transferenciasDao.inserirMedidas(registos);
+    public void inserirMedidasAveriguacao(List<MedidaAveriguacao> registos) {
+        transferenciasDao.inserirMedidasAveriguacao(registos);
     }
 }

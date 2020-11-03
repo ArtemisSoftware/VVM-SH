@@ -28,16 +28,12 @@ public class RelatorioAveriguacaoResultado {
     public boolean implementado;
 
     public int idMedida;
+
+
     public String nc;
-
-
     public String risco;
-
     public int idPonderacao;
-
     public Date data;
-
-
 
 
     public RelatorioAveriguacaoResultado(@NonNull int idRelatorio, int idMedida, boolean implementado) {

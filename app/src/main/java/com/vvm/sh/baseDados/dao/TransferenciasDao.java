@@ -28,6 +28,7 @@ import com.vvm.sh.baseDados.entidades.Colaborador;
 import com.vvm.sh.baseDados.entidades.CrossSellingResultado;
 import com.vvm.sh.baseDados.entidades.ImagemResultado;
 import com.vvm.sh.baseDados.entidades.LevantamentoRiscoResultado;
+import com.vvm.sh.baseDados.entidades.MedidaAveriguacao;
 import com.vvm.sh.baseDados.entidades.MedidaResultado;
 import com.vvm.sh.baseDados.entidades.Morada;
 import com.vvm.sh.baseDados.entidades.Ocorrencia;
@@ -190,7 +191,7 @@ abstract public class TransferenciasDao implements BaseDao<Resultado> {
     abstract public Long  inserirRelatorioAveriguacao(RelatorioAveriguacao relatorio);
 
     @Insert
-    abstract public void inserirMedidas(List<MedidaResultado> registos);
+    abstract public void inserirMedidasAveriguacao(List<MedidaAveriguacao> registos);
 
 
     @Query("DELETE FROM tarefas WHERE idTarefa = :idTarefa")

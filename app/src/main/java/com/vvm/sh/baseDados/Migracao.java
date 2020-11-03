@@ -17,11 +17,34 @@ public class Migracao {
                 MIGRACAO_1_2, MIGRACAO_2_3, MIGRACAO_3_4, MIGRACAO_4_5, MIGRACAO_5_6, MIGRACAO_6_7, MIGRACAO_7_8, MIGRACAO_8_9, MIGRACAO_9_10,
                 MIGRACAO_10_11, MIGRACAO_11_12, MIGRACAO_12_13, MIGRACAO_13_14, MIGRACAO_14_15, MIGRACAO_15_16, MIGRACAO_16_17, MIGRACAO_17_18, MIGRACAO_18_19, MIGRACAO_19_20,
                 MIGRACAO_20_21, MIGRACAO_21_22, MIGRACAO_22_23, MIGRACAO_23_24, MIGRACAO_24_25, MIGRACAO_25_26, MIGRACAO_26_27, MIGRACAO_27_28, MIGRACAO_28_29, MIGRACAO_29_30,
-                MIGRACAO_30_31
+                MIGRACAO_30_31, MIGRACAO_31_32
         };
 
         return migrations;
     }
+
+
+    public static final Migration MIGRACAO_31_32 = new Migration(31, 32) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            try {
+
+                database.execSQL("CREATE TABLE IF NOT EXISTS 'medidasAveriguacao' ("
+                            + "'id' INTEGER NOT NULL, "
+                            + "'idMedida' INTEGER NOT NULL, "
+                            + "'origem' INTEGER NOT NULL, "
+                            + "PRIMARY KEY (id, idMedida, origem), "
+                            + "FOREIGN KEY (id) REFERENCES relatorioAveriguacao (id)  ON DELETE CASCADE) ");
+
+                database.execSQL("CREATE INDEX index_medidasAveriguacao_id ON medidasAveriguacao (id)");
+
+            }
+            catch(SQLException | IllegalStateException e){
+                Log.e("Migracao", "erro MIGRACAO_31_32: " + e.getMessage());
+                //Timber.e("erro MIGRACAO_2_3: " + e.getMessage());
+            }
+        }
+    };
 
 
     public static final Migration MIGRACAO_30_31 = new Migration(30, 31) {

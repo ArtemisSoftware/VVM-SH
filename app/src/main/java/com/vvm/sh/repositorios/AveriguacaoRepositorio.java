@@ -34,7 +34,7 @@ public class AveriguacaoRepositorio implements Repositorio<RelatorioAveriguacaoR
     }
 
     public Single<AveriguacaoRegisto> obterRegisto(int idRegisto){
-        return averiguacaoDao.obterRegisto(idRegisto);
+        return averiguacaoDao.obterRegisto(idRegisto, idApi);
     }
 
 

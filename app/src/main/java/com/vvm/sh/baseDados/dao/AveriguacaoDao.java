@@ -33,8 +33,16 @@ abstract public class AveriguacaoDao implements BaseDao<RelatorioAveriguacaoResu
 //    query += "ON rel_avr_rsc.idTarefa = rel_avrg_res.idTarefa AND rel_avr_rsc_med.idRelatorio = rel_avrg_res.idRelatorio		 ";
 //    query += "WHERE rel_avr_rsc.idTarefa = ?	AND rel_avr_rsc.idRelatorio = ?	 ";
 //
-    @Query("SELECT id, descricao, tipo, 0 as numeroRegistos, 0 as total, 0 as valido " +
+    @Query("SELECT rel_avg.id as id, descricao, tipo, numeroRegistos, total, " +
+            "CASE WHEN numeroRegistos = total THEN 1 ELSE 0 END as valido " +
             "FROM relatorioAveriguacao as rel_avg " +
+
+            "LEFT JOIN (SELECT id, IFNULL(COUNT(*), 0) as total FROM medidasAveriguacao GROUP BY id) as med " +
+            "ON rel_avg.id = med.id  " +
+
+            "LEFT JOIN (SELECT idRelatorio, IFNULL(COUNT(*), 0) as numeroRegistos FROM relatorioAveriguacaoResultado GROUP BY idRelatorio) as rel_avg_res " +
+            "ON rel_avg.id = rel_avg_res.idRelatorio  " +
+
             "WHERE idTarefa = :idTarefa AND tipo = :tipo")
     abstract public Observable<List<Averiguacao>> obterRelatorio(int idTarefa, int tipo);
 
@@ -61,7 +69,7 @@ abstract public class AveriguacaoDao implements BaseDao<RelatorioAveriguacaoResu
 
 
     @Query("SELECT idRelatorio, med.idMedida as idMedida, descricao, implementado " +
-            "FROM medidasResultado as med " +
+            "FROM medidasAveriguacao as med " +
 
             "LEFT JOIN (SELECT id as idMedida, descricao FROM tipos WHERE tipo = '" + TiposUtil.MetodosTipos.MEDIDAS_PREVENCAO_RECOMENDADAS + "' AND api = :api) as tp_med " +
             "ON med.idMedida = tp_med.idMedida " +
@@ -74,50 +82,20 @@ abstract public class AveriguacaoDao implements BaseDao<RelatorioAveriguacaoResu
 
 
 
-    @Query("SELECT rel_avr_med.idMedida as id, descricao " +
-            "FROM relatorioAvaliacaoRiscosMedidas as rel_avr_med " +
-            "LEFT JOIN (SELECT id as idMedida, descricao FROM tipos WHERE tipo = '" + TiposUtil.MetodosTipos.MEDIDAS_PREVENCAO_RECOMENDADAS + "') as tp_medidas " +
-            "ON rel_avr_med.idMedida = tp_medidas.idMedida   " +
-            "WHERE id = :id")
-    abstract public Single<AveriguacaoRegisto> obterRegisto(int id);
+    @Query("SELECT idRelatorio, med.idMedida as idMedida, descricao, implementado " +
+            "FROM medidasAveriguacao as med " +
+
+            "LEFT JOIN (SELECT id as idMedida, descricao FROM tipos WHERE tipo = '" + TiposUtil.MetodosTipos.MEDIDAS_PREVENCAO_RECOMENDADAS + "' AND api = :api) as tp_med " +
+            "ON med.idMedida = tp_med.idMedida " +
+
+            "LEFT JOIN (SELECT idRelatorio, idMedida, implementado FROM relatorioAveriguacaoResultado) as rel_res " +
+            "ON med.id = rel_res.idRelatorio AND med.idMedida = rel_res.idMedida " +
+
+            "WHERE med.id =:id AND med.origem = " + Identificadores.Origens.AVERIGUACAO_AVALIACAO_RISCOS + " ")
+    abstract public Single<AveriguacaoRegisto> obterRegisto(int id, int api);
 
     //https://mega.nz/folder/jqJAlYyL#Js1gkGWstR3F9O3gKrINgw
     //http://linkunshortner.glitch.me/
 
-    //https://mega.nz/folder/9aIhXIrR#U9QHq_13tly4SYRLn10ykg
-
-
-    //https://mega.nz/folder/aQ1S3Y4I#9JTNLSLe0WYrIF1YH6KuTQ/folder/7FMnHCLI
-    //https://mega.nz/folder/aQ1S3Y4I#9JTNLSLe0WYrIF1YH6KuTQ/folder/OUMyhIwR
-    //https://mega.nz/folder/aQ1S3Y4I#9JTNLSLe0WYrIF1YH6KuTQ/folder/LVMwQKpL
-    //https://mega.nz/folder/aQ1S3Y4I#9JTNLSLe0WYrIF1YH6KuTQ/folder/7NNyWQgR
-    //https://mega.nz/folder/aQ1S3Y4I#9JTNLSLe0WYrIF1YH6KuTQ/folder/fNMC3Qob
-    //https://mega.nz/folder/aQ1S3Y4I#9JTNLSLe0WYrIF1YH6KuTQ/folder/fMdyRI4A
-    //https://mega.nz/folder/aQ1S3Y4I#9JTNLSLe0WYrIF1YH6KuTQ/folder/3IUGlAYT
-    //https://mega.nz/folder/aQ1S3Y4I#9JTNLSLe0WYrIF1YH6KuTQ/folder/6dFEWCKa
-    //https://mega.nz/folder/aQ1S3Y4I#9JTNLSLe0WYrIF1YH6KuTQ/folder/OEVkQQbS
-    //https://mega.nz/folder/aQ1S3Y4I#9JTNLSLe0WYrIF1YH6KuTQ/folder/vNE2XQKQ
-    //https://mega.nz/folder/aQ1S3Y4I#9JTNLSLe0WYrIF1YH6KuTQ/folder/6JE2zSjY
-
-    //https://mega.nz/folder/9aIhXIrR#U9QHq_13tly4SYRLn10ykg/folder/JHZWBCxY
-    //https://mega.nz/folder/9aIhXIrR#U9QHq_13tly4SYRLn10ykg/folder/AbYCAQ4I --sph
-    //https://mega.nz/folder/9aIhXIrR#U9QHq_13tly4SYRLn10ykg/folder/IGY0QAqI --m mk + https://mega.nz/folder/qEMGzZTA#sDhaYSkVzwqIQL9q03KbHw/folder/SBUAGbAQ
-
-    //https://mega.nz/folder/9aIhXIrR#U9QHq_13tly4SYRLn10ykg/folder/MXYUEajZ --jn
-    //https://mega.nz/folder/9aIhXIrR#U9QHq_13tly4SYRLn10ykg/folder/sXI0RCqY --js lo
-    //https://mega.nz/folder/9aIhXIrR#U9QHq_13tly4SYRLn10ykg/folder/1fI2WagQ --fth
-    //https://mega.nz/folder/9aIhXIrR#U9QHq_13tly4SYRLn10ykg/folder/NWY2gAID --an de
-
-    //https://mega.nz/folder/1RADSQzY#iFdVNCrgfF_mdyUhUw1luQ --st ro
-    //https://mega.nz/folder/9aIhXIrR#U9QHq_13tly4SYRLn10ykg/folder/caQQxabT
-
-//--https://mega.nz/folder/SohilbpA#Ahm58e1cpLlmECfstygiXA/folder/XooCxDID mm
-
-    //res
-    //sph + https://mega.nz/folder/OK5SyYCK#_9iSmqHs33w0mNhBjq9G8Q
-    //https://mega.nz/folder/9aIhXIrR#U9QHq_13tly4SYRLn10ykg/folder/JGJACIrY --k vong +
-    //https://mega.nz/folder/9aIhXIrR#U9QHq_13tly4SYRLn10ykg/folder/YaJQAaZR --ca
-    //https://mega.nz/folder/qEMGzZTA#sDhaYSkVzwqIQL9q03KbHw/folder/WQdEyRqA -mand mus
-    //https://mega.nz/folder/qEMGzZTA#sDhaYSkVzwqIQL9q03KbHw/folder/bUcSARKJ --per bit
 }
 

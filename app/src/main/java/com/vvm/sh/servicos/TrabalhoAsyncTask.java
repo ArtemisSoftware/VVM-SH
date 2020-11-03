@@ -20,6 +20,7 @@ import com.vvm.sh.api.modelos.pedido.ISessao;
 import com.vvm.sh.api.modelos.pedido.ITipoExtintor;
 import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.baseDados.entidades.Colaborador;
+import com.vvm.sh.baseDados.entidades.MedidaAveriguacao;
 import com.vvm.sh.baseDados.entidades.MedidaResultado;
 import com.vvm.sh.baseDados.entidades.Morada;
 import com.vvm.sh.baseDados.entidades.ParqueExtintor;
@@ -156,13 +157,13 @@ public class TrabalhoAsyncTask extends AsyncTask<ISessao, Void, Void> {
 
             int id = ConversorUtil.converter_long_Para_int(repositorio.inserirRelatorioAveriguacao(relatorio));
 
-            List<MedidaResultado> medidas = new ArrayList<>();
+            List<MedidaAveriguacao> medidas = new ArrayList<>();
 
             for (String idMedida : item.medidas.split(",")) {
-                medidas.add(new MedidaResultado(id, Identificadores.Origens.AVERIGUACAO_AVALIACAO_RISCOS, Integer.parseInt(idMedida)));
+                medidas.add(new MedidaAveriguacao(id, Identificadores.Origens.AVERIGUACAO_AVALIACAO_RISCOS, Integer.parseInt(idMedida)));
             }
 
-            repositorio.inserirMedidas(medidas);
+            repositorio.inserirMedidasAveriguacao(medidas);
         }
 
     }

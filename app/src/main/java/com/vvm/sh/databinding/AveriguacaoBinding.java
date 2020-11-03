@@ -1,5 +1,6 @@
 package com.vvm.sh.databinding;
 
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.databinding.BindingAdapter;
@@ -12,6 +13,7 @@ import com.vvm.sh.ui.atividadesPendentes.relatorios.averiguacao.adaptadores.Aver
 import com.vvm.sh.ui.atividadesPendentes.relatorios.averiguacao.adaptadores.OnAveriguacaoListener;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.averiguacao.modelos.Averiguacao;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.averiguacao.modelos.AveriguacaoRegisto;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.modelos.Item;
 import com.vvm.sh.util.constantes.Identificadores;
 
 import java.util.List;
@@ -83,4 +85,22 @@ public class AveriguacaoBinding {
         }
     }
 
+
+    @BindingAdapter({"completudeItem"})
+    public static void setCompletudeItem(ImageView view, Averiguacao item) {
+
+        if (item == null) {
+            return;
+        }
+
+        if(item.numeroRegistos == item.total){
+            view.setImageResource(R.drawable.ic_validado);
+            view.setColorFilter(view.getContext().getResources().getColor(R.color.cor_executado));
+        }
+        else{
+            view.setImageResource(R.drawable.ic_registo_incompleto);
+            view.clearColorFilter();
+        }
+
+    }
 }

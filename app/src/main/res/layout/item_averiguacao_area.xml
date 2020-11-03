@@ -36,11 +36,11 @@
                 android:id="@+id/imageView5"
                 android:layout_width="40dp"
                 android:layout_height="40dp"
-                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                completudeItem="@{averiguacao}"
                 app:layout_constraintBottom_toBottomOf="@+id/textView84"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/textView"
-                app:srcCompat="@drawable/ic_registo_incompleto" />
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/textView" />
 
 
             <TextView
@@ -49,7 +49,7 @@
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:text="@{averiguacao.descricao, default=descricao}"
-                app:layout_constraintStart_toEndOf="@+id/imageView5"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
@@ -66,7 +66,7 @@
                 android:id="@+id/textView85"
                 style="@style/textoDetalhe"
                 android:layout_marginStart="16dp"
-
+                android:text="@{StringUtil.converterString(averiguacao.numeroRegistos), default=0}"
                 app:layout_constraintStart_toEndOf="@+id/textView84"
                 app:layout_constraintTop_toTopOf="@+id/textView84" />
 
@@ -82,7 +82,7 @@
                 android:id="@+id/textView87"
                 style="@style/textoDetalhe"
                 android:layout_marginStart="8dp"
-
+                android:text="@{StringUtil.converterString(averiguacao.total), default=0}"
                 app:layout_constraintStart_toEndOf="@+id/textView86"
                 app:layout_constraintTop_toTopOf="@+id/textView84" />
 

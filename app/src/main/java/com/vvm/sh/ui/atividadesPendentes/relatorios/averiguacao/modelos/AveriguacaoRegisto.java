@@ -18,4 +18,5 @@ public class AveriguacaoRegisto {
 
     @ColumnInfo(name = "implementado")
     public boolean implementado;
+
 }

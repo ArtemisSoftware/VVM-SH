@@ -61,11 +61,11 @@ public class UploadTrabalhoActivity extends BaseDaggerActivity {
             activityUploadBinding.txtTitulo.setText(getString(R.string.reupload_dados));
             activityUploadBinding.txtData.setVisibility(View.VISIBLE);
             activityUploadBinding.txtData.setText(DatasUtil.converterData(bundle.getLong(getString(R.string.argumento_data)), DatasUtil.FORMATO_DD_MM_YYYY));
-            viewModel.obterPendencias(PreferenciasUtil.obterIdUtilizador(this), bundle.getLong(getString(R.string.argumento_data)));
+            viewModel.obterPendencias(this, handlerNotificacoesUI, PreferenciasUtil.obterIdUtilizador(this), bundle.getLong(getString(R.string.argumento_data)), true);
         }
         else {
             activityUploadBinding.txtData.setVisibility(View.GONE);
-            viewModel.obterPendencias(PreferenciasUtil.obterIdUtilizador(this));
+            viewModel.obterPendencias(this, handlerNotificacoesUI, PreferenciasUtil.obterIdUtilizador(this), true);
         }
     }
 

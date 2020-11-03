@@ -67,6 +67,10 @@ public class Identificadores {
         public static final int LEVANTAMENTO_DUPLICACADO = 93;
         public static final int ORIGEM_LEVANTAMENTO_RISCO = 94;
         public static final int LEVANTAMENTO_MODELO = 95;
+
+
+
+        public static final int AVERIGUACAO_AVALIACAO_RISCOS = 100;
 /**/
 
 

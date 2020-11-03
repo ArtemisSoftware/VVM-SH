@@ -3,11 +3,13 @@ package com.vvm.sh.ui.atividadesPendentes.relatorios.averiguacao;
 import androidx.lifecycle.MutableLiveData;
 
 import com.vvm.sh.baseDados.entidades.RelatorioAveriguacaoResultado;
+import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.repositorios.AveriguacaoRepositorio;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.averiguacao.modelos.Averiguacao;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.averiguacao.modelos.AveriguacaoRegisto;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.constantes.Sintaxe;
+import com.vvm.sh.util.constantes.TiposConstantes;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import java.util.List;
@@ -31,6 +33,8 @@ public class AveriguacaoViewModel extends BaseViewModel {
     public MutableLiveData<List<AveriguacaoRegisto>> averiguacoes;
     public MutableLiveData<AveriguacaoRegisto> averiguacao;
 
+    public MutableLiveData<List<Tipo>> tiposImplemetacao;
+
     @Inject
     public AveriguacaoViewModel(AveriguacaoRepositorio averiguacaoRepositorio) {
         this.averiguacaoRepositorio = averiguacaoRepositorio;
@@ -38,6 +42,7 @@ public class AveriguacaoViewModel extends BaseViewModel {
         relatorio = new MutableLiveData<>();
         averiguacoes = new MutableLiveData<>();
         averiguacao = new MutableLiveData<>();
+        tiposImplemetacao = new MutableLiveData<>();
     }
 
 
@@ -54,7 +59,7 @@ public class AveriguacaoViewModel extends BaseViewModel {
                             new SingleObserver<Long>() {
                                 @Override
                                 public void onSubscribe(Disposable d) {
-
+                                    disposables.add(d);
                                 }
 
                                 @Override
@@ -81,7 +86,7 @@ public class AveriguacaoViewModel extends BaseViewModel {
                             new SingleObserver<Integer>() {
                                 @Override
                                 public void onSubscribe(Disposable d) {
-
+                                    disposables.add(d);
                                 }
 
                                 @Override
@@ -120,7 +125,7 @@ public class AveriguacaoViewModel extends BaseViewModel {
                         new Observer<List<Averiguacao>>() {
                             @Override
                             public void onSubscribe(Disposable d) {
-
+                                disposables.add(d);
                             }
 
                             @Override
@@ -155,7 +160,7 @@ public class AveriguacaoViewModel extends BaseViewModel {
                         new Observer<List<AveriguacaoRegisto>>() {
                             @Override
                             public void onSubscribe(Disposable d) {
-
+                                disposables.add(d);
                             }
 
                             @Override
@@ -178,6 +183,8 @@ public class AveriguacaoViewModel extends BaseViewModel {
 
     }
 
+
+
     public void obterRegisto(int id) {
 
         averiguacaoRepositorio.obterRegisto(id)
@@ -188,7 +195,7 @@ public class AveriguacaoViewModel extends BaseViewModel {
                         new SingleObserver<AveriguacaoRegisto>() {
                             @Override
                             public void onSubscribe(Disposable d) {
-
+                                disposables.add(d);
                             }
 
                             @Override
@@ -206,5 +213,14 @@ public class AveriguacaoViewModel extends BaseViewModel {
 
 
     }
+
+    //-------------------
+    //Misc
+    //-------------------
+
+    public void obterTiposImplementacao(){
+        obterOpcoes(tiposImplemetacao, TiposConstantes.Averiguacao.MEDIDAS_IMPLEMENTACAO);
+    }
+
 
 }

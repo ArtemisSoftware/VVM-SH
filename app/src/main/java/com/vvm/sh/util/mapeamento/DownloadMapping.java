@@ -4,6 +4,7 @@ import com.vvm.sh.api.modelos.pedido.IColaborador;
 import com.vvm.sh.api.modelos.pedido.IMorada;
 import com.vvm.sh.api.modelos.pedido.IParqueExtintor;
 import com.vvm.sh.api.modelos.pedido.IPlanoAcao;
+import com.vvm.sh.api.modelos.pedido.IRelatorioAvaliacaoRiscos;
 import com.vvm.sh.api.modelos.pedido.ITipo;
 import com.vvm.sh.api.modelos.pedido.ITipoAtividadePlaneavel;
 import com.vvm.sh.api.modelos.pedido.ITipoAtividadePlaneavelListagem;
@@ -30,6 +31,7 @@ import com.vvm.sh.baseDados.entidades.Morada;
 import com.vvm.sh.baseDados.entidades.ParqueExtintor;
 import com.vvm.sh.baseDados.entidades.PlanoAcao;
 import com.vvm.sh.baseDados.entidades.PlanoAcaoAtividade;
+import com.vvm.sh.baseDados.entidades.RelatorioAveriguacao;
 import com.vvm.sh.baseDados.entidades.SeccaoChecklist;
 import com.vvm.sh.baseDados.entidades.Tarefa;
 import com.vvm.sh.baseDados.entidades.Anomalia;
@@ -174,4 +176,8 @@ public interface DownloadMapping {
 
     @Mapping(source = "item.codigo", target = "codigo")
     TipoAtividadePlaneavel map(ITipoAtividadePlaneavel item, ITipoAtividadePlaneavelListagem resposta);
+
+    @Mapping(target = "descricao", source = "descricao")
+    @Mapping(target = "tipo", constant = Identificadores.Origens.AVERIGUACAO_AVALIACAO_RISCOS + "")
+    RelatorioAveriguacao map(IRelatorioAvaliacaoRiscos.ICategoriaProfissional item);
 }

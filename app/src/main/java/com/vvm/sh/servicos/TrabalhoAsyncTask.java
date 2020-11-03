@@ -12,6 +12,7 @@ import com.vvm.sh.api.modelos.pedido.IColaborador;
 import com.vvm.sh.api.modelos.pedido.IMorada;
 import com.vvm.sh.api.modelos.pedido.IParqueExtintor;
 import com.vvm.sh.api.modelos.pedido.IPlanoAcao;
+import com.vvm.sh.api.modelos.pedido.IRelatorioAvaliacaoRiscos;
 import com.vvm.sh.api.modelos.pedido.ITarefa;
 import com.vvm.sh.api.modelos.pedido.IDados;
 import com.vvm.sh.api.modelos.pedido.IOcorrencia;
@@ -19,10 +20,12 @@ import com.vvm.sh.api.modelos.pedido.ISessao;
 import com.vvm.sh.api.modelos.pedido.ITipoExtintor;
 import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.baseDados.entidades.Colaborador;
+import com.vvm.sh.baseDados.entidades.MedidaResultado;
 import com.vvm.sh.baseDados.entidades.Morada;
 import com.vvm.sh.baseDados.entidades.ParqueExtintor;
 import com.vvm.sh.baseDados.entidades.PlanoAcao;
 import com.vvm.sh.baseDados.entidades.PlanoAcaoAtividade;
+import com.vvm.sh.baseDados.entidades.RelatorioAveriguacao;
 import com.vvm.sh.baseDados.entidades.Tarefa;
 import com.vvm.sh.baseDados.entidades.Anomalia;
 import com.vvm.sh.baseDados.entidades.AtividadeExecutada;
@@ -135,6 +138,32 @@ public class TrabalhoAsyncTask extends AsyncTask<ISessao, Void, Void> {
 
         inserirPlanoAcao(info.tarefas.planoAcao, idTarefa);
 
+        inserirAveriguacao_RelatorioAvaliacaoRiscos(info.tarefas.relatorioAvaliacaoRiscos, idTarefa);
+    }
+
+    private void inserirAveriguacao_RelatorioAvaliacaoRiscos(IRelatorioAvaliacaoRiscos relatorioAvaliacaoRiscos, int idTarefa) {
+
+        if(relatorioAvaliacaoRiscos == null){
+            return;
+        }
+
+
+        for (IRelatorioAvaliacaoRiscos.ICategoriaProfissional item : relatorioAvaliacaoRiscos.categoriasProfissionais) {
+
+            RelatorioAveriguacao relatorio = DownloadMapping.INSTANCE.map(item);
+            relatorio.idTarefa = idTarefa;
+            relatorio.data = DatasUtil.converterString(relatorioAvaliacaoRiscos.data, DatasUtil.DATA_FORMATO_DD_MM_YYYY__HH_MM_SS_V2);
+
+            int id = ConversorUtil.converter_long_Para_int(repositorio.inserirRelatorioAveriguacao(relatorio));
+
+            List<MedidaResultado> medidas = new ArrayList<>();
+
+            for (String idMedida : item.medidas.split(",")) {
+                medidas.add(new MedidaResultado(id, Identificadores.Origens.AVERIGUACAO_AVALIACAO_RISCOS, Integer.parseInt(idMedida)));
+            }
+
+            repositorio.inserirMedidas(medidas);
+        }
 
     }
 
@@ -419,6 +448,9 @@ public class TrabalhoAsyncTask extends AsyncTask<ISessao, Void, Void> {
         }
         if(atividadePendente.relatorioAvaliacaoRisco == 1){
             return Identificadores.Relatorios.ID_RELATORIO_AVALIACAO_RISCO;
+        }
+        if(atividadePendente.verificacao.equals("arpt") == true){
+            return Identificadores.Relatorios.ID_RELATORIO_AVERIGUACAO_AVALIACAO_RISCO;
         }
 
         return Identificadores.Relatorios.SEM_RELATORIO;

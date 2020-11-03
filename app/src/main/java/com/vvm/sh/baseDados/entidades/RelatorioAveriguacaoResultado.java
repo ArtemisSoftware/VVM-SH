@@ -40,10 +40,10 @@ public class RelatorioAveriguacaoResultado {
 
 
 
-    public RelatorioAveriguacaoResultado(@NonNull int idRelatorio, int idMedida) {
+    public RelatorioAveriguacaoResultado(@NonNull int idRelatorio, int idMedida, boolean implementado) {
         this.idRelatorio = idRelatorio;
         this.idMedida = idMedida;
-        this.implementado = true;
+        this.implementado = implementado;
     }
 
     public RelatorioAveriguacaoResultado(int idRelatorio, int idMedida, Tipo risco, @NonNull Date data) {

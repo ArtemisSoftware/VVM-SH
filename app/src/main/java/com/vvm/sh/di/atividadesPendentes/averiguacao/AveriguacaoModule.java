@@ -24,9 +24,9 @@ public class AveriguacaoModule {
 
     @AveriguacaoScope
     @Provides
-    AveriguacaoRepositorio provideAveriguacaoRepositorio(AveriguacaoDao averiguacaoDao, ResultadoDao resultadoDao) {
+    AveriguacaoRepositorio provideAveriguacaoRepositorio(int idApi, AveriguacaoDao averiguacaoDao, ResultadoDao resultadoDao) {
 
-        AveriguacaoRepositorio repositorio = new AveriguacaoRepositorio(averiguacaoDao, resultadoDao);
+        AveriguacaoRepositorio repositorio = new AveriguacaoRepositorio(idApi, averiguacaoDao, resultadoDao);
         return repositorio;
     }
 

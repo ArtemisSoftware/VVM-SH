@@ -13,8 +13,6 @@ public class Sintaxe {
     public static final CharSequence ARROBA = "@";
 
 
-
-
     public class Titulos{
 
         public static final String AGENDA = "Agenda";
@@ -149,6 +147,7 @@ public class Sintaxe {
         public static final String ATUALIZAR_TIPO = "A atualizar o tipo...";
         public static final String DADOS_ATUALIZADOS_SUCESSO = "Dados atualizados com sucesso";
         public static final String DADOS_CARREGADOS_SUCESSO = "Dados carregados com sucesso.";
+        public static final String EXISTEM_DADOS_UPLOAD = "Não podes ser realizado o download dos dados de trabalho pois existem dados para upload.";
     }
 
     public class API {

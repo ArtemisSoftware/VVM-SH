@@ -74,7 +74,7 @@ public class AveriguacaoListagemActivity extends BaseDaggerActivity
 
         Bundle bundle = getIntent().getExtras();
 
-        DialogoAveriguacao dialogo = DialogoAveriguacao.newInstance(bundle.getInt(getString(R.string.argumento_id_relatorio)), registo.id);
-        dialogo.show(getSupportFragmentManager(), "example dialog");
+//        DialogoAveriguacao dialogo = DialogoAveriguacao.newInstance(bundle.getInt(getString(R.string.argumento_id_relatorio)), registo.id);
+//        dialogo.show(getSupportFragmentManager(), "example dialog");
     }
 }

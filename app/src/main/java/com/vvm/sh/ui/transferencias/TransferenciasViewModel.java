@@ -104,8 +104,8 @@ public class TransferenciasViewModel extends BaseViewModel {
      * Metodo que permite obter as pendencias
      * @param idUtilizador o identificador do utilizador
      */
-    public void obterPendencias(String idUtilizador) {
-        obterPendencias(transferenciasRepositorio.obterPendencias(idUtilizador));
+    public void obterPendencias(Activity activity, Handler handlerNotificacoesUI, String idUtilizador, boolean upload) {
+        obterPendencias(activity, handlerNotificacoesUI, transferenciasRepositorio.obterPendencias(idUtilizador), upload);
     }
 
 
@@ -114,16 +114,16 @@ public class TransferenciasViewModel extends BaseViewModel {
      * @param idUtilizador o identificador do utilizador
      * @param data a data das pendencias
      */
-    public void obterPendencias(String idUtilizador, long data) {
-        obterPendencias(transferenciasRepositorio.obterPendencias(idUtilizador, data));
+    public void obterPendencias(Activity activity, Handler handlerNotificacoesUI, String idUtilizador, long data, boolean upload) {
+        obterPendencias(activity, handlerNotificacoesUI, transferenciasRepositorio.obterPendencias(idUtilizador, data), upload);
     }
 
 
     /**
      * Metodo que permite obter as pendencias
-     * @param observable
+     * @param maybe
      */
-    private void obterPendencias(Maybe<DadosPendencia> maybe){
+    private void obterPendencias(Activity activity, Handler handlerNotificacoesUI, Maybe<DadosPendencia> maybe, boolean upload){
 
         showProgressBar(true);
 
@@ -141,14 +141,15 @@ public class TransferenciasViewModel extends BaseViewModel {
                             @Override
                             public void onSuccess(DadosPendencia dadosPendencia) {
 
-                                if(dadosPendencia.pendencias.size() > 0){
-                                    pendencias.setValue(dadosPendencia.pendencias);
-                                }
-                                else if(dadosPendencia.dadosUpload == true){
+                                pendencias.setValue(dadosPendencia.pendencias);
 
-                                }
-                                else{
+                                if(upload == false) {
 
+                                    if (dadosPendencia.dadosUpload == true & dadosPendencia.pendencias.size() == 0) {
+                                        messagemLiveData.setValue(Recurso.erro(Sintaxe.Frases.EXISTEM_DADOS_UPLOAD));
+                                    } else {
+                                        atualizarTipos(activity, handlerNotificacoesUI);
+                                    }
                                 }
                             }
 

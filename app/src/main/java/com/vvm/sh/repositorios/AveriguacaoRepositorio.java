@@ -15,10 +15,12 @@ public class AveriguacaoRepositorio implements Repositorio<RelatorioAveriguacaoR
 
     private final AveriguacaoDao averiguacaoDao;
     public final ResultadoDao resultadoDao;
+    public final int idApi;
 
-    public AveriguacaoRepositorio(AveriguacaoDao averiguacaoDao, ResultadoDao resultadoDao) {
+    public AveriguacaoRepositorio(int idApi, AveriguacaoDao averiguacaoDao, ResultadoDao resultadoDao) {
         this.averiguacaoDao = averiguacaoDao;
         this.resultadoDao = resultadoDao;
+        this.idApi = idApi;
     }
 
 
@@ -28,7 +30,7 @@ public class AveriguacaoRepositorio implements Repositorio<RelatorioAveriguacaoR
     }
 
     public Observable<List<AveriguacaoRegisto>> obterRegistos(int idRelatorio){
-        return averiguacaoDao.obterRegistos(idRelatorio);
+        return averiguacaoDao.obterRegistos(idRelatorio, idApi);
     }
 
     public Single<AveriguacaoRegisto> obterRegisto(int idRegisto){

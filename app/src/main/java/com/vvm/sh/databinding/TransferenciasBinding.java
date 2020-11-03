@@ -120,6 +120,20 @@ public class TransferenciasBinding {
     }
 
 
+    @BindingAdapter({"pendencias"})
+    public static void setTextoDownload(TextView view, List<Pendencia> pendencias) {
+
+        if(pendencias != null){
+
+            if(pendencias.size() != 0){
+                view.setText(view.getContext().getString(R.string.tarefas_pendentes));
+                view.setVisibility(View.VISIBLE);
+            }
+        }
+
+
+    }
+
 
 
     @BindingAdapter({"sincronizacao"})

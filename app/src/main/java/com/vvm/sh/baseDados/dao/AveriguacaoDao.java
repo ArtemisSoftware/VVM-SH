@@ -7,6 +7,7 @@ import com.vvm.sh.baseDados.BaseDao;
 import com.vvm.sh.baseDados.entidades.RelatorioAveriguacaoResultado;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.averiguacao.modelos.Averiguacao;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.averiguacao.modelos.AveriguacaoRegisto;
+import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.metodos.TiposUtil;
 
 import java.util.List;
@@ -58,12 +59,18 @@ abstract public class AveriguacaoDao implements BaseDao<RelatorioAveriguacaoResu
 //
 
 
-    @Query("SELECT rel_avr_med.idMedida as id, descricao " +
-            "FROM relatorioAvaliacaoRiscosMedidas as rel_avr_med " +
-            "LEFT JOIN (SELECT id as idMedida, descricao FROM tipos WHERE tipo = '" + TiposUtil.MetodosTipos.MEDIDAS_PREVENCAO_RECOMENDADAS + "') as tp_medidas " +
-            "ON rel_avr_med.idMedida = tp_medidas.idMedida   " +
-            "WHERE idRelatorio = :idRelatorio")
-    abstract public Observable<List<AveriguacaoRegisto>> obterRegistos(int idRelatorio);
+
+    @Query("SELECT idRelatorio, med.idMedida as idMedida, descricao, implementado " +
+            "FROM medidasResultado as med " +
+
+            "LEFT JOIN (SELECT id as idMedida, descricao FROM tipos WHERE tipo = '" + TiposUtil.MetodosTipos.MEDIDAS_PREVENCAO_RECOMENDADAS + "' AND api = :api) as tp_med " +
+            "ON med.idMedida = tp_med.idMedida " +
+
+            "LEFT JOIN (SELECT idRelatorio, idMedida, implementado FROM relatorioAveriguacaoResultado) as rel_res " +
+            "ON med.id = rel_res.idRelatorio AND med.idMedida = rel_res.idMedida " +
+
+            "WHERE med.id =:idRelatorio AND med.origem = " + Identificadores.Origens.AVERIGUACAO_AVALIACAO_RISCOS + " ")
+    abstract public Observable<List<AveriguacaoRegisto>> obterRegistos(int idRelatorio, int api);
 
 
 

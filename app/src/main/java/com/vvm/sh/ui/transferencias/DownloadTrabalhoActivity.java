@@ -136,7 +136,7 @@ public class DownloadTrabalhoActivity extends BaseDaggerActivity {
      */
     private void downloadTrabalhoDia(){
         activityDownloadTrabalhoBinding.txtData.setText(DatasUtil.obterDataAtual(DatasUtil.FORMATO_DD_MM_YYYY));
-        viewModel.obterPendencias(PreferenciasUtil.obterIdUtilizador(this));
+        viewModel.obterPendencias(this, handlerNotificacoesUI, PreferenciasUtil.obterIdUtilizador(this), false);
     }
 
 
@@ -171,19 +171,7 @@ public class DownloadTrabalhoActivity extends BaseDaggerActivity {
      * @param registos os registos pendentes
      */
     private void formatarPendencias(List<Pendencia> registos) {
-
-        if(registos.size() == 0) {
-            activityDownloadTrabalhoBinding.cardTipos.setVisibility(View.VISIBLE);
-            viewModel.atualizarTipos(this, handlerNotificacoesUI);
-        }
-        else{
-
-            activityDownloadTrabalhoBinding.txtSubTitulo.setText(getString(R.string.tarefas_pendentes));
-            activityDownloadTrabalhoBinding.txtSubTitulo.setVisibility(View.VISIBLE);
-            activityDownloadTrabalhoBinding.rclRegistosPendencias.setVisibility(View.VISIBLE);
-            dialogo.alerta(getString(R.string.pendencias), getString(R.string.pendencias_download));
-
-        }
+        dialogo.alerta(getString(R.string.pendencias), getString(R.string.pendencias_download));
     }
 
 

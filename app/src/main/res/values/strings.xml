@@ -272,7 +272,7 @@
     <string name="argumento_data">data</string>
     <string name="tarefas_upload">Tarefas para upload</string>
     <string name="pendencias">Pendencias</string>
-    <string name="pendencias_download">Existem tarefas pedentes. Não é possível realizar o download dos dados. Por favor dê baixa de pelo menos uma atividade pendentes nas tarefas apresentadas</string>
+    <string name="pendencias_download">Existem tarefas pendentes. Não é possível realizar o download dos dados. Por favor dê baixa de pelo menos uma atividade pendentes nas tarefas apresentadas</string>
     <string name="participante">Participante</string>
     <string name="area">Area</string>
     <string name="erro">Erro</string>

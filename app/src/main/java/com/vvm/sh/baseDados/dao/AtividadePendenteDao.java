@@ -31,13 +31,10 @@ abstract public class AtividadePendenteDao implements BaseDao<AtividadePendenteR
             "WHEN idRelatorio = " + ID_RELATORIO_ILUMINACAO + " THEN  '" + ILUMINACAO + "' "+
             "WHEN idRelatorio = " + ID_RELATORIO_TEMPERATURA_HUMIDADE + " THEN  '" + TEMPERATURA_E_HUMIDADE + "' "+
             "WHEN idRelatorio = " + ID_RELATORIO_AVALIACAO_RISCO + " THEN  '" + AVALIACAO_RISCO + "' "+
-            "WHEN ct_averiguacao > 0 AND tipo = " + ID_RELATORIO_AVERIGUACAO_AVALIACAO_RISCO + " THEN  '" + AVERIGUACAO_AVALIACAO_RISCO + "' "+
-            "WHEN ct_averiguacao > 0 AND tipo = " + ID_RELATORIO_AVERIGUACAO_AUDITORIA + " THEN  '" + AVERIGUACAO_AUDITORIA + "' "+
+            "WHEN idRelatorio = " + ID_RELATORIO_AVERIGUACAO_AVALIACAO_RISCO + " THEN  '" + AVERIGUACAO_AVALIACAO_RISCO + "' "+
             "ELSE '' END as nomeRelatorio, " +
 
             "CASE WHEN idRelatorio > 0 THEN  1 " +
-            "WHEN ct_averiguacao > 0 AND tipo = " + ID_RELATORIO_AVERIGUACAO_AVALIACAO_RISCO + " THEN  1 "+
-            "WHEN ct_averiguacao > 0 AND tipo = " + ID_RELATORIO_AVERIGUACAO_AUDITORIA + " THEN  1 "+
             "ELSE 0 END as possuiRelatorio, " +
 
 
@@ -52,11 +49,7 @@ abstract public class AtividadePendenteDao implements BaseDao<AtividadePendenteR
 
             "FROM atividadesPendentes as atp " +
 
-            //relatorios
 
-            "LEFT JOIN( " +
-            "SELECT idTarefa, IFNULL(COUNT(*), 0) as ct_averiguacao, tipo FROM relatorioAveriguacao GROUP BY idTarefa " +
-            ") as rel_averiguacao " +
 
 
             //formacao validacao

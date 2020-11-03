@@ -37,7 +37,7 @@
 
         <com.jaredrummler.materialspinner.MaterialSpinner
             android:id="@+id/spnr_implementacao"
-
+            tipos_="@{viewmodel.tiposImplemetacao}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="@string/implementacao"/>
@@ -48,7 +48,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/spacing_dialog_item"
             android:orientation="vertical"
-            android:visibility="visible">
+            android:visibility="gone">
 
 
             <LinearLayout

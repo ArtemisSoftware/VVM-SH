@@ -105,6 +105,28 @@ public abstract class BaseViewModel extends ViewModel {
 
     }
 
+    /**
+     * Metodo que permite obter as opcoes dos registos
+     */
+    protected void obterOpcoesRegistos() {
+        List<Tipo> estado = new ArrayList<>();
+
+        estado.add(TiposConstantes.OpcoesRegistos.CONSULTAR);
+        estado.add(TiposConstantes.OpcoesRegistos.NOVOS_REGISTOS);
+        estados.setValue(estado);
+    }
+
+
+    protected void obterOpcoes(MutableLiveData<List<Tipo>> liveData, Tipo [] opcoes){
+
+        List<Tipo> estado = new ArrayList<>();
+
+        for (Tipo tipo : opcoes) {
+            estado.add(tipo);
+        }
+
+        liveData.setValue(estado);
+    }
 
 
 
@@ -125,16 +147,6 @@ public abstract class BaseViewModel extends ViewModel {
 
 
 
-    /**
-     * Metodo que permite obter as opcoes dos registos
-     */
-    protected void obterOpcoesRegistos() {
-        List<Tipo> estado = new ArrayList<>();
-
-        estado.add(TiposConstantes.OpcoesRegistos.CONSULTAR);
-        estado.add(TiposConstantes.OpcoesRegistos.NOVOS_REGISTOS);
-        estados.setValue(estado);
-    }
 
 
 

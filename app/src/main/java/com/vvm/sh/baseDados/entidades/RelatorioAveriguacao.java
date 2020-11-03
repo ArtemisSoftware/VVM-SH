@@ -11,8 +11,6 @@ import java.util.Date;
 import static androidx.room.ForeignKey.CASCADE;
 
 @Entity(tableName = "relatorioAveriguacao",
-
-
         foreignKeys = @ForeignKey(entity = Tarefa.class,
                 parentColumns = "idTarefa",
                 childColumns = "idTarefa",

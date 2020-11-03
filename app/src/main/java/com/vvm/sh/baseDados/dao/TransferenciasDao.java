@@ -37,6 +37,7 @@ import com.vvm.sh.baseDados.entidades.PlanoAcao;
 import com.vvm.sh.baseDados.entidades.PlanoAcaoAtividade;
 import com.vvm.sh.baseDados.entidades.QuestionarioChecklistResultado;
 import com.vvm.sh.baseDados.entidades.RegistoVisitaResultado;
+import com.vvm.sh.baseDados.entidades.RelatorioAveriguacao;
 import com.vvm.sh.baseDados.entidades.Resultado;
 import com.vvm.sh.baseDados.entidades.EmailResultado;
 import com.vvm.sh.baseDados.entidades.RiscoResultado;
@@ -185,6 +186,11 @@ abstract public class TransferenciasDao implements BaseDao<Resultado> {
     @Insert
     abstract public List<Long>  inserirPlanoAtividades(List<PlanoAcaoAtividade> registos);
 
+    @Insert
+    abstract public Long  inserirRelatorioAveriguacao(RelatorioAveriguacao relatorio);
+
+    @Insert
+    abstract public void inserirMedidas(List<MedidaResultado> registos);
 
 
     @Query("DELETE FROM tarefas WHERE idTarefa = :idTarefa")

@@ -75,6 +75,7 @@ public class DialogoAveriguacao extends BaseDaggerDialogoPersistenteFragment {
 
             //binding.spnrImplementacao.setOnItemSelectedListener(spnr_implementacao_ItemSelected);
             //binding.spnrRiscos.setOnItemSelectedListener(spnr_riscos_ItemSelected);
+            viewModel.obterTiposImplementacao();
             viewModel.obterRegisto(getArguments().getInt(ARGUMENTO_ID));
         }
         else{
@@ -126,17 +127,13 @@ public class DialogoAveriguacao extends BaseDaggerDialogoPersistenteFragment {
         RelatorioAveriguacaoResultado registo;
 
         Tipo implementacao = (Tipo) binding.spnrImplementacao.getItems().get(binding.spnrImplementacao.getSelectedIndex());
-        registo = new RelatorioAveriguacaoResultado(getArguments().getInt(ARGUMENTO_ID_RELATORIO), getArguments().getInt(ARGUMENTO_ID));
 
-//        Tipo risco = (Tipo) binding.spnrRiscos.getItems().get(binding.spnrRiscos.getSelectedIndex());
-//
-//        if(implementacao.id == TiposConstantes.Averiguacao.MEDIDA_NAO_IMPLEMENTADA.id){
-//            registo = new RelatorioAveriguacaoResultado(getArguments().getInt(ARGUMENTO_ID_RELATORIO), getArguments().getInt(ARGUMENTO_ID));
-//        }
-//        else{
-//            Date data = DatasUtil.converterString(binding.txtViewData.getText().toString(), DatasUtil.FORMATO_DD_MM_YYYY);
-//            registo = new RelatorioAveriguacaoResultado(getArguments().getInt(ARGUMENTO_ID_RELATORIO), getArguments().getInt(ARGUMENTO_ID), risco, data);
-//        }
+        if(implementacao.id == TiposConstantes.Averiguacao.MEDIDA_NAO_IMPLEMENTADA.id){
+            registo = new RelatorioAveriguacaoResultado(getArguments().getInt(ARGUMENTO_ID_RELATORIO), getArguments().getInt(ARGUMENTO_ID), false);
+        }
+        else{
+            registo = new RelatorioAveriguacaoResultado(getArguments().getInt(ARGUMENTO_ID_RELATORIO), getArguments().getInt(ARGUMENTO_ID), true);
+        }
 
         viewModel.gravar(registo);
 

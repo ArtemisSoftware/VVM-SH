@@ -54,6 +54,7 @@
             <TextView
                 android:id="@+id/textView2"
                 style="@style/textoDetalhe"
+                android:paddingEnd="20dp"
                 android:layout_marginTop="@dimen/distancia_vertical_titulo"
                 android:text="@{avaliacao.obterLocal(), default=local}"
                 app:layout_constraintStart_toStartOf="@+id/textView"
@@ -133,81 +134,43 @@
                 app:layout_constraintTop_toTopOf="@+id/textView50" />
 
 
-
-
-            <LinearLayout
-                android:id="@+id/linearLayout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="16dp"
-                android:orientation="horizontal"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintHorizontal_bias="0.0"
+            <TextView
+                android:id="@+id/textView52"
+                style="@style/textoDescritivo"
+                android:layout_marginTop="24dp"
+                android:text="@string/categorias_profissionais"
                 app:layout_constraintStart_toStartOf="@+id/textView"
-                app:layout_constraintTop_toBottomOf="@+id/textView50"
-                android:weightSum="2">
+                app:layout_constraintTop_toBottomOf="@+id/textView50" />
+
+            <TextView
+                android:id="@+id/textView54"
+                style="@style/textoDetalhe"
+                listagemTipos="@{avaliacao.categoriasProfissionais}"
+                android:layout_marginTop="8dp"
+                app:layout_constraintStart_toStartOf="@+id/textView"
+                app:layout_constraintTop_toBottomOf="@+id/textView52" />
 
 
-                <LinearLayout
-                    android:id="@+id/linearLayout1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
+            <TextView
+                android:id="@+id/textView53"
+                style="@style/textoDescritivo"
+                android:layout_marginTop="8dp"
+                android:text="@string/medidas_recomendadas"
+                android:visibility="@{avaliacao.medidas.size() > 0 ? View.VISIBLE : View.GONE}"
+                app:layout_constraintStart_toStartOf="@+id/textView"
+                app:layout_constraintTop_toBottomOf="@+id/textView54" />
 
 
-                    <TextView
-                        android:id="@+id/textView52"
-                        style="@style/textoDescritivo"
-                        android:text="@string/categorias_profissionais" />
-
-                    <TextView
-                        android:id="@+id/textView54"
-                        style="@style/textoDetalhe"
-                        listagemTipos="@{avaliacao.categoriasProfissionais}"
-                        android:layout_marginTop="8dp"/>
-
-                </LinearLayout>
-
-
-                <LinearLayout
-                    android:id="@+id/linearLayout2"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="32dp"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:paddingRight="18dp">
-
-                    <TextView
-                        android:id="@+id/textView53"
-                        style="@style/textoDescritivo"
-                        android:text="@string/medidas_recomendadas" />
-
-                    <TextView
-                        android:id="@+id/textView56"
-                        style="@style/textoDetalhe"
-                        listagemTipos="@{avaliacao.medidas}"
-                        android:layout_marginTop="8dp"/>
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+            <TextView
+                android:id="@+id/textView56"
+                style="@style/textoDetalhe"
+                listagemTipos="@{avaliacao.medidas}"
+                android:text="@string/lorem_ipsum_grande"
+                android:visibility="@{avaliacao.medidas.size() > 0 ? View.VISIBLE : View.GONE}"
+                android:layout_marginTop="8dp"
+                android:paddingEnd="40dp"
+                app:layout_constraintStart_toStartOf="@+id/textView"
+                app:layout_constraintTop_toBottomOf="@+id/textView53" />
 
 
 
@@ -222,7 +185,7 @@
                 android:theme="@style/Theme.MaterialComponents.Light"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/textView"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+                app:layout_constraintTop_toBottomOf="@+id/textView56">
 
                 <com.google.android.material.chip.Chip
                     android:id="@+id/chip"

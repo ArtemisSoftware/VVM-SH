@@ -79,6 +79,60 @@ abstract public class AvaliacaoAmbientalDao {
     //Iluminacao
 
 
+
+
+    @Query("SELECT rel_amb_res.id as idRelatorio, " +
+            "CASE WHEN marca IS NULL OR numeroSerie IS NULL OR data IS NULL THEN 0 ELSE 1 " +
+            "END as geralValido, " +
+            "numeroAvaliacoes, avaliacoesValido, medida " +
+
+            "FROM relatorioAmbientalResultado as rel_amb_res " +
+
+            "LEFT JOIN( " +
+            "" +
+            "SELECT idRelatorio, " +
+            "CASE WHEN COUNT(VALIDO) = SUM(VALIDO) AND COUNT(VALIDO) > 0 THEN 1 ELSE 0 END as avaliacoesValido, " +
+            "CASE WHEN SUM(validade_medida_recomendada) > 0 AND COUNT(validade_medida_recomendada) > 0 THEN 4 ELSE 3 END as idMedidaRecomendada "  +
+            "FROM (" +
+            "SELECT  idRelatorio,	" +
+            "CASE " +
+            "WHEN IFNULL(ct_categorias_prof, 0) = 0 THEN 0  " +
+            "WHEN  (CAST(temperatura AS INTEGER) < 18 OR CAST(temperatura AS INTEGER) > 22) AND  IFNULL(numeroMedidas, 0)  = 0 THEN 0	" +
+            "WHEN  (CAST(humidadeRelativa AS INTEGER) < 50 OR CAST(humidadeRelativa AS INTEGER) > 70) AND  IFNULL(numeroMedidas, 0)  = 0 THEN 0 " +
+            "ELSE 1 END as valido,  " +
+
+            "CASE WHEN  (CAST(temperatura AS INTEGER) < 18 OR CAST(temperatura AS INTEGER) > 22) AND  IFNULL(numeroMedidas, 0)  = 0 THEN 0	" +
+            "WHEN  (CAST(humidadeRelativa AS INTEGER) < 50 OR CAST(humidadeRelativa AS INTEGER) > 70) AND  IFNULL(numeroMedidas, 0)  = 0 THEN 0 " +
+            "ELSE 1 END as validade_medida_recomendada  " +
+
+            "FROM avaliacoesAmbientaisResultado as av_amb_res	" +
+
+            "LEFT JOIN (SELECT id, COUNT(idMedida) as numeroMedidas FROM medidasResultado WHERE origem = " + Identificadores.Origens.ORIGEM_RELATORIO_TEMPERATURA_HUMIDADE_MEDIDAS_RECOMENDADAS + " GROUP BY id) as ct_medidas " +
+            "ON av_amb_res.id = ct_medidas.id	" +
+
+            "LEFT JOIN (SELECT idRegisto , IFNULL(COUNT(id), 0) as ct_categorias_prof FROM categoriasProfissionaisResultado WHERE origem = " + Identificadores.Origens.ORIGEM_RELATORIO_TEMPERATURA_HUMIDADE + " GROUP BY idRegisto) as ct_categorias_profissionais " +
+            "ON av_amb_res.id = ct_categorias_profissionais.idRegisto  " +
+
+            ") as validacao " +
+            "GROUP BY idRelatorio" +
+
+            ") as vald_iluminacao ON rel_amb_res.id = vald_iluminacao.idRelatorio " +
+
+
+            "LEFT JOIN (SELECT idRelatorio, IFNULL(COUNT(id), 0) as numeroAvaliacoes FROM avaliacoesAmbientaisResultado WHERE temperatura > 0 GROUP BY idRelatorio) as ct_avaliacoes " +
+            "ON rel_amb_res.id = ct_avaliacoes.idRelatorio " +
+
+            "LEFT JOIN (SELECT id, descricao as medida FROM tipos WHERE tipo = '" + TiposUtil.MetodosTipos.CONCLUSAO_MEDIDAS_RECOMENDADAS + "' AND codigo = '" + Identificadores.Codigos.TERMICO + "') as ccl " +
+            "ON vald_iluminacao.idMedidaRecomendada = ccl.id " +
+
+            "WHERE  idAtividade = :idAtividade AND tipo = :tipo")
+    abstract public Observable<RelatorioAmbiental> obterRelatorioTermico(int idAtividade, int tipo);
+
+
+
+
+
+
     @Query("SELECT rel_amb_res.id as idRelatorio, " +
             "CASE WHEN marca IS NULL OR numeroSerie IS NULL OR data IS NULL THEN 0 ELSE 1 " +
             "END as geralValido, " +
@@ -94,18 +148,24 @@ abstract public class AvaliacaoAmbientalDao {
 
             "FROM(   " +
             "SELECT idRelatorio,   " +
-            "CASE WHEN CAST(emedioLx AS INTEGER) <  (CAST(eLx AS INTEGER) - ((10 * CAST(eLx AS INTEGER)) / 100)) AND IFNULL(numeroMedidas, 0) = 0 THEN 0  " +
+            "CASE " +
+            "WHEN IFNULL(ct_categorias_prof, 0) = 0 THEN 0  " +
+            "WHEN CAST(emedioLx AS INTEGER) <  (CAST(eLx AS INTEGER) - ((10 * CAST(eLx AS INTEGER)) / 100)) AND IFNULL(numeroMedidas, 0) = 0 THEN 0  " +
             "ELSE 1 END as valido,  " +
             "CASE WHEN  CAST(emedioLx AS INTEGER) <  (CAST(eLx AS INTEGER) - ((10 * CAST(eLx AS INTEGER)) / 100)) THEN 1 ELSE 0 END as validade_medida_recomendada " +
             "FROM avaliacoesAmbientaisResultado as av_amb_res  " +
+
             "LEFT JOIN (SELECT id, COUNT(idMedida) as numeroMedidas FROM medidasResultado WHERE origem = " + Identificadores.Origens.ORIGEM_RELATORIO_ILUMINACAO_MEDIDAS_RECOMENDADAS + " GROUP BY id) as ct_medidas " +
             "ON av_amb_res.id = ct_medidas.id  " +
+
+            "LEFT JOIN (SELECT idRegisto , IFNULL(COUNT(id), 0) as ct_categorias_prof FROM categoriasProfissionaisResultado WHERE origem = " + Identificadores.Origens.ORIGEM_RELATORIO_ILUMINACAO + " GROUP BY idRegisto) as ct_categorias_profissionais " +
+            "ON av_amb_res.id = ct_categorias_profissionais.idRegisto  " +
             ") as validacao " +
             "GROUP BY idRelatorio" +
 
             ") as vald_iluminacao ON rel_amb_res.id = vald_iluminacao.idRelatorio " +
 
-            "LEFT JOIN (SELECT idRelatorio, COUNT(id) as numeroAvaliacoes FROM avaliacoesAmbientaisResultado WHERE tipoIluminacao > 0 GROUP BY idRelatorio) as ct_avaliacoes " +
+            "LEFT JOIN (SELECT idRelatorio, IFNULL(COUNT(id), 0) as numeroAvaliacoes FROM avaliacoesAmbientaisResultado WHERE tipoIluminacao > 0 GROUP BY idRelatorio) as ct_avaliacoes " +
             "ON rel_amb_res.id = ct_avaliacoes.idRelatorio " +
 
             "LEFT JOIN (SELECT id, descricao as medida FROM tipos WHERE tipo = '" + TiposUtil.MetodosTipos.CONCLUSAO_MEDIDAS_RECOMENDADAS + "' AND codigo = 'iluminacao') as ccl " +
@@ -121,6 +181,7 @@ abstract public class AvaliacaoAmbientalDao {
     @Query("SELECT *," +
 
             "CASE " +
+            "WHEN IFNULL(ct_categorias_prof, 0) = 0 THEN 0  " +
             "WHEN  CAST(emedioLx AS INTEGER) <  (CAST(eLx AS INTEGER) - ((10 * CAST(eLx AS INTEGER)) / 100)) AND  IFNULL(numeroMedidas, 0) > 0 THEN 1 " +
             "WHEN  (CAST(emedioLx AS INTEGER) <  (CAST(eLx AS INTEGER) - ((10 * CAST(eLx AS INTEGER)) / 100))) = 0 THEN 1 " +
             "ELSE 0 END as valido, " +
@@ -135,8 +196,11 @@ abstract public class AvaliacaoAmbientalDao {
             "LEFT JOIN (SELECT id, codigo, descricao as local_especifico FROM tipos WHERE tipo = '" + TiposUtil.MetodosTipos.ILUMINANCIA + "') as tp_local_especifico ON  av_am_res.idElx = tp_local_especifico.id AND av_am_res.eLx = tp_local_especifico.codigo " +
             "LEFT JOIN (SELECT id, descricao as descricaoTipoIluminacao FROM tipos WHERE tipo = '" + TiposUtil.MetodosTipos.TIPOS_ILUMINACAO + "') as tp_iluminacao ON  av_am_res.tipoIluminacao = tp_iluminacao.id " +
 
-            "LEFT JOIN (SELECT id, COUNT(idMedida) as numeroMedidas FROM medidasResultado WHERE origem = " + Identificadores.Origens.ORIGEM_RELATORIO_ILUMINACAO_MEDIDAS_RECOMENDADAS + " GROUP BY id) as ct_medidas " +
+            "LEFT JOIN (SELECT id, IFNULL(COUNT(idMedida), 0) as numeroMedidas FROM medidasResultado WHERE origem = " + Identificadores.Origens.ORIGEM_RELATORIO_ILUMINACAO_MEDIDAS_RECOMENDADAS + " GROUP BY id) as ct_medidas " +
             "ON av_am_res.id = ct_medidas.id  " +
+
+            "LEFT JOIN (SELECT idRegisto , IFNULL(COUNT(id), 0) as ct_categorias_prof FROM categoriasProfissionaisResultado WHERE origem = " + Identificadores.Origens.ORIGEM_RELATORIO_ILUMINACAO + " GROUP BY idRegisto) as ct_categorias_profissionais " +
+            "ON av_am_res.id = ct_categorias_profissionais.idRegisto  " +
 
             "WHERE idRelatorio = :idRelatorio")
     abstract public Observable<List<AvaliacaoAmbiental>> obterAvaliacoesIluminacao(int idRelatorio);
@@ -147,6 +211,7 @@ abstract public class AvaliacaoAmbientalDao {
 
     @Query("SELECT *, " +
             "CASE  " +
+            "WHEN IFNULL(ct_categorias_prof, 0) = 0 THEN 0  " +
             "WHEN  (CAST(temperatura AS INTEGER) < 18 OR CAST(temperatura AS INTEGER) > 22) AND  IFNULL(numeroMedidas, 0) = 0  THEN 0 " +
             "WHEN  (CAST(temperatura AS INTEGER) < 18 OR CAST(temperatura AS INTEGER) > 22) AND  IFNULL(numeroMedidas, 0) > 0  THEN 1 " +
             "WHEN  (CAST(humidadeRelativa AS INTEGER) < 50 OR CAST(humidadeRelativa AS INTEGER) > 70)  AND  IFNULL(numeroMedidas, 0) = 0 THEN 0 " +
@@ -164,6 +229,10 @@ abstract public class AvaliacaoAmbientalDao {
             "LEFT JOIN (SELECT id, COUNT(idMedida) as numeroMedidas FROM medidasResultado WHERE origem = " + Identificadores.Origens.ORIGEM_RELATORIO_TEMPERATURA_HUMIDADE_MEDIDAS_RECOMENDADAS + " GROUP BY id) as ct_medidas " +
             "ON av_amb_res.id = ct_medidas.id	" +
 
+
+            "LEFT JOIN (SELECT idRegisto , IFNULL(COUNT(id), 0) as ct_categorias_prof FROM categoriasProfissionaisResultado WHERE origem = " + Identificadores.Origens.ORIGEM_RELATORIO_TEMPERATURA_HUMIDADE + " GROUP BY idRegisto) as ct_categorias_profissionais " +
+            "ON av_amb_res.id = ct_categorias_profissionais.idRegisto  " +
+
             "WHERE idRelatorio = :idRelatorio")
     abstract public Observable<List<AvaliacaoAmbiental>> obterAvaliacoesTemperaturaHumidade(int idRelatorio);
 
@@ -180,46 +249,6 @@ abstract public class AvaliacaoAmbientalDao {
 
 
 
-    @Query("SELECT rel_amb_res.id as idRelatorio, " +
-            "CASE WHEN marca IS NULL OR numeroSerie IS NULL OR data IS NULL THEN 0 ELSE 1 " +
-            "END as geralValido, " +
-            "numeroAvaliacoes, avaliacoesValido, medida " +
-
-            "FROM relatorioAmbientalResultado as rel_amb_res " +
-
-            "LEFT JOIN( " +
-            "" +
-            "SELECT idRelatorio, " +
-            "CASE WHEN COUNT(VALIDO) = SUM(VALIDO) AND COUNT(VALIDO) > 0 THEN 1 ELSE 0 END as avaliacoesValido, " +
-            "CASE WHEN SUM(validade_medida_recomendada) > 0 AND COUNT(validade_medida_recomendada) > 0 THEN 4 ELSE 3 END as idMedidaRecomendada "  +
-            "FROM (" +
-            "SELECT  idRelatorio,	" +
-            "CASE WHEN  (CAST(temperatura AS INTEGER) < 18 OR CAST(temperatura AS INTEGER) > 22) AND  IFNULL(numeroMedidas, 0)  = 0 THEN 0	" +
-            "WHEN  (CAST(humidadeRelativa AS INTEGER) < 50 OR CAST(humidadeRelativa AS INTEGER) > 70) AND  IFNULL(numeroMedidas, 0)  = 0 THEN 0 " +
-            "ELSE 1 END as valido,  " +
-
-            "CASE WHEN  (CAST(temperatura AS INTEGER) < 18 OR CAST(temperatura AS INTEGER) > 22) AND  IFNULL(numeroMedidas, 0)  = 0 THEN 0	" +
-            "WHEN  (CAST(humidadeRelativa AS INTEGER) < 50 OR CAST(humidadeRelativa AS INTEGER) > 70) AND  IFNULL(numeroMedidas, 0)  = 0 THEN 0 " +
-            "ELSE 1 END as validade_medida_recomendada  " +
-
-            "FROM avaliacoesAmbientaisResultado as av_amb_res	" +
-
-            "LEFT JOIN (SELECT id, COUNT(idMedida) as numeroMedidas FROM medidasResultado WHERE origem = " + Identificadores.Origens.ORIGEM_RELATORIO_TEMPERATURA_HUMIDADE_MEDIDAS_RECOMENDADAS + " GROUP BY id) as ct_medidas " +
-            "ON av_amb_res.id = ct_medidas.id	" +
-            ") as validacao " +
-            "GROUP BY idRelatorio" +
-
-            ") as vald_iluminacao ON rel_amb_res.id = vald_iluminacao.idRelatorio " +
-
-
-            "LEFT JOIN (SELECT idRelatorio, COUNT(id) as numeroAvaliacoes FROM avaliacoesAmbientaisResultado WHERE temperatura > 0 GROUP BY idRelatorio) as ct_avaliacoes " +
-            "ON rel_amb_res.id = ct_avaliacoes.idRelatorio " +
-
-            "LEFT JOIN (SELECT id, descricao as medida FROM tipos WHERE tipo = '" + TiposUtil.MetodosTipos.CONCLUSAO_MEDIDAS_RECOMENDADAS + "' AND codigo = '" + Identificadores.Codigos.TERMICO + "') as ccl " +
-            "ON vald_iluminacao.idMedidaRecomendada = ccl.id " +
-
-            "WHERE  idAtividade = :idAtividade AND tipo = :tipo")
-    abstract public Observable<RelatorioAmbiental> obterRelatorioTermico(int idAtividade, int tipo);
 
 
 
@@ -233,21 +262,8 @@ abstract public class AvaliacaoAmbientalDao {
 
 
 
-
-
-
-
-
-    @Query("SELECT id FROM relatorioAmbientalResultado WHERE idAtividade = :idAtividade AND tipo = :tipo")
-    abstract public Maybe<Integer> obterIdRelatorio(int idAtividade, int tipo);
-
-    @Query("SELECT " +
-            "CASE WHEN marca IS NULL OR numeroSerie IS NULL OR data IS NULL THEN 0 ELSE 1 " +
-            "END as valido " +
-            "FROM relatorioAmbientalResultado " +
-            "WHERE  idAtividade = :idAtividade AND tipo = :tipo")
-    abstract public Maybe<Boolean> obterValidadeGeral(int idAtividade, int tipo);
-
+    @Query("SELECT COUNT(1) FROM relatorioAmbientalResultado WHERE idAtividade = :idAtividade AND tipo = :tipo")
+    abstract public Single<Boolean> existeRelatorio(int idAtividade, int tipo);
 
 
 

@@ -18,6 +18,7 @@ import com.vvm.sh.util.metodos.TiposUtil;
 
 import io.reactivex.Maybe;
 import io.reactivex.Observable;
+import io.reactivex.Single;
 
 @Dao
 abstract public class RegistoVisitaDao implements BaseDao<RegistoVisitaResultado> {
@@ -101,4 +102,9 @@ abstract public class RegistoVisitaDao implements BaseDao<RegistoVisitaResultado
 
     @Query("UPDATE registoVisitaResultado SET sincronizacao = 1 WHERE idTarefa =:idTarefa")
     abstract public void sincronizar(int idTarefa);
+
+
+    @Query("SELECT COUNT(1) FROM registoVisitaResultado WHERE idTarefa =:idTarefa")
+    abstract public Single<Boolean> existeRelatorio(int idTarefa);
+
 }

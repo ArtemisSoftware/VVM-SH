@@ -30,10 +30,15 @@ public abstract class TarefaDao implements BaseDao<Tarefa> {
 
 
     @Transaction
-    @Query("SELECT *, IFNULL(ct_anomalias, 0) as anomalias, existe_extintores, estadoBaixas, existeAnomalias " +
+    @Query("SELECT *, IFNULL(ct_anomalias, 0) as anomalias, existe_extintores, estadoBaixas, existeAnomalias, " +
+            "CASE WHEN sem_tempo.total = sem_tempo.total_sem_tempo THEN 1 ELSE 0 END as tarefa_sem_tempo " +
             "FROM tarefas as trf " +
-            "LEFT JOIN (SELECT idTarefa, COUNT(id) as ct_anomalias FROM anomaliasResultado GROUP BY idTarefa) as anm ON trf.idTarefa = anm.idTarefa " +
-            "LEFT JOIN (SELECT idTarefa, CASE WHEN IFNULL(COUNT(id), 0) > 0 THEN 1 ELSE 0 END existe_extintores  FROM parqueExtintores GROUP BY idTarefa) as prq_ext ON trf.idTarefa = prq_ext.idTarefa " +
+
+            "LEFT JOIN (SELECT idTarefa, COUNT(id) as ct_anomalias FROM anomaliasResultado GROUP BY idTarefa) as anm " +
+            "ON trf.idTarefa = anm.idTarefa " +
+
+            "LEFT JOIN (SELECT idTarefa, CASE WHEN IFNULL(COUNT(id), 0) > 0 THEN 1 ELSE 0 END existe_extintores  FROM parqueExtintores GROUP BY idTarefa) as prq_ext " +
+            "ON trf.idTarefa = prq_ext.idTarefa " +
 
             "LEFT JOIN(" +
             "SELECT atp.idTarefa as idTarefa, CASE WHEN IFNULL(COUNT (idEstado), 0) > 0 THEN 1 ELSE 0 END estadoBaixas " +
@@ -49,7 +54,19 @@ public abstract class TarefaDao implements BaseDao<Tarefa> {
             "LEFT JOIN (SELECT idTarefa, id FROM atividadesPendentes) as atp ON atp_res.id = atp.id " +
             "WHERE idAnomalia > 0 GROUP BY atp.idTarefa " +
             ") as anom ON trf.idTarefa = anom.idTarefa " +
-            "" +
+
+            "LEFT JOIN(" +
+            "SELECT idTarefa, COUNT(*) as total, " +
+            "sum(case when idAnomalia = " + Identificadores.ID_ANOMALIA_FALTA_TEMPO + " then 1 else 0 end) AS total_sem_tempo, " +
+            "sum(case when idAnomalia != " + Identificadores.ID_ANOMALIA_FALTA_TEMPO + " then 1 else 0 end) AS total_com_tempo " +
+            "FROM ( " +
+            "SELECT idTarefa, idAnomalia FROM atividadesPendentes as atp " +
+            "LEFT JOIN (SELECT id, idAnomalia FROM atividadesPendentesResultado) as atp_res " +
+            "ON atp.id = atp_res.id" +
+            ") as app " +
+            "GROUP BY idTarefa " +
+            ") as sem_tempo ON trf.idTarefa = sem_tempo.idTarefa " +
+
 
             "WHERE trf.idTarefa = :idTarefa ")
     abstract public Observable<TarefaDia> obterTarefaDia(int idTarefa);

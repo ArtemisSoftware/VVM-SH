@@ -61,7 +61,7 @@ public class AveriguacaoListagemActivity extends BaseDaggerActivity
 
     @Override
     protected BaseViewModel obterBaseViewModel() {
-        return null;
+        return viewModel;
     }
 
     @Override
@@ -74,7 +74,7 @@ public class AveriguacaoListagemActivity extends BaseDaggerActivity
 
         Bundle bundle = getIntent().getExtras();
 
-//        DialogoAveriguacao dialogo = DialogoAveriguacao.newInstance(bundle.getInt(getString(R.string.argumento_id_relatorio)), registo.id);
-//        dialogo.show(getSupportFragmentManager(), "example dialog");
+        DialogoAveriguacao dialogo = DialogoAveriguacao.newInstance(bundle.getInt(getString(R.string.argumento_id_atividade)), bundle.getInt(getString(R.string.argumento_id_relatorio)), registo.id, registo.idMedida);
+        dialogo.show(getSupportFragmentManager(), "example dialog");
     }
 }

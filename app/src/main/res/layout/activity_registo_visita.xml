@@ -437,6 +437,7 @@
             <com.github.clans.fab.FloatingActionButton
                 android:id="@+id/fab_pre_visualizar"
                 android:enabled="@{bloquear}"
+                android:visibility="@{viewmodel.relatorio.valido ? View.VISIBLE : View.GONE}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_registo_visita_24dp"

@@ -17,6 +17,7 @@ import java.util.List;
 import javax.inject.Inject;
 
 import dagger.Module;
+import io.reactivex.CompletableObserver;
 import io.reactivex.Observer;
 import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -47,9 +48,9 @@ public class AveriguacaoViewModel extends BaseViewModel {
 
 
 
-    public void gravar(RelatorioAveriguacaoResultado registo) {
+    public void gravar(int idTarefa, int idAtividade, RelatorioAveriguacaoResultado registo) {
 
-        if(averiguacao == null){
+        if(averiguacao.getValue() == null){
 
             averiguacaoRepositorio.inserir(registo)
                     .subscribeOn(Schedulers.io())
@@ -77,6 +78,7 @@ public class AveriguacaoViewModel extends BaseViewModel {
 
         }
         else{
+            registo.id = averiguacao.getValue().id;
 
             averiguacaoRepositorio.atualizar(registo)
                     .subscribeOn(Schedulers.io())
@@ -92,6 +94,7 @@ public class AveriguacaoViewModel extends BaseViewModel {
                                 @Override
                                 public void onSuccess(Integer integer) {
                                     messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_EDITADOS_SUCESSO));
+                                    abaterAtividadePendente(averiguacaoRepositorio.resultadoDao,idTarefa, idAtividade);
                                 }
 
                                 @Override
@@ -106,6 +109,37 @@ public class AveriguacaoViewModel extends BaseViewModel {
     }
 
 
+    /**
+     * Metodo que permite gravar todas as medidas como nao implementadas
+     * @param idTarefa
+     * @param idAtividade
+     * @param idRelatorio
+     */
+    public void gravarNaoImplementado(int idTarefa, int idAtividade, int idRelatorio){
+
+        averiguacaoRepositorio.naoImplementado(idRelatorio)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new CompletableObserver() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onComplete() {
+                                abaterAtividadePendente(averiguacaoRepositorio.resultadoDao,idTarefa, idAtividade);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+                        }
+                );
+    }
 
     //-------------------
     //OBTER
@@ -120,7 +154,6 @@ public class AveriguacaoViewModel extends BaseViewModel {
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
-
 
                         new Observer<List<Averiguacao>>() {
                             @Override

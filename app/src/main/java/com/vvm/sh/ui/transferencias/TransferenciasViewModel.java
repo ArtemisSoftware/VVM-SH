@@ -11,20 +11,17 @@ import com.himanshurawat.hasher.HashType;
 import com.himanshurawat.hasher.Hasher;
 import com.vvm.sh.api.BlocoDados;
 import com.vvm.sh.api.BlocoImagens;
-import com.vvm.sh.api.modelos.pedido.ITipoListagem;
 import com.vvm.sh.api.modelos.pedido.Codigo;
-import com.vvm.sh.baseDados.entidades.Atualizacao;
 import com.vvm.sh.baseDados.entidades.Tarefa;
 import com.vvm.sh.repositorios.CarregamentoTiposRepositorio;
 import com.vvm.sh.repositorios.TiposRepositorio;
 import com.vvm.sh.repositorios.TransferenciasRepositorio;
 import com.vvm.sh.repositorios.UploadRepositorio;
 import com.vvm.sh.servicos.tipos.AtualizarTipoAsyncTask;
-import com.vvm.sh.servicos.tipos.CarregarTipoAsyncTask;
 import com.vvm.sh.servicos.DadosUploadAsyncTask;
-import com.vvm.sh.servicos.RecarregarTarefaAsyncTask;
-import com.vvm.sh.servicos.RecarregarTrabalhoAsyncTask;
-import com.vvm.sh.servicos.TrabalhoAsyncTask;
+import com.vvm.sh.servicos.trabalho.RecarregarTarefaAsyncTask;
+import com.vvm.sh.servicos.trabalho.RecarregarTrabalhoAsyncTask;
+import com.vvm.sh.servicos.trabalho.CarregarTrabalhoAsyncTask;
 import com.vvm.sh.ui.transferencias.modelos.DadosPendencia;
 import com.vvm.sh.ui.transferencias.modelos.DadosUpload;
 import com.vvm.sh.ui.transferencias.modelos.Pendencia;
@@ -40,15 +37,11 @@ import com.vvm.sh.util.metodos.PreferenciasUtil;
 import com.vvm.sh.util.metodos.TiposUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
-import org.reactivestreams.Publisher;
-import org.reactivestreams.Subscription;
-
 import java.util.ArrayList;
 import java.util.List;
 
 import javax.inject.Inject;
 
-import io.reactivex.FlowableSubscriber;
 import io.reactivex.Maybe;
 import io.reactivex.MaybeObserver;
 import io.reactivex.Observable;
@@ -141,6 +134,8 @@ public class TransferenciasViewModel extends BaseViewModel {
                             @Override
                             public void onSuccess(DadosPendencia dadosPendencia) {
 
+                                showProgressBar(false);
+
                                 pendencias.setValue(dadosPendencia.pendencias);
 
                                 if(upload == false) {
@@ -196,7 +191,7 @@ public class TransferenciasViewModel extends BaseViewModel {
 
                             @Override
                             public void onSuccess(Sessao sessao) {
-                                TrabalhoAsyncTask servico = new TrabalhoAsyncTask(vvmshBaseDados, transferenciasRepositorio, handler, idUtilizador);
+                                CarregarTrabalhoAsyncTask servico = new CarregarTrabalhoAsyncTask(vvmshBaseDados, transferenciasRepositorio, handler, idUtilizador);
                                 servico.execute(sessao.iSessao);
 
                                 PreferenciasUtil.fixarContagemMaquina(contexto, sessao.iContagemTipoMaquina);
@@ -287,7 +282,8 @@ public class TransferenciasViewModel extends BaseViewModel {
 
                             @Override
                             public void onError(Throwable e) {
-
+                                showProgressBar(false);
+                                formatarErro(e);
                             }
                         }
                 );

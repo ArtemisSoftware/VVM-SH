@@ -47,8 +47,8 @@ public class AveriguacaoActivity extends BaseDaggerActivity
 
         if(bundle != null) {
 
-            activityAveriguacaoBinding.setTipo(bundle.getInt(getString(R.string.argumento_id_tipo)));
-            viewModel.obterRelatorio(PreferenciasUtil.obterIdTarefa(this), bundle.getInt(getString(R.string.argumento_id_tipo)));
+            activityAveriguacaoBinding.setTipo(bundle.getInt(getString(R.string.argumento_tipo_relatorio)));
+            viewModel.obterRelatorio(PreferenciasUtil.obterIdTarefa(this), bundle.getInt(getString(R.string.argumento_tipo_relatorio)));
         }
         else{
             finish();
@@ -62,7 +62,7 @@ public class AveriguacaoActivity extends BaseDaggerActivity
 
     @Override
     protected BaseViewModel obterBaseViewModel() {
-        return null;
+        return viewModel;
     }
 
     @Override
@@ -77,9 +77,19 @@ public class AveriguacaoActivity extends BaseDaggerActivity
         bundleLocal.putInt(getString(R.string.argumento_id_relatorio), registo.id);
         bundleLocal.putInt(getString(R.string.argumento_id_tipo), registo.tipo);
 
+        Bundle bundle = getIntent().getExtras();
+        bundleLocal.putInt(getString(R.string.argumento_id_atividade), bundle.getInt(getString(R.string.argumento_id_atividade)));
+
         Intent intent = new Intent(this, AveriguacaoListagemActivity.class);
         intent.putExtras(bundleLocal);
         startActivity(intent);
 
+    }
+
+    @Override
+    public void OnNaoImplementados(Averiguacao registo) {
+
+        Bundle bundle = getIntent().getExtras();
+        viewModel.gravarNaoImplementado(PreferenciasUtil.obterIdTarefa(this), bundle.getInt(getString(R.string.argumento_id_atividade)), registo.id);
     }
 }

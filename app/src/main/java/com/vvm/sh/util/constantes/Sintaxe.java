@@ -108,6 +108,8 @@ public class Sintaxe {
         public static final String VALOR_INVALIDO = "Valor inválido";
         public static final String EQUIPAMENTO_REGISTADO = "O equipamento já se encontra registado";
         public static final String MARCAR_QUESTOES_NAO_APLICAVEL = "Marcar todas as questões como não aplicáveis?";
+
+        public static final String MARCAR_QUESTOES_NAO_IMPLEMENTADOS = "Marcar todas as questões como não implementados?";
         public static final String ERRO_GERAR_PDF =  "Erro ao gerar pdf: ";
         public static final String INSERIR_ANOMALIA_FALTA_TEMPO = "Deseja inserir a Anomalia: Não visitado por Falta de Tempo?";
         public static final String NAO_EXISTEM_DOCUMENTOS = "Não existem documentos";

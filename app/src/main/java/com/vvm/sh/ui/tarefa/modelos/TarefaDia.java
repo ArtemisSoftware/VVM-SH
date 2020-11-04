@@ -42,6 +42,11 @@ public class TarefaDia {
     @ColumnInfo(name = "existeAnomalias")
     public boolean existeAnomalias;
 
+    @ColumnInfo(name = "tarefa_sem_tempo")
+    public boolean tarefaSemTempo;
+
+
+
     /**
      * Metodo que permite obter a marca e a ordem da tarefa
      * @return a marca e a ordem

@@ -10,6 +10,7 @@ import com.vvm.sh.api.modelos.bd.ExtintorBd;
 import com.vvm.sh.api.modelos.bd.FormandoBd;
 import com.vvm.sh.api.modelos.bd.RegistoVisitaBd;
 import com.vvm.sh.api.modelos.bd.RelatorioAmbientalBd;
+import com.vvm.sh.api.modelos.bd.RelatorioAveriguacaoBd;
 import com.vvm.sh.baseDados.dao.UploadDao;
 import com.vvm.sh.baseDados.entidades.AcaoFormacaoResultado;
 import com.vvm.sh.baseDados.entidades.AnomaliaResultado;
@@ -20,6 +21,7 @@ import com.vvm.sh.baseDados.entidades.ImagemResultado;
 import com.vvm.sh.baseDados.entidades.LevantamentoRiscoResultado;
 import com.vvm.sh.baseDados.entidades.OcorrenciaResultado;
 import com.vvm.sh.baseDados.entidades.QuestionarioChecklistResultado;
+import com.vvm.sh.baseDados.entidades.RelatorioAveriguacaoResultado;
 import com.vvm.sh.baseDados.entidades.RiscoResultado;
 import com.vvm.sh.baseDados.entidades.SinistralidadeResultado;
 import com.vvm.sh.baseDados.entidades.Tarefa;
@@ -240,5 +242,13 @@ public class UploadRepositorio {
 
     public Integer obterNumeroExtintoresInalterados(int idTarefa) {
         return uploadDao.obterNumeroExtintoresInalterados(idTarefa);
+    }
+
+    public List<RelatorioAveriguacaoBd> obterRelatorioAveriguacao(int idTarefa) {
+        return uploadDao.obterRelatorioAveriguacao(idTarefa);
+    }
+
+    public List<RelatorioAveriguacaoResultado> obterMedidasAveriguacao(int idRelatorio) {
+        return uploadDao.obterMedidasAveriguacao(idRelatorio);
     }
 }

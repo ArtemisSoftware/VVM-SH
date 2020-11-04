@@ -107,11 +107,6 @@ public class CarregamentoActivity extends BaseDaggerActivity {
 
 
                 default:
-                    //TODO: alerta de erro
-
-                    //--Alerta de erro
-                    //if(comunicado.obterMensagem() != null)
-                    //--AlertaUI.erro(dialogo, comunicado.obterMensagem())
                     break;
             }
 

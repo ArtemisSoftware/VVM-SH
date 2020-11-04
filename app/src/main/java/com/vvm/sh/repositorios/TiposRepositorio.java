@@ -377,49 +377,6 @@ public class TiposRepositorio {
 
 
 
-    /**
-     * Metodo que permite atualizar um tipo<br>
-     *     1->Remover a atualizacao e os dados<br>
-     *     2->Inserir novo timestamp<br>
-     *     3->inserir novos dados
-     * @param atualizacao os dados da atualizacao
-     * @param tipos os dados do tipo
-     */
-    public void atualizarTipo(Atualizacao atualizacao, List<Tipo> tipos){
-
-        if(atualizacaoDao.existeRegisto(atualizacao.descricao) == true){
-            atualizacaoDao.atualizarRegisto(atualizacao);
-        }
-        else{
-            atualizacaoDao.inserirRegisto(atualizacao);
-        }
-
-//        tipoDao.inserir(tipos);
-    }
-
-
-    /**
-     * Metodo que permite carregar um tipo<br>
-     *     1->Remover a atualizacao e os dados<br>
-     *     2->Inserir novo timestamp<br>
-     *     3->inserir novos dados
-     * @param atualizacao os dados da atualizacao
-     * @param dadosNovos os dados a inserir
-     * @param dadosAlteradaos os dados a alterar
-     */
-    public void carregarTipo(Atualizacao atualizacao, List<Tipo> dadosNovos, List<Tipo> dadosAlteradaos){
-
-        if(atualizacaoDao.existeRegisto(atualizacao.descricao) == true){
-            atualizacaoDao.atualizarRegisto(atualizacao);
-        }
-        else{
-            atualizacaoDao.inserirRegisto(atualizacao);
-        }
-
-        tipoDao.inserir(dadosNovos);
-        tipoDao.atualizar(dadosAlteradaos);
-    }
-
 
     public void carregarChecklist(Atualizacao atualizacao, List<Tipo> tipos){
         atualizacaoDao.remover(atualizacao.descricao);

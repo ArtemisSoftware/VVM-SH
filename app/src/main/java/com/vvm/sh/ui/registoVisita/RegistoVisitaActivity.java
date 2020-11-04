@@ -69,6 +69,19 @@ public class RegistoVisitaActivity extends BaseDaggerActivity {
     @Override
     protected void subscreverObservadores() {
 
+        viewModel.observarRelatorio().observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean aBoolean) {
+
+                if(aBoolean == false){
+                    activityRegistoVisitaBinding.fabEnviar.setVisibility(View.GONE);
+                    activityRegistoVisitaBinding.fabPreVisualizar.setVisibility(View.GONE);
+                    card_dados_cliente_OnClickListener(null);
+                }
+            }
+        });
+
+
         viewModel.observarMessagem().observe(this, new Observer<Recurso>() {
             @Override
             public void onChanged(Recurso recurso) {
@@ -122,6 +135,8 @@ public class RegistoVisitaActivity extends BaseDaggerActivity {
     @OnClick({R.id.fab_pre_visualizar})
     public void fab_pre_visualizar_OnClickListener(View view) {
 
+        activityRegistoVisitaBinding.fabMenu.close(true);
+
         OnPermissaoConcedidaListener listener = new OnPermissaoConcedidaListener() {
             @Override
             public void executar() {
@@ -131,6 +146,7 @@ public class RegistoVisitaActivity extends BaseDaggerActivity {
                 }
             }
         };
+
 
         if(viewModel.relatorio.getValue().valido == false){
             dialogo.alerta(Sintaxe.Palavras.PDF, Sintaxe.Alertas.DADOS_INCOMPLETOS_PDF);
@@ -144,6 +160,9 @@ public class RegistoVisitaActivity extends BaseDaggerActivity {
 
     @OnClick({R.id.fab_enviar})
     public void fab_enviar_OnClickListener(View view) {
+
+
+        activityRegistoVisitaBinding.fabMenu.close(true);
 
         OnPermissaoConcedidaListener listener = new OnPermissaoConcedidaListener() {
             @Override

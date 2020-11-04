@@ -46,6 +46,7 @@ public class RegistoVisitaViewModel extends BaseViewModel {
     public MutableLiveData<RelatorioRegistoVisita> relatorio;
     public MutableLiveData<DadosCliente> registoVisita;
     public MutableLiveData<List<TrabalhoRealizado>> trabalhos;
+    public MutableLiveData<Boolean> possuiRelatorio;
 
 
     @Inject
@@ -56,8 +57,15 @@ public class RegistoVisitaViewModel extends BaseViewModel {
         relatorio = new MutableLiveData<>();
         registoVisita = new MutableLiveData<>();
         trabalhos = new MutableLiveData<>();
+        possuiRelatorio = new MutableLiveData<>();
 
     }
+
+
+    public MutableLiveData<Boolean> observarRelatorio(){
+        return possuiRelatorio;
+    }
+
 
 
     //--------------------
@@ -240,6 +248,8 @@ public class RegistoVisitaViewModel extends BaseViewModel {
      */
     public void obterRelatorioRegistoVisita(int idTarefa){
 
+        existeRelatorio(idTarefa);
+
         registoVisitaRepositorio.obterRelatorioRegistoVisita(idTarefa)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -353,6 +363,36 @@ public class RegistoVisitaViewModel extends BaseViewModel {
 
     }
 
+
+    /**
+     * Metodo que indica se existe um relatorio
+     * @param idTarefa o identificador da tarefa
+     */
+    private void existeRelatorio(int idTarefa){
+
+        registoVisitaRepositorio.existeRelatorio(idTarefa)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new SingleObserver<Boolean>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onSuccess(Boolean aBoolean) {
+                                possuiRelatorio.setValue(aBoolean);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+                        }
+                );
+    }
 
     //-----------------------
     //Misc

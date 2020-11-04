@@ -10,6 +10,7 @@ import com.vvm.sh.api.modelos.bd.ColaboradorBd;
 import com.vvm.sh.api.modelos.bd.ExtintorBd;
 import com.vvm.sh.api.modelos.bd.RegistoVisitaBd;
 import com.vvm.sh.api.modelos.bd.RelatorioAmbientalBd;
+import com.vvm.sh.api.modelos.bd.RelatorioAveriguacaoBd;
 import com.vvm.sh.api.modelos.envio.AcaoFormacao;
 import com.vvm.sh.api.modelos.envio.Anomalia;
 import com.vvm.sh.api.modelos.envio.AtividadePendente;
@@ -32,12 +33,14 @@ import com.vvm.sh.api.modelos.bd.FormandoBd;
 import com.vvm.sh.api.modelos.envio.Imagem;
 import com.vvm.sh.api.modelos.envio.ItemSeccaoChecklist;
 import com.vvm.sh.api.modelos.envio.Levantamento;
+import com.vvm.sh.api.modelos.envio.MedidaAveriguacao;
 import com.vvm.sh.api.modelos.envio.Observacao;
 import com.vvm.sh.api.modelos.envio.Ocorrencia;
 import com.vvm.sh.api.modelos.envio.ParqueExtintor;
 import com.vvm.sh.api.modelos.envio.Pergunta;
 import com.vvm.sh.api.modelos.envio.RegistoVisita;
 import com.vvm.sh.api.modelos.envio.RelatorioAmbiental;
+import com.vvm.sh.api.modelos.envio.RelatorioAveriguacao;
 import com.vvm.sh.api.modelos.envio.Risco;
 import com.vvm.sh.api.modelos.envio.Seccao;
 import com.vvm.sh.api.modelos.envio.Sinistralidade;
@@ -50,6 +53,7 @@ import com.vvm.sh.baseDados.entidades.CrossSellingResultado;
 import com.vvm.sh.baseDados.entidades.ImagemResultado;
 import com.vvm.sh.baseDados.entidades.LevantamentoRiscoResultado;
 import com.vvm.sh.baseDados.entidades.QuestionarioChecklistResultado;
+import com.vvm.sh.baseDados.entidades.RelatorioAveriguacaoResultado;
 import com.vvm.sh.baseDados.entidades.Resultado;
 import com.vvm.sh.baseDados.entidades.RiscoResultado;
 import com.vvm.sh.baseDados.entidades.Tipo;
@@ -62,10 +66,12 @@ import com.vvm.sh.repositorios.UploadRepositorio;
 import com.vvm.sh.ui.transferencias.modelos.DadosUpload;
 import com.vvm.sh.ui.transferencias.modelos.Upload;
 import com.vvm.sh.util.AtualizacaoUI;
+import com.vvm.sh.util.ResultadoId;
 import com.vvm.sh.util.constantes.AppConfig;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.mapeamento.UploadMapping;
+import com.vvm.sh.util.metodos.ConversorUtil;
 import com.vvm.sh.util.metodos.DatasUtil;
 
 import org.json.JSONArray;
@@ -146,37 +152,38 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
 
                 ++index;
 
-                atualizacaoUI.atualizarUI(AtualizacaoUI.Codigo.PROCESSAMENTO_DADOS, resultado.id + " - recarregarTipos", index, upload.resultados.size());
+                atualizacaoUI.atualizarUI(AtualizacaoUI.Codigo.PROCESSAMENTO_DADOS, ResultadoId.obterDescricao(resultado.id) , index, upload.resultados.size());
 
                 switch (resultado.id){
 
-                    case ID_EMAIL:
-
-                        dadosFormulario.fixarEmail(obterEmail(resultado.idTarefa));
-                        break;
-
-                    case ID_ANOMALIA_CLIENTE:
-
-                        dadosFormulario.fixarAnomalias(obterAnomaliaCliente(resultado.idTarefa));
-                        break;
-
-
-                    case ID_CROSS_SELLING:
-
-                        dadosFormulario.fixarCrossSelling(obterCrossSelling(resultado.idTarefa));
-                        break;
-
-
-                    case ID_OCORRENCIA:
-
-                        dadosFormulario.fixarOcorrencias(obterOcorrencias(resultado.idTarefa));
-                        break;
-
-
-                    case ID_ATIVIDADE_PENDENTE:
-
-                        dadosFormulario.fixarAtividadesPendentes(obterAtividadesPendentes(resultado.idTarefa));
-                        break;
+//                    case ID_EMAIL:
+//
+//                        dadosFormulario.fixarEmail(obterEmail(resultado.idTarefa));
+//                        break;
+//
+//                    case ID_ANOMALIA_CLIENTE:
+//
+//                        dadosFormulario.fixarAnomalias(obterAnomaliaCliente(resultado.idTarefa));
+//                        break;
+//
+//
+//                    case ID_CROSS_SELLING:
+//
+//                        dadosFormulario.fixarCrossSelling(obterCrossSelling(resultado.idTarefa));
+//                        break;
+//
+//
+//                    case ID_OCORRENCIA:
+//
+//                        dadosFormulario.fixarOcorrencias(obterOcorrencias(resultado.idTarefa));
+//                        break;
+//
+//
+//                    case ID_ATIVIDADE_PENDENTE:
+//
+//                        dadosFormulario.fixarAtividadesPendentes(obterAtividadesPendentes(resultado.idTarefa));
+//                        dadosFormulario.fixarAveriguacao(obterAveriguacao(resultado.idTarefa));
+//                        break;
 
 
                     case ID_REGISTO_VISITA:
@@ -185,27 +192,27 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
                         break;
 
 
-                    case ID_PLANO_ACAO:
-
-                        dadosFormulario.fixarAtividadePlanoAcao(obterPlanoAcao(resultado.idTarefa));
-                        break;
-
-
-                    case ID_SINISTRALIDADE:
-
-                        dadosFormulario.sinistralidade = obterSinistralidade(resultado.idTarefa);
-                        break;
-
-                    case ID_QUADRO_PESSOAL:
-
-                        dadosFormulario.fixarQuadroPessoal(obterQuadroPessoal(resultado.idTarefa));
-                        break;
-
-
-                    case ID_PARQUE_EXTINTOR:
-
-                        dadosFormulario.parqueExtintor = obterParqueExtintor(resultado.idTarefa);
-                        break;
+//                    case ID_PLANO_ACAO:
+//
+//                        dadosFormulario.fixarAtividadePlanoAcao(obterPlanoAcao(resultado.idTarefa));
+//                        break;
+//
+//
+//                    case ID_SINISTRALIDADE:
+//
+//                        dadosFormulario.sinistralidade = obterSinistralidade(resultado.idTarefa);
+//                        break;
+//
+//                    case ID_QUADRO_PESSOAL:
+//
+//                        dadosFormulario.fixarQuadroPessoal(obterQuadroPessoal(resultado.idTarefa));
+//                        break;
+//
+//
+//                    case ID_PARQUE_EXTINTOR:
+//
+//                        dadosFormulario.parqueExtintor = obterParqueExtintor(resultado.idTarefa);
+//                        break;
 
                     default:
                         break;
@@ -223,6 +230,29 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
         dadosUpload.equipamentos = obterEquipamentos(resposta);
     }
 
+    private List<RelatorioAveriguacao> obterAveriguacao(int idTarefa) {
+
+        List<RelatorioAveriguacao> registos = new ArrayList<>();
+
+        for (RelatorioAveriguacaoBd item : repositorio.obterRelatorioAveriguacao(idTarefa)) {
+
+            RelatorioAveriguacao registo = UploadMapping.INSTANCE.map(item);
+            registo.dataRelatorio = DatasUtil.converterData(Long.parseLong(item.data), DatasUtil.FORMATO_YYYY_MM_DD);
+
+            List<MedidaAveriguacao> medidas = new ArrayList<>();
+
+            for(RelatorioAveriguacaoResultado medida : repositorio.obterMedidasAveriguacao(item.idRelatorio)){
+                medidas.add(UploadMapping.INSTANCE.map(medida));
+            }
+
+            registo.medidas = medidas;
+            registos.add(registo);
+        }
+
+
+
+        return registos;
+    }
 
 
     private ParqueExtintor obterParqueExtintor(int idTarefa) {

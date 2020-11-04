@@ -6,6 +6,7 @@ import com.vvm.sh.api.modelos.bd.AtividadePlanoAcaoBd;
 import com.vvm.sh.api.modelos.bd.ColaboradorBd;
 import com.vvm.sh.api.modelos.bd.ExtintorBd;
 import com.vvm.sh.api.modelos.bd.RelatorioAmbientalBd;
+import com.vvm.sh.api.modelos.bd.RelatorioAveriguacaoBd;
 import com.vvm.sh.api.modelos.envio.Area;
 import com.vvm.sh.api.modelos.envio.AtividadePlanoAcao;
 import com.vvm.sh.api.modelos.envio.AvaliacaoIluminacao;
@@ -16,10 +17,12 @@ import com.vvm.sh.api.modelos.envio.Equipamento;
 import com.vvm.sh.api.modelos.envio.Extintor;
 import com.vvm.sh.api.modelos.envio.ItemSeccaoChecklist;
 import com.vvm.sh.api.modelos.envio.Levantamento;
+import com.vvm.sh.api.modelos.envio.MedidaAveriguacao;
 import com.vvm.sh.api.modelos.envio.Observacao;
 import com.vvm.sh.api.modelos.envio.Pergunta;
 import com.vvm.sh.api.modelos.envio.RegistoVisita;
 import com.vvm.sh.api.modelos.envio.RelatorioAmbiental;
+import com.vvm.sh.api.modelos.envio.RelatorioAveriguacao;
 import com.vvm.sh.api.modelos.envio.Risco;
 import com.vvm.sh.api.modelos.envio.Sessao;
 import com.vvm.sh.api.modelos.envio.AcaoFormacao;
@@ -48,6 +51,7 @@ import com.vvm.sh.baseDados.entidades.ParqueExtintorResultado;
 import com.vvm.sh.baseDados.entidades.QuestionarioChecklistResultado;
 import com.vvm.sh.baseDados.entidades.RegistoVisitaResultado;
 import com.vvm.sh.baseDados.entidades.RelatorioAmbientalResultado;
+import com.vvm.sh.baseDados.entidades.RelatorioAveriguacaoResultado;
 import com.vvm.sh.baseDados.entidades.RiscoResultado;
 import com.vvm.sh.baseDados.entidades.SinistralidadeResultado;
 import com.vvm.sh.baseDados.entidades.Tarefa;
@@ -204,6 +208,11 @@ public interface UploadMapping {
     @Mapping(target = "numeroFicheiroImagens", source = "idBloco")
     BlocoDados map(DadosUpload dadosUpload);
 
+    @Mapping(target = "dadosFormulario", source = "dados")
+    @Mapping(target = "versaoApp", source = "versao")
+    @Mapping(target = "numeroFicheiroImagens", source = "idBloco")
+    BlocoDados mapDadosSA(DadosUpload dadosUpload);
+
 
 
     @Mapping(target = "diasUteis", source = "diasUteisPerdidos")
@@ -223,4 +232,13 @@ public interface UploadMapping {
     @Mapping(target = "dataValidade", ignore = true)
     Extintor map(ParqueExtintor extintor, ParqueExtintorResultado resultado);
 
+    @Mapping(target = "seccao", source = "descricao")
+    RelatorioAveriguacao map(RelatorioAveriguacaoBd item);
+
+    @Mapping(target = "medidaImplementada", source = "implementado")
+    @Mapping(target = "risco", source = "risco")
+    @Mapping(target = "ponderacao", source = "idPonderacao")
+    @Mapping(target = "idMedida", source = "idMedida")
+    //@Mapping(target = "novaMedida", source = "descricao")
+    MedidaAveriguacao map(RelatorioAveriguacaoResultado medida);
 }

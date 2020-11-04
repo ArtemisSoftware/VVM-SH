@@ -1,4 +1,4 @@
-package com.vvm.sh.servicos;
+package com.vvm.sh.servicos.trabalho;
 
 import android.database.sqlite.SQLiteConstraintException;
 import android.os.AsyncTask;
@@ -45,7 +45,7 @@ import com.vvm.sh.util.metodos.DatasUtil;
 import java.util.ArrayList;
 import java.util.List;
 
-public class TrabalhoAsyncTask extends AsyncTask<ISessao, Void, Void> {
+public class CarregarTrabalhoAsyncTask extends AsyncTask<ISessao, Void, Void> {
 
     protected String errorMessage, idUtilizador;
     private VvmshBaseDados vvmshBaseDados;
@@ -53,7 +53,7 @@ public class TrabalhoAsyncTask extends AsyncTask<ISessao, Void, Void> {
     protected AtualizacaoUI atualizacaoUI;
     private int api;
 
-    public TrabalhoAsyncTask(VvmshBaseDados vvmshBaseDados, TransferenciasRepositorio repositorio, Handler handler, String idUtilizador){
+    public CarregarTrabalhoAsyncTask(VvmshBaseDados vvmshBaseDados, TransferenciasRepositorio repositorio, Handler handler, String idUtilizador){
         this.vvmshBaseDados = vvmshBaseDados;
         this.repositorio = repositorio;
         this.idUtilizador = idUtilizador;

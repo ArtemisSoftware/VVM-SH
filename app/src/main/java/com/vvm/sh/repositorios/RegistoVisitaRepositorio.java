@@ -92,6 +92,9 @@ public class RegistoVisitaRepositorio {
         return registoVisitaDao.obterDadosCliente(idTarefa);
     }
 
+    public Single<Boolean> existeRelatorio(int idTarefa){
+        return registoVisitaDao.existeRelatorio(idTarefa);
+    }
 
     public Observable<RelatorioRegistoVisita> obterRelatorioRegistoVisita(int idTarefa){
         return registoVisitaDao.obterRelatorioRegistoVisita(idTarefa);

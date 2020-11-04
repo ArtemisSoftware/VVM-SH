@@ -100,6 +100,8 @@ public class AvaliacaoTemperaturaHumidadeRegistoActivity extends BaseDaggerActiv
         activityAvaliacaoTemperaturaHumidadeRegistoBinding.setViewmodel(viewModel);
         activityAvaliacaoTemperaturaHumidadeRegistoBinding.setBloquear(PreferenciasUtil.agendaEditavel(this));
 
+        medidas = new ArrayList<>();
+
         subscreverObservadores();
 
         Bundle bundle = getIntent().getExtras();

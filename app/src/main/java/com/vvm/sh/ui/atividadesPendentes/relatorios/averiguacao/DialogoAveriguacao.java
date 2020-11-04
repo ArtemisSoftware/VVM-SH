@@ -43,19 +43,22 @@ public class DialogoAveriguacao extends BaseDaggerDialogoPersistenteFragment {
 
     private static final String ARGUMENTO_ID_RELATORIO = "idRelatorio";
     private static final String ARGUMENTO_ID = "id";
-
+    private static final String ARGUMENTO_ID_MEDIDA = "idMedida";
+    private static final String ARGUMENTO_ID_ATIVIDADE = "idAtividade";
 
     public DialogoAveriguacao() {
         // Empty constructor required for DialogFragment
     }
 
 
-    public static DialogoAveriguacao newInstance(int idRelatorio, int id) {
+    public static DialogoAveriguacao newInstance(int idAtividade, int idRelatorio, int id, int idMedida) {
         DialogoAveriguacao fragmento = new DialogoAveriguacao();
 
         Bundle args = new Bundle();
         args.putInt(ARGUMENTO_ID_RELATORIO, idRelatorio);
         args.putInt(ARGUMENTO_ID, id);
+        args.putInt(ARGUMENTO_ID_MEDIDA, idMedida);
+        args.putInt(ARGUMENTO_ID_ATIVIDADE, idAtividade);
         fragmento.setArguments(args);
         return fragmento;
     }
@@ -129,13 +132,13 @@ public class DialogoAveriguacao extends BaseDaggerDialogoPersistenteFragment {
         Tipo implementacao = (Tipo) binding.spnrImplementacao.getItems().get(binding.spnrImplementacao.getSelectedIndex());
 
         if(implementacao.id == TiposConstantes.Averiguacao.MEDIDA_NAO_IMPLEMENTADA.id){
-            registo = new RelatorioAveriguacaoResultado(getArguments().getInt(ARGUMENTO_ID_RELATORIO), getArguments().getInt(ARGUMENTO_ID), false);
+            registo = new RelatorioAveriguacaoResultado(getArguments().getInt(ARGUMENTO_ID_RELATORIO), getArguments().getInt(ARGUMENTO_ID_MEDIDA), false);
         }
         else{
-            registo = new RelatorioAveriguacaoResultado(getArguments().getInt(ARGUMENTO_ID_RELATORIO), getArguments().getInt(ARGUMENTO_ID), true);
+            registo = new RelatorioAveriguacaoResultado(getArguments().getInt(ARGUMENTO_ID_RELATORIO), getArguments().getInt(ARGUMENTO_ID_MEDIDA), true);
         }
 
-        viewModel.gravar(registo);
+        viewModel.gravar(PreferenciasUtil.obterIdTarefa(getContext()), getArguments().getInt(ARGUMENTO_ID_ATIVIDADE), registo);
 
     }
 

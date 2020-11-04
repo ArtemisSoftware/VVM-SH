@@ -17,8 +17,11 @@ import java.util.HashMap;
 import java.util.Map;
 
 import io.reactivex.Single;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
 import retrofit2.http.HeaderMap;
+import retrofit2.http.POST;
 import retrofit2.http.Path;
 import retrofit2.http.Query;
 
@@ -96,4 +99,29 @@ public interface SegurancaTrabalhoApi {
 
     @GET("ObterContagemTiposMaquina")
     Single<IContagemTipoMaquina> obterContagemTiposMaquinas(@HeaderMap Map<String, String> headers, @Query("utilizador") String id);
+
+
+    @FormUrlEncoded
+    @POST("ProcessarDados")
+    Single<Codigo> submeterDados(
+            @HeaderMap Map<String, String> headers,
+            @Field("strJsonString") String dados,
+            @Field("user") String idUtilizador,
+            @Field("idUnico") String id,
+            @Field("MessageDigest") String messageDigest
+    );
+
+
+    @FormUrlEncoded
+    @POST("ProcessarFotos")
+    Single<Codigo> submeterImagens(
+            @HeaderMap Map<String, String> headers,
+            @Field("strJsonString") String dados,
+            @Field("user") String idUtilizador,
+            @Field("idUnico") String id,
+            @Field("numeroFicheiro") String numeroFicheiro,
+            @Field("MessageDigest") String messageDigest
+    );
+
+
 }

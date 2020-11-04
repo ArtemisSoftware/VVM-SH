@@ -56,6 +56,7 @@ public class DownloadTrabalhoActivity extends BaseDaggerActivity {
         subscreverObservadores();
 
         Bundle bundle = getIntent().getExtras();
+        activityDownloadTrabalhoBinding.setTipo(bundle.getInt(getString(R.string.argumento_download)));
 
         switch (bundle.getInt(getString(R.string.argumento_download))){
 
@@ -98,7 +99,9 @@ public class DownloadTrabalhoActivity extends BaseDaggerActivity {
         viewModel.observarPendencias().observe(this, new Observer<List<Pendencia>>() {
             @Override
             public void onChanged(List<Pendencia> pendencias) {
-                formatarPendencias(pendencias);
+                if(pendencias.size() > 0) {
+                    dialogo.alerta(getString(R.string.pendencias), getString(R.string.pendencias_download));
+                }
             }
         });
 
@@ -146,12 +149,10 @@ public class DownloadTrabalhoActivity extends BaseDaggerActivity {
     private void recarregarTrabalhoDia() {
 
         Bundle bundle = getIntent().getExtras();
-        activityDownloadTrabalhoBinding.txtTitulo.setText(getString(R.string.recarregar_trabalho_dia));
         activityDownloadTrabalhoBinding.txtData.setText(DatasUtil.converterData(bundle.getLong(getString(R.string.argumento_data)), DatasUtil.FORMATO_DD_MM_YYYY));
         activityDownloadTrabalhoBinding.cardTrabalho.setVisibility(View.VISIBLE);
 
         viewModel.recarregarTrabalho(this, PreferenciasUtil.obterIdUtilizador(this), DatasUtil.converterData(bundle.getLong(getString(R.string.argumento_data)), DatasUtil.FORMATO_YYYY_MM_DD), handlerNotificacoesUI);
-        //--viewModel.obterPendencias(PreferenciasUtil.obterIdUtilizador(this), bundle.getLong(getString(R.string.argumento_data)));
     }
 
     /**
@@ -160,19 +161,10 @@ public class DownloadTrabalhoActivity extends BaseDaggerActivity {
     private void recarregarTarefa(){
 
         Bundle bundle = getIntent().getExtras();
-        activityDownloadTrabalhoBinding.txtTitulo.setText(getString(R.string.recarregar_tarefa));
         viewModel.recarregarTarefa(this, (Tarefa) bundle.get(getString(R.string.argumento_tarefa)), handlerNotificacoesUI);
     }
 
 
-
-    /**
-     * Metodo que permite formatar as pendencias
-     * @param registos os registos pendentes
-     */
-    private void formatarPendencias(List<Pendencia> registos) {
-        dialogo.alerta(getString(R.string.pendencias), getString(R.string.pendencias_download));
-    }
 
 
 
@@ -274,11 +266,6 @@ public class DownloadTrabalhoActivity extends BaseDaggerActivity {
                     break;
 
                 default:
-                    //TODO: alerta de erro
-
-                    //--Alerta de erro
-                    //if(comunicado.obterMensagem() != null)
-                    //--AlertaUI.erro(dialogo, comunicado.obterMensagem())
                     break;
             }
 

@@ -8,6 +8,7 @@ import com.vvm.sh.ui.atividadesPendentes.relatorios.averiguacao.modelos.Averigua
 
 import java.util.List;
 
+import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 
@@ -25,7 +26,7 @@ public class AveriguacaoRepositorio implements Repositorio<RelatorioAveriguacaoR
 
 
     public Observable<List<Averiguacao>> obterRelatorio(int idTarefa, int tipo){
-        return averiguacaoDao.obterRelatorio(idTarefa, tipo);
+        return averiguacaoDao.obterRelatorio(idTarefa);
 
     }
 
@@ -52,4 +53,10 @@ public class AveriguacaoRepositorio implements Repositorio<RelatorioAveriguacaoR
     public Single<Integer> remover(RelatorioAveriguacaoResultado item) {
         return null;
     }
+
+
+    public Completable naoImplementado(int idRelatorio){
+        return Completable.concatArray(averiguacaoDao.remover(idRelatorio), averiguacaoDao.inserirNaoImplementado(idRelatorio));
+    }
+
 }

@@ -34,8 +34,8 @@
 
             <ImageView
                 android:id="@+id/imageView5"
-                android:layout_width="40dp"
-                android:layout_height="40dp"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
                 android:layout_marginEnd="16dp"
                 completudeItem="@{averiguacao}"
                 app:layout_constraintBottom_toBottomOf="@+id/textView84"

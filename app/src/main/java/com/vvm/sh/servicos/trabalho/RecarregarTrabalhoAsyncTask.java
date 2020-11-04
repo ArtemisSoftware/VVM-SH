@@ -1,4 +1,4 @@
-package com.vvm.sh.servicos;
+package com.vvm.sh.servicos.trabalho;
 
 import android.os.Handler;
 
@@ -9,7 +9,7 @@ import com.vvm.sh.util.AtualizacaoUI;
 
 import java.util.List;
 
-public class RecarregarTrabalhoAsyncTask extends TrabalhoAsyncTask {
+public class RecarregarTrabalhoAsyncTask extends CarregarTrabalhoAsyncTask {
 
     private long dataTrabalho;
 
@@ -28,12 +28,8 @@ public class RecarregarTrabalhoAsyncTask extends TrabalhoAsyncTask {
         for(int index = 0; index < trabalho.size(); ++index){
 
             inserirTarefas(data, trabalho.get(index));
-            atualizacaoUI.atualizarUI(AtualizacaoUI.Codigo.PROCESSAMENTO_DADOS, "Tarefa " + (index + 1), (index + 1), trabalho.size());
+            atualizacaoUI.atualizarUI(AtualizacaoUI.Codigo.PROCESSAMENTO_TRABALHO, "Tarefa " + (index + 1), (index + 1), trabalho.size());
         }
-
-//        for (ISessao.TrabalhoInfo tarefa : trabalho) {
-//            inserirTarefas(data, tarefa);
-//        }
 
         atualizacaoUI.atualizarUI(AtualizacaoUI.Codigo.PROCESSAMENTO_DOWNLOAD_CONCLUIDO);
     }

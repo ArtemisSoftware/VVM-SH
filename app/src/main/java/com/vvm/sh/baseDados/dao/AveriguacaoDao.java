@@ -12,6 +12,7 @@ import com.vvm.sh.util.metodos.TiposUtil;
 
 import java.util.List;
 
+import io.reactivex.Completable;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 
@@ -43,8 +44,8 @@ abstract public class AveriguacaoDao implements BaseDao<RelatorioAveriguacaoResu
             "LEFT JOIN (SELECT idRelatorio, IFNULL(COUNT(*), 0) as numeroRegistos FROM relatorioAveriguacaoResultado GROUP BY idRelatorio) as rel_avg_res " +
             "ON rel_avg.id = rel_avg_res.idRelatorio  " +
 
-            "WHERE idTarefa = :idTarefa AND tipo = :tipo")
-    abstract public Observable<List<Averiguacao>> obterRelatorio(int idTarefa, int tipo);
+            "WHERE idTarefa = :idTarefa")
+    abstract public Observable<List<Averiguacao>> obterRelatorio(int idTarefa);
 
 
 //
@@ -68,13 +69,13 @@ abstract public class AveriguacaoDao implements BaseDao<RelatorioAveriguacaoResu
 
 
 
-    @Query("SELECT idRelatorio, med.idMedida as idMedida, descricao, implementado " +
+    @Query("SELECT idRelatorio, rel_res.id as id, med.idMedida as idMedida, descricao, implementado " +
             "FROM medidasAveriguacao as med " +
 
             "LEFT JOIN (SELECT id as idMedida, descricao FROM tipos WHERE tipo = '" + TiposUtil.MetodosTipos.MEDIDAS_PREVENCAO_RECOMENDADAS + "' AND api = :api) as tp_med " +
             "ON med.idMedida = tp_med.idMedida " +
 
-            "LEFT JOIN (SELECT idRelatorio, idMedida, implementado FROM relatorioAveriguacaoResultado) as rel_res " +
+            "LEFT JOIN (SELECT id, idRelatorio, idMedida, implementado FROM relatorioAveriguacaoResultado) as rel_res " +
             "ON med.id = rel_res.idRelatorio AND med.idMedida = rel_res.idMedida " +
 
             "WHERE med.id =:idRelatorio AND med.origem = " + Identificadores.Origens.AVERIGUACAO_AVALIACAO_RISCOS + " ")
@@ -82,20 +83,36 @@ abstract public class AveriguacaoDao implements BaseDao<RelatorioAveriguacaoResu
 
 
 
-    @Query("SELECT idRelatorio, med.idMedida as idMedida, descricao, implementado " +
+    @Query("SELECT idRelatorio, rel_res.id as id, med.idMedida as idMedida, descricao, implementado " +
             "FROM medidasAveriguacao as med " +
 
             "LEFT JOIN (SELECT id as idMedida, descricao FROM tipos WHERE tipo = '" + TiposUtil.MetodosTipos.MEDIDAS_PREVENCAO_RECOMENDADAS + "' AND api = :api) as tp_med " +
             "ON med.idMedida = tp_med.idMedida " +
 
-            "LEFT JOIN (SELECT idRelatorio, idMedida, implementado FROM relatorioAveriguacaoResultado) as rel_res " +
+            "LEFT JOIN (SELECT id, idRelatorio, idMedida, implementado FROM relatorioAveriguacaoResultado) as rel_res " +
             "ON med.id = rel_res.idRelatorio AND med.idMedida = rel_res.idMedida " +
 
-            "WHERE med.id =:id AND med.origem = " + Identificadores.Origens.AVERIGUACAO_AVALIACAO_RISCOS + " ")
+            "WHERE rel_res.id =:id AND med.origem = " + Identificadores.Origens.AVERIGUACAO_AVALIACAO_RISCOS + " ")
     abstract public Single<AveriguacaoRegisto> obterRegisto(int id, int api);
 
     //https://mega.nz/folder/jqJAlYyL#Js1gkGWstR3F9O3gKrINgw
     //http://linkunshortner.glitch.me/
+
+
+
+    @Query("DELETE FROM relatorioAveriguacaoResultado WHERE idRelatorio =:idRelatorio")
+    abstract public Completable remover(int idRelatorio);
+
+
+    @Query("INSERT INTO relatorioAveriguacaoResultado (idRelatorio, idMedida, implementado, idPonderacao) " +
+            "SELECT id as idRelatorio, idMedida, 1 as implementado, 0 as idPonderacao " +
+            "FROM medidasAveriguacao " +
+            "WHERE origem =" + Identificadores.Origens.AVERIGUACAO_AVALIACAO_RISCOS +" AND idRelatorio =:idRelatorio")
+    abstract public Completable inserirNaoImplementado(int idRelatorio);
+
+
+
+
 
 }
 

@@ -174,13 +174,22 @@ public class AvaliacaoGeralActivity extends BaseDaggerActivity
                 @Override
                 public void onExecutar() {
 
-                    Intent intent = new Intent(AvaliacaoGeralActivity.this, AvaliacoesAmbientaisActivity.class);
+
                     Bundle bundle = getIntent().getExtras();
                     int origem = bundle.getInt(getString(R.string.argumento_origem_relatorio));
                     int idAtividade = bundle.getInt(getString(R.string.argumento_id_atividade));
                     bundle.putInt(getString(R.string.argumento_id_relatorio), ConversorUtil.converter_long_Para_int((long)recurso.dados));
                     bundle.putInt(getString(R.string.argumento_origem_relatorio), origem);
                     bundle.putInt(getString(R.string.argumento_id_atividade), idAtividade);
+
+                    Intent intent;
+                    if(origem == Identificadores.Relatorios.ID_RELATORIO_ILUMINACAO){
+                        intent = new Intent(AvaliacaoGeralActivity.this, AvaliacaoIluminacaoRegistoActivity.class);
+                    }
+                    else{
+                        intent = new Intent(AvaliacaoGeralActivity.this, AvaliacaoTemperaturaHumidadeRegistoActivity.class);
+                    }
+
                     intent.putExtras(bundle);
                     startActivity(intent);
                     finish();

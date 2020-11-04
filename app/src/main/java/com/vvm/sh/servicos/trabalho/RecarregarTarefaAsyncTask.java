@@ -1,4 +1,4 @@
-package com.vvm.sh.servicos;
+package com.vvm.sh.servicos.trabalho;
 
 import android.os.Handler;
 
@@ -10,7 +10,7 @@ import com.vvm.sh.util.AtualizacaoUI;
 
 import java.util.List;
 
-public class RecarregarTarefaAsyncTask extends TrabalhoAsyncTask {
+public class RecarregarTarefaAsyncTask extends CarregarTrabalhoAsyncTask {
 
     private Tarefa tarefa;
 
@@ -29,6 +29,8 @@ public class RecarregarTarefaAsyncTask extends TrabalhoAsyncTask {
 
                 repositorio.eliminarTarefa(this.tarefa.idTarefa);
                 inserirTarefas(data, tarefa);
+
+                atualizacaoUI.atualizarUI(AtualizacaoUI.Codigo.PROCESSAMENTO_TRABALHO, "Tarefa 1", 1, trabalho.size());
             }
         }
 

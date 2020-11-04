@@ -7,6 +7,7 @@ public interface OnAveriguacaoListener {
 
     void OnItemClick(Averiguacao registo);
 
+    void OnNaoImplementados(Averiguacao registo);
 
     interface OnAveriguacaoItemListener {
 

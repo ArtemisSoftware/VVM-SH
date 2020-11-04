@@ -150,7 +150,13 @@ public class TransferenciasRepositorio {
      * @return um codigo com o resultado da submissao
      */
     public Single<Codigo> submeterDados(String dados, String idUtilizador, String id, String messageDigest) {
-        return apiSA.submeterDados(dados, idUtilizador, id, messageDigest);
+
+        if(AppConfig.sa) {
+            return apiSA.submeterDados(dados, idUtilizador, id, messageDigest);
+        }
+        else{
+            return apiST.submeterDados(SegurancaTrabalhoApi.HEADER, dados, idUtilizador, id, messageDigest);
+        }
     }
 
     /**
@@ -163,7 +169,12 @@ public class TransferenciasRepositorio {
      * @return um codigo com o resultado da submissao
      */
     public Single<Codigo> submeterImagens(String dados, String idUtilizador, String id, String numeroFicheiro, String messageDigest) {
-        return apiSA.submeterImagens(dados, idUtilizador, id, numeroFicheiro, messageDigest);
+        if(AppConfig.sa) {
+            return apiSA.submeterImagens(dados, idUtilizador, id, numeroFicheiro, messageDigest);
+        }
+        else{
+            return apiST.submeterImagens(SegurancaTrabalhoApi.HEADER, dados, idUtilizador, id, numeroFicheiro, messageDigest);
+        }
     }
 
 

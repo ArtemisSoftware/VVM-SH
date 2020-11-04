@@ -20,6 +20,7 @@ import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.databinding.ActivityAvaliacaoIluminacaoRegistoBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.modelos.AvaliacaoAmbiental;
 import com.vvm.sh.ui.pesquisa.PesquisaMedidasActivity;
 import com.vvm.sh.ui.pesquisa.modelos.Pesquisa;
 import com.vvm.sh.ui.pesquisa.PesquisaActivity;
@@ -143,7 +144,7 @@ public class AvaliacaoIluminacaoRegistoActivity extends BaseDaggerActivity
             }
         });
 
-        viewModel.observaElxArea().observe(this, new Observer<List<Tipo>>() {
+        viewModel.observarElxArea().observe(this, new Observer<List<Tipo>>() {
             @Override
             public void onChanged(List<Tipo> tipos) {
                 viewModel.obterElx(tipos.get(0).id);
@@ -151,6 +152,15 @@ public class AvaliacaoIluminacaoRegistoActivity extends BaseDaggerActivity
             }
         });
 
+        viewModel.observarAvaliacao().observe(this, new Observer<AvaliacaoAmbiental>() {
+            @Override
+            public void onChanged(AvaliacaoAmbiental avaliacaoAmbiental) {
+                if(avaliacaoAmbiental != null) {
+                    viewModel.obterElx(avaliacaoAmbiental.resultado.eLxArea);
+                    calcularNivelIluminacao();
+                }
+            }
+        });
     }
 
 

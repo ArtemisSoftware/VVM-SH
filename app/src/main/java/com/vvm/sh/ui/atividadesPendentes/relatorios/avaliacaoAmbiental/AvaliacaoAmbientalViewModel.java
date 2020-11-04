@@ -61,6 +61,7 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
     public MutableLiveData<List<Tipo>> medidas;
 
     public MutableLiveData<AvaliacaoAmbiental> avaliacao;
+    public MutableLiveData<Boolean> possuiRelatorio;
 
 
     @Inject
@@ -84,16 +85,17 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
         medidas = new MutableLiveData<>();
 
         avaliacao = new MutableLiveData<>();
+        possuiRelatorio = new MutableLiveData<>();
 
     }
 
 
 
-    public MutableLiveData<RelatorioAmbiental> observarRelatorio(){
-        return relatorio;
+    public MutableLiveData<Boolean> observarRelatorio(){
+        return possuiRelatorio;
     }
 
-    public MutableLiveData<List<Tipo>> observaElxArea(){
+    public MutableLiveData<List<Tipo>> observarElxArea(){
         return elxArea;
     }
 
@@ -101,6 +103,9 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
         return avaliacoes;
     }
 
+    public MutableLiveData<AvaliacaoAmbiental> observarAvaliacao(){
+        return avaliacao;
+    }
 
 
 
@@ -343,6 +348,8 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
 
         final RelatorioAmbiental[] registo = {new RelatorioAmbiental()};
 
+        existeRelatorio(idAtividade, origem);
+
         avaliacaoAmbientalRepositorio.obterRelatorio(idAtividade, origem)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -451,7 +458,6 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
                 .flatMap(new Function<List<AvaliacaoAmbiental>, ObservableSource<?>>() {
                     @Override
                     public ObservableSource<?> apply(List<AvaliacaoAmbiental> avaliacaoAmbientals) throws Exception {
-
                         return Observable.fromIterable(avaliacaoAmbientals);
                     }
                 })
@@ -620,6 +626,39 @@ public class AvaliacaoAmbientalViewModel extends BaseViewModel {
     //------------------
     //Misc
     //------------------
+
+
+
+    /**
+     * Metodo que indica se existe um relatorio
+     * @param idAtividade
+     * @param origem
+     */
+    private void existeRelatorio(int idAtividade, int origem) {
+
+        avaliacaoAmbientalRepositorio.existeRelatorio(idAtividade, origem)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new SingleObserver<Boolean>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onSuccess(Boolean aBoolean) {
+                                possuiRelatorio.setValue(aBoolean);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+                        }
+                );
+    }
 
 
 

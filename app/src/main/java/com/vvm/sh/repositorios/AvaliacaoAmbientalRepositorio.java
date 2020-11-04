@@ -301,24 +301,13 @@ public class AvaliacaoAmbientalRepositorio {
 
 
     /**
-     * Metodo que permite obter o identificador do relatorio
+     * Metodo que indica se existe um relatorio
      * @param idAtividade o identificador da atividade
      * @param tipo o tipo de relatorio
      * @return o identificador
      */
-    public Maybe<Integer> obterIdRelatorio(int idAtividade, int tipo) {
-        return avaliacaoAmbientalDao.obterIdRelatorio(idAtividade, tipo);
-    }
-
-
-    /**
-     * Metodo que indica a validade dos dados gerais
-     * @param idAtividade o identificador da atividade
-     * @param tipo o tipo de relatorio
-     * @return true caso seja valido ou false caso contrario
-     */
-    public Maybe<Boolean> obterValidadeGeral(int idAtividade, int tipo) {
-        return avaliacaoAmbientalDao.obterValidadeGeral(idAtividade, tipo);
+    public Single<Boolean> existeRelatorio(int idAtividade, int tipo) {
+        return avaliacaoAmbientalDao.existeRelatorio(idAtividade, tipo);
     }
 
 
@@ -336,17 +325,6 @@ public class AvaliacaoAmbientalRepositorio {
 
     }
 
-
-    public Observable<Object> atualizarAvaliacao__(AvaliacaoAmbientalResultado registo){
-
-       return Observable.zip(avaliacaoAmbientalDao.atualizar(registo).toObservable(), avaliacaoAmbientalDao.atualizar(registo).toObservable(), new BiFunction<Integer, Integer, Object>() {
-           @Override
-           public Object apply(Integer integer, Integer integer2) throws Exception {
-               return null;
-           }
-       });
-
-    }
 
     public Observable inserir(int idRegisto, List<Integer> categoriasProfissionais, List<Integer> medidas, int origem, int origemMedidas) {
 

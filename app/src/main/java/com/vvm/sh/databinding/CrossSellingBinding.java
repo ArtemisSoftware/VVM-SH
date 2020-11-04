@@ -20,37 +20,6 @@ import java.util.List;
 
 public class CrossSellingBinding {
 
-    @BindingAdapter({"tipos"})
-    public static void setTipos(NiceSpinner view, List<Tipo> registos) {
-
-        if (registos == null)
-            return;
-
-
-        SpinnerTextFormatter textFormatter = new SpinnerTextFormatter<Tipo>() {
-            @Override
-            public Spannable format(Tipo tipo) {
-
-                //TODO: ver ids na versao de testes
-
-                return new SpannableString(tipo.descricao);
-            }
-        };
-
-        view.setSpinnerTextFormatter(textFormatter);
-        view.setSelectedTextFormatter(textFormatter);
-        /*
-        view.setSelectedTextFormatter(new SpinnerTextFormatter<Tipo>() {
-            @Override
-            public Spannable format(Tipo tipo) {
-                return new SpannableString(tipo.descricao);
-            }
-        });
-        */
-        view.attachDataSource(registos);
-    }
-
-
 
     @BindingAdapter({"registos", "checkBox"})
     public static void setRegistos(RecyclerView view, List<CrossSelling> items, OnCrossSellingListener listener) {

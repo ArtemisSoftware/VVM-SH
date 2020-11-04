@@ -183,15 +183,30 @@
                         app:layout_constraintTop_toBottomOf="@+id/textview88" />
 
                     <TextView
+                        android:id="@+id/textview90"
+                        style="@style/textoDetalhe"
+                        android:layout_below="@+id/textview89"
+                        android:visibility="@{viewmodel.tarefaDia.tarefaSemTempo ? View.VISIBLE : View.GONE}"
+                        android:layout_alignParentRight="true"
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="16dp"
+                        android:text="@string/tarefa_nao_realizada_falta_tempo"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="@+id/textview88"
+                        app:layout_constraintTop_toBottomOf="@+id/textview89"
+                        app:layout_constraintVertical_bias="0.0" />
+
+
+                    <TextView
                         style="@style/textoDetalhe"
                         android:text="@string/validar_email_desbloquear"
-                        android:layout_below="@+id/textview89"
+                        android:layout_below="@+id/textview90"
                         android:layout_alignParentRight="true"
                         android:layout_marginTop="8dp"
                         android:layout_marginBottom="16dp"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="@+id/textview88"
-                        app:layout_constraintTop_toBottomOf="@+id/textview89" />
+                        app:layout_constraintTop_toBottomOf="@+id/textview90" />
 
 
 
@@ -210,6 +225,14 @@
                     android:text="@string/tarefas_realizar"
                     style="@style/tituloCartao"
                     android:padding="16dp"/>
+
+                <TextView
+                    android:id="@+id/textview190"
+                    style="@style/textoDetalhe"
+                    android:paddingLeft="16dp"
+                    android:paddingBottom="8dp"
+                    android:visibility="@{viewmodel.tarefaDia.tarefaSemTempo ? View.VISIBLE : View.GONE}"
+                    android:text="@string/tarefa_nao_realizada_falta_tempo" />
 
 
                 <LinearLayout

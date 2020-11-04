@@ -60,7 +60,10 @@ public class RegistoVisitaBinding {
 
         }
         else{
-            view.setVisibility(View.GONE);
+            view.setText(view.getContext().getString(R.string.nao_sincronizado));
+            chipDrawable.setChipBackgroundColorResource(R.color.cor_nao_sincronizado);
+            view.setChipIcon(view.getContext().getResources().getDrawable(R.drawable.ic_sincronizado_24dp));
+            view.setVisibility(View.VISIBLE);
         }
     }
 

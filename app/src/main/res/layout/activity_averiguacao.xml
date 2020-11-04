@@ -114,28 +114,14 @@
                         android:layout_width="280dp"
                         android:layout_height="0.2dp"
                         android:layout_marginTop="8dp"
+                        android:layout_marginBottom="8dp"
                         android:background="@color/cor_separador"
+                        app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="@+id/textview"
                         app:layout_constraintTop_toBottomOf="@+id/textview" />
 
-                    <TextView
-                        android:id="@+id/textView95"
-                        style="@style/textoDetalhe"
-                        android:layout_marginTop="8dp"
 
-                        app:layout_constraintStart_toStartOf="@+id/textview"
-                        app:layout_constraintTop_toBottomOf="@+id/textview2" />
 
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/chip"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-
-                        android:layout_marginTop="16dp"
-                        android:layout_marginBottom="8dp"
-                        android:theme="@style/Theme.MaterialComponents.Light"
-                        app:layout_constraintStart_toStartOf="@+id/textview"
-                        app:layout_constraintTop_toBottomOf="@+id/textView95" />
 
 
                     <androidx.cardview.widget.CardView
@@ -146,7 +132,7 @@
                         android:visibility="gone"
                         app:layout_constraintBottom_toBottomOf="parent"
                         app:layout_constraintStart_toStartOf="@+id/textview"
-                        app:layout_constraintTop_toBottomOf="@+id/chip">
+                        app:layout_constraintTop_toBottomOf="@+id/textView95">
 
                         <!-- android:onClick="@{() -> listener.showNoteDialog(note) }" -->
 

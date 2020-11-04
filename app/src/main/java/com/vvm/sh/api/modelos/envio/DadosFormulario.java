@@ -34,6 +34,9 @@ public class DadosFormulario {
 
     //-sht
 
+    @SerializedName("RelatorioAvaliacaoRiscos")
+    public AveriguacaoInfo averiguacao;
+
     @SerializedName("Sinistralidade")
     public Sinistralidade sinistralidade;
 
@@ -58,6 +61,7 @@ public class DadosFormulario {
         crossSelling = new CrossSellingInfo();
         ocorrencias = new OcorrenciasInfo();
         atividadesPendentes = new AtividadesPendentesInfo();
+        averiguacao = new AveriguacaoInfo();
 
         sinistralidade = new Sinistralidade();
         planoAcao = new AtividadePlanoAcaoInfo();
@@ -134,7 +138,6 @@ public class DadosFormulario {
         }
     }
 
-
     public class AtividadePlanoAcaoInfo{
 
         @SerializedName("dataRegisto")
@@ -160,6 +163,21 @@ public class DadosFormulario {
             this.dados = new ArrayList<>();
         }
     }
+
+    public class AveriguacaoInfo{
+
+        @SerializedName("dataRegisto")
+        public String dataRegisto;
+
+        @SerializedName("dados")
+        public List<RelatorioAveriguacao> dados;
+
+        public AveriguacaoInfo() {
+            this.dados = new ArrayList<>();
+        }
+    }
+
+
 
     public void fixarEmail(Email email){
         this.email.dataRegisto = DatasUtil.obterDataAtual(DatasUtil.DATA_FORMATO_YYYY_MM_DD__HH_MM_SS);
@@ -195,5 +213,10 @@ public class DadosFormulario {
     public void fixarQuadroPessoal(List<Colaborador> colaboradores) {
         this.quadroPessoal.dataRegisto = DatasUtil.obterDataAtual(DatasUtil.DATA_FORMATO_YYYY_MM_DD__HH_MM_SS);
         this.quadroPessoal.dados = colaboradores;
+    }
+
+    public void fixarAveriguacao(List<RelatorioAveriguacao> relatorios) {
+        this.averiguacao.dataRegisto = DatasUtil.obterDataAtual(DatasUtil.DATA_FORMATO_YYYY_MM_DD__HH_MM_SS);
+        this.averiguacao.dados = relatorios;
     }
 }

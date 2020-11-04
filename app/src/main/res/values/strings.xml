@@ -480,4 +480,8 @@
     <string name="imagem_">Imagens:</string>
     <string name="gerir_atividades_planeaveis">Gerir atividades planeáveis</string>
     <string name="pendente">Pendente</string>
+    <string name="implentado">Implementado</string>
+    <string name="nao_implentado">Não implementado</string>
+    <string name="avaliacoes_ambientais">Avaliações ambientais</string>
+    <string name="tarefa_nao_realizada_falta_tempo">Tarefa não realizada por falta de tempo</string>
 </resources>

@@ -156,4 +156,31 @@ public class TransferenciasBinding {
     }
 
 
+    @BindingAdapter({"textoDownload"})
+    public static void setTextoDownload(TextView view, int tipo) {
+
+        switch (tipo){
+
+            case Identificadores.Download.DOWNLOAD_TRABALHO_DIA:
+
+                view.setText(view.getContext().getText(R.string.download_trabalho));
+                break;
+
+            case Identificadores.Download.RECARREGAR_TRABALHO_DIA:
+
+                view.setText(view.getContext().getText(R.string.download_trabalho));
+                break;
+
+            case Identificadores.Download.RECARREGAR_TAREFA:
+
+                view.setText(view.getContext().getText(R.string.recarregar_tarefa));
+                break;
+
+            default:
+                view.setText(view.getContext().getText(R.string.download_trabalho));
+                break;
+        }
+
+    }
+
 }

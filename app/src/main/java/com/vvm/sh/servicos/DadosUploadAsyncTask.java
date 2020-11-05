@@ -70,6 +70,9 @@ import org.json.JSONArray;
 import java.util.ArrayList;
 import java.util.List;
 
+
+import static com.vvm.sh.util.constantes.Identificadores.Resultados.ID_ATIVIDADE_PENDENTE;
+
 public abstract class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
 
     private String errorMessage, idUtilizador;
@@ -169,13 +172,12 @@ public abstract class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void
 //
 //                        dadosFormulario.fixarOcorrencias(obterOcorrencias(resultado.idTarefa));
 //                        break;
-//
-//
-//                    case ID_ATIVIDADE_PENDENTE:
-//
-//                        dadosFormulario.fixarAtividadesPendentes(obterAtividadesPendentes(resultado.idTarefa));
-//                        dadosFormulario.fixarAveriguacao(obterAveriguacao(resultado.idTarefa));
-//                        break;
+
+
+                    case ID_ATIVIDADE_PENDENTE:
+
+                        dadosFormulario.fixarAtividadesPendentes(obterAtividadesPendentes(resultado.idTarefa));
+                        break;
 
 
 

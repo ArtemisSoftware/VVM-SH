@@ -43,7 +43,6 @@ public class DadosUploadSHAsyncTask extends DadosUploadAsyncTask {
 
             case ID_ATIVIDADE_PENDENTE:
 
-                dadosFormulario.fixarAtividadesPendentes(obterAtividadesPendentes(resultado.idTarefa));
                 //dadosFormulario.fixarAveriguacao(obterAveriguacao(resultado.idTarefa));
                 break;
 
@@ -152,6 +151,8 @@ public class DadosUploadSHAsyncTask extends DadosUploadAsyncTask {
                 registos.add(registo);
             }
         }
+
+
 
         return registos;
     }

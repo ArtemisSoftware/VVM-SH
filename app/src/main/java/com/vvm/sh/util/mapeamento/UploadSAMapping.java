@@ -21,6 +21,6 @@ public interface UploadSAMapping {
     @Mapping(target = "servId", source = "atividade.servId")
     @Mapping(target = "tempoExecucao", source = "resultado.tempoExecucao")
     @Mapping(target = "dataExecucao", source = "resultado.dataExecucao", dateFormat = DatasUtil.FORMATO_YYYY_MM_DD)
-    AtividadePendenteExecutada maAtividadeExecutada(AtividadePendenteBd item);
+    AtividadePendenteExecutada mapAtividadeExecutada(AtividadePendenteBd item);
 
 }

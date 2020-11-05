@@ -1,10 +1,8 @@
 package com.vvm.sh.util.mapeamento;
 
 import com.vvm.sh.api.modelos.bd.AreaBd;
-import com.vvm.sh.api.modelos.bd.AtividadePendenteBd;
 import com.vvm.sh.api.modelos.bd.AtividadePlanoAcaoBd;
 import com.vvm.sh.api.modelos.bd.ColaboradorBd;
-import com.vvm.sh.api.modelos.bd.ExtintorBd;
 import com.vvm.sh.api.modelos.bd.RelatorioAmbientalBd;
 import com.vvm.sh.api.modelos.bd.RelatorioAveriguacaoBd;
 import com.vvm.sh.api.modelos.envio.Area;
@@ -15,7 +13,6 @@ import com.vvm.sh.api.modelos.envio.Checklist;
 import com.vvm.sh.api.modelos.envio.Colaborador;
 import com.vvm.sh.api.modelos.envio.Equipamento;
 import com.vvm.sh.api.modelos.envio.Extintor;
-import com.vvm.sh.api.modelos.envio.ItemSeccaoChecklist;
 import com.vvm.sh.api.modelos.envio.Levantamento;
 import com.vvm.sh.api.modelos.envio.MedidaAveriguacao;
 import com.vvm.sh.api.modelos.envio.Observacao;
@@ -27,8 +24,6 @@ import com.vvm.sh.api.modelos.envio.Risco;
 import com.vvm.sh.api.modelos.envio.Sessao;
 import com.vvm.sh.api.modelos.envio.AcaoFormacao;
 import com.vvm.sh.api.modelos.envio.Anomalia;
-import com.vvm.sh.api.modelos.envio.AtividadePendenteExecutada;
-import com.vvm.sh.api.modelos.envio.AtividadePendenteNaoExecutada;
 import com.vvm.sh.api.BlocoDados;
 import com.vvm.sh.api.modelos.envio.CrossSelling;
 import com.vvm.sh.api.modelos.envio.Email;
@@ -44,13 +39,11 @@ import com.vvm.sh.baseDados.entidades.CrossSellingResultado;
 import com.vvm.sh.baseDados.entidades.EmailResultado;
 import com.vvm.sh.baseDados.entidades.FormandoResultado;
 import com.vvm.sh.baseDados.entidades.ImagemResultado;
-import com.vvm.sh.baseDados.entidades.ItemChecklist;
 import com.vvm.sh.baseDados.entidades.LevantamentoRiscoResultado;
 import com.vvm.sh.baseDados.entidades.ParqueExtintor;
 import com.vvm.sh.baseDados.entidades.ParqueExtintorResultado;
 import com.vvm.sh.baseDados.entidades.QuestionarioChecklistResultado;
 import com.vvm.sh.baseDados.entidades.RegistoVisitaResultado;
-import com.vvm.sh.baseDados.entidades.RelatorioAmbientalResultado;
 import com.vvm.sh.baseDados.entidades.RelatorioAveriguacaoResultado;
 import com.vvm.sh.baseDados.entidades.RiscoResultado;
 import com.vvm.sh.baseDados.entidades.SinistralidadeResultado;
@@ -91,15 +84,7 @@ public interface UploadMapping {
     @Mapping(source = "observacao", target = "observacao")
     Ocorrencia map(OcorrenciaResultado item);
 
-    @Mapping(source = "atividade.servId", target = "servId")
-    @Mapping(source = "resultado.idAnomalia", target = "idAnomalia")
-    @Mapping(source = "resultado.observacao", target = "observacao")
-    AtividadePendenteNaoExecutada mapAtividadeNaoExecutada(AtividadePendenteBd item);
 
-    @Mapping(source = "atividade.servId", target = "servId")
-    @Mapping(source = "resultado.tempoExecucao", target = "tempoExecucao")
-    @Mapping(source = "resultado.dataExecucao", target = "dataExecucao", dateFormat = DatasUtil.FORMATO_YYYY_MM_DD)
-    AtividadePendenteExecutada mapeamentoAtividadeExecutada(AtividadePendenteBd item);
 
 
     @Mapping(source = "data", target = "data", dateFormat = DatasUtil.FORMATO_YYYY_MM_DD)

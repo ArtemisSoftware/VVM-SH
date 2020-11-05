@@ -1,6 +1,10 @@
-package com.vvm.sh.api.modelos.envio;
+package com.vvm.sh.api.modelos.envio.sa;
 
 import com.google.gson.annotations.SerializedName;
+import com.vvm.sh.api.modelos.envio.AcaoFormacao;
+import com.vvm.sh.api.modelos.envio.AtividadePendente;
+import com.vvm.sh.api.modelos.envio.AvaliacaoRiscos;
+import com.vvm.sh.api.modelos.envio.RelatorioAmbiental;
 
 public class AtividadePendenteExecutada extends AtividadePendente {
 

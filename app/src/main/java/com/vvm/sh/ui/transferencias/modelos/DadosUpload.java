@@ -11,6 +11,7 @@ import com.vvm.sh.api.BlocoDados;
 import com.vvm.sh.api.modelos.envio.DadosFormulario;
 import com.vvm.sh.api.modelos.envio.Equipamento;
 import com.vvm.sh.api.modelos.envio.Imagem;
+import com.vvm.sh.util.constantes.AppConfig;
 import com.vvm.sh.util.mapeamento.UploadMapping;
 
 import org.json.JSONException;
@@ -65,7 +66,20 @@ public class DadosUpload {
     }
 
 
-    public void lolo(){
+    public void formatarDados(){
+
+
+        if(AppConfig.sa == false) { //TODO:só para sa
+            if (idBloco != 0) {
+
+                for (int index = 0; index < dados.size(); ++index) {
+                    dados.get(index).numeroFicheirosFotos = idBloco + "";
+                    dados.get(index).versaoApp = "1.42.20"; //TODO:só para sa
+                }
+
+            }
+        }
+
         Gson gson = new Gson();
         BlocoDados registoDados = UploadMapping.INSTANCE.map(this);
         String dados = gson.toJson(registoDados);

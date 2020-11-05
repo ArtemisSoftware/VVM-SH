@@ -1,6 +1,7 @@
-package com.vvm.sh.api.modelos.envio;
+package com.vvm.sh.api.modelos.envio.sa;
 
 import com.google.gson.annotations.SerializedName;
+import com.vvm.sh.api.modelos.envio.AtividadePendente;
 
 public class AtividadePendenteNaoExecutada extends AtividadePendente {
 

@@ -34,6 +34,12 @@ public class DadosFormulario {
 
     //-sht
 
+    @SerializedName("versaoApp")
+    public String versaoApp;
+
+    @SerializedName("numeroFicheirosFotos")
+    public String numeroFicheirosFotos;
+
     @SerializedName("RelatorioAvaliacaoRiscos")
     public AveriguacaoInfo averiguacao;
 

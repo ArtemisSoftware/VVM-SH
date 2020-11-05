@@ -116,7 +116,7 @@ public class DadosUploadSHAsyncTask extends DadosUploadAsyncTask {
 
             if(item.resultado.idEstado == Identificadores.Estados.ESTADO_EXECUTADO){
 
-                AtividadePendenteExecutada registo = UploadSHMapping.INSTANCE.mapeamentoAtividadeExecutada(item);
+                AtividadePendenteExecutada registo = UploadSHMapping.INSTANCE.mapAtividadeExecutada(item);
 
 //                switch (item.atividade.idRelatorio){
 //
@@ -155,5 +155,7 @@ public class DadosUploadSHAsyncTask extends DadosUploadAsyncTask {
 
         return registos;
     }
+
+
 
 }

@@ -8,15 +8,11 @@ import com.vvm.sh.api.modelos.bd.AreaBd;
 import com.vvm.sh.api.modelos.bd.AtividadePlanoAcaoBd;
 import com.vvm.sh.api.modelos.bd.ColaboradorBd;
 import com.vvm.sh.api.modelos.bd.ExtintorBd;
-import com.vvm.sh.api.modelos.bd.RegistoVisitaBd;
 import com.vvm.sh.api.modelos.bd.RelatorioAmbientalBd;
 import com.vvm.sh.api.modelos.bd.RelatorioAveriguacaoBd;
 import com.vvm.sh.api.modelos.envio.AcaoFormacao;
 import com.vvm.sh.api.modelos.envio.Anomalia;
 import com.vvm.sh.api.modelos.envio.AtividadePendente;
-import com.vvm.sh.api.modelos.envio.AtividadePendenteExecutada;
-import com.vvm.sh.api.modelos.envio.AtividadePendenteNaoExecutada;
-import com.vvm.sh.api.modelos.bd.AtividadePendenteBd;
 import com.vvm.sh.api.modelos.envio.AtividadePlanoAcao;
 import com.vvm.sh.api.modelos.envio.AvaliacaoIluminacao;
 import com.vvm.sh.api.modelos.envio.AvaliacaoRiscos;
@@ -38,14 +34,11 @@ import com.vvm.sh.api.modelos.envio.Observacao;
 import com.vvm.sh.api.modelos.envio.Ocorrencia;
 import com.vvm.sh.api.modelos.envio.ParqueExtintor;
 import com.vvm.sh.api.modelos.envio.Pergunta;
-import com.vvm.sh.api.modelos.envio.RegistoVisita;
 import com.vvm.sh.api.modelos.envio.RelatorioAmbiental;
 import com.vvm.sh.api.modelos.envio.RelatorioAveriguacao;
 import com.vvm.sh.api.modelos.envio.Risco;
 import com.vvm.sh.api.modelos.envio.Seccao;
-import com.vvm.sh.api.modelos.envio.Sinistralidade;
 import com.vvm.sh.api.modelos.envio.TrabalhadorVulneravel;
-import com.vvm.sh.api.modelos.envio.TrabalhoRealizado;
 import com.vvm.sh.api.modelos.envio.Ut;
 import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.baseDados.entidades.AvaliacaoAmbientalResultado;
@@ -59,7 +52,6 @@ import com.vvm.sh.baseDados.entidades.RiscoResultado;
 import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.baseDados.entidades.TipoNovo;
 import com.vvm.sh.baseDados.entidades.TrabalhadorVulneravelResultado;
-import com.vvm.sh.baseDados.entidades.TrabalhoRealizadoResultado;
 import com.vvm.sh.baseDados.entidades.AnomaliaResultado;
 import com.vvm.sh.baseDados.entidades.OcorrenciaResultado;
 import com.vvm.sh.repositorios.UploadRepositorio;
@@ -71,15 +63,12 @@ import com.vvm.sh.util.constantes.AppConfig;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.mapeamento.UploadMapping;
-import com.vvm.sh.util.metodos.ConversorUtil;
 import com.vvm.sh.util.metodos.DatasUtil;
 
 import org.json.JSONArray;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import static com.vvm.sh.util.constantes.Identificadores.Resultados.*;
 
 public abstract class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
 
@@ -218,6 +207,7 @@ public abstract class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void
 
             dadosFormulario.idUtilizador = idUtilizador;
             dadosFormulario.id = UploadMapping.INSTANCE.map(repositorio.obterTarefa(upload.tarefa.idTarefa));
+
 
             dadosUpload.fixarDados(dadosFormulario);
             atualizacaoUI.atualizarUI(AtualizacaoUI.Codigo.PROCESSAMENTO_DADOS, "Tarefa: " + upload.tarefa.idTarefa, posicao, resposta.size());
@@ -717,4 +707,7 @@ public abstract class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void
      * @return uma lista de atividades
      */
     protected abstract List<AtividadePendente> obterAtividadesPendentes(int idTarefa);
+
+
+
 }

@@ -22,12 +22,14 @@ import com.vvm.sh.servicos.DadosUploadAsyncTask;
 import com.vvm.sh.servicos.trabalho.RecarregarTarefaAsyncTask;
 import com.vvm.sh.servicos.trabalho.RecarregarTrabalhoAsyncTask;
 import com.vvm.sh.servicos.trabalho.CarregarTrabalhoAsyncTask;
+import com.vvm.sh.servicos.upload.DadosUploadSHAsyncTask;
 import com.vvm.sh.ui.transferencias.modelos.DadosPendencia;
 import com.vvm.sh.ui.transferencias.modelos.DadosUpload;
 import com.vvm.sh.ui.transferencias.modelos.Pendencia;
 import com.vvm.sh.ui.transferencias.modelos.Sessao;
 import com.vvm.sh.ui.transferencias.modelos.Upload;
 import com.vvm.sh.util.Recurso;
+import com.vvm.sh.util.constantes.AppConfig;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.excepcoes.RespostaWsInvalidaException;
@@ -363,8 +365,7 @@ public class TransferenciasViewModel extends BaseViewModel {
                                 showProgressBar(false);
 
                                 if(resultado.size() != 0) {
-                                    DadosUploadAsyncTask servico = new DadosUploadAsyncTask(vvmshBaseDados, handler, uploadRepositorio, idUtilizador);
-                                    servico.execute(resultado);
+                                    gerarDadosUpload(resultado, handler, idUtilizador);
                                 }
                             }
 
@@ -380,6 +381,20 @@ public class TransferenciasViewModel extends BaseViewModel {
                             }
                         }
                 );
+    }
+
+    private void gerarDadosUpload(List<Upload> resultado, Handler handler, String idUtilizador) {
+
+        if(AppConfig.sa){
+
+        }
+        else{
+            DadosUploadSHAsyncTask servico = new DadosUploadSHAsyncTask(vvmshBaseDados, handler, uploadRepositorio, idUtilizador);
+            servico.execute(resultado);
+        }
+
+//        DadosUploadAsyncTask servico = new DadosUploadAsyncTask(vvmshBaseDados, handler, uploadRepositorio, idUtilizador);
+//        servico.execute(resultado);
     }
 
 

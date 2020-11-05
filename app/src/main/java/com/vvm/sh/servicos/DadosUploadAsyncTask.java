@@ -81,13 +81,13 @@ import java.util.List;
 
 import static com.vvm.sh.util.constantes.Identificadores.Resultados.*;
 
-public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
+public abstract class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
 
     private String errorMessage, idUtilizador;
     private VvmshBaseDados vvmshBaseDados;
-    private UploadRepositorio repositorio;
+    protected UploadRepositorio repositorio;
     private JSONArray dadosTarefas = new JSONArray();
-    private List<Integer> idImagens;
+    protected List<Integer> idImagens;
     private DadosUpload dadosUpload;
 
     private AtualizacaoUI atualizacaoUI;
@@ -154,6 +154,9 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
 
                 atualizacaoUI.atualizarUI(AtualizacaoUI.Codigo.PROCESSAMENTO_DADOS, ResultadoId.obterDescricao(resultado.id) , index, upload.resultados.size());
 
+
+                obterDados(dadosFormulario, resultado);
+
                 switch (resultado.id){
 
 //                    case ID_EMAIL:
@@ -186,10 +189,7 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
 //                        break;
 
 
-                    case ID_REGISTO_VISITA:
 
-                        dadosFormulario.registoVisita = obterRegistoVisita(resultado.idTarefa);
-                        break;
 
 
 //                    case ID_PLANO_ACAO:
@@ -198,10 +198,7 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
 //                        break;
 //
 //
-                    case ID_SINISTRALIDADE:
 
-                        dadosFormulario.sinistralidade = obterSinistralidade(resultado.idTarefa);
-                        break;
 //
 //                    case ID_QUADRO_PESSOAL:
 //
@@ -229,6 +226,8 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
 
         dadosUpload.equipamentos = obterEquipamentos(resposta);
     }
+
+
 
     private List<RelatorioAveriguacao> obterAveriguacao(int idTarefa) {
 
@@ -315,14 +314,6 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
     }
 
 
-    /**
-     * Metodo que permite obter a sinistralidade
-     * @param idTarefa o identificador da tarefa
-     * @return a sinistralidade
-     */
-    private Sinistralidade obterSinistralidade(int idTarefa) {
-        return UploadMapping.INSTANCE.map(repositorio.obterSinistralidade(idTarefa));
-    }
 
 
     /**
@@ -370,36 +361,6 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
 
 
 
-
-    /**
-     * Metodo que permite obter o registo de visita
-     * @param idTarefa o identificador da tarefa
-     * @return os dados do registo
-     */
-    private RegistoVisita obterRegistoVisita(int idTarefa){
-
-        RegistoVisitaBd registo = repositorio.obterRegistoVisita(idTarefa);
-
-        RegistoVisita registoVisita = UploadMapping.INSTANCE.map(registo.resultado);
-        Imagem imagem = new Imagem();
-        imagem.idFoto = registo.idImagem + "";
-
-        registoVisita.data = DatasUtil.obterDataAtual(DatasUtil.FORMATO_DD_MM_YYYY__HH_MM);
-        registoVisita.album = new ArrayList<>();
-        registoVisita.album.add(imagem);
-        idImagens.add(registo.idImagem);
-
-        List<TrabalhoRealizado> registos = new ArrayList<>();
-
-        for (TrabalhoRealizadoResultado item : repositorio.obterTrabalhoRealizado(idTarefa)) {
-
-            TrabalhoRealizado trabalhoRealizado = UploadMapping.INSTANCE.map(item);
-            registos.add(trabalhoRealizado);
-        }
-
-        registoVisita.trabalhosRealizados = registos;
-        return registoVisita;
-    }
 
 
     /**
@@ -601,58 +562,58 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
      * @param idTarefa o identificador da tarefa
      * @return uma lista de atividades
      */
-    private List<AtividadePendente> obterAtividadesPendentes(int idTarefa) {
-
-        List<AtividadePendente> registos = new ArrayList<>();
-
-        for (AtividadePendenteBd item : repositorio.obterAtividadesPendentes(idTarefa)) {
-
-            if(item.resultado.idEstado == Identificadores.Estados.ESTADO_EXECUTADO){
-
-                AtividadePendenteExecutada registo = UploadMapping.INSTANCE.mapeamentoAtividadeExecutada(item);
-
-                switch (item.atividade.idRelatorio){
-
-                    case Identificadores.Relatorios.ID_RELATORIO_FORMACAO:
-
-                        registo.formacao = obterAcaoFormacao(item.resultado.id);
-                        break;
-
-                    case Identificadores.Relatorios.ID_RELATORIO_AVALIACAO_RISCO:
-
-                        registo.avaliacaoRiscos = obterAvaliacaoRiscos(idTarefa, item.resultado.id);
-                        break;
-
-                    case Identificadores.Relatorios.ID_RELATORIO_ILUMINACAO:
-
-                        registo.iluminacao = obterRelatorioIluminacao(item.resultado.id);
-                        break;
-
-                    case Identificadores.Relatorios.ID_RELATORIO_TEMPERATURA_HUMIDADE:
-
-                        registo.temperaturaHumidade = obterRelatorioTemperaturaHumidade(item.resultado.id);
-                        break;
-
-                    default:
-                        break;
-                }
-
+//    private List<AtividadePendente> obterAtividadesPendentes(int idTarefa) {
 //
-//                registo.formacao = obterAcaoFormacao(item.resultado.id);
-//                registo.avaliacaoRiscos = obterAvaliacaoRiscos(idTarefa, item.resultado.id);
-//                registo.iluminacao = obterRelatorioIluminacao(item.resultado.id);
-//                registo.temperaturaHumidade = obterRelatorioTemperaturaHumidade(item.resultado.id);
-
-                registos.add(registo);
-            }
-            else {
-                AtividadePendenteNaoExecutada registo = UploadMapping.INSTANCE.mapAtividadeNaoExecutada(item);
-                registos.add(registo);
-            }
-        }
-
-        return registos;
-    }
+//        List<AtividadePendente> registos = new ArrayList<>();
+//
+//        for (AtividadePendenteBd item : repositorio.obterAtividadesPendentes(idTarefa)) {
+//
+//            if(item.resultado.idEstado == Identificadores.Estados.ESTADO_EXECUTADO){
+//
+//                AtividadePendenteExecutada registo = UploadMapping.INSTANCE.mapeamentoAtividadeExecutada(item);
+//
+//                switch (item.atividade.idRelatorio){
+//
+//                    case Identificadores.Relatorios.ID_RELATORIO_FORMACAO:
+//
+//                        registo.formacao = obterAcaoFormacao(item.resultado.id);
+//                        break;
+//
+//                    case Identificadores.Relatorios.ID_RELATORIO_AVALIACAO_RISCO:
+//
+//                        registo.avaliacaoRiscos = obterAvaliacaoRiscos(idTarefa, item.resultado.id);
+//                        break;
+//
+//                    case Identificadores.Relatorios.ID_RELATORIO_ILUMINACAO:
+//
+//                        registo.iluminacao = obterRelatorioIluminacao(item.resultado.id);
+//                        break;
+//
+//                    case Identificadores.Relatorios.ID_RELATORIO_TEMPERATURA_HUMIDADE:
+//
+//                        registo.temperaturaHumidade = obterRelatorioTemperaturaHumidade(item.resultado.id);
+//                        break;
+//
+//                    default:
+//                        break;
+//                }
+//
+////
+////                registo.formacao = obterAcaoFormacao(item.resultado.id);
+////                registo.avaliacaoRiscos = obterAvaliacaoRiscos(idTarefa, item.resultado.id);
+////                registo.iluminacao = obterRelatorioIluminacao(item.resultado.id);
+////                registo.temperaturaHumidade = obterRelatorioTemperaturaHumidade(item.resultado.id);
+//
+//                registos.add(registo);
+//            }
+//            else {
+//                AtividadePendenteNaoExecutada registo = UploadMapping.INSTANCE.mapAtividadeNaoExecutada(item);
+//                registos.add(registo);
+//            }
+//        }
+//
+//        return registos;
+//    }
 
 
     private List<AtividadePlanoAcao> obterPlanoAcao(int idTarefa) {
@@ -742,4 +703,18 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
         return email;
     }
 
+
+    //-----------------------
+    //Metodos abstratos
+    //-----------------------
+
+    protected abstract void obterDados(DadosFormulario dadosFormulario, Resultado resultado);
+
+
+    /**
+     * Metodo que permite obter as atividades pendentes
+     * @param idTarefa o identificador da tarefa
+     * @return uma lista de atividades
+     */
+    protected abstract List<AtividadePendente> obterAtividadesPendentes(int idTarefa);
 }

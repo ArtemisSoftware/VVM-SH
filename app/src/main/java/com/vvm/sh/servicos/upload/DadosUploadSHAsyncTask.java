@@ -5,13 +5,13 @@ import android.os.Handler;
 import com.vvm.sh.api.modelos.bd.AtividadePendenteBd;
 import com.vvm.sh.api.modelos.bd.RegistoVisitaBd;
 import com.vvm.sh.api.modelos.envio.AtividadePendente;
-import com.vvm.sh.api.modelos.envio.AtividadePendenteExecutada;
-import com.vvm.sh.api.modelos.envio.AtividadePendenteNaoExecutada;
 import com.vvm.sh.api.modelos.envio.DadosFormulario;
 import com.vvm.sh.api.modelos.envio.Imagem;
 import com.vvm.sh.api.modelos.envio.RegistoVisita;
 import com.vvm.sh.api.modelos.envio.Sinistralidade;
 import com.vvm.sh.api.modelos.envio.TrabalhoRealizado;
+import com.vvm.sh.api.modelos.envio.sht.AtividadePendenteExecutada;
+import com.vvm.sh.api.modelos.envio.sht.AtividadePendenteNaoExecutada;
 import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.baseDados.entidades.Resultado;
 import com.vvm.sh.baseDados.entidades.TrabalhoRealizadoResultado;
@@ -19,6 +19,7 @@ import com.vvm.sh.repositorios.UploadRepositorio;
 import com.vvm.sh.servicos.DadosUploadAsyncTask;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.mapeamento.UploadMapping;
+import com.vvm.sh.util.mapeamento.UploadSHMapping;
 import com.vvm.sh.util.metodos.DatasUtil;
 
 import java.util.ArrayList;
@@ -114,9 +115,9 @@ public class DadosUploadSHAsyncTask extends DadosUploadAsyncTask {
         for (AtividadePendenteBd item : repositorio.obterAtividadesPendentes(idTarefa)) {
 
             if(item.resultado.idEstado == Identificadores.Estados.ESTADO_EXECUTADO){
-//
-//                AtividadePendenteExecutada registo = UploadMapping.INSTANCE.mapeamentoAtividadeExecutada(item);
-//
+
+                AtividadePendenteExecutada registo = UploadSHMapping.INSTANCE.mapeamentoAtividadeExecutada(item);
+
 //                switch (item.atividade.idRelatorio){
 //
 //                    case Identificadores.Relatorios.ID_RELATORIO_FORMACAO:
@@ -142,12 +143,12 @@ public class DadosUploadSHAsyncTask extends DadosUploadAsyncTask {
 //                    default:
 //                        break;
 //                }
-//
-//
-//                registos.add(registo);
+
+
+                registos.add(registo);
             }
             else {
-                AtividadePendenteNaoExecutada registo = UploadMapping.INSTANCE.mapAtividadeNaoExecutada(item);
+                AtividadePendenteNaoExecutada registo = UploadSHMapping.INSTANCE.mapAtividadeNaoExecutada(item);
                 registos.add(registo);
             }
         }

@@ -55,17 +55,21 @@ public class AtividadePendente {
     public int idChecklist;
 
 
+    @ColumnInfo(name = "anuidade")
+    public String anuidade;
+
     @Ignore
     public AtividadePendente() {
     }
 
 
-    public AtividadePendente(int idTarefa, @NonNull Date dataProgramada, @NonNull String descricao, @NonNull String servId, int idRelatorio) {
+    public AtividadePendente(int idTarefa, @NonNull Date dataProgramada, @NonNull String descricao, @NonNull String servId, int idRelatorio, String anuidade) {
         this.idTarefa = idTarefa;
         this.dataProgramada = dataProgramada;
         this.descricao = descricao;
         this.servId = servId;
         this.idRelatorio = idRelatorio;
+        this.anuidade = anuidade;
     }
 
 

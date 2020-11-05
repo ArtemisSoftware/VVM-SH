@@ -71,16 +71,22 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+import static com.vvm.sh.util.constantes.Identificadores.Resultados.ID_OCORRENCIA;
+import static com.vvm.sh.util.constantes.Identificadores.Resultados.ID_EMAIL;
+import static com.vvm.sh.util.constantes.Identificadores.Resultados.ID_CROSS_SELLING;
 import static com.vvm.sh.util.constantes.Identificadores.Resultados.ID_ATIVIDADE_PENDENTE;
 
 public abstract class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
 
-    private String errorMessage, idUtilizador;
+    private String errorMessage;
     private VvmshBaseDados vvmshBaseDados;
-    protected UploadRepositorio repositorio;
+
     private JSONArray dadosTarefas = new JSONArray();
+
+    protected UploadRepositorio repositorio;
     protected List<Integer> idImagens;
-    private DadosUpload dadosUpload;
+    protected DadosUpload dadosUpload;
+    protected String idUtilizador;
 
     private AtualizacaoUI atualizacaoUI;
 
@@ -147,31 +153,23 @@ public abstract class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void
                 atualizacaoUI.atualizarUI(AtualizacaoUI.Codigo.PROCESSAMENTO_DADOS, ResultadoId.obterDescricao(resultado.id) , index, upload.resultados.size());
 
 
-                obterDados(dadosFormulario, resultado);
 
                 switch (resultado.id){
 
-//                    case ID_EMAIL:
-//
-//                        dadosFormulario.fixarEmail(obterEmail(resultado.idTarefa));
-//                        break;
-//
-//                    case ID_ANOMALIA_CLIENTE:
-//
-//                        dadosFormulario.fixarAnomalias(obterAnomaliaCliente(resultado.idTarefa));
-//                        break;
-//
-//
-//                    case ID_CROSS_SELLING:
-//
-//                        dadosFormulario.fixarCrossSelling(obterCrossSelling(resultado.idTarefa));
-//                        break;
-//
-//
-//                    case ID_OCORRENCIA:
-//
-//                        dadosFormulario.fixarOcorrencias(obterOcorrencias(resultado.idTarefa));
-//                        break;
+                    case ID_EMAIL:
+
+                        dadosFormulario.fixarEmail(obterEmail(resultado.idTarefa));
+                        break;
+
+                    case ID_CROSS_SELLING:
+
+                        dadosFormulario.fixarCrossSelling(obterCrossSelling(resultado.idTarefa));
+                        break;
+
+                    case ID_OCORRENCIA:
+
+                        dadosFormulario.fixarOcorrencias(obterOcorrencias(resultado.idTarefa));
+                        break;
 
 
                     case ID_ATIVIDADE_PENDENTE:
@@ -181,30 +179,11 @@ public abstract class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void
 
 
 
-
-
-//                    case ID_PLANO_ACAO:
-//
-//                        dadosFormulario.fixarAtividadePlanoAcao(obterPlanoAcao(resultado.idTarefa));
-//                        break;
-//
-//
-
-//
-//                    case ID_QUADRO_PESSOAL:
-//
-//                        dadosFormulario.fixarQuadroPessoal(obterQuadroPessoal(resultado.idTarefa));
-//                        break;
-//
-//
-//                    case ID_PARQUE_EXTINTOR:
-//
-//                        dadosFormulario.parqueExtintor = obterParqueExtintor(resultado.idTarefa);
-//                        break;
-
                     default:
                         break;
                 }
+
+                obterDados(dadosFormulario, resultado);
             }
 
             dadosFormulario.idUtilizador = idUtilizador;
@@ -215,95 +194,12 @@ public abstract class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void
             atualizacaoUI.atualizarUI(AtualizacaoUI.Codigo.PROCESSAMENTO_DADOS, "Tarefa: " + upload.tarefa.idTarefa, posicao, resposta.size());
         }
 
+        adicionarCamposAdicionais(resposta);
 
-        dadosUpload.equipamentos = obterEquipamentos(resposta);
+
     }
 
 
-
-    private List<RelatorioAveriguacao> obterAveriguacao(int idTarefa) {
-
-        List<RelatorioAveriguacao> registos = new ArrayList<>();
-
-        for (RelatorioAveriguacaoBd item : repositorio.obterRelatorioAveriguacao(idTarefa)) {
-
-            RelatorioAveriguacao registo = UploadMapping.INSTANCE.map(item);
-            registo.dataRelatorio = DatasUtil.converterData(Long.parseLong(item.data), DatasUtil.FORMATO_YYYY_MM_DD);
-
-            List<MedidaAveriguacao> medidas = new ArrayList<>();
-
-            for(RelatorioAveriguacaoResultado medida : repositorio.obterMedidasAveriguacao(item.idRelatorio)){
-                medidas.add(UploadMapping.INSTANCE.map(medida));
-            }
-
-            registo.medidas = medidas;
-            registos.add(registo);
-        }
-
-
-
-        return registos;
-    }
-
-
-    private ParqueExtintor obterParqueExtintor(int idTarefa) {
-
-        List<Extintor> registos = new ArrayList<>();
-
-        for (ExtintorBd item : repositorio.obterParqueExtintor(idTarefa)) {
-
-            Extintor registo = UploadMapping.INSTANCE.map(item.extintor, item.resultado);
-
-            registos.add(registo);
-        }
-
-        ParqueExtintor parqueExtintor = new ParqueExtintor();
-        parqueExtintor.extintores = registos;
-        parqueExtintor.inalterado = repositorio.obterNumeroExtintoresInalterados(idTarefa) + "";
-        return parqueExtintor;
-    }
-
-    private List<Equipamento> obterEquipamentos(List<Upload> resposta) {
-
-        List<Integer> ids = new ArrayList<>();
-        List<Equipamento> registos = new ArrayList<>();
-
-        for(Upload item : resposta){
-            ids.add(item.tarefa.idTarefa);
-        }
-
-        for (TipoNovo item : repositorio.obterNovosEquipamentos(ids)) {
-
-            Equipamento equipamento = UploadMapping.INSTANCE.map(item);
-            equipamento.id = Identificadores.Codigos.EQUIPAMENTO + item.idProvisorio;
-            equipamento.idUtilizador = idUtilizador;
-            registos.add(equipamento);
-        }
-
-        return registos;
-    }
-
-
-    /**
-     * Metodo que permite obter o quadro pessoal
-     * @param idTarefa o identificador da tarefa
-     * @return uma lista de colaboradores
-     */
-    private List<Colaborador> obterQuadroPessoal(int idTarefa) {
-
-        List<Colaborador> registos = new ArrayList<>();
-
-        for (ColaboradorBd item : repositorio.obterQuadroPessoal(idTarefa)) {
-
-            Colaborador colaborador = UploadMapping.INSTANCE.map(item);
-            colaborador.dataAdmissao = DatasUtil.converterData(item.dataAdmissao, DatasUtil.FORMATO_YYYY_MM_DD);
-            colaborador.dataNascimento = DatasUtil.converterData(item.dataNascimento, DatasUtil.FORMATO_YYYY_MM_DD);
-            colaborador.dataAdmissaoFuncao = DatasUtil.converterData(item.dataAdmissaoFuncao, DatasUtil.FORMATO_YYYY_MM_DD);
-            registos.add(colaborador);
-        }
-
-        return registos;
-    }
 
 
 
@@ -473,53 +369,7 @@ public abstract class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void
     }
 
 
-    private RelatorioAmbiental obterRelatorioIluminacao(int idAtividade) {
 
-        RelatorioAmbientalBd registo = repositorio.obterRelatorioIluminacao(idAtividade);
-        RelatorioAmbiental relatorioAmbiental = UploadMapping.INSTANCE.map(registo);
-        relatorioAmbiental.inicio = DatasUtil.converterData(registo.resultado.inicio, DatasUtil.HORA_FORMATO_HH_MM);
-        relatorioAmbiental.termino =  DatasUtil.converterData(registo.resultado.termino, DatasUtil.HORA_FORMATO_HH_MM);
-        relatorioAmbiental.dataAvaliacao = DatasUtil.converterData(registo.resultado.data, DatasUtil.FORMATO_YYYY_MM_DD);
-        relatorioAmbiental.equipamento = Sintaxe.Palavras.EQUIPAMENTO_RELATORIO_ILUMINACAO;
-
-        for(AvaliacaoAmbientalResultado item : repositorio.obterAvaliacoesAmbiental(registo.resultado.id)){
-
-            List<Integer> categoriasProfissionais = repositorio.obterCategoriasProfissionais(item.id, Identificadores.Origens.ORIGEM_RELATORIO_ILUMINACAO);
-            List<Integer> medidas = repositorio.obterMedidas(item.id, Identificadores.Origens.ORIGEM_RELATORIO_ILUMINACAO_MEDIDAS_RECOMENDADAS);
-
-            AvaliacaoIluminacao avaliacao = UploadMapping.INSTANCE.mapeamentoIluminacao(item);
-            avaliacao.categoriasProfissionais = categoriasProfissionais;
-            avaliacao.medidasRecomendadas = medidas;
-
-            relatorioAmbiental.avaliacoes.add(avaliacao);
-        }
-
-        return relatorioAmbiental;
-    }
-
-    private RelatorioAmbiental obterRelatorioTemperaturaHumidade(int idAtividade) {
-
-        RelatorioAmbientalBd registo = repositorio.obterRelatorioTemperaturaHumidade(idAtividade);
-        RelatorioAmbiental relatorioAmbiental = UploadMapping.INSTANCE.map(registo);
-        relatorioAmbiental.inicio = DatasUtil.converterData(registo.resultado.inicio, DatasUtil.HORA_FORMATO_HH_MM);
-        relatorioAmbiental.termino =  DatasUtil.converterData(registo.resultado.termino, DatasUtil.HORA_FORMATO_HH_MM);
-        relatorioAmbiental.dataAvaliacao = DatasUtil.converterData(registo.resultado.data, DatasUtil.FORMATO_YYYY_MM_DD);
-        relatorioAmbiental.equipamento = Sintaxe.Palavras.EQUIPAMENTO_RELATORIO_TEMPERATURA_HUMIDADE;
-
-        for(AvaliacaoAmbientalResultado item : repositorio.obterAvaliacoesAmbiental(registo.resultado.id)){
-
-            List<Integer> categoriasProfissionais = repositorio.obterCategoriasProfissionais(item.id, Identificadores.Origens.ORIGEM_RELATORIO_TEMPERATURA_HUMIDADE);
-            List<Integer> medidas = repositorio.obterMedidas(item.id, Identificadores.Origens.ORIGEM_RELATORIO_TEMPERATURA_HUMIDADE_MEDIDAS_RECOMENDADAS);
-
-            AvaliacaoTemperaturaHumidade avaliacao = UploadMapping.INSTANCE.map(item);
-            avaliacao.categoriasProfissionais = categoriasProfissionais;
-            avaliacao.medidasRecomendadas = medidas;
-
-            relatorioAmbiental.avaliacoes.add(avaliacao);
-        }
-
-        return relatorioAmbiental;
-    }
 
 
     private List<Levantamento> obterLevantamentoRisco(int idAtividade) {
@@ -549,77 +399,7 @@ public abstract class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void
     }
 
 
-    /**
-     * Metodo que permite obter as atividades pendentes
-     * @param idTarefa o identificador da tarefa
-     * @return uma lista de atividades
-     */
-//    private List<AtividadePendente> obterAtividadesPendentes(int idTarefa) {
-//
-//        List<AtividadePendente> registos = new ArrayList<>();
-//
-//        for (AtividadePendenteBd item : repositorio.obterAtividadesPendentes(idTarefa)) {
-//
-//            if(item.resultado.idEstado == Identificadores.Estados.ESTADO_EXECUTADO){
-//
-//                AtividadePendenteExecutada registo = UploadMapping.INSTANCE.mapeamentoAtividadeExecutada(item);
-//
-//                switch (item.atividade.idRelatorio){
-//
-//                    case Identificadores.Relatorios.ID_RELATORIO_FORMACAO:
-//
-//                        registo.formacao = obterAcaoFormacao(item.resultado.id);
-//                        break;
-//
-//                    case Identificadores.Relatorios.ID_RELATORIO_AVALIACAO_RISCO:
-//
-//                        registo.avaliacaoRiscos = obterAvaliacaoRiscos(idTarefa, item.resultado.id);
-//                        break;
-//
-//                    case Identificadores.Relatorios.ID_RELATORIO_ILUMINACAO:
-//
-//                        registo.iluminacao = obterRelatorioIluminacao(item.resultado.id);
-//                        break;
-//
-//                    case Identificadores.Relatorios.ID_RELATORIO_TEMPERATURA_HUMIDADE:
-//
-//                        registo.temperaturaHumidade = obterRelatorioTemperaturaHumidade(item.resultado.id);
-//                        break;
-//
-//                    default:
-//                        break;
-//                }
-//
-////
-////                registo.formacao = obterAcaoFormacao(item.resultado.id);
-////                registo.avaliacaoRiscos = obterAvaliacaoRiscos(idTarefa, item.resultado.id);
-////                registo.iluminacao = obterRelatorioIluminacao(item.resultado.id);
-////                registo.temperaturaHumidade = obterRelatorioTemperaturaHumidade(item.resultado.id);
-//
-//                registos.add(registo);
-//            }
-//            else {
-//                AtividadePendenteNaoExecutada registo = UploadMapping.INSTANCE.mapAtividadeNaoExecutada(item);
-//                registos.add(registo);
-//            }
-//        }
-//
-//        return registos;
-//    }
 
-
-    private List<AtividadePlanoAcao> obterPlanoAcao(int idTarefa) {
-
-        List<AtividadePlanoAcao> registos = new ArrayList<>();
-
-        for (AtividadePlanoAcaoBd item : repositorio.obterPlanoAcao(idTarefa)) {
-
-            AtividadePlanoAcao registo = UploadMapping.INSTANCE.map(item);
-            registos.add(registo);
-        }
-
-        return registos;
-    }
 
 
 
@@ -667,33 +447,7 @@ public abstract class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void
     }
 
 
-    /**
-     * Metodo que permite obter as anomalias de um cliente
-     * @param idTarefa o identificador da tarefa
-     * @return os dados das anomalias
-     */
-    private List<Anomalia> obterAnomaliaCliente(int idTarefa) {
 
-        List<Anomalia> registos = new ArrayList<>();
-
-        for (AnomaliaResultado item : repositorio.obterAnomalias(idTarefa)) {
-            registos.add(UploadMapping.INSTANCE.map(item));
-        }
-
-        return registos;
-    }
-
-
-    /**
-     * Metodo que permite obter um email
-     * @param idTarefa o identificador da tarefa
-     * @return os dados do email
-     */
-    private Email obterEmail(int idTarefa) {
-
-        Email email = UploadMapping.INSTANCE.map(repositorio.obterEmail(idTarefa));
-        return email;
-    }
 
 
     //-----------------------
@@ -710,6 +464,19 @@ public abstract class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void
      */
     protected abstract List<AtividadePendente> obterAtividadesPendentes(int idTarefa);
 
+    /**
+     * Metodo que permite obter um email
+     * @param idTarefa o identificador da tarefa
+     * @return os dados do email
+     */
+    protected abstract Email obterEmail(int idTarefa);
+
+
+    /**
+     * Metodo que permite adicionar campos adicionais
+     * @param resposta
+     */
+    protected abstract void adicionarCamposAdicionais(List<Upload> resposta);
 
 
 }

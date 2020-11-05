@@ -7,6 +7,8 @@
     <data>
 
         <import type="java.util.List"/>
+        <import type="android.view.View"/>
+        <import type="com.vvm.sh.util.constantes.Identificadores"/>
 
 
         <variable
@@ -42,24 +44,42 @@
         </com.google.android.material.textfield.TextInputLayout>
 
 
+        <LinearLayout
+            android:id="@+id/lnr_estado"
 
-        <TextView
+            android:visibility="@{viewmodel.tarefaDia.tarefa.api == Identificadores.App.APP_SA  ? View.VISIBLE : View.GONE}"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="@string/estado"
-            style="@style/textoInput"
-            android:layout_marginTop="@dimen/spacing_dialog_item" />
+            android:orientation="vertical"
+            android:layout_marginTop="@dimen/spacing_dialog_item" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/estado"
+                style="@style/textoInput"/>
 
 
-        <com.jaredrummler.materialspinner.MaterialSpinner
-            android:id="@+id/spnr_email"
-            app:tipos_="@{viewmodel.opcoesEmail}"
-            app:email="@{viewmodel.tarefaDia.email}"
-            android:layout_width="match_parent"
+            <com.jaredrummler.materialspinner.MaterialSpinner
+                android:id="@+id/spnr_email"
+                app:tipos_="@{viewmodel.opcoesEmail}"
+                app:email="@{viewmodel.tarefaDia.email}"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/email"/>
+
+        </LinearLayout>
+
+        <CheckBox
+
+            android:visibility="@{viewmodel.tarefaDia.tarefa.api == Identificadores.App.APP_ST  ? View.VISIBLE : View.GONE}"
+            android:id="@+id/chk_autorizacao"
+            style="@style/textoDetalhe"
+            android:checked="@{viewmodel.tarefaDia.email.autorizado}"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:hint="@string/email"/>
-
-
+            android:layout_marginTop="@dimen/spacing_dialog_item"
+            android:text="@string/autorizado"/>
 
     </LinearLayout>
 

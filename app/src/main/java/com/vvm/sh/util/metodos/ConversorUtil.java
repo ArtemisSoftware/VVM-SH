@@ -1,6 +1,7 @@
 package com.vvm.sh.util.metodos;
 
 import com.vvm.sh.baseDados.entidades.Tipo;
+import com.vvm.sh.util.constantes.Sintaxe;
 
 import java.util.List;
 
@@ -89,4 +90,13 @@ public class ConversorUtil {
     }
 
 
+    public static String converterGenero(int sexo) {
+
+        if(sexo == 1){
+            return Sintaxe.Codigos.MASCULINO;
+        }
+        else{
+            return  Sintaxe.Codigos.FEMININO;
+        }
+    }
 }

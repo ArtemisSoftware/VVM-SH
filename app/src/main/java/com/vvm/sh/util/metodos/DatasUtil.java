@@ -273,6 +273,35 @@ public class DatasUtil {
     }
 
 
+    /**
+     * Metodo que converte uma dados no formato string para o formato date
+     * @param data dados a converter (YYYY-mm-dd)
+     * @param formatoData o formato da dados (ex:dd/MM/yyyy)
+     * @return uma dados
+     */
+    public static String converterData(String data, String formatoDataOriginal, String formatoData){
+
+        if(data == null){
+            return "";
+        }
+
+        SimpleDateFormat formatter = new SimpleDateFormat(formatoDataOriginal);
+        Date novaData = null;
+
+        try {
+
+            novaData = formatter.parse(data);
+
+            DateFormat df = new SimpleDateFormat(formatoData);
+            data = df.format(novaData);
+        }
+        catch (ParseException e) {
+            e.printStackTrace();
+        }
+
+        return data;
+    }
+
 
     /**
      * Metodo que convert um long para uma dados

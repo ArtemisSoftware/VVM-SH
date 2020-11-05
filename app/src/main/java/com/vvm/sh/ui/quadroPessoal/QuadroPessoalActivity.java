@@ -7,20 +7,15 @@ import android.view.MenuItem;
 import android.view.View;
 import androidx.appcompat.widget.SearchView;
 
-import androidx.annotation.NonNull;
 import androidx.core.widget.NestedScrollView;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
 
 import com.vvm.sh.R;
 import com.vvm.sh.baseDados.entidades.ColaboradorResultado;
 import com.vvm.sh.databinding.ActivityQuadroPessoalBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
-import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.adaptadores.QuestionarioRecyclerAdapter;
-import com.vvm.sh.ui.pesquisa.adaptadores.PesquisaRecyclerAdapter;
 import com.vvm.sh.ui.quadroPessoal.adaptadores.ColaboradorRecyclerAdapter;
 import com.vvm.sh.ui.quadroPessoal.adaptadores.OnColaboradorListener;
 import com.vvm.sh.ui.quadroPessoal.adaptadores.OnOpcoesColaboradorListener;
@@ -28,11 +23,8 @@ import com.vvm.sh.ui.quadroPessoal.modelos.ColaboradorRegisto;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.constantes.Sintaxe;
-import com.vvm.sh.util.itens.PaginacaoListener;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
-
-import java.util.List;
 
 import javax.inject.Inject;
 

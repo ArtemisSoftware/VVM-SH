@@ -26,7 +26,6 @@ import com.vvm.sh.api.modelos.envio.AcaoFormacao;
 import com.vvm.sh.api.modelos.envio.Anomalia;
 import com.vvm.sh.api.BlocoDados;
 import com.vvm.sh.api.modelos.envio.CrossSelling;
-import com.vvm.sh.api.modelos.envio.Email;
 import com.vvm.sh.api.modelos.envio.Formando;
 import com.vvm.sh.api.modelos.envio.Imagem;
 import com.vvm.sh.api.modelos.envio.Ocorrencia;
@@ -36,7 +35,6 @@ import com.vvm.sh.api.modelos.envio.TrabalhoRealizado;
 import com.vvm.sh.api.modelos.envio.Ut;
 import com.vvm.sh.baseDados.entidades.AvaliacaoAmbientalResultado;
 import com.vvm.sh.baseDados.entidades.CrossSellingResultado;
-import com.vvm.sh.baseDados.entidades.EmailResultado;
 import com.vvm.sh.baseDados.entidades.FormandoResultado;
 import com.vvm.sh.baseDados.entidades.ImagemResultado;
 import com.vvm.sh.baseDados.entidades.LevantamentoRiscoResultado;
@@ -68,21 +66,25 @@ public interface UploadMapping {
 
     static final UploadMapping INSTANCE = Mappers.getMapper( UploadMapping.class );
 
-    @Mapping(source = "endereco", target = "email")
-    @Mapping(source = "idAutorizacao", target = "estadoEmail")
-    Email map(EmailResultado item);
+
 
     @Mapping(source = "idAnomalia", target = "idAnomalia")
     @Mapping(source = "observacao", target = "observacoes")
     Anomalia map(AnomaliaResultado item);
 
 
-
     CrossSelling map(CrossSellingResultado item);
 
-    @Mapping(source = "id", target = "idOcorrencia")
-    @Mapping(source = "observacao", target = "observacao")
+
+    @Mapping(target = "idOcorrencia", source = "id")
     Ocorrencia map(OcorrenciaResultado item);
+
+
+
+
+
+
+
 
 
 

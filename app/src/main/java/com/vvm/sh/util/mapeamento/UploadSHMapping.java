@@ -1,64 +1,10 @@
 package com.vvm.sh.util.mapeamento;
 
-import com.vvm.sh.api.BlocoDados;
-import com.vvm.sh.api.modelos.bd.AreaBd;
 import com.vvm.sh.api.modelos.bd.AtividadePendenteBd;
-import com.vvm.sh.api.modelos.bd.AtividadePlanoAcaoBd;
-import com.vvm.sh.api.modelos.bd.ColaboradorBd;
-import com.vvm.sh.api.modelos.bd.RelatorioAmbientalBd;
-import com.vvm.sh.api.modelos.bd.RelatorioAveriguacaoBd;
-import com.vvm.sh.api.modelos.envio.AcaoFormacao;
-import com.vvm.sh.api.modelos.envio.Anomalia;
-import com.vvm.sh.api.modelos.envio.Area;
-import com.vvm.sh.api.modelos.envio.AtividadePlanoAcao;
-import com.vvm.sh.api.modelos.envio.AvaliacaoIluminacao;
-import com.vvm.sh.api.modelos.envio.AvaliacaoTemperaturaHumidade;
-import com.vvm.sh.api.modelos.envio.Checklist;
-import com.vvm.sh.api.modelos.envio.Colaborador;
-import com.vvm.sh.api.modelos.envio.CrossSelling;
-import com.vvm.sh.api.modelos.envio.Email;
-import com.vvm.sh.api.modelos.envio.Equipamento;
-import com.vvm.sh.api.modelos.envio.Extintor;
-import com.vvm.sh.api.modelos.envio.Formando;
-import com.vvm.sh.api.modelos.envio.Imagem;
-import com.vvm.sh.api.modelos.envio.Levantamento;
-import com.vvm.sh.api.modelos.envio.MedidaAveriguacao;
-import com.vvm.sh.api.modelos.envio.Observacao;
-import com.vvm.sh.api.modelos.envio.Ocorrencia;
-import com.vvm.sh.api.modelos.envio.Pergunta;
-import com.vvm.sh.api.modelos.envio.RegistoVisita;
-import com.vvm.sh.api.modelos.envio.RelatorioAmbiental;
-import com.vvm.sh.api.modelos.envio.RelatorioAveriguacao;
-import com.vvm.sh.api.modelos.envio.Risco;
-import com.vvm.sh.api.modelos.envio.Sessao;
-import com.vvm.sh.api.modelos.envio.Sinistralidade;
-import com.vvm.sh.api.modelos.envio.TrabalhadorVulneravel;
-import com.vvm.sh.api.modelos.envio.TrabalhoRealizado;
-import com.vvm.sh.api.modelos.envio.Ut;
+import com.vvm.sh.api.modelos.envio.sht.Email;
 import com.vvm.sh.api.modelos.envio.sht.AtividadePendenteExecutada;
 import com.vvm.sh.api.modelos.envio.sht.AtividadePendenteNaoExecutada;
-import com.vvm.sh.baseDados.entidades.AcaoFormacaoResultado;
-import com.vvm.sh.baseDados.entidades.AnomaliaResultado;
-import com.vvm.sh.baseDados.entidades.AvaliacaoAmbientalResultado;
-import com.vvm.sh.baseDados.entidades.CrossSellingResultado;
 import com.vvm.sh.baseDados.entidades.EmailResultado;
-import com.vvm.sh.baseDados.entidades.FormandoResultado;
-import com.vvm.sh.baseDados.entidades.ImagemResultado;
-import com.vvm.sh.baseDados.entidades.LevantamentoRiscoResultado;
-import com.vvm.sh.baseDados.entidades.OcorrenciaResultado;
-import com.vvm.sh.baseDados.entidades.ParqueExtintor;
-import com.vvm.sh.baseDados.entidades.ParqueExtintorResultado;
-import com.vvm.sh.baseDados.entidades.QuestionarioChecklistResultado;
-import com.vvm.sh.baseDados.entidades.RegistoVisitaResultado;
-import com.vvm.sh.baseDados.entidades.RelatorioAveriguacaoResultado;
-import com.vvm.sh.baseDados.entidades.RiscoResultado;
-import com.vvm.sh.baseDados.entidades.SinistralidadeResultado;
-import com.vvm.sh.baseDados.entidades.Tarefa;
-import com.vvm.sh.baseDados.entidades.Tipo;
-import com.vvm.sh.baseDados.entidades.TipoNovo;
-import com.vvm.sh.baseDados.entidades.TrabalhadorVulneravelResultado;
-import com.vvm.sh.baseDados.entidades.TrabalhoRealizadoResultado;
-import com.vvm.sh.ui.transferencias.modelos.DadosUpload;
 import com.vvm.sh.util.metodos.DatasUtil;
 
 import org.mapstruct.Mapper;
@@ -84,11 +30,11 @@ public interface UploadSHMapping {
     AtividadePendenteExecutada mapAtividadeExecutada(AtividadePendenteBd item);
 
 
-//
-//    @Mapping(source = "endereco", target = "email")
-//    @Mapping(source = "idAutorizacao", target = "estadoEmail")
-//    Email map(EmailResultado item);
-//
+    @Mapping(target = "email", source = "endereco")
+    Email map(EmailResultado item);
+
+
+
 //    @Mapping(source = "idAnomalia", target = "idAnomalia")
 //    @Mapping(source = "observacao", target = "observacoes")
 //    Anomalia map(AnomaliaResultado item);

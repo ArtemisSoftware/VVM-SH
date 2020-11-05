@@ -6,6 +6,8 @@ import androidx.room.Entity;
 import androidx.room.ForeignKey;
 import androidx.room.Ignore;
 
+import com.vvm.sh.util.constantes.Identificadores;
+
 import static androidx.room.ForeignKey.CASCADE;
 
 @Entity(tableName = "emailsResultado",
@@ -33,20 +35,25 @@ public class EmailResultado {
     @ColumnInfo(name = "idAutorizacao")
     public int idAutorizacao;
 
+    @NonNull
+    @ColumnInfo(name = "autorizado", defaultValue = Identificadores.VALOR_INT_0 + "")
+    public boolean autorizado;
 
     @Ignore
-    public EmailResultado(int idTarefa, String endereco, Tipo autorizacao) {
+    public EmailResultado(int idTarefa, String endereco, Tipo autorizacao, boolean autorizado) {
         this.idTarefa = idTarefa;
         this.endereco = endereco;
         this.autorizacao = autorizacao.descricao;
         this.idAutorizacao = autorizacao.id;
+        this.autorizado = autorizado;
     }
 
 
-    public EmailResultado(int idTarefa, String endereco, @NonNull String autorizacao, int idAutorizacao) {
+    public EmailResultado(int idTarefa, String endereco, @NonNull String autorizacao, int idAutorizacao, boolean autorizado) {
         this.idTarefa = idTarefa;
         this.endereco = endereco;
         this.autorizacao = autorizacao;
         this.idAutorizacao = idAutorizacao;
+        this.autorizado = autorizado;
     }
 }

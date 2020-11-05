@@ -484,4 +484,5 @@
     <string name="nao_implentado">Não implementado</string>
     <string name="avaliacoes_ambientais">Avaliações ambientais</string>
     <string name="tarefa_nao_realizada_falta_tempo">Tarefa não realizada por falta de tempo</string>
+    <string name="autorizado">Autorizado</string>
 </resources>

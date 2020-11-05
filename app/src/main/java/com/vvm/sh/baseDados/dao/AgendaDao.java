@@ -49,7 +49,18 @@ public abstract class AgendaDao {
             "LIMIT 1 ")
     abstract public Observable<Integer> obterCompletude(String idUtilizador, long data);
 
-    @Query("SELECT DISTINCT data FROM tarefas WHERE idUtilizador = :idUtilizador ")
+
+    @Query("SELECT COUNT(*) FROM resultados WHERE sincronizado = 0 AND idTarefa IN(SELECT idTarefa FROM tarefas WHERE idUtilizador =:idUtilizador AND data < :data)")
+    abstract public Maybe<Integer> obterEstadoPendencias(String idUtilizador, long data);
+
+
+    @Query("SELECT data, SUM(cont) as ct_pendencias_upload " +
+            "FROM(" +
+            "SELECT data, idUtilizador, IFNULL(ct,0) as cont FROM tarefas as trf " +
+            "LEFT JOIN (SELECT idTarefa, COUNT(id) as ct FROM resultados WHERE sincronizado = 0 GROUP BY idTarefa) as res " +
+            "ON trf.idTarefa = res.idTarefa) " +
+            "WHERE idUtilizador = :idUtilizador " +
+            "GROUP BY data  ")
     abstract public Maybe<List<Date>> obterDatas(String idUtilizador);
 
 

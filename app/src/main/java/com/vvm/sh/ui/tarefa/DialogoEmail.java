@@ -104,7 +104,8 @@ public class DialogoEmail extends BaseDaggerDialogoPersistenteFragment {
             String endereco = binding.txtInpEmail.getText().toString();
             Tipo autorizacao = (Tipo) binding.spnrEmail.getItems().get(binding.spnrEmail.getSelectedIndex());
 
-            EmailResultado email = new EmailResultado(PreferenciasUtil.obterIdTarefa(getContext()), endereco, autorizacao);
+
+            EmailResultado email = new EmailResultado(PreferenciasUtil.obterIdTarefa(getContext()), endereco, autorizacao, binding.chkAutorizacao.isChecked());
 
             viewModel.gravarEmail(email);
         }

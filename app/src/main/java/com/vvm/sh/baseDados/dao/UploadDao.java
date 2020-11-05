@@ -305,7 +305,15 @@ abstract public class UploadDao {
             "FROM relatorioAveriguacao as rel_avg_res " +
             "LEFT JOIN (SELECT idTarefa, data FROM tarefas) as trf " +
             "ON rel_avg_res.idTarefa = trf.idTarefa " +
-            "WHERE rel_avg_res.idTarefa = :idTarefa")
+
+            "LEFT JOIN (" +
+            "SELECT idTarefa, idEstado " +
+            "FROM atividadesPendentesResultado as atp_res " +
+            "LEFT JOIN(SELECT idTarefa, id FROM atividadesPendentes WHERE idRelatorio = " + Identificadores.Relatorios.ID_RELATORIO_AVERIGUACAO_AVALIACAO_RISCO + ") as atp " +
+            "ON atp_res.id = atp.id) as atp " +
+            "ON rel_avg_res.idTarefa = atp.idTarefa " +
+
+            "WHERE rel_avg_res.idTarefa = :idTarefa AND idEstado = " + Identificadores.Estados.ESTADO_EXECUTADO + " ")
     abstract public List<RelatorioAveriguacaoBd> obterRelatorioAveriguacao(int idTarefa);
 
 

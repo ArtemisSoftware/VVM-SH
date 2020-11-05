@@ -70,14 +70,14 @@ public class DadosUpload {
 
 
         if(AppConfig.sa == false) { //TODO:só para sa
-            if (idBloco != 0) {
+
 
                 for (int index = 0; index < dados.size(); ++index) {
                     dados.get(index).numeroFicheirosFotos = idBloco + "";
                     dados.get(index).versaoApp = "1.42.20"; //TODO:só para sa
                 }
 
-            }
+
         }
 
         Gson gson = new Gson();

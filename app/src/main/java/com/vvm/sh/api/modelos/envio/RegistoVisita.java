@@ -20,7 +20,7 @@ public class RegistoVisita {
     public List<TrabalhoRealizado> trabalhosRealizados;
 
     @SerializedName("Album")
-    public ArrayList<String> album;
+    public ArrayList<Imagem> album;
 
     @SerializedName("data")
     public String data;

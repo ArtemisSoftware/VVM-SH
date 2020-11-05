@@ -198,10 +198,10 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
 //                        break;
 //
 //
-//                    case ID_SINISTRALIDADE:
-//
-//                        dadosFormulario.sinistralidade = obterSinistralidade(resultado.idTarefa);
-//                        break;
+                    case ID_SINISTRALIDADE:
+
+                        dadosFormulario.sinistralidade = obterSinistralidade(resultado.idTarefa);
+                        break;
 //
 //                    case ID_QUADRO_PESSOAL:
 //
@@ -381,9 +381,12 @@ public class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void, Void> {
         RegistoVisitaBd registo = repositorio.obterRegistoVisita(idTarefa);
 
         RegistoVisita registoVisita = UploadMapping.INSTANCE.map(registo.resultado);
-        registoVisita.data = DatasUtil.obterDataAtual(DatasUtil.DATA_FORMATO_YYYY_MM_DD__HH_MM_SS);
+        Imagem imagem = new Imagem();
+        imagem.idFoto = registo.idImagem + "";
+
+        registoVisita.data = DatasUtil.obterDataAtual(DatasUtil.FORMATO_DD_MM_YYYY__HH_MM);
         registoVisita.album = new ArrayList<>();
-        registoVisita.album.add(registo.idImagem + "");
+        registoVisita.album.add(imagem);
         idImagens.add(registo.idImagem);
 
         List<TrabalhoRealizado> registos = new ArrayList<>();

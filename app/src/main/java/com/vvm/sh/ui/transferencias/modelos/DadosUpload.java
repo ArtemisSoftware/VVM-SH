@@ -1,6 +1,9 @@
 package com.vvm.sh.ui.transferencias.modelos;
 
 import com.google.gson.Gson;
+import com.google.gson.JsonArray;
+import com.google.gson.JsonElement;
+import com.google.gson.JsonObject;
 import com.himanshurawat.hasher.HashType;
 import com.himanshurawat.hasher.Hasher;
 import com.vvm.sh.BuildConfig;
@@ -9,6 +12,8 @@ import com.vvm.sh.api.modelos.envio.DadosFormulario;
 import com.vvm.sh.api.modelos.envio.Equipamento;
 import com.vvm.sh.api.modelos.envio.Imagem;
 import com.vvm.sh.util.mapeamento.UploadMapping;
+
+import org.json.JSONException;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -26,6 +31,12 @@ public class DadosUpload {
     public HashMap<Integer, List<Imagem>> imagens;
     public List<DadosFormulario> dados;
     public List<Equipamento> equipamentos;
+
+
+
+
+    private String upload;
+    public String messageDigest;
 
     public DadosUpload(String idUtilizador) {
 
@@ -60,32 +71,87 @@ public class DadosUpload {
         String dados = gson.toJson(registoDados);
 
 
+        try {
 
+            JsonObject data = new Gson().fromJson(dados, JsonObject.class);
+            removeDetails(data);
 
+            upload = data.toString();
+            messageDigest = Hasher.Companion.hash(upload, HashType.MD5);
 
-
-        String messageDigest = Hasher.Companion.hash(dados, HashType.MD5);
-
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
 
     }
 
 
 
 
-    public void removeDetails() {
-        JsonElement items = data.get("items");
+    public void removeDetails(JsonObject data) throws JSONException {
+        JsonElement items =  data.get("Dados_Formularios");
         if (!items.isJsonArray()) {
             return;
         }
-        JsonArray array = items.getAsJsonArray();
-        array.forEach(item -> {
-            if (item.isJsonObject()) {
-                JsonObject node = item.getAsJsonObject();
-                JsonElement view = node.get("view");
-                if (view.isJsonObject()) {
-                    view.getAsJsonObject().remove("details");
-                }
+
+        JsonArray Dados_Formularios = items.getAsJsonArray();
+
+
+        for(int index = 0; index < Dados_Formularios.size(); ++index){
+
+            JsonObject dado = Dados_Formularios.get(index).getAsJsonObject();
+
+            if(dado.get("extintores").getAsJsonObject().size() == 0){
+                dado.remove("extintores");
             }
-        });
+
+            if(dado.get("RegistoVisita").getAsJsonObject().size() == 0){
+                dado.remove("RegistoVisita");
+            }
+
+            if(dado.get("Sinistralidade").getAsJsonObject().size() == 0){
+                dado.remove("Sinistralidade");
+            }
+
+
+
+
+
+            if(dado.get("RegistoAnomalias").getAsJsonObject().get("dados").getAsJsonArray().size() == 0){
+                dado.remove("RegistoAnomalias");
+            }
+
+            if(dado.get("ActividadesPendentes").getAsJsonObject().get("dados").getAsJsonArray().size() == 0){
+                dado.remove("ActividadesPendentes");
+            }
+
+            if(dado.get("RelatorioAvaliacaoRiscos").getAsJsonObject().get("dados").getAsJsonArray().size() == 0){
+                dado.remove("RelatorioAvaliacaoRiscos");
+            }
+
+            if(dado.get("CrossSelling").getAsJsonObject().get("dados").getAsJsonArray().size() == 0){
+                dado.remove("CrossSelling");
+            }
+
+            if(dado.get("RegistoOcorrencias").getAsJsonObject().get("dados").getAsJsonArray().size() == 0){
+                dado.remove("RegistoOcorrencias");
+            }
+
+            if(dado.get("PlanoAccao").getAsJsonObject().get("dados").getAsJsonArray().size() == 0){
+                dado.remove("PlanoAccao");
+            }
+
+            if(dado.get("QuadroPessoal").getAsJsonObject().get("dados").getAsJsonArray().size() == 0){
+                dado.remove("QuadroPessoal");
+            }
+
+            if(dado.get("email").getAsJsonObject().get("dados").getAsJsonArray().size() == 0){
+                dado.remove("email");
+            }
+        }
+    }
+
+    public String obterDados() {
+        return upload;
     }
 }

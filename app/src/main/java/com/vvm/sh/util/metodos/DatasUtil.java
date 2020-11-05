@@ -23,7 +23,7 @@ public class DatasUtil {
     public static final String DATA_FORMATO_YYYY_MM_DD__HH_MM_SS = "yyyy-MM-dd HH:mm:ss";
     public static final String FORMATO_FICHEIRO_BD = "dd-MM-yyyy_HHmmss";
 
-    public static final String DATA_FORMATO_DD_MM_YYYY__HH_MM = "dd-MM-yyyy HH:mm";
+    public static final String FORMATO_DD_MM_YYYY__HH_MM = "dd-MM-yyyy HH:mm";
     public static final String FORMATO_DD_MM_YYYY__HH_MM_SS = "dd-MM-yyyy HH:mm:ss";
     public static final String DATA_FORMATO_DD_MM_YYYY__HH_MM_SS_V2 = "dd/MM/yyyy HH:mm:ss";
 

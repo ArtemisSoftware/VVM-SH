@@ -256,8 +256,8 @@ public class AvaliacaoGeralActivity extends BaseDaggerActivity
             Tipo nebulosidade = (Tipo) activityAvaliacaoGeralBinding.spnrNebulosidade.getItems().get(activityAvaliacaoGeralBinding.spnrNebulosidade.getSelectedIndex());
 
             Date data = DatasUtil.converterString(activityAvaliacaoGeralBinding.txtInpData.getText().toString(), DatasUtil.FORMATO_DD_MM_YYYY);
-            Date inicio = DatasUtil.converterString(activityAvaliacaoGeralBinding.txtInpData.getText().toString() + " " + activityAvaliacaoGeralBinding.txtInpInicio.getText().toString(), DatasUtil.DATA_FORMATO_DD_MM_YYYY__HH_MM);
-            Date termino = DatasUtil.converterString(activityAvaliacaoGeralBinding.txtInpData.getText().toString() + " " + activityAvaliacaoGeralBinding.txtInpTermino.getText().toString(), DatasUtil.DATA_FORMATO_DD_MM_YYYY__HH_MM);
+            Date inicio = DatasUtil.converterString(activityAvaliacaoGeralBinding.txtInpData.getText().toString() + " " + activityAvaliacaoGeralBinding.txtInpInicio.getText().toString(), DatasUtil.FORMATO_DD_MM_YYYY__HH_MM);
+            Date termino = DatasUtil.converterString(activityAvaliacaoGeralBinding.txtInpData.getText().toString() + " " + activityAvaliacaoGeralBinding.txtInpTermino.getText().toString(), DatasUtil.FORMATO_DD_MM_YYYY__HH_MM);
 
             RelatorioAmbientalResultado registo = new RelatorioAmbientalResultado(idAtividade, origem, marca, numeroSerie, data, inicio, termino, nebulosidade);
 

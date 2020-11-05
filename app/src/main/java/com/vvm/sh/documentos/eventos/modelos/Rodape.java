@@ -60,7 +60,7 @@ public class Rodape extends Section {
         cellConfiguration1.horizontalAlign = Element.ALIGN_LEFT;
         cellConfiguration1.height = 12;
 
-        tabelaRodape.addCell(new Phrase(DatasUtil.obterDataAtual(DatasUtil.DATA_FORMATO_DD_MM_YYYY__HH_MM), font.getFont(7)), cellConfiguration1);
+        tabelaRodape.addCell(new Phrase(DatasUtil.obterDataAtual(DatasUtil.FORMATO_DD_MM_YYYY__HH_MM), font.getFont(7)), cellConfiguration1);
 
         CellConfiguration cellConfiguration2 = null;
         try {

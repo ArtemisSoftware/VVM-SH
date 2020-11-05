@@ -391,13 +391,9 @@ public class TransferenciasViewModel extends BaseViewModel {
 
         showProgressBar(true);
 
-        Gson gson = new Gson();
-        BlocoDados registoDados = UploadMapping.INSTANCE.map(dadosUpload);
-        String dados = gson.toJson(registoDados);
-        String messageDigest = Hasher.Companion.hash(dados, HashType.MD5);
+        dadosUpload.lolo();
 
-
-        transferenciasRepositorio.submeterDados(dados, dadosUpload.idUtilizador, dadosUpload.idUpload, messageDigest)
+        transferenciasRepositorio.submeterDados(dadosUpload.obterDados(), dadosUpload.idUtilizador, dadosUpload.idUpload, dadosUpload.messageDigest)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(

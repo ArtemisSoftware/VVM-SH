@@ -1,8 +1,11 @@
 package com.vvm.sh.ui.atividadesPendentes.relatorios.equipamentos.modelos;
 
 import androidx.room.ColumnInfo;
+import androidx.room.Ignore;
 
-public class Equipamento {
+import com.vvm.sh.util.interfaces.EstadoModelo;
+
+public class Equipamento implements EstadoModelo {
 
     @ColumnInfo(name = "id")
     public int id;
@@ -14,7 +17,14 @@ public class Equipamento {
     public int estado;
 
 
-    public String obterEstado(){
+    public Equipamento(int id, String descricao, int estado) {
+        this.id = id;
+        this.descricao = descricao;
+        this.estado = estado;
+        this.estadoModelo = EstadoModelo.MODELO;
+    }
+
+    public String obterEstadoEquipamento(){
 
         String resultado = "";
 
@@ -37,4 +47,18 @@ public class Equipamento {
         return resultado;
     }
 
+
+    @Ignore
+    public int estadoModelo;
+
+    @Ignore
+    public Equipamento(int estadoModelo){
+        this.estadoModelo = estadoModelo;
+    }
+
+
+    @Override
+    public int obterEstado() {
+        return estadoModelo;
+    }
 }

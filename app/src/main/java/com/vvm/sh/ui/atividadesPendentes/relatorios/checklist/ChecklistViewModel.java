@@ -39,7 +39,7 @@ public class ChecklistViewModel extends BaseViewModel {
 
     public MutableLiveData<Tipo> checklist;
     public MutableLiveData<List<Item>> itens;
-
+    public MutableLiveData<List<Item>> seccoes;
 
     public MutableLiveData<List<Tipo>> respostas;
     public MutableLiveData<List<Tipo>> tiposNi;
@@ -59,6 +59,7 @@ public class ChecklistViewModel extends BaseViewModel {
         this.checklistRepositorio = checklistRepositorio;
         checklist = new MutableLiveData<>();
         itens = new MutableLiveData<>();
+        seccoes = new MutableLiveData<>();
         tipoAreas = new MutableLiveData<>();
         questionario = new MutableLiveData<>();
         respostas = new MutableLiveData<>();
@@ -93,6 +94,8 @@ public class ChecklistViewModel extends BaseViewModel {
      */
     public void inserirAreaGeral(int idTarefa, int idAtividade, int idChecklist){
 
+        showProgressBar(true);
+
         checklistRepositorio.validarAreaGeral(idAtividade, idChecklist)
                 .flatMap(new Function<Boolean, SingleSource<?>>() {
                     @Override
@@ -118,12 +121,14 @@ public class ChecklistViewModel extends BaseViewModel {
 
                             @Override
                             public void onSuccess(Object o) {
+                                showProgressBar(false);
                                 abaterAtividadePendente(checklistRepositorio.resultadoDao, idTarefa, idAtividade);
                                 obterAreas(idAtividade, idChecklist);
                             }
 
                             @Override
                             public void onError(Throwable e) {
+                                showProgressBar(false);
                                 obterAreas(idAtividade, idChecklist);
                             }
                         }
@@ -135,7 +140,7 @@ public class ChecklistViewModel extends BaseViewModel {
      * Metodo que permite inserir uma nova área
      * @param area
      */
-    public void inserNovaArea(int idTarefa, AreaChecklistResultado area){
+    public void inserirNovaArea(int idTarefa, AreaChecklistResultado area){
 
         checklistRepositorio.validarSubDescricaoArea(area.idAtividade, area.idChecklist, area.idArea, area.subDescricao)
                 .flatMap(new Function<Boolean, SingleSource<?>>() {
@@ -214,40 +219,6 @@ public class ChecklistViewModel extends BaseViewModel {
                             @Override
                             public void onError(Throwable e) {
                                 messagemLiveData.setValue(Recurso.erro("A descrição já existe"));
-                            }
-                        }
-
-                );
-
-    }
-
-
-
-
-
-
-
-    public void inserArea(AreaChecklistResultado area){
-
-        checklistRepositorio.inserir(area)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-
-                        new SingleObserver<Long>() {
-                            @Override
-                            public void onSubscribe(Disposable d) {
-
-                            }
-
-                            @Override
-                            public void onSuccess(Long aLong) {
-                                messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_GRAVADOS_SUCESSO));
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-
                             }
                         }
 
@@ -368,6 +339,7 @@ public class ChecklistViewModel extends BaseViewModel {
                             @Override
                             public void onComplete() {
                                 abaterAtividadePendente(checklistRepositorio.resultadoDao, idTarefa, idAtividade);
+                                messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_GRAVADOS_SUCESSO));
                             }
 
                             @Override
@@ -448,6 +420,7 @@ public class ChecklistViewModel extends BaseViewModel {
                     );
         }
     }
+
 
     //----------------------
     //REMOVER
@@ -558,14 +531,10 @@ public class ChecklistViewModel extends BaseViewModel {
     }
 
 
-
-
-
-
-
-
-
-
+    /**
+     * Metodo que permite obter a checklist
+     * @param idAtividade o identificador da atividade
+     */
     public void obterChecklist(int idAtividade){
 
         checklistRepositorio.obterChecklist(idAtividade)
@@ -627,12 +596,14 @@ public class ChecklistViewModel extends BaseViewModel {
     }
 
 
-
-
+    /**
+     * Metodo que permite obter as areas
+     * @param idAtividade o identificador da atividade
+     * @param idChecklist o identificador da checklist
+     */
     public void obterAreas(int idAtividade, int idChecklist) {
 
         showProgressBar(true);
-
 
         checklistRepositorio.obterAreas(idAtividade, idChecklist)
                 .subscribeOn(Schedulers.io())
@@ -642,7 +613,7 @@ public class ChecklistViewModel extends BaseViewModel {
                         new Observer<List<Item>>() {
                             @Override
                             public void onSubscribe(Disposable d) {
-
+                                disposables.add(d);
                             }
 
                             @Override
@@ -653,12 +624,12 @@ public class ChecklistViewModel extends BaseViewModel {
 
                             @Override
                             public void onError(Throwable e) {
-
+                                showProgressBar(false);
                             }
 
                             @Override
                             public void onComplete() {
-
+                                showProgressBar(false);
                             }
                         }
                 );
@@ -666,10 +637,13 @@ public class ChecklistViewModel extends BaseViewModel {
     }
 
 
+    /**
+     * Metodo que permite obter as seccoes
+     * @param idRegistoArea o identificador do registo da area
+     */
     public void obterSeccoes(int idRegistoArea) {
 
         showProgressBar(true);
-
 
         checklistRepositorio.obterSeccoes(idRegistoArea)
                 .subscribeOn(Schedulers.io())
@@ -679,23 +653,23 @@ public class ChecklistViewModel extends BaseViewModel {
                         new Observer<List<Item>>() {
                             @Override
                             public void onSubscribe(Disposable d) {
-
+                                disposables.add(d);
                             }
 
                             @Override
                             public void onNext(List<Item> items) {
-                                itens.setValue(items);
+                                seccoes.setValue(items);
                                 showProgressBar(false);
                             }
 
                             @Override
                             public void onError(Throwable e) {
-
+                                showProgressBar(false);
                             }
 
                             @Override
                             public void onComplete() {
-
+                                showProgressBar(false);
                             }
                         }
                 );
@@ -703,7 +677,10 @@ public class ChecklistViewModel extends BaseViewModel {
     }
 
 
-
+    /**
+     * Metodo que permite obter as questoes
+     * @param item
+     */
     public void obterQuestoes(Item item){
 
         showProgressBar(true);
@@ -754,23 +731,8 @@ public class ChecklistViewModel extends BaseViewModel {
      */
     public void obterRespostas(int idRegisto){
 
-        List<Tipo> estado = new ArrayList<>();
-
-        for (Tipo tipo : TiposConstantes.Checklist.RESPOSTAS) {
-            estado.add(tipo);
-        }
-
-        respostas.setValue(estado);
-
-
-        List<Tipo> categorias = new ArrayList<>();
-
-        for (Tipo tipo : TiposConstantes.Checklist.CATEGORIAS_RISCO) {
-            categorias.add(tipo);
-        }
-
-        tiposCategoriasRisco.setValue(categorias);
-
+        obterOpcoes(respostas, TiposConstantes.Checklist.RESPOSTAS);
+        obterOpcoes(tiposCategoriasRisco, TiposConstantes.Checklist.CATEGORIAS_RISCO);
 
         checklistRepositorio.obterNI()
                 .subscribeOn(Schedulers.io())
@@ -780,7 +742,7 @@ public class ChecklistViewModel extends BaseViewModel {
                         new SingleObserver<List<Tipo>>() {
                             @Override
                             public void onSubscribe(Disposable d) {
-
+                                disposables.add(d);
                             }
 
                             @Override
@@ -805,7 +767,7 @@ public class ChecklistViewModel extends BaseViewModel {
                         new SingleObserver<List<Tipo>>() {
                             @Override
                             public void onSubscribe(Disposable d) {
-
+                                disposables.add(d);
                             }
 
                             @Override
@@ -829,7 +791,7 @@ public class ChecklistViewModel extends BaseViewModel {
                         new SingleObserver<QuestionarioChecklistResultado>() {
                             @Override
                             public void onSubscribe(Disposable d) {
-
+                                disposables.add(d);
                             }
 
                             @Override

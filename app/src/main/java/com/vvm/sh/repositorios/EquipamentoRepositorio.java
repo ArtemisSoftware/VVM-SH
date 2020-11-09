@@ -35,8 +35,8 @@ public class EquipamentoRepositorio{
     }
 
 
-    public Observable<List<Equipamento>> obterEquipamentos_Excluir(List<String> registos) {
-        return tipoNovoDao.obterEquipamentos_Excluir(idApi, registos); //-idAtividade,
+    public Observable<List<Equipamento>> obterEquipamentos_Excluir(List<String> registos, int limite) {
+        return tipoNovoDao.obterEquipamentos_Excluir(idApi, registos, limite); //-idAtividade,
     }
 
 
@@ -44,8 +44,8 @@ public class EquipamentoRepositorio{
         return tipoNovoDao.obterEquipamentos_Incluir(idApi, registos); //-idAtividade,
     }
 
-    public Maybe<List<Equipamento>> obterEquipamentos_Excluir(int idAtividade, List<String> registos, String pesquisa) {
-        return tipoNovoDao.obterEquipamentos_Excluir(registos, pesquisa, idApi);
+    public Maybe<List<Equipamento>> obterEquipamentos_Excluir(List<String> registos, String pesquisa, int limite) {
+        return tipoNovoDao.obterEquipamentos_Excluir(registos, pesquisa, idApi, limite);
     }
 
 

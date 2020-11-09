@@ -16,7 +16,10 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.imagens.ImagemActivity"></activity>
+        <activity android:name=".ui.atividadesPendentes.relatorios.checklist.SeccaoActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar" />
+        <activity android:name=".ui.imagens.ImagemActivity" />
         <activity android:name=".ui.imagens.GaleriaActivity" />
         <activity android:name=".ui.imagens.BibliotecaImagensActivity" />
         <activity
@@ -142,7 +145,6 @@
         <activity
             android:name=".ui.apresentacao.ApresentacaoActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".carregamentos.CarregamentoTiposActivity" />
         <activity
             android:name=".ui.atividadesPendentes.relatorios.FormandoActivity"
             android:theme="@style/AppTheme.NoActionBar" />
@@ -208,6 +210,7 @@
             android:name="com.yalantis.ucrop.UCropActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
+
         <provider
             android:name=".util.GenericFileProvider"
             android:authorities="${applicationId}.provider"

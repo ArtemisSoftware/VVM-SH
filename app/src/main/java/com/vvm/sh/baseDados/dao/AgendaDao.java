@@ -4,6 +4,7 @@ import androidx.room.Dao;
 import androidx.room.Query;
 import androidx.room.Transaction;
 
+import com.vvm.sh.ui.agenda.modelos.DataAgendamento;
 import com.vvm.sh.ui.agenda.modelos.Marcacao;
 import com.vvm.sh.util.constantes.Identificadores;
 
@@ -35,23 +36,31 @@ public abstract class AgendaDao {
     abstract public Observable<List<Marcacao>> obterMarcacoes(String idUtilizador, long data);
 
 
-    @Query("SELECT  " +
-            "CASE " +
-            "WHEN IFNULL(COUNT(data), 0) = 0 THEN " + Identificadores.Sincronizacao.SEM_SINCRONIZACAO + " " +
-            "WHEN sincronizado != 1 THEN " + Identificadores.Sincronizacao.NAO_SINCRONIZADO + " " +
-            "WHEN data = date('now') AND sincronizado = 1 THEN  " + Identificadores.Sincronizacao.SINCRONIZADO + "  " +
-            "WHEN data < date('now') AND sincronizado = 1 THEN  " + Identificadores.Sincronizacao.TRANCADO + "  " +
-            "ELSE " + Identificadores.Sincronizacao.NAO_SINCRONIZADO + " END as estado " +
-            "FROM tarefas as trf " +
-            "LEFT JOIN (SELECT idTarefa, sincronizado FROM resultados) as res ON trf.idTarefa = res.idTarefa " +
-            "WHERE data = :data AND idUtilizador = :idUtilizador " +
-            "GROUP BY data, idUtilizador " +
-            "LIMIT 1 ")
+
+
+    //SELECT CASE WHEN IFNULL(COUNT(data), 0) = 0 THEN 'SEMSINC' WHEN total_ != sinc_ THEN 'NAO_SINC' WHEN data = date('now') AND total_ = sinc_ THEN 'SINC' WHEN data < date('now') AND total_ = sinc_ THEN 'TRANC' ELSE 'NAOSINC' END as estado FROM (SELECT data, idUtilizador, COUNT(*) as total_, sum(case when sinc> 0 then 1 else 0 end) AS sinc_, sum(case when naosinc> 0 then 1 else 0 end) AS naosinc_ FROM(SELECT *, count(*) AS total, sum(case when sincronizado= 1 then 1 else 0 end) AS sinc, sum(case when sincronizado= 0 then 1 else 0 end) AS naosinc FROM resultados GROUP BY idTarefa) as res LEFT JOIN (SELECT idTarefa, data, idUtilizador FROM tarefas) as trf ON res.idTarefa = trf.idTarefa GROUP BY data) WHERE data = 1602802800001 GROUP BY data, idUtilizador
+
+
+    @Query("SELECT " +
+            "CASE WHEN IFNULL(COUNT(data), 0) = 0 THEN " + Identificadores.Sincronizacao.SEM_SINCRONIZACAO + " " +
+            "WHEN total_ != sinc_ THEN " + Identificadores.Sincronizacao.NAO_SINCRONIZADO + " " +
+            "WHEN data = date('now') AND total_ = sinc_ THEN " + Identificadores.Sincronizacao.SINCRONIZADO + "  " +
+            "WHEN data < date('now') AND total_ = sinc_ THEN " + Identificadores.Sincronizacao.TRANCADO + "  " +
+            "ELSE " + Identificadores.Sincronizacao.NAO_SINCRONIZADO + " " +
+            "END as estado " +
+            "FROM (" +
+            "SELECT data, idUtilizador, COUNT(*) as total_, " +
+            "sum(case when sinc> 0 then 1 else 0 end) AS sinc_, " +
+            "sum(case when naosinc> 0 then 1 else 0 end) AS naosinc_ " +
+            "FROM(" +
+            "SELECT *, count(*) AS total, " +
+            "sum(case when sincronizado= 1 then 1 else 0 end) AS sinc, " +
+            "sum(case when sincronizado= 0 then 1 else 0 end) AS naosinc " +
+            "FROM resultados " +
+            "GROUP BY idTarefa) as res " +
+            "LEFT JOIN (SELECT idTarefa, data, idUtilizador FROM tarefas) as trf ON res.idTarefa = trf.idTarefa GROUP BY data) " +
+            "WHERE data = :data AND idUtilizador =:idUtilizador GROUP BY data, idUtilizador")
     abstract public Observable<Integer> obterCompletude(String idUtilizador, long data);
-
-
-    @Query("SELECT COUNT(*) FROM resultados WHERE sincronizado = 0 AND idTarefa IN(SELECT idTarefa FROM tarefas WHERE idUtilizador =:idUtilizador AND data < :data)")
-    abstract public Maybe<Integer> obterEstadoPendencias(String idUtilizador, long data);
 
 
     @Query("SELECT data, SUM(cont) as ct_pendencias_upload " +
@@ -61,7 +70,7 @@ public abstract class AgendaDao {
             "ON trf.idTarefa = res.idTarefa) " +
             "WHERE idUtilizador = :idUtilizador " +
             "GROUP BY data  ")
-    abstract public Maybe<List<Date>> obterDatas(String idUtilizador);
+    abstract public Maybe<List<DataAgendamento>> obterDatas(String idUtilizador);
 
 
 

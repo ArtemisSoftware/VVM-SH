@@ -1,6 +1,7 @@
 package com.vvm.sh.api.modelos.pedido;
 
 import com.google.gson.annotations.SerializedName;
+import com.vvm.sh.util.constantes.Identificadores;
 
 import java.util.List;
 
@@ -23,7 +24,7 @@ public class IAvaliacaoRiscosAnterior {
     public List<IChecklist> checklist;
 
     @SerializedName("RelatorioPlanoAcao")
-    public List<ILevantamentoRisco> relatorioPlanoAcao;
+    public List<Integer> relatorioPlanoAcao;
 
 
 
@@ -103,8 +104,6 @@ public class IAvaliacaoRiscosAnterior {
         @SerializedName("idsMedidasRecomendadas")
         public List<String> idsMedidasRecomendadas;
 
-        @SerializedName("idsMedidasPlanoAcao")
-        public List<String> idsMedidasPlanoAcao;
     }
 
 
@@ -189,7 +188,7 @@ public class IAvaliacaoRiscosAnterior {
         public String idUT2;
 
         @SerializedName("idCategoriasRiscoUT_2")
-        public String idCategoriasRiscoUT_2;
+        public String idCategoriasRiscoUT_2 = Identificadores.VALOR_0;
 
         @SerializedName("localRiscoA_ut_2")
         public boolean localRiscoA_ut_2;

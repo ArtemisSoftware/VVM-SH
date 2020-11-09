@@ -53,9 +53,9 @@ public class ITarefa {
 
     @SerializedName("QuadroPessoal")
     public List<IColaborador> quadroPessoal = new ArrayList<>();
-//
-//    @SerializedName("AvaliacaoRiscosAnterior")
-//    public List<IAvaliacaoRiscosAnterior> avaliacaoRiscosAnterior;
+
+    @SerializedName("AvaliacaoRiscosAnterior")
+    public IAvaliacaoRiscosAnterior avaliacaoRiscosAnterior;
 
     @SerializedName("Plano_Accao")
     public IPlanoAcao planoAcao;

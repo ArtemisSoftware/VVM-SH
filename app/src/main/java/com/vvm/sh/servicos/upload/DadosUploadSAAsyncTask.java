@@ -114,7 +114,7 @@ public class DadosUploadSAAsyncTask extends DadosUploadAsyncTask {
 
 
     @Override
-    protected void adicionarCamposAdicionais(List<Upload> resposta) {
+    protected void camposAdicionais(List<Upload> resposta) {
 
     }
 }

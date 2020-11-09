@@ -13,7 +13,7 @@ public class BaseDatePickerDialog {
 
     private TextView txt;
     int ano, mes, dia;
-    private DatePickerDialog datePickerDialog;
+    protected DatePickerDialog datePickerDialog;
     protected Calendar limiteInferior, limiteSuperior;
     private DatePickerDialog.OnDateSetListener listener;
 

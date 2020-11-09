@@ -37,6 +37,12 @@ public class AreaChecklistResultado {
 
     public String subDescricao;
 
+
+    @Ignore
+    public AreaChecklistResultado() {
+    }
+
+
     @Ignore
     public AreaChecklistResultado(int idAtividade, int idChecklist, int idArea) {
         this.idAtividade = idAtividade;

@@ -19,6 +19,15 @@ import io.reactivex.Single;
 abstract public class TipoNovoDao implements BaseDao<TipoNovo> {
 
 
+
+
+
+
+
+
+
+
+
     //equipamentos
 
     @Query("SELECT id, descricao, estado " +
@@ -27,8 +36,9 @@ abstract public class TipoNovoDao implements BaseDao<TipoNovo> {
             "UNION " +
             "SELECT id, descricao, " + Identificadores.ESTADO_DEFINITIVO + " as estado FROM tipos  WHERE tipo = '" + TiposUtil.MetodosTipos.TIPOS_MAQUINA + "' AND api = :api AND ativo = 1 " +
             ") " +
-            "WHERE descricao NOT IN (:registos) ORDER BY estado, id ")
-    abstract public Observable<List<Equipamento>> obterEquipamentos_Excluir(int api, List<String> registos); //-int idAtividade,
+            "WHERE descricao NOT IN (:registos) ORDER BY estado, id " +
+            "LIMIT :limite OFFSET 0 ")
+    abstract public Observable<List<Equipamento>> obterEquipamentos_Excluir(int api, List<String> registos, int limite); //-int idAtividade,
 
 
     @Query("SELECT id, descricao, estado " +
@@ -47,8 +57,9 @@ abstract public class TipoNovoDao implements BaseDao<TipoNovo> {
             "UNION " +
             "SELECT id, descricao, " + Identificadores.ESTADO_DEFINITIVO + " as estado FROM tipos  WHERE tipo = '" + TiposUtil.MetodosTipos.TIPOS_MAQUINA + "' AND api = :api AND ativo = 1 " +
             ") " +
-            "WHERE descricao NOT IN (:registos) AND descricao LIKE '%' || :pesquisa || '%' ")
-    abstract public Maybe<List<Equipamento>> obterEquipamentos_Excluir(List<String> registos, String pesquisa, int api); //-int idAtividade,
+            "WHERE descricao NOT IN (:registos) AND descricao LIKE '%' || :pesquisa || '%' " +
+            "LIMIT :limite OFFSET 0 ")
+    abstract public Maybe<List<Equipamento>> obterEquipamentos_Excluir(List<String> registos, String pesquisa, int api, int limite); //-int idAtividade,
 
 
     @Query("SELECT CASE WHEN IFNULL(COUNT(*), 0) > 0 THEN 1 ELSE 0 END as existente " +
@@ -78,6 +89,12 @@ abstract public class TipoNovoDao implements BaseDao<TipoNovo> {
             "WHERE vrf_eq_res.idAtividade = :idAtividade " +
             "ORDER BY codigo, vrf_eq_res.idEquipamento ")
     abstract public Maybe<List<String>> obterEquipamentos(int idAtividade, int api);
+
+
+
+
+
+
 
     /**
      * Metodo que permite obter o numero a ser utilizado para identificar uma maquina

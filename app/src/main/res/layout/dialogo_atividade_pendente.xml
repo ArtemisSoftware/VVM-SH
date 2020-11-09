@@ -53,6 +53,12 @@
         </RadioGroup>
 
 
+        <TextView
+            android:id="@+id/txt_titulo"
+            style="@style/subTituloCartao"
+            android:text="@string/relatorio"
+            android:visibility="gone"/>
+
 
         <RadioGroup
             android:id="@+id/rd_gp_avaliacao_riscos"

@@ -90,4 +90,8 @@ public class RiscoResultado {
         this.idTipoRisco = idTipoRisco;
         this.origem = origem;
     }
+
+    @Ignore
+    public RiscoResultado() {
+    }
 }

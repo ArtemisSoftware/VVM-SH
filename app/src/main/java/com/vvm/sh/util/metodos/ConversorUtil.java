@@ -56,7 +56,6 @@ public class ConversorUtil {
         String valores[] = new String[4];
         int np, nr;
 
-
         try{
 
             np = Integer.parseInt(nd.obterDescricao()) * Integer.parseInt(ne.obterDescricao());
@@ -88,6 +87,43 @@ public class ConversorUtil {
 
         return valores;
     }
+
+
+
+    public static String obterNI(String nd, String ne, String nc, List<Tipo> ni){
+
+        String valor = "";
+        int np, nr;
+
+        try{
+
+            np = Integer.parseInt(nd) * Integer.parseInt(ne);
+            nr = Integer.parseInt(nc) * np;
+
+            int index = 0;
+
+            for(int posicao = 0; posicao < ni.size(); ++posicao){
+
+                String limite = ni.get(posicao).detalhe;
+
+                if(nr >= Integer.parseInt(limite.split("-")[0]) & nr <= Integer.parseInt(limite.split("-")[1])){
+                    break;
+                }
+
+                ++index;
+            }
+
+            valor =  ni.get(index).id + "";
+        }
+        catch(NumberFormatException e){}
+
+        return valor;
+    }
+
+
+
+
+
 
 
     public static String converterGenero(int sexo) {

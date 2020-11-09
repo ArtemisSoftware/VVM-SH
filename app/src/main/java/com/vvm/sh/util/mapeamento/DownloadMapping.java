@@ -1,5 +1,6 @@
 package com.vvm.sh.util.mapeamento;
 
+import com.vvm.sh.api.modelos.pedido.IAvaliacaoRiscosAnterior;
 import com.vvm.sh.api.modelos.pedido.IColaborador;
 import com.vvm.sh.api.modelos.pedido.IMorada;
 import com.vvm.sh.api.modelos.pedido.IParqueExtintor;
@@ -24,6 +25,7 @@ import com.vvm.sh.api.modelos.pedido.ITarefa;
 import com.vvm.sh.api.modelos.pedido.IDados;
 import com.vvm.sh.api.modelos.pedido.IOcorrencia;
 import com.vvm.sh.baseDados.entidades.AreaChecklist;
+import com.vvm.sh.baseDados.entidades.AreaChecklistResultado;
 import com.vvm.sh.baseDados.entidades.CheckList;
 import com.vvm.sh.baseDados.entidades.Colaborador;
 import com.vvm.sh.baseDados.entidades.ItemChecklist;
@@ -31,7 +33,9 @@ import com.vvm.sh.baseDados.entidades.Morada;
 import com.vvm.sh.baseDados.entidades.ParqueExtintor;
 import com.vvm.sh.baseDados.entidades.PlanoAcao;
 import com.vvm.sh.baseDados.entidades.PlanoAcaoAtividade;
+import com.vvm.sh.baseDados.entidades.QuestionarioChecklistResultado;
 import com.vvm.sh.baseDados.entidades.RelatorioAveriguacao;
+import com.vvm.sh.baseDados.entidades.RiscoResultado;
 import com.vvm.sh.baseDados.entidades.SeccaoChecklist;
 import com.vvm.sh.baseDados.entidades.Tarefa;
 import com.vvm.sh.baseDados.entidades.Anomalia;
@@ -180,4 +184,50 @@ public interface DownloadMapping {
     @Mapping(target = "descricao", source = "descricao")
     @Mapping(target = "tipo", constant = Identificadores.Origens.AVERIGUACAO_AVALIACAO_RISCOS + "")
     RelatorioAveriguacao map(IRelatorioAvaliacaoRiscos.ICategoriaProfissional item);
+
+
+    @Mapping(target = "idRisco", source = "idRisco")
+    @Mapping(target = "idRiscoEspecifico", source = "idRiscoEspecifico")
+    @Mapping(target = "consequencias", source = "consequencias")
+    @Mapping(target = "nc", source = "nc")
+    @Mapping(target = "nd", source = "nd")
+    @Mapping(target = "ne", source = "ne")
+    RiscoResultado map(IAvaliacaoRiscosAnterior.IRisco itemRisco);
+
+
+    @Mapping(target = "idArea", source = "id")
+    @Mapping(target = "subDescricao", source = "descricao")
+    AreaChecklistResultado map(IAvaliacaoRiscosAnterior.IArea itemArea);
+
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "idItem", source = "id")
+    @Mapping(target = "resposta", source = "resposta")
+    @Mapping(target = "ni", source = "nr")
+    QuestionarioChecklistResultado mapQuestao(IAvaliacaoRiscosAnterior.IItem item);
+
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "idItem", source = "id")
+    @Mapping(target = "ut1", ignore = true)
+    @Mapping(target = "ut1_CategoriasRisco", source = "idCategoriasRiscoUT_1")
+    @Mapping(target = "ut1_LocalRisco_A", source = "localRiscoA_ut_1")
+    @Mapping(target = "ut1_LocalRisco_B", source = "localRiscoB_ut_1")
+    @Mapping(target = "ut1_LocalRisco_C", source = "localRiscoC_ut_1")
+    @Mapping(target = "ut1_LocalRisco_D", source = "localRiscoD_ut_1")
+    @Mapping(target = "ut1_LocalRisco_E", source = "localRiscoE_ut_1")
+    @Mapping(target = "ut1_LocalRisco_F", source = "localRiscoF_ut_1")
+    @Mapping(target = "ut2", ignore = true)
+    @Mapping(target = "ut2_CategoriasRisco", ignore = true)
+    @Mapping(target = "ut2_LocalRisco_A", source = "localRiscoA_ut_2")
+    @Mapping(target = "ut2_LocalRisco_B", source = "localRiscoB_ut_2")
+    @Mapping(target = "ut2_LocalRisco_C", source = "localRiscoC_ut_2")
+    @Mapping(target = "ut2_LocalRisco_D", source = "localRiscoD_ut_2")
+    @Mapping(target = "ut2_LocalRisco_E", source = "localRiscoE_ut_2")
+    @Mapping(target = "ut2_LocalRisco_F", source = "localRiscoF_ut_2")
+    QuestionarioChecklistResultado mapUt(IAvaliacaoRiscosAnterior.IItem item);
+
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "idItem", source = "id")
+    @Mapping(target = "resposta", source = "resposta")
+    QuestionarioChecklistResultado mapObservacao(IAvaliacaoRiscosAnterior.IItem item);
+
 }

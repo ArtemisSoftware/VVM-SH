@@ -485,4 +485,6 @@
     <string name="avaliacoes_ambientais">Avaliações ambientais</string>
     <string name="tarefa_nao_realizada_falta_tempo">Tarefa não realizada por falta de tempo</string>
     <string name="autorizado">Autorizado</string>
+    <string name="seccao">Secção</string>
+    <string name="argumento_id_checklist">idChecklist</string>
 </resources>

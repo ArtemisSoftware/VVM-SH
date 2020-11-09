@@ -64,4 +64,13 @@ public class CategoriaProfissionalResultado {
         this.mulheres = mulheres;
     }
 
+    @Ignore
+    public CategoriaProfissionalResultado(int idRegisto, int idCategoriaProfissional, int origem, int homens, int mulheres) {
+        this.idCategoriaProfissional = idCategoriaProfissional;
+        this.idRegisto = idRegisto;
+        this.origem = origem;
+        this.homens = homens;
+        this.mulheres = mulheres;
+    }
+
 }

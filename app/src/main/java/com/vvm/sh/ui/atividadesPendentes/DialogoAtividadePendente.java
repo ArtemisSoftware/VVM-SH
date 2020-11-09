@@ -117,6 +117,7 @@ public class DialogoAtividadePendente extends BaseDaggerDialogFragment {
         if(getArguments().getInt(ARGUMENTO_RELATORIO) == Identificadores.Relatorios.ID_RELATORIO_AVALIACAO_RISCO){
 
             binding.rdBtnRelatorio.setVisibility(View.GONE);
+            binding.txtTitulo.setVisibility(View.VISIBLE);
             binding.rdGpAvaliacaoRiscos.setVisibility(View.VISIBLE);
         }
 

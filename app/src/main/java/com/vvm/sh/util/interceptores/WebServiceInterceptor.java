@@ -47,9 +47,30 @@ public class WebServiceInterceptor implements Interceptor {
 
         Response resposta = chain.proceed(pedido);
         ResponseBody corpo = resposta.body();
+        String responseString = "";
+
+        if(metodo.equals("GetDados") == true || metodo.equals("GetDadosDia") == true){
+            //String responseString_1 = resposta.peekBody(2048).string();
+            responseString = corpo.string();
+
+            String lolo = ",\"AvaliacaoRiscosAnterior\":{\"processoProdutivo\":null,\"equipamentos\":null,\"levantamentosRisco\":null,\"Vulnerabilidades\":null,\"Checklist\":null,\"capaRelatorio\":null,\"RelatorioPlanoAcao\":null,\"RelatorioPlanoAcaoAVR\":null,\"RelatorioPlanoAcaoST\":null}";
+            String lolo2 = ",\"AuditoriaAnterior\":{\"idChecklist\":null,\"versaoChecklist\":null,\"dadosChecklist\":null}";
+            if(responseString.contains(lolo) == true){
+
+                responseString = responseString.replace(lolo, "");
+            }
+            if(responseString.contains(lolo2) == true){
+
+                responseString = responseString.replace(lolo2, "");
+            }
+        }
+        else{
+            responseString = corpo.string();
+        }
+
 
         MediaType contentType = corpo.contentType();
-        ResponseBody body = ResponseBody.create(obterJSON(corpo.string(), metodo, api),contentType);
+        ResponseBody body = ResponseBody.create(obterJSON(/*corpo.string()*/responseString, metodo, api),contentType);
         return resposta.newBuilder().body(body).build();
     }
 

@@ -5,6 +5,7 @@ import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
@@ -44,5 +45,21 @@ public class TrabalhadorVulneravelResultado {
     @ColumnInfo(name = "origem" , defaultValue = Identificadores.Origens.ORIGEM_WS + "")
     public int origem;
 
+    @Ignore
+    public TrabalhadorVulneravelResultado(int idAtividade, int idVulnerabilidade, int homens, int mulheres) {
+        this.idAtividade = idAtividade;
+        this.idVulnerabilidade = idVulnerabilidade;
+        this.homens = homens;
+        this.mulheres = mulheres;
+    }
 
+
+    public TrabalhadorVulneravelResultado(int idAtividade, int id, int idVulnerabilidade, int homens, int mulheres, int origem) {
+        this.idAtividade = idAtividade;
+        this.id = id;
+        this.idVulnerabilidade = idVulnerabilidade;
+        this.homens = homens;
+        this.mulheres = mulheres;
+        this.origem = origem;
+    }
 }

@@ -5,54 +5,34 @@ import android.os.AsyncTask;
 import android.os.Handler;
 
 import com.vvm.sh.api.modelos.bd.AreaBd;
-import com.vvm.sh.api.modelos.bd.AtividadePlanoAcaoBd;
-import com.vvm.sh.api.modelos.bd.ColaboradorBd;
-import com.vvm.sh.api.modelos.bd.ExtintorBd;
-import com.vvm.sh.api.modelos.bd.RelatorioAmbientalBd;
-import com.vvm.sh.api.modelos.bd.RelatorioAveriguacaoBd;
 import com.vvm.sh.api.modelos.envio.AcaoFormacao;
-import com.vvm.sh.api.modelos.envio.Anomalia;
 import com.vvm.sh.api.modelos.envio.AtividadePendente;
-import com.vvm.sh.api.modelos.envio.AtividadePlanoAcao;
-import com.vvm.sh.api.modelos.envio.AvaliacaoIluminacao;
 import com.vvm.sh.api.modelos.envio.AvaliacaoRiscos;
-import com.vvm.sh.api.modelos.envio.AvaliacaoTemperaturaHumidade;
 import com.vvm.sh.api.modelos.envio.Checklist;
-import com.vvm.sh.api.modelos.envio.Colaborador;
 import com.vvm.sh.api.modelos.envio.CrossSelling;
 import com.vvm.sh.api.modelos.envio.DadosFormulario;
 import com.vvm.sh.api.modelos.envio.Email;
-import com.vvm.sh.api.modelos.envio.Equipamento;
-import com.vvm.sh.api.modelos.envio.Extintor;
 import com.vvm.sh.api.modelos.envio.Formando;
 import com.vvm.sh.api.modelos.bd.FormandoBd;
 import com.vvm.sh.api.modelos.envio.Imagem;
 import com.vvm.sh.api.modelos.envio.ItemSeccaoChecklist;
 import com.vvm.sh.api.modelos.envio.Levantamento;
-import com.vvm.sh.api.modelos.envio.MedidaAveriguacao;
 import com.vvm.sh.api.modelos.envio.Observacao;
 import com.vvm.sh.api.modelos.envio.Ocorrencia;
-import com.vvm.sh.api.modelos.envio.ParqueExtintor;
 import com.vvm.sh.api.modelos.envio.Pergunta;
-import com.vvm.sh.api.modelos.envio.RelatorioAmbiental;
-import com.vvm.sh.api.modelos.envio.RelatorioAveriguacao;
 import com.vvm.sh.api.modelos.envio.Risco;
 import com.vvm.sh.api.modelos.envio.Seccao;
 import com.vvm.sh.api.modelos.envio.TrabalhadorVulneravel;
 import com.vvm.sh.api.modelos.envio.Ut;
 import com.vvm.sh.baseDados.VvmshBaseDados;
-import com.vvm.sh.baseDados.entidades.AvaliacaoAmbientalResultado;
 import com.vvm.sh.baseDados.entidades.CrossSellingResultado;
 import com.vvm.sh.baseDados.entidades.ImagemResultado;
 import com.vvm.sh.baseDados.entidades.LevantamentoRiscoResultado;
 import com.vvm.sh.baseDados.entidades.QuestionarioChecklistResultado;
-import com.vvm.sh.baseDados.entidades.RelatorioAveriguacaoResultado;
 import com.vvm.sh.baseDados.entidades.Resultado;
 import com.vvm.sh.baseDados.entidades.RiscoResultado;
 import com.vvm.sh.baseDados.entidades.Tipo;
-import com.vvm.sh.baseDados.entidades.TipoNovo;
 import com.vvm.sh.baseDados.entidades.TrabalhadorVulneravelResultado;
-import com.vvm.sh.baseDados.entidades.AnomaliaResultado;
 import com.vvm.sh.baseDados.entidades.OcorrenciaResultado;
 import com.vvm.sh.repositorios.UploadRepositorio;
 import com.vvm.sh.ui.transferencias.modelos.DadosUpload;
@@ -63,7 +43,7 @@ import com.vvm.sh.util.constantes.AppConfig;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.mapeamento.UploadMapping;
-import com.vvm.sh.util.metodos.DatasUtil;
+import com.vvm.sh.util.metodos.MensagensUtil;
 
 import org.json.JSONArray;
 
@@ -89,6 +69,7 @@ public abstract class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void
     protected String idUtilizador;
 
     private AtualizacaoUI atualizacaoUI;
+    private MensagensUtil dialogo;
 
 
     public DadosUploadAsyncTask(VvmshBaseDados vvmshBaseDados, Handler handler, UploadRepositorio repositorio, String idUtilizador){
@@ -99,6 +80,8 @@ public abstract class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void
         this.dadosUpload = new DadosUpload(idUtilizador);
         atualizacaoUI = new AtualizacaoUI(handler);
     }
+
+
 
     @Override
     protected Void doInBackground(List<Upload>... resultados) {
@@ -194,7 +177,7 @@ public abstract class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void
             atualizacaoUI.atualizarUI(AtualizacaoUI.Codigo.PROCESSAMENTO_DADOS, "Tarefa: " + upload.tarefa.idTarefa, posicao, resposta.size());
         }
 
-        adicionarCamposAdicionais(resposta);
+        camposAdicionais(resposta);
 
 
     }
@@ -476,7 +459,7 @@ public abstract class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void
      * Metodo que permite adicionar campos adicionais
      * @param resposta
      */
-    protected abstract void adicionarCamposAdicionais(List<Upload> resposta);
+    protected abstract void camposAdicionais(List<Upload> resposta);
 
 
 }

@@ -162,15 +162,26 @@ public class PesquisaViewModel extends BaseViewModel {
 
 
     //-----------------------
-    //OBTER
+    //OBTER - Equipamentos
     //-----------------------
+
+    public void obterEquipamentos(List<String> registos, boolean reiniciar){
+
+        if(reiniciar == true){
+            limite = AppConfig.NUMERO_RESULTADOS_QUERY;
+            //equipamentosRegistados.setValue(new ArrayList<>());
+        }
+
+        obterEquipamentos(registos);
+    }
+
 
 
     /**
      * Metodo que permite obter os equipamentos
      * @param idAtividade o identificador da atividade
      */
-    public void obterEquipamentos(int idAtividade) {
+    public void obterRegistadosEquipamentos(int idAtividade) {
 
         equipamentoRepositorio.obterEquipamentos(idAtividade)
                 .subscribeOn(Schedulers.io())
@@ -202,16 +213,28 @@ public class PesquisaViewModel extends BaseViewModel {
     }
 
 
+
+
+    /**
+     * Metodo que permite carregar mais medidas
+     */
+    public void carregarEquipamentos(List<String> registos){
+        limite += AppConfig.NUMERO_RESULTADOS_QUERY;
+        obterEquipamentos(registos);
+    }
+
+
+
     /**
      * Metodo que permite obter os equipamentos
      * @param registos os registos exitentes
      */
-    public void obterEquipamentos(List<String> registos) {
+    private void obterEquipamentos(List<String> registos) {
 
         showProgressBar(true);
 
         Observable<PesquisaEquipamentos> observable = Observable.zip(
-                equipamentoRepositorio.obterEquipamentos_Excluir(registos),
+                equipamentoRepositorio.obterEquipamentos_Excluir(registos, limite),
                 equipamentoRepositorio.obterEquipamentos_Incluir(registos),
                 new BiFunction<List<Equipamento>, List<Equipamento>, PesquisaEquipamentos>() {
                     @Override
@@ -256,21 +279,20 @@ public class PesquisaViewModel extends BaseViewModel {
     }
 
 
+    public void carregarEquipamentos(List<String> registos, String texto){
+        limite += AppConfig.NUMERO_RESULTADOS_QUERY;
+        pesquisarEquipamento(registos, texto);
+    }
 
-
-    //---------------------
-    //Misc
-    //---------------------
 
     /**
      * Metodo que permite pesquisar um equipamento
-     * @param idAtividade o identificador da atividade
      * @param registos os registos
      * @param pesquisa
      */
-    public void pesquisarEquipamento(int idAtividade, List<String> registos, String pesquisa) {
+    private void pesquisarEquipamento(List<String> registos, String pesquisa) {
 
-        equipamentoRepositorio.obterEquipamentos_Excluir(idAtividade, registos, pesquisa)
+        equipamentoRepositorio.obterEquipamentos_Excluir(registos, pesquisa, limite)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(

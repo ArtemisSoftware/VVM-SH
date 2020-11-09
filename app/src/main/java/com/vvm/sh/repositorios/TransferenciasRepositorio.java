@@ -9,10 +9,13 @@ import com.vvm.sh.api.modelos.pedido.ISessao;
 import com.vvm.sh.api.modelos.pedido.Codigo;
 import com.vvm.sh.baseDados.dao.TransferenciasDao;
 import com.vvm.sh.baseDados.entidades.Anomalia;
+import com.vvm.sh.baseDados.entidades.AreaChecklistResultado;
 import com.vvm.sh.baseDados.entidades.AtividadeExecutada;
 import com.vvm.sh.baseDados.entidades.AtividadePendente;
+import com.vvm.sh.baseDados.entidades.CategoriaProfissionalResultado;
 import com.vvm.sh.baseDados.entidades.Cliente;
 import com.vvm.sh.baseDados.entidades.Colaborador;
+import com.vvm.sh.baseDados.entidades.LevantamentoRiscoResultado;
 import com.vvm.sh.baseDados.entidades.MedidaAveriguacao;
 import com.vvm.sh.baseDados.entidades.MedidaResultado;
 import com.vvm.sh.baseDados.entidades.Morada;
@@ -21,10 +24,17 @@ import com.vvm.sh.baseDados.entidades.OcorrenciaHistorico;
 import com.vvm.sh.baseDados.entidades.ParqueExtintor;
 import com.vvm.sh.baseDados.entidades.PlanoAcao;
 import com.vvm.sh.baseDados.entidades.PlanoAcaoAtividade;
+import com.vvm.sh.baseDados.entidades.ProcessoProdutivoResultado;
+import com.vvm.sh.baseDados.entidades.PropostaPlanoAcaoResultado;
+import com.vvm.sh.baseDados.entidades.QuestionarioChecklistResultado;
 import com.vvm.sh.baseDados.entidades.RelatorioAveriguacao;
 import com.vvm.sh.baseDados.entidades.Resultado;
+import com.vvm.sh.baseDados.entidades.RiscoResultado;
 import com.vvm.sh.baseDados.entidades.Tarefa;
+import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.baseDados.entidades.TipoExtintor;
+import com.vvm.sh.baseDados.entidades.TrabalhadorVulneravelResultado;
+import com.vvm.sh.baseDados.entidades.VerificacaoEquipamentoResultado;
 import com.vvm.sh.ui.transferencias.modelos.DadosPendencia;
 import com.vvm.sh.ui.transferencias.modelos.Pendencia;
 import com.vvm.sh.ui.transferencias.modelos.Sessao;
@@ -296,6 +306,10 @@ public class TransferenciasRepositorio {
         transferenciasDao.inserirAnomalias(anomalias);
     }
 
+    public Long inserirAtividadePendente(AtividadePendente atividade){
+        return transferenciasDao.inserirAtividadePendente(atividade);
+    }
+
     public void inserirAtividadesPendentes(List<AtividadePendente> atividades){
         transferenciasDao.inserirAtividadesPendentes(atividades);
     }
@@ -396,5 +410,69 @@ public class TransferenciasRepositorio {
 
     public void inserirMedidasAveriguacao(List<MedidaAveriguacao> registos) {
         transferenciasDao.inserirMedidasAveriguacao(registos);
+    }
+
+    public void inserirProcessoProdutivo(ProcessoProdutivoResultado processoProdutivo) {
+        transferenciasDao.inserirProcessoProdutivo(processoProdutivo);
+    }
+
+    public void inserirEquipamentos(List<VerificacaoEquipamentoResultado> equipamentos) {
+        transferenciasDao.inserirEquipamentos(equipamentos);
+    }
+
+    public long inserirTrabalhadorVulneravel(TrabalhadorVulneravelResultado trabalhadorVulneravel) {
+        return transferenciasDao.inserirTrabalhadorVulneravel(trabalhadorVulneravel);
+    }
+
+    public void inserirCategoriasProfissionais(List<CategoriaProfissionalResultado> categorias) {
+        transferenciasDao.inserirCategoriasProfissionais(categorias);
+    }
+
+    public long inserirLevantamento(LevantamentoRiscoResultado levantamento) {
+        return transferenciasDao.inserirLevantamento(levantamento);
+    }
+
+    public long inserirRisco(RiscoResultado risco) {
+        return transferenciasDao.inserirRisco(risco);
+    }
+
+    public void inserirMedidas(List<MedidaResultado> medidas) {
+        transferenciasDao.inserirMedidas(medidas);
+    }
+
+    public List<Tipo> obterNi() {
+        return transferenciasDao.obterNi();
+    }
+
+    public boolean validarMedida(int idMedida, String tipo) {
+        return transferenciasDao.validarMedida(idMedida, tipo);
+    }
+
+    public boolean verificarItemChecklist(String idChecklist, String idArea, String idSeccao, String idItem) {
+        return transferenciasDao.verificarItemChecklist(Integer.parseInt(idChecklist), Integer.parseInt(idArea), idSeccao, idItem);
+    }
+
+    public String obterTipoItemChecklist(String idChecklist, String idArea, String idSeccao, String idItem) {
+        return transferenciasDao.obterTipoItemChecklist(Integer.parseInt(idChecklist), Integer.parseInt(idArea), idSeccao, idItem);
+    }
+
+    public void inserirQuestoes(List<QuestionarioChecklistResultado> questoes) {
+        transferenciasDao.inserirQuestoes(questoes);
+    }
+
+    public long inserirQuestao(QuestionarioChecklistResultado questao) {
+        return transferenciasDao.inserirQuestao(questao);
+    }
+
+    public long inserirAreaChecklist(AreaChecklistResultado area) {
+        return transferenciasDao.inserirQuestoes(area);
+    }
+
+    public void inserirPropostaPlanoAcao(List<PropostaPlanoAcaoResultado> medidasChecklist) {
+        transferenciasDao.inserirPropostaPlanoAcao(medidasChecklist);
+    }
+
+    public List<Tipo> obterUts() {
+        return transferenciasDao.obterUts();
     }
 }

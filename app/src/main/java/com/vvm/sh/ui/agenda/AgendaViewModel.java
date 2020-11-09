@@ -5,6 +5,7 @@ import androidx.lifecycle.MediatorLiveData;
 import androidx.lifecycle.MutableLiveData;
 
 import com.vvm.sh.repositorios.AgendaRepositorio;
+import com.vvm.sh.ui.agenda.modelos.DataAgendamento;
 import com.vvm.sh.ui.agenda.modelos.Marcacao;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.constantes.Identificadores;
@@ -31,33 +32,28 @@ public class AgendaViewModel extends BaseViewModel {
 
     private final AgendaRepositorio agendaRepositorio;
 
-    public MutableLiveData<Agenda> agenda;
-
     public MutableLiveData<List<Marcacao>> marcacoes;
     public MutableLiveData<Integer> completude;
-    public MutableLiveData<List<Date>> datas;
-    public MutableLiveData<Recurso> completude_;
+    public MutableLiveData<List<DataAgendamento>> datas;
 
 
     @Inject
     public AgendaViewModel(AgendaRepositorio agendaRepositorio){
 
         this.agendaRepositorio = agendaRepositorio;
-        agenda = new MutableLiveData<>();
         marcacoes = new MutableLiveData<>();
         completude = new MutableLiveData<>();
-        completude_ = new MutableLiveData<>();
         datas = new MutableLiveData<>();
     }
 
 
-    public MutableLiveData<List<Date>> observarDatas(){
+    public MutableLiveData<List<DataAgendamento>> observarDatas(){
         return datas;
     }
 
 
-    public MutableLiveData<Recurso> observarCompletude(){
-        return completude_;
+    public MutableLiveData<Integer> observarCompletude(){
+        return completude;
     }
 
 
@@ -74,7 +70,8 @@ public class AgendaViewModel extends BaseViewModel {
      */
     public void obterMarcacoes(String idUtilizador, long data){
 
-        agenda.setValue(new Agenda());
+        marcacoes.setValue(new ArrayList<>());
+        completude.setValue(Identificadores.Sincronizacao.SEM_SINCRONIZACAO);
 
         agendaRepositorio.obterCompletude(idUtilizador, data)
                 .subscribeOn(Schedulers.io())
@@ -84,12 +81,12 @@ public class AgendaViewModel extends BaseViewModel {
                         new Observer<Integer>() {
                             @Override
                             public void onSubscribe(Disposable d) {
-
+                                disposables.add(d);
                             }
 
                             @Override
                             public void onNext(Integer integer) {
-                                completude_.setValue(Recurso.successo(integer));
+                                completude.setValue(integer);
                             }
 
                             @Override
@@ -113,13 +110,13 @@ public class AgendaViewModel extends BaseViewModel {
                         new Observer<List<Marcacao>>() {
                             @Override
                             public void onSubscribe(Disposable d) {
-
+                                disposables.add(d);
                             }
 
                             @Override
                             public void onNext(List<Marcacao> marcacaos) {
-                                Agenda lolo = new Agenda(marcacaos, 2);
-                                agenda.setValue(lolo);
+
+                                marcacoes.setValue(marcacaos);
                             }
 
                             @Override
@@ -263,7 +260,7 @@ public class AgendaViewModel extends BaseViewModel {
      */
     public void obterDatas(String idUtilizador){
 
-        Date dataHoje = DatasUtil.converterString(DatasUtil.obterDataAtual(DatasUtil.FORMATO_YYYY_MM_DD), DatasUtil.FORMATO_YYYY_MM_DD);
+        DataAgendamento dataHoje = new DataAgendamento(DatasUtil.converterString(DatasUtil.obterDataAtual(DatasUtil.FORMATO_YYYY_MM_DD), DatasUtil.FORMATO_YYYY_MM_DD));
 
         showProgressBar(true);
 
@@ -272,14 +269,14 @@ public class AgendaViewModel extends BaseViewModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
 
-                        new MaybeObserver<List<Date>>() {
+                        new MaybeObserver<List<DataAgendamento>>() {
                             @Override
                             public void onSubscribe(Disposable d) {
                                 disposables.add(d);
                             }
 
                             @Override
-                            public void onSuccess(List<Date> registos) {
+                            public void onSuccess(List<DataAgendamento> registos) {
 
                                 if(registos.contains(dataHoje) == false)
                                     registos.add(dataHoje);
@@ -332,34 +329,6 @@ public class AgendaViewModel extends BaseViewModel {
     }
 
 
-    public class Agenda{
-
-        public List<Marcacao> marcacaos;
-        public int completude;
-
-        public Agenda() {
-            this.marcacaos = new ArrayList<>();
-            this.completude = Identificadores.Sincronizacao.SEM_SINCRONIZACAO;
-        }
-
-        public Agenda(List<Marcacao> marcacaos, int completude) {
-            this.marcacaos = marcacaos;
-            this.completude = completude;
-        }
-
-        /**
-         * Metodo que permite obter a completude da agenda
-         * @return
-         */
-        public boolean obterCompletude(){
-            if(completude == Identificadores.Sincronizacao.TRANCADO){
-                return false;
-            }
-            else{
-                return true;
-            }
-        }
-    }
 
 
 }

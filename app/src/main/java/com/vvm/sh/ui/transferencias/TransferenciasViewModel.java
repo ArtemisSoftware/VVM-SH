@@ -16,10 +16,12 @@ import com.vvm.sh.repositorios.CarregamentoTiposRepositorio;
 import com.vvm.sh.repositorios.TiposRepositorio;
 import com.vvm.sh.repositorios.TransferenciasRepositorio;
 import com.vvm.sh.repositorios.UploadRepositorio;
+import com.vvm.sh.servicos.DadosUploadAsyncTask;
 import com.vvm.sh.servicos.tipos.AtualizarTipoAsyncTask;
 import com.vvm.sh.servicos.trabalho.RecarregarTarefaAsyncTask;
 import com.vvm.sh.servicos.trabalho.RecarregarTrabalhoAsyncTask;
 import com.vvm.sh.servicos.trabalho.CarregarTrabalhoAsyncTask;
+import com.vvm.sh.servicos.upload.DadosUploadSAAsyncTask;
 import com.vvm.sh.servicos.upload.DadosUploadSHAsyncTask;
 import com.vvm.sh.ui.transferencias.modelos.DadosPendencia;
 import com.vvm.sh.ui.transferencias.modelos.DadosUpload;
@@ -341,7 +343,6 @@ public class TransferenciasViewModel extends BaseViewModel {
                             registos.add(item);
                         }
 
-
                         return registos;
                     }
                 })
@@ -382,16 +383,16 @@ public class TransferenciasViewModel extends BaseViewModel {
 
     private void gerarDadosUpload(List<Upload> resultado, Handler handler, String idUtilizador) {
 
-        if(AppConfig.sa){
+        DadosUploadAsyncTask servico;
 
+        if(AppConfig.sa){
+            servico = new DadosUploadSAAsyncTask(vvmshBaseDados, handler, uploadRepositorio, idUtilizador);
         }
         else{
-            DadosUploadSHAsyncTask servico = new DadosUploadSHAsyncTask(vvmshBaseDados, handler, uploadRepositorio, idUtilizador);
-            servico.execute(resultado);
+            servico = new DadosUploadSHAsyncTask(vvmshBaseDados, handler, uploadRepositorio, idUtilizador);
         }
 
-//        DadosUploadAsyncTask servico = new DadosUploadAsyncTask(vvmshBaseDados, handler, uploadRepositorio, idUtilizador);
-//        servico.execute(resultado);
+        servico.execute(resultado);
     }
 
 

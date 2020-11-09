@@ -19,6 +19,7 @@ import com.vvm.sh.api.modelos.envio.RegistoVisita;
 import com.vvm.sh.api.modelos.envio.RelatorioAmbiental;
 import com.vvm.sh.baseDados.BaseDao;
 import com.vvm.sh.baseDados.entidades.Anomalia;
+import com.vvm.sh.baseDados.entidades.AreaChecklistResultado;
 import com.vvm.sh.baseDados.entidades.AtividadeExecutada;
 import com.vvm.sh.baseDados.entidades.AtividadePendente;
 import com.vvm.sh.baseDados.entidades.AvaliacaoAmbientalResultado;
@@ -36,6 +37,8 @@ import com.vvm.sh.baseDados.entidades.OcorrenciaHistorico;
 import com.vvm.sh.baseDados.entidades.ParqueExtintor;
 import com.vvm.sh.baseDados.entidades.PlanoAcao;
 import com.vvm.sh.baseDados.entidades.PlanoAcaoAtividade;
+import com.vvm.sh.baseDados.entidades.ProcessoProdutivoResultado;
+import com.vvm.sh.baseDados.entidades.PropostaPlanoAcaoResultado;
 import com.vvm.sh.baseDados.entidades.QuestionarioChecklistResultado;
 import com.vvm.sh.baseDados.entidades.RegistoVisitaResultado;
 import com.vvm.sh.baseDados.entidades.RelatorioAveriguacao;
@@ -52,6 +55,7 @@ import com.vvm.sh.baseDados.entidades.TipoExtintor;
 import com.vvm.sh.baseDados.entidades.TipoNovo;
 import com.vvm.sh.baseDados.entidades.TrabalhadorVulneravelResultado;
 import com.vvm.sh.baseDados.entidades.TrabalhoRealizadoResultado;
+import com.vvm.sh.baseDados.entidades.VerificacaoEquipamentoResultado;
 import com.vvm.sh.ui.quadroPessoal.modelos.ColaboradorRegisto;
 import com.vvm.sh.ui.transferencias.modelos.Pendencia;
 import com.vvm.sh.ui.transferencias.modelos.Upload;
@@ -151,6 +155,10 @@ abstract public class TransferenciasDao implements BaseDao<Resultado> {
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     abstract public List<Long> inserirAtividadesExecutadas(List<AtividadeExecutada> registos);
 
+
+    @Insert
+    abstract public Long inserirAtividadePendente(AtividadePendente registo);
+
     @Insert
     abstract public List<Long> inserirAtividadesPendentes(List<AtividadePendente> registos);
 
@@ -194,6 +202,43 @@ abstract public class TransferenciasDao implements BaseDao<Resultado> {
     abstract public void inserirMedidasAveriguacao(List<MedidaAveriguacao> registos);
 
 
+
+    @Insert
+    public abstract void inserirProcessoProdutivo(ProcessoProdutivoResultado processoProdutivo);
+
+    @Insert
+    public abstract void inserirEquipamentos(List<VerificacaoEquipamentoResultado> equipamentos);
+
+    @Insert
+    public abstract long inserirTrabalhadorVulneravel(TrabalhadorVulneravelResultado trabalhadorVulneravel);
+
+    @Insert
+    public abstract void inserirCategoriasProfissionais(List<CategoriaProfissionalResultado> categorias);
+
+    @Insert
+    public abstract long inserirLevantamento(LevantamentoRiscoResultado levantamento);
+
+    @Insert
+    public abstract long inserirRisco(RiscoResultado risco);
+
+    @Insert
+    public abstract void inserirMedidas(List<MedidaResultado> medidas);
+
+    @Insert
+    public abstract long inserirQuestoes(AreaChecklistResultado area);
+
+    @Insert
+    public abstract void inserirQuestoes(List<QuestionarioChecklistResultado> questoes);
+
+    @Insert
+    public abstract long inserirQuestao(QuestionarioChecklistResultado questao);
+
+
+    @Insert
+    public abstract void inserirPropostaPlanoAcao(List<PropostaPlanoAcaoResultado> medidasChecklist);
+
+
+
     @Query("DELETE FROM tarefas WHERE idTarefa = :idTarefa")
     abstract public void removerTarefa(int idTarefa);
 
@@ -202,5 +247,20 @@ abstract public class TransferenciasDao implements BaseDao<Resultado> {
     abstract public void removerTrabalho(String idUtilizador, long data);
 
 
+    @Query("SELECT * FROM tipos WHERE tipo = '" + TiposUtil.MetodosTipos.TIPOS_NI + "' AND api =" + Identificadores.App.APP_ST +"")
+    public abstract List<Tipo> obterNi();
+
+    @Query("SELECT * FROM tipos WHERE tipo = '" + TiposUtil.MetodosTipos.TIPOS_UTS + "' AND api =" + Identificadores.App.APP_ST +"")
+    public abstract List<Tipo> obterUts();
+
+
+    @Query("SELECT ativo FROM tipos WHERE id =:idMedida AND tipo =:tipo AND api =" + Identificadores.App.APP_ST +"")
+    public abstract boolean validarMedida(int idMedida, String tipo);
+
+    @Query("SELECT 1 FROM itensChecklist WHERE idChecklist =:idChecklist AND idArea =:idArea AND idSeccao =:idSeccao AND uid =:idItem")
+    public abstract boolean verificarItemChecklist(int idChecklist, int idArea, String idSeccao, String idItem);
+
+    @Query("SELECT tipo FROM itensChecklist WHERE idChecklist =:idChecklist AND idArea =:idArea AND idSeccao =:idSeccao AND uid =:idItem")
+    public abstract String obterTipoItemChecklist(int idChecklist, int idArea, String idSeccao, String idItem);
 
 }

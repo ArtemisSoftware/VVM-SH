@@ -260,7 +260,7 @@ public class DadosUploadSHAsyncTask extends DadosUploadAsyncTask {
 
 
     @Override
-    protected void adicionarCamposAdicionais(List<Upload> resposta) {
+    protected void camposAdicionais(List<Upload> resposta) {
         dadosUpload.equipamentos = obterEquipamentos(resposta);
     }
 

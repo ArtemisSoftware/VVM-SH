@@ -159,7 +159,7 @@ public class DialogoArea extends BaseDaggerDialogoPersistenteFragment {
             viewModel.editarArea(PreferenciasUtil.obterIdTarefa(getContext()), resultado);
         }
         else {
-            viewModel.inserNovaArea(PreferenciasUtil.obterIdTarefa(getContext()), resultado);
+            viewModel.inserirNovaArea(PreferenciasUtil.obterIdTarefa(getContext()), resultado);
         }
     }
 

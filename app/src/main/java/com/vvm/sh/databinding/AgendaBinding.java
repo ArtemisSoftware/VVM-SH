@@ -165,6 +165,7 @@ public class AgendaBinding {
                 break;
 
             default:
+                view.setVisibility(View.INVISIBLE);
                 break;
 
         }

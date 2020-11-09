@@ -94,7 +94,7 @@
                     android:id="@+id/textView431"
                     style="@style/textoDetalhe"
                     android:layout_marginStart="16dp"
-                    android:text="@{equipamento.obterEstado(), default=estado}" />
+                    android:text="@{equipamento.obterEstadoEquipamento(), default=estado}" />
 
             </LinearLayout>
 

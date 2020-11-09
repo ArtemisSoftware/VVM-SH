@@ -118,6 +118,19 @@ public class QuestionarioChecklistResultado {
     @NonNull
     public int origem;
 
+    @Ignore
+    public QuestionarioChecklistResultado() {
+    }
+
+    @Ignore
+    public QuestionarioChecklistResultado(int idRegistoArea, String idSeccao, String idQuestao, String resposta, String ni) {
+        this.idArea = idRegistoArea;
+        this.idSeccao = idSeccao;
+        this.idItem = idQuestao;
+        this.tipo = Identificadores.Checklist.TIPO_QUESTAO;
+        this.resposta = resposta;
+        this.ni = ni;
+    }
 
     @Ignore
     public QuestionarioChecklistResultado(Item item, String idQuestao, String resposta, String ni) {

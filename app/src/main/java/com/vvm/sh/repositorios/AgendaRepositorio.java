@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 
 import com.vvm.sh.baseDados.dao.AgendaDao;
 import com.vvm.sh.baseDados.dao.UtilizadorDao;
+import com.vvm.sh.ui.agenda.modelos.DataAgendamento;
 import com.vvm.sh.ui.agenda.modelos.Marcacao;
 
 import java.util.Date;
@@ -52,7 +53,7 @@ public class AgendaRepositorio {
      * @param idUtilizador  o identificador do utilizador
      * @return uma lista de datas
      */
-    public Maybe<List<Date>> obterDatas(String idUtilizador){
+    public Maybe<List<DataAgendamento>> obterDatas(String idUtilizador){
         return agendaDao.obterDatas(idUtilizador);
     }
 

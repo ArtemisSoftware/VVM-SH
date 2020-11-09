@@ -7,6 +7,7 @@ import android.os.Handler;
 import com.vvm.sh.api.modelos.pedido.IAtividadeExecutada;
 import com.vvm.sh.api.modelos.pedido.IAnomalia;
 import com.vvm.sh.api.modelos.pedido.IAtividadePendente;
+import com.vvm.sh.api.modelos.pedido.IAvaliacaoRiscosAnterior;
 import com.vvm.sh.api.modelos.pedido.ICliente;
 import com.vvm.sh.api.modelos.pedido.IColaborador;
 import com.vvm.sh.api.modelos.pedido.IMorada;
@@ -19,14 +20,21 @@ import com.vvm.sh.api.modelos.pedido.IOcorrencia;
 import com.vvm.sh.api.modelos.pedido.ISessao;
 import com.vvm.sh.api.modelos.pedido.ITipoExtintor;
 import com.vvm.sh.baseDados.VvmshBaseDados;
+import com.vvm.sh.baseDados.entidades.AreaChecklistResultado;
+import com.vvm.sh.baseDados.entidades.CategoriaProfissionalResultado;
 import com.vvm.sh.baseDados.entidades.Colaborador;
+import com.vvm.sh.baseDados.entidades.LevantamentoRiscoResultado;
 import com.vvm.sh.baseDados.entidades.MedidaAveriguacao;
 import com.vvm.sh.baseDados.entidades.MedidaResultado;
 import com.vvm.sh.baseDados.entidades.Morada;
 import com.vvm.sh.baseDados.entidades.ParqueExtintor;
 import com.vvm.sh.baseDados.entidades.PlanoAcao;
 import com.vvm.sh.baseDados.entidades.PlanoAcaoAtividade;
+import com.vvm.sh.baseDados.entidades.ProcessoProdutivoResultado;
+import com.vvm.sh.baseDados.entidades.PropostaPlanoAcaoResultado;
+import com.vvm.sh.baseDados.entidades.QuestionarioChecklistResultado;
 import com.vvm.sh.baseDados.entidades.RelatorioAveriguacao;
+import com.vvm.sh.baseDados.entidades.RiscoResultado;
 import com.vvm.sh.baseDados.entidades.Tarefa;
 import com.vvm.sh.baseDados.entidades.Anomalia;
 import com.vvm.sh.baseDados.entidades.AtividadeExecutada;
@@ -34,13 +42,18 @@ import com.vvm.sh.baseDados.entidades.AtividadePendente;
 import com.vvm.sh.baseDados.entidades.Cliente;
 import com.vvm.sh.baseDados.entidades.Ocorrencia;
 import com.vvm.sh.baseDados.entidades.OcorrenciaHistorico;
+import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.baseDados.entidades.TipoExtintor;
+import com.vvm.sh.baseDados.entidades.TrabalhadorVulneravelResultado;
+import com.vvm.sh.baseDados.entidades.VerificacaoEquipamentoResultado;
 import com.vvm.sh.repositorios.TransferenciasRepositorio;
 import com.vvm.sh.util.AtualizacaoUI;
 import com.vvm.sh.util.constantes.Identificadores;
+import com.vvm.sh.util.constantes.TiposConstantes;
 import com.vvm.sh.util.mapeamento.DownloadMapping;
 import com.vvm.sh.util.metodos.ConversorUtil;
 import com.vvm.sh.util.metodos.DatasUtil;
+import com.vvm.sh.util.metodos.TiposUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -129,7 +142,7 @@ public class CarregarTrabalhoAsyncTask extends AsyncTask<ISessao, Void, Void> {
 
         inserirOcorrencias(info.tarefas.ocorrencias, idTarefa);
 
-        inserirAtividadesPendentes(info.tarefas.atividadesPendentes, idTarefa);
+        inserirAtividadesPendentes(info.tarefas.atividadesPendentes, info.tarefas.avaliacaoRiscosAnterior, idTarefa);
 
         inserirMoradas(info.tarefas.moradas, info.tarefas.moradasExtintores, idTarefa);
 
@@ -147,7 +160,6 @@ public class CarregarTrabalhoAsyncTask extends AsyncTask<ISessao, Void, Void> {
         if(relatorioAvaliacaoRiscos == null){
             return;
         }
-
 
         for (IRelatorioAvaliacaoRiscos.ICategoriaProfissional item : relatorioAvaliacaoRiscos.categoriasProfissionais) {
 
@@ -307,9 +319,10 @@ public class CarregarTrabalhoAsyncTask extends AsyncTask<ISessao, Void, Void> {
     /**
      * Metodo que permite inserir as atividades pendentes
      * @param atividadesPendentes os dados das atividades pendentes
+     * @param avaliacaoRiscosAnterior
      * @param idTarefa o identificador da tarefa
      */
-    private void inserirAtividadesPendentes(List<IAtividadePendente> atividadesPendentes, int idTarefa) {
+    private void inserirAtividadesPendentes(List<IAtividadePendente> atividadesPendentes, IAvaliacaoRiscosAnterior avaliacaoRiscosAnterior, int idTarefa) {
 
         List<AtividadePendente> registos = new ArrayList<>();
 
@@ -324,10 +337,208 @@ public class CarregarTrabalhoAsyncTask extends AsyncTask<ISessao, Void, Void> {
 
             registo.idRelatorio = obterIdRelatorioAtividadePendente(atividadePendente);
             registo.idTarefa = idTarefa;
-            registos.add(registo);
+
+            if(registo.idRelatorio == Identificadores.Relatorios.ID_RELATORIO_AVALIACAO_RISCO & avaliacaoRiscosAnterior != null){
+                inserirAvaliacaoRiscosAnterior(registo, avaliacaoRiscosAnterior);
+            }
+            else {
+                registos.add(registo);
+            }
         }
 
         repositorio.inserirAtividadesPendentes(registos);
+    }
+
+    private void inserirAvaliacaoRiscosAnterior(AtividadePendente registo, IAvaliacaoRiscosAnterior avaliacaoRiscosAnterior) {
+
+        int idAtividade = ConversorUtil.converter_long_Para_int(repositorio.inserirAtividadePendente(registo));
+
+        inserirProcessoProdutivo(avaliacaoRiscosAnterior, idAtividade);
+
+        inserirEquipamentos(avaliacaoRiscosAnterior, idAtividade);
+
+        inserirTrabalhadoresVulneraveis(avaliacaoRiscosAnterior, idAtividade);
+
+        List<PropostaPlanoAcaoResultado> medidasRiscos = inserirLevantamento(avaliacaoRiscosAnterior, idAtividade);
+
+
+        List<PropostaPlanoAcaoResultado> medidasChecklist = new ArrayList<>();
+        List<Tipo> tipoUt = repositorio.obterUts();
+
+        IAvaliacaoRiscosAnterior.IChecklist checklist = avaliacaoRiscosAnterior.checklist.get(0);
+
+        for (IAvaliacaoRiscosAnterior.IArea itemArea : checklist.areas) {
+
+            AreaChecklistResultado area = DownloadMapping.INSTANCE.map(itemArea);
+            area.idAtividade = idAtividade;
+            area.idChecklist = Integer.parseInt(checklist.id);
+
+            int idRegistoArea = ConversorUtil.converter_long_Para_int(repositorio.inserirAreaChecklist(area));
+
+            for (IAvaliacaoRiscosAnterior.ISeccao itemSeccao : itemArea.seccoes) {
+
+                String idSeccao = itemSeccao.id;
+
+                List<QuestionarioChecklistResultado> questoes = new ArrayList<>();
+
+                for (IAvaliacaoRiscosAnterior.IItem item : itemSeccao.itens) {
+
+                    if(repositorio.verificarItemChecklist(checklist.id, itemArea.id, idSeccao, item.id) == true){
+
+                        String tipo = repositorio.obterTipoItemChecklist(checklist.id, itemArea.id, idSeccao, item.id);
+
+                        if(tipo.equals(Identificadores.Checklist.TIPO_QUESTAO) == true){
+                            QuestionarioChecklistResultado questao = DownloadMapping.INSTANCE.mapQuestao(item);
+                            questao.idArea = idRegistoArea;
+                            questao.idSeccao = idSeccao;
+                            questao.tipo = tipo;
+
+                            int idQuestao = ConversorUtil.converter_long_Para_int(repositorio.inserirQuestao(questao));
+
+                            if(item.resposta.equals(TiposConstantes.Checklist.NAO.descricao) == true){
+                                medidasChecklist.add(new PropostaPlanoAcaoResultado(idAtividade, idQuestao));
+                            }
+
+                        }
+                        if(tipo.equals(Identificadores.Checklist.TIPO_UTS) == true){
+                            QuestionarioChecklistResultado questao = DownloadMapping.INSTANCE.mapUt(item);
+                            questao.idArea = idRegistoArea;
+                            questao.idSeccao = idSeccao;
+                            questao.tipo = tipo;
+
+                            try{
+                                questao.ut2_CategoriasRisco = Integer.parseInt(item.idCategoriasRiscoUT_2);
+                            }
+                            catch (NumberFormatException e){}
+
+                            questao.ut1 = obterUt(item.idUT1, tipoUt);
+                            questao.ut2 = obterUt(item.idUT2, tipoUt);
+                            questoes.add(questao);
+                        }
+                        if(tipo.equals(Identificadores.Checklist.TIPO_OBSERVACOES) == true){
+                            QuestionarioChecklistResultado questao = DownloadMapping.INSTANCE.mapObservacao(item);
+                            questao.idArea = idRegistoArea;
+                            questao.idSeccao = idSeccao;
+                            questao.tipo = tipo;
+
+                            questoes.add(questao);
+                        }
+                    }
+                }
+
+                repositorio.inserirQuestoes(questoes);
+
+            }
+        }
+
+        repositorio.inserirPropostaPlanoAcao(medidasChecklist);
+        repositorio.inserirPropostaPlanoAcao(medidasRiscos);
+    }
+
+    private int obterUt(String idUT, List<Tipo> tipoUt) {
+
+        for (Tipo tipo : tipoUt) {
+
+            if(tipo.codigo.equals(idUT) == true){
+                return tipo.id;
+            }
+        }
+
+        return Identificadores.VALOR_INT_0;
+    }
+
+    private List<PropostaPlanoAcaoResultado> inserirLevantamento(IAvaliacaoRiscosAnterior avaliacaoRiscosAnterior, int idAtividade) {
+
+        List<PropostaPlanoAcaoResultado> medidasRiscos = new ArrayList<>();
+        List<Tipo> tipoNi = repositorio.obterNi();
+
+        for (IAvaliacaoRiscosAnterior.ILevantamentoRisco item : avaliacaoRiscosAnterior.levantamentosRisco) {
+
+            LevantamentoRiscoResultado levantamento = new LevantamentoRiscoResultado(idAtividade, item.tarefa, item.perigo);
+
+            int idLevantamento = ConversorUtil.converter_long_Para_int(repositorio.inserirLevantamento(levantamento));
+
+
+            List<CategoriaProfissionalResultado> categorias = new ArrayList<>();
+
+            for (IAvaliacaoRiscosAnterior.ICategoriaProfissional categoriaProfissional : item.categoriasProfissionais) {
+                categorias.add(new CategoriaProfissionalResultado(idLevantamento, Integer.parseInt(categoriaProfissional.id), Identificadores.Origens.LEVANTAMENTO_CATEGORIAS_PROFISSIONAIS, Integer.parseInt(categoriaProfissional.numeroHomens), Integer.parseInt(categoriaProfissional.numeroMulheres)));
+            }
+
+            repositorio.inserirCategoriasProfissionais(categorias);
+
+
+            for(IAvaliacaoRiscosAnterior.IRisco itemRisco : item.riscos){
+
+                RiscoResultado risco = DownloadMapping.INSTANCE.map(itemRisco);
+                risco.idLevantamento = idLevantamento;
+                risco.ni = ConversorUtil.obterNI(itemRisco.nd, itemRisco.ne, itemRisco.nc, tipoNi);
+
+                int idRisco = ConversorUtil.converter_long_Para_int(repositorio.inserirRisco(risco));
+
+                List<MedidaResultado> medidas = new ArrayList<>();
+
+                for(String idMedida : itemRisco.idsMedidasExistentes){
+                    if(repositorio.validarMedida(Integer.parseInt(idMedida), TiposUtil.MetodosTipos.MEDIDAS_PREVENCAO_ADOPTADAS) == true){
+                        medidas.add(new MedidaResultado(idRisco, Identificadores.Origens.LEVANTAMENTO_MEDIDAS_ADOPTADAS, Integer.parseInt(idMedida)));
+                    }
+                }
+
+
+                for(String idMedida : itemRisco.idsMedidasRecomendadas){
+                    if(repositorio.validarMedida(Integer.parseInt(idMedida), TiposUtil.MetodosTipos.MEDIDAS_PREVENCAO_RECOMENDADAS) == true){
+
+                        medidasRiscos.add(new PropostaPlanoAcaoResultado(idAtividade, idRisco, Integer.parseInt(idMedida)));
+
+                        medidas.add(new MedidaResultado(idRisco, Identificadores.Origens.LEVANTAMENTO_MEDIDAS_RECOMENDADAS, Integer.parseInt(idMedida)));
+                    }
+                }
+
+                repositorio.inserirMedidas(medidas);
+            }
+        }
+
+        return medidasRiscos;
+    }
+
+    private void inserirTrabalhadoresVulneraveis(IAvaliacaoRiscosAnterior avaliacaoRiscosAnterior, int idAtividade) {
+        for (IAvaliacaoRiscosAnterior.IVulnerabilidade vulnerabilidade :avaliacaoRiscosAnterior.vulnerabilidades) {
+
+            if(vulnerabilidade.homens != 0 || vulnerabilidade.mulheres != 0){
+
+                TrabalhadorVulneravelResultado trabalhadorVulneravel = new TrabalhadorVulneravelResultado(idAtividade, vulnerabilidade.id, vulnerabilidade.homens, vulnerabilidade.mulheres);
+                int idTrabalhador = ConversorUtil.converter_long_Para_int(repositorio.inserirTrabalhadorVulneravel(trabalhadorVulneravel));
+
+                List<CategoriaProfissionalResultado> categorias = new ArrayList<>();
+
+                for (String idCategoria : vulnerabilidade.categoriasProfissionaisHomens) {
+                    categorias.add(new CategoriaProfissionalResultado(idTrabalhador, Integer.parseInt(idCategoria), Identificadores.Origens.VULNERABILIDADE_CATEGORIAS_PROFISSIONAIS_HOMENS));
+                }
+
+                for (String idCategoria : vulnerabilidade.categoriasProfissionaisMulheres) {
+                    categorias.add(new CategoriaProfissionalResultado(idTrabalhador, Integer.parseInt(idCategoria), Identificadores.Origens.VULNERABILIDADE_CATEGORIAS_PROFISSIONAIS_MULHERES));
+                }
+
+                repositorio.inserirCategoriasProfissionais(categorias);
+
+            }
+        }
+    }
+
+    private void inserirEquipamentos(IAvaliacaoRiscosAnterior avaliacaoRiscosAnterior, int idAtividade) {
+        List<VerificacaoEquipamentoResultado> equipamentos = new ArrayList<>();
+
+        for (String idEquipamento :avaliacaoRiscosAnterior.equipamentos) {
+            equipamentos.add(new VerificacaoEquipamentoResultado(idAtividade, Integer.parseInt(idEquipamento), Identificadores.ESTADO_DEFINITIVO));
+        }
+
+        repositorio.inserirEquipamentos(equipamentos);
+    }
+
+    private void inserirProcessoProdutivo(IAvaliacaoRiscosAnterior avaliacaoRiscosAnterior, int idAtividade) {
+
+        ProcessoProdutivoResultado processoProdutivo = new ProcessoProdutivoResultado(idAtividade, avaliacaoRiscosAnterior.processoProdutivo);
+        repositorio.inserirProcessoProdutivo(processoProdutivo);
     }
 
 

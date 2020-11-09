@@ -15,6 +15,7 @@ import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.agenda.AgendaViewModel;
 import com.vvm.sh.ui.agenda.DialogoCalendario;
 import com.vvm.sh.ui.agenda.DialogoOpcoesTrabalhoFragment;
+import com.vvm.sh.ui.agenda.modelos.DataAgendamento;
 import com.vvm.sh.ui.agenda.modelos.Marcacao;
 import com.vvm.sh.ui.autenticacao.AutenticacaoActivity;
 import com.vvm.sh.ui.autenticacao.CarregamentoActivity;
@@ -102,30 +103,18 @@ public class MainActivity extends BaseDaggerActivity
         });
 
 
-        viewModel.observarDatas().observe(this, new Observer<List<Date>>() {
+        viewModel.observarDatas().observe(this, new Observer<List<DataAgendamento>>() {
             @Override
-            public void onChanged(List<Date> datas) {
-                dialogoDatas((List<Date>) datas);
+            public void onChanged(List<DataAgendamento> datas) {
+                dialogoDatas(datas);
             }
         });
 
 
-        viewModel.observarCompletude().observe(this, new Observer<Recurso>() {
+        viewModel.observarCompletude().observe(this, new Observer<Integer>() {
             @Override
-            public void onChanged(Recurso recurso) {
-
-                switch (recurso.status){
-
-                    case SUCESSO:
-
-                        PreferenciasUtil.fixarCompletudeAgenda(MainActivity.this, (Integer)recurso.dados);
-                        break;
-
-
-                    default:
-                        break;
-                }
-
+            public void onChanged(Integer integer) {
+                PreferenciasUtil.fixarCompletudeAgenda(MainActivity.this, integer);
             }
         });
     }
@@ -141,7 +130,7 @@ public class MainActivity extends BaseDaggerActivity
      * Metodo que inicia o dialogo das datas
      * @param datas uma lista de datas
      */
-    private void dialogoDatas(List<Date> datas) {
+    private void dialogoDatas(List<DataAgendamento> datas) {
 
         DialogoCalendario dialogo = new DialogoCalendario(this, datas);
         dialogo.obterDatePickerDialog().show(getSupportFragmentManager(), "Datepickerdialog");

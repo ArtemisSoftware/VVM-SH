@@ -12,6 +12,7 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.TextView;
 
+import com.google.android.material.card.MaterialCardView;
 import com.vvm.sh.R;
 import com.vvm.sh.baseDados.entidades.Tarefa;
 import com.vvm.sh.databinding.ActivityDownloadTrabalhoBinding;
@@ -239,7 +240,7 @@ public class DownloadTrabalhoActivity extends BaseDaggerActivity {
 
                 case PROCESSAMENTO_TIPOS:
 
-                    imprimirProgresso(activityDownloadTrabalhoBinding.lnrLytProgressoTipos,
+                    imprimirProgresso(activityDownloadTrabalhoBinding.cardTipos,
                             activityDownloadTrabalhoBinding.progressBarProgressoTipos,
                             activityDownloadTrabalhoBinding.txtProgressoTipos,
                             activityDownloadTrabalhoBinding.txtTituloProgressoTipos,  comunicado);
@@ -254,7 +255,7 @@ public class DownloadTrabalhoActivity extends BaseDaggerActivity {
 
                 case PROCESSAMENTO_TRABALHO:
 
-                    imprimirProgresso(activityDownloadTrabalhoBinding.lnrLytProgressoTrabalho,
+                    imprimirProgresso(activityDownloadTrabalhoBinding.cardTrabalho,
                             activityDownloadTrabalhoBinding.progressBarProgressoTrabalho,
                             activityDownloadTrabalhoBinding.txtProgressoTrabalho,
                             activityDownloadTrabalhoBinding.txtTituloProgressoTrabalho,  comunicado);
@@ -280,9 +281,9 @@ public class DownloadTrabalhoActivity extends BaseDaggerActivity {
      * Metodo que permite apresentar o progresso da execucao de um servico
      * @param comunicado os dados da execucao
      */
-    private void imprimirProgresso(ConstraintLayout lnrLytProgresso, ProgressBar progressBarProgresso, TextView txtProgresso, TextView txtTituloProgresso, AtualizacaoUI.Comunicado comunicado){
+    private void imprimirProgresso(MaterialCardView cardView, ProgressBar progressBarProgresso, TextView txtProgresso, TextView txtTituloProgresso, AtualizacaoUI.Comunicado comunicado){
 
-        lnrLytProgresso.setVisibility(View.VISIBLE);
+        cardView.setVisibility(View.VISIBLE);
 
         if(comunicado.obterLimite() != Sintaxe.SEM_REGISTO){
             if(progressBarProgresso.getMax() != comunicado.obterLimite()){

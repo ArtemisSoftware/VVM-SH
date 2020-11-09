@@ -76,6 +76,7 @@ import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.DialogoArea;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.DialogoChecklist;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.DialogoPergunta;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.QuestoesChecklistActivity;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.SeccaoActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.equipamentos.DialogoEquipamento;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.equipamentos.EquipamentosActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.CategoriasProfissionaisActivity;
@@ -554,6 +555,12 @@ public abstract class ActivityBuildersModule {
             modules = { ChecklistViewModelsModule.class, ChecklistModule.class }
     )
     abstract ChecklistActivity contributeChecklistActivity();
+
+    @ChecklistScope
+    @ContributesAndroidInjector(
+            modules = { ChecklistViewModelsModule.class, ChecklistModule.class }
+    )
+    abstract SeccaoActivity contributeSeccaoActivity();
 
     @ChecklistScope
     @ContributesAndroidInjector(

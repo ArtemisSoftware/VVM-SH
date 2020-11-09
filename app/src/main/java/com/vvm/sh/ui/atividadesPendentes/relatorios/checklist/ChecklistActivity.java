@@ -120,25 +120,12 @@ public class ChecklistActivity extends BaseDaggerActivity
     @Override
     public void OnItemClick(Item registo) {
 
-        if(registo.tipo == Identificadores.Checklist.TIPO_AREA){
-            viewModel.obterSeccoes(registo.id);
+        Intent intent = new Intent(this, SeccaoActivity.class);
+        intent.putExtra(getString(R.string.argumento_registo_area), registo);
+        intent.putExtra(getString(R.string.argumento_id_checklist), checklist.id);
+        intent.putExtra(getString(R.string.argumento_id_atividade), getIntent().getExtras().getInt(getString(R.string.argumento_id_atividade)));
+        startActivity(intent);
 
-            activityRegistoVisitaBinding.cardAreas.setVisibility(View.VISIBLE);
-            activityRegistoVisitaBinding.txtTituloArea.setText(registo.descricao);
-            activityRegistoVisitaBinding.txtTituloAreaSubDescricao.setText(registo.subDescricao);
-            activityRegistoVisitaBinding.fabMenu.setVisibility(View.GONE);
-
-        }
-        else{
-
-            Bundle bundle = getIntent().getExtras();
-            int idAtividade = bundle.getInt(getString(R.string.argumento_id_atividade));
-
-            Intent intent = new Intent(this, QuestoesChecklistActivity.class);
-            intent.putExtra(getString(R.string.argumento_registo_area), registo);
-            intent.putExtra(getString(R.string.argumento_id_atividade), idAtividade);
-            startActivity(intent);
-        }
     }
 
     @Override
@@ -164,10 +151,7 @@ public class ChecklistActivity extends BaseDaggerActivity
     @Override
     public void OnNaoAplicaveis(Item registo) {
 
-        Bundle bundle = getIntent().getExtras();
-        int idAtividade = bundle.getInt(getString(R.string.argumento_id_atividade));
 
-        viewModel.gravarNaoAplicavel(PreferenciasUtil.obterIdTarefa(this), idAtividade, registo);
     }
 
     //--------------------

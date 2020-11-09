@@ -2,6 +2,7 @@ package com.vvm.sh.ui.atividadesPendentes.relatorios.equipamentos;
 
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.os.Bundle;
 import android.view.View;
@@ -11,10 +12,14 @@ import com.vvm.sh.baseDados.entidades.VerificacaoEquipamentoResultado;
 import com.vvm.sh.databinding.ActivityEquipamentosBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.equipamentos.adaptadores.EquipamentoRecyclerHolder;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.equipamentos.modelos.Equipamento;
 import com.vvm.sh.ui.pesquisa.adaptadores.OnPesquisaListener;
 import com.vvm.sh.ui.pesquisa.PesquisaViewModel;
+import com.vvm.sh.ui.pesquisa.adaptadores.PesquisaRecyclerAdapter;
+import com.vvm.sh.ui.pesquisa.modelos.Pesquisa;
 import com.vvm.sh.util.Recurso;
+import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
@@ -65,8 +70,10 @@ public class EquipamentosActivity extends BaseDaggerActivity
             registosSelecionados = new ArrayList<>();
             registos = new ArrayList<>();
 
+            activityEquipamentosBinding.rclRegistos.addOnScrollListener(rcl_registos_scroll_listener);
+
             int idAtividade = bundle.getInt(getString(R.string.argumento_id_atividade));
-            viewModel.obterEquipamentos(idAtividade);
+            viewModel.obterRegistadosEquipamentos(idAtividade);
         }
         else{
             finish();
@@ -113,7 +120,9 @@ public class EquipamentosActivity extends BaseDaggerActivity
 
             @Override
             public void onChanged(List<String> equipamentos) {
-                viewModel.obterEquipamentos(equipamentos);
+
+                registosSelecionados = equipamentos;
+                viewModel.obterEquipamentos(registosSelecionados, false);
             }
         });
     }
@@ -123,29 +132,67 @@ public class EquipamentosActivity extends BaseDaggerActivity
     //Metodos locais
     //--------------------
 
+    /**
+     * Metodo que permite obter os registos
+     * @param reiniciar true caso se pretenda reiniciar a pesquisa
+     */
+    private void obterRegistos(boolean reiniciar){
+
+
+        if (activityEquipamentosBinding.txtInpPesquisa.getText().toString().equals(Sintaxe.SEM_TEXTO) == true) {
+            viewModel.obterEquipamentos(registosSelecionados, reiniciar);
+        }
+        else {
+            viewModel.carregarEquipamentos(registosSelecionados, activityEquipamentosBinding.txtInpPesquisa.getText().toString());
+        }
+    }
+
     @Override
     public void OnSelecionarClick(Equipamento registo) {
 
-        Bundle bundle = getIntent().getExtras();
-        int idAtividade = bundle.getInt(getString(R.string.argumento_id_atividade));
-
         registosSelecionados.add(registo.descricao);
         registos.add(registo);
-        viewModel.obterEquipamentos(registosSelecionados);
+        viewModel.obterEquipamentos(registosSelecionados, false);
     }
 
     @Override
     public void OnRemoverSelecao(Equipamento registo) {
 
-        Bundle bundle = getIntent().getExtras();
-        int idAtividade = bundle.getInt(getString(R.string.argumento_id_atividade));
-
         int index = registosSelecionados.indexOf(registo.descricao);
 
         registosSelecionados.remove(index);
         registos.remove(index);
-        viewModel.obterEquipamentos(registosSelecionados);
+        viewModel.obterEquipamentos(registosSelecionados, false);
     }
+
+
+    //------------------
+    //Eventos
+    //--------------------
+
+
+    RecyclerView.OnScrollListener rcl_registos_scroll_listener = new RecyclerView.OnScrollListener() {
+        @Override
+        public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
+            super.onScrollStateChanged(recyclerView, newState);
+
+            if (!recyclerView.canScrollVertically(1) & newState == 2) {
+
+                if(((EquipamentoRecyclerHolder)activityEquipamentosBinding.rclRegistos.getAdapter()) != null) {
+                    ((EquipamentoRecyclerHolder) activityEquipamentosBinding.rclRegistos.getAdapter()).displayLoading();
+                }
+
+                if (activityEquipamentosBinding.txtInpPesquisa.getText().toString().equals(Sintaxe.SEM_TEXTO) == true) {
+                    viewModel.carregarEquipamentos(registosSelecionados);
+                } else {
+                    viewModel.carregarEquipamentos(registosSelecionados, activityEquipamentosBinding.txtInpPesquisa.getText().toString());
+                }
+            }
+        };
+    };
+
+
+
 
 
     @OnTextChanged(value = R.id.txt_inp_pesquisa, callback = OnTextChanged.Callback.AFTER_TEXT_CHANGED)
@@ -154,7 +201,7 @@ public class EquipamentosActivity extends BaseDaggerActivity
         Bundle bundle = getIntent().getExtras();
         int idAtividade = bundle.getInt(getString(R.string.argumento_id_atividade));
 
-        viewModel.pesquisarEquipamento(idAtividade, registosSelecionados, text.toString());
+        obterRegistos(true);
     }
 
 
@@ -165,6 +212,8 @@ public class EquipamentosActivity extends BaseDaggerActivity
         Bundle bundle = getIntent().getExtras();
         int idAtividade = bundle.getInt(getString(R.string.argumento_id_atividade));
         activityEquipamentosBinding.txtInpPesquisa.setText("");
+
+        viewModel.obterEquipamentos(registosSelecionados, true);
 
     }
 

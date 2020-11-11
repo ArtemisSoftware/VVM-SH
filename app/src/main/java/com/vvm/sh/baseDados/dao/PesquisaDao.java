@@ -41,13 +41,15 @@ abstract public class PesquisaDao {
     @Query("SELECT *, CASE WHEN id IN (:registos) THEN 1 ELSE 0 END as selecionado " +
             "FROM tipos as tp " +
             "WHERE tipo = :tipo AND api = :api AND ativo = 1 AND idPai = :idPai " +
-            "LIMIT " + AppConfig.NUMERO_RESULTADOS_QUERY + " OFFSET :pagina ")
-    abstract public Single<List<Medida>> obterMedidas(String tipo, int api, List<Integer> registos, String idPai, int pagina);
+            "ORDER BY (CASE WHEN id IN (:registos) THEN 1 ELSE 0 END) DESC " +
+            "LIMIT :limite OFFSET 0 ")
+    abstract public Single<List<Medida>> obterMedidas(String tipo, int api, List<Integer> registos, String idPai, int limite);
 
 
     @Query("SELECT *, CASE WHEN id IN (:registos) THEN 1 ELSE 0 END as selecionado " +
             "FROM tipos as tp " +
             "WHERE tipo = :tipo AND codigo = :codigo AND api = :api AND ativo = 1 " +
+            "ORDER BY (CASE WHEN id IN (:registos) THEN 1 ELSE 0 END) DESC " +
             "LIMIT " + AppConfig.NUMERO_RESULTADOS_QUERY + " OFFSET :pagina ")
     abstract public Single<List<Medida>> obterMedidas(String tipo, String codigo, int api, List<Integer> registos, int pagina);
 
@@ -56,6 +58,7 @@ abstract public class PesquisaDao {
     @Query("SELECT *, CASE WHEN id IN (:registos) THEN 1 ELSE 0 END as selecionado " +
             "FROM tipos as tp " +
             "WHERE tipo = :tipo AND api = :api AND ativo = 1 " +
+            "ORDER BY (CASE WHEN id IN (:registos) THEN 1 ELSE 0 END) DESC " +
             "LIMIT " + AppConfig.NUMERO_RESULTADOS_QUERY + " OFFSET :pagina ")
     abstract public Single<List<Medida>> obterMedidas(String tipo, int api, List<Integer> registos, int pagina);
 }

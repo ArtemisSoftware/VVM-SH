@@ -485,7 +485,7 @@ public class PesquisaViewModel extends BaseViewModel {
      */
     public void carregarMedidas(Pesquisa pesquisa){
 
-        pagina += AppConfig.NUMERO_RESULTADOS_QUERY;
+        limite += AppConfig.NUMERO_RESULTADOS_QUERY;
         obterMedidas(pesquisa);
     }
 
@@ -502,7 +502,7 @@ public class PesquisaViewModel extends BaseViewModel {
 
         showProgressBar(true);
 
-        pesquisaRepositorio.obterMedidas(metodo, registos, idPai, pagina)
+        pesquisaRepositorio.obterMedidas(metodo, registos, idPai, limite)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -515,7 +515,7 @@ public class PesquisaViewModel extends BaseViewModel {
 
                             @Override
                             public void onSuccess(List<Medida> registos) {
-                                adicionarMedidas(registos);
+                                medidas.setValue(registos);
                                 showProgressBar(false);
                             }
 
@@ -553,7 +553,7 @@ public class PesquisaViewModel extends BaseViewModel {
 
                             @Override
                             public void onSuccess(List<Medida> registos) {
-                                adicionarMedidas(registos);
+                                medidas.setValue(registos);
                                 showProgressBar(false);
                             }
 
@@ -588,7 +588,7 @@ public class PesquisaViewModel extends BaseViewModel {
 
                             @Override
                             public void onSuccess(List<Medida> registos) {
-                                adicionarMedidas(registos);
+                                medidas.setValue(registos);
                                 showProgressBar(false);
                             }
 
@@ -617,21 +617,6 @@ public class PesquisaViewModel extends BaseViewModel {
     //----------------------
 
 
-    /**
-     * Metodo que permite adicionar novas medidas
-     * @param registos as novas medidas a adicionar
-     */
-    private void adicionarMedidas(List<Medida> registos){
-
-        List<Medida> resultados = medidas.getValue();
-
-        if(resultados == null){
-            resultados = new ArrayList<>();
-        }
-
-        resultados.addAll(registos);
-        medidas.setValue(resultados);
-    }
 
     /**
      * Metodo que permite adicionar novos registos

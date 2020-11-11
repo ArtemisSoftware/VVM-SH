@@ -137,7 +137,7 @@ abstract public class LevantamentoDao implements BaseDao<LevantamentoRiscoResult
     abstract public Observable<RelatorioLevantamento> obterRelatorio(int id);
 
 
-    @Query("SELECT * FROM levantamentosRiscoResultado  WHERE idAtividade = :id")
+    @Query("SELECT * FROM levantamentosRiscoResultado  WHERE id = :id")
     abstract public Maybe<LevantamentoRiscoResultado> obterLevantamento(int id);
 
 

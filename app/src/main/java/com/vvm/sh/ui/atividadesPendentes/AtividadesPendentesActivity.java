@@ -211,6 +211,7 @@ public class AtividadesPendentesActivity extends BaseDaggerActivity
 
         Intent intent = new Intent(this, GaleriaActivity.class);
         intent.putExtra(getString(R.string.argumento_galeria), galeria);
+        intent.putExtra(getString(R.string.argumento_id_atividade), idAtividade);
         startActivity(intent);
     }
 

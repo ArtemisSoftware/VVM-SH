@@ -45,12 +45,18 @@ abstract public class AtividadePendenteDao implements BaseDao<AtividadePendenteR
             "WHEN  idRelatorio = " + ID_RELATORIO_AVALIACAO_RISCO + " AND  (validade_processo_produtivo AND validade_equipamentos AND validade_proposta_plano_acao AND validade_checklist AND validade_avaliacao_riscos) = 1 THEN 1 "+
             "ELSE 0 END as relatorioCompleto," +
 
-            "validade_processo_produtivo, validade_trabalhadores_vulneraveis, validade_equipamentos, validade_proposta_plano_acao, validade_checklist, validade_avaliacao_riscos " +
-            " " +
+            "validade_processo_produtivo, validade_trabalhadores_vulneraveis, validade_equipamentos, validade_proposta_plano_acao, validade_checklist, validade_avaliacao_riscos, " +
+            "capa_Relatorio " +
 
             "FROM atividadesPendentes as atp " +
 
 
+            //capa relatorio
+
+
+            "LEFT JOIN ( " +
+            "SELECT idTarefa, COUNT(idImagem) as capa_Relatorio FROM imagensResultado WHERE capaRelatorio = 1 GROUP BY idTarefa " +
+            ") as cp_rel ON atp.idTarefa = cp_rel.idTarefa  " +
 
             //relatorio avaliacao de riscos
 

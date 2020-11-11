@@ -14,18 +14,11 @@
             name="imagem"
             type="com.vvm.sh.ui.imagens.modelos.ImagemRegisto" />
 
-<!--        <variable-->
-<!--            name="listener"-->
-<!--            type="com.vvm.sh.ui.atividadesPendentes.relatorios.formacao.adaptadores.OnFormacaoListener"/>-->
-
     </data>
 
 
     <androidx.cardview.widget.CardView
         style="@style/cartao">
-
-        <!-- android:onClick="@{() -> listener.showNoteDialog(note) }" -->
-
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:layout_width="match_parent"
@@ -36,8 +29,8 @@
 
             <ImageView
                 android:id="@+id/imageView11"
-                android:layout_width="match_parent"
-                android:layout_height="250dp"
+                android:layout_width="256dp"
+                android:layout_height="256dp"
                 android:scaleType="centerCrop"
                 android:layout_marginTop="32dp"
                 app:layout_constraintEnd_toEndOf="parent"
@@ -45,7 +38,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent"
                 imagemL="@{imagem.imagem.imagem}"
-                app:srcCompat="@drawable/ic_launcher_background" />
+                app:srcCompat="@drawable/averiguacao_banner" />
 
             <TextView
                 android:id="@+id/textView74"
@@ -68,6 +61,15 @@
                 android:visibility="@{BuildConfig.DEBUG ? View.VISIBLE : View.GONE}"
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
+
+            <TextView
+                android:id="@+id/textView63"
+                style="@style/textoDetalhe"
+                android:layout_marginStart="32dp"
+                capaRelatorio="@{imagem.imagem.capaRelatorio}"
+                app:layout_constraintBottom_toBottomOf="@+id/textView74"
+                app:layout_constraintStart_toEndOf="@+id/textView74"
+                app:layout_constraintTop_toTopOf="@+id/textView74" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

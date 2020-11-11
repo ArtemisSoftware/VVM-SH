@@ -41,6 +41,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
 
+
             <TextView
                 android:id="@+id/textView2"
                 style="@style/tituloCartao"
@@ -48,6 +49,46 @@
                 android:layout_marginStart="16dp"
                 app:layout_constraintStart_toEndOf="@+id/textView"
                 app:layout_constraintTop_toTopOf="@+id/textView" />
+
+
+            <TextView
+                android:id="@+id/textView52"
+                style="@style/textoDescritivo"
+                android:layout_marginTop="16dp"
+                android:text="@string/perigo"
+                app:layout_constraintStart_toStartOf="@+id/textView"
+                app:layout_constraintTop_toBottomOf="@+id/textView" />
+
+            <TextView
+                android:id="@+id/textView54"
+                style="@style/textoDetalhe"
+                android:layout_marginStart="24dp"
+                android:text="@{levantamento.resultado.perigo}"
+                app:layout_constraintStart_toEndOf="@+id/textView52"
+                app:layout_constraintTop_toTopOf="@+id/textView52" />
+
+
+            <TextView
+                android:id="@+id/textView53"
+                style="@style/textoDescritivo"
+                android:layout_marginTop="16dp"
+                android:text="@string/tarefa"
+                app:layout_constraintStart_toStartOf="@+id/textView"
+                app:layout_constraintTop_toBottomOf="@+id/textView54" />
+
+            <TextView
+                android:id="@+id/textView56"
+                style="@style/textoDetalhe"
+                android:layout_marginStart="24dp"
+                android:text="@{levantamento.resultado.tarefa}"
+                app:layout_constraintStart_toEndOf="@+id/textView53"
+                app:layout_constraintTop_toTopOf="@+id/textView53" />
+
+
+
+
+
+
 
             <CheckBox
                 android:id="@+id/chk_selecionado"
@@ -83,72 +124,13 @@
 
 
 
-            <LinearLayout
-                android:id="@+id/linearLayout"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/distancia_vertical_titulo"
-                android:orientation="horizontal"
-                app:layout_constraintStart_toStartOf="@+id/textView"
-                app:layout_constraintTop_toBottomOf="@+id/textView"
-                android:weightSum="2">
-
-
-                <LinearLayout
-                    android:id="@+id/linearLayout1"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:orientation="vertical">
-
-
-                    <TextView
-                        android:id="@+id/textView52"
-                        style="@style/textoDescritivo"
-                        android:text="@string/perigo" />
-
-                    <TextView
-                        android:id="@+id/textView54"
-                        style="@style/textoDetalhe"
-                        android:text="@{levantamento.resultado.perigo}"
-                        android:layout_marginTop="8dp"/>
-
-                </LinearLayout>
-
-
-                <LinearLayout
-                    android:id="@+id/linearLayout2"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="32dp"
-                    android:layout_weight="1"
-                    android:orientation="vertical"
-                    android:paddingRight="18dp">
-
-                    <TextView
-                        android:id="@+id/textView53"
-                        style="@style/textoDescritivo"
-                        android:text="@string/tarefa" />
-
-                    <TextView
-                        android:id="@+id/textView56"
-                        style="@style/textoDetalhe"
-                        android:text="@{levantamento.resultado.tarefa}"
-                        android:layout_marginTop="8dp"/>
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-
-
             <TextView
                 android:id="@+id/textView102"
                 style="@style/textoDetalhe"
                 android:layout_marginTop="16dp"
                 android:text="@string/categorias_profissionais_"
                 app:layout_constraintStart_toStartOf="@+id/textView"
-                app:layout_constraintTop_toBottomOf="@+id/linearLayout" />
+                app:layout_constraintTop_toBottomOf="@+id/textView53" />
 
             <TextView
                 android:id="@+id/textView103"

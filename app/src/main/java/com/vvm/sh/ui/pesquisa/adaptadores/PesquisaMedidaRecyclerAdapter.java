@@ -10,7 +10,9 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.vvm.sh.R;
 import com.vvm.sh.databinding.ItemPesquisaMedidaBinding;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.modelos.Levantamento;
 import com.vvm.sh.ui.pesquisa.modelos.Medida;
+import com.vvm.sh.util.interfaces.EstadoModelo;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
 
 import java.util.ArrayList;
@@ -57,12 +59,18 @@ public class PesquisaMedidaRecyclerAdapter extends RecyclerView.Adapter<Recycler
 
 
     public void atualizar(List<Medida> items_){
-//        this.items.clear();
-//        this.items.addAll(items_);
+        int original = this.items.size();
+        int novo = items_.size();
+
         this.items = items_;
+        //--manageQueryResult(original, novo);
         notifyDataSetChanged();
     }
 
+
+    //-------------------
+    //
+    //-------------------
 
 
 }

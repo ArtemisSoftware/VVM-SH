@@ -21,13 +21,13 @@ public class ImagemRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
     private List<ImagemRegisto> items = new ArrayList<>();
     private Context contexto;
-    //private OnCrossSellingListener onItemListener;
+    private OnImagemListener onItemListener;
 
 
-    public ImagemRecyclerAdapter(Context contexto, List<ImagemRegisto> items/*, OnCrossSellingListener onItemListener*/) {
+    public ImagemRecyclerAdapter(Context contexto, List<ImagemRegisto> items, OnImagemListener listener) {
         this.items = items;
         this.contexto = contexto;
-        //this.onItemListener = onItemListener;
+        this.onItemListener = listener;
     }
 
 
@@ -36,7 +36,7 @@ public class ImagemRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
         ItemImagemBinding binding = DataBindingUtil.inflate(LayoutInflater.from(contexto), R.layout.item_imagem, parent, false);
-        return new ImagemViewHolder(binding.getRoot()/*, this.onItemListener*/);
+        return new ImagemViewHolder(binding.getRoot(), this.onItemListener);
     }
 
     @Override
@@ -44,8 +44,6 @@ public class ImagemRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
 
         ImagemRegisto registo = items.get(position);
         ((ImagemViewHolder)holder).binding.setImagem(registo);
-//        ((ImagemViewHolder)holder).binding.setListener((OnCrossSellingListener) contexto);
-//        ((ImagemViewHolder)holder).binding.setBloquear(PreferenciasUtil.agendaEditavel(contexto));
         ((ImagemViewHolder)holder).binding.executePendingBindings();
 
 

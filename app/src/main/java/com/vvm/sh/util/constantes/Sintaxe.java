@@ -150,6 +150,9 @@ public class Sintaxe {
         public static final String DADOS_ATUALIZADOS_SUCESSO = "Dados atualizados com sucesso";
         public static final String DADOS_CARREGADOS_SUCESSO = "Dados carregados com sucesso.";
         public static final String EXISTEM_DADOS_UPLOAD = "Não podes ser realizado o download dos dados de trabalho pois existem dados para upload.";
+        public static final String REGISTADA_CAPA_RELATORIO_SUCESSO = "Capa do relatorio registada com sucesso";
+        public static final String REMOVID_CAPA_RELATORIO_SUCESSO = "Removida a capa do relatorio";
+        public static final String IMAGEM_REMOVIDA_SUCESSO = "Imagem removida comsucesso";
     }
 
     public class API {

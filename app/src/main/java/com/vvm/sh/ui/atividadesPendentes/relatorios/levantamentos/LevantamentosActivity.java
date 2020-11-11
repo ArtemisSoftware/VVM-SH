@@ -124,7 +124,6 @@ public class LevantamentosActivity extends BaseDaggerActivity
 
     @Override
     public void OnLevantamentoClick(Levantamento registo) {
-
         initLevantamento(registo.resultado);
     }
 

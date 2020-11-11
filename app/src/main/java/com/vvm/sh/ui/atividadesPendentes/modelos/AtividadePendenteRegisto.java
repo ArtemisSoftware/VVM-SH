@@ -55,8 +55,7 @@ public class AtividadePendenteRegisto {
     @ColumnInfo(name = "validade_avaliacao_riscos")
     public boolean completudeAvaliacaoRisco;
 
-    @Ignore
-    //@ColumnInfo(name = "validade_capa_relatorio")
+    @ColumnInfo(name = "capa_Relatorio")
     public boolean completudeCapaRelatorio;
 
     /**

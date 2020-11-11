@@ -290,8 +290,6 @@ public class LevantamentosViewModel extends BaseViewModel {
      */
     public void gravar(int idTarefa, int idAtividade, RiscoResultado registo, List<Integer> medidasExistentes, List<Integer> medidasRecomendadas) {
 
-
-
         if(risco.getValue() == null){
 
             levantamentoRepositorio.inserir(registo)
@@ -333,49 +331,26 @@ public class LevantamentosViewModel extends BaseViewModel {
             registo.id = risco.getValue().resultado.id;
 
 
-            List<MedidaResultado> medidasExistentesRegistas = new ArrayList<>();
-
-            if(medidasExistentes.size() == 0){
-
-                for (Tipo medida : risco.getValue().medidasExistentes) {
-                    medidasExistentesRegistas.add(new MedidaResultado(registo.id, Identificadores.Origens.LEVANTAMENTO_MEDIDAS_ADOPTADAS, medida.id));
-                }
-            }
-            else {
-
-                for (int idMedida : medidasExistentes) {
-                    medidasExistentesRegistas.add(new MedidaResultado(registo.id, Identificadores.Origens.LEVANTAMENTO_MEDIDAS_ADOPTADAS, idMedida));
-                }
-            }
-
-
-            List<MedidaResultado> medidasRecomendadasRegistas = new ArrayList<>();
-
-            if(medidasRecomendadas.size() == 0){
-
-                for (Tipo medida : risco.getValue().medidasRecomendadas) {
-                    medidasRecomendadasRegistas.add(new MedidaResultado(registo.id, Identificadores.Origens.LEVANTAMENTO_MEDIDAS_RECOMENDADAS, medida.id));
-                }
-            }
-            else {
-
-                for (int idMedida : medidasRecomendadas) {
-                    medidasRecomendadasRegistas.add(new MedidaResultado(registo.id, Identificadores.Origens.LEVANTAMENTO_MEDIDAS_RECOMENDADAS, idMedida));
-                }
-            }
-
+            List<MedidaResultado> medidasRegistas = new ArrayList<>();
             List<PropostaPlanoAcaoResultado> propostasRegistas = new ArrayList<>();
 
-            for (MedidaResultado medida : medidasRecomendadasRegistas) {
-                propostasRegistas.add(new PropostaPlanoAcaoResultado(idAtividade, registo.id, medida.id));
+            for (int idMedida : medidasExistentes) {
+                medidasRegistas.add(new MedidaResultado(registo.id, Identificadores.Origens.LEVANTAMENTO_MEDIDAS_ADOPTADAS, idMedida));
             }
+
+
+            for (int idMedida : medidasRecomendadas) {
+                medidasRegistas.add(new MedidaResultado(registo.id, Identificadores.Origens.LEVANTAMENTO_MEDIDAS_RECOMENDADAS, idMedida));
+                propostasRegistas.add(new PropostaPlanoAcaoResultado(idAtividade, registo.id, idMedida));
+            }
+
 
 
             ImagemResultado imagemResultado = new ImagemResultado(idTarefa, registo.id, Identificadores.Imagens.IMAGEM_RISCO, imagem.getValue());
 
 
 
-            Disposable d = levantamentoRepositorio.atualizarRisco(registo, medidasExistentesRegistas, medidasRecomendadasRegistas, propostasRegistas, imagemResultado)
+            Disposable d = levantamentoRepositorio.atualizarRisco(registo, medidasRegistas, propostasRegistas, imagemResultado)
                     .toList()
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
@@ -443,6 +418,9 @@ public class LevantamentosViewModel extends BaseViewModel {
      * @param idModelo o identificador do modelo
      */
     public void inserirModelo(int idTarefa, int idAtividade, int idModelo) {
+
+        limite = AppConfig.NUMERO_RESULTADOS_QUERY;
+        levantamentos.setValue(new ArrayList<>());
 
         levantamentoRepositorio.inserirModelo(idAtividade, idModelo)
                 .subscribeOn(Schedulers.io())
@@ -572,6 +550,7 @@ public class LevantamentosViewModel extends BaseViewModel {
      */
     public void removerRisco(int idTarefa, int idAtividade, Risco registo) {
 
+        riscos.setValue(new ArrayList<>());
         resultadosRiscos.clear();
 
         levantamentoRepositorio.removerRisco(registo.resultado)
@@ -641,6 +620,9 @@ public class LevantamentosViewModel extends BaseViewModel {
      * @param idModelo
      */
     public void removerModelo(int idTarefa, int idAtividade, int idModelo) {
+
+        limite = AppConfig.NUMERO_RESULTADOS_QUERY;
+        levantamentos.setValue(new ArrayList<>());
 
         levantamentoRepositorio.removerModelo(idAtividade, idModelo)
                 .subscribeOn(Schedulers.io())
@@ -926,6 +908,10 @@ public class LevantamentosViewModel extends BaseViewModel {
     }
 
 
+    /**
+     * Metodo que permite obter os dados do risco
+     * @param id o identificador do risco
+     */
     public void obterLevamentoRisco(int id) {
 
         Single.zip(levantamentoRepositorio.obterTipos(TiposUtil.MetodosTipos.RISCOS),
@@ -1027,6 +1013,10 @@ public class LevantamentosViewModel extends BaseViewModel {
     //MISC
     //---------------------
 
+    /**
+     * Metodo que permite obter as categorias profissionais
+     * @param ids
+     */
     public void obterTiposCategoriasProfissionais(List<Integer> ids){
 
         levantamentoRepositorio.obterTipoCategoriasProfissionais(ids)
@@ -1037,7 +1027,7 @@ public class LevantamentosViewModel extends BaseViewModel {
                         new SingleObserver<List<Tipo>>() {
                             @Override
                             public void onSubscribe(Disposable d) {
-
+                                disposables.add(d);
                             }
 
                             @Override
@@ -1055,6 +1045,10 @@ public class LevantamentosViewModel extends BaseViewModel {
     }
 
 
+    /**
+     * Metodo que permite obter o risco especifico
+     * @param id o identificador do risco
+     */
     public void obteRiscoEspecifico(int id) {
 
         levantamentoRepositorio.obterTipos(TiposUtil.MetodosTipos.RISCOS_ESPECIFICOS, id)
@@ -1065,7 +1059,7 @@ public class LevantamentosViewModel extends BaseViewModel {
                         new SingleObserver<List<Tipo>>() {
                             @Override
                             public void onSubscribe(Disposable d) {
-
+                                disposables.add(d);
                             }
 
                             @Override

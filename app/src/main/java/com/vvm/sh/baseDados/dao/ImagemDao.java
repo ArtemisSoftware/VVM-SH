@@ -11,6 +11,7 @@ import com.vvm.sh.util.constantes.Sintaxe;
 
 import java.util.List;
 
+import io.reactivex.Completable;
 import io.reactivex.Maybe;
 import io.reactivex.Observable;
 import io.reactivex.Single;
@@ -56,4 +57,12 @@ abstract public class ImagemDao implements BaseDao<ImagemResultado> {
             "FROM imagensResultado " +
             "WHERE id = :id AND origem = :origem")
     abstract public Observable<List<ImagemRegisto>> obterGaleria(int id, int origem);
+
+
+
+    @Query("UPDATE imagensResultado SET capaRelatorio = 1 WHERE idImagem =:idImagem")
+    abstract public Completable fixarCapaRelatorio(int idImagem);
+
+    @Query("UPDATE imagensResultado SET capaRelatorio = 0 WHERE idTarefa =:idTarefa")
+    abstract public Completable removerCapaRelatorio(int idTarefa);
 }

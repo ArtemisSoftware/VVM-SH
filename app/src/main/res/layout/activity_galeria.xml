@@ -6,9 +6,9 @@
     <data>
         <import type="java.util.List"/>
 
-<!--        <variable-->
-<!--            name="listener"-->
-<!--            type="com.vvm.sh.ui.registoVisita.adaptadores.OnRegistoVisitaListener"/>-->
+        <variable
+            name="listener"
+            type="com.vvm.sh.ui.imagens.adaptadores.OnImagemListener"/>
 
         <variable
             name="viewmodel"
@@ -29,14 +29,10 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/rcl_registos"
             style="@style/lista"
-
             imagens="@{viewmodel.imagens}"
-
+            listener="@{listener}"
             tools:listitem="@layout/item_imagem"/>
 
-<!--
-listener="@{listener}"
--->
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
 

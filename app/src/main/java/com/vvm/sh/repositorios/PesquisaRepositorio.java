@@ -24,8 +24,8 @@ public class PesquisaRepositorio {
         this.pesquisaDao = pesquisaDao;
     }
 
-    public Single<List<Medida>> obterMedidas(String metodo, List<Integer> registos, String idPai, int pagina) {
-        return pesquisaDao.obterMedidas(metodo, idApi, registos, idPai, pagina);
+    public Single<List<Medida>> obterMedidas(String metodo, List<Integer> registos, String idPai, int limite) {
+        return pesquisaDao.obterMedidas(metodo, idApi, registos, idPai, limite);
     }
 
     public Single<List<Medida>> obterMedidas(String metodo, String codigo, List<Integer> registos, int pagina) {

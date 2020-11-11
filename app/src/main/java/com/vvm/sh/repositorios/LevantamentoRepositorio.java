@@ -2,6 +2,8 @@ package com.vvm.sh.repositorios;
 
 import androidx.annotation.NonNull;
 
+import com.vvm.sh.api.SegurancaAlimentarApi;
+import com.vvm.sh.api.SegurancaTrabalhoApi;
 import com.vvm.sh.baseDados.dao.CategoriaProfissionalDao;
 import com.vvm.sh.baseDados.dao.ImagemDao;
 import com.vvm.sh.baseDados.dao.LevantamentoDao;
@@ -34,9 +36,13 @@ import io.reactivex.CompletableSource;
 import io.reactivex.Flowable;
 import io.reactivex.Maybe;
 import io.reactivex.Observable;
+import io.reactivex.ObservableSource;
 import io.reactivex.Single;
+import io.reactivex.SingleSource;
+import io.reactivex.functions.BiFunction;
 import io.reactivex.functions.Function3;
 import io.reactivex.functions.Function4;
+import kotlin.jvm.functions.Function2;
 
 public class LevantamentoRepositorio {
 
@@ -233,16 +239,14 @@ public class LevantamentoRepositorio {
 
     public Observable inserir(int idAtividade, int idRegisto, List<Integer> medidasExistentes, List<Integer> medidasRecomendadas, ImagemResultado imagemResultado) {
 
-        List<MedidaResultado> registosMedidasExistentes = new ArrayList<>();
+        List<MedidaResultado> registosMedidas = new ArrayList<>();
 
         for(int idMedida : medidasExistentes){
-            registosMedidasExistentes.add(new MedidaResultado(idRegisto, Identificadores.Origens.LEVANTAMENTO_MEDIDAS_ADOPTADAS, idMedida));
+            registosMedidas.add(new MedidaResultado(idRegisto, Identificadores.Origens.LEVANTAMENTO_MEDIDAS_ADOPTADAS, idMedida));
         }
 
-        List<MedidaResultado> registosMedidasRecomendadas = new ArrayList<>();
-
         for(int idMedida : medidasRecomendadas){
-            registosMedidasRecomendadas.add(new MedidaResultado(idRegisto, Identificadores.Origens.LEVANTAMENTO_MEDIDAS_RECOMENDADAS, idMedida));
+            registosMedidas.add(new MedidaResultado(idRegisto, Identificadores.Origens.LEVANTAMENTO_MEDIDAS_RECOMENDADAS, idMedida));
         }
 
 
@@ -252,18 +256,33 @@ public class LevantamentoRepositorio {
             propostaPlanoAcaoResultados.add(new PropostaPlanoAcaoResultado(idAtividade, idRegisto, idMedida));
         }
 
+
+        if(imagemResultado.imagem == null) {
+
+            return Observable.zip(
+                    propostaPlanoAcaoDao.inserir(propostaPlanoAcaoResultados).toObservable(),
+                    medidaDao.inserir(registosMedidas).toObservable(),
+                    new BiFunction<List<Long>, List<Long>, Object>() {
+                        @Override
+                        public Object apply(List<Long> longs, List<Long> longs2) throws Exception {
+                            return longs2;
+                        }
+                    }
+            );
+
+        }
+
         if(imagemResultado.imagem.length == 0) {
 
             return Observable.zip(
-                propostaPlanoAcaoDao.inserir(propostaPlanoAcaoResultados).toObservable(),
-                medidaDao.inserir(registosMedidasRecomendadas).toObservable(),
-                medidaDao.inserir(registosMedidasExistentes).toObservable(),
-                new Function3<List<Long>, List<Long>, List<Long>, Object>() {
-                    @Override
-                    public Object apply(List<Long> longs, List<Long> longs2, List<Long> longs3) throws Exception {
-                        return longs;
+                    propostaPlanoAcaoDao.inserir(propostaPlanoAcaoResultados).toObservable(),
+                    medidaDao.inserir(registosMedidas).toObservable(),
+                    new BiFunction<List<Long>, List<Long>, Object>() {
+                        @Override
+                        public Object apply(List<Long> longs, List<Long> longs2) throws Exception {
+                            return longs2;
+                        }
                     }
-                }
             );
 
         }
@@ -271,33 +290,34 @@ public class LevantamentoRepositorio {
             return Observable.zip(
                     imagemDao.inserir(imagemResultado).toObservable(),
                     propostaPlanoAcaoDao.inserir(propostaPlanoAcaoResultados).toObservable(),
-                    medidaDao.inserir(registosMedidasRecomendadas).toObservable(),
-                    medidaDao.inserir(registosMedidasExistentes).toObservable(),
-                    new Function4<Long, List<Long>, List<Long>, List<Long>, Object>() {
+                    medidaDao.inserir(registosMedidas).toObservable(),
+                    new Function3<Long, List<Long>, List<Long>, Object>() {
                         @Override
-                        public Object apply(Long aLong, List<Long> longs, List<Long> longs2, List<Long> longs3) throws Exception {
-                            return longs;
+                        public Object apply(Long aLong, List<Long> longs, List<Long> longs2) throws Exception {
+                            return longs2;
                         }
                     }
             );
         }
     }
 
-    public Flowable<Object> atualizarRisco(RiscoResultado registo, List<MedidaResultado> medidasExistentesRegistas, List<MedidaResultado> medidasRecomendadasRegistas, List<PropostaPlanoAcaoResultado> propostasRegistas, ImagemResultado imagemResultado) {
+    public Flowable<Object> atualizarRisco(RiscoResultado registo, List<MedidaResultado> medidasRegistas, List<PropostaPlanoAcaoResultado> propostasRegistas, ImagemResultado imagemResultado) {
 
         List<Single<?>> acoes = new LinkedList<>(Arrays.asList(
                 imagemDao.remover(registo.id, Identificadores.Imagens.IMAGEM_RISCO),
                 riscoDao.atualizar(registo),
-                propostaPlanoAcaoDao.remover(registo.id, Identificadores.Origens.ORIGEM_LEVANTAMENTO_RISCO),
+                propostaPlanoAcaoDao.removerQuestoes(registo.id, Identificadores.Origens.ORIGEM_LEVANTAMENTO_RISCO),
                 medidaDao.remover(registo.id, Identificadores.Origens.LEVANTAMENTO_MEDIDAS_ADOPTADAS),
                 medidaDao.remover(registo.id, Identificadores.Origens.LEVANTAMENTO_MEDIDAS_RECOMENDADAS),
-                medidaDao.inserir(medidasExistentesRegistas),
-                medidaDao.inserir(medidasRecomendadasRegistas),
+                medidaDao.inserir(medidasRegistas),
                 propostaPlanoAcaoDao.inserir(propostasRegistas)));
 
 
-        if(imagemResultado.imagem.length != 0){
-            acoes.add(imagemDao.inserir(imagemResultado));
+
+        if(imagemResultado.imagem != null) {
+            if(imagemResultado.imagem.length != 0){
+                acoes.add(imagemDao.inserir(imagemResultado));
+            }
         }
 
         Flowable<Object> single = Single.merge(acoes);

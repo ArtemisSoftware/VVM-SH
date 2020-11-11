@@ -39,11 +39,16 @@
             android:layout_gravity="center"
             android:visibility="@{viewmodel.riscos.size() == 0 ? View.VISIBLE : View.GONE}">
 
+            <TextView
+                style="@style/tituloCartao"
+                android:text="@string/riscos"/>
+
 
             <ImageView
                 android:layout_width="200dp"
                 android:layout_height="200dp"
-                android:src="@drawable/ic_sem_trabalho"
+                android:layout_marginTop="32dp"
+                android:src="@drawable/ic_box"
                 android:tint="@color/cor_alerta_medio"/>
 
             <TextView

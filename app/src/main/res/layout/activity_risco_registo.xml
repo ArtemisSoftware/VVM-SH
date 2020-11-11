@@ -253,6 +253,7 @@
 
                         <TextView android:id="@+id/txt_ni"
                             style="@style/textoDetalhe"
+                            android:text="@{viewmodel.risco.resultado.ni}"
                             android:layout_marginLeft="12dp"/>
 
 

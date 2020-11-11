@@ -39,8 +39,8 @@ public class ImagemActivity extends AppCompatActivity {
 
 
 
-    private boolean lockAspectRatio = false, setBitmapMaxWidthHeight = false;
-    private int ASPECT_RATIO_X = 16, ASPECT_RATIO_Y = 9, bitmapMaxWidth = 1000, bitmapMaxHeight = 1000;
+    private boolean lockAspectRatio = true, setBitmapMaxWidthHeight = true;
+    private int ASPECT_RATIO_X = /*16*/1, ASPECT_RATIO_Y = /*9*/1, bitmapMaxWidth = 256/*1000*/, bitmapMaxHeight = 256/*1000*/;
     private int IMAGE_COMPRESSION = 80;
     public static String fileName;
     public static Uri mOutputUri;

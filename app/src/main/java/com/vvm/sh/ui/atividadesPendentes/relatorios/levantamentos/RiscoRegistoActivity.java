@@ -153,6 +153,10 @@ public class RiscoRegistoActivity extends BaseDaggerActivity
             @Override
             public void onChanged(Risco risco) {
                 if(risco != null) {
+
+                    medidasExistentes = viewModel.obterRegistosSelecionados(viewModel.medidasExistentes.getValue());
+                    medidasRecomendadas = viewModel.obterRegistosSelecionados(viewModel.medidasRecomendadas.getValue());
+
                     viewModel.obteRiscoEspecifico(risco.resultado.idRisco);
                     calcularNP_NR();
                 }
@@ -174,6 +178,8 @@ public class RiscoRegistoActivity extends BaseDaggerActivity
      */
     private void limparRegisto() {
 
+        viewModel.medidasRecomendadas.setValue(new ArrayList<>());
+        viewModel.medidasExistentes.setValue(new ArrayList<>());
         viewModel.risco.setValue(null);
         viewModel.imagem.setValue(new byte[]{});
         medidasExistentes = new ArrayList<>();
@@ -272,7 +278,6 @@ public class RiscoRegistoActivity extends BaseDaggerActivity
 
         @Override
         public void onItemSelected(MaterialSpinner view, int position, long id, Object item) {
-
             calcularNP_NR();
         }
     };
@@ -287,8 +292,7 @@ public class RiscoRegistoActivity extends BaseDaggerActivity
 
 
         Pesquisa pesquisa = new Pesquisa(true,
-                TiposUtil.MetodosTipos.MEDIDAS_PREVENCAO_ADOPTADAS,
-                viewModel.obterRegistosSelecionados(viewModel.medidasExistentes.getValue()),
+                TiposUtil.MetodosTipos.MEDIDAS_PREVENCAO_ADOPTADAS, medidasExistentes,
                 riscoEspecifico.id + "");
 
         Bundle bundle = new Bundle();
@@ -313,8 +317,7 @@ public class RiscoRegistoActivity extends BaseDaggerActivity
         Tipo riscoEspecifico = (Tipo) activityRiscoRegistoBinding.spnrRiscoEspecifico.getItems().get(activityRiscoRegistoBinding.spnrRiscoEspecifico.getSelectedIndex());
 
         Pesquisa pesquisa = new Pesquisa(true,
-                TiposUtil.MetodosTipos.MEDIDAS_PREVENCAO_RECOMENDADAS,
-                viewModel.obterRegistosSelecionados(viewModel.medidasRecomendadas.getValue()),
+                TiposUtil.MetodosTipos.MEDIDAS_PREVENCAO_RECOMENDADAS, medidasRecomendadas,
                 riscoEspecifico.id + "");
 
         Bundle bundle = new Bundle();
@@ -336,14 +339,12 @@ public class RiscoRegistoActivity extends BaseDaggerActivity
 
     @OnClick(R.id.crl_adicionar_imagem)
     public void crl_adicionar_imagem_OnClickListener(View view) {
-
         ImagemUtil.apresentarOpcoesCaptura(this);
     }
 
 
     @OnClick(R.id.crl_btn_imagem_limpar)
     public void crl_galeria_OnClickListener(View view) {
-
         viewModel.imagem.setValue(new byte []{});
     }
 
@@ -362,8 +363,8 @@ public class RiscoRegistoActivity extends BaseDaggerActivity
     @Override
     public void onValidationSucceeded() {
 
-        if(activityRiscoRegistoBinding.txtMedidasExistentes.getText().toString().equals("") == true
-                & activityRiscoRegistoBinding.txtMedidasRecomendadas.getText().toString().equals("") == true) {
+        if(medidasExistentes.size() == 0 & medidasRecomendadas.size() == 0) {
+
             activityRiscoRegistoBinding.txtMedidasExistentes.setError(Sintaxe.Alertas.PREENCHIMENTO_OBRIGATORIO);
             activityRiscoRegistoBinding.txtMedidasRecomendadas.setError(Sintaxe.Alertas.PREENCHIMENTO_OBRIGATORIO);
         }
@@ -381,8 +382,7 @@ public class RiscoRegistoActivity extends BaseDaggerActivity
             Tipo nd = (Tipo) activityRiscoRegistoBinding.spnrNd.getItems().get(activityRiscoRegistoBinding.spnrNd.getSelectedIndex());
             Tipo ne = (Tipo) activityRiscoRegistoBinding.spnrNe.getItems().get(activityRiscoRegistoBinding.spnrNe.getSelectedIndex());
             Tipo nc = (Tipo) activityRiscoRegistoBinding.spnrNc.getItems().get(activityRiscoRegistoBinding.spnrNc.getSelectedIndex());
-
-            String ni = activityRiscoRegistoBinding.txtNi.getText().toString();
+            String ni = ConversorUtil.obterNP_NR_NI(nd, ne, nc, viewModel.tiposNi)[3];
 
             RiscoResultado registo = new RiscoResultado(idLevantamento, risco.id, riscoEspecifico.id, consequencias, nd.obterDescricao(), ne.obterDescricao(), nc.obterDescricao(), ni);
             viewModel.gravar(PreferenciasUtil.obterIdTarefa(this), idAtividade, registo, medidasExistentes, medidasRecomendadas);

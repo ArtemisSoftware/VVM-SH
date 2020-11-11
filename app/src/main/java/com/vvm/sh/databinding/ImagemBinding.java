@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.widget.GridView;
 import android.widget.ImageView;
+import android.widget.TextView;
 
 import androidx.databinding.BindingAdapter;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -21,6 +22,7 @@ import com.vvm.sh.ui.agenda.adaptadores.OnAgendaListener;
 import com.vvm.sh.ui.agenda.modelos.Marcacao;
 import com.vvm.sh.ui.imagens.adaptadores.BibliotecaAdapter;
 import com.vvm.sh.ui.imagens.adaptadores.ImagemRecyclerAdapter;
+import com.vvm.sh.ui.imagens.adaptadores.OnImagemListener;
 import com.vvm.sh.ui.imagens.modelos.ImagemRegisto;
 
 import java.util.List;
@@ -54,8 +56,8 @@ public class ImagemBinding {
     }
 
 
-    @BindingAdapter({"imagens"})
-    public static void setImagens(RecyclerView view, List<ImagemRegisto> items/*, OnAgendaListener listener*/) {
+    @BindingAdapter({"imagens", "listener"})
+    public static void setImagens(RecyclerView view, List<ImagemRegisto> items, OnImagemListener listener) {
 
         if(items == null){
             return;
@@ -70,7 +72,7 @@ public class ImagemBinding {
         ImagemRecyclerAdapter adapter = (ImagemRecyclerAdapter) view.getAdapter();
 
         if(adapter == null){
-            adapter = new ImagemRecyclerAdapter(view.getContext(), items/*, listener*/);
+            adapter = new ImagemRecyclerAdapter(view.getContext(), items, listener);
 
             view.setAdapter(adapter);
         }
@@ -96,11 +98,20 @@ public class ImagemBinding {
                 .asBitmap()
                 .load(imagem)
                 .into(view);
-
-
-
     }
 
+
+
+    @BindingAdapter({"capaRelatorio"})
+    public static void setCapaRelatorio(TextView view, boolean capaRelatorio) {
+
+        if(capaRelatorio == true){
+            view.setText(view.getContext().getString(R.string.capaRelatorio));
+        }
+        else{
+            view.setText("");
+        }
+    }
 
 
 

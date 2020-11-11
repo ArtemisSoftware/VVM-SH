@@ -8,7 +8,9 @@ import com.vvm.sh.repositorios.AtividadePendenteRepositorio;
 import com.vvm.sh.repositorios.ImagemRepositorio;
 import com.vvm.sh.ui.imagens.modelos.Galeria;
 import com.vvm.sh.ui.imagens.modelos.ImagemRegisto;
+import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.constantes.Identificadores;
+import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.metodos.DiretoriasUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
@@ -18,8 +20,11 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import io.reactivex.Completable;
+import io.reactivex.CompletableObserver;
 import io.reactivex.Observable;
 import io.reactivex.Observer;
+import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
@@ -40,6 +45,117 @@ public class ImagemViewModel extends BaseViewModel {
         caminhos = new MutableLiveData<>();
         imagens = new MutableLiveData<>();
     }
+
+
+    //---------------
+    //GRAVAR
+    //---------------
+
+    /**
+     * Metodo que permite gravar a capa do relatorio
+     * @param idTarefa o identificador da tarefa
+     * @param idAtividade
+     * @param idImagem
+     */
+    public void gravarCapaRelatorio(int idTarefa, int idAtividade, int idImagem) {
+
+        imagemRepositorio.fixarCapaRelatorio(idTarefa, idImagem)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new CompletableObserver() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onComplete() {
+                                messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.REGISTADA_CAPA_RELATORIO_SUCESSO));
+                                abaterAtividadePendente(imagemRepositorio.resultadoDao, idTarefa, idAtividade);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+                        }
+
+                );
+    }
+
+    //---------------
+    //Remover
+    //---------------
+
+    /**
+     * Metodo que permite remover a capa do relatorio
+     * @param idTarefa
+     * @param idAtividade
+     */
+    public void removerCapaRelatorio(int idTarefa, int idAtividade){
+
+        imagemRepositorio.removerCapaRelatorio(idTarefa)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        new CompletableObserver() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onComplete() {
+                                messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.REMOVID_CAPA_RELATORIO_SUCESSO));
+                                abaterAtividadePendente(imagemRepositorio.resultadoDao, idTarefa, idAtividade);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+                        }
+
+                );
+    }
+
+
+    /**
+     * Metodo que permite remover uma imagem
+     * @param idTarefa
+     * @param idAtividade
+     * @param imagemResultado
+     */
+    public void removerImagem(int idTarefa, int idAtividade, ImagemResultado imagemResultado){
+
+        imagemRepositorio.remover(imagemResultado)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        new SingleObserver<Integer>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onSuccess(Integer integer) {
+                                messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.IMAGEM_REMOVIDA_SUCESSO));
+                                abaterAtividadePendente(imagemRepositorio.resultadoDao, idTarefa, idAtividade);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+                        }
+                );
+    }
+    //---------------
+    //OBTER
+    //---------------
 
 
     /**
@@ -63,7 +179,7 @@ public class ImagemViewModel extends BaseViewModel {
 
             case Galeria.GALERIA_CAPA_RELATORIO:
 
-                observable = imagemRepositorio.obterGaleria(galeria.id, galeria.idGaleria);
+                observable = imagemRepositorio.obterCapasRelatorio(galeria.id);
                 break;
 
             default:

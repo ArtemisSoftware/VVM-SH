@@ -10,10 +10,14 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.vvm.sh.R;
+import com.vvm.sh.databinding.ItemExaustoBinding;
 import com.vvm.sh.databinding.ItemLevantamentoBinding;
+import com.vvm.sh.databinding.ItemLoadingBinding;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.formacao.adaptadores.FormandoViewHolder;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.levantamentos.modelos.Levantamento;
 import com.vvm.sh.ui.quadroPessoal.modelos.ColaboradorRegisto;
+import com.vvm.sh.util.adaptadores.ExaustoViewHolder;
+import com.vvm.sh.util.adaptadores.LoadingViewHolder;
 import com.vvm.sh.util.interfaces.EstadoModelo;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
 
@@ -39,28 +43,65 @@ public class LevantamentoRecyclerAdapter extends RecyclerView.Adapter<RecyclerVi
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
 
-        ItemLevantamentoBinding binding = DataBindingUtil.inflate(LayoutInflater.from(contexto), R.layout.item_levantamento, parent, false);
-        return new LevantamentoViewHolder(binding.getRoot(), this.onItemListener);
+        switch (viewType) {
+            case EstadoModelo.LOADING:
+
+                ItemLoadingBinding itemLoadingBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.item_loading, parent, false);
+                return new LoadingViewHolder(itemLoadingBinding.getRoot());
+
+
+            case EstadoModelo.EXHAUSTED:
+
+                ItemExaustoBinding itemExaustoBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.item_exausto, parent, false);
+                return new ExaustoViewHolder(itemExaustoBinding.getRoot());
+
+
+            default:
+
+                ItemLevantamentoBinding binding = DataBindingUtil.inflate(LayoutInflater.from(contexto), R.layout.item_levantamento, parent, false);
+                return new LevantamentoViewHolder(binding.getRoot(), this.onItemListener);
+        }
     }
 
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
-        Levantamento registo = items.get(position);
-        ((LevantamentoViewHolder)holder).binding.setLevantamento(registo);
-        ((LevantamentoViewHolder)holder).binding.setListener((OnLevantamentoListener.OnLevantamentoRegistoListener) contexto);
-        ((LevantamentoViewHolder)holder).binding.executePendingBindings();
+        switch (getItemViewType(position)){
 
-        if(PreferenciasUtil.agendaEditavel(contexto) == false){
-            ((LevantamentoViewHolder)holder).binding.chkSelecionado.setVisibility(View.GONE);
+            case EstadoModelo.LOADING:
+
+                ((LoadingViewHolder) holder).binding.executePendingBindings();
+                break;
+
+            case EstadoModelo.EXHAUSTED:
+
+                ((ExaustoViewHolder) holder).binding.executePendingBindings();
+                break;
+
+            default:
+
+                Levantamento registo = items.get(position);
+                ((LevantamentoViewHolder)holder).binding.setLevantamento(registo);
+                ((LevantamentoViewHolder)holder).binding.setListener((OnLevantamentoListener.OnLevantamentoRegistoListener) contexto);
+                ((LevantamentoViewHolder)holder).binding.executePendingBindings();
+
+                if(PreferenciasUtil.agendaEditavel(contexto) == false){
+                    ((LevantamentoViewHolder)holder).binding.chkSelecionado.setVisibility(View.GONE);
+                }
+                break;
         }
-
     }
 
     @Override
     public int getItemCount() {
         return items.size();
     }
+
+    @Override
+    public int getItemViewType(int position) {
+        return this.items.get(position).obterEstado();
+    }
+
 
 
     public void atualizar(List<Levantamento> items){

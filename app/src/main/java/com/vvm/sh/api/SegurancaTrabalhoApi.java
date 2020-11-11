@@ -101,6 +101,10 @@ public interface SegurancaTrabalhoApi {
     Single<IContagemTipoMaquina> obterContagemTiposMaquinas(@HeaderMap Map<String, String> headers, @Query("utilizador") String id);
 
 
+    @GET("ObterEstadoEquipamento")
+    Single<Codigo> obterEstadoEquipamento(@HeaderMap Map<String, String> headers, @Query("descricao") String descricao);
+
+
     @FormUrlEncoded
     @POST("ProcessarDados")
     Single<Codigo> submeterDados(
@@ -122,6 +126,8 @@ public interface SegurancaTrabalhoApi {
             @Field("numeroFicheiro") String numeroFicheiro,
             @Field("MessageDigest") String messageDigest
     );
+
+
 
 
 }

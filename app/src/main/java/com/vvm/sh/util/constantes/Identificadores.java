@@ -141,6 +141,7 @@ public class Identificadores {
         public static final int IMAGEM_ASSINATURA_REGISTO_VISITA = 2;
         public static final int IMAGEM_CHECKLIST = 3;
         public static final int IMAGEM_RISCO = 4;
+        public static final int IMAGEM_CAPA_RELATORIO = 5;
     }
 
     public class Resultados {

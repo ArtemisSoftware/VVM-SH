@@ -293,7 +293,7 @@ abstract public class UploadDao {
     abstract public List<ImagemResultado> obterImagens(int id, int origem);
 
     @Query("SELECT idImagem FROM imagensResultado WHERE id = :id AND origem =:origem")
-    abstract public List<Integer> obterImagens_(int id, int origem);
+    abstract public List<Integer> obterImagensChecklists(int id, int origem);
 
 
 

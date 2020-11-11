@@ -209,7 +209,6 @@ public class UploadTrabalhoActivity extends BaseDaggerActivity {
             @Override
             public void run() {
 
-                //TODO: comentado por causa de testes
                 viewModel.upload(dadosUpload);
             }
         }, AppConfig.TEMPO_CONSULTA_UPLOAD);

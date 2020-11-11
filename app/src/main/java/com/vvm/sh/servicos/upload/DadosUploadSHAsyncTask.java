@@ -2,6 +2,7 @@ package com.vvm.sh.servicos.upload;
 
 import android.os.Handler;
 
+import com.vvm.sh.api.modelos.bd.AreaBd;
 import com.vvm.sh.api.modelos.bd.AtividadePendenteBd;
 import com.vvm.sh.api.modelos.bd.AtividadePlanoAcaoBd;
 import com.vvm.sh.api.modelos.bd.ColaboradorBd;
@@ -13,15 +14,26 @@ import com.vvm.sh.api.modelos.envio.Anomalia;
 import com.vvm.sh.api.modelos.envio.AtividadePendente;
 import com.vvm.sh.api.modelos.envio.AtividadePlanoAcao;
 import com.vvm.sh.api.modelos.envio.AvaliacaoIluminacao;
+import com.vvm.sh.api.modelos.envio.AvaliacaoRiscos;
 import com.vvm.sh.api.modelos.envio.AvaliacaoTemperaturaHumidade;
+import com.vvm.sh.api.modelos.envio.Checklist;
 import com.vvm.sh.api.modelos.envio.Colaborador;
 import com.vvm.sh.api.modelos.envio.DadosFormulario;
 import com.vvm.sh.api.modelos.envio.Equipamento;
 import com.vvm.sh.api.modelos.envio.Extintor;
+import com.vvm.sh.api.modelos.envio.ImagemChecklist;
+import com.vvm.sh.api.modelos.envio.ItemSeccaoChecklist;
+import com.vvm.sh.api.modelos.envio.Levantamento;
 import com.vvm.sh.api.modelos.envio.MedidaAveriguacao;
+import com.vvm.sh.api.modelos.envio.Observacao;
 import com.vvm.sh.api.modelos.envio.ParqueExtintor;
+import com.vvm.sh.api.modelos.envio.Pergunta;
 import com.vvm.sh.api.modelos.envio.RelatorioAmbiental;
 import com.vvm.sh.api.modelos.envio.RelatorioAveriguacao;
+import com.vvm.sh.api.modelos.envio.Risco;
+import com.vvm.sh.api.modelos.envio.Seccao;
+import com.vvm.sh.api.modelos.envio.TrabalhadorVulneravel;
+import com.vvm.sh.api.modelos.envio.Ut;
 import com.vvm.sh.api.modelos.envio.sht.Email;
 import com.vvm.sh.api.modelos.envio.Imagem;
 import com.vvm.sh.api.modelos.envio.RegistoVisita;
@@ -32,15 +44,22 @@ import com.vvm.sh.api.modelos.envio.sht.AtividadePendenteNaoExecutada;
 import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.baseDados.entidades.AnomaliaResultado;
 import com.vvm.sh.baseDados.entidades.AvaliacaoAmbientalResultado;
+import com.vvm.sh.baseDados.entidades.ImagemResultado;
+import com.vvm.sh.baseDados.entidades.LevantamentoRiscoResultado;
+import com.vvm.sh.baseDados.entidades.QuestionarioChecklistResultado;
 import com.vvm.sh.baseDados.entidades.RelatorioAveriguacaoResultado;
 import com.vvm.sh.baseDados.entidades.Resultado;
+import com.vvm.sh.baseDados.entidades.RiscoResultado;
+import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.baseDados.entidades.TipoNovo;
+import com.vvm.sh.baseDados.entidades.TrabalhadorVulneravelResultado;
 import com.vvm.sh.baseDados.entidades.TrabalhoRealizadoResultado;
 import com.vvm.sh.repositorios.UploadRepositorio;
 import com.vvm.sh.servicos.DadosUploadAsyncTask;
 import com.vvm.sh.ui.transferencias.modelos.Upload;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.constantes.Sintaxe;
+import com.vvm.sh.util.constantes.TiposConstantes;
 import com.vvm.sh.util.mapeamento.UploadMapping;
 import com.vvm.sh.util.mapeamento.UploadSHMapping;
 import com.vvm.sh.util.metodos.ConversorUtil;
@@ -68,11 +87,6 @@ public class DadosUploadSHAsyncTask extends DadosUploadAsyncTask {
     protected void obterDados(DadosFormulario dadosFormulario, Resultado resultado) {
 
         switch (resultado.id){
-
-
-
-
-
 
             case ID_ATIVIDADE_PENDENTE:
 
@@ -135,11 +149,11 @@ public class DadosUploadSHAsyncTask extends DadosUploadAsyncTask {
 //
 //                        registo.formacao = obterAcaoFormacao(item.resultado.id);
 //                        break;
-//
-//                    case Identificadores.Relatorios.ID_RELATORIO_AVALIACAO_RISCO:
-//
-//                        registo.avaliacaoRiscos = obterAvaliacaoRiscos(idTarefa, item.resultado.id);
-//                        break;
+
+                    case Identificadores.Relatorios.ID_RELATORIO_AVALIACAO_RISCO:
+
+                        registo.avaliacaoRiscos = obterAvaliacaoRiscos(idTarefa, item.resultado.id);
+                        break;
 
                     case Identificadores.Relatorios.ID_RELATORIO_ILUMINACAO:
 
@@ -200,10 +214,6 @@ public class DadosUploadSHAsyncTask extends DadosUploadAsyncTask {
 
 
 
-
-
-
-
     private RelatorioAmbiental obterRelatorioTemperaturaHumidade(int idAtividade) {
 
         RelatorioAmbientalBd registo = repositorio.obterRelatorioTemperaturaHumidade(idAtividade);
@@ -252,6 +262,160 @@ public class DadosUploadSHAsyncTask extends DadosUploadAsyncTask {
         }
 
         return relatorioAmbiental;
+    }
+
+
+
+
+    private AvaliacaoRiscos obterAvaliacaoRiscos(int idTarefa, int idAtividade){
+
+        AvaliacaoRiscos avaliacaoRiscos = new AvaliacaoRiscos();
+
+        avaliacaoRiscos.checklist = obterChecklist(idAtividade);
+        avaliacaoRiscos.trabalhadoresVulneraveis = obterTrabalhadoresVulneraveis(idAtividade);
+        avaliacaoRiscos.equipamentos = repositorio.obterEquipamentos(idAtividade);
+        avaliacaoRiscos.processoProdutivo = repositorio.obterProcessoProdutivo(idAtividade);
+        avaliacaoRiscos.levantamentosRisco = obterLevantamentoRisco(idAtividade);
+        avaliacaoRiscos.propostasPlanoAcao = repositorio.obterPropostaPlanoAcao(idAtividade);
+        try {
+            int idImagem = repositorio.obterCapaRelatorio(idTarefa);
+
+            avaliacaoRiscos.capaRelatorio = new Imagem(idImagem);
+            idImagens.add(idImagem);
+        }
+        catch (NullPointerException e){}
+        return avaliacaoRiscos;
+    }
+
+
+    private List<Levantamento> obterLevantamentoRisco(int idAtividade) {
+
+        List<Levantamento> registos = new ArrayList<>();
+
+        for(LevantamentoRiscoResultado itemLevantamento : repositorio.obterLevantamentos(idAtividade)){
+
+            Levantamento levantamento = UploadMapping.INSTANCE.map(itemLevantamento);
+            levantamento.riscos = new ArrayList<>();
+
+            for(RiscoResultado item : repositorio.obterRiscos(itemLevantamento.id)){
+
+                Risco risco = UploadMapping.INSTANCE.map(item);
+                risco.idsMedidasExistentes = repositorio.obterMedidas(item.id, Identificadores.Origens.LEVANTAMENTO_MEDIDAS_ADOPTADAS);
+                risco.idsMedidasRecomendadas = repositorio.obterMedidas(item.id, Identificadores.Origens.LEVANTAMENTO_MEDIDAS_RECOMENDADAS);
+
+
+                List<Imagem> imagens = new ArrayList<>();
+
+                for(ImagemResultado itemImagem : repositorio.obterImagens(item.id, Identificadores.Imagens.IMAGEM_RISCO)){
+
+                    imagens.add(new Imagem(itemImagem.idImagem));
+                    idImagens.add(itemImagem.idImagem);
+                }
+
+                risco.album = imagens;
+
+                levantamento.riscos.add(risco);
+            }
+
+            levantamento.categoriasProfissionais = repositorio.obterCategoriasProfissionais(itemLevantamento.id, Identificadores.Origens.LEVANTAMENTO_CATEGORIAS_PROFISSIONAIS);
+            registos.add(levantamento);
+        }
+
+        return registos;
+    }
+
+
+    private List<TrabalhadorVulneravel> obterTrabalhadoresVulneraveis(int idAtividade) {
+
+        List<TrabalhadorVulneravel> registos = new ArrayList<>();
+
+        for(TrabalhadorVulneravelResultado item : repositorio.obterTrabalhadoresVulneraveis(idAtividade)){
+            TrabalhadorVulneravel registo = UploadMapping.INSTANCE.map(item);
+
+            registo.categoriasProfissionaisHomens = repositorio.obterCategoriasProfissionais_TrabalhadoresVulneraveis(item.id, Identificadores.Origens.VULNERABILIDADE_CATEGORIAS_PROFISSIONAIS_HOMENS);
+            registo.categoriasProfissionaisMulheres = repositorio.obterCategoriasProfissionais_TrabalhadoresVulneraveis(item.id, Identificadores.Origens.VULNERABILIDADE_CATEGORIAS_PROFISSIONAIS_MULHERES);
+
+            registos.add(registo);
+        }
+
+        return registos;
+    }
+
+    private List<Checklist> obterChecklist(int idAtividade) {
+
+        int index = -1;
+        List<Checklist> registos = new ArrayList<>();
+
+        Tipo tipoChecklist = repositorio.obterChecklist(idAtividade);
+
+        Checklist checklist = UploadMapping.INSTANCE.map(tipoChecklist);
+        checklist.versao = checklist.versao.split(".json")[0].split("_")[2];
+
+        checklist.areas = new ArrayList<>();
+
+        for(AreaBd area : repositorio.obterAreas(idAtividade)){
+
+            ++index;
+            checklist.areas.add(UploadMapping.INSTANCE.map(area));
+            checklist.areas.get(index).seccoes = new ArrayList<>();
+
+            for(String idSeccao : repositorio.obterSeccoes(area.resultado.id)){
+
+                List<ItemSeccaoChecklist> itens = new ArrayList<>();
+
+                for(QuestionarioChecklistResultado item : repositorio.obterItens(area.resultado.id, idSeccao, Identificadores.Checklist.TIPO_QUESTAO)){
+                    Pergunta pergunta = UploadMapping.INSTANCE.mapPerguntaChecklist(item);
+                    itens.add(pergunta);
+                }
+
+                for(QuestionarioChecklistResultado item : repositorio.obterItens(area.resultado.id, idSeccao, Identificadores.Checklist.TIPO_UTS)){
+                    Ut ut = UploadMapping.INSTANCE.mapUtChecklist(item);
+
+                    ut.idCategoriasRiscoUT_1 = obterCategoriasRiscoUT(item.ut1_CategoriasRisco);
+                    ut.idCategoriasRiscoUT_2 = obterCategoriasRiscoUT(item.ut2_CategoriasRisco);
+                    itens.add(ut);
+                }
+
+                for(QuestionarioChecklistResultado item : repositorio.obterItens(area.resultado.id, idSeccao, Identificadores.Checklist.TIPO_OBSERVACOES)){
+                    Observacao observacao = UploadMapping.INSTANCE.mapObservacaoChecklist(item);
+                    itens.add(observacao);
+                }
+
+                for(QuestionarioChecklistResultado item : repositorio.obterItens(area.resultado.id, idSeccao, Identificadores.Checklist.TIPO_FOTOS)){
+
+                    List<Integer> imagens = repositorio.obterImagensChecklists(item.id, Identificadores.Imagens.IMAGEM_CHECKLIST);
+
+                    if(imagens.size() != 0){
+
+                        ImagemChecklist imagemChecklist = new ImagemChecklist();
+                        imagemChecklist.idItem = "foto";
+                        imagemChecklist.ids = imagens;
+                        itens.add(imagemChecklist);
+                        idImagens.addAll(imagens);
+                    }
+                }
+
+
+
+
+                checklist.areas.get(index).seccoes.add(new Seccao(idSeccao, itens));
+            }
+        }
+
+        registos.add(checklist);
+        return registos;
+    }
+
+    private String obterCategoriasRiscoUT(int idCategoriasRiscoUT) {
+
+        for (Tipo tipo : TiposConstantes.Checklist.CATEGORIAS_RISCO) {
+
+            if(tipo.id == idCategoriasRiscoUT){
+                return tipo.descricao;
+            }
+        }
+
+        return "";
     }
 
     //--------------------------

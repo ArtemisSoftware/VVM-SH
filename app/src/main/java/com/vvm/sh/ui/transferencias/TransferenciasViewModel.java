@@ -414,7 +414,7 @@ public class TransferenciasViewModel extends BaseViewModel {
                         new SingleObserver<Codigo>() {
                             @Override
                             public void onSubscribe(Disposable d) {
-
+                                disposables.add(d);
                             }
 
                             @Override

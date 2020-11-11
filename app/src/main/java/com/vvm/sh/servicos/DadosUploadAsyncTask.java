@@ -15,6 +15,7 @@ import com.vvm.sh.api.modelos.envio.Email;
 import com.vvm.sh.api.modelos.envio.Formando;
 import com.vvm.sh.api.modelos.bd.FormandoBd;
 import com.vvm.sh.api.modelos.envio.Imagem;
+import com.vvm.sh.api.modelos.envio.ImagemChecklist;
 import com.vvm.sh.api.modelos.envio.ItemSeccaoChecklist;
 import com.vvm.sh.api.modelos.envio.Levantamento;
 import com.vvm.sh.api.modelos.envio.Observacao;
@@ -264,122 +265,12 @@ public abstract class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void
     }
 
 
-    private AvaliacaoRiscos obterAvaliacaoRiscos(int idTarefa, int idAtividade){
-
-        AvaliacaoRiscos avaliacaoRiscos = new AvaliacaoRiscos();
-
-        avaliacaoRiscos.checklist = obterChecklist(idAtividade);
-        avaliacaoRiscos.trabalhadoresVulneraveis = obterTrabalhadoresVulneraveis(idAtividade);
-        avaliacaoRiscos.equipamentos = repositorio.obterEquipamentos(idAtividade);
-        avaliacaoRiscos.processoProdutivo = repositorio.obterProcessoProdutivo(idAtividade);
-        avaliacaoRiscos.levantamentosRisco = obterLevantamentoRisco(idAtividade);
-        avaliacaoRiscos.propostasPlanoAcao = repositorio.obterPropostaPlanoAcao(idAtividade);
-        try {
-            avaliacaoRiscos.capaRelatorio = repositorio.obterCapaRelatorio(idTarefa) + "";
-        }
-        catch (NullPointerException e){}
-        return avaliacaoRiscos;
-    }
-
-    private List<TrabalhadorVulneravel> obterTrabalhadoresVulneraveis(int idAtividade) {
-
-        List<TrabalhadorVulneravel> registos = new ArrayList<>();
-
-        for(TrabalhadorVulneravelResultado item : repositorio.obterTrabalhadoresVulneraveis(idAtividade)){
-            TrabalhadorVulneravel registo = UploadMapping.INSTANCE.map(item);
-
-            registo.categoriasProfissionaisHomens = repositorio.obterCategoriasProfissionais_TrabalhadoresVulneraveis(item.id, Identificadores.Origens.VULNERABILIDADE_CATEGORIAS_PROFISSIONAIS_HOMENS);
-            registo.categoriasProfissionaisMulheres = repositorio.obterCategoriasProfissionais_TrabalhadoresVulneraveis(item.id, Identificadores.Origens.VULNERABILIDADE_CATEGORIAS_PROFISSIONAIS_MULHERES);
-
-            registos.add(registo);
-        }
-
-        return registos;
-    }
-
-    private List<Checklist> obterChecklist(int idAtividade) {
-
-        int index = -1;
-        List<Checklist> registos = new ArrayList<>();
-
-        Tipo tipoChecklist = repositorio.obterChecklist(idAtividade);
-
-        Checklist checklist = UploadMapping.INSTANCE.map(tipoChecklist);
-        checklist.versao = checklist.versao.split(".json")[0].split("_")[2];
-
-        checklist.areas = new ArrayList<>();
-
-        for(AreaBd area : repositorio.obterAreas(idAtividade)){
-
-            ++index;
-            checklist.areas.add(UploadMapping.INSTANCE.map(area));
-            checklist.areas.get(index).seccoes = new ArrayList<>();
-
-            for(String idSeccao : repositorio.obterSeccoes(area.resultado.id)){
-
-                List<ItemSeccaoChecklist> itens = new ArrayList<>();
-
-                for(QuestionarioChecklistResultado item : repositorio.obterItens(area.resultado.id, idSeccao, Identificadores.Checklist.TIPO_QUESTAO)){
-                    Pergunta pergunta = UploadMapping.INSTANCE.mapPerguntaChecklist(item);
-                    itens.add(pergunta);
-                }
-
-                for(QuestionarioChecklistResultado item : repositorio.obterItens(area.resultado.id, idSeccao, Identificadores.Checklist.TIPO_UTS)){
-                    Ut ut = UploadMapping.INSTANCE.mapUtChecklist(item);
-                    itens.add(ut);
-                }
-
-                for(QuestionarioChecklistResultado item : repositorio.obterItens(area.resultado.id, idSeccao, Identificadores.Checklist.TIPO_OBSERVACOES)){
-                    Observacao observacao = UploadMapping.INSTANCE.mapObservacaoChecklist(item);
-                    itens.add(observacao);
-                }
-
-                for(ImagemResultado imagem : repositorio.obterImagens(area.resultado.id, Identificadores.Imagens.IMAGEM_CHECKLIST)){
-                    //TODO: duvidas em relacao a isto, deveria ser uma lista de ids
-                    //itens.add(UploadMapping.INSTANCE.mapImagemChecklist(imagem));
-                    //idImagens.add(registo.idImagem);
-                }
-
-                checklist.areas.get(index).seccoes.add(new Seccao(idSeccao, itens));
-            }
-
-        }
-
-
-        registos.add(checklist);
-        return registos;
-
-    }
 
 
 
 
 
-    private List<Levantamento> obterLevantamentoRisco(int idAtividade) {
 
-        List<Levantamento> registos = new ArrayList<>();
-
-        for(LevantamentoRiscoResultado itemLevantamento : repositorio.obterLevantamentos(idAtividade)){
-
-            Levantamento levantamento = UploadMapping.INSTANCE.map(itemLevantamento);
-            levantamento.riscos = new ArrayList<>();
-
-            for(RiscoResultado item : repositorio.obterRiscos(itemLevantamento.id)){
-
-                Risco risco = UploadMapping.INSTANCE.map(item);
-                risco.idsMedidasExistentes = repositorio.obterMedidas(item.id, Identificadores.Origens.LEVANTAMENTO_MEDIDAS_ADOPTADAS);
-                risco.idsMedidasRecomendadas = repositorio.obterMedidas(item.id, Identificadores.Origens.LEVANTAMENTO_MEDIDAS_RECOMENDADAS);
-                risco.album = repositorio.obterImagens_(item.id, Identificadores.Imagens.IMAGEM_RISCO);
-                idImagens.addAll(risco.album);
-                levantamento.riscos.add(risco);
-            }
-
-            levantamento.categoriasProfissionais = repositorio.obterCategoriasProfissionais(itemLevantamento.id, Identificadores.Origens.LEVANTAMENTO_CATEGORIAS_PROFISSIONAIS);
-            registos.add(levantamento);
-        }
-
-        return registos;
-    }
 
 
 

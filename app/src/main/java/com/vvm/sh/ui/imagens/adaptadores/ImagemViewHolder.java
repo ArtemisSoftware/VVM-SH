@@ -8,7 +8,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.vvm.sh.databinding.ItemBibliotecaBinding;
 import com.vvm.sh.databinding.ItemImagemBinding;
 
-public class ImagemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+public class ImagemViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener, View.OnLongClickListener {
 
     ItemImagemBinding binding;
     private OnImagemListener listener;
@@ -24,5 +24,12 @@ public class ImagemViewHolder extends RecyclerView.ViewHolder implements View.On
     @Override
     public void onClick(View v) {
         this.listener.OnImagemClick(binding.getImagem());
+    }
+
+    @Override
+    public boolean onLongClick(View v) {
+
+        this.listener.OnImagemLongClick(binding.getImagem());
+        return false;
     }
 }

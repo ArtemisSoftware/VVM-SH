@@ -208,7 +208,7 @@ public interface DownloadMapping {
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "idItem", source = "id")
     @Mapping(target = "ut1", ignore = true)
-    @Mapping(target = "ut1_CategoriasRisco", source = "idCategoriasRiscoUT_1")
+    @Mapping(target = "ut1_CategoriasRisco", ignore = true)
     @Mapping(target = "ut1_LocalRisco_A", source = "localRiscoA_ut_1")
     @Mapping(target = "ut1_LocalRisco_B", source = "localRiscoB_ut_1")
     @Mapping(target = "ut1_LocalRisco_C", source = "localRiscoC_ut_1")

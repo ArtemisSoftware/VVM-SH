@@ -138,8 +138,8 @@ public class UploadRepositorio {
         return uploadDao.obterImagens(id, origem);
     }
 
-    public List<Integer> obterImagens_(int id, int origem) {
-        return uploadDao.obterImagens_(id, origem);
+    public List<Integer> obterImagensChecklists(int id, int origem) {
+        return uploadDao.obterImagensChecklists(id, origem);
     }
 
     public Tipo obterChecklist(int idAtividade) {

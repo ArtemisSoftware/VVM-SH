@@ -577,7 +577,8 @@ abstract public class AtividadePendenteDao implements BaseDao<AtividadePendenteR
             "CASE WHEN idRelatorio = " + ID_RELATORIO_FORMACAO + " AND IFNULL(ct_formando, 0) > 0 THEN  1 " +
             "ELSE 0 END as relatorioCompleto, " +
 
-            "0 as validade_processo_produtivo, 0 as validade_trabalhadores_vulneraveis, 0 as validade_equipamentos, 0 as validade_proposta_plano_acao, 0 as validade_checklist, 0 as validade_avaliacao_riscos " +
+            "0 as validade_processo_produtivo, 0 as validade_trabalhadores_vulneraveis, 0 as validade_equipamentos, 0 as validade_proposta_plano_acao, 0 as validade_checklist, 0 as validade_avaliacao_riscos," +
+            "0 as capa_Relatorio " +
 
             "FROM atividadesPendentes as atp " +
 

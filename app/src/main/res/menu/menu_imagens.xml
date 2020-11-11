@@ -9,7 +9,6 @@
     <item  android:id="@+id/item_pesquisa"
         android:title="@string/pesquisa"
         app:showAsAction="always"
-        android:icon="@drawable/ic_pesquisa_24dp"
-        android:iconTint="@color/white"/>
+        android:icon="@drawable/ic_pesquisa_branco_24"/>
 
 </menu>

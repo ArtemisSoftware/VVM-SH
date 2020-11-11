@@ -31,7 +31,7 @@ public class Risco {
 	public List<Integer> idsMedidasRecomendadas;
 
 	@SerializedName("Album")
-	public List<Integer> album;
+	public List<Imagem> album;
 
 
 }

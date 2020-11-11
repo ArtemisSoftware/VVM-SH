@@ -9,4 +9,11 @@ public class Imagem {
 
     @SerializedName("foto")
     public String foto;
+
+    public Imagem() {
+    }
+
+    public Imagem(int idImagem) {
+        this.idFoto = idImagem + "";
+    }
 }

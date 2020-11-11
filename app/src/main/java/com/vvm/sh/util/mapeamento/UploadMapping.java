@@ -13,6 +13,7 @@ import com.vvm.sh.api.modelos.envio.Checklist;
 import com.vvm.sh.api.modelos.envio.Colaborador;
 import com.vvm.sh.api.modelos.envio.Equipamento;
 import com.vvm.sh.api.modelos.envio.Extintor;
+import com.vvm.sh.api.modelos.envio.ImagemChecklist;
 import com.vvm.sh.api.modelos.envio.Levantamento;
 import com.vvm.sh.api.modelos.envio.MedidaAveriguacao;
 import com.vvm.sh.api.modelos.envio.Observacao;
@@ -138,7 +139,7 @@ public interface UploadMapping {
 
     @Mapping(target = "idItem", source = "idItem")
     @Mapping(target = "idUT1", source = "ut1")
-    @Mapping(target = "idCategoriasRiscoUT_1", source = "ut1_CategoriasRisco")
+    @Mapping(target = "idCategoriasRiscoUT_1", ignore = true)
     @Mapping(target = "localRiscoA_ut_1", source = "ut1_LocalRisco_A")
     @Mapping(target = "localRiscoB_ut_1", source = "ut1_LocalRisco_B")
     @Mapping(target = "localRiscoC_ut_1", source = "ut1_LocalRisco_C")
@@ -146,7 +147,7 @@ public interface UploadMapping {
     @Mapping(target = "localRiscoE_ut_1", source = "ut1_LocalRisco_E")
     @Mapping(target = "localRiscoF_ut_1", source = "ut1_LocalRisco_F")
     @Mapping(target = "idUT2", source = "ut2")
-    @Mapping(target = "idCategoriasRiscoUT_2", source = "ut2_CategoriasRisco")
+    @Mapping(target = "idCategoriasRiscoUT_2", ignore = true)
     @Mapping(target = "localRiscoA_ut_2", source = "ut2_LocalRisco_A")
     @Mapping(target = "localRiscoB_ut_2", source = "ut2_LocalRisco_B")
     @Mapping(target = "localRiscoC_ut_2", source = "ut2_LocalRisco_C")
@@ -155,8 +156,6 @@ public interface UploadMapping {
     @Mapping(target = "localRiscoF_ut_2", source = "ut2_LocalRisco_F")
     Ut mapUtChecklist(QuestionarioChecklistResultado ut);
 
-//    @Mapping(target = "idItem", source = "idImagem")
-//    ItemSeccaoChecklist mapImagemChecklist(ImagemResultado imagem);
 
 
     @Mapping(target = "quantidadeHomens", source = "homens")

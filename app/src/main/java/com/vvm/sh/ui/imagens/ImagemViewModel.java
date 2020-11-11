@@ -52,6 +52,40 @@ public class ImagemViewModel extends BaseViewModel {
     //---------------
 
     /**
+     * Metodo que permite gravar uma imagem
+     * @param idTarefa
+     * @param idAtividade
+     * @param imagemResultado
+     */
+    public void gravarImagem(int idTarefa, int idAtividade, ImagemResultado imagemResultado){
+
+        imagemRepositorio.inserir(imagemResultado)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new SingleObserver<Long>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onSuccess(Long aLong) {
+                                messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.IMAGEM_REGISTADA_SUCESSO));
+                                abaterAtividadePendente(imagemRepositorio.resultadoDao, idTarefa, idAtividade);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+                        }
+                );
+    }
+
+
+    /**
      * Metodo que permite gravar a capa do relatorio
      * @param idTarefa o identificador da tarefa
      * @param idAtividade

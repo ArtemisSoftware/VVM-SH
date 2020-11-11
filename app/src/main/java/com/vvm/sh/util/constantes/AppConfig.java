@@ -26,7 +26,7 @@ public class AppConfig {
 
 
     public static final long TEMPO_SPLASH = 4000;
-    public static final long TEMPO_CONSULTA_UPLOAD = 3200;
+    public static final long TEMPO_CONSULTA_UPLOAD = 1200;
 
 
     public static final int NUMERO_RESULTADOS_QUERY = 15;

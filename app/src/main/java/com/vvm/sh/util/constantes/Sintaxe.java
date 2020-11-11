@@ -153,6 +153,7 @@ public class Sintaxe {
         public static final String REGISTADA_CAPA_RELATORIO_SUCESSO = "Capa do relatorio registada com sucesso";
         public static final String REMOVID_CAPA_RELATORIO_SUCESSO = "Removida a capa do relatorio";
         public static final String IMAGEM_REMOVIDA_SUCESSO = "Imagem removida comsucesso";
+        public static final String IMAGEM_REGISTADA_SUCESSO = "Imagem registada com sucesso";
     }
 
     public class API {

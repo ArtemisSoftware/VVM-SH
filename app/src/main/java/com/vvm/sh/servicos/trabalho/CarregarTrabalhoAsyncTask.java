@@ -407,7 +407,8 @@ public class CarregarTrabalhoAsyncTask extends AsyncTask<ISessao, Void, Void> {
                             questao.tipo = tipo;
 
                             try{
-                                questao.ut2_CategoriasRisco = Integer.parseInt(item.idCategoriasRiscoUT_2);
+                                questao.ut1_CategoriasRisco = obterCategoriasRiscoUT(item.idCategoriasRiscoUT_1);
+                                questao.ut2_CategoriasRisco = obterCategoriasRiscoUT(item.idCategoriasRiscoUT_2);
                             }
                             catch (NumberFormatException e){}
 
@@ -446,6 +447,20 @@ public class CarregarTrabalhoAsyncTask extends AsyncTask<ISessao, Void, Void> {
 
         return Identificadores.VALOR_INT_0;
     }
+
+
+    private int obterCategoriasRiscoUT(String idCategoriasRiscoUT) {
+
+        for (Tipo tipo : TiposConstantes.Checklist.CATEGORIAS_RISCO) {
+
+            if(tipo.descricao.equals(idCategoriasRiscoUT) == true){
+                return tipo.id;
+            }
+        }
+
+        return Identificadores.VALOR_INT_0;
+    }
+
 
     private List<PropostaPlanoAcaoResultado> inserirLevantamento(IAvaliacaoRiscosAnterior avaliacaoRiscosAnterior, int idAtividade) {
 

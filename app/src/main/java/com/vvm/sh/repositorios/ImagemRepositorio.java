@@ -56,7 +56,7 @@ public class ImagemRepositorio implements Repositorio<ImagemResultado>{
 
     @Override
     public Single<Long> inserir(ImagemResultado item) {
-        return null;
+        return imagemDao.inserir(item);
     }
 
     @Override

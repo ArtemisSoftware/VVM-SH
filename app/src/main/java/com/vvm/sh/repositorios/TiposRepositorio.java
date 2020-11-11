@@ -18,12 +18,14 @@ import com.vvm.sh.baseDados.entidades.ItemChecklist;
 import com.vvm.sh.baseDados.entidades.SeccaoChecklist;
 import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.baseDados.entidades.TipoAtividadePlaneavel;
+import com.vvm.sh.baseDados.entidades.TipoNovo;
 import com.vvm.sh.baseDados.entidades.TipoTemplateAvrLevantamento;
 import com.vvm.sh.baseDados.entidades.TipoTemplateAvrRisco;
 import com.vvm.sh.baseDados.entidades.TipoTemplatesAVRMedidaRisco;
 import com.vvm.sh.ui.opcoes.modelos.ResumoChecklist;
 import com.vvm.sh.ui.opcoes.modelos.ResumoTipo;
 import com.vvm.sh.ui.opcoes.modelos.TemplateAvr;
+import com.vvm.sh.ui.transferencias.modelos.AtualizacaoTipos;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.excepcoes.TipoInexistenteException;
 import com.vvm.sh.util.metodos.TiposUtil;
@@ -37,6 +39,7 @@ import io.reactivex.Single;
 import io.reactivex.SingleSource;
 import io.reactivex.functions.BiFunction;
 import io.reactivex.functions.Function3;
+import io.reactivex.functions.Function4;
 
 public class TiposRepositorio {
 
@@ -101,11 +104,11 @@ public class TiposRepositorio {
     }
 
 
-    public Single<List<Object>> obterTipos(List<TiposUtil.MetodoApi> atualizacoes) {
+    public Single<List<Object>> obterTipos(AtualizacaoTipos atualizacoes) {
 
         List<SingleSource> tipos = new ArrayList<>();
 
-        for(TiposUtil.MetodoApi metodo : atualizacoes){
+        for(TiposUtil.MetodoApi metodo : atualizacoes.atualizacoes){
 
             if(metodo.tipo == Identificadores.Atualizacoes.TIPO) {
 
@@ -121,9 +124,6 @@ public class TiposRepositorio {
                 }
             }
 
-            if(metodo.tipo == Identificadores.Atualizacoes.ATIVIDADES_PLANEAVEIS) {
-
-            }
 
             if(metodo.tipo == Identificadores.Atualizacoes.ATIVIDADES_PLANEAVEIS) {
 
@@ -143,6 +143,10 @@ public class TiposRepositorio {
                 }
 
             }
+        }
+
+        for(TipoNovo tipo : atualizacoes.tiposNovos){
+            tipos.add(apiST.obterEstadoEquipamento(SegurancaTrabalhoApi.HEADER_TIPO, tipo.descricao));
         }
 
 
@@ -331,20 +335,25 @@ public class TiposRepositorio {
      * Metodo que permite obter as atualizacoes
      * @return uma lista de atualizacoes
      */
-    public Maybe<List<TiposUtil.MetodoApi>> obterAtualizacoes() {
+    public Maybe<AtualizacaoTipos> obterAtualizacoes() {
 
         return Maybe.zip(
                 atualizacaoDao.obterAtualizacoes(Identificadores.Atualizacoes.TIPO),
                 atualizacaoDao.obterAtualizacoes(Identificadores.Atualizacoes.TEMPLATE),
                 atualizacaoDao.obterAtualizacoes(Identificadores.Atualizacoes.ATIVIDADES_PLANEAVEIS),
-                new Function3<List<Atualizacao>, List<Atualizacao>, List<Atualizacao>, List<TiposUtil.MetodoApi>>() {
-                    @Override
-                    public List<TiposUtil.MetodoApi> apply(List<Atualizacao> atualizacaos, List<Atualizacao> atualizacaos2, List<Atualizacao> atualizacaos3) throws Exception {
+                tipoDao.obterEquipamentosNaoValidados(),
 
+                new Function4<List<Atualizacao>, List<Atualizacao>, List<Atualizacao>, List<TipoNovo>, AtualizacaoTipos>() {
+                    @Override
+                    public AtualizacaoTipos apply(List<Atualizacao> atualizacaos, List<Atualizacao> atualizacaos2, List<Atualizacao> atualizacaos3, List<TipoNovo> tipoNovos) throws Exception {
                         List<TiposUtil.MetodoApi> atualizacoes = TiposUtil.fixarSeloTemporal(atualizacaos);
                         atualizacoes.addAll(TiposUtil.fixarSeloTemporal(atualizacaos2));
                         atualizacoes.addAll(TiposUtil.fixarSeloTemporal(atualizacaos3));
-                        return atualizacoes;
+
+                        AtualizacaoTipos atualizacaoTipos = new AtualizacaoTipos();
+                        atualizacaoTipos.atualizacoes = atualizacoes;
+                        atualizacaoTipos.tiposNovos = tipoNovos;
+                        return atualizacaoTipos;
                     }
                 }
         );

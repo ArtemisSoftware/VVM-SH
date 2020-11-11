@@ -4,6 +4,7 @@ import androidx.room.Dao;
 import androidx.room.Delete;
 import androidx.room.Insert;
 import androidx.room.Query;
+import androidx.room.Transaction;
 import androidx.room.Update;
 
 import com.vvm.sh.baseDados.BaseDao;
@@ -12,6 +13,7 @@ import com.vvm.sh.baseDados.entidades.CheckList;
 import com.vvm.sh.baseDados.entidades.ItemChecklist;
 import com.vvm.sh.baseDados.entidades.SeccaoChecklist;
 import com.vvm.sh.baseDados.entidades.TipoAtividadePlaneavel;
+import com.vvm.sh.baseDados.entidades.TipoNovo;
 import com.vvm.sh.baseDados.entidades.TipoTemplateAvrLevantamento;
 import com.vvm.sh.baseDados.entidades.TipoTemplateAvrRisco;
 import com.vvm.sh.baseDados.entidades.TipoTemplatesAVRMedidaRisco;
@@ -182,6 +184,11 @@ abstract public class TipoDao implements BaseDao<Tipo> {
 
 
 
+
+
+    @Transaction
+    @Query("SELECT * FROM tiposNovos WHERE estado = " + Identificadores.ESTADO_PENDENTE + " AND tipo = '" +  TiposUtil.MetodosTipos.TIPOS_MAQUINA + "' ")
+    abstract public Maybe<List<TipoNovo>> obterEquipamentosNaoValidados();
 
 
 

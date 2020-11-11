@@ -264,9 +264,4 @@ abstract public class TransferenciasDao implements BaseDao<Resultado> {
     public abstract String obterTipoItemChecklist(int idChecklist, int idArea, String idSeccao, String idItem);
 
 
-    @Transaction
-    @Query("SELECT * FROM tiposNovos WHERE estado = " + Identificadores.ESTADO_PENDENTE + " AND tipo = '" +  TiposUtil.MetodosTipos.TIPOS_MAQUINA + "' ")
-    abstract public Maybe<List<TipoNovo>> obterEquipamentosNaoValidados();
-
-
 }

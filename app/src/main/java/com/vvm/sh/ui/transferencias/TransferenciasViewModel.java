@@ -23,6 +23,7 @@ import com.vvm.sh.servicos.trabalho.RecarregarTrabalhoAsyncTask;
 import com.vvm.sh.servicos.trabalho.CarregarTrabalhoAsyncTask;
 import com.vvm.sh.servicos.upload.DadosUploadSAAsyncTask;
 import com.vvm.sh.servicos.upload.DadosUploadSHAsyncTask;
+import com.vvm.sh.ui.transferencias.modelos.AtualizacaoTipos;
 import com.vvm.sh.ui.transferencias.modelos.DadosPendencia;
 import com.vvm.sh.ui.transferencias.modelos.DadosUpload;
 import com.vvm.sh.ui.transferencias.modelos.Pendencia;
@@ -564,14 +565,14 @@ public class TransferenciasViewModel extends BaseViewModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
 
-                        new MaybeObserver<List<TiposUtil.MetodoApi>>() {
+                        new MaybeObserver<AtualizacaoTipos>() {
                             @Override
                             public void onSubscribe(Disposable d) {
                                 disposables.add(d);
                             }
 
                             @Override
-                            public void onSuccess(List<TiposUtil.MetodoApi> atualizacoes) {
+                            public void onSuccess(AtualizacaoTipos atualizacoes) {
                                 atualizarTipos(activity, atualizacoes, handlerUI);
                             }
 
@@ -594,7 +595,7 @@ public class TransferenciasViewModel extends BaseViewModel {
      * @param atualizacoes as atualizações dos tipos
      * @param handlerUI um handler para as mensagens
      */
-    private void atualizarTipos(Activity activity, List<TiposUtil.MetodoApi> atualizacoes, Handler handlerUI){
+    private void atualizarTipos(Activity activity, AtualizacaoTipos atualizacoes, Handler handlerUI){
 
         showProgressBar(true);
 

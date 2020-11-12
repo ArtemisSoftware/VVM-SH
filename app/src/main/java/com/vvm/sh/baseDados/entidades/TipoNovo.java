@@ -3,13 +3,9 @@ package com.vvm.sh.baseDados.entidades;
 import androidx.annotation.NonNull;
 import androidx.room.ColumnInfo;
 import androidx.room.Entity;
-import androidx.room.ForeignKey;
-import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
 import com.vvm.sh.util.constantes.Identificadores;
-
-import static androidx.room.ForeignKey.CASCADE;
 
 @Entity(tableName = "tiposNovos")
 public class TipoNovo {
@@ -53,7 +49,7 @@ public class TipoNovo {
     public String detalhe;
 
     @NonNull
-    @ColumnInfo(name = "estado", defaultValue = Identificadores.ESTADO_PENDENTE + "")
+    @ColumnInfo(name = "estado", defaultValue = Identificadores.Estados.Equipamentos.ESTADO_PENDENTE + "")
     public int estado;
 
     public TipoNovo(@NonNull String tipo, @NonNull String descricao) {
@@ -61,6 +57,6 @@ public class TipoNovo {
         this.tipo = tipo;
         this.descricao = descricao;
         this.ativo = 1;
-        this.estado = Identificadores.ESTADO_PENDENTE ;
+        this.estado = Identificadores.Estados.Equipamentos.ESTADO_PENDENTE ;
     }
 }

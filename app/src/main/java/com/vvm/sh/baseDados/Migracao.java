@@ -370,7 +370,7 @@ public class Migracao {
                         + "'descricao' TEXT NOT NULL, "
                         + "'codigo' TEXT , "
                         + "'idPai' TEXT , "
-                        + "'estado' INTEGER NOT NULL DEFAULT " + Identificadores.ESTADO_PENDENTE + " ,  "
+                        + "'estado' INTEGER NOT NULL DEFAULT " + Identificadores.Estados.Equipamentos.ESTADO_PENDENTE + " ,  "
                         + "'ativo' INTEGER NOT NULL DEFAULT " + Identificadores.VALOR_1 + " ,  "
                         + "'detalhe' TEXT) ");
             }

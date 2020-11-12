@@ -8,6 +8,7 @@ import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.excepcoes.MetodoWsInvalidoException;
 import com.vvm.sh.util.excepcoes.RespostaWsInvalidaException;
+import com.vvm.sh.util.mapeamento.DownloadMapping;
 import com.vvm.sh.util.metodos.TiposUtil;
 
 import org.jetbrains.annotations.NotNull;
@@ -16,6 +17,7 @@ import org.json.JSONObject;
 
 import java.io.IOException;
 
+import okhttp3.Headers;
 import okhttp3.Interceptor;
 import okhttp3.MediaType;
 import okhttp3.Request;
@@ -47,11 +49,11 @@ public class WebServiceInterceptor implements Interceptor {
 
         Response resposta = chain.proceed(pedido);
         ResponseBody corpo = resposta.body();
-        String responseString = "";
+        String responseString = corpo.string();
 
         if(metodo.equals("GetDados") == true || metodo.equals("GetDadosDia") == true){
             //String responseString_1 = resposta.peekBody(2048).string();
-            responseString = corpo.string();
+            //responseString = corpo.string();
 
             String lolo = ",\"AvaliacaoRiscosAnterior\":{\"processoProdutivo\":null,\"equipamentos\":null,\"levantamentosRisco\":null,\"Vulnerabilidades\":null,\"Checklist\":null,\"capaRelatorio\":null,\"RelatorioPlanoAcao\":null,\"RelatorioPlanoAcaoAVR\":null,\"RelatorioPlanoAcaoST\":null}";
             String lolo2 = ",\"AuditoriaAnterior\":{\"idChecklist\":null,\"versaoChecklist\":null,\"dadosChecklist\":null}";
@@ -64,13 +66,14 @@ public class WebServiceInterceptor implements Interceptor {
                 responseString = responseString.replace(lolo2, "");
             }
         }
+
         else{
-            responseString = corpo.string();
+            //responseString = corpo.string();
         }
 
 
         MediaType contentType = corpo.contentType();
-        ResponseBody body = ResponseBody.create(obterJSON(/*corpo.string()*/responseString, metodo, api),contentType);
+        ResponseBody body = ResponseBody.create(obterJSON(/*corpo.string()*/responseString, metodo, pedido.headers(), api),contentType);
         return resposta.newBuilder().body(body).build();
     }
 
@@ -83,7 +86,7 @@ public class WebServiceInterceptor implements Interceptor {
      * @return  um objecto com os dados
      * @throws RespostaWsInvalidaException
      */
-    private String obterJSON(String respostaWS, String metodo, int api) throws RespostaWsInvalidaException {
+    private String obterJSON(String respostaWS, String metodo, Headers cabecalho, int api) throws RespostaWsInvalidaException {
 
         Gson gson = new GsonBuilder().create();
         String dados = null;
@@ -103,6 +106,20 @@ public class WebServiceInterceptor implements Interceptor {
             }
 
             String conteudo = respostaWS.substring(inicio, fim);
+
+
+            if(metodo.equals("ObterEstadoEquipamento") == true){
+
+                try {
+                    JSONObject respostagg = new JSONObject(conteudo);
+                    respostagg.put("idProvisorioEquipamento", cabecalho.get(Sintaxe.API.ID_EQUIPAMENTO_PROVISORIO));
+                    conteudo = respostagg.toString();
+
+                }
+                catch (JSONException e) {
+
+                }
+            }
 
             validarConteudo(gson, conteudo);
 

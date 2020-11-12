@@ -6,9 +6,11 @@ import com.vvm.sh.api.SegurancaAlimentarApi;
 import com.vvm.sh.api.SegurancaTrabalhoApi;
 import com.vvm.sh.baseDados.dao.AtualizacaoDao;
 import com.vvm.sh.baseDados.dao.TipoDao;
+import com.vvm.sh.baseDados.dao.TipoNovoDao;
 import com.vvm.sh.baseDados.entidades.Atualizacao;
 import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.baseDados.entidades.TipoAtividadePlaneavel;
+import com.vvm.sh.baseDados.entidades.TipoNovo;
 import com.vvm.sh.baseDados.entidades.TipoTemplateAvrLevantamento;
 import com.vvm.sh.baseDados.entidades.TipoTemplateAvrRisco;
 import com.vvm.sh.baseDados.entidades.TipoTemplatesAVRMedidaRisco;
@@ -21,11 +23,13 @@ public class CarregamentoTiposRepositorio {
 
     private final AtualizacaoDao atualizacaoDao;
     private final TipoDao tipoDao;
+    private final TipoNovoDao tipoNovoDao;
 
-    public CarregamentoTiposRepositorio(@NonNull AtualizacaoDao atualizacaoDao, @NonNull TipoDao tipoDao) {
+    public CarregamentoTiposRepositorio(@NonNull AtualizacaoDao atualizacaoDao, @NonNull TipoDao tipoDao, @NonNull TipoNovoDao tipoNovoDao) {
 
         this.atualizacaoDao = atualizacaoDao;
         this.tipoDao = tipoDao;
+        this.tipoNovoDao = tipoNovoDao;
     }
 
 
@@ -177,7 +181,7 @@ public class CarregamentoTiposRepositorio {
     }
 
 
-
-
-
+    public void atualizarEquipamentos(List<Integer> rejeitados, List<Integer> aprovados) {
+        tipoNovoDao.rejeitarEquipamentos(rejeitados);
+    }
 }

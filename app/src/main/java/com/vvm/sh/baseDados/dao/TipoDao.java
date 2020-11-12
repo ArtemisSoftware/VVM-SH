@@ -20,8 +20,6 @@ import com.vvm.sh.baseDados.entidades.TipoTemplatesAVRMedidaRisco;
 import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.ui.opcoes.modelos.ResumoChecklist;
 import com.vvm.sh.ui.opcoes.modelos.ResumoTipo;
-import com.vvm.sh.ui.pesquisa.modelos.Medida;
-import com.vvm.sh.util.constantes.AppConfig;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.metodos.TiposUtil;
 
@@ -187,7 +185,7 @@ abstract public class TipoDao implements BaseDao<Tipo> {
 
 
     @Transaction
-    @Query("SELECT * FROM tiposNovos WHERE estado = " + Identificadores.ESTADO_PENDENTE + " AND tipo = '" +  TiposUtil.MetodosTipos.TIPOS_MAQUINA + "' ")
+    @Query("SELECT * FROM tiposNovos WHERE estado = " + Identificadores.Estados.Equipamentos.ESTADO_PENDENTE + " AND tipo = '" +  TiposUtil.MetodosTipos.TIPOS_MAQUINA + "' ")
     abstract public Maybe<List<TipoNovo>> obterEquipamentosNaoValidados();
 
 

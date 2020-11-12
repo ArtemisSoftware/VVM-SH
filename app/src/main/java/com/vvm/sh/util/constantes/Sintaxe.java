@@ -160,6 +160,7 @@ public class Sintaxe {
         public static final String API = "Api";
         public static final String NOME_API = "Api-name";
         public static final String METODO_INTERNO = "Internal-method";
+        public static final String ID_EQUIPAMENTO_PROVISORIO = "Equipment-id-Provisional";
     }
 
 

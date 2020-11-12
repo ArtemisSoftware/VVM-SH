@@ -544,7 +544,7 @@ public class CarregarTrabalhoAsyncTask extends AsyncTask<ISessao, Void, Void> {
         List<VerificacaoEquipamentoResultado> equipamentos = new ArrayList<>();
 
         for (String idEquipamento :avaliacaoRiscosAnterior.equipamentos) {
-            equipamentos.add(new VerificacaoEquipamentoResultado(idAtividade, Integer.parseInt(idEquipamento), Identificadores.ESTADO_DEFINITIVO));
+            equipamentos.add(new VerificacaoEquipamentoResultado(idAtividade, Integer.parseInt(idEquipamento)));
         }
 
         repositorio.inserirEquipamentos(equipamentos);

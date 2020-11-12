@@ -6,6 +6,7 @@ import com.vvm.sh.api.SegurancaTrabalhoApi;
 import com.vvm.sh.baseDados.dao.AtualizacaoDao;
 import com.vvm.sh.baseDados.dao.TipoDao;
 import com.vvm.sh.baseDados.VvmshBaseDados;
+import com.vvm.sh.baseDados.dao.TipoNovoDao;
 import com.vvm.sh.repositorios.CarregamentoTiposRepositorio;
 import com.vvm.sh.repositorios.TiposRepositorio;
 import com.vvm.sh.repositorios.VersaoAppRepositorio;
@@ -38,6 +39,14 @@ public class OpcoesModule {
 
 
 
+    @OpcoesScope
+    @Provides
+    static TipoNovoDao provideTipoNovoDao(VvmshBaseDados vvmshBaseDados){
+
+        TipoNovoDao dao = vvmshBaseDados.obterTipoNovoDao();
+        return dao;
+    }
+
 
     @OpcoesScope
     @Provides
@@ -50,9 +59,9 @@ public class OpcoesModule {
 
     @OpcoesScope
     @Provides
-    CarregamentoTiposRepositorio provideCarregamentoTiposRepositorio(AtualizacaoDao atualizacaoDao, TipoDao tipoDao) {
+    CarregamentoTiposRepositorio provideCarregamentoTiposRepositorio(AtualizacaoDao atualizacaoDao, TipoDao tipoDao, TipoNovoDao tipoNovoDao) {
 
-        CarregamentoTiposRepositorio repositorio = new CarregamentoTiposRepositorio(atualizacaoDao, tipoDao);
+        CarregamentoTiposRepositorio repositorio = new CarregamentoTiposRepositorio(atualizacaoDao, tipoDao, tipoNovoDao);
         return repositorio;
     }
 }

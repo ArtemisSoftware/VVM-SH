@@ -5,6 +5,7 @@ import com.vvm.sh.api.SegurancaTrabalhoApi;
 import com.vvm.sh.baseDados.dao.AtualizacaoDao;
 import com.vvm.sh.baseDados.dao.TipoDao;
 import com.vvm.sh.baseDados.VvmshBaseDados;
+import com.vvm.sh.baseDados.dao.TipoNovoDao;
 import com.vvm.sh.baseDados.dao.TransferenciasDao;
 import com.vvm.sh.baseDados.dao.UploadDao;
 import com.vvm.sh.di.opcoes.OpcoesScope;
@@ -51,6 +52,15 @@ public class TransferenciasModule {
         return dao;
     }
 
+    @TransferenciasScope
+    @Provides
+    static TipoNovoDao provideTipoNovoDao(VvmshBaseDados vvmshBaseDados){
+
+        TipoNovoDao dao = vvmshBaseDados.obterTipoNovoDao();
+        return dao;
+    }
+
+
 
     @TransferenciasScope
     @Provides
@@ -81,9 +91,9 @@ public class TransferenciasModule {
 
     @TransferenciasScope
     @Provides
-    CarregamentoTiposRepositorio provideCarregamentoTiposRepositorio(AtualizacaoDao atualizacaoDao, TipoDao tipoDao) {
+    CarregamentoTiposRepositorio provideCarregamentoTiposRepositorio(AtualizacaoDao atualizacaoDao, TipoDao tipoDao, TipoNovoDao tipoNovoDao) {
 
-        CarregamentoTiposRepositorio repositorio = new CarregamentoTiposRepositorio(atualizacaoDao, tipoDao);
+        CarregamentoTiposRepositorio repositorio = new CarregamentoTiposRepositorio(atualizacaoDao, tipoDao, tipoNovoDao);
         return repositorio;
     }
 

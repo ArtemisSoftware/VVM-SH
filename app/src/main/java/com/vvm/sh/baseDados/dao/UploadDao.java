@@ -215,7 +215,7 @@ abstract public class UploadDao {
 
     @Query("SELECT " +
             "CASE  " +
-            "WHEN codigo = " + Identificadores.ESTADO_PENDENTE + " THEN '" + Identificadores.Codigos.EQUIPAMENTO  + "' || idEquipamento " +
+            "WHEN codigo = " + Identificadores.Estados.Equipamentos.ESTADO_PENDENTE + " THEN '" + Identificadores.Codigos.EQUIPAMENTO  + "' || idEquipamento " +
             "ELSE idEquipamento END as equipamento " +
             "FROM verificacaoEquipamentosResultado WHERE idAtividade = :idAtividade")
     public abstract List<String> obterEquipamentos(int idAtividade);
@@ -224,8 +224,8 @@ abstract public class UploadDao {
     @Query("SELECT tp.* " +
             "FROM tiposNovos as tp " +
             "LEFT JOIN (SELECT idEquipamento, codigo, idAtividade FROM verificacaoEquipamentosResultado) as ve_res ON tp.idProvisorio = ve_res.idEquipamento " +
-            "WHERE tipo = '" + TiposUtil.MetodosTipos.TIPOS_MAQUINA + "' AND estado = " + Identificadores.ESTADO_PENDENTE + " " +
-            "AND ve_res.codigo = " + Identificadores.ESTADO_PENDENTE + " " +
+            "WHERE tipo = '" + TiposUtil.MetodosTipos.TIPOS_MAQUINA + "' AND estado = " + Identificadores.Estados.Equipamentos.ESTADO_PENDENTE + " " +
+            "AND ve_res.codigo = " + Identificadores.Estados.Equipamentos.ESTADO_PENDENTE + " " +
             "AND idAtividade IN (SELECT id FROM atividadesPendentes WHERE idTarefa IN(:idsTarefas))  ")
     public abstract List<TipoNovo> obterNovosEquipamentos(List<Integer> idsTarefas);
 

@@ -32,9 +32,9 @@ abstract public class TipoNovoDao implements BaseDao<TipoNovo> {
 
     @Query("SELECT id, descricao, estado " +
             "FROM (" +
-            "SELECT idProvisorio as id, descricao, " + Identificadores.ESTADO_PENDENTE + " as estado FROM tiposNovos WHERE tipo = '" + TiposUtil.MetodosTipos.TIPOS_MAQUINA + "' AND estado = " + Identificadores.ESTADO_PENDENTE + " " +
+            "SELECT idProvisorio as id, descricao, " + Identificadores.Estados.Equipamentos.ESTADO_PENDENTE + " as estado FROM tiposNovos WHERE tipo = '" + TiposUtil.MetodosTipos.TIPOS_MAQUINA + "' AND estado = " + Identificadores.Estados.Equipamentos.ESTADO_PENDENTE + " " +
             "UNION " +
-            "SELECT id, descricao, " + Identificadores.ESTADO_DEFINITIVO + " as estado FROM tipos  WHERE tipo = '" + TiposUtil.MetodosTipos.TIPOS_MAQUINA + "' AND api = :api AND ativo = 1 " +
+            "SELECT id, descricao, " + Identificadores.Estados.Equipamentos.ESTADO_DEFINITIVO + " as estado FROM tipos  WHERE tipo = '" + TiposUtil.MetodosTipos.TIPOS_MAQUINA + "' AND api = :api AND ativo = 1 " +
             ") " +
             "WHERE descricao NOT IN (:registos) ORDER BY estado, id " +
             "LIMIT :limite OFFSET 0 ")
@@ -43,9 +43,9 @@ abstract public class TipoNovoDao implements BaseDao<TipoNovo> {
 
     @Query("SELECT id, descricao, estado " +
             "FROM (" +
-            "SELECT idProvisorio as id, descricao, " + Identificadores.ESTADO_PENDENTE + " as estado FROM tiposNovos WHERE tipo = '" + TiposUtil.MetodosTipos.TIPOS_MAQUINA + "' AND estado = " + Identificadores.ESTADO_PENDENTE + " " +
+            "SELECT idProvisorio as id, descricao, " + Identificadores.Estados.Equipamentos.ESTADO_PENDENTE + " as estado FROM tiposNovos WHERE tipo = '" + TiposUtil.MetodosTipos.TIPOS_MAQUINA + "' AND estado = " + Identificadores.Estados.Equipamentos.ESTADO_PENDENTE + " " +
             "UNION " +
-            "SELECT id, descricao, " + Identificadores.ESTADO_DEFINITIVO + " as estado FROM tipos  WHERE tipo = '" + TiposUtil.MetodosTipos.TIPOS_MAQUINA + "' AND api = :api AND ativo = 1 " +
+            "SELECT id, descricao, " + Identificadores.Estados.Equipamentos.ESTADO_DEFINITIVO + " as estado FROM tipos  WHERE tipo = '" + TiposUtil.MetodosTipos.TIPOS_MAQUINA + "' AND api = :api AND ativo = 1 " +
             ") " +
             "WHERE descricao IN (:registos)")
     abstract public Observable<List<Equipamento>> obterEquipamentos_Incluir( int api, List<String> registos);
@@ -53,9 +53,9 @@ abstract public class TipoNovoDao implements BaseDao<TipoNovo> {
 
     @Query("SELECT id, descricao, estado " +
             "FROM (" +
-            "SELECT idProvisorio as id, descricao, " + Identificadores.ESTADO_PENDENTE + " as estado FROM tiposNovos WHERE tipo = '" + TiposUtil.MetodosTipos.TIPOS_MAQUINA + "' AND estado = " + Identificadores.ESTADO_PENDENTE + " " +
+            "SELECT idProvisorio as id, descricao, " + Identificadores.Estados.Equipamentos.ESTADO_PENDENTE + " as estado FROM tiposNovos WHERE tipo = '" + TiposUtil.MetodosTipos.TIPOS_MAQUINA + "' AND estado = " + Identificadores.Estados.Equipamentos.ESTADO_PENDENTE + " " +
             "UNION " +
-            "SELECT id, descricao, " + Identificadores.ESTADO_DEFINITIVO + " as estado FROM tipos  WHERE tipo = '" + TiposUtil.MetodosTipos.TIPOS_MAQUINA + "' AND api = :api AND ativo = 1 " +
+            "SELECT id, descricao, " + Identificadores.Estados.Equipamentos.ESTADO_DEFINITIVO + " as estado FROM tipos  WHERE tipo = '" + TiposUtil.MetodosTipos.TIPOS_MAQUINA + "' AND api = :api AND ativo = 1 " +
             ") " +
             "WHERE descricao NOT IN (:registos) AND descricao LIKE '%' || :pesquisa || '%' " +
             "LIMIT :limite OFFSET 0 ")
@@ -74,7 +74,7 @@ abstract public class TipoNovoDao implements BaseDao<TipoNovo> {
 
 
     @Query("SELECT " +
-            "CASE WHEN vrf_eq_res.codigo = " + Identificadores.ESTADO_PENDENTE + " THEN  tp_novos.descricao " +
+            "CASE WHEN vrf_eq_res.codigo = " + Identificadores.Estados.Equipamentos.ESTADO_PENDENTE + " THEN  tp_novos.descricao " +
             "ELSE tp_registados.descricao END as descricao " +
 
 
@@ -92,7 +92,10 @@ abstract public class TipoNovoDao implements BaseDao<TipoNovo> {
 
 
 
-
+    @Query("UPDATE tiposNovos " +
+            "SET estado = " + Identificadores.Estados.Equipamentos.ESTADO_REJEITADO + " " +
+            "WHERE idProvisorio IN (:rejeitados) AND tipo ='" + TiposUtil.MetodosTipos.TIPOS_MAQUINA + "' ")
+    public abstract void rejeitarEquipamentos(List<Integer> rejeitados);
 
 
 

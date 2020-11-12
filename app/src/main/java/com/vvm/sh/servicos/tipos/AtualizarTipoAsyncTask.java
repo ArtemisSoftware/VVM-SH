@@ -11,6 +11,7 @@ import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.baseDados.entidades.Atualizacao;
 import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.repositorios.CarregamentoTiposRepositorio;
+import com.vvm.sh.servicos.tipos.atualizacao.AtualizarEquipamentosAsyncTask;
 import com.vvm.sh.servicos.tipos.atualizacao.AtualizarTipoAtividadesPlaneaveisAsyncTask;
 import com.vvm.sh.util.AtualizacaoUI;
 import com.vvm.sh.util.mapeamento.DownloadMapping;
@@ -102,7 +103,11 @@ public class AtualizarTipoAsyncTask extends AsyncTask<List<Object>, Void, List<O
     protected void onPostExecute(List<Object>[] objects) {
         super.onPostExecute(objects);
 
-        AtualizarTipoAtividadesPlaneaveisAsyncTask servico = new AtualizarTipoAtividadesPlaneaveisAsyncTask(vvmshBaseDados, handlerUI, repositorio);
+//        AtualizarTipoAtividadesPlaneaveisAsyncTask servico = new AtualizarTipoAtividadesPlaneaveisAsyncTask(vvmshBaseDados, handlerUI, repositorio);
+//        servico.execute(objects);
+
+        AtualizarEquipamentosAsyncTask servico = new AtualizarEquipamentosAsyncTask(vvmshBaseDados, handlerUI, repositorio);
         servico.execute(objects);
+
     }
 }

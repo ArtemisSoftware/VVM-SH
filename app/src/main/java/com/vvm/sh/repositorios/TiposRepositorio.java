@@ -27,11 +27,13 @@ import com.vvm.sh.ui.opcoes.modelos.ResumoTipo;
 import com.vvm.sh.ui.opcoes.modelos.TemplateAvr;
 import com.vvm.sh.ui.transferencias.modelos.AtualizacaoTipos;
 import com.vvm.sh.util.constantes.Identificadores;
+import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.excepcoes.TipoInexistenteException;
 import com.vvm.sh.util.metodos.TiposUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import io.reactivex.Maybe;
 import io.reactivex.Observable;
@@ -146,7 +148,11 @@ public class TiposRepositorio {
         }
 
         for(TipoNovo tipo : atualizacoes.tiposNovos){
-            tipos.add(apiST.obterEstadoEquipamento(SegurancaTrabalhoApi.HEADER_TIPO, tipo.descricao));
+
+            Map<String, String> cabecalho = SegurancaTrabalhoApi.HEADER;
+            cabecalho.put(Sintaxe.API.ID_EQUIPAMENTO_PROVISORIO, tipo.idProvisorio + "");
+
+            tipos.add(apiST.obterEstadoEquipamento(cabecalho, tipo.descricao));
         }
 
 

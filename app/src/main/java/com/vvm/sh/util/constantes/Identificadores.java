@@ -13,8 +13,6 @@ public class Identificadores {
     public static final int VALOR_INT_0 = 0;
     public static final String VALOR_0 = "0";
     public static final String VALOR_1 = "1";
-    public static final int ESTADO_PENDENTE = 1;
-    public static final int ESTADO_DEFINITIVO = 2;
     public static final String SEXO_OMISSAO = "1";
     public static final int ID_FORMACAO_TRABALHO_REALIZADO = 15;
 
@@ -98,6 +96,23 @@ public class Identificadores {
         public static final int ESTADO_NAO_EXECUTADO = 2;
         public static final int SEM_RELATORIO = 0;
         public static final String ST = "ST";
+
+        public class Equipamentos{
+
+            public static final int ESTADO_PENDENTE = 1;
+            public static final int ESTADO_DEFINITIVO = 2;
+            public static final int ESTADO_REJEITADO = 3;
+
+
+            public static final int REJEITADO_PELA_CHEFIA = 1;
+            public static final int APROVADO_PELA_CHEFIA = 0;
+
+            /**
+             * Equipamento inexistente -> nem aprovado nem rejeitado
+             */
+            public static final int CODIGO_403 = 403;
+        }
+
     }
 
     public class Dias {

@@ -162,9 +162,12 @@ public class MensagensUtil {
         String titulo = Sintaxe.Opcoes.ERRO;
         String mensagem = recurso.messagem;
 
-        if(((Codigo)recurso.dados) != null){
-            titulo = recurso.messagem;
-            mensagem = ((Codigo)recurso.dados).mensagem;
+
+        if(recurso.dados instanceof Codigo) {
+            if (((Codigo) recurso.dados) != null) {
+                titulo = recurso.messagem;
+                mensagem = ((Codigo) recurso.dados).mensagem;
+            }
         }
 
 

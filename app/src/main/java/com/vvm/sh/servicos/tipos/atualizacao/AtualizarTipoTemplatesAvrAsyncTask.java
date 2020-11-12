@@ -150,7 +150,7 @@ public class AtualizarTipoTemplatesAvrAsyncTask extends AsyncTask<List<Object>, 
                             medidasExistentes, medidasAlteradasExistentes, medidasRecomendadas, medidasAlteradasRecomendadas);
 
 
-                    atualizacaoUI.atualizarUI(AtualizacaoUI.Codigo.PROCESSAMENTO_TIPOS_CONCLUIDO, "Concluido", 2, 2);
+                    atualizacaoUI.atualizarUI(AtualizacaoUI.Codigo.PROCESSAMENTO_TIPOS, "Concluido", 2, 2);
                 }
                 catch(SQLiteConstraintException throwable){
                     errorMessage = throwable.getMessage();
@@ -162,4 +162,11 @@ public class AtualizarTipoTemplatesAvrAsyncTask extends AsyncTask<List<Object>, 
     }
 
 
+    @Override
+    protected void onPostExecute(Void aVoid) {
+        super.onPostExecute(aVoid);
+
+
+        atualizacaoUI.atualizarUI(AtualizacaoUI.Codigo.PROCESSAMENTO_TIPOS_CONCLUIDO, "Concluido", 2, 2);
+    }
 }

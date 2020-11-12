@@ -4,7 +4,9 @@ package com.vvm.sh.baseDados.entidades;
 import androidx.annotation.NonNull;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
-import androidx.room.Index;
+import androidx.room.Ignore;
+
+import com.vvm.sh.util.constantes.Identificadores;
 
 import static androidx.room.ForeignKey.CASCADE;
 
@@ -33,4 +35,12 @@ public class VerificacaoEquipamentoResultado {
         this.idEquipamento = idEquipamento;
         this.codigo = codigo;
     }
+
+    @Ignore
+    public VerificacaoEquipamentoResultado(int idAtividade, int idEquipamento) {
+        this.idAtividade = idAtividade;
+        this.idEquipamento = idEquipamento;
+        this.codigo = Identificadores.Estados.Equipamentos.ESTADO_DEFINITIVO;
+    }
+
 }

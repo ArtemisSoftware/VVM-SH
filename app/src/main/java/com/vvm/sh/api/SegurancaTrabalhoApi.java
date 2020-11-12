@@ -1,6 +1,7 @@
 package com.vvm.sh.api;
 
 import com.vvm.sh.api.modelos.pedido.Codigo;
+import com.vvm.sh.api.modelos.pedido.ICodigoEquipamento;
 import com.vvm.sh.api.modelos.pedido.IContagemTipoMaquina;
 import com.vvm.sh.api.modelos.pedido.ISessao;
 import com.vvm.sh.api.modelos.pedido.ITipoAtividadePlaneavelListagem;
@@ -102,7 +103,7 @@ public interface SegurancaTrabalhoApi {
 
 
     @GET("ObterEstadoEquipamento")
-    Single<Codigo> obterEstadoEquipamento(@HeaderMap Map<String, String> headers, @Query("descricao") String descricao);
+    Single<ICodigoEquipamento> obterEstadoEquipamento(@HeaderMap Map<String, String> headers, @Query("descricao") String descricao);
 
 
     @FormUrlEncoded

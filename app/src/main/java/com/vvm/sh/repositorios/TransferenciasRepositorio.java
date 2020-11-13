@@ -2,6 +2,7 @@ package com.vvm.sh.repositorios;
 
 import androidx.annotation.NonNull;
 
+import com.google.gson.Gson;
 import com.vvm.sh.api.SegurancaTrabalhoApi;
 import com.vvm.sh.api.SegurancaAlimentarApi;
 import com.vvm.sh.api.modelos.pedido.IContagemTipoMaquina;
@@ -36,15 +37,19 @@ import com.vvm.sh.baseDados.entidades.TipoExtintor;
 import com.vvm.sh.baseDados.entidades.TrabalhadorVulneravelResultado;
 import com.vvm.sh.baseDados.entidades.VerificacaoEquipamentoResultado;
 import com.vvm.sh.ui.transferencias.modelos.DadosPendencia;
+import com.vvm.sh.ui.transferencias.modelos.DadosUpload;
 import com.vvm.sh.ui.transferencias.modelos.Pendencia;
 import com.vvm.sh.ui.transferencias.modelos.Sessao;
 import com.vvm.sh.ui.transferencias.modelos.Upload;
 import com.vvm.sh.util.constantes.AppConfig;
+import com.vvm.sh.util.constantes.Identificadores;
+import com.vvm.sh.util.excepcoes.RespostaWsInvalidaException;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Maybe;
+import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.functions.BiFunction;
 import io.reactivex.functions.Function;
@@ -169,23 +174,6 @@ public class TransferenciasRepositorio {
         }
     }
 
-    /**
-     * Metodo que permite submeter as imagens para o web service
-     * @param dados os dados a submeter
-     * @param idUtilizador o identificador do utilizador
-     * @param id o identificador unico do bloco de imagens
-     * @param numeroFicheiro o numero total de ficheiros que irão ser submetidos
-     * @param messageDigest o messageDigest
-     * @return um codigo com o resultado da submissao
-     */
-    public Single<Codigo> submeterImagens(String dados, String idUtilizador, String id, String numeroFicheiro, String messageDigest) {
-        if(AppConfig.sa) {
-            return apiSA.submeterImagens(dados, idUtilizador, id, numeroFicheiro, messageDigest);
-        }
-        else{
-            return apiST.submeterImagens(SegurancaTrabalhoApi.HEADER, dados, idUtilizador, id, numeroFicheiro, messageDigest);
-        }
-    }
 
 
     /**
@@ -248,7 +236,57 @@ public class TransferenciasRepositorio {
 
 
 
+    /**
+     * Metodo que permite submeter as imagens para o web service
+     * @return um codigo com o resultado da submissao
+     */
+    private Single<Codigo> submeterImagens(DadosUpload dadosUpload, DadosUpload.DadosImagem dadosImagem) {
+        if(AppConfig.sa) {
+            return apiSA.submeterImagens(dadosImagem.blocoImagem, dadosUpload.idUtilizador, dadosUpload.idUpload, dadosImagem.numeroFicheiro + "", dadosImagem.messageDigest);
+        }
+        else{
+            return apiST.submeterImagens(SegurancaTrabalhoApi.HEADER, dadosImagem.blocoImagem, dadosUpload.idUtilizador, dadosUpload.idUpload, dadosImagem.numeroFicheiro + "", dadosImagem.messageDigest);
+        }
+    }
 
+
+    public Observable<Codigo> uploadImagens(DadosUpload dadosUpload){
+
+        dadosUpload.formatarImagens();
+
+        Gson gson = new Gson();
+        List<Observable<Codigo>> observables = new ArrayList<>();
+
+        for (DadosUpload.DadosImagem dadosImagem: dadosUpload.dadosImagems) {
+            observables.add(submeterImagens(dadosUpload, dadosImagem).toObservable());
+        }
+
+        Observable<Codigo> observable = Observable.zip(observables, new Function<Object[], Codigo>() {
+            @Override
+            public Codigo apply(Object[] codigos) throws Exception {
+
+                boolean valido = true;
+
+                for (Object item : codigos) {
+
+                    if(((Codigo) item).codigo != Identificadores.CodigosWs.ID_100){
+                        valido = false;
+                        break;
+                    }
+                }
+
+                if(valido == true){
+                    return new Codigo(Identificadores.CodigosWs.ID_100, Identificadores.CodigosWs.MSG_100);
+                }
+                else{
+                    Codigo codigo = new Codigo(Identificadores.CodigosWs.ID_600, Identificadores.CodigosWs.MSG_600);
+                    throw new RespostaWsInvalidaException(gson.toJson(codigo, Codigo.class));
+                }
+            }
+        });
+
+        return observable;
+    }
 
 
 

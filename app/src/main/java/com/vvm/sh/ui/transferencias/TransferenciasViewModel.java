@@ -439,52 +439,15 @@ public class TransferenciasViewModel extends BaseViewModel {
      */
     private void uploadImagens(DadosUpload dadosUpload){
 
-        if(dadosUpload.idBloco == 0){
+        dadosUpload.formatarImagens();
+
+        if(dadosUpload.numeroFicheirosImagens == 0){
 
             sincronizar();
             return;
         }
 
-        Gson gson = new Gson();
-        List<Observable<Codigo>> observables = new ArrayList<>();
-
-
-        for(int index = 0; index < dadosUpload.idBloco; ++index){
-
-            BlocoImagens registoImagem = new BlocoImagens();
-            registoImagem.dadosImagens = dadosUpload.imagens.get(index);
-            String imagens = gson.toJson(registoImagem);
-            String messageDigest = Hasher.Companion.hash(imagens, HashType.MD5);
-
-            observables.add(transferenciasRepositorio.submeterImagens(imagens, dadosUpload.idUtilizador, dadosUpload.idUpload, dadosUpload.idBloco + "", messageDigest).toObservable());
-        }
-
-        Observable<Codigo> observable = Observable.zip(observables, new Function<Object[], Codigo>() {
-            @Override
-            public Codigo apply(Object[] codigos) throws Exception {
-
-                boolean valido = true;
-
-                for (Object item : codigos) {
-
-                    if(((Codigo) item).codigo != Identificadores.CodigosWs.ID_100){
-                        valido = false;
-                        break;
-                    }
-                }
-
-                if(valido == true){
-                    return new Codigo(Identificadores.CodigosWs.ID_100, Identificadores.CodigosWs.MSG_100);
-                }
-                else{
-                    Codigo codigo = new Codigo(Identificadores.CodigosWs.ID_600, Identificadores.CodigosWs.MSG_600);
-                    throw new RespostaWsInvalidaException(gson.toJson(codigo, Codigo.class));
-                }
-            }
-        });
-
-
-        observable
+        transferenciasRepositorio.uploadImagens(dadosUpload)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -492,7 +455,7 @@ public class TransferenciasViewModel extends BaseViewModel {
                         new Observer<Codigo>() {
                             @Override
                             public void onSubscribe(Disposable d) {
-
+                                disposables.add(d);
                             }
 
                             @Override
@@ -511,7 +474,6 @@ public class TransferenciasViewModel extends BaseViewModel {
                                 showProgressBar(false);
                             }
                         }
-
                 );
     }
 
@@ -529,7 +491,7 @@ public class TransferenciasViewModel extends BaseViewModel {
                         new SingleObserver<Integer>() {
                             @Override
                             public void onSubscribe(Disposable d) {
-
+                                disposables.add(d);
                             }
 
                             @Override

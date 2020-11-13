@@ -14,6 +14,7 @@ import com.vvm.sh.baseDados.entidades.TipoNovo;
 import com.vvm.sh.baseDados.entidades.TipoTemplateAvrLevantamento;
 import com.vvm.sh.baseDados.entidades.TipoTemplateAvrRisco;
 import com.vvm.sh.baseDados.entidades.TipoTemplatesAVRMedidaRisco;
+import com.vvm.sh.util.metodos.TiposUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -182,6 +183,16 @@ public class CarregamentoTiposRepositorio {
 
 
     public void atualizarEquipamentos(List<Integer> rejeitados, List<Integer> aprovados) {
+
+        for (int idProvisorio : aprovados) {
+
+            int id = tipoDao.obterIdTipo(idProvisorio, TiposUtil.MetodosTipos.TIPOS_MAQUINA);
+
+            if(id != 0) {
+                tipoNovoDao.aprovarEquipamentos(id, idProvisorio);
+            }
+        }
+
         tipoNovoDao.rejeitarEquipamentos(rejeitados);
     }
 }

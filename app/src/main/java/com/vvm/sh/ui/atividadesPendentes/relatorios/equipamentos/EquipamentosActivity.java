@@ -125,6 +125,14 @@ public class EquipamentosActivity extends BaseDaggerActivity
                 viewModel.obterEquipamentos(registosSelecionados, false);
             }
         });
+
+        viewModel.observarEquipamentosSelecionados().observe(this, new Observer<List<Equipamento>>() {
+
+            @Override
+            public void onChanged(List<Equipamento> equipamentos) {
+                registos = equipamentos;
+            }
+        });
     }
 
 
@@ -137,7 +145,6 @@ public class EquipamentosActivity extends BaseDaggerActivity
      * @param reiniciar true caso se pretenda reiniciar a pesquisa
      */
     private void obterRegistos(boolean reiniciar){
-
 
         if (activityEquipamentosBinding.txtInpPesquisa.getText().toString().equals(Sintaxe.SEM_TEXTO) == true) {
             viewModel.obterEquipamentos(registosSelecionados, reiniciar);
@@ -214,7 +221,6 @@ public class EquipamentosActivity extends BaseDaggerActivity
         activityEquipamentosBinding.txtInpPesquisa.setText("");
 
         viewModel.obterEquipamentos(registosSelecionados, true);
-
     }
 
 
@@ -222,14 +228,12 @@ public class EquipamentosActivity extends BaseDaggerActivity
     @OnClick(R.id.fab_gravar)
     public void fab_gravar_OnClickListener(View view) {
 
-
         activityEquipamentosBinding.fabMenu.close(true);
 
         Bundle bundle = getIntent().getExtras();
         int idAtividade = bundle.getInt(getString(R.string.argumento_id_atividade));
 
         List<VerificacaoEquipamentoResultado> itens = new ArrayList<>();
-
 
         for (Equipamento item : registos) {
             itens.add(new VerificacaoEquipamentoResultado(idAtividade, item.id, item.estado));

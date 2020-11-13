@@ -74,7 +74,9 @@ public class PesquisaViewModel extends BaseViewModel {
         medidas = new MutableLiveData<>();
     }
 
-
+    public MutableLiveData<List<Equipamento>> observarEquipamentosSelecionados(){
+        return equipamentosSelecionados;
+    }
 
     public MutableLiveData<List<String>> observarEquipamentos(){
         return equipamentosRegistados;

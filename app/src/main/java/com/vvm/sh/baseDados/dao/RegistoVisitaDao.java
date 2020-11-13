@@ -84,7 +84,7 @@ abstract public class RegistoVisitaDao implements BaseDao<RegistoVisitaResultado
             "CASE " +
             "WHEN prefixoCT = 'KMED' THEN '" + Identificadores.ID_EMAIL_REGISTO_VISITA_KMED + "' " +
             "WHEN prefixoCT = 'SH' THEN '" + Identificadores.ID_EMAIL_REGISTO_VISITA_VM + "' " +
-            "ELSE '' END as idTexto " +
+            "ELSE '" + Identificadores.ID_EMAIL_REGISTO_VISITA_KMED + "' END as idTexto " +
             "FROM tarefas) as trf " +
             "ON clt.idTarefa = trf.idTarefa " +
 

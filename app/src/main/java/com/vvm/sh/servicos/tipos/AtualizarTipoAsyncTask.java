@@ -103,11 +103,10 @@ public class AtualizarTipoAsyncTask extends AsyncTask<List<Object>, Void, List<O
     protected void onPostExecute(List<Object>[] objects) {
         super.onPostExecute(objects);
 
-//        AtualizarTipoAtividadesPlaneaveisAsyncTask servico = new AtualizarTipoAtividadesPlaneaveisAsyncTask(vvmshBaseDados, handlerUI, repositorio);
-//        servico.execute(objects);
-
-        AtualizarEquipamentosAsyncTask servico = new AtualizarEquipamentosAsyncTask(vvmshBaseDados, handlerUI, repositorio);
+        AtualizarTipoAtividadesPlaneaveisAsyncTask servico = new AtualizarTipoAtividadesPlaneaveisAsyncTask(vvmshBaseDados, handlerUI, repositorio);
         servico.execute(objects);
+
+
 
     }
 }

@@ -144,7 +144,7 @@ public class DadosUploadSHAsyncTask extends DadosUploadAsyncTask {
                 AtividadePendenteExecutada registo = UploadSHMapping.INSTANCE.mapAtividadeExecutada(item);
 
                 switch (item.atividade.idRelatorio){
-//
+
 //                    case Identificadores.Relatorios.ID_RELATORIO_FORMACAO:
 //
 //                        registo.formacao = obterAcaoFormacao(item.resultado.id);
@@ -281,7 +281,7 @@ public class DadosUploadSHAsyncTask extends DadosUploadAsyncTask {
             int idImagem = repositorio.obterCapaRelatorio(idTarefa);
 
             avaliacaoRiscos.capaRelatorio = new Imagem(idImagem);
-            idImagens.add(idImagem);
+
         }
         catch (NullPointerException e){}
         return avaliacaoRiscos;
@@ -541,8 +541,7 @@ public class DadosUploadSHAsyncTask extends DadosUploadAsyncTask {
         RegistoVisitaBd registo = repositorio.obterRegistoVisita(idTarefa);
 
         RegistoVisita registoVisita = UploadMapping.INSTANCE.map(registo.resultado);
-        Imagem imagem = new Imagem();
-        imagem.idFoto = registo.idImagem + "";
+        Imagem imagem = new Imagem(registo.idImagem);
 
         registoVisita.data = DatasUtil.obterDataAtual(DatasUtil.FORMATO_DD_MM_YYYY__HH_MM);
         registoVisita.album = new ArrayList<>();

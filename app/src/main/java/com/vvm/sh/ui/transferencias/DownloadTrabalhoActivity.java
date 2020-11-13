@@ -140,8 +140,8 @@ public class DownloadTrabalhoActivity extends BaseDaggerActivity {
      */
     private void downloadTrabalhoDia(){
         activityDownloadTrabalhoBinding.txtData.setText(DatasUtil.obterDataAtual(DatasUtil.FORMATO_DD_MM_YYYY));
-        //--viewModel.obterPendencias(this, handlerNotificacoesUI, PreferenciasUtil.obterIdUtilizador(this), false);
-        viewModel.atualizarTipos(this,  handlerNotificacoesUI);
+        viewModel.obterPendencias(this, handlerNotificacoesUI, PreferenciasUtil.obterIdUtilizador(this), false);
+        //--Para teste --viewModel.atualizarTipos(this,  handlerNotificacoesUI);
     }
 
 

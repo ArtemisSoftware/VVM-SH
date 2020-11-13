@@ -20,19 +20,12 @@ abstract public class TipoNovoDao implements BaseDao<TipoNovo> {
 
 
 
-
-
-
-
-
-
-
-
     //equipamentos
 
     @Query("SELECT id, descricao, estado " +
             "FROM (" +
-            "SELECT idProvisorio as id, descricao, " + Identificadores.Estados.Equipamentos.ESTADO_PENDENTE + " as estado FROM tiposNovos WHERE tipo = '" + TiposUtil.MetodosTipos.TIPOS_MAQUINA + "' AND estado = " + Identificadores.Estados.Equipamentos.ESTADO_PENDENTE + " " +
+            "SELECT idProvisorio as id, descricao, " + Identificadores.Estados.Equipamentos.ESTADO_PENDENTE + " as estado FROM tiposNovos WHERE tipo = '" + TiposUtil.MetodosTipos.TIPOS_MAQUINA + "' " +
+            "AND (estado = " + Identificadores.Estados.Equipamentos.ESTADO_PENDENTE + " OR estado = " + Identificadores.Estados.Equipamentos.ESTADO_REJEITADO + ") " +
             "UNION " +
             "SELECT id, descricao, " + Identificadores.Estados.Equipamentos.ESTADO_DEFINITIVO + " as estado FROM tipos  WHERE tipo = '" + TiposUtil.MetodosTipos.TIPOS_MAQUINA + "' AND api = :api AND ativo = 1 " +
             ") " +
@@ -43,7 +36,8 @@ abstract public class TipoNovoDao implements BaseDao<TipoNovo> {
 
     @Query("SELECT id, descricao, estado " +
             "FROM (" +
-            "SELECT idProvisorio as id, descricao, " + Identificadores.Estados.Equipamentos.ESTADO_PENDENTE + " as estado FROM tiposNovos WHERE tipo = '" + TiposUtil.MetodosTipos.TIPOS_MAQUINA + "' AND estado = " + Identificadores.Estados.Equipamentos.ESTADO_PENDENTE + " " +
+            "SELECT idProvisorio as id, descricao, " + Identificadores.Estados.Equipamentos.ESTADO_PENDENTE + " as estado FROM tiposNovos WHERE tipo = '" + TiposUtil.MetodosTipos.TIPOS_MAQUINA + "' " +
+            "AND (estado = " + Identificadores.Estados.Equipamentos.ESTADO_PENDENTE + " OR estado = " + Identificadores.Estados.Equipamentos.ESTADO_REJEITADO + ") " +
             "UNION " +
             "SELECT id, descricao, " + Identificadores.Estados.Equipamentos.ESTADO_DEFINITIVO + " as estado FROM tipos  WHERE tipo = '" + TiposUtil.MetodosTipos.TIPOS_MAQUINA + "' AND api = :api AND ativo = 1 " +
             ") " +
@@ -53,7 +47,8 @@ abstract public class TipoNovoDao implements BaseDao<TipoNovo> {
 
     @Query("SELECT id, descricao, estado " +
             "FROM (" +
-            "SELECT idProvisorio as id, descricao, " + Identificadores.Estados.Equipamentos.ESTADO_PENDENTE + " as estado FROM tiposNovos WHERE tipo = '" + TiposUtil.MetodosTipos.TIPOS_MAQUINA + "' AND estado = " + Identificadores.Estados.Equipamentos.ESTADO_PENDENTE + " " +
+            "SELECT idProvisorio as id, descricao, " + Identificadores.Estados.Equipamentos.ESTADO_PENDENTE + " as estado FROM tiposNovos WHERE tipo = '" + TiposUtil.MetodosTipos.TIPOS_MAQUINA + "' " +
+            "AND (estado = " + Identificadores.Estados.Equipamentos.ESTADO_PENDENTE + " OR estado = " + Identificadores.Estados.Equipamentos.ESTADO_REJEITADO + ") " +
             "UNION " +
             "SELECT id, descricao, " + Identificadores.Estados.Equipamentos.ESTADO_DEFINITIVO + " as estado FROM tipos  WHERE tipo = '" + TiposUtil.MetodosTipos.TIPOS_MAQUINA + "' AND api = :api AND ativo = 1 " +
             ") " +
@@ -98,42 +93,10 @@ abstract public class TipoNovoDao implements BaseDao<TipoNovo> {
     public abstract void rejeitarEquipamentos(List<Integer> rejeitados);
 
 
-
-    /**
-     * Metodo que permite obter o numero a ser utilizado para identificar uma maquina
-     * @return o numero a ser utilizado para identificar uma maquina
-     * @category GRL sql # 1
-     */
-    /*
-    public int obterNumero(){
-
-        int resultado = 0;
-
-        String query = "SELECT ";
-        query += "CASE WHEN contagemInterna IS NULL THEN numero ";
-        query += "WHEN contagemInterna >= numero THEN  (contagemInterna + 1) ";
-        query += "ELSE numero END as identificador ";
-        query += "FROM registoContagem  ";
-        query += "OUTER LEFT JOIN (SELECT MAX(id) as contagemInterna FROM tiposNovos WHERE tipo = 'TiposMaquina') ";
-        query += "WHERE referencia = ? ";
-
-        String argumentos [] = {IntendenteBdIF.REGISTO_equipamentos};
-
-        SQLiteDatabase bd = this.getReadableDatabase();
-
-        Cursor cursor = bd.rawQuery(query, argumentos);
-
-        if(cursor.moveToFirst() == true){
-            resultado = cursor.getInt(0);
-        }
-
-        cursor.close();
-        bd.close();
-
-        return resultado;
-
-    }
-    */
-
+    @Query("UPDATE tiposNovos " +
+            "SET estado = " + Identificadores.Estados.Equipamentos.ESTADO_DEFINITIVO + ",  " +
+            "idDefinitivo = :idDefinitivo " +
+            "WHERE idProvisorio =:idProvisorio AND tipo ='" + TiposUtil.MetodosTipos.TIPOS_MAQUINA + "' ")
+    public abstract void aprovarEquipamentos(int idDefinitivo, int idProvisorio);
 
 }

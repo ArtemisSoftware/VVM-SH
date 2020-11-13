@@ -101,7 +101,8 @@ abstract public class TipoDao implements BaseDao<Tipo> {
 
 
 
-
+    @Query("SELECT id FROM tipos WHERE tipo = :tipo AND descricao = (SELECT descricao FROM tiposNovos WHERE idProvisorio =:idProvisorio) AND ativo = 1")
+    abstract public int obterIdTipo(int idProvisorio, String tipo);
 
 
     @Query("SELECT CASE WHEN ativo = 1 THEN 1 ELSE 0 END valido " +

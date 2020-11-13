@@ -8,6 +8,7 @@ import com.himanshurawat.hasher.HashType;
 import com.himanshurawat.hasher.Hasher;
 import com.vvm.sh.BuildConfig;
 import com.vvm.sh.api.BlocoDados;
+import com.vvm.sh.api.BlocoImagens;
 import com.vvm.sh.api.modelos.envio.DadosFormulario;
 import com.vvm.sh.api.modelos.envio.Equipamento;
 import com.vvm.sh.api.modelos.envio.Imagem;
@@ -23,7 +24,7 @@ import java.util.UUID;
 
 public class DadosUpload {
 
-    public int idBloco;
+    public int numeroFicheirosImagens;
     public String idUtilizador;
     public String versao;
 
@@ -38,16 +39,17 @@ public class DadosUpload {
 
     private String upload;
     public String messageDigest;
+    public List<DadosImagem> dadosImagems;
 
     public DadosUpload(String idUtilizador) {
 
-        this.idBloco = 0;
+        this.numeroFicheirosImagens = 0;
         this.dados = new ArrayList<>();
         this.equipamentos = new ArrayList<>();
         this.imagens = new HashMap<>();
         this.idUtilizador = idUtilizador;
         this.idUpload = UUID.randomUUID().toString();
-
+        this.dadosImagems = new ArrayList<>();
         this.versao = BuildConfig.VERSION_NAME;
     }
 
@@ -61,29 +63,24 @@ public class DadosUpload {
      * @param imagens a lista de imagens
      */
     public void fixarImagens(List<Imagem> imagens) {
-        this.imagens.put(idBloco, imagens);
-        ++idBloco;
+        this.imagens.put(numeroFicheirosImagens, imagens);
+        ++numeroFicheirosImagens;
     }
 
 
     public void formatarDados(){
 
-
-        if(AppConfig.sa == false) { //TODO:só para sa
-
+        if(AppConfig.sa == false) { //TODO:só para sh
 
                 for (int index = 0; index < dados.size(); ++index) {
-                    dados.get(index).numeroFicheirosFotos = idBloco + "";
-                    dados.get(index).versaoApp = "1.42.20"; //TODO:só para sa
+                    dados.get(index).numeroFicheirosFotos = numeroFicheirosImagens + "";
+                    dados.get(index).versaoApp = this.versao; //TODO:só para sh
                 }
-
-
         }
 
         Gson gson = new Gson();
         BlocoDados registoDados = UploadMapping.INSTANCE.map(this);
         String dados = gson.toJson(registoDados);
-
 
         try {
 
@@ -96,9 +93,25 @@ public class DadosUpload {
         } catch (JSONException e) {
             e.printStackTrace();
         }
-
     }
 
+
+    public void formatarImagens(){
+
+        Gson gson = new Gson();
+
+        dadosImagems = new ArrayList<>();
+
+        for(int index = 0; index < numeroFicheirosImagens; ++index){
+
+            BlocoImagens registoImagem = new BlocoImagens();
+            registoImagem.dadosImagens = imagens.get(index);
+            String blocoImagem = gson.toJson(registoImagem);
+            messageDigest = Hasher.Companion.hash(blocoImagem, HashType.MD5);
+
+            dadosImagems.add(new DadosImagem(blocoImagem, messageDigest, index + 1));
+        }
+    }
 
 
 
@@ -167,5 +180,23 @@ public class DadosUpload {
 
     public String obterDados() {
         return upload;
+    }
+
+
+    //---------------------
+    //Classe
+    //---------------------
+
+    public class DadosImagem{
+
+        public String blocoImagem;
+        public String messageDigest;
+        public int numeroFicheiro;
+
+        public DadosImagem(String blocoImagem, String messageDigest, int numeroFicheiro) {
+            this.blocoImagem = blocoImagem;
+            this.messageDigest = messageDigest;
+            this.numeroFicheiro = numeroFicheiro;
+        }
     }
 }

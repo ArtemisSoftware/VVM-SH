@@ -24,7 +24,7 @@ import com.vvm.sh.util.mapeamento.DownloadMapping;
 import java.util.ArrayList;
 import java.util.List;
 
-public class AtualizarTipoTemplatesAvrAsyncTask extends AsyncTask<List<Object>, Void, Void> {
+public class AtualizarTipoTemplatesAvrAsyncTask extends AsyncTask<List<Object>, Void, List<Object>[]> {
 
     private String errorMessage;
     private Handler handlerUI;
@@ -40,12 +40,13 @@ public class AtualizarTipoTemplatesAvrAsyncTask extends AsyncTask<List<Object>, 
     public AtualizarTipoTemplatesAvrAsyncTask(VvmshBaseDados vvmshBaseDados, Handler handlerUI, CarregamentoTiposRepositorio repositorio){
         this.vvmshBaseDados = vvmshBaseDados;
         this.repositorio = repositorio;
+        this.handlerUI = handlerUI;
         atualizacaoUI = new AtualizacaoUI(handlerUI);
     }
 
 
     @Override
-    protected Void doInBackground(List<Object>... tipoRespostas) {
+    protected List<Object>[] doInBackground(List<Object>... tipoRespostas) {
 
         if(tipoRespostas[0] == null)
             return null;
@@ -150,7 +151,7 @@ public class AtualizarTipoTemplatesAvrAsyncTask extends AsyncTask<List<Object>, 
                             medidasExistentes, medidasAlteradasExistentes, medidasRecomendadas, medidasAlteradasRecomendadas);
 
 
-                    atualizacaoUI.atualizarUI(AtualizacaoUI.Codigo.PROCESSAMENTO_TIPOS, "Concluido", 2, 2);
+                    atualizacaoUI.atualizarUI(AtualizacaoUI.Codigo.PROCESSAMENTO_TIPOS, "Templates", 2, 2);
                 }
                 catch(SQLiteConstraintException throwable){
                     errorMessage = throwable.getMessage();
@@ -158,15 +159,16 @@ public class AtualizarTipoTemplatesAvrAsyncTask extends AsyncTask<List<Object>, 
             }
         });
 
-        return null;
+        return tipoRespostas;
     }
 
 
     @Override
-    protected void onPostExecute(Void aVoid) {
-        super.onPostExecute(aVoid);
+    protected void onPostExecute(List<Object>[] objects) {
+        super.onPostExecute(objects);
 
+        AtualizarEquipamentosAsyncTask servico = new AtualizarEquipamentosAsyncTask(vvmshBaseDados, handlerUI, repositorio);
+        servico.execute(objects);
 
-        atualizacaoUI.atualizarUI(AtualizacaoUI.Codigo.PROCESSAMENTO_TIPOS_CONCLUIDO, "Concluido", 2, 2);
     }
 }

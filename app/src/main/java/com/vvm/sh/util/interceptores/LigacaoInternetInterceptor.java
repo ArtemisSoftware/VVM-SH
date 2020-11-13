@@ -7,6 +7,8 @@ import android.net.NetworkCapabilities;
 import android.net.NetworkInfo;
 import android.os.Build;
 
+import com.vvm.sh.util.excepcoes.LigacaoInternetException;
+
 import org.jetbrains.annotations.NotNull;
 
 import java.io.IOException;
@@ -28,7 +30,7 @@ public class LigacaoInternetInterceptor implements Interceptor {
     @Override
     public Response intercept(@NotNull Chain chain) throws IOException {
         if (!isConnected()) {
-            //throw new NoConnectivityException();
+            throw new LigacaoInternetException();
         }
 
         Request.Builder builder = chain.request().newBuilder();

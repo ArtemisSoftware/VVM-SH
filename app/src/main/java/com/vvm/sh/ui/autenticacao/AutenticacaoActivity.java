@@ -146,6 +146,7 @@ public class AutenticacaoActivity extends BaseDaggerActivity
         activityAutenticacaoBinding.txtInpIdentificador.setText(Sintaxe.SEM_TEXTO);
         activityAutenticacaoBinding.txtInpPalavraChave.setText(Sintaxe.SEM_TEXTO);
 
+        finish();
         Intent intent = new Intent(this, MainActivity.class);
         startActivity(intent);
     }

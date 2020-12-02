@@ -63,27 +63,43 @@ public class CarregarTipoAsyncTask extends AsyncTask<List<ITipoListagem>, Void, 
 
 
                     int index = 0;
+                    String metodo = "";
+                    Atualizacao atualizacao = null;
+                    List<Tipo> dadosNovos = new ArrayList<>();
+                    List<Tipo> dadosAlterados = new ArrayList<>();
 
-                    for(ITipoListagem resposta : respostas){
+                    if(respostas.size() != 0){
 
-                        List<Tipo> dadosNovos = new ArrayList<>();
-                        List<Tipo> dadosAlterados = new ArrayList<>();
+                        for(ITipoListagem resposta : respostas){
 
-                        Atualizacao atualizacao = DownloadMapping.INSTANCE.map(resposta);
+                            if(metodo.equals(resposta.metodo) == false && metodo.equals("") == false && atualizacao != null){
 
-                        for (ITipo item : resposta.dadosNovos) {
-                            dadosNovos.add(DownloadMapping.INSTANCE.map(item, resposta));
+                                repositorio.carregarTipo(atualizacao, dadosNovos, dadosAlterados);
+                                atualizacaoUI.atualizarUI(AtualizacaoUI.Codigo.PROCESSAMENTO_TIPOS, atualizacao.descricao, ++index, respostas.size());
+
+                                metodo = "";
+                                dadosNovos = new ArrayList<>();
+                                dadosAlterados = new ArrayList<>();
+                            }
+
+                            atualizacao = DownloadMapping.INSTANCE.map(resposta);
+                            metodo = atualizacao.descricao;
+
+                            for (ITipo item : resposta.dadosNovos) {
+                                dadosNovos.add(DownloadMapping.INSTANCE.map(item, resposta));
+                            }
+
+                            for (ITipo item : resposta.dadosAlterados) {
+                                dadosAlterados.add(DownloadMapping.INSTANCE.map(item, resposta));
+                            }
                         }
 
-                        for (ITipo item : resposta.dadosAlterados) {
-                            dadosAlterados.add(DownloadMapping.INSTANCE.map(item, resposta));
+                        if(dadosNovos.size() != 0){
+                            repositorio.carregarTipo(atualizacao, dadosNovos, dadosAlterados);
+                            atualizacaoUI.atualizarUI(AtualizacaoUI.Codigo.PROCESSAMENTO_TIPOS, atualizacao.descricao, ++index, respostas.size());
+
                         }
-
-                        repositorio.carregarTipo(atualizacao, dadosNovos, dadosAlterados);
-
-                        atualizacaoUI.atualizarUI(AtualizacaoUI.Codigo.PROCESSAMENTO_TIPOS, atualizacao.descricao, ++index, respostas.size());
                     }
-
                     atualizacaoUI.atualizarUI(AtualizacaoUI.Codigo.PROCESSAMENTO_TIPOS_CONCLUIDO, "Concluido", index, respostas.size());
 
                 }

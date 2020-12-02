@@ -63,6 +63,7 @@ public interface SegurancaAlimentarApi {
     @FormUrlEncoded
     @POST("ProcessWorkUpdate")
     Single<Codigo> submeterDados(
+            @HeaderMap Map<String, String> headers,
             @Field("strJsonString") String dados,
             @Field("user") String idUtilizador,
             @Field("idUnico") String id,
@@ -73,6 +74,7 @@ public interface SegurancaAlimentarApi {
     @FormUrlEncoded
     @POST("ProcessarFotos")
     Single<Codigo> submeterImagens(
+            @HeaderMap Map<String, String> headers,
             @Field("strJsonString") String dados,
             @Field("user") String idUtilizador,
             @Field("idUnico") String id,

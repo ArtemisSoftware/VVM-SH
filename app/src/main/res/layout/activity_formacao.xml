@@ -12,7 +12,7 @@
 
         <variable
             name="viewmodel"
-            type="com.vvm.sh.ui.atividadesPendentes.relatorios.FormacaoViewModel"/>
+            type="com.vvm.sh.ui.atividadesPendentes.relatorios.formacao.FormacaoViewModel"/>
 
         <variable
             name="listener"
@@ -267,16 +267,40 @@
 
                 <androidx.recyclerview.widget.RecyclerView
                     android:id="@+id/rcl_registos"
+                    android:visibility="@{viewmodel.formandos.size() > 0 ? View.VISIBLE : View.GONE}"
                     style="@style/lista"
                     formandos="@{viewmodel.formandos}"
                     listener="@{listener}"
                     tools:listitem="@layout/item_formando"/>
 
-                <!--
-                registosOcorrencias="@{viewmodel.ocorrenciasRegistos}"
-                    onItemClick="@{listener}"
 
-                     -->
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="@{viewmodel.formandos.size() == 0 ? View.VISIBLE : View.GONE}"
+                    android:orientation="vertical"
+                    android:gravity="center"
+                    android:padding="16dp"
+                    android:layout_marginTop="32dp">
+
+                    <TextView
+                        style="@style/tituloCartao"
+                        android:text="@string/formandos"/>
+
+
+                    <ImageView
+                        android:layout_width="200dp"
+                        android:layout_height="200dp"
+                        android:src="@drawable/ic_box"
+                        android:tint="@color/cor_alerta_medio"/>
+
+                    <TextView
+                        style="@style/textoDetalhe"
+                        android:text="@string/registos_inexistentes"
+                        android:layout_marginTop="32dp"/>
+
+
+                </LinearLayout>
 
             </LinearLayout>
 

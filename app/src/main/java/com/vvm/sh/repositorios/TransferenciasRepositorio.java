@@ -50,6 +50,7 @@ import java.util.List;
 
 import io.reactivex.Maybe;
 import io.reactivex.Observable;
+import io.reactivex.ObservableSource;
 import io.reactivex.Single;
 import io.reactivex.functions.BiFunction;
 import io.reactivex.functions.Function;
@@ -83,7 +84,7 @@ public class TransferenciasRepositorio {
      */
     public Single<Sessao> obterTrabalho(String idUtilizador) {
 
-        if(AppConfig.sa) {
+        if(AppConfig.APP_MODO == AppConfig.APP_SA) {
 
             return apiSA.obterTrabalho(SegurancaAlimentarApi.HEADER, idUtilizador)
                     .map(new Function<ISessao, Sessao>() {
@@ -123,7 +124,7 @@ public class TransferenciasRepositorio {
      */
     public Single<Sessao> obterTrabalho(String idUtilizador, String data) {
 
-        if(AppConfig.sa) {
+        if(AppConfig.APP_MODO == AppConfig.APP_SA) {
 
             return apiSA.obterTrabalho(SegurancaAlimentarApi.HEADER, idUtilizador, data)
                     .map(new Function<ISessao, Sessao>() {
@@ -166,13 +167,199 @@ public class TransferenciasRepositorio {
      */
     public Single<Codigo> submeterDados(String dados, String idUtilizador, String id, String messageDigest) {
 
-        if(AppConfig.sa) {
-            return apiSA.submeterDados(dados, idUtilizador, id, messageDigest);
+        if(AppConfig.APP_MODO == AppConfig.APP_SA) {
+            return apiSA.submeterDados(SegurancaAlimentarApi.HEADER, dados, idUtilizador, id, messageDigest);
         }
         else{
             return apiST.submeterDados(SegurancaTrabalhoApi.HEADER, dados, idUtilizador, id, messageDigest);
         }
     }
+
+
+
+    public Observable<Codigo> upload(DadosUpload dadosUpload, List<Upload> uploads){
+
+        Gson gson = new Gson();
+
+        List<Observable<Codigo>> observables = new ArrayList<>();
+
+        if(dadosUpload.numeroFicheirosImagens != 0){
+
+            dadosUpload.formatarImagens();
+
+            for (DadosUpload.DadosImagem dadosImagem: dadosUpload.dadosImagems) {
+                observables.add(submeterImagens(dadosUpload, dadosImagem).toObservable());
+            }
+
+            Observable<Codigo> observable__Imagens = Observable.zip(observables, new Function<Object[], Codigo>() {
+                @Override
+                public Codigo apply(Object[] codigos) throws Exception {
+
+                    if(validarResultadoUpload(codigos) == true){
+                        return Identificadores.CodigosWs.Codigo_100;
+                    }
+                    else{
+                        throw new RespostaWsInvalidaException(Identificadores.CodigosWs.Codigo_600);
+                    }
+                }
+            });
+
+            if(AppConfig.APP_MODO == AppConfig.APP_SA) {
+                return submeterDados(dadosUpload).toObservable()
+                        .flatMap(new Function<Codigo, ObservableSource<Codigo>>() {
+                            @Override
+                            public ObservableSource<Codigo> apply(Codigo codigo) throws Exception {
+
+                                if(validarResultadoUpload(codigo) == true){
+                                    return observable__Imagens;
+                                }
+                                else{
+                                    throw new RespostaWsInvalidaException(Identificadores.CodigosWs.Codigo_600);
+                                }
+                            }
+                        })
+                        .flatMap(new Function<Codigo, ObservableSource<?>>() {
+                            @Override
+                            public ObservableSource<?> apply(Codigo codigo) throws Exception {
+                                return sincronizar(uploads).toObservable();
+                            }
+                        })
+                        .map(new Function<Object, Codigo>() {
+                            @Override
+                            public Codigo apply(Object o) throws Exception {
+
+                                if(((int) o) > 0) {
+                                    return Identificadores.CodigosWs.Codigo_100;
+                                }
+                                else{
+                                    return Identificadores.CodigosWs.Codigo_600;
+                                }
+                            }
+                        })
+                        ;
+
+            }
+            else{
+                return observable__Imagens
+                        .flatMap(new Function<Codigo, ObservableSource<Codigo>>() {
+                            @Override
+                            public ObservableSource<Codigo> apply(Codigo codigo) throws Exception {
+                                return submeterDados(dadosUpload).toObservable();
+                            }
+                        })
+                        .map(new Function<Codigo, Codigo>() {
+                            @Override
+                            public Codigo apply(Codigo o) throws Exception {
+
+                                if(((Codigo) o).codigo == Identificadores.CodigosWs.ID_100) {
+                                    return Identificadores.CodigosWs.Codigo_100;
+                                }
+                                else{
+                                    throw new RespostaWsInvalidaException(Identificadores.CodigosWs.Codigo_600);
+                                }
+                            }
+                        })
+                        .flatMap(new Function<Codigo, ObservableSource<?>>() {
+                            @Override
+                            public ObservableSource<?> apply(Codigo codigo) throws Exception {
+                                return sincronizar(uploads).toObservable();
+                            }
+                        })
+                        .map(new Function<Object, Codigo>() {
+                            @Override
+                            public Codigo apply(Object o) throws Exception {
+
+                                if(((int) o) > 0) {
+                                    return Identificadores.CodigosWs.Codigo_100;
+                                }
+                                else{
+                                    return Identificadores.CodigosWs.Codigo_600;
+                                }
+                            }
+                        });
+            }
+        }
+        else{
+            return submeterDados(dadosUpload).toObservable()
+                    .map(new Function<Codigo, Codigo>() {
+                        @Override
+                        public Codigo apply(Codigo o) throws Exception {
+
+                            if(((Codigo) o).codigo == Identificadores.CodigosWs.ID_100) {
+                                return Identificadores.CodigosWs.Codigo_100;
+                            }
+                            else{
+                                throw new RespostaWsInvalidaException(Identificadores.CodigosWs.Codigo_600);
+                            }
+                        }
+                    })
+                    .flatMap(new Function<Codigo, ObservableSource<?>>() {
+                        @Override
+                        public ObservableSource<?> apply(Codigo codigo) throws Exception {
+                            return sincronizar(uploads).toObservable();
+                        }
+                    })
+                    .map(new Function<Object, Codigo>() {
+                        @Override
+                        public Codigo apply(Object o) throws Exception {
+
+                            if(((int) o) > 0) {
+                                return Identificadores.CodigosWs.Codigo_100;
+                            }
+                            else{
+                                return Identificadores.CodigosWs.Codigo_600;
+                            }
+                        }
+                    });
+        }
+    }
+
+    private boolean validarResultadoUpload(Codigo codigo){
+        return (codigo.codigo == Identificadores.CodigosWs.ID_100);
+    }
+
+    private boolean validarResultadoUpload(Object[] codigos){
+
+        boolean valido = true;
+
+        for (Object item : codigos) {
+
+            if(((Codigo) item).codigo != Identificadores.CodigosWs.ID_100){
+                valido = false;
+                break;
+            }
+        }
+
+        return valido;
+    }
+
+
+    private Single<Codigo> submeterDados(DadosUpload dadosUpload) {
+
+        dadosUpload.formatarDados();
+
+        if(AppConfig.APP_MODO == AppConfig.APP_SA) {
+            return apiSA.submeterDados(SegurancaAlimentarApi.HEADER,dadosUpload.obterDados(), dadosUpload.idUtilizador, dadosUpload.idUpload, dadosUpload.messageDigest);
+        }
+        else{
+            return apiST.submeterDados(SegurancaTrabalhoApi.HEADER, dadosUpload.obterDados(), dadosUpload.idUtilizador, dadosUpload.idUpload, dadosUpload.messageDigest);
+        }
+    }
+
+
+    /**
+     * Metodo que permite submeter as imagens para o web service
+     * @return um codigo com o resultado da submissao
+     */
+    private Single<Codigo> submeterImagens(DadosUpload dadosUpload, DadosUpload.DadosImagem dadosImagem) {
+        if(AppConfig.APP_MODO == AppConfig.APP_SA) {
+            return apiSA.submeterImagens(SegurancaAlimentarApi.HEADER, dadosImagem.blocoImagem, dadosUpload.idUtilizador, dadosUpload.idUpload, dadosImagem.numeroFicheiro + "", dadosImagem.messageDigest);
+        }
+        else{
+            return apiST.submeterImagens(SegurancaTrabalhoApi.HEADER, dadosImagem.blocoImagem, dadosUpload.idUtilizador, dadosUpload.idUpload, dadosImagem.numeroFicheiro + "", dadosImagem.messageDigest);
+        }
+    }
+
 
 
 
@@ -236,19 +423,6 @@ public class TransferenciasRepositorio {
 
 
 
-    /**
-     * Metodo que permite submeter as imagens para o web service
-     * @return um codigo com o resultado da submissao
-     */
-    private Single<Codigo> submeterImagens(DadosUpload dadosUpload, DadosUpload.DadosImagem dadosImagem) {
-        if(AppConfig.sa) {
-            return apiSA.submeterImagens(dadosImagem.blocoImagem, dadosUpload.idUtilizador, dadosUpload.idUpload, dadosImagem.numeroFicheiro + "", dadosImagem.messageDigest);
-        }
-        else{
-            return apiST.submeterImagens(SegurancaTrabalhoApi.HEADER, dadosImagem.blocoImagem, dadosUpload.idUtilizador, dadosUpload.idUpload, dadosImagem.numeroFicheiro + "", dadosImagem.messageDigest);
-        }
-    }
-
 
     public Observable<Codigo> uploadImagens(DadosUpload dadosUpload){
 
@@ -287,7 +461,6 @@ public class TransferenciasRepositorio {
 
         return observable;
     }
-
 
 
 

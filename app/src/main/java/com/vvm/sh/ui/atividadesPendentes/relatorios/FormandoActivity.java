@@ -21,6 +21,7 @@ import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.AssinaturaActivity;
 import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.baseDados.entidades.Tipo;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.formacao.FormacaoViewModel;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.base.BaseDatePickerDialog;
 import com.vvm.sh.util.constantes.Identificadores;

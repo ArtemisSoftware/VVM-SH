@@ -142,10 +142,14 @@ public class TransferenciasViewModel extends BaseViewModel {
 
                                 if(upload == false) {
 
-                                    if (dadosPendencia.dadosUpload == true & dadosPendencia.pendencias.size() == 0) {
+                                    if (dadosPendencia.pendencias.size() > 0) {
+
+                                    }
+                                    else if (dadosPendencia.dadosUpload == true) {
                                         messagemLiveData.setValue(Recurso.erro(Sintaxe.Frases.EXISTEM_DADOS_UPLOAD));
-                                    } else {
-                                        atualizarTipos(activity, handlerNotificacoesUI);
+                                    }
+                                    else {
+                                        atualizarTipos(activity, handlerNotificacoesUI, false);
                                     }
                                 }
                             }
@@ -386,7 +390,7 @@ public class TransferenciasViewModel extends BaseViewModel {
 
         DadosUploadAsyncTask servico;
 
-        if(AppConfig.sa){
+        if(AppConfig.APP_MODO == AppConfig.APP_SA){
             servico = new DadosUploadSAAsyncTask(vvmshBaseDados, handler, uploadRepositorio, idUtilizador);
         }
         else{
@@ -397,11 +401,88 @@ public class TransferenciasViewModel extends BaseViewModel {
     }
 
 
+
+    public void upload(DadosUpload dadosUpload) {
+
+        showProgressBar(true);
+
+        transferenciasRepositorio.upload(dadosUpload, uploads.getValue())
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new Observer<Codigo>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onNext(Codigo codigo) {
+                                messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_ENVIADOS_SUCESSO));
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                showProgressBar(false);
+                                formatarErro(e);
+                            }
+
+                            @Override
+                            public void onComplete() {
+                                showProgressBar(false);
+                            }
+                        }
+
+                );
+
+//        if(AppConfig.sa == true){
+//            uploadSA(dadosUpload);
+//        }
+//        else{
+//
+//
+//            showProgressBar(true);
+//
+//            transferenciasRepositorio.submeterSH(dadosUpload)
+//                    .subscribeOn(Schedulers.io())
+//                    .observeOn(AndroidSchedulers.mainThread())
+//                    .subscribe(
+//                            new Observer<Codigo>() {
+//                                @Override
+//                                public void onSubscribe(Disposable d) {
+//                                    disposables.add(d);
+//                                }
+//
+//                                @Override
+//                                public void onNext(Codigo codigo) {
+//                                    sincronizar();
+//                                    showProgressBar(false);
+//                                }
+//
+//                                @Override
+//                                public void onError(Throwable e) {
+//                                    showProgressBar(false);
+//                                    formatarErro(e);
+//                                }
+//
+//                                @Override
+//                                public void onComplete() {
+//                                    showProgressBar(false);
+//                                }
+//                            }
+//                    );
+//        }
+
+    }
+
+
     /**
      * Metodo que permite realizar o upload dos dados
      * @param dadosUpload os dados a enviar
      */
-    public void upload(DadosUpload dadosUpload) {
+    private void uploadSA(DadosUpload dadosUpload) {
 
         showProgressBar(true);
 
@@ -520,9 +601,9 @@ public class TransferenciasViewModel extends BaseViewModel {
      * Metodo que permite atualizar os tipos
      * @param handlerUI um handler para as mensagens
      */
-    public void atualizarTipos(Activity activity, Handler handlerUI) {
+    public void atualizarTipos(Activity activity, Handler handlerUI, boolean primeiraUtilizacao) {
 
-        tiposRepositorio.obterAtualizacoes()
+        tiposRepositorio.obterAtualizacoes(primeiraUtilizacao)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(

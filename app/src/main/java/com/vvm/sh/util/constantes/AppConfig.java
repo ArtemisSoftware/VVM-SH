@@ -31,5 +31,11 @@ public class AppConfig {
 
     public static final int NUMERO_RESULTADOS_QUERY = 15;
 
-    public static final boolean sa = false;
+    /**
+     * Modos de funcionamento da app
+     */
+    public static final int APP_SA = 1;
+    public static final int APP_SHT = 2;
+    public static final int APP_COMBINADO = 3;
+    public static final int APP_MODO = APP_SA;
 }

@@ -143,6 +143,7 @@ abstract public class TipoDao implements BaseDao<Tipo> {
     abstract public Observable<List<ResumoTipo>> obterResumoTipos();
 
 
+    //TODO: query precisa de ser corrigida
     @Query("SELECT *, ct_areas as numeroAreas, ct_seccoes as numeroSeccoes, ct_itens as numeroItens " +
             "FROM checklist as chk " +
 

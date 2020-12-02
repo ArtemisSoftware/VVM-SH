@@ -154,9 +154,11 @@ public class CrossSellingViewModel extends BaseViewModel {
                             @Override
                             public void onSuccess(List<Tipo> tipos) {
                                 produtos.setValue(tipos);
-                                sinaletica.setValue(ConversorUtil.converter_String_Para_Boolean(tipos.get(0).detalhe));
+
                                 showProgressBar(false);
+
                                 if(tipos.size() != 0) {
+                                    sinaletica.setValue(ConversorUtil.converter_String_Para_Boolean(tipos.get(0).detalhe));
                                     obterCrossSelling(idTarefa, tipos.get(0));
                                 }
                             }

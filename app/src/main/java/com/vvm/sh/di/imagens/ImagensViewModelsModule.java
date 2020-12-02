@@ -3,7 +3,6 @@ package com.vvm.sh.di.imagens;
 import androidx.lifecycle.ViewModel;
 
 import com.vvm.sh.di.ViewModelKey;
-import com.vvm.sh.ui.atividadesPendentes.relatorios.FormacaoViewModel;
 import com.vvm.sh.ui.imagens.ImagemViewModel;
 
 import dagger.Binds;

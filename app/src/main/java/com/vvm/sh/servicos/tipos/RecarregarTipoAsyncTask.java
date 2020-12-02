@@ -11,6 +11,7 @@ import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.repositorios.CarregamentoTiposRepositorio;
 import com.vvm.sh.baseDados.entidades.Atualizacao;
 import com.vvm.sh.baseDados.entidades.Tipo;
+import com.vvm.sh.util.AtualizacaoUI;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.mapeamento.DownloadMapping;
 import com.vvm.sh.util.metodos.MensagensUtil;
@@ -51,14 +52,50 @@ public class RecarregarTipoAsyncTask extends AsyncTask<List<ITipoListagem>, Void
 
                 try {
 
-                    ITipoListagem resposta = respostas.get(0);
+                    String metodo = "";
+                    Atualizacao atualizacao = null;
+                    List<Tipo> dadosNovos = new ArrayList<>();
+                    List<Tipo> dadosAlterados = new ArrayList<>();
 
-                    Atualizacao atualizacao = DownloadMapping.INSTANCE.map(resposta);
+                    for(ITipoListagem resposta : respostas){
 
-                    List<Tipo> dadosNovos = obterTipos(resposta, resposta.dadosNovos);
-                    List<Tipo> dadosAlterados = obterTipos(resposta, resposta.dadosAlterados);
+                        if(metodo.equals(resposta.metodo) == false && metodo.equals("") == false && atualizacao != null){
 
-                    repositorio.carregarTipo(atualizacao, dadosNovos, dadosAlterados);
+                            repositorio.carregarTipo(atualizacao, dadosNovos, dadosAlterados);
+
+                            metodo = "";
+                            dadosNovos = new ArrayList<>();
+                            dadosAlterados = new ArrayList<>();
+                        }
+
+                        atualizacao = DownloadMapping.INSTANCE.map(resposta);
+                        metodo = atualizacao.descricao;
+
+                        for (ITipo item : resposta.dadosNovos) {
+                            dadosNovos.add(DownloadMapping.INSTANCE.map(item, resposta));
+                        }
+
+                        for (ITipo item : resposta.dadosAlterados) {
+                            dadosAlterados.add(DownloadMapping.INSTANCE.map(item, resposta));
+                        }
+                    }
+
+                    if(dadosNovos.size() != 0){
+                        repositorio.carregarTipo(atualizacao, dadosNovos, dadosAlterados);
+                    }
+
+
+
+
+
+//                    ITipoListagem resposta = respostas.get(0);
+//
+//                    Atualizacao atualizacao = DownloadMapping.INSTANCE.map(resposta);
+//
+//                    List<Tipo> dadosNovos = obterTipos(resposta, resposta.dadosNovos);
+//                    List<Tipo> dadosAlterados = obterTipos(resposta, resposta.dadosAlterados);
+//
+//                    repositorio.carregarTipo(atualizacao, dadosNovos, dadosAlterados);
 
                 }
                 catch(SQLiteConstraintException throwable){

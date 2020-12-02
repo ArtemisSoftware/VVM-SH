@@ -4,7 +4,6 @@ import androidx.lifecycle.ViewModel;
 
 import com.vvm.sh.di.ViewModelKey;
 import com.vvm.sh.ui.atividadesPendentes.AtividadesPendentesViewModel;
-import com.vvm.sh.ui.atividadesPendentes.relatorios.FormacaoViewModel;
 
 import dagger.Binds;
 import dagger.Module;

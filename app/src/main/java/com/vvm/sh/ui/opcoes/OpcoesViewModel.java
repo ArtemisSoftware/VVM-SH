@@ -336,11 +336,13 @@ public class OpcoesViewModel extends BaseViewModel {
             case Identificadores.Atualizacoes.TEMPLATE:
 
 
+                //TODO: recarregar template
                 break;
 
 
             case Identificadores.Atualizacoes.ATIVIDADES_PLANEAVEIS:
 
+                //TODO: recarregar atividades planeaveis
                 break;
 
             default:
@@ -350,8 +352,38 @@ public class OpcoesViewModel extends BaseViewModel {
     }
 
 
-    public void recarregar(Activity contexto, ResumoChecklist descricao, Handler handlerNotificacoesUI) {
-        //TODO: completar
+    public void recarregar(Activity atividade, ResumoChecklist resumo, Handler handlerNotificacoesUI) {
+        showProgressBar(true);
+
+        tiposRepositorio.obterChecklist(resumo)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        new SingleObserver<ITipoChecklist>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onSuccess(ITipoChecklist iTipoChecklist) {
+
+                                List<ITipoChecklist> respostas = new ArrayList<>();
+                                respostas.add(iTipoChecklist);
+
+                                CarregarTipoChecklistAsyncTask servico = new CarregarTipoChecklistAsyncTask(atividade, vvmshBaseDados, handlerNotificacoesUI, tiposRepositorio);
+                                servico.execute(respostas);
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                showProgressBar(false);
+                                messagemLiveData.setValue(Recurso.erro(e.getMessage()));
+                            }
+                        }
+                );
+
     }
 
 

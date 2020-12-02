@@ -7,11 +7,12 @@ import com.vvm.sh.api.modelos.envio.sa.AtividadePendenteNaoExecutada;
 import com.vvm.sh.baseDados.entidades.EmailResultado;
 import com.vvm.sh.util.metodos.DatasUtil;
 
+import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
+@Mapper
 public interface UploadSAMapping {
-
 
     static final UploadSAMapping INSTANCE = Mappers.getMapper( UploadSAMapping.class );
 

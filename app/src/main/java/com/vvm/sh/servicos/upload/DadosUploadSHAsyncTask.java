@@ -94,10 +94,10 @@ public class DadosUploadSHAsyncTask extends DadosUploadAsyncTask {
                 break;
 
 
-//            case ID_REGISTO_VISITA:
-//
-//                dadosFormulario.registoVisita = obterRegistoVisita(resultado.idTarefa);
-//                break;
+            case ID_REGISTO_VISITA:
+
+                dadosFormulario.registoVisita = obterRegistoVisita(resultado.idTarefa);
+                break;
 
             case ID_SINISTRALIDADE:
 
@@ -145,10 +145,10 @@ public class DadosUploadSHAsyncTask extends DadosUploadAsyncTask {
 
                 switch (item.atividade.idRelatorio){
 
-//                    case Identificadores.Relatorios.ID_RELATORIO_FORMACAO:
-//
-//                        registo.formacao = obterAcaoFormacao(item.resultado.id);
-//                        break;
+                    case Identificadores.Relatorios.ID_RELATORIO_FORMACAO:
+
+                        registo.formacao = obterAcaoFormacao(item.resultado.id);
+                        break;
 
                     case Identificadores.Relatorios.ID_RELATORIO_AVALIACAO_RISCO:
 

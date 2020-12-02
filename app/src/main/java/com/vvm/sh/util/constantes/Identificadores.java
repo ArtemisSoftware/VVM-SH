@@ -285,6 +285,7 @@ public class Identificadores {
 
         public static final int ID_100 = 100;
         public static final String MSG_100 = "Sucesso no envio de dados";
+        public static final Codigo Codigo_100 = new Codigo(ID_100, MSG_100);
 
         public static final int CODIGO_101 = 101;
         public static final String MSG_101 = "Não existe trabalho para download";
@@ -321,6 +322,7 @@ public class Identificadores {
 
         public static final int ID_600 = 600;
         public static final String MSG_600 = "Erro no upload de dados";
+        public static final Codigo Codigo_600 = new Codigo(ID_600, MSG_600);
 
         public static final int ID_601 = 601;
         public static final String MSG_601 = "Comunicação com o web service realizada sem header";

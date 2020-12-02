@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteConstraintException;
 import android.os.AsyncTask;
 import android.os.Handler;
 
+import com.vvm.sh.App;
 import com.vvm.sh.api.modelos.pedido.ITipo;
 import com.vvm.sh.api.modelos.pedido.ITipoListagem;
 import com.vvm.sh.baseDados.VvmshBaseDados;
@@ -14,6 +15,7 @@ import com.vvm.sh.repositorios.CarregamentoTiposRepositorio;
 import com.vvm.sh.servicos.tipos.atualizacao.AtualizarEquipamentosAsyncTask;
 import com.vvm.sh.servicos.tipos.atualizacao.AtualizarTipoAtividadesPlaneaveisAsyncTask;
 import com.vvm.sh.util.AtualizacaoUI;
+import com.vvm.sh.util.constantes.AppConfig;
 import com.vvm.sh.util.mapeamento.DownloadMapping;
 
 import java.util.ArrayList;
@@ -103,9 +105,13 @@ public class AtualizarTipoAsyncTask extends AsyncTask<List<Object>, Void, List<O
     protected void onPostExecute(List<Object>[] objects) {
         super.onPostExecute(objects);
 
-        AtualizarTipoAtividadesPlaneaveisAsyncTask servico = new AtualizarTipoAtividadesPlaneaveisAsyncTask(vvmshBaseDados, handlerUI, repositorio);
-        servico.execute(objects);
-
+        if(AppConfig.APP_MODO == AppConfig.APP_SA){
+            atualizacaoUI.atualizarUI(AtualizacaoUI.Codigo.PROCESSAMENTO_TIPOS_CONCLUIDO, "Concluido", 2, 2);
+        }
+        else {
+            AtualizarTipoAtividadesPlaneaveisAsyncTask servico = new AtualizarTipoAtividadesPlaneaveisAsyncTask(vvmshBaseDados, handlerUI, repositorio);
+            servico.execute(objects);
+        }
 
 
     }

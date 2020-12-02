@@ -1,6 +1,7 @@
 package com.vvm.sh.util.metodos;
 
 import com.vvm.sh.baseDados.entidades.Atualizacao;
+import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.excepcoes.TipoInexistenteException;
 
 import java.util.ArrayList;
@@ -136,7 +137,7 @@ public class TiposUtil {
         public static class Checklist {
 
             public static final String CHECKLIST = "CheckList";
-            public static final MetodoApi METODO_CHECKLIST = new MetodoApi(CHECKLIST, null, MetodosTiposChecklist.CHECKLIST);
+            public static final MetodoApi METODO_CHECKLIST = new MetodoApi(CHECKLIST, null, MetodosTiposChecklist.CHECKLIST, Identificadores.Atualizacoes.CHECKLIST);
 
 
             public static final MetodoApi TIPOS [] = new MetodoApi []{
@@ -149,7 +150,7 @@ public class TiposUtil {
 
             public static final String ATIVIDADES_PLANEAVEIS = "Actividades_Planeaveis";
 
-            public static final MetodoApi METODO_ATIVIDADES_PLANEAVEIS = new MetodoApi(ATIVIDADES_PLANEAVEIS, null, MetodosTiposSH.ATIVIDADES_PLANEAVEIS);
+            public static final MetodoApi METODO_ATIVIDADES_PLANEAVEIS = new MetodoApi(ATIVIDADES_PLANEAVEIS, null, MetodosTiposSH.ATIVIDADES_PLANEAVEIS, Identificadores.Atualizacoes.ATIVIDADES_PLANEAVEIS);
 
             public static final MetodoApi TIPOS [] = new MetodoApi []{
                     METODO_ATIVIDADES_PLANEAVEIS
@@ -162,8 +163,8 @@ public class TiposUtil {
             public static final String TEMPLATE_AVALIACAO_RISCOS_LEVANTAMENTOS = "Template_Avaliação_Riscos_Levantamentos";
             public static final String TEMPLATE_AVALIACAO_RISCOS_RISCOS = "Template_Avaliação_Riscos_Riscos";
 
-            public static final MetodoApi METODO_TEMPLATE_AVALIACAO_RISCOS_LEVANTAMENTOS = new MetodoApi(TEMPLATE_AVALIACAO_RISCOS_LEVANTAMENTOS, null, MetodosTiposSH.TEMPLATE_AVALIACAO_RISCOS_LEVANTAMENTOS);
-            public static final MetodoApi METODO_TEMPLATE_AVALIACAO_RISCOS_RISCOS = new MetodoApi(TEMPLATE_AVALIACAO_RISCOS_RISCOS, null, MetodosTiposSH.TEMPLATE_AVALIACAO_RISCOS_RISCOS);
+            public static final MetodoApi METODO_TEMPLATE_AVALIACAO_RISCOS_LEVANTAMENTOS = new MetodoApi(TEMPLATE_AVALIACAO_RISCOS_LEVANTAMENTOS, null, MetodosTiposSH.TEMPLATE_AVALIACAO_RISCOS_LEVANTAMENTOS, Identificadores.Atualizacoes.TEMPLATE);
+            public static final MetodoApi METODO_TEMPLATE_AVALIACAO_RISCOS_RISCOS = new MetodoApi(TEMPLATE_AVALIACAO_RISCOS_RISCOS, null, MetodosTiposSH.TEMPLATE_AVALIACAO_RISCOS_RISCOS, Identificadores.Atualizacoes.TEMPLATE);
 
             public static final MetodoApi TIPOS [] = new MetodoApi []{
                     METODO_TEMPLATE_AVALIACAO_RISCOS_LEVANTAMENTOS,
@@ -174,76 +175,71 @@ public class TiposUtil {
 
         protected static class Tipos {
             
-            public static final MetodoApi METODO_ATIVIDADES_RELATORIO_VISITA = new MetodoApi(ATIVIDADES_RELATORIO_VISITA, null, MetodosTiposSH.ATIVIDADES_RELATORIO_VISITA);
+            public static final MetodoApi METODO_ATIVIDADES_RELATORIO_VISITA = new MetodoApi(ATIVIDADES_RELATORIO_VISITA, null, MetodosTiposSH.ATIVIDADES_RELATORIO_VISITA, Identificadores.Atualizacoes.TIPO);
 
-            public static final MetodoApi METODO_CATEGORIAS_PROFISSIONAIS = new MetodoApi(CATEGORIAS_PROFISSIONAIS, null, MetodosTiposSH.CATEGORIAS_PROFISSIONAIS);
-
-
-            public static final MetodoApi METODO_CROSS_SELLING_DIMENSAO = new MetodoApi(CROSS_SELLING_DIMENSAO, MetodosTiposSA.CROSS_SELLING_DIMENSAO, MetodosTiposSH.CROSS_SELLING_DIMENSAO);
-            public static final MetodoApi METODO_CROSS_SELLING_PRODUTOS = new MetodoApi(CROSS_SELLING_PRODUTOS, MetodosTiposSA.CROSS_SELLING_PRODUTOS, MetodosTiposSH.CROSS_SELLING_PRODUTOS);
-            public static final MetodoApi METODO_CROSS_SELLING_TIPO = new MetodoApi(CROSS_SELLING_TIPO, MetodosTiposSA.CROSS_SELLING_TIPO, MetodosTiposSH.CROSS_SELLING_TIPO);
+            public static final MetodoApi METODO_CATEGORIAS_PROFISSIONAIS = new MetodoApi(CATEGORIAS_PROFISSIONAIS, null, MetodosTiposSH.CATEGORIAS_PROFISSIONAIS, Identificadores.Atualizacoes.TIPO);
 
 
-            public static final MetodoApi METODO_CONDICOES_CLIMATERICAS = new MetodoApi(CONDICOES_CLIMATERICAS, null, MetodosTiposSH.CONDICOES_CLIMATERICAS);
-            public static final MetodoApi METODO_CONCLUSAO_MEDIDAS_RECOMENDADAS = new MetodoApi(CONCLUSAO_MEDIDAS_RECOMENDADAS, null, MetodosTiposSH.CONCLUSAO_MEDIDAS_RECOMENDADAS);
-            public static final MetodoApi METODO_CURSOS = new MetodoApi(CURSOS, MetodosTiposSA.CURSOS, MetodosTiposSH.CURSOS);
-
-            public static final MetodoApi METODO_FRASES_APOIO = new MetodoApi(FRASES_APOIO, null, MetodosTiposSH.FRASES_APOIO);
+            public static final MetodoApi METODO_CROSS_SELLING_DIMENSAO = new MetodoApi(CROSS_SELLING_DIMENSAO, MetodosTiposSA.CROSS_SELLING_DIMENSAO, MetodosTiposSH.CROSS_SELLING_DIMENSAO, Identificadores.Atualizacoes.TIPO);
+            public static final MetodoApi METODO_CROSS_SELLING_PRODUTOS = new MetodoApi(CROSS_SELLING_PRODUTOS, MetodosTiposSA.CROSS_SELLING_PRODUTOS, MetodosTiposSH.CROSS_SELLING_PRODUTOS, Identificadores.Atualizacoes.TIPO);
+            public static final MetodoApi METODO_CROSS_SELLING_TIPO = new MetodoApi(CROSS_SELLING_TIPO, MetodosTiposSA.CROSS_SELLING_TIPO, MetodosTiposSH.CROSS_SELLING_TIPO, Identificadores.Atualizacoes.TIPO);
 
 
-            public static final MetodoApi METODO_ILUMINANCIA = new MetodoApi(ILUMINANCIA, null, MetodosTiposSH.ILUMINANCIA);
+            public static final MetodoApi METODO_CONDICOES_CLIMATERICAS = new MetodoApi(CONDICOES_CLIMATERICAS, null, MetodosTiposSH.CONDICOES_CLIMATERICAS, Identificadores.Atualizacoes.TIPO);
+            public static final MetodoApi METODO_CONCLUSAO_MEDIDAS_RECOMENDADAS = new MetodoApi(CONCLUSAO_MEDIDAS_RECOMENDADAS, null, MetodosTiposSH.CONCLUSAO_MEDIDAS_RECOMENDADAS, Identificadores.Atualizacoes.TIPO);
+            public static final MetodoApi METODO_CURSOS = new MetodoApi(CURSOS, MetodosTiposSA.CURSOS, MetodosTiposSH.CURSOS, Identificadores.Atualizacoes.TIPO);
+
+            public static final MetodoApi METODO_FRASES_APOIO = new MetodoApi(FRASES_APOIO, null, MetodosTiposSH.FRASES_APOIO, Identificadores.Atualizacoes.TIPO);
+
+
+            public static final MetodoApi METODO_ILUMINANCIA = new MetodoApi(ILUMINANCIA, null, MetodosTiposSH.ILUMINANCIA, Identificadores.Atualizacoes.TIPO);
 
 
 
-            public static final MetodoApi METODO_MEDIDAS_ILUMINACAO_TERMICO = new MetodoApi(MEDIDAS_ILUMINACAO_TERMICO, null, MetodosTiposSH.MEDIDAS_ILUMINACAO_TERMICO);
-            public static final MetodoApi METODO_MEDIDAS_PREVENCAO_RECOMENDADAS = new MetodoApi(MEDIDAS_PREVENCAO_RECOMENDADAS, null, MetodosTiposSH.MEDIDAS_PREVENCAO_RECOMENDADAS);
-            public static final MetodoApi METODO_MEDIDAS_PREVENCAO_ADOPTADAS = new MetodoApi(MEDIDAS_PREVENCAO_ADOPTADAS, null, MetodosTiposSH.MEDIDAS_PREVENCAO_ADOPTADAS);
+            public static final MetodoApi METODO_MEDIDAS_ILUMINACAO_TERMICO = new MetodoApi(MEDIDAS_ILUMINACAO_TERMICO, null, MetodosTiposSH.MEDIDAS_ILUMINACAO_TERMICO, Identificadores.Atualizacoes.TIPO);
+            public static final MetodoApi METODO_MEDIDAS_PREVENCAO_RECOMENDADAS = new MetodoApi(MEDIDAS_PREVENCAO_RECOMENDADAS, null, MetodosTiposSH.MEDIDAS_PREVENCAO_RECOMENDADAS, Identificadores.Atualizacoes.TIPO);
+            public static final MetodoApi METODO_MEDIDAS_PREVENCAO_ADOPTADAS = new MetodoApi(MEDIDAS_PREVENCAO_ADOPTADAS, null, MetodosTiposSH.MEDIDAS_PREVENCAO_ADOPTADAS, Identificadores.Atualizacoes.TIPO);
 
 
-            public static final MetodoApi METODO_RISCOS = new MetodoApi(RISCOS, null, MetodosTiposSH.RISCOS);
-            public static final MetodoApi METODO_RISCOS_ESPECIFICOS = new MetodoApi(RISCOS_ESPECIFICOS, null, MetodosTiposSH.RISCOS_ESPECIFICOS);
+            public static final MetodoApi METODO_RISCOS = new MetodoApi(RISCOS, null, MetodosTiposSH.RISCOS, Identificadores.Atualizacoes.TIPO);
+            public static final MetodoApi METODO_RISCOS_ESPECIFICOS = new MetodoApi(RISCOS_ESPECIFICOS, null, MetodosTiposSH.RISCOS_ESPECIFICOS, Identificadores.Atualizacoes.TIPO);
 
 
-            public static final MetodoApi METODO_TEMPLATE_AVALIACAO_RISCOS = new MetodoApi(TEMPLATE_AVALIACAO_RISCOS, null, MetodosTiposSH.TEMPLATE_AVALIACAO_RISCOS);
+            public static final MetodoApi METODO_TEMPLATE_AVALIACAO_RISCOS = new MetodoApi(TEMPLATE_AVALIACAO_RISCOS, null, MetodosTiposSH.TEMPLATE_AVALIACAO_RISCOS, Identificadores.Atualizacoes.TIPO);
             
-            public static final MetodoApi METODO_TIPOS_ANOMALIA = new MetodoApi(TIPOS_ANOMALIAS, MetodosTiposSA.TIPOS_ANOMALIA, MetodosTiposSH.TIPOS_ANOMALIA);
-            public static final MetodoApi METODO_TIPIFICACAO_OCORRENCIA = new MetodoApi(TIPIFICACAO_OCORRENCIA, MetodosTiposSA.TIPIFICACAO_OCORRENCIA, MetodosTiposSH.TIPIFICACAO_OCORRENCIA);
+            public static final MetodoApi METODO_TIPOS_ANOMALIA = new MetodoApi(TIPOS_ANOMALIAS, MetodosTiposSA.TIPOS_ANOMALIA, MetodosTiposSH.TIPOS_ANOMALIA, Identificadores.Atualizacoes.TIPO);
+            public static final MetodoApi METODO_TIPIFICACAO_OCORRENCIA = new MetodoApi(TIPIFICACAO_OCORRENCIA, MetodosTiposSA.TIPIFICACAO_OCORRENCIA, MetodosTiposSH.TIPIFICACAO_OCORRENCIA, Identificadores.Atualizacoes.TIPO);
             
-            public static final MetodoApi METODO_TIPOS_AREA = new MetodoApi(TIPOS_AREA, null, MetodosTiposSH.TIPOS_AREA);
-            public static final MetodoApi METODO_TIPOS_CHECKLIST = new MetodoApi(TIPOS_CHECKLIST, null, MetodosTiposSH.TIPOS_CHECKLIST);
-            public static final MetodoApi METODO_TIPOS_ILUMINACAO = new MetodoApi(TIPOS_ILUMINACAO, null, MetodosTiposSH.TIPOS_ILUMINACAO);
-            public static final MetodoApi METODO_TIPOS_NC = new MetodoApi(TIPOS_NC, null, MetodosTiposSH.TIPOS_NC);
-            public static final MetodoApi METODO_TIPOS_ND = new MetodoApi(TIPOS_ND, null, MetodosTiposSH.TIPOS_ND);
-            public static final MetodoApi METODO_TIPOS_NE = new MetodoApi(TIPOS_NE, null, MetodosTiposSH.TIPOS_NE);
-            public static final MetodoApi METODO_TIPOS_NI = new MetodoApi(TIPOS_NI, null, MetodosTiposSH.TIPOS_NI);
-            public static final MetodoApi METODO_TIPOS_MAQUINA = new MetodoApi(TIPOS_MAQUINA, null, MetodosTiposSH.TIPOS_MAQUINA);
-            public static final MetodoApi METODO_TIPOS_UTS = new MetodoApi(TIPOS_UTS, null, MetodosTiposSH.TIPOS_UTS);
-            public static final MetodoApi METODO_TIPOS_VULNERABILIDADES = new MetodoApi(TIPOS_VULNERABILIDADES, null, MetodosTiposSH.TIPOS_VULNERABILIDADES);
+            public static final MetodoApi METODO_TIPOS_AREA = new MetodoApi(TIPOS_AREA, null, MetodosTiposSH.TIPOS_AREA, Identificadores.Atualizacoes.TIPO);
+            public static final MetodoApi METODO_TIPOS_CHECKLIST = new MetodoApi(TIPOS_CHECKLIST, null, MetodosTiposSH.TIPOS_CHECKLIST, Identificadores.Atualizacoes.TIPO);
+            public static final MetodoApi METODO_TIPOS_ILUMINACAO = new MetodoApi(TIPOS_ILUMINACAO, null, MetodosTiposSH.TIPOS_ILUMINACAO, Identificadores.Atualizacoes.TIPO);
+            public static final MetodoApi METODO_TIPOS_NC = new MetodoApi(TIPOS_NC, null, MetodosTiposSH.TIPOS_NC, Identificadores.Atualizacoes.TIPO);
+            public static final MetodoApi METODO_TIPOS_ND = new MetodoApi(TIPOS_ND, null, MetodosTiposSH.TIPOS_ND, Identificadores.Atualizacoes.TIPO);
+            public static final MetodoApi METODO_TIPOS_NE = new MetodoApi(TIPOS_NE, null, MetodosTiposSH.TIPOS_NE, Identificadores.Atualizacoes.TIPO);
+            public static final MetodoApi METODO_TIPOS_NI = new MetodoApi(TIPOS_NI, null, MetodosTiposSH.TIPOS_NI, Identificadores.Atualizacoes.TIPO);
+            public static final MetodoApi METODO_TIPOS_MAQUINA = new MetodoApi(TIPOS_MAQUINA, null, MetodosTiposSH.TIPOS_MAQUINA, Identificadores.Atualizacoes.TIPO);
+            public static final MetodoApi METODO_TIPOS_UTS = new MetodoApi(TIPOS_UTS, null, MetodosTiposSH.TIPOS_UTS, Identificadores.Atualizacoes.TIPO);
+            public static final MetodoApi METODO_TIPOS_VULNERABILIDADES = new MetodoApi(TIPOS_VULNERABILIDADES, null, MetodosTiposSH.TIPOS_VULNERABILIDADES, Identificadores.Atualizacoes.TIPO);
 
 
 
 
             public static final MetodoApi TIPOS [] = new MetodoApi []{
 
+                    /*
                     METODO_ATIVIDADES_RELATORIO_VISITA,
 
                     METODO_CATEGORIAS_PROFISSIONAIS,
                     METODO_CONDICOES_CLIMATERICAS,
                     METODO_CONCLUSAO_MEDIDAS_RECOMENDADAS,
+*/
 
-
-
-
-
-                    /**/
                     METODO_CROSS_SELLING_PRODUTOS,
                     METODO_CROSS_SELLING_DIMENSAO,
                     METODO_CROSS_SELLING_TIPO,
+
                     METODO_CURSOS,
-
-
-
-
+/*
                     METODO_FRASES_APOIO,
 
                     METODO_ILUMINANCIA,
@@ -256,19 +252,12 @@ public class TiposUtil {
                     METODO_RISCOS_ESPECIFICOS,
 
                     METODO_TEMPLATE_AVALIACAO_RISCOS,
+*/
 
-
-
-
-
-                    /**/
                     METODO_TIPOS_ANOMALIA,
                     METODO_TIPIFICACAO_OCORRENCIA,
+/*
 
-
-
-
-                    
                     METODO_TIPOS_AREA,
                     METODO_TIPOS_CHECKLIST,
                     METODO_TIPOS_ILUMINACAO,
@@ -279,6 +268,7 @@ public class TiposUtil {
                     METODO_TIPOS_MAQUINA,
                     METODO_TIPOS_UTS,
                     METODO_TIPOS_VULNERABILIDADES
+                    */
             };
         }
     }
@@ -437,27 +427,38 @@ public class TiposUtil {
         
         List<MetodoApi> registos = new ArrayList<>();
 
-        for (Atualizacao item : atualizacoes) {
-
-            try {
-
-                MetodoApi registo = obterMetodos(item.descricao);
-                registo.seloTemporal = item.seloTemporal;
-                registo.tipo = item.tipo;
-                registos.add(registo);
-
-            } catch (TipoInexistenteException e) {
-                e.printStackTrace();
-            }
-
-        }
-        
         if(registos.size() == 0){
-            List<MetodoApi> tipos = new LinkedList(Arrays.asList(MetodosTipos.Tipos.TIPOS));
-            tipos.addAll(new LinkedList(Arrays.asList(MetodosTipos.TemplateAvr.TIPOS)));
-            tipos.addAll(new LinkedList(Arrays.asList(MetodosTipos.AtividadesPlaneaveis.TIPOS)));
-            return tipos;
+            registos = new LinkedList(Arrays.asList(MetodosTipos.Tipos.TIPOS));
+
+            //TODO: para SH
+            //tipos.addAll(new LinkedList(Arrays.asList(MetodosTipos.TemplateAvr.TIPOS)));
+            //tipos.addAll(new LinkedList(Arrays.asList(MetodosTipos.AtividadesPlaneaveis.TIPOS)));
         }
+
+        for(int index = 0; index < registos.size(); ++index) {
+
+            for (Atualizacao item : atualizacoes) {
+
+                if(registos.get(index).tipo == item.tipo && registos.get(index).descricao.equals(item.descricao)) {
+
+                    try {
+                        MetodoApi registo = obterMetodos(item.descricao);
+                        registos.get(index).seloTemporal = item.seloTemporal;
+//                        MetodoApi registo = obterMetodos(item.descricao);
+//                        registo.seloTemporal = item.seloTemporal;
+//                        registo.tipo = item.tipo;
+//                        registos.add(registo);
+
+                    } catch (TipoInexistenteException e) {
+                        e.printStackTrace();
+                    }
+
+                    break;
+                }
+
+            }
+        }
+
 
         return registos;
     }
@@ -469,10 +470,11 @@ public class TiposUtil {
         public String seloTemporal = "";
         public int tipo;
 
-        public MetodoApi(String descricao, String sa, String sht) {
+        public MetodoApi(String descricao, String sa, String sht, int tipo) {
             this.descricao = descricao;
             this.sht = sht;
             this.sa = sa;
+            this.tipo = tipo;
         }
 
         public boolean registado(String metodo) throws TipoInexistenteException{

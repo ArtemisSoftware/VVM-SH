@@ -191,12 +191,12 @@ public interface UploadMapping {
     @Mapping(target = "dadosFormulario", source = "dados")
     @Mapping(target = "novasMaquinas", source = "equipamentos")
     @Mapping(target = "versaoApp", source = "versao")
-    @Mapping(target = "numeroFicheiroImagens", source = "idBloco")
-    BlocoDados map(DadosUpload dadosUpload);
+    @Mapping(target = "numeroFicheiroImagens", source = "numeroFicheirosImagens")
+    BlocoDados mapDadosSH(DadosUpload dadosUpload);
 
     @Mapping(target = "dadosFormulario", source = "dados")
     @Mapping(target = "versaoApp", source = "versao")
-    @Mapping(target = "numeroFicheiroImagens", source = "idBloco")
+    @Mapping(target = "numeroFicheiroImagens", source = "numeroFicheirosImagens")
     BlocoDados mapDadosSA(DadosUpload dadosUpload);
 
 

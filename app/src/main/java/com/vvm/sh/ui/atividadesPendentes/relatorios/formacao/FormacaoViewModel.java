@@ -1,4 +1,4 @@
-package com.vvm.sh.ui.atividadesPendentes.relatorios;
+package com.vvm.sh.ui.atividadesPendentes.relatorios.formacao;
 
 import androidx.lifecycle.MutableLiveData;
 
@@ -11,6 +11,7 @@ import com.vvm.sh.baseDados.entidades.Resultado;
 import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.formacao.modelos.AcaoFormacao;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.formacao.modelos.Formando;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.lolo;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.ResultadoId;
 import com.vvm.sh.util.constantes.Identificadores;

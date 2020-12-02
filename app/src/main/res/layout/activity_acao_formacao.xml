@@ -13,7 +13,7 @@
 
         <variable
             name="viewmodel"
-            type="com.vvm.sh.ui.atividadesPendentes.relatorios.FormacaoViewModel"/>
+            type="com.vvm.sh.ui.atividadesPendentes.relatorios.formacao.FormacaoViewModel"/>
 
         <variable
             name="bloquear"

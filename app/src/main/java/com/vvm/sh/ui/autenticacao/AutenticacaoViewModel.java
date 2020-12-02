@@ -122,7 +122,7 @@ public class AutenticacaoViewModel extends BaseViewModel {
 
                             @Override
                             public void onError(Throwable e) {
-                                messagemLiveData.setValue(Recurso.erro(e.getMessage()));
+                                formatarErro(e);
                                 showProgressBar(false);
                             }
                         }

@@ -59,16 +59,16 @@ public class DadosUploadSAAsyncTask extends DadosUploadAsyncTask {
 
                 AtividadePendenteExecutada registo = UploadSAMapping.INSTANCE.mapAtividadeExecutada(item);
 
-//                switch (item.atividade.idRelatorio){
-//
-//                    case Identificadores.Relatorios.ID_RELATORIO_FORMACAO:
-//
-//                        registo.formacao = obterAcaoFormacao(item.resultado.id);
-//                        break;
+                switch (item.atividade.idRelatorio){
 
-//                    default:
-//                        break;
-//                }
+                    case Identificadores.Relatorios.ID_RELATORIO_FORMACAO:
+
+                        registo.formacao = obterAcaoFormacao(item.resultado.id);
+                        break;
+
+                    default:
+                        break;
+                }
 
 
                 registos.add(registo);

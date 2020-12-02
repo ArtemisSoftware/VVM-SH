@@ -200,6 +200,11 @@ public class TiposRepositorio {
     }
 
 
+    public Single<ITipoChecklist> obterChecklist(ResumoChecklist resumo)  {
+        return apiST.obterChecklist(SegurancaTrabalhoApi.HEADER_TIPO, resumo.checkList.id + "");
+    }
+
+
 
     //------------
     //Checklist
@@ -341,7 +346,17 @@ public class TiposRepositorio {
      * Metodo que permite obter as atualizacoes
      * @return uma lista de atualizacoes
      */
-    public Maybe<AtualizacaoTipos> obterAtualizacoes() {
+    public Maybe<AtualizacaoTipos> obterAtualizacoes(boolean primeiraUtilizacao) {
+
+        if(primeiraUtilizacao == true){
+
+            AtualizacaoTipos atualizacaoTipos = new AtualizacaoTipos();
+            atualizacaoTipos.atualizacoes = TiposUtil.fixarSeloTemporal(new ArrayList<>());
+            atualizacaoTipos.tiposNovos = new ArrayList<>();
+
+            return Maybe.just(atualizacaoTipos);
+
+        }
 
         return Maybe.zip(
                 atualizacaoDao.obterAtualizacoes(Identificadores.Atualizacoes.TIPO),
@@ -353,8 +368,10 @@ public class TiposRepositorio {
                     @Override
                     public AtualizacaoTipos apply(List<Atualizacao> atualizacaos, List<Atualizacao> atualizacaos2, List<Atualizacao> atualizacaos3, List<TipoNovo> tipoNovos) throws Exception {
                         List<TiposUtil.MetodoApi> atualizacoes = TiposUtil.fixarSeloTemporal(atualizacaos);
-                        atualizacoes.addAll(TiposUtil.fixarSeloTemporal(atualizacaos2));
-                        atualizacoes.addAll(TiposUtil.fixarSeloTemporal(atualizacaos3));
+
+                        //TODO: para sh
+                        //atualizacoes.addAll(TiposUtil.fixarSeloTemporal(atualizacaos2));
+                        //atualizacoes.addAll(TiposUtil.fixarSeloTemporal(atualizacaos3));
 
                         AtualizacaoTipos atualizacaoTipos = new AtualizacaoTipos();
                         atualizacaoTipos.atualizacoes = atualizacoes;

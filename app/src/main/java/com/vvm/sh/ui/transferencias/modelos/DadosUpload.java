@@ -70,7 +70,7 @@ public class DadosUpload {
 
     public void formatarDados(){
 
-        if(AppConfig.sa == false) { //TODO:só para sh
+        if(AppConfig.APP_MODO == AppConfig.APP_SHT) { //TODO:só para sh
 
                 for (int index = 0; index < dados.size(); ++index) {
                     dados.get(index).numeroFicheirosFotos = numeroFicheirosImagens + "";
@@ -79,7 +79,7 @@ public class DadosUpload {
         }
 
         Gson gson = new Gson();
-        BlocoDados registoDados = UploadMapping.INSTANCE.map(this);
+        BlocoDados registoDados = UploadMapping.INSTANCE.mapDadosSH(this);
         String dados = gson.toJson(registoDados);
 
         try {
@@ -107,7 +107,7 @@ public class DadosUpload {
             BlocoImagens registoImagem = new BlocoImagens();
             registoImagem.dadosImagens = imagens.get(index);
             String blocoImagem = gson.toJson(registoImagem);
-            messageDigest = Hasher.Companion.hash(blocoImagem, HashType.MD5);
+            String messageDigest = Hasher.Companion.hash(blocoImagem, HashType.MD5);
 
             dadosImagems.add(new DadosImagem(blocoImagem, messageDigest, index + 1));
         }

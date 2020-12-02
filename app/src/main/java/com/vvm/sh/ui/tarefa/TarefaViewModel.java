@@ -575,9 +575,9 @@ public class TarefaViewModel extends BaseViewModel {
 
         List<Tipo> items = new ArrayList<>();
 
-        items.add(TiposConstantes.Email.EMAIL_CLIENTE_NAO_TEM_EMAIL);
         items.add(TiposConstantes.Email.EMAIL_AUTORIZADO);
         items.add(TiposConstantes.Email.EMAIL_NAO_AUTORIZADO);
+        items.add(TiposConstantes.Email.EMAIL_CLIENTE_NAO_TEM_EMAIL);
 
         opcoesEmail.setValue(items);
     }

@@ -1,10 +1,13 @@
 package com.vvm.sh.di;
 
 
+import android.app.Application;
+
 import com.vvm.sh.api.ApiConstantes;
 import com.vvm.sh.api.SegurancaAlimentarApi;
 import com.vvm.sh.api.SegurancaHigieneApi;
 import com.vvm.sh.api.SegurancaTrabalhoApi;
+import com.vvm.sh.util.interceptores.LigacaoInternetInterceptor;
 import com.vvm.sh.util.interceptores.WebServiceInterceptor;
 
 import java.util.concurrent.TimeUnit;
@@ -26,19 +29,19 @@ public class RedeModule {
 
     @Provides
     @Singleton
-    OkHttpClient provideOkHttpClient() {
+    OkHttpClient provideOkHttpClient(Application application) {
 
         HttpLoggingInterceptor loggingInterceptor = new HttpLoggingInterceptor();
         loggingInterceptor.setLevel(HttpLoggingInterceptor.Level.BODY);
 
 
         WebServiceInterceptor webServiceInterceptor = new WebServiceInterceptor();
-
+        LigacaoInternetInterceptor ligacaoInternetInterceptor = new LigacaoInternetInterceptor(application);
 
         OkHttpClient client = new OkHttpClient.Builder()
 
                 .addInterceptor(loggingInterceptor)
-
+                .addInterceptor(ligacaoInternetInterceptor)
                 .addInterceptor(webServiceInterceptor)
 
                 //establish connection to server
@@ -51,11 +54,9 @@ public class RedeModule {
                 .writeTimeout(ApiConstantes.WRITE_TIMEOUT, TimeUnit.SECONDS)
 
                 .retryOnConnectionFailure(false)
-                //.addInterceptor(new UrlInterceptor())
                 .build();
 
 
-        //Timber.d("Providing OkHttpClient: " + client);
         return client;
     }
 
@@ -74,7 +75,6 @@ public class RedeModule {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        //Timber.d("Providing retrofit: " + retrofit);
         return retrofit;
     }
 

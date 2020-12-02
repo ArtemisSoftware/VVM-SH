@@ -240,7 +240,7 @@ public abstract class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void
      * @param idAtividade o identificador da atividade
      * @return uma acao de formacao
      */
-    private AcaoFormacao obterAcaoFormacao(int idAtividade){
+    protected AcaoFormacao obterAcaoFormacao(int idAtividade){
 
         AcaoFormacao acaoFormacao = UploadMapping.INSTANCE.map(repositorio.obterAcaoFormacao(idAtividade));
 

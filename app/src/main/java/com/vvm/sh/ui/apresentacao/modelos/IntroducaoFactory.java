@@ -55,7 +55,7 @@ public class IntroducaoFactory {
 
             case Identificadores.ApresentacaoApp.TIPO_APRESENTACAO:
 
-                return new Introducao(Sintaxe.Palavras.APRESENTACAO, texto, R.mipmap.ic_launcher);
+                return new Introducao(Sintaxe.Palavras.APRESENTACAO, texto, R.drawable.ic_app_logo_1);
 
 
             case Identificadores.ApresentacaoApp.TIPO_CORRECAO:

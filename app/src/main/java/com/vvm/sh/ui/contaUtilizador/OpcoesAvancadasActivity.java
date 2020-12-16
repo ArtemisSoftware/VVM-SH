@@ -44,6 +44,8 @@ public class OpcoesAvancadasActivity extends BaseActivity {
         if(spnr_ficheiros_bd.getItems().size() > 0){
             btn_importar_bd.setEnabled(true);
         }
+
+
     }
 
 

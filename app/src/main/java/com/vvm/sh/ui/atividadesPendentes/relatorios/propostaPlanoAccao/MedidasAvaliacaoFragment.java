@@ -16,7 +16,6 @@ import com.vvm.sh.R;
 import com.vvm.sh.databinding.FragmentPropostaMedidasAvaliacaoBinding;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.propostaPlanoAccao.adaptadores.OnPropostaPlanoAcaoListener;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.propostaPlanoAccao.modelos.Proposta;
-import com.vvm.sh.util.interfaces.OnCheckBoxItemListener;
 
 import java.util.List;
 

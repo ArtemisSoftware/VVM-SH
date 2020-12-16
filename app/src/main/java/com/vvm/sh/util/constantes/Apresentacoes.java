@@ -7,7 +7,7 @@ import static com.vvm.sh.util.constantes.Identificadores.ApresentacaoApp.*;
 
 
 /**
- * Classe que contem as apresentações que devem aparecer quando a api é atualizada
+ * Classe que contem as apresentações que devem aparecer quando a app é atualizada
  */
 public class Apresentacoes {
 

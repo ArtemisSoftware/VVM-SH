@@ -11,7 +11,6 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.vvm.sh.R;
 import com.vvm.sh.databinding.ItemOpcaoClienteBinding;
 import com.vvm.sh.ui.tarefa.modelos.OpcaoCliente;
-import com.vvm.sh.util.interfaces.OnItemListener;
 
 import java.util.ArrayList;
 import java.util.List;

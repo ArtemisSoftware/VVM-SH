@@ -7,6 +7,11 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
 
+    <uses-permission android:name="android.permission.REQUEST_INSTALL_PACKAGES"/>
+
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.WRITE_INTERNAL_STORAGE" />
+
     <application
         android:name=".App"
         android:allowBackup="false"
@@ -125,16 +130,20 @@
         <activity
             android:name=".ui.autenticacao.CarregamentoActivity"
             android:screenOrientation="portrait" />
-        <activity android:name=".ui.ocorrencias.OcorrenciasHistoricoActivity" />
-        <activity android:name=".ui.opcoes.AtualizacaoAppActivity" />
-        <activity android:name=".ui.contaUtilizador.OpcoesAvancadasActivity" />
-        <activity android:name=".ui.transferencias.DownloadTrabalhoActivity" />
-        <activity android:name=".ui.contaUtilizador.DefinicoesActivity" />
-        <activity
-            android:name=".ui.AssinaturaActivity"
+        <activity android:name=".ui.ocorrencias.OcorrenciasHistoricoActivity"
+            android:screenOrientation="portrait" />
+        <activity android:name=".ui.opcoes.AtualizacaoAppActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.contaUtilizador.OpcoesAvancadasActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.transferencias.DownloadTrabalhoActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.contaUtilizador.DefinicoesActivity"
+            android:screenOrientation="portrait"/>
+        <activity android:name=".ui.AssinaturaActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity
-            android:name=".ui.opcoes.TiposActivity"
+        <activity android:name=".ui.opcoes.TiposActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.autenticacao.PerfilActivity"
@@ -148,15 +157,19 @@
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.atividadesPendentes.relatorios.FormandoActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.atividadesPendentes.relatorios.AcaoFormacaoActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.atividadesPendentes.relatorios.FormacaoActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.ocorrencias.RegistarOcorrenciaActivity"
+            android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
         <activity
             android:name=".ui.ocorrencias.OcorrenciasRegistoActivity"

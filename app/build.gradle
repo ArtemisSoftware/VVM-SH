@@ -200,7 +200,7 @@ dependencies {
     def flashbar_version = "1.0.3"
     implementation "com.andrognito.flashbar:flashbar:$flashbar_version"
 
-    implementation files('libs/ksoap2-android-2.5.2.jar')
+    //implementation files('libs/ksoap2-android-2.5.2.jar')
 
 
 }

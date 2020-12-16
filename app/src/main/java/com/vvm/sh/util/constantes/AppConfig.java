@@ -5,9 +5,9 @@ public class AppConfig {
 
     /**
      * Quando a true <br>
-     *     o email é sempre enviado para o administrador
+     *     o email do registo de visita é sempre enviado para o administrador
      */
-    public static final boolean VERSAO_TESTE = true;
+    public static final boolean VERSAO_TESTE = false;
 
     public static final String MIME_VERSAO_APP = "application/vnd.android.package-archive";
     /*

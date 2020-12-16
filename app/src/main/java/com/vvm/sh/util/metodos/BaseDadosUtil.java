@@ -1,7 +1,12 @@
 package com.vvm.sh.util.metodos;
 
 import android.app.Activity;
+import android.content.Context;
+import android.database.sqlite.SQLiteDatabase;
+import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Environment;
+
+import androidx.core.content.ContextCompat;
 
 import com.vvm.sh.baseDados.BaseDadosContantes;
 import com.vvm.sh.util.constantes.Sintaxe;
@@ -9,6 +14,9 @@ import com.vvm.sh.util.constantes.Sintaxe;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.nio.ByteBuffer;
 import java.nio.channels.FileChannel;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -18,22 +26,25 @@ import java.util.List;
 public class BaseDadosUtil {
 
 
+
+
     /**
      * Metodo que permite exportar a base de dados da aplicação
      * @param atividade
      */
     public static File exportarBaseDados(Activity atividade) {
 
-
         String nomeCopia = BaseDadosContantes.NOME + "__" + PreferenciasUtil.obterIdUtilizador(atividade) + "_vdb_" + BaseDadosContantes.VERSAO + "__" + DatasUtil.obterDataAtual(DatasUtil.FORMATO_FICHEIRO_BD)  + BaseDadosContantes.EXTENSAO;
 
+        //TODO: exportacao não está a correr bem
         try {
             File storageDirectory = Environment.getExternalStorageDirectory();
 
             if (storageDirectory.canWrite()) {
 
-                String caminhoBdAtual = "/data/data/" + atividade.getPackageName() + "//databases//" + BaseDadosContantes.NOME;
-                File bdAtual = new File(caminhoBdAtual);
+                String caminhoBdAtual = "/data/data/" + atividade.getPackageName() + "/databases/" + BaseDadosContantes.NOME; //"//databases//"
+                File bdAtual = atividade.getDatabasePath(BaseDadosContantes.NOME);//new File(caminhoBdAtual);
+
 
                 String caminhoBdCopia = DiretoriasUtil.BASE_DADOS + File.separator + nomeCopia;
                 File bdCopia = new File(storageDirectory, caminhoBdCopia);
@@ -42,6 +53,7 @@ public class BaseDadosUtil {
                 if (bdAtual.exists() & copiaCriada) {
                     FileChannel origem = new FileInputStream(bdAtual).getChannel();
                     FileChannel destino = new FileOutputStream(bdCopia).getChannel();
+
                     destino.transferFrom(origem, 0, origem.size());
                     origem.close();
                     destino.close();
@@ -127,5 +139,7 @@ public class BaseDadosUtil {
 
         return ficheirosBd;
     }
+
+
 
 }

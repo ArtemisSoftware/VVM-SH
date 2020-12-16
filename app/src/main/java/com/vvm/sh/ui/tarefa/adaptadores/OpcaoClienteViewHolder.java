@@ -7,9 +7,6 @@ import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.vvm.sh.databinding.ItemOpcaoClienteBinding;
-import com.vvm.sh.util.adaptadores.Item;
-import com.vvm.sh.util.adaptadores.ItemViewHolder;
-import com.vvm.sh.util.interfaces.OnItemListener;
 
 public class OpcaoClienteViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 

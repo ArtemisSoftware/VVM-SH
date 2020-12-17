@@ -131,6 +131,11 @@ public class CarregarTrabalhoAsyncTask extends AsyncTask<ISessao, Void, Void> {
      */
     protected void inserirTarefas(String data, ISessao.TrabalhoInfo info) {
 
+        //se não houver atividades pendentes a tarefa não deve ser inserida
+        if(info.tarefas.atividadesPendentes.size() == 0){
+            return;
+        }
+
 
         int idTarefa = inserirTarefa (info.tarefas.dados, data);
 

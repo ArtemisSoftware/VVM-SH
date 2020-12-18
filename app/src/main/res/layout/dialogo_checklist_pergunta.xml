@@ -48,9 +48,8 @@
                 android:id="@+id/spnr_resposta"
                 tipos_="@{viewmodel.respostas}"
                 android:layout_width="400dp"
-                app:popupTextAlignment="start"
                 android:layout_height="wrap_content"
-                android:prompt="@string/resposta"/>
+                android:hint="@string/resposta"/>
 
 
             <LinearLayout
@@ -73,9 +72,8 @@
                     tipos_="@{viewmodel.tiposNi}"
 
                     android:layout_width="400dp"
-                    app:popupTextAlignment="start"
                     android:layout_height="wrap_content"
-                    android:prompt="@string/anomalia"/>
+                    android:hint="@string/anomalia"/>
 
             </LinearLayout>
 
@@ -131,9 +129,8 @@
                 tipos_="@{viewmodel.tiposUts}"
 
                 android:layout_width="400dp"
-                app:popupTextAlignment="start"
                 android:layout_height="wrap_content"
-                android:prompt="@string/ut"/>
+                android:hint="@string/ut"/>
 
 
             <TextView
@@ -150,9 +147,8 @@
                 tipos_="@{viewmodel.tiposCategoriasRisco}"
 
                 android:layout_width="400dp"
-                app:popupTextAlignment="start"
                 android:layout_height="wrap_content"
-                android:prompt="@string/resposta"/>
+                android:hint="@string/resposta"/>
 
 
 

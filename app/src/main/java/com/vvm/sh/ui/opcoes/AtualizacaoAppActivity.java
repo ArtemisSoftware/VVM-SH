@@ -17,6 +17,7 @@ import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.pesquisa.PesquisaActivity;
 import com.vvm.sh.ui.pesquisa.modelos.Pesquisa;
 import com.vvm.sh.util.AtualizacaoUI;
+import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.interfaces.OnPermissaoConcedidaListener;
@@ -35,10 +36,6 @@ public class AtualizacaoAppActivity extends BaseDaggerActivity {
 
     private ActivityAtualizacaoAppBinding activityAtualizacaoAppBinding;
 
-    @Inject
-    ViewModelProviderFactory providerFactory;
-
-
     private OpcoesViewModel viewModel;
 
 
@@ -46,7 +43,7 @@ public class AtualizacaoAppActivity extends BaseDaggerActivity {
     @Override
     protected void intActivity(Bundle savedInstanceState) {
 
-        viewModel = ViewModelProviders.of(this, providerFactory).get(OpcoesViewModel.class);
+        viewModel = ViewModelProviders.of(this, providerFactory_).get(OpcoesViewModel.class);
 
         activityAtualizacaoAppBinding = (ActivityAtualizacaoAppBinding) activityBinding;
         activityAtualizacaoAppBinding.setLifecycleOwner(this);
@@ -79,6 +76,27 @@ public class AtualizacaoAppActivity extends BaseDaggerActivity {
                 }
             }
         });
+
+
+        viewModel.observarMessagem().observe(this, new Observer<Recurso>() {
+            @Override
+            public void onChanged(Recurso recurso) {
+
+                switch (recurso.status){
+
+
+                    case ERRO:
+
+                        dialogo.erro(recurso.messagem, (String) recurso.dados);
+                        break;
+
+                    default:
+                        break;
+                }
+
+            }
+        });
+
     }
 
 

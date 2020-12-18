@@ -3,7 +3,7 @@ package com.vvm.sh;
 import android.app.NotificationManager;
 import android.os.Build;
 
-import com.facebook.stetho.Stetho;
+//import com.facebook.stetho.Stetho;
 import com.vvm.sh.di.DaggerAppComponent;
 import com.vvm.sh.util.metodos.NotificacaoUtil;
 
@@ -16,7 +16,7 @@ public class App extends DaggerApplication {
     @Override
     public void onCreate() {
         super.onCreate();
-        Stetho.initializeWithDefaults(this);
+        //Stetho.initializeWithDefaults(this);
 
         criarCanaisNotificacao();
     }

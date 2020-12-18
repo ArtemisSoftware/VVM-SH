@@ -13,8 +13,6 @@ import com.vvm.sh.ui.crossSelling.adaptadores.OnCrossSellingListener;
 import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.ui.crossSelling.modelos.CrossSelling;
 
-import org.angmarch.views.NiceSpinner;
-import org.angmarch.views.SpinnerTextFormatter;
 
 import java.util.List;
 

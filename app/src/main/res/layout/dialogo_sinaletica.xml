@@ -43,9 +43,8 @@
             android:id="@+id/spnr_dimensao"
             app:tipos_="@{viewmodel.dimensoes}"
             android:layout_width="400dp"
-            app:popupTextAlignment="start"
             android:layout_height="wrap_content"
-            android:prompt="@string/anomalia"/>
+            android:hint="@string/anomalia"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -59,9 +58,8 @@
             android:id="@+id/spnr_tipos"
             app:tipos_="@{viewmodel.tipos}"
             android:layout_width="400dp"
-            app:popupTextAlignment="start"
             android:layout_height="wrap_content"
-            android:prompt="@string/anomalia"/>
+            android:hint="@string/anomalia"/>
 
 
 

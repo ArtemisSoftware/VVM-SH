@@ -681,8 +681,11 @@ public class CarregarTrabalhoAsyncTask extends AsyncTask<ISessao, Void, Void> {
         if(atividadePendente.relatorioAvaliacaoRisco == 1){
             return Identificadores.Relatorios.ID_RELATORIO_AVALIACAO_RISCO;
         }
-        if(atividadePendente.verificacao.equals("arpt") == true){
-            return Identificadores.Relatorios.ID_RELATORIO_AVERIGUACAO_AVALIACAO_RISCO;
+
+        if(atividadePendente.verificacao != null) {
+            if (atividadePendente.verificacao.equals("arpt") == true) {
+                return Identificadores.Relatorios.ID_RELATORIO_AVERIGUACAO_AVALIACAO_RISCO;
+            }
         }
 
         return Identificadores.Relatorios.SEM_RELATORIO;

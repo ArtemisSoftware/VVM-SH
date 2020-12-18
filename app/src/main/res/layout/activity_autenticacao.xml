@@ -8,6 +8,8 @@
 
     <data>
 
+        <import type="com.vvm.sh.BuildConfig"/>
+        <import type="android.view.View"/>
         <import type="java.util.List"/>
         <import type="com.vvm.sh.baseDados.entidades.Utilizador"/>
 
@@ -78,6 +80,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="16dp"
                     android:orientation="vertical"
+                    android:visibility="@{BuildConfig.DEBUG ? View.VISIBLE : View.GONE}"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toBottomOf="@+id/textView6">
 
@@ -93,7 +96,7 @@
                         app:utilizadores="@{utilizadoresTestes}"
                         android:layout_width="450dp"
                         android:layout_height="wrap_content"
-                        app:popupTextAlignment="start"
+                        android:textAlignment="viewStart"
                         android:hint="@string/utilizadores_teste"/>
 
                 </LinearLayout>

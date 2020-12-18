@@ -86,8 +86,8 @@ public class VersaoApp {
 
         try{
 
-            int versaoInt = Integer.parseInt(versao.replace( " Teste", "").replace(".", ""));
-            int versaoAtual = Integer.parseInt(BuildConfig.VERSION_NAME.replace(".", ""));
+            int versaoInt = Integer.parseInt(formatarVersao(versao));
+            int versaoAtual = Integer.parseInt(formatarVersao(BuildConfig.VERSION_NAME));
 
             if(versaoInt > versaoAtual){
                 atualizar = true;
@@ -101,6 +101,25 @@ public class VersaoApp {
 
 
 
+    private String formatarVersao(String versao){
+
+        String versaoFormatada = "";
+        String resultado [] = versao.replace( " Teste", "").split("\\.");
+
+        for(int index = 0; index < resultado.length; ++index){
+            if(resultado[index].length() == 1){
+                versaoFormatada = versaoFormatada + "0" + resultado[index];
+            }
+            else{
+                versaoFormatada = versaoFormatada + resultado[index];
+            }
+        }
+
+        if(versaoFormatada.equals("") == true){
+            return "0";
+        }
+        return versaoFormatada;
+    }
 
 
 }

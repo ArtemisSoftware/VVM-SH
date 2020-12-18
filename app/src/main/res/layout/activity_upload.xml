@@ -90,7 +90,6 @@
                         android:layout_height="wrap_content"
                         android:max="100"
                         android:progress="0"
-                        app:layout_constraintBottom_toTopOf="@+id/button"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
                         app:layout_constraintTop_toTopOf="parent"
@@ -101,7 +100,6 @@
                         style="@style/textoDetalhe"
                         android:layout_marginTop="8dp"
                         android:layout_marginBottom="64dp"
-                        app:layout_constraintBottom_toTopOf="@+id/button"
                         app:layout_constraintStart_toStartOf="@+id/progressBar_progresso"
                         app:layout_constraintTop_toBottomOf="@+id/progressBar_progresso"
                         app:layout_constraintVertical_bias="0.07999998" />
@@ -142,10 +140,10 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
             android:verticalSpacing="24dp"
-            app:layout_constraintEnd_toEndOf="@+id/imageView"
+            android:visibility="@{viewmodel.uploads.size() > 0 ? View.VISIBLE : View.GONE}"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/card"
             app:layout_constraintTop_toBottomOf="@+id/txt_sub_titulo"
-            android:visibility="@{viewmodel.uploads.size() > 0 ? View.VISIBLE : View.GONE}"
             app:uploads="@{viewmodel.uploads}"
             tools:listitem="@layout/item_upload" />
 
@@ -156,10 +154,10 @@
             android:layout_marginTop="16dp"
             android:verticalSpacing="24dp"
             android:visibility="@{viewmodel.pendencias.size() > 0 ? View.VISIBLE : View.GONE}"
-            app:pendencias="@{viewmodel.pendencias}"
-            app:layout_constraintEnd_toEndOf="@+id/imageView"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="@+id/card"
             app:layout_constraintTop_toBottomOf="@+id/txt_sub_titulo"
+            app:pendencias="@{viewmodel.pendencias}"
             tools:listitem="@layout/item_pendencia" />
 
 

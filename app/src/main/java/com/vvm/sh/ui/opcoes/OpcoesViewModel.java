@@ -706,6 +706,7 @@ public class OpcoesViewModel extends BaseViewModel {
                             public void onError(Throwable e) {
 
                                 showProgressBar(false);
+                                formatarErro(e);
                             }
                         }
                 );

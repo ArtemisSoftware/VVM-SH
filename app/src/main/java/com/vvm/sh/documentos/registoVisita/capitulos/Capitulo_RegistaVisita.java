@@ -70,7 +70,7 @@ public class Capitulo_RegistaVisita extends Chapter {
 
             case Pdf.Seccoes.ID_HOMOLOGACAO:
 
-                section = new Homologacao(contexto);
+                section = new Homologacao(contexto, registoVisita.dadosCliente);
                 break;
 
 

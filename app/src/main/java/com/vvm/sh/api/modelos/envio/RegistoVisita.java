@@ -25,4 +25,7 @@ public class RegistoVisita {
     @SerializedName("data")
     public String data;
 
+    @SerializedName("homologado")
+    public boolean homologado;
+
 }

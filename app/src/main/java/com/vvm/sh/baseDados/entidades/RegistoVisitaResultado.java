@@ -9,6 +9,7 @@ import androidx.room.Ignore;
 import androidx.room.Index;
 import androidx.room.PrimaryKey;
 
+import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.constantes.Sintaxe;
 
 import static androidx.room.ForeignKey.CASCADE;
@@ -33,23 +34,26 @@ public class RegistoVisitaResultado {
 
     public String observacao;
 
+    @NonNull
+    @ColumnInfo(name = "homologado", defaultValue = Identificadores.VALOR_INT_0 + "")
+    public boolean homologado;
+
 
     @NonNull
     @ColumnInfo(name = "sincronizacao", defaultValue = Sintaxe.Codigos.NAO_SELECIONADO)
     public boolean sincronizacao;
 
 
-    @Ignore
-    public RegistoVisitaResultado(int idTarefa, @NonNull String recebidoPor, @NonNull String funcao) {
-        this.idTarefa = idTarefa;
-        this.recebidoPor = recebidoPor;
-        this.funcao = funcao;
-    }
 
-    public RegistoVisitaResultado(int idTarefa, @NonNull String recebidoPor, @NonNull String funcao, String observacao) {
+    public RegistoVisitaResultado(int idTarefa, @NonNull String recebidoPor, @NonNull String funcao, String observacao, @NonNull boolean homologado) {
         this.idTarefa = idTarefa;
         this.recebidoPor = recebidoPor;
         this.funcao = funcao;
-        this.observacao = observacao;
+
+        if(observacao.equals(Sintaxe.SEM_TEXTO) == false){
+            this.observacao = observacao;
+        }
+
+        this.homologado = homologado;
     }
 }

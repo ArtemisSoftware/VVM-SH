@@ -543,6 +543,7 @@ public class DadosUploadSHAsyncTask extends DadosUploadAsyncTask {
         RegistoVisita registoVisita = UploadMapping.INSTANCE.map(registo.resultado);
         Imagem imagem = new Imagem(registo.idImagem);
 
+
         registoVisita.data = DatasUtil.obterDataAtual(DatasUtil.FORMATO_DD_MM_YYYY__HH_MM);
         registoVisita.album = new ArrayList<>();
         registoVisita.album.add(imagem);

@@ -3,20 +3,25 @@ package com.vvm.sh.documentos.registoVisita.seccoes;
 import android.content.Context;
 
 import com.itextpdf.text.Element;
+import com.itextpdf.text.Font;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.Rectangle;
 import com.titan.pdfdocumentlibrary.bundle.Section;
 import com.titan.pdfdocumentlibrary.elements.CellConfiguration;
 import com.titan.pdfdocumentlibrary.elements.FontConfiguration;
 import com.titan.pdfdocumentlibrary.elements.Table;
+import com.vvm.sh.R;
+import com.vvm.sh.ui.registoVisita.modelos.DadosCliente;
 import com.vvm.sh.util.constantes.Pdf;
 
 public class Homologacao  extends Section {
 
     private Context contexto;
+    private DadosCliente dadosCliente;
 
-    public Homologacao(Context contexto) {
+    public Homologacao(Context contexto, DadosCliente dadosCliente) {
         this.contexto = contexto;
+        this.dadosCliente = dadosCliente;
     }
 
     @Override
@@ -38,7 +43,15 @@ public class Homologacao  extends Section {
         cellConfiguration.border = (Rectangle.BOTTOM | Rectangle.LEFT | Rectangle.TOP);
         cellConfiguration.height = Pdf.RegistoVisita.ALTURA_LINHA___TABELA_HOMOLOGACAO;
 
-        table.addCell(contexto.getResources(), Pdf.Imagens.IMAGEM_CHECKBOX_CINZENTA, cellConfiguration);
+
+        int homologado = Pdf.Imagens.IMAGEM_CHECKBOX_CINZENTA;
+
+        if(dadosCliente.registo.homologado == false){
+            homologado = Pdf.Imagens.IMAGEM_CHECKBOX_VAZIA_CINZENTA;
+        }
+
+
+        table.addCell(contexto.getResources(), homologado, cellConfiguration);
 
         //texto
 
@@ -50,7 +63,7 @@ public class Homologacao  extends Section {
         cellConfiguration_2.height = Pdf.RegistoVisita.ALTURA_LINHA___TABELA_HOMOLOGACAO;
 
 
-        Phrase frase = new Phrase(Pdf.Texto.HOMOLOGACAO_REGISTO_VISITA, fontConfiguration.getFont(Pdf.Fontes.FONTE_HOMOLOGACAO));
+        Phrase frase = new Phrase(contexto.getString(R.string.homologacao_registo_visita), fontConfiguration.getFont(Pdf.Fontes.FONTE_HOMOLOGACAO));
 
         table.addCell(frase, cellConfiguration_2);
         table.setBorderColor(Pdf.Cores.TINTA_BORDA_CELULA);

@@ -489,4 +489,6 @@
     <string name="seccao">Secção</string>
     <string name="argumento_id_checklist">idChecklist</string>
     <string name="formandos">Formandos</string>
+    <string name="homologacao_registo_visita">O cliente aprova o Plano de Acção das atividades de SST apresentado e entregue pelo Técnico de segurança</string>
+
 </resources>

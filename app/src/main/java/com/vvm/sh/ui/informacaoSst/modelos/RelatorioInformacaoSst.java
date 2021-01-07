@@ -4,17 +4,16 @@ import androidx.room.ColumnInfo;
 
 public class RelatorioInformacaoSst {
 
-//    @ColumnInfo(name = "clienteValido")
-//    public boolean clienteValido;
-//
-//    @ColumnInfo(name = "trabalhoValido")
-//    public boolean trabalhoValido;
-//
-//    @ColumnInfo(name = "numeroTrabalhos")
-//    public int numeroTrabalhos;
-//
-//    @ColumnInfo(name = "email")
-//    public String email;
+
+    @ColumnInfo(name = "numeroObrigacaoes")
+    public int numeroObrigacaoes;
+
+
+    @ColumnInfo(name = "obrigacaoValido")
+    public int obrigacaoValido;
+
+    @ColumnInfo(name = "email")
+    public String email;
 
     @ColumnInfo(name = "assinaturaValido")
     public boolean assinaturaValido;
@@ -22,7 +21,7 @@ public class RelatorioInformacaoSst {
     @ColumnInfo(name = "valido")
     public boolean valido;
 
-    @ColumnInfo(name = "sincronizacao")
-    public boolean sincronizacao;
+//    @ColumnInfo(name = "sincronizacao")
+//    public boolean sincronizacao;
 
 }

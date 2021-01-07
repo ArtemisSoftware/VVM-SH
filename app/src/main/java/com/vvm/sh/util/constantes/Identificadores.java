@@ -157,6 +157,7 @@ public class Identificadores {
         public static final int IMAGEM_CHECKLIST = 3;
         public static final int IMAGEM_RISCO = 4;
         public static final int IMAGEM_CAPA_RELATORIO = 5;
+        public static final int IMAGEM_ASSINATURA_INFORMACAO_SST = 6;
     }
 
     public class Resultados {

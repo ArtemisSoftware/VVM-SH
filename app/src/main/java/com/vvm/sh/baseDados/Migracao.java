@@ -31,6 +31,13 @@ public class Migracao {
 
                 database.execSQL("ALTER TABLE registoVisitaResultado ADD COLUMN homologado INTEGER NOT NULL DEFAULT " + Identificadores.VALOR_INT_0 + "");
 
+                database.execSQL("CREATE TABLE IF NOT EXISTS 'informacaoSstResultado' ("
+                        + "'idTarefa' INTEGER NOT NULL , "
+                        + "'sincronizacao' INTEGER NOT NULL DEFAULT   " + Sintaxe.Codigos.NAO_SELECIONADO + " ,  "
+                        + "PRIMARY KEY (idTarefa), "
+                        + "FOREIGN KEY (idTarefa) REFERENCES tarefas (idTarefa)  ON DELETE CASCADE) ");
+
+
                 database.execSQL("CREATE TABLE IF NOT EXISTS 'obrigacaoLegalResultado' ("
                         + "'idTarefa' INTEGER NOT NULL , "
                         + "'id' INTEGER NOT NULL, "

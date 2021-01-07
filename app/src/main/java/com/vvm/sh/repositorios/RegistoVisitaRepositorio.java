@@ -102,9 +102,7 @@ public class RegistoVisitaRepositorio {
 
 
     public Flowable<? extends Number> gravarAssinatura(ImagemResultado imagemResultado) {
-
         return Single.concat(imagemDao.remover(imagemResultado.id, imagemResultado.origem), imagemDao.inserir(imagemResultado));
-
     }
 
 

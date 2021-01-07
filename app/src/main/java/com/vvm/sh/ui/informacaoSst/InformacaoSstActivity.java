@@ -2,6 +2,7 @@ package com.vvm.sh.ui.informacaoSst;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -9,7 +10,10 @@ import android.os.Bundle;
 import android.view.View;
 
 import com.vvm.sh.R;
+import com.vvm.sh.databinding.ActivityInformacaoSstBinding;
+import com.vvm.sh.databinding.ActivityObrigacoesLegaisBinding;
 import com.vvm.sh.ui.AssinaturaActivity;
+import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.registoVisita.DadosClienteActivity;
 import com.vvm.sh.ui.registoVisita.RegistoVisitaActivity;
 import com.vvm.sh.ui.registoVisita.TrabalhoRealizadoActivity;
@@ -20,17 +24,47 @@ import com.vvm.sh.util.metodos.DiretoriasUtil;
 import com.vvm.sh.util.metodos.ImagemUtil;
 import com.vvm.sh.util.metodos.PermissoesUtil;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
+import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import butterknife.OnClick;
 
-public class InformacaoSstActivity extends AppCompatActivity {
+public class InformacaoSstActivity extends BaseDaggerActivity {
+
+    private ActivityInformacaoSstBinding activityInformacaoSstBinding;
+
+    private InformacaoSstViewModel viewModel;
+
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_informacao_sst);
+    protected void intActivity(Bundle savedInstanceState) {
+
+        viewModel = ViewModelProviders.of(this, providerFactory_).get(InformacaoSstViewModel.class);
+
+        activityInformacaoSstBinding = (ActivityInformacaoSstBinding) activityBinding;
+        activityInformacaoSstBinding.setLifecycleOwner(this);
+        activityInformacaoSstBinding.setViewmodel(viewModel);
+
+        activityInformacaoSstBinding.setBloquear(PreferenciasUtil.agendaEditavel(this));
+        subscreverObservadores();
+
+        viewModel.obterRelatorio(PreferenciasUtil.obterIdTarefa(this));
     }
 
+    @Override
+    protected int obterLayout() {
+        return R.layout.activity_informacao_sst;
+    }
+
+    @Override
+    protected BaseViewModel obterBaseViewModel() {
+        return viewModel;
+    }
+
+    @Override
+    protected void subscreverObservadores() {
+
+    }
 
 
     //--------------------
@@ -57,8 +91,8 @@ public class InformacaoSstActivity extends AppCompatActivity {
     @OnClick({R.id.fab_pre_visualizar})
     public void fab_pre_visualizar_OnClickListener(View view) {
 
-//        activityRegistoVisitaBinding.fabMenu.close(true);
-//
+        activityInformacaoSstBinding.fabMenu.close(true);
+
 //        OnPermissaoConcedidaListener listener = new OnPermissaoConcedidaListener() {
 //            @Override
 //            public void executar() {
@@ -83,8 +117,8 @@ public class InformacaoSstActivity extends AppCompatActivity {
     @OnClick({R.id.fab_enviar})
     public void fab_enviar_OnClickListener(View view) {
 
-//        activityRegistoVisitaBinding.fabMenu.close(true);
-//
+        activityInformacaoSstBinding.fabMenu.close(true);
+
 //        OnPermissaoConcedidaListener listener = new OnPermissaoConcedidaListener() {
 //            @Override
 //            public void executar() {
@@ -114,16 +148,16 @@ public class InformacaoSstActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-//        if (requestCode == Identificadores.CodigoAtividade.ASSINATURA) {
-//
-//            if(resultCode == RESULT_OK){
-//
-//                Bitmap bitmap = ImagemUtil.converter(data.getByteArrayExtra(getString(R.string.resultado_imagem)));
-//                byte[] imagem = ImagemUtil.converter(bitmap);
-//
-//                viewModel.gravar(PreferenciasUtil.obterIdTarefa(this), imagem);
-//            }
-//        }
+        if (requestCode == Identificadores.CodigoAtividade.ASSINATURA) {
+
+            if(resultCode == RESULT_OK){
+
+                Bitmap bitmap = ImagemUtil.converter(data.getByteArrayExtra(getString(R.string.resultado_imagem)));
+                byte[] imagem = ImagemUtil.converter(bitmap);
+
+                viewModel.gravar(PreferenciasUtil.obterIdTarefa(this), imagem);
+            }
+        }
     }
 
 

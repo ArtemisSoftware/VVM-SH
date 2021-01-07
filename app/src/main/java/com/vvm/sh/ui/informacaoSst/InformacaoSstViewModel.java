@@ -2,11 +2,14 @@ package com.vvm.sh.ui.informacaoSst;
 
 import androidx.lifecycle.MutableLiveData;
 
+import com.vvm.sh.baseDados.entidades.ImagemResultado;
 import com.vvm.sh.baseDados.entidades.ObrigacaoLegalResultado;
 import com.vvm.sh.repositorios.InformacaoSstRepositorio;
 import com.vvm.sh.ui.informacaoSst.modelos.ObrigacaoLegal;
 import com.vvm.sh.ui.informacaoSst.modelos.RelatorioInformacaoSst;
 import com.vvm.sh.util.Recurso;
+import com.vvm.sh.util.ResultadoId;
+import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
@@ -16,6 +19,7 @@ import io.reactivex.Observer;
 import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 public class InformacaoSstViewModel extends BaseViewModel {
@@ -50,6 +54,35 @@ public class InformacaoSstViewModel extends BaseViewModel {
             remover(idTarefa, registo.id);
         }
     }
+
+
+    /**
+     * Metodo que permite gravar um registo
+     * @param idTarefa o identificador da tarefa
+     * @param imagem os dados da imagem
+     */
+    public void gravar(int idTarefa, byte[] imagem) {
+
+        ImagemResultado imagemResultado = new ImagemResultado(idTarefa, idTarefa, Identificadores.Imagens.IMAGEM_ASSINATURA_INFORMACAO_SST, imagem);
+
+        Disposable d = informacaoSstRepositorio.gravarAssinatura(imagemResultado)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .toList()
+                .subscribe(
+
+                        new Consumer<List<? extends Number>>() {
+                            @Override
+                            public void accept(List<? extends Number> numbers) throws Exception {
+                                messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_GRAVADOS_SUCESSO));
+                                gravarResultado(informacaoSstRepositorio.resultadoDao, idTarefa, informacaoSstRepositorio.resultadoId);
+                            }
+                        }
+                );
+
+        disposables.add(d);
+    }
+
 
 
     /**

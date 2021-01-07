@@ -21,7 +21,7 @@ public class RelatorioInformacaoSst {
     @ColumnInfo(name = "valido")
     public boolean valido;
 
-//    @ColumnInfo(name = "sincronizacao")
-//    public boolean sincronizacao;
+    @ColumnInfo(name = "sincronizacao")
+    public boolean sincronizacao;
 
 }

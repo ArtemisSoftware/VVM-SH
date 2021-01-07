@@ -218,6 +218,11 @@ public class Identificadores {
         public static final int ICON_SEM_TEMPO= R.drawable.ic_sem_tempo_24;
 
 
+        public static final int OPCAO_INFORMACAO_SST = 10;
+        public static final String INFORMACAO_SST = "Informação SST";
+        public static final int ICON_INFORMACAO_SST= R.drawable.ic_info_sst_24;
+
+
         public static final int OPCAO_ANOMALIA = 6;
     }
 

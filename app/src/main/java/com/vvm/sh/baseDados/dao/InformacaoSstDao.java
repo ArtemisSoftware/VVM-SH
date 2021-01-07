@@ -22,21 +22,24 @@ import io.reactivex.Single;
 abstract public class InformacaoSstDao implements BaseDao<ObrigacaoLegalResultado> {
 
 
-    @Query("SELECT numeroObrigacaoes, email, obrigacaoValido, assinaturaValido, " +
+    @Query("SELECT numeroObrigacaoes, email, obrigacaoValido, assinaturaValido, sincronizacao, " +
             "CASE WHEN obrigacaoValido = 1 AND assinaturaValido = 1 AND email != '' THEN 1 ELSE 0 END as valido " +
 
             "FROM ( " +
-//            "SELECT rg_visit_res.idTarefa as idTarefa, " +
-//            "CASE WHEN recebidoPor IS NULL OR funcao IS NULL THEN 0  ELSE 1 END as clienteValido, " +
-//            "trabalhoValido, numeroTrabalhos, email, sincronizacao, " +
-//            "CASE WHEN IFNULL(img.idTarefa, 0) = 0 THEN 0 ELSE 1 END as assinaturaValido " +
-//
-//            "FROM registoVisitaResultado as rg_visit_res " +
+
 
             "SELECT info_sst_res.idTarefa as idTarefa," +
-            "email, numeroObrigacaoes, obrigacaoValido, " +
+            "email, numeroObrigacaoes, obrigacaoValido, sincronizacao, " +
             "CASE WHEN IFNULL(img.idTarefa, 0) = 0 THEN 0 ELSE 1 END as assinaturaValido " +
             "FROM tarefas as info_sst_res " +
+
+            //relatorio
+            "LEFT JOIN(" +
+            "SELECT idTarefa, CASE WHEN IFNULL(COUNT(idTarefa), 0) > 0 THEN sincronizacao ELSE 0 END as sincronizacao " +
+            "FROM informacaoSstResultado " +
+            "GROUP BY idTarefa)" +
+            "as rel_info " +
+            "ON info_sst_res.idTarefa = rel_info.idTarefa " +
 
             //obrigacaoes
             "LEFT JOIN(" +

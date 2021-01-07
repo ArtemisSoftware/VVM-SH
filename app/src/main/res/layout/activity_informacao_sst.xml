@@ -12,9 +12,9 @@
 
 
 
-<!--        <variable-->
-<!--            name="viewmodel"-->
-<!--            type="com.vvm.sh.ui.registoVisita.RegistoVisitaViewModel"/>-->
+        <variable
+            name="viewmodel"
+            type="com.vvm.sh.ui.informacaoSst.InformacaoSstViewModel"/>
 
 
         <variable
@@ -199,10 +199,10 @@
                                     android:id="@+id/textView47"
                                     style="@style/textoDetalhe"
                                     android:layout_marginStart="16dp"
-
+                                    android:text="@{viewmodel.relatorio.email}"
                                     app:layout_constraintStart_toEndOf="@+id/textView67"
                                     app:layout_constraintTop_toTopOf="@+id/textView67" />
-<!--                                android:text="@{viewmodel.relatorio.email}"-->
+
 
                                 <com.google.android.material.chip.Chip
                                     android:id="@+id/chip_geral"
@@ -273,11 +273,11 @@
                                 <TextView
                                     android:id="@+id/textView40"
                                     style="@style/textoDetalhe"
+                                    android:text="@{StringUtil.converterString(viewmodel.relatorio.numeroObrigacaoes)}"
                                     android:layout_marginStart="16dp"
                                     app:layout_constraintStart_toEndOf="@+id/textView66"
                                     app:layout_constraintTop_toTopOf="@+id/textView66" />
 
-<!--                                android:text="@{StringUtil.converterString(viewmodel.relatorio.numeroTrabalhos)}"-->
 
 
                                 <com.google.android.material.chip.Chip

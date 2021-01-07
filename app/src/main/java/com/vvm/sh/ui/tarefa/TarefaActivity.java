@@ -14,6 +14,7 @@ import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.anomalias.AnomaliasActivity;
 import com.vvm.sh.ui.atividadesExecutadas.AtividadesExecutadasActivity;
 import com.vvm.sh.ui.atividadesPendentes.AtividadesPendentesActivity;
+import com.vvm.sh.ui.informacaoSst.InformacaoSstActivity;
 import com.vvm.sh.ui.planoAccao.PlanoAccaoActivity;
 import com.vvm.sh.ui.registoVisita.RegistoVisitaActivity;
 import com.vvm.sh.ui.cliente.InformacaoActivity;
@@ -158,6 +159,12 @@ public class TarefaActivity extends BaseDaggerActivity
             case Identificadores.OpcoesCliente.OPCAO_SEM_TEMPO:
 
                 gravarAnomalia();
+                break;
+
+
+            case Identificadores.OpcoesCliente.OPCAO_INFORMACAO_SST:
+
+                intent = new Intent(this, InformacaoSstActivity.class);
                 break;
 
 

@@ -561,6 +561,7 @@ public class TarefaViewModel extends BaseViewModel {
 
             items.add(OpcaoCliente.quadroPessoal());
             items.add(OpcaoCliente.registoVisita());
+            items.add(OpcaoCliente.informacaoSst());
             items.add(OpcaoCliente.planoAcao());
         }
 

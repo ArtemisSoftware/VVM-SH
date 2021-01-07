@@ -6,9 +6,14 @@ import androidx.room.Query;
 import com.vvm.sh.baseDados.BaseDao;
 import com.vvm.sh.baseDados.entidades.ObrigacaoLegalResultado;
 import com.vvm.sh.baseDados.entidades.RegistoVisitaResultado;
+import com.vvm.sh.ui.informacaoSst.modelos.ObrigacaoLegal;
 import com.vvm.sh.ui.informacaoSst.modelos.RelatorioInformacaoSst;
 import com.vvm.sh.ui.registoVisita.modelos.RelatorioRegistoVisita;
+import com.vvm.sh.ui.registoVisita.modelos.TrabalhoRealizado;
 import com.vvm.sh.util.constantes.Identificadores;
+import com.vvm.sh.util.metodos.TiposUtil;
+
+import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.Single;
@@ -64,6 +69,15 @@ abstract public class InformacaoSstDao implements BaseDao<ObrigacaoLegalResultad
 
             "WHERE info_sst.idTarefa =:idTarefa")
     abstract public Observable<RelatorioInformacaoSst> obterRelatorioInformacaoSst(int idTarefa);
+
+
+
+    @Query("SELECT *, obrigacao_legal_res.id as idRegisto " +
+            "FROM tipos as tp " +
+            "LEFT JOIN (SELECT id FROM obrigacaoLegalResultado WHERE idTarefa = :idTarefa) as obrigacao_legal_res " +
+            "ON tp.id = obrigacao_legal_res.id " +
+            "WHERE  ativo = 1 AND api =:api AND tipo ='" + TiposUtil.MetodosTipos.ATIVIDADES_RELATORIO_VISITA + "' ") //TODO:alterar para o tipo certo
+    abstract public Observable<List<ObrigacaoLegal>> obterObrigacoesLegais(int idTarefa, int api);
 
 
 

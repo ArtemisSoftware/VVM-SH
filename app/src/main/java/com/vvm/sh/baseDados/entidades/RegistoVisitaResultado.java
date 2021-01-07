@@ -50,7 +50,10 @@ public class RegistoVisitaResultado {
         this.recebidoPor = recebidoPor;
         this.funcao = funcao;
 
-        if(observacao.equals(Sintaxe.SEM_TEXTO) == false){
+        if(observacao.equals(Sintaxe.SEM_TEXTO) == true){
+            this.observacao = null;
+        }
+        else{
             this.observacao = observacao;
         }
 

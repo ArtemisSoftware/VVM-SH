@@ -20,7 +20,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.informacaoSst.ObrigacoesLegaisActivity"></activity>
+        <activity android:name=".ui.atividadesPendentes.relatorios.certificadoTratamento.CertificadoTratamentoActivity"></activity>
+        <activity android:name=".ui.informacaoSst.ObrigacoesLegaisActivity" />
         <activity android:name=".ui.informacaoSst.InformacaoSstActivity" />
         <activity
             android:name=".ui.atividadesPendentes.relatorios.checklist.SeccaoActivity"

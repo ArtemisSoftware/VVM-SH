@@ -1,0 +1,420 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <import type="java.util.List"/>
+        <import type="com.vvm.sh.R"/>
+        <import type="android.view.View"/>
+        <import type="com.vvm.sh.util.metodos.StringUtil"/>
+        <import type="com.vvm.sh.util.metodos.DatasUtil"/>
+
+<!--        <variable-->
+<!--            name="viewmodel"-->
+<!--            type="com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.AvaliacaoAmbientalViewModel"/>-->
+
+
+<!--        <variable-->
+<!--            name="bloquear"-->
+<!--            type="Boolean"/>-->
+
+    </data>
+
+
+
+
+    <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true">
+
+        <com.google.android.material.appbar.AppBarLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/AppTheme.AppBarOverlay">
+
+            <androidx.appcompat.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                app:popupTheme="@style/AppTheme.PopupOverlay" />
+
+        </com.google.android.material.appbar.AppBarLayout>
+
+
+        <androidx.core.widget.NestedScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingBottom="@dimen/activity_vertical_margin"
+            android:paddingLeft="@dimen/activity_horizontal_margin"
+            android:paddingRight="@dimen/activity_horizontal_margin"
+            android:paddingTop="@dimen/activity_vertical_margin"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content">
+
+
+                    <TextView
+                        android:id="@+id/textView18"
+                        style="@style/tituloCartao"
+                        android:text="@string/avaliacao_iluminacao"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <View
+                        android:id="@+id/textview2"
+                        android:layout_width="280dp"
+                        android:layout_height="0.2dp"
+                        android:layout_marginTop="8dp"
+                        android:background="@color/cor_separador"
+                        app:layout_constraintStart_toStartOf="@+id/textView18"
+                        app:layout_constraintTop_toBottomOf="@+id/textView18" />
+
+
+
+                    <LinearLayout
+                        android:id="@+id/linearLayout21"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="8dp"
+                        android:orientation="vertical"
+                        android:layout_marginTop="@dimen/distancia_vertical_formulario"
+                        app:layout_constraintStart_toStartOf="@+id/textView18"
+                        app:layout_constraintTop_toBottomOf="@+id/textview2">
+
+                        <TextView
+                            style="@style/textoDescritivo"
+                            android:text="@{viewmodel.registoVisita.cliente.nome}"
+                            />
+
+                        <!--
+
+                        android:text="@{viewmodel.tarefaDia.obterMarcaOrdem(), default=cliente}"
+                        -->
+
+                        <TextView
+                            style="@style/subTituloDescritivo"
+                            android:text="@string/cliente" />
+
+                    </LinearLayout>
+
+
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/textview31"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="@string/areaPostoTrabalho"-->
+<!--                        android:layout_marginTop="@dimen/distancia_vertical_formulario"-->
+<!--                        app:layout_constraintStart_toStartOf="@+id/textView18"-->
+<!--                        app:layout_constraintTop_toBottomOf="@+id/textview2"-->
+<!--                        style="@style/textoInput" />-->
+
+<!--                    <com.jaredrummler.materialspinner.MaterialSpinner-->
+<!--                        android:id="@+id/spnr_area_posto_trabalho"-->
+<!--                        android:layout_width="400dp"-->
+<!--                        android:hint="@string/areaPostoTrabalho"-->
+<!--                        tipos="@{viewmodel.areas}"-->
+<!--                        id="@{viewmodel.avaliacao.resultado.idArea}"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        app:layout_constraintStart_toStartOf="@+id/textView18"-->
+<!--                        app:layout_constraintTop_toBottomOf="@+id/textview31" />-->
+
+
+
+<!--                    <com.google.android.material.textfield.TextInputLayout-->
+<!--                        android:id="@+id/textview3"-->
+<!--                        style="@style/parent.TextLayout"-->
+<!--                        android:hint="@string/descricaoArea"-->
+<!--                        android:layout_width="450dp"-->
+<!--                        app:errorEnabled="true"-->
+<!--                        android:layout_marginTop="@dimen/distancia_vertical_formulario"-->
+<!--                        app:layout_constraintStart_toStartOf="@+id/textView18"-->
+<!--                        app:layout_constraintTop_toBottomOf="@+id/spnr_area_posto_trabalho">-->
+
+<!--                        <com.google.android.material.textfield.TextInputEditText-->
+<!--                            android:id="@+id/txt_inp_descricao_area"-->
+<!--                            style="@style/modifiedEditText"-->
+<!--                            android:text="@{viewmodel.avaliacao.resultado.anexoArea}"-->
+<!--                            android:maxLength="250"-->
+<!--                            android:inputType="text"-->
+<!--                            android:maxLines="1"/>-->
+
+<!--                        -->
+<!--                    </com.google.android.material.textfield.TextInputLayout>-->
+
+
+
+
+
+
+
+<!--                    <LinearLayout-->
+<!--                        android:id="@+id/linearlayout1"-->
+<!--                        android:orientation="horizontal"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:gravity="center_vertical"-->
+<!--                        android:layout_marginTop="@dimen/distancia_vertical_formulario"-->
+<!--                        app:layout_constraintStart_toStartOf="@+id/textView18"-->
+<!--                        app:layout_constraintTop_toBottomOf="@+id/textview3">-->
+
+<!--                        <LinearLayout-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:orientation="vertical">-->
+
+<!--                            <TextView-->
+<!--                                android:id="@+id/textview32"-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:text="@string/categorias_profissionais"-->
+<!--                                style="@style/textoInput" />-->
+
+
+<!--                            <TextView-->
+<!--                                android:id="@+id/txt_categorias_profissionais"-->
+<!--                                listagemTipos="@{viewmodel.categoriasProfissionais}"-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                style="@style/textoDetalhe" />-->
+
+
+<!--                        </LinearLayout>-->
+
+
+<!--                        <at.markushi.ui.CircleButton-->
+<!--                            android:id="@+id/crl_btn_pesquisar_categorias_profissionais"-->
+<!--                            style="@style/btnPesquisa" />-->
+
+<!--                    </LinearLayout>-->
+
+
+
+
+
+
+
+
+
+
+
+
+<!--                    <com.google.android.material.textfield.TextInputLayout-->
+<!--                        android:id="@+id/textview35"-->
+<!--                        style="@style/parent.TextLayout"-->
+<!--                        android:hint="@string/nomeTrabalhador"-->
+<!--                        android:layout_width="450dp"-->
+<!--                        app:errorEnabled="true"-->
+<!--                        android:layout_marginTop="@dimen/distancia_vertical_formulario"-->
+<!--                        app:layout_constraintStart_toStartOf="@+id/textView18"-->
+<!--                        app:layout_constraintTop_toBottomOf="@+id/linearlayout1">-->
+
+<!--                        <com.google.android.material.textfield.TextInputEditText-->
+<!--                            android:id="@+id/txt_inp_nome"-->
+<!--                            android:text="@{viewmodel.avaliacao.resultado.nome}"-->
+<!--                            style="@style/modifiedEditText"-->
+<!--                            android:inputType="text"-->
+<!--                            android:maxLines="1"/>-->
+
+<!--                        -->
+<!--                    </com.google.android.material.textfield.TextInputLayout>-->
+
+
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/textview36"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="@string/genero"-->
+<!--                        android:layout_marginTop="@dimen/distancia_vertical_formulario"-->
+<!--                        app:layout_constraintStart_toStartOf="@+id/textView18"-->
+<!--                        app:layout_constraintTop_toBottomOf="@+id/textview35"-->
+<!--                        style="@style/textoInput" />-->
+
+<!--                    <com.jaredrummler.materialspinner.MaterialSpinner-->
+<!--                        android:id="@+id/spnr_genero"-->
+<!--                        android:layout_width="400dp"-->
+<!--                        android:hint="@string/genero"-->
+<!--                        tipos="@{viewmodel.generos}"-->
+<!--                        id="@{viewmodel.avaliacao.resultado.sexo}"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        app:layout_constraintStart_toStartOf="@+id/textView18"-->
+<!--                        app:layout_constraintTop_toBottomOf="@+id/textview36" />-->
+
+
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/textview37"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="@string/tipoIluminacao"-->
+<!--                        android:layout_marginTop="@dimen/distancia_vertical_formulario"-->
+<!--                        app:layout_constraintStart_toStartOf="@+id/textView18"-->
+<!--                        app:layout_constraintTop_toBottomOf="@+id/spnr_genero"-->
+<!--                        style="@style/textoInput" />-->
+
+<!--                    <com.jaredrummler.materialspinner.MaterialSpinner-->
+<!--                        android:id="@+id/spnr_tipo_iluminacao"-->
+<!--                        android:layout_width="400dp"-->
+<!--                        android:hint="@string/tipoIluminacao"-->
+<!--                        tipos="@{viewmodel.iluminacao}"-->
+<!--                        id="@{viewmodel.avaliacao.resultado.tipoIluminacao}"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        app:layout_constraintStart_toStartOf="@+id/textView18"-->
+<!--                        app:layout_constraintTop_toBottomOf="@+id/textview37" />-->
+
+
+
+
+<!--                    <com.google.android.material.textfield.TextInputLayout-->
+<!--                        android:id="@+id/textview33"-->
+<!--                        style="@style/parent.TextLayout"-->
+<!--                        android:hint="@string/emedioLx"-->
+<!--                        android:layout_width="250dp"-->
+<!--                        app:errorEnabled="true"-->
+<!--                        android:layout_marginTop="@dimen/distancia_vertical_formulario"-->
+<!--                        app:layout_constraintStart_toStartOf="@+id/textView18"-->
+<!--                        app:layout_constraintTop_toBottomOf="@+id/spnr_tipo_iluminacao">-->
+
+<!--                        <com.google.android.material.textfield.TextInputEditText-->
+<!--                            android:id="@+id/txt_inp_emedio_lx"-->
+<!--                            style="@style/modifiedEditText"-->
+<!--                            android:text="@{StringUtil.converterStringEspaco(viewmodel.avaliacao.resultado.emedioLx)}"-->
+<!--                            android:maxLength="15"-->
+<!--                            android:inputType="number"-->
+<!--                            android:maxLines="1"/>-->
+
+<!--                    </com.google.android.material.textfield.TextInputLayout>-->
+
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/txt_nivel_dificiente"-->
+<!--                        style="@style/textoDetalhe"-->
+<!--                        android:layout_marginStart="16dp"-->
+<!--                        android:background="@color/cor_vermelho"-->
+<!--                        android:text="@string/nivelDeficiente"-->
+<!--                        android:textColor="@color/white"-->
+<!--                        android:visibility="gone"-->
+<!--                        app:layout_constraintBottom_toBottomOf="@+id/textview33"-->
+<!--                        app:layout_constraintStart_toEndOf="@+id/textview33"-->
+<!--                        app:layout_constraintTop_toTopOf="@+id/textview33" />-->
+
+
+
+<!--                    <TextView-->
+<!--                        android:id="@+id/textview39"-->
+<!--                        android:layout_width="match_parent"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:text="@string/eLx"-->
+<!--                        android:layout_marginTop="@dimen/distancia_vertical_formulario"-->
+<!--                        app:layout_constraintStart_toStartOf="@+id/textView18"-->
+<!--                        app:layout_constraintTop_toBottomOf="@+id/textview33"-->
+<!--                        style="@style/textoInput" />-->
+
+<!--                    <com.jaredrummler.materialspinner.MaterialSpinner-->
+<!--                        android:id="@+id/spnr_eLx_area"-->
+
+<!--                        tipos="@{viewmodel.elxArea}"-->
+<!--                        id="@{viewmodel.avaliacao.resultado.eLxArea}"-->
+<!--                        android:layout_width="600dp"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        app:layout_constraintStart_toStartOf="@+id/textView18"-->
+<!--                        app:layout_constraintTop_toBottomOf="@+id/textview39" />-->
+
+
+<!--                    <com.jaredrummler.materialspinner.MaterialSpinner-->
+<!--                        android:id="@+id/spnr_eLx"-->
+<!--                        tipos="@{viewmodel.elx}"-->
+<!--                        id="@{viewmodel.avaliacao.resultado.idElx}"-->
+<!--                        android:layout_width="600dp"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginTop="16dp"-->
+<!--                        app:layout_constraintStart_toStartOf="@+id/textView18"-->
+<!--                        app:layout_constraintTop_toBottomOf="@+id/spnr_eLx_area" />-->
+
+
+
+
+
+
+
+<!--                    <LinearLayout-->
+<!--                        android:id="@+id/lnr_lyt_medidas"-->
+<!--                        android:layout_width="wrap_content"-->
+<!--                        android:layout_height="wrap_content"-->
+<!--                        android:layout_marginTop="@dimen/distancia_vertical_formulario"-->
+<!--                        android:layout_marginEnd="8dp"-->
+<!--                        android:gravity="center_vertical"-->
+<!--                        android:orientation="horizontal"-->
+<!--                        android:visibility="gone"-->
+<!--                        app:layout_constraintEnd_toEndOf="parent"-->
+<!--                        app:layout_constraintHorizontal_bias="0.0"-->
+<!--                        app:layout_constraintStart_toStartOf="@+id/textView18"-->
+<!--                        app:layout_constraintTop_toBottomOf="@+id/spnr_eLx">-->
+
+<!--                        <LinearLayout-->
+<!--                            android:layout_width="wrap_content"-->
+<!--                            android:layout_height="wrap_content"-->
+<!--                            android:layout_weight="1"-->
+<!--                            android:orientation="vertical">-->
+
+<!--                            <TextView-->
+<!--                                android:id="@+id/textview43"-->
+<!--                                style="@style/textoInput"-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="wrap_content"-->
+<!--                                android:text="@string/medidas_recomendadas" />-->
+
+
+<!--                            <TextView-->
+<!--                                android:id="@+id/txt_medidas"-->
+<!--                                style="@style/textoDetalhe"-->
+<!--                                listagemTipos="@{viewmodel.medidas}"-->
+<!--                                android:layout_width="match_parent"-->
+<!--                                android:layout_height="wrap_content" />-->
+
+
+<!--                        </LinearLayout>-->
+
+
+<!--                        <at.markushi.ui.CircleButton-->
+<!--                            android:id="@+id/crl_btn_pesquisar_medidas"-->
+<!--                            style="@style/btnPesquisa" />-->
+
+<!--                    </LinearLayout>-->
+
+
+
+
+
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </LinearLayout>
+
+        </androidx.core.widget.NestedScrollView>
+
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab_gravar"
+            android:enabled="@{bloquear}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="@dimen/fab_margin"
+            android:src="@drawable/ic_gravar_24dp" />
+
+    </androidx.coordinatorlayout.widget.CoordinatorLayout>
+
+
+</layout>

@@ -31,6 +31,16 @@ public class Migracao {
 
                 database.execSQL("ALTER TABLE registoVisitaResultado ADD COLUMN homologado INTEGER NOT NULL DEFAULT " + Identificadores.VALOR_INT_0 + "");
 
+                database.execSQL("CREATE TABLE IF NOT EXISTS 'obrigacaoLegalResultado' ("
+                        + "'idTarefa' INTEGER NOT NULL , "
+                        + "'id' INTEGER NOT NULL, "
+                        + "PRIMARY KEY (idTarefa, id), "
+                        + "FOREIGN KEY (idTarefa) REFERENCES tarefas (idTarefa)  ON DELETE CASCADE) ");
+
+                database.execSQL("CREATE INDEX index_obrigacaoLegalResultado_idTarefa ON obrigacaoLegalResultado (idTarefa)");
+
+
+
             }
             catch(SQLException | IllegalStateException e){
                 Log.e("Migracao", "erro MIGRACAO_33_34: " + e.getMessage());

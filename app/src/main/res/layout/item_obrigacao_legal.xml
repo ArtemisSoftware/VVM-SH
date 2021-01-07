@@ -13,9 +13,9 @@
         <import type="com.vvm.sh.util.metodos.StringUtil"/>
         <import type="android.view.View"/>
 
-<!--        <variable-->
-<!--            name="trabalho"-->
-<!--            type="com.vvm.sh.ui.registoVisita.modelos.TrabalhoRealizado" />-->
+        <variable
+            name="obrigacao"
+            type="com.vvm.sh.ui.informacaoSst.modelos.ObrigacaoLegal" />
 
 
 
@@ -41,29 +41,21 @@
                 android:id="@+id/chk_box_item"
                 style="@style/textoDetalhe"
                 android:enabled="@{bloquear}"
+                android:text="@{obrigacao.tipo.descricao, default=descricao}"
+                android:checked="@{obrigacao.selecionado()}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />
-            <!--
 
-
-
-
-                android:text="@{trabalho.tipo.descricao, default=descricao}"
-                android:checked="@{trabalho.selecionado()}"
-
-
-
-
-            -->
 
 
             <TextView
                 android:id="@+id/textView39"
-
+                android:text="@{StringUtil.converterString(obrigacao.tipo.id), default=id}"
+                android:visibility="@{BuildConfig.DEBUG ? View.VISIBLE : View.GONE}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginEnd="8dp"
@@ -71,14 +63,6 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent" />
 
-            <!--
-
-
-                            android:text="@{StringUtil.converterString(crossSelling.tipo.id), default=id}"
-                android:visibility="@{BuildConfig.DEBUG ? View.VISIBLE : View.GONE}"
-
-
-            -->
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>

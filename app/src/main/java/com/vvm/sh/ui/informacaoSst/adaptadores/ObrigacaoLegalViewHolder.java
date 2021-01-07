@@ -28,6 +28,6 @@ public class ObrigacaoLegalViewHolder extends RecyclerView.ViewHolder implements
 
     @Override
     public void onClick(View v) {
-       //--onItemListener.onItemChecked(binding.getTrabalho().tipo.id, ((CheckBox) v).isChecked());
+       onItemListener.onItemChecked(binding.getObrigacao().tipo.id, ((CheckBox) v).isChecked());
     }
 }

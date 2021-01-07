@@ -11,6 +11,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.vvm.sh.R;
 import com.vvm.sh.databinding.ItemObrigacaoLegalBinding;
 import com.vvm.sh.databinding.ItemTrabalhoRealizadoBinding;
+import com.vvm.sh.ui.informacaoSst.modelos.ObrigacaoLegal;
 import com.vvm.sh.ui.registoVisita.adaptadores.OnRegistoVisitaListener;
 import com.vvm.sh.ui.registoVisita.adaptadores.TrabalhoRealizadoViewHolder;
 import com.vvm.sh.ui.registoVisita.modelos.TrabalhoRealizado;
@@ -22,13 +23,13 @@ import java.util.List;
 public class ObrigacaoLegalRecyclerAdaptor extends RecyclerView.Adapter<RecyclerView.ViewHolder>{
 
 
-    //private List<TrabalhoRealizado> items = new ArrayList<>();
+    private List<ObrigacaoLegal> items = new ArrayList<>();
     private Context contexto;
     private OnInformacaoSstListener onItemListener;
 
 
-    public ObrigacaoLegalRecyclerAdaptor(Context contexto, /*List<TrabalhoRealizado> items,*/ OnInformacaoSstListener onItemListener) {
-        //this.items = items;
+    public ObrigacaoLegalRecyclerAdaptor(Context contexto, List<ObrigacaoLegal> items, OnInformacaoSstListener onItemListener) {
+        this.items = items;
         this.contexto = contexto;
         this.onItemListener = onItemListener;
     }
@@ -45,9 +46,8 @@ public class ObrigacaoLegalRecyclerAdaptor extends RecyclerView.Adapter<Recycler
     @Override
     public void onBindViewHolder(@NonNull RecyclerView.ViewHolder holder, int position) {
 
-//        TrabalhoRealizado registo = items.get(position);
-//        ((ObrigacaoLegalViewHolder)holder).binding.setObrigacao(registo);
-//        ((ObrigacaoLegalViewHolder)holder).binding.setListener((OnRegistoVisitaListener) contexto);
+        ObrigacaoLegal registo = items.get(position);
+        ((ObrigacaoLegalViewHolder)holder).binding.setObrigacao(registo);
         ((ObrigacaoLegalViewHolder)holder).binding.setBloquear(PreferenciasUtil.agendaEditavel(contexto));
         ((ObrigacaoLegalViewHolder)holder).binding.executePendingBindings();
 
@@ -56,15 +56,15 @@ public class ObrigacaoLegalRecyclerAdaptor extends RecyclerView.Adapter<Recycler
 
     @Override
     public int getItemCount() {
-        return 0;//items.size();
+        return items.size();
     }
 
 
-//    public void atualizar(List<TrabalhoRealizado> items){
-//        this.items.clear();
-//        this.items.addAll(items);
-//        notifyDataSetChanged();
-//    }
+    public void atualizar(List<ObrigacaoLegal> items){
+        this.items.clear();
+        this.items.addAll(items);
+        notifyDataSetChanged();
+    }
 
 
 

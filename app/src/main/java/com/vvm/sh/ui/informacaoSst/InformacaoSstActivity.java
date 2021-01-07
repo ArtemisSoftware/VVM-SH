@@ -41,7 +41,7 @@ public class InformacaoSstActivity extends AppCompatActivity {
     @OnClick({R.id.card_obrigacoes_legais})
     public void card_card_obrigacoes_legais_OnClickListener(View view) {
 
-        Intent intent = new Intent(this, TrabalhoRealizadoActivity.class);
+        Intent intent = new Intent(this, ObrigacoesLegaisActivity.class);
         startActivity(intent);
     }
 

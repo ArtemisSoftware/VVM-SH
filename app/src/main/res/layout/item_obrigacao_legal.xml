@@ -17,14 +17,11 @@
 <!--            name="trabalho"-->
 <!--            type="com.vvm.sh.ui.registoVisita.modelos.TrabalhoRealizado" />-->
 
-<!--        <variable-->
-<!--            name="listener"-->
-<!--            type="com.vvm.sh.ui.registoVisita.adaptadores.OnRegistoVisitaListener"/>-->
 
 
-<!--        <variable-->
-<!--            name="bloquear"-->
-<!--            type="Boolean" />-->
+        <variable
+            name="bloquear"
+            type="Boolean" />
 
     </data>
 
@@ -43,6 +40,7 @@
             <CheckBox
                 android:id="@+id/chk_box_item"
                 style="@style/textoDetalhe"
+                android:enabled="@{bloquear}"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="16dp"
@@ -53,7 +51,7 @@
 
 
 
-                android:enabled="@{bloquear}"
+
                 android:text="@{trabalho.tipo.descricao, default=descricao}"
                 android:checked="@{trabalho.selecionado()}"
 

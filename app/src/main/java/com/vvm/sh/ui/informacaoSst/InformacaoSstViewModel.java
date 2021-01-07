@@ -6,7 +6,9 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.titan.pdfdocumentlibrary.bundle.Template;
 import com.vvm.sh.baseDados.entidades.ImagemResultado;
+import com.vvm.sh.baseDados.entidades.InformacaoSstResultado;
 import com.vvm.sh.baseDados.entidades.ObrigacaoLegalResultado;
+import com.vvm.sh.baseDados.entidades.RegistoVisitaResultado;
 import com.vvm.sh.documentos.informacaoSst.InformacaoSst;
 import com.vvm.sh.documentos.informacaoSst.modelos.DadosInformacaoSst;
 import com.vvm.sh.documentos.registoVisita.RegistoVisita;
@@ -128,6 +130,69 @@ public class InformacaoSstViewModel extends BaseViewModel {
 
                 );
 
+    }
+
+
+
+
+    /**
+     * Metodo que permite gravar um registo
+     * @param registo os dados do registo
+     */
+    public void gravar(InformacaoSstResultado registo){
+
+        if(relatorio.getValue().responsavel == null){
+
+            informacaoSstRepositorio.inserir(registo)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+
+                            new SingleObserver<Long>() {
+                                @Override
+                                public void onSubscribe(Disposable d) {
+                                    disposables.add(d);
+                                }
+
+                                @Override
+                                public void onSuccess(Long aLong) {
+                                    messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_GRAVADOS_SUCESSO));
+                                    gravarResultado(informacaoSstRepositorio.resultadoDao, registo.idTarefa, informacaoSstRepositorio.resultadoId);
+                                }
+
+                                @Override
+                                public void onError(Throwable e) {
+
+                                }
+                            }
+                    );
+        }
+        else{
+            informacaoSstRepositorio.atualizar(registo)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+
+                            new SingleObserver<Integer>() {
+                                @Override
+                                public void onSubscribe(Disposable d) {
+                                    disposables.add(d);
+                                }
+
+                                @Override
+                                public void onSuccess(Integer integer) {
+                                    messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_EDITADOS_SUCESSO));
+                                    gravarResultado(informacaoSstRepositorio.resultadoDao, registo.idTarefa, informacaoSstRepositorio.resultadoId);
+                                }
+
+                                @Override
+                                public void onError(Throwable e) {
+
+                                }
+                            }
+
+                    );
+        }
     }
 
 

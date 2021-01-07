@@ -15,6 +15,7 @@ import com.vvm.sh.databinding.ActivityObrigacoesLegaisBinding;
 import com.vvm.sh.ui.AssinaturaActivity;
 import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.registoVisita.DadosClienteActivity;
+import com.vvm.sh.ui.registoVisita.DialogoTrabalhoRealizado;
 import com.vvm.sh.ui.registoVisita.RegistoVisitaActivity;
 import com.vvm.sh.ui.registoVisita.TrabalhoRealizadoActivity;
 import com.vvm.sh.util.constantes.Identificadores;
@@ -70,6 +71,14 @@ public class InformacaoSstActivity extends BaseDaggerActivity {
     //--------------------
     //EVENTOS
     //--------------------
+
+
+    @OnClick({R.id.card_dados_cliente})
+    public void card_dados_cliente_OnClickListener(View view) {
+
+        DialogoResponsavel dialogo = DialogoResponsavel.newInstance(activityInformacaoSstBinding.txtResponsavel.getText().toString());
+        dialogo.show(getSupportFragmentManager(), "example dialog");
+    }
 
 
     @OnClick({R.id.card_obrigacoes_legais})

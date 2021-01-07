@@ -214,7 +214,7 @@
 
 
                                 <TextView
-                                    android:id="@+id/textView48"
+                                    android:id="@+id/txt_responsavel"
                                     style="@style/textoDetalhe"
                                     android:layout_marginStart="16dp"
                                     android:text="@{viewmodel.relatorio.responsavel}"

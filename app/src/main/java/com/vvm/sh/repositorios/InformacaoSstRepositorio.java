@@ -4,6 +4,7 @@ import androidx.annotation.NonNull;
 
 import com.vvm.sh.baseDados.dao.ImagemDao;
 import com.vvm.sh.baseDados.dao.InformacaoSstDao;
+import com.vvm.sh.baseDados.dao.ObrigacoesLegaisDao;
 import com.vvm.sh.baseDados.dao.PdfDao;
 import com.vvm.sh.baseDados.dao.RegistoVisitaDao;
 import com.vvm.sh.baseDados.dao.ResultadoDao;
@@ -11,6 +12,7 @@ import com.vvm.sh.baseDados.dao.TrabalhosRealizadosDao;
 import com.vvm.sh.baseDados.entidades.Cliente;
 import com.vvm.sh.baseDados.entidades.ColaboradorResultado;
 import com.vvm.sh.baseDados.entidades.ImagemResultado;
+import com.vvm.sh.baseDados.entidades.InformacaoSstResultado;
 import com.vvm.sh.baseDados.entidades.ObrigacaoLegalResultado;
 import com.vvm.sh.documentos.informacaoSst.modelos.DadosInformacaoSst;
 import com.vvm.sh.documentos.modelos.Rubrica;
@@ -33,20 +35,22 @@ import io.reactivex.Single;
 import io.reactivex.functions.Function3;
 import io.reactivex.functions.Function5;
 
-public class InformacaoSstRepositorio implements Repositorio<ObrigacaoLegalResultado>{
+public class InformacaoSstRepositorio{
 
     private final InformacaoSstDao informacaoSstDao;
+    private final ObrigacoesLegaisDao obrigacoesLegaisDao;
     private final ImagemDao imagemDao;
     private final PdfDao pdfDao;
     public final ResultadoDao resultadoDao;
     private final int api;
     public final ResultadoId resultadoId;
 
-    public InformacaoSstRepositorio(int api, @NonNull InformacaoSstDao informacaoSstDao,
+    public InformacaoSstRepositorio(int api, @NonNull InformacaoSstDao informacaoSstDao, @NonNull ObrigacoesLegaisDao obrigacoesLegaisDao,
                                     @NonNull ImagemDao imagemDao, @NonNull PdfDao pdfDao,
                                     @NonNull ResultadoDao resultadoDao, ResultadoId resultadoId) {
 
         this.informacaoSstDao = informacaoSstDao;
+        this.obrigacoesLegaisDao = obrigacoesLegaisDao;
         this.resultadoDao = resultadoDao;
         this.imagemDao = imagemDao;
         this.pdfDao = pdfDao;
@@ -54,18 +58,26 @@ public class InformacaoSstRepositorio implements Repositorio<ObrigacaoLegalResul
         this.resultadoId = resultadoId;
     }
 
-    @Override
+
     public Single<Long> inserir(ObrigacaoLegalResultado item) {
+        return obrigacoesLegaisDao.inserir(item);
+    }
+
+    public Single<Long> inserir(InformacaoSstResultado item) {
         return informacaoSstDao.inserir(item);
     }
 
+    public Single<Integer> atualizar(InformacaoSstResultado item) {
+        return informacaoSstDao.atualizar(item);
+    }
+
     public Single<Integer> remover(int idTarefa, int id){
-        return informacaoSstDao.remover(idTarefa, id);
+        return obrigacoesLegaisDao.remover(idTarefa, id);
     }
 
 
     public Observable<List<ObrigacaoLegal>> obterObrigacoesLegais(int idTarefa){
-        return informacaoSstDao.obterObrigacoesLegais(idTarefa, api);
+        return obrigacoesLegaisDao.obterObrigacoesLegais(idTarefa, api);
     }
 
 
@@ -104,14 +116,4 @@ public class InformacaoSstRepositorio implements Repositorio<ObrigacaoLegalResul
     }
 
 
-
-    @Override
-    public Single<Integer> atualizar(ObrigacaoLegalResultado item) {
-        return null;
-    }
-
-    @Override
-    public Single<Integer> remover(ObrigacaoLegalResultado item) {
-        return null;
-    }
 }

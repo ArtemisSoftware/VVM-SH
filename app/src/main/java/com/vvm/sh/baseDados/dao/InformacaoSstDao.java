@@ -1,9 +1,12 @@
 package com.vvm.sh.baseDados.dao;
 
 import androidx.room.Dao;
+import androidx.room.Insert;
+import androidx.room.OnConflictStrategy;
 import androidx.room.Query;
 
 import com.vvm.sh.baseDados.BaseDao;
+import com.vvm.sh.baseDados.entidades.InformacaoSstResultado;
 import com.vvm.sh.baseDados.entidades.ObrigacaoLegalResultado;
 import com.vvm.sh.baseDados.entidades.RegistoVisitaResultado;
 import com.vvm.sh.ui.informacaoSst.modelos.ObrigacaoLegal;
@@ -19,7 +22,7 @@ import io.reactivex.Observable;
 import io.reactivex.Single;
 
 @Dao
-abstract public class InformacaoSstDao implements BaseDao<ObrigacaoLegalResultado> {
+abstract public class InformacaoSstDao implements BaseDao<InformacaoSstResultado> {
 
 
     @Query("SELECT numeroObrigacaoes, email, obrigacaoValido, assinaturaValido, sincronizacao, responsavelRelatorio, responsavel, " +
@@ -78,17 +81,5 @@ abstract public class InformacaoSstDao implements BaseDao<ObrigacaoLegalResultad
     abstract public Observable<RelatorioInformacaoSst> obterRelatorioInformacaoSst(int idTarefa);
 
 
-
-    @Query("SELECT *, obrigacao_legal_res.id as idRegisto " +
-            "FROM tipos as tp " +
-            "LEFT JOIN (SELECT id FROM obrigacaoLegalResultado WHERE idTarefa = :idTarefa) as obrigacao_legal_res " +
-            "ON tp.id = obrigacao_legal_res.id " +
-            "WHERE  ativo = 1 AND api =:api AND tipo ='" + TiposUtil.MetodosTipos.OBRIGACOES_LEGAIS + "' ")
-    abstract public Observable<List<ObrigacaoLegal>> obterObrigacoesLegais(int idTarefa, int api);
-
-
-
-    @Query("DELETE FROM obrigacaoLegalResultado WHERE idTarefa =:idTarefa AND id = :id")
-    abstract public Single<Integer> remover(int idTarefa, int id);
 
 }

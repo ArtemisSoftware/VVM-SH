@@ -3,6 +3,7 @@ package com.vvm.sh.di.informacaoSst;
 import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.baseDados.dao.ImagemDao;
 import com.vvm.sh.baseDados.dao.InformacaoSstDao;
+import com.vvm.sh.baseDados.dao.ObrigacoesLegaisDao;
 import com.vvm.sh.baseDados.dao.PdfDao;
 import com.vvm.sh.baseDados.dao.RegistoVisitaDao;
 import com.vvm.sh.baseDados.dao.ResultadoDao;
@@ -30,6 +31,15 @@ public class InformacaoSstModule {
 
     @InformacaoSstScope
     @Provides
+    static ObrigacoesLegaisDao provideObrigacoesLegaisDao(VvmshBaseDados vvmshBaseDados){
+
+        ObrigacoesLegaisDao dao = vvmshBaseDados.obterObrigacoesLegaisDao();
+        return dao;
+    }
+
+
+    @InformacaoSstScope
+    @Provides
     static PdfDao providePdfDao(VvmshBaseDados vvmshBaseDados){
 
         PdfDao dao = vvmshBaseDados.obterPdfDao();
@@ -40,9 +50,9 @@ public class InformacaoSstModule {
 
     @InformacaoSstScope
     @Provides
-    InformacaoSstRepositorio provideInformacaoSstRepositorio(int api, InformacaoSstDao informacaoSstDao, ImagemDao imagemDao, PdfDao pdfDao, ResultadoDao resultadoDao) {
+    InformacaoSstRepositorio provideInformacaoSstRepositorio(int api, InformacaoSstDao informacaoSstDao, ObrigacoesLegaisDao obrigacoesLegaisDao, ImagemDao imagemDao, PdfDao pdfDao, ResultadoDao resultadoDao) {
 
-        InformacaoSstRepositorio repositorio = new InformacaoSstRepositorio(api, informacaoSstDao, imagemDao, pdfDao, resultadoDao, ResultadoId.INFORMCAO_SST);
+        InformacaoSstRepositorio repositorio = new InformacaoSstRepositorio(api, informacaoSstDao, obrigacoesLegaisDao, imagemDao, pdfDao, resultadoDao, ResultadoId.INFORMCAO_SST);
         return repositorio;
     }
 

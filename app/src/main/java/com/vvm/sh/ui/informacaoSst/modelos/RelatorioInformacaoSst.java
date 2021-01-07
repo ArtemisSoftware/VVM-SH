@@ -24,4 +24,9 @@ public class RelatorioInformacaoSst {
     @ColumnInfo(name = "sincronizacao")
     public boolean sincronizacao;
 
+    @ColumnInfo(name = "responsavelRelatorio")
+    public String responsavelRelatorio;
+
+    @ColumnInfo(name = "responsavel")
+    public String responsavel;
 }

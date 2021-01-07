@@ -25,6 +25,8 @@ public class InformacaoSstResultado {
     @PrimaryKey
     public int idTarefa;
 
+    public String responsavel;
+
 
     @NonNull
     @ColumnInfo(name = "sincronizacao", defaultValue = Sintaxe.Codigos.NAO_SELECIONADO)
@@ -36,8 +38,9 @@ public class InformacaoSstResultado {
         this.idTarefa = idTarefa;
     }
 
-    public InformacaoSstResultado(int idTarefa, boolean sincronizacao) {
+    public InformacaoSstResultado(int idTarefa, String responsavel, boolean sincronizacao) {
         this.idTarefa = idTarefa;
+        this.responsavel = responsavel;
         this.sincronizacao = sincronizacao;
     }
 }

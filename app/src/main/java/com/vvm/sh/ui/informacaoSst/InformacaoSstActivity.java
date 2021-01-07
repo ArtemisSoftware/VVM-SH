@@ -93,23 +93,23 @@ public class InformacaoSstActivity extends BaseDaggerActivity {
 
         activityInformacaoSstBinding.fabMenu.close(true);
 
-//        OnPermissaoConcedidaListener listener = new OnPermissaoConcedidaListener() {
-//            @Override
-//            public void executar() {
-//
-//                if(DiretoriasUtil.criarDirectoria(DiretoriasUtil.DIRETORIA_PDF) == true){
-//                    viewModel.preVisualizarPdf(RegistoVisitaActivity.this, PreferenciasUtil.obterIdTarefa(RegistoVisitaActivity.this), PreferenciasUtil.obterIdUtilizador(RegistoVisitaActivity.this));
-//                }
-//            }
-//        };
-//
-//
-//        if(viewModel.relatorio.getValue().valido == false){
-//            dialogo.alerta(Sintaxe.Palavras.PDF, Sintaxe.Alertas.DADOS_INCOMPLETOS_PDF);
-//        }
-//        else {
-//            PermissoesUtil.pedirPermissoesEscritaLeitura(this, listener);
-//        }
+        OnPermissaoConcedidaListener listener = new OnPermissaoConcedidaListener() {
+            @Override
+            public void executar() {
+
+                if(DiretoriasUtil.criarDirectoria(DiretoriasUtil.DIRETORIA_PDF) == true){
+                    viewModel.preVisualizarPdf(getApplicationContext(), PreferenciasUtil.obterIdTarefa(getApplicationContext()), PreferenciasUtil.obterIdUtilizador(getApplicationContext()));
+                }
+            }
+        };
+
+
+        if(viewModel.relatorio.getValue().valido == false){
+            dialogo.alerta(Sintaxe.Palavras.PDF, Sintaxe.Alertas.DADOS_INCOMPLETOS_PDF);
+        }
+        else {
+            PermissoesUtil.pedirPermissoesEscritaLeitura(this, listener);
+        }
     }
 
 

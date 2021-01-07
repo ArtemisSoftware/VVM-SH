@@ -1,10 +1,18 @@
 package com.vvm.sh.ui.informacaoSst;
 
+import android.content.Context;
+
 import androidx.lifecycle.MutableLiveData;
 
+import com.titan.pdfdocumentlibrary.bundle.Template;
 import com.vvm.sh.baseDados.entidades.ImagemResultado;
 import com.vvm.sh.baseDados.entidades.ObrigacaoLegalResultado;
+import com.vvm.sh.documentos.informacaoSst.InformacaoSst;
+import com.vvm.sh.documentos.informacaoSst.modelos.DadosInformacaoSst;
+import com.vvm.sh.documentos.registoVisita.RegistoVisita;
+import com.vvm.sh.documentos.registoVisita.modelos.DadosRegistoVisita;
 import com.vvm.sh.repositorios.InformacaoSstRepositorio;
+import com.vvm.sh.servicos.pdf.DocumentoPdfAsyncTask;
 import com.vvm.sh.ui.informacaoSst.modelos.ObrigacaoLegal;
 import com.vvm.sh.ui.informacaoSst.modelos.RelatorioInformacaoSst;
 import com.vvm.sh.util.Recurso;
@@ -15,6 +23,7 @@ import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import java.util.List;
 
+import io.reactivex.MaybeObserver;
 import io.reactivex.Observer;
 import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -23,6 +32,9 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 public class InformacaoSstViewModel extends BaseViewModel {
+
+    private final int PRE_VISUALIZAR_PDF = 1;
+    private final int ENVIAR_PDF = 2;
 
     private final InformacaoSstRepositorio informacaoSstRepositorio;
 
@@ -243,6 +255,81 @@ public class InformacaoSstViewModel extends BaseViewModel {
 
     }
 
+
+    //---------------------
+    //Misc
+    //---------------------
+
+    /**
+     * Metodo que permite pre visualizar o pdf
+     * @param contexto
+     * @param idTarefa
+     * @param idUtilizador
+     */
+    public void preVisualizarPdf(Context contexto, int idTarefa, String idUtilizador){
+        gerarPdf(contexto, idTarefa, idUtilizador, PRE_VISUALIZAR_PDF);
+    }
+
+    /**
+     * Metodo que permite pré-visualizar o pdf
+     * @param contexto
+     * @param idTarefa
+     * @param idUtilizador
+     */
+    private void gerarPdf(Context contexto, int idTarefa, String idUtilizador, int acao) {
+
+        showProgressBar(true);
+
+        informacaoSstRepositorio.obtePdf(idTarefa, idUtilizador)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new MaybeObserver<DadosInformacaoSst>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onSuccess(DadosInformacaoSst registo) {
+                                if(acao == PRE_VISUALIZAR_PDF) {
+                                    preVisualizarPdf(contexto, idTarefa, registo);
+                                }
+                                else{
+                                    //--enviarPdf(contexto, idTarefa, registo);
+                                }
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onComplete() {
+                                showProgressBar(false);
+                            }
+                        }
+
+                );
+    }
+
+
+
+    /**
+     * Metodo que permite pre visualizar o pdf do registo de visita
+     * @param contexto
+     * @param idTarefa
+     * @param registo
+     */
+    private void preVisualizarPdf(Context contexto, int idTarefa, DadosInformacaoSst registo){
+
+        Template template = new InformacaoSst(contexto, idTarefa, registo);
+        DocumentoPdfAsyncTask servico = new DocumentoPdfAsyncTask(contexto, template);
+        servico.execute();
+    }
 
 
 }

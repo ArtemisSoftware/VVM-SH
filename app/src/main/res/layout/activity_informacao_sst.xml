@@ -204,17 +204,35 @@
                                     app:layout_constraintTop_toTopOf="@+id/textView67" />
 
 
+                                <TextView
+                                    android:id="@+id/textView68"
+                                    style="@style/textoDetalhe"
+                                    android:layout_marginTop="@dimen/distancia_vertical_titulo"
+                                    android:text="@string/responsavel_"
+                                    app:layout_constraintStart_toStartOf="@+id/textView2"
+                                    app:layout_constraintTop_toBottomOf="@+id/textView67" />
+
+
+                                <TextView
+                                    android:id="@+id/textView48"
+                                    style="@style/textoDetalhe"
+                                    android:layout_marginStart="16dp"
+                                    android:text="@{viewmodel.relatorio.responsavel}"
+                                    app:layout_constraintStart_toEndOf="@+id/textView67"
+                                    app:layout_constraintTop_toTopOf="@+id/textView67" />
+
+
                                 <com.google.android.material.chip.Chip
                                     android:id="@+id/chip_geral"
 
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
-                                    android:layout_marginTop="@dimen/distancia_vertical_titulo"
+                                    android:layout_marginTop="16dp"
                                     android:layout_marginBottom="16dp"
                                     android:theme="@style/Theme.MaterialComponents.Light"
                                     app:layout_constraintBottom_toBottomOf="parent"
                                     app:layout_constraintStart_toStartOf="@+id/textView2"
-                                    app:layout_constraintTop_toBottomOf="@+id/textView67" />
+                                    app:layout_constraintTop_toBottomOf="@+id/textView68" />
 <!--                                completudeRelatorio="@{viewmodel.relatorio.clienteValido}"-->
 
                             </androidx.constraintlayout.widget.ConstraintLayout>

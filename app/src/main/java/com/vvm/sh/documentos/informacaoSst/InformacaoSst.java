@@ -8,8 +8,6 @@ import com.titan.pdfdocumentlibrary.bundle.Chapter;
 import com.titan.pdfdocumentlibrary.bundle.Template;
 import com.vvm.sh.documentos.informacaoSst.capitulos.Capitulo_InformacaoSst;
 import com.vvm.sh.documentos.informacaoSst.modelos.DadosInformacaoSst;
-import com.vvm.sh.documentos.registoVisita.capitulos.Capitulo_RegistaVisita;
-import com.vvm.sh.documentos.registoVisita.modelos.DadosRegistoVisita;
 import com.vvm.sh.util.metodos.DiretoriasUtil;
 
 import java.io.File;

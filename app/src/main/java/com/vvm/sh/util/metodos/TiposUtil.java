@@ -131,6 +131,8 @@ public class TiposUtil {
 
 
 
+        //TODO: incluir descricao
+        public static final String OBRIGACOES_LEGAIS = "";
 
 
 

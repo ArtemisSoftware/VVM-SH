@@ -22,20 +22,24 @@ import io.reactivex.Single;
 abstract public class InformacaoSstDao implements BaseDao<ObrigacaoLegalResultado> {
 
 
-    @Query("SELECT numeroObrigacaoes, email, obrigacaoValido, assinaturaValido, sincronizacao, " +
-            "CASE WHEN obrigacaoValido = 1 AND assinaturaValido = 1 AND email != '' THEN 1 ELSE 0 END as valido " +
+    @Query("SELECT numeroObrigacaoes, email, obrigacaoValido, assinaturaValido, sincronizacao, responsavelRelatorio, responsavel, " +
+            "CASE WHEN responsavel IS NOT NULL AND obrigacaoValido = 1 AND assinaturaValido = 1 AND email != '' THEN 1 ELSE 0 END as valido " +
 
             "FROM ( " +
 
 
             "SELECT info_sst_res.idTarefa as idTarefa," +
             "email, numeroObrigacaoes, obrigacaoValido, sincronizacao, " +
+            "IFNULL(responsavel, responsavelCliente) as responsavelRelatorio , responsavel, " +
             "CASE WHEN IFNULL(img.idTarefa, 0) = 0 THEN 0 ELSE 1 END as assinaturaValido " +
             "FROM tarefas as info_sst_res " +
 
+            "LEFT JOIN(SELECT idTarefa, responsavel as responsavelCliente FROM clientes) as cl ON info_sst_res.idTarefa = cl.idTarefa " +
+
+
             //relatorio
             "LEFT JOIN(" +
-            "SELECT idTarefa, CASE WHEN IFNULL(COUNT(idTarefa), 0) > 0 THEN sincronizacao ELSE 0 END as sincronizacao " +
+            "SELECT idTarefa, sincronizacao, responsavel " +
             "FROM informacaoSstResultado " +
             "GROUP BY idTarefa)" +
             "as rel_info " +
@@ -79,7 +83,7 @@ abstract public class InformacaoSstDao implements BaseDao<ObrigacaoLegalResultad
             "FROM tipos as tp " +
             "LEFT JOIN (SELECT id FROM obrigacaoLegalResultado WHERE idTarefa = :idTarefa) as obrigacao_legal_res " +
             "ON tp.id = obrigacao_legal_res.id " +
-            "WHERE  ativo = 1 AND api =:api AND tipo ='" + TiposUtil.MetodosTipos.ATIVIDADES_RELATORIO_VISITA + "' ") //TODO:alterar para o tipo certo
+            "WHERE  ativo = 1 AND api =:api AND tipo ='" + TiposUtil.MetodosTipos.OBRIGACOES_LEGAIS + "' ")
     abstract public Observable<List<ObrigacaoLegal>> obterObrigacoesLegais(int idTarefa, int api);
 
 

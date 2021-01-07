@@ -50,6 +50,7 @@ import com.vvm.sh.baseDados.entidades.CheckList;
 import com.vvm.sh.baseDados.entidades.Colaborador;
 import com.vvm.sh.baseDados.entidades.ColaboradorResultado;
 import com.vvm.sh.baseDados.entidades.ImagemResultado;
+import com.vvm.sh.baseDados.entidades.InformacaoSstResultado;
 import com.vvm.sh.baseDados.entidades.ItemChecklist;
 import com.vvm.sh.baseDados.entidades.LevantamentoRiscoResultado;
 import com.vvm.sh.baseDados.entidades.MedidaAveriguacao;
@@ -128,7 +129,7 @@ import com.vvm.sh.baseDados.entidades.VerificacaoEquipamentoResultado;
                     RelatorioAmbientalResultado.class, AvaliacaoAmbientalResultado.class,
 
                     TrabalhoRealizadoResultado.class, RegistoVisitaResultado.class,
-                    ObrigacaoLegalResultado.class,
+                    ObrigacaoLegalResultado.class, InformacaoSstResultado.class,
 
                     LevantamentoRiscoResultado.class, ProcessoProdutivoResultado.class, TrabalhadorVulneravelResultado.class,
                     AreaChecklistResultado.class, QuestionarioChecklistResultado.class, PropostaPlanoAcaoResultado.class, RiscoResultado.class,

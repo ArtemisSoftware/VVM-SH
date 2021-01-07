@@ -33,6 +33,7 @@ public class Migracao {
 
                 database.execSQL("CREATE TABLE IF NOT EXISTS 'informacaoSstResultado' ("
                         + "'idTarefa' INTEGER NOT NULL , "
+                        + "'responsavel' TEXT, "
                         + "'sincronizacao' INTEGER NOT NULL DEFAULT   " + Sintaxe.Codigos.NAO_SELECIONADO + " ,  "
                         + "PRIMARY KEY (idTarefa), "
                         + "FOREIGN KEY (idTarefa) REFERENCES tarefas (idTarefa)  ON DELETE CASCADE) ");

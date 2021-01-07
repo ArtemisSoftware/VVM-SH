@@ -10,16 +10,17 @@ import com.titan.pdfdocumentlibrary.elements.FontConfiguration;
 import com.titan.pdfdocumentlibrary.elements.Table;
 import com.vvm.sh.R;
 import com.vvm.sh.baseDados.entidades.Cliente;
+import com.vvm.sh.ui.registoVisita.modelos.DadosCliente;
 import com.vvm.sh.util.constantes.Pdf;
 
 public class IdentificacaoCliente extends Section {
 
     private Context contexto;
-    private Cliente cliente;
+    private DadosCliente dadosCliente;
 
-    public IdentificacaoCliente(Context contexto, Cliente cliente) {
+    public IdentificacaoCliente(Context contexto, DadosCliente dadosCliente) {
         this.contexto = contexto;
-        this.cliente = cliente;
+        this.dadosCliente = dadosCliente;
     }
 
     @Override
@@ -44,7 +45,7 @@ public class IdentificacaoCliente extends Section {
 
         //descricao
 
-        String texto = "Considera-se que, após a apresentação do presente documento, a empresa " + cliente.nome + " através do seu representante " + cliente.responsavel + ", se encontra informada da necessidade de dar cumprimento às obrigatoriedades legais abaixo descritas e que constam do Regime Jurídico da Promoção da Segurança e Saúde no Trabalho.";
+        String texto = "Considera-se que, após a apresentação do presente documento, a empresa " + dadosCliente.cliente.nome + " através do seu representante " + dadosCliente.informacaoSst.responsavel + ", se encontra informada da necessidade de dar cumprimento às obrigatoriedades legais abaixo descritas e que constam do Regime Jurídico da Promoção da Segurança e Saúde no Trabalho.";
 
         frase = new Phrase(texto, fontConfiguration.getFont(Pdf.Fontes.FONTE_ASSINATURA, true));
         table.addCell(frase, cellConfiguration);

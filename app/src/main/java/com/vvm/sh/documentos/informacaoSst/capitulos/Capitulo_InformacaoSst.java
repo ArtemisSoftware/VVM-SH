@@ -5,8 +5,9 @@ import android.content.Context;
 import com.titan.pdfdocumentlibrary.bundle.Chapter;
 import com.titan.pdfdocumentlibrary.bundle.Section;
 import com.titan.pdfdocumentlibrary.models.Index;
+import com.vvm.sh.documentos.informacaoSst.modelos.DadosInformacaoSst;
 import com.vvm.sh.documentos.informacaoSst.seccoes.Assinatura;
-import com.vvm.sh.documentos.informacaoSst.seccoes.Cliente;
+import com.vvm.sh.documentos.informacaoSst.seccoes.IdentificacaoCliente;
 import com.vvm.sh.documentos.informacaoSst.seccoes.ObrigacoesLegais;
 import com.vvm.sh.util.constantes.Pdf;
 
@@ -16,10 +17,12 @@ import java.util.List;
 public class Capitulo_InformacaoSst extends Chapter {
 
     private Context contexto;
+    private DadosInformacaoSst dados;
 
-    public Capitulo_InformacaoSst(Context contexto) {
+    public Capitulo_InformacaoSst(Context contexto, DadosInformacaoSst dados) {
         super(1);
         this.contexto = contexto;
+        this.dados = dados;
     }
 
     @Override
@@ -43,18 +46,18 @@ public class Capitulo_InformacaoSst extends Chapter {
 
             case Pdf.Seccoes.ID_CLIENTE:
 
-                //section = new Cliente(contexto, registoVisita.dadosCliente);
+                section = new IdentificacaoCliente(contexto, dados.cliente);
                 break;
 
             case Pdf.Seccoes.ID_OBRIGACOES_LEGAIS:
 
-                //section = new ObrigacoesLegais(contexto, registoVisita.trabalhoRealizados);
+                section = new ObrigacoesLegais(contexto, dados.obrigacaoLegal);
                 break;
 
 
             case Pdf.Seccoes.ID_RUBRICA:
 
-                //section = new Assinatura(contexto, registoVisita.rubrica);
+                section = new Assinatura(contexto, dados.rubrica);
                 break;
 
 

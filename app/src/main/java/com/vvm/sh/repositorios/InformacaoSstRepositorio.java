@@ -14,6 +14,7 @@ import com.vvm.sh.ui.informacaoSst.modelos.ObrigacaoLegal;
 import com.vvm.sh.ui.informacaoSst.modelos.RelatorioInformacaoSst;
 import com.vvm.sh.ui.registoVisita.modelos.RelatorioRegistoVisita;
 import com.vvm.sh.ui.registoVisita.modelos.TrabalhoRealizado;
+import com.vvm.sh.util.ResultadoId;
 
 import java.util.List;
 
@@ -27,17 +28,18 @@ public class InformacaoSstRepositorio implements Repositorio<ObrigacaoLegalResul
     private final PdfDao pdfDao;
     public final ResultadoDao resultadoDao;
     private final int api;
-
+    public final ResultadoId resultadoId;
 
     public InformacaoSstRepositorio(int api, @NonNull InformacaoSstDao informacaoSstDao,
                                     @NonNull ImagemDao imagemDao, @NonNull PdfDao pdfDao,
-                                    @NonNull ResultadoDao resultadoDao) {
+                                    @NonNull ResultadoDao resultadoDao, ResultadoId resultadoId) {
 
         this.informacaoSstDao = informacaoSstDao;
         this.resultadoDao = resultadoDao;
         this.imagemDao = imagemDao;
         this.pdfDao = pdfDao;
         this.api = api;
+        this.resultadoId = resultadoId;
     }
 
     @Override

@@ -10,6 +10,7 @@ import com.vvm.sh.baseDados.dao.TrabalhosRealizadosDao;
 import com.vvm.sh.di.registoVisita.RegistoVisitaScope;
 import com.vvm.sh.repositorios.InformacaoSstRepositorio;
 import com.vvm.sh.repositorios.RegistoVisitaRepositorio;
+import com.vvm.sh.util.ResultadoId;
 
 import dagger.Module;
 import dagger.Provides;
@@ -41,7 +42,7 @@ public class InformacaoSstModule {
     @Provides
     InformacaoSstRepositorio provideInformacaoSstRepositorio(int api, InformacaoSstDao informacaoSstDao, ImagemDao imagemDao, PdfDao pdfDao, ResultadoDao resultadoDao) {
 
-        InformacaoSstRepositorio repositorio = new InformacaoSstRepositorio(api, informacaoSstDao, imagemDao, pdfDao, resultadoDao);
+        InformacaoSstRepositorio repositorio = new InformacaoSstRepositorio(api, informacaoSstDao, imagemDao, pdfDao, resultadoDao, ResultadoId.INFORMCAO_SST);
         return repositorio;
     }
 

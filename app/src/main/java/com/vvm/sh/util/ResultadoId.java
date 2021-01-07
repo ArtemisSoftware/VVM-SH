@@ -19,8 +19,8 @@ public enum ResultadoId {
     QUADRO_PESSOAL(Identificadores.Resultados.ID_QUADRO_PESSOAL, Sintaxe.Palavras.QUADRO_PESSOAL),
     PLANO_ACAO(Identificadores.Resultados.ID_PLANO_ACAO, Sintaxe.Palavras.PLANO_ACAO),
 
-    REGISTO_VISITA(Identificadores.Resultados.ID_REGISTO_VISITA, Sintaxe.Palavras.REGISTO_VISITA);
-
+    REGISTO_VISITA(Identificadores.Resultados.ID_REGISTO_VISITA, Sintaxe.Palavras.REGISTO_VISITA),
+    INFORMCAO_SST(Identificadores.Resultados.ID_INFORMCAO_SST, Sintaxe.Palavras.INFORMCAO_SST);
 
     private final int value;
     private final String descricao;
@@ -55,6 +55,7 @@ public enum ResultadoId {
         registos.add(PLANO_ACAO);
 
         registos.add(REGISTO_VISITA);
+        registos.add(INFORMCAO_SST);
 
         for (ResultadoId item: registos) {
 

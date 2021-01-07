@@ -171,6 +171,7 @@ public class Identificadores {
         public static final int ID_QUADRO_PESSOAL = 8;
         public static final int ID_REGISTO_VISITA = 9;
         public static final int ID_PLANO_ACAO = 10;
+        public static final int ID_INFORMCAO_SST = 11;
     }
 
     public class OpcoesCliente {

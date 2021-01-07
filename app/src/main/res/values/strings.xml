@@ -492,5 +492,7 @@
     <string name="homologacao_registo_visita">O cliente aprova o Plano de Acção das atividades de SST apresentado e entregue pelo Técnico de segurança</string>
     <string name="informacao_sst">Informação SST</string>
     <string name="obrigacoes_legais">Obrigações Legais</string>
+    <string name="assinatura_representante_empresa">(assinatura do representante da empresa)</string>
+    <string name="declaracao_informacao_sst">Declaro que entendi a informação transmitida pelo Técnico de Segurança no Trabalho, constante no presente documento</string>
 
 </resources>

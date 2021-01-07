@@ -31,7 +31,7 @@
             style="@style/lista"
 
 
-            tools:listitem="@layout/item_trabalho_realizado"/>
+            tools:listitem="@layout/item_obrigacao_legal"/>
 
 <!--        trabalhos="@{viewmodel.trabalhos}"-->
 <!--        listener="@{listener}"-->

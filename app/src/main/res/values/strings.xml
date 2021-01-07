@@ -494,5 +494,6 @@
     <string name="obrigacoes_legais">Obrigações Legais</string>
     <string name="assinatura_representante_empresa">(assinatura do representante da empresa)</string>
     <string name="declaracao_informacao_sst">Declaro que entendi a informação transmitida pelo Técnico de Segurança no Trabalho, constante no presente documento</string>
+    <string name="obrigatoriedades_legais">Obrigatoriedades Legais</string>
 
 </resources>

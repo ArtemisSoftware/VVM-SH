@@ -48,6 +48,25 @@ public class Migracao {
                 database.execSQL("CREATE INDEX index_obrigacaoLegalResultado_idTarefa ON obrigacaoLegalResultado (idTarefa)");
 
 
+                database.execSQL("CREATE TABLE IF NOT EXISTS 'certificadoTratamentoResultado' ("
+                        + "'idAtividade' INTEGER NOT NULL, "
+                        + "'idPraga' INTEGER NOT NULL, "
+                        + "'idVisita' INTEGER NOT NULL, "
+                        + "'idProdutoAplicado' INTEGER NOT NULL , "
+                        + "'avaliacaoCondicoesHigiene' INTEGER NOT NULL , "
+                        + "'avaliacaoManutencaoInstalacoes' INTEGER NOT NULL , "
+                        + "'avaliacaoCondicoesArmazenamento' INTEGER NOT NULL , "
+                        + "'observacaoVestigiosPragas' INTEGER  NOT NULL DEFAULT   " + Sintaxe.Codigos.NAO_SELECIONADO + " ,  "
+                        + "'observacaoProdutosEmGel' INTEGER  NOT NULL DEFAULT   " + Sintaxe.Codigos.NAO_SELECIONADO + " ,  "
+                        + "'observacao' TEXT , "
+                        + "PRIMARY KEY (idAtividade), "
+                        + "FOREIGN KEY (idAtividade) REFERENCES atividadesPendentes (id)  ON DELETE CASCADE) ");
+
+                database.execSQL("CREATE INDEX index_certificadoTratamentoResultado_idAtividade ON certificadoTratamentoResultado (idAtividade)");
+
+
+
+
 
             }
             catch(SQLException | IllegalStateException e){

@@ -47,6 +47,7 @@ import com.vvm.sh.baseDados.entidades.AreaChecklist;
 import com.vvm.sh.baseDados.entidades.AreaChecklistResultado;
 import com.vvm.sh.baseDados.entidades.AvaliacaoAmbientalResultado;
 import com.vvm.sh.baseDados.entidades.CategoriaProfissionalResultado;
+import com.vvm.sh.baseDados.entidades.CertificadoTratamentoResultado;
 import com.vvm.sh.baseDados.entidades.CheckList;
 import com.vvm.sh.baseDados.entidades.Colaborador;
 import com.vvm.sh.baseDados.entidades.ColaboradorResultado;
@@ -131,6 +132,8 @@ import com.vvm.sh.baseDados.entidades.VerificacaoEquipamentoResultado;
 
                     TrabalhoRealizadoResultado.class, RegistoVisitaResultado.class,
                     ObrigacaoLegalResultado.class, InformacaoSstResultado.class,
+
+                    CertificadoTratamentoResultado.class,
 
                     LevantamentoRiscoResultado.class, ProcessoProdutivoResultado.class, TrabalhadorVulneravelResultado.class,
                     AreaChecklistResultado.class, QuestionarioChecklistResultado.class, PropostaPlanoAcaoResultado.class, RiscoResultado.class,

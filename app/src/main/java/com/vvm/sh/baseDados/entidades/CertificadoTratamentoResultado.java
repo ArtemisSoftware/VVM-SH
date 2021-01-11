@@ -2,32 +2,39 @@ package com.vvm.sh.baseDados.entidades;
 
 
 import androidx.annotation.NonNull;
+import androidx.room.ColumnInfo;
 import androidx.room.Entity;
 import androidx.room.ForeignKey;
+import androidx.room.Index;
 import androidx.room.PrimaryKey;
+
+import com.vvm.sh.util.constantes.Sintaxe;
 
 import static androidx.room.ForeignKey.CASCADE;
 
-@Entity(tableName = "certificadoTratamentoResultado",
 
-        foreignKeys = @ForeignKey(entity = Tarefa.class,
-                parentColumns = "idTarefa",
-                childColumns = "idTarefa",
+@Entity(tableName = "certificadoTratamentoResultado",
+        indices = {@Index(value="idAtividade", unique = false) },
+        primaryKeys = {"idAtividade"},
+        foreignKeys = @ForeignKey(entity = AtividadePendente.class,
+                parentColumns = "id",
+                childColumns = "idAtividade",
                 onDelete = CASCADE))
 public class CertificadoTratamentoResultado {
 
 
-    @PrimaryKey
-    public int idTarefa;
 
     @NonNull
-    public boolean pragaBarata;
+    public int idAtividade;
 
     @NonNull
-    public int visitaPragaBarata;
+    public int idPraga;
 
     @NonNull
-    public String produtoAplicado;
+    public int idVisita;
+
+    @NonNull
+    public int idProdutoAplicado;
 
 
     @NonNull
@@ -40,8 +47,12 @@ public class CertificadoTratamentoResultado {
     public int avaliacaoCondicoesArmazenamento;
 
     @NonNull
+    @ColumnInfo(name = "observacaoVestigiosPragas", defaultValue = Sintaxe.Codigos.NAO_SELECIONADO)
     public boolean observacaoVestigiosPragas;
 
     @NonNull
+    @ColumnInfo(name = "observacaoProdutosEmGel", defaultValue = Sintaxe.Codigos.NAO_SELECIONADO)
     public boolean observacaoProdutosEmGel;
+
+    public String observacao;
 }

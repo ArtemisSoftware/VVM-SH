@@ -496,5 +496,7 @@
     <string name="declaracao_informacao_sst">Declaro que entendi a informação transmitida pelo Técnico de Segurança no Trabalho, constante no presente documento</string>
     <string name="obrigatoriedades_legais">Obrigatoriedades Legais</string>
     <string name="responsavel_">Responsável:</string>
+    <string name="certificado">Certificado</string>
+    <string name="certificado_tratamento">Certificado de Tratamento</string>
 
 </resources>

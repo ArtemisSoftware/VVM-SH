@@ -6,6 +6,7 @@ import androidx.room.Query;
 import com.vvm.sh.baseDados.BaseDao;
 import com.vvm.sh.baseDados.entidades.CertificadoTratamentoResultado;
 import com.vvm.sh.baseDados.entidades.ParqueExtintorResultado;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.certificadoTratamento.modelos.RelatorioCertificadoTratamento;
 import com.vvm.sh.ui.registoVisita.modelos.RelatorioRegistoVisita;
 import com.vvm.sh.util.constantes.Identificadores;
 
@@ -21,7 +22,7 @@ abstract public class CertificadoTratamentoDao implements BaseDao<CertificadoTra
     abstract public Maybe<CertificadoTratamentoResultado> obterCertificadoTratamento(int idAtividade);
 
 
-    @Query("SELECT certificadoValido, assinaturaValido, sincronizacao, " +
+    @Query("SELECT idAtividade, certificadoValido, assinaturaValido, sincronizacao, " +
             "CASE WHEN certificadoValido = 1 AND assinaturaValido = 1 AND email != '' THEN 1 ELSE 0 END as valido " +
 
             "FROM ( " +
@@ -52,7 +53,7 @@ abstract public class CertificadoTratamentoDao implements BaseDao<CertificadoTra
             ") as certificado_tratamento " +
 
             "WHERE certificado_tratamento.idAtividade =:idAtividade")
-    abstract public Observable<String> obterRelatorioCertificadoTratamento(int idAtividade);
+    abstract public Observable<RelatorioCertificadoTratamento> obterRelatorioCertificadoTratamento(int idAtividade);
 
 
     //---------------

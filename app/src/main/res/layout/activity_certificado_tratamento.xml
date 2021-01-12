@@ -4,21 +4,22 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
-        <import type="java.util.List"/>
-        <import type="com.vvm.sh.R"/>
-        <import type="android.view.View"/>
+        <import type="com.vvm.sh.BuildConfig"/>
         <import type="com.vvm.sh.util.metodos.StringUtil"/>
+        <import type="java.util.List"/>
+        <import type="android.view.View"/>
         <import type="com.vvm.sh.util.metodos.DatasUtil"/>
+
+
 
 <!--        <variable-->
 <!--            name="viewmodel"-->
-<!--            type="com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.AvaliacaoAmbientalViewModel"/>-->
+<!--            type="com.vvm.sh.ui.informacaoSst.InformacaoSstViewModel"/>-->
 
 
-<!--        <variable-->
-<!--            name="bloquear"-->
-<!--            type="Boolean"/>-->
+        <variable
+            name="bloquear"
+            type="Boolean"/>
 
     </data>
 
@@ -26,38 +27,70 @@
 
 
     <androidx.coordinatorlayout.widget.CoordinatorLayout
+        android:id="@+id/appbar_layout_activity"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fitsSystemWindows="true">
+        android:layout_height="match_parent">
+
+
 
         <com.google.android.material.appbar.AppBarLayout
+            android:id="@+id/app_bar_layout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:theme="@style/AppTheme.AppBarOverlay">
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            android:fitsSystemWindows="true">
 
-            <androidx.appcompat.widget.Toolbar
-                android:id="@+id/toolbar"
+            <com.google.android.material.appbar.CollapsingToolbarLayout
                 android:layout_width="match_parent"
-                android:layout_height="?attr/actionBarSize"
-                android:background="?attr/colorPrimary"
-                app:popupTheme="@style/AppTheme.PopupOverlay" />
+                android:layout_height="@dimen/banner_height"
+                app:layout_scrollFlags="scroll|exitUntilCollapsed"
+                app:contentScrim="?attr/colorPrimary"
+                app:title="@string/registo_visita"
+                app:expandedTitleTextAppearance="@android:color/transparent"
+                android:fitsSystemWindows="true">
+
+                <ImageView
+                    android:id="@+id/img_banner"
+                    app:layout_collapseMode="parallax"
+                    android:src="@drawable/registo_visita_banner"
+                    android:contentDescription="@string/relatorio"
+                    android:scaleType="centerCrop"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+                <androidx.appcompat.widget.Toolbar
+                    android:id="@+id/toolbar"
+                    android:layout_width="match_parent"
+                    android:layout_height="?attr/actionBarSize"
+                    app:popupTheme="@style/ThemeOverlay.AppCompat.Light"
+                    android:title="@string/cliente"
+                    app:layout_collapseMode="pin"/>
+
+
+            </com.google.android.material.appbar.CollapsingToolbarLayout>
+
 
         </com.google.android.material.appbar.AppBarLayout>
+
+
 
 
         <androidx.core.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingBottom="@dimen/activity_vertical_margin"
-            android:paddingLeft="@dimen/activity_horizontal_margin"
-            android:paddingRight="@dimen/activity_horizontal_margin"
-            android:paddingTop="@dimen/activity_vertical_margin"
+            android:clipToPadding="false"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+
+
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:layout_centerHorizontal="true">
+
+
 
                 <androidx.constraintlayout.widget.ConstraintLayout
                     android:layout_width="match_parent"
@@ -65,11 +98,14 @@
 
 
                     <TextView
-                        android:id="@+id/textView18"
+                        android:id="@+id/txt_titulo"
                         style="@style/tituloCartao"
-                        android:text="@string/avaliacao_iluminacao"
+                        android:text="@string/certificado_tratamento"
+                        android:layout_marginStart="16dp"
+                        android:layout_marginTop="16dp"
                         app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                        app:layout_constraintTop_toTopOf="parent"/>
+
 
                     <View
                         android:id="@+id/textview2"
@@ -77,322 +113,246 @@
                         android:layout_height="0.2dp"
                         android:layout_marginTop="8dp"
                         android:background="@color/cor_separador"
-                        app:layout_constraintStart_toStartOf="@+id/textView18"
-                        app:layout_constraintTop_toBottomOf="@+id/textView18" />
+                        app:layout_constraintStart_toStartOf="@+id/txt_titulo"
+                        app:layout_constraintTop_toBottomOf="@+id/txt_titulo" />
 
 
-
-                    <LinearLayout
-                        android:id="@+id/linearLayout21"
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+
+
+                        android:layout_marginTop="8dp"
+                        android:layout_marginBottom="24dp"
+                        app:layout_constraintStart_toStartOf="@+id/txt_titulo"
+                        app:layout_constraintTop_toBottomOf="@+id/textview2"
+                        android:theme="@style/Theme.MaterialComponents.Light" />
+                    <!--                    completudeRelatorio="@{viewmodel.relatorio.valido}"-->
+
+                    <com.google.android.material.chip.Chip
+                        android:id="@+id/chip2"
+
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"
                         android:layout_marginStart="8dp"
-                        android:orientation="vertical"
-                        android:layout_marginTop="@dimen/distancia_vertical_formulario"
-                        app:layout_constraintStart_toStartOf="@+id/textView18"
-                        app:layout_constraintTop_toBottomOf="@+id/textview2">
+                        android:layout_marginTop="8dp"
+                        android:theme="@style/Theme.MaterialComponents.Light"
+                        app:layout_constraintStart_toEndOf="@+id/chip"
+                        app:layout_constraintTop_toBottomOf="@+id/textview2" />
+                    <!--                    completudeSincronizacao="@{viewmodel.relatorio.sincronizacao}"-->
+
+                    <androidx.constraintlayout.widget.ConstraintLayout
+                        android:id="@+id/ct_lyt"
+                        android:layout_width="match_parent"
+                        android:layout_height="700dp"
+                        android:layout_marginTop="50dp"
+                        android:padding="@dimen/dimen_20dp"
+                        app:layout_constraintEnd_toEndOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toBottomOf="@+id/chip">
+
+
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/card_dados_cliente"
+                            style="@style/cartaoMini"
+                            app:layout_constraintStart_toStartOf="parent"
+                            app:layout_constraintTop_toTopOf="parent">
+
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+
+
+                                <TextView
+                                    android:id="@+id/textView2"
+                                    style="@style/tituloCartao"
+                                    android:layout_marginStart="16dp"
+                                    android:layout_marginTop="16dp"
+                                    android:layout_marginEnd="16dp"
+                                    android:text="@string/dados_cliente"
+                                    app:layout_constraintEnd_toEndOf="parent"
+                                    app:layout_constraintHorizontal_bias="0.0"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                                <ImageView
+                                    android:id="@+id/imageView8"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/distancia_vertical_titulo"
+                                    app:layout_constraintStart_toStartOf="@+id/textView2"
+                                    app:layout_constraintTop_toBottomOf="@+id/textView2"
+                                    app:srcCompat="@drawable/ic_geral" />
 
-                        <TextView
-                            style="@style/textoDescritivo"
-                            android:text="@{viewmodel.registoVisita.cliente.nome}"
-                            />
+                                <TextView
+                                    android:id="@+id/textView67"
+                                    style="@style/textoDetalhe"
+                                    android:layout_marginTop="@dimen/distancia_vertical_titulo"
+                                    android:text="@string/email_"
+                                    app:layout_constraintStart_toStartOf="@+id/textView2"
+                                    app:layout_constraintTop_toBottomOf="@+id/imageView8" />
 
-                        <!--
+                                <TextView
+                                    android:id="@+id/textView47"
+                                    style="@style/textoDetalhe"
+                                    android:layout_marginStart="16dp"
+                                    android:text="@{viewmodel.relatorio.email}"
+                                    app:layout_constraintStart_toEndOf="@+id/textView67"
+                                    app:layout_constraintTop_toTopOf="@+id/textView67" />
 
-                        android:text="@{viewmodel.tarefaDia.obterMarcaOrdem(), default=cliente}"
-                        -->
 
-                        <TextView
-                            style="@style/subTituloDescritivo"
-                            android:text="@string/cliente" />
 
-                    </LinearLayout>
+                                <com.google.android.material.chip.Chip
+                                    android:id="@+id/chip_geral"
 
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="16dp"
+                                    android:layout_marginBottom="16dp"
+                                    android:theme="@style/Theme.MaterialComponents.Light"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toStartOf="@+id/textView2"
+                                    app:layout_constraintTop_toBottomOf="@+id/textView67" />
+                                <!--                                completudeRelatorio="@{viewmodel.relatorio.clienteValido}"-->
 
+                            </androidx.constraintlayout.widget.ConstraintLayout>
 
-<!--                    <TextView-->
-<!--                        android:id="@+id/textview31"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:text="@string/areaPostoTrabalho"-->
-<!--                        android:layout_marginTop="@dimen/distancia_vertical_formulario"-->
-<!--                        app:layout_constraintStart_toStartOf="@+id/textView18"-->
-<!--                        app:layout_constraintTop_toBottomOf="@+id/textview2"-->
-<!--                        style="@style/textoInput" />-->
 
-<!--                    <com.jaredrummler.materialspinner.MaterialSpinner-->
-<!--                        android:id="@+id/spnr_area_posto_trabalho"-->
-<!--                        android:layout_width="400dp"-->
-<!--                        android:hint="@string/areaPostoTrabalho"-->
-<!--                        tipos="@{viewmodel.areas}"-->
-<!--                        id="@{viewmodel.avaliacao.resultado.idArea}"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        app:layout_constraintStart_toStartOf="@+id/textView18"-->
-<!--                        app:layout_constraintTop_toBottomOf="@+id/textview31" />-->
+                        </androidx.cardview.widget.CardView>
 
 
 
-<!--                    <com.google.android.material.textfield.TextInputLayout-->
-<!--                        android:id="@+id/textview3"-->
-<!--                        style="@style/parent.TextLayout"-->
-<!--                        android:hint="@string/descricaoArea"-->
-<!--                        android:layout_width="450dp"-->
-<!--                        app:errorEnabled="true"-->
-<!--                        android:layout_marginTop="@dimen/distancia_vertical_formulario"-->
-<!--                        app:layout_constraintStart_toStartOf="@+id/textView18"-->
-<!--                        app:layout_constraintTop_toBottomOf="@+id/spnr_area_posto_trabalho">-->
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/card_certificado"
+                            style="@style/cartaoMini"
 
-<!--                        <com.google.android.material.textfield.TextInputEditText-->
-<!--                            android:id="@+id/txt_inp_descricao_area"-->
-<!--                            style="@style/modifiedEditText"-->
-<!--                            android:text="@{viewmodel.avaliacao.resultado.anexoArea}"-->
-<!--                            android:maxLength="250"-->
-<!--                            android:inputType="text"-->
-<!--                            android:maxLines="1"/>-->
 
-<!--                        -->
-<!--                    </com.google.android.material.textfield.TextInputLayout>-->
+                            android:layout_marginStart="32dp"
+                            app:layout_constraintStart_toEndOf="@+id/card_dados_cliente"
+                            app:layout_constraintTop_toTopOf="@+id/card_dados_cliente">
 
+                            <!--                            sincronizacao="{viewmodel.relatorio.sincronizacao}"-->
 
+                            <androidx.constraintlayout.widget.ConstraintLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
 
 
+                                <TextView
+                                    android:id="@+id/textView21"
+                                    style="@style/tituloCartao"
+                                    android:layout_marginStart="16dp"
+                                    android:layout_marginTop="16dp"
+                                    android:layout_marginEnd="16dp"
+                                    android:text="@string/certificado"
+                                    app:layout_constraintHorizontal_bias="0.0"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
 
 
+                                <ImageView
+                                    android:id="@+id/imageView9"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/distancia_vertical_titulo"
+                                    app:layout_constraintStart_toStartOf="@+id/textView21"
+                                    app:layout_constraintTop_toBottomOf="@+id/textView21"
+                                    app:srcCompat="@drawable/ic_geral" />
 
-<!--                    <LinearLayout-->
-<!--                        android:id="@+id/linearlayout1"-->
-<!--                        android:orientation="horizontal"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:gravity="center_vertical"-->
-<!--                        android:layout_marginTop="@dimen/distancia_vertical_formulario"-->
-<!--                        app:layout_constraintStart_toStartOf="@+id/textView18"-->
-<!--                        app:layout_constraintTop_toBottomOf="@+id/textview3">-->
 
-<!--                        <LinearLayout-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:orientation="vertical">-->
+                                <com.google.android.material.chip.Chip
+                                    android:id="@+id/chip_avaliacoes"
 
-<!--                            <TextView-->
-<!--                                android:id="@+id/textview32"-->
-<!--                                android:layout_width="match_parent"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:text="@string/categorias_profissionais"-->
-<!--                                style="@style/textoInput" />-->
 
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="16dp"
+                                    android:layout_marginBottom="16dp"
+                                    android:theme="@style/Theme.MaterialComponents.Light"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toStartOf="@+id/textView21"
+                                    app:layout_constraintTop_toBottomOf="@+id/imageView9" />
 
-<!--                            <TextView-->
-<!--                                android:id="@+id/txt_categorias_profissionais"-->
-<!--                                listagemTipos="@{viewmodel.categoriasProfissionais}"-->
-<!--                                android:layout_width="match_parent"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                style="@style/textoDetalhe" />-->
+                                <!--                                completudeRelatorio="@{viewmodel.relatorio.trabalhoValido}"-->
 
+                            </androidx.constraintlayout.widget.ConstraintLayout>
 
-<!--                        </LinearLayout>-->
 
+                        </androidx.cardview.widget.CardView>
 
-<!--                        <at.markushi.ui.CircleButton-->
-<!--                            android:id="@+id/crl_btn_pesquisar_categorias_profissionais"-->
-<!--                            style="@style/btnPesquisa" />-->
 
-<!--                    </LinearLayout>-->
 
 
+                        <androidx.cardview.widget.CardView
+                            android:id="@+id/card_assinatura"
+                            style="@style/cartaoMini"
 
+                            android:layout_marginTop="32dp"
+                            app:layout_constraintStart_toStartOf="@+id/card_dados_cliente"
+                            app:layout_constraintTop_toBottomOf="@+id/card_dados_cliente">
 
+                            <!-- sincronizacao="{viewmodel.relatorio.sincronizacao}" -->
 
 
+                            <androidx.constraintlayout.widget.ConstraintLayout
 
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
 
 
+                                <TextView
+                                    android:id="@+id/textView20"
+                                    style="@style/tituloCartao"
+                                    android:layout_marginStart="16dp"
+                                    android:layout_marginTop="16dp"
+                                    android:layout_marginEnd="16dp"
+                                    android:text="@string/Assinatura"
+                                    app:layout_constraintHorizontal_bias="0.0"
+                                    app:layout_constraintStart_toStartOf="parent"
+                                    app:layout_constraintTop_toTopOf="parent" />
 
 
+                                <ImageView
+                                    android:id="@+id/imageView10"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/distancia_vertical_titulo"
+                                    app:layout_constraintStart_toStartOf="@+id/textView20"
+                                    app:layout_constraintTop_toBottomOf="@+id/textView20"
+                                    app:srcCompat="@drawable/ic_assinatura" />
 
-<!--                    <com.google.android.material.textfield.TextInputLayout-->
-<!--                        android:id="@+id/textview35"-->
-<!--                        style="@style/parent.TextLayout"-->
-<!--                        android:hint="@string/nomeTrabalhador"-->
-<!--                        android:layout_width="450dp"-->
-<!--                        app:errorEnabled="true"-->
-<!--                        android:layout_marginTop="@dimen/distancia_vertical_formulario"-->
-<!--                        app:layout_constraintStart_toStartOf="@+id/textView18"-->
-<!--                        app:layout_constraintTop_toBottomOf="@+id/linearlayout1">-->
 
-<!--                        <com.google.android.material.textfield.TextInputEditText-->
-<!--                            android:id="@+id/txt_inp_nome"-->
-<!--                            android:text="@{viewmodel.avaliacao.resultado.nome}"-->
-<!--                            style="@style/modifiedEditText"-->
-<!--                            android:inputType="text"-->
-<!--                            android:maxLines="1"/>-->
+                                <com.google.android.material.chip.Chip
+                                    android:id="@+id/chip_assinatura"
 
-<!--                        -->
-<!--                    </com.google.android.material.textfield.TextInputLayout>-->
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="@dimen/distancia_vertical_titulo"
+                                    android:layout_marginBottom="16dp"
+                                    android:theme="@style/Theme.MaterialComponents.Light"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toStartOf="@+id/textView20"
+                                    app:layout_constraintTop_toBottomOf="@+id/imageView10" />
 
 
+                                <!--                                completudeRelatorio="@{viewmodel.relatorio.assinaturaValido}"-->
+                            </androidx.constraintlayout.widget.ConstraintLayout>
 
-<!--                    <TextView-->
-<!--                        android:id="@+id/textview36"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:text="@string/genero"-->
-<!--                        android:layout_marginTop="@dimen/distancia_vertical_formulario"-->
-<!--                        app:layout_constraintStart_toStartOf="@+id/textView18"-->
-<!--                        app:layout_constraintTop_toBottomOf="@+id/textview35"-->
-<!--                        style="@style/textoInput" />-->
 
-<!--                    <com.jaredrummler.materialspinner.MaterialSpinner-->
-<!--                        android:id="@+id/spnr_genero"-->
-<!--                        android:layout_width="400dp"-->
-<!--                        android:hint="@string/genero"-->
-<!--                        tipos="@{viewmodel.generos}"-->
-<!--                        id="@{viewmodel.avaliacao.resultado.sexo}"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        app:layout_constraintStart_toStartOf="@+id/textView18"-->
-<!--                        app:layout_constraintTop_toBottomOf="@+id/textview36" />-->
+                        </androidx.cardview.widget.CardView>
 
 
 
-<!--                    <TextView-->
-<!--                        android:id="@+id/textview37"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:text="@string/tipoIluminacao"-->
-<!--                        android:layout_marginTop="@dimen/distancia_vertical_formulario"-->
-<!--                        app:layout_constraintStart_toStartOf="@+id/textView18"-->
-<!--                        app:layout_constraintTop_toBottomOf="@+id/spnr_genero"-->
-<!--                        style="@style/textoInput" />-->
 
-<!--                    <com.jaredrummler.materialspinner.MaterialSpinner-->
-<!--                        android:id="@+id/spnr_tipo_iluminacao"-->
-<!--                        android:layout_width="400dp"-->
-<!--                        android:hint="@string/tipoIluminacao"-->
-<!--                        tipos="@{viewmodel.iluminacao}"-->
-<!--                        id="@{viewmodel.avaliacao.resultado.tipoIluminacao}"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        app:layout_constraintStart_toStartOf="@+id/textView18"-->
-<!--                        app:layout_constraintTop_toBottomOf="@+id/textview37" />-->
 
+                    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 
-<!--                    <com.google.android.material.textfield.TextInputLayout-->
-<!--                        android:id="@+id/textview33"-->
-<!--                        style="@style/parent.TextLayout"-->
-<!--                        android:hint="@string/emedioLx"-->
-<!--                        android:layout_width="250dp"-->
-<!--                        app:errorEnabled="true"-->
-<!--                        android:layout_marginTop="@dimen/distancia_vertical_formulario"-->
-<!--                        app:layout_constraintStart_toStartOf="@+id/textView18"-->
-<!--                        app:layout_constraintTop_toBottomOf="@+id/spnr_tipo_iluminacao">-->
 
-<!--                        <com.google.android.material.textfield.TextInputEditText-->
-<!--                            android:id="@+id/txt_inp_emedio_lx"-->
-<!--                            style="@style/modifiedEditText"-->
-<!--                            android:text="@{StringUtil.converterStringEspaco(viewmodel.avaliacao.resultado.emedioLx)}"-->
-<!--                            android:maxLength="15"-->
-<!--                            android:inputType="number"-->
-<!--                            android:maxLines="1"/>-->
-
-<!--                    </com.google.android.material.textfield.TextInputLayout>-->
-
-
-<!--                    <TextView-->
-<!--                        android:id="@+id/txt_nivel_dificiente"-->
-<!--                        style="@style/textoDetalhe"-->
-<!--                        android:layout_marginStart="16dp"-->
-<!--                        android:background="@color/cor_vermelho"-->
-<!--                        android:text="@string/nivelDeficiente"-->
-<!--                        android:textColor="@color/white"-->
-<!--                        android:visibility="gone"-->
-<!--                        app:layout_constraintBottom_toBottomOf="@+id/textview33"-->
-<!--                        app:layout_constraintStart_toEndOf="@+id/textview33"-->
-<!--                        app:layout_constraintTop_toTopOf="@+id/textview33" />-->
-
-
-
-<!--                    <TextView-->
-<!--                        android:id="@+id/textview39"-->
-<!--                        android:layout_width="match_parent"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:text="@string/eLx"-->
-<!--                        android:layout_marginTop="@dimen/distancia_vertical_formulario"-->
-<!--                        app:layout_constraintStart_toStartOf="@+id/textView18"-->
-<!--                        app:layout_constraintTop_toBottomOf="@+id/textview33"-->
-<!--                        style="@style/textoInput" />-->
-
-<!--                    <com.jaredrummler.materialspinner.MaterialSpinner-->
-<!--                        android:id="@+id/spnr_eLx_area"-->
-
-<!--                        tipos="@{viewmodel.elxArea}"-->
-<!--                        id="@{viewmodel.avaliacao.resultado.eLxArea}"-->
-<!--                        android:layout_width="600dp"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        app:layout_constraintStart_toStartOf="@+id/textView18"-->
-<!--                        app:layout_constraintTop_toBottomOf="@+id/textview39" />-->
-
-
-<!--                    <com.jaredrummler.materialspinner.MaterialSpinner-->
-<!--                        android:id="@+id/spnr_eLx"-->
-<!--                        tipos="@{viewmodel.elx}"-->
-<!--                        id="@{viewmodel.avaliacao.resultado.idElx}"-->
-<!--                        android:layout_width="600dp"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginTop="16dp"-->
-<!--                        app:layout_constraintStart_toStartOf="@+id/textView18"-->
-<!--                        app:layout_constraintTop_toBottomOf="@+id/spnr_eLx_area" />-->
-
-
-
-
-
-
-
-<!--                    <LinearLayout-->
-<!--                        android:id="@+id/lnr_lyt_medidas"-->
-<!--                        android:layout_width="wrap_content"-->
-<!--                        android:layout_height="wrap_content"-->
-<!--                        android:layout_marginTop="@dimen/distancia_vertical_formulario"-->
-<!--                        android:layout_marginEnd="8dp"-->
-<!--                        android:gravity="center_vertical"-->
-<!--                        android:orientation="horizontal"-->
-<!--                        android:visibility="gone"-->
-<!--                        app:layout_constraintEnd_toEndOf="parent"-->
-<!--                        app:layout_constraintHorizontal_bias="0.0"-->
-<!--                        app:layout_constraintStart_toStartOf="@+id/textView18"-->
-<!--                        app:layout_constraintTop_toBottomOf="@+id/spnr_eLx">-->
-
-<!--                        <LinearLayout-->
-<!--                            android:layout_width="wrap_content"-->
-<!--                            android:layout_height="wrap_content"-->
-<!--                            android:layout_weight="1"-->
-<!--                            android:orientation="vertical">-->
-
-<!--                            <TextView-->
-<!--                                android:id="@+id/textview43"-->
-<!--                                style="@style/textoInput"-->
-<!--                                android:layout_width="match_parent"-->
-<!--                                android:layout_height="wrap_content"-->
-<!--                                android:text="@string/medidas_recomendadas" />-->
-
-
-<!--                            <TextView-->
-<!--                                android:id="@+id/txt_medidas"-->
-<!--                                style="@style/textoDetalhe"-->
-<!--                                listagemTipos="@{viewmodel.medidas}"-->
-<!--                                android:layout_width="match_parent"-->
-<!--                                android:layout_height="wrap_content" />-->
-
-
-<!--                        </LinearLayout>-->
-
-
-<!--                        <at.markushi.ui.CircleButton-->
-<!--                            android:id="@+id/crl_btn_pesquisar_medidas"-->
-<!--                            style="@style/btnPesquisa" />-->
-
-<!--                    </LinearLayout>-->
 
 
 
@@ -401,20 +361,88 @@
                 </androidx.constraintlayout.widget.ConstraintLayout>
 
 
+
+
             </LinearLayout>
+
 
         </androidx.core.widget.NestedScrollView>
 
-        <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab_gravar"
+
+        <com.github.clans.fab.FloatingActionMenu
+            android:id="@+id/fab_menu"
             android:enabled="@{bloquear}"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_marginRight="10dp"
+            android:layout_marginBottom="10dp"
+            android:layout_marginLeft="10dp"
             android:layout_gravity="bottom|end"
             android:layout_margin="@dimen/fab_margin"
-            android:src="@drawable/ic_gravar_24dp" />
+            app:menu_fab_size="normal"
+            app:menu_showShadow="true"
+            app:menu_shadowColor="#66000000"
+            app:menu_shadowRadius="4dp"
+            app:menu_shadowXOffset="1dp"
+            app:menu_shadowYOffset="3dp"
+            app:menu_colorNormal="#DA4336"
+            app:menu_colorPressed="#E75043"
+            app:menu_colorRipple="#99FFFFFF"
+            app:menu_animationDelayPerItem="50"
+            app:menu_icon="@drawable/ic_registo_visita_24dp"
+            app:menu_buttonSpacing="0dp"
+            app:menu_labels_margin="0dp"
+            app:menu_labels_paddingTop="4dp"
+            app:menu_labels_paddingRight="8dp"
+            app:menu_labels_paddingBottom="4dp"
+            app:menu_labels_paddingLeft="8dp"
+            app:menu_labels_padding="8dp"
+            app:menu_labels_textColor="#FFFFFF"
+            app:menu_labels_textSize="14sp"
+            app:menu_labels_cornerRadius="3dp"
+            app:menu_labels_colorNormal="#333333"
+            app:menu_labels_colorPressed="#444444"
+            app:menu_labels_colorRipple="#66FFFFFF"
+            app:menu_labels_showShadow="true"
+            app:menu_labels_singleLine="false"
+            app:menu_labels_ellipsize="none"
+            app:menu_labels_maxLines="-1"
+            app:menu_labels_style="@style/textoDetalhe"
+            app:menu_labels_position="left"
+            app:menu_openDirection="up"
+            app:menu_backgroundColor="@android:color/transparent">
+
+
+            <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/fab_enviar"
+                android:enabled="@{bloquear}"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_upload_24dp"
+                app:fab_size="mini"
+                app:fab_label="@string/enviar_pdf" />
+
+            <!--            android:visibility="@{viewmodel.relatorio.sincronizacao ? View.GONE : View.VISIBLE}"-->
+
+            <com.github.clans.fab.FloatingActionButton
+                android:id="@+id/fab_pre_visualizar"
+                android:enabled="@{bloquear}"
+
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:src="@drawable/ic_registo_visita_24dp"
+                app:fab_size="mini"
+                app:fab_label="@string/previsualizar_pdf" />
+
+            <!--            android:visibility="@{viewmodel.relatorio.valido ? View.VISIBLE : View.GONE}"-->
+
+        </com.github.clans.fab.FloatingActionMenu>
+
+
+
 
     </androidx.coordinatorlayout.widget.CoordinatorLayout>
-
-
 </layout>

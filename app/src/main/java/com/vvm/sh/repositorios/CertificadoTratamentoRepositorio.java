@@ -8,6 +8,7 @@ import com.vvm.sh.baseDados.entidades.CertificadoTratamentoResultado;
 import com.vvm.sh.baseDados.entidades.ImagemResultado;
 import com.vvm.sh.documentos.modelos.Rubrica;
 import com.vvm.sh.documentos.registoVisita.modelos.DadosRegistoVisita;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.certificadoTratamento.modelos.RelatorioCertificadoTratamento;
 import com.vvm.sh.ui.registoVisita.modelos.DadosCliente;
 import com.vvm.sh.ui.registoVisita.modelos.TrabalhoRealizado;
 import com.vvm.sh.util.constantes.Identificadores;
@@ -50,7 +51,7 @@ public class CertificadoTratamentoRepositorio implements Repositorio<Certificado
         return certificadoTratamentoDao.obterCertificadoTratamento(idAtividade);
     }
 
-    public Observable<String> obterRelatorioCertificadoTratamento(int idAtividade){
+    public Observable<RelatorioCertificadoTratamento> obterRelatorioCertificadoTratamento(int idAtividade){
         return certificadoTratamentoDao.obterRelatorioCertificadoTratamento(idAtividade);
     }
 

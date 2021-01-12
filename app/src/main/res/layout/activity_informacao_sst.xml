@@ -218,8 +218,8 @@
                                     style="@style/textoDetalhe"
                                     android:layout_marginStart="16dp"
                                     android:text="@{viewmodel.relatorio.responsavel}"
-                                    app:layout_constraintStart_toEndOf="@+id/textView67"
-                                    app:layout_constraintTop_toTopOf="@+id/textView67" />
+                                    app:layout_constraintStart_toEndOf="@+id/textView68"
+                                    app:layout_constraintTop_toTopOf="@+id/textView68" />
 
 
                                 <com.google.android.material.chip.Chip

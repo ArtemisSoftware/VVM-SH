@@ -158,6 +158,7 @@ public class Identificadores {
         public static final int IMAGEM_RISCO = 4;
         public static final int IMAGEM_CAPA_RELATORIO = 5;
         public static final int IMAGEM_ASSINATURA_INFORMACAO_SST = 6;
+        public static final int IMAGEM_ASSINATURA_CERTIFICADO_TRATAMENTO = 7;
     }
 
     public class Resultados {
@@ -286,6 +287,10 @@ public class Identificadores {
 
         public static final int ID_RELATORIO_AVERIGUACAO_AUDITORIA = 6;
         public static final String AVERIGUACAO_AUDITORIA = "Auditoria";
+
+        public static final int ID_RELATORIO_CERTIFICADO_TRATAMENTO = 7;
+        public static final String CERTIFICADO_TRATAMENTO = "Certificado de tratamento";
+
     }
 
     public static class CodigosWs {

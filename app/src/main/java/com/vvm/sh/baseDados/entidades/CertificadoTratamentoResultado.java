@@ -55,4 +55,9 @@ public class CertificadoTratamentoResultado {
     public boolean observacaoProdutosEmGel;
 
     public String observacao;
+
+
+    @NonNull
+    @ColumnInfo(name = "sincronizacao", defaultValue = Sintaxe.Codigos.NAO_SELECIONADO)
+    public boolean sincronizacao;
 }

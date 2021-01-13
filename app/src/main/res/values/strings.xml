@@ -498,5 +498,15 @@
     <string name="responsavel_">Responsável:</string>
     <string name="certificado">Certificado</string>
     <string name="certificado_tratamento">Certificado de Tratamento</string>
-
+    <string name="tipo_praga">Tipo de praga</string>
+    <string name="produto_aplicado">Produto aplicado</string>
+    <string name="condicoes_higienene">Condições de Higiene</string>
+    <string name="manutencao_instalacoes">Manutenção das instalações</string>
+    <string name="condicoes_armazenamento">Condições de armazenamento</string>
+    <string name="observacoes">Observações</string>
+    <string name="a_data_da_visita_vestigios">À data da visita não se detetaram vestígios de pragas no estabelecimento</string>
+    <string name="aplicacoes_zonas_tecnicas">Aplicação de gotas do produto, em gel, nas zonas técnicas do estabelecimento</string>
+    <string name="recomendacoes_observacoes">Recomendações / Observações</string>
+    <string name="visitas">Visitas</string>
+    <string name="visita">Visita</string>
 </resources>

@@ -47,7 +47,7 @@ public class CertificadoTratamentoRepositorio implements Repositorio<Certificado
         return  certificadoTratamentoDao.atualizar(item);
     }
 
-    public Maybe<CertificadoTratamentoResultado> obterDadosCliente(int idAtividade){
+    public Maybe<CertificadoTratamentoResultado> obterCertificado(int idAtividade){
         return certificadoTratamentoDao.obterCertificadoTratamento(idAtividade);
     }
 

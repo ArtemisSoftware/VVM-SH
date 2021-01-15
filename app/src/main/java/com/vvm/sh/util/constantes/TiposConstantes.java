@@ -71,4 +71,35 @@ public class TiposConstantes {
 
     }
 
+
+    public static class CertificadoTratamento {
+
+        public static class Pragas {
+
+            public static final Tipo PRAGA_1 = new Tipo(1, "Baratas");
+
+            public static final Tipo PRAGAS[] = { PRAGA_1 };
+
+        }
+
+
+        public static class Produtos {
+
+            public static final Tipo PRODUTO_1 = new Tipo(1, "Goliath");
+            public static final Tipo PRODUTO_2 = new Tipo(2, "Maxforce");
+
+            public static final Tipo PRODUTOS[] = { PRODUTO_1, PRODUTO_2 };
+        }
+
+        public static class Avaliacoes {
+
+            public static final Tipo AVALIACAO_1 = new Tipo(1, "Bom");
+            public static final Tipo AVALIACAO_2 = new Tipo(2, "Médio");
+            public static final Tipo AVALIACAO_3 = new Tipo(3, "Razoável");
+
+            public static final Tipo AVALIACOES[] = { AVALIACAO_1, AVALIACAO_2, AVALIACAO_3 };
+        }
+
+
+    }
 }

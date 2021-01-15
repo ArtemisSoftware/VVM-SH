@@ -16,6 +16,9 @@ import com.vvm.sh.di.atividadesPendentes.avaliacaoAmbiental.AvaliacaoAmbientalVi
 import com.vvm.sh.di.atividadesPendentes.averiguacao.AveriguacaoModule;
 import com.vvm.sh.di.atividadesPendentes.averiguacao.AveriguacaoScope;
 import com.vvm.sh.di.atividadesPendentes.averiguacao.AveriguacaoViewModelsModule;
+import com.vvm.sh.di.atividadesPendentes.certificadoTratamento.CertificadoTratamentoModule;
+import com.vvm.sh.di.atividadesPendentes.certificadoTratamento.CertificadoTratamentoScope;
+import com.vvm.sh.di.atividadesPendentes.certificadoTratamento.CertificadoTratamentoViewModelsModule;
 import com.vvm.sh.di.atividadesPendentes.checklist.ChecklistModule;
 import com.vvm.sh.di.atividadesPendentes.checklist.ChecklistScope;
 import com.vvm.sh.di.atividadesPendentes.checklist.ChecklistViewModelsModule;
@@ -74,6 +77,8 @@ import com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.Relatorio
 import com.vvm.sh.ui.atividadesPendentes.relatorios.averiguacao.AveriguacaoActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.averiguacao.AveriguacaoListagemActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.averiguacao.DialogoAveriguacao;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.certificadoTratamento.CertificadoActivity;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.certificadoTratamento.CertificadoTratamentoActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.ChecklistActivity;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.DialogoArea;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.checklist.DialogoChecklist;
@@ -732,4 +737,26 @@ public abstract class ActivityBuildersModule {
             modules = { InformacaoSstViewModelsModule.class, InformacaoSstModule.class }
     )
     abstract ObrigacoesLegaisActivity contributeObrigacoesLegaisActivity();
+
+
+    //-----------------
+    //Certificado de tratamento
+    //-----------------
+
+    @CertificadoTratamentoScope
+    @ContributesAndroidInjector(
+            modules = { CertificadoTratamentoViewModelsModule.class, CertificadoTratamentoModule.class }
+    )
+    abstract CertificadoTratamentoActivity contributeCertificadoTratamentoActivity();
+
+
+    @CertificadoTratamentoScope
+    @ContributesAndroidInjector(
+            modules = { CertificadoTratamentoViewModelsModule.class, CertificadoTratamentoModule.class }
+    )
+    abstract CertificadoActivity contributeCertificadoActivity();
+
+
+
+
 }

@@ -5,12 +5,29 @@ import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.vvm.sh.R;
+import com.vvm.sh.ui.BaseDaggerActivity;
+import com.vvm.sh.util.viewmodel.BaseViewModel;
 
-public class CertificadoTratamentoActivity extends AppCompatActivity {
+public class CertificadoTratamentoActivity extends BaseDaggerActivity {
+
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_certificado_tratamento);
+    protected void intActivity(Bundle savedInstanceState) {
+
+    }
+
+    @Override
+    protected int obterLayout() {
+        return R.layout.activity_certificado_tratamento;
+    }
+
+    @Override
+    protected BaseViewModel obterBaseViewModel() {
+        return null;
+    }
+
+    @Override
+    protected void subscreverObservadores() {
+
     }
 }

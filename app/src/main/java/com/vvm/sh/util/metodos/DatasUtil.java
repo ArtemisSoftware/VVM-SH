@@ -33,6 +33,7 @@ public class DatasUtil {
     public static final String HORA_FORMATO_HH_MM_SS = "HH:mm:ss";
 
     public static final Locale LOCAL_PORTUGAL = new Locale( "pt" );
+    public static final String DATA_FORMATO_FTP = "dd-MM-yyyy HH_mm_ss";;
 
 
     /**

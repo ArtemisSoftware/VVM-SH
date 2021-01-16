@@ -97,9 +97,10 @@ dependencies {
 
     implementation 'com.github.ArtemisSoftware:Pdf-document:1.0.8'
     implementation 'com.itextpdf:itextpdf:5.5.13'
-
     implementation 'com.sun.mail:android-mail:1.5.5'
     implementation 'com.sun.mail:android-activation:1.5.5'
+    implementation 'org.kie.modules:org-apache-commons-net:6.5.0.Final'
+
 
     implementation 'com.github.yalantis:ucrop:2.2.2'
 

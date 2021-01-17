@@ -12,9 +12,9 @@
 
 
 
-<!--        <variable-->
-<!--            name="viewmodel"-->
-<!--            type="com.vvm.sh.ui.informacaoSst.InformacaoSstViewModel"/>-->
+        <variable
+            name="viewmodel"
+            type="com.vvm.sh.ui.atividadesPendentes.relatorios.certificadoTratamento.CertificadoTratamentoViewModel"/>
 
 
         <variable
@@ -191,7 +191,9 @@
                                     android:id="@+id/textView67"
                                     style="@style/textoDetalhe"
                                     android:layout_marginTop="@dimen/distancia_vertical_titulo"
+                                    android:layout_marginBottom="16dp"
                                     android:text="@string/email_"
+                                    app:layout_constraintBottom_toBottomOf="parent"
                                     app:layout_constraintStart_toStartOf="@+id/textView2"
                                     app:layout_constraintTop_toBottomOf="@+id/imageView8" />
 
@@ -205,18 +207,6 @@
 
 
 
-                                <com.google.android.material.chip.Chip
-                                    android:id="@+id/chip_geral"
-
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_marginTop="16dp"
-                                    android:layout_marginBottom="16dp"
-                                    android:theme="@style/Theme.MaterialComponents.Light"
-                                    app:layout_constraintBottom_toBottomOf="parent"
-                                    app:layout_constraintStart_toStartOf="@+id/textView2"
-                                    app:layout_constraintTop_toBottomOf="@+id/textView67" />
-                                <!--                                completudeRelatorio="@{viewmodel.relatorio.clienteValido}"-->
 
                             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -265,7 +255,7 @@
 
                                 <com.google.android.material.chip.Chip
                                     android:id="@+id/chip_avaliacoes"
-
+                                    completudeRelatorio="@{viewmodel.relatorio.certificadoValido}"
 
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -276,7 +266,6 @@
                                     app:layout_constraintStart_toStartOf="@+id/textView21"
                                     app:layout_constraintTop_toBottomOf="@+id/imageView9" />
 
-                                <!--                                completudeRelatorio="@{viewmodel.relatorio.trabalhoValido}"-->
 
                             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -327,7 +316,7 @@
 
                                 <com.google.android.material.chip.Chip
                                     android:id="@+id/chip_assinatura"
-
+                                    completudeRelatorio="@{viewmodel.relatorio.assinaturaValido}"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="@dimen/distancia_vertical_titulo"
@@ -338,7 +327,7 @@
                                     app:layout_constraintTop_toBottomOf="@+id/imageView10" />
 
 
-                                <!--                                completudeRelatorio="@{viewmodel.relatorio.assinaturaValido}"-->
+
                             </androidx.constraintlayout.widget.ConstraintLayout>
 
 
@@ -418,26 +407,26 @@
             <com.github.clans.fab.FloatingActionButton
                 android:id="@+id/fab_enviar"
                 android:enabled="@{bloquear}"
-
+                android:visibility="@{viewmodel.relatorio.sincronizacao ? View.GONE : View.VISIBLE}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_upload_24dp"
                 app:fab_size="mini"
                 app:fab_label="@string/enviar_pdf" />
 
-            <!--            android:visibility="@{viewmodel.relatorio.sincronizacao ? View.GONE : View.VISIBLE}"-->
+            <!--            -->
 
             <com.github.clans.fab.FloatingActionButton
                 android:id="@+id/fab_pre_visualizar"
                 android:enabled="@{bloquear}"
-
+                android:visibility="@{viewmodel.relatorio.valido ? View.VISIBLE : View.GONE}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_registo_visita_24dp"
                 app:fab_size="mini"
                 app:fab_label="@string/previsualizar_pdf" />
 
-            <!--            android:visibility="@{viewmodel.relatorio.valido ? View.VISIBLE : View.GONE}"-->
+            <!--            -->
 
         </com.github.clans.fab.FloatingActionMenu>
 

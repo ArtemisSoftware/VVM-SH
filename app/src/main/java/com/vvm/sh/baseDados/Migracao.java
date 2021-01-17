@@ -49,6 +49,7 @@ public class Migracao {
 
 
                 database.execSQL("CREATE TABLE IF NOT EXISTS 'certificadoTratamentoResultado' ("
+                        + "'id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
                         + "'idAtividade' INTEGER NOT NULL, "
                         + "'idPraga' INTEGER NOT NULL, "
                         + "'idVisita' INTEGER NOT NULL, "

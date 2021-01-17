@@ -6,6 +6,8 @@ import androidx.databinding.BindingAdapter;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.jaredrummler.materialspinner.MaterialSpinner;
+import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.ui.opcoes.adaptadores.OnTipoListener;
 import com.vvm.sh.ui.opcoes.adaptadores.TipoChecklistRecyclerAdapter;
 import com.vvm.sh.ui.opcoes.adaptadores.TipoRecyclerAdapter;
@@ -84,4 +86,26 @@ public class TipoBinding {
         }
 
     }
+
+
+    @BindingAdapter({"tipos", "id"})
+    public static void setTipos(MaterialSpinner view, Tipo [] registos, int id) {
+
+        if (registos == null)
+            return;
+
+        view.setItems(registos);
+
+        if(id != 0) {
+
+            for (int index = 0; index < registos.length; ++index) {
+
+                if(registos[index].id == id){
+                    view.setSelectedIndex(index);
+                    break;
+                }
+            }
+        }
+    }
+
 }

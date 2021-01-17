@@ -22,7 +22,7 @@ abstract public class CertificadoTratamentoDao implements BaseDao<CertificadoTra
     abstract public Maybe<CertificadoTratamentoResultado> obterCertificadoTratamento(int idAtividade);
 
 
-    @Query("SELECT idAtividade, certificadoValido, assinaturaValido, sincronizacao, " +
+    @Query("SELECT idAtividade, certificadoValido, assinaturaValido, sincronizacao, email, " +
             "CASE WHEN certificadoValido = 1 AND assinaturaValido = 1 AND email != '' THEN 1 ELSE 0 END as valido " +
 
             "FROM ( " +

@@ -11,14 +11,17 @@
         <import type="com.vvm.sh.util.metodos.StringUtil"/>
         <import type="com.vvm.sh.util.metodos.DatasUtil"/>
 
-<!--        <variable-->
-<!--            name="viewmodel"-->
-<!--            type="com.vvm.sh.ui.atividadesPendentes.relatorios.avaliacaoAmbiental.AvaliacaoAmbientalViewModel"/>-->
+        <import type="com.vvm.sh.util.constantes.TiposConstantes"/>
 
+        <variable
+            name="viewmodel"
+            type="com.vvm.sh.ui.atividadesPendentes.relatorios.certificadoTratamento.CertificadoTratamentoViewModel"/>
 
         <variable
             name="bloquear"
             type="Boolean"/>
+
+
 
     </data>
 
@@ -96,9 +99,9 @@
                     <com.jaredrummler.materialspinner.MaterialSpinner
                         android:id="@+id/spnr_tipo_praga"
                         android:layout_width="400dp"
+                        id="@{viewmodel.certificado.idPraga}"
+                        tipos="@{TiposConstantes.CertificadoTratamento.Pragas.PRAGAS}"
                         android:hint="@string/tipo_praga"
-                        tipos="@{viewmodel.areas}"
-                        id="@{viewmodel.avaliacao.resultado.idArea}"
                         android:layout_height="wrap_content"
                         app:layout_constraintStart_toStartOf="@+id/textView18"
                         app:layout_constraintTop_toBottomOf="@+id/textview31" />
@@ -117,8 +120,6 @@
 
                     <com.jaredrummler.materialspinner.MaterialSpinner
                         android:id="@+id/spnr_visitas"
-                        id="@{viewmodel.avaliacao.resultado.idArea}"
-                        tipos="@{viewmodel.areas}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="24dp"
@@ -145,8 +146,6 @@
                         android:id="@+id/spnr_produto_aplicado"
                         android:layout_width="400dp"
                         android:hint="@string/produto_aplicado"
-                        tipos="@{viewmodel.areas}"
-                        id="@{viewmodel.avaliacao.resultado.idArea}"
                         android:layout_height="wrap_content"
                         app:layout_constraintStart_toStartOf="@+id/textView18"
                         app:layout_constraintTop_toBottomOf="@+id/textview32" />
@@ -180,8 +179,6 @@
 
                     <com.jaredrummler.materialspinner.MaterialSpinner
                         android:id="@+id/spnr_condicoes_higienene"
-                        id="@{viewmodel.avaliacao.resultado.idArea}"
-                        tipos="@{viewmodel.areas}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:hint="@string/avaliacoes"
@@ -202,8 +199,6 @@
 
                     <com.jaredrummler.materialspinner.MaterialSpinner
                         android:id="@+id/spnr_manutencao_instalacoes"
-                        id="@{viewmodel.avaliacao.resultado.idArea}"
-                        tipos="@{viewmodel.areas}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:hint="@string/avaliacoes"
@@ -224,8 +219,6 @@
 
                     <com.jaredrummler.materialspinner.MaterialSpinner
                         android:id="@+id/spnr_condicoes_armazenamento"
-                        id="@{viewmodel.avaliacao.resultado.idArea}"
-                        tipos="@{viewmodel.areas}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="32dp"
@@ -284,14 +277,14 @@
                         <com.google.android.material.textfield.TextInputEditText
                             android:id="@+id/txt_inp_observacao"
                             style="@style/modifiedEditText"
-                            android:text="@{viewmodel.atividade.resultado.observacao}"
                             android:maxLength="200"
                             android:gravity="top|left"
                             android:lines="5"
                             android:maxLines="5"/>
                     </com.google.android.material.textfield.TextInputLayout>
 
-                    
+
+<!--                    android:text="@{viewmodel.atividade.resultado.observacao}"-->
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

@@ -5,6 +5,9 @@ import androidx.room.ColumnInfo;
 public class RelatorioCertificadoTratamento {
 
 
+    @ColumnInfo(name = "email")
+    public String email;
+
     @ColumnInfo(name = "certificadoValido")
     public boolean certificadoValido;
 

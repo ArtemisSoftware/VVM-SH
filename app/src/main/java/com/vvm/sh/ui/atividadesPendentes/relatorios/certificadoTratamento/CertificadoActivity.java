@@ -42,6 +42,7 @@ public class CertificadoActivity  extends BaseDaggerActivity {
 
             viewModel.obterCertificado(bundle.getInt(getString(R.string.argumento_id_atividade)));
             activityCertificadoBinding.setBloquear(PreferenciasUtil.agendaEditavel(this));
+
         }
         else{
             finish();
@@ -92,11 +93,20 @@ public class CertificadoActivity  extends BaseDaggerActivity {
         int idAtividade = bundle.getInt(getString(R.string.argumento_id_atividade));
 
         Tipo praga = (Tipo) activityCertificadoBinding.spnrTipoPraga.getItems().get(activityCertificadoBinding.spnrTipoPraga.getSelectedIndex());
+        Tipo visita = (Tipo) activityCertificadoBinding.spnrVisitas.getItems().get(activityCertificadoBinding.spnrVisitas.getSelectedIndex());
 
+        Tipo produto = (Tipo) activityCertificadoBinding.spnrProdutoAplicado.getItems().get(activityCertificadoBinding.spnrProdutoAplicado.getSelectedIndex());
+        Tipo condicoesHigiene = (Tipo) activityCertificadoBinding.spnrCondicoesHigiene.getItems().get(activityCertificadoBinding.spnrCondicoesHigiene.getSelectedIndex());
+        Tipo manutencaoInstalacoes = (Tipo) activityCertificadoBinding.spnrManutencaoInstalacoes.getItems().get(activityCertificadoBinding.spnrManutencaoInstalacoes.getSelectedIndex());
+        Tipo condicoesArmazenamento = (Tipo) activityCertificadoBinding.spnrCondicoesArmazenamento.getItems().get(activityCertificadoBinding.spnrCondicoesArmazenamento.getSelectedIndex());
 
-        //--CertificadoTratamentoResultado resultado = new CertificadoTratamentoResultado(idAtividade, praga.id, );
+        boolean chk_obs_1 = activityCertificadoBinding.chkObs1.isEnabled();
+        boolean chk_obs_2 = activityCertificadoBinding.chkObs2.isEnabled();
+        String observacao = activityCertificadoBinding.txtInpObservacao.getText().toString();
 
-        //--viewModel.gravar(resultado);
+        CertificadoTratamentoResultado resultado = new CertificadoTratamentoResultado(idAtividade, praga.id, visita.id, produto.id, condicoesHigiene.id, manutencaoInstalacoes.id, condicoesArmazenamento.id, chk_obs_1, chk_obs_2, observacao);
+
+        viewModel.gravar(resultado);
 
     }
 

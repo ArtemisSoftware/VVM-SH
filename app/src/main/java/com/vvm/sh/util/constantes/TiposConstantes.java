@@ -83,6 +83,14 @@ public class TiposConstantes {
         }
 
 
+        public static class Visitas {
+
+            public static final Tipo VISITA_1 = new Tipo(1, "1ª Visita");
+            public static final Tipo VISITA_2 = new Tipo(2, "2ª Visita");
+            public static final Tipo VISITAS[] = { VISITA_1, VISITA_2 };
+
+        }
+
         public static class Produtos {
 
             public static final Tipo PRODUTO_1 = new Tipo(1, "Goliath");

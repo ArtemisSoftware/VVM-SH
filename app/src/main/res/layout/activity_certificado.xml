@@ -124,6 +124,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginStart="24dp"
                         android:hint="@string/visitas"
+                        id="@{viewmodel.certificado.idVisita}"
+                        tipos="@{TiposConstantes.CertificadoTratamento.Visitas.VISITAS}"
                         app:layout_constraintBottom_toBottomOf="@+id/spnr_tipo_praga"
                         app:layout_constraintStart_toEndOf="@+id/spnr_tipo_praga"
                         app:layout_constraintTop_toTopOf="@+id/spnr_tipo_praga" />
@@ -146,6 +148,8 @@
                         android:id="@+id/spnr_produto_aplicado"
                         android:layout_width="400dp"
                         android:hint="@string/produto_aplicado"
+                        id="@{viewmodel.certificado.idProdutoAplicado}"
+                        tipos="@{TiposConstantes.CertificadoTratamento.Produtos.PRODUTOS}"
                         android:layout_height="wrap_content"
                         app:layout_constraintStart_toStartOf="@+id/textView18"
                         app:layout_constraintTop_toBottomOf="@+id/textview32" />
@@ -178,10 +182,13 @@
 
 
                     <com.jaredrummler.materialspinner.MaterialSpinner
-                        android:id="@+id/spnr_condicoes_higienene"
+                        android:id="@+id/spnr_condicoes_higiene"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:hint="@string/avaliacoes"
+
+                        id="@{viewmodel.certificado.avaliacaoCondicoesHigiene}"
+                        tipos="@{TiposConstantes.CertificadoTratamento.Avaliacoes.AVALIACOES}"
                         app:layout_constraintBottom_toBottomOf="@+id/textview34"
                         app:layout_constraintStart_toStartOf="@+id/spnr_manutencao_instalacoes"
                         app:layout_constraintTop_toTopOf="@+id/textview34" />
@@ -202,6 +209,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:hint="@string/avaliacoes"
+                        id="@{viewmodel.certificado.avaliacaoManutencaoInstalacoes}"
+                        tipos="@{TiposConstantes.CertificadoTratamento.Avaliacoes.AVALIACOES}"
                         app:layout_constraintBottom_toBottomOf="@+id/textview35"
                         app:layout_constraintStart_toStartOf="@+id/spnr_condicoes_armazenamento"
                         app:layout_constraintTop_toTopOf="@+id/textview35" />
@@ -222,7 +231,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="32dp"
-
+                        id="@{viewmodel.certificado.avaliacaoCondicoesArmazenamento}"
+                        tipos="@{TiposConstantes.CertificadoTratamento.Avaliacoes.AVALIACOES}"
                         android:hint="@string/avaliacoes"
                         app:layout_constraintBottom_toBottomOf="@+id/textview36"
                         app:layout_constraintStart_toEndOf="@+id/textview36"

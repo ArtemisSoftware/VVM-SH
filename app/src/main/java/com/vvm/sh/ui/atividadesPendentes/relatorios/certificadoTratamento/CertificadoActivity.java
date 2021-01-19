@@ -10,7 +10,6 @@ import androidx.lifecycle.ViewModelProviders;
 import com.vvm.sh.R;
 import com.vvm.sh.baseDados.entidades.CertificadoTratamentoResultado;
 import com.vvm.sh.baseDados.entidades.Tipo;
-import com.vvm.sh.databinding.ActivityAcaoFormacaoBinding;
 import com.vvm.sh.databinding.ActivityCertificadoBinding;
 import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.util.Recurso;

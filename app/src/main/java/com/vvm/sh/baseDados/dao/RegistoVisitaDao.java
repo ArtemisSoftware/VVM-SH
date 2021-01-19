@@ -3,15 +3,12 @@ package com.vvm.sh.baseDados.dao;
 import androidx.room.Dao;
 import androidx.room.Query;
 import androidx.room.Transaction;
-import androidx.room.Update;
 
 import com.vvm.sh.baseDados.BaseDao;
 import com.vvm.sh.baseDados.entidades.RegistoVisitaResultado;
-import com.vvm.sh.baseDados.entidades.Resultado;
-import com.vvm.sh.ui.registoVisita.modelos.DadosCliente;
+import com.vvm.sh.documentos.modelos.DadosCliente;
 import com.vvm.sh.ui.registoVisita.modelos.RelatorioRegistoVisita;
 import com.vvm.sh.util.email.CredenciaisEmail;
-import com.vvm.sh.util.email.Email;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.metodos.TiposUtil;

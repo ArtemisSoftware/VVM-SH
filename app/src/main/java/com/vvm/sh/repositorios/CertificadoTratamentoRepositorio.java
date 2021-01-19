@@ -6,21 +6,12 @@ import com.vvm.sh.baseDados.dao.PdfDao;
 import com.vvm.sh.baseDados.dao.ResultadoDao;
 import com.vvm.sh.baseDados.entidades.CertificadoTratamentoResultado;
 import com.vvm.sh.baseDados.entidades.ImagemResultado;
-import com.vvm.sh.documentos.modelos.Rubrica;
-import com.vvm.sh.documentos.registoVisita.modelos.DadosRegistoVisita;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.certificadoTratamento.modelos.RelatorioCertificadoTratamento;
-import com.vvm.sh.ui.registoVisita.modelos.DadosCliente;
-import com.vvm.sh.ui.registoVisita.modelos.TrabalhoRealizado;
-import com.vvm.sh.util.constantes.Identificadores;
-import com.vvm.sh.util.email.CredenciaisEmail;
-
-import java.util.List;
 
 import io.reactivex.Flowable;
 import io.reactivex.Maybe;
 import io.reactivex.Observable;
 import io.reactivex.Single;
-import io.reactivex.functions.Function5;
 
 public class CertificadoTratamentoRepositorio implements Repositorio<CertificadoTratamentoResultado> {
 

@@ -13,7 +13,7 @@ import com.vvm.sh.documentos.registoVisita.modelos.DadosRegistoVisita;
 import com.vvm.sh.repositorios.RegistoVisitaRepositorio;
 import com.vvm.sh.servicos.pdf.EnvioRegistoVisitaAsyncTask;
 import com.vvm.sh.servicos.pdf.DocumentoPdfAsyncTask;
-import com.vvm.sh.ui.registoVisita.modelos.DadosCliente;
+import com.vvm.sh.documentos.modelos.DadosCliente;
 import com.vvm.sh.ui.registoVisita.modelos.RelatorioRegistoVisita;
 import com.vvm.sh.ui.registoVisita.modelos.TrabalhoRealizado;
 import com.vvm.sh.util.Recurso;

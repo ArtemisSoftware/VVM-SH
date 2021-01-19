@@ -2,9 +2,7 @@ package com.vvm.sh.documentos.certificadoTratamento;
 
 import com.vvm.sh.baseDados.entidades.CertificadoTratamentoResultado;
 import com.vvm.sh.documentos.modelos.Rubrica;
-import com.vvm.sh.ui.registoVisita.modelos.DadosCliente;
-
-import java.util.List;
+import com.vvm.sh.documentos.modelos.DadosCliente;
 
 public class DadosCertificadoTratamento {
 

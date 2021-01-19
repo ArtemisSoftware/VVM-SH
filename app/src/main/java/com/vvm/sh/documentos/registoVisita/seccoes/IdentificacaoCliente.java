@@ -9,7 +9,7 @@ import com.titan.pdfdocumentlibrary.elements.FontConfiguration;
 import com.titan.pdfdocumentlibrary.elements.Table;
 import com.titan.pdfdocumentlibrary.exception.PdfLineException;
 import com.vvm.sh.documentos.eventos.EspacoPreenchimento;
-import com.vvm.sh.ui.registoVisita.modelos.DadosCliente;
+import com.vvm.sh.documentos.modelos.DadosCliente;
 import com.vvm.sh.util.constantes.Pdf;
 
 public class IdentificacaoCliente extends Section {

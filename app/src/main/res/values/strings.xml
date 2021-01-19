@@ -509,4 +509,8 @@
     <string name="recomendacoes_observacoes">Recomendações / Observações</string>
     <string name="visitas">Visitas</string>
     <string name="visita">Visita</string>
+    <string name="cliente_">Cliente:</string>
+    <string name="numero_ordinal">Nº</string>
+    <string name="servico_integrado_seguranca_alimentar">(Serviço Integrado no contrato de Segurança Alimentar)</string>
+    <string name="morada_estabelecimento_">Morada do estabelecimento:</string>
 </resources>

@@ -4,17 +4,15 @@ import androidx.room.Dao;
 import androidx.room.Query;
 import androidx.room.Transaction;
 
-import com.vvm.sh.baseDados.entidades.Cliente;
 import com.vvm.sh.documentos.modelos.Rubrica;
 import com.vvm.sh.ui.informacaoSst.modelos.ObrigacaoLegal;
-import com.vvm.sh.ui.registoVisita.modelos.DadosCliente;
+import com.vvm.sh.documentos.modelos.DadosCliente;
 import com.vvm.sh.ui.registoVisita.modelos.TrabalhoRealizado;
 import com.vvm.sh.util.metodos.TiposUtil;
 
 import java.util.List;
 
 import io.reactivex.Maybe;
-import io.reactivex.Observable;
 
 @Dao
 abstract public class PdfDao {

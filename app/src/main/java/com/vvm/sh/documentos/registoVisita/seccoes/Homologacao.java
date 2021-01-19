@@ -3,7 +3,6 @@ package com.vvm.sh.documentos.registoVisita.seccoes;
 import android.content.Context;
 
 import com.itextpdf.text.Element;
-import com.itextpdf.text.Font;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.Rectangle;
 import com.titan.pdfdocumentlibrary.bundle.Section;
@@ -11,7 +10,7 @@ import com.titan.pdfdocumentlibrary.elements.CellConfiguration;
 import com.titan.pdfdocumentlibrary.elements.FontConfiguration;
 import com.titan.pdfdocumentlibrary.elements.Table;
 import com.vvm.sh.R;
-import com.vvm.sh.ui.registoVisita.modelos.DadosCliente;
+import com.vvm.sh.documentos.modelos.DadosCliente;
 import com.vvm.sh.util.constantes.Pdf;
 
 public class Homologacao  extends Section {

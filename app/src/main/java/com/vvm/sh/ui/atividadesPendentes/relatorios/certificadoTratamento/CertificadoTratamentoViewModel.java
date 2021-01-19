@@ -4,12 +4,9 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.vvm.sh.baseDados.entidades.CertificadoTratamentoResultado;
 import com.vvm.sh.baseDados.entidades.ImagemResultado;
-import com.vvm.sh.baseDados.entidades.RegistoVisitaResultado;
 import com.vvm.sh.repositorios.CertificadoTratamentoRepositorio;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.certificadoTratamento.modelos.RelatorioCertificadoTratamento;
-import com.vvm.sh.ui.registoVisita.modelos.DadosCliente;
 import com.vvm.sh.util.Recurso;
-import com.vvm.sh.util.ResultadoId;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.viewmodel.BaseViewModel;

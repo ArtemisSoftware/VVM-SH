@@ -1,10 +1,9 @@
 package com.vvm.sh.documentos.registoVisita.modelos;
 
 import com.vvm.sh.documentos.modelos.Rubrica;
-import com.vvm.sh.ui.registoVisita.modelos.DadosCliente;
+import com.vvm.sh.documentos.modelos.DadosCliente;
 import com.vvm.sh.ui.registoVisita.modelos.TrabalhoRealizado;
 import com.vvm.sh.util.email.CredenciaisEmail;
-import com.vvm.sh.util.email.Email;
 
 import java.util.List;
 

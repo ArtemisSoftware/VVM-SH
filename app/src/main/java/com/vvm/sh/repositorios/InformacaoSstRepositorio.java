@@ -6,25 +6,17 @@ import com.vvm.sh.baseDados.dao.ImagemDao;
 import com.vvm.sh.baseDados.dao.InformacaoSstDao;
 import com.vvm.sh.baseDados.dao.ObrigacoesLegaisDao;
 import com.vvm.sh.baseDados.dao.PdfDao;
-import com.vvm.sh.baseDados.dao.RegistoVisitaDao;
 import com.vvm.sh.baseDados.dao.ResultadoDao;
-import com.vvm.sh.baseDados.dao.TrabalhosRealizadosDao;
-import com.vvm.sh.baseDados.entidades.Cliente;
-import com.vvm.sh.baseDados.entidades.ColaboradorResultado;
 import com.vvm.sh.baseDados.entidades.ImagemResultado;
 import com.vvm.sh.baseDados.entidades.InformacaoSstResultado;
 import com.vvm.sh.baseDados.entidades.ObrigacaoLegalResultado;
 import com.vvm.sh.documentos.informacaoSst.modelos.DadosInformacaoSst;
 import com.vvm.sh.documentos.modelos.Rubrica;
-import com.vvm.sh.documentos.registoVisita.modelos.DadosRegistoVisita;
 import com.vvm.sh.ui.informacaoSst.modelos.ObrigacaoLegal;
 import com.vvm.sh.ui.informacaoSst.modelos.RelatorioInformacaoSst;
-import com.vvm.sh.ui.registoVisita.modelos.DadosCliente;
-import com.vvm.sh.ui.registoVisita.modelos.RelatorioRegistoVisita;
-import com.vvm.sh.ui.registoVisita.modelos.TrabalhoRealizado;
+import com.vvm.sh.documentos.modelos.DadosCliente;
 import com.vvm.sh.util.ResultadoId;
 import com.vvm.sh.util.constantes.Identificadores;
-import com.vvm.sh.util.email.CredenciaisEmail;
 
 import java.util.List;
 
@@ -33,7 +25,6 @@ import io.reactivex.Maybe;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.functions.Function3;
-import io.reactivex.functions.Function5;
 
 public class InformacaoSstRepositorio{
 

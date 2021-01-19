@@ -1,4 +1,4 @@
-package com.vvm.sh.ui.registoVisita.modelos;
+package com.vvm.sh.documentos.modelos;
 
 import androidx.room.Embedded;
 import androidx.room.Relation;

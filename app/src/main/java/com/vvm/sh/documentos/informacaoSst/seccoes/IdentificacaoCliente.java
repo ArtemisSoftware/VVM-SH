@@ -9,8 +9,7 @@ import com.titan.pdfdocumentlibrary.elements.CellConfiguration;
 import com.titan.pdfdocumentlibrary.elements.FontConfiguration;
 import com.titan.pdfdocumentlibrary.elements.Table;
 import com.vvm.sh.R;
-import com.vvm.sh.baseDados.entidades.Cliente;
-import com.vvm.sh.ui.registoVisita.modelos.DadosCliente;
+import com.vvm.sh.documentos.modelos.DadosCliente;
 import com.vvm.sh.util.constantes.Pdf;
 
 public class IdentificacaoCliente extends Section {

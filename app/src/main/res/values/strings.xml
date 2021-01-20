@@ -517,4 +517,6 @@
     <string name="condicoes_higiene">Condições de Higiene</string>
     <string name="obs_certificado_tratamento_1">À data da visita não se detetaram vestígios de pragas no estabelecimento</string>
     <string name="obs_certificado_tratamento_2">Aplicação de gotas do produto, em gel, nas zonas técnicas do estabelecimento</string>
+    <string name="pelo_cliente">(Pelo cliente)</string>
+    <string name="tecnico_seguranca_alimentar">(Técnico de Segurança Alimentar)</string>
 </resources>

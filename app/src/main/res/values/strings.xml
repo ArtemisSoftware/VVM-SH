@@ -513,4 +513,8 @@
     <string name="numero_ordinal">Nº</string>
     <string name="servico_integrado_seguranca_alimentar">(Serviço Integrado no contrato de Segurança Alimentar)</string>
     <string name="morada_estabelecimento_">Morada do estabelecimento:</string>
+    <string name="avaliacao_infraestruturas">Avaliação das Infraestruturas</string>
+    <string name="condicoes_higiene">Condições de Higiene</string>
+    <string name="obs_certificado_tratamento_1">À data da visita não se detetaram vestígios de pragas no estabelecimento</string>
+    <string name="obs_certificado_tratamento_2">Aplicação de gotas do produto, em gel, nas zonas técnicas do estabelecimento</string>
 </resources>

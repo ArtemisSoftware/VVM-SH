@@ -110,4 +110,24 @@ public class TiposConstantes {
 
 
     }
+
+
+    /**
+     * Metodo que permite obter a descricao do certificado
+     * @param idCampo o identificador
+     * @param tipos a lista de tipos onde procurar
+     * @return uma descricao
+     */
+    public static String formatarTipo(int idCampo, Tipo [] tipos){
+
+        for (Tipo item : tipos) {
+
+            if(idCampo == item.id){
+                return item.descricao;
+            }
+        }
+
+        return Sintaxe.SEM_TEXTO;
+    }
+
 }

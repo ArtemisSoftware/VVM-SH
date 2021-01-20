@@ -1,17 +1,20 @@
 package com.vvm.sh.documentos.certificadoTratamento.eventos;
 
+import android.content.Context;
+
 import com.itextpdf.text.Document;
 import com.itextpdf.text.pdf.PdfPageEventHelper;
 import com.itextpdf.text.pdf.PdfWriter;
+import com.vvm.sh.documentos.certificadoTratamento.seccoes.Cabecalho;
 
 public class CabecalhoRodape extends PdfPageEventHelper {
 
     private Cabecalho cabecalho;
 
 
-    public CabecalhoRodape(){
+    public CabecalhoRodape(Context contexto){
 
-        cabecalho = new Cabecalho();
+        cabecalho = new Cabecalho(contexto);
     }
 
 

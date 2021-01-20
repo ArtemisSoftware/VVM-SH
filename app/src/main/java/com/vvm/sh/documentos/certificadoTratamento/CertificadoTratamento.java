@@ -6,14 +6,11 @@ import com.itextpdf.text.pdf.PdfPageEvent;
 import com.itextpdf.text.pdf.PdfPageEventHelper;
 import com.titan.pdfdocumentlibrary.bundle.Chapter;
 import com.titan.pdfdocumentlibrary.bundle.Template;
-import com.titan.pdfdocumentlibrary.elements.TemplateConfiguration;
 import com.vvm.sh.documentos.certificadoTratamento.capitulos.Capitulo_CertificadoTratamento;
+import com.vvm.sh.documentos.certificadoTratamento.eventos.CabecalhoRodape;
 import com.vvm.sh.documentos.certificadoTratamento.modelos.DadosCertificadoTratamento;
-import com.vvm.sh.documentos.informacaoSst.capitulos.Capitulo_InformacaoSst;
-import com.vvm.sh.documentos.informacaoSst.modelos.DadosInformacaoSst;
 import com.vvm.sh.util.metodos.DiretoriasUtil;
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -45,7 +42,7 @@ public class CertificadoTratamento extends Template {
 
     @Override
     protected PdfPageEventHelper getPageEvent() {
-        return null;
+        return new CabecalhoRodape(context);
     }
 
     @Override

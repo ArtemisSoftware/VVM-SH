@@ -16,6 +16,7 @@ public class Pdf {
         public static final int ID_OBSERVACAO = 4;
         public static final int ID_RUBRICA = 5;
         public static final int ID_OBRIGACOES_LEGAIS = 6;
+        public static final int ID_CERTIFICADO_TRATAMENTO = 7;
 
         public static final Index CABECALHO = new Index(ID_CABECALHO, Texto.CABECALHO);
         public static final Index CLIENTE = new Index(ID_CLIENTE, Texto.CLIENTE);
@@ -26,7 +27,8 @@ public class Pdf {
         public static final Index RUBRICA = new Index(ID_RUBRICA, Texto.RUBRICA);
 
 
-        public static final Index OBRIGACOES_LEGAIS = new Index(ID_OBRIGACOES_LEGAIS, Texto.OBRIGACOES_LEGAIS);;
+        public static final Index OBRIGACOES_LEGAIS = new Index(ID_OBRIGACOES_LEGAIS, Texto.OBRIGACOES_LEGAIS);
+        public static final Index CERTIFICADO_TRATAMENTO = new Index(ID_OBRIGACOES_LEGAIS, Texto.CERTIFICADO_TRATAMENTO);
     }
 
     public class Texto {
@@ -53,6 +55,7 @@ public class Pdf {
 
         public static final String OBSERVACAO = "Observação";
         public static final String OBRIGACOES_LEGAIS = "Obrigacoes legais";
+        public static final String CERTIFICADO_TRATAMENTO = "Certificado de tratamento";
     }
 
     public class Fontes {

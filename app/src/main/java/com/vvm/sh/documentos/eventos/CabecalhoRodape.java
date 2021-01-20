@@ -14,7 +14,7 @@ import com.itextpdf.text.pdf.PdfPageEventHelper;
 import com.itextpdf.text.pdf.PdfTemplate;
 import com.itextpdf.text.pdf.PdfWriter;
 import com.titan.pdfdocumentlibrary.elements.FontConfiguration;
-import com.vvm.sh.documentos.eventos.modelos.Rodape;
+import com.vvm.sh.documentos.registoVisita.modelos.Rodape;
 
 import java.util.HashMap;
 

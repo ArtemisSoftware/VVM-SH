@@ -5,11 +5,10 @@ import android.content.Context;
 import com.titan.pdfdocumentlibrary.bundle.Chapter;
 import com.titan.pdfdocumentlibrary.bundle.Section;
 import com.titan.pdfdocumentlibrary.models.Index;
-import com.vvm.sh.documentos.certificadoTratamento.DadosCertificadoTratamento;
+import com.vvm.sh.documentos.certificadoTratamento.modelos.DadosCertificadoTratamento;
 import com.vvm.sh.documentos.certificadoTratamento.seccoes.Certificado;
 import com.vvm.sh.documentos.informacaoSst.seccoes.Assinatura;
 import com.vvm.sh.documentos.informacaoSst.seccoes.IdentificacaoCliente;
-import com.vvm.sh.documentos.informacaoSst.seccoes.ObrigacoesLegais;
 import com.vvm.sh.util.constantes.Pdf;
 
 import java.util.ArrayList;

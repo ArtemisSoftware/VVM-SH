@@ -1,4 +1,4 @@
-package com.vvm.sh.documentos.certificadoTratamento;
+package com.vvm.sh.documentos.certificadoTratamento.modelos;
 
 import com.vvm.sh.baseDados.entidades.CertificadoTratamentoResultado;
 import com.vvm.sh.documentos.modelos.Rubrica;

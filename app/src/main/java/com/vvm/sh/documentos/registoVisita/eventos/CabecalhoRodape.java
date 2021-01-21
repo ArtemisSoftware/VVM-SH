@@ -1,4 +1,4 @@
-package com.vvm.sh.documentos.eventos;
+package com.vvm.sh.documentos.registoVisita.eventos;
 
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Document;

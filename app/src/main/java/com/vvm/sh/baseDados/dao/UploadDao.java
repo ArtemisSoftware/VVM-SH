@@ -7,6 +7,7 @@ import androidx.room.Transaction;
 import com.vvm.sh.api.modelos.bd.AreaBd;
 import com.vvm.sh.api.modelos.bd.AtividadePendenteBd;
 import com.vvm.sh.api.modelos.bd.AtividadePlanoAcaoBd;
+import com.vvm.sh.api.modelos.bd.CertificadoBd;
 import com.vvm.sh.api.modelos.bd.ColaboradorBd;
 import com.vvm.sh.api.modelos.bd.ExtintorBd;
 import com.vvm.sh.api.modelos.bd.FormandoBd;
@@ -108,6 +109,14 @@ abstract public class UploadDao {
     abstract public List<FormandoBd> obterFormandos(int idAtividade);
 
 
+
+
+    @Query("SELECT * " +
+            "FROM certificadoTratamentoResultado as cert_res " +
+            "LEFT JOIN (SELECT id, idImagem FROM imagensResultado WHERE origem = " + Identificadores.Imagens.IMAGEM_ASSINATURA_CERTIFICADO_TRATAMENTO + ") as img " +
+            "ON cert_res.idAtividade = img.id " +
+            "WHERE idAtividade = :idAtividade ")
+    abstract public CertificadoBd obterCertificado(int idAtividade);
 
 
 

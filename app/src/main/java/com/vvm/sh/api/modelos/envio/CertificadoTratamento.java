@@ -7,10 +7,13 @@ import java.util.ArrayList;
 public class CertificadoTratamento {
 
     @SerializedName("observacaoProdutosEmGel")
-    public String observacaoProdutosEmGel;
+    public int observacaoProdutosEmGel;
 
     @SerializedName("observacaoVestigiosPragas")
-    public String observacaoVestigiosPragas;
+    public int observacaoVestigiosPragas;
+
+    @SerializedName("praga")
+    public String praga;
 
     @SerializedName("avaliacaoCondicoesHigiene")
     public String avaliacaoCondicoesHigiene;
@@ -27,8 +30,8 @@ public class CertificadoTratamento {
     @SerializedName("visita")
     public String visita;
 
-    @SerializedName("praga")
-    public String praga;
+    @SerializedName("observacao")
+    public String observacao;
 
     @SerializedName("Album")
     public ArrayList<String> album;

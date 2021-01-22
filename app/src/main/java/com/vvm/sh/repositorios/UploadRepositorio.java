@@ -5,6 +5,7 @@ import androidx.annotation.NonNull;
 import com.vvm.sh.api.modelos.bd.AreaBd;
 import com.vvm.sh.api.modelos.bd.AtividadePendenteBd;
 import com.vvm.sh.api.modelos.bd.AtividadePlanoAcaoBd;
+import com.vvm.sh.api.modelos.bd.CertificadoBd;
 import com.vvm.sh.api.modelos.bd.ColaboradorBd;
 import com.vvm.sh.api.modelos.bd.ExtintorBd;
 import com.vvm.sh.api.modelos.bd.FormandoBd;
@@ -95,6 +96,18 @@ public class UploadRepositorio {
     public List<FormandoBd> obterFormandos(int idAtividade) {
         return uploadDao.obterFormandos(idAtividade);
     }
+
+
+    /**
+     * Metodo que permite obter o certificado de tratamento da atividade
+     * @param idAtividade o identificador da atividade
+     * @return um o certificado
+     */
+    public CertificadoBd obterCertificado(int idAtividade) {
+        return uploadDao.obterCertificado(idAtividade);
+    }
+
+
 
 
     /**

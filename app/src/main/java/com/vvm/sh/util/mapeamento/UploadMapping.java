@@ -9,6 +9,7 @@ import com.vvm.sh.api.modelos.envio.Area;
 import com.vvm.sh.api.modelos.envio.AtividadePlanoAcao;
 import com.vvm.sh.api.modelos.envio.AvaliacaoIluminacao;
 import com.vvm.sh.api.modelos.envio.AvaliacaoTemperaturaHumidade;
+import com.vvm.sh.api.modelos.envio.CertificadoTratamento;
 import com.vvm.sh.api.modelos.envio.Checklist;
 import com.vvm.sh.api.modelos.envio.Colaborador;
 import com.vvm.sh.api.modelos.envio.Equipamento;
@@ -35,6 +36,7 @@ import com.vvm.sh.api.modelos.envio.TrabalhadorVulneravel;
 import com.vvm.sh.api.modelos.envio.TrabalhoRealizado;
 import com.vvm.sh.api.modelos.envio.Ut;
 import com.vvm.sh.baseDados.entidades.AvaliacaoAmbientalResultado;
+import com.vvm.sh.baseDados.entidades.CertificadoTratamentoResultado;
 import com.vvm.sh.baseDados.entidades.CrossSellingResultado;
 import com.vvm.sh.baseDados.entidades.FormandoResultado;
 import com.vvm.sh.baseDados.entidades.ImagemResultado;
@@ -114,6 +116,15 @@ public interface UploadMapping {
     @Mapping(target = "ordem", source = "ordem")
     @Mapping(target = "data", source = "data")
     AtividadePlanoAcao map(AtividadePlanoAcaoBd item);
+
+
+
+    @Mapping(target = "observacao", source = "observacao")
+    @Mapping(target = "observacaoProdutosEmGel", source = "observacaoProdutosEmGel")
+    @Mapping(target = "observacaoVestigiosPragas", source = "observacaoVestigiosPragas")
+    CertificadoTratamento map(CertificadoTratamentoResultado item);
+
+
 
     //TODO: verificar e completar
 

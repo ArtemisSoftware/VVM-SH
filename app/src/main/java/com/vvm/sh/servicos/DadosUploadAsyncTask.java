@@ -5,9 +5,11 @@ import android.os.AsyncTask;
 import android.os.Handler;
 
 import com.vvm.sh.api.modelos.bd.AreaBd;
+import com.vvm.sh.api.modelos.bd.CertificadoBd;
 import com.vvm.sh.api.modelos.envio.AcaoFormacao;
 import com.vvm.sh.api.modelos.envio.AtividadePendente;
 import com.vvm.sh.api.modelos.envio.AvaliacaoRiscos;
+import com.vvm.sh.api.modelos.envio.CertificadoTratamento;
 import com.vvm.sh.api.modelos.envio.Checklist;
 import com.vvm.sh.api.modelos.envio.CrossSelling;
 import com.vvm.sh.api.modelos.envio.DadosFormulario;
@@ -43,7 +45,9 @@ import com.vvm.sh.util.ResultadoId;
 import com.vvm.sh.util.constantes.AppConfig;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.constantes.Sintaxe;
+import com.vvm.sh.util.constantes.TiposConstantes;
 import com.vvm.sh.util.mapeamento.UploadMapping;
+import com.vvm.sh.util.metodos.ConversorUtil;
 import com.vvm.sh.util.metodos.MensagensUtil;
 
 import org.json.JSONArray;
@@ -65,6 +69,10 @@ public abstract class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void
     private JSONArray dadosTarefas = new JSONArray();
 
     protected UploadRepositorio repositorio;
+
+    /**
+     * variavel que contem os identificadores das imagens a fazer upload
+     */
     protected List<Integer> idImagens;
     protected DadosUpload dadosUpload;
     protected String idUtilizador;
@@ -321,6 +329,33 @@ public abstract class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void
     }
 
 
+
+    /**
+     * Metodo que permite obter a acao de formacao
+     * @param idAtividade o identificador da atividade
+     * @return uma acao de formacao
+     */
+    protected CertificadoTratamento obterCertificadoTratamento(int idAtividade){
+
+        CertificadoBd certificado = repositorio.obterCertificado(idAtividade);
+
+        CertificadoTratamento certificadoTratamento = UploadMapping.INSTANCE.map(certificado.resultado);
+
+
+        certificadoTratamento.praga = TiposConstantes.formatarTipo(certificado.resultado.idPraga, TiposConstantes.CertificadoTratamento.Pragas.PRAGAS);
+        certificadoTratamento.produtoAplicado = TiposConstantes.formatarTipo(certificado.resultado.idProdutoAplicado, TiposConstantes.CertificadoTratamento.Produtos.PRODUTOS);
+        certificadoTratamento.visita = TiposConstantes.formatarTipo(certificado.resultado.idVisita, TiposConstantes.CertificadoTratamento.Visitas.VISITAS);
+        certificadoTratamento.avaliacaoCondicoesArmazenamento = TiposConstantes.formatarTipo(certificado.resultado.avaliacaoCondicoesArmazenamento, TiposConstantes.CertificadoTratamento.Avaliacoes.AVALIACOES);
+        certificadoTratamento.avaliacaoCondicoesHigiene = TiposConstantes.formatarTipo(certificado.resultado.avaliacaoCondicoesHigiene, TiposConstantes.CertificadoTratamento.Avaliacoes.AVALIACOES);
+        certificadoTratamento.avaliacaoManutencaoInstalacoes = TiposConstantes.formatarTipo(certificado.resultado.avaliacaoManutencaoInstalacoes, TiposConstantes.CertificadoTratamento.Avaliacoes.AVALIACOES);
+
+        certificadoTratamento.album = new ArrayList<>();
+        certificadoTratamento.album.add(certificado.idImagem + "");
+
+        idImagens.add(certificado.idImagem);
+
+        return certificadoTratamento;
+    }
 
 
 

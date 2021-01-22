@@ -66,6 +66,11 @@ public class DadosUploadSAAsyncTask extends DadosUploadAsyncTask {
                         registo.formacao = obterAcaoFormacao(item.resultado.id);
                         break;
 
+                    case Identificadores.Relatorios.ID_RELATORIO_CERTIFICADO_TRATAMENTO:
+
+                        registo.certificadoTratamento = obterCertificadoTratamento(item.resultado.id);
+                        break;
+
                     default:
                         break;
                 }

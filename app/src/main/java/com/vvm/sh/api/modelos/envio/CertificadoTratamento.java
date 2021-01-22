@@ -6,9 +6,6 @@ import java.util.ArrayList;
 
 public class CertificadoTratamento {
 
-
-
-
     @SerializedName("observacaoProdutosEmGel")
     public String observacaoProdutosEmGel;
 
@@ -36,7 +33,5 @@ public class CertificadoTratamento {
     @SerializedName("Album")
     public ArrayList<String> album;
 
-
-    String CERTIFICADO_TRATAMENTO = "certificadoTratamento";
 
 }

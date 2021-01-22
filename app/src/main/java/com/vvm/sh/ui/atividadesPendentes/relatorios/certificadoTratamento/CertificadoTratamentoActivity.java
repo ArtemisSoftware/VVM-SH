@@ -168,10 +168,13 @@ public class CertificadoTratamentoActivity extends BaseDaggerActivity {
 
             if(resultCode == RESULT_OK){
 
+                Bundle bundle = getIntent().getExtras();
+                int idAtividade = bundle.getInt(getString(R.string.argumento_id_atividade));
+
                 Bitmap bitmap = ImagemUtil.converter(data.getByteArrayExtra(getString(R.string.resultado_imagem)));
                 byte[] imagem = ImagemUtil.converter(bitmap);
 
-                viewModel.gravar(PreferenciasUtil.obterIdTarefa(this), imagem);
+                viewModel.gravar(PreferenciasUtil.obterIdTarefa(this), idAtividade, imagem);
             }
         }
     }

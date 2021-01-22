@@ -104,11 +104,12 @@ public class CertificadoTratamentoViewModel extends BaseViewModel {
     /**
      * Metodo que permite gravar um registo
      * @param idTarefa o identificador da tarefa
+     * @param idAtividade o identificador da atividade
      * @param imagem os dados da imagem
      */
-    public void gravar(int idTarefa, byte[] imagem) {
+    public void gravar(int idTarefa, int idAtividade, byte[] imagem) {
 
-        ImagemResultado imagemResultado = new ImagemResultado(idTarefa, idTarefa, Identificadores.Imagens.IMAGEM_ASSINATURA_CERTIFICADO_TRATAMENTO, imagem);
+        ImagemResultado imagemResultado = new ImagemResultado(idTarefa, idAtividade, Identificadores.Imagens.IMAGEM_ASSINATURA_CERTIFICADO_TRATAMENTO, imagem);
 
         Disposable d = certificadoTratamentoRepositorio.gravarAssinatura(imagemResultado)
                 .subscribeOn(Schedulers.io())

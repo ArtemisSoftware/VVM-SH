@@ -1,5 +1,6 @@
 package com.vvm.sh.util.viewmodel;
 
+import android.content.Context;
 import android.view.View;
 
 import androidx.lifecycle.MutableLiveData;
@@ -7,13 +8,17 @@ import androidx.lifecycle.ViewModel;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.titan.pdfdocumentlibrary.bundle.Template;
 import com.vvm.sh.api.modelos.pedido.Codigo;
 import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.baseDados.dao.ResultadoDao;
 import com.vvm.sh.baseDados.entidades.CategoriaProfissionalResultado;
 import com.vvm.sh.baseDados.entidades.Resultado;
 import com.vvm.sh.baseDados.entidades.Tipo;
+import com.vvm.sh.documentos.registoVisita.RegistoVisita;
+import com.vvm.sh.documentos.registoVisita.modelos.DadosRegistoVisita;
 import com.vvm.sh.servicos.ResultadoAsyncTask;
+import com.vvm.sh.servicos.pdf.DocumentoPdfAsyncTask;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.ResultadoId;
 import com.vvm.sh.util.constantes.AppConfig;
@@ -194,6 +199,18 @@ public abstract class BaseViewModel extends ViewModel {
             messagemLiveData.setValue(Recurso.erro(e.getMessage()));
         }
     }
+
+
+
+
+    private void preVisualizarPdf(Context contexto, int idTarefa, DadosRegistoVisita registo){
+
+        Template registoVisitaTemplate = new RegistoVisita(contexto, idTarefa, registo);
+        DocumentoPdfAsyncTask servico = new DocumentoPdfAsyncTask(contexto, registoVisitaTemplate);
+        servico.execute();
+    }
+
+
 
     @Override
     protected void onCleared() {

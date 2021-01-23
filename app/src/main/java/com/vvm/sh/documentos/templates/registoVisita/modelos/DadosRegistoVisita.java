@@ -1,6 +1,6 @@
 package com.vvm.sh.documentos.templates.registoVisita.modelos;
 
-import com.vvm.sh.documentos.modelos.DadosTemplate;
+import com.vvm.sh.documentos.DadosTemplate;
 import com.vvm.sh.ui.registoVisita.modelos.TrabalhoRealizado;
 import com.vvm.sh.util.email.CredenciaisEmail;
 

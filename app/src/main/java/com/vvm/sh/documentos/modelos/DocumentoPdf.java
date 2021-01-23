@@ -3,6 +3,7 @@ package com.vvm.sh.documentos.modelos;
 import android.content.Context;
 
 import com.titan.pdfdocumentlibrary.bundle.Template;
+import com.vvm.sh.documentos.DadosTemplate;
 
 public interface DocumentoPdf {
 

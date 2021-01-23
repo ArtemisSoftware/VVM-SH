@@ -15,7 +15,7 @@ import com.vvm.sh.baseDados.dao.ResultadoDao;
 import com.vvm.sh.baseDados.entidades.CategoriaProfissionalResultado;
 import com.vvm.sh.baseDados.entidades.Resultado;
 import com.vvm.sh.baseDados.entidades.Tipo;
-import com.vvm.sh.documentos.modelos.DadosTemplate;
+import com.vvm.sh.documentos.DadosTemplate;
 import com.vvm.sh.documentos.modelos.DocumentoPdf;
 import com.vvm.sh.servicos.ResultadoAsyncTask;
 import com.vvm.sh.util.Recurso;

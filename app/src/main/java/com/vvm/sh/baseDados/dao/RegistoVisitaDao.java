@@ -6,7 +6,7 @@ import androidx.room.Transaction;
 
 import com.vvm.sh.baseDados.BaseDao;
 import com.vvm.sh.baseDados.entidades.RegistoVisitaResultado;
-import com.vvm.sh.documentos.modelos.DadosCliente;
+import com.vvm.sh.documentos.DadosCliente;
 import com.vvm.sh.ui.registoVisita.modelos.RelatorioRegistoVisita;
 import com.vvm.sh.util.email.CredenciaisEmail;
 import com.vvm.sh.util.constantes.Identificadores;

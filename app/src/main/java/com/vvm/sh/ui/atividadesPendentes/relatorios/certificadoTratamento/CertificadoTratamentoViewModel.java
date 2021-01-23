@@ -1,9 +1,16 @@
 package com.vvm.sh.ui.atividadesPendentes.relatorios.certificadoTratamento;
 
+import android.content.Context;
+
 import androidx.lifecycle.MutableLiveData;
 
+import com.titan.pdfdocumentlibrary.bundle.Template;
 import com.vvm.sh.baseDados.entidades.CertificadoTratamentoResultado;
 import com.vvm.sh.baseDados.entidades.ImagemResultado;
+import com.vvm.sh.documentos.modelos.DadosTemplate;
+import com.vvm.sh.documentos.templates.certificadoTratamento.CertificadoTratamento;
+import com.vvm.sh.documentos.templates.certificadoTratamento.modelos.DadosCertificadoTratamento;
+import com.vvm.sh.documentos.templates.registoVisita.modelos.DadosRegistoVisita;
 import com.vvm.sh.repositorios.CertificadoTratamentoRepositorio;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.certificadoTratamento.modelos.RelatorioCertificadoTratamento;
 import com.vvm.sh.util.Recurso;
@@ -215,5 +222,62 @@ public class CertificadoTratamentoViewModel extends BaseViewModel {
                 );
     }
 
+
+
+
+    /**
+     * Metodo que permite pré-visualizar o pdf
+     * @param contexto
+     * @param idTarefa
+     * @param idUtilizador
+     */
+//    private void gerarPdf(Context contexto, int idTarefa, String idUtilizador, int acao) {
+//
+//        showProgressBar(true);
+//
+//        certificadoTratamentoRepositorio.obtePdf(idTarefa, idUtilizador)
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(
+//
+//                        new MaybeObserver<DadosRegistoVisita>() {
+//                            @Override
+//                            public void onSubscribe(Disposable d) {
+//                                disposables.add(d);
+//                            }
+//
+//                            @Override
+//                            public void onSuccess(DadosRegistoVisita registo) {
+//                                if(acao == PRE_VISUALIZAR_PDF) {
+//                                    preVisualizarPdf(contexto, idTarefa, registo);
+//                                }
+//                                else{
+//                                    enviarPdf(contexto, idTarefa, registo);
+//                                }
+//                                showProgressBar(false);
+//                            }
+//
+//                            @Override
+//                            public void onError(Throwable e) {
+//                                showProgressBar(false);
+//                            }
+//
+//                            @Override
+//                            public void onComplete() {
+//                                showProgressBar(false);
+//                            }
+//                        }
+//
+//                );
+//    }
+//
+//
+
+
+
+    @Override
+    public Template obterTemplate(Context contexto, int idTarefa, int idAtividade, DadosTemplate registo) {
+        return new CertificadoTratamento(contexto, idTarefa, idAtividade, (DadosCertificadoTratamento) registo);
+    }
 
 }

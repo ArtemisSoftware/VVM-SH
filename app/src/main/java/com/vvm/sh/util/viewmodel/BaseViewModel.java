@@ -15,14 +15,12 @@ import com.vvm.sh.baseDados.dao.ResultadoDao;
 import com.vvm.sh.baseDados.entidades.CategoriaProfissionalResultado;
 import com.vvm.sh.baseDados.entidades.Resultado;
 import com.vvm.sh.baseDados.entidades.Tipo;
-import com.vvm.sh.documentos.registoVisita.RegistoVisita;
-import com.vvm.sh.documentos.registoVisita.modelos.DadosRegistoVisita;
+import com.vvm.sh.documentos.modelos.DadosTemplate;
+import com.vvm.sh.documentos.modelos.DocumentoPdf;
 import com.vvm.sh.servicos.ResultadoAsyncTask;
-import com.vvm.sh.servicos.pdf.DocumentoPdfAsyncTask;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.ResultadoId;
 import com.vvm.sh.util.constantes.AppConfig;
-import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.constantes.TiposConstantes;
 import com.vvm.sh.util.excepcoes.MetodoWsInvalidoException;
 import com.vvm.sh.util.excepcoes.RespostaWsInvalidaException;
@@ -35,7 +33,7 @@ import javax.inject.Inject;
 
 import io.reactivex.disposables.CompositeDisposable;
 
-public abstract class BaseViewModel extends ViewModel {
+public abstract class BaseViewModel extends ViewModel implements DocumentoPdf {
 
 
     protected final CompositeDisposable disposables;
@@ -200,15 +198,21 @@ public abstract class BaseViewModel extends ViewModel {
         }
     }
 
-
-
-
-    private void preVisualizarPdf(Context contexto, int idTarefa, DadosRegistoVisita registo){
-
-        Template registoVisitaTemplate = new RegistoVisita(contexto, idTarefa, registo);
-        DocumentoPdfAsyncTask servico = new DocumentoPdfAsyncTask(contexto, registoVisitaTemplate);
-        servico.execute();
+    @Override
+    public Template obterTemplate(Context contexto, int idTarefa, int idAtividade, DadosTemplate registo) {
+        return null;
     }
+
+//    private void preVisualizarPdf(Context contexto, int idTarefa, DadosTemplate registo){
+//
+//        Template template = obterTemplate();
+//
+//        if(template != null) {
+//
+//            DocumentoPdfAsyncTask servico = new DocumentoPdfAsyncTask(contexto, template);
+//            servico.execute();
+//        }
+//    }
 
 
 

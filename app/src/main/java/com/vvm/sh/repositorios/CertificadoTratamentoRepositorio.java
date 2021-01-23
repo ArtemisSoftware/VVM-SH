@@ -6,7 +6,12 @@ import com.vvm.sh.baseDados.dao.PdfDao;
 import com.vvm.sh.baseDados.dao.ResultadoDao;
 import com.vvm.sh.baseDados.entidades.CertificadoTratamentoResultado;
 import com.vvm.sh.baseDados.entidades.ImagemResultado;
+import com.vvm.sh.documentos.DadosCliente;
+import com.vvm.sh.documentos.Rubrica;
+import com.vvm.sh.documentos.templates.certificadoTratamento.modelos.DadosCertificadoTratamento;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.certificadoTratamento.modelos.RelatorioCertificadoTratamento;
+import com.vvm.sh.util.constantes.Identificadores;
+import com.vvm.sh.util.email.CredenciaisEmail;
 
 import io.reactivex.Flowable;
 import io.reactivex.Maybe;
@@ -19,12 +24,14 @@ public class CertificadoTratamentoRepositorio implements Repositorio<Certificado
     private final ImagemDao imagemDao;
     private final PdfDao pdfDao;
     public final ResultadoDao resultadoDao;
+    private final int api;
 
-    public CertificadoTratamentoRepositorio(CertificadoTratamentoDao certificadoTratamentoDao, ImagemDao imagemDao, PdfDao pdfDao, ResultadoDao resultadoDao) {
+    public CertificadoTratamentoRepositorio(int api, CertificadoTratamentoDao certificadoTratamentoDao, ImagemDao imagemDao, PdfDao pdfDao, ResultadoDao resultadoDao) {
         this.certificadoTratamentoDao = certificadoTratamentoDao;
         this.imagemDao = imagemDao;
         this.pdfDao = pdfDao;
         this.resultadoDao = resultadoDao;
+        this.api = api;
     }
 
 
@@ -58,23 +65,22 @@ public class CertificadoTratamentoRepositorio implements Repositorio<Certificado
      * @param idTarefa o identificador da tarefa
      * @return os dados do pdf
      */
-//    public Maybe<DadosRegistoVisita> obtePdf(int idTarefa, String idUtilizador) {
+//    public Maybe<DadosCertificadoTratamento> obtePdf(int idTarefa, String idUtilizador) {
 //
 //        return Maybe.zip(
 //                registoVisitaDao.obterDadosEmail(idTarefa, api),
 //                pdfDao.obterDadosCliente(idTarefa),
 //                pdfDao.obterTrabalhosRealizadosRegistados(idTarefa, api),
-//                pdfDao.obterRubrica(idTarefa, Identificadores.Imagens.IMAGEM_ASSINATURA_REGISTO_VISITA, idUtilizador),
+//                pdfDao.obterRubrica(idTarefa, Identificadores.Imagens.IMAGEM_ASSINATURA_CERTIFICADO_TRATAMENTO, idUtilizador),
 //                pdfDao.obterFraseApoio(Identificadores.ID_FRASE_APOIO_REGISTO_VISITA, api),
-//                new Function5<CredenciaisEmail, DadosCliente, List<TrabalhoRealizado>, Rubrica, String, DadosRegistoVisita>() {
+//                new Function5<CredenciaisEmail, DadosCliente, Cert, Rubrica, String, DadosCertificadoTratamento>() {
 //                    @Override
-//                    public DadosRegistoVisita apply(CredenciaisEmail credenciaisEmail, DadosCliente dadosCliente, List<TrabalhoRealizado> trabalhoRealizados, Rubrica rubrica, String referencia) throws Exception {
+//                    public DadosCertificadoTratamento apply(CredenciaisEmail credenciaisEmail, DadosCliente dadosCliente, List<TrabalhoRealizado> trabalhoRealizados, Rubrica rubrica, String referencia) throws Exception {
 //
-//                        DadosRegistoVisita registoVisita = new DadosRegistoVisita();
+//                        DadosCertificadoTratamento registoVisita = new DadosCertificadoTratamento();
 //                        registoVisita.dadosCliente = dadosCliente;
 //                        registoVisita.trabalhoRealizados = trabalhoRealizados;
 //                        registoVisita.rubrica = rubrica;
-//                        registoVisita.referencia = referencia;
 //                        registoVisita.credenciaisEmail = credenciaisEmail;
 //                        return registoVisita;
 //                    }

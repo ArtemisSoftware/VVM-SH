@@ -4,9 +4,9 @@ import androidx.room.Dao;
 import androidx.room.Query;
 import androidx.room.Transaction;
 
-import com.vvm.sh.documentos.modelos.Rubrica;
+import com.vvm.sh.documentos.Rubrica;
 import com.vvm.sh.ui.informacaoSst.modelos.ObrigacaoLegal;
-import com.vvm.sh.documentos.modelos.DadosCliente;
+import com.vvm.sh.documentos.DadosCliente;
 import com.vvm.sh.ui.registoVisita.modelos.TrabalhoRealizado;
 import com.vvm.sh.util.metodos.TiposUtil;
 

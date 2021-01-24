@@ -27,7 +27,7 @@ abstract public class CertificadoTratamentoDao implements BaseDao<CertificadoTra
 
             "FROM ( " +
 
-            "SELECT id as idAtividade, sincronizacao, email, " +
+            "SELECT act_pend.id as idAtividade, sincronizacao, email, " +
             "CASE WHEN IFNULL(ct_crt, 0) = 0 THEN 0  ELSE 1 END as certificadoValido,  " +
             "CASE WHEN IFNULL(img.id, 0) = 0 THEN 0 ELSE 1 END as assinaturaValido " +
 

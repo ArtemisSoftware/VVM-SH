@@ -16,8 +16,14 @@ import com.vvm.sh.baseDados.entidades.CategoriaProfissionalResultado;
 import com.vvm.sh.baseDados.entidades.Resultado;
 import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.documentos.DadosTemplate;
-import com.vvm.sh.documentos.modelos.DocumentoPdf;
+import com.vvm.sh.documentos.DocumentoPdf;
+import com.vvm.sh.documentos.certificadoTratamento.modelos.DadosCertificadoTratamento;
+import com.vvm.sh.documentos.registoVisita.RegistoVisita;
+import com.vvm.sh.documentos.registoVisita.modelos.DadosRegistoVisita;
 import com.vvm.sh.servicos.ResultadoAsyncTask;
+import com.vvm.sh.servicos.pdf.DocumentoPdfAsyncTask;
+import com.vvm.sh.servicos.pdf.EnvioRegistoVisitaAsyncTask;
+import com.vvm.sh.servicos.relatorio.EnvioRelatorio;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.ResultadoId;
 import com.vvm.sh.util.constantes.AppConfig;
@@ -31,7 +37,12 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import io.reactivex.Maybe;
+import io.reactivex.MaybeObserver;
+import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
 
 public abstract class BaseViewModel extends ViewModel implements DocumentoPdf {
 
@@ -198,28 +209,123 @@ public abstract class BaseViewModel extends ViewModel implements DocumentoPdf {
         }
     }
 
-    @Override
-    public Template obterTemplate(Context contexto, int idTarefa, int idAtividade, DadosTemplate registo) {
-        return null;
-    }
-
-//    private void preVisualizarPdf(Context contexto, int idTarefa, DadosTemplate registo){
-//
-//        Template template = obterTemplate();
-//
-//        if(template != null) {
-//
-//            DocumentoPdfAsyncTask servico = new DocumentoPdfAsyncTask(contexto, template);
-//            servico.execute();
-//        }
-//    }
-
-
 
     @Override
     protected void onCleared() {
         disposables.clear();
     }
+
+
+    //-------------------
+    //Pdf
+    //-------------------
+
+    /**
+     * Metodo que permite pre visualizar o pdf
+     * @param contexto
+     * @param idTarefa
+     * @param idUtilizador
+     */
+    public void preVisualizarPdf(Context contexto, int idTarefa, int idAtividade, String idUtilizador){
+        gerarPdf(contexto, idTarefa, idAtividade, idUtilizador, PRE_VISUALIZAR_PDF);
+    }
+
+    /**
+     * Metodo que permite enviar o pdf
+     * @param contexto
+     * @param idTarefa
+     * @param idUtilizador
+     */
+    public void enviarPdf(Context contexto, int idTarefa, int idAtividade, String idUtilizador){
+        gerarPdf(contexto, idTarefa, idAtividade, idUtilizador, ENVIAR_PDF);
+    }
+
+
+
+    @Override
+    public void gerarPdf(Context contexto, int idTarefa, int idAtividade, String idUtilizador, int acao) {
+
+        obterPdf(idTarefa, idAtividade, idUtilizador)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new MaybeObserver<DadosTemplate>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onSuccess(DadosTemplate registo) {
+                                if(acao == PRE_VISUALIZAR_PDF) {
+                                    preVisualizarPdf(contexto, idTarefa, idAtividade, registo);
+
+                                }
+                                else{
+                                    enviarPdf(contexto, idTarefa, idAtividade, registo);
+                                }
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onComplete() {
+                                showProgressBar(false);
+                            }
+                        }
+
+                );
+
+    }
+
+
+
+    protected void preVisualizarPdf(Context contexto, int idTarefa, int idAtividade, DadosTemplate registo){
+
+        Template template = obterTemplate(contexto, idTarefa, idAtividade, registo);
+
+        if(template != null) {
+
+            DocumentoPdfAsyncTask servico = new DocumentoPdfAsyncTask(contexto, template);
+            servico.execute();
+        }
+    }
+
+
+    protected void enviarPdf(Context contexto, int idTarefa, int idAtividade, DadosTemplate registo){
+
+        if(registo != null) {
+
+            EnvioRelatorio envioRelatorio = new EnvioRelatorio(contexto, vvmshBaseDados, idTarefa, idAtividade, registo,  this);
+            envioRelatorio.executar();
+//        EnvioRegistoVisitaAsyncTask servico = new EnvioRegistoVisitaAsyncTask(contexto, registo.credenciaisEmail, vvmshBaseDados, registoVisitaRepositorio, idTarefa);
+//        servico.execute(new RegistoVisita(contexto, idTarefa, registo));
+        }
+    }
+
+
+    @Override
+    public Maybe<DadosTemplate> obterPdf(int idTarefa, int idAtividade, String idUtilizador) {
+        return null;
+    }
+
+    @Override
+    public Template obterTemplate(Context contexto, int idTarefa, int idAtividade, DadosTemplate registo) {
+        return null;
+    }
+
+
+    @Override
+    public void sincronizar(int idTarefa, int idAtividade) {
+
+    }
+
+
 
 }
 

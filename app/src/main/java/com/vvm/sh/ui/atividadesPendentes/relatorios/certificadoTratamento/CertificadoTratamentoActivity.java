@@ -112,8 +112,11 @@ public class CertificadoTratamentoActivity extends BaseDaggerActivity {
             @Override
             public void executar() {
 
+                Bundle bundle = getIntent().getExtras();
+                int idAtividade = bundle.getInt(getString(R.string.argumento_id_atividade));
+
                 if(DiretoriasUtil.criarDirectoria(DiretoriasUtil.DIRETORIA_PDF) == true){
-                    //--viewModel.preVisualizarPdf(RegistoVisitaActivity.this, PreferenciasUtil.obterIdTarefa(RegistoVisitaActivity.this), PreferenciasUtil.obterIdUtilizador(RegistoVisitaActivity.this));
+                    viewModel.preVisualizarPdf(getApplicationContext(), PreferenciasUtil.obterIdTarefa(getApplicationContext()), idAtividade, PreferenciasUtil.obterIdUtilizador(getApplicationContext()));
                 }
             }
         };
@@ -139,8 +142,11 @@ public class CertificadoTratamentoActivity extends BaseDaggerActivity {
             @Override
             public void executar() {
 
+                Bundle bundle = getIntent().getExtras();
+                int idAtividade = bundle.getInt(getString(R.string.argumento_id_atividade));
+
                 if(DiretoriasUtil.criarDirectoria(DiretoriasUtil.DIRETORIA_PDF) == true){
-                    //--viewModel.enviarPdf(RegistoVisitaActivity.this, PreferenciasUtil.obterIdTarefa(RegistoVisitaActivity.this), PreferenciasUtil.obterIdUtilizador(RegistoVisitaActivity.this));
+                    viewModel.enviarPdf(getApplicationContext(), PreferenciasUtil.obterIdTarefa(getApplicationContext()), idAtividade, PreferenciasUtil.obterIdUtilizador(getApplicationContext()));
                 }
             }
         };
@@ -148,12 +154,12 @@ public class CertificadoTratamentoActivity extends BaseDaggerActivity {
         if(viewModel.relatorio.getValue().valido == false){
             dialogo.alerta(Sintaxe.Palavras.PDF, Sintaxe.Alertas.DADOS_INCOMPLETOS_PDF);
         }
-//        else if(viewModel.relatorio.getValue().email.equals("") == true){
-//            dialogo.alerta(Sintaxe.Palavras.PDF, Sintaxe.Alertas.EMAIL_NAO_ASSOCIADO);
-//        }
-//        else {
-//            PermissoesUtil.pedirPermissoesEscritaLeitura(this, listener);
-//        }
+        else if(viewModel.relatorio.getValue().email.equals("") == true){
+            dialogo.alerta(Sintaxe.Palavras.PDF, Sintaxe.Alertas.EMAIL_NAO_ASSOCIADO);
+        }
+        else {
+            PermissoesUtil.pedirPermissoesEscritaLeitura(this, listener);
+        }
     }
 
 

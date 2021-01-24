@@ -44,10 +44,10 @@ public class CertificadoTratamentoModule {
 
     @CertificadoTratamentoScope
     @Provides
-    CertificadoTratamentoRepositorio provideCertificadoTratamentoRepositorio(CertificadoTratamentoDao certificadoTratamentoDao, ImagemDao imagemDao,
+    CertificadoTratamentoRepositorio provideCertificadoTratamentoRepositorio(int idApi, CertificadoTratamentoDao certificadoTratamentoDao, ImagemDao imagemDao,
                                                                              ResultadoDao resultadoDao, PdfDao pdfDao) {
 
-        CertificadoTratamentoRepositorio repositorio = new CertificadoTratamentoRepositorio(certificadoTratamentoDao, imagemDao, pdfDao, resultadoDao);
+        CertificadoTratamentoRepositorio repositorio = new CertificadoTratamentoRepositorio(idApi, certificadoTratamentoDao, imagemDao, pdfDao, resultadoDao);
         return repositorio;
     }
 

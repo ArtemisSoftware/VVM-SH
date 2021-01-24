@@ -4,10 +4,14 @@ import androidx.room.Dao;
 import androidx.room.Query;
 import androidx.room.Transaction;
 
+import com.vvm.sh.baseDados.entidades.CertificadoTratamentoResultado;
 import com.vvm.sh.documentos.Rubrica;
 import com.vvm.sh.ui.informacaoSst.modelos.ObrigacaoLegal;
 import com.vvm.sh.documentos.DadosCliente;
 import com.vvm.sh.ui.registoVisita.modelos.TrabalhoRealizado;
+import com.vvm.sh.util.constantes.Identificadores;
+import com.vvm.sh.util.constantes.Sintaxe;
+import com.vvm.sh.util.email.CredenciaisEmail;
 import com.vvm.sh.util.metodos.TiposUtil;
 
 import java.util.List;
@@ -16,6 +20,48 @@ import io.reactivex.Maybe;
 
 @Dao
 abstract public class PdfDao {
+
+    @Transaction
+    @Query("SELECT CASE WHEN (endereco_email IS NULL OR endereco_email != '') THEN email " +
+            "ELSE endereco_email END as destino, '" + Sintaxe.Palavras.REGISTO_VISITA +"' as titulo, corpoEmail " +
+            "FROM clientes as clt " +
+
+            "LEFT JOIN (SELECT idTarefa, endereco as endereco_email FROM emailsResultado) as eml_res " +
+            "ON clt.idTarefa = eml_res.idTarefa " +
+
+            "LEFT JOIN (" +
+            "SELECT idTarefa, " +
+            "CASE " +
+            "WHEN prefixoCT = 'KMED' THEN '" + Identificadores.ID_EMAIL_REGISTO_VISITA_KMED + "' " +
+            "WHEN prefixoCT = 'SH' THEN '" + Identificadores.ID_EMAIL_REGISTO_VISITA_VM + "' " +
+            "ELSE '" + Identificadores.ID_EMAIL_REGISTO_VISITA_KMED + "' END as idTexto " +
+            "FROM tarefas) as trf " +
+            "ON clt.idTarefa = trf.idTarefa " +
+
+            "LEFT JOIN (SELECT id, detalhe as corpoEmail FROM tipos WHERE tipo = '" + TiposUtil.MetodosTipos.FRASES_APOIO + "' AND ativo = 1 AND api = :api) as tp_frase " +
+            "ON trf.idTexto = tp_frase.id " +
+
+            "WHERE clt.idTarefa = :idTarefa")
+    abstract public Maybe<CredenciaisEmail> obterDadosEmailRegistoVisita(int idTarefa, int api);
+
+
+
+
+    @Transaction
+    @Query("SELECT CASE WHEN (endereco_email IS NULL OR endereco_email != '') THEN email " +
+            "ELSE endereco_email END as destino, " +
+            ":titulo as titulo, corpoEmail " +
+            "FROM clientes as clt " +
+
+            "LEFT JOIN (SELECT idTarefa, endereco as endereco_email FROM emailsResultado) as eml_res " +
+            "ON clt.idTarefa = eml_res.idTarefa " +
+
+            "LEFT JOIN (SELECT id, detalhe as corpoEmail FROM tipos WHERE tipo = '" + TiposUtil.MetodosTipos.FRASES_APOIO + "' AND ativo = 1 AND api = :api) as tp_frase " +
+            "ON tp_frase.id =:idFrase " +
+
+            "WHERE clt.idTarefa = :idTarefa")
+    abstract public Maybe<CredenciaisEmail> obterDadosEmail(int idTarefa, String titulo, int idFrase, int api);
+
 
 
     //------------------------
@@ -33,9 +79,12 @@ abstract public class PdfDao {
     abstract public Maybe<List<TrabalhoRealizado>> obterTrabalhosRealizadosRegistados(int idTarefa, int api);
 
 
+    //------------------------
+    //Certificado de tratamento
+    //------------------------
 
-
-
+    @Query("SELECT * FROM certificadoTratamentoResultado WHERE  idAtividade =:idAtividade")
+    abstract public Maybe<CertificadoTratamentoResultado> obterCertificado(int idAtividade);
 
     //------------------------
     //Informacao sst

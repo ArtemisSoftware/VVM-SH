@@ -68,28 +68,7 @@ abstract public class RegistoVisitaDao implements BaseDao<RegistoVisitaResultado
 
 
 
-    @Transaction
-    @Query("SELECT CASE WHEN (endereco_email IS NULL OR endereco_email != '') THEN email " +
-            "ELSE endereco_email END as destino, '" + Sintaxe.Palavras.REGISTO_VISITA +"' as titulo, corpoEmail " +
-            "FROM clientes as clt " +
 
-            "LEFT JOIN (SELECT idTarefa, endereco as endereco_email FROM emailsResultado) as eml_res " +
-            "ON clt.idTarefa = eml_res.idTarefa " +
-
-            "LEFT JOIN (" +
-            "SELECT idTarefa, " +
-            "CASE " +
-            "WHEN prefixoCT = 'KMED' THEN '" + Identificadores.ID_EMAIL_REGISTO_VISITA_KMED + "' " +
-            "WHEN prefixoCT = 'SH' THEN '" + Identificadores.ID_EMAIL_REGISTO_VISITA_VM + "' " +
-            "ELSE '" + Identificadores.ID_EMAIL_REGISTO_VISITA_KMED + "' END as idTexto " +
-            "FROM tarefas) as trf " +
-            "ON clt.idTarefa = trf.idTarefa " +
-
-            "LEFT JOIN (SELECT id, detalhe as corpoEmail FROM tipos WHERE tipo = '" + TiposUtil.MetodosTipos.FRASES_APOIO + "' AND ativo = 1 AND api = :api) as tp_frase " +
-            "ON trf.idTexto = tp_frase.id " +
-
-            "WHERE clt.idTarefa = :idTarefa")
-    abstract public Maybe<CredenciaisEmail> obterDadosEmail(int idTarefa, int api);
 
 
     //---------------

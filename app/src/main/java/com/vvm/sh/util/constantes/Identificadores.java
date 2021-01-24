@@ -31,7 +31,7 @@ public class Identificadores {
 
 
     public static final int EXECUTADA = 2, PROGRAMADA_FIXA = 4, PROGRAMADA = 5, REPROGRAMADA = 6;
-    public static final int ID_FRASE_APOIO_REGISTO_VISITA = 1;
+
 
 
     public static final int ID_ANOMALIA_FALTA_TEMPO = -99;
@@ -375,4 +375,12 @@ public class Identificadores {
         public static final int RECARREGAR_TRABALHO_DIA = 2;
         public static final int RECARREGAR_TAREFA = 3;
     }
+
+    public class FrasesApoio {
+        public static final int ID_FRASE_APOIO_REGISTO_VISITA = 1;
+
+        public static final int ID_FRASE_APOIO_CORPO_EMAIL_CERTIFICIADO_TRATAMENTO = 2;
+    }
+
+
 }

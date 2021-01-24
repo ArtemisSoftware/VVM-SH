@@ -167,7 +167,12 @@ public class Sintaxe {
     }
 
 
+    public class Email {
 
+        public static final String TITULO_EMAIL_REGISTO_VISITA = "Registo de visita";
+
+        public static final String TITULO_EMAIL_CERTIFICADO_TRATAMENTO = "Envio do Certificado de Tratamento";
+    }
 
 
 }

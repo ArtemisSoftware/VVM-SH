@@ -7,16 +7,19 @@ import com.vvm.sh.baseDados.dao.ResultadoDao;
 import com.vvm.sh.baseDados.entidades.CertificadoTratamentoResultado;
 import com.vvm.sh.baseDados.entidades.ImagemResultado;
 import com.vvm.sh.documentos.DadosCliente;
+import com.vvm.sh.documentos.DadosTemplate;
 import com.vvm.sh.documentos.Rubrica;
-import com.vvm.sh.documentos.templates.certificadoTratamento.modelos.DadosCertificadoTratamento;
+import com.vvm.sh.documentos.certificadoTratamento.modelos.DadosCertificadoTratamento;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.certificadoTratamento.modelos.RelatorioCertificadoTratamento;
 import com.vvm.sh.util.constantes.Identificadores;
+import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.email.CredenciaisEmail;
 
 import io.reactivex.Flowable;
 import io.reactivex.Maybe;
 import io.reactivex.Observable;
 import io.reactivex.Single;
+import io.reactivex.functions.Function5;
 
 public class CertificadoTratamentoRepositorio implements Repositorio<CertificadoTratamentoResultado> {
 
@@ -65,28 +68,27 @@ public class CertificadoTratamentoRepositorio implements Repositorio<Certificado
      * @param idTarefa o identificador da tarefa
      * @return os dados do pdf
      */
-//    public Maybe<DadosCertificadoTratamento> obtePdf(int idTarefa, String idUtilizador) {
-//
-//        return Maybe.zip(
-//                registoVisitaDao.obterDadosEmail(idTarefa, api),
-//                pdfDao.obterDadosCliente(idTarefa),
-//                pdfDao.obterTrabalhosRealizadosRegistados(idTarefa, api),
-//                pdfDao.obterRubrica(idTarefa, Identificadores.Imagens.IMAGEM_ASSINATURA_CERTIFICADO_TRATAMENTO, idUtilizador),
-//                pdfDao.obterFraseApoio(Identificadores.ID_FRASE_APOIO_REGISTO_VISITA, api),
-//                new Function5<CredenciaisEmail, DadosCliente, Cert, Rubrica, String, DadosCertificadoTratamento>() {
-//                    @Override
-//                    public DadosCertificadoTratamento apply(CredenciaisEmail credenciaisEmail, DadosCliente dadosCliente, List<TrabalhoRealizado> trabalhoRealizados, Rubrica rubrica, String referencia) throws Exception {
-//
-//                        DadosCertificadoTratamento registoVisita = new DadosCertificadoTratamento();
-//                        registoVisita.dadosCliente = dadosCliente;
-//                        registoVisita.trabalhoRealizados = trabalhoRealizados;
-//                        registoVisita.rubrica = rubrica;
-//                        registoVisita.credenciaisEmail = credenciaisEmail;
-//                        return registoVisita;
-//                    }
-//                });
-//
-//    }
+    public Maybe<DadosTemplate> obtePdf(int idTarefa, int idAtividade, String idUtilizador) {
+
+        return Maybe.zip(
+                pdfDao.obterDadosEmail(idTarefa, Sintaxe.Email.TITULO_EMAIL_CERTIFICADO_TRATAMENTO, Identificadores.FrasesApoio.ID_FRASE_APOIO_CORPO_EMAIL_CERTIFICIADO_TRATAMENTO, api),
+                pdfDao.obterDadosCliente(idTarefa),
+                pdfDao.obterCertificado(idAtividade),
+                pdfDao.obterRubrica(idTarefa, Identificadores.Imagens.IMAGEM_ASSINATURA_CERTIFICADO_TRATAMENTO, idUtilizador),
+                pdfDao.obterFraseApoio(Identificadores.FrasesApoio.ID_FRASE_APOIO_REGISTO_VISITA, api),
+                new Function5<CredenciaisEmail, DadosCliente, CertificadoTratamentoResultado, Rubrica, String, DadosTemplate>() {
+                    @Override
+                    public DadosTemplate apply(CredenciaisEmail credenciaisEmail, DadosCliente dadosCliente, CertificadoTratamentoResultado certificadoTratamentoResultado, Rubrica rubrica, String referencia) throws Exception {
+
+                        DadosCertificadoTratamento dados = new DadosCertificadoTratamento();
+                        dados.dadosCliente = dadosCliente;
+                        dados.certificadoTratamento = certificadoTratamentoResultado;
+                        dados.rubrica = rubrica;
+                        dados.credenciaisEmail = credenciaisEmail;
+                        return dados;
+                    }
+                });
+    }
 
     /**
      * Metodo que permite sincronizar o envio do email

@@ -12,7 +12,7 @@ import com.vvm.sh.baseDados.entidades.RegistoVisitaResultado;
 import com.vvm.sh.baseDados.entidades.TrabalhoRealizadoResultado;
 import com.vvm.sh.documentos.DadosCliente;
 import com.vvm.sh.documentos.Rubrica;
-import com.vvm.sh.documentos.templates.registoVisita.modelos.DadosRegistoVisita;
+import com.vvm.sh.documentos.registoVisita.modelos.DadosRegistoVisita;
 import com.vvm.sh.ui.registoVisita.modelos.RelatorioRegistoVisita;
 import com.vvm.sh.ui.registoVisita.modelos.TrabalhoRealizado;
 import com.vvm.sh.util.email.CredenciaisEmail;
@@ -114,11 +114,11 @@ public class RegistoVisitaRepositorio {
     public Maybe<DadosRegistoVisita> obtePdf(int idTarefa, String idUtilizador) {
 
         return Maybe.zip(
-                registoVisitaDao.obterDadosEmail(idTarefa, api),
+                pdfDao.obterDadosEmailRegistoVisita(idTarefa, api),
                 pdfDao.obterDadosCliente(idTarefa),
                 pdfDao.obterTrabalhosRealizadosRegistados(idTarefa, api),
                 pdfDao.obterRubrica(idTarefa, Identificadores.Imagens.IMAGEM_ASSINATURA_REGISTO_VISITA, idUtilizador),
-                pdfDao.obterFraseApoio(Identificadores.ID_FRASE_APOIO_REGISTO_VISITA, api),
+                pdfDao.obterFraseApoio(Identificadores.FrasesApoio.ID_FRASE_APOIO_REGISTO_VISITA, api),
                 new Function5<CredenciaisEmail, DadosCliente, List<TrabalhoRealizado>, Rubrica, String, DadosRegistoVisita>() {
                     @Override
                     public DadosRegistoVisita apply(CredenciaisEmail credenciaisEmail, DadosCliente dadosCliente, List<TrabalhoRealizado> trabalhoRealizados, Rubrica rubrica, String referencia) throws Exception {

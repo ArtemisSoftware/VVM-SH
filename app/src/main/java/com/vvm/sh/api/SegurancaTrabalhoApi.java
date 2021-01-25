@@ -18,6 +18,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import io.reactivex.Single;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -129,6 +130,9 @@ public interface SegurancaTrabalhoApi {
     );
 
 
+
+//    @GET("upLoadInfoSST")
+//    Single<Codigo> submeterInfoSST(@HeaderMap Map<String, String> headers, @Body );
 
 
 }

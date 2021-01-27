@@ -1,8 +1,14 @@
 package com.vvm.sh.util.metodos;
 
+import android.util.Base64;
+
 import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.util.constantes.Sintaxe;
 
+import java.io.BufferedInputStream;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.util.List;
 
 public class ConversorUtil {
@@ -135,4 +141,28 @@ public class ConversorUtil {
             return  Sintaxe.Codigos.FEMININO;
         }
     }
+
+
+    public static String converterPdf_String(String caminhoPdf) throws IOException {
+
+        File file = new File(caminhoPdf);
+
+        byte[] bytes = converterFicheiro_ArrayByte(file);
+        return Base64.encodeToString(bytes, Base64.DEFAULT);
+    }
+
+
+    public static byte[] converterFicheiro_ArrayByte(File ficheiro) throws IOException {
+
+        FileInputStream fileInputStream = new FileInputStream(ficheiro);
+        byte[] data=new byte[(int) ficheiro.length()];
+
+        BufferedInputStream bufferedInputStream=new BufferedInputStream(fileInputStream);
+        bufferedInputStream.read(data,0,data.length);
+
+        return data;
+    }
+
+
+
 }

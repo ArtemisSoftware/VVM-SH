@@ -1,5 +1,6 @@
 package com.vvm.sh.api;
 
+import com.vvm.sh.api.modelos.envio.InfoSSTBody;
 import com.vvm.sh.api.modelos.pedido.Codigo;
 import com.vvm.sh.api.modelos.pedido.ICodigoEquipamento;
 import com.vvm.sh.api.modelos.pedido.IContagemTipoMaquina;
@@ -131,8 +132,8 @@ public interface SegurancaTrabalhoApi {
 
 
 
-//    @GET("upLoadInfoSST")
-//    Single<Codigo> submeterInfoSST(@HeaderMap Map<String, String> headers, @Body );
+    @GET("upLoadInfoSST")
+    Single<Codigo> submeterInfoSST(@HeaderMap Map<String, String> headers, @Body InfoSSTBody infoSSTBody);
 
 
 }

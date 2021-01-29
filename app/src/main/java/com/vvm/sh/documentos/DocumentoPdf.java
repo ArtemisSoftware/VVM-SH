@@ -12,6 +12,10 @@ public interface DocumentoPdf {
     int PRE_VISUALIZAR_PDF = 1;
     int ENVIAR_PDF = 2;
 
+    enum AcaoDocumento{
+        PRE_VISUALIZAR_PDF, ENVIAR_PDF
+
+    }
 
     /**
      * Metodo que permite obter o template necessário para gerar um pdf
@@ -24,3 +28,5 @@ public interface DocumentoPdf {
 
     void sincronizar(int idTarefa, int idAtividade);
 }
+
+

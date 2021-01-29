@@ -8,6 +8,7 @@ import com.titan.pdfdocumentlibrary.bundle.Template;
 import com.vvm.sh.baseDados.entidades.CertificadoTratamentoResultado;
 import com.vvm.sh.baseDados.entidades.ImagemResultado;
 import com.vvm.sh.documentos.DadosTemplate;
+import com.vvm.sh.documentos.OnDocumentoListener;
 import com.vvm.sh.documentos.certificadoTratamento.CertificadoTratamento;
 import com.vvm.sh.documentos.certificadoTratamento.modelos.DadosCertificadoTratamento;
 import com.vvm.sh.repositorios.CertificadoTratamentoRepositorio;
@@ -30,7 +31,7 @@ import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
-public class CertificadoTratamentoViewModel extends BaseViewModel {
+public class CertificadoTratamentoViewModel extends BaseViewModel implements OnDocumentoListener.OnVisualizar {
 
     private final CertificadoTratamentoRepositorio certificadoTratamentoRepositorio;
 

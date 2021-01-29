@@ -132,7 +132,7 @@ public interface SegurancaTrabalhoApi {
 
 
 
-    @GET("upLoadInfoSST")
+    @POST("upLoadInfoSST")
     Single<Codigo> submeterInfoSST(@HeaderMap Map<String, String> headers, @Body InfoSSTBody infoSSTBody);
 
 

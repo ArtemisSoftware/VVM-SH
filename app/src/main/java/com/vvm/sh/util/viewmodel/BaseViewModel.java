@@ -17,12 +17,9 @@ import com.vvm.sh.baseDados.entidades.Resultado;
 import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.documentos.DadosTemplate;
 import com.vvm.sh.documentos.DocumentoPdf;
-import com.vvm.sh.documentos.certificadoTratamento.modelos.DadosCertificadoTratamento;
-import com.vvm.sh.documentos.registoVisita.RegistoVisita;
-import com.vvm.sh.documentos.registoVisita.modelos.DadosRegistoVisita;
+import com.vvm.sh.documentos.OnDocumentoListener;
 import com.vvm.sh.servicos.ResultadoAsyncTask;
 import com.vvm.sh.servicos.pdf.DocumentoPdfAsyncTask;
-import com.vvm.sh.servicos.pdf.EnvioRegistoVisitaAsyncTask;
 import com.vvm.sh.servicos.relatorio.EnvioRelatorio;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.ResultadoId;
@@ -44,7 +41,7 @@ import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.schedulers.Schedulers;
 
-public abstract class BaseViewModel extends ViewModel implements DocumentoPdf {
+public abstract class BaseViewModel extends ViewModel implements OnDocumentoListener.OnCriar {
 
 
     protected final CompositeDisposable disposables;
@@ -220,32 +217,21 @@ public abstract class BaseViewModel extends ViewModel implements DocumentoPdf {
     //Pdf
     //-------------------
 
-    /**
-     * Metodo que permite pre visualizar o pdf
-     * @param contexto
-     * @param idTarefa
-     * @param idUtilizador
-     */
-    public void preVisualizarPdf(Context contexto, int idTarefa, int idAtividade, String idUtilizador){
-        gerarPdf(contexto, idTarefa, idAtividade, idUtilizador, PRE_VISUALIZAR_PDF);
-    }
-
-    /**
-     * Metodo que permite enviar o pdf
-     * @param contexto
-     * @param idTarefa
-     * @param idUtilizador
-     */
-    public void enviarPdf(Context contexto, int idTarefa, int idAtividade, String idUtilizador){
-        gerarPdf(contexto, idTarefa, idAtividade, idUtilizador, ENVIAR_PDF);
-    }
-
-
 
     @Override
-    public void gerarPdf(Context contexto, int idTarefa, int idAtividade, String idUtilizador, int acao) {
+    public void preVisualizarPdf(Context contexto, int idTarefa, int idAtividade, String idUtilizador, OnDocumentoListener.OnVisualizar listener) {
+        gerarPdf(contexto, idTarefa, idAtividade, idUtilizador, listener, OnDocumentoListener.AcaoDocumento.PRE_VISUALIZAR_PDF);
+    }
 
-        obterPdf(idTarefa, idAtividade, idUtilizador)
+    @Override
+    public void enviarPdf(Context contexto, int idTarefa, int idAtividade, String idUtilizador, OnDocumentoListener.OnVisualizar listener) {
+        gerarPdf(contexto, idTarefa, idAtividade, idUtilizador, listener, OnDocumentoListener.AcaoDocumento.ENVIAR_PDF);
+    }
+
+    @Override
+    public void gerarPdf(Context contexto, int idTarefa, int idAtividade, String idUtilizador, OnDocumentoListener.OnVisualizar listener, OnDocumentoListener.AcaoDocumento acao) {
+
+        listener.obterPdf(idTarefa, idAtividade, idUtilizador)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -258,13 +244,23 @@ public abstract class BaseViewModel extends ViewModel implements DocumentoPdf {
 
                             @Override
                             public void onSuccess(DadosTemplate registo) {
-                                if(acao == PRE_VISUALIZAR_PDF) {
-                                    preVisualizarPdf(contexto, idTarefa, idAtividade, registo);
 
+
+                                switch (acao){
+
+
+                                    case PRE_VISUALIZAR_PDF:
+
+                                        preVisualizarPdf(contexto, idTarefa, idAtividade, registo, listener);
+                                        break;
+
+
+                                    case ENVIAR_PDF:
+                                        enviarPdf(contexto, idTarefa, idAtividade, registo);
+                                        break;
                                 }
-                                else{
-                                    enviarPdf(contexto, idTarefa, idAtividade, registo);
-                                }
+
+
                                 showProgressBar(false);
                             }
 
@@ -281,13 +277,16 @@ public abstract class BaseViewModel extends ViewModel implements DocumentoPdf {
 
                 );
 
+
     }
 
 
 
-    protected void preVisualizarPdf(Context contexto, int idTarefa, int idAtividade, DadosTemplate registo){
 
-        Template template = obterTemplate(contexto, idTarefa, idAtividade, registo);
+
+    private void preVisualizarPdf(Context contexto, int idTarefa, int idAtividade, DadosTemplate registo, OnDocumentoListener.OnVisualizar listener){
+
+        Template template = listener.obterTemplate(contexto, idTarefa, idAtividade, registo);
 
         if(template != null) {
 
@@ -297,7 +296,7 @@ public abstract class BaseViewModel extends ViewModel implements DocumentoPdf {
     }
 
 
-    protected void enviarPdf(Context contexto, int idTarefa, int idAtividade, DadosTemplate registo){
+    private void enviarPdf(Context contexto, int idTarefa, int idAtividade, DadosTemplate registo){
 
         if(registo != null) {
 
@@ -309,21 +308,6 @@ public abstract class BaseViewModel extends ViewModel implements DocumentoPdf {
     }
 
 
-    @Override
-    public Maybe<DadosTemplate> obterPdf(int idTarefa, int idAtividade, String idUtilizador) {
-        return null;
-    }
-
-    @Override
-    public Template obterTemplate(Context contexto, int idTarefa, int idAtividade, DadosTemplate registo) {
-        return null;
-    }
-
-
-    @Override
-    public void sincronizar(int idTarefa, int idAtividade) {
-
-    }
 
 
 

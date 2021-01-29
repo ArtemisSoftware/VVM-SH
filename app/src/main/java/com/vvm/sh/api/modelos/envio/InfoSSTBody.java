@@ -11,8 +11,8 @@ public class InfoSSTBody {
     @SerializedName("marca")
     private int marca;
 
-    @SerializedName("f")
-    private byte[] stream;
+    @SerializedName("strJsonString")
+    private String stream;
 
 
 }

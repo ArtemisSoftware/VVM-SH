@@ -1,5 +1,6 @@
 package com.vvm.sh.api;
 
+import com.vvm.sh.api.modelos.envio.InfoSSTBody;
 import com.vvm.sh.api.modelos.pedido.ITipoListagem;
 import com.vvm.sh.api.modelos.pedido.ISessao;
 import com.vvm.sh.api.modelos.pedido.Codigo;
@@ -12,6 +13,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 import io.reactivex.Single;
+import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -81,6 +83,14 @@ public interface SegurancaAlimentarApi {
             @Field("numeroFicheiro") String numeroFicheiro,
             @Field("MessageDigest") String messageDigest
     );
+
+
+    @FormUrlEncoded
+    @POST("upLoadInfoCERTTRAT")
+    Single<Codigo> submeterCertificadoTratamento(@HeaderMap Map<String, String> headers,
+                                                 @Field("strJsonString") String dados,
+                                                 @Field("ordem") String ordem,
+                                                 @Field("marca") String marca);
 
 
 

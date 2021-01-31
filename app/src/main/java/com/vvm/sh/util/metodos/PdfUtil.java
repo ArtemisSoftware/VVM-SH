@@ -11,7 +11,7 @@ import com.vvm.sh.documentos.registoVisita.modelos.DadosRegistoVisita;
 
 public class PdfUtil {
 
-    public Template obterTemplate(Context contexto, int idTarefa, int idAtividade, DadosTemplate dadosTemplate){
+    public static Template obterTemplate(Context contexto, int idTarefa, int idAtividade, DadosTemplate dadosTemplate){
 
         Template template = null;
 

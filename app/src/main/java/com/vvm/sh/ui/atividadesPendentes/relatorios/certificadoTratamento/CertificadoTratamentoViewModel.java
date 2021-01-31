@@ -80,6 +80,8 @@ public class CertificadoTratamentoViewModel extends BaseViewModel implements OnD
                     );
         }
         else{
+
+            registo.id = certificado.getValue().id;
             certificadoTratamentoRepositorio.atualizar(registo)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
@@ -237,10 +239,6 @@ public class CertificadoTratamentoViewModel extends BaseViewModel implements OnD
         return certificadoTratamentoRepositorio.obtePdf(idTarefa, idAtividade, idUtilizador);
     }
 
-    @Override
-    public Template obterTemplate(Context contexto, int idTarefa, int idAtividade, DadosTemplate registo) {
-        return new CertificadoTratamento(contexto, idTarefa, idAtividade, (DadosCertificadoTratamento) registo);
-    }
 
     @Override
     public void sincronizar(int idTarefa, int idAtividade) {

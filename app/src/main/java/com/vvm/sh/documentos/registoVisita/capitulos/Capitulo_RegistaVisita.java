@@ -60,7 +60,7 @@ public class Capitulo_RegistaVisita extends Chapter {
 
             case Pdf.Seccoes.ID_CLIENTE:
 
-                section = new IdentificacaoCliente(registoVisita.dadosCliente);
+                section = new IdentificacaoCliente(registoVisita.cliente);
                 break;
 
             case Pdf.Seccoes.ID_TRABALHOS_REALIZADOS:
@@ -70,13 +70,13 @@ public class Capitulo_RegistaVisita extends Chapter {
 
             case Pdf.Seccoes.ID_HOMOLOGACAO:
 
-                section = new Homologacao(contexto, registoVisita.dadosCliente);
+                section = new Homologacao(contexto, registoVisita.cliente);
                 break;
 
 
             case Pdf.Seccoes.ID_OBSERVACAO:
 
-                section = new Observacoes(registoVisita.dadosCliente.registo.observacao, Pdf.TipoObservacao.TIPO_QUADRO);
+                section = new Observacoes(registoVisita.cliente.registo.observacao, Pdf.TipoObservacao.TIPO_QUADRO);
                 break;
 
             case Pdf.Seccoes.ID_RUBRICA:

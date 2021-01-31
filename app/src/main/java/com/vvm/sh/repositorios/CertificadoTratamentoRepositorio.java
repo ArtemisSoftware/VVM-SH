@@ -81,7 +81,7 @@ public class CertificadoTratamentoRepositorio implements Repositorio<Certificado
                     public DadosTemplate apply(CredenciaisEmail credenciaisEmail, DadosCliente dadosCliente, CertificadoTratamentoResultado certificadoTratamentoResultado, Rubrica rubrica, String referencia) throws Exception {
 
                         DadosCertificadoTratamento dados = new DadosCertificadoTratamento();
-                        dados.dadosCliente = dadosCliente;
+                        dados.cliente = dadosCliente;
                         dados.certificadoTratamento = certificadoTratamentoResultado;
                         dados.rubrica = rubrica;
                         dados.credenciaisEmail = credenciaisEmail;

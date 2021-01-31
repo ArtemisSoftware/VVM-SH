@@ -120,8 +120,8 @@ public interface UploadMapping {
 
 
     @Mapping(target = "observacao", source = "observacao")
-    @Mapping(target = "observacaoProdutosEmGel", source = "observacaoProdutosEmGel")
-    @Mapping(target = "observacaoVestigiosPragas", source = "observacaoVestigiosPragas")
+    @Mapping(target = "observacaoProdutosEmGel", ignore = true/*, source = "observacaoProdutosEmGel"*/)
+    @Mapping(target = "observacaoVestigiosPragas", ignore = true/*, source = "observacaoVestigiosPragas"*/ )
     CertificadoTratamento map(CertificadoTratamentoResultado item);
 
 

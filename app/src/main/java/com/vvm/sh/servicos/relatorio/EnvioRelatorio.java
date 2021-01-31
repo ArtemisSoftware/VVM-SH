@@ -6,6 +6,7 @@ import com.titan.pdfdocumentlibrary.bundle.Template;
 import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.documentos.DadosTemplate;
 import com.vvm.sh.documentos.DocumentoPdf;
+import com.vvm.sh.documentos.OnDocumentoListener;
 import com.vvm.sh.documentos.certificadoTratamento.CertificadoTratamento;
 import com.vvm.sh.documentos.certificadoTratamento.modelos.DadosCertificadoTratamento;
 import com.vvm.sh.documentos.registoVisita.RegistoVisita;
@@ -19,10 +20,10 @@ public class EnvioRelatorio implements EnvioDocumento{
     private int idTarefa, idAtividade;
     private MensagensUtil dialogo;
     private DadosTemplate dadosTemplate;
-    private DocumentoPdf linestenerPdf;
+    private OnDocumentoListener.OnVisualizar linestenerPdf;
     private VvmshBaseDados vvmshBaseDados;
 
-    public EnvioRelatorio(Context contexto, VvmshBaseDados vvmshBaseDados, int idTarefa, int idAtividade, DadosTemplate dadosTemplate, DocumentoPdf linestenerPdf) {
+    public EnvioRelatorio(Context contexto, VvmshBaseDados vvmshBaseDados, int idTarefa, int idAtividade, DadosTemplate dadosTemplate, OnDocumentoListener.OnVisualizar linestenerPdf) {
 
         this.contexto = contexto;
         this.idTarefa = idTarefa;

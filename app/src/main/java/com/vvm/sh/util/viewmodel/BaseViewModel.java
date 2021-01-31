@@ -28,17 +28,21 @@ import com.vvm.sh.util.constantes.TiposConstantes;
 import com.vvm.sh.util.excepcoes.MetodoWsInvalidoException;
 import com.vvm.sh.util.excepcoes.RespostaWsInvalidaException;
 import com.vvm.sh.util.excepcoes.TipoInexistenteException;
+import com.vvm.sh.util.metodos.PdfUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.Callable;
 
 import javax.inject.Inject;
 
 import io.reactivex.Maybe;
 import io.reactivex.MaybeObserver;
+import io.reactivex.Single;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
+import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
 public abstract class BaseViewModel extends ViewModel implements OnDocumentoListener.OnCriar {
@@ -245,22 +249,7 @@ public abstract class BaseViewModel extends ViewModel implements OnDocumentoList
                             @Override
                             public void onSuccess(DadosTemplate registo) {
 
-
-                                switch (acao){
-
-
-                                    case PRE_VISUALIZAR_PDF:
-
-                                        preVisualizarPdf(contexto, idTarefa, idAtividade, registo, listener);
-                                        break;
-
-
-                                    case ENVIAR_PDF:
-                                        enviarPdf(contexto, idTarefa, idAtividade, registo);
-                                        break;
-                                }
-
-
+                                executarPdf(contexto, idTarefa, idAtividade, registo, listener, acao);
                                 showProgressBar(false);
                             }
 
@@ -276,39 +265,73 @@ public abstract class BaseViewModel extends ViewModel implements OnDocumentoList
                         }
 
                 );
-
-
     }
 
 
+    private void executarPdf(Context contexto, int idTarefa, int idAtividade, DadosTemplate registo, OnDocumentoListener.OnVisualizar listener, OnDocumentoListener.AcaoDocumento acao){
 
 
-
-    private void preVisualizarPdf(Context contexto, int idTarefa, int idAtividade, DadosTemplate registo, OnDocumentoListener.OnVisualizar listener){
-
-        Template template = listener.obterTemplate(contexto, idTarefa, idAtividade, registo);
-
-        if(template != null) {
-
-            DocumentoPdfAsyncTask servico = new DocumentoPdfAsyncTask(contexto, template);
-            servico.execute();
-        }
-    }
+        switch (acao){
 
 
-    private void enviarPdf(Context contexto, int idTarefa, int idAtividade, DadosTemplate registo){
+            case PRE_VISUALIZAR_PDF:
 
-        if(registo != null) {
+                Template template = PdfUtil.obterTemplate(contexto, idTarefa, idAtividade, registo);
 
-            EnvioRelatorio envioRelatorio = new EnvioRelatorio(contexto, vvmshBaseDados, idTarefa, idAtividade, registo,  this);
-            envioRelatorio.executar();
+                if(template != null) {
+
+                    DocumentoPdfAsyncTask servico = new DocumentoPdfAsyncTask(contexto, template);
+                    servico.execute();
+                }
+                break;
+
+
+            case ENVIAR_PDF:
+
+                if(registo != null) {
+
+                    EnvioRelatorio envioRelatorio = new EnvioRelatorio(contexto, vvmshBaseDados, idTarefa, idAtividade, registo,  listener);
+                    envioRelatorio.executar();
 //        EnvioRegistoVisitaAsyncTask servico = new EnvioRegistoVisitaAsyncTask(contexto, registo.credenciaisEmail, vvmshBaseDados, registoVisitaRepositorio, idTarefa);
 //        servico.execute(new RegistoVisita(contexto, idTarefa, registo));
+                }
+                break;
         }
+
     }
 
 
 
+    private void lolo(Template template ){
+
+        Single.fromCallable(new Callable<Template>() {
+            @Override
+            public Template call() throws Exception {
+                // Doing something long in AysnTask doInBackGround off UI thread.
+
+                template.createFile();
+
+                return template;
+            }
+        })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnSuccess(new Consumer<Template>() {
+                    @Override
+                    public void accept(Template loginResponse) throws Exception {
+                        template.openPdf();
+                    }
+                })
+                .doOnError(new Consumer<Throwable>() {
+                    @Override
+                    public void accept(Throwable throwable) throws Exception {
+                        // do on Error
+                    }
+                })
+                .subscribe();
+
+
+    }
 
 
 }

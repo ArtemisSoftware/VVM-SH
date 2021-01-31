@@ -23,6 +23,7 @@ abstract public class CertificadoTratamentoDao implements BaseDao<CertificadoTra
 
 
     @Query("SELECT idAtividade, certificadoValido, assinaturaValido, sincronizacao, email, " +
+            "CASE WHEN email != '' THEN 1  ELSE 0 END as emailValido, " +
             "CASE WHEN certificadoValido = 1 AND assinaturaValido = 1 AND email != '' THEN 1 ELSE 0 END as valido " +
 
             "FROM ( " +

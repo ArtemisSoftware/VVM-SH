@@ -45,14 +45,14 @@
                 android:layout_height="@dimen/banner_height"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
                 app:contentScrim="?attr/colorPrimary"
-                app:title="@string/registo_visita"
+                app:title="@string/certificado_tratamento"
                 app:expandedTitleTextAppearance="@android:color/transparent"
                 android:fitsSystemWindows="true">
 
                 <ImageView
                     android:id="@+id/img_banner"
                     app:layout_collapseMode="parallax"
-                    android:src="@drawable/registo_visita_banner"
+                    android:src="@drawable/certificado_tratamento_banner"
                     android:contentDescription="@string/relatorio"
                     android:scaleType="centerCrop"
                     android:layout_width="match_parent"
@@ -100,7 +100,8 @@
                     <TextView
                         android:id="@+id/txt_titulo"
                         style="@style/tituloCartao"
-                        android:text="@string/certificado_tratamento"
+                        android:text="@string/relatorio"
+                        android:contentDescription="@string/relatorio"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="16dp"
                         app:layout_constraintStart_toStartOf="parent"
@@ -122,13 +123,13 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
 
-
+                        completudeRelatorio="@{viewmodel.relatorio.valido}"
                         android:layout_marginTop="8dp"
                         android:layout_marginBottom="24dp"
                         app:layout_constraintStart_toStartOf="@+id/txt_titulo"
                         app:layout_constraintTop_toBottomOf="@+id/textview2"
                         android:theme="@style/Theme.MaterialComponents.Light" />
-                    <!--                    completudeRelatorio="@{viewmodel.relatorio.valido}"-->
+                    <!--                    -->
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chip2"
@@ -193,7 +194,7 @@
                                     android:layout_marginTop="@dimen/distancia_vertical_titulo"
                                     android:layout_marginBottom="16dp"
                                     android:text="@string/email_"
-                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintBottom_toTopOf="@+id/chip_email"
                                     app:layout_constraintStart_toStartOf="@+id/textView2"
                                     app:layout_constraintTop_toBottomOf="@+id/imageView8" />
 
@@ -206,6 +207,18 @@
                                     app:layout_constraintTop_toTopOf="@+id/textView67" />
 
 
+                                <com.google.android.material.chip.Chip
+                                    android:id="@+id/chip_email"
+                                    completudeRelatorio="@{viewmodel.relatorio.emailValido}"
+
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="16dp"
+                                    android:layout_marginBottom="16dp"
+                                    android:theme="@style/Theme.MaterialComponents.Light"
+                                    app:layout_constraintBottom_toBottomOf="parent"
+                                    app:layout_constraintStart_toStartOf="@+id/textView2"
+                                    app:layout_constraintTop_toBottomOf="@+id/textView67" />
 
 
                             </androidx.constraintlayout.widget.ConstraintLayout>

@@ -32,7 +32,7 @@ public class CertificadoTratamentoModule {
 
 
 
-    @RegistoVisitaScope
+    @CertificadoTratamentoScope
     @Provides
     static PdfDao providePdfDao(VvmshBaseDados vvmshBaseDados){
 

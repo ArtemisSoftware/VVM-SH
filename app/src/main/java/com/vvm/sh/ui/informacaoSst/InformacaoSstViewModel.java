@@ -21,6 +21,8 @@ import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import java.util.List;
 
+import javax.inject.Inject;
+
 import io.reactivex.MaybeObserver;
 import io.reactivex.Observer;
 import io.reactivex.SingleObserver;
@@ -39,6 +41,7 @@ public class InformacaoSstViewModel extends BaseViewModel {
     public MutableLiveData<RelatorioInformacaoSst> relatorio;
     public MutableLiveData<List<ObrigacaoLegal>> obrigacoes;
 
+    @Inject
     public InformacaoSstViewModel(InformacaoSstRepositorio informacaoSstRepositorio) {
 
         this.informacaoSstRepositorio = informacaoSstRepositorio;

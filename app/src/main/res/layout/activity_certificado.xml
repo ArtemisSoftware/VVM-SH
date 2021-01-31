@@ -120,7 +120,7 @@
 
                     <com.jaredrummler.materialspinner.MaterialSpinner
                         android:id="@+id/spnr_visitas"
-                        android:layout_width="wrap_content"
+                        android:layout_width="120dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="24dp"
                         android:hint="@string/visitas"
@@ -183,7 +183,7 @@
 
                     <com.jaredrummler.materialspinner.MaterialSpinner
                         android:id="@+id/spnr_condicoes_higiene"
-                        android:layout_width="wrap_content"
+                        android:layout_width="170dp"
                         android:layout_height="wrap_content"
                         android:hint="@string/avaliacoes"
 
@@ -206,7 +206,7 @@
 
                     <com.jaredrummler.materialspinner.MaterialSpinner
                         android:id="@+id/spnr_manutencao_instalacoes"
-                        android:layout_width="wrap_content"
+                        android:layout_width="170dp"
                         android:layout_height="wrap_content"
                         android:hint="@string/avaliacoes"
                         id="@{viewmodel.certificado.avaliacaoManutencaoInstalacoes}"
@@ -228,7 +228,7 @@
 
                     <com.jaredrummler.materialspinner.MaterialSpinner
                         android:id="@+id/spnr_condicoes_armazenamento"
-                        android:layout_width="wrap_content"
+                        android:layout_width="170dp"
                         android:layout_height="wrap_content"
                         android:layout_marginStart="32dp"
                         id="@{viewmodel.certificado.avaliacaoCondicoesArmazenamento}"
@@ -258,6 +258,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/distancia_vertical_formulario"
                         android:text="@string/a_data_da_visita_vestigios"
+                        android:checked="@{viewmodel.certificado.observacaoVestigiosPragas}"
                         app:layout_constraintTop_toBottomOf="@+id/textview37"
                         app:layout_constraintStart_toStartOf="@+id/textView18"
                         style="@style/textoDetalhe" />
@@ -269,6 +270,8 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="16dp"
                         android:text="@string/aplicacoes_zonas_tecnicas"
+
+                        android:checked="@{viewmodel.certificado.observacaoProdutosEmGel}"
                         app:layout_constraintTop_toBottomOf="@+id/chk_obs_1"
                         app:layout_constraintStart_toStartOf="@+id/textView18"
                         style="@style/textoDetalhe" />
@@ -288,13 +291,13 @@
                             android:id="@+id/txt_inp_observacao"
                             style="@style/modifiedEditText"
                             android:maxLength="200"
+                            android:text="@{viewmodel.certificado.observacao}"
                             android:gravity="top|left"
                             android:lines="5"
                             android:maxLines="5"/>
                     </com.google.android.material.textfield.TextInputLayout>
 
 
-<!--                    android:text="@{viewmodel.atividade.resultado.observacao}"-->
 
                 </androidx.constraintlayout.widget.ConstraintLayout>
 

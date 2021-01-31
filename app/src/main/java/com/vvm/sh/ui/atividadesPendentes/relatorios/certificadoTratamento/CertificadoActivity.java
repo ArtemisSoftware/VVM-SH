@@ -99,8 +99,8 @@ public class CertificadoActivity  extends BaseDaggerActivity {
         Tipo manutencaoInstalacoes = (Tipo) activityCertificadoBinding.spnrManutencaoInstalacoes.getItems().get(activityCertificadoBinding.spnrManutencaoInstalacoes.getSelectedIndex());
         Tipo condicoesArmazenamento = (Tipo) activityCertificadoBinding.spnrCondicoesArmazenamento.getItems().get(activityCertificadoBinding.spnrCondicoesArmazenamento.getSelectedIndex());
 
-        boolean chk_obs_1 = activityCertificadoBinding.chkObs1.isEnabled();
-        boolean chk_obs_2 = activityCertificadoBinding.chkObs2.isEnabled();
+        boolean chk_obs_1 = activityCertificadoBinding.chkObs1.isChecked();
+        boolean chk_obs_2 = activityCertificadoBinding.chkObs2.isChecked();
         String observacao = activityCertificadoBinding.txtInpObservacao.getText().toString();
 
         CertificadoTratamentoResultado resultado = new CertificadoTratamentoResultado(idAtividade, praga.id, visita.id, produto.id, condicoesHigiene.id, manutencaoInstalacoes.id, condicoesArmazenamento.id, chk_obs_1, chk_obs_2, observacao);

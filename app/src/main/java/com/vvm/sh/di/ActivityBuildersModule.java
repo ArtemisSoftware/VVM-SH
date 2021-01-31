@@ -101,6 +101,7 @@ import com.vvm.sh.ui.atividadesPendentes.relatorios.trabalhadoresVulneraveis.Tra
 import com.vvm.sh.ui.atividadesPendentes.relatorios.trabalhadoresVulneraveis.TrabalhadoresVulneraveisActivity;
 import com.vvm.sh.ui.imagens.BibliotecaImagensActivity;
 import com.vvm.sh.ui.imagens.GaleriaActivity;
+import com.vvm.sh.ui.informacaoSst.DialogoResponsavel;
 import com.vvm.sh.ui.informacaoSst.InformacaoSstActivity;
 import com.vvm.sh.ui.informacaoSst.ObrigacoesLegaisActivity;
 import com.vvm.sh.ui.pesquisa.PesquisaMedidasActivity;
@@ -738,6 +739,12 @@ public abstract class ActivityBuildersModule {
     )
     abstract ObrigacoesLegaisActivity contributeObrigacoesLegaisActivity();
 
+
+    @InformacaoSstScope
+    @ContributesAndroidInjector(
+            modules = { InformacaoSstViewModelsModule.class, InformacaoSstModule.class }
+    )
+    abstract DialogoResponsavel contributeDialogoResponsavel();
 
     //-----------------
     //Certificado de tratamento

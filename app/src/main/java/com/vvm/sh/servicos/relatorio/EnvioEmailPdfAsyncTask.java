@@ -5,6 +5,7 @@ import android.database.sqlite.SQLiteConstraintException;
 
 import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.documentos.DocumentoPdf;
+import com.vvm.sh.documentos.OnDocumentoListener;
 import com.vvm.sh.repositorios.RegistoVisitaRepositorio;
 import com.vvm.sh.servicos.email.EnvioEmailAsyncTask;
 import com.vvm.sh.util.constantes.Sintaxe;
@@ -12,11 +13,11 @@ import com.vvm.sh.util.constantes.Sintaxe;
 public class EnvioEmailPdfAsyncTask extends EnvioEmailAsyncTask{
 
     private VvmshBaseDados vvmshBaseDados;
-    private DocumentoPdf linestenerPdf;
+    private OnDocumentoListener.OnVisualizar linestenerPdf;
     private EnvioDocumento listener;
     private int idTarefa, idAtividade;
 
-    public EnvioEmailPdfAsyncTask(Context contexto, int idTarefa, int idAtividade, VvmshBaseDados vvmshBaseDados, DocumentoPdf linestenerPdf, EnvioDocumento listener) {
+    public EnvioEmailPdfAsyncTask(Context contexto, int idTarefa, int idAtividade, VvmshBaseDados vvmshBaseDados, OnDocumentoListener.OnVisualizar linestenerPdf, EnvioDocumento listener) {
         super(contexto);
 
         this.vvmshBaseDados = vvmshBaseDados;

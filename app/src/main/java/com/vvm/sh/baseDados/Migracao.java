@@ -61,7 +61,7 @@ public class Migracao {
                         + "'observacaoProdutosEmGel' INTEGER  NOT NULL DEFAULT   " + Sintaxe.Codigos.NAO_SELECIONADO + " ,  "
                         + "'observacao' TEXT , "
                         + "'sincronizacao' INTEGER NOT NULL DEFAULT   " + Sintaxe.Codigos.NAO_SELECIONADO + " ,  "
-                        + "PRIMARY KEY (idAtividade), "
+
                         + "FOREIGN KEY (idAtividade) REFERENCES atividadesPendentes (id)  ON DELETE CASCADE) ");
 
                 database.execSQL("CREATE INDEX index_certificadoTratamentoResultado_idAtividade ON certificadoTratamentoResultado (idAtividade)");

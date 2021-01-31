@@ -124,7 +124,7 @@ public class RegistoVisitaRepositorio {
                     public DadosRegistoVisita apply(CredenciaisEmail credenciaisEmail, DadosCliente dadosCliente, List<TrabalhoRealizado> trabalhoRealizados, Rubrica rubrica, String referencia) throws Exception {
 
                         DadosRegistoVisita registoVisita = new DadosRegistoVisita();
-                        registoVisita.dadosCliente = dadosCliente;
+                        registoVisita.cliente = dadosCliente;
                         registoVisita.trabalhoRealizados = trabalhoRealizados;
                         registoVisita.rubrica = rubrica;
                         registoVisita.referencia = referencia;

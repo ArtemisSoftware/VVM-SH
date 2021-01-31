@@ -14,6 +14,9 @@ public class RelatorioCertificadoTratamento {
     @ColumnInfo(name = "assinaturaValido")
     public boolean assinaturaValido;
 
+    @ColumnInfo(name = "emailValido")
+    public boolean emailValido;
+
     @ColumnInfo(name = "sincronizacao")
     public boolean sincronizacao;
 

@@ -104,31 +104,31 @@ public class DialogoAtividadePendente extends BaseDaggerDialogFragment {
      */
     private void formatarDialogo() {
 
-        if(getArguments().getInt(ARGUMENTO_RELATORIO) == Identificadores.Estados.SEM_RELATORIO){
-            binding.rdBtnRelatorio.setVisibility(View.GONE);
-        }
-        else{
-
-            if(getArguments().getBoolean(ARGUMENTO_RELATORIO_COMPLETO) == false){
-                binding.rdBtnActividadeExecutada.setVisibility(View.GONE);
-            }
-        }
-
-        if(getArguments().getInt(ARGUMENTO_RELATORIO) == Identificadores.Relatorios.ID_RELATORIO_AVALIACAO_RISCO){
-
-            binding.rdBtnRelatorio.setVisibility(View.GONE);
-            binding.txtTitulo.setVisibility(View.VISIBLE);
-            binding.rdGpAvaliacaoRiscos.setVisibility(View.VISIBLE);
-        }
-
-
-        if(PreferenciasUtil.agendaEditavel(getContext()) == false){
-            binding.rdBtnActividadeExecutada.setVisibility(View.GONE);
-            binding.rdBtnActividadeNaoExecutada.setVisibility(View.GONE);
-        }
-        else{
-            binding.rdBtnDetalhe.setVisibility(View.GONE);
-        }
+//        if(getArguments().getInt(ARGUMENTO_RELATORIO) == Identificadores.Estados.SEM_RELATORIO){
+//            binding.rdBtnRelatorio.setVisibility(View.GONE);
+//        }
+//        else{
+//
+//            if(getArguments().getBoolean(ARGUMENTO_RELATORIO_COMPLETO) == false){
+//                binding.rdBtnActividadeExecutada.setVisibility(View.GONE);
+//            }
+//        }
+//
+//        if(getArguments().getInt(ARGUMENTO_RELATORIO) == Identificadores.Relatorios.ID_RELATORIO_AVALIACAO_RISCO){
+//
+//            binding.rdBtnRelatorio.setVisibility(View.GONE);
+//            binding.txtTitulo.setVisibility(View.VISIBLE);
+//            binding.rdGpAvaliacaoRiscos.setVisibility(View.VISIBLE);
+//        }
+//
+//
+//        if(PreferenciasUtil.agendaEditavel(getContext()) == false){
+//            binding.rdBtnActividadeExecutada.setVisibility(View.GONE);
+//            binding.rdBtnActividadeNaoExecutada.setVisibility(View.GONE);
+//        }
+//        else{
+//            binding.rdBtnDetalhe.setVisibility(View.GONE);
+//        }
 
     }
 

@@ -24,7 +24,6 @@ public interface OnDocumentoListener {
 
     interface OnVisualizar {
         Maybe<DadosTemplate> obterPdf(int idTarefa, int idAtividade, String idUtilizador);
-
-        Template obterTemplate(Context contexto, int idTarefa, int idAtividade, DadosTemplate registo);
+        void sincronizar(int idTarefa, int idAtividade);
     }
 }

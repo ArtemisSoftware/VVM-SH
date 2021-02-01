@@ -28,7 +28,7 @@ public class Pdf {
 
 
         public static final Index OBRIGACOES_LEGAIS = new Index(ID_OBRIGACOES_LEGAIS, Texto.OBRIGACOES_LEGAIS);
-        public static final Index CERTIFICADO_TRATAMENTO = new Index(ID_OBRIGACOES_LEGAIS, Texto.CERTIFICADO_TRATAMENTO);
+        public static final Index CERTIFICADO_TRATAMENTO = new Index(ID_CERTIFICADO_TRATAMENTO, Texto.CERTIFICADO_TRATAMENTO);
     }
 
     public class Texto {

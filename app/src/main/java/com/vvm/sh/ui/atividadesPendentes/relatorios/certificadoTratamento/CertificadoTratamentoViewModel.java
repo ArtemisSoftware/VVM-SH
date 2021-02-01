@@ -233,6 +233,10 @@ public class CertificadoTratamentoViewModel extends BaseViewModel implements OnD
     //Pdf
     //------------
 
+    public void preVisualizarPdf(Context contexto, int idTarefa, int idAtividade, String idUtilizador) {
+        preVisualizarPdf(contexto, idTarefa, idAtividade, idUtilizador, this);
+    }
+
 
     @Override
     public Maybe<DadosTemplate> obterPdf(int idTarefa, int idAtividade, String idUtilizador) {

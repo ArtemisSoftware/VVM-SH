@@ -23,6 +23,9 @@ public class RelatorioCertificadoTratamento {
     @ColumnInfo(name = "valido")
     public boolean valido;
 
+    @ColumnInfo(name = "podeAssinar")
+    public boolean podeAssinar;
+
     @ColumnInfo(name = "idAtividade")
     public int id;
 

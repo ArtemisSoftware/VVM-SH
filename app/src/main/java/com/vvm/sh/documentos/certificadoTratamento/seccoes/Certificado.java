@@ -204,7 +204,7 @@ public class Certificado extends Section {
     private Table obterObservacoes() {
 
 
-        Table tabela = new Table(new float[]{70f, 30f});
+        Table tabela = new Table(new float[]{30f, 70f});
 
         //titulo
 
@@ -222,6 +222,7 @@ public class Certificado extends Section {
         CellConfiguration cellConfiguration_1 = new CellConfiguration();
         cellConfiguration_1.verticalAlign = Element.ALIGN_MIDDLE;
         cellConfiguration_1.horizontalAlign = Element.ALIGN_LEFT;
+        cellConfiguration_1.height = Pdf.RegistoVisita.ALTURA_LINHA___TABELA_TRABALHOS_REALIZADOS;
 
 
         Phrase obs1 = new Phrase(contexto.getString(R.string.obs_certificado_tratamento_1), fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO_GRANDE));
@@ -240,10 +241,10 @@ public class Certificado extends Section {
         }
 
 
-        tabela.addCell(contexto.getResources(), imagemObs1, cellConfiguration);
+        tabela.addCell(contexto.getResources(), imagemObs1, cellConfiguration_1);
         tabela.addCell(obs1, cellConfiguration_1);
 
-        tabela.addCell(contexto.getResources(), imagemObs2, cellConfiguration);
+        tabela.addCell(contexto.getResources(), imagemObs2, cellConfiguration_1);
         tabela.addCell(obs2, cellConfiguration_1);
 
 

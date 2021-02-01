@@ -22,16 +22,16 @@ abstract public class CertificadoTratamentoDao implements BaseDao<CertificadoTra
     abstract public Maybe<CertificadoTratamentoResultado> obterCertificadoTratamento(int idAtividade);
 
 
-    @Query("SELECT idAtividade, certificadoValido, assinaturaValido, sincronizacao, email, " +
-            "CASE WHEN email != '' THEN 1  ELSE 0 END as emailValido, " +
-            "CASE WHEN certificadoValido = 1 AND assinaturaValido = 1 AND email != '' THEN 1 ELSE 0 END as valido " +
+    @Query("SELECT idAtividade, certificadoValido, assinaturaValido, emailValido, sincronizacao, email, " +
+            "CASE WHEN certificadoValido = 1 AND emailValido = 1 THEN 1 ELSE 0 END as podeAssinar, " +
+            "CASE WHEN certificadoValido = 1 AND assinaturaValido = 1 AND emailValido = 1 THEN 1 ELSE 0 END as valido " +
 
             "FROM ( " +
 
             "SELECT act_pend.id as idAtividade, sincronizacao, email, " +
             "CASE WHEN IFNULL(ct_crt, 0) = 0 THEN 0  ELSE 1 END as certificadoValido,  " +
-            "CASE WHEN IFNULL(img.id, 0) = 0 THEN 0 ELSE 1 END as assinaturaValido " +
-
+            "CASE WHEN IFNULL(img.id, 0) = 0 THEN 0 ELSE 1 END as assinaturaValido, " +
+            "CASE WHEN email != '' THEN 1  ELSE 0 END as emailValido " +
             "FROM atividadesPendentes as act_pend " +
 
             //imagens
@@ -44,7 +44,8 @@ abstract public class CertificadoTratamentoDao implements BaseDao<CertificadoTra
 
             //dados cliente
             "LEFT JOIN(" +
-            "SELECT clt.idTarefa as idTarefa, CASE WHEN (endereco_email IS NULL OR endereco_email != '') THEN email ELSE endereco_email END as email " +
+            "SELECT clt.idTarefa as idTarefa, " +
+            "CASE WHEN (endereco_email IS NULL OR endereco_email = '') THEN email ELSE endereco_email END as email " +
             "FROM clientes as clt " +
             "LEFT JOIN (SELECT idTarefa, endereco as endereco_email FROM emailsResultado) as eml_res " +
             "ON clt.idTarefa = eml_res.idTarefa " +

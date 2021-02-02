@@ -37,20 +37,22 @@ public class Certificado extends Section {
     @Override
     protected void populateSection() {
 
-        table.addEmptyCell();
+        table.addEmptyLine();
         table.addCell(obterPraga());
 
-        table.addEmptyCell();
+        table.addEmptyLine();
         table.addCell(obterProdutoAplicado());
 
-        table.addEmptyCell();
+        table.addEmptyLine();
         table.addCell(obterAvaliacaoInfraestruturas());
 
-        table.addEmptyCell();
+        table.addEmptyLine();
         table.addCell(obterObservacoes());
 
-        table.addEmptyCell();
+        table.addEmptyLine();
         table.addCell(obterRecomendacoes());
+
+        table.removeBorder();
     }
 
 
@@ -66,7 +68,7 @@ public class Certificado extends Section {
 
             CellConfiguration cellConfiguration = new CellConfiguration();
             cellConfiguration.verticalAlign = Element.ALIGN_MIDDLE;
-            cellConfiguration.colSpan = 2;
+            cellConfiguration.colSpan = tabela.getNumberCells();
 
             Phrase titulo = new Phrase(contexto.getString(R.string.tipo_praga), fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO_GRANDE, true));
             tabela.addCell(titulo, cellConfiguration);
@@ -108,7 +110,7 @@ public class Certificado extends Section {
 
             CellConfiguration cellConfiguration = new CellConfiguration();
             cellConfiguration.verticalAlign = Element.ALIGN_MIDDLE;
-            cellConfiguration.colSpan = 2;
+            cellConfiguration.colSpan = tabela.getNumberCells();
 
             Phrase titulo = new Phrase(contexto.getString(R.string.produto_aplicado), fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO_GRANDE, true));
             tabela.addCell(titulo, cellConfiguration);
@@ -149,7 +151,7 @@ public class Certificado extends Section {
 
         CellConfiguration cellConfiguration = new CellConfiguration();
         cellConfiguration.verticalAlign = Element.ALIGN_MIDDLE;
-        cellConfiguration.colSpan = 2;
+        cellConfiguration.colSpan = tabela.getNumberCells();
 
         Phrase titulo = new Phrase(contexto.getString(R.string.avaliacao_infraestruturas), fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO_GRANDE, true));
         tabela.addCell(titulo, cellConfiguration);
@@ -204,14 +206,14 @@ public class Certificado extends Section {
     private Table obterObservacoes() {
 
 
-        Table tabela = new Table(new float[]{30f, 70f});
+        Table tabela = new Table(new float[]{80f, 20f});
 
         //titulo
 
 
         CellConfiguration cellConfiguration = new CellConfiguration();
         cellConfiguration.verticalAlign = Element.ALIGN_MIDDLE;
-        cellConfiguration.colSpan = 2;
+        cellConfiguration.colSpan = tabela.getNumberCells();
 
         Phrase titulo = new Phrase(contexto.getString(R.string.observacoes).toUpperCase(), fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO_GRANDE, true));
         tabela.addCell(titulo, cellConfiguration);
@@ -222,7 +224,7 @@ public class Certificado extends Section {
         CellConfiguration cellConfiguration_1 = new CellConfiguration();
         cellConfiguration_1.verticalAlign = Element.ALIGN_MIDDLE;
         cellConfiguration_1.horizontalAlign = Element.ALIGN_LEFT;
-        cellConfiguration_1.height = Pdf.RegistoVisita.ALTURA_LINHA___TABELA_TRABALHOS_REALIZADOS;
+        cellConfiguration_1.height = 23;
 
 
         Phrase obs1 = new Phrase(contexto.getString(R.string.obs_certificado_tratamento_1), fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO_GRANDE));
@@ -241,11 +243,11 @@ public class Certificado extends Section {
         }
 
 
-        tabela.addCell(contexto.getResources(), imagemObs1, cellConfiguration_1);
         tabela.addCell(obs1, cellConfiguration_1);
+        tabela.addCell(contexto.getResources(), imagemObs1, cellConfiguration_1);
 
-        tabela.addCell(contexto.getResources(), imagemObs2, cellConfiguration_1);
         tabela.addCell(obs2, cellConfiguration_1);
+        tabela.addCell(contexto.getResources(), imagemObs2, cellConfiguration_1);
 
 
         tabela.removeBorder();

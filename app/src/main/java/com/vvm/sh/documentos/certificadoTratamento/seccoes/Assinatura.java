@@ -41,19 +41,18 @@ public class Assinatura extends Section {
         if(registo != null) {
 
             try {
-                table.addEmptyCell(3);
-
+                table.addEmptyLine();
 
                 CellConfiguration cellConfiguration = new CellConfiguration();
                 cellConfiguration.verticalAlign = Element.ALIGN_MIDDLE;
-                cellConfiguration.colSpan = 3;
+                cellConfiguration.colSpan = table.getNumberCells();
 
 
                 Phrase titulo = new Phrase(contexto.getString(R.string.data_).toUpperCase().toUpperCase() + " " + registo.data, fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO_GRANDE));
                 table.addCell(titulo, cellConfiguration);
 
 
-                table.addEmptyCell(3);
+                table.addEmptyLine();
 
 
                 CellConfiguration cellConfiguration_1 = new CellConfiguration();
@@ -65,8 +64,8 @@ public class Assinatura extends Section {
                 //ASSINATURA
 
                 Image imagem = PdfUtil.createPdfImage(contexto.getResources(), ImagemUtil.converter(registo.imagem));
-                imagem.scaleToFit(120f, 30f);
-                table.addCell(imagem, cellConfiguration);
+                imagem.scaleToFit(220f, 130f);
+                table.addCell(imagem, cellConfiguration_1);
 
 
                 //espaço

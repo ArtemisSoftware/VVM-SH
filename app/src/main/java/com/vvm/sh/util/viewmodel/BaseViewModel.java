@@ -24,6 +24,7 @@ import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.ResultadoId;
 import com.vvm.sh.util.constantes.AppConfig;
 import com.vvm.sh.util.constantes.TiposConstantes;
+import com.vvm.sh.util.excepcoes.DocumentoPdfException;
 import com.vvm.sh.util.excepcoes.MetodoWsInvalidoException;
 import com.vvm.sh.util.excepcoes.RespostaWsInvalidaException;
 import com.vvm.sh.util.excepcoes.TipoInexistenteException;
@@ -244,8 +245,9 @@ public abstract class BaseViewModel extends ViewModel implements OnDocumentoList
 
                         if(template != null) {
                             template.createFile();
+                            return template;
                         }
-                        else throw new PdfException("fffff");
+                        else throw new DocumentoPdfException("Template do pdf indisponível");
 
                     }
                 })
@@ -270,6 +272,7 @@ public abstract class BaseViewModel extends ViewModel implements OnDocumentoList
                             @Override
                             public void onError(Throwable e) {
                                 showProgressBar(false);
+                                formatarErro(e);
                             }
 
                             @Override
@@ -282,7 +285,7 @@ public abstract class BaseViewModel extends ViewModel implements OnDocumentoList
     }
 
 
-    private void executarPdf(Context contexto, int idTarefa, int idAtividade, Template registo, OnDocumentoListener.OnVisualizar listener, OnDocumentoListener.AcaoDocumento acao){
+    private void executarPdf(Context contexto, int idTarefa, int idAtividade, Template template, OnDocumentoListener.OnVisualizar listener, OnDocumentoListener.AcaoDocumento acao){
 
 
         switch (acao){
@@ -290,65 +293,61 @@ public abstract class BaseViewModel extends ViewModel implements OnDocumentoList
 
             case PRE_VISUALIZAR_PDF:
 
-                Template template = PdfUtil.obterTemplate(contexto, idTarefa, idAtividade, registo);
-
-                if(template != null) {
-                    lolo(template);
-                }
+                template.openPdf();
                 break;
 
 
             case ENVIAR_PDF:
 
-                if(registo != null) {
-
-                    EnvioRelatorio envioRelatorio = new EnvioRelatorio(contexto, vvmshBaseDados, idTarefa, idAtividade, registo,  listener);
-                    envioRelatorio.executar();
-//        EnvioRegistoVisitaAsyncTask servico = new EnvioRegistoVisitaAsyncTask(contexto, registo.credenciaisEmail, vvmshBaseDados, registoVisitaRepositorio, idTarefa);
-//        servico.execute(new RegistoVisita(contexto, idTarefa, registo));
-                }
+//                if(registo != null) {
+//
+//                    EnvioRelatorio envioRelatorio = new EnvioRelatorio(contexto, vvmshBaseDados, idTarefa, idAtividade, registo,  listener);
+//                    envioRelatorio.executar();
+////        EnvioRegistoVisitaAsyncTask servico = new EnvioRegistoVisitaAsyncTask(contexto, registo.credenciaisEmail, vvmshBaseDados, registoVisitaRepositorio, idTarefa);
+////        servico.execute(new RegistoVisita(contexto, idTarefa, registo));
+//                }
                 break;
         }
 
     }
 
 
-
-    private void lolo(Template template ){
-
-
-        showProgressBar(true);
-
-        Single.fromCallable(new Callable<Template>() {
-            @Override
-            public Template call() throws Exception {
-                // Doing something long in AysnTask doInBackGround off UI thread.
-
-                template.createFile();
-
-                return template;
-            }
-        })
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .doOnSuccess(new Consumer<Template>() {
-                    @Override
-                    public void accept(Template loginResponse) throws Exception {
-                        showProgressBar(false);
-                        template.openPdf();
-                    }
-                })
-                .doOnError(new Consumer<Throwable>() {
-                    @Override
-                    public void accept(Throwable throwable) throws Exception {
-                        showProgressBar(false);
-                        formatarErro(throwable);
-                    }
-                })
-                .subscribe();
-
-
-    }
+//
+//    private void lolo(Template template ){
+//
+//
+//        showProgressBar(true);
+//
+//        Single.fromCallable(new Callable<Template>() {
+//            @Override
+//            public Template call() throws Exception {
+//                // Doing something long in AysnTask doInBackGround off UI thread.
+//
+//                template.createFile();
+//
+//                return template;
+//            }
+//        })
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .doOnSuccess(new Consumer<Template>() {
+//                    @Override
+//                    public void accept(Template loginResponse) throws Exception {
+//                        showProgressBar(false);
+//                        template.openPdf();
+//                    }
+//                })
+//                .doOnError(new Consumer<Throwable>() {
+//                    @Override
+//                    public void accept(Throwable throwable) throws Exception {
+//                        showProgressBar(false);
+//                        formatarErro(throwable);
+//                    }
+//                })
+//                .subscribe();
+//
+//
+//    }
 
 
 }

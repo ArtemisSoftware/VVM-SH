@@ -223,7 +223,7 @@
                         <androidx.cardview.widget.CardView
                             android:id="@+id/card_certificado"
                             style="@style/cartaoMini"
-
+                            ativo="@{!viewmodel.relatorio.valido}"
 
                             android:layout_marginStart="32dp"
                             app:layout_constraintStart_toEndOf="@+id/card_dados_cliente"
@@ -283,6 +283,7 @@
                         <androidx.cardview.widget.CardView
                             android:id="@+id/card_assinatura"
                             style="@style/cartaoMini"
+                            ativo="@{!viewmodel.relatorio.assinaturaValido}"
                             android:visibility="@{viewmodel.relatorio.podeAssinar ? View.VISIBLE : View.GONE}"
                             android:layout_marginTop="32dp"
                             app:layout_constraintStart_toStartOf="@+id/card_dados_cliente"
@@ -411,7 +412,8 @@
 
             <com.github.clans.fab.FloatingActionButton
                 android:id="@+id/fab_enviar"
-
+                condicaoVisibilidadeA="@{viewmodel.relatorio.valido}"
+                condicaoVisibilidadeB="@{viewmodel.relatorio.sincronizacao}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_upload_24dp"
@@ -420,13 +422,13 @@
 
             <!--
                                   android:enabled="@{bloquear}"
-                android:visibility="@{viewmodel.relatorio.sincronizacao ? View.GONE : View.VISIBLE}"
+
 
                   -->
 
             <com.github.clans.fab.FloatingActionButton
                 android:id="@+id/fab_pre_visualizar"
-
+                android:visibility="@{viewmodel.relatorio.valido ? View.VISIBLE : View.GONE}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_registo_visita_24dp"
@@ -435,7 +437,7 @@
 
             <!--
                                  android:enabled="@{bloquear}"
-                android:visibility="@{viewmodel.relatorio.valido ? View.VISIBLE : View.GONE}"
+
 
                  -->
 

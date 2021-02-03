@@ -48,13 +48,16 @@ abstract public class PdfDao {
 
 
     @Transaction
-    @Query("SELECT CASE WHEN (endereco_email IS NULL OR endereco_email != '') THEN email " +
+    @Query("SELECT CASE WHEN (endereco_email IS NULL OR endereco_email = '') THEN email " +
             "ELSE endereco_email END as destino, " +
-            ":titulo as titulo, corpoEmail " +
+            ":titulo as titulo, IFNULL(corpoEmail, '') as corpoEmail " +
             "FROM clientes as clt " +
 
             "LEFT JOIN (SELECT idTarefa, endereco as endereco_email FROM emailsResultado) as eml_res " +
             "ON clt.idTarefa = eml_res.idTarefa " +
+
+
+
 
             "LEFT JOIN (SELECT id, detalhe as corpoEmail FROM tipos WHERE tipo = '" + TiposUtil.MetodosTipos.FRASES_APOIO + "' AND ativo = 1 AND api = :api) as tp_frase " +
             "ON tp_frase.id =:idFrase " +

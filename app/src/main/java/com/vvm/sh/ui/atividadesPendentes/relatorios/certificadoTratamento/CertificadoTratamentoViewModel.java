@@ -25,6 +25,7 @@ import javax.inject.Inject;
 import io.reactivex.Maybe;
 import io.reactivex.MaybeObserver;
 import io.reactivex.Observer;
+import io.reactivex.Single;
 import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
@@ -237,6 +238,10 @@ public class CertificadoTratamentoViewModel extends BaseViewModel implements OnD
         preVisualizarPdf(contexto, idTarefa, idAtividade, idUtilizador, this);
     }
 
+    public void enviarPdf(Context contexto, int idTarefa, int idAtividade, String idUtilizador) {
+        enviarPdf(contexto, idTarefa, idAtividade, idUtilizador, this);
+    }
+
 
     @Override
     public Maybe<DadosTemplate> obterPdf(int idTarefa, int idAtividade, String idUtilizador) {
@@ -245,7 +250,7 @@ public class CertificadoTratamentoViewModel extends BaseViewModel implements OnD
 
 
     @Override
-    public void sincronizar(int idTarefa, int idAtividade) {
-        certificadoTratamentoRepositorio.sincronizar(idAtividade);
+    public Single<Integer> sincronizar(int idTarefa, int idAtividade) {
+        return certificadoTratamentoRepositorio.sincronizar(idAtividade);
     }
 }

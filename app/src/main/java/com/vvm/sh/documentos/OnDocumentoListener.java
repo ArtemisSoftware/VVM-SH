@@ -5,11 +5,14 @@ import android.content.Context;
 import com.titan.pdfdocumentlibrary.bundle.Template;
 
 import io.reactivex.Maybe;
+import io.reactivex.Single;
 
 public interface OnDocumentoListener {
 
     enum AcaoDocumento{
-        PRE_VISUALIZAR_PDF, ENVIAR_PDF
+        PRE_VISUALIZAR_PDF,
+        ENVIAR_PDF,
+        ENVIAR_PDF__DADOS_FTP,
     }
 
 
@@ -24,6 +27,6 @@ public interface OnDocumentoListener {
 
     interface OnVisualizar {
         Maybe<DadosTemplate> obterPdf(int idTarefa, int idAtividade, String idUtilizador);
-        void sincronizar(int idTarefa, int idAtividade);
+        Single<Integer> sincronizar(int idTarefa, int idAtividade);
     }
 }

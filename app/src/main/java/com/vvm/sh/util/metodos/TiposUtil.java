@@ -32,6 +32,8 @@ public class TiposUtil {
         public static final String TIPOS_ANOMALIA = "GetTiposAnomalia";
         public static final String TIPIFICACAO_OCORRENCIA = "GetTipificacoesOcorrencia_New";
         public static final String CURSOS = "getCoursesInfo";
+
+        public static final String FRASES_APOIO = "Obter_FrasesApoio";
     }
 
 
@@ -191,7 +193,7 @@ public class TiposUtil {
             public static final MetodoApi METODO_CONCLUSAO_MEDIDAS_RECOMENDADAS = new MetodoApi(CONCLUSAO_MEDIDAS_RECOMENDADAS, null, MetodosTiposSH.CONCLUSAO_MEDIDAS_RECOMENDADAS, Identificadores.Atualizacoes.TIPO);
             public static final MetodoApi METODO_CURSOS = new MetodoApi(CURSOS, MetodosTiposSA.CURSOS, MetodosTiposSH.CURSOS, Identificadores.Atualizacoes.TIPO);
 
-            public static final MetodoApi METODO_FRASES_APOIO = new MetodoApi(FRASES_APOIO, null, MetodosTiposSH.FRASES_APOIO, Identificadores.Atualizacoes.TIPO);
+            public static final MetodoApi METODO_FRASES_APOIO = new MetodoApi(FRASES_APOIO, MetodosTiposSA.FRASES_APOIO, MetodosTiposSH.FRASES_APOIO, Identificadores.Atualizacoes.TIPO);
 
 
             public static final MetodoApi METODO_ILUMINANCIA = new MetodoApi(ILUMINANCIA, null, MetodosTiposSH.ILUMINANCIA, Identificadores.Atualizacoes.TIPO);
@@ -241,9 +243,9 @@ public class TiposUtil {
                     METODO_CROSS_SELLING_TIPO,
 
                     METODO_CURSOS,
-/*
-                    METODO_FRASES_APOIO,
 
+                    METODO_FRASES_APOIO,
+/*
                     METODO_ILUMINANCIA,
 
                     METODO_MEDIDAS_ILUMINACAO_TERMICO,

@@ -23,7 +23,11 @@ import com.vvm.sh.servicos.relatorio.EnvioRelatorio;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.ResultadoId;
 import com.vvm.sh.util.constantes.AppConfig;
+import com.vvm.sh.util.constantes.EmailConfig;
+import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.constantes.TiposConstantes;
+import com.vvm.sh.util.email.CredenciaisEmail;
+import com.vvm.sh.util.email.Email;
 import com.vvm.sh.util.excepcoes.DocumentoPdfException;
 import com.vvm.sh.util.excepcoes.MetodoWsInvalidoException;
 import com.vvm.sh.util.excepcoes.RespostaWsInvalidaException;
@@ -31,14 +35,23 @@ import com.vvm.sh.util.excepcoes.TipoInexistenteException;
 import com.vvm.sh.util.metodos.PdfUtil;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.Properties;
 import java.util.concurrent.Callable;
 
 import javax.inject.Inject;
+import javax.mail.BodyPart;
+import javax.mail.MessagingException;
+import javax.mail.Session;
+import javax.mail.Transport;
+import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
 
 import io.reactivex.Maybe;
 import io.reactivex.MaybeObserver;
 import io.reactivex.Single;
+import io.reactivex.SingleSource;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
@@ -236,16 +249,18 @@ public abstract class BaseViewModel extends ViewModel implements OnDocumentoList
     @Override
     public void gerarPdf(Context contexto, int idTarefa, int idAtividade, String idUtilizador, OnDocumentoListener.OnVisualizar listener, OnDocumentoListener.AcaoDocumento acao) {
 
+        showProgressBar(true);
+
         listener.obterPdf(idTarefa, idAtividade, idUtilizador)
 
-                .map(new Function<DadosTemplate, Template>() {
+                .map(new Function<DadosTemplate, DadosPdf>() {
                     @Override
-                    public Template apply(DadosTemplate dadosTemplate) throws Exception {
+                    public DadosPdf apply(DadosTemplate dadosTemplate) throws Exception {
                         Template template = PdfUtil.obterTemplate(contexto, idTarefa, idAtividade, dadosTemplate);
 
                         if(template != null) {
                             template.createFile();
-                            return template;
+                            return new DadosPdf(dadosTemplate.credenciaisEmail, template);
                         }
                         else throw new DocumentoPdfException("Template do pdf indisponível");
 
@@ -256,17 +271,17 @@ public abstract class BaseViewModel extends ViewModel implements OnDocumentoList
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
 
-                        new MaybeObserver<Template>() {
+                        new MaybeObserver<DadosPdf>() {
                             @Override
                             public void onSubscribe(Disposable d) {
                                 disposables.add(d);
                             }
 
                             @Override
-                            public void onSuccess(Template registo) {
+                            public void onSuccess(DadosPdf registo) {
 
                                 executarPdf(contexto, idTarefa, idAtividade, registo, listener, acao);
-                                showProgressBar(false);
+
                             }
 
                             @Override
@@ -285,7 +300,7 @@ public abstract class BaseViewModel extends ViewModel implements OnDocumentoList
     }
 
 
-    private void executarPdf(Context contexto, int idTarefa, int idAtividade, Template template, OnDocumentoListener.OnVisualizar listener, OnDocumentoListener.AcaoDocumento acao){
+    private void executarPdf(Context contexto, int idTarefa, int idAtividade, DadosPdf dadosPdf, OnDocumentoListener.OnVisualizar listener, OnDocumentoListener.AcaoDocumento acao){
 
 
         switch (acao){
@@ -293,11 +308,21 @@ public abstract class BaseViewModel extends ViewModel implements OnDocumentoList
 
             case PRE_VISUALIZAR_PDF:
 
-                template.openPdf();
+                dadosPdf.template.openPdf();
+                showProgressBar(false);
                 break;
 
 
             case ENVIAR_PDF:
+
+                lolo(idTarefa, idAtividade, listener, dadosPdf);
+                break;
+
+
+            case ENVIAR_PDF__DADOS_FTP:
+
+                //lolo(dadosPdf);
+                break;
 
 //                if(registo != null) {
 //
@@ -306,13 +331,65 @@ public abstract class BaseViewModel extends ViewModel implements OnDocumentoList
 ////        EnvioRegistoVisitaAsyncTask servico = new EnvioRegistoVisitaAsyncTask(contexto, registo.credenciaisEmail, vvmshBaseDados, registoVisitaRepositorio, idTarefa);
 ////        servico.execute(new RegistoVisita(contexto, idTarefa, registo));
 //                }
-                break;
+
         }
 
     }
 
 
-//
+
+    private void lolo(int idTarefa, int idAtividade, OnDocumentoListener.OnVisualizar listener, DadosPdf dadosPdf){
+
+
+        showProgressBar(true);
+
+        disposables.add(
+
+                Single.fromCallable(new Callable<String>() {
+                    @Override
+                    public String call() throws Exception {
+                        // Doing something long in AysnTask doInBackGround off UI thread.
+
+                        Email email = new Email(dadosPdf.credenciaisEmail);
+                        email.adicionarAnexo(dadosPdf.template.getPdfFile().getAbsolutePath());
+                        email.configurar();
+
+                        Transport.send(email.mensagem);
+
+                        return "";
+                    }
+                })
+
+                .flatMap(new Function<String, SingleSource<Integer>>() {
+                    @Override
+                    public SingleSource<Integer> apply(String s) throws Exception {
+                        return listener.sincronizar(idTarefa, idAtividade);
+                    }
+                })
+
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        new Consumer<Integer>() {
+                            @Override
+                            public void accept(Integer s) throws Exception {
+                               showProgressBar(false);
+                            }
+                        },
+                        new Consumer<Throwable>() {
+                            @Override
+                            public void accept(Throwable throwable) throws Exception {
+                                showProgressBar(false);
+                                formatarErro(throwable);
+                            }
+                })
+        );
+
+    }
+
+
+
+    //
 //    private void lolo(Template template ){
 //
 //
@@ -349,6 +426,19 @@ public abstract class BaseViewModel extends ViewModel implements OnDocumentoList
 //
 //    }
 
+    private class DadosPdf{
+
+
+        public CredenciaisEmail credenciaisEmail;
+        public Template template;
+
+        public DadosPdf(CredenciaisEmail credenciaisEmail, Template template) {
+            this.credenciaisEmail = credenciaisEmail;
+            this.template = template;
+        }
+    }
 
 }
+
+
 

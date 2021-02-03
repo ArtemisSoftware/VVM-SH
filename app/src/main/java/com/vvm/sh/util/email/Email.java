@@ -2,17 +2,26 @@ package com.vvm.sh.util.email;
 
 import com.vvm.sh.util.constantes.EmailConfig;
 import com.vvm.sh.util.constantes.Sintaxe;
+import com.vvm.sh.util.excepcoes.EmailException;
 
+import java.util.Date;
+import java.util.Properties;
+
+import javax.activation.CommandMap;
 import javax.activation.DataHandler;
 import javax.activation.DataSource;
 import javax.activation.FileDataSource;
+import javax.activation.MailcapCommandMap;
 import javax.mail.BodyPart;
 import javax.mail.MessagingException;
 import javax.mail.Multipart;
 import javax.mail.PasswordAuthentication;
+import javax.mail.Session;
+import javax.mail.Transport;
 import javax.mail.internet.AddressException;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeBodyPart;
+import javax.mail.internet.MimeMessage;
 import javax.mail.internet.MimeMultipart;
 
 public class Email extends javax.mail.Authenticator{
@@ -28,7 +37,7 @@ public class Email extends javax.mail.Authenticator{
     public InternetAddress[] enderecosDestinoBCC;
     public Multipart _multipart;
 
-
+    public MimeMessage mensagem;
 
     private boolean teste;
 
@@ -192,5 +201,111 @@ public class Email extends javax.mail.Authenticator{
             e.printStackTrace();
         }
     }
+
+
+
+    //---------------------------------
+    //Configurar
+    //---------------------------------
+
+
+
+
+    public void configurar() throws MessagingException, EmailException {
+
+        inicializarMail();
+
+        Properties propriedades = fixarPropriedadesLigacao();
+
+        if(validarDadosEmail() == true) {
+
+            Session sessao = Session.getInstance(propriedades, this);
+            mensagem = new MimeMessage(sessao);
+
+            //emissor
+
+            mensagem.setFrom(emissor);
+
+            //destino
+
+            mensagem.setRecipients(MimeMessage.RecipientType.TO, destino);
+
+            //BCC
+
+            if(enderecosDestinoBCC != null){
+                mensagem.addRecipients(MimeMessage.RecipientType.BCC, enderecosDestinoBCC);
+            }
+
+
+            //titulo
+            mensagem.setSubject(titulo);
+            mensagem.setSentDate(new Date());
+
+            //corpo
+
+            BodyPart corpoMensagem = new MimeBodyPart();
+            corpoMensagem.setHeader(EmailConfig.Configuracao.CABECALHO_TIPO_CONTEUDO, EmailConfig.Configuracao.CABECALHO_FORMATO_DADOS);
+            corpoMensagem.setText(corpoEmail);
+
+
+            MimeBodyPart htmlPart = new MimeBodyPart();
+            htmlPart.setText(corpoEmail, EmailConfig.Configuracao.CODIFICACAO_CORPO_EMAIL, EmailConfig.Configuracao.TIPO_CORPO_EMAIL);
+
+            _multipart.addBodyPart(htmlPart);
+
+            // Put parts in message
+            mensagem.setContent(_multipart);
+
+        }
+        else{
+            throw new EmailException(Sintaxe.Alertas.EMAIL_CAMPOS_INVALIDOS);
+        }
+
+    }
+
+
+    /**
+     * MEtodo que permite inicializar o email
+     */
+    private void inicializarMail() {
+
+        // There is something wrong with MailCap, javamail can not find a handler for the multipart/mixed part, so this bit needs to be added.
+        MailcapCommandMap mc = (MailcapCommandMap) CommandMap.getDefaultCommandMap();
+        mc.addMailcap("text/html;; x-java-content-handler=com.sun.mail.handlers.text_html");
+        mc.addMailcap("text/xml;; x-java-content-handler=com.sun.mail.handlers.text_xml");
+        mc.addMailcap("text/plain;; x-java-content-handler=com.sun.mail.handlers.text_plain");
+        mc.addMailcap("multipart/*;; x-java-content-handler=com.sun.mail.handlers.multipart_mixed");
+        mc.addMailcap("message/rfc822;; x-java-content-handler=com.sun.mail.handlers.message_rfc822");
+        CommandMap.setDefaultCommandMap(mc);
+    }
+
+
+    /**
+     * MEtodo que permite definir as propriedades da ligação
+     * @return as propriedades da ligação
+     */
+    private Properties fixarPropriedadesLigacao() {
+
+        Properties propriedades = new Properties();
+
+        propriedades.put("mail.smtp.host", EmailConfig.Configuracao.SERVIDOR_SMTP);
+
+        if(_debuggable) {
+            propriedades.put("mail.debug", "true");
+        }
+
+        if(autenticacaoSmtp) {
+            propriedades.put("mail.smtp.auth", "true");
+        }
+
+        propriedades.put("mail.smtp.port", EmailConfig.Configuracao.PORTO_EMAIL);
+        propriedades.put("mail.smtp.socketFactory.port", EmailConfig.Configuracao.PORTO_SOCKET_EMAIL);
+        propriedades.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+        propriedades.put("mail.smtp.socketFactory.fallback", "false");
+
+        return propriedades;
+    }
+
+
 
 }

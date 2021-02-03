@@ -19,8 +19,7 @@ import io.reactivex.Flowable;
 import io.reactivex.Maybe;
 import io.reactivex.Observable;
 import io.reactivex.Single;
-import io.reactivex.functions.Function3;
-import io.reactivex.functions.Function5;
+import io.reactivex.functions.Function4;
 
 public class CertificadoTratamentoRepositorio implements Repositorio<CertificadoTratamentoResultado> {
 
@@ -71,40 +70,21 @@ public class CertificadoTratamentoRepositorio implements Repositorio<Certificado
      */
     public Maybe<DadosTemplate> obtePdf(int idTarefa, int idAtividade, String idUtilizador) {
 
-//        return Maybe.zip(
-//                pdfDao.obterDadosEmail(idTarefa, Sintaxe.Email.TITULO_EMAIL_CERTIFICADO_TRATAMENTO, Identificadores.FrasesApoio.ID_FRASE_APOIO_CORPO_EMAIL_CERTIFICIADO_TRATAMENTO, api),
-//                pdfDao.obterDadosCliente(idTarefa),
-//                pdfDao.obterCertificado(idAtividade),
-//                pdfDao.obterRubrica(idTarefa, Identificadores.Imagens.IMAGEM_ASSINATURA_CERTIFICADO_TRATAMENTO, idUtilizador),
-//                pdfDao.obterFraseApoio(Identificadores.FrasesApoio.ID_FRASE_APOIO_REGISTO_VISITA, api),
-//                new Function5<CredenciaisEmail, DadosCliente, CertificadoTratamentoResultado, Rubrica, String, DadosTemplate>() {
-//                    @Override
-//                    public DadosTemplate apply(CredenciaisEmail credenciaisEmail, DadosCliente dadosCliente, CertificadoTratamentoResultado certificadoTratamentoResultado, Rubrica rubrica, String referencia) throws Exception {
-//
-//                        DadosCertificadoTratamento dados = new DadosCertificadoTratamento();
-//                        dados.cliente = dadosCliente;
-//                        dados.certificadoTratamento = certificadoTratamentoResultado;
-//                        dados.rubrica = rubrica;
-//                        dados.credenciaisEmail = credenciaisEmail;
-//                        return dados;
-//                    }
-//                });
-
-
         return Maybe.zip(
+                pdfDao.obterDadosEmail(idTarefa, Sintaxe.Email.TITULO_EMAIL_CERTIFICADO_TRATAMENTO, Identificadores.FrasesApoio.ID_FRASE_APOIO_CORPO_EMAIL_CERTIFICIADO_TRATAMENTO, api),
                 pdfDao.obterDadosCliente(idTarefa),
                 pdfDao.obterCertificado(idAtividade),
                 pdfDao.obterRubrica(idTarefa, Identificadores.Imagens.IMAGEM_ASSINATURA_CERTIFICADO_TRATAMENTO, idUtilizador),
 
-                new Function3<DadosCliente, CertificadoTratamentoResultado, Rubrica, DadosTemplate>() {
+                new Function4<CredenciaisEmail, DadosCliente, CertificadoTratamentoResultado, Rubrica, DadosTemplate>() {
                     @Override
-                    public DadosTemplate apply(DadosCliente dadosCliente, CertificadoTratamentoResultado certificadoTratamentoResultado, Rubrica rubrica) throws Exception {
+                    public DadosTemplate apply(CredenciaisEmail credenciaisEmail, DadosCliente dadosCliente, CertificadoTratamentoResultado certificadoTratamentoResultado, Rubrica rubrica) throws Exception {
 
                         DadosCertificadoTratamento dados = new DadosCertificadoTratamento();
                         dados.cliente = dadosCliente;
                         dados.certificadoTratamento = certificadoTratamentoResultado;
                         dados.rubrica = rubrica;
-                        //dados.credenciaisEmail = credenciaisEmail;
+                        dados.credenciaisEmail = credenciaisEmail;
                         return dados;
                     }
                 });
@@ -114,9 +94,10 @@ public class CertificadoTratamentoRepositorio implements Repositorio<Certificado
     /**
      * Metodo que permite sincronizar o envio do email
      * @param idAtividade o identificador da atividade
+     * @return
      */
-    public void sincronizar(int idAtividade) {
-        certificadoTratamentoDao.sincronizar(idAtividade);
+    public Single<Integer> sincronizar(int idAtividade) {
+        return certificadoTratamentoDao.sincronizar(idAtividade);
     }
 
 

@@ -147,7 +147,7 @@ public class CertificadoTratamentoActivity extends BaseDaggerActivity {
                 int idAtividade = bundle.getInt(getString(R.string.argumento_id_atividade));
 
                 if(DiretoriasUtil.criarDirectoria(DiretoriasUtil.DIRETORIA_PDF) == true){
-                    //viewModel.enviarPdf(getApplicationContext(), PreferenciasUtil.obterIdTarefa(getApplicationContext()), idAtividade, PreferenciasUtil.obterIdUtilizador(getApplicationContext()));
+                    viewModel.enviarPdf(CertificadoTratamentoActivity.this, PreferenciasUtil.obterIdTarefa(getApplicationContext()), idAtividade, PreferenciasUtil.obterIdUtilizador(getApplicationContext()));
                 }
             }
         };

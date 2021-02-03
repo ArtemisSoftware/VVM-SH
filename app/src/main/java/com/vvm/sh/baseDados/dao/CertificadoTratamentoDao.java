@@ -64,5 +64,5 @@ abstract public class CertificadoTratamentoDao implements BaseDao<CertificadoTra
 
 
     @Query("UPDATE certificadoTratamentoResultado SET sincronizacao = 1 WHERE idAtividade =:idAtividade")
-    abstract public void sincronizar(int idAtividade);
+    abstract public Single<Integer> sincronizar(int idAtividade);
 }

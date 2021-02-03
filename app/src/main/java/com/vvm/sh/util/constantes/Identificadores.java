@@ -379,7 +379,7 @@ public class Identificadores {
     public class FrasesApoio {
         public static final int ID_FRASE_APOIO_REGISTO_VISITA = 1;
 
-        public static final int ID_FRASE_APOIO_CORPO_EMAIL_CERTIFICIADO_TRATAMENTO = 2;
+        public static final int ID_FRASE_APOIO_CORPO_EMAIL_CERTIFICIADO_TRATAMENTO = 1;
     }
 
 

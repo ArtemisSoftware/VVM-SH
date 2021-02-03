@@ -5,6 +5,8 @@ import android.view.View;
 import androidx.cardview.widget.CardView;
 import androidx.databinding.BindingAdapter;
 
+import com.github.clans.fab.FloatingActionButton;
+
 public class CardViewBinding {
 
 
@@ -16,7 +18,7 @@ public class CardViewBinding {
 
 
     @BindingAdapter({"condicaoVisibilidadeA", "condicaoVisibilidadeB"})
-    public static void setCondicaoVisibilidade(CardView view, boolean condicaoVisibilidadeA, boolean condicaoVisibilidadeB) {
+    public static void setCondicaoVisibilidade(FloatingActionButton view, boolean condicaoVisibilidadeA, boolean condicaoVisibilidadeB) {
 
 
         if(condicaoVisibilidadeA == true & condicaoVisibilidadeB == false){

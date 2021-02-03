@@ -22,7 +22,7 @@ public class CabecalhoRodape extends PdfPageEventHelper {
 
         float height = 0;
 
-        //--cabecalho.getSection().getPdfTable().writeSelectedRows(0, -1, document.left(), document.top() + ((document.topMargin() + height) / 2), writer.getDirectContent());
+        cabecalho.getSection().getPdfTable().writeSelectedRows(0, -1, document.left(), document.top() + ((document.topMargin() + height) / 2), writer.getDirectContent());
     }
 
 

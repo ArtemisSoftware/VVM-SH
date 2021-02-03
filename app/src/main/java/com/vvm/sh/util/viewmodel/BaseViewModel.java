@@ -16,7 +16,6 @@ import com.vvm.sh.baseDados.entidades.CategoriaProfissionalResultado;
 import com.vvm.sh.baseDados.entidades.Resultado;
 import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.documentos.DadosTemplate;
-import com.vvm.sh.documentos.DocumentoPdf;
 import com.vvm.sh.documentos.OnDocumentoListener;
 import com.vvm.sh.servicos.ResultadoAsyncTask;
 import com.vvm.sh.servicos.pdf.DocumentoPdfAsyncTask;
@@ -43,6 +42,7 @@ import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.CompositeDisposable;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
+import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
 public abstract class BaseViewModel extends ViewModel implements OnDocumentoListener.OnCriar {
@@ -236,18 +236,32 @@ public abstract class BaseViewModel extends ViewModel implements OnDocumentoList
     public void gerarPdf(Context contexto, int idTarefa, int idAtividade, String idUtilizador, OnDocumentoListener.OnVisualizar listener, OnDocumentoListener.AcaoDocumento acao) {
 
         listener.obterPdf(idTarefa, idAtividade, idUtilizador)
+
+                .map(new Function<DadosTemplate, Template>() {
+                    @Override
+                    public Template apply(DadosTemplate dadosTemplate) throws Exception {
+                        Template template = PdfUtil.obterTemplate(contexto, idTarefa, idAtividade, dadosTemplate);
+
+                        if(template != null) {
+                            template.createFile();
+                        }
+                        else throw new PdfException("fffff");
+
+                    }
+                })
+
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
 
-                        new MaybeObserver<DadosTemplate>() {
+                        new MaybeObserver<Template>() {
                             @Override
                             public void onSubscribe(Disposable d) {
                                 disposables.add(d);
                             }
 
                             @Override
-                            public void onSuccess(DadosTemplate registo) {
+                            public void onSuccess(Template registo) {
 
                                 executarPdf(contexto, idTarefa, idAtividade, registo, listener, acao);
                                 showProgressBar(false);
@@ -268,7 +282,7 @@ public abstract class BaseViewModel extends ViewModel implements OnDocumentoList
     }
 
 
-    private void executarPdf(Context contexto, int idTarefa, int idAtividade, DadosTemplate registo, OnDocumentoListener.OnVisualizar listener, OnDocumentoListener.AcaoDocumento acao){
+    private void executarPdf(Context contexto, int idTarefa, int idAtividade, Template registo, OnDocumentoListener.OnVisualizar listener, OnDocumentoListener.AcaoDocumento acao){
 
 
         switch (acao){
@@ -279,9 +293,7 @@ public abstract class BaseViewModel extends ViewModel implements OnDocumentoList
                 Template template = PdfUtil.obterTemplate(contexto, idTarefa, idAtividade, registo);
 
                 if(template != null) {
-
-                    DocumentoPdfAsyncTask servico = new DocumentoPdfAsyncTask(contexto, template);
-                    servico.execute();
+                    lolo(template);
                 }
                 break;
 
@@ -304,6 +316,9 @@ public abstract class BaseViewModel extends ViewModel implements OnDocumentoList
 
     private void lolo(Template template ){
 
+
+        showProgressBar(true);
+
         Single.fromCallable(new Callable<Template>() {
             @Override
             public Template call() throws Exception {
@@ -319,13 +334,15 @@ public abstract class BaseViewModel extends ViewModel implements OnDocumentoList
                 .doOnSuccess(new Consumer<Template>() {
                     @Override
                     public void accept(Template loginResponse) throws Exception {
+                        showProgressBar(false);
                         template.openPdf();
                     }
                 })
                 .doOnError(new Consumer<Throwable>() {
                     @Override
                     public void accept(Throwable throwable) throws Exception {
-                        // do on Error
+                        showProgressBar(false);
+                        formatarErro(throwable);
                     }
                 })
                 .subscribe();

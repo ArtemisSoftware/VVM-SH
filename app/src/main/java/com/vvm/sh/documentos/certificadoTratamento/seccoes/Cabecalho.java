@@ -19,7 +19,7 @@ public class Cabecalho extends Section {
 
     @Override
     protected Table getMainTable() {
-        return new Table();
+        return new Table(new float[]{100f}, 509, false);
     }
 
     @Override
@@ -31,6 +31,6 @@ public class Cabecalho extends Section {
         cellConfiguration.height = 40;
 
         table.addCell(contexto.getResources(), LOGOTIPO_VIVAMAIS, cellConfiguration);
-
+        table.removeBorder();
     }
 }

@@ -27,6 +27,7 @@ import com.vvm.sh.api.modelos.envio.Risco;
 import com.vvm.sh.api.modelos.envio.Seccao;
 import com.vvm.sh.api.modelos.envio.TrabalhadorVulneravel;
 import com.vvm.sh.api.modelos.envio.Ut;
+import com.vvm.sh.baseDados.Conversor;
 import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.baseDados.entidades.CrossSellingResultado;
 import com.vvm.sh.baseDados.entidades.ImagemResultado;
@@ -331,9 +332,9 @@ public abstract class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void
 
 
     /**
-     * Metodo que permite obter a acao de formacao
+     * Metodo que permite obter um certificado de tratamento
      * @param idAtividade o identificador da atividade
-     * @return uma acao de formacao
+     * @return um certificado de tratamento
      */
     protected CertificadoTratamento obterCertificadoTratamento(int idAtividade){
 
@@ -348,6 +349,9 @@ public abstract class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void
         certificadoTratamento.avaliacaoCondicoesArmazenamento = TiposConstantes.formatarTipo(certificado.resultado.avaliacaoCondicoesArmazenamento, TiposConstantes.CertificadoTratamento.Avaliacoes.AVALIACOES);
         certificadoTratamento.avaliacaoCondicoesHigiene = TiposConstantes.formatarTipo(certificado.resultado.avaliacaoCondicoesHigiene, TiposConstantes.CertificadoTratamento.Avaliacoes.AVALIACOES);
         certificadoTratamento.avaliacaoManutencaoInstalacoes = TiposConstantes.formatarTipo(certificado.resultado.avaliacaoManutencaoInstalacoes, TiposConstantes.CertificadoTratamento.Avaliacoes.AVALIACOES);
+
+        certificadoTratamento.observacaoProdutosEmGel = ConversorUtil.converter_Boolean_Para_Integer(certificado.resultado.observacaoProdutosEmGel);
+        certificadoTratamento.observacaoVestigiosPragas = ConversorUtil.converter_Boolean_Para_Integer(certificado.resultado.observacaoVestigiosPragas);
 
         certificadoTratamento.album = new ArrayList<>();
         certificadoTratamento.album.add(certificado.idImagem + "");

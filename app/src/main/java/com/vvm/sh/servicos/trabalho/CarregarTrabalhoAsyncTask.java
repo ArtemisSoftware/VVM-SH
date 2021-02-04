@@ -346,6 +346,9 @@ public class CarregarTrabalhoAsyncTask extends AsyncTask<ISessao, Void, Void> {
             if(registo.idRelatorio == Identificadores.Relatorios.ID_RELATORIO_AVALIACAO_RISCO & avaliacaoRiscosAnterior != null){
                 inserirAvaliacaoRiscosAnterior(registo, avaliacaoRiscosAnterior);
             }
+            else if(registo.idRelatorio == Identificadores.Relatorios.ID_RELATORIO_FORMACAO){
+
+            }
             else {
                 registos.add(registo);
             }
@@ -682,9 +685,9 @@ public class CarregarTrabalhoAsyncTask extends AsyncTask<ISessao, Void, Void> {
             return Identificadores.Relatorios.ID_RELATORIO_AVALIACAO_RISCO;
         }
 
-//        if(atividadePendente.relatorioCertificadoTratamento > 0){
-//            return Identificadores.Relatorios.ID_RELATORIO_CERTIFICADO_TRATAMENTO;
-//        }
+        if(atividadePendente.relatorioCertificadoTratamento > 0){
+            return Identificadores.Relatorios.ID_RELATORIO_CERTIFICADO_TRATAMENTO;
+        }
 
         if(atividadePendente.verificacao != null) {
             if (atividadePendente.verificacao.equals("arpt") == true) {

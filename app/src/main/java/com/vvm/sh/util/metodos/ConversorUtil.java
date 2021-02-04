@@ -30,6 +30,17 @@ public class ConversorUtil {
         }
     }
 
+
+    /**
+     * Metodo que permite converter um boolean para um inteiro
+     * @param valor
+     * @return
+     */
+    public static int converter_Boolean_Para_Integer(boolean valor){
+        return Boolean.compare(valor, false);
+    }
+
+
     public static boolean converter_String_Para_Boolean(String valor){
 
 

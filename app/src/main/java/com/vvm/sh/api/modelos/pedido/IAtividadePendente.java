@@ -38,6 +38,9 @@ public class IAtividadePendente {
     @SerializedName("AvRisco")
     public int relatorioAvaliacaoRisco;
 
+    @SerializedName("certificadoPragas")
+    public int relatorioCertificadoTratamento;
+
 
     @SerializedName("Verificacao")
     public String verificacao;

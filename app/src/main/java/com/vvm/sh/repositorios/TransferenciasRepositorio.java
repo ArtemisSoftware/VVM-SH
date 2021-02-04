@@ -44,6 +44,7 @@ import com.vvm.sh.ui.transferencias.modelos.Upload;
 import com.vvm.sh.util.constantes.AppConfig;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.excepcoes.RespostaWsInvalidaException;
+import com.vvm.sh.util.metodos.ConversorUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -52,6 +53,7 @@ import io.reactivex.Maybe;
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
 import io.reactivex.Single;
+import io.reactivex.SingleSource;
 import io.reactivex.functions.BiFunction;
 import io.reactivex.functions.Function;
 
@@ -487,6 +489,21 @@ public class TransferenciasRepositorio {
 
 
         return transferenciasDao.atualizar(registos);
+    }
+
+
+
+
+    public Single<Codigo> uploadCertificadoTratamento(int idTarefa, String caminhoPdf){
+
+        return transferenciasDao.obterTarefa(idTarefa)
+                .flatMap(new Function<Tarefa, SingleSource<Codigo>>() {
+                    @Override
+                    public SingleSource<Codigo> apply(Tarefa tarefa) throws Exception {
+                        return apiSA.submeterCertificadoTratamento(SegurancaAlimentarApi.HEADER,  ConversorUtil.convertPdf__StringBase64(caminhoPdf), tarefa.ordem, tarefa.prefixoCt);
+                    }
+                });
+
     }
 
 

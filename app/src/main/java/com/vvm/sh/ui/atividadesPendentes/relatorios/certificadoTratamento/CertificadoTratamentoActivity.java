@@ -1,6 +1,7 @@
 package com.vvm.sh.ui.atividadesPendentes.relatorios.certificadoTratamento;
 
 import androidx.annotation.Nullable;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
@@ -10,8 +11,10 @@ import android.view.View;
 
 import com.vvm.sh.R;
 import com.vvm.sh.databinding.ActivityCertificadoTratamentoBinding;
+import com.vvm.sh.documentos.OnDocumentoListener;
 import com.vvm.sh.ui.AssinaturaActivity;
 import com.vvm.sh.ui.BaseDaggerActivity;
+import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.interfaces.OnPermissaoConcedidaListener;
@@ -70,6 +73,27 @@ public class CertificadoTratamentoActivity extends BaseDaggerActivity {
     @Override
     protected void subscreverObservadores() {
 
+        viewModel.observarMessagem().observe(this, new Observer<Recurso>() {
+            @Override
+            public void onChanged(Recurso recurso) {
+
+                switch (recurso.status){
+
+                    case SUCESSO:
+
+                        dialogo.sucesso(recurso.messagem);
+                        break;
+
+                    case ERRO:
+
+                        dialogo.erro(recurso.messagem);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
+
     }
 
 
@@ -117,7 +141,7 @@ public class CertificadoTratamentoActivity extends BaseDaggerActivity {
 
                 if(DiretoriasUtil.criarDirectoria(DiretoriasUtil.DIRETORIA_PDF) == true){
 
-                    viewModel.preVisualizarPdf(CertificadoTratamentoActivity.this, PreferenciasUtil.obterIdTarefa(getApplicationContext()), idAtividade, PreferenciasUtil.obterIdUtilizador(getApplicationContext()));
+                    viewModel.executarPdf(CertificadoTratamentoActivity.this, PreferenciasUtil.obterIdTarefa(getApplicationContext()), idAtividade, PreferenciasUtil.obterIdUtilizador(getApplicationContext()), OnDocumentoListener.AcaoDocumento.PRE_VISUALIZAR_PDF);
                 }
             }
         };
@@ -147,7 +171,9 @@ public class CertificadoTratamentoActivity extends BaseDaggerActivity {
                 int idAtividade = bundle.getInt(getString(R.string.argumento_id_atividade));
 
                 if(DiretoriasUtil.criarDirectoria(DiretoriasUtil.DIRETORIA_PDF) == true){
-                    viewModel.enviarPdf(CertificadoTratamentoActivity.this, PreferenciasUtil.obterIdTarefa(getApplicationContext()), idAtividade, PreferenciasUtil.obterIdUtilizador(getApplicationContext()));
+
+                    viewModel.executarPdf(CertificadoTratamentoActivity.this, PreferenciasUtil.obterIdTarefa(getApplicationContext()), idAtividade, PreferenciasUtil.obterIdUtilizador(getApplicationContext()), OnDocumentoListener.AcaoDocumento.ENVIAR_PDF__DADOS_FTP);
+
                 }
             }
         };

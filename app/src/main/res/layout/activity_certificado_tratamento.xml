@@ -133,7 +133,7 @@
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chip2"
-
+                        completudeSincronizacao="@{viewmodel.relatorio.sincronizacao}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:visibility="gone"
@@ -142,7 +142,7 @@
                         android:theme="@style/Theme.MaterialComponents.Light"
                         app:layout_constraintStart_toEndOf="@+id/chip"
                         app:layout_constraintTop_toBottomOf="@+id/textview2" />
-                    <!--                    completudeSincronizacao="@{viewmodel.relatorio.sincronizacao}"-->
+                    <!--                    -->
 
                     <androidx.constraintlayout.widget.ConstraintLayout
                         android:id="@+id/ct_lyt"
@@ -152,6 +152,7 @@
                         android:padding="@dimen/dimen_20dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
+
                         app:layout_constraintTop_toBottomOf="@+id/chip">
 
 
@@ -421,7 +422,7 @@
                 app:fab_label="@string/enviar_pdf" />
 
             <!--
-                                  android:enabled="@{bloquear}"
+
 
 
                   -->

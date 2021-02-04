@@ -303,6 +303,11 @@ public class Identificadores {
         public static final String MSG_101 = "Não existe trabalho para download";
         public static final Codigo Codigo_101 = new Codigo(CODIGO_101, MSG_101);
 
+        public static final int ID_110 = 110;
+        public static final String MSG_110 = "Sucesso no envio do email";
+        public static final Codigo Codigo_110 = new Codigo(ID_110, MSG_110);
+
+
         public static final int CODIGO_400 = 400;
         public static final String MSG_400 = "Ocorreu um erro.";
 

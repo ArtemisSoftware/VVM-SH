@@ -122,6 +122,9 @@ public class Sintaxe {
         public static final String ERRO_ATUALIZAR_TIPO = "Erro ao atualizar tipo: ";
         public static final String ERRO_CARREGAMENTO = "Erro ao carregar tipos: ";
         public static final String SEM_INTERNET = "Não existe ligação à internet";
+
+
+        public static final String INSTRUCAO_PDF_DESCONHECIDA = "Instrução de geração de pdf desconhecida";
     }
 
     public class Frases{
@@ -130,6 +133,8 @@ public class Sintaxe {
         public static final String DADOS_GRAVADOS_SUCESSO = "Dados gravados com sucesso";
         public static final String DADOS_ENVIADOS_SUCESSO = "Dados enviados com sucesso";
         public static final String DADOS_EDITADOS_SUCESSO = "Dados editados com sucesso";
+        public static final String EMAIL_ENVIADO_COM_SUCESSO = "Email enviado com sucesso";
+
         public static final String TIPO_ATUALIZADO_SUCESSO = "Tipo atualizado com sucesso.\nTipo: ";
         public static final String DOWNLOAD_FALHOU = "Download falhou.";
         public static final String DOWNLOAD_PARADO = "Download parado.";

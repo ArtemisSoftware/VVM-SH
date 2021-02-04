@@ -143,19 +143,20 @@ public class ConversorUtil {
     }
 
 
-    public static String converterPdf_String(String caminhoPdf) throws IOException {
+    public static String convertPdf__StringBase64(String caminhoPdf) throws IOException {
 
         File file = new File(caminhoPdf);
 
-        byte[] bytes = converterFicheiro_ArrayByte(file);
-        return Base64.encodeToString(bytes, Base64.DEFAULT);
+        byte[] bytes = converterFicheiro__Base64(file);
+        String base64 = Base64.encodeToString(bytes, Base64.DEFAULT);
+        return base64;
     }
 
 
-    public static byte[] converterFicheiro_ArrayByte(File ficheiro) throws IOException {
+    public static byte[] converterFicheiro__Base64(File file) throws IOException {
 
-        FileInputStream fileInputStream = new FileInputStream(ficheiro);
-        byte[] data=new byte[(int) ficheiro.length()];
+        FileInputStream fileInputStream = new FileInputStream(file);
+        byte[] data=new byte[(int) file.length()];
 
         BufferedInputStream bufferedInputStream=new BufferedInputStream(fileInputStream);
         bufferedInputStream.read(data,0,data.length);

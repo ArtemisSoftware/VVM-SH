@@ -66,6 +66,7 @@ import com.vvm.sh.util.metodos.TiposUtil;
 import java.util.List;
 
 import io.reactivex.Maybe;
+import io.reactivex.Single;
 
 @Dao
 abstract public class TransferenciasDao implements BaseDao<Resultado> {
@@ -136,7 +137,8 @@ abstract public class TransferenciasDao implements BaseDao<Resultado> {
 
 
 
-
+    @Query("SELECT * FROM tarefas WHERE idTarefa = :idTarefa")
+    abstract public Single<Tarefa> obterTarefa(int idTarefa);
 
 
 

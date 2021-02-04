@@ -27,8 +27,6 @@ public class TransferenciasModule {
     static TransferenciasDao provideTransferenciasDaoo(VvmshBaseDados vvmshBaseDados){
 
         TransferenciasDao dao = vvmshBaseDados.obterTransferenciasDao();
-
-        //Timber.d("Providing NoteDao: " + dao);
         return dao;
     }
 

@@ -4,14 +4,13 @@ import android.content.Context;
 
 import androidx.lifecycle.MutableLiveData;
 
-import com.titan.pdfdocumentlibrary.bundle.Template;
+import com.vvm.sh.api.modelos.pedido.Codigo;
 import com.vvm.sh.baseDados.entidades.CertificadoTratamentoResultado;
 import com.vvm.sh.baseDados.entidades.ImagemResultado;
 import com.vvm.sh.documentos.DadosTemplate;
 import com.vvm.sh.documentos.OnDocumentoListener;
-import com.vvm.sh.documentos.certificadoTratamento.CertificadoTratamento;
-import com.vvm.sh.documentos.certificadoTratamento.modelos.DadosCertificadoTratamento;
 import com.vvm.sh.repositorios.CertificadoTratamentoRepositorio;
+import com.vvm.sh.repositorios.TransferenciasRepositorio;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.certificadoTratamento.modelos.RelatorioCertificadoTratamento;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.constantes.Identificadores;
@@ -35,15 +34,17 @@ import io.reactivex.schedulers.Schedulers;
 public class CertificadoTratamentoViewModel extends BaseViewModel implements OnDocumentoListener.OnVisualizar {
 
     private final CertificadoTratamentoRepositorio certificadoTratamentoRepositorio;
+    private final TransferenciasRepositorio transferenciasRepositorio;
 
     public MutableLiveData<RelatorioCertificadoTratamento> relatorio;
     public MutableLiveData<CertificadoTratamentoResultado> certificado;
 
 
     @Inject
-    public CertificadoTratamentoViewModel(CertificadoTratamentoRepositorio certificadoTratamentoRepositorio){
+    public CertificadoTratamentoViewModel(CertificadoTratamentoRepositorio certificadoTratamentoRepositorio, TransferenciasRepositorio transferenciasRepositorio){
 
         this.certificadoTratamentoRepositorio = certificadoTratamentoRepositorio;
+        this.transferenciasRepositorio = transferenciasRepositorio;
         relatorio = new MutableLiveData<>();
         certificado = new MutableLiveData<>();
     }
@@ -234,18 +235,20 @@ public class CertificadoTratamentoViewModel extends BaseViewModel implements OnD
     //Pdf
     //------------
 
-    public void preVisualizarPdf(Context contexto, int idTarefa, int idAtividade, String idUtilizador) {
-        preVisualizarPdf(contexto, idTarefa, idAtividade, idUtilizador, this);
-    }
 
-    public void enviarPdf(Context contexto, int idTarefa, int idAtividade, String idUtilizador) {
-        enviarPdf(contexto, idTarefa, idAtividade, idUtilizador, this);
+    @Override
+    public void executarPdf(Context contexto, int idTarefa, int idAtividade, String idUtilizador, OnDocumentoListener.AcaoDocumento acao) {
+        gerarPdf(contexto, idTarefa, idAtividade, idUtilizador, this, acao);
     }
-
 
     @Override
     public Maybe<DadosTemplate> obterPdf(int idTarefa, int idAtividade, String idUtilizador) {
         return certificadoTratamentoRepositorio.obtePdf(idTarefa, idAtividade, idUtilizador);
+    }
+
+    @Override
+    public Single<Codigo> uploadRelatorio(int idTarefa, String caminhoPdf) {
+        return transferenciasRepositorio.uploadCertificadoTratamento(idTarefa, caminhoPdf);
     }
 
 

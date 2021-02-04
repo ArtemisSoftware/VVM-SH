@@ -18,12 +18,10 @@ import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.documentos.DadosTemplate;
 import com.vvm.sh.documentos.OnDocumentoListener;
 import com.vvm.sh.servicos.ResultadoAsyncTask;
-import com.vvm.sh.servicos.pdf.DocumentoPdfAsyncTask;
-import com.vvm.sh.servicos.relatorio.EnvioRelatorio;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.ResultadoId;
 import com.vvm.sh.util.constantes.AppConfig;
-import com.vvm.sh.util.constantes.EmailConfig;
+import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.constantes.TiposConstantes;
 import com.vvm.sh.util.email.CredenciaisEmail;
@@ -35,20 +33,12 @@ import com.vvm.sh.util.excepcoes.TipoInexistenteException;
 import com.vvm.sh.util.metodos.PdfUtil;
 
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Properties;
 import java.util.concurrent.Callable;
 
 import javax.inject.Inject;
-import javax.mail.BodyPart;
-import javax.mail.MessagingException;
-import javax.mail.Session;
 import javax.mail.Transport;
-import javax.mail.internet.MimeBodyPart;
-import javax.mail.internet.MimeMessage;
 
-import io.reactivex.Maybe;
 import io.reactivex.MaybeObserver;
 import io.reactivex.Single;
 import io.reactivex.SingleSource;
@@ -59,7 +49,7 @@ import io.reactivex.functions.Consumer;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
 
-public abstract class BaseViewModel extends ViewModel implements OnDocumentoListener.OnCriar {
+public abstract class BaseViewModel extends ViewModel {
 
 
     protected final CompositeDisposable disposables;
@@ -236,18 +226,7 @@ public abstract class BaseViewModel extends ViewModel implements OnDocumentoList
     //-------------------
 
 
-    @Override
-    public void preVisualizarPdf(Context contexto, int idTarefa, int idAtividade, String idUtilizador, OnDocumentoListener.OnVisualizar listener) {
-        gerarPdf(contexto, idTarefa, idAtividade, idUtilizador, listener, OnDocumentoListener.AcaoDocumento.PRE_VISUALIZAR_PDF);
-    }
-
-    @Override
-    public void enviarPdf(Context contexto, int idTarefa, int idAtividade, String idUtilizador, OnDocumentoListener.OnVisualizar listener) {
-        gerarPdf(contexto, idTarefa, idAtividade, idUtilizador, listener, OnDocumentoListener.AcaoDocumento.ENVIAR_PDF);
-    }
-
-    @Override
-    public void gerarPdf(Context contexto, int idTarefa, int idAtividade, String idUtilizador, OnDocumentoListener.OnVisualizar listener, OnDocumentoListener.AcaoDocumento acao) {
+    protected void gerarPdf(Context contexto, int idTarefa, int idAtividade, String idUtilizador, OnDocumentoListener.OnVisualizar listener, OnDocumentoListener.AcaoDocumento acao) {
 
         showProgressBar(true);
 
@@ -302,9 +281,7 @@ public abstract class BaseViewModel extends ViewModel implements OnDocumentoList
 
     private void executarPdf(Context contexto, int idTarefa, int idAtividade, DadosPdf dadosPdf, OnDocumentoListener.OnVisualizar listener, OnDocumentoListener.AcaoDocumento acao){
 
-
         switch (acao){
-
 
             case PRE_VISUALIZAR_PDF:
 
@@ -312,119 +289,112 @@ public abstract class BaseViewModel extends ViewModel implements OnDocumentoList
                 showProgressBar(false);
                 break;
 
-
             case ENVIAR_PDF:
-
-                lolo(idTarefa, idAtividade, listener, dadosPdf);
-                break;
-
-
             case ENVIAR_PDF__DADOS_FTP:
 
-                //lolo(dadosPdf);
+                enviarPdf(idTarefa, idAtividade, listener, dadosPdf, acao);
                 break;
 
-//                if(registo != null) {
-//
-//                    EnvioRelatorio envioRelatorio = new EnvioRelatorio(contexto, vvmshBaseDados, idTarefa, idAtividade, registo,  listener);
-//                    envioRelatorio.executar();
-////        EnvioRegistoVisitaAsyncTask servico = new EnvioRegistoVisitaAsyncTask(contexto, registo.credenciaisEmail, vvmshBaseDados, registoVisitaRepositorio, idTarefa);
-////        servico.execute(new RegistoVisita(contexto, idTarefa, registo));
-//                }
+
+            default:
+                showProgressBar(false);
+                messagemLiveData.setValue(Recurso.erro(Sintaxe.Alertas.INSTRUCAO_PDF_DESCONHECIDA));
+                break;
 
         }
 
     }
 
 
+    /**
+     * Metodo que permite enviar um pdf
+     * @param idTarefa
+     * @param idAtividade
+     * @param listener
+     * @param dadosPdf
+     * @param acao
+     */
+    private void enviarPdf(int idTarefa, int idAtividade, OnDocumentoListener.OnVisualizar listener, DadosPdf dadosPdf, OnDocumentoListener.AcaoDocumento acao){
 
-    private void lolo(int idTarefa, int idAtividade, OnDocumentoListener.OnVisualizar listener, DadosPdf dadosPdf){
+        Single<Codigo> envioPdf = null;
+
+        Single<Codigo> envioEmail = Single.fromCallable(new Callable<Codigo>() {
+            @Override
+            public Codigo call() throws Exception {
+                // Doing something long in AysnTask doInBackGround off UI thread.
+
+                Email email = new Email(dadosPdf.credenciaisEmail);
+                email.adicionarAnexo(dadosPdf.template.getPdfFile().getAbsolutePath());
+                email.configurar();
+
+                Transport.send(email.mensagem);
+
+                return Identificadores.CodigosWs.Codigo_110;
+            }
+        });
 
 
-        showProgressBar(true);
+        switch (acao){
 
-        disposables.add(
+            case ENVIAR_PDF:
 
-                Single.fromCallable(new Callable<String>() {
+                envioPdf = envioEmail;
+                break;
+
+
+            case ENVIAR_PDF__DADOS_FTP:
+
+                envioPdf = envioEmail.flatMap(new Function<Codigo, SingleSource<Codigo>>() {
                     @Override
-                    public String call() throws Exception {
-                        // Doing something long in AysnTask doInBackGround off UI thread.
-
-                        Email email = new Email(dadosPdf.credenciaisEmail);
-                        email.adicionarAnexo(dadosPdf.template.getPdfFile().getAbsolutePath());
-                        email.configurar();
-
-                        Transport.send(email.mensagem);
-
-                        return "";
+                    public SingleSource<Codigo> apply(Codigo codigo) throws Exception {
+                        return listener.uploadRelatorio(idTarefa, dadosPdf.template.getPdfFile().getAbsolutePath());
                     }
-                })
+                });
+                break;
+        }
 
-                .flatMap(new Function<String, SingleSource<Integer>>() {
-                    @Override
-                    public SingleSource<Integer> apply(String s) throws Exception {
-                        return listener.sincronizar(idTarefa, idAtividade);
-                    }
-                })
+        if(envioPdf == null){
+            showProgressBar(false);
+            messagemLiveData.setValue(Recurso.erro(Sintaxe.Alertas.INSTRUCAO_PDF_DESCONHECIDA));
+        }
+        else {
 
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        new Consumer<Integer>() {
-                            @Override
-                            public void accept(Integer s) throws Exception {
-                               showProgressBar(false);
+            disposables.add(
+
+                envioPdf
+                    .flatMap(new Function<Codigo, SingleSource<Integer>>() {
+                        @Override
+                        public SingleSource<Integer> apply(Codigo s) throws Exception {
+                            return listener.sincronizar(idTarefa, idAtividade);
+                        }
+                    })
+
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+                            new Consumer<Integer>() {
+                                @Override
+                                public void accept(Integer s) throws Exception {
+                                    showProgressBar(false);
+                                    messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.EMAIL_ENVIADO_COM_SUCESSO));
+                                }
+                            },
+                            new Consumer<Throwable>() {
+                                @Override
+                                public void accept(Throwable throwable) throws Exception {
+                                    showProgressBar(false);
+                                    formatarErro(throwable);
+                                }
                             }
-                        },
-                        new Consumer<Throwable>() {
-                            @Override
-                            public void accept(Throwable throwable) throws Exception {
-                                showProgressBar(false);
-                                formatarErro(throwable);
-                            }
-                })
-        );
+                    )
+            );
+        }
 
     }
 
 
 
-    //
-//    private void lolo(Template template ){
-//
-//
-//        showProgressBar(true);
-//
-//        Single.fromCallable(new Callable<Template>() {
-//            @Override
-//            public Template call() throws Exception {
-//                // Doing something long in AysnTask doInBackGround off UI thread.
-//
-//                template.createFile();
-//
-//                return template;
-//            }
-//        })
-//                .subscribeOn(Schedulers.io())
-//                .observeOn(AndroidSchedulers.mainThread())
-//                .doOnSuccess(new Consumer<Template>() {
-//                    @Override
-//                    public void accept(Template loginResponse) throws Exception {
-//                        showProgressBar(false);
-//                        template.openPdf();
-//                    }
-//                })
-//                .doOnError(new Consumer<Throwable>() {
-//                    @Override
-//                    public void accept(Throwable throwable) throws Exception {
-//                        showProgressBar(false);
-//                        formatarErro(throwable);
-//                    }
-//                })
-//                .subscribe();
-//
-//
-//    }
+
 
     private class DadosPdf{
 

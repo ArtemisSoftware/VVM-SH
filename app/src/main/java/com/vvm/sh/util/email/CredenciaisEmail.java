@@ -23,7 +23,7 @@ public class CredenciaisEmail {
         this.corpoEmail = corpoEmail;
         teste = false;
 
-        if(AppConfig.VERSAO_TESTE){ //teste
+        if(AppConfig.ConfigTeste.TESTAR_EMAIL){ //teste
             teste = true;
             this.emissor = EmailConfig.Teste.ENDERECO_EMAIL;
             this.palavraChave = EmailConfig.Teste.PALAVRA_CHAVE;

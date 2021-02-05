@@ -2,6 +2,7 @@ package com.vvm.sh.util.mapeamento;
 
 import com.vvm.sh.api.modelos.pedido.IAvaliacaoRiscosAnterior;
 import com.vvm.sh.api.modelos.pedido.IColaborador;
+import com.vvm.sh.api.modelos.pedido.IFormando;
 import com.vvm.sh.api.modelos.pedido.IMorada;
 import com.vvm.sh.api.modelos.pedido.IParqueExtintor;
 import com.vvm.sh.api.modelos.pedido.IPlanoAcao;
@@ -28,6 +29,7 @@ import com.vvm.sh.baseDados.entidades.AreaChecklist;
 import com.vvm.sh.baseDados.entidades.AreaChecklistResultado;
 import com.vvm.sh.baseDados.entidades.CheckList;
 import com.vvm.sh.baseDados.entidades.Colaborador;
+import com.vvm.sh.baseDados.entidades.FormandoResultado;
 import com.vvm.sh.baseDados.entidades.ItemChecklist;
 import com.vvm.sh.baseDados.entidades.Morada;
 import com.vvm.sh.baseDados.entidades.ParqueExtintor;
@@ -230,4 +232,13 @@ public interface DownloadMapping {
     @Mapping(target = "resposta", source = "resposta")
     QuestionarioChecklistResultado mapObservacao(IAvaliacaoRiscosAnterior.IItem item);
 
+
+    @Mapping(target = "nome", source = "nome")
+    @Mapping(target = "biCartaoCidadao", source = "biCartaoCidadao")
+    @Mapping(target = "niss", source = "niss")
+    @Mapping(target = "nacionalidade", source = "nacionalidade")
+    @Mapping(target = "naturalidade", source = "naturalidade")
+    @Mapping(target = "sexo", source = "genero")
+    @Mapping(target = "dataNascimento", ignore = true)
+    FormandoResultado map(IFormando item);
 }

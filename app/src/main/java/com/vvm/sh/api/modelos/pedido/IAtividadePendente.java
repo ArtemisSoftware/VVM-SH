@@ -3,6 +3,8 @@ package com.vvm.sh.api.modelos.pedido;
 
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 /**
  * Classe que representa uma atividade pendente proveniente do web service
  */
@@ -44,4 +46,9 @@ public class IAtividadePendente {
 
     @SerializedName("Verificacao")
     public String verificacao;
+
+
+    @SerializedName("formandos")
+    public List<IFormando> formandos;
+
 }

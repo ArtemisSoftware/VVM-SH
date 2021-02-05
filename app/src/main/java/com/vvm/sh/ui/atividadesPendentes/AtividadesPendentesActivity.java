@@ -125,36 +125,36 @@ public class AtividadesPendentesActivity extends BaseDaggerActivity
     public void OnIniciarRelatorio(int idAtividade, int idRelatorio) {
 
         Intent intent = null;
-        intent = new Intent(this, CertificadoTratamentoActivity.class);
-//        switch (idRelatorio){
-//
-//            case Identificadores.Relatorios.ID_RELATORIO_FORMACAO:
-//                intent = new Intent(this, FormacaoActivity.class);
-//                break;
-//
-//
-//            case Identificadores.Relatorios.ID_RELATORIO_ILUMINACAO:
-//            case Identificadores.Relatorios.ID_RELATORIO_TEMPERATURA_HUMIDADE:
-//                intent = new Intent(this, RelatorioAvaliacaoAmbientalActivity.class);
-//                intent.putExtra(getString(R.string.argumento_tipo_relatorio), idRelatorio);
-//                break;
-//
-//
-//            case Identificadores.Relatorios.ID_RELATORIO_AVERIGUACAO_AVALIACAO_RISCO:
-//            case Identificadores.Relatorios.ID_RELATORIO_AVERIGUACAO_AUDITORIA:
-//                intent = new Intent(this, AveriguacaoActivity.class);
-//                intent.putExtra(getString(R.string.argumento_tipo_relatorio), idRelatorio);
-//                break;
-//
-//
-//            case Identificadores.Relatorios.ID_RELATORIO_CERTIFICADO_TRATAMENTO:
-//                intent = new Intent(this, CertificadoTratamentoActivity.class);
-//                break;
-//
-//            default:
-//                break;
-//
-//        }
+
+        switch (idRelatorio){
+
+            case Identificadores.Relatorios.ID_RELATORIO_FORMACAO:
+                intent = new Intent(this, FormacaoActivity.class);
+                break;
+
+
+            case Identificadores.Relatorios.ID_RELATORIO_ILUMINACAO:
+            case Identificadores.Relatorios.ID_RELATORIO_TEMPERATURA_HUMIDADE:
+                intent = new Intent(this, RelatorioAvaliacaoAmbientalActivity.class);
+                intent.putExtra(getString(R.string.argumento_tipo_relatorio), idRelatorio);
+                break;
+
+
+            case Identificadores.Relatorios.ID_RELATORIO_AVERIGUACAO_AVALIACAO_RISCO:
+            case Identificadores.Relatorios.ID_RELATORIO_AVERIGUACAO_AUDITORIA:
+                intent = new Intent(this, AveriguacaoActivity.class);
+                intent.putExtra(getString(R.string.argumento_tipo_relatorio), idRelatorio);
+                break;
+
+
+            case Identificadores.Relatorios.ID_RELATORIO_CERTIFICADO_TRATAMENTO:
+                intent = new Intent(this, CertificadoTratamentoActivity.class);
+                break;
+
+            default:
+                break;
+
+        }
 
 
         if(intent != null){

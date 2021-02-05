@@ -10,6 +10,8 @@ import androidx.room.PrimaryKey;
 
 import com.vvm.sh.util.constantes.Sintaxe;
 
+import java.util.Date;
+
 import static androidx.room.ForeignKey.CASCADE;
 
 @Entity(tableName = "imagensResultado",
@@ -47,11 +49,18 @@ public class ImagemResultado {
     public byte[] imagem;
 
 
+    @NonNull
+    @ColumnInfo(name = "criado", defaultValue = "CURRENT_TIMESTAMP")
+    public Date criado;
+
+
+
     public ImagemResultado(int idTarefa, int id, int origem, @NonNull byte[] imagem) {
         this.idTarefa = idTarefa;
         this.id = id;
         this.origem = origem;
         this.imagem = imagem;
+        this.criado = new Date();
     }
 
 }

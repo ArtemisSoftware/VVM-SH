@@ -9,6 +9,14 @@ public class AppConfig {
      */
     public static final boolean VERSAO_TESTE = false;
 
+
+    public class ConfigTeste{
+
+        public static final boolean TESTAR_EMAIL = true;
+
+    }
+
+
     public static final String MIME_VERSAO_APP = "application/vnd.android.package-archive";
     /*
     public static final String MIME_TIPO_PLAIN_TEXT = "plain/text";

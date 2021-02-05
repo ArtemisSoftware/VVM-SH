@@ -27,6 +27,7 @@ import com.vvm.sh.baseDados.entidades.CategoriaProfissionalResultado;
 import com.vvm.sh.baseDados.entidades.Cliente;
 import com.vvm.sh.baseDados.entidades.Colaborador;
 import com.vvm.sh.baseDados.entidades.CrossSellingResultado;
+import com.vvm.sh.baseDados.entidades.FormandoResultado;
 import com.vvm.sh.baseDados.entidades.ImagemResultado;
 import com.vvm.sh.baseDados.entidades.LevantamentoRiscoResultado;
 import com.vvm.sh.baseDados.entidades.MedidaAveriguacao;
@@ -56,6 +57,7 @@ import com.vvm.sh.baseDados.entidades.TipoNovo;
 import com.vvm.sh.baseDados.entidades.TrabalhadorVulneravelResultado;
 import com.vvm.sh.baseDados.entidades.TrabalhoRealizadoResultado;
 import com.vvm.sh.baseDados.entidades.VerificacaoEquipamentoResultado;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.formacao.modelos.Formando;
 import com.vvm.sh.ui.quadroPessoal.modelos.ColaboradorRegisto;
 import com.vvm.sh.ui.transferencias.modelos.Pendencia;
 import com.vvm.sh.ui.transferencias.modelos.Upload;
@@ -238,6 +240,10 @@ abstract public class TransferenciasDao implements BaseDao<Resultado> {
 
     @Insert
     public abstract void inserirPropostaPlanoAcao(List<PropostaPlanoAcaoResultado> medidasChecklist);
+
+
+    @Insert
+    public abstract void inserirFormandos(List<FormandoResultado> formandos);
 
 
 

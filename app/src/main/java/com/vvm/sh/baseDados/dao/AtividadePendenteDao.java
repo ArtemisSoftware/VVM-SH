@@ -32,6 +32,7 @@ abstract public class AtividadePendenteDao implements BaseDao<AtividadePendenteR
             "WHEN idRelatorio = " + ID_RELATORIO_TEMPERATURA_HUMIDADE + " THEN  '" + TEMPERATURA_E_HUMIDADE + "' "+
             "WHEN idRelatorio = " + ID_RELATORIO_AVALIACAO_RISCO + " THEN  '" + AVALIACAO_RISCO + "' "+
             "WHEN idRelatorio = " + ID_RELATORIO_AVERIGUACAO_AVALIACAO_RISCO + " THEN  '" + AVERIGUACAO_AVALIACAO_RISCO + "' "+
+            "WHEN idRelatorio = " + ID_RELATORIO_CERTIFICADO_TRATAMENTO + " THEN  '" + CERTIFICADO_TRATAMENTO + "' "+
             "ELSE '' END as nomeRelatorio, " +
 
             "CASE WHEN idRelatorio > 0 THEN  1 " +
@@ -43,13 +44,21 @@ abstract public class AtividadePendenteDao implements BaseDao<AtividadePendenteR
             "WHEN  idRelatorio = " + ID_RELATORIO_ILUMINACAO + " AND validade_aval_amb_ilum = 1 THEN  1 "+
             "WHEN  idRelatorio = " + ID_RELATORIO_TEMPERATURA_HUMIDADE + " AND validade_aval_amb_temperatura = 1 THEN  1 "+
             "WHEN  idRelatorio = " + ID_RELATORIO_AVALIACAO_RISCO + " AND  (validade_processo_produtivo AND validade_equipamentos AND validade_proposta_plano_acao AND validade_checklist AND validade_avaliacao_riscos) = 1 THEN 1 "+
+            "WHEN  idRelatorio = " + ID_RELATORIO_CERTIFICADO_TRATAMENTO + " AND validade_certificado_tratamento = 1 THEN  1 " +
             "ELSE 0 END as relatorioCompleto," +
 
             "validade_processo_produtivo, validade_trabalhadores_vulneraveis, validade_equipamentos, validade_proposta_plano_acao, validade_checklist, validade_avaliacao_riscos, " +
+            "validade_certificado_tratamento, " +
             "capa_Relatorio " +
 
             "FROM atividadesPendentes as atp " +
 
+
+            //certificado tratamento
+
+            "LEFT JOIN ( " +
+            "SELECT idAtividade, sincronizacao as validade_certificado_tratamento FROM certificadoTratamentoResultado " +
+            ") as cert_tratamento ON atp.id = cert_tratamento.idAtividade  " +
 
             //capa relatorio
 
@@ -565,6 +574,7 @@ abstract public class AtividadePendenteDao implements BaseDao<AtividadePendenteR
             "WHEN idRelatorio = " + ID_RELATORIO_ILUMINACAO + " THEN  '" + ILUMINACAO + "' "+
             "WHEN idRelatorio = " + ID_RELATORIO_TEMPERATURA_HUMIDADE + " THEN  '" + TEMPERATURA_E_HUMIDADE + "' "+
             "WHEN idRelatorio = " + ID_RELATORIO_AVALIACAO_RISCO + " THEN  '" + AVALIACAO_RISCO + "' "+
+            "WHEN idRelatorio = " + ID_RELATORIO_CERTIFICADO_TRATAMENTO + " THEN  '" + CERTIFICADO_TRATAMENTO + "' "+
             "WHEN ct_averiguacao > 0 AND tipo = " + ID_RELATORIO_AVERIGUACAO_AVALIACAO_RISCO + " THEN  '" + AVERIGUACAO_AVALIACAO_RISCO + "' "+
             "WHEN ct_averiguacao > 0 AND tipo = " + ID_RELATORIO_AVERIGUACAO_AUDITORIA + " THEN  '" + AVERIGUACAO_AUDITORIA + "' "+
             "ELSE '' END as nomeRelatorio, " +
@@ -574,10 +584,12 @@ abstract public class AtividadePendenteDao implements BaseDao<AtividadePendenteR
             "WHEN ct_averiguacao > 0 AND tipo = " + ID_RELATORIO_AVERIGUACAO_AUDITORIA + " THEN  1 "+
             "ELSE 0 END as possuiRelatorio, " +
 
-            "CASE WHEN idRelatorio = " + ID_RELATORIO_FORMACAO + " AND IFNULL(ct_formando, 0) > 0 THEN  1 " +
+            "CASE " +
+            "WHEN idRelatorio = " + ID_RELATORIO_FORMACAO + " AND IFNULL(ct_formando, 0) > 0 THEN  1 " +
+            "WHEN idRelatorio = " + ID_RELATORIO_CERTIFICADO_TRATAMENTO + " AND validade_certificado_tratamento THEN  1 " +
             "ELSE 0 END as relatorioCompleto, " +
 
-            "0 as validade_processo_produtivo, 0 as validade_trabalhadores_vulneraveis, 0 as validade_equipamentos, 0 as validade_proposta_plano_acao, 0 as validade_checklist, 0 as validade_avaliacao_riscos," +
+            "0 as validade_processo_produtivo, 0 as validade_trabalhadores_vulneraveis, 0 as validade_equipamentos, 0 as validade_proposta_plano_acao, 0 as validade_checklist, 0 as validade_avaliacao_riscos, " +
             "0 as capa_Relatorio " +
 
             "FROM atividadesPendentes as atp " +
@@ -587,6 +599,13 @@ abstract public class AtividadePendenteDao implements BaseDao<AtividadePendenteR
             "LEFT JOIN( " +
             "SELECT idTarefa, IFNULL(COUNT(*), 0) as ct_averiguacao, tipo FROM relatorioAveriguacao GROUP BY idTarefa " +
             ") as rel_averiguacao " +
+
+
+            //certificado tratamento
+
+            "LEFT JOIN ( " +
+            "SELECT idAtividade, sincronizacao as validade_certificado_tratamento FROM certificadoTratamentoResultado " +
+            ") as cert_tratamento ON atp.id = cert_tratamento.idAtividade  " +
 
             //formacao validacao
 

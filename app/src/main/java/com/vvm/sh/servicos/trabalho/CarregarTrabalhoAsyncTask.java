@@ -10,6 +10,7 @@ import com.vvm.sh.api.modelos.pedido.IAtividadePendente;
 import com.vvm.sh.api.modelos.pedido.IAvaliacaoRiscosAnterior;
 import com.vvm.sh.api.modelos.pedido.ICliente;
 import com.vvm.sh.api.modelos.pedido.IColaborador;
+import com.vvm.sh.api.modelos.pedido.IFormando;
 import com.vvm.sh.api.modelos.pedido.IMorada;
 import com.vvm.sh.api.modelos.pedido.IParqueExtintor;
 import com.vvm.sh.api.modelos.pedido.IPlanoAcao;
@@ -23,6 +24,7 @@ import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.baseDados.entidades.AreaChecklistResultado;
 import com.vvm.sh.baseDados.entidades.CategoriaProfissionalResultado;
 import com.vvm.sh.baseDados.entidades.Colaborador;
+import com.vvm.sh.baseDados.entidades.FormandoResultado;
 import com.vvm.sh.baseDados.entidades.LevantamentoRiscoResultado;
 import com.vvm.sh.baseDados.entidades.MedidaAveriguacao;
 import com.vvm.sh.baseDados.entidades.MedidaResultado;
@@ -47,6 +49,7 @@ import com.vvm.sh.baseDados.entidades.TipoExtintor;
 import com.vvm.sh.baseDados.entidades.TrabalhadorVulneravelResultado;
 import com.vvm.sh.baseDados.entidades.VerificacaoEquipamentoResultado;
 import com.vvm.sh.repositorios.TransferenciasRepositorio;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.formacao.modelos.Formando;
 import com.vvm.sh.util.AtualizacaoUI;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.constantes.TiposConstantes;
@@ -56,6 +59,7 @@ import com.vvm.sh.util.metodos.DatasUtil;
 import com.vvm.sh.util.metodos.TiposUtil;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class CarregarTrabalhoAsyncTask extends AsyncTask<ISessao, Void, Void> {
@@ -346,8 +350,8 @@ public class CarregarTrabalhoAsyncTask extends AsyncTask<ISessao, Void, Void> {
             if(registo.idRelatorio == Identificadores.Relatorios.ID_RELATORIO_AVALIACAO_RISCO & avaliacaoRiscosAnterior != null){
                 inserirAvaliacaoRiscosAnterior(registo, avaliacaoRiscosAnterior);
             }
-            else if(registo.idRelatorio == Identificadores.Relatorios.ID_RELATORIO_FORMACAO){
-
+            else if(registo.idRelatorio == Identificadores.Relatorios.ID_RELATORIO_FORMACAO & atividadePendente.formandos != null){
+                inserirFormandosAnteriores(registo, atividadePendente.formandos);
             }
             else {
                 registos.add(registo);
@@ -356,6 +360,32 @@ public class CarregarTrabalhoAsyncTask extends AsyncTask<ISessao, Void, Void> {
 
         repositorio.inserirAtividadesPendentes(registos);
     }
+
+    private void inserirFormandosAnteriores(AtividadePendente registo, List<IFormando> formandos) {
+
+        int idAtividade = ConversorUtil.converter_long_Para_int(repositorio.inserirAtividadePendente(registo));
+
+        List<FormandoResultado> registos = new ArrayList<>();
+
+        for (IFormando item : formandos) {
+
+            FormandoResultado formando = DownloadMapping.INSTANCE.map(item);
+            formando.idAtividade = idAtividade;
+            formando.origem = Identificadores.Origens.ORIGEM_BD;
+
+            if(item.dataNascimento.equals("") == false){
+                formando.dataNascimento = DatasUtil.obterDataAtual_Date();
+            }
+            else{
+                formando.dataNascimento = DatasUtil.converterString(item.dataNascimento, DatasUtil.FORMATO_YYYY_MM_DD);
+            }
+
+            registos.add(formando);
+        }
+
+        repositorio.inserirFormandos(registos);
+    }
+
 
     private void inserirAvaliacaoRiscosAnterior(AtividadePendente registo, IAvaliacaoRiscosAnterior avaliacaoRiscosAnterior) {
 

@@ -17,6 +17,7 @@ import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.constantes.Sintaxe;
+import com.vvm.sh.util.interfaces.OnDialogoListener;
 import com.vvm.sh.util.interfaces.OnPermissaoConcedidaListener;
 import com.vvm.sh.util.metodos.DiretoriasUtil;
 import com.vvm.sh.util.metodos.ImagemUtil;
@@ -122,8 +123,16 @@ public class CertificadoTratamentoActivity extends BaseDaggerActivity {
     @OnClick({R.id.card_assinatura})
     public void card_assinatura_OnClickListener(View view) {
 
-        Intent intent = new Intent(this, AssinaturaActivity.class);
-        startActivityForResult(intent, Identificadores.CodigoAtividade.ASSINATURA);
+        OnDialogoListener listener = new OnDialogoListener() {
+            @Override
+            public void onExecutar() {
+                Intent intent = new Intent(CertificadoTratamentoActivity.this, AssinaturaActivity.class);
+                startActivityForResult(intent, Identificadores.CodigoAtividade.ASSINATURA);
+            }
+        };
+
+        dialogo.alerta(getString(R.string.assinatura), getString(R.string.assinatura_bloquea_edicao_relatorio), listener);
+
     }
 
 

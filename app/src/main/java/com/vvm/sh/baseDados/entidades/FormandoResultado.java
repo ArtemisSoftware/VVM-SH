@@ -71,6 +71,9 @@ public class FormandoResultado {
     @ColumnInfo(name = "origem", defaultValue = Identificadores.Origens.ORIGEM_BD + "")
     public int origem;
 
+    @Ignore
+    public FormandoResultado() {
+    }
 
     @Ignore
     public FormandoResultado(int idAtividade,

@@ -52,6 +52,8 @@ public class AtividadePendenteRegisto {
 
 
 
+
+
     @ColumnInfo(name = "validade_avaliacao_riscos")
     public boolean completudeAvaliacaoRisco;
 

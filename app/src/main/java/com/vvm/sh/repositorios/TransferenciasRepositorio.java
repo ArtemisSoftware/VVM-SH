@@ -189,24 +189,27 @@ public class TransferenciasRepositorio {
 
         if(dadosUpload.numeroFicheirosImagens != 0){
 
-            dadosUpload.formatarImagens();
 
-            for (DadosUpload.DadosImagem dadosImagem: dadosUpload.dadosImagems) {
-                observables.add(submeterImagens(dadosUpload, dadosImagem).toObservable());
-            }
+            Observable<Codigo> observable__Imagens = uploadImagens(dadosUpload);
 
-            Observable<Codigo> observable__Imagens = Observable.zip(observables, new Function<Object[], Codigo>() {
-                @Override
-                public Codigo apply(Object[] codigos) throws Exception {
-
-                    if(validarResultadoUpload(codigos) == true){
-                        return Identificadores.CodigosWs.Codigo_100;
-                    }
-                    else{
-                        throw new RespostaWsInvalidaException(Identificadores.CodigosWs.Codigo_600);
-                    }
-                }
-            });
+//            dadosUpload.formatarImagens();
+//
+//            for (DadosUpload.DadosImagem dadosImagem: dadosUpload.dadosImagems) {
+//                observables.add(submeterImagens(dadosUpload, dadosImagem).toObservable());
+//            }
+//
+//            Observable<Codigo> observable__Imagens = Observable.zip(observables, new Function<Object[], Codigo>() {
+//                @Override
+//                public Codigo apply(Object[] codigos) throws Exception {
+//
+//                    if(validarResultadoUpload(codigos) == true){
+//                        return Identificadores.CodigosWs.Codigo_100;
+//                    }
+//                    else{
+//                        throw new RespostaWsInvalidaException(Identificadores.CodigosWs.Codigo_600);
+//                    }
+//                }
+//            });
 
             if(AppConfig.APP_MODO == AppConfig.APP_SHT) {
                 return submeterDados(dadosUpload).toObservable()
@@ -443,23 +446,31 @@ public class TransferenciasRepositorio {
             @Override
             public Codigo apply(Object[] codigos) throws Exception {
 
-                boolean valido = true;
 
-                for (Object item : codigos) {
-
-                    if(((Codigo) item).codigo != Identificadores.CodigosWs.ID_100){
-                        valido = false;
-                        break;
-                    }
-                }
-
-                if(valido == true){
-                    return new Codigo(Identificadores.CodigosWs.ID_100, Identificadores.CodigosWs.MSG_100);
+                if(validarResultadoUpload(codigos) == true){
+                    return Identificadores.CodigosWs.Codigo_100;
                 }
                 else{
-                    Codigo codigo = new Codigo(Identificadores.CodigosWs.ID_600, Identificadores.CodigosWs.MSG_600);
-                    throw new RespostaWsInvalidaException(gson.toJson(codigo, Codigo.class));
+                    throw new RespostaWsInvalidaException(Identificadores.CodigosWs.Codigo_600);
                 }
+
+//                boolean valido = true;
+//
+//                for (Object item : codigos) {
+//
+//                    if(((Codigo) item).codigo != Identificadores.CodigosWs.ID_100){
+//                        valido = false;
+//                        break;
+//                    }
+//                }
+//
+//                if(valido == true){
+//                    return new Codigo(Identificadores.CodigosWs.ID_100, Identificadores.CodigosWs.MSG_100);
+//                }
+//                else{
+//                    Codigo codigo = new Codigo(Identificadores.CodigosWs.ID_600, Identificadores.CodigosWs.MSG_600);
+//                    throw new RespostaWsInvalidaException(gson.toJson(codigo, Codigo.class));
+//                }
             }
         });
 

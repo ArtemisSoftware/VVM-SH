@@ -44,8 +44,8 @@ public abstract class AgendaDao {
     @Query("SELECT " +
             "CASE WHEN IFNULL(COUNT(data), 0) = 0 THEN " + Identificadores.Sincronizacao.SEM_SINCRONIZACAO + " " +
             "WHEN total_ != sinc_ THEN " + Identificadores.Sincronizacao.NAO_SINCRONIZADO + " " +
-            "WHEN strftime('%Y-%m-%d', data, 'unixepoch') = date('now') AND total_ = sinc_ THEN " + Identificadores.Sincronizacao.SINCRONIZADO + "  " +
-            "WHEN strftime('%Y-%m-%d', data, 'unixepoch') < date('now') AND total_ = sinc_ THEN " + Identificadores.Sincronizacao.TRANCADO + "  " +
+            "WHEN strftime('%Y-%m-%d', (data * 0.001), 'unixepoch') = date('now') AND total_ = sinc_ THEN " + Identificadores.Sincronizacao.SINCRONIZADO + "  " +
+            "WHEN strftime('%Y-%m-%d', (data * 0.001), 'unixepoch') < date('now') AND total_ = sinc_ THEN " + Identificadores.Sincronizacao.TRANCADO + "  " +
             "ELSE " + Identificadores.Sincronizacao.NAO_SINCRONIZADO + " " +
             "END as estado " +
             "FROM (" +

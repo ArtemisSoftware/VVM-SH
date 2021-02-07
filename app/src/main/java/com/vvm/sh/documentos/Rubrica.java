@@ -2,6 +2,8 @@ package com.vvm.sh.documentos;
 
 import androidx.room.ColumnInfo;
 
+import java.util.Date;
+
 public class Rubrica {
 
     @ColumnInfo(name = "imagem")
@@ -14,5 +16,5 @@ public class Rubrica {
     public String nome;
 
     @ColumnInfo(name = "data")
-    public String data;
+    public Date data;
 }

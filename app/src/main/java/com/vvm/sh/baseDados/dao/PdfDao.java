@@ -111,7 +111,7 @@ abstract public class PdfDao {
     abstract public Maybe<DadosCliente> obterDadosCliente(int idTarefa);
 
 
-    @Query("SELECT cap, nome, imagem " +
+    @Query("SELECT cap, nome, imagem, criado as data " +
             "FROM imagensResultado as img " +
             "LEFT JOIN (SELECT nome, cap FROM utilizadores WHERE id = :idUtilizador)" +
             "WHERE id = :id AND origem = :origem")

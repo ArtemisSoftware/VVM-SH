@@ -95,8 +95,7 @@ abstract public class AveriguacaoDao implements BaseDao<RelatorioAveriguacaoResu
             "WHERE rel_res.id =:id AND med.origem = " + Identificadores.Origens.AVERIGUACAO_AVALIACAO_RISCOS + " ")
     abstract public Single<AveriguacaoRegisto> obterRegisto(int id, int api);
 
-    //https://mega.nz/folder/jqJAlYyL#Js1gkGWstR3F9O3gKrINgw
-    //http://linkunshortner.glitch.me/
+
 
 
 

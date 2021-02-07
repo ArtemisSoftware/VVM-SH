@@ -15,6 +15,7 @@ import com.vvm.sh.R;
 import com.vvm.sh.documentos.eventos.EspacoPreenchimento;
 import com.vvm.sh.documentos.Rubrica;
 import com.vvm.sh.util.constantes.Pdf;
+import com.vvm.sh.util.metodos.DatasUtil;
 import com.vvm.sh.util.metodos.ImagemUtil;
 
 public class Assinatura extends Section {
@@ -48,7 +49,7 @@ public class Assinatura extends Section {
                 cellConfiguration.colSpan = table.getNumberCells();
 
 
-                Phrase titulo = new Phrase(contexto.getString(R.string.data_).toUpperCase().toUpperCase() + " " + registo.data, fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO_GRANDE));
+                Phrase titulo = new Phrase(contexto.getString(R.string.data_).toUpperCase().toUpperCase() + " " + DatasUtil.converterData(registo.data, DatasUtil.FORMATO_DD_MM_YYYY), fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO_GRANDE));
                 table.addCell(titulo, cellConfiguration);
 
 

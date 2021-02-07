@@ -104,7 +104,7 @@ public class DialogoResponsavel extends BaseDaggerDialogoPersistenteFragment imp
 
                     case SUCESSO:
 
-                        dialogo.sucesso(listener);
+                        dialogo.sucesso(recurso.messagem, listener);
                         break;
 
                     case ERRO:

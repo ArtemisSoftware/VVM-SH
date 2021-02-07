@@ -85,7 +85,6 @@ public class UploadTrabalhoActivity extends BaseDaggerActivity {
         viewModel.observarPendencias().observe(this, new Observer<List<Pendencia>>() {
             @Override
             public void onChanged(List<Pendencia> pendencias) {
-
                 formatarPendencias(pendencias);
             }
         });

@@ -13,6 +13,8 @@ import com.vvm.sh.api.modelos.pedido.Codigo;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.interfaces.OnDialogoListener;
+import com.yarolegovich.lovelydialog.LovelyInfoDialog;
+import com.yarolegovich.lovelydialog.LovelyStandardDialog;
 
 import cn.pedant.SweetAlert.SweetAlertDialog;
 
@@ -21,85 +23,116 @@ public class MensagensUtil {
     private SweetAlertDialog dialogo;
     private AlertDialog.Builder builder;
     private Dialog dialogoProgresso;
-
+    private LovelyStandardDialog dialogo_;
 
     public MensagensUtil(Context contexto) {
         dialogo = new SweetAlertDialog(contexto);
         builder = new AlertDialog.Builder(contexto);
+        dialogo_ = new LovelyStandardDialog(contexto, LovelyStandardDialog.ButtonLayout.VERTICAL);
     }
 
 
-    public void sucesso(String titulo, String mensagem) {
-
-        dialogo.changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
-
-        dialogo.setTitleText(titulo)
-                .setContentText(mensagem)
-                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                    @Override
-                    public void onClick(SweetAlertDialog sDialog) {
-//                        sDialog.dismissWithAnimation();
-                        sDialog.dismiss();
-                    }
-                });
-    }
+    //---------------------
+    //Sucesso
+    //---------------------
 
 
     public void sucesso(String mensagem) {
+        sucesso(Sintaxe.Palavras.SUCESSO, mensagem, null);
+    }
 
-        dialogo.changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
+    public void sucesso(String titulo, String mensagem) {
+        sucesso(titulo, mensagem, null);
+    }
 
-        dialogo.setTitleText(Sintaxe.Palavras.SUCESSO)
-                .setContentText(mensagem)
-                .setConfirmText(Sintaxe.Opcoes.OK)
-                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                    @Override
-                    public void onClick(SweetAlertDialog sDialog) {
-//                        sDialog.dismissWithAnimation();
-                        sDialog.dismiss();
-                    }
-                });
-
-        dialogo.show();
+    public void sucesso(String mensagem, OnDialogoListener listener) {
+        sucesso(Sintaxe.Palavras.SUCESSO, mensagem, listener);
     }
 
 
-    public void sucesso(OnDialogoListener listener){
-
-        dialogo.changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
-        dialogo.setTitleText(Sintaxe.Palavras.SUCESSO)
-                .setContentText(Sintaxe.Frases.DADOS_GRAVADOS_SUCESSO)
-                .setConfirmText(Sintaxe.Opcoes.OK)
-                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                    @Override
-                    public void onClick(SweetAlertDialog sDialog) {
-                        sDialog.dismissWithAnimation();
-                        listener.onExecutar();
-                    }
-                });
-
-        dialogo.show();
+    private void sucesso(String titulo, String mensagem, OnDialogoListener listener){
+        executarDialogo(R.color.cor_dialogo_sucesso, R.drawable.ic_validado_branco, titulo, mensagem, listener);
     }
 
 
 
-    public void sucesso(String mensagem, OnDialogoListener listener){
 
-        dialogo.changeAlertType(SweetAlertDialog.SUCCESS_TYPE);
-        dialogo.setTitleText(Sintaxe.Palavras.SUCESSO)
-                .setContentText(mensagem)
-                .setConfirmText(Sintaxe.Opcoes.OK)
-                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                    @Override
-                    public void onClick(SweetAlertDialog sDialog) {
-                        //sDialog.dismissWithAnimation();
-                        sDialog.dismiss();
-                        listener.onExecutar();
-                    }
-                });
 
-        dialogo.show();
+
+    //---------------------
+    //Alerta
+    //---------------------
+
+    public void alerta(String titulo, String mensagem) {
+        alerta(titulo, mensagem, null);
     }
+
+    public void alerta(String titulo, String mensagem, OnDialogoListener listener){
+        executarDialogo(R.color.cor_dialogo_alerta, R.drawable.ic_alerta_24dp, titulo, mensagem, listener);
+    }
+
+
+    private void executarDialogo(int corTopo, int icon, String titulo, String mensagem, OnDialogoListener listenerOk){
+
+        dialogo_
+                .setTopColorRes(corTopo)
+                .setIcon(icon)
+                .setTitle(titulo)
+                .setMessage(mensagem);
+
+
+        if(listenerOk != null){
+            dialogo_
+                    .setPositiveButton(android.R.string.ok, new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            listenerOk.onExecutar();
+                        }
+                    });
+        }
+        else{
+            dialogo_
+                    .setPositiveButton(android.R.string.ok, new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                        }
+                    });
+        }
+
+        dialogo_.show();
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //---------------------
+    //Erro
+    //---------------------
 
 
     public void erro(String mensagem) {
@@ -203,45 +236,6 @@ public class MensagensUtil {
     }
 
 
-
-    public void alerta(String titulo, String mensagem) {
-
-        dialogo.changeAlertType(SweetAlertDialog.WARNING_TYPE);
-
-        dialogo.setTitleText(titulo)
-                .setContentText(mensagem)
-                .setConfirmText(Sintaxe.Opcoes.OK)
-                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                    @Override
-                    public void onClick(SweetAlertDialog sDialog) {
-//                        sDialog.dismissWithAnimation();
-                        sDialog.dismiss();
-                    }
-                });
-
-        dialogo.show();
-    }
-
-
-
-
-    public void alerta(String titulo, String mensagem, OnDialogoListener listener) {
-
-        dialogo.changeAlertType(SweetAlertDialog.WARNING_TYPE);
-        dialogo.setTitleText(titulo)
-                .setContentText(mensagem)
-                .setConfirmText(Sintaxe.Opcoes.OK)
-                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                    @Override
-                    public void onClick(SweetAlertDialog sDialog) {
-                        //sDialog.dismissWithAnimation();
-                        sDialog.dismiss();
-                        listener.onExecutar();
-                    }
-                });
-
-        dialogo.show();
-    }
 
 
     /**

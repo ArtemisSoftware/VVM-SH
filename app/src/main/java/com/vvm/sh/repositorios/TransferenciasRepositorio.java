@@ -208,7 +208,7 @@ public class TransferenciasRepositorio {
                 }
             });
 
-            if(AppConfig.APP_MODO == AppConfig.APP_SA) {
+            if(AppConfig.APP_MODO == AppConfig.APP_SHT) {
                 return submeterDados(dadosUpload).toObservable()
                         .flatMap(new Function<Codigo, ObservableSource<Codigo>>() {
                             @Override

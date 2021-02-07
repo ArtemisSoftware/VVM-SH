@@ -90,7 +90,7 @@ public class TarefaViewModel extends BaseViewModel {
 
                                 @Override
                                 public void onSuccess(Long aLong) {
-                                    messagemLiveData.setValue(Recurso.successo());
+                                    messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_GRAVADOS_SUCESSO));
                                     gravarResultado(tarefaRepositorio.resultadoDao, email.idTarefa, ResultadoId.EMAIL);
                                 }
 
@@ -116,7 +116,7 @@ public class TarefaViewModel extends BaseViewModel {
 
                                 @Override
                                 public void onSuccess(Integer integer) {
-                                    messagemLiveData.setValue(Recurso.successo());
+                                    messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_EDITADOS_SUCESSO));
                                     gravarResultado(tarefaRepositorio.resultadoDao, email.idTarefa, ResultadoId.EMAIL);
                                 }
 

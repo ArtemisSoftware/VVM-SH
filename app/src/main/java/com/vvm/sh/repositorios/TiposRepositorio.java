@@ -367,6 +367,7 @@ public class TiposRepositorio {
                 new Function4<List<Atualizacao>, List<Atualizacao>, List<Atualizacao>, List<TipoNovo>, AtualizacaoTipos>() {
                     @Override
                     public AtualizacaoTipos apply(List<Atualizacao> atualizacaos, List<Atualizacao> atualizacaos2, List<Atualizacao> atualizacaos3, List<TipoNovo> tipoNovos) throws Exception {
+
                         List<TiposUtil.MetodoApi> atualizacoes = TiposUtil.fixarSeloTemporal(atualizacaos);
 
                         //TODO: para sh

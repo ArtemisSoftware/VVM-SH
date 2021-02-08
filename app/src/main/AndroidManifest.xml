@@ -20,22 +20,23 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
-        <activity android:name=".ui.atividadesPendentes.relatorios.certificadoTratamento.CertificadoActivity"
+        <activity android:name=".ui.transferencias.AtualizacaoTiposActivity"></activity>
+        <activity
+            android:name=".ui.atividadesPendentes.relatorios.certificadoTratamento.CertificadoActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ui.atividadesPendentes.relatorios.certificadoTratamento.CertificadoTratamentoActivity"
+        <activity
+            android:name=".ui.atividadesPendentes.relatorios.certificadoTratamento.CertificadoTratamentoActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-
-        <activity android:name=".ui.informacaoSst.ObrigacoesLegaisActivity"
+        <activity
+            android:name=".ui.informacaoSst.ObrigacoesLegaisActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-        <activity android:name=".ui.informacaoSst.InformacaoSstActivity"
+        <activity
+            android:name=".ui.informacaoSst.InformacaoSstActivity"
             android:screenOrientation="portrait"
             android:theme="@style/AppTheme.NoActionBar" />
-
-
         <activity
             android:name=".ui.atividadesPendentes.relatorios.checklist.SeccaoActivity"
             android:screenOrientation="portrait"

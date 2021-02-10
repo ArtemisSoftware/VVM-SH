@@ -17,20 +17,112 @@ public class Migracao {
                 MIGRACAO_1_2, MIGRACAO_2_3, MIGRACAO_3_4, MIGRACAO_4_5, MIGRACAO_5_6, MIGRACAO_6_7, MIGRACAO_7_8, MIGRACAO_8_9, MIGRACAO_9_10,
                 MIGRACAO_10_11, MIGRACAO_11_12, MIGRACAO_12_13, MIGRACAO_13_14, MIGRACAO_14_15, MIGRACAO_15_16, MIGRACAO_16_17, MIGRACAO_17_18, MIGRACAO_18_19, MIGRACAO_19_20,
                 MIGRACAO_20_21, MIGRACAO_21_22, MIGRACAO_22_23, MIGRACAO_23_24, MIGRACAO_24_25, MIGRACAO_25_26, MIGRACAO_26_27, MIGRACAO_27_28, MIGRACAO_28_29, MIGRACAO_29_30,
-                MIGRACAO_30_31, MIGRACAO_31_32, MIGRACAO_32_33, MIGRACAO_33_34, MIGRACAO_34_35, MIGRACAO_35_36
+                MIGRACAO_30_31, MIGRACAO_31_32, MIGRACAO_32_33, MIGRACAO_33_34, MIGRACAO_34_35, MIGRACAO_35_36, MIGRACAO_36_37, MIGRACAO_37_38
         };
 
         return migrations;
     }
 
+    public static final Migration MIGRACAO_37_38 = new Migration(37, 38) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            try {
 
+
+                database.execSQL("DROP TABLE IF EXISTS 'atualizacoes' ");
+                database.execSQL("DROP INDEX IF EXISTS index_atualizacoes_descricao ");
+                database.execSQL("DROP INDEX IF EXISTS index_atualizacoes_api ");
+
+                database.execSQL("CREATE TABLE IF NOT EXISTS 'atualizacoes' ("
+                        + "'descricao' TEXT NOT NULL, "
+                        + "'api' INTEGER NOT NULL, "
+                        + "'tipo' INTEGER NOT NULL, "
+                        + "'seloTemporal' TEXT, "
+                        + "PRIMARY KEY (descricao, api)) ");
+
+                database.execSQL("CREATE INDEX index_atualizacoes_descricao ON atualizacoes (descricao)");
+                database.execSQL("CREATE INDEX index_atualizacoes_api ON atualizacoes (api)");
+
+
+
+                database.execSQL("DROP TABLE IF EXISTS 'tipos' ");
+                database.execSQL("DROP INDEX IF EXISTS index_tipos_tipo ");
+
+                database.execSQL("CREATE TABLE IF NOT EXISTS 'tipos' ("
+                        + "'id' INTEGER NOT NULL, "
+                        + "'tipo' TEXT NOT NULL, "
+                        + "'descricao' TEXT NOT NULL, "
+                        + "'codigo' TEXT NOT NULL, "
+                        + "'idPai' TEXT NOT NULL, "
+                        + "'ativo' INTEGER NOT NULL, "
+                        + "'detalhe' TEXT NOT NULL, "
+                        + "'api' INTEGER NOT NULL, "
+                        + "PRIMARY KEY (id, tipo, api), "
+                        + "FOREIGN KEY (tipo, api) REFERENCES atualizacoes (descricao, api)  ON DELETE CASCADE) ");
+
+                database.execSQL("CREATE INDEX index_tipos_tipo ON tipos (tipo)");
+
+            }
+            catch(SQLException | IllegalStateException e){
+                Log.e("Migracao", "erro MIGRACAO_37_38: " + e.getMessage());
+                //Timber.e("erro MIGRACAO_2_3: " + e.getMessage());
+            }
+        }
+    };
+
+                public static final Migration MIGRACAO_36_37 = new Migration(36, 37) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            try {
+
+
+                database.execSQL("DROP TABLE IF EXISTS 'atualizacoes' ");
+                database.execSQL("DROP INDEX IF EXISTS index_atualizacoes_descricao ");
+
+                database.execSQL("CREATE TABLE IF NOT EXISTS 'atualizacoes' ("
+                        + "'descricao' TEXT NOT NULL, "
+                        + "'api' INTEGER NOT NULL, "
+                        + "'tipo' INTEGER NOT NULL, "
+                        + "'seloTemporal' TEXT, "
+                        + "PRIMARY KEY (descricao, api)) ");
+
+                database.execSQL("CREATE UNIQUE INDEX index_atualizacoes_descricao ON atualizacoes (descricao)");
+                database.execSQL("CREATE UNIQUE INDEX index_atualizacoes_api ON atualizacoes (api)");
+
+
+
+                database.execSQL("DROP TABLE IF EXISTS 'tipos' ");
+                database.execSQL("DROP INDEX IF EXISTS index_tipos_tipo ");
+
+                database.execSQL("CREATE TABLE IF NOT EXISTS 'tipos' ("
+                        + "'id' INTEGER NOT NULL, "
+                        + "'tipo' TEXT NOT NULL, "
+                        + "'descricao' TEXT NOT NULL, "
+                        + "'codigo' TEXT NOT NULL, "
+                        + "'idPai' TEXT NOT NULL, "
+                        + "'ativo' INTEGER NOT NULL, "
+                        + "'detalhe' TEXT NOT NULL, "
+                        + "'api' INTEGER NOT NULL, "
+                        + "PRIMARY KEY (id, tipo, api), "
+                        + "FOREIGN KEY (tipo) REFERENCES atualizacoes (descricao)  ON DELETE CASCADE, "
+                        + "FOREIGN KEY (api) REFERENCES atualizacoes (api)  ON DELETE CASCADE) ");
+
+                database.execSQL("CREATE INDEX index_tipos_tipo ON tipos (tipo)");
+
+                //(cast(strftime('%s','now') as int))
+            }
+            catch(SQLException | IllegalStateException e){
+                Log.e("Migracao", "erro MIGRACAO_36_37: " + e.getMessage());
+                //Timber.e("erro MIGRACAO_2_3: " + e.getMessage());
+            }
+        }
+    };
 
 
     public static final Migration MIGRACAO_35_36 = new Migration(35, 36) {
         @Override
         public void migrate(SupportSQLiteDatabase database) {
             try {
-
 
                 database.execSQL("DROP TABLE IF EXISTS 'atualizacoes' ");
                 database.execSQL("DROP INDEX IF EXISTS index_atualizacoes_descricao ");

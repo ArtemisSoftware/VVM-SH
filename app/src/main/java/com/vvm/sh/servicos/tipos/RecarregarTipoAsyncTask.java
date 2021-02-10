@@ -52,24 +52,13 @@ public class RecarregarTipoAsyncTask extends AsyncTask<List<ITipoListagem>, Void
 
                 try {
 
-                    String metodo = "";
-                    Atualizacao atualizacao = null;
+                    List<Atualizacao> atualizacoes = new ArrayList<>();
                     List<Tipo> dadosNovos = new ArrayList<>();
                     List<Tipo> dadosAlterados = new ArrayList<>();
 
                     for(ITipoListagem resposta : respostas){
 
-                        if(metodo.equals(resposta.metodo) == false && metodo.equals("") == false && atualizacao != null){
-
-                            repositorio.carregarTipo(atualizacao, dadosNovos, dadosAlterados);
-
-                            metodo = "";
-                            dadosNovos = new ArrayList<>();
-                            dadosAlterados = new ArrayList<>();
-                        }
-
-                        atualizacao = DownloadMapping.INSTANCE.map(resposta);
-                        metodo = atualizacao.descricao;
+                        atualizacoes.add(DownloadMapping.INSTANCE.map(resposta));
 
                         for (ITipo item : resposta.dadosNovos) {
                             dadosNovos.add(DownloadMapping.INSTANCE.map(item, resposta));
@@ -80,22 +69,40 @@ public class RecarregarTipoAsyncTask extends AsyncTask<List<ITipoListagem>, Void
                         }
                     }
 
-                    if(dadosNovos.size() != 0){
-                        repositorio.carregarTipo(atualizacao, dadosNovos, dadosAlterados);
-                    }
 
+                    repositorio.recarregarTipo(atualizacoes, dadosNovos, dadosAlterados);
 
-
-
-
-//                    ITipoListagem resposta = respostas.get(0);
+//                    String metodo = "";
+//                    Atualizacao atualizacao = null;
+//                    List<Tipo> dadosNovos = new ArrayList<>();
+//                    List<Tipo> dadosAlterados = new ArrayList<>();
 //
-//                    Atualizacao atualizacao = DownloadMapping.INSTANCE.map(resposta);
+//                    for(ITipoListagem resposta : respostas){
 //
-//                    List<Tipo> dadosNovos = obterTipos(resposta, resposta.dadosNovos);
-//                    List<Tipo> dadosAlterados = obterTipos(resposta, resposta.dadosAlterados);
+//                        if(metodo.equals(resposta.metodo) == false && metodo.equals("") == false && atualizacao != null){
 //
-//                    repositorio.carregarTipo(atualizacao, dadosNovos, dadosAlterados);
+//                            repositorio.carregarTipo(atualizacao, dadosNovos, dadosAlterados);
+//
+//                            metodo = "";
+//                            dadosNovos = new ArrayList<>();
+//                            dadosAlterados = new ArrayList<>();
+//                        }
+//
+//                        atualizacao = DownloadMapping.INSTANCE.map(resposta);
+//                        metodo = atualizacao.descricao;
+//
+//                        for (ITipo item : resposta.dadosNovos) {
+//                            dadosNovos.add(DownloadMapping.INSTANCE.map(item, resposta));
+//                        }
+//
+//                        for (ITipo item : resposta.dadosAlterados) {
+//                            dadosAlterados.add(DownloadMapping.INSTANCE.map(item, resposta));
+//                        }
+//                    }
+//
+//                    if(dadosNovos.size() != 0){
+//                        repositorio.carregarTipo(atualizacao, dadosNovos, dadosAlterados);
+//                    }
 
                 }
                 catch(SQLiteConstraintException throwable){

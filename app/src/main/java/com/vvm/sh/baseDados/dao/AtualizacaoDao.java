@@ -32,6 +32,11 @@ abstract public class AtualizacaoDao implements BaseDao<Atualizacao> {
     @Query("DELETE FROM atualizacoes WHERE descricao = :descricao ")
     abstract public void remover(String descricao);
 
+    @Query("DELETE FROM atualizacoes WHERE descricao = :descricao AND api = :api")
+    abstract public void remover(String descricao, int api);
+
+
+
     @Query("SELECT CASE WHEN IFNULL(COUNT(*), 0) > 0 THEN 1 ELSE 0 END as existe FROM atualizacoes WHERE descricao = :descricao ")
     abstract public boolean existeRegisto(String descricao);
 

@@ -1,0 +1,4383 @@
+{
+  "formatVersion": 1,
+  "database": {
+    "version": 38,
+    "identityHash": "d279a1ca7732d90c011ba6144dbfe3b9",
+    "entities": [
+      {
+        "tableName": "atualizacoes",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`descricao` TEXT NOT NULL, `tipo` INTEGER NOT NULL, `api` INTEGER NOT NULL, `seloTemporal` TEXT, PRIMARY KEY(`descricao`, `api`))",
+        "fields": [
+          {
+            "fieldPath": "descricao",
+            "columnName": "descricao",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "tipo",
+            "columnName": "tipo",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "api",
+            "columnName": "api",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "seloTemporal",
+            "columnName": "seloTemporal",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "descricao",
+            "api"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_atualizacoes_descricao",
+            "unique": false,
+            "columnNames": [
+              "descricao"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_atualizacoes_descricao` ON `${TABLE_NAME}` (`descricao`)"
+          },
+          {
+            "name": "index_atualizacoes_api",
+            "unique": false,
+            "columnNames": [
+              "api"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_atualizacoes_api` ON `${TABLE_NAME}` (`api`)"
+          }
+        ],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "tipos",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `tipo` TEXT NOT NULL, `api` INTEGER NOT NULL, `descricao` TEXT NOT NULL, `codigo` TEXT NOT NULL, `idPai` TEXT NOT NULL, `ativo` INTEGER NOT NULL, `detalhe` TEXT NOT NULL, PRIMARY KEY(`id`, `tipo`, `api`), FOREIGN KEY(`tipo`, `api`) REFERENCES `atualizacoes`(`descricao`, `api`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "tipo",
+            "columnName": "tipo",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "api",
+            "columnName": "api",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "descricao",
+            "columnName": "descricao",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "codigo",
+            "columnName": "codigo",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idPai",
+            "columnName": "idPai",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ativo",
+            "columnName": "ativo",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "detalhe",
+            "columnName": "detalhe",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id",
+            "tipo",
+            "api"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_tipos_tipo",
+            "unique": false,
+            "columnNames": [
+              "tipo"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_tipos_tipo` ON `${TABLE_NAME}` (`tipo`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "atualizacoes",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "tipo",
+              "api"
+            ],
+            "referencedColumns": [
+              "descricao",
+              "api"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "utilizadores",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` TEXT NOT NULL, `area` TEXT NOT NULL, `nome` TEXT NOT NULL, `cap` TEXT, `api` INTEGER NOT NULL, `email` TEXT, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "area",
+            "columnName": "area",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nome",
+            "columnName": "nome",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "cap",
+            "columnName": "cap",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "api",
+            "columnName": "api",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "email",
+            "columnName": "email",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "tarefas",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idTarefa` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `idUtilizador` TEXT NOT NULL, `ordem` TEXT NOT NULL, `prefixoCt` TEXT NOT NULL, `data` INTEGER NOT NULL, `api` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "idTarefa",
+            "columnName": "idTarefa",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idUtilizador",
+            "columnName": "idUtilizador",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ordem",
+            "columnName": "ordem",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "prefixoCt",
+            "columnName": "prefixoCt",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "data",
+            "columnName": "data",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "api",
+            "columnName": "api",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "idTarefa"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "checklist",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `descricao` TEXT NOT NULL, `versao` TEXT NOT NULL, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "descricao",
+            "columnName": "descricao",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "versao",
+            "columnName": "versao",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "areasChecklist",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idChecklist` INTEGER NOT NULL, `idArea` INTEGER NOT NULL, `descricao` TEXT NOT NULL, PRIMARY KEY(`idChecklist`, `idArea`), FOREIGN KEY(`idChecklist`) REFERENCES `checklist`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "idChecklist",
+            "columnName": "idChecklist",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idArea",
+            "columnName": "idArea",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "descricao",
+            "columnName": "descricao",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "idChecklist",
+            "idArea"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": [
+          {
+            "table": "checklist",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "idChecklist"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "seccoesChecklist",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idChecklist` INTEGER NOT NULL, `idArea` INTEGER NOT NULL, `uid` TEXT NOT NULL, `descricao` TEXT NOT NULL, `tipo` TEXT NOT NULL, PRIMARY KEY(`idChecklist`, `idArea`, `uid`), FOREIGN KEY(`idChecklist`) REFERENCES `checklist`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "idChecklist",
+            "columnName": "idChecklist",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idArea",
+            "columnName": "idArea",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "uid",
+            "columnName": "uid",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "descricao",
+            "columnName": "descricao",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "tipo",
+            "columnName": "tipo",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "idChecklist",
+            "idArea",
+            "uid"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": [
+          {
+            "table": "checklist",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "idChecklist"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "itensChecklist",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idChecklist` INTEGER NOT NULL, `idArea` INTEGER NOT NULL, `idSeccao` TEXT NOT NULL, `uid` TEXT NOT NULL, `descricao` TEXT, `tipo` TEXT NOT NULL, `codigo` TEXT, PRIMARY KEY(`idChecklist`, `idArea`, `idSeccao`, `uid`), FOREIGN KEY(`idChecklist`) REFERENCES `checklist`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "idChecklist",
+            "columnName": "idChecklist",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idArea",
+            "columnName": "idArea",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idSeccao",
+            "columnName": "idSeccao",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "uid",
+            "columnName": "uid",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "descricao",
+            "columnName": "descricao",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "tipo",
+            "columnName": "tipo",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "codigo",
+            "columnName": "codigo",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "idChecklist",
+            "idArea",
+            "idSeccao",
+            "uid"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": [
+          {
+            "table": "checklist",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "idChecklist"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "tiposAtividadesPlaneaveis",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `codigo` TEXT, `servId` TEXT NOT NULL, `descricao` TEXT NOT NULL, `descricaoCompleta` TEXT NOT NULL, `equipa` TEXT NOT NULL, `sempreNecessario` INTEGER NOT NULL, `ordem` INTEGER NOT NULL, `relatorio` INTEGER NOT NULL, `observacao` TEXT, `ativo` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "codigo",
+            "columnName": "codigo",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "servId",
+            "columnName": "servId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "descricao",
+            "columnName": "descricao",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "descricaoCompleta",
+            "columnName": "descricaoCompleta",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "equipa",
+            "columnName": "equipa",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sempreNecessario",
+            "columnName": "sempreNecessario",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ordem",
+            "columnName": "ordem",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "relatorio",
+            "columnName": "relatorio",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "observacao",
+            "columnName": "observacao",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "ativo",
+            "columnName": "ativo",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "tiposTemplateAvrLevantamentos",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `idModelo` INTEGER NOT NULL, `tarefa` TEXT NOT NULL, `perigo` TEXT NOT NULL, `ativo` INTEGER NOT NULL)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idModelo",
+            "columnName": "idModelo",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "tarefa",
+            "columnName": "tarefa",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "perigo",
+            "columnName": "perigo",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ativo",
+            "columnName": "ativo",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "tiposTemplateAvrRiscos",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `idLevantamento` INTEGER NOT NULL, `idRisco` INTEGER NOT NULL, `idRiscoEspecifico` INTEGER NOT NULL, `consequencias` TEXT NOT NULL, `ativo` INTEGER NOT NULL, PRIMARY KEY(`id`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idLevantamento",
+            "columnName": "idLevantamento",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idRisco",
+            "columnName": "idRisco",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idRiscoEspecifico",
+            "columnName": "idRiscoEspecifico",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "consequencias",
+            "columnName": "consequencias",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ativo",
+            "columnName": "ativo",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "tiposTemplatesAVRMedidasRisco",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `origem` INTEGER NOT NULL, `idMedida` INTEGER NOT NULL, PRIMARY KEY(`id`, `origem`, `idMedida`), FOREIGN KEY(`id`) REFERENCES `tiposTemplateAvrRiscos`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "origem",
+            "columnName": "origem",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idMedida",
+            "columnName": "idMedida",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id",
+            "origem",
+            "idMedida"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": [
+          {
+            "table": "tiposTemplateAvrRiscos",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "tiposNovos",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `idProvisorio` INTEGER NOT NULL DEFAULT 0, `idDefinitivo` INTEGER NOT NULL DEFAULT 0, `tipo` TEXT NOT NULL, `descricao` TEXT NOT NULL, `codigo` TEXT, `idPai` TEXT, `ativo` INTEGER NOT NULL DEFAULT 1, `detalhe` TEXT, `estado` INTEGER NOT NULL DEFAULT 1)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idProvisorio",
+            "columnName": "idProvisorio",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "idDefinitivo",
+            "columnName": "idDefinitivo",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "tipo",
+            "columnName": "tipo",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "descricao",
+            "columnName": "descricao",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "codigo",
+            "columnName": "codigo",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "idPai",
+            "columnName": "idPai",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "ativo",
+            "columnName": "ativo",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "1"
+          },
+          {
+            "fieldPath": "detalhe",
+            "columnName": "detalhe",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "estado",
+            "columnName": "estado",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "1"
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "clientes",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idTarefa` INTEGER NOT NULL, `nome` TEXT NOT NULL, `morada` TEXT, `localidade` TEXT, `codigoPostal` TEXT, `cpAlf` TEXT, `freguesia` TEXT, `nif` TEXT, `actividade` TEXT, `actividade1` TEXT, `responsavel` TEXT, `telefone` TEXT, `telemovel` TEXT, `email` TEXT, `emailAutenticado` INTEGER NOT NULL DEFAULT 0, `cae` TEXT, `cae1` TEXT, `segmento` TEXT, `trabalhadores` TEXT, `anomaliaExtintores` TEXT, `moveLife` INTEGER NOT NULL DEFAULT 0, `numeroAnalises` TEXT, `numeroCliente` TEXT, `servicoTp` TEXT, `servico` TEXT, `minutos` TEXT, `novo` TEXT, `contrato` TEXT, `ultimaVisita` TEXT, `dataContrato` TEXT, `dataInsercao` TEXT, `minutosRealizados` TEXT, `periodo` TEXT, `tipoPacote` TEXT, `anuidadeContrato` TEXT, `saldoCartaoVm` TEXT, `notas` TEXT, PRIMARY KEY(`idTarefa`), FOREIGN KEY(`idTarefa`) REFERENCES `tarefas`(`idTarefa`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "idTarefa",
+            "columnName": "idTarefa",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nome",
+            "columnName": "nome",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "morada",
+            "columnName": "morada",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "localidade",
+            "columnName": "localidade",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "codigoPostal",
+            "columnName": "codigoPostal",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "cpAlf",
+            "columnName": "cpAlf",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "freguesia",
+            "columnName": "freguesia",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "nif",
+            "columnName": "nif",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "actividade",
+            "columnName": "actividade",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "actividade1",
+            "columnName": "actividade1",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "responsavel",
+            "columnName": "responsavel",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "telefone",
+            "columnName": "telefone",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "telemovel",
+            "columnName": "telemovel",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "email",
+            "columnName": "email",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "emailAutenticado",
+            "columnName": "emailAutenticado",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "cae",
+            "columnName": "cae",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "cae1",
+            "columnName": "cae1",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "segmento",
+            "columnName": "segmento",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "trabalhadores",
+            "columnName": "trabalhadores",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "anomaliaExtintores",
+            "columnName": "anomaliaExtintores",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "moveLife",
+            "columnName": "moveLife",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "numeroAnalises",
+            "columnName": "numeroAnalises",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "numeroCliente",
+            "columnName": "numeroCliente",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "servicoTp",
+            "columnName": "servicoTp",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "servico",
+            "columnName": "servico",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "minutos",
+            "columnName": "minutos",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "novo",
+            "columnName": "novo",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "contrato",
+            "columnName": "contrato",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "ultimaVisita",
+            "columnName": "ultimaVisita",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dataContrato",
+            "columnName": "dataContrato",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dataInsercao",
+            "columnName": "dataInsercao",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "minutosRealizados",
+            "columnName": "minutosRealizados",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "periodo",
+            "columnName": "periodo",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "tipoPacote",
+            "columnName": "tipoPacote",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "anuidadeContrato",
+            "columnName": "anuidadeContrato",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "saldoCartaoVm",
+            "columnName": "saldoCartaoVm",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "notas",
+            "columnName": "notas",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "idTarefa"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": [
+          {
+            "table": "tarefas",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "idTarefa"
+            ],
+            "referencedColumns": [
+              "idTarefa"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "atividadeExecutadas",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idTarefa` INTEGER NOT NULL, `idServico` TEXT NOT NULL, `ordem` TEXT NOT NULL, `descricao` TEXT NOT NULL, `dataProgramada` INTEGER NOT NULL, `dataExecucao` INTEGER NOT NULL, PRIMARY KEY(`idTarefa`, `idServico`, `ordem`), FOREIGN KEY(`idTarefa`) REFERENCES `tarefas`(`idTarefa`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "idTarefa",
+            "columnName": "idTarefa",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idServico",
+            "columnName": "idServico",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ordem",
+            "columnName": "ordem",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "descricao",
+            "columnName": "descricao",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dataProgramada",
+            "columnName": "dataProgramada",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dataExecucao",
+            "columnName": "dataExecucao",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "idTarefa",
+            "idServico",
+            "ordem"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_atividadeExecutadas_idTarefa",
+            "unique": false,
+            "columnNames": [
+              "idTarefa"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_atividadeExecutadas_idTarefa` ON `${TABLE_NAME}` (`idTarefa`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "tarefas",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "idTarefa"
+            ],
+            "referencedColumns": [
+              "idTarefa"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "anomalias",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idTarefa` INTEGER NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `data` INTEGER NOT NULL, `descricao` TEXT NOT NULL, `observacao` TEXT, `contacto` TEXT, `tipo` TEXT NOT NULL, FOREIGN KEY(`idTarefa`) REFERENCES `tarefas`(`idTarefa`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "idTarefa",
+            "columnName": "idTarefa",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "data",
+            "columnName": "data",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "descricao",
+            "columnName": "descricao",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "observacao",
+            "columnName": "observacao",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "contacto",
+            "columnName": "contacto",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "tipo",
+            "columnName": "tipo",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_anomalias_idTarefa",
+            "unique": false,
+            "columnNames": [
+              "idTarefa"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_anomalias_idTarefa` ON `${TABLE_NAME}` (`idTarefa`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "tarefas",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "idTarefa"
+            ],
+            "referencedColumns": [
+              "idTarefa"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "atividadesPendentes",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idTarefa` INTEGER NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `dataProgramada` INTEGER NOT NULL, `descricao` TEXT NOT NULL, `servId` TEXT NOT NULL, `idRelatorio` INTEGER NOT NULL, `idChecklist` INTEGER NOT NULL DEFAULT -1, `anuidade` TEXT, FOREIGN KEY(`idTarefa`) REFERENCES `tarefas`(`idTarefa`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "idTarefa",
+            "columnName": "idTarefa",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dataProgramada",
+            "columnName": "dataProgramada",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "descricao",
+            "columnName": "descricao",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "servId",
+            "columnName": "servId",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idRelatorio",
+            "columnName": "idRelatorio",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idChecklist",
+            "columnName": "idChecklist",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "-1"
+          },
+          {
+            "fieldPath": "anuidade",
+            "columnName": "anuidade",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_atividadesPendentes_idTarefa",
+            "unique": false,
+            "columnNames": [
+              "idTarefa"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_atividadesPendentes_idTarefa` ON `${TABLE_NAME}` (`idTarefa`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "tarefas",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "idTarefa"
+            ],
+            "referencedColumns": [
+              "idTarefa"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "ocorrencias",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idTarefa` INTEGER NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `idOcorrencia` TEXT NOT NULL, `tipo` TEXT NOT NULL, `descricaoTipo` TEXT NOT NULL, `descricaoDepartamento` TEXT NOT NULL, `contrato` TEXT NOT NULL, `dataEntrada` INTEGER NOT NULL, `dataResolucao` INTEGER, `descricaoOcorrencia` TEXT NOT NULL, `marca` TEXT NOT NULL, `estado` TEXT NOT NULL, FOREIGN KEY(`idTarefa`) REFERENCES `tarefas`(`idTarefa`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "idTarefa",
+            "columnName": "idTarefa",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idOcorrencia",
+            "columnName": "idOcorrencia",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "tipo",
+            "columnName": "tipo",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "descricaoTipo",
+            "columnName": "descricaoTipo",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "descricaoDepartamento",
+            "columnName": "descricaoDepartamento",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "contrato",
+            "columnName": "contrato",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dataEntrada",
+            "columnName": "dataEntrada",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dataResolucao",
+            "columnName": "dataResolucao",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "descricaoOcorrencia",
+            "columnName": "descricaoOcorrencia",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "marca",
+            "columnName": "marca",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "estado",
+            "columnName": "estado",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_ocorrencias_idTarefa",
+            "unique": false,
+            "columnNames": [
+              "idTarefa"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_ocorrencias_idTarefa` ON `${TABLE_NAME}` (`idTarefa`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "tarefas",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "idTarefa"
+            ],
+            "referencedColumns": [
+              "idTarefa"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "ocorrenciasHistorico",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idOcorrencia` INTEGER NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `data` INTEGER NOT NULL, `estado` TEXT NOT NULL, `observacao` TEXT, `departamento` TEXT NOT NULL, FOREIGN KEY(`idOcorrencia`) REFERENCES `ocorrencias`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "idOcorrencia",
+            "columnName": "idOcorrencia",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "data",
+            "columnName": "data",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "estado",
+            "columnName": "estado",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "observacao",
+            "columnName": "observacao",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "departamento",
+            "columnName": "departamento",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_ocorrenciasHistorico_idOcorrencia",
+            "unique": false,
+            "columnNames": [
+              "idOcorrencia"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_ocorrenciasHistorico_idOcorrencia` ON `${TABLE_NAME}` (`idOcorrencia`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "ocorrencias",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "idOcorrencia"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "moradas",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idTarefa` INTEGER NOT NULL, `id` TEXT NOT NULL, `tipo` INTEGER NOT NULL, `endereco` TEXT NOT NULL, `cp4` TEXT NOT NULL, `localidade` TEXT NOT NULL, PRIMARY KEY(`idTarefa`, `id`, `tipo`), FOREIGN KEY(`idTarefa`) REFERENCES `tarefas`(`idTarefa`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "idTarefa",
+            "columnName": "idTarefa",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "tipo",
+            "columnName": "tipo",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "endereco",
+            "columnName": "endereco",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "cp4",
+            "columnName": "cp4",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "localidade",
+            "columnName": "localidade",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "idTarefa",
+            "id",
+            "tipo"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_moradas_idTarefa",
+            "unique": false,
+            "columnNames": [
+              "idTarefa"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_moradas_idTarefa` ON `${TABLE_NAME}` (`idTarefa`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "tarefas",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "idTarefa"
+            ],
+            "referencedColumns": [
+              "idTarefa"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "parqueExtintores",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idTarefa` INTEGER NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `idServico` TEXT NOT NULL, `contrato` TEXT NOT NULL, `idExtintor` TEXT NOT NULL, `quantidade` INTEGER NOT NULL, `dataValidade` INTEGER NOT NULL, `idMorada` TEXT NOT NULL, FOREIGN KEY(`idTarefa`) REFERENCES `tarefas`(`idTarefa`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "idTarefa",
+            "columnName": "idTarefa",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idServico",
+            "columnName": "idServico",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "contrato",
+            "columnName": "contrato",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idExtintor",
+            "columnName": "idExtintor",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "quantidade",
+            "columnName": "quantidade",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dataValidade",
+            "columnName": "dataValidade",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idMorada",
+            "columnName": "idMorada",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_parqueExtintores_idTarefa",
+            "unique": false,
+            "columnNames": [
+              "idTarefa"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_parqueExtintores_idTarefa` ON `${TABLE_NAME}` (`idTarefa`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "tarefas",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "idTarefa"
+            ],
+            "referencedColumns": [
+              "idTarefa"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "tiposExtintor",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idTarefa` INTEGER NOT NULL, `id` TEXT NOT NULL, `descricao` TEXT NOT NULL, PRIMARY KEY(`idTarefa`, `id`), FOREIGN KEY(`idTarefa`) REFERENCES `tarefas`(`idTarefa`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "idTarefa",
+            "columnName": "idTarefa",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "descricao",
+            "columnName": "descricao",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "idTarefa",
+            "id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_tiposExtintor_idTarefa",
+            "unique": false,
+            "columnNames": [
+              "idTarefa"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_tiposExtintor_idTarefa` ON `${TABLE_NAME}` (`idTarefa`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "tarefas",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "idTarefa"
+            ],
+            "referencedColumns": [
+              "idTarefa"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "colaboradores",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idTarefa` INTEGER NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `idColaborador` TEXT NOT NULL, `idMorada` TEXT NOT NULL, `nome` TEXT NOT NULL, `estado` TEXT NOT NULL, `sexo` TEXT NOT NULL, `dataNascimento` INTEGER NOT NULL, `nacionalidade` TEXT, FOREIGN KEY(`idTarefa`) REFERENCES `tarefas`(`idTarefa`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "idTarefa",
+            "columnName": "idTarefa",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idColaborador",
+            "columnName": "idColaborador",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idMorada",
+            "columnName": "idMorada",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nome",
+            "columnName": "nome",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "estado",
+            "columnName": "estado",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sexo",
+            "columnName": "sexo",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dataNascimento",
+            "columnName": "dataNascimento",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nacionalidade",
+            "columnName": "nacionalidade",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_colaboradores_idTarefa",
+            "unique": false,
+            "columnNames": [
+              "idTarefa"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_colaboradores_idTarefa` ON `${TABLE_NAME}` (`idTarefa`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "tarefas",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "idTarefa"
+            ],
+            "referencedColumns": [
+              "idTarefa"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "planoAcao",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idTarefa` INTEGER NOT NULL, `anuidade` TEXT NOT NULL, `tst` TEXT, `cap` TEXT, `email` TEXT, PRIMARY KEY(`idTarefa`), FOREIGN KEY(`idTarefa`) REFERENCES `tarefas`(`idTarefa`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "idTarefa",
+            "columnName": "idTarefa",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "anuidade",
+            "columnName": "anuidade",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "tst",
+            "columnName": "tst",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "cap",
+            "columnName": "cap",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "email",
+            "columnName": "email",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "idTarefa"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": [
+          {
+            "table": "tarefas",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "idTarefa"
+            ],
+            "referencedColumns": [
+              "idTarefa"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "planoAcaoAtividade",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idTarefa` INTEGER NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `servId` TEXT, `descricaoSimples` TEXT NOT NULL, `descricao` TEXT NOT NULL, `equipaSst` TEXT NOT NULL, `sempreNecessario` INTEGER NOT NULL, `dataProgramada` TEXT NOT NULL, `dataExecucao` TEXT, `reprogramada` INTEGER NOT NULL, `observacao` TEXT, `fixo` INTEGER NOT NULL, `anuidade` TEXT, FOREIGN KEY(`idTarefa`) REFERENCES `planoAcao`(`idTarefa`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "idTarefa",
+            "columnName": "idTarefa",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "servId",
+            "columnName": "servId",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "descricaoSimples",
+            "columnName": "descricaoSimples",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "descricao",
+            "columnName": "descricao",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "equipaSst",
+            "columnName": "equipaSst",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sempreNecessario",
+            "columnName": "sempreNecessario",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dataProgramada",
+            "columnName": "dataProgramada",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dataExecucao",
+            "columnName": "dataExecucao",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "reprogramada",
+            "columnName": "reprogramada",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "observacao",
+            "columnName": "observacao",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "fixo",
+            "columnName": "fixo",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "anuidade",
+            "columnName": "anuidade",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_planoAcaoAtividade_idTarefa",
+            "unique": false,
+            "columnNames": [
+              "idTarefa"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_planoAcaoAtividade_idTarefa` ON `${TABLE_NAME}` (`idTarefa`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "planoAcao",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "idTarefa"
+            ],
+            "referencedColumns": [
+              "idTarefa"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "relatorioAveriguacao",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idTarefa` INTEGER NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `data` INTEGER NOT NULL, `descricao` TEXT NOT NULL, `tipo` INTEGER NOT NULL, `idChecklist` INTEGER NOT NULL, `idArea` INTEGER NOT NULL, FOREIGN KEY(`idTarefa`) REFERENCES `tarefas`(`idTarefa`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "idTarefa",
+            "columnName": "idTarefa",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "data",
+            "columnName": "data",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "descricao",
+            "columnName": "descricao",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "tipo",
+            "columnName": "tipo",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idChecklist",
+            "columnName": "idChecklist",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idArea",
+            "columnName": "idArea",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": [
+          {
+            "table": "tarefas",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "idTarefa"
+            ],
+            "referencedColumns": [
+              "idTarefa"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "relatorioAuditoriaMedidas",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idRelatorio` INTEGER NOT NULL, `nc` TEXT NOT NULL, PRIMARY KEY(`idRelatorio`, `nc`), FOREIGN KEY(`idRelatorio`) REFERENCES `relatorioAveriguacao`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "idRelatorio",
+            "columnName": "idRelatorio",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nc",
+            "columnName": "nc",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "idRelatorio",
+            "nc"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": [
+          {
+            "table": "relatorioAveriguacao",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "idRelatorio"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "relatorioAvaliacaoRiscosMedidas",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idRelatorio` INTEGER NOT NULL, `idMedida` INTEGER NOT NULL, PRIMARY KEY(`idRelatorio`, `idMedida`), FOREIGN KEY(`idRelatorio`) REFERENCES `relatorioAveriguacao`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "idRelatorio",
+            "columnName": "idRelatorio",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idMedida",
+            "columnName": "idMedida",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "idRelatorio",
+            "idMedida"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": [
+          {
+            "table": "relatorioAveriguacao",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "idRelatorio"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "medidasAveriguacao",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `origem` INTEGER NOT NULL, `idMedida` INTEGER NOT NULL, PRIMARY KEY(`id`, `idMedida`, `origem`), FOREIGN KEY(`id`) REFERENCES `relatorioAveriguacao`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "origem",
+            "columnName": "origem",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idMedida",
+            "columnName": "idMedida",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id",
+            "idMedida",
+            "origem"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_medidasAveriguacao_id",
+            "unique": false,
+            "columnNames": [
+              "id"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_medidasAveriguacao_id` ON `${TABLE_NAME}` (`id`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "relatorioAveriguacao",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "emailsResultado",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idTarefa` INTEGER NOT NULL, `endereco` TEXT, `autorizacao` TEXT NOT NULL, `idAutorizacao` INTEGER NOT NULL, `autorizado` INTEGER NOT NULL DEFAULT 0, PRIMARY KEY(`idTarefa`), FOREIGN KEY(`idTarefa`) REFERENCES `tarefas`(`idTarefa`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "idTarefa",
+            "columnName": "idTarefa",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "endereco",
+            "columnName": "endereco",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "autorizacao",
+            "columnName": "autorizacao",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idAutorizacao",
+            "columnName": "idAutorizacao",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "autorizado",
+            "columnName": "autorizado",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "idTarefa"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": [
+          {
+            "table": "tarefas",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "idTarefa"
+            ],
+            "referencedColumns": [
+              "idTarefa"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "anomaliasResultado",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idTarefa` INTEGER NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `idAnomalia` INTEGER NOT NULL, `observacao` TEXT, FOREIGN KEY(`idTarefa`) REFERENCES `tarefas`(`idTarefa`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "idTarefa",
+            "columnName": "idTarefa",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idAnomalia",
+            "columnName": "idAnomalia",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "observacao",
+            "columnName": "observacao",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_anomaliasResultado_idTarefa",
+            "unique": false,
+            "columnNames": [
+              "idTarefa"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_anomaliasResultado_idTarefa` ON `${TABLE_NAME}` (`idTarefa`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "tarefas",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "idTarefa"
+            ],
+            "referencedColumns": [
+              "idTarefa"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "formandosResultado",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idAtividade` INTEGER NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `nome` TEXT NOT NULL, `biCartaoCidadao` TEXT NOT NULL, `sexo` TEXT NOT NULL, `niss` TEXT NOT NULL, `dataNascimento` INTEGER NOT NULL, `naturalidade` TEXT NOT NULL, `nacionalidade` TEXT NOT NULL, `selecionado` INTEGER NOT NULL DEFAULT 0, `origem` INTEGER NOT NULL DEFAULT 1, FOREIGN KEY(`idAtividade`) REFERENCES `atividadesPendentes`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "idAtividade",
+            "columnName": "idAtividade",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nome",
+            "columnName": "nome",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "biCartaoCidadao",
+            "columnName": "biCartaoCidadao",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sexo",
+            "columnName": "sexo",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "niss",
+            "columnName": "niss",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dataNascimento",
+            "columnName": "dataNascimento",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "naturalidade",
+            "columnName": "naturalidade",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nacionalidade",
+            "columnName": "nacionalidade",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "selecionado",
+            "columnName": "selecionado",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "origem",
+            "columnName": "origem",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "1"
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_formandosResultado_idAtividade",
+            "unique": false,
+            "columnNames": [
+              "idAtividade"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_formandosResultado_idAtividade` ON `${TABLE_NAME}` (`idAtividade`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "atividadesPendentes",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "idAtividade"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "acoesFormacaoResultado",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idAtividade` INTEGER NOT NULL, `idDesignacao` INTEGER NOT NULL, `local` TEXT NOT NULL, `data` INTEGER NOT NULL, `inicio` INTEGER NOT NULL, `termino` INTEGER NOT NULL, PRIMARY KEY(`idAtividade`), FOREIGN KEY(`idAtividade`) REFERENCES `atividadesPendentes`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "idAtividade",
+            "columnName": "idAtividade",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idDesignacao",
+            "columnName": "idDesignacao",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "local",
+            "columnName": "local",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "data",
+            "columnName": "data",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "inicio",
+            "columnName": "inicio",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "termino",
+            "columnName": "termino",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "idAtividade"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_acoesFormacaoResultado_idAtividade",
+            "unique": false,
+            "columnNames": [
+              "idAtividade"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_acoesFormacaoResultado_idAtividade` ON `${TABLE_NAME}` (`idAtividade`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "atividadesPendentes",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "idAtividade"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "atividadesPendentesResultado",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `idEstado` INTEGER NOT NULL, `tempoExecucao` TEXT, `dataExecucao` INTEGER, `idAnomalia` INTEGER NOT NULL DEFAULT -1, `observacao` TEXT, PRIMARY KEY(`id`), FOREIGN KEY(`id`) REFERENCES `atividadesPendentes`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idEstado",
+            "columnName": "idEstado",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "tempoExecucao",
+            "columnName": "tempoExecucao",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dataExecucao",
+            "columnName": "dataExecucao",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "idAnomalia",
+            "columnName": "idAnomalia",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "-1"
+          },
+          {
+            "fieldPath": "observacao",
+            "columnName": "observacao",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_atividadesPendentesResultado_id",
+            "unique": false,
+            "columnNames": [
+              "id"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_atividadesPendentesResultado_id` ON `${TABLE_NAME}` (`id`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "atividadesPendentes",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "crossSellingResultado",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idTarefa` INTEGER NOT NULL, `id` INTEGER NOT NULL, `idAreaRecomendacao` INTEGER NOT NULL, `idDimensao` INTEGER NOT NULL DEFAULT -1, `idTipo` INTEGER NOT NULL DEFAULT -1, PRIMARY KEY(`id`, `idTarefa`), FOREIGN KEY(`idTarefa`) REFERENCES `tarefas`(`idTarefa`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "idTarefa",
+            "columnName": "idTarefa",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idAreaRecomendacao",
+            "columnName": "idAreaRecomendacao",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idDimensao",
+            "columnName": "idDimensao",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "-1"
+          },
+          {
+            "fieldPath": "idTipo",
+            "columnName": "idTipo",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "-1"
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id",
+            "idTarefa"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_crossSellingResultado_idTarefa",
+            "unique": false,
+            "columnNames": [
+              "idTarefa"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_crossSellingResultado_idTarefa` ON `${TABLE_NAME}` (`idTarefa`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "tarefas",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "idTarefa"
+            ],
+            "referencedColumns": [
+              "idTarefa"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "ocorrenciaResultado",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idTarefa` INTEGER NOT NULL, `id` INTEGER NOT NULL, `observacao` TEXT, `fiscalizado` INTEGER NOT NULL, `dias` TEXT, PRIMARY KEY(`idTarefa`, `id`), FOREIGN KEY(`idTarefa`) REFERENCES `tarefas`(`idTarefa`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "idTarefa",
+            "columnName": "idTarefa",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "observacao",
+            "columnName": "observacao",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "fiscalizado",
+            "columnName": "fiscalizado",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dias",
+            "columnName": "dias",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "idTarefa",
+            "id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_ocorrenciaResultado_idTarefa",
+            "unique": false,
+            "columnNames": [
+              "idTarefa"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_ocorrenciaResultado_idTarefa` ON `${TABLE_NAME}` (`idTarefa`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "tarefas",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "idTarefa"
+            ],
+            "referencedColumns": [
+              "idTarefa"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "planoAccaoResultado",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idTarefa` INTEGER NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `idAtividadePlano` INTEGER NOT NULL, `servId` TEXT, `data` TEXT, FOREIGN KEY(`idAtividadePlano`) REFERENCES `planoAcaoAtividade`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "idTarefa",
+            "columnName": "idTarefa",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idAtividadePlano",
+            "columnName": "idAtividadePlano",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "servId",
+            "columnName": "servId",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "data",
+            "columnName": "data",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_planoAccaoResultado_idTarefa",
+            "unique": false,
+            "columnNames": [
+              "idTarefa"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_planoAccaoResultado_idTarefa` ON `${TABLE_NAME}` (`idTarefa`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "planoAcaoAtividade",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "idAtividadePlano"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "imagensResultado",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idTarefa` INTEGER NOT NULL, `idImagem` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `id` INTEGER NOT NULL, `origem` INTEGER NOT NULL, `capaRelatorio` INTEGER NOT NULL DEFAULT 0, `imagem` BLOB NOT NULL, `criado` INTEGER NOT NULL DEFAULT CURRENT_TIMESTAMP, FOREIGN KEY(`idTarefa`) REFERENCES `tarefas`(`idTarefa`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "idTarefa",
+            "columnName": "idTarefa",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idImagem",
+            "columnName": "idImagem",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "origem",
+            "columnName": "origem",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "capaRelatorio",
+            "columnName": "capaRelatorio",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "imagem",
+            "columnName": "imagem",
+            "affinity": "BLOB",
+            "notNull": true
+          },
+          {
+            "fieldPath": "criado",
+            "columnName": "criado",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "CURRENT_TIMESTAMP"
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "idImagem"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_imagensResultado_idTarefa",
+            "unique": false,
+            "columnNames": [
+              "idTarefa"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_imagensResultado_idTarefa` ON `${TABLE_NAME}` (`idTarefa`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "tarefas",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "idTarefa"
+            ],
+            "referencedColumns": [
+              "idTarefa"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "sinistralidadesResultado",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idTarefa` INTEGER NOT NULL, `acidentesComBaixa` INTEGER NOT NULL, `diasUteisPerdidos` REAL NOT NULL, `totalTrabalhadores` INTEGER NOT NULL, `horasAnoTrabalhadores` REAL NOT NULL, `faltas` REAL NOT NULL, PRIMARY KEY(`idTarefa`), FOREIGN KEY(`idTarefa`) REFERENCES `tarefas`(`idTarefa`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "idTarefa",
+            "columnName": "idTarefa",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "acidentesComBaixa",
+            "columnName": "acidentesComBaixa",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "diasUteisPerdidos",
+            "columnName": "diasUteisPerdidos",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "totalTrabalhadores",
+            "columnName": "totalTrabalhadores",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "horasAnoTrabalhadores",
+            "columnName": "horasAnoTrabalhadores",
+            "affinity": "REAL",
+            "notNull": true
+          },
+          {
+            "fieldPath": "faltas",
+            "columnName": "faltas",
+            "affinity": "REAL",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "idTarefa"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": [
+          {
+            "table": "tarefas",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "idTarefa"
+            ],
+            "referencedColumns": [
+              "idTarefa"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "parqueExtintoresResultado",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `valido` INTEGER NOT NULL, `dataValidade` INTEGER NOT NULL, PRIMARY KEY(`id`), FOREIGN KEY(`id`) REFERENCES `parqueExtintores`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "valido",
+            "columnName": "valido",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "dataValidade",
+            "columnName": "dataValidade",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": [
+          {
+            "table": "parqueExtintores",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "categoriasProfissionaisResultado",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `idCategoriaProfissional` INTEGER NOT NULL, `idRegisto` INTEGER NOT NULL, `origem` INTEGER NOT NULL, `homens` INTEGER NOT NULL DEFAULT 0, `mulheres` INTEGER NOT NULL DEFAULT 0)",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idCategoriaProfissional",
+            "columnName": "idCategoriaProfissional",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idRegisto",
+            "columnName": "idRegisto",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "origem",
+            "columnName": "origem",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "homens",
+            "columnName": "homens",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "mulheres",
+            "columnName": "mulheres",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "medidasResultado",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `origem` INTEGER NOT NULL, `idMedida` INTEGER NOT NULL, PRIMARY KEY(`id`, `idMedida`, `origem`))",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "origem",
+            "columnName": "origem",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idMedida",
+            "columnName": "idMedida",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id",
+            "idMedida",
+            "origem"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
+      {
+        "tableName": "colaboradoresResultado",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idTarefa` INTEGER NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `idRegisto` TEXT, `nome` TEXT, `idMorada` TEXT, `estado` TEXT, `dataNascimento` INTEGER, `sexo` TEXT, `nacionalidade` TEXT, `dataAdmissao` INTEGER, `dataAdmissaoFuncao` INTEGER, `idCategoriaProfissional` INTEGER NOT NULL DEFAULT 0, `profissao` TEXT, `posto` TEXT, `origem` INTEGER NOT NULL, FOREIGN KEY(`idRegisto`) REFERENCES `colaboradores`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "idTarefa",
+            "columnName": "idTarefa",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idRegisto",
+            "columnName": "idRegisto",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "nome",
+            "columnName": "nome",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "idMorada",
+            "columnName": "idMorada",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "estado",
+            "columnName": "estado",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dataNascimento",
+            "columnName": "dataNascimento",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "sexo",
+            "columnName": "sexo",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "nacionalidade",
+            "columnName": "nacionalidade",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dataAdmissao",
+            "columnName": "dataAdmissao",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "dataAdmissaoFuncao",
+            "columnName": "dataAdmissaoFuncao",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "idCategoriaProfissional",
+            "columnName": "idCategoriaProfissional",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "profissao",
+            "columnName": "profissao",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "posto",
+            "columnName": "posto",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "origem",
+            "columnName": "origem",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": [
+          {
+            "table": "colaboradores",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "idRegisto"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "relatorioAmbientalResultado",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idAtividade` INTEGER NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `tipo` INTEGER NOT NULL, `marca` TEXT NOT NULL, `numeroSerie` TEXT NOT NULL, `data` INTEGER NOT NULL, `inicio` INTEGER NOT NULL, `termino` INTEGER NOT NULL, `idNebulosidade` INTEGER NOT NULL, FOREIGN KEY(`idAtividade`) REFERENCES `atividadesPendentes`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "idAtividade",
+            "columnName": "idAtividade",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "tipo",
+            "columnName": "tipo",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "marca",
+            "columnName": "marca",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "numeroSerie",
+            "columnName": "numeroSerie",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "data",
+            "columnName": "data",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "inicio",
+            "columnName": "inicio",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "termino",
+            "columnName": "termino",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idNebulosidade",
+            "columnName": "idNebulosidade",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_relatorioAmbientalResultado_idAtividade",
+            "unique": false,
+            "columnNames": [
+              "idAtividade"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_relatorioAmbientalResultado_idAtividade` ON `${TABLE_NAME}` (`idAtividade`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "atividadesPendentes",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "idAtividade"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "avaliacoesAmbientaisResultado",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idRelatorio` INTEGER NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `idArea` INTEGER NOT NULL, `anexoArea` TEXT, `nome` TEXT, `sexo` INTEGER NOT NULL DEFAULT 1, `tipoIluminacao` INTEGER NOT NULL DEFAULT -1, `emedioLx` INTEGER NOT NULL DEFAULT -1, `eLxArea` INTEGER NOT NULL DEFAULT -1, `eLx` TEXT, `idElx` INTEGER NOT NULL DEFAULT -1, `temperatura` REAL NOT NULL DEFAULT 0, `humidadeRelativa` REAL NOT NULL DEFAULT 0, `homens` INTEGER NOT NULL DEFAULT 0, `mulheres` INTEGER NOT NULL DEFAULT 0, FOREIGN KEY(`idRelatorio`) REFERENCES `relatorioAmbientalResultado`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "idRelatorio",
+            "columnName": "idRelatorio",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idArea",
+            "columnName": "idArea",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "anexoArea",
+            "columnName": "anexoArea",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "nome",
+            "columnName": "nome",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "sexo",
+            "columnName": "sexo",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "1"
+          },
+          {
+            "fieldPath": "tipoIluminacao",
+            "columnName": "tipoIluminacao",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "-1"
+          },
+          {
+            "fieldPath": "emedioLx",
+            "columnName": "emedioLx",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "-1"
+          },
+          {
+            "fieldPath": "eLxArea",
+            "columnName": "eLxArea",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "-1"
+          },
+          {
+            "fieldPath": "eLx",
+            "columnName": "eLx",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "idElx",
+            "columnName": "idElx",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "-1"
+          },
+          {
+            "fieldPath": "temperatura",
+            "columnName": "temperatura",
+            "affinity": "REAL",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "humidadeRelativa",
+            "columnName": "humidadeRelativa",
+            "affinity": "REAL",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "homens",
+            "columnName": "homens",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "mulheres",
+            "columnName": "mulheres",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_avaliacoesAmbientaisResultado_idRelatorio",
+            "unique": false,
+            "columnNames": [
+              "idRelatorio"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_avaliacoesAmbientaisResultado_idRelatorio` ON `${TABLE_NAME}` (`idRelatorio`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "relatorioAmbientalResultado",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "idRelatorio"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "trabalhoRealizadoResultado",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idTarefa` INTEGER NOT NULL, `id` INTEGER NOT NULL, `informacao` TEXT, PRIMARY KEY(`idTarefa`, `id`), FOREIGN KEY(`idTarefa`) REFERENCES `tarefas`(`idTarefa`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "idTarefa",
+            "columnName": "idTarefa",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "informacao",
+            "columnName": "informacao",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "idTarefa",
+            "id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_trabalhoRealizadoResultado_idTarefa",
+            "unique": false,
+            "columnNames": [
+              "idTarefa"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_trabalhoRealizadoResultado_idTarefa` ON `${TABLE_NAME}` (`idTarefa`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "tarefas",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "idTarefa"
+            ],
+            "referencedColumns": [
+              "idTarefa"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "registoVisitaResultado",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idTarefa` INTEGER NOT NULL, `recebidoPor` TEXT NOT NULL, `funcao` TEXT NOT NULL, `observacao` TEXT, `homologado` INTEGER NOT NULL DEFAULT 0, `sincronizacao` INTEGER NOT NULL DEFAULT 0, PRIMARY KEY(`idTarefa`), FOREIGN KEY(`idTarefa`) REFERENCES `tarefas`(`idTarefa`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "idTarefa",
+            "columnName": "idTarefa",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "recebidoPor",
+            "columnName": "recebidoPor",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "funcao",
+            "columnName": "funcao",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "observacao",
+            "columnName": "observacao",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "homologado",
+            "columnName": "homologado",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "sincronizacao",
+            "columnName": "sincronizacao",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "idTarefa"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": [
+          {
+            "table": "tarefas",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "idTarefa"
+            ],
+            "referencedColumns": [
+              "idTarefa"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "obrigacaoLegalResultado",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idTarefa` INTEGER NOT NULL, `id` INTEGER NOT NULL, PRIMARY KEY(`idTarefa`, `id`), FOREIGN KEY(`idTarefa`) REFERENCES `tarefas`(`idTarefa`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "idTarefa",
+            "columnName": "idTarefa",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "idTarefa",
+            "id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [
+          {
+            "name": "index_obrigacaoLegalResultado_idTarefa",
+            "unique": false,
+            "columnNames": [
+              "idTarefa"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_obrigacaoLegalResultado_idTarefa` ON `${TABLE_NAME}` (`idTarefa`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "tarefas",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "idTarefa"
+            ],
+            "referencedColumns": [
+              "idTarefa"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "informacaoSstResultado",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idTarefa` INTEGER NOT NULL, `responsavel` TEXT, `sincronizacao` INTEGER NOT NULL DEFAULT 0, PRIMARY KEY(`idTarefa`), FOREIGN KEY(`idTarefa`) REFERENCES `tarefas`(`idTarefa`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "idTarefa",
+            "columnName": "idTarefa",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "responsavel",
+            "columnName": "responsavel",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "sincronizacao",
+            "columnName": "sincronizacao",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "idTarefa"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": [
+          {
+            "table": "tarefas",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "idTarefa"
+            ],
+            "referencedColumns": [
+              "idTarefa"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "certificadoTratamentoResultado",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `idAtividade` INTEGER NOT NULL, `idPraga` INTEGER NOT NULL, `idVisita` INTEGER NOT NULL, `idProdutoAplicado` INTEGER NOT NULL, `avaliacaoCondicoesHigiene` INTEGER NOT NULL, `avaliacaoManutencaoInstalacoes` INTEGER NOT NULL, `avaliacaoCondicoesArmazenamento` INTEGER NOT NULL, `observacaoVestigiosPragas` INTEGER NOT NULL DEFAULT 0, `observacaoProdutosEmGel` INTEGER NOT NULL DEFAULT 0, `observacao` TEXT, `sincronizacao` INTEGER NOT NULL DEFAULT 0, FOREIGN KEY(`idAtividade`) REFERENCES `atividadesPendentes`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idAtividade",
+            "columnName": "idAtividade",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idPraga",
+            "columnName": "idPraga",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idVisita",
+            "columnName": "idVisita",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idProdutoAplicado",
+            "columnName": "idProdutoAplicado",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "avaliacaoCondicoesHigiene",
+            "columnName": "avaliacaoCondicoesHigiene",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "avaliacaoManutencaoInstalacoes",
+            "columnName": "avaliacaoManutencaoInstalacoes",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "avaliacaoCondicoesArmazenamento",
+            "columnName": "avaliacaoCondicoesArmazenamento",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "observacaoVestigiosPragas",
+            "columnName": "observacaoVestigiosPragas",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "observacaoProdutosEmGel",
+            "columnName": "observacaoProdutosEmGel",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "observacao",
+            "columnName": "observacao",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "sincronizacao",
+            "columnName": "sincronizacao",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_certificadoTratamentoResultado_idAtividade",
+            "unique": false,
+            "columnNames": [
+              "idAtividade"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_certificadoTratamentoResultado_idAtividade` ON `${TABLE_NAME}` (`idAtividade`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "atividadesPendentes",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "idAtividade"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "levantamentosRiscoResultado",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idAtividade` INTEGER NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `tarefa` TEXT NOT NULL, `perigo` TEXT NOT NULL, `idModelo` INTEGER NOT NULL, `idTipoLevantamento` INTEGER NOT NULL, `origem` INTEGER NOT NULL, FOREIGN KEY(`idAtividade`) REFERENCES `atividadesPendentes`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "idAtividade",
+            "columnName": "idAtividade",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "tarefa",
+            "columnName": "tarefa",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "perigo",
+            "columnName": "perigo",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idModelo",
+            "columnName": "idModelo",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idTipoLevantamento",
+            "columnName": "idTipoLevantamento",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "origem",
+            "columnName": "origem",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_levantamentosRiscoResultado_idAtividade",
+            "unique": false,
+            "columnNames": [
+              "idAtividade"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_levantamentosRiscoResultado_idAtividade` ON `${TABLE_NAME}` (`idAtividade`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "atividadesPendentes",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "idAtividade"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "processosProdutivosResultado",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `descricao` TEXT NOT NULL, PRIMARY KEY(`id`), FOREIGN KEY(`id`) REFERENCES `atividadesPendentes`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "descricao",
+            "columnName": "descricao",
+            "affinity": "TEXT",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": [
+          {
+            "table": "atividadesPendentes",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "id"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "trabalhadoresVulneraveisResultado",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idAtividade` INTEGER NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `idVulnerabilidade` INTEGER NOT NULL, `homens` INTEGER NOT NULL DEFAULT 0, `mulheres` INTEGER NOT NULL DEFAULT 0, `origem` INTEGER NOT NULL DEFAULT 4, FOREIGN KEY(`idAtividade`) REFERENCES `atividadesPendentes`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "idAtividade",
+            "columnName": "idAtividade",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idVulnerabilidade",
+            "columnName": "idVulnerabilidade",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "homens",
+            "columnName": "homens",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "mulheres",
+            "columnName": "mulheres",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "origem",
+            "columnName": "origem",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "4"
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_trabalhadoresVulneraveisResultado_idAtividade",
+            "unique": false,
+            "columnNames": [
+              "idAtividade"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_trabalhadoresVulneraveisResultado_idAtividade` ON `${TABLE_NAME}` (`idAtividade`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "atividadesPendentes",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "idAtividade"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "areasChecklistResultado",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idAtividade` INTEGER NOT NULL, `idChecklist` INTEGER NOT NULL, `idArea` INTEGER NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `subDescricao` TEXT, FOREIGN KEY(`idAtividade`) REFERENCES `atividadesPendentes`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "idAtividade",
+            "columnName": "idAtividade",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idChecklist",
+            "columnName": "idChecklist",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idArea",
+            "columnName": "idArea",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "subDescricao",
+            "columnName": "subDescricao",
+            "affinity": "TEXT",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": [
+          {
+            "table": "atividadesPendentes",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "idAtividade"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "questionarioChecklistResultado",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idArea` INTEGER NOT NULL, `idSeccao` TEXT NOT NULL, `idItem` TEXT NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `tipo` TEXT NOT NULL, `resposta` TEXT, `nr` TEXT, `ni` TEXT, `ut1` INTEGER NOT NULL DEFAULT 0, `ut1_CategoriasRisco` INTEGER NOT NULL DEFAULT 0, `ut1_LocalRisco_A` INTEGER NOT NULL DEFAULT 0, `ut1_LocalRisco_B` INTEGER NOT NULL DEFAULT 0, `ut1_LocalRisco_C` INTEGER NOT NULL DEFAULT 0, `ut1_LocalRisco_D` INTEGER NOT NULL DEFAULT 0, `ut1_LocalRisco_E` INTEGER NOT NULL DEFAULT 0, `ut1_LocalRisco_F` INTEGER NOT NULL DEFAULT 0, `ut2` INTEGER NOT NULL DEFAULT 0, `ut2_CategoriasRisco` INTEGER NOT NULL DEFAULT 0, `ut2_LocalRisco_A` INTEGER NOT NULL DEFAULT 0, `ut2_LocalRisco_B` INTEGER NOT NULL DEFAULT 0, `ut2_LocalRisco_C` INTEGER NOT NULL DEFAULT 0, `ut2_LocalRisco_D` INTEGER NOT NULL DEFAULT 0, `ut2_LocalRisco_E` INTEGER NOT NULL DEFAULT 0, `ut2_LocalRisco_F` INTEGER NOT NULL DEFAULT 0, `observacao` TEXT, `origem` INTEGER NOT NULL, FOREIGN KEY(`idArea`) REFERENCES `areasChecklistResultado`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "idArea",
+            "columnName": "idArea",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idSeccao",
+            "columnName": "idSeccao",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idItem",
+            "columnName": "idItem",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "tipo",
+            "columnName": "tipo",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "resposta",
+            "columnName": "resposta",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "nr",
+            "columnName": "nr",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "ni",
+            "columnName": "ni",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "ut1",
+            "columnName": "ut1",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "ut1_CategoriasRisco",
+            "columnName": "ut1_CategoriasRisco",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "ut1_LocalRisco_A",
+            "columnName": "ut1_LocalRisco_A",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "ut1_LocalRisco_B",
+            "columnName": "ut1_LocalRisco_B",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "ut1_LocalRisco_C",
+            "columnName": "ut1_LocalRisco_C",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "ut1_LocalRisco_D",
+            "columnName": "ut1_LocalRisco_D",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "ut1_LocalRisco_E",
+            "columnName": "ut1_LocalRisco_E",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "ut1_LocalRisco_F",
+            "columnName": "ut1_LocalRisco_F",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "ut2",
+            "columnName": "ut2",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "ut2_CategoriasRisco",
+            "columnName": "ut2_CategoriasRisco",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "ut2_LocalRisco_A",
+            "columnName": "ut2_LocalRisco_A",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "ut2_LocalRisco_B",
+            "columnName": "ut2_LocalRisco_B",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "ut2_LocalRisco_C",
+            "columnName": "ut2_LocalRisco_C",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "ut2_LocalRisco_D",
+            "columnName": "ut2_LocalRisco_D",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "ut2_LocalRisco_E",
+            "columnName": "ut2_LocalRisco_E",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "ut2_LocalRisco_F",
+            "columnName": "ut2_LocalRisco_F",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "observacao",
+            "columnName": "observacao",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "origem",
+            "columnName": "origem",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": [
+          {
+            "table": "areasChecklistResultado",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "idArea"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "propostaPlanoAcaoResultado",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idAtividade` INTEGER NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `origem` INTEGER NOT NULL DEFAULT 0, `idQuestao` INTEGER NOT NULL DEFAULT 0, `idMedida` INTEGER NOT NULL DEFAULT 0, `idNi` INTEGER NOT NULL DEFAULT 0, `idPrazo` INTEGER NOT NULL DEFAULT 0, `selecionado` INTEGER NOT NULL DEFAULT 0, FOREIGN KEY(`idAtividade`) REFERENCES `atividadesPendentes`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "idAtividade",
+            "columnName": "idAtividade",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "origem",
+            "columnName": "origem",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "idQuestao",
+            "columnName": "idQuestao",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "idMedida",
+            "columnName": "idMedida",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "idNi",
+            "columnName": "idNi",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "idPrazo",
+            "columnName": "idPrazo",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          },
+          {
+            "fieldPath": "selecionado",
+            "columnName": "selecionado",
+            "affinity": "INTEGER",
+            "notNull": true,
+            "defaultValue": "0"
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_propostaPlanoAcaoResultado_idAtividade",
+            "unique": false,
+            "columnNames": [
+              "idAtividade"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_propostaPlanoAcaoResultado_idAtividade` ON `${TABLE_NAME}` (`idAtividade`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "atividadesPendentes",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "idAtividade"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "riscosResultado",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idLevantamento` INTEGER NOT NULL, `id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `idRisco` INTEGER NOT NULL, `idRiscoEspecifico` INTEGER NOT NULL, `consequencias` TEXT NOT NULL, `nd` TEXT NOT NULL, `ne` TEXT NOT NULL, `nc` TEXT NOT NULL, `ni` TEXT NOT NULL, `idTipoRisco` INTEGER NOT NULL, `origem` INTEGER NOT NULL, FOREIGN KEY(`idLevantamento`) REFERENCES `levantamentosRiscoResultado`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "idLevantamento",
+            "columnName": "idLevantamento",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idRisco",
+            "columnName": "idRisco",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idRiscoEspecifico",
+            "columnName": "idRiscoEspecifico",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "consequencias",
+            "columnName": "consequencias",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nd",
+            "columnName": "nd",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ne",
+            "columnName": "ne",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nc",
+            "columnName": "nc",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "ni",
+            "columnName": "ni",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idTipoRisco",
+            "columnName": "idTipoRisco",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "origem",
+            "columnName": "origem",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [
+          {
+            "name": "index_riscosResultado_idLevantamento",
+            "unique": false,
+            "columnNames": [
+              "idLevantamento"
+            ],
+            "createSql": "CREATE INDEX IF NOT EXISTS `index_riscosResultado_idLevantamento` ON `${TABLE_NAME}` (`idLevantamento`)"
+          }
+        ],
+        "foreignKeys": [
+          {
+            "table": "levantamentosRiscoResultado",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "idLevantamento"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "verificacaoEquipamentosResultado",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idAtividade` INTEGER NOT NULL, `idEquipamento` INTEGER NOT NULL, `codigo` INTEGER NOT NULL, PRIMARY KEY(`idAtividade`, `idEquipamento`, `codigo`), FOREIGN KEY(`idAtividade`) REFERENCES `atividadesPendentes`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "idAtividade",
+            "columnName": "idAtividade",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idEquipamento",
+            "columnName": "idEquipamento",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "codigo",
+            "columnName": "codigo",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "idAtividade",
+            "idEquipamento",
+            "codigo"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": [
+          {
+            "table": "atividadesPendentes",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "idAtividade"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "relatorioAveriguacaoResultado",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `idRelatorio` INTEGER NOT NULL, `implementado` INTEGER NOT NULL, `idMedida` INTEGER NOT NULL, `nc` TEXT, `risco` TEXT, `idPonderacao` INTEGER NOT NULL, `data` INTEGER, FOREIGN KEY(`idRelatorio`) REFERENCES `relatorioAveriguacao`(`id`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idRelatorio",
+            "columnName": "idRelatorio",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "implementado",
+            "columnName": "implementado",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "idMedida",
+            "columnName": "idMedida",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "nc",
+            "columnName": "nc",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "risco",
+            "columnName": "risco",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "idPonderacao",
+            "columnName": "idPonderacao",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "data",
+            "columnName": "data",
+            "affinity": "INTEGER",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "id"
+          ],
+          "autoGenerate": true
+        },
+        "indices": [],
+        "foreignKeys": [
+          {
+            "table": "relatorioAveriguacao",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "idRelatorio"
+            ],
+            "referencedColumns": [
+              "id"
+            ]
+          }
+        ]
+      },
+      {
+        "tableName": "resultados",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`idTarefa` INTEGER NOT NULL, `id` INTEGER NOT NULL, `sincronizado` INTEGER NOT NULL, PRIMARY KEY(`idTarefa`, `id`), FOREIGN KEY(`idTarefa`) REFERENCES `tarefas`(`idTarefa`) ON UPDATE NO ACTION ON DELETE CASCADE )",
+        "fields": [
+          {
+            "fieldPath": "idTarefa",
+            "columnName": "idTarefa",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "id",
+            "columnName": "id",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "sincronizado",
+            "columnName": "sincronizado",
+            "affinity": "INTEGER",
+            "notNull": true
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "idTarefa",
+            "id"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": [
+          {
+            "table": "tarefas",
+            "onDelete": "CASCADE",
+            "onUpdate": "NO ACTION",
+            "columns": [
+              "idTarefa"
+            ],
+            "referencedColumns": [
+              "idTarefa"
+            ]
+          }
+        ]
+      }
+    ],
+    "views": [],
+    "setupQueries": [
+      "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'd279a1ca7732d90c011ba6144dbfe3b9')"
+    ]
+  }
+}

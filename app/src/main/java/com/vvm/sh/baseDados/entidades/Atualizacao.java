@@ -10,7 +10,7 @@ import androidx.room.PrimaryKey;
 
 
 @Entity(tableName = "atualizacoes",
-        indices = {@Index(value="descricao", unique = true), @Index(value="api") },
+        indices = {@Index(value="descricao", unique = false), @Index(value="api", unique = false) },
         primaryKeys = {"descricao", "api"})
 public class Atualizacao {
 

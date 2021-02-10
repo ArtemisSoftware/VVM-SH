@@ -77,6 +77,34 @@ public class CarregamentoTiposRepositorio {
     }
 
 
+    public void carregarTipo_(Atualizacao atualizacao, List<Tipo> dadosNovos, List<Tipo> dadosAlteradaos){
+
+        atualizacaoDao.remover(atualizacao.descricao, atualizacao.api);
+
+//        atualizacaoDao.remover(atualizacao.descricao);
+//        tipoDao.removerTipo(atualizacao.descricao);
+//
+        atualizacaoDao.inserirRegisto(atualizacao);
+        tipoDao.inserir(dadosNovos);
+        tipoDao.atualizar(dadosAlteradaos);
+    }
+
+
+    public void recarregarTipo(List<Atualizacao> atualizacoes, List<Tipo> dadosNovos, List<Tipo> dadosAlteradaos){
+
+        for (Atualizacao atualizacao: atualizacoes) {
+            atualizacaoDao.remover(atualizacao.descricao);
+        }
+
+//        tipoDao.removerTipo(atualizacao.descricao);
+//
+//        atualizacaoDao.inserirRegisto(atualizacao);
+//        tipoDao.inserir(dadosNovos);
+//        tipoDao.atualizar(dadosAlteradaos);
+    }
+
+
+
 
     /**
      * Metodo que permite atualizar um tipo<br>

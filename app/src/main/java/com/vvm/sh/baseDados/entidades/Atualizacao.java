@@ -10,8 +10,8 @@ import androidx.room.PrimaryKey;
 
 
 @Entity(tableName = "atualizacoes",
-        indices = {@Index(value="descricao", unique = false) },
-        primaryKeys = {"descricao"})
+        indices = {@Index(value="descricao", unique = true), @Index(value="api") },
+        primaryKeys = {"descricao", "api"})
 public class Atualizacao {
 
 
@@ -21,6 +21,8 @@ public class Atualizacao {
     @NonNull
     public int tipo;
 
+    @NonNull
+    public int api;
 
     @ColumnInfo(name = "seloTemporal")
     public String seloTemporal;
@@ -38,10 +40,11 @@ public class Atualizacao {
     }
 
 
-    public Atualizacao(String descricao, int tipo, String seloTemporal) {
+    public Atualizacao(String descricao, int tipo, String seloTemporal, int api) {
         this.descricao = descricao;
         this.tipo = tipo;
         this.seloTemporal = seloTemporal;
+        this.api = api;
     }
 
 
@@ -63,5 +66,13 @@ public class Atualizacao {
 
     public void setSeloTemporal(String seloTemporal) {
         this.seloTemporal = seloTemporal;
+    }
+
+    public int getApi() {
+        return api;
+    }
+
+    public void setApi(int api) {
+        this.api = api;
     }
 }

@@ -16,10 +16,19 @@ import static androidx.room.ForeignKey.CASCADE;
 @Entity(tableName = "tipos",
         indices = {@Index(value="tipo", unique = false) },
         primaryKeys = {"id","tipo","api"},
-        foreignKeys = @ForeignKey(entity = Atualizacao.class,
-                                    parentColumns = "descricao",
-                                    childColumns = "tipo",
-                                    onDelete = CASCADE))
+        foreignKeys = {
+            @ForeignKey(entity = Atualizacao.class,
+                        parentColumns = "descricao",
+                        childColumns = "tipo",
+                        onDelete = CASCADE),
+
+//                @ForeignKey(entity = Atualizacao.class,
+//                        parentColumns = "api",
+//                        childColumns = "api",
+//                        onDelete = CASCADE)
+        }
+)
+
 public class Tipo implements EstadoModelo {
 
     @NonNull

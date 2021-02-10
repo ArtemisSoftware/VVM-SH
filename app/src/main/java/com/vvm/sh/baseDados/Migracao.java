@@ -17,11 +17,43 @@ public class Migracao {
                 MIGRACAO_1_2, MIGRACAO_2_3, MIGRACAO_3_4, MIGRACAO_4_5, MIGRACAO_5_6, MIGRACAO_6_7, MIGRACAO_7_8, MIGRACAO_8_9, MIGRACAO_9_10,
                 MIGRACAO_10_11, MIGRACAO_11_12, MIGRACAO_12_13, MIGRACAO_13_14, MIGRACAO_14_15, MIGRACAO_15_16, MIGRACAO_16_17, MIGRACAO_17_18, MIGRACAO_18_19, MIGRACAO_19_20,
                 MIGRACAO_20_21, MIGRACAO_21_22, MIGRACAO_22_23, MIGRACAO_23_24, MIGRACAO_24_25, MIGRACAO_25_26, MIGRACAO_26_27, MIGRACAO_27_28, MIGRACAO_28_29, MIGRACAO_29_30,
-                MIGRACAO_30_31, MIGRACAO_31_32, MIGRACAO_32_33, MIGRACAO_33_34, MIGRACAO_34_35
+                MIGRACAO_30_31, MIGRACAO_31_32, MIGRACAO_32_33, MIGRACAO_33_34, MIGRACAO_34_35, MIGRACAO_35_36
         };
 
         return migrations;
     }
+
+
+
+
+    public static final Migration MIGRACAO_35_36 = new Migration(35, 36) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            try {
+
+
+                database.execSQL("DROP TABLE IF EXISTS 'atualizacoes' ");
+                database.execSQL("DROP INDEX IF EXISTS index_atualizacoes_descricao ");
+
+                database.execSQL("CREATE TABLE IF NOT EXISTS 'atualizacoes' ("
+                        + "'descricao' TEXT NOT NULL, "
+                        + "'api' INTEGER NOT NULL, "
+                        + "'tipo' INTEGER NOT NULL, "
+                        + "'seloTemporal' TEXT, "
+                        + "PRIMARY KEY (descricao, api)) ");
+
+                database.execSQL("CREATE UNIQUE INDEX index_atualizacoes_descricao ON atualizacoes (descricao)");
+                database.execSQL("CREATE INDEX index_atualizacoes_api ON atualizacoes (api)");
+
+                //(cast(strftime('%s','now') as int))
+            }
+            catch(SQLException | IllegalStateException e){
+                Log.e("Migracao", "erro MIGRACAO_35_36: " + e.getMessage());
+                //Timber.e("erro MIGRACAO_2_3: " + e.getMessage());
+            }
+        }
+    };
+
 
 
 

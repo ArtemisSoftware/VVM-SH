@@ -134,11 +134,60 @@ abstract public class TipoDao implements BaseDao<Tipo> {
 
 
 
-    @Query("SELECT *, numeroRegistosSA, numeroRegistosSHT " +
+//    @Query("SELECT *, numeroRegistosSA, numeroRegistosSHT " +
+//            "FROM atualizacoes as atl " +
+//            "LEFT JOIN (SELECT tipo, COUNT(id) as numeroRegistosSA FROM tipos WHERE ativo = 1 AND api = " + Identificadores.App.APP_SA + " GROUP BY tipo) as tp_sa " +
+//            "ON atl.descricao = tp_sa.tipo " +
+//            "LEFT JOIN (SELECT tipo, COUNT(id) as numeroRegistosSHT FROM tipos WHERE ativo = 1 AND api = " + Identificadores.App.APP_ST + " GROUP BY tipo) as tp_sht " +
+//            "ON atl.descricao = tp_sht.tipo " +
+//            "WHERE atl.tipo = " + Identificadores.Atualizacoes.TIPO + " " +
+//            "ORDER BY descricao ASC")
+
+//    @Query("SELECT descricao, numeroRegistosSA, seloTemporalSA, numeroRegistosSHT, seloTemporalSHT " +
+//            "FROM(" +
+//
+//            //SA
+//            "SELECT atl.descricao as descricao, numeroRegistosSA, seloTemporal as seloTemporalSA, numeroRegistosSHT, seloTemporalSHT " +
+//            "FROM atualizacoes as atl " +
+//            "LEFT JOIN (SELECT tipo,api, COUNT(id) as numeroRegistosSA FROM tipos WHERE  api = " + Identificadores.App.APP_SA + " GROUP BY tipo) as tp_sa " +
+//            "ON atl.descricao = tp_sa.tipo AND atl.api = tp_sa.api " +
+//
+//            //SHT
+//            "LEFT JOIN(" +
+//            "SELECT descricao, numeroRegistosSHT, seloTemporal as seloTemporalSHT " +
+//            "FROM atualizacoes as atl " +
+//            "LEFT JOIN (SELECT tipo, api, COUNT(id) as numeroRegistosSHT FROM tipos WHERE  api =  " + Identificadores.App.APP_ST + " GROUP BY tipo) as tp_sht " +
+//            "ON atl.descricao = tp_sht.tipo AND atl.api = tp_sht.api " +
+//
+//            "WHERE atl.api =" + Identificadores.App.APP_ST + " " +
+//
+//            ") as atl_sht " +
+//
+//            "ON atl.descricao = atl_sht.descricao " +
+//
+//            "WHERE tp_sa.tipo IS NOT NULL " +
+//            "ORDER BY descricao ASC)")
+
+    @Query("SELECT DISTINCT atl.descricao as descricao, numeroRegistosSA, seloTemporalSA, numeroRegistosSHT, seloTemporalSHT " +
             "FROM atualizacoes as atl " +
-            "LEFT JOIN (SELECT tipo, COUNT(id) as numeroRegistosSA FROM tipos WHERE ativo = 1 AND api = " + Identificadores.App.APP_SA + " GROUP BY tipo) as tp_sa ON atl.descricao = tp_sa.tipo " +
-            "LEFT JOIN (SELECT tipo, COUNT(id) as numeroRegistosSHT FROM tipos WHERE ativo = 1 AND api = " + Identificadores.App.APP_ST + " GROUP BY tipo) as tp_sht ON atl.descricao = tp_sht.tipo " +
-            "WHERE atl.tipo = " + Identificadores.Atualizacoes.TIPO + " " +
+
+            //SA
+
+            "LEFT JOIN (" +
+            "SELECT atl.descricao, atl.api, numeroRegistosSA , seloTemporal as seloTemporalSA " +
+            "FROM atualizacoes as atl " +
+            "LEFT JOIN (SELECT tipo,api, COUNT(id) as numeroRegistosSA FROM tipos WHERE api = 1 GROUP BY tipo) as tp_sa " +
+            "ON atl.descricao = tp_sa.tipo AND atl.api = tp_sa.api WHERE numeroRegistosSA > 0" +
+            ") as ct_sa ON atl.descricao= ct_sa.descricao " +
+
+            //SHT
+
+            "LEFT JOIN (" +
+            "SELECT atl.descricao, atl.api, numeroRegistosSHT , seloTemporal as seloTemporalSHT " +
+            "FROM atualizacoes as atl " +
+            "LEFT JOIN (SELECT tipo,api, COUNT(id) as numeroRegistosSHT FROM tipos WHERE api = 2 GROUP BY tipo) as tp_sht " +
+            "ON atl.descricao = tp_sht.tipo AND atl.api = tp_sht.api WHERE numeroRegistosSHT > 0" +
+            ") as ct_sht ON atl.descricao= ct_sht.descricao " +
             "ORDER BY descricao ASC")
     abstract public Observable<List<ResumoTipo>> obterResumoTipos();
 

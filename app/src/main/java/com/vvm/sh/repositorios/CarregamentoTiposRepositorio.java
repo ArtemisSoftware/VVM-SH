@@ -89,18 +89,18 @@ public class CarregamentoTiposRepositorio {
         tipoDao.atualizar(dadosAlteradaos);
     }
 
+    public void eliminarAtualizacao(Atualizacao atualizacao){
+        atualizacaoDao.remover(atualizacao.descricao);
+    }
 
-    public void recarregarTipo(List<Atualizacao> atualizacoes, List<Tipo> dadosNovos, List<Tipo> dadosAlteradaos){
 
-        for (Atualizacao atualizacao: atualizacoes) {
-            atualizacaoDao.remover(atualizacao.descricao);
-        }
+    public void recarregarTipo(Atualizacao atualizacao, List<Tipo> dadosNovos, List<Tipo> dadosAlteradaos){
 
-//        tipoDao.removerTipo(atualizacao.descricao);
-//
-//        atualizacaoDao.inserirRegisto(atualizacao);
-//        tipoDao.inserir(dadosNovos);
-//        tipoDao.atualizar(dadosAlteradaos);
+        atualizacaoDao.remover(atualizacao.descricao, atualizacao.api);
+
+        atualizacaoDao.inserirRegisto(atualizacao);
+        tipoDao.inserir(dadosNovos);
+        tipoDao.atualizar(dadosAlteradaos);
     }
 
 

@@ -7,13 +7,20 @@ import com.vvm.sh.baseDados.entidades.Atualizacao;
 
 public class ResumoTipo {
 
-    @Embedded
-    public Atualizacao atualizacao;
+    @ColumnInfo(name = "descricao")
+    public String descricao;
+
 
     @ColumnInfo(name = "numeroRegistosSA")
     public int numeroRegistosSA;
 
-
     @ColumnInfo(name = "numeroRegistosSHT")
     public int numeroRegistosSHT;
+
+
+    @ColumnInfo(name = "seloTemporalSA")
+    public String seloTemporalSA;
+
+    @ColumnInfo(name = "seloTemporalSHT")
+    public String seloTemporalSHT;
 }

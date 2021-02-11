@@ -174,7 +174,7 @@ public class TiposRepositorio {
      */
     public Single<List<ITipoListagem>> obterTipo(ResumoTipo resumo) throws TipoInexistenteException {
 
-        TiposUtil.MetodoApi metodo = TiposUtil.obterMetodos(resumo.atualizacao.descricao);
+        TiposUtil.MetodoApi metodo = TiposUtil.obterMetodos(resumo.descricao);
         List<SingleSource> tipos = new ArrayList<>();
 
         if(metodo.sa != null & metodo.sht != null) {

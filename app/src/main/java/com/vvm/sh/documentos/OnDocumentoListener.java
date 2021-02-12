@@ -26,5 +26,6 @@ public interface OnDocumentoListener {
         Maybe<DadosTemplate> obterPdf(int idTarefa, int idAtividade, String idUtilizador);
         Single<Codigo> uploadRelatorio(int idTarefa, String caminhoPdf);
         Single<Integer> sincronizar(int idTarefa, int idAtividade);
+        void concluirPdf(int idTarefa, int idAtividade);
     }
 }

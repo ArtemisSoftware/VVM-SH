@@ -2,6 +2,9 @@ package com.vvm.sh.repositorios;
 
 import androidx.annotation.NonNull;
 
+import com.vvm.sh.api.SegurancaAlimentarApi;
+import com.vvm.sh.api.SegurancaTrabalhoApi;
+import com.vvm.sh.api.modelos.pedido.Codigo;
 import com.vvm.sh.baseDados.dao.ImagemDao;
 import com.vvm.sh.baseDados.dao.InformacaoSstDao;
 import com.vvm.sh.baseDados.dao.ObrigacoesLegaisDao;
@@ -10,6 +13,8 @@ import com.vvm.sh.baseDados.dao.ResultadoDao;
 import com.vvm.sh.baseDados.entidades.ImagemResultado;
 import com.vvm.sh.baseDados.entidades.InformacaoSstResultado;
 import com.vvm.sh.baseDados.entidades.ObrigacaoLegalResultado;
+import com.vvm.sh.baseDados.entidades.Tarefa;
+import com.vvm.sh.documentos.DadosTemplate;
 import com.vvm.sh.documentos.informacaoSst.modelos.DadosInformacaoSst;
 import com.vvm.sh.documentos.Rubrica;
 import com.vvm.sh.ui.informacaoSst.modelos.ObrigacaoLegal;
@@ -17,6 +22,7 @@ import com.vvm.sh.ui.informacaoSst.modelos.RelatorioInformacaoSst;
 import com.vvm.sh.documentos.DadosCliente;
 import com.vvm.sh.util.ResultadoId;
 import com.vvm.sh.util.constantes.Identificadores;
+import com.vvm.sh.util.metodos.ConversorUtil;
 
 import java.util.List;
 
@@ -24,6 +30,8 @@ import io.reactivex.Flowable;
 import io.reactivex.Maybe;
 import io.reactivex.Observable;
 import io.reactivex.Single;
+import io.reactivex.SingleSource;
+import io.reactivex.functions.Function;
 import io.reactivex.functions.Function3;
 
 public class InformacaoSstRepositorio{
@@ -88,7 +96,7 @@ public class InformacaoSstRepositorio{
      * @param idTarefa o identificador da tarefa
      * @return os dados do pdf
      */
-    public Maybe<DadosInformacaoSst> obtePdf(int idTarefa, String idUtilizador) {
+    public Maybe<DadosTemplate> obtePdf(int idTarefa, String idUtilizador) {
 
         return Maybe.zip(
                 pdfDao.obterDadosCliente(idTarefa),
@@ -105,6 +113,18 @@ public class InformacaoSstRepositorio{
                     }
                 });
     }
+
+
+
+    /**
+     * Metodo que permite sincronizar a informação do sst
+     * @param idTarefa
+     * @return
+     */
+    public Single<Integer> sincronizar(int idTarefa) {
+        return informacaoSstDao.sincronizar(idTarefa);
+    }
+
 
 
 }

@@ -26,15 +26,18 @@ abstract public class InformacaoSstDao implements BaseDao<InformacaoSstResultado
 
 
     @Query("SELECT numeroObrigacaoes, email, obrigacaoValido, assinaturaValido, sincronizacao, responsavelRelatorio, responsavel, " +
-            "CASE WHEN responsavel IS NOT NULL AND obrigacaoValido = 1 AND assinaturaValido = 1 AND email != '' THEN 1 ELSE 0 END as valido " +
+            "CASE WHEN emailValido = 1 AND responsavelValido = 1 THEN 1 ELSE 0 END as dadosClienteValido, " +
+            "CASE WHEN emailValido = 1 AND responsavelValido = 1 AND obrigacaoValido = 1 THEN 1 ELSE 0 END as podeAssinar, " +
+            "CASE WHEN emailValido = 1 AND responsavelValido = 1 AND obrigacaoValido = 1 AND assinaturaValido = 1 THEN 1 ELSE 0 END as valido " +
 
             "FROM ( " +
 
 
             "SELECT info_sst_res.idTarefa as idTarefa," +
-            "email, numeroObrigacaoes, obrigacaoValido, sincronizacao, " +
+            "email, numeroObrigacaoes, obrigacaoValido, responsavelValido, sincronizacao, " +
             "IFNULL(responsavel, responsavelCliente) as responsavelRelatorio , responsavel, " +
-            "CASE WHEN IFNULL(img.idTarefa, 0) = 0 THEN 0 ELSE 1 END as assinaturaValido " +
+            "CASE WHEN IFNULL(img.idTarefa, 0) = 0 THEN 0 ELSE 1 END as assinaturaValido, " +
+            "CASE WHEN email != '' THEN 1  ELSE 0 END as emailValido " +
             "FROM tarefas as info_sst_res " +
 
             "LEFT JOIN(SELECT idTarefa, responsavel as responsavelCliente FROM clientes) as cl ON info_sst_res.idTarefa = cl.idTarefa " +
@@ -42,7 +45,8 @@ abstract public class InformacaoSstDao implements BaseDao<InformacaoSstResultado
 
             //relatorio
             "LEFT JOIN(" +
-            "SELECT idTarefa, sincronizacao, responsavel " +
+            "SELECT idTarefa, sincronizacao, responsavel, " +
+            "CASE WHEN responsavel IS NULL OR responsavel = '' THEN 0 ELSE 1 END as responsavelValido " +
             "FROM informacaoSstResultado " +
             "GROUP BY idTarefa)" +
             "as rel_info " +
@@ -81,5 +85,11 @@ abstract public class InformacaoSstDao implements BaseDao<InformacaoSstResultado
     abstract public Observable<RelatorioInformacaoSst> obterRelatorioInformacaoSst(int idTarefa);
 
 
+    //---------------
+    //Misc
+    //----------------
 
+
+    @Query("UPDATE informacaoSstResultado SET sincronizacao = 1 WHERE idTarefa =:idTarefa")
+    abstract public Single<Integer> sincronizar(int idTarefa);
 }

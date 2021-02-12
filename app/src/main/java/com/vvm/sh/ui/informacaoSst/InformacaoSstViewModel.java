@@ -5,12 +5,16 @@ import android.content.Context;
 import androidx.lifecycle.MutableLiveData;
 
 import com.titan.pdfdocumentlibrary.bundle.Template;
+import com.vvm.sh.api.modelos.pedido.Codigo;
 import com.vvm.sh.baseDados.entidades.ImagemResultado;
 import com.vvm.sh.baseDados.entidades.InformacaoSstResultado;
 import com.vvm.sh.baseDados.entidades.ObrigacaoLegalResultado;
+import com.vvm.sh.documentos.DadosTemplate;
+import com.vvm.sh.documentos.OnDocumentoListener;
 import com.vvm.sh.documentos.informacaoSst.InformacaoSst;
 import com.vvm.sh.documentos.informacaoSst.modelos.DadosInformacaoSst;
 import com.vvm.sh.repositorios.InformacaoSstRepositorio;
+import com.vvm.sh.repositorios.TransferenciasRepositorio;
 import com.vvm.sh.servicos.pdf.DocumentoPdfAsyncTask;
 import com.vvm.sh.ui.informacaoSst.modelos.ObrigacaoLegal;
 import com.vvm.sh.ui.informacaoSst.modelos.RelatorioInformacaoSst;
@@ -23,28 +27,32 @@ import java.util.List;
 
 import javax.inject.Inject;
 
+import io.reactivex.Maybe;
 import io.reactivex.MaybeObserver;
 import io.reactivex.Observer;
+import io.reactivex.Single;
 import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Consumer;
 import io.reactivex.schedulers.Schedulers;
 
-public class InformacaoSstViewModel extends BaseViewModel {
+public class InformacaoSstViewModel extends BaseViewModel implements OnDocumentoListener.OnVisualizar {
 
     private final int PRE_VISUALIZAR_PDF = 1;
     private final int ENVIAR_PDF = 2;
 
     private final InformacaoSstRepositorio informacaoSstRepositorio;
+    private final TransferenciasRepositorio transferenciasRepositorio;
 
     public MutableLiveData<RelatorioInformacaoSst> relatorio;
     public MutableLiveData<List<ObrigacaoLegal>> obrigacoes;
 
     @Inject
-    public InformacaoSstViewModel(InformacaoSstRepositorio informacaoSstRepositorio) {
+    public InformacaoSstViewModel(InformacaoSstRepositorio informacaoSstRepositorio, TransferenciasRepositorio transferenciasRepositorio) {
 
         this.informacaoSstRepositorio = informacaoSstRepositorio;
+        this.transferenciasRepositorio = transferenciasRepositorio;
         relatorio = new MutableLiveData<>();
         obrigacoes = new MutableLiveData<>();
     }
@@ -118,7 +126,7 @@ public class InformacaoSstViewModel extends BaseViewModel {
                             @Override
                             public void onSuccess(Long aLong) {
                                 messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_GRAVADOS_SUCESSO));
-                                gravarResultado(informacaoSstRepositorio.resultadoDao, registo.idTarefa, informacaoSstRepositorio.resultadoId);
+
                             }
 
                             @Override
@@ -156,7 +164,6 @@ public class InformacaoSstViewModel extends BaseViewModel {
                                 @Override
                                 public void onSuccess(Long aLong) {
                                     messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_GRAVADOS_SUCESSO));
-                                    gravarResultado(informacaoSstRepositorio.resultadoDao, registo.idTarefa, informacaoSstRepositorio.resultadoId);
                                 }
 
                                 @Override
@@ -181,7 +188,6 @@ public class InformacaoSstViewModel extends BaseViewModel {
                                 @Override
                                 public void onSuccess(Integer integer) {
                                     messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_EDITADOS_SUCESSO));
-                                    gravarResultado(informacaoSstRepositorio.resultadoDao, registo.idTarefa, informacaoSstRepositorio.resultadoId);
                                 }
 
                                 @Override
@@ -221,7 +227,7 @@ public class InformacaoSstViewModel extends BaseViewModel {
 
                             @Override
                             public void onSuccess(Object o) {
-                                gravarResultado(informacaoSstRepositorio.resultadoDao, idTarefa, informacaoSstRepositorio.resultadoId);
+
                             }
 
                             @Override
@@ -245,7 +251,7 @@ public class InformacaoSstViewModel extends BaseViewModel {
      */
     public void obterRelatorio(int idTarefa){
 
-        //--existeRelatorio(idTarefa);
+        showProgressBar(true);
 
         informacaoSstRepositorio.obterRelatorioInformacaoSst(idTarefa)
                 .subscribeOn(Schedulers.io())
@@ -261,16 +267,17 @@ public class InformacaoSstViewModel extends BaseViewModel {
                             @Override
                             public void onNext(RelatorioInformacaoSst relatorioInformacaoSst) {
                                 relatorio.setValue(relatorioInformacaoSst);
+                                showProgressBar(false);
                             }
 
                             @Override
                             public void onError(Throwable e) {
-
+                                showProgressBar(false);
                             }
 
                             @Override
                             public void onComplete() {
-
+                                showProgressBar(false);
                             }
                         }
 
@@ -320,80 +327,40 @@ public class InformacaoSstViewModel extends BaseViewModel {
     }
 
 
-    //---------------------
-    //Misc
-    //---------------------
 
-    /**
-     * Metodo que permite pre visualizar o pdf
-     * @param contexto
-     * @param idTarefa
-     * @param idUtilizador
-     */
-    public void preVisualizarPdf(Context contexto, int idTarefa, String idUtilizador){
-        gerarPdf(contexto, idTarefa, idUtilizador, PRE_VISUALIZAR_PDF);
+
+    //------------
+    //Pdf
+    //------------
+
+
+    @Override
+    public void executarPdf(Context contexto, int idTarefa, int idAtividade, String idUtilizador, OnDocumentoListener.AcaoDocumento acao) {
+        gerarPdf(contexto, idTarefa, idAtividade, idUtilizador, this, acao);
     }
 
-    /**
-     * Metodo que permite pré-visualizar o pdf
-     * @param contexto
-     * @param idTarefa
-     * @param idUtilizador
-     */
-    private void gerarPdf(Context contexto, int idTarefa, String idUtilizador, int acao) {
+    @Override
+    public Maybe<DadosTemplate> obterPdf(int idTarefa, int idAtividade, String idUtilizador) {
+        return informacaoSstRepositorio.obtePdf(idTarefa, idUtilizador);
+    }
 
-        showProgressBar(true);
+    @Override
+    public Single<Codigo> uploadRelatorio(int idTarefa, String caminhoPdf) {
+        return transferenciasRepositorio.uploadInformacaoSst(idTarefa, caminhoPdf);
+    }
 
-        informacaoSstRepositorio.obtePdf(idTarefa, idUtilizador)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
+    @Override
+    public Single<Integer> sincronizar(int idTarefa, int idAtividade) {
+        return informacaoSstRepositorio.sincronizar(idTarefa);
+    }
 
-                        new MaybeObserver<DadosInformacaoSst>() {
-                            @Override
-                            public void onSubscribe(Disposable d) {
-                                disposables.add(d);
-                            }
-
-                            @Override
-                            public void onSuccess(DadosInformacaoSst registo) {
-                                if(acao == PRE_VISUALIZAR_PDF) {
-                                    preVisualizarPdf(contexto, idTarefa, registo);
-                                }
-                                else{
-                                    //--enviarPdf(contexto, idTarefa, registo);
-                                }
-                                showProgressBar(false);
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-                                showProgressBar(false);
-                            }
-
-                            @Override
-                            public void onComplete() {
-                                showProgressBar(false);
-                            }
-                        }
-
-                );
+    @Override
+    public void concluirPdf(int idTarefa, int idAtividade) {
+        gravarResultado(informacaoSstRepositorio.resultadoDao, idTarefa, informacaoSstRepositorio.resultadoId);
     }
 
 
-
-    /**
-     * Metodo que permite pre visualizar o pdf do registo de visita
-     * @param contexto
-     * @param idTarefa
-     * @param registo
-     */
-    private void preVisualizarPdf(Context contexto, int idTarefa, DadosInformacaoSst registo){
-
-        Template template = new InformacaoSst(contexto, idTarefa, registo);
-        DocumentoPdfAsyncTask servico = new DocumentoPdfAsyncTask(contexto, template);
-        servico.execute();
-    }
+    //--
 
 
 }

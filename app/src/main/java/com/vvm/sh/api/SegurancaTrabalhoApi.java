@@ -133,7 +133,10 @@ public interface SegurancaTrabalhoApi {
 
 
     @POST("upLoadInfoSST")
-    Single<Codigo> submeterInfoSST(@HeaderMap Map<String, String> headers, @Body InfoSSTBody infoSSTBody);
+    Single<Codigo> submeterInfoSST(@HeaderMap Map<String, String> headers,
+                                    @Field("strJsonString") String dados,
+                                    @Field("ordem") String ordem,
+                                    @Field("marca") String marca);
 
 
 }

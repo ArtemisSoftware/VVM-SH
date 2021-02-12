@@ -92,7 +92,7 @@ public class CertificadoTratamentoRepositorio implements Repositorio<Certificado
     }
 
     /**
-     * Metodo que permite sincronizar o envio do email
+     * Metodo que permite sincronizar o certificado de tratamento
      * @param idAtividade o identificador da atividade
      * @return
      */

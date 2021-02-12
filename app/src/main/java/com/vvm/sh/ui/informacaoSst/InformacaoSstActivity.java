@@ -2,6 +2,7 @@ package com.vvm.sh.ui.informacaoSst;
 
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.content.Intent;
@@ -18,6 +19,7 @@ import com.vvm.sh.ui.registoVisita.DadosClienteActivity;
 import com.vvm.sh.ui.registoVisita.DialogoTrabalhoRealizado;
 import com.vvm.sh.ui.registoVisita.RegistoVisitaActivity;
 import com.vvm.sh.ui.registoVisita.TrabalhoRealizadoActivity;
+import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.interfaces.OnPermissaoConcedidaListener;
@@ -65,6 +67,26 @@ public class InformacaoSstActivity extends BaseDaggerActivity {
     @Override
     protected void subscreverObservadores() {
 
+        viewModel.observarMessagem().observe(this, new Observer<Recurso>() {
+            @Override
+            public void onChanged(Recurso recurso) {
+
+                switch (recurso.status){
+
+                    case SUCESSO:
+
+                        dialogo.sucesso(recurso.messagem);
+                        break;
+
+                    case ERRO:
+
+                        dialogo.erro(recurso.messagem);
+                        break;
+                    default:
+                        break;
+                }
+            }
+        });
     }
 
 

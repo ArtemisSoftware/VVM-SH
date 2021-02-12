@@ -45,14 +45,14 @@
                 android:layout_height="@dimen/banner_height"
                 app:layout_scrollFlags="scroll|exitUntilCollapsed"
                 app:contentScrim="?attr/colorPrimary"
-                app:title="@string/registo_visita"
+                app:title="@string/informacao_sst"
                 app:expandedTitleTextAppearance="@android:color/transparent"
                 android:fitsSystemWindows="true">
 
                 <ImageView
                     android:id="@+id/img_banner"
                     app:layout_collapseMode="parallax"
-                    android:src="@drawable/registo_visita_banner"
+                    android:src="@drawable/banner_info_sst"
                     android:contentDescription="@string/relatorio"
                     android:scaleType="centerCrop"
                     android:layout_width="match_parent"
@@ -100,7 +100,7 @@
                     <TextView
                         android:id="@+id/txt_titulo"
                         style="@style/tituloCartao"
-                        android:text="@string/informacao_sst"
+                        android:text="@string/relatorio"
                         android:layout_marginStart="16dp"
                         android:layout_marginTop="16dp"
                         app:layout_constraintStart_toStartOf="parent"
@@ -122,17 +122,17 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
 
-
+                        completudeRelatorio="@{viewmodel.relatorio.valido}"
                         android:layout_marginTop="8dp"
                         android:layout_marginBottom="24dp"
                         app:layout_constraintStart_toStartOf="@+id/txt_titulo"
                         app:layout_constraintTop_toBottomOf="@+id/textview2"
                         android:theme="@style/Theme.MaterialComponents.Light" />
-<!--                    completudeRelatorio="@{viewmodel.relatorio.valido}"-->
+
 
                     <com.google.android.material.chip.Chip
                         android:id="@+id/chip2"
-
+                        completudeSincronizacao="@{viewmodel.relatorio.sincronizacao}"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:visibility="gone"
@@ -147,7 +147,7 @@
                         android:id="@+id/ct_lyt"
                         android:layout_width="match_parent"
                         android:layout_height="700dp"
-                        android:layout_marginTop="50dp"
+                        android:layout_marginTop="25dp"
                         android:padding="@dimen/dimen_20dp"
                         app:layout_constraintEnd_toEndOf="parent"
                         app:layout_constraintStart_toStartOf="parent"
@@ -157,6 +157,7 @@
                         <androidx.cardview.widget.CardView
                             android:id="@+id/card_dados_cliente"
                             style="@style/cartaoMini"
+                            ativo="@{!viewmodel.relatorio.valido}"
                             app:layout_constraintStart_toStartOf="parent"
                             app:layout_constraintTop_toTopOf="parent">
 
@@ -224,7 +225,7 @@
 
                                 <com.google.android.material.chip.Chip
                                     android:id="@+id/chip_geral"
-
+                                    completudeRelatorio="@{viewmodel.relatorio.dadosClienteValido}"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="16dp"
@@ -233,7 +234,7 @@
                                     app:layout_constraintBottom_toBottomOf="parent"
                                     app:layout_constraintStart_toStartOf="@+id/textView2"
                                     app:layout_constraintTop_toBottomOf="@+id/textView68" />
-<!--                                completudeRelatorio="@{viewmodel.relatorio.clienteValido}"-->
+                                <!--                                -->
 
                             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -241,17 +242,16 @@
                         </androidx.cardview.widget.CardView>
 
 
-
                         <androidx.cardview.widget.CardView
                             android:id="@+id/card_obrigacoes_legais"
                             style="@style/cartaoMini"
-
+                            ativo="@{!viewmodel.relatorio.valido}"
 
                             android:layout_marginStart="32dp"
                             app:layout_constraintStart_toEndOf="@+id/card_dados_cliente"
                             app:layout_constraintTop_toTopOf="@+id/card_dados_cliente">
 
-<!--                            sincronizacao="{viewmodel.relatorio.sincronizacao}"-->
+                            <!--                            sincronizacao="{viewmodel.relatorio.sincronizacao}"-->
 
                             <androidx.constraintlayout.widget.ConstraintLayout
                                 android:layout_width="match_parent"
@@ -291,17 +291,16 @@
                                 <TextView
                                     android:id="@+id/textView40"
                                     style="@style/textoDetalhe"
-                                    android:text="@{StringUtil.converterString(viewmodel.relatorio.numeroObrigacaoes)}"
                                     android:layout_marginStart="16dp"
+                                    android:text="@{StringUtil.converterString(viewmodel.relatorio.numeroObrigacaoes)}"
                                     app:layout_constraintStart_toEndOf="@+id/textView66"
                                     app:layout_constraintTop_toTopOf="@+id/textView66" />
-
 
 
                                 <com.google.android.material.chip.Chip
                                     android:id="@+id/chip_avaliacoes"
 
-
+                                    completudeRelatorio="@{viewmodel.relatorio.obrigacaoValido}"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="16dp"
@@ -311,7 +310,7 @@
                                     app:layout_constraintStart_toStartOf="@+id/textView21"
                                     app:layout_constraintTop_toBottomOf="@+id/textView66" />
 
-<!--                                completudeRelatorio="@{viewmodel.relatorio.trabalhoValido}"-->
+                                <!--                                -->
 
                             </androidx.constraintlayout.widget.ConstraintLayout>
 
@@ -319,13 +318,13 @@
                         </androidx.cardview.widget.CardView>
 
 
-
-
                         <androidx.cardview.widget.CardView
                             android:id="@+id/card_assinatura"
                             style="@style/cartaoMini"
-
+                            ativo="@{!viewmodel.relatorio.assinaturaValido}"
                             android:layout_marginTop="32dp"
+
+                            android:visibility="@{viewmodel.relatorio.podeAssinar ? View.VISIBLE : View.GONE}"
                             app:layout_constraintStart_toStartOf="@+id/card_dados_cliente"
                             app:layout_constraintTop_toBottomOf="@+id/card_dados_cliente">
 
@@ -373,14 +372,11 @@
                                     app:layout_constraintTop_toBottomOf="@+id/imageView10" />
 
 
-<!--                                completudeRelatorio="@{viewmodel.relatorio.assinaturaValido}"-->
+                                <!--                                completudeRelatorio="@{viewmodel.relatorio.assinaturaValido}"-->
                             </androidx.constraintlayout.widget.ConstraintLayout>
 
 
                         </androidx.cardview.widget.CardView>
-
-
-
 
 
                     </androidx.constraintlayout.widget.ConstraintLayout>
@@ -452,8 +448,8 @@
 
             <com.github.clans.fab.FloatingActionButton
                 android:id="@+id/fab_enviar"
-                android:enabled="@{bloquear}"
-
+                condicaoVisibilidadeA="@{viewmodel.relatorio.valido}"
+                condicaoVisibilidadeB="@{viewmodel.relatorio.sincronizacao}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_upload_24dp"
@@ -464,8 +460,7 @@
 
             <com.github.clans.fab.FloatingActionButton
                 android:id="@+id/fab_pre_visualizar"
-                android:enabled="@{bloquear}"
-
+                android:visibility="@{viewmodel.relatorio.valido ? View.VISIBLE : View.GONE}"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:src="@drawable/ic_registo_visita_24dp"

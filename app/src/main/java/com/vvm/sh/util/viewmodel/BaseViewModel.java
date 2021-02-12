@@ -377,6 +377,7 @@ public abstract class BaseViewModel extends ViewModel {
                                 public void accept(Integer s) throws Exception {
                                     showProgressBar(false);
                                     messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.EMAIL_ENVIADO_COM_SUCESSO));
+                                    listener.concluirPdf(idTarefa, idAtividade);
                                 }
                             },
                             new Consumer<Throwable>() {

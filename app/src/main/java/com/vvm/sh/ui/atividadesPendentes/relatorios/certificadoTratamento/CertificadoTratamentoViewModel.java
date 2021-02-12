@@ -256,4 +256,9 @@ public class CertificadoTratamentoViewModel extends BaseViewModel implements OnD
     public Single<Integer> sincronizar(int idTarefa, int idAtividade) {
         return certificadoTratamentoRepositorio.sincronizar(idAtividade);
     }
+
+    @Override
+    public void concluirPdf(int idTarefa, int idAtividade) {
+        abaterAtividadePendente(certificadoTratamentoRepositorio.resultadoDao, idTarefa, idAtividade);
+    }
 }

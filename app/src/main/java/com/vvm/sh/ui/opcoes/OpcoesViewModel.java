@@ -485,7 +485,6 @@ public class OpcoesViewModel extends BaseViewModel {
 
         showProgressBar(true);
 
-        List<ITipoListagem> respostas = new ArrayList<>();
 
         try {
 

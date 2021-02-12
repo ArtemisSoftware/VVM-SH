@@ -17,6 +17,7 @@ import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.mapeamento.DownloadMapping;
 import com.vvm.sh.util.metodos.MensagensUtil;
+import com.vvm.sh.util.metodos.TiposUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -63,6 +64,11 @@ public class CarregarTipoAsyncTask extends AsyncTask<List<ITipoListagem>, Void, 
 
                     int index = 0;
 
+
+                    for(TiposUtil.MetodoApi resposta : TiposUtil.MetodosTipos.Tipos.TIPOS){
+                        repositorio.eliminarAtualizacao(resposta.descricao);
+                    }
+
                     for(ITipoListagem resposta : respostas){
 
                         Atualizacao atualizacao = DownloadMapping.INSTANCE.map(resposta);
@@ -78,52 +84,11 @@ public class CarregarTipoAsyncTask extends AsyncTask<List<ITipoListagem>, Void, 
                             dadosAlterados.add(DownloadMapping.INSTANCE.map(item, resposta));
                         }
 
-                        repositorio.carregarTipo_(atualizacao, dadosNovos, dadosAlterados);
+                        repositorio.carregarTipo(atualizacao, dadosNovos, dadosAlterados);
                         atualizacaoUI.atualizarUI(AtualizacaoUI.Codigo.PROCESSAMENTO_TIPOS, resposta.metodo, ++index, respostas.size());
                     }
 
-
                     atualizacaoUI.atualizarUI(AtualizacaoUI.Codigo.PROCESSAMENTO_TIPOS_CONCLUIDO, "Concluido", index, respostas.size());
-
-//                    int index = 0;
-//                    String metodo = "";
-//                    Atualizacao atualizacao = null;
-//                    List<Tipo> dadosNovos = new ArrayList<>();
-//                    List<Tipo> dadosAlterados = new ArrayList<>();
-//
-//                    if(respostas.size() != 0){
-//
-//                        for(ITipoListagem resposta : respostas){
-//
-//                            if(metodo.equals(resposta.metodo) == false && metodo.equals("") == false && atualizacao != null){
-//
-//                                repositorio.carregarTipo(atualizacao, dadosNovos, dadosAlterados);
-//                                atualizacaoUI.atualizarUI(AtualizacaoUI.Codigo.PROCESSAMENTO_TIPOS, atualizacao.descricao, ++index, respostas.size());
-//
-//                                metodo = "";
-//                                dadosNovos = new ArrayList<>();
-//                                dadosAlterados = new ArrayList<>();
-//                            }
-//
-//                            atualizacao = DownloadMapping.INSTANCE.map(resposta);
-//                            metodo = atualizacao.descricao;
-//
-//                            for (ITipo item : resposta.dadosNovos) {
-//                                dadosNovos.add(DownloadMapping.INSTANCE.map(item, resposta));
-//                            }
-//
-//                            for (ITipo item : resposta.dadosAlterados) {
-//                                dadosAlterados.add(DownloadMapping.INSTANCE.map(item, resposta));
-//                            }
-//                        }
-//
-//                        if(dadosNovos.size() != 0){
-//                            repositorio.carregarTipo(atualizacao, dadosNovos, dadosAlterados);
-//                            atualizacaoUI.atualizarUI(AtualizacaoUI.Codigo.PROCESSAMENTO_TIPOS, atualizacao.descricao, ++index, respostas.size());
-//
-//                        }
-//                    }
-//                    atualizacaoUI.atualizarUI(AtualizacaoUI.Codigo.PROCESSAMENTO_TIPOS_CONCLUIDO, "Concluido", index, respostas.size());
 
                 }
                 catch(SQLiteConstraintException throwable){

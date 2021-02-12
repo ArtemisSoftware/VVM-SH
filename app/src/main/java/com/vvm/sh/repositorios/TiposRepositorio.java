@@ -40,7 +40,6 @@ import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.SingleSource;
 import io.reactivex.functions.BiFunction;
-import io.reactivex.functions.Function3;
 import io.reactivex.functions.Function4;
 
 public class TiposRepositorio {
@@ -86,14 +85,7 @@ public class TiposRepositorio {
         List<SingleSource> tipos = new ArrayList<>();
 
         for(TiposUtil.MetodoApi metodo : TiposUtil.obterMetodos()) {
-
-            if(metodo.sa != null){
-                tipos.add(apiSA.obterTipo(SegurancaAlimentarApi.HEADER_TIPO, metodo.sa));
-            }
-
-            if(metodo.sht != null){
-                tipos.add(apiST.obterTipo(SegurancaTrabalhoApi.HEADER_TIPO, metodo.sht));
-            }
+            tipos.addAll(obterInvocacoesTipos(metodo));
         }
 
         SingleSource[] source = new SingleSource[tipos.size()];
@@ -102,7 +94,7 @@ public class TiposRepositorio {
             source[index] = tipos.get(index);
         }
 
-        return Single.concatArray(source).toList();
+        return  Single.concatArray(source).toList();
     }
 
 
@@ -112,36 +104,25 @@ public class TiposRepositorio {
 
         for(TiposUtil.MetodoApi metodo : atualizacoes.atualizacoes){
 
-            if(metodo.tipo == Identificadores.Atualizacoes.TIPO) {
+            tipos.addAll(obterInvocacoesTipos(metodo));
 
-                if (metodo.sa != null & metodo.sht != null) {
-
-                    tipos.add(apiSA.obterTipo(SegurancaAlimentarApi.HEADER_TIPO, metodo.sa, metodo.seloTemporal));
-                    tipos.add(apiST.obterTipo(SegurancaTrabalhoApi.HEADER_TIPO, metodo.sht, metodo.seloTemporal));
-
-                } else if (metodo.sa != null) {
-                    tipos.add(apiSA.obterTipo(SegurancaAlimentarApi.HEADER_TIPO, metodo.sa, metodo.seloTemporal));
-                } else {
-                    tipos.add(apiST.obterTipo(SegurancaTrabalhoApi.HEADER_TIPO, metodo.sht, metodo.seloTemporal));
-                }
-            }
 
 
             if(metodo.tipo == Identificadores.Atualizacoes.ATIVIDADES_PLANEAVEIS) {
 
                 if(metodo.descricao.equals(TiposUtil.MetodosTipos.AtividadesPlaneaveis.ATIVIDADES_PLANEAVEIS) == true){
-                    tipos.add(apiST.obterTipoAtividadesPlaneaveis(SegurancaTrabalhoApi.HEADER_TIPO, metodo.seloTemporal));
+                    tipos.add(apiST.obterTipoAtividadesPlaneaveis(SegurancaTrabalhoApi.HEADER_TIPO, metodo.seloTemporalSA));
                 }
             }
 
             if(metodo.tipo == Identificadores.Atualizacoes.TEMPLATE) {
 
                 if(metodo.descricao.equals(TiposUtil.MetodosTipos.TemplateAvr.TEMPLATE_AVALIACAO_RISCOS_LEVANTAMENTOS) == true){
-                    tipos.add(apiST.obterTipoTemplatesAVR_Levantamentos(SegurancaTrabalhoApi.HEADER_TIPO, metodo.seloTemporal));
+                    tipos.add(apiST.obterTipoTemplatesAVR_Levantamentos(SegurancaTrabalhoApi.HEADER_TIPO, metodo.seloTemporalSA));
                 }
 
                 if(metodo.descricao.equals(TiposUtil.MetodosTipos.TemplateAvr.TEMPLATE_AVALIACAO_RISCOS_RISCOS) == true){
-                    tipos.add(apiST.obterTipoTemplatesAVR_Riscos(SegurancaTrabalhoApi.HEADER_TIPO, metodo.seloTemporal));
+                    tipos.add(apiST.obterTipoTemplatesAVR_Riscos(SegurancaTrabalhoApi.HEADER_TIPO, metodo.seloTemporalSA));
                 }
 
             }
@@ -155,14 +136,7 @@ public class TiposRepositorio {
             tipos.add(apiST.obterEstadoEquipamento(cabecalho, tipo.descricao));
         }
 
-
-        SingleSource[] source = new SingleSource[tipos.size()];
-
-        for(int index = 0; index < tipos.size(); ++index){
-            source[index] = tipos.get(index);
-        }
-
-        return Single.concatArray(source).toList();
+        return obterSingleSource(tipos);
     }
 
 
@@ -175,20 +149,7 @@ public class TiposRepositorio {
     public Single<List<ITipoListagem>> obterTipo(ResumoTipo resumo) throws TipoInexistenteException {
 
         TiposUtil.MetodoApi metodo = TiposUtil.obterMetodos(resumo.descricao);
-        List<SingleSource> tipos = new ArrayList<>();
-
-        if(metodo.sa != null & metodo.sht != null) {
-
-            tipos.add(apiSA.obterTipo(SegurancaAlimentarApi.HEADER_TIPO, metodo.sa));
-            tipos.add(apiST.obterTipo(SegurancaTrabalhoApi.HEADER_TIPO, metodo.sht));
-
-        }
-        else if(metodo.sa != null){
-            tipos.add(apiSA.obterTipo(SegurancaAlimentarApi.HEADER_TIPO, metodo.sa));
-        }
-        else{
-            tipos.add(apiST.obterTipo(SegurancaTrabalhoApi.HEADER_TIPO, metodo.sht));
-        }
+        List<SingleSource> tipos = obterInvocacoesTipos(metodo);
 
         SingleSource[] source = new SingleSource[tipos.size()];
 
@@ -200,15 +161,47 @@ public class TiposRepositorio {
     }
 
 
-    public Single<ITipoChecklist> obterChecklist(ResumoChecklist resumo)  {
-        return apiST.obterChecklist(SegurancaTrabalhoApi.HEADER_TIPO, resumo.checkList.id + "");
+
+
+
+
+    private List<SingleSource> obterInvocacoesTipos(TiposUtil.MetodoApi metodo){
+
+        List<SingleSource> tipos = new ArrayList<>();
+
+        if(metodo.tipo == Identificadores.Atualizacoes.TIPO) {
+
+            if (metodo.sa != null) {
+                tipos.add(apiSA.obterTipo(SegurancaAlimentarApi.HEADER_TIPO, metodo.sa, metodo.seloTemporalSA));
+            }
+
+            if (metodo.sht != null) {
+                tipos.add(apiST.obterTipo(SegurancaTrabalhoApi.HEADER_TIPO, metodo.sht, metodo.seloTemporalSHT));
+            }
+        }
+
+        return tipos;
     }
 
+    private Single<List<Object>> obterSingleSource(List<SingleSource> lista){
+
+        SingleSource[] source = new SingleSource[lista.size()];
+
+        for(int index = 0; index < lista.size(); ++index){
+            source[index] = lista.get(index);
+        }
+
+        return Single.concatArray(source).toList();
+    }
 
 
     //------------
     //Checklist
     //------------
+
+    public Single<ITipoChecklist> obterChecklist(ResumoChecklist resumo)  {
+        return apiST.obterChecklist(SegurancaTrabalhoApi.HEADER_TIPO, resumo.checkList.id + "");
+    }
 
     /**
      * Metodo que permite obter o resumo das checklists
@@ -269,36 +262,6 @@ public class TiposRepositorio {
 
 
 
-
-
-    public Single<List<ITipoListagem>> obterTipos_(List<TiposUtil.MetodoApi> atualizacoes) {
-
-        List<SingleSource> tipos = new ArrayList<>();
-
-        for(TiposUtil.MetodoApi metodo : atualizacoes){
-
-            if(metodo.sa != null & metodo.sht != null) {
-
-                tipos.add(apiSA.obterTipo(SegurancaAlimentarApi.HEADER_TIPO, metodo.sa, metodo.seloTemporal));
-                tipos.add(apiST.obterTipo(SegurancaTrabalhoApi.HEADER_TIPO, metodo.sht, metodo.seloTemporal));
-
-            }
-            else if(metodo.sa != null){
-                tipos.add(apiSA.obterTipo(SegurancaAlimentarApi.HEADER_TIPO, metodo.sa, metodo.seloTemporal));
-            }
-            else{
-                tipos.add(apiST.obterTipo(SegurancaTrabalhoApi.HEADER_TIPO, metodo.sht, metodo.seloTemporal));
-            }
-        }
-
-        SingleSource[] source = new SingleSource[tipos.size()];
-
-        for(int index = 0; index < tipos.size(); ++index){
-            source[index] = tipos.get(index);
-        }
-
-        return Single.concatArray(source).toList();
-    }
 
 
 

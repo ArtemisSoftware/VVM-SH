@@ -45,7 +45,7 @@ public class CarregamentoTiposRepositorio {
      */
     public void atualizarTipo(Atualizacao atualizacao, List<Tipo> tiposNovos, List<Tipo> tiposAlterados){
 
-        if(atualizacaoDao.existeRegisto(atualizacao.descricao) == true){
+        if(atualizacaoDao.existeRegisto(atualizacao.descricao, atualizacao.api) == true){
             atualizacaoDao.atualizarRegisto(atualizacao);
         }
         else{
@@ -68,31 +68,22 @@ public class CarregamentoTiposRepositorio {
      */
     public void carregarTipo(Atualizacao atualizacao, List<Tipo> dadosNovos, List<Tipo> dadosAlteradaos){
 
-        atualizacaoDao.remover(atualizacao.descricao);
-        tipoDao.removerTipo(atualizacao.descricao);
-
-        atualizacaoDao.inserirRegisto(atualizacao);
-        tipoDao.inserir(dadosNovos);
-        tipoDao.atualizar(dadosAlteradaos);
-    }
-
-
-    public void carregarTipo_(Atualizacao atualizacao, List<Tipo> dadosNovos, List<Tipo> dadosAlteradaos){
-
         atualizacaoDao.remover(atualizacao.descricao, atualizacao.api);
 
-//        atualizacaoDao.remover(atualizacao.descricao);
-//        tipoDao.removerTipo(atualizacao.descricao);
-//
         atualizacaoDao.inserirRegisto(atualizacao);
         tipoDao.inserir(dadosNovos);
         tipoDao.atualizar(dadosAlteradaos);
     }
+
+
 
     public void eliminarAtualizacao(Atualizacao atualizacao){
         atualizacaoDao.remover(atualizacao.descricao);
     }
 
+    public void eliminarAtualizacao(String descricao){
+        atualizacaoDao.remover(descricao);
+    }
 
     public void recarregarTipo(Atualizacao atualizacao, List<Tipo> dadosNovos, List<Tipo> dadosAlteradaos){
 
@@ -116,7 +107,7 @@ public class CarregamentoTiposRepositorio {
      */
     public void atualizarTipoAtividadesPlaneaveis(Atualizacao atualizacao, List<TipoAtividadePlaneavel> tiposNovos, List<TipoAtividadePlaneavel> tiposAlterados){
 
-        if(atualizacaoDao.existeRegisto(atualizacao.descricao) == true){
+        if(atualizacaoDao.existeRegisto(atualizacao.descricao, atualizacao.api) == true){
             atualizacaoDao.atualizarRegisto(atualizacao);
         }
         else{
@@ -138,7 +129,7 @@ public class CarregamentoTiposRepositorio {
 
         if(atualizacaoLevantamento != null) {
 
-            if (atualizacaoDao.existeRegisto(atualizacaoLevantamento.descricao) == true) {
+            if (atualizacaoDao.existeRegisto(atualizacaoLevantamento.descricao, atualizacaoLevantamento.api) == true) {
                 atualizacaoDao.atualizarRegisto(atualizacaoLevantamento);
             } else {
                 atualizacaoDao.inserirRegisto(atualizacaoLevantamento);
@@ -151,7 +142,7 @@ public class CarregamentoTiposRepositorio {
 
         if(atualizacaoRisco != null) {
 
-            if (atualizacaoDao.existeRegisto(atualizacaoRisco.descricao) == true) {
+            if (atualizacaoDao.existeRegisto(atualizacaoRisco.descricao, atualizacaoRisco.api) == true) {
                 atualizacaoDao.atualizarRegisto(atualizacaoRisco);
             } else {
                 atualizacaoDao.inserirRegisto(atualizacaoRisco);

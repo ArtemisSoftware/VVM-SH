@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
-import java.util.Objects;
 
 public class TiposUtil {
 
@@ -177,7 +176,7 @@ public class TiposUtil {
         }
 
 
-        protected static class Tipos {
+        public static class Tipos {
             
             public static final MetodoApi METODO_ATIVIDADES_RELATORIO_VISITA = new MetodoApi(ATIVIDADES_RELATORIO_VISITA, null, MetodosTiposSH.ATIVIDADES_RELATORIO_VISITA, Identificadores.Atualizacoes.TIPO);
 
@@ -427,51 +426,89 @@ public class TiposUtil {
     }
 
 
-    public static List<MetodoApi>  fixarSeloTemporal(List<Atualizacao> atualizacoes){
-        
-        List<MetodoApi> registos = new ArrayList<>();
+    public static List<MetodoApi> fixarSeloTemporal(List<Atualizacao> atualizacoes){
 
-        if(registos.size() == 0){
-            registos = new LinkedList(Arrays.asList(MetodosTipos.Tipos.TIPOS));
-
-            //TODO: para SH
-            //tipos.addAll(new LinkedList(Arrays.asList(MetodosTipos.TemplateAvr.TIPOS)));
-            //tipos.addAll(new LinkedList(Arrays.asList(MetodosTipos.AtividadesPlaneaveis.TIPOS)));
+        if(atualizacoes.size() == 0){ //Não existem atualizacoes
+            return new LinkedList(Arrays.asList(MetodosTipos.Tipos.TIPOS));
         }
+        else{ //Existem atualizacoes
 
-        for(int index = 0; index < registos.size(); ++index) {
+            List<MetodoApi> registos = new LinkedList(Arrays.asList(MetodosTipos.Tipos.TIPOS));
 
-            for (Atualizacao item : atualizacoes) {
+            for (MetodoApi metodo : registos) {
 
-                if(registos.get(index).tipo == item.tipo && registos.get(index).descricao.equals(item.descricao)) {
+                for (Atualizacao atualizacao : atualizacoes) {
 
-                    try {
-                        MetodoApi registo = obterMetodos(item.descricao);
-                        registos.get(index).seloTemporal = item.seloTemporal;
-//                        MetodoApi registo = obterMetodos(item.descricao);
-//                        registo.seloTemporal = item.seloTemporal;
-//                        registo.tipo = item.tipo;
-//                        registos.add(registo);
+                    if(metodo.tipo == atualizacao.tipo && metodo.descricao.equals(atualizacao.descricao)) {
 
-                    } catch (TipoInexistenteException e) {
-                        e.printStackTrace();
+                        if(atualizacao.api == 1){
+                            metodo.seloTemporalSA = atualizacao.seloTemporal;
+                        }
+
+
+                        if(atualizacao.api == 2){
+                            metodo.seloTemporalSHT = atualizacao.seloTemporal;
+                        }
                     }
-
-                    break;
                 }
-
             }
+
+            return registos;
+
+
         }
 
 
-        return registos;
+
+
+
+
+
+
+
+//        List<MetodoApi> registos = new ArrayList<>();
+//
+//        if(registos.size() == 0){
+//            registos = new LinkedList(Arrays.asList(MetodosTipos.Tipos.TIPOS));
+//
+//            //TODO: para SH
+//            //tipos.addAll(new LinkedList(Arrays.asList(MetodosTipos.TemplateAvr.TIPOS)));
+//            //tipos.addAll(new LinkedList(Arrays.asList(MetodosTipos.AtividadesPlaneaveis.TIPOS)));
+//        }
+//
+//        for(int index = 0; index < registos.size(); ++index) {
+//
+//            for (Atualizacao item : atualizacoes) {
+//
+//                if(registos.get(index).tipo == item.tipo && registos.get(index).descricao.equals(item.descricao)) {
+//
+//                    try {
+//                        MetodoApi registo = obterMetodos(item.descricao);
+//                        registos.get(index).seloTemporalSA = item.seloTemporal;
+////                        MetodoApi registo = obterMetodos(item.descricao);
+////                        registo.seloTemporal = item.seloTemporal;
+////                        registo.tipo = item.tipo;
+////                        registos.add(registo);
+//
+//                    } catch (TipoInexistenteException e) {
+//                        e.printStackTrace();
+//                    }
+//
+//                    break;
+//                }
+//
+//            }
+//        }
+//
+//
+//        return registos;
     }
 
 
     public static class MetodoApi{
 
         public String descricao, sa, sht;
-        public String seloTemporal = "";
+        public String seloTemporalSA = "", seloTemporalSHT = "";
         public int tipo;
 
         public MetodoApi(String descricao, String sa, String sht, int tipo) {

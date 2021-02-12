@@ -335,6 +335,11 @@ public class InformacaoSstViewModel extends BaseViewModel implements OnDocumento
 
 
     @Override
+    public void executarPdf(Context contexto, int idTarefa, String idUtilizador, OnDocumentoListener.AcaoDocumento acao) {
+        gerarPdf(contexto, idTarefa, -1, idUtilizador, this, acao);
+    }
+
+    @Override
     public void executarPdf(Context contexto, int idTarefa, int idAtividade, String idUtilizador, OnDocumentoListener.AcaoDocumento acao) {
         gerarPdf(contexto, idTarefa, idAtividade, idUtilizador, this, acao);
     }

@@ -13,8 +13,10 @@ import android.view.View;
 import com.vvm.sh.R;
 import com.vvm.sh.databinding.ActivityInformacaoSstBinding;
 import com.vvm.sh.databinding.ActivityObrigacoesLegaisBinding;
+import com.vvm.sh.documentos.OnDocumentoListener;
 import com.vvm.sh.ui.AssinaturaActivity;
 import com.vvm.sh.ui.BaseDaggerActivity;
+import com.vvm.sh.ui.atividadesPendentes.relatorios.certificadoTratamento.CertificadoTratamentoActivity;
 import com.vvm.sh.ui.registoVisita.DadosClienteActivity;
 import com.vvm.sh.ui.registoVisita.DialogoTrabalhoRealizado;
 import com.vvm.sh.ui.registoVisita.RegistoVisitaActivity;
@@ -22,6 +24,7 @@ import com.vvm.sh.ui.registoVisita.TrabalhoRealizadoActivity;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.constantes.Sintaxe;
+import com.vvm.sh.util.interfaces.OnDialogoListener;
 import com.vvm.sh.util.interfaces.OnPermissaoConcedidaListener;
 import com.vvm.sh.util.metodos.DiretoriasUtil;
 import com.vvm.sh.util.metodos.ImagemUtil;
@@ -114,8 +117,15 @@ public class InformacaoSstActivity extends BaseDaggerActivity {
     @OnClick({R.id.card_assinatura})
     public void card_assinatura_OnClickListener(View view) {
 
-        Intent intent = new Intent(this, AssinaturaActivity.class);
-        startActivityForResult(intent, Identificadores.CodigoAtividade.ASSINATURA);
+        OnDialogoListener listener = new OnDialogoListener() {
+            @Override
+            public void onExecutar() {
+                Intent intent = new Intent(InformacaoSstActivity.this, AssinaturaActivity.class);
+                startActivityForResult(intent, Identificadores.CodigoAtividade.ASSINATURA);
+            }
+        };
+
+        dialogo.alerta(getString(R.string.assinatura), getString(R.string.assinatura_bloquea_edicao_relatorio), listener);
     }
 
 
@@ -129,11 +139,10 @@ public class InformacaoSstActivity extends BaseDaggerActivity {
             public void executar() {
 
                 if(DiretoriasUtil.criarDirectoria(DiretoriasUtil.DIRETORIA_PDF) == true){
-                    viewModel.preVisualizarPdf(getApplicationContext(), PreferenciasUtil.obterIdTarefa(getApplicationContext()), PreferenciasUtil.obterIdUtilizador(getApplicationContext()));
+                    viewModel.executarPdf(InformacaoSstActivity.this, PreferenciasUtil.obterIdTarefa(getApplicationContext()), PreferenciasUtil.obterIdUtilizador(getApplicationContext()), OnDocumentoListener.AcaoDocumento.PRE_VISUALIZAR_PDF);
                 }
             }
         };
-
 
         if(viewModel.relatorio.getValue().valido == false){
             dialogo.alerta(Sintaxe.Palavras.PDF, Sintaxe.Alertas.DADOS_INCOMPLETOS_PDF);
@@ -150,25 +159,23 @@ public class InformacaoSstActivity extends BaseDaggerActivity {
 
         activityInformacaoSstBinding.fabMenu.close(true);
 
-//        OnPermissaoConcedidaListener listener = new OnPermissaoConcedidaListener() {
-//            @Override
-//            public void executar() {
-//
-//                if(DiretoriasUtil.criarDirectoria(DiretoriasUtil.DIRETORIA_PDF) == true){
-//                    viewModel.enviarPdf(RegistoVisitaActivity.this, PreferenciasUtil.obterIdTarefa(RegistoVisitaActivity.this), PreferenciasUtil.obterIdUtilizador(RegistoVisitaActivity.this));
-//                }
-//            }
-//        };
-//
-//        if(viewModel.relatorio.getValue().valido == false){
-//            dialogo.alerta(Sintaxe.Palavras.PDF, Sintaxe.Alertas.DADOS_INCOMPLETOS_PDF);
-//        }
-//        else if(viewModel.relatorio.getValue().email.equals("") == true){
-//            dialogo.alerta(Sintaxe.Palavras.PDF, Sintaxe.Alertas.EMAIL_NAO_ASSOCIADO);
-//        }
-//        else {
-//            PermissoesUtil.pedirPermissoesEscritaLeitura(this, listener);
-//        }
+        OnPermissaoConcedidaListener listener = new OnPermissaoConcedidaListener() {
+            @Override
+            public void executar() {
+
+                if(DiretoriasUtil.criarDirectoria(DiretoriasUtil.DIRETORIA_PDF) == true){
+                    viewModel.executarPdf(InformacaoSstActivity.this, PreferenciasUtil.obterIdTarefa(getApplicationContext()), PreferenciasUtil.obterIdUtilizador(getApplicationContext()), OnDocumentoListener.AcaoDocumento.ENVIAR_PDF__DADOS_FTP);
+                }
+            }
+        };
+
+        if(viewModel.relatorio.getValue().valido == false){
+            dialogo.alerta(Sintaxe.Palavras.PDF, Sintaxe.Alertas.DADOS_INCOMPLETOS_PDF);
+        }
+
+        else {
+            PermissoesUtil.pedirPermissoesEscritaLeitura(this, listener);
+        }
     }
 
 

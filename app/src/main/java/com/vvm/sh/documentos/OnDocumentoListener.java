@@ -20,6 +20,8 @@ public interface OnDocumentoListener {
 
     interface OnVisualizar {
 
+        void executarPdf(Context contexto, int idTarefa, String idUtilizador, OnDocumentoListener.AcaoDocumento acao);
+
         void executarPdf(Context contexto, int idTarefa, int idAtividade, String idUtilizador, OnDocumentoListener.AcaoDocumento acao);
 
 

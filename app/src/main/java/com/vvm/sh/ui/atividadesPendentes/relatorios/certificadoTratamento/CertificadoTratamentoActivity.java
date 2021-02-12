@@ -149,12 +149,10 @@ public class CertificadoTratamentoActivity extends BaseDaggerActivity {
                 int idAtividade = bundle.getInt(getString(R.string.argumento_id_atividade));
 
                 if(DiretoriasUtil.criarDirectoria(DiretoriasUtil.DIRETORIA_PDF) == true){
-
                     viewModel.executarPdf(CertificadoTratamentoActivity.this, PreferenciasUtil.obterIdTarefa(getApplicationContext()), idAtividade, PreferenciasUtil.obterIdUtilizador(getApplicationContext()), OnDocumentoListener.AcaoDocumento.PRE_VISUALIZAR_PDF);
                 }
             }
         };
-
 
         if(viewModel.relatorio.getValue().valido == false){
             dialogo.alerta(Sintaxe.Palavras.PDF, Sintaxe.Alertas.DADOS_INCOMPLETOS_PDF);
@@ -169,7 +167,6 @@ public class CertificadoTratamentoActivity extends BaseDaggerActivity {
     @OnClick({R.id.fab_enviar})
     public void fab_enviar_OnClickListener(View view) {
 
-
         activityCertificadoTratamentoBinding.fabMenu.close(true);
 
         OnPermissaoConcedidaListener listener = new OnPermissaoConcedidaListener() {
@@ -180,9 +177,7 @@ public class CertificadoTratamentoActivity extends BaseDaggerActivity {
                 int idAtividade = bundle.getInt(getString(R.string.argumento_id_atividade));
 
                 if(DiretoriasUtil.criarDirectoria(DiretoriasUtil.DIRETORIA_PDF) == true){
-
                     viewModel.executarPdf(CertificadoTratamentoActivity.this, PreferenciasUtil.obterIdTarefa(getApplicationContext()), idAtividade, PreferenciasUtil.obterIdUtilizador(getApplicationContext()), OnDocumentoListener.AcaoDocumento.ENVIAR_PDF__DADOS_FTP);
-
                 }
             }
         };

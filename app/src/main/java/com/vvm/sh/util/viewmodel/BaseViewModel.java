@@ -225,6 +225,9 @@ public abstract class BaseViewModel extends ViewModel {
     //Pdf
     //-------------------
 
+    protected void gerarPdf(Context contexto, int idTarefa, String idUtilizador, OnDocumentoListener.OnVisualizar listener, OnDocumentoListener.AcaoDocumento acao) {
+        gerarPdf(contexto, idTarefa, -1, idUtilizador, listener, acao);
+    }
 
     protected void gerarPdf(Context contexto, int idTarefa, int idAtividade, String idUtilizador, OnDocumentoListener.OnVisualizar listener, OnDocumentoListener.AcaoDocumento acao) {
 

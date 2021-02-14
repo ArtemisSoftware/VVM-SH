@@ -102,6 +102,13 @@ abstract public class PdfDao {
             "WHERE  ativo = 1 AND api =:api AND tipo ='" + TiposUtil.MetodosTipos.OBRIGACOES_LEGAIS + "' ")
     abstract public Maybe<List<ObrigacaoLegal>> obterObrigacoesLegais(int idTarefa, int api);
 
+
+    @Query("SELECT detalhe FROM tipos WHERE id IN(:ids) AND tipo = '" + TiposUtil.MetodosTipos.FRASES_APOIO + "' AND ativo = 1 AND api = :api")
+    abstract public Maybe<List<String>> obterInfoSst_ClienteFrasesApoio(int[] ids, int api);
+
+    @Query("SELECT detalhe FROM tipos WHERE id IN(:ids) AND tipo = '" + TiposUtil.MetodosTipos.FRASES_APOIO + "' AND ativo = 1 AND api = :api")
+    abstract public Maybe<List<String>> obterInfoSst_RodapeFrasesApoio(int[] ids, int api);
+
     //------------------------
     //Misc
     //------------------------

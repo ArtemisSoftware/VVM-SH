@@ -11,6 +11,7 @@ import com.vvm.sh.baseDados.entidades.ImagemResultado;
 import com.vvm.sh.baseDados.entidades.RegistoVisitaResultado;
 import com.vvm.sh.baseDados.entidades.TrabalhoRealizadoResultado;
 import com.vvm.sh.documentos.DadosCliente;
+import com.vvm.sh.documentos.DadosTemplate;
 import com.vvm.sh.documentos.Rubrica;
 import com.vvm.sh.documentos.registoVisita.modelos.DadosRegistoVisita;
 import com.vvm.sh.ui.registoVisita.modelos.RelatorioRegistoVisita;
@@ -111,7 +112,7 @@ public class RegistoVisitaRepositorio {
      * @param idTarefa o identificador da tarefa
      * @return os dados do pdf
      */
-    public Maybe<DadosRegistoVisita> obtePdf(int idTarefa, String idUtilizador) {
+    public Maybe<DadosTemplate> obtePdf(int idTarefa, String idUtilizador) {
 
         return Maybe.zip(
                 pdfDao.obterDadosEmailRegistoVisita(idTarefa, api),
@@ -138,8 +139,9 @@ public class RegistoVisitaRepositorio {
     /**
      * Metodo que permite sincronizar o envio do email
      * @param idTarefa o identificador da tarefa
+     * @return
      */
-    public void sincronizar(int idTarefa) {
-        registoVisitaDao.sincronizar(idTarefa);
+    public Single<Integer> sincronizar(int idTarefa) {
+        return registoVisitaDao.sincronizar(idTarefa);
     }
 }

@@ -26,13 +26,15 @@ abstract public class RegistoVisitaDao implements BaseDao<RegistoVisitaResultado
     abstract public Maybe<DadosCliente> obterDadosCliente(int idTarefa);
 
     @Query("SELECT clienteValido, trabalhoValido, numeroTrabalhos, email, assinaturaValido, sincronizacao, " +
-            "CASE WHEN clienteValido = 1 AND trabalhoValido = 1 AND assinaturaValido = 1 AND email != '' THEN 1 ELSE 0 END as valido " +
+            "CASE WHEN emailValido = 1 AND clienteValido = 1 AND trabalhoValido = 1  THEN 1 ELSE 0 END as podeAssinar, " +
+            "CASE WHEN emailValido = 1 AND clienteValido = 1 AND trabalhoValido = 1 AND assinaturaValido = 1  THEN 1 ELSE 0 END as valido " +
 
             "FROM ( " +
             "SELECT rg_visit_res.idTarefa as idTarefa, " +
             "CASE WHEN recebidoPor IS NULL OR funcao IS NULL THEN 0  ELSE 1 END as clienteValido, " +
             "trabalhoValido, numeroTrabalhos, email, sincronizacao, " +
-            "CASE WHEN IFNULL(img.idTarefa, 0) = 0 THEN 0 ELSE 1 END as assinaturaValido " +
+            "CASE WHEN IFNULL(img.idTarefa, 0) = 0 THEN 0 ELSE 1 END as assinaturaValido, " +
+            "CASE WHEN email IS NULL OR email = '' THEN 0 ELSE 1 END as emailValido " +
 
             "FROM registoVisitaResultado as rg_visit_res " +
 
@@ -77,7 +79,7 @@ abstract public class RegistoVisitaDao implements BaseDao<RegistoVisitaResultado
 
 
     @Query("UPDATE registoVisitaResultado SET sincronizacao = 1 WHERE idTarefa =:idTarefa")
-    abstract public void sincronizar(int idTarefa);
+    abstract public Single<Integer> sincronizar(int idTarefa);
 
 
     @Query("SELECT COUNT(1) FROM registoVisitaResultado WHERE idTarefa =:idTarefa")

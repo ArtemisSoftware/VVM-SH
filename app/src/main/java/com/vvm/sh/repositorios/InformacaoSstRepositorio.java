@@ -22,8 +22,11 @@ import com.vvm.sh.ui.informacaoSst.modelos.RelatorioInformacaoSst;
 import com.vvm.sh.documentos.DadosCliente;
 import com.vvm.sh.util.ResultadoId;
 import com.vvm.sh.util.constantes.Identificadores;
+import com.vvm.sh.util.constantes.Sintaxe;
+import com.vvm.sh.util.email.CredenciaisEmail;
 import com.vvm.sh.util.metodos.ConversorUtil;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Flowable;
@@ -33,6 +36,7 @@ import io.reactivex.Single;
 import io.reactivex.SingleSource;
 import io.reactivex.functions.Function;
 import io.reactivex.functions.Function3;
+import io.reactivex.functions.Function6;
 
 public class InformacaoSstRepositorio{
 
@@ -99,19 +103,28 @@ public class InformacaoSstRepositorio{
     public Maybe<DadosTemplate> obtePdf(int idTarefa, String idUtilizador) {
 
         return Maybe.zip(
+                pdfDao.obterDadosEmail(idTarefa, Sintaxe.Email.TITULO_INFORMACAO_SST, Identificadores.FrasesApoio.ID_FRASE_APOIO_CORPO_EMAIL_INFORMACAO_SST, api),
+                pdfDao.obterInfoSst_ClienteFrasesApoio(Identificadores.FrasesApoio.ID_FRASE_APOIO_INFORMACAO_SST__CLIENTE, api),
                 pdfDao.obterDadosCliente(idTarefa),
                 pdfDao.obterObrigacoesLegais(idTarefa, api),
                 pdfDao.obterRubrica(idTarefa, Identificadores.Imagens.IMAGEM_ASSINATURA_INFORMACAO_SST, idUtilizador),
-                new Function3<DadosCliente, List<ObrigacaoLegal>, Rubrica, DadosInformacaoSst>() {
+                pdfDao.obterInfoSst_RodapeFrasesApoio(Identificadores.FrasesApoio.ID_FRASE_APOIO_INFORMACAO_SST__RODAPE, api),
+                new Function6<CredenciaisEmail, List<String>, DadosCliente, List<ObrigacaoLegal>, Rubrica, List<String>, DadosTemplate>() {
                     @Override
-                    public DadosInformacaoSst apply(DadosCliente cliente, List<ObrigacaoLegal> obrigacaoLegals, Rubrica rubrica) throws Exception {
+                    public DadosTemplate apply(CredenciaisEmail credenciaisEmail, List<String> frasesApoio, DadosCliente dadosCliente,
+                                               List<ObrigacaoLegal> obrigacaoLegals, Rubrica rubrica, List<String> rodapes) throws Exception {
+
                         DadosInformacaoSst dados = new DadosInformacaoSst();
-                        dados.cliente = cliente;
+                        dados.cliente = dadosCliente;
                         dados.obrigacaoLegal = obrigacaoLegals;
                         dados.rubrica = rubrica;
+                        dados.credenciaisEmail = credenciaisEmail;
+                        dados.frasesApoio = frasesApoio;
+                        dados.rodapes = rodapes;
                         return dados;
                     }
-                });
+                }
+        );
     }
 
 

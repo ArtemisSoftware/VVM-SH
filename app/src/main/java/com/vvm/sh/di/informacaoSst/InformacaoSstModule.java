@@ -1,5 +1,7 @@
 package com.vvm.sh.di.informacaoSst;
 
+import com.vvm.sh.api.SegurancaAlimentarApi;
+import com.vvm.sh.api.SegurancaTrabalhoApi;
 import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.baseDados.dao.ImagemDao;
 import com.vvm.sh.baseDados.dao.InformacaoSstDao;
@@ -8,9 +10,12 @@ import com.vvm.sh.baseDados.dao.PdfDao;
 import com.vvm.sh.baseDados.dao.RegistoVisitaDao;
 import com.vvm.sh.baseDados.dao.ResultadoDao;
 import com.vvm.sh.baseDados.dao.TrabalhosRealizadosDao;
+import com.vvm.sh.baseDados.dao.TransferenciasDao;
+import com.vvm.sh.di.atividadesPendentes.certificadoTratamento.CertificadoTratamentoScope;
 import com.vvm.sh.di.registoVisita.RegistoVisitaScope;
 import com.vvm.sh.repositorios.InformacaoSstRepositorio;
 import com.vvm.sh.repositorios.RegistoVisitaRepositorio;
+import com.vvm.sh.repositorios.TransferenciasRepositorio;
 import com.vvm.sh.util.ResultadoId;
 
 import dagger.Module;
@@ -45,6 +50,29 @@ public class InformacaoSstModule {
         PdfDao dao = vvmshBaseDados.obterPdfDao();
         return dao;
     }
+
+
+
+    @InformacaoSstScope
+    @Provides
+    static TransferenciasDao provideTransferenciasDao(VvmshBaseDados vvmshBaseDados){
+
+        TransferenciasDao dao = vvmshBaseDados.obterTransferenciasDao();
+        return dao;
+    }
+
+
+
+    @InformacaoSstScope
+    @Provides
+    TransferenciasRepositorio provideTransferenciasRepositorio(SegurancaAlimentarApi segurancaAlimentarApi, SegurancaTrabalhoApi segurancaTrabalhoApi,
+                                                               TransferenciasDao transferenciasDao) {
+
+        TransferenciasRepositorio repositorio = new TransferenciasRepositorio(segurancaAlimentarApi, segurancaTrabalhoApi, transferenciasDao);
+        return repositorio;
+    }
+
+
 
 
 

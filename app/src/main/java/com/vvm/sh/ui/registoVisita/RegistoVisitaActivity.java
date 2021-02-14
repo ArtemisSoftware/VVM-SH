@@ -12,6 +12,7 @@ import android.view.View;
 import com.vvm.sh.R;
 import com.vvm.sh.databinding.ActivityRegistoVisitaBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
+import com.vvm.sh.documentos.OnDocumentoListener;
 import com.vvm.sh.ui.AssinaturaActivity;
 import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.util.Recurso;
@@ -142,7 +143,7 @@ public class RegistoVisitaActivity extends BaseDaggerActivity {
             public void executar() {
 
                 if(DiretoriasUtil.criarDirectoria(DiretoriasUtil.DIRETORIA_PDF) == true){
-                    viewModel.preVisualizarPdf(RegistoVisitaActivity.this, PreferenciasUtil.obterIdTarefa(RegistoVisitaActivity.this), PreferenciasUtil.obterIdUtilizador(RegistoVisitaActivity.this));
+                    viewModel.executarPdf(RegistoVisitaActivity.this, PreferenciasUtil.obterIdTarefa(RegistoVisitaActivity.this), PreferenciasUtil.obterIdUtilizador(RegistoVisitaActivity.this), OnDocumentoListener.AcaoDocumento.PRE_VISUALIZAR_PDF);
                 }
             }
         };
@@ -161,7 +162,6 @@ public class RegistoVisitaActivity extends BaseDaggerActivity {
     @OnClick({R.id.fab_enviar})
     public void fab_enviar_OnClickListener(View view) {
 
-
         activityRegistoVisitaBinding.fabMenu.close(true);
 
         OnPermissaoConcedidaListener listener = new OnPermissaoConcedidaListener() {
@@ -169,16 +169,13 @@ public class RegistoVisitaActivity extends BaseDaggerActivity {
             public void executar() {
 
                 if(DiretoriasUtil.criarDirectoria(DiretoriasUtil.DIRETORIA_PDF) == true){
-                    viewModel.enviarPdf(RegistoVisitaActivity.this, PreferenciasUtil.obterIdTarefa(RegistoVisitaActivity.this), PreferenciasUtil.obterIdUtilizador(RegistoVisitaActivity.this));
+                    viewModel.executarPdf(RegistoVisitaActivity.this, PreferenciasUtil.obterIdTarefa(RegistoVisitaActivity.this), PreferenciasUtil.obterIdUtilizador(RegistoVisitaActivity.this), OnDocumentoListener.AcaoDocumento.ENVIAR_PDF);
                 }
             }
         };
 
         if(viewModel.relatorio.getValue().valido == false){
             dialogo.alerta(Sintaxe.Palavras.PDF, Sintaxe.Alertas.DADOS_INCOMPLETOS_PDF);
-        }
-        else if(viewModel.relatorio.getValue().email.equals("") == true){
-            dialogo.alerta(Sintaxe.Palavras.PDF, Sintaxe.Alertas.EMAIL_NAO_ASSOCIADO);
         }
         else {
             PermissoesUtil.pedirPermissoesEscritaLeitura(this, listener);

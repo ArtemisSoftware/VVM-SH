@@ -381,10 +381,30 @@ public class Identificadores {
         public static final int RECARREGAR_TAREFA = 3;
     }
 
-    public class FrasesApoio {
+    public static class FrasesApoio {
         public static final int ID_FRASE_APOIO_REGISTO_VISITA = 1;
 
         public static final int ID_FRASE_APOIO_CORPO_EMAIL_CERTIFICIADO_TRATAMENTO = 1;
+
+        public static final int ID_FRASE_APOIO_CORPO_EMAIL_INFORMACAO_SST = 10;
+
+
+        public static final int ID_FRASE_APOIO_INFORMACAO_SST_CLIENTE_1 = 4;
+        public static final int ID_FRASE_APOIO_INFORMACAO_SST_CLIENTE_2 = 5;
+        public static final int ID_FRASE_APOIO_INFORMACAO_SST_CLIENTE_3 = 6;
+
+        public static final int ID_FRASE_APOIO_INFORMACAO_SST__CLIENTE [] = {ID_FRASE_APOIO_INFORMACAO_SST_CLIENTE_1, ID_FRASE_APOIO_INFORMACAO_SST_CLIENTE_2, ID_FRASE_APOIO_INFORMACAO_SST_CLIENTE_3};
+
+
+
+        public static final int ID_FRASE_APOIO_INFORMACAO_SST_RODAPE_1 = 7;
+        public static final int ID_FRASE_APOIO_INFORMACAO_SST_RODAPE_2 = 8;
+        public static final int ID_FRASE_APOIO_INFORMACAO_SST_RODAPE_3 = 9;
+
+        public static final int ID_FRASE_APOIO_INFORMACAO_SST__RODAPE [] = {ID_FRASE_APOIO_INFORMACAO_SST_RODAPE_1, ID_FRASE_APOIO_INFORMACAO_SST_RODAPE_2, ID_FRASE_APOIO_INFORMACAO_SST_RODAPE_3};
+
+
+
     }
 
 

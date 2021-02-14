@@ -9,5 +9,10 @@ public class DadosInformacaoSst extends DadosTemplate {
 
     public List<ObrigacaoLegal> obrigacaoLegal;
 
+    public List<String> frasesApoio;
+    public List<String> rodapes;
+
 
 }
+
+

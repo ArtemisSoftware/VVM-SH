@@ -30,7 +30,7 @@ public class EnvioEmailRegistoVisitaAsyncTask extends EnvioEmailAsyncTask{
             public void run(){
 
                 try {
-                    repositorio.sincronizar(idTarefa);
+                    //repositorio.sincronizar(idTarefa);
                 }
                 catch(SQLiteConstraintException throwable){
                     erro = throwable.getMessage();

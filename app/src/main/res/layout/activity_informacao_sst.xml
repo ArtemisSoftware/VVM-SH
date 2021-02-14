@@ -322,9 +322,8 @@
                             android:id="@+id/card_assinatura"
                             style="@style/cartaoMini"
                             ativo="@{!viewmodel.relatorio.assinaturaValido}"
-                            android:layout_marginTop="32dp"
-
                             android:visibility="@{viewmodel.relatorio.podeAssinar ? View.VISIBLE : View.GONE}"
+                            android:layout_marginTop="32dp"
                             app:layout_constraintStart_toStartOf="@+id/card_dados_cliente"
                             app:layout_constraintTop_toBottomOf="@+id/card_dados_cliente">
 

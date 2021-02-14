@@ -5,6 +5,9 @@ import androidx.room.Ignore;
 
 public class RelatorioRegistoVisita {
 
+    @ColumnInfo(name = "podeAssinar")
+    public boolean podeAssinar;
+
     @ColumnInfo(name = "clienteValido")
     public boolean clienteValido;
 

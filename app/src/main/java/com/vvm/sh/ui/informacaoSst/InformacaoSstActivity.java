@@ -172,7 +172,6 @@ public class InformacaoSstActivity extends BaseDaggerActivity {
         if(viewModel.relatorio.getValue().valido == false){
             dialogo.alerta(Sintaxe.Palavras.PDF, Sintaxe.Alertas.DADOS_INCOMPLETOS_PDF);
         }
-
         else {
             PermissoesUtil.pedirPermissoesEscritaLeitura(this, listener);
         }

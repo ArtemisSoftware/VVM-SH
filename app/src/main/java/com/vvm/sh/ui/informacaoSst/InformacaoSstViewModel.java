@@ -39,9 +39,6 @@ import io.reactivex.schedulers.Schedulers;
 
 public class InformacaoSstViewModel extends BaseViewModel implements OnDocumentoListener.OnVisualizar {
 
-    private final int PRE_VISUALIZAR_PDF = 1;
-    private final int ENVIAR_PDF = 2;
-
     private final InformacaoSstRepositorio informacaoSstRepositorio;
     private final TransferenciasRepositorio transferenciasRepositorio;
 
@@ -333,8 +330,6 @@ public class InformacaoSstViewModel extends BaseViewModel implements OnDocumento
     //Pdf
     //------------
 
-
-    @Override
     public void executarPdf(Context contexto, int idTarefa, String idUtilizador, OnDocumentoListener.AcaoDocumento acao) {
         gerarPdf(contexto, idTarefa, -1, idUtilizador, this, acao);
     }

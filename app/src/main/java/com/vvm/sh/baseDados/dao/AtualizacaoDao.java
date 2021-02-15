@@ -13,6 +13,7 @@ import java.util.List;
 
 import io.reactivex.Flowable;
 import io.reactivex.Maybe;
+import io.reactivex.Single;
 
 @Dao
 abstract public class AtualizacaoDao implements BaseDao<Atualizacao> {
@@ -44,6 +45,7 @@ abstract public class AtualizacaoDao implements BaseDao<Atualizacao> {
     @Query("SELECT * FROM atualizacoes WHERE tipo = :tipo")
     abstract public Maybe<List<Atualizacao>> obterAtualizacoes(int tipo);
 
-
+    @Query("DELETE FROM atualizacoes WHERE tipo = :tipo ")
+    abstract public Single<Integer> elimiarAtualizacoes(int tipo);
 
 }

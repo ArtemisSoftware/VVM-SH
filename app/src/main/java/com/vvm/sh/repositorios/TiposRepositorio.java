@@ -40,6 +40,7 @@ import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.SingleSource;
 import io.reactivex.functions.BiFunction;
+import io.reactivex.functions.Function;
 import io.reactivex.functions.Function4;
 
 public class TiposRepositorio {
@@ -303,6 +304,18 @@ public class TiposRepositorio {
 
 
 
+
+    public Single<AtualizacaoTipos> eliminarAtualizacoes(int tipo){
+
+        return atualizacaoDao.elimiarAtualizacoes(Identificadores.Atualizacoes.TIPO)
+                .flatMap(new Function<Integer, SingleSource<AtualizacaoTipos>>() {
+                    @Override
+                    public SingleSource<AtualizacaoTipos> apply(Integer integer) throws Exception {
+                        return obterAtualizacoes(false).toSingle();
+                    }
+                });
+
+    }
 
 
     /**

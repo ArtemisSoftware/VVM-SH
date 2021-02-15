@@ -89,8 +89,8 @@ public class AtualizacaoUI {
     public class Comunicado {
 
         private Codigo codigo;
-        private String mensagem, dados;
-        private int posicao, limite;
+        public String mensagem = "", dados;
+        public int posicao = 0, limite = 0;
         public Object objeto;
 
         public Comunicado(Codigo codigo){
@@ -138,6 +138,9 @@ public class AtualizacaoUI {
 
         public int obterLimite(){
             return limite;
+        }
+        public String obterLimite_(){
+            return posicao + "/" + limite;
         }
     }
 }

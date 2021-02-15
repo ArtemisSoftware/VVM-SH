@@ -190,7 +190,7 @@ public class PreferenciasUtil {
 
         if(BuildConfig.VERSION_NAME.equals(versao) == false){
 
-            PreferenciasUtil.fixarVersao(contexto);
+            //--PreferenciasUtil.fixarVersao(contexto);
             Intent intent = new Intent(contexto, ApresentacaoActivity.class);
             contexto.startActivity(intent);
         }

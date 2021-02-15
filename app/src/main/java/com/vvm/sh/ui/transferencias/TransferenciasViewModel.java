@@ -596,12 +596,40 @@ public class TransferenciasViewModel extends BaseViewModel {
     //TIPOS
     //------------------------
 
+    public void atualizarTipos(Activity activity, Handler handlerUI) {
+
+        tiposRepositorio.eliminarAtualizacoes(Identificadores.Atualizacoes.TIPO)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new SingleObserver<AtualizacaoTipos>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onSuccess(AtualizacaoTipos atualizacaoTipos) {
+                                atualizarTipos(activity, atualizacaoTipos, handlerUI);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                showProgressBar(false);
+                            }
+                        }
+                );
+
+    }
 
     /**
      * Metodo que permite atualizar os tipos
      * @param handlerUI um handler para as mensagens
      */
     public void atualizarTipos(Activity activity, Handler handlerUI, boolean primeiraUtilizacao) {
+
+        showProgressBar(true);
 
         tiposRepositorio.obterAtualizacoes(primeiraUtilizacao)
                 .subscribeOn(Schedulers.io())
@@ -621,12 +649,12 @@ public class TransferenciasViewModel extends BaseViewModel {
 
                             @Override
                             public void onError(Throwable e) {
-
+                                showProgressBar(false);
                             }
 
                             @Override
                             public void onComplete() {
-
+                                showProgressBar(false);
                             }
                         }
                 );
@@ -639,8 +667,6 @@ public class TransferenciasViewModel extends BaseViewModel {
      * @param handlerUI um handler para as mensagens
      */
     private void atualizarTipos(Activity activity, AtualizacaoTipos atualizacoes, Handler handlerUI){
-
-        showProgressBar(true);
 
         tiposRepositorio.obterTipos(atualizacoes)
                 .subscribeOn(Schedulers.io())

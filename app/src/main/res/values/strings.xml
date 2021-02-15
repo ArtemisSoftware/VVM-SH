@@ -521,4 +521,7 @@
     <string name="tecnico_seguranca_alimentar">(Técnico de Segurança Alimentar)</string>
     <string name="assinatura">Assinatura</string>
     <string name="assinatura_bloquea_edicao_relatorio">Ao assinar o relatório este deixará de ser editável</string>
+    <string name="por_favor_aguarde">Por favor aguarde...</string>
+    <string name="a_atualizar">A atualizar</string>
+    <string name="atualizacao_concluida">Atualização concluída</string>
 </resources>

@@ -14,6 +14,8 @@ import com.vvm.sh.R;
 import com.vvm.sh.ui.apresentacao.modelos.Introducao;
 import com.vvm.sh.ui.apresentacao.modelos.IntroducaoFactory;
 import com.vvm.sh.ui.autenticacao.AutenticacaoActivity;
+import com.vvm.sh.ui.transferencias.AtualizacaoTiposActivity;
+import com.vvm.sh.ui.transferencias.modelos.AtualizacaoTipos;
 import com.vvm.sh.util.constantes.AppConfig;
 import com.vvm.sh.util.constantes.Apresentacoes;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
@@ -146,6 +148,8 @@ public class ApresentacaoActivity extends AppCompatActivity implements ViewPager
         }
         else {
             finish();
+            Intent intent = new Intent(this, AtualizacaoTiposActivity.class);
+            startActivity(intent);
         }
     }
 

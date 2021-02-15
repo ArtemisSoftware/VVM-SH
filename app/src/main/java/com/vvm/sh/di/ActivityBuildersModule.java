@@ -124,6 +124,7 @@ import com.vvm.sh.ui.quadroPessoal.DialogoOpcoesColaborador;
 import com.vvm.sh.ui.quadroPessoal.QuadroPessoalActivity;
 import com.vvm.sh.ui.tarefa.DialogoEmail;
 import com.vvm.sh.ui.tarefa.TarefaActivity;
+import com.vvm.sh.ui.transferencias.AtualizacaoTiposActivity;
 import com.vvm.sh.ui.transferencias.DownloadTrabalhoActivity;
 import com.vvm.sh.ui.anomalias.AnomaliasActivity;
 import com.vvm.sh.ui.atividadesExecutadas.AtividadesExecutadasActivity;
@@ -521,6 +522,11 @@ public abstract class ActivityBuildersModule {
     )
     abstract CarregamentoActivity contributeCarregamentoActivity();
 
+    @TransferenciasScope
+    @ContributesAndroidInjector(
+            modules = { TransferenciasViewModelsModule.class, TransferenciasModule.class }
+    )
+    abstract AtualizacaoTiposActivity contributeAtualizacaoTiposActivity();
 
     //----------------------
     //Avaliacao ambiental

@@ -168,7 +168,7 @@ public class MainActivity extends BaseDaggerActivity
             iniciarApp();
         }
         else if(validarSessao() == false){
-            viewModel.terminarSessao();
+
         }
         else{
 

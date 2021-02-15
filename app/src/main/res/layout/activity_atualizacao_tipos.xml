@@ -1,17 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+
+
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.transferencias.AtualizacaoTiposActivity">
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+        <import type="android.view.View"/>
+        <import type="com.vvm.sh.util.metodos.StringUtil"/>
+
+        <variable
+            name="viewmodel"
+            type="com.vvm.sh.ui.transferencias.TransferenciasViewModel"/>
+
+
+        <variable
+            name="comunicado"
+            type="com.vvm.sh.util.AtualizacaoUI.Comunicado"/>
+
+    </data>
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        tools:context=".ui.transferencias.AtualizacaoTiposActivity">
 
         <androidx.constraintlayout.widget.Guideline
             android:id="@+id/guideline4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.55"/>
+            app:layout_constraintGuide_percent="0.55" />
 
 
         <View
@@ -20,13 +41,12 @@
             android:layout_height="0dp"
             android:background="@drawable/circle_white"
             android:elevation="24dp"
-            app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintBottom_toTopOf="@+id/guideline4"
+            app:layout_constraintDimensionRatio="W,1:1"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintWidth_percent="0.4"
-            app:layout_constraintDimensionRatio="W,1:1"/>
-
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintWidth_percent="0.4" />
 
 
         <ImageView
@@ -35,11 +55,11 @@
             android:layout_height="0dp"
             android:elevation="25dp"
             app:layout_constraintBottom_toBottomOf="@id/circle"
+            app:layout_constraintDimensionRatio="W,1:1"
             app:layout_constraintEnd_toEndOf="@id/circle"
             app:layout_constraintStart_toStartOf="@id/circle"
             app:layout_constraintTop_toTopOf="@id/circle"
-            app:layout_constraintWidth_percent="0.4"
-            app:layout_constraintDimensionRatio="W,1:1"/>
+            app:layout_constraintWidth_percent="0.4" />
 
 
         <ProgressBar
@@ -49,228 +69,121 @@
             android:layout_height="0dp"
             android:elevation="25dp"
             app:layout_constraintBottom_toBottomOf="@id/circle"
+            app:layout_constraintDimensionRatio="W,1:1"
             app:layout_constraintEnd_toEndOf="@id/circle"
             app:layout_constraintStart_toStartOf="@id/circle"
             app:layout_constraintTop_toTopOf="@id/circle"
-            app:layout_constraintWidth_percent="0.3"
-            app:layout_constraintDimensionRatio="W,1:1"/>
+            app:layout_constraintWidth_percent="0.3" />
 
-
+        <ImageView
+            android:id="@+id/img_logo"
+            android:layout_width="178dp"
+            android:layout_height="0dp"
+            android:elevation="25dp"
+            android:src="@drawable/ic_app_logo_1"
+            android:visibility="gone"
+            app:layout_constraintBottom_toTopOf="@+id/guideline4"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
 
         <TextView
             android:id="@+id/txt_titulo"
             style="@style/titulo"
-            android:text="@string/atualizacao"
-            android:layout_width="0dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="32dp"
             android:layout_marginEnd="32dp"
-            android:textAlignment="textStart"
+            android:gravity="center_horizontal"
+            android:text="@string/a_atualizar"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/guideline4"
-            />
-
+            app:layout_constraintTop_toBottomOf="@+id/guideline4" />
 
 
         <TextView
             android:id="@+id/txt_descricao"
             style="@style/textoDetalhe"
-            android:text="@string/lorem_ipsum_texto_pequeno"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
             android:layout_marginStart="32dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="32dp"
-            android:textAlignment="textStart"
+            android:gravity="center_horizontal"
+            android:text="@string/por_favor_aguarde"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_titulo"
-            />
+            app:layout_constraintTop_toBottomOf="@+id/txt_titulo" />
 
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/lnr_lyt_tipos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="24dp"
+            android:visibility="@{comunicado == null ? View.VISIBLE : View.GONE }"
+            app:layout_constraintEnd_toEndOf="@+id/txt_titulo"
+            app:layout_constraintStart_toStartOf="@+id/txt_titulo"
+            app:layout_constraintTop_toBottomOf="@+id/txt_descricao">
 
-    <TextView
-        android:id="@+id/txt_sub_titulo"
-        style="@style/textoDetalhe"
-        android:visibility="invisible"
-        android:layout_marginEnd="24dp"
-        android:text="@string/iniciar_app"
-        app:layout_constraintBottom_toBottomOf="@+id/crl_prosseguir"
-        app:layout_constraintEnd_toStartOf="@+id/crl_prosseguir"
-        app:layout_constraintTop_toTopOf="@+id/crl_prosseguir" />
+            <ProgressBar
+                android:id="@+id/prgBar_tipos"
+                style="?android:attr/progressBarStyleHorizontal"
+                android:layout_width="400dp"
+                android:layout_height="wrap_content"
+                android:max="@{comunicado.limite}"
+                android:progress="@{comunicado.posicao}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:layout_constraintVertical_bias="0.19999999" />
 
+            <TextView
+                android:id="@+id/txt_titulo_tipos"
+                style="@style/textoDetalhe"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="64dp"
+                android:text="@{comunicado.mensagem}"
+                app:layout_constraintStart_toStartOf="@+id/prgBar_tipos"
+                app:layout_constraintTop_toBottomOf="@+id/prgBar_tipos"
+                app:layout_constraintVertical_bias="0.07999998" />
 
-    <at.markushi.ui.CircleButton
-        android:id="@+id/crl_prosseguir"
-        style="@style/btnCircular"
-        android:visibility="invisible"
-        android:layout_width="70dp"
-        android:layout_height="70dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="32dp"
-        android:src="@drawable/ic_appintro_arrow"
-        app:cb_color="@color/cor_btn_apresentacao"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
-
-
-</androidx.constraintlayout.widget.ConstraintLayout>
-
-
-<!--    <?xml version="1.0" encoding="utf-8"?>-->
-<!--<layout xmlns:tools="http://schemas.android.com/tools"-->
-<!--xmlns:android="http://schemas.android.com/apk/res/android"-->
-<!--xmlns:app="http://schemas.android.com/apk/res-auto">-->
-<!--<data>-->
-
-
-<!--</data>-->
-
-
-
-<!--<androidx.constraintlayout.widget.ConstraintLayout-->
-<!--    android:layout_width="match_parent"-->
-<!--    android:layout_height="match_parent"-->
-<!--    tools:layout_editor_absoluteY="25dp"-->
-<!--    android:id="@+id/root"-->
-<!--    android:background="@color/colorNewBackground">-->
+            <TextView
+                android:id="@+id/txt_progresso_tipos"
+                style="@style/textoDetalhe"
+                android:text="@{comunicado.obterLimite_()}"
+                app:layout_constraintEnd_toEndOf="@+id/prgBar_tipos"
+                app:layout_constraintTop_toTopOf="@+id/txt_titulo_tipos" />
 
 
-<!--    <View-->
-<!--        android:id="@+id/circle"-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="0dp"-->
-<!--        android:background="@drawable/circle_white"-->
-<!--        android:elevation="24dp"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintBottom_toTopOf="@+id/guideline4"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintWidth_percent="0.4"-->
-<!--        app:layout_constraintDimensionRatio="W,1:1"/>-->
-
-<!--    <ImageView-->
-<!--        android:id="@+id/result_image"-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="0dp"-->
-<!--        android:elevation="25dp"-->
-<!--        app:layout_constraintBottom_toBottomOf="@id/circle"-->
-<!--        app:layout_constraintEnd_toEndOf="@id/circle"-->
-<!--        app:layout_constraintStart_toStartOf="@id/circle"-->
-<!--        app:layout_constraintTop_toTopOf="@id/circle"-->
-<!--        app:layout_constraintWidth_percent="0.4"-->
-<!--        app:layout_constraintDimensionRatio="W,1:1"/>-->
-
-<!--    <se.tink.android.views.extended.TinkProgressBar-->
-<!--        android:id="@+id/progressBar"-->
-<!--        style="?android:attr/progressBarStyle"-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="0dp"-->
-<!--        android:elevation="25dp"-->
-<!--        app:layout_constraintBottom_toBottomOf="@id/circle"-->
-<!--        app:layout_constraintEnd_toEndOf="@id/circle"-->
-<!--        app:layout_constraintStart_toStartOf="@id/circle"-->
-<!--        app:layout_constraintTop_toTopOf="@id/circle"-->
-<!--        app:layout_constraintWidth_percent="0.3"-->
-<!--        app:layout_constraintDimensionRatio="W,1:1"/>-->
+        </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-<!--    <ImageView-->
-<!--        android:id="@+id/result_image_complete"-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="0dp"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintBottom_toTopOf="@+id/guideline4"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintWidth_percent="0.8"-->
-<!--        app:layout_constraintDimensionRatio="W,1:1"/>-->
+        <TextView
+            android:id="@+id/txt_sub_titulo"
+            style="@style/textoDetalhe"
+            android:layout_marginEnd="24dp"
+            android:text="@string/iniciar_app"
+            android:visibility="invisible"
+            app:layout_constraintBottom_toBottomOf="@+id/crl_prosseguir"
+            app:layout_constraintEnd_toStartOf="@+id/crl_prosseguir"
+            app:layout_constraintTop_toTopOf="@+id/crl_prosseguir" />
 
 
-<!--    <androidx.constraintlayout.widget.Guideline-->
-<!--        android:id="@+id/guideline4"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:orientation="horizontal"-->
-<!--        app:layout_constraintGuide_percent="0.55"/>-->
-
-<!--    <se.tink.android.views.extended.TinkTextView-->
-<!--        android:id="@+id/title"-->
-<!--        style="@style/mega.bold"-->
-<!--        android:text="@string/digital_card__title_updating"-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginStart="32dp"-->
-<!--        android:layout_marginEnd="32dp"-->
-<!--        android:textAlignment="textStart"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/guideline4"-->
-<!--        />-->
+        <at.markushi.ui.CircleButton
+            android:id="@+id/crl_prosseguir"
+            style="@style/btnCircular"
+            android:layout_width="70dp"
+            android:layout_height="70dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginBottom="32dp"
+            android:src="@drawable/ic_appintro_arrow"
+            android:visibility="invisible"
+            app:cb_color="@color/cor_btn_apresentacao"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent" />
 
 
-<!--    <se.tink.android.views.extended.TinkTextView-->
-<!--        android:id="@+id/amount"-->
-<!--        style="@style/peta.light.accent"-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="4dp"-->
-<!--        android:layout_marginStart="32dp"-->
-<!--        android:layout_marginEnd="32dp"-->
-<!--        android:textAlignment="textStart"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/title"-->
-<!--        android:visibility="gone"-->
-<!--        />-->
-
-<!--    <se.tink.android.views.extended.TinkTextView-->
-<!--        android:id="@+id/subtitle"-->
-<!--        style="@style/deci"-->
-<!--        android:text="@string/digital_card__processing_data"-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="8dp"-->
-<!--        android:layout_marginStart="32dp"-->
-<!--        android:layout_marginEnd="32dp"-->
-<!--        android:textAlignment="textStart"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/amount"-->
-<!--        />-->
-
-
-
-<!--    <androidx.constraintlayout.widget.Guideline-->
-<!--        android:id="@+id/guideline_btn"-->
-<!--        android:layout_width="wrap_content"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:orientation="vertical"-->
-<!--        app:layout_constraintGuide_percent="0.55"/>-->
-
-
-
-
-<!--    <se.tink.android.views.CredentialFieldView-->
-<!--        android:id="@+id/credentials_field"-->
-<!--        android:layout_width="0dp"-->
-<!--        android:layout_height="0dp"-->
-<!--        android:paddingTop="8dp"-->
-<!--        android:paddingBottom="8dp"-->
-<!--        android:paddingLeft="32dp"-->
-<!--        android:paddingRight="32dp"-->
-<!--        android:orientation="vertical"-->
-<!--        app:layout_constraintBottom_toTopOf="@+id/button"-->
-<!--        app:layout_constraintEnd_toEndOf="parent"-->
-<!--        app:layout_constraintStart_toStartOf="parent"-->
-<!--        app:layout_constraintTop_toTopOf="parent"-->
-<!--        app:layout_constraintVertical_bias="0.25">-->
-<!--    </se.tink.android.views.CredentialFieldView>-->
-<!--</androidx.constraintlayout.widget.ConstraintLayout>-->
-
-
-
-
-
-<!--</layout>-->
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>

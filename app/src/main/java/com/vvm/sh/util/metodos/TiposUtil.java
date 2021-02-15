@@ -229,9 +229,9 @@ public class TiposUtil {
 
             public static final MetodoApi TIPOS [] = new MetodoApi []{
                     //TODO: descomentar para ativar tipos de sht
-                    /*
-                    METODO_ATIVIDADES_RELATORIO_VISITA,
 
+                    METODO_ATIVIDADES_RELATORIO_VISITA,
+/*
                     METODO_CATEGORIAS_PROFISSIONAIS,
                     METODO_CONDICOES_CLIMATERICAS,
                     METODO_CONCLUSAO_MEDIDAS_RECOMENDADAS,

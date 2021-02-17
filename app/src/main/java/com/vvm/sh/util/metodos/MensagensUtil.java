@@ -56,9 +56,6 @@ public class MensagensUtil {
 
 
 
-
-
-
     //---------------------
     //Alerta
     //---------------------
@@ -70,6 +67,28 @@ public class MensagensUtil {
     public void alerta(String titulo, String mensagem, OnDialogoListener listener){
         executarDialogo(R.color.cor_dialogo_alerta, R.drawable.ic_alerta_24dp, titulo, mensagem, listener);
     }
+
+
+    //---------------------
+    //Erro
+    //---------------------
+
+    public void erro(String mensagem) {
+        erro(Sintaxe.Palavras.ERRO, mensagem, null);
+    }
+
+    public void erro(String titulo, String mensagem) {
+        erro(titulo, mensagem, null);
+    }
+
+    public void erro(String titulo, String mensagem, OnDialogoListener listener){
+        executarDialogo(R.color.cor_dialogo_erro, R.drawable.ic_erro_24, titulo, mensagem, listener);
+    }
+
+
+
+
+
 
 
     private void executarDialogo(int corTopo, int icon, String titulo, String mensagem, OnDialogoListener listenerOk){
@@ -135,59 +154,26 @@ public class MensagensUtil {
     //---------------------
 
 
-    public void erro(String mensagem) {
+//    public void erro(String mensagem) {
+//
+//        dialogo.changeAlertType(SweetAlertDialog.ERROR_TYPE);
+//
+//        dialogo.setTitleText(Sintaxe.Opcoes.ERRO)
+//                .setContentText(mensagem)
+//                .setConfirmText(Sintaxe.Opcoes.OK)
+//                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
+//                    @Override
+//                    public void onClick(SweetAlertDialog sDialog) {
+////                        sDialog.dismissWithAnimation();
+//                        sDialog.dismiss();
+//                    }
+//                });
+//
+//        dialogo.show();
+//    }
 
-        dialogo.changeAlertType(SweetAlertDialog.ERROR_TYPE);
 
-        dialogo.setTitleText(Sintaxe.Opcoes.ERRO)
-                .setContentText(mensagem)
-                .setConfirmText(Sintaxe.Opcoes.OK)
-                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                    @Override
-                    public void onClick(SweetAlertDialog sDialog) {
-//                        sDialog.dismissWithAnimation();
-                        sDialog.dismiss();
-                    }
-                });
 
-        dialogo.show();
-    }
-
-    public void erro(String titulo, String mensagem) {
-
-        dialogo.changeAlertType(SweetAlertDialog.ERROR_TYPE);
-
-        dialogo.setTitleText(titulo)
-                .setContentText(mensagem)
-                .setConfirmText(Sintaxe.Opcoes.OK)
-                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                    @Override
-                    public void onClick(SweetAlertDialog sDialog) {
-//                        sDialog.dismissWithAnimation();
-                        sDialog.dismiss();
-                    }
-                });
-
-        dialogo.show();
-    }
-
-    public void erro(String titulo, String mensagem, OnDialogoListener listener) {
-
-        dialogo.changeAlertType(SweetAlertDialog.ERROR_TYPE);
-        dialogo.setTitleText(titulo)
-                .setContentText(mensagem)
-                .setConfirmText(Sintaxe.Opcoes.OK)
-                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                    @Override
-                    public void onClick(SweetAlertDialog sDialog) {
-//                        sDialog.dismissWithAnimation();
-                        sDialog.dismiss();
-                        listener.onExecutar();
-                    }
-                });
-
-        dialogo.show();
-    }
 
 
     public void erro(Recurso recurso, OnDialogoListener listener) {

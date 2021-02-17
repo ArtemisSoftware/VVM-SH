@@ -101,13 +101,13 @@ public class InformacaoSstActivity extends BaseDaggerActivity {
     @OnClick({R.id.card_dados_cliente})
     public void card_dados_cliente_OnClickListener(View view) {
 
-        DialogoResponsavel dialogo = DialogoResponsavel.newInstance(activityInformacaoSstBinding.txtResponsavel.getText().toString());
+        DialogoResponsavel dialogo = DialogoResponsavel.newInstance(viewModel.relatorio.getValue().idRelatorio, viewModel.relatorio.getValue().responsavelRelatorio);
         dialogo.show(getSupportFragmentManager(), "example dialog");
     }
 
 
     @OnClick({R.id.card_obrigacoes_legais})
-    public void card_card_obrigacoes_legais_OnClickListener(View view) {
+    public void card_obrigacoes_legais_OnClickListener(View view) {
 
         Intent intent = new Intent(this, ObrigacoesLegaisActivity.class);
         startActivity(intent);

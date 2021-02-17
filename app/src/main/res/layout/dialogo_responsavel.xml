@@ -36,7 +36,6 @@
                 android:id="@+id/txt_inp_responsavel"
                 style="@style/modifiedEditText"
                 android:inputType="text"
-                android:text="@{viewmodel.relatorio.responsavelRelatorio}"
                 android:maxLines="1"/>
         </com.google.android.material.textfield.TextInputLayout>
 

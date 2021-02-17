@@ -61,6 +61,8 @@ public class TiposUtil {
         public static final String MEDIDAS_PREVENCAO_RECOMENDADAS = "GetMedidasPrevencaoRecomendadas";
         public static final String MEDIDAS_PREVENCAO_ADOPTADAS = "GetMedidasPrevencaoAdoptadas";
 
+        public static final String OBRIGACOES_LEGAIS = "ObterInfoSST_ObrigacoesLegais";
+
         public static final String RISCOS = "GetRiscos";
         public static final String RISCOS_ESPECIFICOS = "GetRiscosEspecificos";
 
@@ -110,6 +112,9 @@ public class TiposUtil {
         public static final String MEDIDAS_PREVENCAO_RECOMENDADAS = "Medidas_Prevencao_Recomendadas";
         public static final String MEDIDAS_PREVENCAO_ADOPTADAS = "Medidas_Prevencao_Adoptadas";
 
+
+        public static final String OBRIGACOES_LEGAIS = "Obrigacoes_Legais";
+
         public static final String RISCOS = "Riscos";
         public static final String RISCOS_ESPECIFICOS = "Riscos_Especificos";
 
@@ -131,9 +136,6 @@ public class TiposUtil {
         public static final String ILUMINANCIA = "Iluminancia";
 
 
-
-        //TODO: incluir descricao
-        public static final String OBRIGACOES_LEGAIS = "";
 
 
 
@@ -203,6 +205,9 @@ public class TiposUtil {
             public static final MetodoApi METODO_MEDIDAS_PREVENCAO_RECOMENDADAS = new MetodoApi(MEDIDAS_PREVENCAO_RECOMENDADAS, null, MetodosTiposSH.MEDIDAS_PREVENCAO_RECOMENDADAS, Identificadores.Atualizacoes.TIPO);
             public static final MetodoApi METODO_MEDIDAS_PREVENCAO_ADOPTADAS = new MetodoApi(MEDIDAS_PREVENCAO_ADOPTADAS, null, MetodosTiposSH.MEDIDAS_PREVENCAO_ADOPTADAS, Identificadores.Atualizacoes.TIPO);
 
+            public static final MetodoApi METODO_OBRIGACOES_LEGAIS = new MetodoApi(OBRIGACOES_LEGAIS, null, MetodosTiposSH.OBRIGACOES_LEGAIS, Identificadores.Atualizacoes.TIPO);
+
+
 
             public static final MetodoApi METODO_RISCOS = new MetodoApi(RISCOS, null, MetodosTiposSH.RISCOS, Identificadores.Atualizacoes.TIPO);
             public static final MetodoApi METODO_RISCOS_ESPECIFICOS = new MetodoApi(RISCOS_ESPECIFICOS, null, MetodosTiposSH.RISCOS_ESPECIFICOS, Identificadores.Atualizacoes.TIPO);
@@ -250,7 +255,9 @@ public class TiposUtil {
                     METODO_MEDIDAS_ILUMINACAO_TERMICO,
                     METODO_MEDIDAS_PREVENCAO_RECOMENDADAS,
                     METODO_MEDIDAS_PREVENCAO_ADOPTADAS,
-
+*/
+                    METODO_OBRIGACOES_LEGAIS,
+/*
                     METODO_RISCOS,
                     METODO_RISCOS_ESPECIFICOS,
 

@@ -25,7 +25,7 @@ import io.reactivex.Single;
 abstract public class InformacaoSstDao implements BaseDao<InformacaoSstResultado> {
 
 
-    @Query("SELECT numeroObrigacaoes, email, obrigacaoValido, assinaturaValido, sincronizacao, responsavelRelatorio, responsavel, " +
+    @Query("SELECT numeroObrigacaoes, email, obrigacaoValido, assinaturaValido, sincronizacao, responsavelRelatorio, responsavel, idRelatorio, " +
             "CASE WHEN emailValido = 1 AND responsavelValido = 1 THEN 1 ELSE 0 END as dadosClienteValido, " +
             "CASE WHEN emailValido = 1 AND responsavelValido = 1 AND obrigacaoValido = 1 THEN 1 ELSE 0 END as podeAssinar, " +
             "CASE WHEN emailValido = 1 AND responsavelValido = 1 AND obrigacaoValido = 1 AND assinaturaValido = 1 THEN 1 ELSE 0 END as valido " +
@@ -33,7 +33,7 @@ abstract public class InformacaoSstDao implements BaseDao<InformacaoSstResultado
             "FROM ( " +
 
 
-            "SELECT info_sst_res.idTarefa as idTarefa," +
+            "SELECT info_sst_res.idTarefa as idTarefa, idRelatorio," +
             "email, numeroObrigacaoes, obrigacaoValido, responsavelValido, sincronizacao, " +
             "IFNULL(responsavel, responsavelCliente) as responsavelRelatorio , responsavel, " +
             "CASE WHEN IFNULL(img.idTarefa, 0) = 0 THEN 0 ELSE 1 END as assinaturaValido, " +
@@ -45,12 +45,12 @@ abstract public class InformacaoSstDao implements BaseDao<InformacaoSstResultado
 
             //relatorio
             "LEFT JOIN(" +
-            "SELECT idTarefa, sincronizacao, responsavel, " +
+            "SELECT idTarefa as idRelatorio, sincronizacao, responsavel, " +
             "CASE WHEN responsavel IS NULL OR responsavel = '' THEN 0 ELSE 1 END as responsavelValido " +
             "FROM informacaoSstResultado " +
             "GROUP BY idTarefa)" +
             "as rel_info " +
-            "ON info_sst_res.idTarefa = rel_info.idTarefa " +
+            "ON info_sst_res.idTarefa = rel_info.idRelatorio " +
 
             //obrigacaoes
             "LEFT JOIN(" +

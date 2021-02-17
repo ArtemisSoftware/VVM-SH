@@ -51,16 +51,18 @@ public class DialogoResponsavel extends BaseDaggerDialogoPersistenteFragment imp
     private Validator validador;
 
     private static final String ARGUMENTO_RESPONSAVEL= "responsavel";
+    private static final String ARGUMENTO_ID_RELATORIO= "id";
 
     public DialogoResponsavel() {
         // Empty constructor required for DialogFragment
     }
 
 
-    public static DialogoResponsavel newInstance(String responsavel) {
+    public static DialogoResponsavel newInstance(int idRelatorio, String responsavel) {
         DialogoResponsavel fragmento = new DialogoResponsavel();
         Bundle args = new Bundle();
         args.putString(ARGUMENTO_RESPONSAVEL, responsavel);
+        args.putInt(ARGUMENTO_ID_RELATORIO, idRelatorio);
         fragmento.setArguments(args);
         return fragmento;
     }
@@ -78,7 +80,7 @@ public class DialogoResponsavel extends BaseDaggerDialogoPersistenteFragment imp
         binding = (DialogoResponsavelBinding) activityBaseBinding;
         binding.setViewmodel(viewModel);
 
-        binding.txtInpResponsavel.setText(getArguments().getInt(ARGUMENTO_RESPONSAVEL));
+        binding.txtInpResponsavel.setText(getArguments().getString(ARGUMENTO_RESPONSAVEL));
     }
 
 
@@ -135,8 +137,10 @@ public class DialogoResponsavel extends BaseDaggerDialogoPersistenteFragment imp
     @Override
     public void onValidationSucceeded() {
 
+        int idRelatorio = getArguments().getInt(ARGUMENTO_ID_RELATORIO);
+
         InformacaoSstResultado resultado = new InformacaoSstResultado(PreferenciasUtil.obterIdTarefa(getContext()), binding.txtInpResponsavel.getText().toString(), false);
-        viewModel.gravar(resultado);
+        viewModel.gravar(idRelatorio, resultado);
     }
 
     @Override

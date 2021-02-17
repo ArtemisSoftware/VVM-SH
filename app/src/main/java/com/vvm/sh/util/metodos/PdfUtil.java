@@ -8,10 +8,12 @@ import com.vvm.sh.documentos.certificadoTratamento.CertificadoTratamento;
 import com.vvm.sh.documentos.certificadoTratamento.modelos.DadosCertificadoTratamento;
 import com.vvm.sh.documentos.registoVisita.RegistoVisita;
 import com.vvm.sh.documentos.registoVisita.modelos.DadosRegistoVisita;
+import com.vvm.sh.util.excepcoes.DocumentoPdfException;
+import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 public class PdfUtil {
 
-    public static Template obterTemplate(Context contexto, int idTarefa, int idAtividade, DadosTemplate dadosTemplate){
+    public static Template obterTemplate(Context contexto, int idTarefa, int idAtividade, DadosTemplate dadosTemplate) throws DocumentoPdfException {
 
         Template template = null;
 
@@ -20,6 +22,11 @@ public class PdfUtil {
         }
         else if(dadosTemplate instanceof DadosCertificadoTratamento){
             template = new CertificadoTratamento(contexto, idTarefa, idAtividade, (DadosCertificadoTratamento) dadosTemplate);
+        }
+
+
+        if(template == null) {
+            throw new DocumentoPdfException("Template do pdf indisponível");
         }
 
         return template;

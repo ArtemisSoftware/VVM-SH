@@ -238,14 +238,10 @@ public abstract class BaseViewModel extends ViewModel {
                 .map(new Function<DadosTemplate, DadosPdf>() {
                     @Override
                     public DadosPdf apply(DadosTemplate dadosTemplate) throws Exception {
+
                         Template template = PdfUtil.obterTemplate(contexto, idTarefa, idAtividade, dadosTemplate);
-
-                        if(template != null) {
-                            template.createFile();
-                            return new DadosPdf(dadosTemplate.credenciaisEmail, template);
-                        }
-                        else throw new DocumentoPdfException("Template do pdf indisponível");
-
+                        template.createFile();
+                        return new DadosPdf(dadosTemplate.credenciaisEmail, template);
                     }
                 })
 

@@ -93,7 +93,6 @@ public class InformacaoSstViewModel extends BaseViewModel implements OnDocumento
                             @Override
                             public void accept(List<? extends Number> numbers) throws Exception {
                                 messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_GRAVADOS_SUCESSO));
-                                gravarResultado(informacaoSstRepositorio.resultadoDao, idTarefa, informacaoSstRepositorio.resultadoId);
                             }
                         }
                 );
@@ -143,9 +142,9 @@ public class InformacaoSstViewModel extends BaseViewModel implements OnDocumento
      * Metodo que permite gravar um registo
      * @param registo os dados do registo
      */
-    public void gravar(InformacaoSstResultado registo){
+    public void gravar(int idRelatorio, InformacaoSstResultado registo){
 
-        if(relatorio.getValue().responsavel == null){
+        if(idRelatorio == 0){
 
             informacaoSstRepositorio.inserir(registo)
                     .subscribeOn(Schedulers.io())

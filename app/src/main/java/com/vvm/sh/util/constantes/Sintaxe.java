@@ -66,6 +66,7 @@ public class Sintaxe {
         public static final String EQUIPAMENTO_RELATORIO_ILUMINACAO = "Luxómetro";
         public static final String IMAGEM = "Imagem";
         public static final String INFORMCAO_SST = "Informação SST";
+        public static final String ERRO = "Erro";
     }
 
     public class Opcoes{

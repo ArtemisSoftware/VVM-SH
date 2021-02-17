@@ -4,6 +4,12 @@ import androidx.room.ColumnInfo;
 
 public class RelatorioInformacaoSst {
 
+
+    @ColumnInfo(name = "idRelatorio")
+    public int idRelatorio;
+
+
+
     @ColumnInfo(name = "numeroObrigacaoes")
     public int numeroObrigacaoes;
 

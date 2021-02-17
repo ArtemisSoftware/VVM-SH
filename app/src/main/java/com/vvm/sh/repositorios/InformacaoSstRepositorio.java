@@ -80,7 +80,7 @@ public class InformacaoSstRepositorio{
 
 
     public Observable<List<ObrigacaoLegal>> obterObrigacoesLegais(int idTarefa){
-        return obrigacoesLegaisDao.obterObrigacoesLegais(idTarefa, api);
+        return obrigacoesLegaisDao.obterObrigacoesLegais(idTarefa, /*api*/2);
     }
 
 

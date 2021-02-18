@@ -38,16 +38,23 @@ public class IdentificacaoCliente extends Section {
 
         //titulo
 
-        Phrase frase = new Phrase(contexto.getString(R.string.obrigatoriedades_legais).toUpperCase(), fontConfiguration.getFont(Pdf.Fontes.FONTE_ASSINATURA, true));
+        Phrase frase = new Phrase(contexto.getString(R.string.obrigatoriedades_legais).toUpperCase(), fontConfiguration.getFont(Pdf.Fontes.FONTE_CABECALHO, true));
         table.addCell(frase, cellConfiguration);
 
+
+        CellConfiguration cellConfiguration_3 = new CellConfiguration();
+        cellConfiguration_3.height = 10;
+        table.addEmptyLine(cellConfiguration_3);
 
         //descricao
 
+        CellConfiguration cellConfiguration_1 = new CellConfiguration();
+        cellConfiguration_1.horizontalAlign = Element.ALIGN_LEFT;
+
         String texto = "Considera-se que, após a apresentação do presente documento, a empresa " + dadosCliente.cliente.nome + " através do seu representante " + dadosCliente.informacaoSst.responsavel + ", se encontra informada da necessidade de dar cumprimento às obrigatoriedades legais abaixo descritas e que constam do Regime Jurídico da Promoção da Segurança e Saúde no Trabalho.";
 
-        frase = new Phrase(texto, fontConfiguration.getFont(Pdf.Fontes.FONTE_ASSINATURA, true));
-        table.addCell(frase, cellConfiguration);
+        frase = new Phrase(texto, fontConfiguration.getFont(Pdf.Fontes.FONTE_ASSINATURA));
+        table.addCell(frase, cellConfiguration_1);
 
 
     }

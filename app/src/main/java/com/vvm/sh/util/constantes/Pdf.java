@@ -66,6 +66,14 @@ public class Pdf {
         public static final float FONTE_HOMOLOGACAO = 8f;
         public static final float FONTE_CABECALHO = 11f;
         public static final float FONTE_ONSERVACAO = 8f;
+
+        public static final float FONTE_8 = 8f;
+        public static final float FONTE_9 = 9f;
+
+        /**
+         * Titulos
+         */
+        public static final float FONTE_11 = 11f;
     }
 
     public class RegistoVisita {

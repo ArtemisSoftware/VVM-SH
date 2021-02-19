@@ -23,7 +23,7 @@ public class InformacaoSst extends Template {
     private int idTarefa;
 
     public InformacaoSst(Context context, int idTarefa, DadosInformacaoSst dadosInformacaoSst) {
-        super(context, DiretoriasUtil.obterDiretoria(DiretoriasUtil.DIRETORIA_PDF), new TemplateConfiguration(PageSize.A4, PdfConstants.LEFT_MARGIN, PdfConstants.RIGHT_MARGIN, 70, PdfConstants.BASE_MARGIN, PdfConstants.SECTION_SPACING));
+        super(context, DiretoriasUtil.obterDiretoria(DiretoriasUtil.DIRETORIA_PDF), new TemplateConfiguration(PageSize.A4, PdfConstants.LEFT_MARGIN, 36, 70, PdfConstants.BASE_MARGIN, PdfConstants.SECTION_SPACING));
 
         this.dadosInformacaoSst = dadosInformacaoSst;
         this.idTarefa = idTarefa;

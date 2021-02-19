@@ -3,12 +3,14 @@ package com.vvm.sh.documentos.certificadoTratamento.seccoes;
 import android.content.Context;
 
 import com.itextpdf.text.Element;
+import com.itextpdf.text.Image;
 import com.itextpdf.text.Phrase;
 import com.titan.pdfdocumentlibrary.bundle.Section;
 import com.titan.pdfdocumentlibrary.elements.CellConfiguration;
 import com.titan.pdfdocumentlibrary.elements.FontConfiguration;
 import com.titan.pdfdocumentlibrary.elements.Table;
 import com.titan.pdfdocumentlibrary.exception.PdfLineException;
+import com.titan.pdfdocumentlibrary.util.PdfUtil;
 import com.vvm.sh.R;
 import com.vvm.sh.baseDados.entidades.CertificadoTratamentoResultado;
 import com.vvm.sh.util.constantes.Pdf;
@@ -230,24 +232,33 @@ public class Certificado extends Section {
         Phrase obs1 = new Phrase(contexto.getString(R.string.obs_certificado_tratamento_1), fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO_GRANDE));
         Phrase obs2 = new Phrase(contexto.getString(R.string.obs_certificado_tratamento_2), fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO_GRANDE));
 
-        int imagemObs1 = IMAGEM_CHECKBOX_CINZENTA;
+
+        Image checkbox = PdfUtil.createPdfImage(contexto.getResources(), Pdf.Imagens.IMAGEM_CHECKBOX_CINZENTA);
+        checkbox.scaleToFit(14f, 14f);
+
+        Image checkboxVazia = PdfUtil.createPdfImage(contexto.getResources(), Pdf.Imagens.IMAGEM_CHECKBOX_VAZIA_CINZENTA);
+        checkboxVazia.scaleToFit(14f, 14f);
+
+
+
+        Image imagemObs1 = checkbox;
 
         if(certificadoTratamento.observacaoVestigiosPragas == false){
-            imagemObs1 = IMAGEM_CHECKBOX_VAZIA_CINZENTA;
+            imagemObs1 = checkboxVazia;
         }
 
-        int imagemObs2 = IMAGEM_CHECKBOX_CINZENTA;
+        Image imagemObs2 = checkbox;
 
         if(certificadoTratamento.observacaoProdutosEmGel == false){
-            imagemObs2 = IMAGEM_CHECKBOX_VAZIA_CINZENTA;
+            imagemObs2 = checkboxVazia;
         }
 
 
         tabela.addCell(obs1, cellConfiguration_1);
-        tabela.addCell(contexto.getResources(), imagemObs1, cellConfiguration_1);
+        tabela.addCell(imagemObs1, cellConfiguration_1);
 
         tabela.addCell(obs2, cellConfiguration_1);
-        tabela.addCell(contexto.getResources(), imagemObs2, cellConfiguration_1);
+        tabela.addCell(imagemObs2, cellConfiguration_1);
 
 
         tabela.removeBorder();

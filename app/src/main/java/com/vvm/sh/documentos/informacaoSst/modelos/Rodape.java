@@ -44,7 +44,7 @@ public class Rodape extends Section {
 
         for (String texto : rodapes) {
 
-            Phrase frase = new Phrase(texto, fontConfiguration.getFont(Pdf.Fontes.FONTE_HOMOLOGACAO, false, BaseColor.GRAY));
+            Phrase frase = new Phrase(texto, fontConfiguration.getFont(Pdf.Fontes.FONTE_8, false, BaseColor.GRAY));
             tabela.addCell(frase, cellConfiguration);
         }
 

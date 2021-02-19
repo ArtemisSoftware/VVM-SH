@@ -131,7 +131,7 @@ public interface SegurancaTrabalhoApi {
     );
 
 
-
+    @FormUrlEncoded
     @POST("upLoadInfoSST")
     Single<Codigo> submeterInfoSST(@HeaderMap Map<String, String> headers,
                                     @Field("strJsonString") String dados,

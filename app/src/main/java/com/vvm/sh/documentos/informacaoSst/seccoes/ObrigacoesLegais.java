@@ -55,7 +55,7 @@ public class ObrigacoesLegais extends Section {
 
         for (ObrigacaoLegal registo : registos) {
 
-            Phrase frase = new Phrase(registo.tipo.descricao, fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO));
+            Phrase frase = new Phrase(registo.tipo.descricao, fontConfiguration.getFont(Pdf.Fontes.FONTE_8));
             table.addCell(frase, formato_Texto);
 
             if(registo.selecionado() == true){
@@ -69,13 +69,6 @@ public class ObrigacoesLegais extends Section {
         }
 
         table.removeBorder();
-
-        //-------------------
-
-
-//        CellConfiguration formato_tabela = new CellConfiguration();
-//        formato_tabela.border = 0;
-//        table.formatCells(formato_tabela);
 
     }
 }

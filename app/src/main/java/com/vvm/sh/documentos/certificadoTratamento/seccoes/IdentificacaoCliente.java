@@ -83,7 +83,7 @@ public class IdentificacaoCliente extends Section {
             cellConfiguration_3.colSpan = table.getNumberCells();
 
 
-            Phrase frase = new Phrase(contexto.getString(R.string.servico_integrado_seguranca_alimentar), fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO));
+            Phrase frase = new Phrase(contexto.getString(R.string.servico_integrado_seguranca_alimentar), fontConfiguration.getFont(Pdf.Fontes.FONTE_8));
             table.addLine(frase, cellConfiguration_3);
 
 
@@ -96,8 +96,8 @@ public class IdentificacaoCliente extends Section {
             CellConfiguration cellConfiguration_l2 [] = { cellConfiguration_2, cellConfiguration_1};
 
             linha = new Phrase []{
-                    new Phrase(contexto.getString(R.string.morada_estabelecimento_), fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO_GRANDE, true)),
-                    new Phrase(dadosCliente.cliente.morada, fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO_GRANDE))
+                    new Phrase(contexto.getString(R.string.morada_estabelecimento_), fontConfiguration.getFont(Pdf.Fontes.FONTE_8, true)),
+                    new Phrase(dadosCliente.cliente.morada, fontConfiguration.getFont(Pdf.Fontes.FONTE_8))
             };
 
 

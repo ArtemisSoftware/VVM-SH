@@ -72,7 +72,7 @@ public class Certificado extends Section {
             cellConfiguration.verticalAlign = Element.ALIGN_MIDDLE;
             cellConfiguration.colSpan = tabela.getNumberCells();
 
-            Phrase titulo = new Phrase(contexto.getString(R.string.tipo_praga), fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO_GRANDE, true));
+            Phrase titulo = new Phrase(contexto.getString(R.string.tipo_praga), fontConfiguration.getFont(Pdf.Fontes.FONTE_9, true));
             tabela.addCell(titulo, cellConfiguration);
 
 
@@ -85,8 +85,8 @@ public class Certificado extends Section {
             CellConfiguration cellConfiguration_l1 [] = {cellConfiguration_1, cellConfiguration_1};
 
             Phrase [] linha = new Phrase []{
-                    new Phrase(formatarTipo(certificadoTratamento.idPraga, CertificadoTratamento.Pragas.PRAGAS).toUpperCase(), fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO_GRANDE)),
-                    new Phrase(formatarTipo(certificadoTratamento.idVisita, CertificadoTratamento.Visitas.VISITAS), fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO_GRANDE)),
+                    new Phrase(formatarTipo(certificadoTratamento.idPraga, CertificadoTratamento.Pragas.PRAGAS).toUpperCase(), fontConfiguration.getFont(Pdf.Fontes.FONTE_9)),
+                    new Phrase(formatarTipo(certificadoTratamento.idVisita, CertificadoTratamento.Visitas.VISITAS), fontConfiguration.getFont(Pdf.Fontes.FONTE_9)),
             };
 
             tabela.addLine(linha, cellConfiguration_l1);
@@ -114,7 +114,7 @@ public class Certificado extends Section {
             cellConfiguration.verticalAlign = Element.ALIGN_MIDDLE;
             cellConfiguration.colSpan = tabela.getNumberCells();
 
-            Phrase titulo = new Phrase(contexto.getString(R.string.produto_aplicado), fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO_GRANDE, true));
+            Phrase titulo = new Phrase(contexto.getString(R.string.produto_aplicado), fontConfiguration.getFont(Pdf.Fontes.FONTE_9, true));
             tabela.addCell(titulo, cellConfiguration);
 
 
@@ -127,8 +127,8 @@ public class Certificado extends Section {
             CellConfiguration cellConfiguration_l1 [] = {cellConfiguration_1, cellConfiguration_1};
 
             Phrase [] linha = new Phrase []{
-                    new Phrase(Sintaxe.SEM_TEXTO, fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO_GRANDE)),
-                    new Phrase(formatarTipo(certificadoTratamento.idProdutoAplicado, CertificadoTratamento.Produtos.PRODUTOS), fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO_GRANDE))
+                    new Phrase(Sintaxe.SEM_TEXTO, fontConfiguration.getFont(Pdf.Fontes.FONTE_9)),
+                    new Phrase(formatarTipo(certificadoTratamento.idProdutoAplicado, CertificadoTratamento.Produtos.PRODUTOS), fontConfiguration.getFont(Pdf.Fontes.FONTE_9))
             };
 
             tabela.addLine(linha, cellConfiguration_l1, 0);
@@ -155,7 +155,7 @@ public class Certificado extends Section {
         cellConfiguration.verticalAlign = Element.ALIGN_MIDDLE;
         cellConfiguration.colSpan = tabela.getNumberCells();
 
-        Phrase titulo = new Phrase(contexto.getString(R.string.avaliacao_infraestruturas), fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO_GRANDE, true));
+        Phrase titulo = new Phrase(contexto.getString(R.string.avaliacao_infraestruturas), fontConfiguration.getFont(Pdf.Fontes.FONTE_9, true));
         tabela.addCell(titulo, cellConfiguration);
 
 
@@ -172,24 +172,24 @@ public class Certificado extends Section {
         try {
 
             Phrase [] linha = new Phrase []{
-                    new Phrase(contexto.getString(R.string.condicoes_higiene), fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO_GRANDE)),
-                    new Phrase(formatarTipo(certificadoTratamento.avaliacaoCondicoesHigiene, CertificadoTratamento.Avaliacoes.AVALIACOES), fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO_GRANDE))
+                    new Phrase(contexto.getString(R.string.condicoes_higiene), fontConfiguration.getFont(Pdf.Fontes.FONTE_9)),
+                    new Phrase(formatarTipo(certificadoTratamento.avaliacaoCondicoesHigiene, CertificadoTratamento.Avaliacoes.AVALIACOES), fontConfiguration.getFont(Pdf.Fontes.FONTE_9))
             };
 
             tabela.addLine(linha, dimensoes_l1, 0);
 
 
             linha = new Phrase []{
-                    new Phrase(contexto.getString(R.string.manutencao_instalacoes), fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO_GRANDE)),
-                    new Phrase(formatarTipo(certificadoTratamento.avaliacaoManutencaoInstalacoes, CertificadoTratamento.Avaliacoes.AVALIACOES), fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO_GRANDE))
+                    new Phrase(contexto.getString(R.string.manutencao_instalacoes), fontConfiguration.getFont(Pdf.Fontes.FONTE_9)),
+                    new Phrase(formatarTipo(certificadoTratamento.avaliacaoManutencaoInstalacoes, CertificadoTratamento.Avaliacoes.AVALIACOES), fontConfiguration.getFont(Pdf.Fontes.FONTE_9))
             };
 
             tabela.addLine(linha, dimensoes_l1, 0);
 
 
             linha = new Phrase []{
-                    new Phrase(contexto.getString(R.string.condicoes_armazenamento), fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO_GRANDE)),
-                    new Phrase(formatarTipo(certificadoTratamento.avaliacaoCondicoesArmazenamento, CertificadoTratamento.Avaliacoes.AVALIACOES), fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO_GRANDE))
+                    new Phrase(contexto.getString(R.string.condicoes_armazenamento), fontConfiguration.getFont(Pdf.Fontes.FONTE_9)),
+                    new Phrase(formatarTipo(certificadoTratamento.avaliacaoCondicoesArmazenamento, CertificadoTratamento.Avaliacoes.AVALIACOES), fontConfiguration.getFont(Pdf.Fontes.FONTE_9))
 
             };
 
@@ -217,7 +217,7 @@ public class Certificado extends Section {
         cellConfiguration.verticalAlign = Element.ALIGN_MIDDLE;
         cellConfiguration.colSpan = tabela.getNumberCells();
 
-        Phrase titulo = new Phrase(contexto.getString(R.string.observacoes).toUpperCase(), fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO_GRANDE, true));
+        Phrase titulo = new Phrase(contexto.getString(R.string.observacoes).toUpperCase(), fontConfiguration.getFont(Pdf.Fontes.FONTE_9, true));
         tabela.addCell(titulo, cellConfiguration);
 
 
@@ -229,8 +229,8 @@ public class Certificado extends Section {
         cellConfiguration_1.height = 23;
 
 
-        Phrase obs1 = new Phrase(contexto.getString(R.string.obs_certificado_tratamento_1), fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO_GRANDE));
-        Phrase obs2 = new Phrase(contexto.getString(R.string.obs_certificado_tratamento_2), fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO_GRANDE));
+        Phrase obs1 = new Phrase(contexto.getString(R.string.obs_certificado_tratamento_1), fontConfiguration.getFont(Pdf.Fontes.FONTE_9));
+        Phrase obs2 = new Phrase(contexto.getString(R.string.obs_certificado_tratamento_2), fontConfiguration.getFont(Pdf.Fontes.FONTE_9));
 
 
         Image checkbox = PdfUtil.createPdfImage(contexto.getResources(), Pdf.Imagens.IMAGEM_CHECKBOX_CINZENTA);
@@ -277,12 +277,12 @@ public class Certificado extends Section {
             CellConfiguration cellConfiguration = new CellConfiguration();
             cellConfiguration.verticalAlign = Element.ALIGN_MIDDLE;
 
-            Phrase titulo = new Phrase(contexto.getString(R.string.recomendacoes_observacoes).toUpperCase(), fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO_GRANDE, true));
+            Phrase titulo = new Phrase(contexto.getString(R.string.recomendacoes_observacoes).toUpperCase(), fontConfiguration.getFont(Pdf.Fontes.FONTE_9, true));
 
             tabela.addCell(titulo, cellConfiguration);
 
             //dados
-            Phrase frase = new Phrase(certificadoTratamento.observacao, fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO_GRANDE));
+            Phrase frase = new Phrase(certificadoTratamento.observacao, fontConfiguration.getFont(Pdf.Fontes.FONTE_9));
             tabela.addCell(frase, cellConfiguration);
         }
 

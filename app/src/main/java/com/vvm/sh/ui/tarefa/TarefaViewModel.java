@@ -539,7 +539,6 @@ public class TarefaViewModel extends BaseViewModel {
     private void obterOpcoesCliente(TarefaDia registo) {
 
         List<OpcaoCliente> items = new ArrayList<>();
-        items.add(OpcaoCliente.informacaoSst());
         items.add(OpcaoCliente.informacao());
 
         if(registo.estadoBaixas == false) {
@@ -562,7 +561,7 @@ public class TarefaViewModel extends BaseViewModel {
 
             items.add(OpcaoCliente.quadroPessoal());
             items.add(OpcaoCliente.registoVisita());
-            //items.add(OpcaoCliente.informacaoSst());
+            items.add(OpcaoCliente.informacaoSst());
             items.add(OpcaoCliente.planoAcao());
         }
 

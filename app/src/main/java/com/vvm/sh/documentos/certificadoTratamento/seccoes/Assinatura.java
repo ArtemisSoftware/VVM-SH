@@ -49,7 +49,7 @@ public class Assinatura extends Section {
                 cellConfiguration.colSpan = table.getNumberCells();
 
 
-                Phrase titulo = new Phrase(contexto.getString(R.string.data_).toUpperCase().toUpperCase() + " " + DatasUtil.converterData(registo.data, DatasUtil.FORMATO_DD_MM_YYYY), fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO_GRANDE));
+                Phrase titulo = new Phrase(contexto.getString(R.string.data_).toUpperCase().toUpperCase() + " " + DatasUtil.converterData(registo.data, DatasUtil.FORMATO_DD_MM_YYYY), fontConfiguration.getFont(Pdf.Fontes.FONTE_9));
                 table.addCell(titulo, cellConfiguration);
 
 
@@ -74,7 +74,7 @@ public class Assinatura extends Section {
 
 
                 //nome do tecnico
-                Phrase frase = new Phrase(registo.nome, fontConfiguration.getFont(Pdf.Fontes.FONTE_ASSINATURA));
+                Phrase frase = new Phrase(registo.nome, fontConfiguration.getFont(Pdf.Fontes.FONTE_8));
                 table.addCell(frase, cellConfiguration_1);
 
 
@@ -84,9 +84,9 @@ public class Assinatura extends Section {
                 cellConfiguration_2.horizontalAlign = Element.ALIGN_CENTER;
 
                 Phrase frases[] = {
-                        new Phrase(contexto.getString(R.string.pelo_cliente), fontConfiguration.getFont(Pdf.Fontes.FONTE_ASSINATURA)),
-                        new Phrase("", fontConfiguration.getFont(Pdf.Fontes.FONTE_ASSINATURA)),
-                        new Phrase(contexto.getString(R.string.tecnico_seguranca_alimentar), fontConfiguration.getFont(Pdf.Fontes.FONTE_ASSINATURA))
+                        new Phrase(contexto.getString(R.string.pelo_cliente), fontConfiguration.getFont(Pdf.Fontes.FONTE_8)),
+                        new Phrase("", fontConfiguration.getFont(Pdf.Fontes.FONTE_8)),
+                        new Phrase(contexto.getString(R.string.tecnico_seguranca_alimentar), fontConfiguration.getFont(Pdf.Fontes.FONTE_8))
                 };
 
                 table.addLine(frases, cellConfiguration_2);

@@ -44,7 +44,7 @@ public class IdentificacaoCliente extends Section {
             cellConfiguration.height = 38;
             cellConfiguration.colSpan = table.getNumberCells();
 
-            Phrase titulo = new Phrase(contexto.getString(R.string.certificado_tratamento).toUpperCase(), fontConfiguration.getFont(Pdf.Fontes.FONTE_CABECALHO, true));
+            Phrase titulo = new Phrase(contexto.getString(R.string.certificado_tratamento).toUpperCase(), fontConfiguration.getFont(Pdf.Fontes.FONTE_11, true));
 
             table.addCell(titulo, cellConfiguration);
             table.addEmptyLine();
@@ -65,11 +65,11 @@ public class IdentificacaoCliente extends Section {
             CellConfiguration cellConfiguration_l1 [] = {cellConfiguration_1, cellConfiguration_2, cellConfiguration_1, cellConfiguration_1};
 
             Phrase [] linha = new Phrase []{
-                    new Phrase(contexto.getString(R.string.cliente_), fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO_GRANDE, true)),
-                    new Phrase(dadosCliente.cliente.nome, fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO_GRANDE)),
+                    new Phrase(contexto.getString(R.string.cliente_), fontConfiguration.getFont(Pdf.Fontes.FONTE_9, true)),
+                    new Phrase(dadosCliente.cliente.nome, fontConfiguration.getFont(Pdf.Fontes.FONTE_9)),
 
-                    new Phrase(contexto.getString(R.string.numero_ordinal), fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO_GRANDE, true)),
-                    new Phrase(dadosCliente.cliente.numeroCliente, fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO_GRANDE))
+                    new Phrase(contexto.getString(R.string.numero_ordinal), fontConfiguration.getFont(Pdf.Fontes.FONTE_9, true)),
+                    new Phrase(dadosCliente.cliente.numeroCliente, fontConfiguration.getFont(Pdf.Fontes.FONTE_9))
             };
 
             table.addLine(linha, cellConfiguration_l1);
@@ -96,8 +96,8 @@ public class IdentificacaoCliente extends Section {
             CellConfiguration cellConfiguration_l2 [] = { cellConfiguration_2, cellConfiguration_1};
 
             linha = new Phrase []{
-                    new Phrase(contexto.getString(R.string.morada_estabelecimento_), fontConfiguration.getFont(Pdf.Fontes.FONTE_8, true)),
-                    new Phrase(dadosCliente.cliente.morada, fontConfiguration.getFont(Pdf.Fontes.FONTE_8))
+                    new Phrase(contexto.getString(R.string.morada_estabelecimento_), fontConfiguration.getFont(Pdf.Fontes.FONTE_9, true)),
+                    new Phrase(dadosCliente.cliente.morada, fontConfiguration.getFont(Pdf.Fontes.FONTE_9))
             };
 
 

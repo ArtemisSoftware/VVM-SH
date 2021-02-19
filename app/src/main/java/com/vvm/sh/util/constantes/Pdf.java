@@ -96,6 +96,8 @@ public class Pdf {
 
 
         public static final int LOGOTIPO_VIVAMAIS = R.drawable.img_vivamais_logo;
+
+        public static final int LOGOTIPO_VIVAMAIS_NEGATIVO = R.drawable.img_vivamais_logo_negativo;
     }
 
     public class TipoObservacao {
@@ -115,5 +117,6 @@ public class Pdf {
     public static class Cores {
         public static final BaseColor TINTA_CINZENTA = new BaseColor(242, 242, 242);
         public static final BaseColor TINTA_BORDA_CELULA = new BaseColor(179, 179, 179);
+        public static final BaseColor VERMELHO_VIVAMAIS = new BaseColor(192, 0, 0);
     }
 }

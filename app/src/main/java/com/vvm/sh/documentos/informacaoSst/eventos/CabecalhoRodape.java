@@ -1,23 +1,34 @@
 package com.vvm.sh.documentos.informacaoSst.eventos;
 
+import android.content.Context;
+
 import com.itextpdf.text.Document;
 import com.itextpdf.text.pdf.PdfContentByte;
 import com.itextpdf.text.pdf.PdfName;
 import com.itextpdf.text.pdf.PdfPageEventHelper;
 import com.itextpdf.text.pdf.PdfWriter;
-import com.vvm.sh.documentos.registoVisita.modelos.Rodape;
+import com.vvm.sh.documentos.informacaoSst.modelos.Cabecalho;
+import com.vvm.sh.documentos.informacaoSst.modelos.Rodape;
 
 import java.util.List;
 
 public class CabecalhoRodape extends PdfPageEventHelper {
 
+    private Cabecalho cabecalho;
+    private Rodape rodape;
 
-    public CabecalhoRodape(List<String> rodapes){
+    public CabecalhoRodape(Context contexto, List<String> rodapes){
 
-//        this.chapterId = chapterId;
-//        rodape = new Rodape(referencia);
+        cabecalho = new Cabecalho(contexto);
+        rodape = new Rodape(rodapes);
     }
 
+    private void fixarCabecalho(PdfWriter writer, Document document){
+
+        float height = cabecalho.getSection().getPdfTable().getTotalHeight();
+
+        cabecalho.getSection().getPdfTable().writeSelectedRows(0, -1, 0, document.top() + 70 /* + ((document.topMargin() + lolo) / 2) +5*/, writer.getDirectContent());
+    }
 
 
     /**
@@ -29,18 +40,24 @@ public class CabecalhoRodape extends PdfPageEventHelper {
 
         PdfContentByte cb = writer.getDirectContent();
 
-//        PdfContentByte canvasReferencia = writer.getDirectContent();
-//        canvasReferencia.beginMarkedContentSequence(PdfName.ARTIFACT);
-//        rodape.obterTabelaReferencia().getPdfTable().writeSelectedRows(0, -1, 15.7f* 36, 75, canvasReferencia);
-//        canvasReferencia.endMarkedContentSequence();
-//
-//
-//        PdfContentByte canvas = writer.getDirectContent();
-//        canvas.beginMarkedContentSequence(PdfName.ARTIFACT);
-//        rodape.adicionarNumeroPagina(writer.getPageNumber(), total);
-//        rodape.getSection().getPdfTable().writeSelectedRows(0, -1, 36, /*30*/90, canvas);
-//        canvas.endMarkedContentSequence();
+        PdfContentByte canvasRodape_1 = writer.getDirectContent();
+        canvasRodape_1.beginMarkedContentSequence(PdfName.ARTIFACT);
+        rodape.gerarPrimeiroRodape().getPdfTable().writeSelectedRows(0, -1, document.left(), 90, canvasRodape_1);
+        canvasRodape_1.endMarkedContentSequence();
+
+
+        PdfContentByte canvasRodape_2 = writer.getDirectContent();
+        canvasRodape_2.beginMarkedContentSequence(PdfName.ARTIFACT);
+        rodape.gerarSegundoRodape().getPdfTable().writeSelectedRows(0, -1, 0, /*30*/32, canvasRodape_2);
+        canvasRodape_2.endMarkedContentSequence();
     }
 
 
+
+    @Override
+    public void onEndPage(PdfWriter writer, Document document) {
+
+        fixarCabecalho(writer, document);
+        fixarRodape(writer, document);
+    }
 }

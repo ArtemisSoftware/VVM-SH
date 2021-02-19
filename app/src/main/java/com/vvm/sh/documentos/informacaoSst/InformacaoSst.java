@@ -2,11 +2,15 @@ package com.vvm.sh.documentos.informacaoSst;
 
 import android.content.Context;
 
+import com.itextpdf.text.PageSize;
 import com.itextpdf.text.pdf.PdfPageEvent;
 import com.itextpdf.text.pdf.PdfPageEventHelper;
 import com.titan.pdfdocumentlibrary.bundle.Chapter;
 import com.titan.pdfdocumentlibrary.bundle.Template;
+import com.titan.pdfdocumentlibrary.elements.TemplateConfiguration;
+import com.titan.pdfdocumentlibrary.util.PdfConstants;
 import com.vvm.sh.documentos.informacaoSst.capitulos.Capitulo_InformacaoSst;
+import com.vvm.sh.documentos.informacaoSst.eventos.CabecalhoRodape;
 import com.vvm.sh.documentos.informacaoSst.modelos.DadosInformacaoSst;
 import com.vvm.sh.util.metodos.DiretoriasUtil;
 
@@ -19,7 +23,7 @@ public class InformacaoSst extends Template {
     private int idTarefa;
 
     public InformacaoSst(Context context, int idTarefa, DadosInformacaoSst dadosInformacaoSst) {
-        super(context, DiretoriasUtil.obterDiretoria(DiretoriasUtil.DIRETORIA_PDF));
+        super(context, DiretoriasUtil.obterDiretoria(DiretoriasUtil.DIRETORIA_PDF), new TemplateConfiguration(PageSize.A4, PdfConstants.LEFT_MARGIN, PdfConstants.RIGHT_MARGIN, 70, PdfConstants.BASE_MARGIN, PdfConstants.SECTION_SPACING));
 
         this.dadosInformacaoSst = dadosInformacaoSst;
         this.idTarefa = idTarefa;
@@ -39,7 +43,7 @@ public class InformacaoSst extends Template {
 
     @Override
     protected PdfPageEventHelper getPageEvent() {
-        return null;
+        return new CabecalhoRodape(context, dadosInformacaoSst.rodapes);
     }
 
     @Override

@@ -41,7 +41,7 @@ public class ObrigacoesLegais extends Section {
 
         CellConfiguration cellConfiguration_1 = new CellConfiguration();
         cellConfiguration_1.verticalAlign = Element.ALIGN_MIDDLE;
-        cellConfiguration_1.horizontalAlign = Element.ALIGN_MIDDLE;
+        cellConfiguration_1.horizontalAlign = Element.ALIGN_CENTER;
         cellConfiguration_1.height = 23;
 
         CellConfiguration cellConfiguration_3 = new CellConfiguration();
@@ -68,6 +68,7 @@ public class ObrigacoesLegais extends Section {
             table.addEmptyLine(cellConfiguration_3);
         }
 
+        table.removeBorder();
 
         //-------------------
 

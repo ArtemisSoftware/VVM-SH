@@ -1,5 +1,6 @@
 package com.vvm.sh.documentos.informacaoSst.modelos;
 
+import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Phrase;
 import com.titan.pdfdocumentlibrary.bundle.Section;
@@ -23,11 +24,17 @@ public class Rodape extends Section {
 
     @Override
     protected Table getMainTable() {
-        return new Table();
+        return new Table(new float[]{100f}, 509, false);
     }
 
     @Override
     protected void populateSection() {
+
+    }
+
+    public Table gerarPrimeiroRodape(){
+
+        Table tabela = new Table(new float[]{100f}, 509, false);
 
         FontConfiguration fontConfiguration = new FontConfiguration();
 
@@ -37,9 +44,27 @@ public class Rodape extends Section {
 
         for (String texto : rodapes) {
 
-            Phrase frase = new Phrase(texto, fontConfiguration.getFont(Pdf.Fontes.FONTE_HOMOLOGACAO, false, TINTA_CINZENTA));
-            table.addCell(frase, cellConfiguration);
+            Phrase frase = new Phrase(texto, fontConfiguration.getFont(Pdf.Fontes.FONTE_HOMOLOGACAO, false, BaseColor.GRAY));
+            tabela.addCell(frase, cellConfiguration);
         }
 
+        tabela.removeBorder();
+        return tabela;
+    }
+
+
+
+    public Table gerarSegundoRodape(){
+
+        Table tabela = new Table(new float[]{100f}, 609, false);
+
+        CellConfiguration cellConfiguration = new CellConfiguration();
+        cellConfiguration.height = 33;
+        cellConfiguration.backgroundColor = Pdf.Cores.VERMELHO_VIVAMAIS;
+
+        tabela.addEmptyLine(cellConfiguration);
+
+        tabela.removeBorder();
+        return tabela;
     }
 }

@@ -56,6 +56,6 @@ public class IdentificacaoCliente extends Section {
         frase = new Phrase(texto, fontConfiguration.getFont(Pdf.Fontes.FONTE_ASSINATURA));
         table.addCell(frase, cellConfiguration_1);
 
-
+        table.removeBorder();
     }
 }

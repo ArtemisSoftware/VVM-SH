@@ -86,6 +86,9 @@ public class Assinatura extends Section {
                 cellConfiguration_3.horizontalAlign = Element.ALIGN_LEFT;
                 table.addLine(new Phrase(contexto.getString(R.string.declaracao_informacao_sst), fontConfiguration.getFont(Pdf.Fontes.FONTE_ASSINATURA)), cellConfiguration_3);
 
+
+                table.removeBorder();
+
 //                table.addEmptyLine();
 //
 //                CellConfiguration cellConfiguration = new CellConfiguration();

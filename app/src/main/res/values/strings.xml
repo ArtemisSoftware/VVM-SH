@@ -539,6 +539,7 @@
     <string name="rodape_texto_sm_1">Av. do Brasil, nº 7B 1700-062 Lisboa</string>
     <string name="rodape_texto_sm_2">Capital Social: 2.385.000€ - Contribuinte: 504518569</string>
     <string name="rodape_texto_sm_3">Tel.: 210317300 - Fax: 210317329 - E-mail: geral@vivamais.com</string>
+    <string name="dados_invalidos">Dados inválidos</string>
 
 
 </resources>

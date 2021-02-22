@@ -118,7 +118,7 @@ public class RegistoVisitaRepositorio {
      * @return os dados do pdf
      */
     public Maybe<DadosTemplate> obtePdf(int idTarefa, String idUtilizador) {
-        int api = 2;
+
         return Maybe.zip(
                 pdfDao.obterDadosEmailRegistoVisita(idTarefa, api),
                 pdfDao.obterDadosCliente(idTarefa),

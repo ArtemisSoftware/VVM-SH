@@ -97,6 +97,7 @@ public class MensagensUtil {
                 .setTopColorRes(corTopo)
                 .setIcon(icon)
                 .setTitle(titulo)
+                .setCancelable(false)
                 .setMessage(mensagem);
 
 

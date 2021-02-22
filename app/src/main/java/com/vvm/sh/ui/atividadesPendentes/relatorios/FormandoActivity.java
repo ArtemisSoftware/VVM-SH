@@ -240,7 +240,13 @@ public class FormandoActivity extends BaseDaggerActivity
     @OnClick(R.id.fab_gravar)
     public void fab_gravar_OnClickListener(View view) {
         ativarValidacao(true);
-        validador.validate();
+
+        if(txt_inp_identificacao.getText().toString().matches("[a-zA-Z0-9]*") == true) {
+            validador.validate();
+        }
+        else {
+            txt_inp_identificacao.setError(getString(R.string.dados_invalidos));
+        }
     }
 
 

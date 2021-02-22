@@ -540,7 +540,7 @@ public class TarefaViewModel extends BaseViewModel {
 
         List<OpcaoCliente> items = new ArrayList<>();
         items.add(OpcaoCliente.informacao());
-        items.add(OpcaoCliente.registoVisita());
+
         if(registo.estadoBaixas == false) {
             items.add(OpcaoCliente.semTempo());
         }

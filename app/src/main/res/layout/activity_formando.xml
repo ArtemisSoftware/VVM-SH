@@ -134,7 +134,7 @@
                             android:id="@+id/txt_inp_identificacao"
                             style="@style/modifiedEditText"
                             android:maxLength="25"
-                            android:inputType="number"
+                            android:inputType="text"
                             android:text="@{viewmodel.formando.resultado.biCartaoCidadao}"
                             android:maxLines="1"/>
                     </com.google.android.material.textfield.TextInputLayout>

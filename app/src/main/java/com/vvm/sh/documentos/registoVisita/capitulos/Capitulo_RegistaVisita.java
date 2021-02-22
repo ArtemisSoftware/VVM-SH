@@ -8,7 +8,7 @@ import com.titan.pdfdocumentlibrary.models.Index;
 import com.vvm.sh.documentos.registoVisita.seccoes.TrabalhosRealizados;
 import com.vvm.sh.documentos.registoVisita.modelos.DadosRegistoVisita;
 import com.vvm.sh.documentos.registoVisita.seccoes.Assinatura;
-import com.vvm.sh.documentos.registoVisita.seccoes.Cabecalho;
+import com.vvm.sh.documentos.registoVisita.modelos.Cabecalho;
 import com.vvm.sh.documentos.registoVisita.seccoes.Homologacao;
 import com.vvm.sh.documentos.registoVisita.seccoes.IdentificacaoCliente;
 import com.vvm.sh.documentos.registoVisita.seccoes.Observacoes;
@@ -60,7 +60,7 @@ public class Capitulo_RegistaVisita extends Chapter {
 
             case Pdf.Seccoes.ID_CLIENTE:
 
-                section = new IdentificacaoCliente(registoVisita.cliente);
+                section = new IdentificacaoCliente(contexto, registoVisita.cliente);
                 break;
 
             case Pdf.Seccoes.ID_TRABALHOS_REALIZADOS:
@@ -76,7 +76,7 @@ public class Capitulo_RegistaVisita extends Chapter {
 
             case Pdf.Seccoes.ID_OBSERVACAO:
 
-                section = new Observacoes(registoVisita.cliente.registo.observacao, Pdf.TipoObservacao.TIPO_QUADRO);
+                section = new Observacoes(contexto, registoVisita.cliente.registo.observacao, Pdf.TipoObservacao.TIPO_QUADRO);
                 break;
 
             case Pdf.Seccoes.ID_RUBRICA:

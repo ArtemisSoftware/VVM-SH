@@ -33,25 +33,11 @@ public class Pdf {
 
     public class Texto {
         public static final String TRABALHOS_REALIZADOS = "Trabalhos realizados";
-        public static final String DATA = "Data";
         public static final String CLIENTE = "Cliente";
-        public static final String TECNICO = "Técnico";
-        public static final String CAP_N = "CAP nº";
-        public static final String RELATORIO_VISITA = "Relatório de Visita e";
-        public static final String PEDIDO_INFORMACAO = "Pedido de Informação";
-        public static final String TITULO_IDENTIFICACAO_CLIENTE = "Identificação do Cliente";
-        public static final String N_CLIENTE = "Nº Cliente";
-        public static final String N_ORDEM = "Nº Ordem";
-        public static final String EMPRESA = "Empresa";
-        public static final String RECEBIDO_POR = "Recebido por";
-        public static final String FUNCAO = "Função";
-        public static final String OBSERVACOES = "Observações";
+
         public static final String CABECALHO = "Cabeçalho";
         public static final String RUBRICA = "Rubrica";
         public static final String HOMOLOGACAO = "Homologação";
-
-        public static final String HOMOLOGACAO_REGISTO_VISITA = "O cliente aprova o Plano de Acção das atividades de SST apresentado e entregue pelo Técnico de segurança";
-
 
         public static final String OBSERVACAO = "Observação";
         public static final String OBRIGACOES_LEGAIS = "Obrigacoes legais";
@@ -60,12 +46,7 @@ public class Pdf {
 
     public class Fontes {
 
-        public static final float FONTE_TEXTO = 7f;
         public static final float FONTE_TEXTO_GRANDE = 9f;
-        public static final float FONTE_ASSINATURA = 8f;
-        public static final float FONTE_HOMOLOGACAO = 8f;
-        public static final float FONTE_CABECALHO = 11f;
-        public static final float FONTE_ONSERVACAO = 8f;
 
         public static final float FONTE_7 = 7f;
         public static final float FONTE_8 = 8f;
@@ -77,20 +58,6 @@ public class Pdf {
         public static final float FONTE_11 = 11f;
     }
 
-    public class RegistoVisita {
-
-        public static final float ALTURA____ENTRE_SECCOES = 3f/*151f*/;
-        public static final int ALTURA_LINHA___TABELA_IDENTIFICACAO_CLIENTE = 25/*30f*/;
-        public static final int ALTURA_LINHA___TABELA_TRABALHOS_REALIZADOS = 18/*21f*/;
-        public static final int ALTURA_LINHA___TABELA_HOMOLOGACAO = 20/*35f*/;
-        public static final int ALTURA_LINHA___TABELA_OBSERVACAO = /*90f*//*20*/10;
-
-
-        public static final String RODAPE_TITULO_SM_v2 = "VivaMais - Segurança e Saúde do Trabalho, SA";
-        public static final String RODAPE_TEXTO_1_SM = "Av. do Brasil, nº 7B 1700-062 Lisboa";
-        public static final String RODAPE_TEXTO_2_SM = "Capital Social: 2.385.000€ - Contribuinte: 504518569";
-        public static final String RODAPE_TEXTO_3_SM = "Tel.: 210317300 - Fax: 210317329 - E-mail: geral@vivamais.com";
-    }
 
     public class Imagens {
         /**

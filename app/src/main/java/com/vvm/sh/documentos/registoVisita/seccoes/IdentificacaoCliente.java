@@ -1,5 +1,7 @@
 package com.vvm.sh.documentos.registoVisita.seccoes;
 
+import android.content.Context;
+
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Phrase;
@@ -8,16 +10,19 @@ import com.titan.pdfdocumentlibrary.elements.CellConfiguration;
 import com.titan.pdfdocumentlibrary.elements.FontConfiguration;
 import com.titan.pdfdocumentlibrary.elements.Table;
 import com.titan.pdfdocumentlibrary.exception.PdfLineException;
+import com.vvm.sh.R;
 import com.vvm.sh.documentos.eventos.EspacoPreenchimento;
 import com.vvm.sh.documentos.DadosCliente;
 import com.vvm.sh.util.constantes.Pdf;
 
 public class IdentificacaoCliente extends Section {
 
+    private Context contexto;
     private DadosCliente dadosCliente;
 
-    public IdentificacaoCliente(DadosCliente dadosCliente) {
+    public IdentificacaoCliente(Context contexto, DadosCliente dadosCliente) {
         this.dadosCliente = dadosCliente;
+        this.contexto = contexto;
     }
 
     @Override
@@ -32,7 +37,7 @@ public class IdentificacaoCliente extends Section {
 
         //titulo
 
-        Phrase titulo = new Phrase(Pdf.Texto.TITULO_IDENTIFICACAO_CLIENTE, fontConfiguration.getFont(Pdf.Fontes.FONTE_7, true, BaseColor.WHITE));
+        Phrase titulo = new Phrase(contexto.getString(R.string.identificacao_cliente), fontConfiguration.getFont(Pdf.Fontes.FONTE_7, true, BaseColor.WHITE));
 
         CellConfiguration cellConfiguration = new CellConfiguration();
         cellConfiguration.verticalAlign = Element.ALIGN_MIDDLE;
@@ -59,10 +64,10 @@ public class IdentificacaoCliente extends Section {
             CellConfiguration cellConfiguration_l1 [] = {cellConfiguration_1, cellConfiguration_11, cellConfiguration_1, cellConfiguration_11};
 
             Phrase [] linha = new Phrase []{
-                    new Phrase(Pdf.Texto.N_CLIENTE, fontConfiguration.getFont(Pdf.Fontes.FONTE_7, false)),
+                    new Phrase(contexto.getString(R.string.n_cliente), fontConfiguration.getFont(Pdf.Fontes.FONTE_7, false)),
                     new Phrase(dadosCliente.cliente.numeroCliente, fontConfiguration.getFont(Pdf.Fontes.FONTE_9) ),
 
-                    new Phrase(Pdf.Texto.N_ORDEM, fontConfiguration.getFont(Pdf.Fontes.FONTE_7, false)),
+                    new Phrase(contexto.getString(R.string.n_ordem), fontConfiguration.getFont(Pdf.Fontes.FONTE_7, false)),
                     new Phrase(dadosCliente.tarefa.ordem, fontConfiguration.getFont(Pdf.Fontes.FONTE_9))
             };
 
@@ -83,7 +88,7 @@ public class IdentificacaoCliente extends Section {
 
 
             linha = new Phrase []{
-                    new Phrase(Pdf.Texto.EMPRESA, fontConfiguration.getFont(Pdf.Fontes.FONTE_7)),
+                    new Phrase(contexto.getString(R.string.empresa), fontConfiguration.getFont(Pdf.Fontes.FONTE_7)),
                     new Phrase(dadosCliente.cliente.nome, fontConfiguration.getFont(Pdf.Fontes.FONTE_9))
             };
 
@@ -94,10 +99,10 @@ public class IdentificacaoCliente extends Section {
             //recebido por + funcao
 
             linha = new Phrase []{
-                    new Phrase(Pdf.Texto.RECEBIDO_POR, fontConfiguration.getFont(Pdf.Fontes.FONTE_7)),
+                    new Phrase(contexto.getString(R.string.recebidoPor), fontConfiguration.getFont(Pdf.Fontes.FONTE_7)),
                     new Phrase(dadosCliente.registo.recebidoPor, fontConfiguration.getFont(Pdf.Fontes.FONTE_9)),
 
-                    new Phrase(Pdf.Texto.FUNCAO, fontConfiguration.getFont(Pdf.Fontes.FONTE_7)),
+                    new Phrase(contexto.getString(R.string.funcao), fontConfiguration.getFont(Pdf.Fontes.FONTE_7)),
                     new Phrase(dadosCliente.registo.funcao, fontConfiguration.getFont(Pdf.Fontes.FONTE_9))
             };
 

@@ -1,4 +1,4 @@
-package com.vvm.sh.documentos.registoVisita.seccoes;
+package com.vvm.sh.documentos.registoVisita.modelos;
 
 import android.content.Context;
 
@@ -9,6 +9,7 @@ import com.titan.pdfdocumentlibrary.bundle.Section;
 import com.titan.pdfdocumentlibrary.elements.CellConfiguration;
 import com.titan.pdfdocumentlibrary.elements.FontConfiguration;
 import com.titan.pdfdocumentlibrary.elements.Table;
+import com.vvm.sh.R;
 import com.vvm.sh.util.constantes.Pdf;
 
 public class Cabecalho extends Section {
@@ -51,10 +52,10 @@ public class Cabecalho extends Section {
         cellConfiguration.verticalAlign = Element.ALIGN_MIDDLE;
         cellConfiguration.backgroundColor = BaseColor.BLACK;
 
-        Phrase frase = new Phrase(Pdf.Texto.RELATORIO_VISITA, fontConfiguration.getFont(Pdf.Fontes.FONTE_11, true, BaseColor.WHITE));
+        Phrase frase = new Phrase(contexto.getString(R.string.relatorio_visita_e), fontConfiguration.getFont(Pdf.Fontes.FONTE_11, true, BaseColor.WHITE));
         tabela.addCell(frase, cellConfiguration);
 
-        frase = new Phrase(Pdf.Texto.PEDIDO_INFORMACAO, fontConfiguration.getFont(Pdf.Fontes.FONTE_11, true, BaseColor.WHITE));
+        frase = new Phrase(contexto.getString(R.string.pedido_informacao), fontConfiguration.getFont(Pdf.Fontes.FONTE_11, true, BaseColor.WHITE));
         tabela.addCell(frase, cellConfiguration);
 
         return tabela;

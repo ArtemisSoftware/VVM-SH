@@ -15,9 +15,11 @@ import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.documentos.OnDocumentoListener;
 import com.vvm.sh.ui.AssinaturaActivity;
 import com.vvm.sh.ui.BaseDaggerActivity;
+import com.vvm.sh.ui.informacaoSst.InformacaoSstActivity;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.constantes.Sintaxe;
+import com.vvm.sh.util.interfaces.OnDialogoListener;
 import com.vvm.sh.util.interfaces.OnPermissaoConcedidaListener;
 import com.vvm.sh.util.metodos.DiretoriasUtil;
 import com.vvm.sh.util.metodos.ImagemUtil;
@@ -128,8 +130,14 @@ public class RegistoVisitaActivity extends BaseDaggerActivity {
     @OnClick({R.id.card_assinatura})
     public void card_assinatura_OnClickListener(View view) {
 
-        Intent intent = new Intent(this, AssinaturaActivity.class);
-        startActivityForResult(intent, Identificadores.CodigoAtividade.ASSINATURA);
+        OnDialogoListener listener = new OnDialogoListener() {
+            @Override
+            public void onExecutar() {
+                Intent intent = new Intent(RegistoVisitaActivity.this, AssinaturaActivity.class);
+                startActivityForResult(intent, Identificadores.CodigoAtividade.ASSINATURA);
+            }
+        };
+        dialogo.alerta(getString(R.string.assinatura), getString(R.string.assinatura_bloquea_edicao_relatorio), listener);
     }
 
 
@@ -143,7 +151,7 @@ public class RegistoVisitaActivity extends BaseDaggerActivity {
             public void executar() {
 
                 if(DiretoriasUtil.criarDirectoria(DiretoriasUtil.DIRETORIA_PDF) == true){
-                    viewModel.executarPdf(RegistoVisitaActivity.this, PreferenciasUtil.obterIdTarefa(RegistoVisitaActivity.this), PreferenciasUtil.obterIdUtilizador(RegistoVisitaActivity.this), OnDocumentoListener.AcaoDocumento.PRE_VISUALIZAR_PDF);
+                    viewModel.executarPdf(RegistoVisitaActivity.this, PreferenciasUtil.obterIdTarefa(getApplicationContext()), PreferenciasUtil.obterIdUtilizador(getApplicationContext()), OnDocumentoListener.AcaoDocumento.PRE_VISUALIZAR_PDF);
                 }
             }
         };
@@ -169,7 +177,7 @@ public class RegistoVisitaActivity extends BaseDaggerActivity {
             public void executar() {
 
                 if(DiretoriasUtil.criarDirectoria(DiretoriasUtil.DIRETORIA_PDF) == true){
-                    viewModel.executarPdf(RegistoVisitaActivity.this, PreferenciasUtil.obterIdTarefa(RegistoVisitaActivity.this), PreferenciasUtil.obterIdUtilizador(RegistoVisitaActivity.this), OnDocumentoListener.AcaoDocumento.ENVIAR_PDF);
+                    viewModel.executarPdf(RegistoVisitaActivity.this, PreferenciasUtil.obterIdTarefa(getApplicationContext()), PreferenciasUtil.obterIdUtilizador(getApplicationContext()), OnDocumentoListener.AcaoDocumento.ENVIAR_PDF);
                 }
             }
         };

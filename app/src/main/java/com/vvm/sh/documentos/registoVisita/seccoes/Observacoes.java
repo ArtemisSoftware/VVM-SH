@@ -1,5 +1,7 @@
 package com.vvm.sh.documentos.registoVisita.seccoes;
 
+import android.content.Context;
+
 import com.itextpdf.text.Element;
 import com.itextpdf.text.Phrase;
 import com.itextpdf.text.Rectangle;
@@ -7,6 +9,7 @@ import com.titan.pdfdocumentlibrary.bundle.Section;
 import com.titan.pdfdocumentlibrary.elements.CellConfiguration;
 import com.titan.pdfdocumentlibrary.elements.FontConfiguration;
 import com.titan.pdfdocumentlibrary.elements.Table;
+import com.vvm.sh.R;
 import com.vvm.sh.documentos.eventos.TituloBorda;
 import com.vvm.sh.util.constantes.Pdf;
 
@@ -16,10 +19,12 @@ public class Observacoes extends Section {
 
     private final int tipo;
     private String observacao;
+    private Context contexto;
 
-    public Observacoes(String observacao, int tipo) {
+    public Observacoes(Context contexto, String observacao, int tipo) {
         this.tipo = tipo;
         this.observacao = observacao;
+        this.contexto = contexto;
     }
 
     @Override
@@ -76,7 +81,7 @@ public class Observacoes extends Section {
 
         //titulo
 
-        Phrase frase = new Phrase(Pdf.Texto.OBSERVACOES, fontConfiguration.getFont(Pdf.Fontes.FONTE_8));
+        Phrase frase = new Phrase(contexto.getString(R.string.observacoes), fontConfiguration.getFont(Pdf.Fontes.FONTE_8));
         tabela.addLine(frase, cellConfiguration);
 
         //observacao
@@ -107,7 +112,7 @@ public class Observacoes extends Section {
         cellConfiguration.border = (Rectangle.LEFT | Rectangle.BOTTOM | Rectangle.RIGHT | Rectangle.TOP);
         cellConfiguration.alignTop = 10;
         cellConfiguration.alignLeft = 8;
-        cellConfiguration.event = new TituloBorda(Pdf.Texto.OBSERVACOES, 17f, 3f);
+        cellConfiguration.event = new TituloBorda(contexto.getString(R.string.observacoes), 17f, 3f);
 
         Phrase frase = new Phrase(observacao, fontConfiguration.getFont(Pdf.Fontes.FONTE_8));
 

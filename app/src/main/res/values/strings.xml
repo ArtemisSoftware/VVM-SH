@@ -240,6 +240,7 @@
     <string name="consultar">Consultar</string>
     <string name="contactos">Contactos</string>
     <string name="numero_do_cliente">Número do cliente</string>
+    <string name="n_cliente">Nº Cliente</string>
     <string name="endereco">Endereço</string>
 
     <string name="email_endereco_invalido">Endereço inválido</string>
@@ -524,4 +525,19 @@
     <string name="por_favor_aguarde">Por favor aguarde...</string>
     <string name="a_atualizar">A atualizar</string>
     <string name="atualizacao_concluida">Atualização concluída</string>
+    <string name="identificacao_cliente">Identificação do Cliente</string>
+    <string name="n_ordem">Nº Ordem</string>
+    <string name="empresa">Empresa</string>
+    <string name="tecnico">Técnico</string>
+    <string name="cap_n">CAP nº</string>
+    <string name="relatorio_visita_e">Relatório de Visita e</string>
+    <string name="pedido_informacao">Pedido de Informação</string>
+
+
+    <string name="rodape_titulo_sm">VivaMais - Segurança e Saúde do Trabalho, SA</string>
+    <string name="rodape_texto_sm_1">Av. do Brasil, nº 7B 1700-062 Lisboa</string>
+    <string name="rodape_texto_sm_2">Capital Social: 2.385.000€ - Contribuinte: 504518569</string>
+    <string name="rodape_texto_sm_3">Tel.: 210317300 - Fax: 210317329 - E-mail: geral@vivamais.com</string>
+
+
 </resources>

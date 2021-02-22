@@ -11,6 +11,7 @@ import com.titan.pdfdocumentlibrary.elements.FontConfiguration;
 import com.titan.pdfdocumentlibrary.elements.Table;
 import com.titan.pdfdocumentlibrary.exception.PdfLineException;
 import com.titan.pdfdocumentlibrary.util.PdfUtil;
+import com.vvm.sh.R;
 import com.vvm.sh.documentos.Rubrica;
 import com.vvm.sh.documentos.eventos.EspacoPreenchimento;
 import com.vvm.sh.util.constantes.Pdf;
@@ -71,10 +72,10 @@ public class Assinatura extends Section {
                 //descrições
 
                 Phrase frases [] = {
-                        new Phrase(Pdf.Texto.DATA, fontConfiguration.getFont(Pdf.Fontes.FONTE_8)),
-                        new Phrase(Pdf.Texto.CLIENTE, fontConfiguration.getFont(Pdf.Fontes.FONTE_8)),
-                        new Phrase(Pdf.Texto.TECNICO, fontConfiguration.getFont(Pdf.Fontes.FONTE_8)),
-                        new Phrase(Pdf.Texto.CAP_N, fontConfiguration.getFont(Pdf.Fontes.FONTE_8))
+                        new Phrase(contexto.getString(R.string.data), fontConfiguration.getFont(Pdf.Fontes.FONTE_8)),
+                        new Phrase(contexto.getString(R.string.cliente), fontConfiguration.getFont(Pdf.Fontes.FONTE_8)),
+                        new Phrase(contexto.getString(R.string.tecnico), fontConfiguration.getFont(Pdf.Fontes.FONTE_8)),
+                        new Phrase(contexto.getString(R.string.cap_n), fontConfiguration.getFont(Pdf.Fontes.FONTE_8))
                 };
 
                 CellConfiguration cellConfiguration2 = new CellConfiguration();

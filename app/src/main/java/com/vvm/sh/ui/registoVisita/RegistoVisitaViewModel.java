@@ -404,6 +404,12 @@ public class RegistoVisitaViewModel extends BaseViewModel implements OnDocumento
     }
 
     @Override
+    public void executarPdf(Context contexto, int idTarefa, int idAtividade, String idUtilizador, OnDocumentoListener.AcaoDocumento acao) {
+        gerarPdf(contexto, idTarefa, idAtividade, idUtilizador, this, acao);
+    }
+
+
+    @Override
     public Maybe<DadosTemplate> obterPdf(int idTarefa, int idAtividade, String idUtilizador) {
         return registoVisitaRepositorio.obtePdf(idTarefa, idUtilizador);
     }
@@ -418,13 +424,14 @@ public class RegistoVisitaViewModel extends BaseViewModel implements OnDocumento
         gravarResultado(registoVisitaRepositorio.resultadoDao, idTarefa, ResultadoId.REGISTO_VISITA);
     }
 
+
+
+
+
     @Override
     public Single<Codigo> uploadRelatorio(int idTarefa, String caminhoPdf) {
         return null;
     }
 
-    @Override
-    public void executarPdf(Context contexto, int idTarefa, int idAtividade, String idUtilizador, OnDocumentoListener.AcaoDocumento acao) {
 
-    }
 }

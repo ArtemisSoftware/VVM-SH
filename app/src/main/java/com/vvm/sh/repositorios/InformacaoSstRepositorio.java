@@ -102,7 +102,6 @@ public class InformacaoSstRepositorio{
      */
     public Maybe<DadosTemplate> obtePdf(int idTarefa, String idUtilizador) {
 
-        int api = 2;
         return Maybe.zip(
                 pdfDao.obterDadosEmail(idTarefa, Sintaxe.Email.TITULO_INFORMACAO_SST, Identificadores.FrasesApoio.ID_FRASE_APOIO_CORPO_EMAIL_INFORMACAO_SST, api),
                 pdfDao.obterInfoSst_ClienteFrasesApoio(Identificadores.FrasesApoio.ID_FRASE_APOIO_INFORMACAO_SST__CLIENTE, api),

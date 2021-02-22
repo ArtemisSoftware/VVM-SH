@@ -199,7 +199,7 @@
                                 <TextView
                                     android:id="@+id/textView47"
                                     style="@style/textoDetalhe"
-                                    android:layout_marginStart="16dp"
+                                    android:layout_marginStart="8dp"
                                     android:text="@{viewmodel.relatorio.email}"
                                     app:layout_constraintStart_toEndOf="@+id/textView67"
                                     app:layout_constraintTop_toTopOf="@+id/textView67" />
@@ -271,7 +271,7 @@
                                 <TextView
                                     android:id="@+id/textView40"
                                     style="@style/textoDetalhe"
-                                    android:layout_marginStart="16dp"
+                                    android:layout_marginStart="8dp"
                                     android:text="@{StringUtil.converterString(viewmodel.relatorio.numeroTrabalhos)}"
                                     app:layout_constraintStart_toEndOf="@+id/textView66"
                                     app:layout_constraintTop_toTopOf="@+id/textView66" />
@@ -300,8 +300,8 @@
                             android:id="@+id/card_assinatura"
                             style="@style/cartaoMini"
                             ativo="@{!viewmodel.relatorio.assinaturaValido}"
-                            android:layout_marginTop="32dp"
                             android:visibility="@{viewmodel.relatorio.podeAssinar ? View.VISIBLE : View.GONE}"
+                            android:layout_marginTop="32dp"
                             app:layout_constraintStart_toStartOf="@+id/card_dados_cliente"
                             app:layout_constraintTop_toBottomOf="@+id/card_dados_cliente">
 

@@ -9,6 +9,7 @@ import com.titan.pdfdocumentlibrary.bundle.Section;
 import com.titan.pdfdocumentlibrary.elements.CellConfiguration;
 import com.titan.pdfdocumentlibrary.elements.FontConfiguration;
 import com.titan.pdfdocumentlibrary.elements.Table;
+import com.vvm.sh.R;
 import com.vvm.sh.ui.registoVisita.modelos.TrabalhoRealizado;
 import com.vvm.sh.util.constantes.Pdf;
 
@@ -35,7 +36,7 @@ public class TrabalhosRealizados extends Section {
 
         FontConfiguration fontConfiguration = new FontConfiguration();
 
-        Phrase titulo = new Phrase(Pdf.Texto.TRABALHOS_REALIZADOS, fontConfiguration.getFont(Pdf.Fontes.FONTE_7, true, BaseColor.WHITE));
+        Phrase titulo = new Phrase(contexto.getString(R.string.trabalhos_realizados), fontConfiguration.getFont(Pdf.Fontes.FONTE_7, true, BaseColor.WHITE));
         CellConfiguration cellConfiguration = new CellConfiguration();
         cellConfiguration.horizontalAlign = Element. ALIGN_TOP;
         cellConfiguration.verticalAlign = Element.ALIGN_TOP;

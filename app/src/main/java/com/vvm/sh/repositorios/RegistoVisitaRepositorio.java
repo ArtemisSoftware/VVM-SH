@@ -69,6 +69,11 @@ public class RegistoVisitaRepositorio {
     }
 
 
+    public Single<Integer> atualizar(int idTarefa, boolean homologado){
+        return registoVisitaDao.atualizarHomologacao(idTarefa, homologado);
+    }
+
+
     /**
      * Metodo que permite inserir um registo
      * @param registo os dados a inserir
@@ -113,7 +118,7 @@ public class RegistoVisitaRepositorio {
      * @return os dados do pdf
      */
     public Maybe<DadosTemplate> obtePdf(int idTarefa, String idUtilizador) {
-
+        int api = 2;
         return Maybe.zip(
                 pdfDao.obterDadosEmailRegistoVisita(idTarefa, api),
                 pdfDao.obterDadosCliente(idTarefa),

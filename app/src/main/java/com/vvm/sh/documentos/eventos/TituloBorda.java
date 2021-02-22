@@ -30,7 +30,7 @@ public class TituloBorda implements PdfPCellEvent {
 
         FontConfiguration fontConfiguration = new FontConfiguration();
 
-        Chunk chunk = new Chunk(titulo, fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO_GRANDE));
+        Chunk chunk = new Chunk(titulo, fontConfiguration.getFont(Pdf.Fontes.FONTE_9));
         chunk.setBackground(corFundo);
         frase = new Phrase(chunk);
 
@@ -43,7 +43,7 @@ public class TituloBorda implements PdfPCellEvent {
         this.alinhamento_Topo = alinhamento_Topo;
         this.corFundo = BaseColor.WHITE;
         FontConfiguration fontConfiguration = new FontConfiguration();
-        Chunk chunk = new Chunk(titulo, fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO_GRANDE, true));
+        Chunk chunk = new Chunk(titulo, fontConfiguration.getFont(Pdf.Fontes.FONTE_9, true));
         chunk.setBackground(corFundo);
         frase = new Phrase(chunk);
     }

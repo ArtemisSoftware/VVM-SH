@@ -70,7 +70,8 @@ abstract public class RegistoVisitaDao implements BaseDao<RegistoVisitaResultado
 
 
 
-
+    @Query("UPDATE registoVisitaResultado SET homologado = :homologado WHERE idTarefa =:idTarefa")
+    abstract public Single<Integer> atualizarHomologacao(int idTarefa, boolean homologado);
 
 
     //---------------

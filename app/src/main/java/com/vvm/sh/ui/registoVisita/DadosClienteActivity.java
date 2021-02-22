@@ -153,9 +153,8 @@ public class DadosClienteActivity extends BaseDaggerActivity
         String funcao = activityDadosClienteBinding.txtInpFuncao.getText().toString();
         String recebidoPor = activityDadosClienteBinding.txtInpRecebidoPor.getText().toString();
         String observacao = activityDadosClienteBinding.txtInpObservacao.getText().toString();
-        boolean homologado = activityDadosClienteBinding.chkBoxHomologado.isChecked();
 
-        RegistoVisitaResultado resultado = new RegistoVisitaResultado(PreferenciasUtil.obterIdTarefa(this), recebidoPor, funcao, observacao, homologado);
+        RegistoVisitaResultado resultado = new RegistoVisitaResultado(PreferenciasUtil.obterIdTarefa(this), recebidoPor, funcao, observacao, false);
 
         viewModel.gravar(resultado);
 

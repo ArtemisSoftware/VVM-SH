@@ -173,7 +173,7 @@ public class RegistoVisitaViewModel extends BaseViewModel implements OnDocumento
      * @param idTarefa o identificador da tarefa
      * @param imagem os dados da imagem
      */
-    public void gravar(int idTarefa, byte[] imagem) {
+    public void gravar(int idTarefa, byte[] imagem, boolean homologado) {
 
         ImagemResultado imagemResultado = new ImagemResultado(idTarefa, idTarefa, Identificadores.Imagens.IMAGEM_ASSINATURA_REGISTO_VISITA, imagem);
 
@@ -186,12 +186,42 @@ public class RegistoVisitaViewModel extends BaseViewModel implements OnDocumento
                         new Consumer<List<? extends Number>>() {
                             @Override
                             public void accept(List<? extends Number> numbers) throws Exception {
-                                messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_GRAVADOS_SUCESSO));
+
+                                atualizarHomologacao(idTarefa, homologado);
                             }
                         }
                 );
 
         disposables.add(d);
+
+    }
+
+
+    private void atualizarHomologacao(int idTarefa, boolean homologado){
+
+        registoVisitaRepositorio.atualizar(idTarefa, homologado)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new SingleObserver<Integer>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onSuccess(Integer integer) {
+                                //messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_GRAVADOS_SUCESSO));
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+                        }
+
+                );
     }
 
 

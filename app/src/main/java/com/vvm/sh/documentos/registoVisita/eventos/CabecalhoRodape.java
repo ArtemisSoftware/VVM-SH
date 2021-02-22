@@ -51,7 +51,7 @@ public class CabecalhoRodape extends PdfPageEventHelper {
     private void fixarCabecalho(PdfWriter writer, Document document){
 
         PdfContentByte pdfContentByte = writer.getDirectContent();
-        cabecalho.getSection().getPdfTable().writeSelectedRows(0, -1, 0, document.top() + 70 /* + ((document.topMargin() + lolo) / 2) +5*/, pdfContentByte);
+        cabecalho.getSection().getPdfTable().writeSelectedRows(0, -1, 36, document.top() + 60 /* + ((document.topMargin() + lolo) / 2) +5*/, pdfContentByte);
     }
 
 

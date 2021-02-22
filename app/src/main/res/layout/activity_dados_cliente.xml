@@ -231,18 +231,6 @@
 
 
 
-                    <CheckBox
-                        android:id="@+id/chk_box_homologado"
-                        style="@style/textoDescritivo"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/distancia_vertical_formulario"
-                        android:enabled="@{bloquear}"
-                        android:text="@string/homologacao_registo_visita"
-                        android:checked="@{viewmodel.registoVisita.registo.homologado}"
-                        app:layout_constraintStart_toStartOf="@+id/textView18"
-                        app:layout_constraintTop_toBottomOf="@+id/textview32" />
-                        <!-- -->
 
 
                 </androidx.constraintlayout.widget.ConstraintLayout>

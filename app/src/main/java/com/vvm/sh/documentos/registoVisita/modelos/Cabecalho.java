@@ -4,11 +4,13 @@ import android.content.Context;
 
 import com.itextpdf.text.BaseColor;
 import com.itextpdf.text.Element;
+import com.itextpdf.text.Image;
 import com.itextpdf.text.Phrase;
 import com.titan.pdfdocumentlibrary.bundle.Section;
 import com.titan.pdfdocumentlibrary.elements.CellConfiguration;
 import com.titan.pdfdocumentlibrary.elements.FontConfiguration;
 import com.titan.pdfdocumentlibrary.elements.Table;
+import com.titan.pdfdocumentlibrary.util.PdfUtil;
 import com.vvm.sh.R;
 import com.vvm.sh.util.constantes.Pdf;
 
@@ -22,17 +24,26 @@ public class Cabecalho extends Section {
 
     @Override
     protected Table getMainTable() {
-        return new Table(3);
+        return new Table(new float[]{30f, 40f, 30f}, 3* 175, false);
     }
 
     @Override
     protected void populateSection() {
 
-        table.addCell(contexto.getResources(), Pdf.Imagens.LOGOTIPO_VIVAMAIS);
+        CellConfiguration cellConfiguration_1 = new CellConfiguration();
+        cellConfiguration_1.verticalAlign = Element.ALIGN_MIDDLE;
+
+        Image logo = PdfUtil.createPdfImage(contexto.getResources(), Pdf.Imagens.LOGOTIPO_VIVAMAIS);
+        logo.scaleToFit(160f, 80f);
+
+
+        table.addCell(logo, cellConfiguration_1);
         table.addEmptyCell();
 
         CellConfiguration cellConfiguration = new CellConfiguration();
-        cellConfiguration.addFrame(7, 7, 21f, 21f);
+        cellConfiguration.addFrame(7, 7, /*21f*/7, 21f);
+        cellConfiguration.verticalAlign = Element.ALIGN_MIDDLE;
+
         table.addCell(obterTabelaReferencia(), cellConfiguration);
         table.removeBorder();
     }

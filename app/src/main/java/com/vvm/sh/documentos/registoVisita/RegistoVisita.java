@@ -2,10 +2,13 @@ package com.vvm.sh.documentos.registoVisita;
 
 import android.content.Context;
 
+import com.itextpdf.text.PageSize;
 import com.itextpdf.text.pdf.PdfPageEvent;
 import com.itextpdf.text.pdf.PdfPageEventHelper;
 import com.titan.pdfdocumentlibrary.bundle.Chapter;
 import com.titan.pdfdocumentlibrary.bundle.Template;
+import com.titan.pdfdocumentlibrary.elements.TemplateConfiguration;
+import com.titan.pdfdocumentlibrary.util.PdfConstants;
 import com.vvm.sh.documentos.registoVisita.eventos.CabecalhoRodape;
 import com.vvm.sh.documentos.registoVisita.capitulos.Capitulo_RegistaVisita;
 import com.vvm.sh.documentos.registoVisita.modelos.DadosRegistoVisita;
@@ -20,7 +23,7 @@ public class RegistoVisita extends Template {
     private int idTarefa;
 
     public RegistoVisita(Context contexto, int idTarefa, DadosRegistoVisita registoVisita) {
-        super(contexto, DiretoriasUtil.obterDiretoria(DiretoriasUtil.DIRETORIA_PDF));
+        super(contexto, DiretoriasUtil.obterDiretoria(DiretoriasUtil.DIRETORIA_PDF), new TemplateConfiguration(PageSize.A4, PdfConstants.LEFT_MARGIN, 36, 80, PdfConstants.BASE_MARGIN, PdfConstants.SECTION_SPACING));
 
         this.registoVisita = registoVisita;
         this.idTarefa = idTarefa;
@@ -40,7 +43,7 @@ public class RegistoVisita extends Template {
 
     @Override
     protected PdfPageEventHelper getPageEvent() {
-        return new CabecalhoRodape(this.getChapters().get(0).CHAPTER_ID, registoVisita.referencia);
+        return new CabecalhoRodape(context, this.getChapters().get(0).CHAPTER_ID, registoVisita.referencia);
     }
 
     @Override

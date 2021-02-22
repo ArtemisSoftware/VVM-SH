@@ -205,7 +205,9 @@ public class RegistoVisitaActivity extends BaseDaggerActivity {
                 Bitmap bitmap = ImagemUtil.converter(data.getByteArrayExtra(getString(R.string.resultado_imagem)));
                 byte[] imagem = ImagemUtil.converter(bitmap);
 
-                viewModel.gravar(PreferenciasUtil.obterIdTarefa(this), imagem);
+                boolean homologado = data.getBooleanExtra(getString(R.string.resultado_homologado), false);
+
+                viewModel.gravar(PreferenciasUtil.obterIdTarefa(this), imagem, homologado);
             }
         }
     }

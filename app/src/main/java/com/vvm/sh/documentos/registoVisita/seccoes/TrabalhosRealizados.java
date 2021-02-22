@@ -46,7 +46,6 @@ public class TrabalhosRealizados extends Section {
 
         table.addCell(titulo, cellConfiguration);
 
-        table.addEmptyCell();table.addEmptyCell();table.addEmptyCell();table.addEmptyCell();
 
         //imagem
 

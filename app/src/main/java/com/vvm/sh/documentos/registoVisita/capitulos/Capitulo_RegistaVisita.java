@@ -35,7 +35,7 @@ public class Capitulo_RegistaVisita extends Chapter {
 
         List<Index> indexList = new ArrayList<>();
 
-        indexList.add(Pdf.Seccoes.CABECALHO);
+        //indexList.add(Pdf.Seccoes.CABECALHO);
         indexList.add(Pdf.Seccoes.CLIENTE);
 
         indexList.add(Pdf.Seccoes.TRABALHOS_REALIZADOS);

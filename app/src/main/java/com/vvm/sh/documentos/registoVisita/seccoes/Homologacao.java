@@ -40,7 +40,7 @@ public class Homologacao  extends Section {
         cellConfiguration.verticalAlign = Element.ALIGN_MIDDLE;
         cellConfiguration.alignLeft = 8;
         cellConfiguration.border = (Rectangle.BOTTOM | Rectangle.LEFT | Rectangle.TOP);
-        cellConfiguration.height = Pdf.RegistoVisita.ALTURA_LINHA___TABELA_HOMOLOGACAO;
+        cellConfiguration.height = 20;
 
 
         int homologado = Pdf.Imagens.IMAGEM_CHECKBOX_CINZENTA;
@@ -59,10 +59,10 @@ public class Homologacao  extends Section {
         cellConfiguration_2.verticalAlign = Element.ALIGN_MIDDLE;
         cellConfiguration_2.alignLeft = 8;
         cellConfiguration_2.border = (Rectangle.BOTTOM | Rectangle.RIGHT | Rectangle.TOP);
-        cellConfiguration_2.height = Pdf.RegistoVisita.ALTURA_LINHA___TABELA_HOMOLOGACAO;
+        cellConfiguration_2.height = 20;
 
 
-        Phrase frase = new Phrase(contexto.getString(R.string.homologacao_registo_visita), fontConfiguration.getFont(Pdf.Fontes.FONTE_HOMOLOGACAO));
+        Phrase frase = new Phrase(contexto.getString(R.string.homologacao_registo_visita), fontConfiguration.getFont(Pdf.Fontes.FONTE_8));
 
         table.addCell(frase, cellConfiguration_2);
         table.setBorderColor(Pdf.Cores.TINTA_BORDA_CELULA);

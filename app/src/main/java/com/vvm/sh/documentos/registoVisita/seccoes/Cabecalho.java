@@ -51,10 +51,10 @@ public class Cabecalho extends Section {
         cellConfiguration.verticalAlign = Element.ALIGN_MIDDLE;
         cellConfiguration.backgroundColor = BaseColor.BLACK;
 
-        Phrase frase = new Phrase(Pdf.Texto.RELATORIO_VISITA, fontConfiguration.getFont(Pdf.Fontes.FONTE_CABECALHO, true, BaseColor.WHITE));
+        Phrase frase = new Phrase(Pdf.Texto.RELATORIO_VISITA, fontConfiguration.getFont(Pdf.Fontes.FONTE_11, true, BaseColor.WHITE));
         tabela.addCell(frase, cellConfiguration);
 
-        frase = new Phrase(Pdf.Texto.PEDIDO_INFORMACAO, fontConfiguration.getFont(Pdf.Fontes.FONTE_CABECALHO, true, BaseColor.WHITE));
+        frase = new Phrase(Pdf.Texto.PEDIDO_INFORMACAO, fontConfiguration.getFont(Pdf.Fontes.FONTE_11, true, BaseColor.WHITE));
         tabela.addCell(frase, cellConfiguration);
 
         return tabela;

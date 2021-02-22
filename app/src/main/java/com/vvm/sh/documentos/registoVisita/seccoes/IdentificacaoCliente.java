@@ -14,10 +14,10 @@ import com.vvm.sh.util.constantes.Pdf;
 
 public class IdentificacaoCliente extends Section {
 
-    private DadosCliente registo;
+    private DadosCliente dadosCliente;
 
     public IdentificacaoCliente(DadosCliente dadosCliente) {
-        this.registo = dadosCliente;
+        this.dadosCliente = dadosCliente;
     }
 
     @Override
@@ -32,7 +32,7 @@ public class IdentificacaoCliente extends Section {
 
         //titulo
 
-        Phrase titulo = new Phrase(Pdf.Texto.TITULO_IDENTIFICACAO_CLIENTE, fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO, true, BaseColor.WHITE));
+        Phrase titulo = new Phrase(Pdf.Texto.TITULO_IDENTIFICACAO_CLIENTE, fontConfiguration.getFont(Pdf.Fontes.FONTE_7, true, BaseColor.WHITE));
 
         CellConfiguration cellConfiguration = new CellConfiguration();
         cellConfiguration.verticalAlign = Element.ALIGN_MIDDLE;
@@ -47,23 +47,23 @@ public class IdentificacaoCliente extends Section {
         CellConfiguration cellConfiguration_1 = new CellConfiguration();
         cellConfiguration_1.verticalAlign = Element.ALIGN_MIDDLE;
         cellConfiguration_1.horizontalAlign = Element.ALIGN_LEFT;
-        cellConfiguration_1.height = Pdf.RegistoVisita.ALTURA_LINHA___TABELA_IDENTIFICACAO_CLIENTE;
+        cellConfiguration_1.height = 25;
 
         try {
             CellConfiguration cellConfiguration_11 = new CellConfiguration();
             cellConfiguration_11.verticalAlign = Element.ALIGN_MIDDLE;
             cellConfiguration_11.horizontalAlign = Element.ALIGN_LEFT;
-            cellConfiguration_11.height = Pdf.RegistoVisita.ALTURA_LINHA___TABELA_IDENTIFICACAO_CLIENTE;
+            cellConfiguration_11.height = 25;
             cellConfiguration_11.event = new EspacoPreenchimento();
 
             CellConfiguration cellConfiguration_l1 [] = {cellConfiguration_1, cellConfiguration_11, cellConfiguration_1, cellConfiguration_11};
 
             Phrase [] linha = new Phrase []{
-                    new Phrase(Pdf.Texto.N_CLIENTE, fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO, false)),
-                    new Phrase(registo.cliente.numeroCliente, fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO_GRANDE) ),
+                    new Phrase(Pdf.Texto.N_CLIENTE, fontConfiguration.getFont(Pdf.Fontes.FONTE_7, false)),
+                    new Phrase(dadosCliente.cliente.numeroCliente, fontConfiguration.getFont(Pdf.Fontes.FONTE_9) ),
 
-                    new Phrase(Pdf.Texto.N_ORDEM, fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO, false)),
-                    new Phrase(registo.tarefa.ordem, fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO_GRANDE))
+                    new Phrase(Pdf.Texto.N_ORDEM, fontConfiguration.getFont(Pdf.Fontes.FONTE_7, false)),
+                    new Phrase(dadosCliente.tarefa.ordem, fontConfiguration.getFont(Pdf.Fontes.FONTE_9))
             };
 
 
@@ -83,8 +83,8 @@ public class IdentificacaoCliente extends Section {
 
 
             linha = new Phrase []{
-                    new Phrase(Pdf.Texto.EMPRESA, fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO)),
-                    new Phrase(registo.cliente.nome, fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO_GRANDE))
+                    new Phrase(Pdf.Texto.EMPRESA, fontConfiguration.getFont(Pdf.Fontes.FONTE_7)),
+                    new Phrase(dadosCliente.cliente.nome, fontConfiguration.getFont(Pdf.Fontes.FONTE_9))
             };
 
             table.addLine(linha, dimensoes, 1);
@@ -94,11 +94,11 @@ public class IdentificacaoCliente extends Section {
             //recebido por + funcao
 
             linha = new Phrase []{
-                    new Phrase(Pdf.Texto.RECEBIDO_POR, fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO)),
-                    new Phrase(registo.registo.recebidoPor, fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO_GRANDE)),
+                    new Phrase(Pdf.Texto.RECEBIDO_POR, fontConfiguration.getFont(Pdf.Fontes.FONTE_7)),
+                    new Phrase(dadosCliente.registo.recebidoPor, fontConfiguration.getFont(Pdf.Fontes.FONTE_9)),
 
-                    new Phrase(Pdf.Texto.FUNCAO, fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO)),
-                    new Phrase(registo.registo.funcao, fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO_GRANDE))
+                    new Phrase(Pdf.Texto.FUNCAO, fontConfiguration.getFont(Pdf.Fontes.FONTE_7)),
+                    new Phrase(dadosCliente.registo.funcao, fontConfiguration.getFont(Pdf.Fontes.FONTE_9))
             };
 
             table.addLine(linha, cellConfiguration_l1, 1);

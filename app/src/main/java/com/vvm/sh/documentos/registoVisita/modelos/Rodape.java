@@ -92,7 +92,7 @@ public class Rodape extends Section {
 
         CellConfiguration cellConfiguration = new CellConfiguration();
         cellConfiguration.rotation = 90;
-        tabela.addCell(new Phrase(referencia, fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO, false, BaseColor.GRAY)), cellConfiguration);
+        tabela.addCell(new Phrase(referencia, fontConfiguration.getFont(Pdf.Fontes.FONTE_7, false, BaseColor.GRAY)), cellConfiguration);
         tabela.removeBorder();
         return tabela;
     }

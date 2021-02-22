@@ -76,12 +76,12 @@ public class Observacoes extends Section {
 
         //titulo
 
-        Phrase frase = new Phrase(Pdf.Texto.OBSERVACOES, fontConfiguration.getFont(Pdf.Fontes.FONTE_ONSERVACAO));
+        Phrase frase = new Phrase(Pdf.Texto.OBSERVACOES, fontConfiguration.getFont(Pdf.Fontes.FONTE_8));
         tabela.addLine(frase, cellConfiguration);
 
         //observacao
 
-        frase = new Phrase(observacao, fontConfiguration.getFont(Pdf.Fontes.FONTE_ONSERVACAO));
+        frase = new Phrase(observacao, fontConfiguration.getFont(Pdf.Fontes.FONTE_8));
         tabela.addLine(frase, cellConfiguration);
 
 
@@ -105,11 +105,11 @@ public class Observacoes extends Section {
         cellConfiguration.horizontalAlign = Element.ALIGN_JUSTIFIED;
         cellConfiguration.verticalAlign = Element.ALIGN_CENTER;
         cellConfiguration.border = (Rectangle.LEFT | Rectangle.BOTTOM | Rectangle.RIGHT | Rectangle.TOP);
-        cellConfiguration.alignTop = Pdf.RegistoVisita.ALTURA_LINHA___TABELA_OBSERVACAO;
+        cellConfiguration.alignTop = 10;
         cellConfiguration.alignLeft = 8;
         cellConfiguration.event = new TituloBorda(Pdf.Texto.OBSERVACOES, 17f, 3f);
 
-        Phrase frase = new Phrase(observacao, fontConfiguration.getFont(Pdf.Fontes.FONTE_ONSERVACAO));
+        Phrase frase = new Phrase(observacao, fontConfiguration.getFont(Pdf.Fontes.FONTE_8));
 
         tabela.addCell(frase, cellConfiguration);
         tabela.setBorderColor(Pdf.Cores.TINTA_BORDA_CELULA);

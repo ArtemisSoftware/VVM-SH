@@ -48,34 +48,33 @@ public class Assinatura extends Section {
 
                 //data
 
-                Phrase frase = new Phrase(DatasUtil.obterDataAtual(DatasUtil.FORMATO_DD_MM_YYYY), fontConfiguration.getFont(Pdf.Fontes.FONTE_ASSINATURA));
+                Phrase frase = new Phrase(DatasUtil.obterDataAtual(DatasUtil.FORMATO_DD_MM_YYYY), fontConfiguration.getFont(Pdf.Fontes.FONTE_8));
                 table.addCell(frase, cellConfiguration);
 
                 //assinatura
 
                 Image imagem = PdfUtil.createPdfImage(contexto.getResources(), ImagemUtil.converter(registo.imagem));
-                //imagem.scaleToFit(120f, 180f);
                 imagem.scaleToFit(120f, 30f);
                 table.addCell(imagem, cellConfiguration);
 
                 //nome do técnico
 
-                frase = new Phrase(registo.nome, fontConfiguration.getFont(Pdf.Fontes.FONTE_ASSINATURA));
+                frase = new Phrase(registo.nome, fontConfiguration.getFont(Pdf.Fontes.FONTE_8));
                 table.addCell(frase, cellConfiguration);
 
                 //cap
 
-                frase = new Phrase(registo.cap, fontConfiguration.getFont(Pdf.Fontes.FONTE_ASSINATURA));
+                frase = new Phrase(registo.cap, fontConfiguration.getFont(Pdf.Fontes.FONTE_8));
                 table.addCell(frase, cellConfiguration);
 
 
                 //descrições
 
                 Phrase frases [] = {
-                        new Phrase(Pdf.Texto.DATA, fontConfiguration.getFont(Pdf.Fontes.FONTE_ASSINATURA)),
-                        new Phrase(Pdf.Texto.CLIENTE, fontConfiguration.getFont(Pdf.Fontes.FONTE_ASSINATURA)),
-                        new Phrase(Pdf.Texto.TECNICO, fontConfiguration.getFont(Pdf.Fontes.FONTE_ASSINATURA)),
-                        new Phrase(Pdf.Texto.CAP_N, fontConfiguration.getFont(Pdf.Fontes.FONTE_ASSINATURA))
+                        new Phrase(Pdf.Texto.DATA, fontConfiguration.getFont(Pdf.Fontes.FONTE_8)),
+                        new Phrase(Pdf.Texto.CLIENTE, fontConfiguration.getFont(Pdf.Fontes.FONTE_8)),
+                        new Phrase(Pdf.Texto.TECNICO, fontConfiguration.getFont(Pdf.Fontes.FONTE_8)),
+                        new Phrase(Pdf.Texto.CAP_N, fontConfiguration.getFont(Pdf.Fontes.FONTE_8))
                 };
 
                 CellConfiguration cellConfiguration2 = new CellConfiguration();

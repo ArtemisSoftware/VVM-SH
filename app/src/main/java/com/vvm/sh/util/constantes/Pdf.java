@@ -67,6 +67,7 @@ public class Pdf {
         public static final float FONTE_CABECALHO = 11f;
         public static final float FONTE_ONSERVACAO = 8f;
 
+        public static final float FONTE_7 = 7f;
         public static final float FONTE_8 = 8f;
         public static final float FONTE_9 = 9f;
 

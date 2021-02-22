@@ -35,7 +35,7 @@ public class TrabalhosRealizados extends Section {
 
         FontConfiguration fontConfiguration = new FontConfiguration();
 
-        Phrase titulo = new Phrase(Pdf.Texto.TRABALHOS_REALIZADOS, fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO, true, BaseColor.WHITE));
+        Phrase titulo = new Phrase(Pdf.Texto.TRABALHOS_REALIZADOS, fontConfiguration.getFont(Pdf.Fontes.FONTE_7, true, BaseColor.WHITE));
         CellConfiguration cellConfiguration = new CellConfiguration();
         cellConfiguration.horizontalAlign = Element. ALIGN_TOP;
         cellConfiguration.verticalAlign = Element.ALIGN_TOP;
@@ -53,14 +53,14 @@ public class TrabalhosRealizados extends Section {
         cellConfiguration_imagem.horizontalAlign = Element. ALIGN_MIDDLE;
         cellConfiguration_imagem.verticalAlign = Element.ALIGN_MIDDLE;
         cellConfiguration_imagem.alignLeft = 2;
-        cellConfiguration_imagem.height = Pdf.RegistoVisita.ALTURA_LINHA___TABELA_TRABALHOS_REALIZADOS;
+        cellConfiguration_imagem.height = 18;
 
 
         //texto
 
         CellConfiguration formato_Texto = new CellConfiguration();
         formato_Texto.verticalAlign  = Element.ALIGN_MIDDLE;
-        formato_Texto.height  = Pdf.RegistoVisita.ALTURA_LINHA___TABELA_TRABALHOS_REALIZADOS;
+        formato_Texto.height = 18;
 
 
         for (TrabalhoRealizado registo : registos) {
@@ -72,7 +72,7 @@ public class TrabalhosRealizados extends Section {
                 table.addCell(contexto.getResources(), Pdf.Imagens.IMAGEM_CHECKBOX_VAZIA_CINZENTA, cellConfiguration_imagem);
             }
 
-            Phrase frase = new Phrase(registo.tipo.descricao, fontConfiguration.getFont(Pdf.Fontes.FONTE_TEXTO));
+            Phrase frase = new Phrase(registo.tipo.descricao, fontConfiguration.getFont(Pdf.Fontes.FONTE_7));
             table.addCell(frase, formato_Texto);
         }
 

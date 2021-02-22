@@ -133,7 +133,7 @@ public class RegistoVisitaActivity extends BaseDaggerActivity {
         OnDialogoListener listener = new OnDialogoListener() {
             @Override
             public void onExecutar() {
-                Intent intent = new Intent(RegistoVisitaActivity.this, AssinaturaActivity.class);
+                Intent intent = new Intent(RegistoVisitaActivity.this, AssinaturaRegistoVisitaActivity.class);
                 startActivityForResult(intent, Identificadores.CodigoAtividade.ASSINATURA);
             }
         };

@@ -21,6 +21,7 @@ import butterknife.OnClick;
 public class AssinaturaActivity extends BaseActivity implements SignaturePad.OnSignedListener {
 
     @BindView(R.id.sgn_pad_assinatura)
+    protected
     SignaturePad sgn_pad_assinatura;
 
     @BindView(R.id.btn_limpar)
@@ -33,7 +34,7 @@ public class AssinaturaActivity extends BaseActivity implements SignaturePad.OnS
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_assinatura);
+        setContentView(obterLayout());
 
         //--verifyStoragePermissions(this);
         sgn_pad_assinatura.setOnSignedListener(this);
@@ -72,7 +73,7 @@ public class AssinaturaActivity extends BaseActivity implements SignaturePad.OnS
 
 
     @OnClick(R.id.btn_gravar)
-    public void btn_gravar_OnClickListener(View view) {
+    protected void btn_gravar_OnClickListener(View view) {
 
         Bitmap signatureBitmap = sgn_pad_assinatura.getSignatureBitmap();
 
@@ -80,6 +81,11 @@ public class AssinaturaActivity extends BaseActivity implements SignaturePad.OnS
         returnIntent.putExtra(getString(R.string.resultado_imagem), ImagemUtil.converter(signatureBitmap));
         setResult(RESULT_OK,returnIntent);
         finish();
+    }
+
+
+    protected int obterLayout(){
+        return R.layout.activity_assinatura;
     }
 
 

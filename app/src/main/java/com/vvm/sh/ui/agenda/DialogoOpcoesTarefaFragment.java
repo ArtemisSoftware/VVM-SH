@@ -3,7 +3,7 @@ package com.vvm.sh.ui.agenda;
 import android.content.Context;
 import android.content.DialogInterface;
 
-import com.vvm.sh.ui.BaseDialogoOpcoesFragment;
+import com.vvm.sh.ui.base.BaseDialogoOpcoesFragment;
 
 public class DialogoOpcoesTarefaFragment extends BaseDialogoOpcoesFragment {
 

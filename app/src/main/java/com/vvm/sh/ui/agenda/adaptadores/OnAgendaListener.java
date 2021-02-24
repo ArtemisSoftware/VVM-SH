@@ -8,4 +8,12 @@ public interface OnAgendaListener {
 
     void onItemLongPress(Marcacao marcacao);
 
+
+    interface OnOpcoesListener {
+
+        void recarregarTrabalho();
+
+        void reUploadDados();
+    }
+
 }

@@ -1,4 +1,4 @@
-package com.vvm.sh.ui;
+package com.vvm.sh.ui.base;
 
 import android.app.AlertDialog;
 import android.app.Dialog;

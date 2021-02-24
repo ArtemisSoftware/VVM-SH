@@ -45,7 +45,7 @@ import butterknife.OnClick;
 
 public class MainActivity extends BaseDaggerActivity
         implements OnAgendaListener, DatePickerDialog.OnDateSetListener,
-        DialogoOpcoesTrabalhoFragment.DialogoListener{
+        OnAgendaListener.OnOpcoesListener{
 
 
 

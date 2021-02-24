@@ -4,14 +4,15 @@ import android.content.Context;
 import android.content.DialogInterface;
 
 import com.vvm.sh.R;
-import com.vvm.sh.ui.BaseDialogoOpcoesFragment;
+import com.vvm.sh.ui.base.BaseDialogoOpcoesFragment;
+import com.vvm.sh.ui.agenda.adaptadores.OnAgendaListener;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
 
 public class DialogoOpcoesTrabalhoFragment extends BaseDialogoOpcoesFragment {
 
 
 
-    private DialogoListener listener;
+    private OnAgendaListener.OnOpcoesListener listener;
 
 
     @Override
@@ -97,19 +98,11 @@ public class DialogoOpcoesTrabalhoFragment extends BaseDialogoOpcoesFragment {
         super.onAttach(context);
 
         try {
-            listener = (DialogoListener) context;
+            listener = (OnAgendaListener.OnOpcoesListener) context;
         }
         catch (ClassCastException e) {
             throw new ClassCastException(context.toString() + "must implement ExampleDialogListener");
         }
-    }
-
-
-    public interface DialogoListener {
-
-        void recarregarTrabalho();
-
-        void reUploadDados();
     }
 
 }

@@ -18,6 +18,7 @@ import com.vvm.sh.repositorios.TransferenciasRepositorio;
 import com.vvm.sh.repositorios.UploadRepositorio;
 import com.vvm.sh.servicos.DadosUploadAsyncTask;
 import com.vvm.sh.servicos.tipos.AtualizarTipoAsyncTask;
+import com.vvm.sh.servicos.trabalho.AtualizarTrabalhoAsyncTask;
 import com.vvm.sh.servicos.trabalho.RecarregarTarefaAsyncTask;
 import com.vvm.sh.servicos.trabalho.RecarregarTrabalhoAsyncTask;
 import com.vvm.sh.servicos.trabalho.CarregarTrabalhoAsyncTask;
@@ -254,6 +255,45 @@ public class TransferenciasViewModel extends BaseViewModel {
                         }
                 );
     }
+
+
+
+    public void atualizarTrabalho(Context contexto, String idUtilizador, String data, Handler handler){
+
+        showProgressBar(true);
+
+        transferenciasRepositorio.obterTrabalho(idUtilizador, data)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new SingleObserver<Sessao>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onSuccess(Sessao sessao) {
+                                AtualizarTrabalhoAsyncTask servico = new AtualizarTrabalhoAsyncTask(vvmshBaseDados, transferenciasRepositorio, handler, idUtilizador, DatasUtil.converterDataLong(data, DatasUtil.FORMATO_YYYY_MM_DD));
+                                servico.execute(sessao.iSessao);
+
+                                PreferenciasUtil.fixarContagemMaquina(contexto, sessao.iContagemTipoMaquina);
+
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                showProgressBar(false);
+                                formatarErro(e);
+                            }
+                        }
+                );
+    }
+
+
+
 
 
 

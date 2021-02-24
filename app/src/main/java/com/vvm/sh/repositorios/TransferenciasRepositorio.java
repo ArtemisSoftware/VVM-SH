@@ -6,6 +6,7 @@ import com.google.gson.Gson;
 import com.vvm.sh.api.SegurancaTrabalhoApi;
 import com.vvm.sh.api.SegurancaAlimentarApi;
 import com.vvm.sh.api.modelos.pedido.IContagemTipoMaquina;
+import com.vvm.sh.api.modelos.pedido.IDados;
 import com.vvm.sh.api.modelos.pedido.ISessao;
 import com.vvm.sh.api.modelos.pedido.Codigo;
 import com.vvm.sh.baseDados.dao.TransferenciasDao;
@@ -47,6 +48,7 @@ import com.vvm.sh.util.constantes.AppConfig;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.excepcoes.RespostaWsInvalidaException;
 import com.vvm.sh.util.metodos.ConversorUtil;
+import com.vvm.sh.util.metodos.DatasUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -536,6 +538,10 @@ public class TransferenciasRepositorio {
     //---------------------------
     //DOWNLOAD
     //---------------------------
+
+    public boolean existeTarefa(String idUtilizador, IDados dados, long data){
+        return transferenciasDao.existeTarefa(idUtilizador, dados.prefixoCt, dados.ordem, data);
+    }
 
 
     /**

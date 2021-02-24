@@ -6,7 +6,11 @@ import android.content.DialogInterface;
 import com.vvm.sh.R;
 import com.vvm.sh.ui.base.BaseDialogoOpcoesFragment;
 import com.vvm.sh.ui.agenda.adaptadores.OnAgendaListener;
+import com.vvm.sh.ui.base.modelos.OpcaoDialogo;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DialogoOpcoesTrabalhoFragment extends BaseDialogoOpcoesFragment {
 
@@ -16,73 +20,56 @@ public class DialogoOpcoesTrabalhoFragment extends BaseDialogoOpcoesFragment {
 
 
     @Override
-    protected String[] obterOpcoes() {
+    protected List<OpcaoDialogo> obterOpcoes() {
 
-        if(PreferenciasUtil.agendaEditavel(getActivity()) == false){
-            return  new String[]{ getString(R.string.reenviar_dados) };
+        List<OpcaoDialogo> opcoes = new ArrayList<>();
+        opcoes.add(new OpcaoDialogo(0, getString(R.string.reenviar_dados)));
+
+        if(PreferenciasUtil.agendaEditavel(getActivity()) == true){
+            opcoes.add(new OpcaoDialogo(1, getString(R.string.recarregar_trabalho_dia)));
+            opcoes.add(new OpcaoDialogo(2, getString(R.string.atualizar_trabalho_dia)));
         }
-        else{
-            return new String[]{ getString(R.string.recarregar_trabalho_dia), getString(R.string.reenviar_dados) };
-        }
+
+        return opcoes;
     }
 
 
     @Override
     protected DialogInterface.OnClickListener obterMetodo() {
 
-        if(obterOpcoes().length == 2) {
+        DialogInterface.OnClickListener metodo = new DialogInterface.OnClickListener() {
 
-            DialogInterface.OnClickListener metodo = new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int item) {
 
-                @Override
-                public void onClick(DialogInterface dialog, int item) {
+                switch (item) {
 
-                    switch (item) {
+                    case 0: //recarregar trabalho do dia
 
-                        case 0: //recarregar trabalho do dia
-
-                            listener.recarregarTrabalho();
-                            break;
+                        listener.recarregarTrabalho();
+                        break;
 
 
-                        case 1: //reenviar trabalho do dia
+                    case 1: //reenviar trabalho do dia
 
-                            listener.reUploadDados();
-                            break;
+                        listener.reUploadDados();
+                        break;
 
-                        default:
-                            break;
-                    }
 
-                    dialog.cancel();
+                    case 2: //atualizar trabalho do dia
+
+                        listener.atualizarTrabalho();
+                        break;
+
+                    default:
+                        break;
                 }
-            };
 
-            return metodo;
-        }
-        else{
-            DialogInterface.OnClickListener metodo = new DialogInterface.OnClickListener() {
+                dialog.cancel();
+            }
+        };
 
-                @Override
-                public void onClick(DialogInterface dialog, int item) {
-
-                    switch (item) {
-
-                        case 0: //reenviar trabalho do dia
-
-                            listener.reUploadDados();
-                            break;
-
-                        default:
-                            break;
-                    }
-
-                    dialog.cancel();
-                }
-            };
-
-            return metodo;
-        }
+        return metodo;
     }
 
 

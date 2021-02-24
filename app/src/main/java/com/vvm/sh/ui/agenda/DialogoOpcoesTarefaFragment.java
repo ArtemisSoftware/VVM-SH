@@ -3,16 +3,22 @@ package com.vvm.sh.ui.agenda;
 import android.content.Context;
 import android.content.DialogInterface;
 
+import com.vvm.sh.R;
 import com.vvm.sh.ui.base.BaseDialogoOpcoesFragment;
+import com.vvm.sh.ui.base.modelos.OpcaoDialogo;
+
+import java.util.ArrayList;
+import java.util.List;
 
 public class DialogoOpcoesTarefaFragment extends BaseDialogoOpcoesFragment {
 
     private DialogoListener listener;
 
     @Override
-    protected String[] obterOpcoes() {
+    protected List<OpcaoDialogo> obterOpcoes() {
 
-        String opcoes [] = { "Atualizar tarefa" };
+        List<OpcaoDialogo> opcoes = new ArrayList<>();
+        opcoes.add(new OpcaoDialogo(0, "Atualizar tarefa"));
         return opcoes;
     }
 

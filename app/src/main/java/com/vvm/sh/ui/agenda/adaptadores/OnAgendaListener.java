@@ -14,6 +14,8 @@ public interface OnAgendaListener {
         void recarregarTrabalho();
 
         void reUploadDados();
+
+        void atualizarTrabalho();
     }
 
 }

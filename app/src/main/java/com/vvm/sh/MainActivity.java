@@ -285,12 +285,36 @@ public class MainActivity extends BaseDaggerActivity
         }
     }
 
+
+    @Override
+    public void atualizarTrabalho() {
+
+        OnDialogoListener listener = new OnDialogoListener() {
+            @Override
+            public void onExecutar() {
+
+                Intent intent = new Intent(MainActivity.this, DownloadTrabalhoActivity.class);
+                intent.putExtra(getString(R.string.argumento_download), Identificadores.Download.ATUALIZAR_TRABALHO_DIA);
+                intent.putExtra(getString(R.string.argumento_data), DatasUtil.converterDataLong(activityMainBinding.txtData.getText().toString(), DatasUtil.FORMATO_DD_MMMM_YYYY));
+                startActivity(intent);
+            }
+        };
+
+        if(PreferenciasUtil.agendaEditavel(this) == true) {
+            dialogo.alerta_OpcaoCancelar(getString(R.string.atualizar_trabalho_dia), getString(R.string.atualizar_trabalho_adicionar), listener);
+        }
+
+
+    }
+
+
     @Override
     public void reUploadDados() {
         Intent intent = new Intent(this, UploadTrabalhoActivity.class);
         intent.putExtra(getString(R.string.argumento_data), DatasUtil.converterDataLong(activityMainBinding.txtData.getText().toString(), DatasUtil.FORMATO_DD_MMMM_YYYY));
         startActivity(intent);
     }
+
 
 
 

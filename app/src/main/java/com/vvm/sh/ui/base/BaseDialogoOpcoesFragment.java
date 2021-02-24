@@ -9,6 +9,10 @@ import android.view.View;
 
 import androidx.appcompat.app.AppCompatDialogFragment;
 
+import com.vvm.sh.ui.base.modelos.OpcaoDialogo;
+
+import java.util.List;
+
 
 public abstract class BaseDialogoOpcoesFragment extends AppCompatDialogFragment {
 
@@ -19,11 +23,29 @@ public abstract class BaseDialogoOpcoesFragment extends AppCompatDialogFragment 
 
         builder.setCancelable(obterEstadoCancelamento());
 
-        builder.setItems(obterOpcoes(), obterMetodo());
+        builder.setItems(formatarOpcoes(), obterMetodo());
 
         return builder.create();
     }
 
+
+    /**
+     * Metodo que permite formatar as opcoes a apresentar
+     * @return uma lista
+     */
+    private String [] formatarOpcoes(){
+
+        List<OpcaoDialogo> opcoes = obterOpcoes();
+        String[] array = new String[obterOpcoes().size()];
+
+        int index = 0;
+        for (OpcaoDialogo valor : opcoes) {
+            array[index] = valor.descricao;
+            index++;
+        }
+
+        return array;
+    }
 
 
     //--------------------
@@ -35,7 +57,7 @@ public abstract class BaseDialogoOpcoesFragment extends AppCompatDialogFragment 
      * Metodo que permite obter a descricao da opcoes
      * @return uma lista
      */
-    protected abstract String [] obterOpcoes();
+    protected abstract List<OpcaoDialogo> obterOpcoes();
 
 
     /**

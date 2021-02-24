@@ -247,6 +247,11 @@ abstract public class TransferenciasDao implements BaseDao<Resultado> {
 
 
 
+    @Query("SELECT COUNT(1) FROM tarefas WHERE idUtilizador =:idUtilizador AND prefixoCt =:prefixoCt AND ordem =:ordem AND data =:data")
+    abstract public boolean existeTarefa(String idUtilizador, String prefixoCt, String ordem, long data);
+
+
+
     @Query("DELETE FROM tarefas WHERE idTarefa = :idTarefa")
     abstract public void removerTarefa(int idTarefa);
 

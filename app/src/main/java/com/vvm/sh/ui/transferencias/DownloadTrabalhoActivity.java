@@ -76,11 +76,18 @@ public class DownloadTrabalhoActivity extends BaseDaggerActivity {
                 recarregarTarefa();
                 break;
 
+
+            case Identificadores.Download.ATUALIZAR_TRABALHO_DIA:
+
+                atualizarTarefa();
+                break;
+
             default:
                 break;
         }
 
     }
+
 
 
 
@@ -157,6 +164,17 @@ public class DownloadTrabalhoActivity extends BaseDaggerActivity {
         viewModel.recarregarTrabalho(this, PreferenciasUtil.obterIdUtilizador(this), DatasUtil.converterData(bundle.getLong(getString(R.string.argumento_data)), DatasUtil.FORMATO_YYYY_MM_DD), handlerNotificacoesUI);
     }
 
+    private void atualizarTarefa() {
+
+        Bundle bundle = getIntent().getExtras();
+        activityDownloadTrabalhoBinding.txtData.setText(DatasUtil.converterData(bundle.getLong(getString(R.string.argumento_data)), DatasUtil.FORMATO_DD_MM_YYYY));
+        activityDownloadTrabalhoBinding.cardTrabalho.setVisibility(View.VISIBLE);
+
+        viewModel.recarregarTrabalho(this, PreferenciasUtil.obterIdUtilizador(this), DatasUtil.converterData(bundle.getLong(getString(R.string.argumento_data)), DatasUtil.FORMATO_YYYY_MM_DD), handlerNotificacoesUI);
+
+    }
+
+
     /**
      * Metodo que permite recarregar uma tarefa especifica
      */
@@ -165,6 +183,8 @@ public class DownloadTrabalhoActivity extends BaseDaggerActivity {
         Bundle bundle = getIntent().getExtras();
         viewModel.recarregarTarefa(this, (Tarefa) bundle.get(getString(R.string.argumento_tarefa)), handlerNotificacoesUI);
     }
+
+
 
 
 

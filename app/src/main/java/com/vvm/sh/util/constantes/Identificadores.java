@@ -379,6 +379,7 @@ public class Identificadores {
         public static final int DOWNLOAD_TRABALHO_DIA = 1;
         public static final int RECARREGAR_TRABALHO_DIA = 2;
         public static final int RECARREGAR_TAREFA = 3;
+        public static final int ATUALIZAR_TRABALHO_DIA = 4;
     }
 
     public static class FrasesApoio {

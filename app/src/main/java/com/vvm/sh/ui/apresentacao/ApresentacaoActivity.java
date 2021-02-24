@@ -100,8 +100,6 @@ public class ApresentacaoActivity extends AppCompatActivity implements ViewPager
      */
     private void iniciarApresentacao(Introducao[] paginas) {
 
-        IntroducaoFactory introducaoFactory = new IntroducaoFactory();
-
         this.paginas = paginas;
         apresentacaoViewPagerAdapter = new ApresentacaoPagerAdapter(this, this.paginas);
         view_pager_conteudo.setAdapter(apresentacaoViewPagerAdapter);

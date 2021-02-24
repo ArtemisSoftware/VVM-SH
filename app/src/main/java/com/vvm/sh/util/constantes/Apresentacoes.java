@@ -11,17 +11,19 @@ import static com.vvm.sh.util.constantes.Identificadores.ApresentacaoApp.*;
  */
 public class Apresentacoes {
 
-    /**
-     * Paginas referentes à ultima atualizacao da app
-     */
-    public static final Introducao[] PAGINAS_ATUALIZACAO = new Introducao[]{
 
-            IntroducaoFactory.obterIntroducao(TIPO_CORRECAO, "Correção da  funcionalidade abc \nCorreção da  funcionalidade com muito esforco e suor da minha cara, nem tomei banho"),
-            IntroducaoFactory.obterIntroducao(TIPO_FUNCIONALIDADE, "Adicionada a funcionalidade 1"),
-            IntroducaoFactory.obterIntroducao(TIPO_ATUALIZACAO, "Atualizado o funcionamento da funcionalidade 0"),
+
+    private static final Introducao[] atualizacao_1_0_1 = new Introducao[]{
+
+            IntroducaoFactory.obterIntroducao(TIPO_CORRECAO, "Correção da apresentação da completude do estado de um dia de trabalho"),
+            IntroducaoFactory.obterIntroducao(TIPO_FUNCIONALIDADE, "Adicionado o relatório de certificado de tratamento às atividades pendentes"),
     };
 
 
+    /**
+     * Paginas referentes à ultima atualizacao da app
+     */
+    public static final Introducao[] PAGINAS_ATUALIZACAO = atualizacao_1_0_1;
 
 
 

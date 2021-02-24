@@ -12,7 +12,7 @@ public class AppConfig {
 
     public class ConfigTeste{
 
-        public static final boolean TESTAR_EMAIL = true;
+        public static final boolean TESTAR_EMAIL = VERSAO_TESTE;
 
     }
 

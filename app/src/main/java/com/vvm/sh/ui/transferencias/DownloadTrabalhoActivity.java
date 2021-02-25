@@ -214,7 +214,7 @@ public class DownloadTrabalhoActivity extends BaseDaggerActivity {
                     }
                 };
 
-                dialogo.alerta_OpcaoCancelar(getString(R.string.recarregar_trabalho_dia), getString(R.string.recarregar_trabalho_perder_dados), listener);
+                dialogo.alerta(getString(R.string.recarregar_trabalho_dia), getString(R.string.recarregar_trabalho_perder_dados), listener, true);
                 break;
 
             case Identificadores.Download.RECARREGAR_TAREFA:

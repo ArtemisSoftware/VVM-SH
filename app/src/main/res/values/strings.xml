@@ -293,7 +293,7 @@
     <string name="importar">Importar</string>
     <string name="sem_permissoes">Não existem permissões atribuidas</string>
     <string name="recarregar_trabalho_perder_dados">Ao recarregar o trabalho irá perder todos os dados gravados. Deseja continuar?</string>
-    <string name="atualizar_trabalho_adicionar">Ao atualizar o trabalho apenas serão adicionadas tarefas préviamente inexistentes. Tarefas já existentes não sofrerão atualizações.</string>
+    <string name="atualizar_trabalho_adicionar">Ao atualizar o trabalho apenas serão adicionadas tarefas préviamente inexistentes.\n\nTarefas já existentes não sofrerão atualizações.</string>
     <string name="reenviar_dados">Reenviar dados</string>
     <string name="dados_descarregados_sucesso">Dados descarregados com sucesso</string>
     <string name="reupload_dados">Reupload de dados</string>

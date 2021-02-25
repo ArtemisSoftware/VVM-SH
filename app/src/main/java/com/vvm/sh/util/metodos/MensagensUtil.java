@@ -28,7 +28,7 @@ public class MensagensUtil {
     public MensagensUtil(Context contexto) {
         dialogo = new SweetAlertDialog(contexto);
         builder = new AlertDialog.Builder(contexto);
-        dialogo_ = new LovelyStandardDialog(contexto, LovelyStandardDialog.ButtonLayout.VERTICAL);
+        dialogo_ = new LovelyStandardDialog(contexto, LovelyStandardDialog.ButtonLayout.HORIZONTAL);
     }
 
 
@@ -38,20 +38,20 @@ public class MensagensUtil {
 
 
     public void sucesso(String mensagem) {
-        sucesso(Sintaxe.Palavras.SUCESSO, mensagem, null);
+        sucesso(Sintaxe.Palavras.SUCESSO, mensagem, null, false);
     }
 
     public void sucesso(String titulo, String mensagem) {
-        sucesso(titulo, mensagem, null);
+        sucesso(titulo, mensagem, null, false);
     }
 
     public void sucesso(String mensagem, OnDialogoListener listener) {
-        sucesso(Sintaxe.Palavras.SUCESSO, mensagem, listener);
+        sucesso(Sintaxe.Palavras.SUCESSO, mensagem, listener, false);
     }
 
 
-    private void sucesso(String titulo, String mensagem, OnDialogoListener listener){
-        executarDialogo(R.color.cor_dialogo_sucesso, R.drawable.ic_validado_branco, titulo, mensagem, listener);
+    private void sucesso(String titulo, String mensagem, OnDialogoListener listener, boolean opcaoCancelar){
+        executarDialogo(R.color.cor_dialogo_sucesso, R.drawable.ic_validado_branco, titulo, mensagem, listener, opcaoCancelar);
     }
 
 
@@ -65,9 +65,12 @@ public class MensagensUtil {
     }
 
     public void alerta(String titulo, String mensagem, OnDialogoListener listener){
-        executarDialogo(R.color.cor_dialogo_alerta, R.drawable.ic_alerta_24dp, titulo, mensagem, listener);
+        executarDialogo(R.color.cor_dialogo_alerta, R.drawable.ic_alerta_24dp, titulo, mensagem, listener, false);
     }
 
+    public void alerta(String titulo, String mensagem, OnDialogoListener listener, boolean opcaoCancelar){
+        executarDialogo(R.color.cor_dialogo_alerta, R.drawable.ic_alerta_24dp, titulo, mensagem, listener, opcaoCancelar);
+    }
 
     //---------------------
     //Erro
@@ -82,7 +85,7 @@ public class MensagensUtil {
     }
 
     public void erro(String titulo, String mensagem, OnDialogoListener listener){
-        executarDialogo(R.color.cor_dialogo_erro, R.drawable.ic_erro_24, titulo, mensagem, listener);
+        executarDialogo(R.color.cor_dialogo_erro, R.drawable.ic_erro_24, titulo, mensagem, listener, false);
     }
 
 
@@ -91,7 +94,7 @@ public class MensagensUtil {
 
 
 
-    private void executarDialogo(int corTopo, int icon, String titulo, String mensagem, OnDialogoListener listenerOk){
+    private void executarDialogo(int corTopo, int icon, String titulo, String mensagem, OnDialogoListener listenerOk, boolean opcaoCancelar){
 
         dialogo_
                 .setTopColorRes(corTopo)
@@ -113,6 +116,17 @@ public class MensagensUtil {
         else{
             dialogo_
                     .setPositiveButton(android.R.string.ok, new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                        }
+                    });
+        }
+
+
+        if(opcaoCancelar == true){
+            dialogo_
+                    .setNegativeButton(Sintaxe.Opcoes.CANCELAR, new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
 

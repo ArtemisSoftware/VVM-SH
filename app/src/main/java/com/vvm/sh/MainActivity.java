@@ -281,7 +281,7 @@ public class MainActivity extends BaseDaggerActivity
         };
 
         if(PreferenciasUtil.agendaEditavel(this) == true) {
-            dialogo.alerta_OpcaoCancelar(getString(R.string.recarregar_trabalho), getString(R.string.recarregar_trabalho_perder_dados), listener);
+            dialogo.alerta(getString(R.string.recarregar_trabalho), getString(R.string.recarregar_trabalho_perder_dados), listener, true);
         }
     }
 
@@ -301,7 +301,7 @@ public class MainActivity extends BaseDaggerActivity
         };
 
         if(PreferenciasUtil.agendaEditavel(this) == true) {
-            dialogo.alerta_OpcaoCancelar(getString(R.string.atualizar_trabalho_dia), getString(R.string.atualizar_trabalho_adicionar), listener);
+            dialogo.alerta(getString(R.string.atualizar_trabalho_dia), getString(R.string.atualizar_trabalho_adicionar), listener, true);
         }
 
 

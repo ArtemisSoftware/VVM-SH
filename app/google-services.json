@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "705791818203",
+    "project_id": "vvm-sh",
+    "storage_bucket": "vvm-sh.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:705791818203:android:a1394b7a138f739e8a0ffe",
+        "android_client_info": {
+          "package_name": "com.vvm.sh"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "705791818203-9odj2uk7100ff6vo888kaf1m7atukc60.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCDjUskE8FcDktMdO4LxAtKmnXR3TT9mvw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "705791818203-9odj2uk7100ff6vo888kaf1m7atukc60.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,4 +1,5 @@
 apply plugin: 'com.android.application'
+apply plugin: 'com.google.gms.google-services'
 
 android {
     compileSdkVersion 29
@@ -105,6 +106,10 @@ dependencies {
 
     implementation 'com.github.yalantis:ucrop:2.2.2'
 
+
+    //--firebase
+    implementation platform('com.google.firebase:firebase-bom:26.5.0')
+    implementation 'com.google.firebase:firebase-analytics'
     //lixo
 
 

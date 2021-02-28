@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
+import com.vvm.sh.util.metodos.NotificacaoUtil;
 
 public class FirebaseMessaging extends FirebaseMessagingService {
 
@@ -58,6 +59,9 @@ public class FirebaseMessaging extends FirebaseMessagingService {
 
         // Also if you intend on generating your own notifications as a result of a received FCM
         // message, here is where that should be initiated. See sendNotification method below.
+
+        NotificacaoUtil.notificarAtualizacaoApp(getApplicationContext(), remoteMessage);
+
     }
     // [END receive_message]
 
@@ -68,5 +72,7 @@ public class FirebaseMessaging extends FirebaseMessagingService {
         Log.d(TAG, "Refreshed token: " + token);
 
     }
+
+
 
 }

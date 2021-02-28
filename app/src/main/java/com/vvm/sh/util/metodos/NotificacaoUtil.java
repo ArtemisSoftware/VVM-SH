@@ -10,7 +10,11 @@ import android.os.Build;
 import androidx.core.app.NotificationCompat;
 import androidx.core.app.NotificationManagerCompat;
 
+import com.google.firebase.messaging.RemoteMessage;
 import com.vvm.sh.R;
+
+import java.util.Map;
+
 import static com.vvm.sh.util.constantes.Identificadores.Notificacoes.*;
 
 public class NotificacaoUtil {
@@ -38,6 +42,24 @@ public class NotificacaoUtil {
     }
 
 
+    public static void notificarAtualizacaoApp(Context contexto, RemoteMessage remoteMessage) {
+
+        NotificationManagerCompat gestor = NotificationManagerCompat.from(contexto);
+
+        Notification notificacao = new NotificationCompat.Builder(contexto, CANAL_ATUALIZACAO_APP)
+                .setSmallIcon(R.drawable.ic_lorem_ipsum_24dp)
+                .setContentTitle(remoteMessage.getNotification().getTitle())
+                .setContentText(remoteMessage.getNotification().getBody().replace("#", remoteMessage.getData().get("versao")))
+                .setPriority(NotificationCompat.PRIORITY_HIGH)
+                .setCategory(NotificationCompat.CATEGORY_MESSAGE)
+                .setColor(Color.BLUE)
+                .build();
+
+        gestor.notify(ID_ATUALIZACAO_APP, notificacao);
+    }
+
+
+
     /**
      * Metodo que permite obter o canal de notificacao para a atualizacao da app
      * @return um canal
@@ -47,6 +69,7 @@ public class NotificacaoUtil {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
 
             NotificationChannel canal = new NotificationChannel(CANAL_ATUALIZACAO_APP, "Canal atualização app", NotificationManager.IMPORTANCE_HIGH);
+            canal.setLockscreenVisibility(Notification.VISIBILITY_PUBLIC);
             canal.setDescription("Canal de notificações para a atualização da aplicação");
             return canal;
         }

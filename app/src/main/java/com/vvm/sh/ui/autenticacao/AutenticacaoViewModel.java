@@ -56,57 +56,9 @@ public class AutenticacaoViewModel extends BaseViewModel {
 
         showProgressBar(true);
 
-        autenticacaoRepositorio.obterUtilizadores()
-                .map(new Function<IUtilizadorListagem, Observable<IUtilizador>>() {
-                    @Override
-                    public Observable<IUtilizador> apply(IUtilizadorListagem iUtilizadorListagem) throws Exception {
-                        return  Observable.fromIterable(iUtilizadorListagem.dadosNovos);
-                    }
-                })
-                .flatMap(new Function<Observable<IUtilizador>, ObservableSource<IUtilizador>>() {
-                    @Override
-                    public ObservableSource<IUtilizador> apply(Observable<IUtilizador> iUtilizadorObservable) throws Exception {
-                        return iUtilizadorObservable;
-                    }
-                })
-                .filter(new Predicate<IUtilizador>() {
-                    @Override
-                    public boolean test(IUtilizador iUtilizador) throws Exception {
-
-                        if(iUtilizador.id.equals(idUtilizador)){
-                            return true;
-                        }
-
-                        return false;
-                    }
-                })
-
-                .toList()
-                .map(new Function<List<IUtilizador>, IUtilizador>() {
-                    @Override
-                    public IUtilizador apply(List<IUtilizador> resposta) throws Exception {
-
-                        IUtilizador resultado = autenticarUtilizador(resposta, palavraChave);
-
-                        if(resultado == null){
-                            throw new UtilizadorException(Sintaxe.Alertas.ERRO_AUTENTICACAO);
-                        }
-
-                        return resultado;
-                    }
-                })
-                .flatMap(new Function<IUtilizador, SingleSource<?>>() {
-                    @Override
-                    public SingleSource<?> apply(IUtilizador iUtilizador) throws Exception {
-                        Utilizador utilizador = DownloadMapping.INSTANCE.map((IUtilizador) iUtilizador);
-                        return autenticacaoRepositorio.inserir(utilizador);
-                    }
-                })
-
-
+        autenticacaoRepositorio.autenticarUtilizador_(idUtilizador, palavraChave)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
-
                 .subscribe(
                         new SingleObserver<Object>() {
                             @Override
@@ -131,46 +83,6 @@ public class AutenticacaoViewModel extends BaseViewModel {
     }
 
 
-
-    /**
-     * Metodo que permite verificar as credenciais do utilizador
-     * @param resposta os dados da api
-     * @param palavraChave a palavra chave do utilizador
-     * @return  um utilizador
-     */
-    private IUtilizador autenticarUtilizador(List<IUtilizador> resposta, String palavraChave){
-
-        IUtilizador utilizador = null;
-        String cap = null, email = null;
-
-        for (IUtilizador registo : resposta) {
-
-            String messageDigest = Hasher.Companion.hash(palavraChave, HashType.MD5);
-
-            if(registo.ativo == true & registo.palavraChave.equals(messageDigest) == true){
-
-                if(registo.email != null){
-                    email = registo.email;
-                }
-                if(registo.cap != null){
-                    cap = registo.cap;
-                }
-            }
-            else{
-                return null;
-            }
-        }
-
-        if(resposta.size() != 0){
-            utilizador = resposta.get(0);
-            utilizador.api = 0;
-            utilizador.email = email;
-            utilizador.cap = cap;
-        }
-
-
-        return utilizador;
-    }
 
     //-----------------------
     //OBTER

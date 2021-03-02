@@ -86,6 +86,16 @@ public interface DownloadMapping {
     @Mapping(target = "tipo", constant = Identificadores.Atualizacoes.ATIVIDADES_PLANEAVEIS + "")
     Atualizacao map(ITipoAtividadePlaneavelListagem resposta);
 
+    @Mapping(target = "id", source = "id")
+    @Mapping(target = "area", source = "area")
+    @Mapping(target = "nome", source = "nome")
+    @Mapping(target = "email", source = "email")
+    Utilizador map(IUtilizador item);
+
+
+
+
+
 
 
     @Mapping(source = "item.id", target = "id")
@@ -98,11 +108,7 @@ public interface DownloadMapping {
     Tipo map(ITipo item, ITipoListagem resposta);
 
 
-    @Mapping(source = "id", target = "id")
-    @Mapping(source = "area", target = "area")
-    @Mapping(source = "nome", target = "nome")
-    @Mapping(source = "email", target = "email")
-    Utilizador map(IUtilizador item);
+
 
 
     @Mapping(source = "ordem", target = "ordem")

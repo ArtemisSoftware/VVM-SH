@@ -27,12 +27,7 @@
         android:layout_height="match_parent"
         tools:context=".ui.transferencias.AtualizacaoTiposActivity">
 
-        <androidx.constraintlayout.widget.Guideline
-            android:id="@+id/guideline4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            app:layout_constraintGuide_percent="0.55" />
+
 
 
         <View
@@ -88,76 +83,161 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
-        <TextView
-            android:id="@+id/txt_titulo"
-            style="@style/titulo"
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline4"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginEnd="32dp"
-            android:gravity="center_horizontal"
-            android:text="@string/a_atualizar"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/guideline4" />
-
-
-        <TextView
-            android:id="@+id/txt_descricao"
-            style="@style/textoDetalhe"
-            android:layout_width="0dp"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="32dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="32dp"
-            android:gravity="center_horizontal"
-            android:text="@string/por_favor_aguarde"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/txt_titulo" />
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.45" />
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/lnr_lyt_tipos"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="24dp"
-            android:visibility="@{comunicado == null ? View.VISIBLE : View.GONE }"
-            app:layout_constraintEnd_toEndOf="@+id/txt_titulo"
-            app:layout_constraintStart_toStartOf="@+id/txt_titulo"
-            app:layout_constraintTop_toBottomOf="@+id/txt_descricao">
+            android:layout_marginStart="16dp"
+            android:layout_marginTop="16dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/guideline4">
 
             <ProgressBar
-                android:id="@+id/prgBar_tipos"
-                style="?android:attr/progressBarStyleHorizontal"
-                android:layout_width="400dp"
-                android:layout_height="wrap_content"
-                android:max="@{comunicado.limite}"
-                android:progress="@{comunicado.posicao}"
-                app:layout_constraintEnd_toEndOf="parent"
+                android:id="@+id/progressBar_tipo"
+                style="?android:attr/progressBarStyle"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:elevation="0dp"
+                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="parent"
-                app:layout_constraintVertical_bias="0.19999999" />
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <ImageView
+                android:id="@+id/img_completude_tipo"
+                android:layout_width="96dp"
+                android:layout_height="96dp"
+                android:src="@drawable/ic_validado_branco"
+                android:tint="@color/bg_screen3"
+                app:layout_constraintStart_toStartOf="@+id/progressBar_tipo"
+                app:layout_constraintTop_toTopOf="@+id/progressBar_tipo" />
+
 
             <TextView
-                android:id="@+id/txt_titulo_tipos"
-                style="@style/textoDetalhe"
+                android:id="@+id/txt_titulo_tipo"
+                style="@style/titulo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="32dp"
                 android:layout_marginTop="8dp"
-                android:layout_marginBottom="64dp"
-                android:text="@{comunicado.mensagem}"
-                app:layout_constraintStart_toStartOf="@+id/prgBar_tipos"
-                app:layout_constraintTop_toBottomOf="@+id/prgBar_tipos"
-                app:layout_constraintVertical_bias="0.07999998" />
+                android:gravity="center_horizontal"
+                android:text="@string/a_atualizar"
+                app:layout_constraintStart_toEndOf="@+id/progressBar_tipo"
+                app:layout_constraintTop_toTopOf="@+id/progressBar_tipo" />
+
 
             <TextView
-                android:id="@+id/txt_progresso_tipos"
+                android:id="@+id/txt_descricao_tipo"
                 style="@style/textoDetalhe"
-                android:text="@{comunicado.obterLimite_()}"
-                app:layout_constraintEnd_toEndOf="@+id/prgBar_tipos"
-                app:layout_constraintTop_toTopOf="@+id/txt_titulo_tipos" />
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:gravity="center_horizontal"
+                android:text="@string/por_favor_aguarde"
+                app:layout_constraintBottom_toBottomOf="@+id/progressBar_tipo"
+                app:layout_constraintStart_toStartOf="@+id/txt_titulo_tipo"
+                app:layout_constraintTop_toBottomOf="@+id/txt_titulo_tipo" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+
+<!--        <TextView-->
+<!--            android:id="@+id/txt_titulo"-->
+<!--            style="@style/titulo"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="32dp"-->
+<!--            android:layout_marginEnd="32dp"-->
+<!--            android:gravity="center_horizontal"-->
+<!--            android:text="@string/a_atualizar"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/guideline4" />-->
+
+
+<!--        <TextView-->
+<!--            android:id="@+id/txt_descricao"-->
+<!--            style="@style/textoDetalhe"-->
+<!--            android:layout_width="0dp"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginStart="32dp"-->
+<!--            android:layout_marginTop="8dp"-->
+<!--            android:layout_marginEnd="32dp"-->
+<!--            android:gravity="center_horizontal"-->
+<!--            android:text="@string/por_favor_aguarde"-->
+<!--            app:layout_constraintEnd_toEndOf="parent"-->
+<!--            app:layout_constraintStart_toStartOf="parent"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/txt_titulo" />-->
+
+
+<!--        <androidx.constraintlayout.widget.ConstraintLayout-->
+<!--            android:id="@+id/lnr_lyt_tipos"-->
+<!--            android:layout_width="wrap_content"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:layout_marginTop="24dp"-->
+<!--            android:visibility="@{comunicado == null ? View.VISIBLE : View.GONE }"-->
+<!--            app:layout_constraintEnd_toEndOf="@+id/txt_titulo"-->
+<!--            app:layout_constraintStart_toStartOf="@+id/txt_titulo"-->
+<!--            app:layout_constraintTop_toBottomOf="@+id/txt_descricao">-->
+
+<!--            <ProgressBar-->
+<!--                android:id="@+id/prgBar_tipos"-->
+<!--                style="?android:attr/progressBarStyleHorizontal"-->
+<!--                android:layout_width="400dp"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:max="@{comunicado.limite}"-->
+<!--                android:progress="@{comunicado.posicao}"-->
+<!--                app:layout_constraintEnd_toEndOf="parent"-->
+<!--                app:layout_constraintStart_toStartOf="parent"-->
+<!--                app:layout_constraintTop_toTopOf="parent"-->
+<!--                app:layout_constraintVertical_bias="0.19999999" />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/txt_titulo_tipos"-->
+<!--                style="@style/textoDetalhe"-->
+<!--                android:layout_marginTop="8dp"-->
+<!--                android:layout_marginBottom="64dp"-->
+<!--                android:text="@{comunicado.mensagem}"-->
+<!--                app:layout_constraintStart_toStartOf="@+id/prgBar_tipos"-->
+<!--                app:layout_constraintTop_toBottomOf="@+id/prgBar_tipos"-->
+<!--                app:layout_constraintVertical_bias="0.07999998" />-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/txt_progresso_tipos"-->
+<!--                style="@style/textoDetalhe"-->
+<!--                android:text="@{comunicado.obterLimite_()}"-->
+<!--                app:layout_constraintEnd_toEndOf="@+id/prgBar_tipos"-->
+<!--                app:layout_constraintTop_toTopOf="@+id/txt_titulo_tipos" />-->
+
+
+<!--        </androidx.constraintlayout.widget.ConstraintLayout>-->
+
+
+
+
+
+
+
+
+
+
+
 
 
         <TextView

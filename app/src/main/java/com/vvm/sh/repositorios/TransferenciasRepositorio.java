@@ -508,6 +508,7 @@ public class TransferenciasRepositorio {
 
 
 
+    //---
 
     public Single<Codigo> uploadCertificadoTratamento(int idTarefa, String caminhoPdf){
 

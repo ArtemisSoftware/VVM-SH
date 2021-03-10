@@ -343,7 +343,7 @@ public class Identificadores {
 
         public static final int ID_601 = 601;
         public static final String MSG_601 = "Comunicação com o web service realizada sem header";
-
+        public static final Codigo Codigo_601 = new Codigo(ID_601, MSG_601);
 
     }
 

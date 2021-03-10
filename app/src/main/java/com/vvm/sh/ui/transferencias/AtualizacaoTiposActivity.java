@@ -130,8 +130,8 @@ public class AtualizacaoTiposActivity extends BaseDaggerActivity {
      * Metod que permite terminar a atualizacao
      */
     private void terminarAtualizacao() {
-        activityAtualizacaoTiposBinding.txtTitulo.setText(getString(R.string.atualizacao_concluida));
-        activityAtualizacaoTiposBinding.txtDescricao.setVisibility(View.INVISIBLE);
+        //activityAtualizacaoTiposBinding.txtTitulo.setText(getString(R.string.atualizacao_concluida));
+        //activityAtualizacaoTiposBinding.txtDescricao.setVisibility(View.INVISIBLE);
         activityAtualizacaoTiposBinding.txtSubTitulo.setVisibility(View.VISIBLE);
         activityAtualizacaoTiposBinding.crlProsseguir.setVisibility(View.VISIBLE);
 

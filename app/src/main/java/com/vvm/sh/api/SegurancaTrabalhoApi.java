@@ -45,6 +45,12 @@ public interface SegurancaTrabalhoApi {
         put(Sintaxe.API.METODO_INTERNO, "tipo");
     }};
 
+    Map<String, String> HEADER_EQUIPAMENTO  = new HashMap<String, String>() {{
+        put(Sintaxe.API.API, Identificadores.App.APP_ST + "");
+        put(Sintaxe.API.NOME_API, SegurancaTrabalhoApi.class.getName());
+        put(Sintaxe.API.METODO_INTERNO, "equipamento");
+    }};
+
 
     @GET("{metodo}?dataT=")
     Single<ITipoListagem> obterTipo(@HeaderMap Map<String, String> headers, @Path("metodo") String metodo);

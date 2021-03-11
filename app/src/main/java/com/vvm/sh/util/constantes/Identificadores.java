@@ -2,7 +2,6 @@ package com.vvm.sh.util.constantes;
 
 import com.vvm.sh.R;
 import com.vvm.sh.api.modelos.pedido.Codigo;
-import com.vvm.sh.util.metodos.TiposUtil;
 
 public class Identificadores {
 
@@ -299,16 +298,16 @@ public class Identificadores {
         public static final String MSG_100 = "Sucesso no envio de dados";
         public static final Codigo Codigo_100 = new Codigo(ID_100, MSG_100);
 
-        public static final int CODIGO_101 = 101;
+        public static final int ID_101 = 101;
         public static final String MSG_101 = "Não existe trabalho para download";
-        public static final Codigo Codigo_101 = new Codigo(CODIGO_101, MSG_101);
+        public static final Codigo Codigo_101 = new Codigo(ID_101, MSG_101);
 
         public static final int ID_110 = 110;
         public static final String MSG_110 = "Sucesso no envio do email";
         public static final Codigo Codigo_110 = new Codigo(ID_110, MSG_110);
 
 
-        public static final int CODIGO_400 = 400;
+        public static final int ID_400 = 400;
         public static final String MSG_400 = "Ocorreu um erro.";
 
         public static final int CODIGO_401 = 401;
@@ -320,18 +319,23 @@ public class Identificadores {
 
         public static final int ID_500 = 500;
         public static final String MSG_500 = "Erro desconhecido";
+        public static final Codigo Codigo_500 = new Codigo(ID_500, MSG_500);
 
         public static final int ID_501 = 501;
         public static final String MSG_501 = "Connection reset by peer";
+        public static final Codigo Codigo_501 = new Codigo(ID_501, MSG_501);
 
         public static final int ID_502 = 502;
         public static final String MSG_502 = "Connection to ip timed out";
+        public static final Codigo Codigo_502 = new Codigo(ID_502, MSG_502);
 
         public static final int ID_503 = 503;
         public static final String MSG_503 = "Rede paga.";
+        public static final Codigo Codigo_503 = new Codigo(ID_503, MSG_503);
 
         public static final int ID_504 = 504;
         public static final String MSG_504 = "Resposta inválida do servidor";
+        public static final Codigo Codigo_504 = new Codigo(ID_504, MSG_504);
 
         public static final int ID_505 = 505;
         public static final String MSG_505 = "Servidor em manutenção.";

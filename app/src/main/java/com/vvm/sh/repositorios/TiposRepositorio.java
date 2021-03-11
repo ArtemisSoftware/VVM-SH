@@ -131,7 +131,7 @@ public class TiposRepositorio {
 
         for(TipoNovo tipo : atualizacoes.tiposNovos){
 
-            Map<String, String> cabecalho = SegurancaTrabalhoApi.HEADER;
+            Map<String, String> cabecalho = SegurancaTrabalhoApi.HEADER_EQUIPAMENTO;
             cabecalho.put(Sintaxe.API.ID_EQUIPAMENTO_PROVISORIO, tipo.idProvisorio + "");
 
             tipos.add(apiST.obterEstadoEquipamento(cabecalho, tipo.descricao));

@@ -72,7 +72,7 @@ public class RedeRepositorio {
 
                 single = Single.zip(
                         apiST.obterTrabalho(SegurancaTrabalhoApi.HEADER, idUtilizador),
-                        apiST.obterContagemTiposMaquinas(SegurancaTrabalhoApi.HEADER, idUtilizador),
+                        apiST.obterContagemTiposMaquinas(SegurancaTrabalhoApi.HEADER_EQUIPAMENTO, idUtilizador),
                         new BiFunction<ISessao, IContagemTipoMaquina, Sessao>() {
                             @Override
                             public Sessao apply(ISessao iSessao, IContagemTipoMaquina iContagemTipoMaquina) throws Exception {
@@ -138,7 +138,7 @@ public class RedeRepositorio {
 
                 single = Single.zip(
                         apiST.obterTrabalho(SegurancaTrabalhoApi.HEADER, idUtilizador, data),
-                        apiST.obterContagemTiposMaquinas(SegurancaTrabalhoApi.HEADER, idUtilizador),
+                        apiST.obterContagemTiposMaquinas(SegurancaTrabalhoApi.HEADER_EQUIPAMENTO, idUtilizador),
                         new BiFunction<ISessao, IContagemTipoMaquina, Sessao>() {
                             @Override
                             public Sessao apply(ISessao iSessao, IContagemTipoMaquina iContagemTipoMaquina) throws Exception {

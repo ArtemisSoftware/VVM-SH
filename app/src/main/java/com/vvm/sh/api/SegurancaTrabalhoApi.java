@@ -42,13 +42,13 @@ public interface SegurancaTrabalhoApi {
     Map<String, String> HEADER_TIPO  = new HashMap<String, String>() {{
         put(Sintaxe.API.API, Identificadores.App.APP_ST + "");
         put(Sintaxe.API.NOME_API, SegurancaTrabalhoApi.class.getName());
-        put(Sintaxe.API.METODO_INTERNO, "tipo");
+        put(Sintaxe.API.METODO_INTERNO, Sintaxe.API.DESCRICAO_METODO_INTERNO_TIPO);
     }};
 
     Map<String, String> HEADER_EQUIPAMENTO  = new HashMap<String, String>() {{
         put(Sintaxe.API.API, Identificadores.App.APP_ST + "");
         put(Sintaxe.API.NOME_API, SegurancaTrabalhoApi.class.getName());
-        put(Sintaxe.API.METODO_INTERNO, "equipamento");
+        put(Sintaxe.API.METODO_INTERNO, Sintaxe.API.DESCRICAO_METODO_INTERNO_EQUIPAMENTO);
     }};
 
 

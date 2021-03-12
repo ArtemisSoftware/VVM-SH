@@ -13,6 +13,7 @@ import com.vvm.sh.api.BlocoImagens;
 import com.vvm.sh.api.modelos.pedido.Codigo;
 import com.vvm.sh.baseDados.entidades.Tarefa;
 import com.vvm.sh.repositorios.CarregamentoTiposRepositorio;
+import com.vvm.sh.repositorios.RedeRepositorio;
 import com.vvm.sh.repositorios.TiposRepositorio;
 import com.vvm.sh.repositorios.TransferenciasRepositorio;
 import com.vvm.sh.repositorios.UploadRepositorio;
@@ -61,17 +62,22 @@ public class TransferenciasViewModel extends BaseViewModel {
     private final UploadRepositorio uploadRepositorio;
     private final TiposRepositorio tiposRepositorio;
     private final CarregamentoTiposRepositorio carregamentoTiposRepositorio;
+    private final RedeRepositorio redeRepositorio;
 
     public MutableLiveData<List<Pendencia>> pendencias;
     public MutableLiveData<List<Upload>> uploads;
 
     @Inject
-    public TransferenciasViewModel(TransferenciasRepositorio transferenciasRepositorio, TiposRepositorio tiposRepositorio, UploadRepositorio uploadRepositorio, CarregamentoTiposRepositorio carregamentoTiposRepositorio){
+    public TransferenciasViewModel(TransferenciasRepositorio transferenciasRepositorio,
+                                   TiposRepositorio tiposRepositorio, UploadRepositorio uploadRepositorio,
+                                   CarregamentoTiposRepositorio carregamentoTiposRepositorio,
+                                   RedeRepositorio redeRepositorio){
 
         this.transferenciasRepositorio = transferenciasRepositorio;
         this.uploadRepositorio = uploadRepositorio;
         this.tiposRepositorio = tiposRepositorio;
         this.carregamentoTiposRepositorio = carregamentoTiposRepositorio;
+        this.redeRepositorio = redeRepositorio;
 
         this.uploads = new MutableLiveData<>();
         this.pendencias = new MutableLiveData<>();
@@ -185,7 +191,7 @@ public class TransferenciasViewModel extends BaseViewModel {
 
         showProgressBar(true);
 
-        transferenciasRepositorio.obterTrabalho(idUtilizador)
+        redeRepositorio.obterTrabalho(idUtilizador)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -214,6 +220,50 @@ public class TransferenciasViewModel extends BaseViewModel {
                         }
                 );
     }
+
+
+
+    /**
+     * Metodo que permite recarregar uma tarefa
+     * @param tarefa os dados da tarefa a recarregar
+     */
+    public void recarregarTarefa(Context contexto, Tarefa tarefa, Handler handler){
+
+        showProgressBar(true);
+
+        redeRepositorio.obterTrabalho(tarefa.idUtilizador)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new SingleObserver<Sessao>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onSuccess(Sessao sessao) {
+                                RecarregarTarefaAsyncTask servico = new RecarregarTarefaAsyncTask(vvmshBaseDados, transferenciasRepositorio, handler, tarefa);
+                                servico.execute(sessao.iSessao);
+
+                                PreferenciasUtil.fixarContagemMaquina(contexto, sessao.iContagemTipoMaquina);
+
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                showProgressBar(false);
+                                formatarErro(e);
+                            }
+                        }
+                );
+    }
+
+
+
+
 
 
 
@@ -295,45 +345,6 @@ public class TransferenciasViewModel extends BaseViewModel {
 
 
 
-
-
-    /**
-     * Metodo que permite recarregar uma tarefa
-     * @param tarefa os dados da tarefa a recarregar
-     */
-    public void recarregarTarefa(Context contexto, Tarefa tarefa, Handler handler){
-
-        showProgressBar(true);
-
-        transferenciasRepositorio.obterTrabalho(tarefa.idUtilizador)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-
-                        new SingleObserver<Sessao>() {
-                            @Override
-                            public void onSubscribe(Disposable d) {
-                                disposables.add(d);
-                            }
-
-                            @Override
-                            public void onSuccess(Sessao sessao) {
-                                RecarregarTarefaAsyncTask servico = new RecarregarTarefaAsyncTask(vvmshBaseDados, transferenciasRepositorio, handler, tarefa);
-                                servico.execute(sessao.iSessao);
-
-                                PreferenciasUtil.fixarContagemMaquina(contexto, sessao.iContagemTipoMaquina);
-
-                                showProgressBar(false);
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-                                showProgressBar(false);
-                                formatarErro(e);
-                            }
-                        }
-                );
-    }
 
 
 

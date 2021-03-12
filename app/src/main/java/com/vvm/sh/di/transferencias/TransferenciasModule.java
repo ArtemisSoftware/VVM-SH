@@ -10,6 +10,7 @@ import com.vvm.sh.baseDados.dao.TransferenciasDao;
 import com.vvm.sh.baseDados.dao.UploadDao;
 import com.vvm.sh.di.opcoes.OpcoesScope;
 import com.vvm.sh.repositorios.CarregamentoTiposRepositorio;
+import com.vvm.sh.repositorios.RedeRepositorio;
 import com.vvm.sh.repositorios.TiposRepositorio;
 import com.vvm.sh.repositorios.TransferenciasRepositorio;
 import com.vvm.sh.repositorios.UploadRepositorio;
@@ -94,5 +95,17 @@ public class TransferenciasModule {
         CarregamentoTiposRepositorio repositorio = new CarregamentoTiposRepositorio(atualizacaoDao, tipoDao, tipoNovoDao);
         return repositorio;
     }
+
+
+
+    @TransferenciasScope
+    @Provides
+    RedeRepositorio provideRedeRepositorio(SegurancaAlimentarApi segurancaAlimentarApi, SegurancaTrabalhoApi segurancaTrabalhoApi,
+                                           TransferenciasDao transferenciasDao) {
+
+        RedeRepositorio repositorio = new RedeRepositorio(segurancaAlimentarApi, segurancaTrabalhoApi, transferenciasDao);
+        return repositorio;
+    }
+
 
 }

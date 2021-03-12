@@ -24,6 +24,8 @@ import java.util.UUID;
 
 public class DadosUpload {
 
+    public int api;
+
     public int numeroFicheirosImagens;
     public String idUtilizador;
     public String versao;

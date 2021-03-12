@@ -88,7 +88,16 @@ public class MensagensUtil {
         executarDialogo(R.color.cor_dialogo_erro, R.drawable.ic_erro_24, titulo, mensagem, listener, false);
     }
 
+    public void erro(String titulo, Codigo codigo, OnDialogoListener listener) {
 
+        String mensagem = "";
+
+        if (codigo != null) {
+            mensagem = codigo.mensagem;
+        }
+
+        executarDialogo(R.color.cor_dialogo_erro, R.drawable.ic_erro_24, titulo, mensagem, listener, false);
+    }
 
 
 

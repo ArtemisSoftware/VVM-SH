@@ -9,11 +9,18 @@ import com.vvm.sh.api.modelos.pedido.Codigo;
 import com.vvm.sh.api.modelos.pedido.IContagemTipoMaquina;
 import com.vvm.sh.api.modelos.pedido.ISessao;
 import com.vvm.sh.baseDados.dao.TransferenciasDao;
+import com.vvm.sh.baseDados.entidades.Resultado;
 import com.vvm.sh.baseDados.entidades.Tarefa;
+import com.vvm.sh.ui.transferencias.modelos.DadosUpload;
 import com.vvm.sh.ui.transferencias.modelos.Sessao;
+import com.vvm.sh.ui.transferencias.modelos.Upload;
 import com.vvm.sh.util.constantes.AppConfig;
+import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.excepcoes.RespostaWsInvalidaException;
 import com.vvm.sh.util.metodos.ConversorUtil;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import io.reactivex.Single;
 import io.reactivex.SingleSource;
@@ -22,6 +29,8 @@ import io.reactivex.functions.Function;
 import io.reactivex.functions.Function3;
 
 import static com.vvm.sh.util.constantes.Identificadores.CodigosWs.Codigo_101;
+import static com.vvm.sh.util.constantes.Identificadores.CodigosWs.ID_101;
+
 
 public class RedeRepositorio {
 
@@ -188,23 +197,7 @@ public class RedeRepositorio {
                 new Function3<ISessao, ISessao, IContagemTipoMaquina, Sessao>() {
                     @Override
                     public Sessao apply(ISessao iSessaoSA, ISessao iSessaoST, IContagemTipoMaquina contagemTipoMaquina) throws Exception {
-
-                        Sessao sessao = new Sessao();
-                        sessao.iContagemTipoMaquina = contagemTipoMaquina;
-
-//                        if(iSessaoSA.codigo != Codigo_101){
-//                            sessao.iSessaoSA = iSessaoSA;
-//                        }
-//
-//                        if(iSessaoST.codigo != Codigo_101){
-//                            sessao.iSessaoSHT = iSessaoST;
-//                        }
-//
-//                        if(iSessaoSA.codigo == Codigo_101 && iSessaoST.codigo == Codigo_101){
-//                            throw new RespostaWsInvalidaException(gson.toJson(Codigo_101, Codigo.class));
-//                        }
-
-                        return sessao;
+                        return obterTrabalho(iSessaoSA, iSessaoST, contagemTipoMaquina);
                     }
                 }
         );
@@ -230,23 +223,7 @@ public class RedeRepositorio {
                 new Function3<ISessao, ISessao, IContagemTipoMaquina, Sessao>() {
                     @Override
                     public Sessao apply(ISessao iSessaoSA, ISessao iSessaoST, IContagemTipoMaquina contagemTipoMaquina) throws Exception {
-
-                        Sessao sessao = new Sessao();
-                        sessao.iContagemTipoMaquina = contagemTipoMaquina;
-
-//                        if(iSessaoSA.codigo != Codigo_101){
-//                            sessao.iSessaoSA = iSessaoSA;
-//                        }
-//
-//                        if(iSessaoST.codigo != Codigo_101){
-//                            sessao.iSessaoSHT = iSessaoST;
-//                        }
-//
-//                        if(iSessaoSA.codigo == Codigo_101 && iSessaoST.codigo == Codigo_101){
-//                            throw new RespostaWsInvalidaException(gson.toJson(Codigo_101, Codigo.class));
-//                        }
-
-                        return sessao;
+                        return obterTrabalho(iSessaoSA, iSessaoST, contagemTipoMaquina);
                     }
                 }
         );
@@ -254,6 +231,218 @@ public class RedeRepositorio {
     }
 
 
+
+
+    //---------------------
+    //Upload - dados
+    //---------------------
+
+
+    private Single<Codigo> uploadDados(DadosUpload dadosUpload, List<Upload> uploads){
+
+        return submeterDados(dadosUpload)
+                .flatMap(new Function<Codigo, SingleSource<?>>() {
+                    @Override
+                    public SingleSource<?> apply(Codigo codigo) throws Exception {
+                        return sincronizar(uploads);
+                    }
+                })
+                .map(new Function<Object, Codigo>() {
+                    @Override
+                    public Codigo apply(Object o) throws Exception {
+
+                        if(((int) o) > 0) {
+                            return Identificadores.CodigosWs.Codigo_100;
+                        }
+                        else{
+                            return Identificadores.CodigosWs.Codigo_600;
+                        }
+                    }
+                });
+
+    }
+
+
+    private Single<Codigo> submeterDados(DadosUpload dadosUpload) {
+
+        dadosUpload.formatarDados();
+
+        if(dadosUpload.api == Identificadores.App.APP_SA) {
+            return apiSA.submeterDados(SegurancaAlimentarApi.HEADER,dadosUpload.obterDados(), dadosUpload.idUtilizador, dadosUpload.idUpload, dadosUpload.messageDigest);
+        }
+        else{
+            return apiST.submeterDados(SegurancaTrabalhoApi.HEADER, dadosUpload.obterDados(), dadosUpload.idUtilizador, dadosUpload.idUpload, dadosUpload.messageDigest);
+        }
+    }
+
+
+
+    //---------------------
+    //Upload - imagens
+    //---------------------
+
+
+    private Single<Codigo> uploadImagens(DadosUpload dadosUpload){
+
+        dadosUpload.formatarImagens();
+
+        List<Single<Codigo>> observables = new ArrayList<>();
+
+        for (DadosUpload.DadosImagem dadosImagem: dadosUpload.dadosImagems) {
+            observables.add(submeterImagens(dadosUpload, dadosImagem));
+        }
+
+        Single<Codigo> observable = Single.zip(observables, new Function<Object[], Codigo>() {
+            @Override
+            public Codigo apply(Object[] codigos) throws Exception {
+
+                if(validarResultadoUpload(codigos) == true){
+                    return Identificadores.CodigosWs.Codigo_100;
+                }
+                else{
+                    throw new RespostaWsInvalidaException(Identificadores.CodigosWs.Codigo_600);
+                }
+            }
+        });
+
+        return observable;
+
+//        List<Observable<Codigo>> observables = new ArrayList<>();
+//
+//        for (DadosUpload.DadosImagem dadosImagem: dadosUpload.dadosImagems) {
+//            observables.add(uploadImagens(dadosUpload, dadosImagem).toObservable());
+//        }
+//
+//        Observable<Codigo> observable = Observable.zip(observables, new Function<Object[], Codigo>() {
+//            @Override
+//            public Codigo apply(Object[] codigos) throws Exception {
+//
+//                if(validarResultadoUpload(codigos) == true){
+//                    return Identificadores.CodigosWs.Codigo_100;
+//                }
+//                else{
+//                    throw new RespostaWsInvalidaException(Identificadores.CodigosWs.Codigo_600);
+//                }
+//            }
+//        });
+//
+//        return observable;
+    }
+
+
+    /**
+     * Metodo que permite submeter as imagens para o web service
+     * @return um codigo com o resultado da submissao
+     */
+    private Single<Codigo> submeterImagens(DadosUpload dadosUpload, DadosUpload.DadosImagem dadosImagem) {
+
+        if(dadosUpload.api == Identificadores.App.APP_SA) {
+            return apiSA.submeterImagens(SegurancaAlimentarApi.HEADER, dadosImagem.blocoImagem, dadosUpload.idUtilizador, dadosUpload.idUpload, dadosImagem.numeroFicheiro + "", dadosImagem.messageDigest);
+        }
+        else{
+            return apiST.submeterImagens(SegurancaTrabalhoApi.HEADER, dadosImagem.blocoImagem, dadosUpload.idUtilizador, dadosUpload.idUpload, dadosImagem.numeroFicheiro + "", dadosImagem.messageDigest);
+        }
+    }
+
+
+    //---------------------
+    //Upload - dados + imagens
+    //---------------------
+
+
+    private Single<Codigo> uploadSA(DadosUpload dadosUpload, List<Upload> uploads){
+
+        return uploadImagens(dadosUpload)
+                .flatMap(new Function<Codigo, SingleSource<?>>() {
+                    @Override
+                    public SingleSource<?> apply(Codigo codigo) throws Exception {
+                        return submeterDados(dadosUpload);
+                    }
+                })
+                .map(new Function<Object, Codigo>() {
+                    @Override
+                    public Codigo apply(Object o) throws Exception {
+                        if(((Codigo) o).codigo == Identificadores.CodigosWs.ID_100) {
+                            return Identificadores.CodigosWs.Codigo_100;
+                        }
+                        else{
+                            throw new RespostaWsInvalidaException(Identificadores.CodigosWs.Codigo_600);
+                        }
+                    }
+                })
+                .flatMap(new Function<Codigo, SingleSource<?>>() {
+                    @Override
+                    public SingleSource<?> apply(Codigo codigo) throws Exception {
+                        return sincronizar(uploads);
+                    }
+                })
+                .map(new Function<Object, Codigo>() {
+                    @Override
+                    public Codigo apply(Object o) throws Exception {
+                        if(((int) o) > 0) {
+                            return Identificadores.CodigosWs.Codigo_100;
+                        }
+                        else{
+                            return Identificadores.CodigosWs.Codigo_600;
+                        }
+                    }
+                });
+
+    }
+
+
+    private Single<Codigo> uploadST(DadosUpload dadosUpload, List<Upload> uploads){
+
+        return submeterDados(dadosUpload)
+                .flatMap(new Function<Codigo, SingleSource<?>>() {
+                    @Override
+                    public SingleSource<?> apply(Codigo codigo) throws Exception {
+
+                        if(validarResultadoUpload(codigo) == true){
+                            return uploadImagens(dadosUpload);
+                        }
+                        else{
+                            throw new RespostaWsInvalidaException(Identificadores.CodigosWs.Codigo_600);
+                        }
+                    }
+                })
+                .flatMap(new Function<Object, SingleSource<?>>() {
+                    @Override
+                    public SingleSource<?> apply(Object o) throws Exception {
+                        return sincronizar(uploads);
+                    }
+                })
+                .map(new Function<Object, Codigo>() {
+                    @Override
+                    public Codigo apply(Object o) throws Exception {
+                        if(((int) o) > 0) {
+                            return Identificadores.CodigosWs.Codigo_100;
+                        }
+                        else{
+                            return Identificadores.CodigosWs.Codigo_600;
+                        }
+                    }
+                });
+
+    }
+
+
+
+    public Single<Codigo> upload(DadosUpload dadosUpload, List<Upload> uploads) {
+
+        if (dadosUpload.numeroFicheirosImagens != 0) {
+
+            if(dadosUpload.api == Identificadores.App.APP_SA) {
+                return uploadSA(dadosUpload, uploads);
+            }
+            else{
+                return uploadST(dadosUpload, uploads);
+            }
+        }
+        else{
+            return uploadDados(dadosUpload, uploads);
+        }
+    }
 
     //---------------------
     //Upload
@@ -298,4 +487,71 @@ public class RedeRepositorio {
 
 
 
+
+
+
+
+    public Single<Integer> sincronizar(List<Upload> uploads){
+
+        List<Resultado> resultados = new ArrayList<>();
+
+        for(int index = 0; index < uploads.size(); ++index){
+
+            for(int posicao = 0; posicao < uploads.get(index).resultados.size(); ++posicao){
+
+                Resultado item = uploads.get(index).resultados.get(posicao);
+                item.sincronizado = true;
+                resultados.add(item);
+            }
+        }
+
+        Resultado registos[] = new Resultado[resultados.size()];
+
+        for(int index = 0; index < resultados.size(); ++index){
+            registos[index] = resultados.get(index);
+        }
+
+
+        return transferenciasDao.atualizar(registos);
+    }
+
+
+    private Sessao obterTrabalho(ISessao iSessaoSA, ISessao iSessaoST, IContagemTipoMaquina contagemTipoMaquina) throws RespostaWsInvalidaException {
+
+        Sessao sessao = new Sessao();
+        sessao.iContagemTipoMaquina = contagemTipoMaquina;
+
+        if(iSessaoSA.codigo != ID_101){
+            sessao.iSessaoSA = iSessaoSA;
+        }
+
+        if(iSessaoST.codigo != ID_101){
+            sessao.iSessaoSHT = iSessaoST;
+        }
+
+        if(iSessaoSA.codigo == ID_101 && iSessaoST.codigo == ID_101){
+            throw new RespostaWsInvalidaException(gson.toJson(Codigo_101, Codigo.class));
+        }
+
+        return sessao;
+    }
+
+    private boolean validarResultadoUpload(Codigo codigo){
+        return (codigo.codigo == Identificadores.CodigosWs.ID_100);
+    }
+
+    private boolean validarResultadoUpload(Object[] codigos){
+
+        boolean valido = true;
+
+        for (Object item : codigos) {
+
+            if(((Codigo) item).codigo != Identificadores.CodigosWs.ID_100){
+                valido = false;
+                break;
+            }
+        }
+
+        return valido;
+    }
 }

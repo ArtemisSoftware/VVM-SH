@@ -14,6 +14,7 @@ import android.widget.TextView;
 
 import com.google.android.material.card.MaterialCardView;
 import com.vvm.sh.R;
+import com.vvm.sh.api.modelos.pedido.Codigo;
 import com.vvm.sh.baseDados.entidades.Tarefa;
 import com.vvm.sh.databinding.ActivityDownloadTrabalhoBinding;
 import com.vvm.sh.di.ViewModelProviderFactory;
@@ -126,7 +127,7 @@ public class DownloadTrabalhoActivity extends BaseDaggerActivity {
 
                     case ERRO:
 
-                        dialogo.erro(recurso, listenerActivity);
+                        dialogo.erro(recurso.messagem, (Codigo) recurso.dados, listenerActivity);
                         break;
 
                     default:

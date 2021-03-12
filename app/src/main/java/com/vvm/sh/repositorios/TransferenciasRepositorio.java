@@ -83,44 +83,6 @@ public class TransferenciasRepositorio {
     //---------------------------
 
 
-    /**
-     * Metodo que permite obter o trabalho do dia para um utilizador
-     * @param idUtilizador o identificador do utilizador
-     * @return o trabalho
-     */
-    public Single<Sessao> obterTrabalho(String idUtilizador) {
-
-        if(AppConfig.APP_MODO == AppConfig.APP_SA) {
-
-            return apiSA.obterTrabalho(SegurancaAlimentarApi.HEADER, idUtilizador)
-                    .map(new Function<ISessao, Sessao>() {
-                        @Override
-                        public Sessao apply(ISessao iSessao) throws Exception {
-                            Sessao sessao = new Sessao();
-                            sessao.iSessao = iSessao;
-                            return sessao;
-                        }
-                    });
-
-        }
-        else {
-            return Single.zip(
-                    apiST.obterTrabalho(SegurancaTrabalhoApi.HEADER, idUtilizador),
-                    apiST.obterContagemTiposMaquinas(SegurancaTrabalhoApi.HEADER, idUtilizador),
-                    new BiFunction<ISessao, IContagemTipoMaquina, Sessao>() {
-                        @Override
-                        public Sessao apply(ISessao iSessao, IContagemTipoMaquina iContagemTipoMaquina) throws Exception {
-
-                            Sessao sessao = new Sessao();
-                            sessao.iContagemTipoMaquina = iContagemTipoMaquina;
-                            sessao.iSessao = iSessao;
-                            return sessao;
-                        }
-                    }
-            );
-        }
-    }
-
 
     /**
      * Metodo que permite obter o trabalho de um dia especifico para um utilizador

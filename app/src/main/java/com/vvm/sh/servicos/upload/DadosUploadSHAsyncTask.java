@@ -79,6 +79,8 @@ public class DadosUploadSHAsyncTask extends DadosUploadAsyncTask {
 
     public DadosUploadSHAsyncTask(VvmshBaseDados vvmshBaseDados, Handler handler, UploadRepositorio repositorio, String idUtilizador) {
         super(vvmshBaseDados, handler, repositorio, idUtilizador);
+
+        this.dadosUpload.api = Identificadores.App.APP_ST;
     }
 
 

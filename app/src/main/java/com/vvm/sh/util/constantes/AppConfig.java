@@ -45,5 +45,5 @@ public class AppConfig {
     public static final int APP_SA = 1;
     public static final int APP_SHT = 2;
     public static final int APP_SA_SHT = 3;
-    public static final int APP_MODO = APP_SA;
+    public static final int APP_MODO = APP_SA_SHT;
 }

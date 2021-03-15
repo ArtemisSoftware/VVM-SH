@@ -50,6 +50,7 @@ import com.vvm.sh.baseDados.entidades.TrabalhadorVulneravelResultado;
 import com.vvm.sh.baseDados.entidades.VerificacaoEquipamentoResultado;
 import com.vvm.sh.repositorios.TransferenciasRepositorio;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.formacao.modelos.Formando;
+import com.vvm.sh.ui.transferencias.modelos.Sessao;
 import com.vvm.sh.util.AtualizacaoUI;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.constantes.TiposConstantes;
@@ -62,13 +63,12 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
-public class CarregarTrabalhoAsyncTask extends AsyncTask<ISessao, Void, Void> {
+public class CarregarTrabalhoAsyncTask extends AsyncTask<Sessao, Void, Void> {
 
     protected String errorMessage, idUtilizador;
     private VvmshBaseDados vvmshBaseDados;
     protected TransferenciasRepositorio repositorio;
     protected AtualizacaoUI atualizacaoUI;
-    private int api;
 
     public CarregarTrabalhoAsyncTask(VvmshBaseDados vvmshBaseDados, TransferenciasRepositorio repositorio, Handler handler, String idUtilizador){
         this.vvmshBaseDados = vvmshBaseDados;
@@ -79,16 +79,13 @@ public class CarregarTrabalhoAsyncTask extends AsyncTask<ISessao, Void, Void> {
 
 
     @Override
-    protected Void doInBackground(ISessao... sessoes) {
+    protected Void doInBackground(Sessao... sessoes) {
 
         if(sessoes[0] == null)
             return null;
 
-        ISessao resposta = sessoes[0];
+        Sessao resposta = sessoes[0];
 
-        api = resposta.api;
-        String data = resposta.sessoes.get(0).data;
-        List<ISessao.TrabalhoInfo> trabalho = resposta.sessoes.get(0).trabalho;
 
         this.vvmshBaseDados.runInTransaction(new Runnable(){
             @Override
@@ -96,8 +93,23 @@ public class CarregarTrabalhoAsyncTask extends AsyncTask<ISessao, Void, Void> {
 
                 try {
 
+                    if(resposta.iSessaoSA != null){
 
-                    inserirTrabalho(trabalho, data);
+                        int api = resposta.iSessaoSA.api;
+                        String data = resposta.iSessaoSA.sessoes.get(0).data;
+                        List<ISessao.TrabalhoInfo> trabalho = resposta.iSessaoSA.sessoes.get(0).trabalho;
+
+                        inserirTrabalho(trabalho, data, api);
+                    }
+
+                    if(resposta.iSessaoSHT != null){
+
+                        int api = resposta.iSessaoSHT.api;
+                        String data = resposta.iSessaoSHT.sessoes.get(0).data;
+                        List<ISessao.TrabalhoInfo> trabalho = resposta.iSessaoSHT.sessoes.get(0).trabalho;
+
+                        inserirTrabalho(trabalho, data, api);
+                    }
 
                 }
                 catch(SQLiteConstraintException throwable){
@@ -115,11 +127,11 @@ public class CarregarTrabalhoAsyncTask extends AsyncTask<ISessao, Void, Void> {
      * @param trabalho os dados do trabalho
      * @param data a data do trabalho
      */
-    protected void inserirTrabalho(List<ISessao.TrabalhoInfo> trabalho, String data) {
+    protected void inserirTrabalho(List<ISessao.TrabalhoInfo> trabalho, String data, int api) {
 
         for(int index = 0; index < trabalho.size(); ++index){
 
-            inserirTarefas(data, trabalho.get(index));
+            inserirTarefas(data, trabalho.get(index), api);
             atualizacaoUI.atualizarUI(AtualizacaoUI.Codigo.PROCESSAMENTO_TRABALHO, "Tarefa " + (index + 1), (index + 1), trabalho.size());
         }
 
@@ -133,7 +145,7 @@ public class CarregarTrabalhoAsyncTask extends AsyncTask<ISessao, Void, Void> {
      * @param data a data do trabalho
      * @param info os dados da tarefa
      */
-    protected void inserirTarefas(String data, ISessao.TrabalhoInfo info) {
+    protected void inserirTarefas(String data, ISessao.TrabalhoInfo info, int api) {
 
         //se não houver atividades pendentes a tarefa não deve ser inserida
         if(info.tarefas.atividadesPendentes.size() == 0){
@@ -141,7 +153,7 @@ public class CarregarTrabalhoAsyncTask extends AsyncTask<ISessao, Void, Void> {
         }
 
 
-        int idTarefa = inserirTarefa (info.tarefas.dados, data);
+        int idTarefa = inserirTarefa (info.tarefas.dados, data, api);
 
         inserirAtividadesExecutadas(info.tarefas.atividadesExecutadas, idTarefa);
 
@@ -684,7 +696,7 @@ public class CarregarTrabalhoAsyncTask extends AsyncTask<ISessao, Void, Void> {
      * @param data a data (yyyy-MM-dd)
      * @return o identificador da tarefa inserida
      */
-    private int inserirTarefa(IDados dados, String data){
+    private int inserirTarefa(IDados dados, String data, int api){
 
         Tarefa tarefa = DownloadMapping.INSTANCE.map(dados);
         tarefa.data = DatasUtil.converterString(data, DatasUtil.FORMATO_YYYY_MM_DD);

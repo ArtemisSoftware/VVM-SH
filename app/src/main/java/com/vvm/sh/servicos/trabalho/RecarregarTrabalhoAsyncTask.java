@@ -21,13 +21,13 @@ public class RecarregarTrabalhoAsyncTask extends CarregarTrabalhoAsyncTask {
 
 
     @Override
-    protected void inserirTrabalho(List<ISessao.TrabalhoInfo> trabalho, String data) {
+    protected void inserirTrabalho(List<ISessao.TrabalhoInfo> trabalho, String data, int api) {
 
         repositorio.eliminarTrabalho(idUtilizador, dataTrabalho);
 
         for(int index = 0; index < trabalho.size(); ++index){
 
-            inserirTarefas(data, trabalho.get(index));
+            inserirTarefas(data, trabalho.get(index), api);
             atualizacaoUI.atualizarUI(AtualizacaoUI.Codigo.PROCESSAMENTO_TRABALHO, "Tarefa " + (index + 1), (index + 1), trabalho.size());
         }
 

@@ -27,6 +27,10 @@
             name="viewmodel"
             type="com.vvm.sh.ui.transferencias.TransferenciasViewModel"/>
 
+        <variable
+            name="comunicado"
+            type="com.vvm.sh.util.AtualizacaoUI.Comunicado"/>
+
         <variable name="tipo" type="Integer" />
     </data>
 

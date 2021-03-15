@@ -115,6 +115,15 @@ public class WebServiceInterceptor implements Interceptor {
      */
     private int validarConteudo(String conteudo) throws RespostaWsInvalidaException {
 
+        ISessao sessao = gson.fromJson(conteudo, ISessao.class);
+
+       if(sessao.sessoes != null){
+            if(sessao.sessoes.get(0).trabalho.size() == 0){
+                return ID_101;
+            }
+       }
+
+
         Codigo codigo = gson.fromJson(conteudo, Codigo.class);
 
         switch (codigo.codigo){
@@ -159,7 +168,9 @@ public class WebServiceInterceptor implements Interceptor {
 
             try {
                 Codigo codigo = gson.fromJson(responseString, Codigo.class);
-                responseString = (new JSONObject()).toString();
+                if(codigo.codigo != 0) {
+                    responseString = (new JSONObject()).toString();
+                }
             } catch (JsonSyntaxException e) {
 
             }

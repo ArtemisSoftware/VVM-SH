@@ -205,7 +205,7 @@ public class TransferenciasViewModel extends BaseViewModel {
                             @Override
                             public void onSuccess(Sessao sessao) {
                                 CarregarTrabalhoAsyncTask servico = new CarregarTrabalhoAsyncTask(vvmshBaseDados, transferenciasRepositorio, handler, idUtilizador);
-                                servico.execute(sessao.iSessao);
+                                servico.execute(sessao);
 
                                 PreferenciasUtil.fixarContagemMaquina(contexto, sessao.iContagemTipoMaquina);
 
@@ -245,7 +245,7 @@ public class TransferenciasViewModel extends BaseViewModel {
                             @Override
                             public void onSuccess(Sessao sessao) {
                                 RecarregarTarefaAsyncTask servico = new RecarregarTarefaAsyncTask(vvmshBaseDados, transferenciasRepositorio, handler, tarefa);
-                                servico.execute(sessao.iSessao);
+                                servico.execute(sessao);
 
                                 PreferenciasUtil.fixarContagemMaquina(contexto, sessao.iContagemTipoMaquina);
 
@@ -290,7 +290,7 @@ public class TransferenciasViewModel extends BaseViewModel {
                             @Override
                             public void onSuccess(Sessao sessao) {
                                 RecarregarTrabalhoAsyncTask servico = new RecarregarTrabalhoAsyncTask(vvmshBaseDados, transferenciasRepositorio, handler, idUtilizador, DatasUtil.converterDataLong(data, DatasUtil.FORMATO_YYYY_MM_DD));
-                                servico.execute(sessao.iSessao);
+                                servico.execute(sessao);
 
                                 PreferenciasUtil.fixarContagemMaquina(contexto, sessao.iContagemTipoMaquina);
 
@@ -326,7 +326,7 @@ public class TransferenciasViewModel extends BaseViewModel {
                             @Override
                             public void onSuccess(Sessao sessao) {
                                 AtualizarTrabalhoAsyncTask servico = new AtualizarTrabalhoAsyncTask(vvmshBaseDados, transferenciasRepositorio, handler, idUtilizador, DatasUtil.converterDataLong(data, DatasUtil.FORMATO_YYYY_MM_DD));
-                                servico.execute(sessao.iSessao);
+                                servico.execute(sessao);
 
                                 PreferenciasUtil.fixarContagemMaquina(contexto, sessao.iContagemTipoMaquina);
 
@@ -529,118 +529,7 @@ public class TransferenciasViewModel extends BaseViewModel {
     }
 
 
-    /**
-     * Metodo que permite realizar o upload dos dados
-     * @param dadosUpload os dados a enviar
-     */
-    private void uploadSA(DadosUpload dadosUpload) {
 
-        showProgressBar(true);
-
-        dadosUpload.formatarDados();
-
-        transferenciasRepositorio.submeterDados(dadosUpload.obterDados(), dadosUpload.idUtilizador, dadosUpload.idUpload, dadosUpload.messageDigest)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-
-                        new SingleObserver<Codigo>() {
-                            @Override
-                            public void onSubscribe(Disposable d) {
-                                disposables.add(d);
-                            }
-
-                            @Override
-                            public void onSuccess(Codigo codigo) {
-                                uploadImagens(dadosUpload);
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-                                showProgressBar(false);
-                                formatarErro(e);
-                            }
-                        }
-                );
-    }
-
-
-    /**
-     * Metodo que permite realizar o upload das imagens
-     * @param dadosUpload os dados a enviar
-     */
-    private void uploadImagens(DadosUpload dadosUpload){
-
-        dadosUpload.formatarImagens();
-
-        if(dadosUpload.numeroFicheirosImagens == 0){
-
-            sincronizar();
-            return;
-        }
-
-        transferenciasRepositorio.uploadImagens(dadosUpload)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-
-                        new Observer<Codigo>() {
-                            @Override
-                            public void onSubscribe(Disposable d) {
-                                disposables.add(d);
-                            }
-
-                            @Override
-                            public void onNext(Codigo o) {
-                                sincronizar();
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-                                showProgressBar(false);
-                                formatarErro(e);
-                            }
-
-                            @Override
-                            public void onComplete() {
-                                showProgressBar(false);
-                            }
-                        }
-                );
-    }
-
-
-    /**
-     * Metodo que permite sincronizar os dados
-     */
-    private void sincronizar(){
-
-        transferenciasRepositorio.sincronizar(uploads.getValue())
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-
-                        new SingleObserver<Integer>() {
-                            @Override
-                            public void onSubscribe(Disposable d) {
-                                disposables.add(d);
-                            }
-
-                            @Override
-                            public void onSuccess(Integer integer) {
-                                messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_ENVIADOS_SUCESSO));
-                                showProgressBar(false);
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-                                showProgressBar(false);
-                                formatarErro(e);
-                            }
-                        }
-
-                );
-    }
 
 
     //------------------------
@@ -751,5 +640,36 @@ public class TransferenciasViewModel extends BaseViewModel {
 
 
 
+
+
+
+
+
+    public void atualizarTipos__(Activity activity, Handler handlerUI) {
+
+        tiposRepositorio.eliminarAtualizacoes(Identificadores.Atualizacoes.TIPO)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new SingleObserver<AtualizacaoTipos>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onSuccess(AtualizacaoTipos atualizacaoTipos) {
+                                atualizarTipos(activity, atualizacaoTipos, handlerUI);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                showProgressBar(false);
+                            }
+                        }
+                );
+
+    }
 
 }

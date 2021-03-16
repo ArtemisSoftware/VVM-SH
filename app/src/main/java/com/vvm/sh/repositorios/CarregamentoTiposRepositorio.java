@@ -34,16 +34,7 @@ public class CarregamentoTiposRepositorio {
     }
 
 
-
-    /**
-     * Metodo que permite atualizar um tipo<br>
-     *     1->Atualizar timestamp<br>
-     *     2->inserir novos dados
-     * @param atualizacao os dados da atualizacao
-     * @param tiposNovos tipos novos a inserir
-     * @param tiposAlterados tipos a alterar
-     */
-    public void atualizarTipo(Atualizacao atualizacao, List<Tipo> tiposNovos, List<Tipo> tiposAlterados){
+    private void inserirTipo(Atualizacao atualizacao, List<Tipo> tiposNovos, List<Tipo> tiposAlterados){
 
         if(atualizacaoDao.existeRegisto(atualizacao.descricao, atualizacao.api) == true){
             atualizacaoDao.atualizarRegisto(atualizacao);
@@ -55,6 +46,73 @@ public class CarregamentoTiposRepositorio {
         tipoDao.inserir(tiposNovos);
         tipoDao.atualizar(tiposAlterados);
     }
+
+
+    /**
+     * Metodo que permite atualizar um tipo<br>
+     *     1->Atualizar timestamp<br>
+     *     2->inserir novos dados
+     * @param atualizacao os dados da atualizacao
+     * @param tiposNovos tipos novos a inserir
+     * @param tiposAlterados tipos a alterar
+     */
+    public void atualizarTipo(Atualizacao atualizacao, List<Tipo> tiposNovos, List<Tipo> tiposAlterados){
+        inserirTipo(atualizacao, tiposNovos, tiposAlterados);
+    }
+
+
+    /**
+     * Metodo que permite recarregar um tipo<br>
+     *     1->remover o timestamp + dados já inseridos<br>
+     *     2->inserir novos dados
+     * @param atualizacao
+     * @param dadosNovos
+     * @param dadosAlteradaos
+     */
+    public void recarregarTipo(Atualizacao atualizacao, List<Tipo> dadosNovos, List<Tipo> dadosAlteradaos){
+
+        atualizacaoDao.remover(atualizacao.descricao, atualizacao.api);
+        inserirTipo(atualizacao, dadosNovos, dadosAlteradaos);
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    //----------------------------------------
+
+
+    /**
+     * Metodo que permite eliminar uma atualização e os tipos associados
+     * @param atualizacao os dados da atualização
+     */
+    public void eliminarAtualizacao(Atualizacao atualizacao){
+        atualizacaoDao.remover(atualizacao.descricao);
+    }
+
+
+
 
 
     /**
@@ -77,22 +135,13 @@ public class CarregamentoTiposRepositorio {
 
 
 
-    public void eliminarAtualizacao(Atualizacao atualizacao){
-        atualizacaoDao.remover(atualizacao.descricao);
-    }
+
 
     public void eliminarAtualizacao(String descricao){
         atualizacaoDao.remover(descricao);
     }
 
-    public void recarregarTipo(Atualizacao atualizacao, List<Tipo> dadosNovos, List<Tipo> dadosAlteradaos){
 
-        atualizacaoDao.remover(atualizacao.descricao, atualizacao.api);
-
-        atualizacaoDao.inserirRegisto(atualizacao);
-        tipoDao.inserir(dadosNovos);
-        tipoDao.atualizar(dadosAlteradaos);
-    }
 
 
 

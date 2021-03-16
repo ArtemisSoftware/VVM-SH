@@ -1,4 +1,4 @@
-package com.vvm.sh.servicos.tipos;
+package com.vvm.sh.servicos.tipos.recarregar;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteConstraintException;
@@ -21,13 +21,13 @@ import java.util.List;
 
 public class RecarregarTipoAsyncTask extends AsyncTask<List<ITipoListagem>, Void, Void> {
 
-    private String errorMessage;
+    private String erro;
     private VvmshBaseDados vvmshBaseDados;
     private CarregamentoTiposRepositorio repositorio;
 
     private MensagensUtil dialogo;
 
-    public RecarregarTipoAsyncTask(Context contexto, VvmshBaseDados vvmshBaseDados, Handler handlerUI, CarregamentoTiposRepositorio repositorio){
+    public RecarregarTipoAsyncTask(Context contexto, VvmshBaseDados vvmshBaseDados, CarregamentoTiposRepositorio repositorio){
         this.vvmshBaseDados = vvmshBaseDados;
         this.repositorio = repositorio;
         dialogo = new MensagensUtil(contexto);
@@ -53,10 +53,6 @@ public class RecarregarTipoAsyncTask extends AsyncTask<List<ITipoListagem>, Void
                 try {
 
                     for(ITipoListagem resposta : respostas){
-                        repositorio.eliminarAtualizacao(DownloadMapping.INSTANCE.map(resposta));
-                    }
-
-                    for(ITipoListagem resposta : respostas){
 
                         Atualizacao atualizacao = DownloadMapping.INSTANCE.map(resposta);
                         List<Tipo> dadosNovos = new ArrayList<>();
@@ -72,11 +68,9 @@ public class RecarregarTipoAsyncTask extends AsyncTask<List<ITipoListagem>, Void
 
                         repositorio.recarregarTipo(atualizacao, dadosNovos, dadosAlterados);
                     }
-
-
                 }
                 catch(SQLiteConstraintException throwable){
-                    errorMessage = throwable.getMessage();
+                    erro = throwable.getMessage();
                 }
             }
         });
@@ -110,8 +104,8 @@ public class RecarregarTipoAsyncTask extends AsyncTask<List<ITipoListagem>, Void
 
         dialogo.terminarProgresso();
 
-        if(errorMessage != null){
-            dialogo.erro(Sintaxe.Alertas.ERRO_ATUALIZAR_TIPO  + errorMessage);
+        if(erro != null){
+            dialogo.erro(Sintaxe.Alertas.ERRO_ATUALIZAR_TIPO  + erro);
         }
         else{
             dialogo.sucesso(Sintaxe.Frases.DADOS_ATUALIZADOS_SUCESSO);

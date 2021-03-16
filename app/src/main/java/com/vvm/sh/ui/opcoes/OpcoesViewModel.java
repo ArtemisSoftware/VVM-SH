@@ -18,7 +18,7 @@ import com.vvm.sh.servicos.tipos.CarregarTipoChecklistAsyncTask;
 import com.vvm.sh.servicos.tipos.CarregarTipoTemplatesAvrAsyncTask;
 import com.vvm.sh.servicos.instalacaoApp.DownloadApkAsyncTask;
 import com.vvm.sh.servicos.instalacaoApp.InstalarApkAsyncTask;
-import com.vvm.sh.servicos.tipos.RecarregarTipoAsyncTask;
+import com.vvm.sh.servicos.tipos.recarregar.RecarregarTipoAsyncTask;
 import com.vvm.sh.servicos.tipos.CarregarTipoAtividadesPlaneaveisAsyncTask;
 import com.vvm.sh.ui.opcoes.modelos.ResumoChecklist;
 import com.vvm.sh.ui.opcoes.modelos.ResumoTipo;
@@ -409,7 +409,7 @@ public class OpcoesViewModel extends BaseViewModel {
 
                                 @Override
                                 public void onSuccess(List<ITipoListagem> iTipoListagems) {
-                                    RecarregarTipoAsyncTask servico = new RecarregarTipoAsyncTask(contexto, vvmshBaseDados, handlerNotificacoesUI, carregamentoTiposRepositorio);
+                                    RecarregarTipoAsyncTask servico = new RecarregarTipoAsyncTask(contexto, vvmshBaseDados, carregamentoTiposRepositorio);
                                     servico.execute(iTipoListagems);
 
                                     showProgressBar(false);

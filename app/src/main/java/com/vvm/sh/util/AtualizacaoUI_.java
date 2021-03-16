@@ -7,6 +7,9 @@ public class AtualizacaoUI_ {
     public enum Estado {
 
         PROCESSAMENTO_TIPOS,
+        PROCESSAMENTO_ATIVIDADES_PLANEAVEIS,
+        PROCESSAMENTO_TEMPLATE_AVALIACAO_RISCOS,
+        PROCESSAMENTO_EQUIPAMENTOS,
     }
 
 
@@ -18,13 +21,21 @@ public class AtualizacaoUI_ {
 
     public String mensagem = "";
 
+    public AtualizacaoUI_(String descricao) {
+        this.loading = true;
+        this.mensagem = descricao;
+    }
+
+
     public AtualizacaoUI_(Estado estado, int index, int limite, String descricao) {
         this.estado = estado;
         this.loading = true;
         this.mensagem = descricao + " " + index + " / " + limite;
     }
 
-    public AtualizacaoUI_(Estado estado, boolean completo, String erro) {
+    public AtualizacaoUI_(Estado estado, String erro) {
+
+        boolean completo = (erro == null);
 
         if(completo == true){
             icon = R.drawable.ic_validado_branco;

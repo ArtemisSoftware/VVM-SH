@@ -6,10 +6,6 @@ import android.os.Handler;
 
 import androidx.lifecycle.MutableLiveData;
 
-import com.google.gson.Gson;
-import com.himanshurawat.hasher.HashType;
-import com.himanshurawat.hasher.Hasher;
-import com.vvm.sh.api.BlocoImagens;
 import com.vvm.sh.api.modelos.pedido.Codigo;
 import com.vvm.sh.baseDados.entidades.Tarefa;
 import com.vvm.sh.repositorios.CarregamentoTiposRepositorio;
@@ -19,7 +15,7 @@ import com.vvm.sh.repositorios.TransferenciasRepositorio;
 import com.vvm.sh.repositorios.UploadRepositorio;
 import com.vvm.sh.servicos.DadosUploadAsyncTask;
 import com.vvm.sh.servicos.tipos.AtualizarTipoAsyncTask;
-import com.vvm.sh.servicos.tipos.AtualizarTipoAsyncTask_;
+import com.vvm.sh.servicos.tipos.atualizacao.AtualizarTipoAsyncTask_;
 import com.vvm.sh.servicos.trabalho.AtualizarTrabalhoAsyncTask;
 import com.vvm.sh.servicos.trabalho.RecarregarTarefaAsyncTask;
 import com.vvm.sh.servicos.trabalho.RecarregarTrabalhoAsyncTask;
@@ -37,10 +33,8 @@ import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.constantes.AppConfig;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.constantes.Sintaxe;
-import com.vvm.sh.util.excepcoes.RespostaWsInvalidaException;
 import com.vvm.sh.util.metodos.DatasUtil;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
-import com.vvm.sh.util.metodos.TiposUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import java.util.ArrayList;

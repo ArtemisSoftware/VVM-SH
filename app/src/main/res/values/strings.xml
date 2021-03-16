@@ -484,6 +484,7 @@
     <string name="nao_existe_email_associado">Email não enviado. Não existe um email associado</string>
     <string name="imagem_">Imagens:</string>
     <string name="gerir_atividades_planeaveis">Gerir atividades planeáveis</string>
+    <string name="atividades_planeaveis">Atividades planeáveis</string>
     <string name="pendente">Pendente</string>
     <string name="implentado">Implementado</string>
     <string name="nao_implentado">Não implementado</string>
@@ -542,6 +543,8 @@
     <string name="rodape_texto_sm_2">Capital Social: 2.385.000€ - Contribuinte: 504518569</string>
     <string name="rodape_texto_sm_3">Tel.: 210317300 - Fax: 210317329 - E-mail: geral@vivamais.com</string>
     <string name="dados_invalidos">Dados inválidos</string>
+
+    <string name="templates_avaliacao_riscos">Templates de avaliação de riscos</string>
 
 
 </resources>

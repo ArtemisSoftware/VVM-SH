@@ -1,4 +1,4 @@
-package com.vvm.sh.servicos.tipos;
+package com.vvm.sh.servicos.tipos.atualizacao;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteConstraintException;
@@ -16,6 +16,7 @@ import com.vvm.sh.ui.transferencias.adaptadores.OnTransferenciaListener;
 import com.vvm.sh.util.AtualizacaoUI;
 import com.vvm.sh.util.AtualizacaoUI_;
 import com.vvm.sh.util.constantes.AppConfig;
+import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.mapeamento.DownloadMapping;
 
 import java.util.ArrayList;
@@ -23,11 +24,9 @@ import java.util.List;
 
 public class AtualizarTipoAsyncTask_ extends AsyncTask<List<Object>, Void, List<Object>[]> {
 
-    private String erro = null;
-    private VvmshBaseDados vvmshBaseDados;
-    private CarregamentoTiposRepositorio repositorio;
-
-
+    protected String erro;
+    protected VvmshBaseDados vvmshBaseDados;
+    protected CarregamentoTiposRepositorio repositorio;
     protected OnTransferenciaListener listener;
 
 
@@ -36,6 +35,7 @@ public class AtualizarTipoAsyncTask_ extends AsyncTask<List<Object>, Void, List<
         this.vvmshBaseDados = vvmshBaseDados;
         this.repositorio = repositorio;
         this.listener = listener;
+        this.erro = null;
     }
 
 
@@ -55,7 +55,6 @@ public class AtualizarTipoAsyncTask_ extends AsyncTask<List<Object>, Void, List<
                 dados.add((ITipoListagem) item);
             }
         }
-
 
         this.vvmshBaseDados.runInTransaction(new Runnable(){
             @Override
@@ -82,8 +81,7 @@ public class AtualizarTipoAsyncTask_ extends AsyncTask<List<Object>, Void, List<
 
                         repositorio.atualizarTipo(atualizacao, dadosNovos, dadosAlterados);
 
-
-                        listener.atualizarTransferencia(new AtualizacaoUI_(AtualizacaoUI_.Estado.PROCESSAMENTO_TIPOS, ++index, dados.size(), atualizacao.descricao));
+                        listener.atualizarTransferencia(new AtualizacaoUI_(AtualizacaoUI_.Estado.PROCESSAMENTO_TIPOS, ++index, dados.size(), obterDescricaoApi(atualizacao) + " " + atualizacao.descricao));
                     }
                 }
                 catch(SQLiteConstraintException throwable){
@@ -98,17 +96,17 @@ public class AtualizarTipoAsyncTask_ extends AsyncTask<List<Object>, Void, List<
 
     @Override
     protected void onPostExecute(List<Object>[] objects) {
-        super.onPostExecute(objects);
 
-        if(erro == null){
-            listener.atualizarTransferencia(new AtualizacaoUI_(AtualizacaoUI_.Estado.PROCESSAMENTO_TIPOS, true, erro));
+        listener.atualizarTransferencia(new AtualizacaoUI_(AtualizacaoUI_.Estado.PROCESSAMENTO_TIPOS, erro));
 
+
+        if(AppConfig.APP_MODO == AppConfig.APP_SA){
             listener.terminarTransferencia();
         }
-        else{
-
+        else{listener.terminarTransferencia();
+//            AtualizarTipoAtividadesPlaneaveisAsyncTask_ servico = new AtualizarTipoAtividadesPlaneaveisAsyncTask_(listener, vvmshBaseDados, repositorio);
+//            servico.execute(objects);
         }
-
 
 
 
@@ -121,4 +119,31 @@ public class AtualizarTipoAsyncTask_ extends AsyncTask<List<Object>, Void, List<
 //            servico.execute(objects);
 //        }
     }
+
+
+    protected String obterDescricaoApi(Atualizacao atualizacao){
+
+        String resultado = "";
+
+        switch (atualizacao.api){
+
+            case Identificadores.App.APP_SA:
+
+                resultado = Identificadores.App.SA;
+                break;
+
+            case Identificadores.App.APP_ST:
+
+                resultado = Identificadores.App.ST;
+                break;
+
+            default:
+                break;
+
+        }
+
+        return resultado;
+
+    }
+
 }

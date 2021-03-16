@@ -79,9 +79,9 @@ public class MainActivity extends BaseDaggerActivity
 
         subscreverObservadores();
 
-        Intent intent = new Intent(this, AtualizacaoDadosActivity.class);
-        startActivity(intent);
-        //--iniciarSessao();
+//        Intent intent = new Intent(this, AtualizacaoDadosActivity.class);
+//        startActivity(intent);
+        iniciarSessao();
 
     }
 

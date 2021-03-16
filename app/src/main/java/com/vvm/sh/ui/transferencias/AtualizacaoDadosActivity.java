@@ -88,6 +88,8 @@ public class AtualizacaoDadosActivity extends BaseDaggerActivity implements OnTr
 
     private void atualizar() {
 
+        activityAtualizacaoTiposBinding.setAtualizacaoTipos(new AtualizacaoUI_(getString(R.string.por_favor_aguarde)));
+        activityAtualizacaoTiposBinding.setAtualizacaoActivPlaneaveis(new AtualizacaoUI_(getString(R.string.por_favor_aguarde)));
 
         viewModel.atualizarTipos__(this);
 
@@ -129,6 +131,10 @@ public class AtualizacaoDadosActivity extends BaseDaggerActivity implements OnTr
                 activityAtualizacaoTiposBinding.setAtualizacaoTipos(atualizacaoUI);
                 break;
 
+            case PROCESSAMENTO_ATIVIDADES_PLANEAVEIS:
+
+                activityAtualizacaoTiposBinding.setAtualizacaoActivPlaneaveis(atualizacaoUI);
+                break;
 
             default:
                 break;

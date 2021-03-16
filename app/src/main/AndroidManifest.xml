@@ -21,6 +21,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity android:name=".ui.registoVisita.AssinaturaRegistoVisitaActivity"></activity>
+        <activity android:name=".ui.transferencias.AtualizacaoDadosActivity" />
         <activity android:name=".ui.transferencias.AtualizacaoTiposActivity" />
         <activity
             android:name=".ui.atividadesPendentes.relatorios.certificadoTratamento.CertificadoActivity"

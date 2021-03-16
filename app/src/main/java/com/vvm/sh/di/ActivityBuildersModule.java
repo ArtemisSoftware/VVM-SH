@@ -124,6 +124,7 @@ import com.vvm.sh.ui.quadroPessoal.DialogoOpcoesColaborador;
 import com.vvm.sh.ui.quadroPessoal.QuadroPessoalActivity;
 import com.vvm.sh.ui.tarefa.DialogoEmail;
 import com.vvm.sh.ui.tarefa.TarefaActivity;
+import com.vvm.sh.ui.transferencias.AtualizacaoDadosActivity;
 import com.vvm.sh.ui.transferencias.AtualizacaoTiposActivity;
 import com.vvm.sh.ui.transferencias.DownloadTrabalhoActivity;
 import com.vvm.sh.ui.anomalias.AnomaliasActivity;
@@ -153,6 +154,27 @@ import dagger.android.ContributesAndroidInjector;
 @Module
 public abstract class ActivityBuildersModule {
 
+
+    @TransferenciasScope
+    @ContributesAndroidInjector(
+            modules = { TransferenciasViewModelsModule.class, TransferenciasModule.class }
+    )
+    abstract CarregamentoActivity contributeCarregamentoActivity();
+
+    @TransferenciasScope
+    @ContributesAndroidInjector(
+            modules = { TransferenciasViewModelsModule.class, TransferenciasModule.class }
+    )
+    abstract AtualizacaoTiposActivity contributeAtualizacaoTiposActivity();
+
+    @TransferenciasScope
+    @ContributesAndroidInjector(
+            modules = { TransferenciasViewModelsModule.class, TransferenciasModule.class }
+    )
+    abstract AtualizacaoDadosActivity contributeAtualizacaoDadosActivity();
+
+
+
     @AutenticacaoScope
     @ContributesAndroidInjector(
             modules = { AutenticacaoViewModelsModule.class, AutenticacaoModule.class }
@@ -166,6 +188,8 @@ public abstract class ActivityBuildersModule {
             modules = { OpcoesViewModelsModule.class, OpcoesModule.class }
     )
     abstract AtualizacaoAppActivity contributeAtualizacaoAppActivity();
+
+
 
 
     @OpcoesScope
@@ -516,17 +540,7 @@ public abstract class ActivityBuildersModule {
     )
     abstract PropostaPlanoAccaoActivity contributePropostaPlanoAccaoActivity();
 
-    @TransferenciasScope
-    @ContributesAndroidInjector(
-            modules = { TransferenciasViewModelsModule.class, TransferenciasModule.class }
-    )
-    abstract CarregamentoActivity contributeCarregamentoActivity();
 
-    @TransferenciasScope
-    @ContributesAndroidInjector(
-            modules = { TransferenciasViewModelsModule.class, TransferenciasModule.class }
-    )
-    abstract AtualizacaoTiposActivity contributeAtualizacaoTiposActivity();
 
     //----------------------
     //Avaliacao ambiental

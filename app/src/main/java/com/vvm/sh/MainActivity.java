@@ -17,12 +17,14 @@ import com.vvm.sh.ui.agenda.DialogoCalendario;
 import com.vvm.sh.ui.agenda.DialogoOpcoesTrabalhoFragment;
 import com.vvm.sh.ui.agenda.modelos.DataAgendamento;
 import com.vvm.sh.ui.agenda.modelos.Marcacao;
+import com.vvm.sh.ui.apresentacao.ApresentacaoActivity;
 import com.vvm.sh.ui.autenticacao.AutenticacaoActivity;
 import com.vvm.sh.ui.autenticacao.CarregamentoActivity;
 import com.vvm.sh.ui.contaUtilizador.DefinicoesActivity;
 import com.vvm.sh.ui.contaUtilizador.OpcoesAvancadasActivity;
 import com.vvm.sh.ui.autenticacao.PerfilActivity;
 import com.vvm.sh.ui.opcoes.AtualizacaoAppActivity;
+import com.vvm.sh.ui.transferencias.AtualizacaoDadosActivity;
 import com.vvm.sh.ui.transferencias.DownloadTrabalhoActivity;
 import com.vvm.sh.ui.transferencias.UploadTrabalhoActivity;
 import com.vvm.sh.ui.tarefa.TarefaActivity;
@@ -77,7 +79,9 @@ public class MainActivity extends BaseDaggerActivity
 
         subscreverObservadores();
 
-        iniciarSessao();
+        Intent intent = new Intent(this, AtualizacaoDadosActivity.class);
+        startActivity(intent);
+        //--iniciarSessao();
 
     }
 

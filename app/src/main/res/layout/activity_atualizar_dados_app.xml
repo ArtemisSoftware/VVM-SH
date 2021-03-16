@@ -14,8 +14,8 @@
 
 
         <variable
-            name="comunicado"
-            type="com.vvm.sh.util.AtualizacaoUI.Comunicado"/>
+            name="atualizacaoTipos"
+            type="com.vvm.sh.util.AtualizacaoUI_"/>
 
     </data>
 
@@ -36,7 +36,7 @@
 
 
             <TextView
-                android:id="@+id/textView7"
+                android:id="@+id/txt_titulo"
                 style="@style/titulo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -45,14 +45,19 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
             <TextView
-                android:id="@+id/textView8"
+                android:id="@+id/txt_detalhe"
                 style="@style/textoDetalhe"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:text="@string/por_favor_aguarde"
-                app:layout_constraintStart_toStartOf="@+id/textView7"
-                app:layout_constraintTop_toBottomOf="@+id/textView7" />
+                app:layout_constraintStart_toStartOf="@+id/txt_titulo"
+                app:layout_constraintTop_toBottomOf="@+id/txt_titulo" />
+
+
+
+
+
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
@@ -60,8 +65,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
-                app:layout_constraintStart_toStartOf="@+id/textView7"
-                app:layout_constraintTop_toBottomOf="@+id/textView8">
+                app:layout_constraintStart_toStartOf="@+id/txt_titulo"
+                app:layout_constraintTop_toBottomOf="@+id/txt_detalhe">
 
                 <ProgressBar
                     android:id="@+id/progressBar_tipo"
@@ -72,6 +77,7 @@
                     android:layout_marginTop="16dp"
                     android:layout_marginBottom="16dp"
                     android:elevation="0dp"
+                    android:visibility="@{atualizacaoTipos.loading == true ? View.VISIBLE : View.INVISIBLE, default = visible}"
                     app:layout_constraintBottom_toBottomOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
@@ -81,8 +87,9 @@
                     android:id="@+id/img_completude_tipo"
                     android:layout_width="56dp"
                     android:layout_height="56dp"
-                    android:src="@drawable/ic_validado_branco"
+                    android:src="@{atualizacaoTipos.icon}"
                     android:tint="@color/bg_screen3"
+                    android:visibility="@{atualizacaoTipos.loading == true ? View.INVISIBLE : View.VISIBLE}"
                     app:layout_constraintStart_toStartOf="@+id/progressBar_tipo"
                     app:layout_constraintTop_toTopOf="@+id/progressBar_tipo" />
 
@@ -107,7 +114,7 @@
                     android:layout_marginTop="8dp"
                     android:layout_marginBottom="8dp"
                     android:gravity="center_horizontal"
-                    android:text="@string/por_favor_aguarde"
+                    android:text="@{atualizacaoTipos.mensagem, default = @string/por_favor_aguarde}"
                     app:layout_constraintBottom_toBottomOf="@+id/progressBar_tipo"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="@+id/txt_titulo_tipo"

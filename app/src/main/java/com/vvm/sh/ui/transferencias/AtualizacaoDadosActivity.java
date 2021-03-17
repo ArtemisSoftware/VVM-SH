@@ -30,6 +30,7 @@ public class AtualizacaoDadosActivity extends BaseDaggerActivity implements OnTr
 
     private TransferenciasViewModel viewModel;
 
+    private boolean atualizarApp = true;
 
 
     @Override
@@ -40,6 +41,10 @@ public class AtualizacaoDadosActivity extends BaseDaggerActivity implements OnTr
         activityAtualizacaoTiposBinding = (ActivityAtualizarDadosAppBinding) activityBinding;
         activityAtualizacaoTiposBinding.setLifecycleOwner(this);
         activityAtualizacaoTiposBinding.setViewmodel(viewModel);
+
+
+        atualizarApp = !PreferenciasUtil.obterPrimeiraUtilizacao(this);
+
 
         subscreverObservadores();
 
@@ -90,6 +95,16 @@ public class AtualizacaoDadosActivity extends BaseDaggerActivity implements OnTr
 
         activityAtualizacaoTiposBinding.setAtualizacaoTipos(new AtualizacaoUI_(getString(R.string.por_favor_aguarde)));
         activityAtualizacaoTiposBinding.setAtualizacaoActivPlaneaveis(new AtualizacaoUI_(getString(R.string.por_favor_aguarde)));
+
+
+        if(PreferenciasUtil.obterPrimeiraUtilizacao(this) == true) {
+            viewModel.atualizarDados(this, true);
+        }
+        else{
+
+        }
+
+
 
         viewModel.atualizarTipos__(this);
 

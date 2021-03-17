@@ -103,9 +103,9 @@ public class AtualizarTipoAsyncTask_ extends AsyncTask<List<Object>, Void, List<
         if(AppConfig.APP_MODO == AppConfig.APP_SA){
             listener.terminarTransferencia();
         }
-        else{listener.terminarTransferencia();
-//            AtualizarTipoAtividadesPlaneaveisAsyncTask_ servico = new AtualizarTipoAtividadesPlaneaveisAsyncTask_(listener, vvmshBaseDados, repositorio);
-//            servico.execute(objects);
+        else{//listener.terminarTransferencia();
+            AtualizarTipoAtividadesPlaneaveisAsyncTask_ servico = new AtualizarTipoAtividadesPlaneaveisAsyncTask_(listener, vvmshBaseDados, repositorio);
+            servico.execute(objects);
         }
 
 

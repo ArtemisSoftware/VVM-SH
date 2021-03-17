@@ -656,6 +656,47 @@ public class TransferenciasViewModel extends BaseViewModel {
 
 
 
+
+
+    /**
+     * Metodo que permite atualizar os tipos
+     */
+    public void atualizarDados(OnTransferenciaListener listener, boolean primeiraUtilizacao) {
+
+        tiposRepositorio.obterAtualizacoes(primeiraUtilizacao)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new MaybeObserver<AtualizacaoTipos>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onSuccess(AtualizacaoTipos atualizacoes) {
+                                atualizarTipos(listener, atualizacoes);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onComplete() {
+                                showProgressBar(false);
+                            }
+                        }
+                );
+    }
+
+
+
+
+
+
     public void atualizarTipos__(OnTransferenciaListener listener) {
 
         tiposRepositorio.eliminarAtualizacoes(Identificadores.Atualizacoes.TIPO)
@@ -671,7 +712,7 @@ public class TransferenciasViewModel extends BaseViewModel {
 
                             @Override
                             public void onSuccess(AtualizacaoTipos atualizacaoTipos) {
-                                atualizarTipos(atualizacaoTipos, listener);
+                                atualizarTipos(listener, atualizacaoTipos);
                             }
 
                             @Override
@@ -689,7 +730,7 @@ public class TransferenciasViewModel extends BaseViewModel {
      * Metoodo que permite carregar os tipos
      * @param atualizacoes as atualizações dos tipos
      */
-    private void atualizarTipos(AtualizacaoTipos atualizacoes, OnTransferenciaListener listener){
+    private void atualizarTipos(OnTransferenciaListener listener, AtualizacaoTipos atualizacoes){
 
         tiposRepositorio.obterTipos(atualizacoes)
                 .subscribeOn(Schedulers.io())

@@ -64,11 +64,6 @@ public class CarregarTipoAsyncTask extends AsyncTask<List<ITipoListagem>, Void, 
 
                     int index = 0;
 
-
-                    for(TiposUtil.MetodoApi resposta : TiposUtil.MetodosTipos.Tipos.TIPOS){
-                        repositorio.eliminarAtualizacao(resposta.descricao);
-                    }
-
                     for(ITipoListagem resposta : respostas){
 
                         Atualizacao atualizacao = DownloadMapping.INSTANCE.map(resposta);

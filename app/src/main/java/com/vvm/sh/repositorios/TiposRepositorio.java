@@ -60,6 +60,87 @@ public class TiposRepositorio {
     }
 
 
+    /**
+     * Metodo que permite obter as atualizacoes
+     * @return uma lista de atualizacoes
+     */
+    public Maybe<AtualizacaoTipos> obterAtualizacoes(boolean primeiraUtilizacao) {
+
+        if(primeiraUtilizacao == true){
+
+            AtualizacaoTipos atualizacaoTipos = new AtualizacaoTipos();
+            atualizacaoTipos.atualizacoes = TiposUtil.fixarSeloTemporal(new ArrayList<>());
+            atualizacaoTipos.tiposNovos = new ArrayList<>();
+
+            return Maybe.just(atualizacaoTipos);
+        }
+
+        return Maybe.zip(
+                atualizacaoDao.obterAtualizacoes(Identificadores.Atualizacoes.TIPO),
+                atualizacaoDao.obterAtualizacoes(Identificadores.Atualizacoes.TEMPLATE),
+                atualizacaoDao.obterAtualizacoes(Identificadores.Atualizacoes.ATIVIDADES_PLANEAVEIS),
+                tipoDao.obterEquipamentosNaoValidados(),
+
+                new Function4<List<Atualizacao>, List<Atualizacao>, List<Atualizacao>, List<TipoNovo>, AtualizacaoTipos>() {
+                    @Override
+                    public AtualizacaoTipos apply(List<Atualizacao> atualizacaoTipo, List<Atualizacao> atualizacaoTemplate, List<Atualizacao> atualizacaoAtividadesPlaneaveis,
+                                                  List<TipoNovo> tipoNovos) throws Exception {
+
+                        List<TiposUtil.MetodoApi> atualizacoes = TiposUtil.fixarSeloTemporal(atualizacaoTipo);
+
+                        //TODO: para sh
+                        //atualizacoes.addAll(TiposUtil.fixarSeloTemporal(atualizacaos2));
+                        //atualizacoes.addAll(TiposUtil.fixarSeloTemporal(atualizacaos3));
+
+                        AtualizacaoTipos atualizacaoTipos = new AtualizacaoTipos();
+                        atualizacaoTipos.atualizacoes = atualizacoes;
+                        atualizacaoTipos.tiposNovos = tipoNovos;
+                        return atualizacaoTipos;
+                    }
+                }
+        );
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     //------------
     //tipos
     //------------
@@ -317,47 +398,6 @@ public class TiposRepositorio {
 
     }
 
-
-    /**
-     * Metodo que permite obter as atualizacoes
-     * @return uma lista de atualizacoes
-     */
-    public Maybe<AtualizacaoTipos> obterAtualizacoes(boolean primeiraUtilizacao) {
-
-        if(primeiraUtilizacao == true){
-
-            AtualizacaoTipos atualizacaoTipos = new AtualizacaoTipos();
-            atualizacaoTipos.atualizacoes = TiposUtil.fixarSeloTemporal(new ArrayList<>());
-            atualizacaoTipos.tiposNovos = new ArrayList<>();
-
-            return Maybe.just(atualizacaoTipos);
-
-        }
-
-        return Maybe.zip(
-                atualizacaoDao.obterAtualizacoes(Identificadores.Atualizacoes.TIPO),
-                atualizacaoDao.obterAtualizacoes(Identificadores.Atualizacoes.TEMPLATE),
-                atualizacaoDao.obterAtualizacoes(Identificadores.Atualizacoes.ATIVIDADES_PLANEAVEIS),
-                tipoDao.obterEquipamentosNaoValidados(),
-
-                new Function4<List<Atualizacao>, List<Atualizacao>, List<Atualizacao>, List<TipoNovo>, AtualizacaoTipos>() {
-                    @Override
-                    public AtualizacaoTipos apply(List<Atualizacao> atualizacaos, List<Atualizacao> atualizacaos2, List<Atualizacao> atualizacaos3, List<TipoNovo> tipoNovos) throws Exception {
-
-                        List<TiposUtil.MetodoApi> atualizacoes = TiposUtil.fixarSeloTemporal(atualizacaos);
-
-                        //TODO: para sh
-                        //atualizacoes.addAll(TiposUtil.fixarSeloTemporal(atualizacaos2));
-                        //atualizacoes.addAll(TiposUtil.fixarSeloTemporal(atualizacaos3));
-
-                        AtualizacaoTipos atualizacaoTipos = new AtualizacaoTipos();
-                        atualizacaoTipos.atualizacoes = atualizacoes;
-                        atualizacaoTipos.tiposNovos = tipoNovos;
-                        return atualizacaoTipos;
-                    }
-                }
-        );
-    }
 
 
 

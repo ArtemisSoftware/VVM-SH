@@ -281,6 +281,21 @@ public class TiposUtil {
                     */
             };
         }
+
+
+        /**
+         * Metodo que permite obter a lista de todos os tipos
+         * @return
+         */
+        public static List<MetodoApi> obterTipos(){
+
+            LinkedList registos = new LinkedList(Arrays.asList(Tipos.TIPOS));
+            //--registos.addAll(new LinkedList(Arrays.asList(MetodosTipos.TemplateAvr.TIPOS)));
+            //--registos.addAll(new LinkedList(Arrays.asList(MetodosTipos.AtividadesPlaneaveis.TIPOS)));
+
+            return registos;
+        }
+
     }
 
 
@@ -436,11 +451,12 @@ public class TiposUtil {
     public static List<MetodoApi> fixarSeloTemporal(List<Atualizacao> atualizacoes){
 
         if(atualizacoes.size() == 0){ //Não existem atualizacoes
-            return new LinkedList(Arrays.asList(MetodosTipos.Tipos.TIPOS));
+            return MetodosTipos.obterTipos();
         }
         else{ //Existem atualizacoes
 
-            List<MetodoApi> registos = new LinkedList(Arrays.asList(MetodosTipos.Tipos.TIPOS));
+            //--List<MetodoApi> registos = new LinkedList(Arrays.asList(MetodosTipos.Tipos.TIPOS));
+            List<MetodoApi> registos = MetodosTipos.obterTipos();
 
             for (MetodoApi metodo : registos) {
 
@@ -461,8 +477,6 @@ public class TiposUtil {
             }
 
             return registos;
-
-
         }
 
 

@@ -16,7 +16,7 @@
 
 
 
-    <variable name="activity" type="com.vvm.sh.ui.opcoes.AtualizacaoAppActivity" />
+    <variable name="activity" type="com.vvm.sh.ui.transferencias.atualizacaoApp.AtualizacaoAppActivity" />
 
     <variable
         name="viewmodel"

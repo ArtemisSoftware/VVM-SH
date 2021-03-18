@@ -145,7 +145,7 @@ import com.vvm.sh.ui.crossSelling.CrossSellingActivity;
 import com.vvm.sh.ui.crossSelling.DialogoSinaletica;
 import com.vvm.sh.ui.ocorrencias.OcorrenciasActivity;
 import com.vvm.sh.ui.opcoes.TiposActivity;
-import com.vvm.sh.ui.opcoes.AtualizacaoAppActivity;
+import com.vvm.sh.ui.transferencias.atualizacaoApp.AtualizacaoAppActivity;
 import com.vvm.sh.ui.transferencias.UploadTrabalhoActivity;
 
 import dagger.Module;

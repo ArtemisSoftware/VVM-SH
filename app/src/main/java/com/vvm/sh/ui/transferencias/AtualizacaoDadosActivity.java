@@ -14,10 +14,12 @@ import com.vvm.sh.databinding.ActivityAtualizacaoTiposBinding;
 import com.vvm.sh.databinding.ActivityAtualizarDadosAppBinding;
 import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.apresentacao.ApresentacaoActivity;
+import com.vvm.sh.ui.apresentacao.modelos.Apresentacao;
 import com.vvm.sh.ui.transferencias.adaptadores.OnTransferenciaListener;
 import com.vvm.sh.util.AtualizacaoUI;
 import com.vvm.sh.util.AtualizacaoUI_;
 import com.vvm.sh.util.Recurso;
+import com.vvm.sh.util.constantes.Apresentacoes;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
@@ -30,7 +32,6 @@ public class AtualizacaoDadosActivity extends BaseDaggerActivity implements OnTr
 
     private TransferenciasViewModel viewModel;
 
-    private boolean atualizarApp = true;
 
 
     @Override
@@ -41,10 +42,6 @@ public class AtualizacaoDadosActivity extends BaseDaggerActivity implements OnTr
         activityAtualizacaoTiposBinding = (ActivityAtualizarDadosAppBinding) activityBinding;
         activityAtualizacaoTiposBinding.setLifecycleOwner(this);
         activityAtualizacaoTiposBinding.setViewmodel(viewModel);
-
-
-        atualizarApp = !PreferenciasUtil.obterPrimeiraUtilizacao(this);
-
 
         subscreverObservadores();
 
@@ -64,24 +61,7 @@ public class AtualizacaoDadosActivity extends BaseDaggerActivity implements OnTr
     }
 
     @Override
-    protected void subscreverObservadores() {
-
-//        viewModel.observarMessagem().observe(this, new Observer<Recurso>() {
-//            @Override
-//            public void onChanged(Recurso recurso) {
-//
-//                switch (recurso.status){
-//
-//                    case ERRO:
-//
-//                        terminarAtualizacao();
-//                        dialogo.erro(getString(R.string.erro), recurso.messagem);
-//                        break;
-//
-//                }
-//            }
-//        });
-    }
+    protected void subscreverObservadores() { }
 
 
 
@@ -102,34 +82,25 @@ public class AtualizacaoDadosActivity extends BaseDaggerActivity implements OnTr
         }
         else{
 
+            switch (Apresentacoes.ATUALIZACAO.tipoAtualizacao){
+
+                case RECARRECAR_DADOS:
+
+                    viewModel.recarregarDados(this);
+                    break;
+
+                case ATUALIZAR_DADOS:
+
+                    viewModel.atualizarDados(this, false);
+                    break;
+
+
+                default:
+                    break;
+
+            }
         }
-
-
-
-        viewModel.atualizarTipos__(this);
-
-//        if(PreferenciasUtil.obterPrimeiraUtilizacao(this) == true) {
-//            viewModel.atualizarTipos(this, handlerNotificacoesUI, PreferenciasUtil.obterPrimeiraUtilizacao(this));
-//        }
-//        else{
-//            viewModel.atualizarTipos(this, handlerNotificacoesUI);
-//        }
     }
-
-//    /**
-//     * Metod que permite terminar a atualizacao
-//     */
-//    private void terminarAtualizacao() {
-//        //activityAtualizacaoTiposBinding.txtTitulo.setText(getString(R.string.atualizacao_concluida));
-//        //activityAtualizacaoTiposBinding.txtDescricao.setVisibility(View.INVISIBLE);
-//        activityAtualizacaoTiposBinding.txtSubTitulo.setVisibility(View.VISIBLE);
-//        activityAtualizacaoTiposBinding.crlProsseguir.setVisibility(View.VISIBLE);
-//
-//        activityAtualizacaoTiposBinding.progressBar.setVisibility(View.INVISIBLE);
-//        activityAtualizacaoTiposBinding.circle.setVisibility(View.INVISIBLE);
-//        activityAtualizacaoTiposBinding.resultImage.setVisibility(View.INVISIBLE);
-//        activityAtualizacaoTiposBinding.imgLogo.setVisibility(View.VISIBLE);
-//    }
 
 
     //--------------------
@@ -155,7 +126,6 @@ public class AtualizacaoDadosActivity extends BaseDaggerActivity implements OnTr
                 break;
 
         }
-
     }
 
     @Override

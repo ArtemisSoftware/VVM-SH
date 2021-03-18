@@ -74,7 +74,7 @@ public class ApresentacaoActivity extends AppCompatActivity implements ViewPager
 
         if(PreferenciasUtil.obterPrimeiraUtilizacao(this) == true){
 
-            iniciarApresentacao(Apresentacoes.PAGINAS_BOAS_VINDAS);
+            iniciarApresentacao(Apresentacoes.APRESENTACAO_BOAS_VINDAS.paginas);
 
             handler = new Handler();
             handler.postDelayed(new Runnable() {
@@ -89,7 +89,7 @@ public class ApresentacaoActivity extends AppCompatActivity implements ViewPager
         else{
 
             lnr_lyt_apresentacao.setVisibility(View.VISIBLE);
-            iniciarApresentacao(Apresentacoes.PAGINAS_ATUALIZACAO);
+            iniciarApresentacao(Apresentacoes.ATUALIZACAO.paginas);
         }
     }
 

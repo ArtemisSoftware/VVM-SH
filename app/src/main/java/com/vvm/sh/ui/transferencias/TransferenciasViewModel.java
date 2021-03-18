@@ -693,11 +693,7 @@ public class TransferenciasViewModel extends BaseViewModel {
     }
 
 
-
-
-
-
-    public void atualizarTipos__(OnTransferenciaListener listener) {
+    public void recarregarDados(OnTransferenciaListener listener) {
 
         tiposRepositorio.eliminarAtualizacoes(Identificadores.Atualizacoes.TIPO)
                 .subscribeOn(Schedulers.io())

@@ -152,7 +152,7 @@
             android:name=".ui.ocorrencias.OcorrenciasHistoricoActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.opcoes.AtualizacaoAppActivity"
+            android:name=".ui.transferencias.atualizacaoApp.AtualizacaoAppActivity"
             android:screenOrientation="portrait" />
         <activity
             android:name=".ui.contaUtilizador.OpcoesAvancadasActivity"

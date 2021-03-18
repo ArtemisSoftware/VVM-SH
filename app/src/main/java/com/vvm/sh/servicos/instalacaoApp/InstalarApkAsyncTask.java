@@ -7,26 +7,26 @@ import android.os.AsyncTask;
 import android.os.Handler;
 
 import com.vvm.sh.api.modelos.pedido.IVersaoApp;
+import com.vvm.sh.ui.transferencias.adaptadores.OnTransferenciaListener;
 import com.vvm.sh.util.AtualizacaoUI;
+import com.vvm.sh.util.AtualizacaoUI_;
 import com.vvm.sh.util.constantes.AppConfig;
 import com.vvm.sh.util.metodos.DiretoriasUtil;
+
+import static com.vvm.sh.util.AtualizacaoUI_.Estado.ERRO_INSTALACAO_ATUALIZACAO_APP;
+import static com.vvm.sh.util.AtualizacaoUI_.Estado.PROCESSAMENTO_INSTALACAO_ATUALIZACAO_APP;
 
 public class InstalarApkAsyncTask extends AsyncTask<IVersaoApp, Void, Void> {
 
 
     private Context contexto;
+    private String erro = null;
+    private OnTransferenciaListener listener;
 
-    /**
-     * Permite enviar mensagens para fora do servico
-     */
-    private AtualizacaoUI atualizacaoUI;
-
-
-
-    public InstalarApkAsyncTask(Context contexto, Handler handler) {
+    public InstalarApkAsyncTask(OnTransferenciaListener listener, Context contexto) {
 
         this.contexto = contexto;
-        atualizacaoUI = new AtualizacaoUI(handler);
+        this.listener = listener;
     }
 
     @Override
@@ -38,8 +38,7 @@ public class InstalarApkAsyncTask extends AsyncTask<IVersaoApp, Void, Void> {
 
         IVersaoApp versaoApp = versaoApps[0];
 
-
-        atualizacaoUI.atualizarUI(AtualizacaoUI.Codigo.PROCESSAMENTO_DADOS, "Instalacão", 50, 100);
+        listener.atualizarTransferencia(new AtualizacaoUI_(PROCESSAMENTO_INSTALACAO_ATUALIZACAO_APP, 50, 100, "Instalacão"));
 
 
         Uri uri = DiretoriasUtil.obterUri(contexto, versaoApp.ficheiro);
@@ -53,7 +52,8 @@ public class InstalarApkAsyncTask extends AsyncTask<IVersaoApp, Void, Void> {
             contexto.startActivity(intent);
         }
         catch(Exception e){
-            atualizacaoUI.atualizarUI(AtualizacaoUI.Codigo.ERRO_INSTALACAO_APK, e.getMessage());
+
+            listener.atualizarTransferencia(new AtualizacaoUI_(ERRO_INSTALACAO_ATUALIZACAO_APP, e.getMessage()));
         }
 
 

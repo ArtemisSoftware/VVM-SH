@@ -10,6 +10,7 @@ import com.vvm.sh.api.modelos.pedido.IVersaoApp;
 import com.vvm.sh.repositorios.VersaoAppRepositorio;
 import com.vvm.sh.servicos.instalacaoApp.DownloadApkAsyncTask;
 import com.vvm.sh.servicos.instalacaoApp.InstalarApkAsyncTask;
+import com.vvm.sh.ui.transferencias.adaptadores.OnTransferenciaListener;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import javax.inject.Inject;
@@ -75,24 +76,22 @@ public class AtualizacaoAppViewModel extends BaseViewModel {
     /**
      * Metodo que inicia o download de um apk
      * @param contexto
-     * @param handler
      */
-    public void downloadApp(Context contexto, Handler handler) {
+    public void downloadApp(OnTransferenciaListener listener, Context contexto) {
 
-        DownloadApkAsyncTask servico = new DownloadApkAsyncTask(contexto, handler);
-        servico.execute(versaoApp.getValue());
+        DownloadApkAsyncTask servico = new DownloadApkAsyncTask(listener, contexto);
+        servico.execute(_versaoApp.getValue());
     }
 
 
     /**
      * Metodo que inicia a instalação de um apk
      * @param contexto
-     * @param handler
      */
-    public void instalarApp(Context contexto, Handler handler) {
+    public void instalarApp(OnTransferenciaListener listener, Context contexto) {
 
-        InstalarApkAsyncTask servico = new InstalarApkAsyncTask(contexto, handler);
-        servico.execute(versaoApp.getValue());
+        InstalarApkAsyncTask servico = new InstalarApkAsyncTask(listener, contexto);
+        servico.execute(_versaoApp.getValue());
     }
 
 

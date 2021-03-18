@@ -78,62 +78,65 @@
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
 
-            <androidx.cardview.widget.CardView
-                style="@style/cartao">
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:id="@+id/txt_titulo"
+                    style="@style/textoDetalhe"
+                    android:text="@string/data"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent"/>
+
+                <TextView
+                    android:id="@+id/txt_data"
+                    style="@style/tituloCartao"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:text="@string/lorem_ipsum_data"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_titulo" />
+
+                <at.markushi.ui.CircleButton
+                    android:id="@+id/crl_btn_calendario"
+                    style="@style/btnCalendario"
+                    android:layout_marginStart="16dp"
+                    app:layout_constraintBottom_toBottomOf="@+id/txt_data"
+                    app:layout_constraintStart_toEndOf="@+id/txt_data"
+                    app:layout_constraintTop_toTopOf="@+id/txt_data" />
 
 
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <TextView
+                    android:id="@+id/txt_titulo_2"
+                    style="@style/textoDetalhe"
+                    android:layout_marginStart="16dp"
+                    android:text="@string/estado"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toBottomOf="@+id/crl_btn_calendario" />
+
+
+                <com.google.android.material.chip.Chip
+                    android:id="@+id/chip"
+                    sincronizado="@{viewmodel.completude}"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_below="@+id/textview2"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:theme="@style/Theme.MaterialComponents.Light"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/txt_data"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_titulo_2" />
 
 
-                    <TextView
-                        android:id="@+id/txt_data"
-                        style="@style/tituloCartao"
-                        android:text="@string/lorem_ipsum_data"
-                        android:layout_marginStart="16dp"
-                        android:layout_marginTop="16dp"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent"/>
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-                    <View
-                        android:id="@+id/textview2"
-                        android:layout_width="280dp"
-                        android:layout_height="0.2dp"
-                        android:layout_marginTop="8dp"
-                        android:background="@color/cor_separador"
-                        app:layout_constraintStart_toStartOf="@+id/txt_data"
-                        app:layout_constraintTop_toBottomOf="@+id/txt_data" />
-
-
-                    <com.google.android.material.chip.Chip
-                        android:id="@+id/chip"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        sincronizado="@{viewmodel.completude}"
-                        android:layout_marginTop="8dp"
-                        android:layout_marginBottom="16dp"
-                        android:layout_below="@+id/textview2"
-                        app:layout_constraintBottom_toBottomOf="parent"
-                        app:layout_constraintStart_toStartOf="@+id/txt_data"
-                        app:layout_constraintTop_toBottomOf="@+id/textview2"
-                        android:theme="@style/Theme.MaterialComponents.Light" />
-
-
-                    <at.markushi.ui.CircleButton
-                        android:id="@+id/crl_btn_calendario"
-                        style="@style/btnCalendario"
-                        android:layout_marginStart="8dp"
-                        app:layout_constraintBottom_toBottomOf="@+id/textview2"
-                        app:layout_constraintStart_toEndOf="@+id/textview2"
-                        app:layout_constraintTop_toBottomOf="@+id/textview2" />
-
-
-                </androidx.constraintlayout.widget.ConstraintLayout>
-
-
-            </androidx.cardview.widget.CardView>
 
 
             <LinearLayout
@@ -143,7 +146,7 @@
                 android:orientation="vertical"
                 android:gravity="center"
                 android:padding="16dp"
-                android:layout_marginTop="32dp">
+                android:layout_marginTop="2dp">
 
                 <ImageView
                     android:layout_width="200dp"

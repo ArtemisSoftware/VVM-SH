@@ -9,11 +9,16 @@ import android.os.Handler;
 
 import com.vvm.sh.R;
 import com.vvm.sh.api.modelos.pedido.IVersaoApp;
+import com.vvm.sh.ui.transferencias.adaptadores.OnTransferenciaListener;
 import com.vvm.sh.util.AtualizacaoUI;
+import com.vvm.sh.util.AtualizacaoUI_;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.metodos.DiretoriasUtil;
 
 import java.io.File;
+
+import static com.vvm.sh.util.AtualizacaoUI_.Estado.ERRO_DOWNLOAD_ATUALIZACAO_APP;
+import static com.vvm.sh.util.AtualizacaoUI_.Estado.PROCESSAMENTO_DOWNLOAD_ATUALIZACAO_APP;
 
 public class DownloadApkAsyncTask extends AsyncTask<IVersaoApp, Void, Void> {
 
@@ -21,20 +26,18 @@ public class DownloadApkAsyncTask extends AsyncTask<IVersaoApp, Void, Void> {
     private DownloadManager downloadManager;
     private long idDownload;
     private boolean downloadCompleto;
+    private String erro = null;
 
 
-    /**
-     * Permite enviar mensagens para fora do servico
-     */
-    private AtualizacaoUI atualizacaoUI;
 
     private Context contexto;
+    private OnTransferenciaListener listener;
 
 
-    public DownloadApkAsyncTask(Context contexto, Handler handler) {
+    public DownloadApkAsyncTask(OnTransferenciaListener listener, Context contexto) {
 
-        atualizacaoUI = new AtualizacaoUI(handler);
         this.contexto = contexto;
+        this.listener = listener;
     }
 
     @Override
@@ -58,10 +61,11 @@ public class DownloadApkAsyncTask extends AsyncTask<IVersaoApp, Void, Void> {
         super.onPostExecute(result);
 
         if (downloadCompleto == true) {
-            atualizacaoUI.atualizarUI(AtualizacaoUI.Codigo.CONCLUIR_DOWNLOAD_APK);
+
+            listener.terminarTransferencia();
         }
         else {
-            atualizacaoUI.atualizarUI(AtualizacaoUI.Codigo.ERRO_DOWNLOAD_APK);
+            listener.atualizarTransferencia(new AtualizacaoUI_(ERRO_DOWNLOAD_ATUALIZACAO_APP, erro));
         }
     }
 
@@ -126,15 +130,13 @@ public class DownloadApkAsyncTask extends AsyncTask<IVersaoApp, Void, Void> {
             }
 
             if (estado == DownloadManager.STATUS_FAILED) {
-
-                //--LOG--LogApp_v4.obterInstancia(FONTE, LogIF.ID_LOG_GERAL).adicionarTexto("Download falhou. Razao: " + cursor.getColumnIndex(DownloadManager.COLUMN_REASON));
+                cursor.close();
                 break;
             }
 
             if (totalBytes != -1 & bytesDescarregados != 0) {
 
-                //--LOG--LogApp_v4.obterInstancia(FONTE, LogIF.ID_LOG_GERAL).adicionarTexto("Download: " + bytesDescarregados + " / " + totalBytes);
-                atualizacaoUI.atualizarUI(AtualizacaoUI.Codigo.PROCESSAMENTO_DADOS, obterEstado(cursor), bytesDescarregados, totalBytes);
+                listener.atualizarTransferencia(new AtualizacaoUI_(PROCESSAMENTO_DOWNLOAD_ATUALIZACAO_APP, bytesDescarregados, totalBytes, obterEstado(cursor)));
             }
 
             cursor.close();
@@ -162,7 +164,7 @@ public class DownloadApkAsyncTask extends AsyncTask<IVersaoApp, Void, Void> {
             case DownloadManager.STATUS_FAILED:
 
                 msg = Sintaxe.Frases.DOWNLOAD_FALHOU;
-                //--LOG--LogApp_v4.obterInstancia(FONTE, LogIF.ID_LOG_GERAL).adicionarTexto("Download falhou. Razao: " + razao);
+                erro = razao;
                 break;
 
             case DownloadManager.STATUS_PAUSED:

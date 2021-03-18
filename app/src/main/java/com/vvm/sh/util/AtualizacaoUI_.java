@@ -10,16 +10,24 @@ public class AtualizacaoUI_ {
         PROCESSAMENTO_ATIVIDADES_PLANEAVEIS,
         PROCESSAMENTO_TEMPLATE_AVALIACAO_RISCOS,
         PROCESSAMENTO_EQUIPAMENTOS,
+
+
+        PROCESSAMENTO_DOWNLOAD_ATUALIZACAO_APP,
+        ERRO_DOWNLOAD_ATUALIZACAO_APP,
+
+        PROCESSAMENTO_INSTALACAO_ATUALIZACAO_APP,
+        ERRO_INSTALACAO_ATUALIZACAO_APP,
+
     }
 
 
     public Estado estado;
 
 
-    public int icon = R.drawable.ic_alerta_24dp;
+    public int icon = R.drawable.ic_alerta_24dp, indexPercentagem = 0, limitePercentagem = 100;
     public boolean loading;
 
-    public String mensagem = "";
+    public String mensagem = "", index = "0", limite = "0";
 
     public AtualizacaoUI_(String descricao) {
         this.loading = true;
@@ -30,7 +38,11 @@ public class AtualizacaoUI_ {
     public AtualizacaoUI_(Estado estado, int index, int limite, String descricao) {
         this.estado = estado;
         this.loading = true;
+        this.index = index + "";
+        this.limite = limite + "";
         this.mensagem = descricao + " " + index + " / " + limite;
+
+        this.indexPercentagem = index * limitePercentagem / limite;
     }
 
     public AtualizacaoUI_(Estado estado, String erro) {
@@ -49,6 +61,7 @@ public class AtualizacaoUI_ {
         this.estado = estado;
         this.loading = false;
     }
+
 
 
 }

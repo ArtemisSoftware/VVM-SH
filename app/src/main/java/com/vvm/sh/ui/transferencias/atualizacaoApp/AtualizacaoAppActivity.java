@@ -1,17 +1,28 @@
 package com.vvm.sh.ui.transferencias.atualizacaoApp;
 
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
+import android.view.View;
 
 import com.vvm.sh.R;
+import com.vvm.sh.api.modelos.pedido.IVersaoApp;
 import com.vvm.sh.databinding.ActivityAtualizacaoAppBinding;
 import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.opcoes.OpcoesViewModel;
+import com.vvm.sh.ui.transferencias.adaptadores.OnTransferenciaListener;
+import com.vvm.sh.util.AtualizacaoUI_;
+import com.vvm.sh.util.constantes.Sintaxe;
+import com.vvm.sh.util.interfaces.OnPermissaoConcedidaListener;
+import com.vvm.sh.util.metodos.DiretoriasUtil;
+import com.vvm.sh.util.metodos.PermissoesUtil;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
-public class AtualizacaoAppActivity extends BaseDaggerActivity {
+import butterknife.OnClick;
+
+public class AtualizacaoAppActivity extends BaseDaggerActivity implements OnTransferenciaListener {
 
     private ActivityAtualizacaoAppBinding activityAtualizacaoAppBinding;
 
@@ -46,16 +57,17 @@ public class AtualizacaoAppActivity extends BaseDaggerActivity {
     @Override
     protected void subscreverObservadores() {
 
-//        viewModel.observarVersaoApp().observe(this, new Observer<VersaoApp>() {
-//            @Override
-//            public void onChanged(VersaoApp versaoApp) {
-//
-//                if(versaoApp.atualizar == false){
-//                    dialogo.alerta(getString(R.string.atualizacao), getString(R.string.app_atualizada), listenerActivity);
-//                }
-//            }
-//        });
-//
+        viewModel.versaoApp.observe(this, new Observer<IVersaoApp>() {
+            @Override
+            public void onChanged(IVersaoApp iVersaoApp) {
+
+                if(iVersaoApp.atualizar == false){
+                    dialogo.alerta(getString(R.string.atualizacao), getString(R.string.app_atualizada), listenerActivity);
+                }
+            }
+        });
+
+
 //
 //        viewModel.observarMessagem().observe(this, new Observer<Recurso>() {
 //            @Override
@@ -162,28 +174,49 @@ public class AtualizacaoAppActivity extends BaseDaggerActivity {
 //
 //        finish();
 //    }
-//
-//    @OnClick(R.id.btn_atualizar)
-//    public void btn_atualizar_OnClickListener(View view) {
-//
-//        activityAtualizacaoAppBinding.progressBarProgresso.setProgress(0);
-//        activityAtualizacaoAppBinding.txtTituloProgresso.setText(Sintaxe.SEM_TEXTO);
-//        activityAtualizacaoAppBinding.txtProgresso.setText(Sintaxe.SEM_TEXTO);
-//
-//
-//        OnPermissaoConcedidaListener listener = new OnPermissaoConcedidaListener() {
-//            @Override
-//            public void executar() {
-//
-//                if(DiretoriasUtil.criarDirectoria(DiretoriasUtil.DOWNLOAD) == true){
-//                    viewModel.downloadApp(AtualizacaoAppActivity.this, handlerNotificacoesUI);
-//                }
-//            }
-//        };
-//
-//        PermissoesUtil.pedirPermissoesEscritaLeitura(this, listener);
-//    }
-//
+
+    @OnClick(R.id.btn_atualizar)
+    public void btn_atualizar_OnClickListener(View view) {
+
+        activityAtualizacaoAppBinding.progressBarProgresso.setProgress(0);
+        activityAtualizacaoAppBinding.txtProgresso.setText(Sintaxe.SEM_TEXTO);
 
 
+        OnPermissaoConcedidaListener listener = new OnPermissaoConcedidaListener() {
+            @Override
+            public void executar() {
+
+                if(DiretoriasUtil.criarDirectoria(DiretoriasUtil.DOWNLOAD) == true){
+                    viewModel.downloadApp(AtualizacaoAppActivity.this, AtualizacaoAppActivity.this);
+                }
+            }
+        };
+
+        PermissoesUtil.pedirPermissoesEscritaLeitura(this, listener);
+    }
+
+
+    @Override
+    public void atualizarTransferencia(AtualizacaoUI_ atualizacaoUI) {
+
+        switch (atualizacaoUI.estado){
+
+            case PROCESSAMENTO_DOWNLOAD_ATUALIZACAO_APP:
+
+                activityAtualizacaoAppBinding.setAtualizacao(atualizacaoUI);
+                break;
+
+            case ERRO_INSTALACAO_ATUALIZACAO_APP:
+            case ERRO_DOWNLOAD_ATUALIZACAO_APP:
+
+                dialogo.erro(atualizacaoUI.mensagem);
+                break;
+        }
+
+    }
+
+    @Override
+    public void terminarTransferencia() {
+        viewModel.instalarApp(this, this);
+    }
 }

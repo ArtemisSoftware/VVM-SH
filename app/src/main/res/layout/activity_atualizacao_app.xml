@@ -103,18 +103,18 @@
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginEnd="24dp"
-                    android:max="100"
-                    android:progress="0"
+                    android:max="@{atualizacao.limitePercentagem}"
+                    android:progress="@{atualizacao.indexPercentagem}"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
                     app:layout_constraintTop_toTopOf="parent" />
 
 
                 <TextView
-                    android:id="@+id/txt_titulo_progresso"
+                    android:id="@+id/txt_progresso"
                     style="@style/textoDetalhe"
+                    android:text="@{atualizacao.mensagem}"
                     android:layout_marginTop="8dp"
-                    android:text="@string/tipos"
                     app:layout_constraintEnd_toEndOf="@+id/progressBar_progresso"
                     app:layout_constraintTop_toBottomOf="@+id/progressBar_progresso" />
 
@@ -131,7 +131,7 @@
                     app:icon="@drawable/ic_file_download_24dp"
                     app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toBottomOf="@+id/txt_titulo_progresso" />
+                    app:layout_constraintTop_toBottomOf="@+id/txt_progresso" />
 
 
 

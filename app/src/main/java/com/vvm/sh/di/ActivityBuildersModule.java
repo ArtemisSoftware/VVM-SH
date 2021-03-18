@@ -61,6 +61,9 @@ import com.vvm.sh.di.tarefa.TarefaViewModelsModule;
 import com.vvm.sh.di.transferencias.TransferenciasModule;
 import com.vvm.sh.di.transferencias.TransferenciasScope;
 import com.vvm.sh.di.transferencias.TransferenciasViewModelsModule;
+import com.vvm.sh.di.transferencias.atualizacaoApp.AtualizacaoAppModule;
+import com.vvm.sh.di.transferencias.atualizacaoApp.AtualizacaoAppScope;
+import com.vvm.sh.di.transferencias.atualizacaoApp.AtualizacaoAppViewModelsModule;
 import com.vvm.sh.ui.anomalias.DialogoAnomalia;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.AcaoFormacaoActivity;
 import com.vvm.sh.ui.atividadesPendentes.DialogoAtividadePendente;
@@ -183,9 +186,9 @@ public abstract class ActivityBuildersModule {
 
 
 
-    @OpcoesScope
+    @AtualizacaoAppScope
     @ContributesAndroidInjector(
-            modules = { OpcoesViewModelsModule.class, OpcoesModule.class }
+            modules = { AtualizacaoAppViewModelsModule.class, AtualizacaoAppModule.class }
     )
     abstract AtualizacaoAppActivity contributeAtualizacaoAppActivity();
 

@@ -19,15 +19,6 @@ import dagger.Provides;
 public class OpcoesModule {
 
 
-    @OpcoesScope
-    @Provides
-    VersaoAppRepositorio provideVersaoAppRepositorio(SegurancaHigieneApi segurancaHigieneApi) {
-
-        VersaoAppRepositorio repositorio = new VersaoAppRepositorio(segurancaHigieneApi);
-        return repositorio;
-    }
-
-
 
     @OpcoesScope
     @Provides

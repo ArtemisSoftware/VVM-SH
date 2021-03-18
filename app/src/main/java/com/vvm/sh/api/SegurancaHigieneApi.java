@@ -1,6 +1,6 @@
 package com.vvm.sh.api;
 
-import com.vvm.sh.api.modelos.VersaoApp;
+import com.vvm.sh.api.modelos.pedido.IVersaoApp;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.constantes.Sintaxe;
 
@@ -22,6 +22,6 @@ public interface SegurancaHigieneApi {
 
 
     @GET("Obter_Actualizacoes")
-    Single<VersaoApp> obterAtualizacao(@HeaderMap Map<String, String> headers);
+    Single<IVersaoApp> obterAtualizacao(@HeaderMap Map<String, String> headers);
 
 }

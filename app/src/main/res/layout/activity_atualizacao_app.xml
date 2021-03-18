@@ -12,7 +12,7 @@
 
         <variable
             name="viewmodel"
-            type="com.vvm.sh.ui.opcoes.OpcoesViewModel"/>
+            type="com.vvm.sh.ui.transferencias.atualizacaoApp.AtualizacaoAppViewModel"/>
 
         <variable
             name="atualizacao"

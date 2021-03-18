@@ -8,14 +8,14 @@ import android.os.AsyncTask;
 import android.os.Handler;
 
 import com.vvm.sh.R;
-import com.vvm.sh.api.modelos.VersaoApp;
+import com.vvm.sh.api.modelos.pedido.IVersaoApp;
 import com.vvm.sh.util.AtualizacaoUI;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.metodos.DiretoriasUtil;
 
 import java.io.File;
 
-public class DownloadApkAsyncTask extends AsyncTask<VersaoApp, Void, Void> {
+public class DownloadApkAsyncTask extends AsyncTask<IVersaoApp, Void, Void> {
 
 
     private DownloadManager downloadManager;
@@ -38,13 +38,13 @@ public class DownloadApkAsyncTask extends AsyncTask<VersaoApp, Void, Void> {
     }
 
     @Override
-    protected Void doInBackground(VersaoApp... versaoApps) {
+    protected Void doInBackground(IVersaoApp... versaoApps) {
 
 
         if(versaoApps[0] == null)
             return null;
 
-        VersaoApp versaoApp = versaoApps[0];
+        IVersaoApp versaoApp = versaoApps[0];
 
         initVariaveisDownload(versaoApp);
         executarDownload();
@@ -76,7 +76,7 @@ public class DownloadApkAsyncTask extends AsyncTask<VersaoApp, Void, Void> {
      * Metodo que permite inicar as variaveis necessarias ao download do novo apk
      * @param versaoApp os dados da versao da api
      */
-    private void initVariaveisDownload(VersaoApp versaoApp) {
+    private void initVariaveisDownload(IVersaoApp versaoApp) {
 
         downloadCompleto = false;
 

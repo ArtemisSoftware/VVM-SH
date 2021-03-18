@@ -1,4 +1,4 @@
-package com.vvm.sh.api.modelos;
+package com.vvm.sh.api.modelos.pedido;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
@@ -8,7 +8,7 @@ import com.vvm.sh.util.constantes.Url;
 import java.io.File;
 import java.util.Arrays;
 
-public class VersaoApp {
+public class IVersaoApp {
 
 
     @SerializedName("emTeste")

@@ -1,42 +1,28 @@
 package com.vvm.sh.ui.transferencias.atualizacaoApp;
 
-import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
-import android.os.Handler;
-import android.os.Message;
-import android.view.View;
 
 import com.vvm.sh.R;
-import com.vvm.sh.api.modelos.VersaoApp;
 import com.vvm.sh.databinding.ActivityAtualizacaoAppBinding;
 import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.opcoes.OpcoesViewModel;
-import com.vvm.sh.util.AtualizacaoUI;
-import com.vvm.sh.util.Recurso;
-import com.vvm.sh.util.constantes.Sintaxe;
-import com.vvm.sh.util.interfaces.OnPermissaoConcedidaListener;
-import com.vvm.sh.util.metodos.DiretoriasUtil;
-import com.vvm.sh.util.metodos.NotificacaoUtil;
-import com.vvm.sh.util.metodos.PermissoesUtil;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
-
-import butterknife.OnClick;
 
 public class AtualizacaoAppActivity extends BaseDaggerActivity {
 
     private ActivityAtualizacaoAppBinding activityAtualizacaoAppBinding;
 
-    private OpcoesViewModel viewModel;
+    private AtualizacaoAppViewModel viewModel;
 
 
 
     @Override
     protected void intActivity(Bundle savedInstanceState) {
 
-        viewModel = ViewModelProviders.of(this, providerFactory_).get(OpcoesViewModel.class);
+        viewModel = ViewModelProviders.of(this, providerFactory_).get(AtualizacaoAppViewModel.class);
 
         activityAtualizacaoAppBinding = (ActivityAtualizacaoAppBinding) activityBinding;
         activityAtualizacaoAppBinding.setLifecycleOwner(this);

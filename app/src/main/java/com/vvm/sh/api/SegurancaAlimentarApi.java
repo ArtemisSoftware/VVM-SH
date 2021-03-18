@@ -1,11 +1,10 @@
 package com.vvm.sh.api;
 
-import com.vvm.sh.api.modelos.envio.InfoSSTBody;
 import com.vvm.sh.api.modelos.pedido.ITipoListagem;
 import com.vvm.sh.api.modelos.pedido.ISessao;
 import com.vvm.sh.api.modelos.pedido.Codigo;
 import com.vvm.sh.api.modelos.pedido.IUtilizadorListagem;
-import com.vvm.sh.api.modelos.VersaoApp;
+import com.vvm.sh.api.modelos.pedido.IVersaoApp;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.constantes.Sintaxe;
 
@@ -13,7 +12,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import io.reactivex.Single;
-import retrofit2.http.Body;
 import retrofit2.http.Field;
 import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
@@ -47,7 +45,7 @@ public interface SegurancaAlimentarApi {
 
 
     @GET("Obter_Actualizacoes")
-    Single<VersaoApp> obterAtualizacao(@HeaderMap Map<String, String> headers);
+    Single<IVersaoApp> obterAtualizacao(@HeaderMap Map<String, String> headers);
 
 
     @GET("GetUtilizadores?dataT=")

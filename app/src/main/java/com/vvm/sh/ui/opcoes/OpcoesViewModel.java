@@ -6,10 +6,10 @@ import android.os.Handler;
 
 import androidx.lifecycle.MutableLiveData;
 
+import com.vvm.sh.api.modelos.pedido.IVersaoApp;
 import com.vvm.sh.api.modelos.pedido.ITipoAtividadePlaneavelListagem;
 import com.vvm.sh.api.modelos.pedido.ITipoChecklist;
 import com.vvm.sh.api.modelos.pedido.ITipoListagem;
-import com.vvm.sh.api.modelos.VersaoApp;
 import com.vvm.sh.repositorios.CarregamentoTiposRepositorio;
 import com.vvm.sh.repositorios.TiposRepositorio;
 import com.vvm.sh.repositorios.VersaoAppRepositorio;
@@ -44,31 +44,21 @@ import io.reactivex.schedulers.Schedulers;
 public class OpcoesViewModel extends BaseViewModel {
 
 
-    private final VersaoAppRepositorio versaoAppRepositorio;
     private final TiposRepositorio tiposRepositorio;
     private final CarregamentoTiposRepositorio carregamentoTiposRepositorio;
 
-    public MutableLiveData<VersaoApp> versaoApp;
     public MutableLiveData<List<ResumoTipo>> tipos;
     public MutableLiveData<List<ResumoChecklist>> tiposChecklist;
 
     @Inject
-    public OpcoesViewModel(VersaoAppRepositorio versaoAppRepositorio, CarregamentoTiposRepositorio carregamentoTiposRepositorio, TiposRepositorio tiposRepositorio){
+    public OpcoesViewModel(CarregamentoTiposRepositorio carregamentoTiposRepositorio, TiposRepositorio tiposRepositorio){
 
-        this.versaoAppRepositorio = versaoAppRepositorio;
         this.tiposRepositorio = tiposRepositorio;
         this.carregamentoTiposRepositorio = carregamentoTiposRepositorio;
 
-        versaoApp = new MutableLiveData<>();
         tipos = new MutableLiveData<>();
         tiposChecklist = new MutableLiveData<>();
     }
-
-
-    public MutableLiveData<VersaoApp> observarVersaoApp(){
-        return versaoApp;
-    }
-
 
 
     /**
@@ -663,75 +653,4 @@ public class OpcoesViewModel extends BaseViewModel {
 
 
 
-    //------------------
-    //AtualizacaoDao
-    //------------------
-
-
-    /**
-     * Metodo que permite obter a atualizacao da app
-     * @param idUtilizador o identificador do utilizador
-     */
-    public void obterAtualizacao(String idUtilizador) {
-
-        showProgressBar(true);
-
-        versaoAppRepositorio.obterAtualizacao()
-                .map(new Function<VersaoApp, VersaoApp>() {
-                    @Override
-                    public VersaoApp apply(VersaoApp versaoApp) throws Exception {
-
-                        versaoApp.fixarUtilizador(idUtilizador);
-                        return versaoApp;
-                    }
-                })
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-
-                        new SingleObserver<VersaoApp>() {
-                            @Override
-                            public void onSubscribe(Disposable d) {
-                                disposables.add(d);
-                            }
-
-                            @Override
-                            public void onSuccess(VersaoApp resposta) {
-                                versaoApp.setValue(resposta);
-                                showProgressBar(false);
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-
-                                showProgressBar(false);
-                                formatarErro(e);
-                            }
-                        }
-                );
-    }
-
-
-    /**
-     * Metodo que inicia o download de um apk
-     * @param contexto
-     * @param handler
-     */
-    public void downloadApp(Context contexto, Handler handler) {
-
-        DownloadApkAsyncTask servico = new DownloadApkAsyncTask(contexto, handler);
-        servico.execute(versaoApp.getValue());
-    }
-
-
-    /**
-     * Metodo que inicia a instalação de um apk
-     * @param contexto
-     * @param handler
-     */
-    public void instalarApp(Context contexto, Handler handler) {
-
-        InstalarApkAsyncTask servico = new InstalarApkAsyncTask(contexto, handler);
-        servico.execute(versaoApp.getValue());
-    }
 }

@@ -6,12 +6,12 @@ import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Handler;
 
-import com.vvm.sh.api.modelos.VersaoApp;
+import com.vvm.sh.api.modelos.pedido.IVersaoApp;
 import com.vvm.sh.util.AtualizacaoUI;
 import com.vvm.sh.util.constantes.AppConfig;
 import com.vvm.sh.util.metodos.DiretoriasUtil;
 
-public class InstalarApkAsyncTask extends AsyncTask<VersaoApp, Void, Void> {
+public class InstalarApkAsyncTask extends AsyncTask<IVersaoApp, Void, Void> {
 
 
     private Context contexto;
@@ -30,13 +30,13 @@ public class InstalarApkAsyncTask extends AsyncTask<VersaoApp, Void, Void> {
     }
 
     @Override
-    protected Void doInBackground(VersaoApp... versaoApps) {
+    protected Void doInBackground(IVersaoApp... versaoApps) {
 
 
         if(versaoApps[0] == null)
             return null;
 
-        VersaoApp versaoApp = versaoApps[0];
+        IVersaoApp versaoApp = versaoApps[0];
 
 
         atualizacaoUI.atualizarUI(AtualizacaoUI.Codigo.PROCESSAMENTO_DADOS, "Instalacão", 50, 100);

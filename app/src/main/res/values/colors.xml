@@ -285,7 +285,7 @@
 
 
     <color name="cor_dialogo_sucesso">#13D3B4</color>
-    <color name="cor_dialogo_alerta">#fff51e</color>
+    <color name="cor_dialogo_alerta">#FFD600</color>
     <color name="cor_dialogo_erro">#ed2024</color>
 
 </resources>

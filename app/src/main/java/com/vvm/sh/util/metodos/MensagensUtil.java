@@ -178,26 +178,6 @@ public class MensagensUtil {
     //---------------------
 
 
-//    public void erro(String mensagem) {
-//
-//        dialogo.changeAlertType(SweetAlertDialog.ERROR_TYPE);
-//
-//        dialogo.setTitleText(Sintaxe.Opcoes.ERRO)
-//                .setContentText(mensagem)
-//                .setConfirmText(Sintaxe.Opcoes.OK)
-//                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-//                    @Override
-//                    public void onClick(SweetAlertDialog sDialog) {
-////                        sDialog.dismissWithAnimation();
-//                        sDialog.dismiss();
-//                    }
-//                });
-//
-//        dialogo.show();
-//    }
-
-
-
 
 
     public void erro(Recurso recurso, OnDialogoListener listener) {
@@ -247,37 +227,6 @@ public class MensagensUtil {
 
 
 
-
-    /**
-     * Metodo que cria um dialogo que permite cancelar a acao proposta no dialogo
-     * @param titulo o titulo do dialogo
-     * @param mensagem a mensagem do dialogo
-     * @param listener
-     */
-    public void alerta_OpcaoCancelar(String titulo, String mensagem, OnDialogoListener listener) {
-
-        dialogo.changeAlertType(SweetAlertDialog.WARNING_TYPE);
-        dialogo.setTitleText(titulo)
-                .setContentText(mensagem)
-                .setCancelText(Sintaxe.Opcoes.CANCELAR)
-                .setCancelClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                    @Override
-                    public void onClick(SweetAlertDialog sDialog) {
-                        sDialog.dismiss();
-                    }
-                })
-                .setConfirmText(Sintaxe.Opcoes.OK)
-                .setConfirmClickListener(new SweetAlertDialog.OnSweetClickListener() {
-                    @Override
-                    public void onClick(SweetAlertDialog sDialog) {
-                        //sDialog.dismissWithAnimation();
-                        sDialog.dismiss();
-                        listener.onExecutar();
-                    }
-                });
-
-        dialogo.show();
-    }
 
 
 //

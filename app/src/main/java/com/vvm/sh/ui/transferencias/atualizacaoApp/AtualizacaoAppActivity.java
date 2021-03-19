@@ -3,16 +3,25 @@ package com.vvm.sh.ui.transferencias.atualizacaoApp;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.vvm.sh.R;
 import com.vvm.sh.api.modelos.pedido.IVersaoApp;
 import com.vvm.sh.databinding.ActivityAtualizacaoAppBinding;
 import com.vvm.sh.ui.BaseDaggerActivity;
+import com.vvm.sh.ui.agenda.DialogoOpcoesTrabalhoFragment;
+import com.vvm.sh.ui.autenticacao.PerfilActivity;
+import com.vvm.sh.ui.contaUtilizador.DefinicoesActivity;
+import com.vvm.sh.ui.contaUtilizador.OpcoesAvancadasActivity;
 import com.vvm.sh.ui.opcoes.OpcoesViewModel;
+import com.vvm.sh.ui.transferencias.UploadTrabalhoActivity;
 import com.vvm.sh.ui.transferencias.adaptadores.OnTransferenciaListener;
 import com.vvm.sh.util.AtualizacaoUI_;
+import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.interfaces.OnPermissaoConcedidaListener;
 import com.vvm.sh.util.metodos.DiretoriasUtil;
@@ -68,97 +77,27 @@ public class AtualizacaoAppActivity extends BaseDaggerActivity implements OnTran
         });
 
 
-//
-//        viewModel.observarMessagem().observe(this, new Observer<Recurso>() {
-//            @Override
-//            public void onChanged(Recurso recurso) {
-//
-//                switch (recurso.status){
-//
-//
-//                    case ERRO:
-//
-//                        dialogo.erro(recurso.messagem, (String) recurso.dados);
-//                        break;
-//
-//                    default:
-//                        break;
-//                }
-//
-//            }
-//        });
+        viewModel.observarMessagem().observe(this, new Observer<Recurso>() {
+            @Override
+            public void onChanged(Recurso recurso) {
+
+                switch (recurso.status){
+
+                    case ERRO:
+
+                        dialogo.erro(recurso.messagem, (String) recurso.dados);
+                        break;
+
+                    default:
+                        break;
+                }
+
+            }
+        });
 
     }
 
-//
-//    //----------------------------------------
-//    //HANDLER (notificacoes para o ui)
-//    //----------------------------------------
-//
-//
-//    final Handler handlerNotificacoesUI = new Handler(){
-//        @Override
-//        public void handleMessage(Message msg) {
-//
-//            AtualizacaoUI.Comunicado comunicado = (AtualizacaoUI.Comunicado) msg.obj;
-//
-//            switch (comunicado.obterCodigo()) {
-//
-//                case PROCESSAMENTO_DADOS:
-//
-//                    imprimirProgresso(comunicado);
-//                    break;
-//
-//
-//                case CONCLUIR_DOWNLOAD_APK:
-//
-//                    viewModel.instalarApp(AtualizacaoAppActivity.this, handlerNotificacoesUI);
-//                    break;
-//
-//
-//                case ERRO_DOWNLOAD_APK:
-//                case ERRO_INSTALACAO_APK:
-//
-//                    dialogo.erro(comunicado.obterDados());
-//                    break;
-//
-//                default:
-//                    //TODO: alerta de erro
-//
-//                    //--Alerta de erro
-//                    //if(comunicado.obterMensagem() != null)
-//                    //--AlertaUI.erro(dialogo, comunicado.obterMensagem())
-//                    break;
-//            }
-//
-//            super.handleMessage(msg);
-//        }
-//    };
-//
-//
-//    //----------------------
-//    //Metodos locais
-//    //----------------------
-//
-//
-//    /**
-//     * Metodo que permite apresentar o progresso da execucao de um servico
-//     * @param comunicado os dados da execucao
-//     */
-//    private void imprimirProgresso(AtualizacaoUI.Comunicado comunicado){
-//
-//        if(comunicado.obterLimite() != Sintaxe.SEM_REGISTO){
-//            if(activityAtualizacaoAppBinding.progressBarProgresso.getMax() != comunicado.obterLimite()){
-//                activityAtualizacaoAppBinding.progressBarProgresso.setMax(comunicado.obterLimite());
-//            }
-//        }
-//
-//        activityAtualizacaoAppBinding.txtProgresso.setText(comunicado.obterPosicao() + "/" + comunicado.obterLimite());
-//        activityAtualizacaoAppBinding.txtTituloProgresso.setText(comunicado.obterMensagem());
-//        activityAtualizacaoAppBinding.progressBarProgresso.setProgress(comunicado.obterPosicao());
-//    }
-//
-//
+
 //    //----------------------
 //    //Eventos
 //    //----------------------
@@ -219,4 +158,37 @@ public class AtualizacaoAppActivity extends BaseDaggerActivity implements OnTran
     public void terminarTransferencia() {
         viewModel.instalarApp(this, this);
     }
+
+
+
+
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.menu_principal, menu);
+        return true;
+    }
+
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+        switch (item.getItemId()){
+
+            case R.id.item_copiar_link:
+
+
+                break;
+
+
+            default:
+                break;
+        }
+
+        return super.onOptionsItemSelected(item);
+    }
+
+
+
 }

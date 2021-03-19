@@ -223,27 +223,6 @@ public class TiposRepositorio {
 
 
 
-    /**
-     * Metodo que permite obter um tipo a partir do web service
-     * @param resumo os dados da atualizacao do tipo
-     * @return os dados de um tipo
-     */
-    public Single<List<ITipoListagem>> obterTipo(ResumoTipo resumo) throws TipoInexistenteException {
-
-        TiposUtil.MetodoApi metodo = TiposUtil.obterMetodos(resumo.descricao);
-        List<SingleSource> tipos = obterInvocacoesTipos(metodo);
-
-        SingleSource[] source = new SingleSource[tipos.size()];
-
-        for(int index = 0; index < tipos.size(); ++index){
-            source[index] = tipos.get(index);
-        }
-
-        return Single.concatArray(source).toList();
-    }
-
-
-
 
 
 

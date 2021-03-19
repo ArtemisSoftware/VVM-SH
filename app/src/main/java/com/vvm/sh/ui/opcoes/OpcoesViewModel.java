@@ -11,6 +11,7 @@ import com.vvm.sh.api.modelos.pedido.ITipoAtividadePlaneavelListagem;
 import com.vvm.sh.api.modelos.pedido.ITipoChecklist;
 import com.vvm.sh.api.modelos.pedido.ITipoListagem;
 import com.vvm.sh.repositorios.CarregamentoTiposRepositorio;
+import com.vvm.sh.repositorios.RedeRepositorio;
 import com.vvm.sh.repositorios.TiposRepositorio;
 import com.vvm.sh.repositorios.VersaoAppRepositorio;
 import com.vvm.sh.servicos.tipos.CarregarTipoAsyncTask;
@@ -20,9 +21,11 @@ import com.vvm.sh.servicos.instalacaoApp.DownloadApkAsyncTask;
 import com.vvm.sh.servicos.instalacaoApp.InstalarApkAsyncTask;
 import com.vvm.sh.servicos.tipos.recarregar.RecarregarTipoAsyncTask;
 import com.vvm.sh.servicos.tipos.CarregarTipoAtividadesPlaneaveisAsyncTask;
+import com.vvm.sh.servicos.tipos.recarregar.RecarregarTipoAsyncTask_;
 import com.vvm.sh.ui.opcoes.modelos.ResumoChecklist;
 import com.vvm.sh.ui.opcoes.modelos.ResumoTipo;
 import com.vvm.sh.ui.opcoes.modelos.TemplateAvr;
+import com.vvm.sh.ui.transferencias.adaptadores.OnTransferenciaListener;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.excepcoes.TipoInexistenteException;
@@ -46,15 +49,17 @@ public class OpcoesViewModel extends BaseViewModel {
 
     private final TiposRepositorio tiposRepositorio;
     private final CarregamentoTiposRepositorio carregamentoTiposRepositorio;
+    private final RedeRepositorio redeRepositorio;
 
     public MutableLiveData<List<ResumoTipo>> tipos;
     public MutableLiveData<List<ResumoChecklist>> tiposChecklist;
 
     @Inject
-    public OpcoesViewModel(CarregamentoTiposRepositorio carregamentoTiposRepositorio, TiposRepositorio tiposRepositorio){
+    public OpcoesViewModel(CarregamentoTiposRepositorio carregamentoTiposRepositorio, TiposRepositorio tiposRepositorio, RedeRepositorio redeRepositorio){
 
         this.tiposRepositorio = tiposRepositorio;
         this.carregamentoTiposRepositorio = carregamentoTiposRepositorio;
+        this.redeRepositorio = redeRepositorio;
 
         tipos = new MutableLiveData<>();
         tiposChecklist = new MutableLiveData<>();
@@ -313,13 +318,13 @@ public class OpcoesViewModel extends BaseViewModel {
      * @param descricao
      * @param handlerNotificacoesUI
      */
-    public void recarregar(Activity contexto, int idTipo, ResumoTipo descricao, Handler handlerNotificacoesUI) {
+    public void recarregar(Activity contexto, int idTipo, ResumoTipo descricao, Handler handlerNotificacoesUI, OnTransferenciaListener listener) {
 
         switch(idTipo){
 
             case Identificadores.Atualizacoes.TIPO:
 
-                recarregarTipo(contexto, descricao, handlerNotificacoesUI);
+                recarregarTipo(contexto, descricao, handlerNotificacoesUI, listener);
                 break;
 
 
@@ -381,12 +386,12 @@ public class OpcoesViewModel extends BaseViewModel {
      * Metodo que permite atualizar um tipo
      * @param descricao a descricao associada ao tipo
      */
-    private void recarregarTipo(Activity contexto, ResumoTipo descricao, Handler handlerNotificacoesUI) {
+    private void recarregarTipo(Activity contexto, ResumoTipo descricao, Handler handlerNotificacoesUI, OnTransferenciaListener listener) {
 
         showProgressBar(true);
 
         try {
-            tiposRepositorio.obterTipo(descricao)
+            redeRepositorio.obterTipo(descricao)
                     .subscribeOn(Schedulers.io())
                     .observeOn(AndroidSchedulers.mainThread())
                     .subscribe(
@@ -399,8 +404,11 @@ public class OpcoesViewModel extends BaseViewModel {
 
                                 @Override
                                 public void onSuccess(List<ITipoListagem> iTipoListagems) {
-                                    RecarregarTipoAsyncTask servico = new RecarregarTipoAsyncTask(contexto, vvmshBaseDados, carregamentoTiposRepositorio);
+
+                                    RecarregarTipoAsyncTask_ servico = new RecarregarTipoAsyncTask_(contexto, vvmshBaseDados, carregamentoTiposRepositorio, listener);
                                     servico.execute(iTipoListagems);
+                                    //RecarregarTipoAsyncTask servico = new RecarregarTipoAsyncTask(contexto, vvmshBaseDados, carregamentoTiposRepositorio);
+                                    //servico.execute(iTipoListagems);
 
                                     showProgressBar(false);
                                 }

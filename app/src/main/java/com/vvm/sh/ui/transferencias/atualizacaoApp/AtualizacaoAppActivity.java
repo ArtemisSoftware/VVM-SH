@@ -27,6 +27,7 @@ import com.vvm.sh.util.constantes.Url;
 import com.vvm.sh.util.interfaces.OnPermissaoConcedidaListener;
 import com.vvm.sh.util.metodos.DadosUtil;
 import com.vvm.sh.util.metodos.DiretoriasUtil;
+import com.vvm.sh.util.metodos.NotificacaoUtil;
 import com.vvm.sh.util.metodos.PermissoesUtil;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
@@ -100,21 +101,10 @@ public class AtualizacaoAppActivity extends BaseDaggerActivity implements OnTran
     }
 
 
-//    //----------------------
-//    //Eventos
-//    //----------------------
-//
-//    @OnClick(R.id.btn_cancelar)
-//    public void btn_cancelar_OnClickListener(View view) {
-//
-//        VersaoApp versaoApp = viewModel.versaoApp.getValue();
-//
-//        if(versaoApp.atualizar == true) {
-//            NotificacaoUtil.notificarAtualizacaoApp(getApplication(), versaoApp.versao);
-//        }
-//
-//        finish();
-//    }
+    //----------------------
+    //Eventos
+    //----------------------
+
 
     @OnClick(R.id.btn_atualizar)
     public void btn_atualizar_OnClickListener(View view) {
@@ -192,5 +182,15 @@ public class AtualizacaoAppActivity extends BaseDaggerActivity implements OnTran
     }
 
 
+    @Override
+    public void onBackPressed() {
 
+        IVersaoApp versaoApp = viewModel.versaoApp.getValue();
+
+        if(versaoApp.atualizar == true) {
+            NotificacaoUtil.notificarAtualizacaoApp(getApplication(), versaoApp.versao);
+        }
+
+        super.onBackPressed();
+    }
 }

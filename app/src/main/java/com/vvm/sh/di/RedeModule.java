@@ -7,6 +7,10 @@ import com.vvm.sh.api.ApiConstantes;
 import com.vvm.sh.api.SegurancaAlimentarApi;
 import com.vvm.sh.api.SegurancaHigieneApi;
 import com.vvm.sh.api.SegurancaTrabalhoApi;
+import com.vvm.sh.baseDados.dao.TransferenciasDao;
+import com.vvm.sh.baseDados.dao.TransferenciasDao_v2;
+import com.vvm.sh.di.transferencias.TransferenciasScope;
+import com.vvm.sh.repositorios.RedeRepositorio;
 import com.vvm.sh.util.interceptores.LigacaoInternetInterceptor;
 import com.vvm.sh.util.interceptores.WebServiceInterceptor;
 
@@ -137,4 +141,15 @@ public class RedeModule {
         SegurancaHigieneApi api = retrofit.create(SegurancaHigieneApi.class);
         return api;
     }
+
+
+    @Provides
+    @Singleton
+    RedeRepositorio provideRedeRepositorio(SegurancaAlimentarApi segurancaAlimentarApi, SegurancaTrabalhoApi segurancaTrabalhoApi,
+                                           TransferenciasDao_v2 transferenciasDao) {
+
+        RedeRepositorio repositorio = new RedeRepositorio(segurancaAlimentarApi, segurancaTrabalhoApi, transferenciasDao);
+        return repositorio;
+    }
+
 }

@@ -7,6 +7,7 @@ import android.os.Handler;
 import androidx.lifecycle.MutableLiveData;
 
 import com.vvm.sh.api.modelos.pedido.Codigo;
+import com.vvm.sh.api.modelos.pedido.ITipoListagem;
 import com.vvm.sh.baseDados.entidades.Tarefa;
 import com.vvm.sh.repositorios.CarregamentoTiposRepositorio;
 import com.vvm.sh.repositorios.RedeRepositorio;
@@ -16,6 +17,7 @@ import com.vvm.sh.repositorios.UploadRepositorio;
 import com.vvm.sh.servicos.DadosUploadAsyncTask;
 import com.vvm.sh.servicos.tipos.AtualizarTipoAsyncTask;
 import com.vvm.sh.servicos.tipos.atualizacao.AtualizarTipoAsyncTask_;
+import com.vvm.sh.servicos.tipos.atualizacao.AtualizarTipoAsyncTask__v2;
 import com.vvm.sh.servicos.trabalho.AtualizarTrabalhoAsyncTask;
 import com.vvm.sh.servicos.trabalho.RecarregarTarefaAsyncTask;
 import com.vvm.sh.servicos.trabalho.RecarregarTrabalhoAsyncTask;
@@ -693,6 +695,10 @@ public class TransferenciasViewModel extends BaseViewModel {
     }
 
 
+    /**
+     * Metodo que permite eliminar todas as atualizacoes e recarregar todos os dados
+     * @param listener
+     */
     public void recarregarDados(OnTransferenciaListener listener) {
 
         tiposRepositorio.eliminarAtualizacoes(Identificadores.Atualizacoes.TIPO)
@@ -728,24 +734,22 @@ public class TransferenciasViewModel extends BaseViewModel {
      */
     private void atualizarTipos(OnTransferenciaListener listener, AtualizacaoTipos atualizacoes){
 
-        tiposRepositorio.obterTipos(atualizacoes)
+        redeRepositorio.obterTipos(atualizacoes)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
 
-                        new SingleObserver<List<Object>>() {
+                        new SingleObserver<List<ITipoListagem>>() {
                             @Override
                             public void onSubscribe(Disposable d) {
                                 disposables.add(d);
                             }
 
                             @Override
-                            public void onSuccess(List<Object> registos) {
+                            public void onSuccess(List<ITipoListagem> iTipoListagems) {
 
-                                showProgressBar(false);
-
-                                AtualizarTipoAsyncTask_ servico = new AtualizarTipoAsyncTask_(listener, vvmshBaseDados, carregamentoTiposRepositorio);
-                                servico.execute(registos);
+                                AtualizarTipoAsyncTask__v2 servico = new AtualizarTipoAsyncTask__v2(listener, vvmshBaseDados, carregamentoTiposRepositorio);
+                                servico.execute(iTipoListagems);
                             }
 
                             @Override
@@ -754,6 +758,31 @@ public class TransferenciasViewModel extends BaseViewModel {
                                 formatarErro(e);
                             }
                         }
+
+
+//
+//        new SingleObserver<List<ITipoListagem>>() {
+//            @Override
+//            public void onSubscribe(Disposable d) {
+//                disposables.add(d);
+//            }
+//
+//            @Override
+//            public void onSuccess(List<ITipoListagem> registos) {
+//
+//                showProgressBar(false);
+//
+//                AtualizarTipoAsyncTask_ servico = new AtualizarTipoAsyncTask_(listener, vvmshBaseDados, carregamentoTiposRepositorio);
+//                //--servico.execute(registos);
+//            }
+//
+//            @Override
+//            public void onError(Throwable e) {
+//                showProgressBar(false);
+//                formatarErro(e);
+//            }
+//        }
+
 
                 );
     }

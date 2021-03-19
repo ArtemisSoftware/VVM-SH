@@ -98,14 +98,5 @@ public class TransferenciasModule {
 
 
 
-    @TransferenciasScope
-    @Provides
-    RedeRepositorio provideRedeRepositorio(SegurancaAlimentarApi segurancaAlimentarApi, SegurancaTrabalhoApi segurancaTrabalhoApi,
-                                           TransferenciasDao transferenciasDao) {
-
-        RedeRepositorio repositorio = new RedeRepositorio(segurancaAlimentarApi, segurancaTrabalhoApi, transferenciasDao);
-        return repositorio;
-    }
-
 
 }

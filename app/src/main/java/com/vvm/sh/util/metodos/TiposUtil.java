@@ -290,8 +290,8 @@ public class TiposUtil {
         public static List<MetodoApi> obterTipos(){
 
             LinkedList registos = new LinkedList(Arrays.asList(Tipos.TIPOS));
+            registos.addAll(new LinkedList(Arrays.asList(MetodosTipos.AtividadesPlaneaveis.TIPOS)));
             //--registos.addAll(new LinkedList(Arrays.asList(MetodosTipos.TemplateAvr.TIPOS)));
-            //--registos.addAll(new LinkedList(Arrays.asList(MetodosTipos.AtividadesPlaneaveis.TIPOS)));
 
             return registos;
         }

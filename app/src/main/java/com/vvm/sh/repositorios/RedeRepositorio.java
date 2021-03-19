@@ -8,19 +8,28 @@ import com.vvm.sh.api.SegurancaTrabalhoApi;
 import com.vvm.sh.api.modelos.pedido.Codigo;
 import com.vvm.sh.api.modelos.pedido.IContagemTipoMaquina;
 import com.vvm.sh.api.modelos.pedido.ISessao;
+import com.vvm.sh.api.modelos.pedido.ITipoListagem;
 import com.vvm.sh.baseDados.dao.TransferenciasDao;
+import com.vvm.sh.baseDados.dao.TransferenciasDao_v2;
 import com.vvm.sh.baseDados.entidades.Resultado;
 import com.vvm.sh.baseDados.entidades.Tarefa;
+import com.vvm.sh.baseDados.entidades.TipoNovo;
+import com.vvm.sh.ui.opcoes.modelos.ResumoTipo;
+import com.vvm.sh.ui.transferencias.modelos.AtualizacaoTipos;
 import com.vvm.sh.ui.transferencias.modelos.DadosUpload;
 import com.vvm.sh.ui.transferencias.modelos.Sessao;
 import com.vvm.sh.ui.transferencias.modelos.Upload;
 import com.vvm.sh.util.constantes.AppConfig;
 import com.vvm.sh.util.constantes.Identificadores;
+import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.excepcoes.RespostaWsInvalidaException;
+import com.vvm.sh.util.excepcoes.TipoInexistenteException;
 import com.vvm.sh.util.metodos.ConversorUtil;
+import com.vvm.sh.util.metodos.TiposUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 import io.reactivex.Single;
 import io.reactivex.SingleSource;
@@ -36,11 +45,11 @@ public class RedeRepositorio {
 
     private final SegurancaAlimentarApi apiSA;
     private final SegurancaTrabalhoApi apiST;
-    private final TransferenciasDao transferenciasDao;
+    private final TransferenciasDao_v2 transferenciasDao;
     private final Gson gson;
 
     public RedeRepositorio(@NonNull SegurancaAlimentarApi apiSA, @NonNull SegurancaTrabalhoApi apiST,
-                           @NonNull TransferenciasDao transferenciasDao) {
+                           @NonNull TransferenciasDao_v2 transferenciasDao) {
         this.apiSA = apiSA;
         this.apiST = apiST;
         this.transferenciasDao = transferenciasDao;
@@ -554,4 +563,107 @@ public class RedeRepositorio {
 
         return valido;
     }
+
+
+
+    //---------------------------
+    //Tipos
+    //---------------------------
+
+
+
+    /**
+     * Metodo que permite obter um tipo a partir do web service
+     * @param resumo os dados da atualizacao do tipo
+     * @return os dados de um tipo
+     */
+    public Single<List<ITipoListagem>> obterTipo(ResumoTipo resumo) throws TipoInexistenteException {
+
+        TiposUtil.MetodoApi metodo = TiposUtil.obterMetodos(resumo.descricao);
+        List<SingleSource> tipos = obterInvocacoesTipos(metodo);
+
+        SingleSource[] source = new SingleSource[tipos.size()];
+
+        for(int index = 0; index < tipos.size(); ++index){
+            source[index] = tipos.get(index);
+        }
+
+        return Single.concatArray(source).toList();
+    }
+
+
+    public Single<List<ITipoListagem>> obterTipos(AtualizacaoTipos atualizacoes) {
+
+        List<SingleSource> tipos = new ArrayList<>();
+
+        for(TiposUtil.MetodoApi metodo : atualizacoes.atualizacoes){
+
+            tipos.addAll(obterInvocacoesTipos(metodo));
+
+
+
+            if(metodo.tipo == Identificadores.Atualizacoes.ATIVIDADES_PLANEAVEIS) {
+
+                if(metodo.descricao.equals(TiposUtil.MetodosTipos.AtividadesPlaneaveis.ATIVIDADES_PLANEAVEIS) == true){
+                    tipos.add(apiST.obterTipoAtividadesPlaneaveis(SegurancaTrabalhoApi.HEADER_TIPO, metodo.seloTemporalSA));
+                }
+            }
+
+            if(metodo.tipo == Identificadores.Atualizacoes.TEMPLATE) {
+
+                if(metodo.descricao.equals(TiposUtil.MetodosTipos.TemplateAvr.TEMPLATE_AVALIACAO_RISCOS_LEVANTAMENTOS) == true){
+                    tipos.add(apiST.obterTipoTemplatesAVR_Levantamentos(SegurancaTrabalhoApi.HEADER_TIPO, metodo.seloTemporalSA));
+                }
+
+                if(metodo.descricao.equals(TiposUtil.MetodosTipos.TemplateAvr.TEMPLATE_AVALIACAO_RISCOS_RISCOS) == true){
+                    tipos.add(apiST.obterTipoTemplatesAVR_Riscos(SegurancaTrabalhoApi.HEADER_TIPO, metodo.seloTemporalSA));
+                }
+
+            }
+        }
+
+        for(TipoNovo tipo : atualizacoes.tiposNovos){
+
+            Map<String, String> cabecalho = SegurancaTrabalhoApi.HEADER_EQUIPAMENTO;
+            cabecalho.put(Sintaxe.API.ID_EQUIPAMENTO_PROVISORIO, tipo.idProvisorio + "");
+
+            tipos.add(apiST.obterEstadoEquipamento(cabecalho, tipo.descricao));
+        }
+
+        return obterSingleSource(tipos);
+    }
+
+
+
+
+    private List<SingleSource> obterInvocacoesTipos(TiposUtil.MetodoApi metodo){
+
+        List<SingleSource> tipos = new ArrayList<>();
+
+        if(metodo.tipo == Identificadores.Atualizacoes.TIPO) {
+
+            if (metodo.sa != null) {
+                tipos.add(apiSA.obterTipo(SegurancaAlimentarApi.HEADER_TIPO, metodo.sa, metodo.seloTemporalSA));
+            }
+
+            if (metodo.sht != null) {
+                tipos.add(apiST.obterTipo(SegurancaTrabalhoApi.HEADER_TIPO, metodo.sht, metodo.seloTemporalSHT));
+            }
+        }
+
+        return tipos;
+    }
+
+    private Single<List<ITipoListagem>> obterSingleSource(List<SingleSource> lista){
+
+        SingleSource[] source = new SingleSource[lista.size()];
+
+        for(int index = 0; index < lista.size(); ++index){
+            source[index] = lista.get(index);
+        }
+
+        return Single.concatArray(source).toList();
+    }
+
+
 }

@@ -24,7 +24,7 @@ public class AtualizacaoUI_ {
     public Estado estado;
 
 
-    public int icon = R.drawable.ic_alerta_24dp, indexPercentagem = 0, limitePercentagem = 100;
+    public int icon = R.drawable.ic_alerta_24dp, indexPercentagem = 0, limitePercentagem = 100, corIcon = -1;
     public boolean loading;
 
     public String mensagem = "", index = "0", limite = "0";
@@ -51,10 +51,12 @@ public class AtualizacaoUI_ {
 
         if(completo == true){
             icon = R.drawable.ic_validado_branco;
+            corIcon = R.color.cor_sincronizado;
             this.mensagem = "Concluido";
         }
         else{
             icon = R.drawable.ic_erro_24;
+            corIcon = R.color.cor_nao_sincronizado;
             this.mensagem = erro;
         }
 

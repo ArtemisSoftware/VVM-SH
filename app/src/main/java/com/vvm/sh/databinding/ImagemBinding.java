@@ -115,5 +115,20 @@ public class ImagemBinding {
 
 
 
+    @BindingAdapter({"imagem"})
+    public static void setImagem(ImageView view, int imagem) {
+
+        Context context = view.getContext();
+
+        RequestOptions options = new RequestOptions()
+                //.placeholder(defaultImageUrl)
+                .error(R.drawable.ic_launcher_foreground);
+
+        Glide.with(context)
+                .setDefaultRequestOptions(options)
+                .load(imagem)
+                .into(view);
+
+    }
 
 }

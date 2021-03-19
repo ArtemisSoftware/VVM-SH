@@ -44,7 +44,7 @@ public class IVersaoApp {
     public String [] texto;
 
     @Expose(serialize = false)
-    public boolean atualizar;
+    public boolean atualizar = false;
 
 
     @Expose(serialize = false)

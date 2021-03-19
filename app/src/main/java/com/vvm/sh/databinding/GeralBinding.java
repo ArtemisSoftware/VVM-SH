@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.core.content.ContextCompat;
 import androidx.databinding.BindingAdapter;
 
 import com.bumptech.glide.Glide;
@@ -50,10 +51,13 @@ public class GeralBinding {
     }
 
 
-    @BindingAdapter({"imagem"})
-    public static void setImagem(ImageView view, int imagem) {
+    @BindingAdapter({"imagem", "tintCor"})
+    public static void setImagem(ImageView view, int imagem, int tintCor) {
 
         Context context = view.getContext();
+
+        view.setColorFilter(ContextCompat.getColor(context, tintCor), android.graphics.PorterDuff.Mode.SRC_IN);
+
 
         RequestOptions options = new RequestOptions()
                 //.placeholder(defaultImageUrl)

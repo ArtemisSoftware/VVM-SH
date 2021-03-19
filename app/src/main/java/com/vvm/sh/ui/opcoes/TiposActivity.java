@@ -16,7 +16,9 @@ import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.opcoes.adaptadores.OnTipoListener;
 import com.vvm.sh.ui.opcoes.modelos.ResumoChecklist;
 import com.vvm.sh.ui.opcoes.modelos.ResumoTipo;
+import com.vvm.sh.ui.transferencias.adaptadores.OnTransferenciaListener;
 import com.vvm.sh.util.AtualizacaoUI;
+import com.vvm.sh.util.AtualizacaoUI_;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.constantes.Sintaxe;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
@@ -24,13 +26,9 @@ import com.vvm.sh.util.viewmodel.BaseViewModel;
 import javax.inject.Inject;
 
 public class TiposActivity extends BaseDaggerActivity
-        implements OnTipoListener {
+        implements OnTipoListener, OnTransferenciaListener {
 
     private ActivityTiposBinding activityTiposBinding;
-
-
-    @Inject
-    ViewModelProviderFactory providerFactory;
 
 
     private OpcoesViewModel viewModel;
@@ -40,7 +38,7 @@ public class TiposActivity extends BaseDaggerActivity
     @Override
     protected void intActivity(Bundle savedInstanceState) {
 
-        viewModel = ViewModelProviders.of(this, providerFactory).get(OpcoesViewModel.class);
+        viewModel = ViewModelProviders.of(this, providerFactory_).get(OpcoesViewModel.class);
 
         activityTiposBinding = (ActivityTiposBinding) activityBinding;
         activityTiposBinding.setLifecycleOwner(this);
@@ -148,7 +146,7 @@ public class TiposActivity extends BaseDaggerActivity
         Bundle bundle = getIntent().getExtras();
         int idTipo = bundle.getInt(getString(R.string.argumento_id_tipo));
 
-        viewModel.recarregar(TiposActivity.this, idTipo, resumo, handlerNotificacoesUI);
+        viewModel.recarregar(TiposActivity.this, idTipo, resumo, handlerNotificacoesUI, this);
     }
 
     @Override
@@ -156,6 +154,21 @@ public class TiposActivity extends BaseDaggerActivity
 
         viewModel.recarregar(TiposActivity.this, resumo, handlerNotificacoesUI);
     }
+
+
+
+    @Override
+    public void atualizarTransferencia(AtualizacaoUI_ atualizacaoUI) {
+
+    }
+
+    @Override
+    public void terminarTransferencia() {
+
+    }
+
+
+
 
 
     @Override
@@ -184,6 +197,7 @@ public class TiposActivity extends BaseDaggerActivity
 
         return super.onOptionsItemSelected(item);
     }
+
 
 
 }

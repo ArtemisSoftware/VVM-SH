@@ -10,6 +10,7 @@ import com.vvm.sh.baseDados.dao.ImagemDao;
 import com.vvm.sh.baseDados.dao.ResultadoDao;
 import com.vvm.sh.baseDados.dao.TipoDao;
 import com.vvm.sh.baseDados.VvmshBaseDados;
+import com.vvm.sh.baseDados.dao.TransferenciasDao_v2;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
 
 import javax.inject.Singleton;
@@ -60,6 +61,18 @@ public class BaseDadosModule {
         //Timber.d("Providing NoteDao: " + dao);
         return dao;
     }
+
+
+    @Singleton
+    @Provides
+    static TransferenciasDao_v2 provideTransferenciasDao_v2(VvmshBaseDados vvmshBaseDados){
+
+        TransferenciasDao_v2 dao = vvmshBaseDados.obterTransferenciasDao_v2();
+
+        //Timber.d("Providing NoteDao: " + dao);
+        return dao;
+    }
+
 
 
     @Singleton

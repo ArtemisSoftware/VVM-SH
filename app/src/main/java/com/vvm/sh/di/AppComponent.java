@@ -18,8 +18,8 @@ import dagger.android.AndroidInjector;
                 AndroidInjectionModule.class,
                 ActivityBuildersModule.class,
                 ViewModelFactoryModule.class,
-                RedeModule.class,
                 BaseDadosModule.class,
+                RedeModule.class,
                 //NetworkModule.class,
 
         }

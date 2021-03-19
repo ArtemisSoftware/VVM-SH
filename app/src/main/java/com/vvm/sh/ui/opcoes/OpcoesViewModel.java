@@ -388,42 +388,42 @@ public class OpcoesViewModel extends BaseViewModel {
      */
     private void recarregarTipo(Activity contexto, ResumoTipo descricao, Handler handlerNotificacoesUI, OnTransferenciaListener listener) {
 
-        showProgressBar(true);
-
-        try {
-            redeRepositorio.obterTipo(descricao)
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(
-
-                            new SingleObserver<List<ITipoListagem>>() {
-                                @Override
-                                public void onSubscribe(Disposable d) {
-                                    disposables.add(d);
-                                }
-
-                                @Override
-                                public void onSuccess(List<ITipoListagem> iTipoListagems) {
-
-                                    RecarregarTipoAsyncTask_ servico = new RecarregarTipoAsyncTask_(contexto, vvmshBaseDados, carregamentoTiposRepositorio, listener);
-                                    servico.execute(iTipoListagems);
-                                    //RecarregarTipoAsyncTask servico = new RecarregarTipoAsyncTask(contexto, vvmshBaseDados, carregamentoTiposRepositorio);
-                                    //servico.execute(iTipoListagems);
-
-                                    showProgressBar(false);
-                                }
-
-                                @Override
-                                public void onError(Throwable e) {
-                                    showProgressBar(false);
-                                    messagemLiveData.setValue(Recurso.erro(e.getMessage()));
-                                }
-                            }
-                    );
-        } catch (TipoInexistenteException e) {
-            showProgressBar(false);
-            messagemLiveData.setValue(Recurso.erro(e.getMessage()));
-        }
+//        showProgressBar(true);
+//
+//        try {
+////            redeRepositorio.obterTipo(descricao)
+////                    .subscribeOn(Schedulers.io())
+////                    .observeOn(AndroidSchedulers.mainThread())
+////                    .subscribe(
+////
+////                            new SingleObserver<List<Object>>() {
+////                                @Override
+////                                public void onSubscribe(Disposable d) {
+////                                    disposables.add(d);
+////                                }
+////
+////                                @Override
+////                                public void onSuccess(List<Object> iTipoListagems) {
+////
+////                                    RecarregarTipoAsyncTask_ servico = new RecarregarTipoAsyncTask_(contexto, vvmshBaseDados, carregamentoTiposRepositorio, listener);
+////                                    //--servico.execute(iTipoListagems);
+////                                    //RecarregarTipoAsyncTask servico = new RecarregarTipoAsyncTask(contexto, vvmshBaseDados, carregamentoTiposRepositorio);
+////                                    //servico.execute(iTipoListagems);
+////
+////                                    showProgressBar(false);
+////                                }
+////
+////                                @Override
+////                                public void onError(Throwable e) {
+////                                    showProgressBar(false);
+////                                    messagemLiveData.setValue(Recurso.erro(e.getMessage()));
+////                                }
+////                            }
+////                    );
+//        } catch (TipoInexistenteException e) {
+//            showProgressBar(false);
+//            messagemLiveData.setValue(Recurso.erro(e.getMessage()));
+//        }
 
 
     }

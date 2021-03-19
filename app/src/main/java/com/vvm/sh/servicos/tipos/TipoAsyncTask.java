@@ -1,7 +1,6 @@
 package com.vvm.sh.servicos.tipos;
 
-import android.database.sqlite.SQLiteConstraintException;
-import android.os.AsyncTask;
+
 
 import com.vvm.sh.api.modelos.pedido.ITipo;
 import com.vvm.sh.api.modelos.pedido.ITipoListagem;
@@ -9,7 +8,6 @@ import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.baseDados.entidades.Atualizacao;
 import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.repositorios.CarregamentoTiposRepositorio;
-import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.mapeamento.DownloadMapping;
 
 import java.util.ArrayList;
@@ -23,26 +21,44 @@ public abstract class TipoAsyncTask extends CarregamentoTipoAsyncTask {
         super(vvmshBaseDados, repositorio);
     }
 
-
     @Override
-    protected void inserirRegisto(ITipoListagem resposta, Atualizacao atualizacao){
+    protected List<Object> filtarRegistos(List<Object> respostas) {
 
-        if(atualizacao.tipo == Identificadores.Atualizacoes.TIPO) {
+        List<Object> registos = new ArrayList<>();
 
-            List<Tipo> dadosNovos = new ArrayList<>();
-            List<Tipo> dadosAlterados = new ArrayList<>();
+        for (Object item : respostas) {
 
-            for (ITipo item : resposta.dadosNovos) {
-                dadosNovos.add(DownloadMapping.INSTANCE.map(item, resposta));
+            if (item instanceof ITipoListagem) {
+                registos.add(item);
             }
-
-            for (ITipo item : resposta.dadosAlterados) {
-                dadosAlterados.add(DownloadMapping.INSTANCE.map(item, resposta));
-            }
-
-            repositorio.atualizarTipo(atualizacao, dadosNovos, dadosAlterados);
         }
+
+        return registos;
     }
 
+    @Override
+    protected Atualizacao obterAtualizacao(Object resposta) {
+        return DownloadMapping.INSTANCE.map((ITipoListagem)resposta);
+    }
+
+    @Override
+    protected void inserirRegisto(Object resposta, Atualizacao atualizacao) {
+
+        ITipoListagem registo = (ITipoListagem)resposta;
+
+        List<Tipo> dadosNovos = new ArrayList<>();
+        List<Tipo> dadosAlterados = new ArrayList<>();
+
+        for (ITipo item : registo.dadosNovos) {
+            dadosNovos.add(DownloadMapping.INSTANCE.map(item, registo));
+        }
+
+        for (ITipo item : registo.dadosAlterados) {
+            dadosAlterados.add(DownloadMapping.INSTANCE.map(item, registo));
+        }
+
+        //--repositorio.atualizarTipo(atualizacao, dadosNovos, dadosAlterados);
+
+    }
 
 }

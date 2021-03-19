@@ -32,7 +32,7 @@ public class AtualizarTipoAsyncTask__v2  extends TipoAsyncTask {
 
 
     @Override
-    protected void onPostExecute(List<ITipoListagem> objects) {
+    protected void onPostExecute(List<Object> objects) {
 
         listener.atualizarTransferencia(new AtualizacaoUI_(AtualizacaoUI_.Estado.PROCESSAMENTO_TIPOS, erro));
 

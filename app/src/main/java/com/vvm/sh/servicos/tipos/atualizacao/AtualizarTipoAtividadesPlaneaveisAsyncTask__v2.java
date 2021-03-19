@@ -31,7 +31,7 @@ public class AtualizarTipoAtividadesPlaneaveisAsyncTask__v2 extends TipoAtividad
 
 
     @Override
-    protected void onPostExecute(List<ITipoListagem> iTipoListagems) {
+    protected void onPostExecute(List<Object> iTipoListagems) {
 
         listener.atualizarTransferencia(new AtualizacaoUI_(AtualizacaoUI_.Estado.PROCESSAMENTO_ATIVIDADES_PLANEAVEIS, erro));
 
@@ -42,7 +42,7 @@ public class AtualizarTipoAtividadesPlaneaveisAsyncTask__v2 extends TipoAtividad
 
     @Override
     protected void atualizarUI(int index, int limite, Atualizacao atualizacao) {
-        listener.atualizarTransferencia(new AtualizacaoUI_(AtualizacaoUI_.Estado.PROCESSAMENTO_ATIVIDADES_PLANEAVEIS, ++index, limite, obterDescricaoApi(atualizacao) + " " + atualizacao.descricao));
+        listener.atualizarTransferencia(new AtualizacaoUI_(AtualizacaoUI_.Estado.PROCESSAMENTO_ATIVIDADES_PLANEAVEIS, index, limite, obterDescricaoApi(atualizacao) + " " + atualizacao.descricao));
 
     }
 }

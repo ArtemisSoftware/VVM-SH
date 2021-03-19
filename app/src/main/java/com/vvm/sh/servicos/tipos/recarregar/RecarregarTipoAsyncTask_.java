@@ -35,21 +35,21 @@ public class RecarregarTipoAsyncTask_ extends TipoAsyncTask {
     }
 
 
-    @Override
-    protected void onPostExecute(List<ITipoListagem> iTipoListagems) {
-        super.onPostExecute(iTipoListagems);
-
-        dialogo.terminarProgresso();
-
-        if(erro != null){
-            dialogo.erro(Sintaxe.Alertas.ERRO_ATUALIZAR_TIPO  + erro);
-        }
-        else{
-            dialogo.sucesso(Sintaxe.Frases.DADOS_ATUALIZADOS_SUCESSO);
-        }
-
-        listener.terminarTransferencia();
-    }
+//    @Override
+//    protected void onPostExecute(List<ITipoListagem> iTipoListagems) {
+//        super.onPostExecute(iTipoListagems);
+//
+//        dialogo.terminarProgresso();
+//
+//        if(erro != null){
+//            dialogo.erro(Sintaxe.Alertas.ERRO_ATUALIZAR_TIPO  + erro);
+//        }
+//        else{
+//            dialogo.sucesso(Sintaxe.Frases.DADOS_ATUALIZADOS_SUCESSO);
+//        }
+//
+//        listener.terminarTransferencia();
+//    }
 
 
 

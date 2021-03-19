@@ -592,7 +592,7 @@ public class RedeRepositorio {
     }
 
 
-    public Single<List<ITipoListagem>> obterTipos(AtualizacaoTipos atualizacoes) {
+    public Single<List<Object>> obterDados(AtualizacaoTipos atualizacoes) {
 
         List<SingleSource> tipos = new ArrayList<>();
 
@@ -654,7 +654,7 @@ public class RedeRepositorio {
         return tipos;
     }
 
-    private Single<List<ITipoListagem>> obterSingleSource(List<SingleSource> lista){
+    private Single<List<Object>> obterSingleSource(List<SingleSource> lista){
 
         SingleSource[] source = new SingleSource[lista.size()];
 

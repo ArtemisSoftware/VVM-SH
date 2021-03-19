@@ -80,6 +80,30 @@ public class CarregamentoTiposRepositorio {
 
 
 
+    private void inserirTipoAtividadesPlaneaveis(Atualizacao atualizacao, List<TipoAtividadePlaneavel> tiposNovos, List<TipoAtividadePlaneavel> tiposAlterados){
+
+        if(atualizacaoDao.existeRegisto(atualizacao.descricao, atualizacao.api) == true){
+            atualizacaoDao.atualizarRegisto(atualizacao);
+        }
+        else{
+            atualizacaoDao.inserirRegisto(atualizacao);
+        }
+
+        tipoDao.inserirAtividadesPlaneaiveis(tiposNovos);
+        tipoDao.atualizarAtividadesPlaneaiveis(tiposAlterados);
+    }
+
+    /**
+     * Metodo que permite atualizar um tipo<br>
+     *     1->Atualizar timestamp<br>
+     *     2->inserir novos dados
+     * @param atualizacao os dados da atualizacao
+     * @param tiposNovos tipos novos a inserir
+     * @param tiposAlterados tipos a alterar
+     */
+    public void atualizarTipoAtividadesPlaneaveis_(Atualizacao atualizacao, List<TipoAtividadePlaneavel> tiposNovos, List<TipoAtividadePlaneavel> tiposAlterados){
+        inserirTipoAtividadesPlaneaveis(atualizacao, tiposNovos, tiposAlterados);
+    }
 
 
 

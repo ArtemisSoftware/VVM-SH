@@ -51,12 +51,12 @@ public class GeralBinding {
     }
 
 
-    @BindingAdapter({"imagem", "tintCor"})
-    public static void setImagem(ImageView view, int imagem, int tintCor) {
+    @BindingAdapter({"imagemDrawable"/*, "tintCor"*/})
+    public static void setImagemV(ImageView view, int imagemDrawable/*, int tintCor*/) {
 
         Context context = view.getContext();
 
-        view.setColorFilter(ContextCompat.getColor(context, tintCor), android.graphics.PorterDuff.Mode.SRC_IN);
+        //--view.setColorFilter(ContextCompat.getColor(context, tintCor), android.graphics.PorterDuff.Mode.SRC_IN);
 
 
         RequestOptions options = new RequestOptions()
@@ -65,7 +65,7 @@ public class GeralBinding {
 
         Glide.with(context)
                 .setDefaultRequestOptions(options)
-                .load(imagem)
+                .load(imagemDrawable)
                 .into(view);
 
     }

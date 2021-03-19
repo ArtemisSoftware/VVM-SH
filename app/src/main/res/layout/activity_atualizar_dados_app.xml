@@ -93,12 +93,14 @@
                     android:id="@+id/img_completude_tipo"
                     android:layout_width="56dp"
                     android:layout_height="56dp"
-                    android:imagem="@{atualizacaoTipos.icon}"
-                    android:tintCor="@{atualizacaoTipos.corIcon}"
+
                     android:visibility="@{atualizacaoTipos.loading == true ? View.INVISIBLE : View.VISIBLE}"
                     app:layout_constraintStart_toStartOf="@+id/progressBar_tipo"
                     app:layout_constraintTop_toTopOf="@+id/progressBar_tipo" />
 
+<!--
+android:imagemDrawable="@{atualizacaoTipos.icon}"
+android:tintCor="@{atualizacaoTipos.corIcon}"-->
 
                 <TextView
                     android:id="@+id/txt_titulo_tipo"
@@ -157,12 +159,14 @@
                     android:id="@+id/img_completude_activ_planeaveis"
                     android:layout_width="56dp"
                     android:layout_height="56dp"
-                    android:imagem="@{atualizacaoActivPlaneaveis.icon}"
-                    android:tintCor="@{atualizacaoActivPlaneaveis.corIcon}"
                     android:visibility="@{atualizacaoActivPlaneaveis.loading == true ? View.INVISIBLE : View.VISIBLE}"
                     app:layout_constraintStart_toStartOf="@+id/progressBar_activ_planeaveis"
                     app:layout_constraintTop_toTopOf="@+id/progressBar_activ_planeaveis" />
 
+
+<!--
+android:imagemDrawable="@{atualizacaoActivPlaneaveis.icon}"
+android:tintCor="@{atualizacaoActivPlaneaveis.corIcon}"-->
 
                 <TextView
                     android:id="@+id/txt_titulo_activ_planeaveis"
@@ -220,12 +224,15 @@
                     android:id="@+id/img_completude_templates"
                     android:layout_width="56dp"
                     android:layout_height="56dp"
-                    android:imagem="@{atualizacaoTemplates.icon}"
-                    android:tintCor="@{atualizacaoTemplates.corIcon}"
+
                     android:visibility="@{atualizacaoTemplates.loading == true ? View.INVISIBLE : View.VISIBLE}"
                     app:layout_constraintStart_toStartOf="@+id/progressBar_templates"
                     app:layout_constraintTop_toTopOf="@+id/progressBar_templates" />
 
+
+<!--
+android:imagemDrawable="@{atualizacaoTemplates.icon}"
+android:tintCor="@{atualizacaoTemplates.corIcon}"-->
 
                 <TextView
                     android:id="@+id/txt_titulo_templates"

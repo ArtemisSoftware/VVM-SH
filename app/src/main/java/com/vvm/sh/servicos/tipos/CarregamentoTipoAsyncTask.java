@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 import com.vvm.sh.api.modelos.pedido.ITipoListagem;
 import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.baseDados.entidades.Atualizacao;
+import com.vvm.sh.baseDados.entidades.MedidaAveriguacao;
 import com.vvm.sh.repositorios.CarregamentoTiposRepositorio;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.mapeamento.DownloadMapping;
@@ -13,7 +14,7 @@ import com.vvm.sh.util.metodos.MensagensUtil;
 
 import java.util.List;
 
-public abstract class CarregamentoTipoAsyncTask extends AsyncTask<List<ITipoListagem>, Void, List<ITipoListagem>> {
+public abstract class CarregamentoTipoAsyncTask extends AsyncTask<List<Object>, Void, List<Object>> {
 
     protected String erro;
     protected VvmshBaseDados vvmshBaseDados;
@@ -27,12 +28,12 @@ public abstract class CarregamentoTipoAsyncTask extends AsyncTask<List<ITipoList
     }
 
     @Override
-    protected List<ITipoListagem> doInBackground(List<ITipoListagem>... respostasApi) {
+    protected List<Object> doInBackground(List<Object>... respostasApi) {
 
         if(respostasApi[0] == null)
             return null;
 
-        List<ITipoListagem> respostas = respostasApi[0];
+        List<Object> respostas = filtarRegistos(respostasApi[0]);
 
         this.vvmshBaseDados.runInTransaction(new Runnable(){
             @Override
@@ -42,18 +43,19 @@ public abstract class CarregamentoTipoAsyncTask extends AsyncTask<List<ITipoList
             }
         });
 
-        return null;
+        return respostasApi[0];
     }
 
-    private void executar(List<ITipoListagem> dados){
+
+    private void executar(List<Object> dados){
 
         try {
 
             int index = 0;
 
-            for (ITipoListagem resposta : dados) {
+            for (Object resposta : dados) {
 
-                Atualizacao atualizacao = DownloadMapping.INSTANCE.map(resposta);
+                Atualizacao atualizacao = obterAtualizacao(resposta);
 
                 inserirRegisto(resposta, atualizacao);
 
@@ -98,7 +100,11 @@ public abstract class CarregamentoTipoAsyncTask extends AsyncTask<List<ITipoList
     //Metodos abstratos
     //-----------------------
 
-    protected abstract void inserirRegisto(ITipoListagem resposta, Atualizacao atualizacao);
+    protected abstract List<Object> filtarRegistos(List<Object> respostas);
+
+    protected abstract Atualizacao obterAtualizacao(Object resposta);
+
+    protected abstract void inserirRegisto(Object resposta, Atualizacao atualizacao);
 
     protected abstract void atualizarUI(int index, int limite, Atualizacao atualizacao);
 }

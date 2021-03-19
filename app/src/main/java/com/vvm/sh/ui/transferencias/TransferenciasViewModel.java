@@ -16,7 +16,6 @@ import com.vvm.sh.repositorios.TransferenciasRepositorio;
 import com.vvm.sh.repositorios.UploadRepositorio;
 import com.vvm.sh.servicos.DadosUploadAsyncTask;
 import com.vvm.sh.servicos.tipos.AtualizarTipoAsyncTask;
-import com.vvm.sh.servicos.tipos.atualizacao.AtualizarTipoAsyncTask_;
 import com.vvm.sh.servicos.tipos.atualizacao.AtualizarTipoAsyncTask__v2;
 import com.vvm.sh.servicos.trabalho.AtualizarTrabalhoAsyncTask;
 import com.vvm.sh.servicos.trabalho.RecarregarTarefaAsyncTask;
@@ -734,19 +733,19 @@ public class TransferenciasViewModel extends BaseViewModel {
      */
     private void atualizarTipos(OnTransferenciaListener listener, AtualizacaoTipos atualizacoes){
 
-        redeRepositorio.obterTipos(atualizacoes)
+        redeRepositorio.obterDados(atualizacoes)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
 
-                        new SingleObserver<List<ITipoListagem>>() {
+                        new SingleObserver<List<Object>>() {
                             @Override
                             public void onSubscribe(Disposable d) {
                                 disposables.add(d);
                             }
 
                             @Override
-                            public void onSuccess(List<ITipoListagem> iTipoListagems) {
+                            public void onSuccess(List<Object> iTipoListagems) {
 
                                 AtualizarTipoAsyncTask__v2 servico = new AtualizarTipoAsyncTask__v2(listener, vvmshBaseDados, carregamentoTiposRepositorio);
                                 servico.execute(iTipoListagems);

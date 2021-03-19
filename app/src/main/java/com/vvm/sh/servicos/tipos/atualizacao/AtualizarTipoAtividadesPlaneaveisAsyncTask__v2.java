@@ -35,9 +35,8 @@ public class AtualizarTipoAtividadesPlaneaveisAsyncTask__v2 extends TipoAtividad
 
         listener.atualizarTransferencia(new AtualizacaoUI_(AtualizacaoUI_.Estado.PROCESSAMENTO_ATIVIDADES_PLANEAVEIS, erro));
 
-
-//        AtualizarTipoTemplatesAvrAsyncTask_ servico = new AtualizarTipoTemplatesAvrAsyncTask_(listener, vvmshBaseDados, repositorio);
-//        servico.execute(objects);
+        AtualizarTipoTemplatesAvrAsyncTask__v2 servico = new AtualizarTipoTemplatesAvrAsyncTask__v2(listener, vvmshBaseDados, repositorio);
+        servico.execute(iTipoListagems);
     }
 
     @Override

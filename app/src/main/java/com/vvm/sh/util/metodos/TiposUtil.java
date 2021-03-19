@@ -291,7 +291,7 @@ public class TiposUtil {
 
             LinkedList registos = new LinkedList(Arrays.asList(Tipos.TIPOS));
             registos.addAll(new LinkedList(Arrays.asList(MetodosTipos.AtividadesPlaneaveis.TIPOS)));
-            //--registos.addAll(new LinkedList(Arrays.asList(MetodosTipos.TemplateAvr.TIPOS)));
+            registos.addAll(new LinkedList(Arrays.asList(MetodosTipos.TemplateAvr.TIPOS)));
 
             return registos;
         }

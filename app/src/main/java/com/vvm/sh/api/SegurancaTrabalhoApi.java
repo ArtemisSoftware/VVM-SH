@@ -83,7 +83,7 @@ public interface SegurancaTrabalhoApi {
     Single<ITipoTemplateAvrRiscoListagem> obterTipoTemplatesAVR_Riscos(@HeaderMap Map<String, String> headers);
 
     @GET("ObterTemplatesAVR_Riscos")
-    Single<ITipoTemplateAvrLevantamentoListagem> obterTipoTemplatesAVR_Riscos(@HeaderMap Map<String, String> headers, @Query("dataT") String seloTemporal);
+    Single<ITipoTemplateAvrRiscoListagem> obterTipoTemplatesAVR_Riscos(@HeaderMap Map<String, String> headers, @Query("dataT") String seloTemporal);
 
 
 

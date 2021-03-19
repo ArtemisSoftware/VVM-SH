@@ -47,7 +47,7 @@ public abstract class CarregamentoTipoAsyncTask extends AsyncTask<List<Object>, 
     }
 
 
-    private void executar(List<Object> dados){
+    protected void executar(List<Object> dados){
 
         try {
 

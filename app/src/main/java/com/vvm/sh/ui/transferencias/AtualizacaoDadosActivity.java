@@ -75,7 +75,7 @@ public class AtualizacaoDadosActivity extends BaseDaggerActivity implements OnTr
 
         activityAtualizacaoTiposBinding.setAtualizacaoTipos(new AtualizacaoUI_(getString(R.string.por_favor_aguarde)));
         activityAtualizacaoTiposBinding.setAtualizacaoActivPlaneaveis(new AtualizacaoUI_(getString(R.string.por_favor_aguarde)));
-
+        activityAtualizacaoTiposBinding.setAtualizacaoTemplates(new AtualizacaoUI_(getString(R.string.por_favor_aguarde)));
 
         if(PreferenciasUtil.obterPrimeiraUtilizacao(this) == true) {
             viewModel.atualizarDados(this, true);
@@ -120,6 +120,11 @@ public class AtualizacaoDadosActivity extends BaseDaggerActivity implements OnTr
             case PROCESSAMENTO_ATIVIDADES_PLANEAVEIS:
 
                 activityAtualizacaoTiposBinding.setAtualizacaoActivPlaneaveis(atualizacaoUI);
+                break;
+
+            case PROCESSAMENTO_TEMPLATE_AVALIACAO_RISCOS:
+
+                activityAtualizacaoTiposBinding.setAtualizacaoTemplates(atualizacaoUI);
                 break;
 
             default:

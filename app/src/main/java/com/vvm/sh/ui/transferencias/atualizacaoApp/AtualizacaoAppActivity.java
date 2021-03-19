@@ -23,7 +23,9 @@ import com.vvm.sh.ui.transferencias.adaptadores.OnTransferenciaListener;
 import com.vvm.sh.util.AtualizacaoUI_;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.constantes.Sintaxe;
+import com.vvm.sh.util.constantes.Url;
 import com.vvm.sh.util.interfaces.OnPermissaoConcedidaListener;
+import com.vvm.sh.util.metodos.DadosUtil;
 import com.vvm.sh.util.metodos.DiretoriasUtil;
 import com.vvm.sh.util.metodos.PermissoesUtil;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
@@ -166,7 +168,7 @@ public class AtualizacaoAppActivity extends BaseDaggerActivity implements OnTran
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.menu_principal, menu);
+        getMenuInflater().inflate(R.menu.menu_atualizacao_app, menu);
         return true;
     }
 
@@ -178,7 +180,7 @@ public class AtualizacaoAppActivity extends BaseDaggerActivity implements OnTran
 
             case R.id.item_copiar_link:
 
-
+                DadosUtil.copiarParaClipboard(this, Url.URL_DOWNLOAD_APP_PRODUCAO);
                 break;
 
 

@@ -71,6 +71,7 @@ public class TiposRepositorio {
             AtualizacaoTipos atualizacaoTipos = new AtualizacaoTipos();
             atualizacaoTipos.atualizacoes = TiposUtil.fixarSeloTemporal(new ArrayList<>());
             atualizacaoTipos.tiposNovos = new ArrayList<>();
+            atualizacaoTipos.checklists = new ArrayList<>();
 
             return Maybe.just(atualizacaoTipos);
         }

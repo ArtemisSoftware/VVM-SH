@@ -42,7 +42,12 @@ public class AtualizacaoUI_ {
         this.limite = limite + "";
         this.mensagem = descricao + " " + index + " / " + limite;
 
-        this.indexPercentagem = index * limitePercentagem / limite;
+        try {
+            this.indexPercentagem = index * limitePercentagem / limite;
+        }
+        catch (ArithmeticException e){
+            this.indexPercentagem = 0;
+        }
     }
 
     public AtualizacaoUI_(Estado estado, String erro) {

@@ -33,6 +33,64 @@ import io.reactivex.Single;
 @Dao
 abstract public class TipoDao implements BaseDao<Tipo> {
 
+
+
+
+
+    //-------------------
+    //Tipos
+    //--------------------
+
+
+
+    @Transaction
+    @Query("SELECT * FROM tiposNovos WHERE estado = " + Identificadores.Estados.Equipamentos.ESTADO_PENDENTE + " AND tipo = '" +  TiposUtil.MetodosTipos.TIPOS_MAQUINA + "' ")
+    abstract public Maybe<List<TipoNovo>> obterEquipamentosNaoValidados();
+
+    @Query("SELECT * FROM checklist WHERE id IN (:ids) ")
+    abstract public Maybe<List<CheckList>> obterChecklistDados(List<Integer> ids);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     //-------------------
     //Tipos
     //--------------------
@@ -235,11 +293,6 @@ abstract public class TipoDao implements BaseDao<Tipo> {
 
 
 
-    @Transaction
-    @Query("SELECT * FROM tiposNovos WHERE estado = " + Identificadores.Estados.Equipamentos.ESTADO_PENDENTE + " AND tipo = '" +  TiposUtil.MetodosTipos.TIPOS_MAQUINA + "' ")
-    abstract public Maybe<List<TipoNovo>> obterEquipamentosNaoValidados();
-
-
 
 
 
@@ -326,5 +379,19 @@ abstract public class TipoDao implements BaseDao<Tipo> {
 
     @Query("SELECT * FROM tipos WHERE tipo = :tipo AND api = :api AND idPai = :idPai AND ativo = 1")
     abstract public Single<List<Tipo>> obterTipos_(String tipo, int api, String idPai);
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 }

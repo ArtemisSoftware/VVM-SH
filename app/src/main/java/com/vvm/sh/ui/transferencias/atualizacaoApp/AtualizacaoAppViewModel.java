@@ -25,15 +25,14 @@ public class AtualizacaoAppViewModel extends BaseViewModel {
     private final VersaoAppRepositorio versaoAppRepositorio;
 
 
-    private MutableLiveData<IVersaoApp> _versaoApp;
-    public LiveData<IVersaoApp> versaoApp = _versaoApp;
+    public MutableLiveData<IVersaoApp> versaoApp;
 
     @Inject
     public AtualizacaoAppViewModel(VersaoAppRepositorio versaoAppRepositorio){
 
         this.versaoAppRepositorio = versaoAppRepositorio;
 
-        _versaoApp = new MutableLiveData<>();
+        versaoApp = new MutableLiveData<>();
     }
 
 
@@ -58,7 +57,7 @@ public class AtualizacaoAppViewModel extends BaseViewModel {
 
                             @Override
                             public void onSuccess(IVersaoApp resposta) {
-                                _versaoApp.setValue(resposta);
+                                versaoApp.setValue(resposta);
                                 showProgressBar(false);
                             }
 
@@ -80,7 +79,7 @@ public class AtualizacaoAppViewModel extends BaseViewModel {
     public void downloadApp(OnTransferenciaListener listener, Context contexto) {
 
         DownloadApkAsyncTask servico = new DownloadApkAsyncTask(listener, contexto);
-        servico.execute(_versaoApp.getValue());
+        servico.execute(versaoApp.getValue());
     }
 
 
@@ -91,7 +90,7 @@ public class AtualizacaoAppViewModel extends BaseViewModel {
     public void instalarApp(OnTransferenciaListener listener, Context contexto) {
 
         InstalarApkAsyncTask servico = new InstalarApkAsyncTask(listener, contexto);
-        servico.execute(_versaoApp.getValue());
+        servico.execute(versaoApp.getValue());
     }
 
 

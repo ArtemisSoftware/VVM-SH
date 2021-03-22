@@ -630,6 +630,14 @@ public class RedeRepositorio {
             tipos.add(apiST.obterEstadoEquipamento(cabecalho, tipo.descricao));
         }
 
+        if(atualizacoes.obterIdChecklists().size() != 0){
+
+            for (Integer id : atualizacoes.obterIdChecklists()) {
+                tipos.add(apiST.obterChecklist(SegurancaTrabalhoApi.HEADER_TIPO, id + ""));
+            }
+
+        }
+
         return obterSingleSource(tipos);
     }
 

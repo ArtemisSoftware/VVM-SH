@@ -151,7 +151,11 @@ public class MainActivity extends BaseDaggerActivity
             }
         };
 
-        if(DatasUtil.validarSessao(PreferenciasUtil.obterDataValidadeAutenticacao(this)) == false){
+        if(PreferenciasUtil.utilizadorAutenticado(this) == false){
+            terminarSessao();
+            return false;
+        }
+        else if(DatasUtil.validarSessao(PreferenciasUtil.obterDataValidadeAutenticacao(this)) == false){
             dialogo.alerta(Sintaxe.Palavras.SESSAO, Sintaxe.Alertas.SESSAO_EXPIRADA, listener);
             return false;
         }

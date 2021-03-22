@@ -38,7 +38,7 @@ public class AtualizarTipoTemplatesAvrAsyncTask__v2 extends TipoTemplatesAvrAsyn
 
         listener.atualizarTransferencia(new AtualizacaoUI_(AtualizacaoUI_.Estado.PROCESSAMENTO_TEMPLATE_AVALIACAO_RISCOS, erro));
 
-        AtualizarEquipamentosAsyncTask_ servico = new AtualizarEquipamentosAsyncTask_(listener, vvmshBaseDados, repositorio);
+        AtualizarEquipamentosAsyncTask__v2 servico = new AtualizarEquipamentosAsyncTask__v2(listener, vvmshBaseDados, repositorio);
         servico.execute(iTipoListagems);
 
     }

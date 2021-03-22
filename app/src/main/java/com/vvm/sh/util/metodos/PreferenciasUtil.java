@@ -238,6 +238,19 @@ public class PreferenciasUtil {
         return preferencias.getString(ID_UTILIZADOR, Identificadores.UTILIZADOR_INVALIDO);
     }
 
+    /**
+     * Metodo que indica se há um utilizador autenticado
+     * @param contexto
+     * @return true caso haja e false caso contrário
+     */
+    public static boolean utilizadorAutenticado(Context contexto) {
+
+        String pacote = contexto.getPackageName();
+
+        SharedPreferences preferencias = contexto.getSharedPreferences(pacote, Context.MODE_PRIVATE);
+        return !preferencias.getString(ID_UTILIZADOR, Identificadores.UTILIZADOR_INVALIDO).equals(Identificadores.UTILIZADOR_INVALIDO);
+    }
+
 
     /**
      * Metodo que permite obter a data de término da validade da autenticacao

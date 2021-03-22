@@ -19,6 +19,8 @@ public class TiposUtil {
         public static String CHECKLISTS [] = {"Industria", "Restauração", "Comércio"};
         public static String ID_CHECKLISTS [] = {"1", "2", "3"};
 
+        public static String ID_CHECKLISTS_ [] = {"4", "5", "6"};
+
         public static final String CHECKLIST = "GetCheckListNovo";
     }
 

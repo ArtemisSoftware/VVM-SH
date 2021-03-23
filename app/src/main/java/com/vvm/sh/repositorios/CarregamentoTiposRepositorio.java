@@ -7,7 +7,11 @@ import com.vvm.sh.api.SegurancaTrabalhoApi;
 import com.vvm.sh.baseDados.dao.AtualizacaoDao;
 import com.vvm.sh.baseDados.dao.TipoDao;
 import com.vvm.sh.baseDados.dao.TipoNovoDao;
+import com.vvm.sh.baseDados.entidades.AreaChecklist;
 import com.vvm.sh.baseDados.entidades.Atualizacao;
+import com.vvm.sh.baseDados.entidades.CheckList;
+import com.vvm.sh.baseDados.entidades.ItemChecklist;
+import com.vvm.sh.baseDados.entidades.SeccaoChecklist;
 import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.baseDados.entidades.TipoAtividadePlaneavel;
 import com.vvm.sh.baseDados.entidades.TipoNovo;
@@ -193,8 +197,23 @@ public class CarregamentoTiposRepositorio {
 
 
 
+    /**
+     * Metodo que permite inserir uma checklist
+     * @param checkList
+     * @param areas
+     * @param seccoes
+     * @param itens
+     */
+    public void carregarChecklist(CheckList checkList, List<AreaChecklist> areas, List<SeccaoChecklist> seccoes, List<ItemChecklist> itens) {
 
+        tipoDao.remover(checkList);
 
+        tipoDao.inserir(checkList);
+        tipoDao.inserirAreasChecklist(areas);
+        tipoDao.inserirSeccoesChecklis(seccoes);
+        tipoDao.inserirItensChecklis(itens);
+
+    }
 
 
 

@@ -77,6 +77,7 @@ public class AtualizacaoDadosActivity extends BaseDaggerActivity implements OnTr
         activityAtualizacaoTiposBinding.setAtualizacaoActivPlaneaveis(new AtualizacaoUI_(getString(R.string.por_favor_aguarde)));
         activityAtualizacaoTiposBinding.setAtualizacaoTemplates(new AtualizacaoUI_(getString(R.string.por_favor_aguarde)));
         activityAtualizacaoTiposBinding.setAtualizacaoEquipamentos(new AtualizacaoUI_(getString(R.string.por_favor_aguarde)));
+        activityAtualizacaoTiposBinding.setAtualizacaoChecklist(new AtualizacaoUI_(getString(R.string.por_favor_aguarde)));
 
         if(PreferenciasUtil.obterPrimeiraUtilizacao(this) == true) {
             viewModel.atualizarDados(this, true);
@@ -131,6 +132,11 @@ public class AtualizacaoDadosActivity extends BaseDaggerActivity implements OnTr
             case PROCESSAMENTO_EQUIPAMENTOS:
 
                 activityAtualizacaoTiposBinding.setAtualizacaoEquipamentos(atualizacaoUI);
+                break;
+
+            case PROCESSAMENTO_CHECKLIST:
+
+                activityAtualizacaoTiposBinding.setAtualizacaoChecklist(atualizacaoUI);
                 break;
 
             default:

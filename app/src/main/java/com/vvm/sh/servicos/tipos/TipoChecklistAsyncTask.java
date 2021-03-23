@@ -82,7 +82,11 @@ public abstract class TipoChecklistAsyncTask extends CarregamentoTipoAsyncTask {
                     }
                 }
 
+                repositorio.carregarChecklist(checkList, areas, seccoes, itens);
+
                 atualizarUI(++index, dados.size(), null);
+
+                //--listener.atualizarTransferencia(new AtualizacaoUI_(AtualizacaoUI_.Estado.PROCESSAMENTO_CHECKLIST, 1, 1, "Checklist"));
             }
         }
         catch(SQLiteConstraintException throwable){

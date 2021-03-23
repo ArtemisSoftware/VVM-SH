@@ -28,6 +28,10 @@
         <variable
             name="atualizacaoEquipamentos"
             type="com.vvm.sh.util.AtualizacaoUI_"/>
+
+        <variable
+            name="atualizacaoChecklist"
+            type="com.vvm.sh.util.AtualizacaoUI_"/>
     </data>
 
 
@@ -270,11 +274,80 @@ android:tintCor="@{atualizacaoTemplates.corIcon}"-->
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout5"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 app:layout_constraintStart_toStartOf="@+id/txt_titulo"
                 app:layout_constraintTop_toBottomOf="@+id/constraintLayout4">
+
+                <ProgressBar
+                    android:id="@+id/progressBar_checklist"
+                    style="?android:attr/progressBarStyle"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:elevation="0dp"
+                    android:visibility="@{atualizacaoChecklist.loading == true ? View.VISIBLE : View.INVISIBLE}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <ImageView
+                    android:id="@+id/img_completude_checklist"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+
+                    android:visibility="@{atualizacaoChecklist.loading == true ? View.INVISIBLE : View.VISIBLE}"
+                    app:layout_constraintStart_toStartOf="@+id/progressBar_checklist"
+                    app:layout_constraintTop_toTopOf="@+id/progressBar_checklist" />
+
+
+                <!--
+                android:imagemDrawable="@{atualizacaoTemplates.icon}"
+                android:tintCor="@{atualizacaoTemplates.corIcon}"-->
+
+                <TextView
+                    android:id="@+id/txt_titulo_checklist"
+                    style="@style/tituloCartao"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:gravity="center_horizontal"
+                    android:text="@string/checklists"
+                    app:layout_constraintStart_toEndOf="@+id/progressBar_checklist"
+                    app:layout_constraintTop_toTopOf="@+id/progressBar_checklist" />
+
+
+                <TextView
+                    android:id="@+id/txt_descricao_checklist"
+                    style="@style/textoDetalhe"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:gravity="center_horizontal"
+                    android:text="@{atualizacaoChecklist.mensagem, default = @string/por_favor_aguarde}"
+                    app:layout_constraintBottom_toBottomOf="@+id/progressBar_checklist"
+                    app:layout_constraintStart_toStartOf="@+id/txt_titulo_checklist"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_titulo_checklist" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="8dp"
+                app:layout_constraintStart_toStartOf="@+id/txt_titulo"
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout5">
 
                 <ProgressBar
                     android:id="@+id/progressBar_equipamentos"

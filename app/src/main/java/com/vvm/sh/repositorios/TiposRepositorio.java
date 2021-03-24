@@ -42,6 +42,7 @@ import io.reactivex.SingleSource;
 import io.reactivex.functions.BiFunction;
 import io.reactivex.functions.Function;
 import io.reactivex.functions.Function4;
+import io.reactivex.functions.Function5;
 
 public class TiposRepositorio {
 
@@ -81,11 +82,12 @@ public class TiposRepositorio {
                 atualizacaoDao.obterAtualizacoes(Identificadores.Atualizacoes.TEMPLATE),
                 atualizacaoDao.obterAtualizacoes(Identificadores.Atualizacoes.ATIVIDADES_PLANEAVEIS),
                 tipoDao.obterEquipamentosNaoValidados(),
+                tipoDao.obterChecklistDados(TiposUtil.MetodosTiposChecklist.ID_CHECKLISTS__),
 
-                new Function4<List<Atualizacao>, List<Atualizacao>, List<Atualizacao>, List<TipoNovo>, AtualizacaoTipos>() {
+                new Function5<List<Atualizacao>, List<Atualizacao>, List<Atualizacao>, List<TipoNovo>, List<CheckList>, AtualizacaoTipos>() {
                     @Override
                     public AtualizacaoTipos apply(List<Atualizacao> atualizacaoTipo, List<Atualizacao> atualizacaoTemplate, List<Atualizacao> atualizacaoAtividadesPlaneaveis,
-                                                  List<TipoNovo> tipoNovos) throws Exception {
+                                                  List<TipoNovo> tipoNovos, List<CheckList> checkLists) throws Exception {
 
                         List<TiposUtil.MetodoApi> atualizacoes = TiposUtil.fixarSeloTemporal(atualizacaoTipo);
 
@@ -96,10 +98,36 @@ public class TiposRepositorio {
                         AtualizacaoTipos atualizacaoTipos = new AtualizacaoTipos();
                         atualizacaoTipos.atualizacoes = atualizacoes;
                         atualizacaoTipos.tiposNovos = tipoNovos;
+                        atualizacaoTipos.checklists = checkLists;
                         return atualizacaoTipos;
                     }
-                }
-        );
+                });
+
+
+//        return Maybe.zip(
+//                atualizacaoDao.obterAtualizacoes(Identificadores.Atualizacoes.TIPO),
+//                atualizacaoDao.obterAtualizacoes(Identificadores.Atualizacoes.TEMPLATE),
+//                atualizacaoDao.obterAtualizacoes(Identificadores.Atualizacoes.ATIVIDADES_PLANEAVEIS),
+//                tipoDao.obterEquipamentosNaoValidados(),
+//
+//                new Function4<List<Atualizacao>, List<Atualizacao>, List<Atualizacao>, List<TipoNovo>, AtualizacaoTipos>() {
+//                    @Override
+//                    public AtualizacaoTipos apply(List<Atualizacao> atualizacaoTipo, List<Atualizacao> atualizacaoTemplate, List<Atualizacao> atualizacaoAtividadesPlaneaveis,
+//                                                  List<TipoNovo> tipoNovos) throws Exception {
+//
+//                        List<TiposUtil.MetodoApi> atualizacoes = TiposUtil.fixarSeloTemporal(atualizacaoTipo);
+//
+//                        //TODO: para sh
+//                        //atualizacoes.addAll(TiposUtil.fixarSeloTemporal(atualizacaos2));
+//                        //atualizacoes.addAll(TiposUtil.fixarSeloTemporal(atualizacaos3));
+//
+//                        AtualizacaoTipos atualizacaoTipos = new AtualizacaoTipos();
+//                        atualizacaoTipos.atualizacoes = atualizacoes;
+//                        atualizacaoTipos.tiposNovos = tipoNovos;
+//                        return atualizacaoTipos;
+//                    }
+//                }
+//        );
     }
 
 

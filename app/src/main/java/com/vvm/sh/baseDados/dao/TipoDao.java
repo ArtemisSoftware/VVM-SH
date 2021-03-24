@@ -48,7 +48,7 @@ abstract public class TipoDao implements BaseDao<Tipo> {
     abstract public Maybe<List<TipoNovo>> obterEquipamentosNaoValidados();
 
     @Query("SELECT * FROM checklist WHERE id IN (:ids) ")
-    abstract public Maybe<List<CheckList>> obterChecklistDados(List<Integer> ids);
+    abstract public Maybe<List<CheckList>> obterChecklistDados(Integer[] ids);
 
 
 

@@ -8,13 +8,19 @@ import com.vvm.sh.api.SegurancaTrabalhoApi;
 import com.vvm.sh.api.modelos.pedido.Codigo;
 import com.vvm.sh.api.modelos.pedido.IContagemTipoMaquina;
 import com.vvm.sh.api.modelos.pedido.ISessao;
+import com.vvm.sh.api.modelos.pedido.ITipoAtividadePlaneavelListagem;
+import com.vvm.sh.api.modelos.pedido.ITipoChecklist;
 import com.vvm.sh.api.modelos.pedido.ITipoListagem;
+import com.vvm.sh.api.modelos.pedido.ITipoTemplateAvrLevantamentoListagem;
+import com.vvm.sh.api.modelos.pedido.ITipoTemplateAvrRiscoListagem;
 import com.vvm.sh.baseDados.dao.TransferenciasDao;
 import com.vvm.sh.baseDados.dao.TransferenciasDao_v2;
 import com.vvm.sh.baseDados.entidades.Resultado;
 import com.vvm.sh.baseDados.entidades.Tarefa;
 import com.vvm.sh.baseDados.entidades.TipoNovo;
+import com.vvm.sh.ui.opcoes.modelos.ResumoChecklist;
 import com.vvm.sh.ui.opcoes.modelos.ResumoTipo;
+import com.vvm.sh.ui.opcoes.modelos.TemplateAvr;
 import com.vvm.sh.ui.transferencias.modelos.AtualizacaoTipos;
 import com.vvm.sh.ui.transferencias.modelos.DadosUpload;
 import com.vvm.sh.ui.transferencias.modelos.Sessao;
@@ -590,6 +596,43 @@ public class RedeRepositorio {
 
         return Single.concatArray(source).toList();
     }
+
+
+    public Single<ITipoAtividadePlaneavelListagem> obterAtividadesPlaneaveis() throws TipoInexistenteException {
+        return apiST.obterTipoAtividadesPlaneaveis(SegurancaTrabalhoApi.HEADER_TIPO);
+    }
+
+
+    public Single<ITipoChecklist> obterChecklist(ResumoChecklist resumo)  {
+        return apiST.obterChecklist(SegurancaTrabalhoApi.HEADER_TIPO, resumo.checkList.id + "");
+    }
+
+
+    public Single<TemplateAvr> obterTemplateAvr() throws TipoInexistenteException {
+
+        Single<TemplateAvr> single = Single.zip(
+                apiST.obterTipoTemplatesAVR_Levantamentos(SegurancaTrabalhoApi.HEADER_TIPO),
+                apiST.obterTipoTemplatesAVR_Riscos(SegurancaTrabalhoApi.HEADER_TIPO),
+                new BiFunction<ITipoTemplateAvrLevantamentoListagem, ITipoTemplateAvrRiscoListagem, TemplateAvr>() {
+                    @Override
+                    public TemplateAvr apply(ITipoTemplateAvrLevantamentoListagem levantamentos, ITipoTemplateAvrRiscoListagem riscos) throws Exception {
+
+                        TemplateAvr resultado = new TemplateAvr();
+                        resultado.levantamentos = levantamentos;
+                        resultado.riscos = riscos;
+
+                        return resultado;
+                    }
+                });
+
+
+        return single;
+    }
+
+
+
+
+
 
 
     public Single<List<Object>> obterDados(AtualizacaoTipos atualizacoes) {

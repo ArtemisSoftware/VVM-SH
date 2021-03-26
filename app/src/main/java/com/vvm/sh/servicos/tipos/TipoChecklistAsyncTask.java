@@ -82,7 +82,7 @@ public abstract class TipoChecklistAsyncTask extends CarregamentoTipoAsyncTask {
                     }
                 }
 
-                repositorio.carregarChecklist(checkList, areas, seccoes, itens);
+                //--repositorio.carregarChecklist(checkList, areas, seccoes, itens);
 
                 atualizarUI(++index, dados.size(), null);
 

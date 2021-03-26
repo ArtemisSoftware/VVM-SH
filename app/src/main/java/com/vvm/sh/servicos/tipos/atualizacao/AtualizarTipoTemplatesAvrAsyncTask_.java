@@ -60,88 +60,88 @@ public class AtualizarTipoTemplatesAvrAsyncTask_ extends AtualizarTipoAsyncTask_
             @Override
             public void run(){
 
-                try {
-
-                    Atualizacao atualizacao = null;
-                    List<TipoTemplateAvrLevantamento> dadosNovos = new ArrayList<>();
-                    List<TipoTemplateAvrLevantamento> dadosAlterados = new ArrayList<>();
-
-
-                    if(finalDadosLevantamento != null) {
-
-                        atualizacao = DownloadMapping.INSTANCE.map(finalDadosLevantamento);
-
-                        for (ITipoTemplateAvrLevantamento item : finalDadosLevantamento.dadosNovos) {
-
-                            TipoTemplateAvrLevantamento registo = DownloadMapping.INSTANCE.map(item);
-                            dadosNovos.add(registo);
-                        }
-
-                        for (ITipoTemplateAvrLevantamento item : finalDadosLevantamento.dadosAlterados) {
-                            dadosAlterados.add(DownloadMapping.INSTANCE.map(item));
-                        }
-
-                        listener.atualizarTransferencia(new AtualizacaoUI_(AtualizacaoUI_.Estado.PROCESSAMENTO_TEMPLATE_AVALIACAO_RISCOS, 1, 2, obterDescricaoApi(atualizacao) + " " + atualizacao.descricao));
-
-                    }
-
-
-                    Atualizacao atualizacaoRisco = null;
-                    List<TipoTemplateAvrRisco> dadosNovosRiscos = new ArrayList<>();
-                    List<TipoTemplateAvrRisco> dadosAlteradosRiscos = new ArrayList<>();
-
-                    List<TipoTemplatesAVRMedidaRisco> medidasExistentes = new ArrayList<>();
-                    List<TipoTemplatesAVRMedidaRisco> medidasAlteradasExistentes = new ArrayList<>();
-                    List<TipoTemplatesAVRMedidaRisco> medidasRecomendadas = new ArrayList<>();
-                    List<TipoTemplatesAVRMedidaRisco> medidasAlteradasRecomendadas = new ArrayList<>();
-
-                    if(finalDadosRisco != null) {
-
-                        atualizacaoRisco = DownloadMapping.INSTANCE.map(finalDadosRisco);
-
-                        for (ITipoTemplateAvrRisco item : finalDadosRisco.dadosNovos) {
-
-                            TipoTemplateAvrRisco registo = DownloadMapping.INSTANCE.map(item);
-                            dadosNovosRiscos.add(registo);
-
-                            for (int medida : item.medidasExistentes) {
-                                medidasExistentes.add(new TipoTemplatesAVRMedidaRisco(registo.id, Identificadores.Origens.MEDIDAS_RISCO_EXISTENTES, medida));
-                            }
-
-                            for (int medida : item.medidasRecomendadas) {
-                                medidasRecomendadas.add(new TipoTemplatesAVRMedidaRisco(registo.id, Identificadores.Origens.MEDIDAS_RISCO_RECOMENDADAS, medida));
-                            }
-                        }
-
-                        for (ITipoTemplateAvrRisco item : finalDadosRisco.dadosAlterados) {
-
-                            TipoTemplateAvrRisco registo = DownloadMapping.INSTANCE.map(item);
-                            dadosAlteradosRiscos.add(registo);
-
-                            for (int medida : item.medidasExistentes) {
-                                medidasAlteradasExistentes.add(new TipoTemplatesAVRMedidaRisco(registo.id, Identificadores.Origens.MEDIDAS_RISCO_EXISTENTES, medida));
-                            }
-
-                            for (int medida : item.medidasRecomendadas) {
-                                medidasAlteradasRecomendadas.add(new TipoTemplatesAVRMedidaRisco(registo.id, Identificadores.Origens.MEDIDAS_RISCO_RECOMENDADAS, medida));
-                            }
-                        }
-
-                        listener.atualizarTransferencia(new AtualizacaoUI_(AtualizacaoUI_.Estado.PROCESSAMENTO_TEMPLATE_AVALIACAO_RISCOS, 2, 2, obterDescricaoApi(atualizacao) + " " + atualizacao.descricao));
-                    }
-
-
-                    repositorio.atualizarTipoTemplateAvr(
-                            atualizacao, dadosNovos, dadosAlterados,
-                            atualizacaoRisco, dadosNovosRiscos, dadosAlteradosRiscos,
-                            medidasExistentes, medidasAlteradasExistentes, medidasRecomendadas, medidasAlteradasRecomendadas);
-
-                    listener.atualizarTransferencia(new AtualizacaoUI_(AtualizacaoUI_.Estado.PROCESSAMENTO_TEMPLATE_AVALIACAO_RISCOS, 1, 1, obterDescricaoApi(atualizacao) + " Templates"));
-
-                }
-                catch(SQLiteConstraintException throwable){
-                    erro = throwable.getMessage();
-                }
+//                try {
+//
+//                    Atualizacao atualizacao = null;
+//                    List<TipoTemplateAvrLevantamento> dadosNovos = new ArrayList<>();
+//                    List<TipoTemplateAvrLevantamento> dadosAlterados = new ArrayList<>();
+//
+//
+//                    if(finalDadosLevantamento != null) {
+//
+//                        atualizacao = DownloadMapping.INSTANCE.map(finalDadosLevantamento);
+//
+//                        for (ITipoTemplateAvrLevantamento item : finalDadosLevantamento.dadosNovos) {
+//
+//                            TipoTemplateAvrLevantamento registo = DownloadMapping.INSTANCE.map(item);
+//                            dadosNovos.add(registo);
+//                        }
+//
+//                        for (ITipoTemplateAvrLevantamento item : finalDadosLevantamento.dadosAlterados) {
+//                            dadosAlterados.add(DownloadMapping.INSTANCE.map(item));
+//                        }
+//
+//                        listener.atualizarTransferencia(new AtualizacaoUI_(AtualizacaoUI_.Estado.PROCESSAMENTO_TEMPLATE_AVALIACAO_RISCOS, 1, 2, obterDescricaoApi(atualizacao) + " " + atualizacao.descricao));
+//
+//                    }
+//
+//
+//                    Atualizacao atualizacaoRisco = null;
+//                    List<TipoTemplateAvrRisco> dadosNovosRiscos = new ArrayList<>();
+//                    List<TipoTemplateAvrRisco> dadosAlteradosRiscos = new ArrayList<>();
+//
+//                    List<TipoTemplatesAVRMedidaRisco> medidasExistentes = new ArrayList<>();
+//                    List<TipoTemplatesAVRMedidaRisco> medidasAlteradasExistentes = new ArrayList<>();
+//                    List<TipoTemplatesAVRMedidaRisco> medidasRecomendadas = new ArrayList<>();
+//                    List<TipoTemplatesAVRMedidaRisco> medidasAlteradasRecomendadas = new ArrayList<>();
+//
+//                    if(finalDadosRisco != null) {
+//
+//                        atualizacaoRisco = DownloadMapping.INSTANCE.map(finalDadosRisco);
+//
+//                        for (ITipoTemplateAvrRisco item : finalDadosRisco.dadosNovos) {
+//
+//                            TipoTemplateAvrRisco registo = DownloadMapping.INSTANCE.map(item);
+//                            dadosNovosRiscos.add(registo);
+//
+//                            for (int medida : item.medidasExistentes) {
+//                                medidasExistentes.add(new TipoTemplatesAVRMedidaRisco(registo.id, Identificadores.Origens.MEDIDAS_RISCO_EXISTENTES, medida));
+//                            }
+//
+//                            for (int medida : item.medidasRecomendadas) {
+//                                medidasRecomendadas.add(new TipoTemplatesAVRMedidaRisco(registo.id, Identificadores.Origens.MEDIDAS_RISCO_RECOMENDADAS, medida));
+//                            }
+//                        }
+//
+//                        for (ITipoTemplateAvrRisco item : finalDadosRisco.dadosAlterados) {
+//
+//                            TipoTemplateAvrRisco registo = DownloadMapping.INSTANCE.map(item);
+//                            dadosAlteradosRiscos.add(registo);
+//
+//                            for (int medida : item.medidasExistentes) {
+//                                medidasAlteradasExistentes.add(new TipoTemplatesAVRMedidaRisco(registo.id, Identificadores.Origens.MEDIDAS_RISCO_EXISTENTES, medida));
+//                            }
+//
+//                            for (int medida : item.medidasRecomendadas) {
+//                                medidasAlteradasRecomendadas.add(new TipoTemplatesAVRMedidaRisco(registo.id, Identificadores.Origens.MEDIDAS_RISCO_RECOMENDADAS, medida));
+//                            }
+//                        }
+//
+//                        listener.atualizarTransferencia(new AtualizacaoUI_(AtualizacaoUI_.Estado.PROCESSAMENTO_TEMPLATE_AVALIACAO_RISCOS, 2, 2, obterDescricaoApi(atualizacao) + " " + atualizacao.descricao));
+//                    }
+//
+//
+//                    repositorio.atualizarTipoTemplateAvr(
+//                            atualizacao, dadosNovos, dadosAlterados,
+//                            atualizacaoRisco, dadosNovosRiscos, dadosAlteradosRiscos,
+//                            medidasExistentes, medidasAlteradasExistentes, medidasRecomendadas, medidasAlteradasRecomendadas);
+//
+//                    listener.atualizarTransferencia(new AtualizacaoUI_(AtualizacaoUI_.Estado.PROCESSAMENTO_TEMPLATE_AVALIACAO_RISCOS, 1, 1, obterDescricaoApi(atualizacao) + " Templates"));
+//
+//                }
+//                catch(SQLiteConstraintException throwable){
+//                    erro = throwable.getMessage();
+//                }
             }
         });
 

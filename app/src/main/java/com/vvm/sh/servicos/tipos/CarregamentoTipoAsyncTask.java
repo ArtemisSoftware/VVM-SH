@@ -74,6 +74,10 @@ public abstract class CarregamentoTipoAsyncTask extends AsyncTask<List<Object>, 
 
         String resultado = "";
 
+        if(atualizacao == null){
+            return resultado;
+        }
+
         switch (atualizacao.api){
 
             case Identificadores.App.APP_SA:

@@ -23,13 +23,21 @@ public class AtualizacaoTipos {
 
         List<Integer> ids = new ArrayList<>();
 
-        if(checklists.size() == TiposUtil.MetodosTiposChecklist.ID_CHECKLISTS_.length){
+        if(checklists.size() == TiposUtil.MetodosTiposChecklist.ID_CHECKLISTS__.length){
+
+            return ids;
+        }
+        else if(checklists.size() == 0){
+
+            for (Integer item : TiposUtil.MetodosTiposChecklist.ID_CHECKLISTS__) {
+                ids.add(item);
+            }
 
             return ids;
         }
         else{
 
-            LinkedList registos = new LinkedList(Arrays.asList(TiposUtil.MetodosTiposChecklist.ID_CHECKLISTS_));
+            LinkedList registos = new LinkedList(Arrays.asList(TiposUtil.MetodosTiposChecklist.ID_CHECKLISTS__));
 
             for (CheckList item : checklists) {
                 if(registos.contains(item.id) == false){

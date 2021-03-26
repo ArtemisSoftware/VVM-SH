@@ -9,12 +9,24 @@ import androidx.room.PrimaryKey;
 
 import static androidx.room.ForeignKey.CASCADE;
 
-@Entity(tableName = "tiposAtividadesPlaneaveis")
+@Entity(tableName = "tiposAtividadesPlaneaveis",
+        foreignKeys = @ForeignKey(
+        entity = Atualizacao.class,
+        parentColumns = {"descricao", "api"},
+        childColumns = {"tipo", "api"},
+        onDelete = CASCADE)
+)
 public class TipoAtividadePlaneavel {
 
     @NonNull
     @PrimaryKey(autoGenerate = true)
     public int id;
+
+    @NonNull
+    public String tipo;
+
+    @NonNull
+    public int api;
 
     @ColumnInfo(name = "codigo")
     public String codigo;

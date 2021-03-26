@@ -6,6 +6,7 @@ import android.widget.GridView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import androidx.core.content.ContextCompat;
 import androidx.databinding.BindingAdapter;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
@@ -129,6 +130,29 @@ public class ImagemBinding {
                 .load(imagem)
                 .into(view);
 
+    }
+
+
+    @BindingAdapter({"imageResource", "tintCor"})
+    public static void setImageResource(ImageView imageView, int resource, int tintCor){
+
+        if(tintCor == -1){
+            return;
+        }
+
+        Context context = imageView.getContext();
+
+        //imageView.setImageResource(resource);
+        imageView.setColorFilter(ContextCompat.getColor(context, tintCor), android.graphics.PorterDuff.Mode.SRC_IN);
+
+        RequestOptions options = new RequestOptions()
+                //.placeholder(defaultImageUrl)
+                .error(R.drawable.ic_launcher_foreground);
+
+        Glide.with(context)
+                .setDefaultRequestOptions(options)
+                .load(resource)
+                .into(imageView);
     }
 
 }

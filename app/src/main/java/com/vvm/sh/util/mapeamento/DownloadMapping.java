@@ -64,14 +64,16 @@ public interface DownloadMapping {
 
     static final DownloadMapping INSTANCE = Mappers.getMapper( DownloadMapping.class );
 
-//    @Mapping(source = "metodo", target = "descricao")
-//    @Mapping(source = "seloTemporal", target = "seloTemporal")
-//    Atualizacao map(ITipoListagem item);
 
     @Mapping(target = "descricao", source = "metodo")
     @Mapping(target = "seloTemporal", source = "seloTemporal")
     @Mapping(target = "tipo", constant = Identificadores.Atualizacoes.TIPO + "")
     Atualizacao map(ITipoListagem resposta);
+
+
+    @Mapping(target = "descricao", source = "metodo")
+    @Mapping(target = "tipo", constant = Identificadores.Atualizacoes.ATIVIDADES_PLANEAVEIS + "")
+    Atualizacao map(ITipoAtividadePlaneavelListagem resposta);
 
 
     @Mapping(target = "descricao", source = "metodo")
@@ -82,9 +84,6 @@ public interface DownloadMapping {
     @Mapping(target = "tipo", constant = Identificadores.Atualizacoes.TEMPLATE + "")
     Atualizacao map(ITipoTemplateAvrRiscoListagem riscos);
 
-    @Mapping(target = "descricao", source = "metodo")
-    @Mapping(target = "tipo", constant = Identificadores.Atualizacoes.ATIVIDADES_PLANEAVEIS + "")
-    Atualizacao map(ITipoAtividadePlaneavelListagem resposta);
 
     @Mapping(target = "id", source = "id")
     @Mapping(target = "area", source = "area")
@@ -95,17 +94,41 @@ public interface DownloadMapping {
 
 
 
+    //-------------------------
+    //Tipos
+    //-------------------------
 
 
-
-    @Mapping(source = "item.id", target = "id")
-    @Mapping(source = "item.descricao", target = "descricao")
-    @Mapping(source = "item.codigo", target = "codigo")
-    @Mapping(source = "item.idPai", target = "idPai")
-    @Mapping(source = "item.ativo", target = "ativo")
-    @Mapping(source = "item.detalhe", target = "detalhe")
-    @Mapping(source = "resposta.metodo", target = "tipo")
+    @Mapping(target = "id", source = "item.id")
+    @Mapping(target = "descricao", source = "item.descricao")
+    @Mapping(target = "codigo", source = "item.codigo")
+    @Mapping(target = "idPai", source = "item.idPai")
+    @Mapping(target = "ativo", source = "item.ativo")
+    @Mapping(target = "detalhe", source = "item.detalhe")
+    @Mapping(target = "tipo", source = "resposta.metodo")
     Tipo map(ITipo item, ITipoListagem resposta);
+
+
+    @Mapping(target = "codigo", source = "item.codigo")
+    @Mapping(target = "tipo", source = "resposta.metodo")
+    TipoAtividadePlaneavel map(ITipoAtividadePlaneavel item, ITipoAtividadePlaneavelListagem resposta);
+
+
+    @Mapping(target = "tipo", source = "resposta.metodo")
+    TipoTemplateAvrLevantamento map(ITipoTemplateAvrLevantamento item, ITipoTemplateAvrLevantamentoListagem resposta);
+
+
+    @Mapping(target = "tipo", source = "resposta.metodo")
+    TipoTemplateAvrRisco map(ITipoTemplateAvrRisco item, ITipoTemplateAvrRiscoListagem resposta);
+
+
+
+
+
+
+
+
+
 
 
 
@@ -180,14 +203,7 @@ public interface DownloadMapping {
     PlanoAcaoAtividade map(IPlanoAcao.IAtividadePlano iAtividadePlano);
 
 
-    TipoTemplateAvrLevantamento map(ITipoTemplateAvrLevantamento item);
 
-
-    TipoTemplateAvrRisco map(ITipoTemplateAvrRisco item);
-
-
-    @Mapping(source = "item.codigo", target = "codigo")
-    TipoAtividadePlaneavel map(ITipoAtividadePlaneavel item, ITipoAtividadePlaneavelListagem resposta);
 
     @Mapping(target = "descricao", source = "descricao")
     @Mapping(target = "tipo", constant = Identificadores.Origens.AVERIGUACAO_AVALIACAO_RISCOS + "")

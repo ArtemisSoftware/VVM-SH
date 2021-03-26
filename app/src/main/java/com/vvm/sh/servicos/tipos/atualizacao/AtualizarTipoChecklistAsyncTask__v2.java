@@ -4,12 +4,13 @@ import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.baseDados.entidades.Atualizacao;
 import com.vvm.sh.repositorios.CarregamentoTiposRepositorio;
 import com.vvm.sh.servicos.tipos.TipoAtividadesPlaneaveisAsyncTask;
+import com.vvm.sh.servicos.tipos.TipoChecklistAsyncTask;
 import com.vvm.sh.ui.transferencias.adaptadores.OnTransferenciaListener;
 import com.vvm.sh.util.AtualizacaoUI_;
 
 import java.util.List;
 
-public class AtualizarTipoChecklistAsyncTask__v2 extends TipoAtividadesPlaneaveisAsyncTask {
+public class AtualizarTipoChecklistAsyncTask__v2 extends TipoChecklistAsyncTask {
 
     private OnTransferenciaListener listener;
 

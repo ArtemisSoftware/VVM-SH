@@ -61,7 +61,7 @@ public abstract class TipoTemplatesAvrAsyncTask extends CarregamentoTipoAsyncTas
     }
 
     @Override
-    protected void inserirRegisto(Object resposta, Atualizacao atualizacao___) {
+    protected void inserirRegisto(Object resposta, Atualizacao atualizacao) {
 
 
         Atualizacao atualizacaoLevantamento = null;
@@ -75,14 +75,13 @@ public abstract class TipoTemplatesAvrAsyncTask extends CarregamentoTipoAsyncTas
 
             for (ITipoTemplateAvrLevantamento item : finalDadosLevantamento.dadosNovos) {
 
-                TipoTemplateAvrLevantamento registo = DownloadMapping.INSTANCE.map(item);
+                TipoTemplateAvrLevantamento registo = DownloadMapping.INSTANCE.map(item, finalDadosLevantamento);
                 dadosNovos.add(registo);
             }
 
             for (ITipoTemplateAvrLevantamento item : finalDadosLevantamento.dadosAlterados) {
-                dadosAlterados.add(DownloadMapping.INSTANCE.map(item));
+                dadosAlterados.add(DownloadMapping.INSTANCE.map(item, finalDadosLevantamento));
             }
-
         }
 
 
@@ -101,7 +100,7 @@ public abstract class TipoTemplatesAvrAsyncTask extends CarregamentoTipoAsyncTas
 
             for (ITipoTemplateAvrRisco item : finalDadosRisco.dadosNovos) {
 
-                TipoTemplateAvrRisco registo = DownloadMapping.INSTANCE.map(item);
+                TipoTemplateAvrRisco registo = DownloadMapping.INSTANCE.map(item, finalDadosRisco);
                 dadosNovosRiscos.add(registo);
 
                 for (int medida : item.medidasExistentes) {
@@ -115,7 +114,7 @@ public abstract class TipoTemplatesAvrAsyncTask extends CarregamentoTipoAsyncTas
 
             for (ITipoTemplateAvrRisco item : finalDadosRisco.dadosAlterados) {
 
-                TipoTemplateAvrRisco registo = DownloadMapping.INSTANCE.map(item);
+                TipoTemplateAvrRisco registo = DownloadMapping.INSTANCE.map(item, finalDadosRisco);
                 dadosAlteradosRiscos.add(registo);
 
                 for (int medida : item.medidasExistentes) {

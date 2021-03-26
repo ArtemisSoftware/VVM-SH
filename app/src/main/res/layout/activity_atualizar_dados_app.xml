@@ -98,10 +98,13 @@
 
                 <ImageView
                     android:id="@+id/img_completude_tipo"
-                    android:layout_width="56dp"
-                    android:layout_height="56dp"
-
+                    imageResource="@{atualizacaoTipos.icon}"
+                    tintCor="@{atualizacaoTipos.corIcon}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:visibility="@{atualizacaoTipos.loading == true ? View.INVISIBLE : View.VISIBLE}"
+                    app:layout_constraintBottom_toBottomOf="@+id/progressBar_tipo"
+                    app:layout_constraintEnd_toEndOf="@+id/progressBar_tipo"
                     app:layout_constraintStart_toStartOf="@+id/progressBar_tipo"
                     app:layout_constraintTop_toTopOf="@+id/progressBar_tipo" />
 
@@ -164,9 +167,13 @@ android:tintCor="@{atualizacaoTipos.corIcon}"-->
 
                 <ImageView
                     android:id="@+id/img_completude_activ_planeaveis"
-                    android:layout_width="56dp"
-                    android:layout_height="56dp"
+                    imageResource="@{atualizacaoActivPlaneaveis.icon}"
+                    tintCor="@{atualizacaoActivPlaneaveis.corIcon}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:visibility="@{atualizacaoActivPlaneaveis.loading == true ? View.INVISIBLE : View.VISIBLE}"
+                    app:layout_constraintBottom_toBottomOf="@+id/progressBar_activ_planeaveis"
+                    app:layout_constraintEnd_toEndOf="@+id/progressBar_activ_planeaveis"
                     app:layout_constraintStart_toStartOf="@+id/progressBar_activ_planeaveis"
                     app:layout_constraintTop_toTopOf="@+id/progressBar_activ_planeaveis" />
 
@@ -230,10 +237,15 @@ android:tintCor="@{atualizacaoActivPlaneaveis.corIcon}"-->
 
                 <ImageView
                     android:id="@+id/img_completude_templates"
-                    android:layout_width="56dp"
-                    android:layout_height="56dp"
+                    imageResource="@{atualizacaoTemplates.icon}"
+                    tintCor="@{atualizacaoTemplates.corIcon}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
 
                     android:visibility="@{atualizacaoTemplates.loading == true ? View.INVISIBLE : View.VISIBLE}"
+
+                    app:layout_constraintBottom_toBottomOf="@+id/progressBar_templates"
+                    app:layout_constraintEnd_toEndOf="@+id/progressBar_templates"
                     app:layout_constraintStart_toStartOf="@+id/progressBar_templates"
                     app:layout_constraintTop_toTopOf="@+id/progressBar_templates" />
 
@@ -298,10 +310,14 @@ android:tintCor="@{atualizacaoTemplates.corIcon}"-->
 
                 <ImageView
                     android:id="@+id/img_completude_checklist"
-                    android:layout_width="56dp"
-                    android:layout_height="56dp"
+                    imageResource="@{atualizacaoChecklist.icon}"
+                    tintCor="@{atualizacaoChecklist.corIcon}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
 
                     android:visibility="@{atualizacaoChecklist.loading == true ? View.INVISIBLE : View.VISIBLE}"
+                    app:layout_constraintBottom_toBottomOf="@+id/progressBar_checklist"
+                    app:layout_constraintEnd_toEndOf="@+id/progressBar_checklist"
                     app:layout_constraintStart_toStartOf="@+id/progressBar_checklist"
                     app:layout_constraintTop_toTopOf="@+id/progressBar_checklist" />
 
@@ -366,12 +382,17 @@ android:tintCor="@{atualizacaoTemplates.corIcon}"-->
 
                 <ImageView
                     android:id="@+id/img_completude_equipamentos"
-                    android:layout_width="56dp"
-                    android:layout_height="56dp"
+                    imageResource="@{atualizacaoEquipamentos.icon}"
+                    tintCor="@{atualizacaoEquipamentos.corIcon}"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
 
                     android:visibility="@{atualizacaoEquipamentos.loading == true ? View.INVISIBLE : View.VISIBLE}"
+
+                    app:layout_constraintBottom_toBottomOf="@+id/progressBar_equipamentos"
+                    app:layout_constraintEnd_toEndOf="@+id/progressBar_equipamentos"
                     app:layout_constraintStart_toStartOf="@+id/progressBar_equipamentos"
-                    app:layout_constraintTop_toTopOf="@+id/progressBar_equipamentos" />
+                    app:layout_constraintTop_toTopOf="@+id/progressBar_equipamentos"/>
 
 
                 <!--

@@ -17,11 +17,90 @@ public class Migracao {
                 MIGRACAO_1_2, MIGRACAO_2_3, MIGRACAO_3_4, MIGRACAO_4_5, MIGRACAO_5_6, MIGRACAO_6_7, MIGRACAO_7_8, MIGRACAO_8_9, MIGRACAO_9_10,
                 MIGRACAO_10_11, MIGRACAO_11_12, MIGRACAO_12_13, MIGRACAO_13_14, MIGRACAO_14_15, MIGRACAO_15_16, MIGRACAO_16_17, MIGRACAO_17_18, MIGRACAO_18_19, MIGRACAO_19_20,
                 MIGRACAO_20_21, MIGRACAO_21_22, MIGRACAO_22_23, MIGRACAO_23_24, MIGRACAO_24_25, MIGRACAO_25_26, MIGRACAO_26_27, MIGRACAO_27_28, MIGRACAO_28_29, MIGRACAO_29_30,
-                MIGRACAO_30_31, MIGRACAO_31_32, MIGRACAO_32_33, MIGRACAO_33_34, MIGRACAO_34_35, MIGRACAO_35_36, MIGRACAO_36_37, MIGRACAO_37_38
+                MIGRACAO_30_31, MIGRACAO_31_32, MIGRACAO_32_33, MIGRACAO_33_34, MIGRACAO_34_35, MIGRACAO_35_36, MIGRACAO_36_37, MIGRACAO_37_38, MIGRACAO_38_39
         };
 
         return migrations;
     }
+
+
+
+    public static final Migration MIGRACAO_38_39 = new Migration(38, 39) {
+        @Override
+        public void migrate(SupportSQLiteDatabase database) {
+            try {
+
+
+                database.execSQL("DROP TABLE IF EXISTS 'tiposAtividadesPlaneaveis' ");
+
+                database.execSQL("CREATE TABLE IF NOT EXISTS 'tiposAtividadesPlaneaveis' ("
+                        + "'id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
+                        + "'tipo' TEXT NOT NULL, "
+                        + "'codigo' TEXT , "
+                        + "'servId' TEXT NOT NULL, "
+                        + "'descricao' TEXT NOT NULL, "
+                        + "'descricaoCompleta' TEXT NOT NULL, "
+                        + "'equipa' TEXT NOT NULL, "
+                        + "'sempreNecessario' INTEGER NOT NULL, "
+                        + "'ordem' INTEGER NOT NULL, "
+                        + "'relatorio' INTEGER NOT NULL, "
+                        + "'observacao' TEXT , "
+                        + "'api' INTEGER NOT NULL, "
+                        + "'ativo' INTEGER NOT NULL, "
+                        + "FOREIGN KEY (tipo, api) REFERENCES atualizacoes (descricao, api)  ON DELETE CASCADE) ");
+
+
+
+
+                database.execSQL("DROP TABLE IF EXISTS 'tiposTemplateAvrLevantamentos'");
+
+                database.execSQL("CREATE TABLE IF NOT EXISTS 'tiposTemplateAvrLevantamentos' ("
+                        + "'id' INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, "
+                        + "'tipo' TEXT NOT NULL, "
+                        + "'idModelo' INTEGER NOT NULL , "
+                        + "'tarefa' TEXT NOT NULL, "
+                        + "'perigo' TEXT NOT NULL, "
+                        + "'api' INTEGER NOT NULL, "
+                        + "'ativo' INTEGER NOT NULL, "
+                        + "FOREIGN KEY (tipo, api) REFERENCES atualizacoes (descricao, api)  ON DELETE CASCADE) ");
+
+
+
+                database.execSQL("DROP TABLE IF EXISTS 'tiposTemplateAvrRiscos' ");
+
+                database.execSQL("CREATE TABLE IF NOT EXISTS 'tiposTemplateAvrRiscos' ("
+                        + "'id' INTEGER NOT NULL, "
+                        + "'tipo' TEXT NOT NULL, "
+                        + "'idLevantamento' INTEGER NOT NULL , "
+                        + "'idRisco' INTEGER NOT NULL, "
+                        + "'idRiscoEspecifico' INTEGER NOT NULL, "
+                        + "'consequencias' TEXT NOT NULL, "
+                        + "'ativo' INTEGER NOT NULL, "
+                        + "'api' INTEGER NOT NULL, "
+                        + "PRIMARY KEY (id), "
+                        + "FOREIGN KEY (tipo, api) REFERENCES atualizacoes (descricao, api)  ON DELETE CASCADE) ");
+
+
+
+                database.execSQL("DROP TABLE IF EXISTS 'tiposTemplatesAVRMedidasRisco' ");
+
+                database.execSQL("CREATE TABLE IF NOT EXISTS 'tiposTemplatesAVRMedidasRisco' ("
+                        + "'id' INTEGER NOT NULL, "
+                        + "'origem' INTEGER NOT NULL , "
+                        + "'idMedida' INTEGER NOT NULL, "
+                        + "PRIMARY KEY (id, origem, idMedida), "
+                        + "FOREIGN KEY (id) REFERENCES tiposTemplateAvrRiscos (id)  ON DELETE CASCADE)  ");
+
+
+            }
+            catch(SQLException | IllegalStateException e){
+                Log.e("Migracao", "erro MIGRACAO_38_39: " + e.getMessage());
+                //Timber.e("erro MIGRACAO_2_3: " + e.getMessage());
+            }
+        }
+    };
+
+
 
     public static final Migration MIGRACAO_37_38 = new Migration(37, 38) {
         @Override
@@ -70,7 +149,7 @@ public class Migracao {
         }
     };
 
-                public static final Migration MIGRACAO_36_37 = new Migration(36, 37) {
+    public static final Migration MIGRACAO_36_37 = new Migration(36, 37) {
         @Override
         public void migrate(SupportSQLiteDatabase database) {
             try {

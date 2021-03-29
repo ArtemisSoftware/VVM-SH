@@ -91,6 +91,164 @@ public class TransferenciasViewModel extends BaseViewModel {
 
 
 
+    /**
+     * Metodo que permite atualizar os tipos
+     */
+    public void atualizarDados(OnTransferenciaListener listener) {
+
+        tiposRepositorio.obterAtualizacoes()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new MaybeObserver<AtualizacaoTipos>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onSuccess(AtualizacaoTipos atualizacoes) {
+                                atualizarTipos(listener, atualizacoes);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onComplete() {
+                                showProgressBar(false);
+                            }
+                        }
+                );
+    }
+
+
+
+    /**
+     * Metodo que permite eliminar todas as atualizacoes e recarregar todos os dados
+     * @param listener
+     */
+    public void recarregarDados(OnTransferenciaListener listener) {
+
+        tiposRepositorio.eliminarAtualizacoes(Identificadores.Atualizacoes.TIPO)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new SingleObserver<AtualizacaoTipos>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onSuccess(AtualizacaoTipos atualizacaoTipos) {
+                                atualizarTipos(listener, atualizacaoTipos);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                showProgressBar(false);
+                            }
+                        }
+                );
+
+    }
+
+
+
+    /**
+     * Metoodo que permite carregar os tipos
+     * @param atualizacoes as atualizações dos tipos
+     */
+    private void atualizarTipos(OnTransferenciaListener listener, AtualizacaoTipos atualizacoes){
+
+        redeRepositorio.obterDados(atualizacoes)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new SingleObserver<List<Object>>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onSuccess(List<Object> iTipoListagems) {
+
+                                AtualizarTipoAsyncTask__v2 servico = new AtualizarTipoAsyncTask__v2(listener, vvmshBaseDados, carregamentoTiposRepositorio);
+                                servico.execute(iTipoListagems);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                showProgressBar(false);
+                                formatarErro(e);
+                            }
+                        }
+
+
+//
+//        new SingleObserver<List<ITipoListagem>>() {
+//            @Override
+//            public void onSubscribe(Disposable d) {
+//                disposables.add(d);
+//            }
+//
+//            @Override
+//            public void onSuccess(List<ITipoListagem> registos) {
+//
+//                showProgressBar(false);
+//
+//                AtualizarTipoAsyncTask_ servico = new AtualizarTipoAsyncTask_(listener, vvmshBaseDados, carregamentoTiposRepositorio);
+//                //--servico.execute(registos);
+//            }
+//
+//            @Override
+//            public void onError(Throwable e) {
+//                showProgressBar(false);
+//                formatarErro(e);
+//            }
+//        }
+
+
+                );
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     //-----------------------
@@ -693,98 +851,6 @@ public class TransferenciasViewModel extends BaseViewModel {
                 );
     }
 
-
-    /**
-     * Metodo que permite eliminar todas as atualizacoes e recarregar todos os dados
-     * @param listener
-     */
-    public void recarregarDados(OnTransferenciaListener listener) {
-
-        tiposRepositorio.eliminarAtualizacoes(Identificadores.Atualizacoes.TIPO)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-
-                        new SingleObserver<AtualizacaoTipos>() {
-                            @Override
-                            public void onSubscribe(Disposable d) {
-                                disposables.add(d);
-                            }
-
-                            @Override
-                            public void onSuccess(AtualizacaoTipos atualizacaoTipos) {
-                                atualizarTipos(listener, atualizacaoTipos);
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-                                showProgressBar(false);
-                            }
-                        }
-                );
-
-    }
-
-
-
-    /**
-     * Metoodo que permite carregar os tipos
-     * @param atualizacoes as atualizações dos tipos
-     */
-    private void atualizarTipos(OnTransferenciaListener listener, AtualizacaoTipos atualizacoes){
-
-        redeRepositorio.obterDados(atualizacoes)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-
-                        new SingleObserver<List<Object>>() {
-                            @Override
-                            public void onSubscribe(Disposable d) {
-                                disposables.add(d);
-                            }
-
-                            @Override
-                            public void onSuccess(List<Object> iTipoListagems) {
-
-                                AtualizarTipoAsyncTask__v2 servico = new AtualizarTipoAsyncTask__v2(listener, vvmshBaseDados, carregamentoTiposRepositorio);
-                                servico.execute(iTipoListagems);
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-                                showProgressBar(false);
-                                formatarErro(e);
-                            }
-                        }
-
-
-//
-//        new SingleObserver<List<ITipoListagem>>() {
-//            @Override
-//            public void onSubscribe(Disposable d) {
-//                disposables.add(d);
-//            }
-//
-//            @Override
-//            public void onSuccess(List<ITipoListagem> registos) {
-//
-//                showProgressBar(false);
-//
-//                AtualizarTipoAsyncTask_ servico = new AtualizarTipoAsyncTask_(listener, vvmshBaseDados, carregamentoTiposRepositorio);
-//                //--servico.execute(registos);
-//            }
-//
-//            @Override
-//            public void onError(Throwable e) {
-//                showProgressBar(false);
-//                formatarErro(e);
-//            }
-//        }
-
-
-                );
-    }
 
 
 

@@ -529,6 +529,121 @@ public class TiposUtil {
     }
 
 
+
+
+
+
+    public static List<MetodoApi> fixarSeloTemporal(List<Atualizacao> atualizacaoTipo, List<Atualizacao> atualizacaoAtividadesPlaneaveis, List<Atualizacao> atualizacaoTemplate) {
+
+        List<MetodoApi> registos = new ArrayList<>();
+
+        //tipos
+
+        if (atualizacaoTipo.size() == 0) { //Não existem atualizacoes
+            registos.addAll(Arrays.asList(MetodosTipos.Tipos.TIPOS));
+        } else {
+            registos.addAll(filtrarAtualizacoes(atualizacaoTipo, Arrays.asList(MetodosTipos.Tipos.TIPOS)));
+        }
+
+
+        //atividades planeaveis
+
+        if (atualizacaoAtividadesPlaneaveis.size() == 0) { //Não existem atualizacoes
+            registos.addAll(Arrays.asList(MetodosTipos.AtividadesPlaneaveis.TIPOS));
+        } else {
+            registos.addAll(filtrarAtualizacoes(atualizacaoTipo, Arrays.asList(MetodosTipos.AtividadesPlaneaveis.TIPOS)));
+        }
+
+
+        //templates
+
+        if (atualizacaoTemplate.size() == 0) { //Não existem atualizacoes
+            registos.addAll(Arrays.asList(MetodosTipos.TemplateAvr.TIPOS));
+        } else {
+            registos.addAll(filtrarAtualizacoes(atualizacaoTipo, Arrays.asList(MetodosTipos.TemplateAvr.TIPOS)));
+        }
+
+
+        return registos;
+    }
+
+
+    private static List<MetodoApi> filtrarAtualizacoes(List<Atualizacao> atualizacoes, List<MetodoApi> registos){
+
+        for (MetodoApi metodo : registos) {
+
+            for (Atualizacao atualizacao : atualizacoes) {
+
+                if(metodo.tipo == atualizacao.tipo && metodo.descricao.equals(atualizacao.descricao)) {
+
+                    if(atualizacao.api == 1){
+                        metodo.seloTemporalSA = atualizacao.seloTemporal;
+                    }
+
+
+                    if(atualizacao.api == 2){
+                        metodo.seloTemporalSHT = atualizacao.seloTemporal;
+                    }
+                }
+            }
+        }
+
+        return registos;
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+//        List<MetodoApi> registos = new ArrayList<>();
+//
+//        if(registos.size() == 0){
+//            registos = new LinkedList(Arrays.asList(MetodosTipos.Tipos.TIPOS));
+//
+//            //TODO: para SH
+//            //tipos.addAll(new LinkedList(Arrays.asList(MetodosTipos.TemplateAvr.TIPOS)));
+//            //tipos.addAll(new LinkedList(Arrays.asList(MetodosTipos.AtividadesPlaneaveis.TIPOS)));
+//        }
+//
+//        for(int index = 0; index < registos.size(); ++index) {
+//
+//            for (Atualizacao item : atualizacoes) {
+//
+//                if(registos.get(index).tipo == item.tipo && registos.get(index).descricao.equals(item.descricao)) {
+//
+//                    try {
+//                        MetodoApi registo = obterMetodos(item.descricao);
+//                        registos.get(index).seloTemporalSA = item.seloTemporal;
+////                        MetodoApi registo = obterMetodos(item.descricao);
+////                        registo.seloTemporal = item.seloTemporal;
+////                        registo.tipo = item.tipo;
+////                        registos.add(registo);
+//
+//                    } catch (TipoInexistenteException e) {
+//                        e.printStackTrace();
+//                    }
+//
+//                    break;
+//                }
+//
+//            }
+//        }
+//
+//
+//        return registos;
+//    }
+
+
+
+
+
     public static class MetodoApi{
 
         public String descricao, sa, sht;

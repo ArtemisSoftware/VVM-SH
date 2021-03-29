@@ -80,7 +80,7 @@ public class AtualizacaoDadosActivity extends BaseDaggerActivity implements OnTr
         activityAtualizacaoTiposBinding.setAtualizacaoChecklist(new AtualizacaoUI_(getString(R.string.por_favor_aguarde)));
 
         if(PreferenciasUtil.obterPrimeiraUtilizacao(this) == true) {
-            viewModel.atualizarDados(this, true);
+            viewModel.atualizarDados(this);
         }
         else{
 
@@ -93,7 +93,7 @@ public class AtualizacaoDadosActivity extends BaseDaggerActivity implements OnTr
 
                 case ATUALIZAR_DADOS:
 
-                    viewModel.atualizarDados(this, false);
+                    viewModel.atualizarDados(this);
                     break;
 
 

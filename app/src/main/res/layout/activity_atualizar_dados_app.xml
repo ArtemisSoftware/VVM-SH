@@ -100,8 +100,8 @@
                     android:id="@+id/img_completude_tipo"
                     imageResource="@{atualizacaoTipos.icon}"
                     tintCor="@{atualizacaoTipos.corIcon}"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
                     android:visibility="@{atualizacaoTipos.loading == true ? View.INVISIBLE : View.VISIBLE}"
                     app:layout_constraintBottom_toBottomOf="@+id/progressBar_tipo"
                     app:layout_constraintEnd_toEndOf="@+id/progressBar_tipo"
@@ -169,8 +169,8 @@ android:tintCor="@{atualizacaoTipos.corIcon}"-->
                     android:id="@+id/img_completude_activ_planeaveis"
                     imageResource="@{atualizacaoActivPlaneaveis.icon}"
                     tintCor="@{atualizacaoActivPlaneaveis.corIcon}"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
                     android:visibility="@{atualizacaoActivPlaneaveis.loading == true ? View.INVISIBLE : View.VISIBLE}"
                     app:layout_constraintBottom_toBottomOf="@+id/progressBar_activ_planeaveis"
                     app:layout_constraintEnd_toEndOf="@+id/progressBar_activ_planeaveis"
@@ -239,8 +239,8 @@ android:tintCor="@{atualizacaoActivPlaneaveis.corIcon}"-->
                     android:id="@+id/img_completude_templates"
                     imageResource="@{atualizacaoTemplates.icon}"
                     tintCor="@{atualizacaoTemplates.corIcon}"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
 
                     android:visibility="@{atualizacaoTemplates.loading == true ? View.INVISIBLE : View.VISIBLE}"
 
@@ -312,8 +312,8 @@ android:tintCor="@{atualizacaoTemplates.corIcon}"-->
                     android:id="@+id/img_completude_checklist"
                     imageResource="@{atualizacaoChecklist.icon}"
                     tintCor="@{atualizacaoChecklist.corIcon}"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
 
                     android:visibility="@{atualizacaoChecklist.loading == true ? View.INVISIBLE : View.VISIBLE}"
                     app:layout_constraintBottom_toBottomOf="@+id/progressBar_checklist"
@@ -384,8 +384,8 @@ android:tintCor="@{atualizacaoTemplates.corIcon}"-->
                     android:id="@+id/img_completude_equipamentos"
                     imageResource="@{atualizacaoEquipamentos.icon}"
                     tintCor="@{atualizacaoEquipamentos.corIcon}"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
 
                     android:visibility="@{atualizacaoEquipamentos.loading == true ? View.INVISIBLE : View.VISIBLE}"
 
@@ -431,6 +431,21 @@ android:tintCor="@{atualizacaoTemplates.corIcon}"-->
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 
+
+        <com.google.android.material.button.MaterialButton
+            android:id="@+id/btn_atualizar"
+            style="?attr/borderlessButtonStyle"
+            android:visibility="invisible"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:backgroundTint="@color/cor_recarregar"
+            android:text="@string/recarregar_tipos"
+            android:textColor="@color/cor_texto_branco"
+            app:icon="@drawable/ic_sincronizado_24dp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/lnr_lyt_tipos" />
 
 
 

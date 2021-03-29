@@ -44,17 +44,6 @@ public class AtualizarTipoAsyncTask__v2  extends TipoAsyncTask {
             AtualizarTipoAtividadesPlaneaveisAsyncTask__v2 servico = new AtualizarTipoAtividadesPlaneaveisAsyncTask__v2(listener, vvmshBaseDados, repositorio);
             servico.execute(objects);
         }
-
-
-
-
-//        if(AppConfig.APP_MODO == AppConfig.APP_SA){
-//            atualizacaoUI.atualizarUI(AtualizacaoUI.Codigo.PROCESSAMENTO_TIPOS_CONCLUIDO, "Concluido", 2, 2);
-//        }
-//        else {
-//            AtualizarTipoAtividadesPlaneaveisAsyncTask servico = new AtualizarTipoAtividadesPlaneaveisAsyncTask(vvmshBaseDados, handlerUI, repositorio);
-//            servico.execute(objects);
-//        }
     }
 
 
@@ -63,5 +52,10 @@ public class AtualizarTipoAsyncTask__v2  extends TipoAsyncTask {
     protected void atualizarUI(int index, int limite, Atualizacao atualizacao) {
         listener.atualizarTransferencia(new AtualizacaoUI_(AtualizacaoUI_.Estado.PROCESSAMENTO_TIPOS, index, limite, obterDescricaoApi(atualizacao) + " " + atualizacao.descricao));
 
+    }
+
+    @Override
+    protected void inserirRegistoBd(Atualizacao atualizacao, List<Tipo> dadosNovos, List<Tipo> dadosAlterados) {
+        repositorio.atualizarTipo(atualizacao, dadosNovos, dadosAlterados);
     }
 }

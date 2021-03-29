@@ -123,6 +123,7 @@ public class Sintaxe {
         public static final String ERRO_ATUALIZAR_TIPO = "Erro ao atualizar tipo: ";
         public static final String ERRO_CARREGAMENTO = "Erro ao carregar tipos: ";
         public static final String SEM_INTERNET = "Não existe ligação à internet";
+        public static final String ERRO_ATUALIZAR = "Erro ao atualizar: ";
 
 
         public static final String INSTRUCAO_PDF_DESCONHECIDA = "Instrução de geração de pdf desconhecida";

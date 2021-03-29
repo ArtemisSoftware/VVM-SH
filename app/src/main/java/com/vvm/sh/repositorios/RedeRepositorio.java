@@ -13,7 +13,6 @@ import com.vvm.sh.api.modelos.pedido.ITipoChecklist;
 import com.vvm.sh.api.modelos.pedido.ITipoListagem;
 import com.vvm.sh.api.modelos.pedido.ITipoTemplateAvrLevantamentoListagem;
 import com.vvm.sh.api.modelos.pedido.ITipoTemplateAvrRiscoListagem;
-import com.vvm.sh.baseDados.dao.TransferenciasDao;
 import com.vvm.sh.baseDados.dao.TransferenciasDao_v2;
 import com.vvm.sh.baseDados.entidades.Resultado;
 import com.vvm.sh.baseDados.entidades.Tarefa;
@@ -34,6 +33,8 @@ import com.vvm.sh.util.metodos.ConversorUtil;
 import com.vvm.sh.util.metodos.TiposUtil;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
@@ -572,9 +573,101 @@ public class RedeRepositorio {
 
 
 
+
     //---------------------------
     //Tipos
     //---------------------------
+
+
+    public Single<List<Object>> obterTipos(){
+        return obterSingleSource(obterInvocacoesTipos(new LinkedList(Arrays.asList(TiposUtil.MetodosTipos.Tipos.TIPOS))));
+    }
+
+
+    //---------------------------
+    //Checklist
+    //---------------------------
+
+
+    /**
+     * Metodo que permite obter as checklists do web service
+     * @return
+     */
+    public Single<List<Object>> obterChecklists() {
+
+        List<SingleSource> pedidos = new ArrayList<>();
+
+        for (int id: TiposUtil.MetodosTiposChecklist.ID_CHECKLISTS__) {
+            pedidos.add(apiST.obterChecklist(SegurancaTrabalhoApi.HEADER_TIPO, id +""));
+        }
+
+        return obterSingleSource(pedidos);
+    }
+
+
+    //---------------------------
+    //Tipos
+    //---------------------------
+
+    //---------------------------
+    //Tipos
+    //---------------------------
+
+
+
+
+    private Single<List<Object>> obterSingleSource(List<SingleSource> lista){
+
+        SingleSource[] source = new SingleSource[lista.size()];
+
+        for(int index = 0; index < lista.size(); ++index){
+            source[index] = lista.get(index);
+        }
+
+        return Single.concatArray(source).toList();
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -639,9 +732,13 @@ public class RedeRepositorio {
 
         List<SingleSource> tipos = new ArrayList<>();
 
+        tipos.addAll(obterInvocacoesTipos(atualizacoes.atualizacoes));
+
+
+
         for(TiposUtil.MetodoApi metodo : atualizacoes.atualizacoes){
 
-            tipos.addAll(obterInvocacoesTipos(metodo));
+            //--tipos.addAll(obterInvocacoesTipos(metodo));
 
 
 
@@ -701,16 +798,31 @@ public class RedeRepositorio {
         return tipos;
     }
 
-    private Single<List<Object>> obterSingleSource(List<SingleSource> lista){
 
-        SingleSource[] source = new SingleSource[lista.size()];
 
-        for(int index = 0; index < lista.size(); ++index){
-            source[index] = lista.get(index);
+    private List<SingleSource> obterInvocacoesTipos(List<TiposUtil.MetodoApi> atualizacoes){
+
+        List<SingleSource> tipos = new ArrayList<>();
+
+
+        for(TiposUtil.MetodoApi metodo : atualizacoes){
+
+            if(metodo.tipo == Identificadores.Atualizacoes.TIPO) {
+
+                if (metodo.sa != null) {
+                    tipos.add(apiSA.obterTipo(SegurancaAlimentarApi.HEADER_TIPO, metodo.sa, metodo.seloTemporalSA));
+                }
+
+                if (metodo.sht != null) {
+                    tipos.add(apiST.obterTipo(SegurancaTrabalhoApi.HEADER_TIPO, metodo.sht, metodo.seloTemporalSHT));
+                }
+            }
         }
 
-        return Single.concatArray(source).toList();
+        return tipos;
     }
+
+
 
 
 }

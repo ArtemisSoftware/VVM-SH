@@ -41,7 +41,6 @@ import io.reactivex.Single;
 import io.reactivex.SingleSource;
 import io.reactivex.functions.BiFunction;
 import io.reactivex.functions.Function;
-import io.reactivex.functions.Function4;
 import io.reactivex.functions.Function5;
 
 public class TiposRepositorio {
@@ -60,6 +59,11 @@ public class TiposRepositorio {
         this.tipoDao = tipoDao;
     }
 
+
+
+    //------------
+    //Geral
+    //------------
 
     /**
      * Metodo que permite obter as atualizacoes
@@ -90,10 +94,10 @@ public class TiposRepositorio {
     }
 
 
-    //-----------------------
-    //Resumos
-    //-----------------------
 
+    //------------
+    //tipos
+    //------------
 
     /**
      * Metodo que permite obter o resumo dos tipos
@@ -103,6 +107,33 @@ public class TiposRepositorio {
         return tipoDao.obterResumoTipos();
     }
 
+
+    //------------
+    //Checklist
+    //------------
+
+    /**
+     * Metodo que permite obter o resumo das checklists
+     * @return uma lista
+     */
+    public Observable<List<ResumoChecklist>> obterResumoChecklist() {
+        return tipoDao.obterResumoChecklist();
+    }
+
+
+
+    public Single<List<Integer>> eliminarChecklists(){
+        return tipoDao.elimiarChecklists();
+    }
+
+    //------------
+    //Atividades planeaveis
+    //------------
+
+
+    //------------
+    //Templates
+    //------------
 
 
 
@@ -277,13 +308,7 @@ public class TiposRepositorio {
         return apiST.obterChecklist(SegurancaTrabalhoApi.HEADER_TIPO, resumo.checkList.id + "");
     }
 
-    /**
-     * Metodo que permite obter o resumo das checklists
-     * @return uma lista
-     */
-    public Observable<List<ResumoChecklist>> obterResumoChecklist() {
-        return tipoDao.obterResumoChecklist();
-    }
+
 
 
     /**

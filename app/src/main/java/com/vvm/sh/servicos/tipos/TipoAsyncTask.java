@@ -57,8 +57,16 @@ public abstract class TipoAsyncTask extends CarregamentoTipoAsyncTask {
             dadosAlterados.add(DownloadMapping.INSTANCE.map(item, registo));
         }
 
-        //--repositorio.atualizarTipo(atualizacao, dadosNovos, dadosAlterados);
+        inserirRegistoBd(atualizacao, dadosNovos, dadosAlterados);
 
     }
+
+
+    //-----------------------
+    //Metodos abstratos
+    //-----------------------
+
+
+    protected abstract void inserirRegistoBd(Atualizacao atualizacao, List<Tipo> dadosNovos, List<Tipo> dadosAlterados);
 
 }

@@ -42,13 +42,78 @@ abstract public class TipoDao implements BaseDao<Tipo> {
     //--------------------
 
 
+    @Query("SELECT DISTINCT atl.descricao as descricao, numeroRegistosSA, seloTemporalSA, numeroRegistosSHT, seloTemporalSHT " +
+            "FROM atualizacoes as atl " +
+
+            //SA
+
+            "LEFT JOIN (" +
+            "SELECT atl.descricao, atl.api, numeroRegistosSA , seloTemporal as seloTemporalSA " +
+            "FROM atualizacoes as atl " +
+            "LEFT JOIN (SELECT tipo,api, COUNT(id) as numeroRegistosSA FROM tipos WHERE api = 1 GROUP BY tipo) as tp_sa " +
+            "ON atl.descricao = tp_sa.tipo AND atl.api = tp_sa.api WHERE numeroRegistosSA > 0" +
+            ") as ct_sa ON atl.descricao= ct_sa.descricao " +
+
+            //SHT
+
+            "LEFT JOIN (" +
+            "SELECT atl.descricao, atl.api, numeroRegistosSHT , seloTemporal as seloTemporalSHT " +
+            "FROM atualizacoes as atl " +
+            "LEFT JOIN (SELECT tipo,api, COUNT(id) as numeroRegistosSHT FROM tipos WHERE api = 2 GROUP BY tipo) as tp_sht " +
+            "ON atl.descricao = tp_sht.tipo AND atl.api = tp_sht.api WHERE numeroRegistosSHT > 0" +
+            ") as ct_sht ON atl.descricao= ct_sht.descricao " +
+            "ORDER BY descricao ASC")
+    abstract public Observable<List<ResumoTipo>> obterResumoTipos();
+
+    //-------------------
+    //Checklist
+    //--------------------
+
+    @Query("SELECT * FROM checklist WHERE id IN (:ids) ")
+    abstract public Maybe<List<CheckList>> obterChecklistDados(Integer[] ids);
+
+
+    //TODO: query precisa de ser corrigida
+    @Query("SELECT *, ct_areas as numeroAreas, ct_seccoes as numeroSeccoes, ct_itens as numeroItens " +
+            "FROM checklist as chk " +
+
+            "LEFT JOIN (SELECT idChecklist, IFNULL(COUNT(descricao), 0) as ct_areas FROM areasChecklist GROUP BY idChecklist) as area_chk " +
+            "ON chk.id = area_chk.idChecklist " +
+
+            "LEFT JOIN (SELECT idChecklist, IFNULL(COUNT(uid), 0) as ct_seccoes FROM seccoesChecklist GROUP BY idChecklist, idArea) as seccoes_chk " +
+            "ON chk.id = seccoes_chk.idChecklist " +
+
+            "LEFT JOIN (SELECT idChecklist, IFNULL(COUNT(uid), 0) as ct_itens FROM itensChecklist GROUP BY idChecklist, idArea, idSeccao) as itens_chk " +
+            "ON chk.id = itens_chk.idChecklist " +
+
+            "ORDER BY descricao ASC")
+    abstract public Observable<List<ResumoChecklist>> obterResumoChecklist();
+
+
+    @Query("DELETE FROM checklist ")
+    abstract public Single<List<Integer>> elimiarChecklists();
+
+
+    //-------------------
+    //Atividades planeaveis
+    //--------------------
+
+
+    //-------------------
+    //Templates
+    //--------------------
+
+
+    //-------------------
+    //Equipamentos
+    //--------------------
+
 
     @Transaction
     @Query("SELECT * FROM tiposNovos WHERE estado = " + Identificadores.Estados.Equipamentos.ESTADO_PENDENTE + " AND tipo = '" +  TiposUtil.MetodosTipos.TIPOS_MAQUINA + "' ")
     abstract public Maybe<List<TipoNovo>> obterEquipamentosNaoValidados();
 
-    @Query("SELECT * FROM checklist WHERE id IN (:ids) ")
-    abstract public Maybe<List<CheckList>> obterChecklistDados(Integer[] ids);
+
 
 
 
@@ -226,45 +291,10 @@ abstract public class TipoDao implements BaseDao<Tipo> {
 //            "WHERE tp_sa.tipo IS NOT NULL " +
 //            "ORDER BY descricao ASC)")
 
-    @Query("SELECT DISTINCT atl.descricao as descricao, numeroRegistosSA, seloTemporalSA, numeroRegistosSHT, seloTemporalSHT " +
-            "FROM atualizacoes as atl " +
-
-            //SA
-
-            "LEFT JOIN (" +
-            "SELECT atl.descricao, atl.api, numeroRegistosSA , seloTemporal as seloTemporalSA " +
-            "FROM atualizacoes as atl " +
-            "LEFT JOIN (SELECT tipo,api, COUNT(id) as numeroRegistosSA FROM tipos WHERE api = 1 GROUP BY tipo) as tp_sa " +
-            "ON atl.descricao = tp_sa.tipo AND atl.api = tp_sa.api WHERE numeroRegistosSA > 0" +
-            ") as ct_sa ON atl.descricao= ct_sa.descricao " +
-
-            //SHT
-
-            "LEFT JOIN (" +
-            "SELECT atl.descricao, atl.api, numeroRegistosSHT , seloTemporal as seloTemporalSHT " +
-            "FROM atualizacoes as atl " +
-            "LEFT JOIN (SELECT tipo,api, COUNT(id) as numeroRegistosSHT FROM tipos WHERE api = 2 GROUP BY tipo) as tp_sht " +
-            "ON atl.descricao = tp_sht.tipo AND atl.api = tp_sht.api WHERE numeroRegistosSHT > 0" +
-            ") as ct_sht ON atl.descricao= ct_sht.descricao " +
-            "ORDER BY descricao ASC")
-    abstract public Observable<List<ResumoTipo>> obterResumoTipos();
 
 
-    //TODO: query precisa de ser corrigida
-    @Query("SELECT *, ct_areas as numeroAreas, ct_seccoes as numeroSeccoes, ct_itens as numeroItens " +
-            "FROM checklist as chk " +
 
-            "LEFT JOIN (SELECT idChecklist, IFNULL(COUNT(descricao), 0) as ct_areas FROM areasChecklist GROUP BY idChecklist) as area_chk " +
-            "ON chk.id = area_chk.idChecklist " +
 
-            "LEFT JOIN (SELECT idChecklist, IFNULL(COUNT(uid), 0) as ct_seccoes FROM seccoesChecklist GROUP BY idChecklist, idArea) as seccoes_chk " +
-            "ON chk.id = seccoes_chk.idChecklist " +
-
-            "LEFT JOIN (SELECT idChecklist, IFNULL(COUNT(uid), 0) as ct_itens FROM itensChecklist GROUP BY idChecklist, idArea, idSeccao) as itens_chk " +
-            "ON chk.id = itens_chk.idChecklist " +
-
-            "ORDER BY descricao ASC")
-    abstract public Observable<List<ResumoChecklist>> obterResumoChecklist();
 
 
 

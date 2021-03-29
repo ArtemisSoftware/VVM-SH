@@ -90,9 +90,18 @@ public class TiposRepositorio {
     }
 
 
+    //-----------------------
+    //Resumos
+    //-----------------------
 
 
-
+    /**
+     * Metodo que permite obter o resumo dos tipos
+     * @return uma lista
+     */
+    public Observable<List<ResumoTipo>> obterResumoTipos() {
+        return tipoDao.obterResumoTipos();
+    }
 
 
 
@@ -157,13 +166,7 @@ public class TiposRepositorio {
 
     }
 
-    /**
-     * Metodo que permite obter o resumo dos tipos
-     * @return uma lista
-     */
-    public Observable<List<ResumoTipo>> obterResumoTipos() {
-        return tipoDao.obterResumoTipos();
-    }
+
 
 
 

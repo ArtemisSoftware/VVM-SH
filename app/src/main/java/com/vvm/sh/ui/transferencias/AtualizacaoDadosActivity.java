@@ -78,6 +78,7 @@ public class AtualizacaoDadosActivity extends BaseDaggerActivity implements OnTr
         activityAtualizacaoTiposBinding.setAtualizacaoTemplates(new AtualizacaoUI_(getString(R.string.por_favor_aguarde)));
         activityAtualizacaoTiposBinding.setAtualizacaoEquipamentos(new AtualizacaoUI_(getString(R.string.por_favor_aguarde)));
         activityAtualizacaoTiposBinding.setAtualizacaoChecklist(new AtualizacaoUI_(getString(R.string.por_favor_aguarde)));
+        activityAtualizacaoTiposBinding.btnRecarregar.setVisibility(View.GONE);
 
         if(PreferenciasUtil.obterPrimeiraUtilizacao(this) == true) {
             viewModel.atualizarDados(this);
@@ -88,6 +89,7 @@ public class AtualizacaoDadosActivity extends BaseDaggerActivity implements OnTr
 
                 case RECARRECAR_DADOS:
 
+                    //Depende do que se que recarregar
                     viewModel.recarregarDados(this);
                     break;
 
@@ -154,6 +156,17 @@ public class AtualizacaoDadosActivity extends BaseDaggerActivity implements OnTr
         activityAtualizacaoTiposBinding.crlProsseguir.setVisibility(View.VISIBLE);
     }
 
+    @Override
+    public void erroTransferencia() {
+
+        activityAtualizacaoTiposBinding.setAtualizacaoTipos(AtualizacaoUI_.erro());
+        activityAtualizacaoTiposBinding.setAtualizacaoActivPlaneaveis(AtualizacaoUI_.erro());
+        activityAtualizacaoTiposBinding.setAtualizacaoTemplates(AtualizacaoUI_.erro());
+        activityAtualizacaoTiposBinding.setAtualizacaoEquipamentos(AtualizacaoUI_.erro());
+        activityAtualizacaoTiposBinding.setAtualizacaoChecklist(AtualizacaoUI_.erro());
+
+        activityAtualizacaoTiposBinding.btnRecarregar.setVisibility(View.VISIBLE);
+    }
 
 
     @OnClick({R.id.crl_prosseguir})
@@ -168,6 +181,12 @@ public class AtualizacaoDadosActivity extends BaseDaggerActivity implements OnTr
             finish();
         }
 
+    }
+
+
+    @OnClick({R.id.btn_recarregar})
+    public void btn_recarregar_ButtonClick(View view) {
+        atualizar();
     }
 
 

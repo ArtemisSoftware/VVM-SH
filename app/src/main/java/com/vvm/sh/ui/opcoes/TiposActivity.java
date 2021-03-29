@@ -167,8 +167,10 @@ public class TiposActivity extends BaseDaggerActivity
 
     }
 
+    @Override
+    public void erroTransferencia() {
 
-
+    }
 
 
     @Override

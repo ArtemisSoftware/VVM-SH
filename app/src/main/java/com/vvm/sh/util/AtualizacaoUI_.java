@@ -1,5 +1,7 @@
 package com.vvm.sh.util;
 
+import androidx.annotation.NonNull;
+
 import com.vvm.sh.R;
 
 public class AtualizacaoUI_ {
@@ -19,6 +21,7 @@ public class AtualizacaoUI_ {
         PROCESSAMENTO_INSTALACAO_ATUALIZACAO_APP,
         ERRO_INSTALACAO_ATUALIZACAO_APP,
 
+        ERRO
     }
 
 
@@ -70,6 +73,8 @@ public class AtualizacaoUI_ {
         this.loading = false;
     }
 
-
+    public static  AtualizacaoUI_ erro() {
+        return new AtualizacaoUI_(Estado.ERRO,  "");
+    }
 
 }

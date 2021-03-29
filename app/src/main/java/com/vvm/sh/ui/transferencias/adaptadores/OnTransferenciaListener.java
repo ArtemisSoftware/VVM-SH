@@ -6,5 +6,5 @@ public interface OnTransferenciaListener {
 
     void atualizarTransferencia(AtualizacaoUI_ atualizacaoUI);
     void terminarTransferencia();
-
+    void erroTransferencia();
 }

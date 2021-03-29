@@ -350,7 +350,7 @@ public class OpcoesViewModel extends BaseViewModel {
     public void recarregar(Activity atividade, ResumoChecklist resumo, Handler handlerNotificacoesUI) {
         showProgressBar(true);
 
-        tiposRepositorio.obterChecklist(resumo)
+        redeRepositorio.obterChecklist(resumo)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(

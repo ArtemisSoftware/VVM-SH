@@ -80,18 +80,18 @@ abstract public class TipoDao implements BaseDao<Tipo> {
             "LEFT JOIN (SELECT idChecklist, IFNULL(COUNT(descricao), 0) as ct_areas FROM areasChecklist GROUP BY idChecklist) as area_chk " +
             "ON chk.id = area_chk.idChecklist " +
 
-            "LEFT JOIN (SELECT idChecklist, IFNULL(COUNT(uid), 0) as ct_seccoes FROM seccoesChecklist GROUP BY idChecklist, idArea) as seccoes_chk " +
+            "LEFT JOIN (SELECT idChecklist, IFNULL(COUNT(uid), 0) as ct_seccoes FROM seccoesChecklist GROUP BY idChecklist) as seccoes_chk " +
             "ON chk.id = seccoes_chk.idChecklist " +
 
-            "LEFT JOIN (SELECT idChecklist, IFNULL(COUNT(uid), 0) as ct_itens FROM itensChecklist GROUP BY idChecklist, idArea, idSeccao) as itens_chk " +
+            "LEFT JOIN (SELECT idChecklist, IFNULL(COUNT(uid), 0) as ct_itens FROM itensChecklist GROUP BY idChecklist) as itens_chk " +
             "ON chk.id = itens_chk.idChecklist " +
 
             "ORDER BY descricao ASC")
     abstract public Observable<List<ResumoChecklist>> obterResumoChecklist();
 
 
-    @Query("DELETE FROM checklist ")
-    abstract public Single<List<Integer>> elimiarChecklists();
+    @Query("DELETE  FROM checklist ")
+    abstract public Single<Integer> elimiarChecklists();
 
 
     //-------------------

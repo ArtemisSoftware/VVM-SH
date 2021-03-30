@@ -584,6 +584,27 @@ public class RedeRepositorio {
     }
 
 
+
+    /**
+     * Metodo que permite obter um tipo a partir do web service
+     * @param resumo os dados da atualizacao do tipo
+     * @return os dados de um tipo
+     */
+    public Single<List<ITipoListagem>> obterTipo(ResumoTipo resumo) throws TipoInexistenteException {
+
+        TiposUtil.MetodoApi metodo = TiposUtil.obterMetodos(resumo.descricao);
+        List<SingleSource> tipos = obterInvocacoesTipos(metodo);
+
+        SingleSource[] source = new SingleSource[tipos.size()];
+
+        for(int index = 0; index < tipos.size(); ++index){
+            source[index] = tipos.get(index);
+        }
+
+        return Single.concatArray(source).toList();
+    }
+
+
     //---------------------------
     //Checklist
     //---------------------------
@@ -604,6 +625,10 @@ public class RedeRepositorio {
         return obterSingleSource(pedidos);
     }
 
+
+    public Single<ITipoChecklist> obterChecklist(ResumoChecklist resumo)  {
+        return apiST.obterChecklist(SegurancaTrabalhoApi.HEADER_TIPO, resumo.checkList.id + "");
+    }
 
     //---------------------------
     //Tipos
@@ -671,34 +696,13 @@ public class RedeRepositorio {
 
 
 
-    /**
-     * Metodo que permite obter um tipo a partir do web service
-     * @param resumo os dados da atualizacao do tipo
-     * @return os dados de um tipo
-     */
-    public Single<List<ITipoListagem>> obterTipo(ResumoTipo resumo) throws TipoInexistenteException {
-
-        TiposUtil.MetodoApi metodo = TiposUtil.obterMetodos(resumo.descricao);
-        List<SingleSource> tipos = obterInvocacoesTipos(metodo);
-
-        SingleSource[] source = new SingleSource[tipos.size()];
-
-        for(int index = 0; index < tipos.size(); ++index){
-            source[index] = tipos.get(index);
-        }
-
-        return Single.concatArray(source).toList();
-    }
-
 
     public Single<ITipoAtividadePlaneavelListagem> obterAtividadesPlaneaveis() throws TipoInexistenteException {
         return apiST.obterTipoAtividadesPlaneaveis(SegurancaTrabalhoApi.HEADER_TIPO);
     }
 
 
-    public Single<ITipoChecklist> obterChecklist(ResumoChecklist resumo)  {
-        return apiST.obterChecklist(SegurancaTrabalhoApi.HEADER_TIPO, resumo.checkList.id + "");
-    }
+
 
 
     public Single<TemplateAvr> obterTemplateAvr() throws TipoInexistenteException {

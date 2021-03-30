@@ -151,9 +151,10 @@ public class AtualizacaoAppActivity extends BaseDaggerActivity implements OnTran
         viewModel.instalarApp(this, this);
     }
 
+    @Override
+    public void erroTransferencia() {
 
-
-
+    }
 
 
     @Override

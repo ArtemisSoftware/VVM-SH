@@ -10,11 +10,11 @@ import com.vvm.sh.util.AtualizacaoUI_;
 
 import java.util.List;
 
-public class AtualizarTipoChecklistAsyncTask__v2 extends TipoChecklistAsyncTask {
+public class AtualizarTipoChecklistAsyncTask extends TipoChecklistAsyncTask {
 
     private OnTransferenciaListener listener;
 
-    public AtualizarTipoChecklistAsyncTask__v2(OnTransferenciaListener listener, VvmshBaseDados vvmshBaseDados, CarregamentoTiposRepositorio repositorio){
+    public AtualizarTipoChecklistAsyncTask(OnTransferenciaListener listener, VvmshBaseDados vvmshBaseDados, CarregamentoTiposRepositorio repositorio){
         super(vvmshBaseDados, repositorio);
 
         this.listener = listener;

@@ -142,17 +142,14 @@ public class TiposActivity extends BaseDaggerActivity
 
     @Override
     public void OnTipoLongPressListener(ResumoTipo resumo) {
-
-        Bundle bundle = getIntent().getExtras();
-        int idTipo = bundle.getInt(getString(R.string.argumento_id_tipo));
-
-        viewModel.recarregar(TiposActivity.this, idTipo, resumo, handlerNotificacoesUI, this);
+        viewModel.recarregarItemTipo(TiposActivity.this, resumo);
     }
 
     @Override
     public void OnTipoLongPressListener(ResumoChecklist resumo) {
 
-        viewModel.recarregar(TiposActivity.this, resumo, handlerNotificacoesUI);
+        //--viewModel.recarregar(TiposActivity.this, resumo, handlerNotificacoesUI);
+        viewModel.recarregarItemChecklist(TiposActivity.this, resumo);
     }
 
 

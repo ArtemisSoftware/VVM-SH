@@ -1,28 +1,20 @@
 package com.vvm.sh.ui.opcoes;
 
 import android.app.Activity;
-import android.content.Context;
 import android.os.Handler;
 
 import androidx.lifecycle.MutableLiveData;
 
-import com.vvm.sh.api.modelos.pedido.IVersaoApp;
 import com.vvm.sh.api.modelos.pedido.ITipoAtividadePlaneavelListagem;
 import com.vvm.sh.api.modelos.pedido.ITipoChecklist;
 import com.vvm.sh.api.modelos.pedido.ITipoListagem;
 import com.vvm.sh.repositorios.CarregamentoTiposRepositorio;
 import com.vvm.sh.repositorios.RedeRepositorio;
 import com.vvm.sh.repositorios.TiposRepositorio;
-import com.vvm.sh.repositorios.VersaoAppRepositorio;
 import com.vvm.sh.servicos.tipos.CarregarTipoAsyncTask;
-import com.vvm.sh.servicos.tipos.CarregarTipoChecklistAsyncTask;
 import com.vvm.sh.servicos.tipos.CarregarTipoTemplatesAvrAsyncTask;
-import com.vvm.sh.servicos.instalacaoApp.DownloadApkAsyncTask;
-import com.vvm.sh.servicos.instalacaoApp.InstalarApkAsyncTask;
 import com.vvm.sh.servicos.tipos.CarregarTipoAtividadesPlaneaveisAsyncTask;
 import com.vvm.sh.servicos.tipos.recarregar.RecarregarTipoAsyncTask;
-import com.vvm.sh.servicos.tipos.recarregar.RecarregarTipoAsyncTask_;
-import com.vvm.sh.servicos.tipos.recarregar.RecarregarTipoAsyncTask__v2;
 import com.vvm.sh.servicos.tipos.recarregar.RecarregarTipoChecklistAsyncTask;
 import com.vvm.sh.ui.opcoes.modelos.ResumoChecklist;
 import com.vvm.sh.ui.opcoes.modelos.ResumoTipo;
@@ -38,7 +30,6 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-import io.reactivex.ObservableSource;
 import io.reactivex.Observer;
 import io.reactivex.SingleObserver;
 import io.reactivex.SingleSource;
@@ -123,12 +114,12 @@ public class OpcoesViewModel extends BaseViewModel {
 
             case Identificadores.Atualizacoes.TIPO:
 
-                recarregarTipo(contexto, descricao, handlerNotificacoesUI, listener);
+                //--recarregarTipos(contexto, descricao);
                 break;
 
             case Identificadores.Atualizacoes.CHECKLIST:
 
-                //--recarregarChecklist(contexto, descricao);
+                //--recarregarItemChecklist(contexto, descricao);
                 break;
 
 
@@ -162,7 +153,7 @@ public class OpcoesViewModel extends BaseViewModel {
 
             case Identificadores.Atualizacoes.TIPO:
 
-                recarregarTipos(activity, handlerNotificacoesUI);
+                recarregarTipos(activity);
                 break;
 
             case Identificadores.Atualizacoes.CHECKLIST:
@@ -283,6 +274,90 @@ public class OpcoesViewModel extends BaseViewModel {
 
 
 
+    /**
+     * Metodo que permite atualizar um tipo
+     */
+    public void recarregarItemTipo(Activity contexto, ResumoTipo resumo) {
+
+        showProgressBar(true);
+
+        try {
+            redeRepositorio.obterTipo(resumo)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+
+                            new SingleObserver<List<ITipoListagem>>() {
+                                @Override
+                                public void onSubscribe(Disposable d) {
+                                    disposables.add(d);
+                                }
+
+                                @Override
+                                public void onSuccess(List<ITipoListagem> iTipoListagems) {
+
+                                    List<Object> respostas = new ArrayList<>();
+                                    for (ITipoListagem item : iTipoListagems) {
+                                        respostas.add(item);
+                                    }
+
+
+                                    RecarregarTipoAsyncTask servico = new RecarregarTipoAsyncTask(contexto, vvmshBaseDados, carregamentoTiposRepositorio);
+                                    servico.execute(respostas);
+                                    showProgressBar(false);
+                                }
+
+                                @Override
+                                public void onError(Throwable e) {
+                                    showProgressBar(false);
+                                    messagemLiveData.setValue(Recurso.erro(e.getMessage()));
+                                }
+                            }
+                    );
+        } catch (TipoInexistenteException e) {
+            showProgressBar(false);
+            messagemLiveData.setValue(Recurso.erro(e.getMessage()));
+        }
+
+
+    }
+
+
+    public void recarregarItemChecklist(Activity atividade, ResumoChecklist resumo) {
+        showProgressBar(true);
+
+        redeRepositorio.obterChecklist(resumo)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+                        new SingleObserver<ITipoChecklist>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onSuccess(ITipoChecklist iTipoChecklist) {
+
+                                List<Object> respostas = new ArrayList<>();
+                                respostas.add(iTipoChecklist);
+
+                                RecarregarTipoChecklistAsyncTask servico = new RecarregarTipoChecklistAsyncTask(atividade, vvmshBaseDados, carregamentoTiposRepositorio);
+                                servico.execute(respostas);
+
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                showProgressBar(false);
+                                messagemLiveData.setValue(Recurso.erro(e.getMessage()));
+                            }
+                        }
+                );
+
+    }
+
 
 
     //---------------------
@@ -310,7 +385,7 @@ public class OpcoesViewModel extends BaseViewModel {
 
                                 @Override
                                 public void onSuccess(List<Object> registos) {
-                                    RecarregarTipoAsyncTask__v2 servico = new RecarregarTipoAsyncTask__v2(atividade, vvmshBaseDados, carregamentoTiposRepositorio);
+                                    RecarregarTipoAsyncTask servico = new RecarregarTipoAsyncTask(atividade, vvmshBaseDados, carregamentoTiposRepositorio);
                                     servico.execute(registos);
                                 }
 
@@ -356,9 +431,9 @@ public class OpcoesViewModel extends BaseViewModel {
 
 
         tiposRepositorio.eliminarChecklists()
-                .flatMap(new Function<List<Integer>, SingleSource<?>>() {
+                .flatMap(new Function<Integer, SingleSource<?>>() {
                     @Override
-                    public SingleSource<?> apply(List<Integer> integers) throws Exception {
+                    public SingleSource<?> apply(Integer integers) throws Exception {
                         return redeRepositorio.obterChecklists();
                     }
                 })
@@ -646,41 +721,6 @@ public class OpcoesViewModel extends BaseViewModel {
             messagemLiveData.setValue(Recurso.erro(e.getMessage()));
         }
 
-
-    }
-
-
-    public void recarregar(Activity atividade, ResumoChecklist resumo, Handler handlerNotificacoesUI) {
-        showProgressBar(true);
-
-        redeRepositorio.obterChecklist(resumo)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-                        new SingleObserver<ITipoChecklist>() {
-                            @Override
-                            public void onSubscribe(Disposable d) {
-                                disposables.add(d);
-                            }
-
-                            @Override
-                            public void onSuccess(ITipoChecklist iTipoChecklist) {
-
-                                List<ITipoChecklist> respostas = new ArrayList<>();
-                                respostas.add(iTipoChecklist);
-
-                                CarregarTipoChecklistAsyncTask servico = new CarregarTipoChecklistAsyncTask(atividade, vvmshBaseDados, handlerNotificacoesUI, tiposRepositorio);
-                                servico.execute(respostas);
-                                showProgressBar(false);
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-                                showProgressBar(false);
-                                messagemLiveData.setValue(Recurso.erro(e.getMessage()));
-                            }
-                        }
-                );
 
     }
 

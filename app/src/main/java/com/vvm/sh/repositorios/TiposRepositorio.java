@@ -122,7 +122,7 @@ public class TiposRepositorio {
 
 
 
-    public Single<List<Integer>> eliminarChecklists(){
+    public Single<Integer> eliminarChecklists(){
         return tipoDao.elimiarChecklists();
     }
 
@@ -304,31 +304,6 @@ public class TiposRepositorio {
     //Checklist
     //------------
 
-    public Single<ITipoChecklist> obterChecklist(ResumoChecklist resumo)  {
-        return apiST.obterChecklist(SegurancaTrabalhoApi.HEADER_TIPO, resumo.checkList.id + "");
-    }
-
-
-
-
-    /**
-     * Metodo que permite obter as checklists do web service
-     * @param ids os identificadores das checklists
-     * @return
-     * @throws TipoInexistenteException
-     */
-    public Observable<ITipoChecklist> obterChecklists(List<Integer> ids) throws TipoInexistenteException {
-
-        List<Observable<ITipoChecklist>> pedidos = new ArrayList<>();
-
-        for (int id: ids) {
-            pedidos.add(apiST.obterChecklist(SegurancaTrabalhoApi.HEADER_TIPO, id +"").toObservable());
-        }
-
-        return Observable.concat(pedidos);
-    }
-
-
 
     //------------
     //Atividades planeaveis
@@ -418,13 +393,6 @@ public class TiposRepositorio {
 
 
 
-    /**
-     * Metodo que permite obter as atualizacoes
-     * @return uma lista de atualizacoes
-     */
-    public Maybe<List<Integer>> obterIdChecklists() {
-        return tipoDao.obterChecklists(2);
-    }
 
 
 
@@ -438,38 +406,6 @@ public class TiposRepositorio {
 
 
 
-
-
-
-
-
-
-    public void carregarChecklist(Atualizacao atualizacao, List<Tipo> tipos){
-        atualizacaoDao.remover(atualizacao.descricao);
-        atualizacaoDao.inserirRegisto(atualizacao);
-        tipoDao.inserir(tipos);
-    }
-
-
-
-
-    /**
-     * Metodo que permite inserir uma checklist
-     * @param checkList
-     * @param areas
-     * @param seccoes
-     * @param itens
-     */
-    public void carregarChecklist(CheckList checkList, List<AreaChecklist> areas, List<SeccaoChecklist> seccoes, List<ItemChecklist> itens) {
-
-        tipoDao.remover(checkList);
-
-        tipoDao.inserir(checkList);
-        tipoDao.inserirAreasChecklist(areas);
-        tipoDao.inserirSeccoesChecklis(seccoes);
-        tipoDao.inserirItensChecklis(itens);
-
-    }
 
 
 

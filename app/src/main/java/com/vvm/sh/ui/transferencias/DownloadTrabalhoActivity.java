@@ -17,10 +17,13 @@ import com.vvm.sh.R;
 import com.vvm.sh.api.modelos.pedido.Codigo;
 import com.vvm.sh.baseDados.entidades.Tarefa;
 import com.vvm.sh.databinding.ActivityDownloadTrabalhoBinding;
+import com.vvm.sh.databinding.ActivityDownloadTrabalhoV2Binding;
 import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
+import com.vvm.sh.ui.transferencias.adaptadores.OnTransferenciaListener;
 import com.vvm.sh.ui.transferencias.modelos.Pendencia;
 import com.vvm.sh.util.AtualizacaoUI;
+import com.vvm.sh.util.AtualizacaoUI_;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.constantes.Sintaxe;
@@ -33,14 +36,10 @@ import java.util.List;
 
 import javax.inject.Inject;
 
-public class DownloadTrabalhoActivity extends BaseDaggerActivity {
+public class DownloadTrabalhoActivity extends BaseDaggerActivity  implements OnTransferenciaListener {
 
 
-    private ActivityDownloadTrabalhoBinding activityDownloadTrabalhoBinding;
-
-    @Inject
-    ViewModelProviderFactory providerFactory;
-
+    private ActivityDownloadTrabalhoV2Binding activityDownloadTrabalhoBinding;
 
     private TransferenciasViewModel viewModel;
 
@@ -49,43 +48,43 @@ public class DownloadTrabalhoActivity extends BaseDaggerActivity {
     @Override
     protected void intActivity(Bundle savedInstanceState) {
 
-        viewModel = ViewModelProviders.of(this, providerFactory).get(TransferenciasViewModel.class);
+        viewModel = ViewModelProviders.of(this, providerFactory_).get(TransferenciasViewModel.class);
 
-        activityDownloadTrabalhoBinding = (ActivityDownloadTrabalhoBinding) activityBinding;
+        activityDownloadTrabalhoBinding = (ActivityDownloadTrabalhoV2Binding) activityBinding;
         activityDownloadTrabalhoBinding.setLifecycleOwner(this);
         activityDownloadTrabalhoBinding.setViewmodel(viewModel);
 
         subscreverObservadores();
 
-        Bundle bundle = getIntent().getExtras();
-        activityDownloadTrabalhoBinding.setTipo(bundle.getInt(getString(R.string.argumento_download)));
-
-        switch (bundle.getInt(getString(R.string.argumento_download))){
-
-            case Identificadores.Download.DOWNLOAD_TRABALHO_DIA:
-
-                downloadTrabalhoDia();
-                break;
-
-            case Identificadores.Download.RECARREGAR_TRABALHO_DIA:
-
-                recarregarTrabalhoDia();
-                break;
-
-            case Identificadores.Download.RECARREGAR_TAREFA:
-
-                recarregarTarefa();
-                break;
-
-
-            case Identificadores.Download.ATUALIZAR_TRABALHO_DIA:
-
-                atualizarTarefa();
-                break;
-
-            default:
-                break;
-        }
+//        Bundle bundle = getIntent().getExtras();
+//        activityDownloadTrabalhoBinding.setTipo(bundle.getInt(getString(R.string.argumento_download)));
+//
+//        switch (bundle.getInt(getString(R.string.argumento_download))){
+//
+//            case Identificadores.Download.DOWNLOAD_TRABALHO_DIA:
+//
+//                downloadTrabalhoDia();
+//                break;
+//
+//            case Identificadores.Download.RECARREGAR_TRABALHO_DIA:
+//
+//                recarregarTrabalhoDia();
+//                break;
+//
+//            case Identificadores.Download.RECARREGAR_TAREFA:
+//
+//                recarregarTarefa();
+//                break;
+//
+//
+//            case Identificadores.Download.ATUALIZAR_TRABALHO_DIA:
+//
+//                atualizarTarefa();
+//                break;
+//
+//            default:
+//                break;
+//        }
 
     }
 
@@ -94,7 +93,7 @@ public class DownloadTrabalhoActivity extends BaseDaggerActivity {
 
     @Override
     protected int obterLayout() {
-        return R.layout.activity_download_trabalho;
+        return R.layout.activity_download_trabalho_v2;
     }
 
     @Override
@@ -143,61 +142,100 @@ public class DownloadTrabalhoActivity extends BaseDaggerActivity {
     //Metodos locais
     //----------------------
 
-    /**
-     * Metodo que permite iniciar o download do trabalho do dia
-     */
-    private void downloadTrabalhoDia(){
-        activityDownloadTrabalhoBinding.txtData.setText(DatasUtil.obterDataAtual(DatasUtil.FORMATO_DD_MM_YYYY));
-        viewModel.obterPendencias(this, handlerNotificacoesUI, PreferenciasUtil.obterIdUtilizador(this), false);
-        //--Para teste --viewModel.atualizarTipos(this,  handlerNotificacoesUI);
-    }
-
-
-    /**
-     * Metodo que permite recarregar o trabalho de um dia especifico
-     */
-    private void recarregarTrabalhoDia() {
+    private void selecionarTipoDownload(){
 
         Bundle bundle = getIntent().getExtras();
-        activityDownloadTrabalhoBinding.txtData.setText(DatasUtil.converterData(bundle.getLong(getString(R.string.argumento_data)), DatasUtil.FORMATO_DD_MM_YYYY));
-        activityDownloadTrabalhoBinding.cardTrabalho.setVisibility(View.VISIBLE);
+        //--activityDownloadTrabalhoBinding.setTipo(bundle.getInt(getString(R.string.argumento_download)));
 
-        viewModel.recarregarTrabalho(this, PreferenciasUtil.obterIdUtilizador(this), DatasUtil.converterData(bundle.getLong(getString(R.string.argumento_data)), DatasUtil.FORMATO_YYYY_MM_DD), handlerNotificacoesUI);
+        switch (bundle.getInt(getString(R.string.argumento_download))){
+
+            case Identificadores.Download.DOWNLOAD_TRABALHO_DIA:
+
+                downloadTrabalhoDia();
+                break;
+
+            case Identificadores.Download.RECARREGAR_TRABALHO_DIA:
+
+                recarregarTrabalhoDia();
+                break;
+
+            case Identificadores.Download.RECARREGAR_TAREFA:
+
+                recarregarTarefa();
+                break;
+
+
+            case Identificadores.Download.ATUALIZAR_TRABALHO_DIA:
+
+                atualizarTarefa();
+                break;
+
+            default:
+                break;
+        }
+
+    }
+
+    private void downloadTrabalhoDia() {
+
+        activityDownloadTrabalhoBinding.txtTituloTrabalho.setText(getString(R.string.download_trabalho_dia_) + DatasUtil.obterDataAtual(DatasUtil.FORMATO_DD_MM_YYYY));
+        activityDownloadTrabalhoBinding.setAtualizacaoTrabalho(new AtualizacaoUI_(getString(R.string.por_favor_aguarde)));
+
+        viewModel.obterPendencias(this, PreferenciasUtil.obterIdUtilizador(this), false);
+    }
+
+    private void recarregarTrabalhoDia() {
+    }
+
+    private void recarregarTarefa() {
     }
 
     private void atualizarTarefa() {
-
-        Bundle bundle = getIntent().getExtras();
-        activityDownloadTrabalhoBinding.txtData.setText(DatasUtil.converterData(bundle.getLong(getString(R.string.argumento_data)), DatasUtil.FORMATO_DD_MM_YYYY));
-        activityDownloadTrabalhoBinding.cardTrabalho.setVisibility(View.VISIBLE);
-
-        viewModel.recarregarTrabalho(this, PreferenciasUtil.obterIdUtilizador(this), DatasUtil.converterData(bundle.getLong(getString(R.string.argumento_data)), DatasUtil.FORMATO_YYYY_MM_DD), handlerNotificacoesUI);
-
     }
 
 
-    /**
-     * Metodo que permite recarregar uma tarefa especifica
-     */
-    private void recarregarTarefa(){
+    //----------------------
+    //Eventos
+    //----------------------
 
-        Bundle bundle = getIntent().getExtras();
-        viewModel.recarregarTarefa(this, (Tarefa) bundle.get(getString(R.string.argumento_tarefa)), handlerNotificacoesUI);
+    @Override
+    public void atualizarTransferencia(AtualizacaoUI_ atualizacaoUI) {
+
+        switch (atualizacaoUI.estado){
+
+            case PROCESSAMENTO_TIPOS:
+
+                activityDownloadTrabalhoBinding.setAtualizacaoTipos(atualizacaoUI);
+                break;
+
+            case PROCESSAMENTO_ATIVIDADES_PLANEAVEIS:
+
+                activityDownloadTrabalhoBinding.setAtualizacaoActivPlaneaveis(atualizacaoUI);
+                break;
+
+            case PROCESSAMENTO_TEMPLATE_AVALIACAO_RISCOS:
+
+                activityDownloadTrabalhoBinding.setAtualizacaoTemplates(atualizacaoUI);
+                break;
+
+
+            case PROCESSAMENTO_CHECKLIST:
+
+                activityDownloadTrabalhoBinding.setAtualizacaoChecklist(atualizacaoUI);
+                break;
+
+            default:
+                break;
+
+        }
     }
 
+    @Override
+    public void terminarTransferencia() {
 
 
-
-
-
-
-    /**
-     * Metodo que permite obter o trabalho
-     */
-    private void obterTrabalho(){
-
-        activityDownloadTrabalhoBinding.cardTrabalho.setVisibility(View.VISIBLE);
         Bundle bundle = getIntent().getExtras();
+        //--activityDownloadTrabalhoBinding.setTipo(bundle.getInt(getString(R.string.argumento_download)));
 
         switch (bundle.getInt(getString(R.string.argumento_download))){
 
@@ -208,113 +246,208 @@ public class DownloadTrabalhoActivity extends BaseDaggerActivity {
 
             case Identificadores.Download.RECARREGAR_TRABALHO_DIA:
 
-                OnDialogoListener listener = new OnDialogoListener() {
-                    @Override
-                    public void onExecutar() {
-                        viewModel.recarregarTrabalho(DownloadTrabalhoActivity.this, PreferenciasUtil.obterIdUtilizador(getApplication()), DatasUtil.converterData(bundle.getLong(getString(R.string.argumento_data)), DatasUtil.FORMATO_YYYY_MM_DD), handlerNotificacoesUI);
-                    }
-                };
-
-                dialogo.alerta(getString(R.string.recarregar_trabalho_dia), getString(R.string.recarregar_trabalho_perder_dados), listener, true);
+                //recarregarTrabalhoDia();
                 break;
 
             case Identificadores.Download.RECARREGAR_TAREFA:
-                viewModel.recarregarTarefa(this, bundle.getParcelable(getString(R.string.argumento_tarefa)), handlerNotificacoesUI);
+
+                //recarregarTarefa();
                 break;
 
+
+            case Identificadores.Download.ATUALIZAR_TRABALHO_DIA:
+
+                //atualizarTarefa();
+                break;
 
             default:
                 break;
         }
+    }
+
+    @Override
+    public void erroTransferencia() {
 
     }
 
 
-    /**
-     * Metodo que permite terminar o download
-     */
-    private void terminarDownload() {
-
-        OnDialogoListener listener = new OnDialogoListener() {
-            @Override
-            public void onExecutar() {
-                finish();
-            }
-        };
-
-        dialogo.sucesso(getString(R.string.dados_descarregados_sucesso), listener);
-
-    }
-
-
-    //----------------------------------------
-    //HANDLER (notificacoes para o ui)
-    //----------------------------------------
-
-
-    final Handler handlerNotificacoesUI = new Handler(){
-        @Override
-        public void handleMessage(Message msg) {
-
-            AtualizacaoUI.Comunicado comunicado = (AtualizacaoUI.Comunicado) msg.obj;
-
-            switch (comunicado.obterCodigo()) {
-
-                case PROCESSAMENTO_TIPOS:
-
-                    imprimirProgresso(activityDownloadTrabalhoBinding.cardTipos,
-                            activityDownloadTrabalhoBinding.progressBarProgressoTipos,
-                            activityDownloadTrabalhoBinding.txtProgressoTipos,
-                            activityDownloadTrabalhoBinding.txtTituloProgressoTipos,  comunicado);
-                    break;
-
-
-                case PROCESSAMENTO_TIPOS_CONCLUIDO:
-
-                    obterTrabalho();
-                    break;
-
-
-                case PROCESSAMENTO_TRABALHO:
-
-                    imprimirProgresso(activityDownloadTrabalhoBinding.cardTrabalho,
-                            activityDownloadTrabalhoBinding.progressBarProgressoTrabalho,
-                            activityDownloadTrabalhoBinding.txtProgressoTrabalho,
-                            activityDownloadTrabalhoBinding.txtTituloProgressoTrabalho,  comunicado);
-                    break;
-
-                case PROCESSAMENTO_DOWNLOAD_CONCLUIDO:
-
-                    terminarDownload();
-                    break;
-
-                default:
-                    break;
-            }
-
-            super.handleMessage(msg);
-        }
-    };
-
-
-
-
-    /**
-     * Metodo que permite apresentar o progresso da execucao de um servico
-     * @param comunicado os dados da execucao
-     */
-    private void imprimirProgresso(MaterialCardView cardView, ProgressBar progressBarProgresso, TextView txtProgresso, TextView txtTituloProgresso, AtualizacaoUI.Comunicado comunicado){
-
-        cardView.setVisibility(View.VISIBLE);
-
-        if(comunicado.obterLimite() != Sintaxe.SEM_REGISTO){
-            if(progressBarProgresso.getMax() != comunicado.obterLimite()){
-                progressBarProgresso.setMax(comunicado.obterLimite());
-            }
-        }
-
-        txtProgresso.setText(comunicado.obterPosicao() + "/" + comunicado.obterLimite());
-        txtTituloProgresso.setText(comunicado.obterMensagem());
-        progressBarProgresso.setProgress(comunicado.obterPosicao());
-    }
+//
+//    //----------------------
+//    //Metodos locais
+//    //----------------------
+//
+//    /**
+//     * Metodo que permite iniciar o download do trabalho do dia
+//     */
+//    private void downloadTrabalhoDia(){
+//        activityDownloadTrabalhoBinding.txtData.setText(DatasUtil.obterDataAtual(DatasUtil.FORMATO_DD_MM_YYYY));
+//        viewModel.obterPendencias(this, handlerNotificacoesUI, PreferenciasUtil.obterIdUtilizador(this), false);
+//        //--Para teste --viewModel.atualizarTipos(this,  handlerNotificacoesUI);
+//    }
+//
+//
+//    /**
+//     * Metodo que permite recarregar o trabalho de um dia especifico
+//     */
+//    private void recarregarTrabalhoDia() {
+//
+//        Bundle bundle = getIntent().getExtras();
+//        activityDownloadTrabalhoBinding.txtData.setText(DatasUtil.converterData(bundle.getLong(getString(R.string.argumento_data)), DatasUtil.FORMATO_DD_MM_YYYY));
+//        activityDownloadTrabalhoBinding.cardTrabalho.setVisibility(View.VISIBLE);
+//
+//        viewModel.recarregarTrabalho(this, PreferenciasUtil.obterIdUtilizador(this), DatasUtil.converterData(bundle.getLong(getString(R.string.argumento_data)), DatasUtil.FORMATO_YYYY_MM_DD), handlerNotificacoesUI);
+//    }
+//
+//    private void atualizarTarefa() {
+//
+//        Bundle bundle = getIntent().getExtras();
+//        activityDownloadTrabalhoBinding.txtData.setText(DatasUtil.converterData(bundle.getLong(getString(R.string.argumento_data)), DatasUtil.FORMATO_DD_MM_YYYY));
+//        activityDownloadTrabalhoBinding.cardTrabalho.setVisibility(View.VISIBLE);
+//
+//        viewModel.recarregarTrabalho(this, PreferenciasUtil.obterIdUtilizador(this), DatasUtil.converterData(bundle.getLong(getString(R.string.argumento_data)), DatasUtil.FORMATO_YYYY_MM_DD), handlerNotificacoesUI);
+//
+//    }
+//
+//
+//    /**
+//     * Metodo que permite recarregar uma tarefa especifica
+//     */
+//    private void recarregarTarefa(){
+//
+//        Bundle bundle = getIntent().getExtras();
+//        viewModel.recarregarTarefa(this, (Tarefa) bundle.get(getString(R.string.argumento_tarefa)), handlerNotificacoesUI);
+//    }
+//
+//
+//
+//
+//
+//
+//
+//    /**
+//     * Metodo que permite obter o trabalho
+//     */
+//    private void obterTrabalho(){
+//
+//        activityDownloadTrabalhoBinding.cardTrabalho.setVisibility(View.VISIBLE);
+//        Bundle bundle = getIntent().getExtras();
+//
+//        switch (bundle.getInt(getString(R.string.argumento_download))){
+//
+//            case Identificadores.Download.DOWNLOAD_TRABALHO_DIA:
+//
+//                viewModel.obterTrabalho(this, PreferenciasUtil.obterIdUtilizador(this), handlerNotificacoesUI);
+//                break;
+//
+//            case Identificadores.Download.RECARREGAR_TRABALHO_DIA:
+//
+//                OnDialogoListener listener = new OnDialogoListener() {
+//                    @Override
+//                    public void onExecutar() {
+//                        viewModel.recarregarTrabalho(DownloadTrabalhoActivity.this, PreferenciasUtil.obterIdUtilizador(getApplication()), DatasUtil.converterData(bundle.getLong(getString(R.string.argumento_data)), DatasUtil.FORMATO_YYYY_MM_DD), handlerNotificacoesUI);
+//                    }
+//                };
+//
+//                dialogo.alerta(getString(R.string.recarregar_trabalho_dia), getString(R.string.recarregar_trabalho_perder_dados), listener, true);
+//                break;
+//
+//            case Identificadores.Download.RECARREGAR_TAREFA:
+//                viewModel.recarregarTarefa(this, bundle.getParcelable(getString(R.string.argumento_tarefa)), handlerNotificacoesUI);
+//                break;
+//
+//
+//            default:
+//                break;
+//        }
+//
+//    }
+//
+//
+//    /**
+//     * Metodo que permite terminar o download
+//     */
+//    private void terminarDownload() {
+//
+//        OnDialogoListener listener = new OnDialogoListener() {
+//            @Override
+//            public void onExecutar() {
+//                finish();
+//            }
+//        };
+//
+//        dialogo.sucesso(getString(R.string.dados_descarregados_sucesso), listener);
+//
+//    }
+//
+//
+//    //----------------------------------------
+//    //HANDLER (notificacoes para o ui)
+//    //----------------------------------------
+//
+//
+//    final Handler handlerNotificacoesUI = new Handler(){
+//        @Override
+//        public void handleMessage(Message msg) {
+//
+//            AtualizacaoUI.Comunicado comunicado = (AtualizacaoUI.Comunicado) msg.obj;
+//
+//            switch (comunicado.obterCodigo()) {
+//
+//                case PROCESSAMENTO_TIPOS:
+//
+//                    imprimirProgresso(activityDownloadTrabalhoBinding.cardTipos,
+//                            activityDownloadTrabalhoBinding.progressBarProgressoTipos,
+//                            activityDownloadTrabalhoBinding.txtProgressoTipos,
+//                            activityDownloadTrabalhoBinding.txtTituloProgressoTipos,  comunicado);
+//                    break;
+//
+//
+//                case PROCESSAMENTO_TIPOS_CONCLUIDO:
+//
+//                    obterTrabalho();
+//                    break;
+//
+//
+//                case PROCESSAMENTO_TRABALHO:
+//
+//                    imprimirProgresso(activityDownloadTrabalhoBinding.cardTrabalho,
+//                            activityDownloadTrabalhoBinding.progressBarProgressoTrabalho,
+//                            activityDownloadTrabalhoBinding.txtProgressoTrabalho,
+//                            activityDownloadTrabalhoBinding.txtTituloProgressoTrabalho,  comunicado);
+//                    break;
+//
+//                case PROCESSAMENTO_DOWNLOAD_CONCLUIDO:
+//
+//                    terminarDownload();
+//                    break;
+//
+//                default:
+//                    break;
+//            }
+//
+//            super.handleMessage(msg);
+//        }
+//    };
+//
+//
+//
+//
+//    /**
+//     * Metodo que permite apresentar o progresso da execucao de um servico
+//     * @param comunicado os dados da execucao
+//     */
+//    private void imprimirProgresso(MaterialCardView cardView, ProgressBar progressBarProgresso, TextView txtProgresso, TextView txtTituloProgresso, AtualizacaoUI.Comunicado comunicado){
+//
+//        cardView.setVisibility(View.VISIBLE);
+//
+//        if(comunicado.obterLimite() != Sintaxe.SEM_REGISTO){
+//            if(progressBarProgresso.getMax() != comunicado.obterLimite()){
+//                progressBarProgresso.setMax(comunicado.obterLimite());
+//            }
+//        }
+//
+//        txtProgresso.setText(comunicado.obterPosicao() + "/" + comunicado.obterLimite());
+//        txtTituloProgresso.setText(comunicado.obterMensagem());
+//        progressBarProgresso.setProgress(comunicado.obterPosicao());
+//    }
 }

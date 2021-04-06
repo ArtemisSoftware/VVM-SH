@@ -461,6 +461,7 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/ctrl_pendencias"
+            android:visibility="@{viewmodel.pendencias.size() > 0 ? View.VISIBLE : View.GONE}"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -511,6 +512,7 @@
         <include
             android:id="@+id/loading"
             layout="@layout/loading"
+            android:visibility="@{viewmodel.aguardar == true ? View.VISIBLE : View.GONE}"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

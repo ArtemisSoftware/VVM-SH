@@ -78,6 +78,77 @@ public class TransferenciasRepositorio {
     }
 
 
+
+    /**
+     * Metodo que permite obter todas as pendencias
+     * @param idUtilizador o identificador do utilizador
+     * @return uma lista de pendencias
+     */
+    public Maybe<DadosPendencia> obterPendencias(String idUtilizador){
+
+        return Maybe.zip(transferenciasDao.obterPendencias(idUtilizador), transferenciasDao.existemDadosUpload(idUtilizador),
+                new BiFunction<List<Pendencia>, Boolean, DadosPendencia>() {
+                    @Override
+                    public DadosPendencia apply(List<Pendencia> pendencias, Boolean aBoolean) throws Exception {
+
+                        DadosPendencia dadosPendencia = new DadosPendencia();
+                        dadosPendencia.dadosUpload = aBoolean;
+                        dadosPendencia.pendencias = pendencias;
+                        return dadosPendencia;
+                    }
+                });
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     //---------------------------
     //API
     //---------------------------
@@ -334,26 +405,6 @@ public class TransferenciasRepositorio {
 
 
 
-    /**
-     * Metodo que permite obter todas as pendencias
-     * @param idUtilizador o identificador do utilizador
-     * @return uma lista de pendencias
-     */
-    public Maybe<DadosPendencia> obterPendencias(String idUtilizador){
-
-        return Maybe.zip(transferenciasDao.obterPendencias(idUtilizador), transferenciasDao.existemDadosUpload(idUtilizador),
-                new BiFunction<List<Pendencia>, Boolean, DadosPendencia>() {
-                    @Override
-                    public DadosPendencia apply(List<Pendencia> pendencias, Boolean aBoolean) throws Exception {
-
-                        DadosPendencia dadosPendencia = new DadosPendencia();
-                        dadosPendencia.dadosUpload = aBoolean;
-                        dadosPendencia.pendencias = pendencias;
-                        return dadosPendencia;
-                    }
-                });
-
-    }
 
     public Maybe<DadosPendencia> obterPendencias(String idUtilizador, long data){
 

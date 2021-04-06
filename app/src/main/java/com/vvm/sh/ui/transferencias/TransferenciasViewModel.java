@@ -64,6 +64,11 @@ public class TransferenciasViewModel extends BaseViewModel {
     public MutableLiveData<List<Pendencia>> pendencias;
     public MutableLiveData<List<Upload>> uploads;
 
+
+    public MutableLiveData<Boolean> aguardar;
+
+
+
     @Inject
     public TransferenciasViewModel(TransferenciasRepositorio transferenciasRepositorio,
                                    TiposRepositorio tiposRepositorio, UploadRepositorio uploadRepositorio,
@@ -78,6 +83,8 @@ public class TransferenciasViewModel extends BaseViewModel {
 
         this.uploads = new MutableLiveData<>();
         this.pendencias = new MutableLiveData<>();
+        this.aguardar = new MutableLiveData<>();
+        aguardar.postValue(true);
     }
 
     public MutableLiveData<List<Pendencia>> observarPendencias(){
@@ -219,6 +226,115 @@ public class TransferenciasViewModel extends BaseViewModel {
 
                 );
     }
+
+
+
+    //-----------------------
+    //PENDENCIAS
+    //-----------------------
+
+
+    /**
+     * Metodo que permite obter as pendencias
+     * @param idUtilizador o identificador do utilizador
+     */
+    public void obterPendencias(OnTransferenciaListener listener, String idUtilizador, boolean upload) {
+        obterPendencias(listener, transferenciasRepositorio.obterPendencias(idUtilizador), upload);
+    }
+
+
+    /**
+     * Metodo que permite obter as pendencias
+     * @param maybe
+     */
+    private void obterPendencias(OnTransferenciaListener listener, Maybe<DadosPendencia> maybe, boolean upload){
+
+        maybe
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new MaybeObserver<DadosPendencia>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onSuccess(DadosPendencia dadosPendencia) {
+
+                                pendencias.setValue(dadosPendencia.pendencias);
+                                aguardar.setValue(false);
+
+                                if (dadosPendencia.dadosUpload == false) {
+                                    atualizarDados(listener);
+                                }
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onComplete() {
+                                showProgressBar(false);
+                            }
+                        }
+                );
+    }
+
+
+
+    //---------------------------
+    //Download
+    //---------------------------
+
+
+
+    /**
+     * Metodo que permite obter o trabalho do dia
+     * @param idUtilizador o identificador do utilizador
+     */
+    public void obterTrabalho(Context contexto, OnTransferenciaListener listener, String idUtilizador){
+
+        showProgressBar(true);
+
+        redeRepositorio.obterTrabalho(idUtilizador)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new SingleObserver<Sessao>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onSuccess(Sessao sessao) {
+                                CarregarTrabalhoAsyncTask servico = new CarregarTrabalhoAsyncTask(vvmshBaseDados, transferenciasRepositorio, handler, idUtilizador);
+                                servico.execute(sessao);
+
+                                PreferenciasUtil.fixarContagemMaquina(contexto, sessao.iContagemTipoMaquina);
+
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                showProgressBar(false);
+                                formatarErro(e);
+                            }
+                        }
+                );
+    }
+
+
+
+
+
+
 
 
 

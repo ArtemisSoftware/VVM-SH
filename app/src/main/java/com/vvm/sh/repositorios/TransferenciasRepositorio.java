@@ -558,6 +558,12 @@ public class TransferenciasRepositorio {
     }
 
 
+
+
+
+
+
+
     /**
      * Metodo que permite inserir uma tarefa
      * @param tarefa os dados da tarefa

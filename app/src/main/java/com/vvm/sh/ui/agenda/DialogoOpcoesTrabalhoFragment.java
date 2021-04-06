@@ -7,6 +7,7 @@ import com.vvm.sh.R;
 import com.vvm.sh.ui.base.BaseDialogoOpcoesFragment;
 import com.vvm.sh.ui.agenda.adaptadores.OnAgendaListener;
 import com.vvm.sh.ui.base.modelos.OpcaoDialogo;
+import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
 
 import java.util.ArrayList;
@@ -28,6 +29,8 @@ public class DialogoOpcoesTrabalhoFragment extends BaseDialogoOpcoesFragment {
         if(PreferenciasUtil.agendaEditavel(getActivity()) == true){
             opcoes.add(new OpcaoDialogo(1, getString(R.string.recarregar_trabalho_dia)));
             opcoes.add(new OpcaoDialogo(2, getString(R.string.atualizar_trabalho_dia)));
+            opcoes.add(new OpcaoDialogo(3, getString(R.string.recarregar_trabalho_dia_sa)));
+            opcoes.add(new OpcaoDialogo(4, getString(R.string.recarregar_trabalho_dia_sht)));
         }
 
         return opcoes;
@@ -59,6 +62,16 @@ public class DialogoOpcoesTrabalhoFragment extends BaseDialogoOpcoesFragment {
                     case 2: //atualizar trabalho do dia
 
                         listener.atualizarTrabalho();
+                        break;
+
+                    case 3:  //reenviar trabalho do dia sa
+
+                        listener.recarregarTrabalho(Identificadores.App.APP_SA);
+                        break;
+
+                    case 4: //reenviar trabalho do dia sht
+
+                        listener.recarregarTrabalho(Identificadores.App.APP_SH);
                         break;
 
                     default:

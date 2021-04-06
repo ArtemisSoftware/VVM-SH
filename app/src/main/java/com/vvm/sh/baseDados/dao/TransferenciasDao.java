@@ -252,12 +252,10 @@ abstract public class TransferenciasDao implements BaseDao<Resultado> {
 
 
 
-    @Query("DELETE FROM tarefas WHERE idTarefa = :idTarefa")
-    abstract public void removerTarefa(int idTarefa);
 
 
-    @Query("DELETE FROM tarefas WHERE idTarefa IN(SELECT idTarefa FROM tarefas WHERE idUtilizador = :idUtilizador AND data = :data)")
-    abstract public void removerTrabalho(String idUtilizador, long data);
+
+
 
 
     @Query("SELECT * FROM tipos WHERE tipo = '" + TiposUtil.MetodosTipos.TIPOS_NI + "' AND api =" + Identificadores.App.APP_ST +"")
@@ -277,4 +275,20 @@ abstract public class TransferenciasDao implements BaseDao<Resultado> {
     public abstract String obterTipoItemChecklist(int idChecklist, int idArea, String idSeccao, String idItem);
 
 
+
+
+
+
+
+    //-----------
+
+    @Query("DELETE FROM tarefas WHERE idTarefa IN(SELECT idTarefa FROM tarefas WHERE idUtilizador = :idUtilizador AND data = :data)")
+    abstract public void removerTrabalho(String idUtilizador, long data);
+
+    @Query("DELETE FROM tarefas WHERE idTarefa IN(SELECT idTarefa FROM tarefas WHERE idUtilizador = :idUtilizador AND data = :data AND api = :api)")
+    abstract public void removerTrabalho(String idUtilizador, long data, int api);
+
+
+    @Query("DELETE FROM tarefas WHERE idTarefa = :idTarefa")
+    abstract public void removerTarefa(int idTarefa);
 }

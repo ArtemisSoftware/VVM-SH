@@ -345,7 +345,7 @@ public class TransferenciasViewModel extends BaseViewModel {
      */
     public void recarregarTrabalho(Context contexto, OnTransferenciaListener listener, String idUtilizador, String data, int api){
 
-        redeRepositorio.obterTrabalho(idUtilizador, data)
+        redeRepositorio.obterTrabalho(idUtilizador, data, api)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(

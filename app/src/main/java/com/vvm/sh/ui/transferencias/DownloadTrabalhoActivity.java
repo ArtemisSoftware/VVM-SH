@@ -120,28 +120,28 @@ public class DownloadTrabalhoActivity extends BaseDaggerActivity  implements OnT
 //                }
 //            }
 //        });
-//
-//        viewModel.observarMessagem().observe(this, new Observer<Recurso>() {
-//            @Override
-//            public void onChanged(Recurso recurso) {
-//
-//                switch (recurso.status){
-//
-//                    case SUCESSO:
-//
-//
-//                        break;
-//
-//                    case ERRO:
-//
-//                        dialogo.erro(recurso.messagem, (Codigo) recurso.dados, listenerActivity);
-//                        break;
-//
-//                    default:
-//                        break;
-//                }
-//            }
-//        });
+
+        viewModel.observarMessagem().observe(this, new Observer<Recurso>() {
+            @Override
+            public void onChanged(Recurso recurso) {
+
+                switch (recurso.status){
+
+                    case SUCESSO:
+
+
+                        break;
+
+                    case ERRO:
+
+                        dialogo.erro(recurso.messagem, (Codigo) recurso.dados, listenerActivity);
+                        break;
+
+                    default:
+                        break;
+                }
+            }
+        });
 
     }
 
@@ -206,11 +206,19 @@ public class DownloadTrabalhoActivity extends BaseDaggerActivity  implements OnT
 
 
         Bundle bundle = getIntent().getExtras();
-        viewModel.recarregarTarefa(this, this, (Tarefa) bundle.get(getString(R.string.argumento_tarefa)));
 
+        activityDownloadTrabalhoBinding.txtTituloTrabalho.setText(getString(R.string.recarregar_tarefa));
+
+        viewModel.recarregarTarefa(this, this, (Tarefa) bundle.get(getString(R.string.argumento_tarefa)));
     }
 
     private void atualizarTarefa() {
+
+//        Bundle bundle = getIntent().getExtras();
+//        activityDownloadTrabalhoBinding.txtTituloTrabalho.setText(getString(R.string.atualizar_tarefa));
+//
+//        viewModel.recarregarTrabalho(this, PreferenciasUtil.obterIdUtilizador(this), DatasUtil.converterData(bundle.getLong(getString(R.string.argumento_data)), DatasUtil.FORMATO_YYYY_MM_DD), handlerNotificacoesUI);
+
     }
 
 
@@ -259,7 +267,6 @@ public class DownloadTrabalhoActivity extends BaseDaggerActivity  implements OnT
     @Override
     public void terminarTransferencia() {
 
-
         Bundle bundle = getIntent().getExtras();
         //--activityDownloadTrabalhoBinding.setTipo(bundle.getInt(getString(R.string.argumento_download)));
 
@@ -270,16 +277,6 @@ public class DownloadTrabalhoActivity extends BaseDaggerActivity  implements OnT
                 viewModel.obterTrabalho(this, this, PreferenciasUtil.obterIdUtilizador(this));
                 break;
 
-            case Identificadores.Download.RECARREGAR_TAREFA:
-
-                //recarregarTarefa();
-                break;
-
-
-            case Identificadores.Download.ATUALIZAR_TRABALHO_DIA:
-
-                //atualizarTarefa();
-                break;
 
             default:
                 break;
@@ -289,6 +286,7 @@ public class DownloadTrabalhoActivity extends BaseDaggerActivity  implements OnT
     @Override
     public void erroTransferencia() {
 
+        dialogo.erro("Download", "Erro ao gravar dados", listenerActivity);
     }
 
 

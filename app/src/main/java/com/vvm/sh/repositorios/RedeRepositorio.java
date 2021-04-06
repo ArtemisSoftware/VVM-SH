@@ -68,7 +68,6 @@ public class RedeRepositorio {
     //---------------------
 
 
-
     public Single<Sessao> obterTrabalho(String idUtilizador) {
 
         Single<Sessao> single = null;
@@ -113,13 +112,12 @@ public class RedeRepositorio {
 
 
 
-            case AppConfig.APP_SA_SHT:
-
-                single = obterTrabalho__Final(idUtilizador);
-                break;
+//            case AppConfig.APP_SA_SHT:
+//                break;
 
 
             default:
+                single = obterTrabalho__Final(idUtilizador);
                 break;
 
 
@@ -129,13 +127,17 @@ public class RedeRepositorio {
     }
 
 
+
+
+
+
     /**
      * Metodo que permite obter o trabalho de um dia especifico para um utilizador
      * @param idUtilizador o identificador do utilizador
      * @param data da data do dia (YYYY-mm-dd)
      * @return o trabalho do dia
      */
-    public Single<Sessao> obterTrabalho(String idUtilizador, String data) {
+    public Single<Sessao> obterTrabalho(String idUtilizador, String data, int api) {
 
         Single<Sessao> single = null;
 
@@ -179,13 +181,12 @@ public class RedeRepositorio {
 
 
 
-            case AppConfig.APP_SA_SHT:
-
-                single = obterTrabalho__Final(idUtilizador, data);
-                break;
+//            case AppConfig.APP_SA_SHT:
+//                break;
 
 
             default:
+                single = obterTrabalho__Final(idUtilizador, data);
                 break;
 
         }

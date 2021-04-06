@@ -290,6 +290,25 @@ public class MainActivity extends BaseDaggerActivity
         }
     }
 
+    @Override
+    public void recarregarTrabalho(int api) {
+
+        OnDialogoListener listener = new OnDialogoListener() {
+            @Override
+            public void onExecutar() {
+
+                Intent intent = new Intent(MainActivity.this, DownloadTrabalhoActivity.class);
+                intent.putExtra(getString(R.string.argumento_download), Identificadores.Download.RECARREGAR_TRABALHO_DIA);
+                intent.putExtra(getString(R.string.argumento_api), api);
+                startActivity(intent);
+            }
+        };
+
+        if(PreferenciasUtil.agendaEditavel(this) == true) {
+            dialogo.alerta(getString(R.string.recarregar_trabalho), getString(R.string.recarregar_trabalho_perder_dados), listener, true);
+        }
+    }
+
 
     @Override
     public void atualizarTrabalho() {
@@ -311,6 +330,8 @@ public class MainActivity extends BaseDaggerActivity
 
 
     }
+
+
 
 
     @Override

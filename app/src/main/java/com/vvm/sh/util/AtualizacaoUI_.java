@@ -21,7 +21,9 @@ public class AtualizacaoUI_ {
         PROCESSAMENTO_INSTALACAO_ATUALIZACAO_APP,
         ERRO_INSTALACAO_ATUALIZACAO_APP,
 
-        ERRO
+        ERRO,
+
+        PROCESSAMENTO_TRABALHO
     }
 
 

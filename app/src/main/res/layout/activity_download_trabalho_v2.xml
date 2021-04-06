@@ -70,8 +70,9 @@
 
 
         <androidx.constraintlayout.widget.ConstraintLayout
-            android:id="@+id/lnr_lyt_tipos"
-            android:layout_width="400dp"
+            android:id="@+id/ctrl_tipos"
+            android:layout_width="450dp"
+            android:visibility="gone"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -458,10 +459,65 @@
         </androidx.constraintlayout.widget.ConstraintLayout>
 
 
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/ctrl_pendencias"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:padding="15dp">
 
 
+            <TextView
+                android:id="@+id/txt_titulo_pendencias"
+                style="@style/titulo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/pendencias"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txt_detalhe_pendencias"
+                style="@style/textoDetalhe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@string/pendencias_tarefas_download"
+                app:layout_constraintStart_toStartOf="@+id/txt_titulo_pendencias"
+                app:layout_constraintTop_toBottomOf="@+id/txt_titulo_pendencias" />
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcl_registos_pendencias"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:verticalSpacing="24dp"
+                android:visibility="@{viewmodel.pendencias.size() > 0 ? View.VISIBLE : View.GONE}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/txt_titulo_pendencias"
+                app:layout_constraintTop_toBottomOf="@+id/txt_detalhe_pendencias"
+                app:pendencias="@{viewmodel.pendencias}"
+                tools:listitem="@layout/item_pendencia" />
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+        <include
+            android:id="@+id/loading"
+            layout="@layout/loading"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 
 

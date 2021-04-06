@@ -194,11 +194,20 @@ public class DownloadTrabalhoActivity extends BaseDaggerActivity  implements OnT
     private void recarregarTrabalhoDia() {
 
         Bundle bundle = getIntent().getExtras();
-        activityDownloadTrabalhoBinding.txtTituloTrabalho.setText(getString(R.string.recarregar_trabalho_dia_) + DatasUtil.converterData(bundle.getLong(getString(R.string.argumento_data)), DatasUtil.FORMATO_DD_MM_YYYY));
+        int api = bundle.getInt(getString(R.string.argumento_api));
+        long data = bundle.getLong(getString(R.string.argumento_data));
+
+        activityDownloadTrabalhoBinding.txtTituloTrabalho.setText(getString(R.string.recarregar_trabalho_dia_) + DatasUtil.converterData(data, DatasUtil.FORMATO_DD_MM_YYYY) + " -> " + api);
+
+        viewModel.recarregarTrabalho(this, this, PreferenciasUtil.obterIdUtilizador(this), DatasUtil.converterData(data, DatasUtil.FORMATO_YYYY_MM_DD), api);
     }
 
     private void recarregarTarefa() {
-        viewModel.recarregarTrabalho();
+
+
+        Bundle bundle = getIntent().getExtras();
+        viewModel.recarregarTarefa(this, this, (Tarefa) bundle.get(getString(R.string.argumento_tarefa)));
+
     }
 
     private void atualizarTarefa() {
@@ -259,11 +268,6 @@ public class DownloadTrabalhoActivity extends BaseDaggerActivity  implements OnT
             case Identificadores.Download.DOWNLOAD_TRABALHO_DIA:
 
                 viewModel.obterTrabalho(this, this, PreferenciasUtil.obterIdUtilizador(this));
-                break;
-
-            case Identificadores.Download.RECARREGAR_TRABALHO_DIA:
-
-                //recarregarTrabalhoDia();
                 break;
 
             case Identificadores.Download.RECARREGAR_TAREFA:

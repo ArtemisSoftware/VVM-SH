@@ -21,6 +21,7 @@ import com.vvm.sh.servicos.tipos.atualizacao.AtualizarTipoAsyncTask__v2;
 import com.vvm.sh.servicos.trabalho.AtualizarTrabalhoAsyncTask;
 import com.vvm.sh.servicos.trabalho.AtualizarTrabalhoAsyncTask__v2;
 import com.vvm.sh.servicos.trabalho.RecarregarTarefaAsyncTask;
+import com.vvm.sh.servicos.trabalho.RecarregarTarefaAsyncTask__v2;
 import com.vvm.sh.servicos.trabalho.RecarregarTrabalhoAsyncTask;
 import com.vvm.sh.servicos.trabalho.CarregarTrabalhoAsyncTask;
 import com.vvm.sh.servicos.trabalho.RecarregarTrabalhoAsyncTask__v2;
@@ -342,7 +343,7 @@ public class TransferenciasViewModel extends BaseViewModel {
      * @param idUtilizador o identificador do utilizador
      * @param data a data do trabalho
      */
-    public void recarregarTrabalho(Context contexto, OnTransferenciaListener listener,String idUtilizador, String data, int api){
+    public void recarregarTrabalho(Context contexto, OnTransferenciaListener listener, String idUtilizador, String data, int api){
 
         redeRepositorio.obterTrabalho(idUtilizador, data)
                 .subscribeOn(Schedulers.io())
@@ -375,6 +376,42 @@ public class TransferenciasViewModel extends BaseViewModel {
     }
 
 
+
+    /**
+     * Metodo que permite recarregar uma tarefa
+     * @param tarefa os dados da tarefa a recarregar
+     */
+    public void recarregarTarefa(Context contexto, OnTransferenciaListener listener, Tarefa tarefa){
+
+        redeRepositorio.obterTrabalho(tarefa.idUtilizador)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new SingleObserver<Sessao>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onSuccess(Sessao sessao) {
+                                RecarregarTarefaAsyncTask__v2 servico = new RecarregarTarefaAsyncTask__v2(listener, vvmshBaseDados, downloadTrabalhoRepositorio, tarefa);
+                                servico.execute(sessao);
+
+                                PreferenciasUtil.fixarContagemMaquina(contexto, sessao.iContagemTipoMaquina);
+
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                showProgressBar(false);
+                                formatarErro(e);
+                            }
+                        }
+                );
+    }
 
 
 

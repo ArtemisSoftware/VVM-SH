@@ -550,6 +550,7 @@
     <string name="copiar_link">Copiar link</string>
     <string name="checklists">Checklists</string>
     <string name="recarregar_tipos">Recarregar tipos</string>
+    <string name="argumento_api">api</string>
 
 
 </resources>

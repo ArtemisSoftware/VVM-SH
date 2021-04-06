@@ -10,6 +10,7 @@ import com.vvm.sh.api.modelos.pedido.Codigo;
 import com.vvm.sh.api.modelos.pedido.ITipoListagem;
 import com.vvm.sh.baseDados.entidades.Tarefa;
 import com.vvm.sh.repositorios.CarregamentoTiposRepositorio;
+import com.vvm.sh.repositorios.DownloadTrabalhoRepositorio;
 import com.vvm.sh.repositorios.RedeRepositorio;
 import com.vvm.sh.repositorios.TiposRepositorio;
 import com.vvm.sh.repositorios.TransferenciasRepositorio;
@@ -18,9 +19,11 @@ import com.vvm.sh.servicos.DadosUploadAsyncTask;
 import com.vvm.sh.servicos.tipos.AtualizarTipoAsyncTask;
 import com.vvm.sh.servicos.tipos.atualizacao.AtualizarTipoAsyncTask__v2;
 import com.vvm.sh.servicos.trabalho.AtualizarTrabalhoAsyncTask;
+import com.vvm.sh.servicos.trabalho.AtualizarTrabalhoAsyncTask__v2;
 import com.vvm.sh.servicos.trabalho.RecarregarTarefaAsyncTask;
 import com.vvm.sh.servicos.trabalho.RecarregarTrabalhoAsyncTask;
 import com.vvm.sh.servicos.trabalho.CarregarTrabalhoAsyncTask;
+import com.vvm.sh.servicos.trabalho.RecarregarTrabalhoAsyncTask__v2;
 import com.vvm.sh.servicos.upload.DadosUploadSAAsyncTask;
 import com.vvm.sh.servicos.upload.DadosUploadSHAsyncTask;
 import com.vvm.sh.ui.transferencias.adaptadores.OnTransferenciaListener;
@@ -60,6 +63,7 @@ public class TransferenciasViewModel extends BaseViewModel {
     private final TiposRepositorio tiposRepositorio;
     private final CarregamentoTiposRepositorio carregamentoTiposRepositorio;
     private final RedeRepositorio redeRepositorio;
+    private final DownloadTrabalhoRepositorio downloadTrabalhoRepositorio;
 
     public MutableLiveData<List<Pendencia>> pendencias;
     public MutableLiveData<List<Upload>> uploads;
@@ -73,13 +77,14 @@ public class TransferenciasViewModel extends BaseViewModel {
     public TransferenciasViewModel(TransferenciasRepositorio transferenciasRepositorio,
                                    TiposRepositorio tiposRepositorio, UploadRepositorio uploadRepositorio,
                                    CarregamentoTiposRepositorio carregamentoTiposRepositorio,
-                                   RedeRepositorio redeRepositorio){
+                                   RedeRepositorio redeRepositorio, DownloadTrabalhoRepositorio downloadTrabalhoRepositorio){
 
         this.transferenciasRepositorio = transferenciasRepositorio;
         this.uploadRepositorio = uploadRepositorio;
         this.tiposRepositorio = tiposRepositorio;
         this.carregamentoTiposRepositorio = carregamentoTiposRepositorio;
         this.redeRepositorio = redeRepositorio;
+        this.downloadTrabalhoRepositorio = downloadTrabalhoRepositorio;
 
         this.uploads = new MutableLiveData<>();
         this.pendencias = new MutableLiveData<>();
@@ -266,7 +271,7 @@ public class TransferenciasViewModel extends BaseViewModel {
                                 pendencias.setValue(dadosPendencia.pendencias);
                                 aguardar.setValue(false);
 
-                                if (dadosPendencia.dadosUpload == false) {
+                                if (dadosPendencia.pendencias.size() == 0) {
                                     atualizarDados(listener);
                                 }
                             }
@@ -298,8 +303,6 @@ public class TransferenciasViewModel extends BaseViewModel {
      */
     public void obterTrabalho(Context contexto, OnTransferenciaListener listener, String idUtilizador){
 
-        showProgressBar(true);
-
         redeRepositorio.obterTrabalho(idUtilizador)
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -313,7 +316,8 @@ public class TransferenciasViewModel extends BaseViewModel {
 
                             @Override
                             public void onSuccess(Sessao sessao) {
-                                CarregarTrabalhoAsyncTask servico = new CarregarTrabalhoAsyncTask(vvmshBaseDados, transferenciasRepositorio, handler, idUtilizador);
+
+                                AtualizarTrabalhoAsyncTask__v2 servico = new AtualizarTrabalhoAsyncTask__v2(listener, vvmshBaseDados, downloadTrabalhoRepositorio, idUtilizador);
                                 servico.execute(sessao);
 
                                 PreferenciasUtil.fixarContagemMaquina(contexto, sessao.iContagemTipoMaquina);
@@ -333,7 +337,42 @@ public class TransferenciasViewModel extends BaseViewModel {
 
 
 
+    /**
+     * Metodo que permite obter o trabalho de um dia especifico
+     * @param idUtilizador o identificador do utilizador
+     * @param data a data do trabalho
+     */
+    public void recarregarTrabalho(Context contexto, OnTransferenciaListener listener,String idUtilizador, String data, int api){
 
+        redeRepositorio.obterTrabalho(idUtilizador, data)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new SingleObserver<Sessao>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onSuccess(Sessao sessao) {
+                                RecarregarTrabalhoAsyncTask__v2 servico = new RecarregarTrabalhoAsyncTask__v2(listener, vvmshBaseDados, downloadTrabalhoRepositorio, idUtilizador, DatasUtil.converterDataLong(data, DatasUtil.FORMATO_YYYY_MM_DD), api);
+                                servico.execute(sessao);
+
+                                PreferenciasUtil.fixarContagemMaquina(contexto, sessao.iContagemTipoMaquina);
+
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                showProgressBar(false);
+                                formatarErro(e);
+                            }
+                        }
+                );
+    }
 
 
 

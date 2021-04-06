@@ -4,12 +4,9 @@ import android.database.sqlite.SQLiteConstraintException;
 import android.os.AsyncTask;
 
 import com.vvm.sh.baseDados.VvmshBaseDados;
-import com.vvm.sh.baseDados.entidades.Atualizacao;
-import com.vvm.sh.repositorios.CarregamentoTiposRepositorio;
 import com.vvm.sh.repositorios.DownloadTrabalhoRepositorio;
 import com.vvm.sh.ui.transferencias.modelos.Sessao;
 
-import java.util.List;
 
 public abstract class CarregamentoTrabalhoAsyncTask extends AsyncTask<Sessao, Void, Void> {
 

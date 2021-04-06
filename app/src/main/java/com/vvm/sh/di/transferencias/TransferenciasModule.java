@@ -10,6 +10,7 @@ import com.vvm.sh.baseDados.dao.TransferenciasDao;
 import com.vvm.sh.baseDados.dao.UploadDao;
 import com.vvm.sh.di.opcoes.OpcoesScope;
 import com.vvm.sh.repositorios.CarregamentoTiposRepositorio;
+import com.vvm.sh.repositorios.DownloadTrabalhoRepositorio;
 import com.vvm.sh.repositorios.RedeRepositorio;
 import com.vvm.sh.repositorios.TiposRepositorio;
 import com.vvm.sh.repositorios.TransferenciasRepositorio;
@@ -97,6 +98,12 @@ public class TransferenciasModule {
     }
 
 
+    @TransferenciasScope
+    @Provides
+    DownloadTrabalhoRepositorio provideDownloadTrabalhoRepositorio(TransferenciasDao transferenciasDao) {
 
+        DownloadTrabalhoRepositorio repositorio = new DownloadTrabalhoRepositorio(transferenciasDao);
+        return repositorio;
+    }
 
 }

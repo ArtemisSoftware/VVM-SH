@@ -54,7 +54,15 @@ public class DownloadTrabalhoActivity extends BaseDaggerActivity  implements OnT
         activityDownloadTrabalhoBinding.setLifecycleOwner(this);
         activityDownloadTrabalhoBinding.setViewmodel(viewModel);
 
+        activityDownloadTrabalhoBinding.setAtualizacaoTipos(new AtualizacaoUI_(getString(R.string.por_favor_aguarde)));
+        activityDownloadTrabalhoBinding.setAtualizacaoActivPlaneaveis(new AtualizacaoUI_(getString(R.string.por_favor_aguarde)));
+        activityDownloadTrabalhoBinding.setAtualizacaoTemplates(new AtualizacaoUI_(getString(R.string.por_favor_aguarde)));
+        activityDownloadTrabalhoBinding.setAtualizacaoTrabalho(new AtualizacaoUI_(getString(R.string.por_favor_aguarde)));
+        activityDownloadTrabalhoBinding.setAtualizacaoChecklist(new AtualizacaoUI_(getString(R.string.por_favor_aguarde)));
+
         subscreverObservadores();
+
+        selecionarTipoDownload();
 
 //        Bundle bundle = getIntent().getExtras();
 //        activityDownloadTrabalhoBinding.setTipo(bundle.getInt(getString(R.string.argumento_download)));
@@ -104,36 +112,36 @@ public class DownloadTrabalhoActivity extends BaseDaggerActivity  implements OnT
     @Override
     protected void subscreverObservadores() {
 
-        viewModel.observarPendencias().observe(this, new Observer<List<Pendencia>>() {
-            @Override
-            public void onChanged(List<Pendencia> pendencias) {
-                if(pendencias.size() > 0) {
-                    dialogo.alerta(getString(R.string.pendencias), getString(R.string.pendencias_download));
-                }
-            }
-        });
-
-        viewModel.observarMessagem().observe(this, new Observer<Recurso>() {
-            @Override
-            public void onChanged(Recurso recurso) {
-
-                switch (recurso.status){
-
-                    case SUCESSO:
-
-
-                        break;
-
-                    case ERRO:
-
-                        dialogo.erro(recurso.messagem, (Codigo) recurso.dados, listenerActivity);
-                        break;
-
-                    default:
-                        break;
-                }
-            }
-        });
+//        viewModel.observarPendencias().observe(this, new Observer<List<Pendencia>>() {
+//            @Override
+//            public void onChanged(List<Pendencia> pendencias) {
+//                if(pendencias.size() > 0) {
+//                    dialogo.alerta(getString(R.string.pendencias), getString(R.string.pendencias_download));
+//                }
+//            }
+//        });
+//
+//        viewModel.observarMessagem().observe(this, new Observer<Recurso>() {
+//            @Override
+//            public void onChanged(Recurso recurso) {
+//
+//                switch (recurso.status){
+//
+//                    case SUCESSO:
+//
+//
+//                        break;
+//
+//                    case ERRO:
+//
+//                        dialogo.erro(recurso.messagem, (Codigo) recurso.dados, listenerActivity);
+//                        break;
+//
+//                    default:
+//                        break;
+//                }
+//            }
+//        });
 
     }
 
@@ -179,15 +187,18 @@ public class DownloadTrabalhoActivity extends BaseDaggerActivity  implements OnT
     private void downloadTrabalhoDia() {
 
         activityDownloadTrabalhoBinding.txtTituloTrabalho.setText(getString(R.string.download_trabalho_dia_) + DatasUtil.obterDataAtual(DatasUtil.FORMATO_DD_MM_YYYY));
-        activityDownloadTrabalhoBinding.setAtualizacaoTrabalho(new AtualizacaoUI_(getString(R.string.por_favor_aguarde)));
 
         viewModel.obterPendencias(this, PreferenciasUtil.obterIdUtilizador(this), false);
     }
 
     private void recarregarTrabalhoDia() {
+
+        Bundle bundle = getIntent().getExtras();
+        activityDownloadTrabalhoBinding.txtTituloTrabalho.setText(getString(R.string.recarregar_trabalho_dia_) + DatasUtil.converterData(bundle.getLong(getString(R.string.argumento_data)), DatasUtil.FORMATO_DD_MM_YYYY));
     }
 
     private void recarregarTarefa() {
+        viewModel.recarregarTrabalho();
     }
 
     private void atualizarTarefa() {
@@ -224,6 +235,12 @@ public class DownloadTrabalhoActivity extends BaseDaggerActivity  implements OnT
                 activityDownloadTrabalhoBinding.setAtualizacaoChecklist(atualizacaoUI);
                 break;
 
+
+            case PROCESSAMENTO_TRABALHO:
+
+                activityDownloadTrabalhoBinding.setAtualizacaoTrabalho(atualizacaoUI);
+                break;
+
             default:
                 break;
 
@@ -241,7 +258,7 @@ public class DownloadTrabalhoActivity extends BaseDaggerActivity  implements OnT
 
             case Identificadores.Download.DOWNLOAD_TRABALHO_DIA:
 
-                viewModel.obterTrabalho(this, PreferenciasUtil.obterIdUtilizador(this), handlerNotificacoesUI);
+                viewModel.obterTrabalho(this, this, PreferenciasUtil.obterIdUtilizador(this));
                 break;
 
             case Identificadores.Download.RECARREGAR_TRABALHO_DIA:

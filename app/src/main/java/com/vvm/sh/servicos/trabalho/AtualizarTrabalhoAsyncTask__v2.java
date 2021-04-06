@@ -73,6 +73,8 @@ public class AtualizarTrabalhoAsyncTask__v2 extends CarregamentoTrabalhoAsyncTas
 
     public AtualizarTrabalhoAsyncTask__v2(OnTransferenciaListener listener, VvmshBaseDados vvmshBaseDados, DownloadTrabalhoRepositorio repositorio, String idUtilizador){
         super(vvmshBaseDados, repositorio);
+        this.listener = listener;
+        this.idUtilizador = idUtilizador;
     }
 
     @Override

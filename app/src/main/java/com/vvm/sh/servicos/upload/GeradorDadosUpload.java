@@ -36,19 +36,28 @@ import static com.vvm.sh.util.constantes.Identificadores.Resultados.ID_OCORRENCI
 public abstract class GeradorDadosUpload {
 
     private DadosUpload dadosUpload;
-    private UploadRepositorio repositorio;
+    protected UploadRepositorio repositorio;
 
     /**
      * variavel que contem os identificadores das imagens a fazer upload
      */
     private List<Integer> idImagens;
 
-    public GeradorDadosUpload(UploadRepositorio repositorio, List<Upload> resposta, String idUtilizador) {
+    private List<Upload> uploads;
+
+    public GeradorDadosUpload(UploadRepositorio repositorio, List<Upload> uploads, String idUtilizador) {
         this.dadosUpload = new DadosUpload(idUtilizador);
         this.repositorio = repositorio;
         this.idImagens = new ArrayList<>();
+
+        this.uploads = filtrarUploads(uploads);
     }
 
+
+    public void obterDados(){
+        obterDados(this.uploads);
+        obterImagens();
+    }
 
 
     /**
@@ -121,9 +130,6 @@ public abstract class GeradorDadosUpload {
 
 
 
-
-
-
     /**
      * Metodo que permite obter as imagens
      */
@@ -165,6 +171,8 @@ public abstract class GeradorDadosUpload {
             }
         }
     }
+
+
 
 
 
@@ -293,6 +301,14 @@ public abstract class GeradorDadosUpload {
     //-----------------------
     //Metodos abstratos
     //-----------------------
+
+    /**
+     * Metodo que permite filtrar os dados de upload segundo a api
+     * @param uploads as lista de dados a fazer upload
+     * @return uma lista filtrada
+     */
+    protected abstract List<Upload> filtrarUploads(List<Upload> uploads);
+
 
     protected abstract void obterDados(DadosFormulario dadosFormulario, Resultado resultado);
 

@@ -71,7 +71,7 @@ public class DialogoOpcoesTrabalhoFragment extends BaseDialogoOpcoesFragment {
 
                     case 4: //reenviar trabalho do dia sht
 
-                        listener.recarregarTrabalho(Identificadores.App.APP_SH);
+                        listener.recarregarTrabalho(Identificadores.App.APP_ST);
                         break;
 
                     default:

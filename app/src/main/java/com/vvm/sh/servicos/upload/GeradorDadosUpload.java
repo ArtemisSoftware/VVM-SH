@@ -35,13 +35,13 @@ import static com.vvm.sh.util.constantes.Identificadores.Resultados.ID_OCORRENCI
 
 public abstract class GeradorDadosUpload {
 
-    private DadosUpload dadosUpload;
+    protected DadosUpload dadosUpload;
     protected UploadRepositorio repositorio;
 
     /**
      * variavel que contem os identificadores das imagens a fazer upload
      */
-    private List<Integer> idImagens;
+    protected List<Integer> idImagens;
 
     private List<Upload> uploads;
 

@@ -236,41 +236,31 @@ public class TiposUtil {
 
 
             public static final MetodoApi TIPOS [] = new MetodoApi []{
-                    //TODO: descomentar para ativar tipos de sht
+                    //SA
 
                     METODO_ATIVIDADES_RELATORIO_VISITA,
-/*
-                    METODO_CATEGORIAS_PROFISSIONAIS,
-                    METODO_CONDICOES_CLIMATERICAS,
-                    METODO_CONCLUSAO_MEDIDAS_RECOMENDADAS,
-*/
-
                     METODO_CROSS_SELLING_PRODUTOS,
                     METODO_CROSS_SELLING_DIMENSAO,
                     METODO_CROSS_SELLING_TIPO,
-
                     METODO_CURSOS,
-
                     METODO_FRASES_APOIO,
-/*
-                    METODO_ILUMINANCIA,
+                    METODO_OBRIGACOES_LEGAIS,
+                    METODO_TIPOS_ANOMALIA,
+                    METODO_TIPIFICACAO_OCORRENCIA,
 
+                    //ST
+
+
+                    METODO_CATEGORIAS_PROFISSIONAIS,
+                    METODO_CONDICOES_CLIMATERICAS,
+                    METODO_CONCLUSAO_MEDIDAS_RECOMENDADAS,
+                    METODO_ILUMINANCIA,
                     METODO_MEDIDAS_ILUMINACAO_TERMICO,
                     METODO_MEDIDAS_PREVENCAO_RECOMENDADAS,
                     METODO_MEDIDAS_PREVENCAO_ADOPTADAS,
-*/
-                    METODO_OBRIGACOES_LEGAIS,
-/*
                     METODO_RISCOS,
                     METODO_RISCOS_ESPECIFICOS,
-
                     METODO_TEMPLATE_AVALIACAO_RISCOS,
-*/
-
-                    METODO_TIPOS_ANOMALIA,
-                    METODO_TIPIFICACAO_OCORRENCIA,
-/*
-
                     METODO_TIPOS_AREA,
                     METODO_TIPOS_CHECKLIST,
                     METODO_TIPOS_ILUMINACAO,
@@ -281,7 +271,7 @@ public class TiposUtil {
                     METODO_TIPOS_MAQUINA,
                     METODO_TIPOS_UTS,
                     METODO_TIPOS_VULNERABILIDADES
-                    */
+
             };
         }
 
@@ -551,7 +541,7 @@ public class TiposUtil {
         if (atualizacaoAtividadesPlaneaveis.size() == 0) { //Não existem atualizacoes
             registos.addAll(Arrays.asList(MetodosTipos.AtividadesPlaneaveis.TIPOS));
         } else {
-            registos.addAll(filtrarAtualizacoes(atualizacaoTipo, Arrays.asList(MetodosTipos.AtividadesPlaneaveis.TIPOS)));
+            registos.addAll(filtrarAtualizacoes(atualizacaoAtividadesPlaneaveis, Arrays.asList(MetodosTipos.AtividadesPlaneaveis.TIPOS)));
         }
 
 
@@ -560,7 +550,7 @@ public class TiposUtil {
         if (atualizacaoTemplate.size() == 0) { //Não existem atualizacoes
             registos.addAll(Arrays.asList(MetodosTipos.TemplateAvr.TIPOS));
         } else {
-            registos.addAll(filtrarAtualizacoes(atualizacaoTipo, Arrays.asList(MetodosTipos.TemplateAvr.TIPOS)));
+            registos.addAll(filtrarAtualizacoes(atualizacaoTemplate, Arrays.asList(MetodosTipos.TemplateAvr.TIPOS)));
         }
 
 

@@ -50,6 +50,7 @@ import com.vvm.sh.baseDados.entidades.TipoNovo;
 import com.vvm.sh.baseDados.entidades.TrabalhadorVulneravelResultado;
 import com.vvm.sh.baseDados.entidades.TrabalhoRealizadoResultado;
 import com.vvm.sh.repositorios.UploadRepositorio;
+import com.vvm.sh.ui.transferencias.adaptadores.OnTransferenciaListener;
 import com.vvm.sh.ui.transferencias.modelos.Upload;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.constantes.Sintaxe;
@@ -71,22 +72,11 @@ import static com.vvm.sh.util.constantes.Identificadores.Resultados.ID_SINISTRAL
 
 public class GeradorDadosUploadSH extends GeradorDadosUpload{
 
-    public GeradorDadosUploadSH(UploadRepositorio repositorio, List<Upload> uploads, String idUtilizador) {
-        super(repositorio, uploads, idUtilizador);
+    public GeradorDadosUploadSH(OnTransferenciaListener.OnUploadListener listener, UploadRepositorio repositorio, List<Upload> uploads, String idUtilizador) {
+        super(listener, repositorio, uploads, idUtilizador, Identificadores.App.APP_ST);
     }
 
-    @Override
-    protected List<Upload> filtrarUploads(List<Upload> uploads) {
 
-        List<Upload> registos = new ArrayList<>();
-
-        for (Upload item :uploads) {
-            if(item.tarefa.api == Identificadores.App.APP_ST)
-                registos.add(item);
-        }
-
-        return registos;
-    }
 
 
     @Override

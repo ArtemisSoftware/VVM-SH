@@ -64,35 +64,6 @@ public class DownloadTrabalhoActivity extends BaseDaggerActivity  implements OnT
 
         selecionarTipoDownload();
 
-//        Bundle bundle = getIntent().getExtras();
-//        activityDownloadTrabalhoBinding.setTipo(bundle.getInt(getString(R.string.argumento_download)));
-//
-//        switch (bundle.getInt(getString(R.string.argumento_download))){
-//
-//            case Identificadores.Download.DOWNLOAD_TRABALHO_DIA:
-//
-//                downloadTrabalhoDia();
-//                break;
-//
-//            case Identificadores.Download.RECARREGAR_TRABALHO_DIA:
-//
-//                recarregarTrabalhoDia();
-//                break;
-//
-//            case Identificadores.Download.RECARREGAR_TAREFA:
-//
-//                recarregarTarefa();
-//                break;
-//
-//
-//            case Identificadores.Download.ATUALIZAR_TRABALHO_DIA:
-//
-//                atualizarTarefa();
-//                break;
-//
-//            default:
-//                break;
-//        }
 
     }
 
@@ -186,7 +157,7 @@ public class DownloadTrabalhoActivity extends BaseDaggerActivity  implements OnT
 
     private void downloadTrabalhoDia() {
 
-        activityDownloadTrabalhoBinding.txtTituloTrabalho.setText(getString(R.string.download_trabalho_dia_) + DatasUtil.obterDataAtual(DatasUtil.FORMATO_DD_MM_YYYY));
+        activityDownloadTrabalhoBinding.txtTituloTrabalho.setText(getString(R.string.download_trabalho_dia_) + " " + DatasUtil.obterDataAtual(DatasUtil.FORMATO_DD_MM_YYYY));
 
         viewModel.obterPendencias(this, PreferenciasUtil.obterIdUtilizador(this), false);
     }
@@ -197,7 +168,7 @@ public class DownloadTrabalhoActivity extends BaseDaggerActivity  implements OnT
         int api = bundle.getInt(getString(R.string.argumento_api));
         long data = bundle.getLong(getString(R.string.argumento_data));
 
-        activityDownloadTrabalhoBinding.txtTituloTrabalho.setText(getString(R.string.recarregar_trabalho_dia_) + DatasUtil.converterData(data, DatasUtil.FORMATO_DD_MM_YYYY) + " -> " + api);
+        activityDownloadTrabalhoBinding.txtTituloTrabalho.setText(getString(R.string.recarregar_trabalho_dia_)  + " " +  DatasUtil.converterData(data, DatasUtil.FORMATO_DD_MM_YYYY) + " -> " + api);
 
         viewModel.recarregarTrabalho(this, this, PreferenciasUtil.obterIdUtilizador(this), DatasUtil.converterData(data, DatasUtil.FORMATO_YYYY_MM_DD), api);
     }

@@ -23,7 +23,8 @@ public class AtualizacaoUI_ {
 
         ERRO,
 
-        PROCESSAMENTO_TRABALHO
+        PROCESSAMENTO_TRABALHO,
+        PROCESSAMENTO_DADOS_UPLOAD
     }
 
 

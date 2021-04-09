@@ -86,19 +86,18 @@
                 <TextView
                     android:id="@+id/txt_titulo"
                     style="@style/textoDetalhe"
+                    android:layout_marginStart="24dp"
+                    android:layout_marginTop="24dp"
                     android:text="@string/data"
-                    android:layout_marginStart="16dp"
-                    android:layout_marginTop="16dp"
                     app:layout_constraintStart_toStartOf="parent"
-                    app:layout_constraintTop_toTopOf="parent"/>
+                    app:layout_constraintTop_toTopOf="parent" />
 
                 <TextView
                     android:id="@+id/txt_data"
                     style="@style/tituloCartao"
-                    android:layout_marginStart="16dp"
                     android:layout_marginTop="16dp"
                     android:text="@string/lorem_ipsum_data"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/txt_titulo"
                     app:layout_constraintTop_toBottomOf="@+id/txt_titulo" />
 
                 <at.markushi.ui.CircleButton
@@ -113,9 +112,8 @@
                 <TextView
                     android:id="@+id/txt_titulo_2"
                     style="@style/textoDetalhe"
-                    android:layout_marginStart="16dp"
                     android:text="@string/estado"
-                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintStart_toStartOf="@+id/txt_titulo"
                     app:layout_constraintTop_toBottomOf="@+id/crl_btn_calendario" />
 
 
@@ -129,7 +127,7 @@
                     android:layout_marginBottom="8dp"
                     android:theme="@style/Theme.MaterialComponents.Light"
                     app:layout_constraintBottom_toBottomOf="parent"
-                    app:layout_constraintStart_toStartOf="@+id/txt_data"
+                    app:layout_constraintStart_toStartOf="@+id/txt_titulo"
                     app:layout_constraintTop_toBottomOf="@+id/txt_titulo_2" />
 
 

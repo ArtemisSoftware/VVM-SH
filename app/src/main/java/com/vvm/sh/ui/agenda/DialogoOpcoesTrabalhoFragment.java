@@ -47,15 +47,15 @@ public class DialogoOpcoesTrabalhoFragment extends BaseDialogoOpcoesFragment {
 
                 switch (item) {
 
-                    case 0: //recarregar trabalho do dia
+                    case 0:
+                        listener.reUploadDados();
 
-                        listener.recarregarTrabalho();
                         break;
 
 
-                    case 1: //reenviar trabalho do dia
+                    case 1:
 
-                        listener.reUploadDados();
+                        listener.recarregarTrabalho();
                         break;
 
 

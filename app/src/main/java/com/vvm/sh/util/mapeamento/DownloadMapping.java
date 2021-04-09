@@ -221,6 +221,7 @@ public interface DownloadMapping {
 
     @Mapping(target = "idArea", source = "id")
     @Mapping(target = "subDescricao", source = "descricao")
+    @Mapping(target = "id", ignore = true)
     AreaChecklistResultado map(IAvaliacaoRiscosAnterior.IArea itemArea);
 
     @Mapping(target = "id", ignore = true)

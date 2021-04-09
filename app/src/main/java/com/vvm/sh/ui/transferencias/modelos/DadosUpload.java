@@ -42,6 +42,8 @@ public class DadosUpload {
     private String upload;
     public String messageDigest;
     public List<DadosImagem> dadosImagems;
+    public List<Integer> idsTarefas;
+    public List<Upload> uploads;
 
     public DadosUpload(String idUtilizador) {
 
@@ -53,6 +55,8 @@ public class DadosUpload {
         this.idUpload = UUID.randomUUID().toString();
         this.dadosImagems = new ArrayList<>();
         this.versao = BuildConfig.VERSION_NAME;
+        idsTarefas = new ArrayList<>();
+        uploads = new ArrayList<>();
     }
 
     public void fixarDados(DadosFormulario dado) {

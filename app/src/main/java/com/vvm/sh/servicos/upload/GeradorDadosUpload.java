@@ -16,11 +16,13 @@ import com.vvm.sh.baseDados.entidades.ImagemResultado;
 import com.vvm.sh.baseDados.entidades.OcorrenciaResultado;
 import com.vvm.sh.baseDados.entidades.Resultado;
 import com.vvm.sh.repositorios.UploadRepositorio;
+import com.vvm.sh.ui.transferencias.adaptadores.OnTransferenciaListener;
 import com.vvm.sh.ui.transferencias.modelos.DadosUpload;
 import com.vvm.sh.ui.transferencias.modelos.Upload;
 import com.vvm.sh.util.AtualizacaoUI;
 import com.vvm.sh.util.ResultadoId;
 import com.vvm.sh.util.constantes.AppConfig;
+import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.constantes.TiposConstantes;
 import com.vvm.sh.util.mapeamento.UploadMapping;
 import com.vvm.sh.util.metodos.ConversorUtil;
@@ -42,16 +44,40 @@ public abstract class GeradorDadosUpload {
      * variavel que contem os identificadores das imagens a fazer upload
      */
     protected List<Integer> idImagens;
-
+    protected OnTransferenciaListener.OnUploadListener listener;
     private List<Upload> uploads;
 
-    public GeradorDadosUpload(UploadRepositorio repositorio, List<Upload> uploads, String idUtilizador) {
+    public GeradorDadosUpload(OnTransferenciaListener.OnUploadListener listener, UploadRepositorio repositorio, List<Upload> uploads, String idUtilizador, int api) {
         this.dadosUpload = new DadosUpload(idUtilizador);
+        this.dadosUpload.api = api;
         this.repositorio = repositorio;
         this.idImagens = new ArrayList<>();
-
+        this.listener = listener;
         this.uploads = filtrarUploads(uploads);
     }
+
+
+    /**
+     * Metodo que permite filtrar os dados de upload segundo a api
+     * @param uploads as lista de dados a fazer upload
+     * @return uma lista filtrada
+     */
+    private List<Upload> filtrarUploads(List<Upload> uploads) {
+
+        List<Upload> registos = new ArrayList<>();
+
+        for (Upload item :uploads) {
+            if(item.tarefa.api == dadosUpload.api) {
+                registos.add(item);
+                dadosUpload.idsTarefas.add(item.tarefa.idTarefa);
+                dadosUpload.uploads.add(item);
+            }
+        }
+
+        return registos;
+    }
+
+
 
 
     public void obterDados(){
@@ -302,12 +328,7 @@ public abstract class GeradorDadosUpload {
     //Metodos abstratos
     //-----------------------
 
-    /**
-     * Metodo que permite filtrar os dados de upload segundo a api
-     * @param uploads as lista de dados a fazer upload
-     * @return uma lista filtrada
-     */
-    protected abstract List<Upload> filtrarUploads(List<Upload> uploads);
+
 
 
     protected abstract void obterDados(DadosFormulario dadosFormulario, Resultado resultado);

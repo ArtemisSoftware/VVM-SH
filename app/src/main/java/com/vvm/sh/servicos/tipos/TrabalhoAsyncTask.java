@@ -136,12 +136,12 @@ public abstract class TrabalhoAsyncTask extends AsyncTask<Sessao, Void, Void> {
 
         listener.atualizarTransferencia(new AtualizacaoUI_(AtualizacaoUI_.Estado.PROCESSAMENTO_TRABALHO, erro));
 
-        if(erro == null){
-            listener.terminarTransferencia();
-        }
-        else{
-            listener.terminarTransferencia();
-        }
+//        if(erro == null){
+//            listener.terminarTransferencia();
+//        }
+//        else{
+//            listener.terminarTransferencia();
+//        }
     }
 
     /**

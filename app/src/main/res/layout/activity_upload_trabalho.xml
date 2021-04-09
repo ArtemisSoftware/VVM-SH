@@ -1,0 +1,279 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+
+    <data>
+        <import type="android.view.View"/>
+        <!--
+        <import type="android.view.View"/>
+        <import type="java.util.List"/>
+
+
+
+
+        <variable name="activity" type="com.vvm.sh.ui.transferencias.atualizacaoApp.AtualizacaoAppActivity" />
+
+        <variable
+            name="viewmodel"
+            type="com.vvm.sh.ui.opcoes.OpcoesViewModel"/>
+            -->
+
+        <variable
+            name="viewmodel"
+            type="com.vvm.sh.ui.transferencias.TransferenciasViewModel"/>
+
+
+        <variable
+            name="atualizacaoTipos"
+            type="com.vvm.sh.util.AtualizacaoUI_"/>
+
+        <variable
+            name="atualizacaoActivPlaneaveis"
+            type="com.vvm.sh.util.AtualizacaoUI_"/>
+
+        <variable
+            name="atualizacaoTemplates"
+            type="com.vvm.sh.util.AtualizacaoUI_"/>
+
+        <variable
+            name="atualizacaoTrabalho"
+            type="com.vvm.sh.util.AtualizacaoUI_"/>
+
+        <variable
+            name="atualizacaoChecklist"
+            type="com.vvm.sh.util.AtualizacaoUI_"/>
+
+
+
+    </data>
+
+
+
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:padding="10dp">
+
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/ctrl_upload_dados"
+            android:layout_width="470dp"
+            android:visibility="gone"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+
+            <TextView
+                android:id="@+id/txt_titulo"
+                style="@style/titulo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/upload"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txt_detalhe"
+                style="@style/textoDetalhe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:text="@string/por_favor_aguarde"
+                app:layout_constraintStart_toStartOf="@+id/txt_titulo"
+                app:layout_constraintTop_toBottomOf="@+id/txt_titulo" />
+
+
+            <androidx.constraintlayout.widget.ConstraintLayout
+                android:id="@+id/constraintLayout6"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintStart_toStartOf="@+id/txt_titulo"
+                app:layout_constraintTop_toBottomOf="@+id/txt_detalhe">
+
+                <ProgressBar
+                    android:id="@+id/progressBar_trabalho"
+                    style="?android:attr/progressBarStyle"
+                    android:layout_width="56dp"
+                    android:layout_height="56dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginBottom="16dp"
+                    android:elevation="0dp"
+                    android:visibility="@{atualizacaoTrabalho.loading == true ? View.VISIBLE : View.INVISIBLE}"
+                    app:layout_constraintBottom_toBottomOf="parent"
+                    app:layout_constraintStart_toStartOf="parent"
+                    app:layout_constraintTop_toTopOf="parent" />
+
+
+                <ImageView
+                    android:id="@+id/img_completude_trabalho"
+                    imageResource="@{atualizacaoTrabalho.icon}"
+                    tintCor="@{atualizacaoTrabalho.corIcon}"
+                    android:layout_width="24dp"
+                    android:layout_height="24dp"
+
+                    android:visibility="@{atualizacaoTrabalho.loading == true ? View.INVISIBLE : View.VISIBLE}"
+
+                    app:layout_constraintBottom_toBottomOf="@+id/progressBar_trabalho"
+                    app:layout_constraintEnd_toEndOf="@+id/progressBar_trabalho"
+                    app:layout_constraintStart_toStartOf="@+id/progressBar_trabalho"
+                    app:layout_constraintTop_toTopOf="@+id/progressBar_trabalho" />
+
+
+                <!--
+                android:imagemDrawable="@{atualizacaoTemplates.icon}"
+                android:tintCor="@{atualizacaoTemplates.corIcon}"-->
+
+                <TextView
+                    android:id="@+id/txt_titulo_trabalho"
+                    style="@style/tituloCartao"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="32dp"
+                    android:gravity="center_horizontal"
+                    android:text="@string/download_trabalho"
+                    app:layout_constraintStart_toEndOf="@+id/progressBar_trabalho"
+                    app:layout_constraintTop_toTopOf="@+id/progressBar_trabalho" />
+
+
+                <TextView
+                    android:id="@+id/txt_descricao_trabalho"
+                    style="@style/textoDetalhe"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="8dp"
+                    android:layout_marginBottom="8dp"
+                    android:gravity="center_horizontal"
+                    android:text="@{atualizacaoTrabalho.mensagem, default = @string/por_favor_aguarde}"
+                    app:layout_constraintBottom_toBottomOf="@+id/progressBar_trabalho"
+                    app:layout_constraintStart_toStartOf="@+id/txt_titulo_trabalho"
+                    app:layout_constraintTop_toBottomOf="@+id/txt_titulo_trabalho" />
+
+
+            </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/ctrl_pendencias"
+            android:visibility="@{viewmodel.pendencias.size() > 0 ? View.VISIBLE : View.GONE}"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            android:padding="15dp">
+
+
+            <TextView
+                android:id="@+id/txt_titulo_pendencias"
+                style="@style/titulo"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/pendencias"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txt_detalhe_pendencias"
+                style="@style/textoDetalhe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:text="@string/pendencias_tarefas_download"
+                app:layout_constraintStart_toStartOf="@+id/txt_titulo_pendencias"
+                app:layout_constraintTop_toBottomOf="@+id/txt_titulo_pendencias" />
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcl_registos_pendencias"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:verticalSpacing="24dp"
+                android:visibility="@{viewmodel.pendencias.size() > 0 ? View.VISIBLE : View.GONE}"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/txt_titulo_pendencias"
+                app:layout_constraintTop_toBottomOf="@+id/txt_detalhe_pendencias"
+                app:pendencias="@{viewmodel.pendencias}"
+                tools:listitem="@layout/item_pendencia" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/ctrl_upload_relatorio"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <TextView
+                android:id="@+id/txt_sub_titulo"
+                style="@style/tituloCartao"
+                android:layout_marginTop="24dp"
+                android:text="@string/upload_dados"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+
+            <androidx.recyclerview.widget.RecyclerView
+                android:id="@+id/rcl_registos"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginTop="16dp"
+                android:verticalSpacing="24dp"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/txt_sub_titulo"
+                app:layout_constraintTop_toBottomOf="@+id/txt_sub_titulo"
+                app:uploads="@{viewmodel.uploads}"
+                tools:listitem="@layout/item_upload" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+
+        <include
+            android:id="@+id/loading"
+            layout="@layout/loading"
+            android:visibility="@{viewmodel.aguardar == true ? View.VISIBLE : View.GONE}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"/>
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+
+
+</layout>
+

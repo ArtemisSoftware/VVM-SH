@@ -255,6 +255,31 @@ public class RedeRepositorio {
     //---------------------
 
 
+    private Single<Codigo> uploadDados(DadosUpload dadosUpload){
+
+        return submeterDados(dadosUpload)
+                .flatMap(new Function<Codigo, SingleSource<?>>() {
+                    @Override
+                    public SingleSource<?> apply(Codigo codigo) throws Exception {
+                        return sincronizar(dadosUpload.uploads);
+                    }
+                })
+                .map(new Function<Object, Codigo>() {
+                    @Override
+                    public Codigo apply(Object o) throws Exception {
+
+                        if(((int) o) > 0) {
+                            return Identificadores.CodigosWs.Codigo_100;
+                        }
+                        else{
+                            return Identificadores.CodigosWs.Codigo_600;
+                        }
+                    }
+                });
+
+    }
+
+
     private Single<Codigo> uploadDados(DadosUpload dadosUpload, List<Upload> uploads){
 
         return submeterDados(dadosUpload)
@@ -367,6 +392,85 @@ public class RedeRepositorio {
     //---------------------
 
 
+    private Single<Codigo> uploadSA_(DadosUpload dadosUpload){
+
+        return uploadImagens(dadosUpload)
+                .flatMap(new Function<Codigo, SingleSource<?>>() {
+                    @Override
+                    public SingleSource<?> apply(Codigo codigo) throws Exception {
+                        return submeterDados(dadosUpload);
+                    }
+                })
+                .map(new Function<Object, Codigo>() {
+                    @Override
+                    public Codigo apply(Object o) throws Exception {
+                        if(((Codigo) o).codigo == Identificadores.CodigosWs.ID_100) {
+                            return Identificadores.CodigosWs.Codigo_100;
+                        }
+                        else{
+                            throw new RespostaWsInvalidaException(Identificadores.CodigosWs.Codigo_600);
+                        }
+                    }
+                })
+                .flatMap(new Function<Codigo, SingleSource<?>>() {
+                    @Override
+                    public SingleSource<?> apply(Codigo codigo) throws Exception {
+                        return sincronizar(dadosUpload.uploads);
+                    }
+                })
+                .map(new Function<Object, Codigo>() {
+                    @Override
+                    public Codigo apply(Object o) throws Exception {
+                        if(((int) o) > 0) {
+                            return Identificadores.CodigosWs.Codigo_100;
+                        }
+                        else{
+                            return Identificadores.CodigosWs.Codigo_600;
+                        }
+                    }
+                });
+
+    }
+
+    private Single<Codigo> uploadST_(DadosUpload dadosUpload){
+
+        return submeterDados(dadosUpload)
+                .flatMap(new Function<Codigo, SingleSource<?>>() {
+                    @Override
+                    public SingleSource<?> apply(Codigo codigo) throws Exception {
+
+                        if(validarResultadoUpload(codigo) == true){
+                            return uploadImagens(dadosUpload);
+                        }
+                        else{
+                            throw new RespostaWsInvalidaException(Identificadores.CodigosWs.Codigo_600);
+                        }
+                    }
+                })
+                .flatMap(new Function<Object, SingleSource<?>>() {
+                    @Override
+                    public SingleSource<?> apply(Object o) throws Exception {
+                        return sincronizar(dadosUpload.uploads);
+                    }
+                })
+                .map(new Function<Object, Codigo>() {
+                    @Override
+                    public Codigo apply(Object o) throws Exception {
+                        if(((int) o) > 0) {
+                            return Identificadores.CodigosWs.Codigo_100;
+                        }
+                        else{
+                            return Identificadores.CodigosWs.Codigo_600;
+                        }
+                    }
+                });
+
+    }
+
+
+
+
+
     private Single<Codigo> uploadSA(DadosUpload dadosUpload, List<Upload> uploads){
 
         return uploadImagens(dadosUpload)
@@ -464,6 +568,46 @@ public class RedeRepositorio {
     //---------------------
     //Upload
     //---------------------
+
+
+
+    public Single<Codigo> upload(DadosUpload dadosUploadSA, DadosUpload dadosUploadSH){
+
+        if(dadosUploadSA.dados.size() > 0 && dadosUploadSH.dados.size() == 0){
+            return uploadSA(dadosUploadSA);
+        }
+        else if(dadosUploadSH.dados.size() > 0 && dadosUploadSA.dados.size() == 0){
+            return uploadSH(dadosUploadSH);
+        }
+        else{
+            return null;
+        }
+    }
+
+
+    private Single<Codigo> uploadSA(DadosUpload dadosUpload){
+
+        if(dadosUpload.numeroFicheirosImagens == 0){
+            return uploadDados(dadosUpload);
+        }
+        else{
+            return uploadSA_(dadosUpload);
+        }
+    }
+
+
+    private Single<Codigo> uploadSH(DadosUpload dadosUpload){
+
+        if(dadosUpload.numeroFicheirosImagens == 0){
+            return uploadDados(dadosUpload);
+        }
+        else{
+            return uploadST_(dadosUpload);
+        }
+    }
+
+
+
 
 
     /**

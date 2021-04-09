@@ -21,9 +21,11 @@ import com.vvm.sh.baseDados.entidades.ImagemResultado;
 import com.vvm.sh.baseDados.entidades.OcorrenciaResultado;
 import com.vvm.sh.baseDados.entidades.Resultado;
 import com.vvm.sh.repositorios.UploadRepositorio;
+import com.vvm.sh.ui.transferencias.adaptadores.OnTransferenciaListener;
 import com.vvm.sh.ui.transferencias.modelos.DadosUpload;
 import com.vvm.sh.ui.transferencias.modelos.Upload;
 import com.vvm.sh.util.AtualizacaoUI;
+import com.vvm.sh.util.AtualizacaoUI_;
 import com.vvm.sh.util.ResultadoId;
 import com.vvm.sh.util.constantes.AppConfig;
 import com.vvm.sh.util.constantes.TiposConstantes;
@@ -61,15 +63,16 @@ public class DadosUploadAsyncTask__v2 extends AsyncTask<List<Upload>, Void, Void
     private MensagensUtil dialogo;
 
 
+    private GeradorDadosUploadSA geradorDadosUploadSA;
+    private GeradorDadosUploadSH geradorDadosUploadSH;
 
+    private OnTransferenciaListener.OnUploadListener listener;
 
-    public DadosUploadAsyncTask__v2(VvmshBaseDados vvmshBaseDados, Handler handler, UploadRepositorio repositorio, String idUtilizador){
+    public DadosUploadAsyncTask__v2(OnTransferenciaListener.OnUploadListener listener, VvmshBaseDados vvmshBaseDados, UploadRepositorio repositorio, String idUtilizador){
         this.vvmshBaseDados = vvmshBaseDados;
         this.repositorio = repositorio;
         this.idUtilizador = idUtilizador;
-        this.idImagens = new ArrayList<>();
-        this.dadosUpload = new DadosUpload(idUtilizador);
-        atualizacaoUI = new AtualizacaoUI(handler);
+        this.listener = listener;
     }
 
 
@@ -82,6 +85,8 @@ public class DadosUploadAsyncTask__v2 extends AsyncTask<List<Upload>, Void, Void
 
         List<Upload> resposta = resultados[0];
 
+        geradorDadosUploadSA = new GeradorDadosUploadSA(listener, repositorio, resposta, idUtilizador);
+        geradorDadosUploadSH = new GeradorDadosUploadSH(listener, repositorio, resposta, idUtilizador);
 
         this.vvmshBaseDados.runInTransaction(new Runnable(){
             @Override
@@ -89,11 +94,9 @@ public class DadosUploadAsyncTask__v2 extends AsyncTask<List<Upload>, Void, Void
 
                 try {
 
-                    //--obterDados(resposta);
-                    //--obterImagens();
+                    geradorDadosUploadSA.obterDados();
+                    geradorDadosUploadSH.obterDados();
 
-                    atualizacaoUI.atualizarUI(AtualizacaoUI.Codigo.PROCESSAMENTO_UPLOAD_CONCLUIDO, dadosUpload);
-                    
                 }
                 catch(SQLiteConstraintException throwable){
                     erro = throwable.getMessage();
@@ -101,9 +104,18 @@ public class DadosUploadAsyncTask__v2 extends AsyncTask<List<Upload>, Void, Void
             }
         });
 
-
         return null;
     }
+
+
+    @Override
+    protected void onPostExecute(Void aVoid) {
+
+        listener.atualizar(new AtualizacaoUI_(AtualizacaoUI_.Estado.PROCESSAMENTO_DADOS_UPLOAD, erro));
+
+        listener.atualizar(geradorDadosUploadSA.dadosUpload, geradorDadosUploadSH.dadosUpload);
+    }
+
 
 
 }

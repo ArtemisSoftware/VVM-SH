@@ -10,6 +10,7 @@ import com.vvm.sh.api.modelos.envio.sa.Email;
 import com.vvm.sh.baseDados.entidades.AnomaliaResultado;
 import com.vvm.sh.baseDados.entidades.Resultado;
 import com.vvm.sh.repositorios.UploadRepositorio;
+import com.vvm.sh.ui.transferencias.adaptadores.OnTransferenciaListener;
 import com.vvm.sh.ui.transferencias.modelos.Upload;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.mapeamento.UploadMapping;
@@ -23,22 +24,11 @@ import static com.vvm.sh.util.constantes.Identificadores.Resultados.ID_ANOMALIA_
 public class GeradorDadosUploadSA extends GeradorDadosUpload{
 
 
-    public GeradorDadosUploadSA(UploadRepositorio repositorio, List<Upload> uploads, String idUtilizador) {
-        super(repositorio, uploads, idUtilizador);
+    public GeradorDadosUploadSA(OnTransferenciaListener.OnUploadListener listener, UploadRepositorio repositorio, List<Upload> uploads, String idUtilizador) {
+        super(listener, repositorio, uploads, idUtilizador, Identificadores.App.APP_SA);
     }
 
-    @Override
-    protected List<Upload> filtrarUploads(List<Upload> uploads) {
 
-        List<Upload> registos = new ArrayList<>();
-
-        for (Upload item :uploads) {
-            if(item.tarefa.api == Identificadores.App.APP_SA)
-            registos.add(item);
-        }
-
-        return registos;
-    }
 
     @Override
     protected void obterDados(DadosFormulario dadosFormulario, Resultado resultado) {

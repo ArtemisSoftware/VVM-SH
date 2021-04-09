@@ -25,6 +25,7 @@ import com.vvm.sh.servicos.trabalho.RecarregarTarefaAsyncTask__v2;
 import com.vvm.sh.servicos.trabalho.RecarregarTrabalhoAsyncTask;
 import com.vvm.sh.servicos.trabalho.CarregarTrabalhoAsyncTask;
 import com.vvm.sh.servicos.trabalho.RecarregarTrabalhoAsyncTask__v2;
+import com.vvm.sh.servicos.upload.DadosUploadAsyncTask__v2;
 import com.vvm.sh.servicos.upload.DadosUploadSAAsyncTask;
 import com.vvm.sh.servicos.upload.DadosUploadSHAsyncTask;
 import com.vvm.sh.ui.transferencias.adaptadores.OnTransferenciaListener;
@@ -245,7 +246,19 @@ public class TransferenciasViewModel extends BaseViewModel {
      * @param idUtilizador o identificador do utilizador
      */
     public void obterPendencias(OnTransferenciaListener listener, String idUtilizador, boolean upload) {
-        obterPendencias(listener, transferenciasRepositorio.obterPendencias(idUtilizador), upload);
+        obterPendencias(listener, null, idUtilizador, transferenciasRepositorio.obterPendencias(idUtilizador), upload);
+    }
+
+    public void obterPendencias(OnTransferenciaListener listener, String idUtilizador, long data, boolean upload) {
+        obterPendencias(listener, null, idUtilizador, transferenciasRepositorio.obterPendencias(idUtilizador, data), upload);
+    }
+
+    public void obterPendencias_(OnTransferenciaListener.OnUploadListener listener, String idUtilizador, boolean upload) {
+        obterPendencias(null, listener, idUtilizador, transferenciasRepositorio.obterPendencias(idUtilizador), upload);
+    }
+
+    public void obterPendencias_(OnTransferenciaListener.OnUploadListener listener, String idUtilizador, long data, boolean upload) {
+        obterPendencias(null, listener, idUtilizador, transferenciasRepositorio.obterPendencias(idUtilizador, data), upload);
     }
 
 
@@ -253,7 +266,7 @@ public class TransferenciasViewModel extends BaseViewModel {
      * Metodo que permite obter as pendencias
      * @param maybe
      */
-    private void obterPendencias(OnTransferenciaListener listener, Maybe<DadosPendencia> maybe, boolean upload){
+    private void obterPendencias(OnTransferenciaListener listener, OnTransferenciaListener.OnUploadListener listenerUpload, String idUtilizador, Maybe<DadosPendencia> maybe, boolean upload){
 
         maybe
                 .subscribeOn(Schedulers.io())
@@ -273,7 +286,13 @@ public class TransferenciasViewModel extends BaseViewModel {
                                 aguardar.setValue(false);
 
                                 if (dadosPendencia.pendencias.size() == 0) {
-                                    atualizarDados(listener);
+
+                                    if(upload == false) {
+                                        atualizarDados(listener);
+                                    }
+                                    else{
+                                        obterUpload(listenerUpload, idUtilizador);
+                                    }
                                 }
                             }
 
@@ -412,6 +431,187 @@ public class TransferenciasViewModel extends BaseViewModel {
                         }
                 );
     }
+
+
+
+
+
+
+
+    //------------------------
+    //UPLOAD
+    //------------------------
+
+
+    /**
+     * Metodo que permite obter os dados para upload
+     */
+    public void obterUpload(OnTransferenciaListener.OnUploadListener listener, String idUtilizador){
+        Observable<List<Upload>> observable = transferenciasRepositorio.obterUploads(idUtilizador).toObservable();
+        obterUpload(listener, observable, idUtilizador, false);
+    }
+
+
+
+    /**
+     * Metodo que permite obter os dados para upload
+     * @param observable
+     * @param idUtilizador o identificador do utilizador
+     * @param reupload true caso seja um reupload ou false caso contrario
+     */
+    private void obterUpload(OnTransferenciaListener.OnUploadListener listener, Observable<List<Upload>> observable, String idUtilizador, boolean reupload){
+
+        observable
+                .map(new Function<List<Upload>, List<Upload>>() {
+                    @Override
+                    public List<Upload> apply(List<Upload> uploads) throws Exception {
+
+                        List<Upload> registos = new ArrayList<>();
+
+                        for (Upload item : uploads) {
+                            item.filtrarResultados(reupload);
+                            registos.add(item);
+                        }
+
+                        return registos;
+                    }
+                })
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new Observer<List<Upload>>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onNext(List<Upload> resultado) {
+
+                                uploads.setValue(resultado);
+
+                                if(resultado.size() != 0) {
+                                    DadosUploadAsyncTask__v2 servico = new DadosUploadAsyncTask__v2(listener, vvmshBaseDados, uploadRepositorio, idUtilizador);
+                                    servico.execute(resultado);
+                                }
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                showProgressBar(false);
+                                formatarErro(e);
+                            }
+
+                            @Override
+                            public void onComplete() {
+                                showProgressBar(false);
+                            }
+                        }
+                );
+    }
+
+
+
+    public void upload(DadosUpload dadosUploadSA, DadosUpload dadosUploadSH) {
+
+        showProgressBar(true);
+
+        redeRepositorio.upload(dadosUploadSA, dadosUploadSH)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new SingleObserver<Codigo>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onSuccess(Codigo codigo) {
+                                messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_ENVIADOS_SUCESSO));
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                showProgressBar(false);
+                                formatarErro(e);
+                            }
+                        }
+                );
+
+//        if(AppConfig.sa == true){
+//            uploadSA(dadosUpload);
+//        }
+//        else{
+//
+//
+//            showProgressBar(true);
+//
+//            transferenciasRepositorio.submeterSH(dadosUpload)
+//                    .subscribeOn(Schedulers.io())
+//                    .observeOn(AndroidSchedulers.mainThread())
+//                    .subscribe(
+//                            new Observer<Codigo>() {
+//                                @Override
+//                                public void onSubscribe(Disposable d) {
+//                                    disposables.add(d);
+//                                }
+//
+//                                @Override
+//                                public void onNext(Codigo codigo) {
+//                                    sincronizar();
+//                                    showProgressBar(false);
+//                                }
+//
+//                                @Override
+//                                public void onError(Throwable e) {
+//                                    showProgressBar(false);
+//                                    formatarErro(e);
+//                                }
+//
+//                                @Override
+//                                public void onComplete() {
+//                                    showProgressBar(false);
+//                                }
+//                            }
+//                    );
+//        }
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

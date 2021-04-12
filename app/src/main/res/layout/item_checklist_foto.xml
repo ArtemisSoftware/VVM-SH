@@ -34,13 +34,14 @@
 
             <LinearLayout
                 android:id="@+id/linearLayout9"
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:gravity="center_vertical"
                 android:orientation="horizontal"
+                app:layout_constraintEnd_toStartOf="@+id/guideline"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent">
 
@@ -52,15 +53,27 @@
                 <TextView
                     android:id="@+id/txt_view_pergunta"
                     style="@style/textoDetalhe"
-                    android:text="@{StringUtil.converterString(questao.numeroImagens), default = 0}"
-                    android:layout_marginLeft="16dp" />
+                    android:layout_marginLeft="16dp"
+                    android:text="@{StringUtil.converterString(questao.numeroImagens), default = 0}" />
 
                 <TextView
                     style="@style/textoDetalhe"
-                    android:text="@string/fotos_registadas"
-                    android:layout_marginLeft="16dp" />
+                    android:layout_marginLeft="16dp"
+                    android:text="@string/fotos_registadas" />
 
             </LinearLayout>
+
+
+
+            <androidx.constraintlayout.widget.Guideline
+                android:id="@+id/guideline"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                app:layout_constraintGuide_percent="0.82"
+                android:layout_marginEnd="32dp"
+                android:orientation="vertical"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent" />
 
 
             <LinearLayout

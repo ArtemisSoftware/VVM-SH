@@ -39,6 +39,11 @@ public class AvaliacaoAmbiental {
     public List<Tipo> medidas;
 
     public String obterLocal() {
-        return local.replaceAll("(\\r|\\n|\\t)", "");
+        try {
+            return local.replaceAll("(\\r|\\n|\\t)", "");
+        }
+        catch (NullPointerException e){
+            return "";
+        }
     }
 }

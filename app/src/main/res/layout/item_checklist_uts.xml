@@ -35,7 +35,7 @@
 
             <TextView
                 android:id="@+id/textView88"
-                style="@style/textoDetalhe"
+                style="@style/txt_rotulo"
                 android:text="@{questao.registo.uid}"
                 android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
@@ -73,6 +73,7 @@
             <TextView
                 android:id="@+id/textView89"
                 style="@style/textoDescritivo"
+                android:layout_marginStart="16dp"
                 android:layout_marginTop="16dp"
                 android:text="@string/ut_"
                 app:layout_constraintStart_toStartOf="@+id/textView88"
@@ -91,7 +92,7 @@
                 style="@style/textoDescritivo"
                 android:layout_marginTop="16dp"
                 android:text="@string/categoriasRisco_"
-                app:layout_constraintStart_toStartOf="@+id/textView88"
+                app:layout_constraintStart_toStartOf="@+id/textView89"
                 app:layout_constraintTop_toBottomOf="@+id/textView89" />
 
             <TextView
@@ -107,7 +108,7 @@
                 style="@style/textoDescritivo"
                 android:layout_marginTop="16dp"
                 android:text="@string/locaisRisco_"
-                app:layout_constraintStart_toStartOf="@+id/textView88"
+                app:layout_constraintStart_toStartOf="@+id/textView89"
                 app:layout_constraintTop_toBottomOf="@+id/textView91" />
 
             <TextView
@@ -159,7 +160,7 @@
                 style="@style/textoDescritivo"
                 android:layout_marginTop="16dp"
                 android:text="@string/ut_"
-                app:layout_constraintStart_toStartOf="@+id/textView88"
+                app:layout_constraintStart_toStartOf="@+id/textView89"
                 app:layout_constraintTop_toBottomOf="@+id/linearLayout18" />
 
             <TextView
@@ -175,7 +176,7 @@
                 style="@style/textoDescritivo"
                 android:layout_marginTop="16dp"
                 android:text="@string/categoriasRisco_"
-                app:layout_constraintStart_toStartOf="@+id/textView88"
+                app:layout_constraintStart_toStartOf="@+id/textView89"
                 app:layout_constraintTop_toBottomOf="@+id/textView891" />
 
             <TextView
@@ -193,7 +194,7 @@
                 android:layout_marginBottom="16dp"
                 android:text="@string/locaisRisco_"
                 app:layout_constraintBottom_toBottomOf="parent"
-                app:layout_constraintStart_toStartOf="@+id/textView88"
+                app:layout_constraintStart_toStartOf="@+id/textView89"
                 app:layout_constraintTop_toBottomOf="@+id/textView911" />
 
             <TextView

@@ -58,7 +58,6 @@
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="16dp"
                 android:text="@string/itens_"
-                app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/textView"
                 app:layout_constraintTop_toBottomOf="@+id/textView" />
 
@@ -85,6 +84,50 @@
                 android:text="@{StringUtil.converterString(averiguacao.total), default=0}"
                 app:layout_constraintStart_toEndOf="@+id/textView86"
                 app:layout_constraintTop_toTopOf="@+id/textView84" />
+
+
+
+
+
+
+            <TextView
+                android:id="@+id/textView4"
+                style="@style/textoDetalhe"
+                android:layout_marginTop="16dp"
+                android:layout_marginBottom="16dp"
+                android:text="@string/numero_medidas_implementadas_"
+                app:layout_constraintStart_toStartOf="@+id/textView"
+                app:layout_constraintTop_toBottomOf="@+id/textView84" />
+
+            <TextView
+                android:id="@+id/textView5"
+                style="@style/textoDetalhe"
+                android:layout_marginStart="44dp"
+                android:text="@{StringUtil.converterString(averiguacao.numeroRegistosImplementados), default=0}"
+                app:layout_constraintStart_toEndOf="@+id/textView4"
+                app:layout_constraintTop_toTopOf="@+id/textView4" />
+
+
+
+            <TextView
+                android:id="@+id/textView6"
+                style="@style/textoDetalhe"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="16dp"
+                android:text="@string/numero_medidas_nao_implementadas_"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="@+id/textView"
+                app:layout_constraintTop_toBottomOf="@+id/textView4" />
+
+            <TextView
+                android:id="@+id/textView7"
+                style="@style/textoDetalhe"
+                android:text="@{StringUtil.converterString(averiguacao.numeroRegistosNaoImplementados), default=0}"
+                app:layout_constraintStart_toStartOf="@+id/textView5"
+                app:layout_constraintTop_toTopOf="@+id/textView6" />
+
+
+
 
         </androidx.constraintlayout.widget.ConstraintLayout>
 

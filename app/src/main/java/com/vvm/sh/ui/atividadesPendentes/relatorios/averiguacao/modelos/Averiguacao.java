@@ -24,6 +24,14 @@ public class Averiguacao {
     @ColumnInfo(name = "total")
     public int total;
 
+
+    @ColumnInfo(name = "numeroRegistosImplementados")
+    public int numeroRegistosImplementados;
+
+    @ColumnInfo(name = "numeroRegistosNaoImplementados")
+    public int numeroRegistosNaoImplementados;
+
+
     @ColumnInfo(name = "valido")
     public boolean valido;
 

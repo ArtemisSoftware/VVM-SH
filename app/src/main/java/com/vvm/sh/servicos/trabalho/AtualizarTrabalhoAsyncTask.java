@@ -1,38 +1,37 @@
 package com.vvm.sh.servicos.trabalho;
 
-import android.os.Handler;
-
 import com.vvm.sh.api.modelos.pedido.ISessao;
 import com.vvm.sh.baseDados.VvmshBaseDados;
-import com.vvm.sh.repositorios.TransferenciasRepositorio;
-import com.vvm.sh.util.AtualizacaoUI;
+import com.vvm.sh.repositorios.DownloadTrabalhoRepositorio;
+import com.vvm.sh.ui.transferencias.adaptadores.OnTransferenciaListener;
+import com.vvm.sh.util.AtualizacaoUI_;
 
 import java.util.List;
 
-public class AtualizarTrabalhoAsyncTask extends CarregarTrabalhoAsyncTask {
+public class AtualizarTrabalhoAsyncTask extends TrabalhoAsyncTask {
 
-    private long dataTrabalho;
 
-    public AtualizarTrabalhoAsyncTask(VvmshBaseDados vvmshBaseDados, TransferenciasRepositorio repositorio, Handler handler, String idUtilizador, long dataTrabalho) {
-        super(vvmshBaseDados, repositorio, handler, idUtilizador);
 
-        this.dataTrabalho = dataTrabalho;
+    public AtualizarTrabalhoAsyncTask(OnTransferenciaListener listener, VvmshBaseDados vvmshBaseDados, DownloadTrabalhoRepositorio repositorio, String idUtilizador){
+        super(listener, vvmshBaseDados, repositorio, idUtilizador);
     }
 
 
-    @Override
+
+    /**
+     * Metodo que permite inserir as tarefas existentes no trabalho
+     * @param trabalho os dados do trabalho
+     * @param data a data do trabalho
+     */
     protected void inserirTrabalho(List<ISessao.TrabalhoInfo> trabalho, String data, int api) {
 
         for(int index = 0; index < trabalho.size(); ++index){
 
-            if(repositorio.existeTarefa(idUtilizador, trabalho.get(index).tarefas.dados,  this.dataTrabalho) == false) {
-
-                inserirTarefas(data, trabalho.get(index), api);
-                atualizacaoUI.atualizarUI(AtualizacaoUI.Codigo.PROCESSAMENTO_TRABALHO, "Tarefa " + (index + 1), (index + 1), trabalho.size());
-            }
+            inserirTarefas(data, trabalho.get(index), api);
+            listener.atualizarTransferencia(new AtualizacaoUI_(AtualizacaoUI_.Estado.PROCESSAMENTO_TRABALHO, (index + 1), trabalho.size(), "Tarefa " + (index + 1)));
         }
-
-        atualizacaoUI.atualizarUI(AtualizacaoUI.Codigo.PROCESSAMENTO_DOWNLOAD_CONCLUIDO);
     }
+
+
 
 }

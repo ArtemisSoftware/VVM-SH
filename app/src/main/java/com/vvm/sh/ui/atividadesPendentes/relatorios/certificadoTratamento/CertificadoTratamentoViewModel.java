@@ -10,6 +10,7 @@ import com.vvm.sh.baseDados.entidades.ImagemResultado;
 import com.vvm.sh.documentos.DadosTemplate;
 import com.vvm.sh.documentos.OnDocumentoListener;
 import com.vvm.sh.repositorios.CertificadoTratamentoRepositorio;
+import com.vvm.sh.repositorios.RedeRepositorio;
 import com.vvm.sh.repositorios.TransferenciasRepositorio;
 import com.vvm.sh.ui.atividadesPendentes.relatorios.certificadoTratamento.modelos.RelatorioCertificadoTratamento;
 import com.vvm.sh.util.Recurso;
@@ -34,17 +35,17 @@ import io.reactivex.schedulers.Schedulers;
 public class CertificadoTratamentoViewModel extends BaseViewModel implements OnDocumentoListener.OnVisualizar {
 
     private final CertificadoTratamentoRepositorio certificadoTratamentoRepositorio;
-    private final TransferenciasRepositorio transferenciasRepositorio;
+    private final RedeRepositorio redeRepositorio;
 
     public MutableLiveData<RelatorioCertificadoTratamento> relatorio;
     public MutableLiveData<CertificadoTratamentoResultado> certificado;
 
 
     @Inject
-    public CertificadoTratamentoViewModel(CertificadoTratamentoRepositorio certificadoTratamentoRepositorio, TransferenciasRepositorio transferenciasRepositorio){
+    public CertificadoTratamentoViewModel(CertificadoTratamentoRepositorio certificadoTratamentoRepositorio, RedeRepositorio redeRepositorio){
 
         this.certificadoTratamentoRepositorio = certificadoTratamentoRepositorio;
-        this.transferenciasRepositorio = transferenciasRepositorio;
+        this.redeRepositorio = redeRepositorio;
         relatorio = new MutableLiveData<>();
         certificado = new MutableLiveData<>();
     }
@@ -248,7 +249,7 @@ public class CertificadoTratamentoViewModel extends BaseViewModel implements OnD
 
     @Override
     public Single<Codigo> uploadRelatorio(int idTarefa, String caminhoPdf) {
-        return transferenciasRepositorio.uploadCertificadoTratamento(idTarefa, caminhoPdf);
+        return redeRepositorio.uploadCertificadoTratamento(idTarefa, caminhoPdf);
     }
 
 

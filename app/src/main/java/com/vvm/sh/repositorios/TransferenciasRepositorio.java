@@ -521,33 +521,6 @@ public class TransferenciasRepositorio {
 
 
 
-    //---
-
-    public Single<Codigo> uploadCertificadoTratamento(int idTarefa, String caminhoPdf){
-
-        return transferenciasDao.obterTarefa(idTarefa)
-                .flatMap(new Function<Tarefa, SingleSource<Codigo>>() {
-                    @Override
-                    public SingleSource<Codigo> apply(Tarefa tarefa) throws Exception {
-                        return apiSA.submeterCertificadoTratamento(SegurancaAlimentarApi.HEADER,  ConversorUtil.convertPdf__StringBase64(caminhoPdf), tarefa.ordem, tarefa.prefixoCt);
-                    }
-                });
-
-    }
-
-
-    public Single<Codigo> uploadInformacaoSst(int idTarefa, String caminhoPdf){
-
-        return transferenciasDao.obterTarefa(idTarefa)
-                .flatMap(new Function<Tarefa, SingleSource<Codigo>>() {
-                    @Override
-                    public SingleSource<Codigo> apply(Tarefa tarefa) throws Exception {
-                        return apiST.submeterInfoSST(SegurancaTrabalhoApi.HEADER,  ConversorUtil.convertPdf__StringBase64(caminhoPdf), tarefa.ordem, tarefa.prefixoCt);
-                    }
-                });
-
-    }
-
 
     //---------------------------
     //DOWNLOAD

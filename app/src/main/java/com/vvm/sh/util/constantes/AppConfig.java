@@ -7,7 +7,7 @@ public class AppConfig {
      * Quando a true <br>
      *     o email do registo de visita é sempre enviado para o administrador
      */
-    public static final boolean VERSAO_TESTE = false;
+    public static final boolean VERSAO_TESTE = true;
 
 
     public class ConfigTeste{

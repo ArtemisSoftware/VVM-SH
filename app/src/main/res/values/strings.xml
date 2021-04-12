@@ -300,7 +300,7 @@
     <string name="reenviar_dados">Reenviar dados</string>
     <string name="dados_descarregados_sucesso">Dados descarregados com sucesso</string>
     <string name="reupload_dados">Reupload de dados</string>
-    <string name="pendencias_tarefas_download">Existem tarefas pedentes.Não é possível realizar o download dos dados. Por favor dê baixa de pelo menos uma atividade pendentes nas tarefas apresentadas</string>
+    <string name="pendencias_tarefas_download">Existem tarefas pedentes. Não é possível realizar o download dos dados. \nPor favor dê baixa de pelo menos uma atividade pendentes nas tarefas apresentadas</string>
     <string name="pendencias_tarefas_upload">Existem tarefas pedentes.Não é possível realizar o upload dos dados. Por favor dê baixa de pelo menos uma atividade pendentes nas tarefas apresentadas</string>
     <string name="upload_dados_inexistentes">Não existem dados para upload</string>
     <string name="sem_detalhe">Não existem detalhes</string>
@@ -553,6 +553,8 @@
     <string name="checklists">Checklists</string>
     <string name="recarregar_tipos">Recarregar tipos</string>
     <string name="argumento_api">api</string>
+    <string name="numero_medidas_implementadas_">Número de medidas implementadas:</string>
+    <string name="numero_medidas_nao_implementadas_">Número de medidas não implementadas:</string>
 
 
 </resources>

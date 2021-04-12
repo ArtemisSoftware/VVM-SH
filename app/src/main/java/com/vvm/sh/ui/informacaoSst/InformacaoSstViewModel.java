@@ -14,6 +14,7 @@ import com.vvm.sh.documentos.OnDocumentoListener;
 import com.vvm.sh.documentos.informacaoSst.InformacaoSst;
 import com.vvm.sh.documentos.informacaoSst.modelos.DadosInformacaoSst;
 import com.vvm.sh.repositorios.InformacaoSstRepositorio;
+import com.vvm.sh.repositorios.RedeRepositorio;
 import com.vvm.sh.repositorios.TransferenciasRepositorio;
 import com.vvm.sh.servicos.pdf.DocumentoPdfAsyncTask;
 import com.vvm.sh.ui.informacaoSst.modelos.ObrigacaoLegal;
@@ -40,16 +41,16 @@ import io.reactivex.schedulers.Schedulers;
 public class InformacaoSstViewModel extends BaseViewModel implements OnDocumentoListener.OnVisualizar {
 
     private final InformacaoSstRepositorio informacaoSstRepositorio;
-    private final TransferenciasRepositorio transferenciasRepositorio;
+    private final RedeRepositorio redeRepositorio;
 
     public MutableLiveData<RelatorioInformacaoSst> relatorio;
     public MutableLiveData<List<ObrigacaoLegal>> obrigacoes;
 
     @Inject
-    public InformacaoSstViewModel(InformacaoSstRepositorio informacaoSstRepositorio, TransferenciasRepositorio transferenciasRepositorio) {
+    public InformacaoSstViewModel(InformacaoSstRepositorio informacaoSstRepositorio, RedeRepositorio redeRepositorio) {
 
         this.informacaoSstRepositorio = informacaoSstRepositorio;
-        this.transferenciasRepositorio = transferenciasRepositorio;
+        this.redeRepositorio = redeRepositorio;
         relatorio = new MutableLiveData<>();
         obrigacoes = new MutableLiveData<>();
     }
@@ -345,7 +346,7 @@ public class InformacaoSstViewModel extends BaseViewModel implements OnDocumento
 
     @Override
     public Single<Codigo> uploadRelatorio(int idTarefa, String caminhoPdf) {
-        return transferenciasRepositorio.uploadInformacaoSst(idTarefa, caminhoPdf);
+        return redeRepositorio.uploadInformacaoSst(idTarefa, caminhoPdf);
     }
 
     @Override

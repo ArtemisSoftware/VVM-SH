@@ -7,7 +7,6 @@ import android.os.Handler;
 import androidx.lifecycle.MutableLiveData;
 
 import com.vvm.sh.api.modelos.pedido.Codigo;
-import com.vvm.sh.api.modelos.pedido.ITipoListagem;
 import com.vvm.sh.baseDados.entidades.Tarefa;
 import com.vvm.sh.repositorios.CarregamentoTiposRepositorio;
 import com.vvm.sh.repositorios.DownloadTrabalhoRepositorio;
@@ -19,7 +18,6 @@ import com.vvm.sh.servicos.DadosUploadAsyncTask;
 import com.vvm.sh.servicos.tipos.AtualizarTipoAsyncTask;
 import com.vvm.sh.servicos.tipos.atualizacao.AtualizarTipoAsyncTask__v2;
 import com.vvm.sh.servicos.trabalho.AtualizarTrabalhoAsyncTask;
-import com.vvm.sh.servicos.trabalho.AtualizarTrabalhoAsyncTask__v2;
 import com.vvm.sh.servicos.trabalho.RecarregarTarefaAsyncTask;
 import com.vvm.sh.servicos.trabalho.RecarregarTarefaAsyncTask__v2;
 import com.vvm.sh.servicos.trabalho.RecarregarTrabalhoAsyncTask;
@@ -207,30 +205,6 @@ public class TransferenciasViewModel extends BaseViewModel {
                         }
 
 
-//
-//        new SingleObserver<List<ITipoListagem>>() {
-//            @Override
-//            public void onSubscribe(Disposable d) {
-//                disposables.add(d);
-//            }
-//
-//            @Override
-//            public void onSuccess(List<ITipoListagem> registos) {
-//
-//                showProgressBar(false);
-//
-//                AtualizarTipoAsyncTask_ servico = new AtualizarTipoAsyncTask_(listener, vvmshBaseDados, carregamentoTiposRepositorio);
-//                //--servico.execute(registos);
-//            }
-//
-//            @Override
-//            public void onError(Throwable e) {
-//                showProgressBar(false);
-//                formatarErro(e);
-//            }
-//        }
-
-
                 );
     }
 
@@ -337,7 +311,7 @@ public class TransferenciasViewModel extends BaseViewModel {
                             @Override
                             public void onSuccess(Sessao sessao) {
 
-                                AtualizarTrabalhoAsyncTask__v2 servico = new AtualizarTrabalhoAsyncTask__v2(listener, vvmshBaseDados, downloadTrabalhoRepositorio, idUtilizador);
+                                AtualizarTrabalhoAsyncTask servico = new AtualizarTrabalhoAsyncTask(listener, vvmshBaseDados, downloadTrabalhoRepositorio, idUtilizador);
                                 servico.execute(sessao);
 
                                 PreferenciasUtil.fixarContagemMaquina(contexto, sessao.iContagemTipoMaquina);
@@ -732,46 +706,6 @@ public class TransferenciasViewModel extends BaseViewModel {
 
 
     /**
-     * Metodo que permite obter o trabalho do dia
-     * @param idUtilizador o identificador do utilizador
-     */
-    public void obterTrabalho(Context contexto, String idUtilizador, Handler handler){
-
-        showProgressBar(true);
-
-        redeRepositorio.obterTrabalho(idUtilizador)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-
-                        new SingleObserver<Sessao>() {
-                            @Override
-                            public void onSubscribe(Disposable d) {
-                                disposables.add(d);
-                            }
-
-                            @Override
-                            public void onSuccess(Sessao sessao) {
-                                CarregarTrabalhoAsyncTask servico = new CarregarTrabalhoAsyncTask(vvmshBaseDados, transferenciasRepositorio, handler, idUtilizador);
-                                servico.execute(sessao);
-
-                                PreferenciasUtil.fixarContagemMaquina(contexto, sessao.iContagemTipoMaquina);
-
-                                showProgressBar(false);
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-                                showProgressBar(false);
-                                formatarErro(e);
-                            }
-                        }
-                );
-    }
-
-
-
-    /**
      * Metodo que permite recarregar uma tarefa
      * @param tarefa os dados da tarefa a recarregar
      */
@@ -838,42 +772,6 @@ public class TransferenciasViewModel extends BaseViewModel {
                             @Override
                             public void onSuccess(Sessao sessao) {
                                 RecarregarTrabalhoAsyncTask servico = new RecarregarTrabalhoAsyncTask(vvmshBaseDados, transferenciasRepositorio, handler, idUtilizador, DatasUtil.converterDataLong(data, DatasUtil.FORMATO_YYYY_MM_DD));
-                                servico.execute(sessao);
-
-                                PreferenciasUtil.fixarContagemMaquina(contexto, sessao.iContagemTipoMaquina);
-
-                                showProgressBar(false);
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-                                showProgressBar(false);
-                                formatarErro(e);
-                            }
-                        }
-                );
-    }
-
-
-
-    public void atualizarTrabalho(Context contexto, String idUtilizador, String data, Handler handler){
-
-        showProgressBar(true);
-
-        transferenciasRepositorio.obterTrabalho(idUtilizador, data)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-
-                        new SingleObserver<Sessao>() {
-                            @Override
-                            public void onSubscribe(Disposable d) {
-                                disposables.add(d);
-                            }
-
-                            @Override
-                            public void onSuccess(Sessao sessao) {
-                                AtualizarTrabalhoAsyncTask servico = new AtualizarTrabalhoAsyncTask(vvmshBaseDados, transferenciasRepositorio, handler, idUtilizador, DatasUtil.converterDataLong(data, DatasUtil.FORMATO_YYYY_MM_DD));
                                 servico.execute(sessao);
 
                                 PreferenciasUtil.fixarContagemMaquina(contexto, sessao.iContagemTipoMaquina);
@@ -1207,42 +1105,6 @@ public class TransferenciasViewModel extends BaseViewModel {
 
 
 
-
-
-
-    /**
-     * Metodo que permite atualizar os tipos
-     */
-    public void atualizarDados(OnTransferenciaListener listener, boolean primeiraUtilizacao) {
-
-        tiposRepositorio.obterAtualizacoes(primeiraUtilizacao)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-
-                        new MaybeObserver<AtualizacaoTipos>() {
-                            @Override
-                            public void onSubscribe(Disposable d) {
-                                disposables.add(d);
-                            }
-
-                            @Override
-                            public void onSuccess(AtualizacaoTipos atualizacoes) {
-                                atualizarTipos(listener, atualizacoes);
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-                                showProgressBar(false);
-                            }
-
-                            @Override
-                            public void onComplete() {
-                                showProgressBar(false);
-                            }
-                        }
-                );
-    }
 
 
 

@@ -4,9 +4,7 @@ import com.vvm.sh.api.modelos.pedido.ISessao;
 import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.baseDados.entidades.Tarefa;
 import com.vvm.sh.repositorios.DownloadTrabalhoRepositorio;
-import com.vvm.sh.servicos.tipos.TrabalhoAsyncTask;
 import com.vvm.sh.ui.transferencias.adaptadores.OnTransferenciaListener;
-import com.vvm.sh.ui.transferencias.modelos.Sessao;
 import com.vvm.sh.util.AtualizacaoUI_;
 
 import java.util.List;

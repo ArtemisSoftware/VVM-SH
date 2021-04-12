@@ -124,7 +124,6 @@ public class DownloadTrabalhoActivity extends BaseDaggerActivity  implements OnT
     private void selecionarTipoDownload(){
 
         Bundle bundle = getIntent().getExtras();
-        //--activityDownloadTrabalhoBinding.setTipo(bundle.getInt(getString(R.string.argumento_download)));
 
         switch (bundle.getInt(getString(R.string.argumento_download))){
 

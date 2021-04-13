@@ -300,6 +300,7 @@ public class MainActivity extends BaseDaggerActivity
                 Intent intent = new Intent(MainActivity.this, DownloadTrabalhoActivity.class);
                 intent.putExtra(getString(R.string.argumento_download), Identificadores.Download.RECARREGAR_TRABALHO_DIA);
                 intent.putExtra(getString(R.string.argumento_api), api);
+                intent.putExtra(getString(R.string.argumento_data), DatasUtil.converterDataLong(activityMainBinding.txtData.getText().toString(), DatasUtil.FORMATO_DD_MMMM_YYYY));
                 startActivity(intent);
             }
         };

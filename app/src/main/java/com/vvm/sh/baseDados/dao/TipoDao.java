@@ -73,7 +73,6 @@ abstract public class TipoDao implements BaseDao<Tipo> {
     abstract public Maybe<List<CheckList>> obterChecklistDados(Integer[] ids);
 
 
-    //TODO: query precisa de ser corrigida
     @Query("SELECT *, ct_areas as numeroAreas, ct_seccoes as numeroSeccoes, ct_itens as numeroItens " +
             "FROM checklist as chk " +
 
@@ -102,6 +101,20 @@ abstract public class TipoDao implements BaseDao<Tipo> {
     //-------------------
     //Templates
     //--------------------
+
+    @Query("SELECT *, 0 as numeroRegistosSA, numeroRegistosSHT, seloTemporal " +
+            "FROM atualizacoes as atl " +
+
+            "LEFT JOIN (" +
+            "SELECT '" + TiposUtil.MetodosTipos.TemplateAvr.TEMPLATE_AVALIACAO_RISCOS_LEVANTAMENTOS + "' as tipo, COUNT(id) as numeroRegistosSHT FROM tiposTemplateAvrLevantamentos WHERE ativo = 1 " +
+            "UNION " +
+            "SELECT '" + TiposUtil.MetodosTipos.TemplateAvr.TEMPLATE_AVALIACAO_RISCOS_RISCOS + "' as tipo, COUNT(id) as numeroRegistosSHT FROM tiposTemplateAvrRiscos WHERE ativo = 1 " +
+            ") as tp ON atl.descricao = tp.tipo " +
+
+            "WHERE atl.tipo = " + Identificadores.Atualizacoes.TEMPLATE + " " +
+            "ORDER BY descricao ASC")
+    abstract public Observable<List<ResumoTipo>> obterResumoTemplates();
+
 
 
     //-------------------
@@ -307,17 +320,7 @@ abstract public class TipoDao implements BaseDao<Tipo> {
     abstract public Observable<List<ResumoTipo>> obterResumoAtividadesPlaneaveis();
 
 
-    @Query("SELECT *, 0 as numeroRegistosSA, numeroRegistosSHT, seloTemporal " +
-            "FROM atualizacoes as atl " +
 
-            "LEFT JOIN (" +
-            "SELECT '" + TiposUtil.MetodosTipos.TemplateAvr.TEMPLATE_AVALIACAO_RISCOS_LEVANTAMENTOS + "' as tipo, COUNT(id) as numeroRegistosSHT FROM tiposTemplateAvrLevantamentos WHERE ativo = 1 " +
-            "UNION " +
-            "SELECT '" + TiposUtil.MetodosTipos.TemplateAvr.TEMPLATE_AVALIACAO_RISCOS_RISCOS + "' as tipo, COUNT(id) as numeroRegistosSHT FROM tiposTemplateAvrRiscos WHERE ativo = 1 " +
-            ") as tp ON atl.descricao = tp.tipo " +
-            "WHERE atl.tipo = " + Identificadores.Atualizacoes.TEMPLATE + " " +
-            "ORDER BY descricao ASC")
-    abstract public Observable<List<ResumoTipo>> obterResumoTemplates();
 
 
 

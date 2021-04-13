@@ -73,12 +73,10 @@ public class OpcoesViewModel extends BaseViewModel {
                 obterResumoTipo();
                 break;
 
-
             case Identificadores.Atualizacoes.CHECKLIST:
 
                 obterResumoChecklist();
                 break;
-
 
             case Identificadores.Atualizacoes.TEMPLATE:
 
@@ -265,6 +263,51 @@ public class OpcoesViewModel extends BaseViewModel {
                 );
 
     }
+
+
+
+
+    /**
+     * Metodo que permite obter o resumo dos templates existentes
+     */
+    private void obterResumoTemplate(){
+
+        showProgressBar(true);
+
+        tiposRepositorio.obterResumoTemplate()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new Observer<List<ResumoTipo>>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onNext(List<ResumoTipo> registos) {
+                                tipos.setValue(registos);
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onComplete() {
+                                showProgressBar(false);
+                            }
+                        }
+
+
+                );
+
+    }
+
+
 
 
 
@@ -568,48 +611,6 @@ public class OpcoesViewModel extends BaseViewModel {
     //---------------------
 
 
-
-
-
-    /**
-     * Metodo que permite obter o resumo dos templates existentes
-     */
-    private void obterResumoTemplate(){
-
-        showProgressBar(true);
-
-        tiposRepositorio.obterResumoTemplate()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-
-                        new Observer<List<ResumoTipo>>() {
-                            @Override
-                            public void onSubscribe(Disposable d) {
-                                disposables.add(d);
-                            }
-
-                            @Override
-                            public void onNext(List<ResumoTipo> registos) {
-                                tipos.setValue(registos);
-                                showProgressBar(false);
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-                                showProgressBar(false);
-                            }
-
-                            @Override
-                            public void onComplete() {
-                                showProgressBar(false);
-                            }
-                        }
-
-
-                );
-
-    }
 
 
 

@@ -77,6 +77,7 @@ public class LevantamentosViewModel extends BaseViewModel {
     public MutableLiveData<List<Tipo>> tiposNc;
     public List<Tipo> tiposNi;
     public MutableLiveData<List<Tipo>> tiposCategoriasProfissionais;
+    public MutableLiveData<Integer> dadosModelo;
 
     public MutableLiveData<List<Tipo>> medidasRecomendadas;
     public MutableLiveData<List<Tipo>> medidasExistentes;
@@ -94,6 +95,7 @@ public class LevantamentosViewModel extends BaseViewModel {
         categoriasProfissionais = new MutableLiveData<>();
         tiposCategoriasProfissionais = new MutableLiveData<>();
         modelos = new MutableLiveData<>();
+        dadosModelo = new MutableLiveData<>();
         riscos = new MutableLiveData<>();
         risco = new MutableLiveData<>();
 
@@ -1012,6 +1014,36 @@ public class LevantamentosViewModel extends BaseViewModel {
     //---------------------
     //MISC
     //---------------------
+
+
+
+    public void obterDadosModelo(int idModelo){
+
+        levantamentoRepositorio.obterDadosModelos(idModelo)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new SingleObserver<Integer>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onSuccess(Integer registo) {
+                                dadosModelo.setValue(registo);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+
+                            }
+                        }
+                );
+
+    }
+
 
     /**
      * Metodo que permite obter as categorias profissionais

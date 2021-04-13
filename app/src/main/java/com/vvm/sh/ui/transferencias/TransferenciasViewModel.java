@@ -311,17 +311,17 @@ public class TransferenciasViewModel extends BaseViewModel {
                             @Override
                             public void onSuccess(Sessao sessao) {
 
+                                aguardar.setValue(false);
+
                                 AtualizarTrabalhoAsyncTask servico = new AtualizarTrabalhoAsyncTask(listener, vvmshBaseDados, downloadTrabalhoRepositorio, idUtilizador);
                                 servico.execute(sessao);
 
                                 PreferenciasUtil.fixarContagemMaquina(contexto, sessao.iContagemTipoMaquina);
-
-                                showProgressBar(false);
                             }
 
                             @Override
                             public void onError(Throwable e) {
-                                showProgressBar(false);
+                                aguardar.setValue(false);
                                 formatarErro(e);
                             }
                         }
@@ -351,17 +351,18 @@ public class TransferenciasViewModel extends BaseViewModel {
 
                             @Override
                             public void onSuccess(Sessao sessao) {
+
+                                aguardar.setValue(false);
+
                                 RecarregarTrabalhoAsyncTask__v2 servico = new RecarregarTrabalhoAsyncTask__v2(listener, vvmshBaseDados, downloadTrabalhoRepositorio, idUtilizador, DatasUtil.converterDataLong(data, DatasUtil.FORMATO_YYYY_MM_DD), api);
                                 servico.execute(sessao);
 
                                 PreferenciasUtil.fixarContagemMaquina(contexto, sessao.iContagemTipoMaquina);
-
-                                showProgressBar(false);
                             }
 
                             @Override
                             public void onError(Throwable e) {
-                                showProgressBar(false);
+                                aguardar.setValue(false);
                                 formatarErro(e);
                             }
                         }
@@ -389,17 +390,19 @@ public class TransferenciasViewModel extends BaseViewModel {
 
                             @Override
                             public void onSuccess(Sessao sessao) {
+
+                                aguardar.setValue(false);
+
                                 RecarregarTarefaAsyncTask__v2 servico = new RecarregarTarefaAsyncTask__v2(listener, vvmshBaseDados, downloadTrabalhoRepositorio, tarefa);
                                 servico.execute(sessao);
 
                                 PreferenciasUtil.fixarContagemMaquina(contexto, sessao.iContagemTipoMaquina);
 
-                                showProgressBar(false);
                             }
 
                             @Override
                             public void onError(Throwable e) {
-                                showProgressBar(false);
+                                aguardar.setValue(false);
                                 formatarErro(e);
                             }
                         }

@@ -555,6 +555,7 @@
     <string name="argumento_api">api</string>
     <string name="numero_medidas_implementadas_">Número de medidas implementadas:</string>
     <string name="numero_medidas_nao_implementadas_">Número de medidas não implementadas:</string>
+    <string name="numero_levantamentos_">Nº de levantamentos:</string>
 
 
 </resources>

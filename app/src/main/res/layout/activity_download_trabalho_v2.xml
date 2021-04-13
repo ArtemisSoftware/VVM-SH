@@ -99,7 +99,7 @@
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:id="@+id/carregamento_tipos"
+                android:id="@+id/constraintLayout_tipos"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 app:layout_constraintStart_toStartOf="@+id/txt_titulo"
@@ -385,10 +385,11 @@
 
 
             <androidx.constraintlayout.widget.ConstraintLayout
-                android:layout_width="wrap_content"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
+                app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/txt_titulo"
-                app:layout_constraintTop_toBottomOf="@+id/carregamento_tipos">
+                app:layout_constraintTop_toBottomOf="@+id/constraintLayout_tipos">
 
                 <ProgressBar
                     android:id="@+id/progressBar_trabalho"
@@ -417,7 +418,7 @@
                     app:layout_constraintBottom_toBottomOf="@+id/progressBar_trabalho"
                     app:layout_constraintEnd_toEndOf="@+id/progressBar_trabalho"
                     app:layout_constraintStart_toStartOf="@+id/progressBar_trabalho"
-                    app:layout_constraintTop_toTopOf="@+id/progressBar_trabalho"/>
+                    app:layout_constraintTop_toTopOf="@+id/progressBar_trabalho" />
 
 
                 <!--
@@ -427,11 +428,12 @@
                 <TextView
                     android:id="@+id/txt_titulo_trabalho"
                     style="@style/tituloCartao"
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_marginStart="32dp"
                     android:gravity="center_horizontal"
                     android:text="@string/download_trabalho"
+                    app:layout_constraintEnd_toEndOf="parent"
                     app:layout_constraintStart_toEndOf="@+id/progressBar_trabalho"
                     app:layout_constraintTop_toTopOf="@+id/progressBar_trabalho" />
 

@@ -175,6 +175,11 @@ public class LevantamentoRepositorio {
         return levantamentoDao.obterModelos(idAtividade, TiposUtil.MetodosTipos.TEMPLATE_AVALIACAO_RISCOS, idApi);
     }
 
+    public Single<Integer> obterDadosModelos(int idModelo){
+        return levantamentoDao.obterDadosModelo(idModelo, TiposUtil.MetodosTipos.TEMPLATE_AVALIACAO_RISCOS, idApi);
+    }
+
+
     public Single<Integer> remover(CategoriaProfissionalResultado categoria) {
         return categoriaProfissionalDao.remover(categoria);
     }

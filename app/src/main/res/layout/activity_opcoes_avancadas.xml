@@ -78,7 +78,6 @@
 
 
             <LinearLayout
-                android:visibility="gone"
                 android:id="@+id/lnr_lyt_templates"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
@@ -156,6 +155,16 @@
                     android:gravity="center_vertical"
                     android:text="@string/gerir_atividades_planeaveis" />
             </LinearLayout>
+
+
+
+
+
+
+
+
+
+
 
 
 

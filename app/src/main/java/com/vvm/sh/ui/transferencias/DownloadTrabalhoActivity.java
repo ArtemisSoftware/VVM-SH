@@ -167,6 +167,7 @@ public class DownloadTrabalhoActivity extends BaseDaggerActivity  implements OnT
         int api = bundle.getInt(getString(R.string.argumento_api));
         long data = bundle.getLong(getString(R.string.argumento_data));
 
+        activityDownloadTrabalhoBinding.constraintLayoutTipos.setVisibility(View.GONE);
         activityDownloadTrabalhoBinding.txtTituloTrabalho.setText(getString(R.string.recarregar_trabalho_dia_)  + " " +  DatasUtil.converterData(data, DatasUtil.FORMATO_DD_MM_YYYY) + " -> " + api);
 
         viewModel.recarregarTrabalho(this, this, PreferenciasUtil.obterIdUtilizador(this), DatasUtil.converterData(data, DatasUtil.FORMATO_YYYY_MM_DD), api);
@@ -177,6 +178,7 @@ public class DownloadTrabalhoActivity extends BaseDaggerActivity  implements OnT
 
         Bundle bundle = getIntent().getExtras();
 
+        activityDownloadTrabalhoBinding.constraintLayoutTipos.setVisibility(View.GONE);
         activityDownloadTrabalhoBinding.txtTituloTrabalho.setText(getString(R.string.recarregar_tarefa));
 
         viewModel.recarregarTarefa(this, this, (Tarefa) bundle.get(getString(R.string.argumento_tarefa)));

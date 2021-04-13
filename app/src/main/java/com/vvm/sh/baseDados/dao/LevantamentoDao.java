@@ -193,6 +193,15 @@ abstract public class LevantamentoDao implements BaseDao<LevantamentoRiscoResult
     abstract public Single<List<Tipo>> obterModelos(int idAtividade, String tipo, int api);
 
 
+    @Query("SELECT numeroLevantamentos FROM tipos as modelos " +
+            "LEFT JOIN (SELECT idModelo, COUNT(id) as numeroLevantamentos FROM tipostemplateavrlevantamentos WHERE ativo = 1 GROUP BY idModelo) as lvt " +
+            "ON modelos.id = lvt.idModelo " +
+            "WHERE modelos.id = :idModelo AND tipo = :tipo AND api = :api AND ativo = 1 ")
+    abstract public Single<Integer> obterDadosModelo(int idModelo, String tipo, int api);
+
+
+
+
     @Query("INSERT INTO levantamentosRiscoResultado (idAtividade, tarefa, perigo, idModelo, idTipoLevantamento, origem) " +
             "SELECT :idAtividade as idAtividade, tarefa, perigo, idModelo, id, " + Identificadores.Origens.ORIGEM_BD + " as origem " +
             "FROM tipostemplateavrlevantamentos " +

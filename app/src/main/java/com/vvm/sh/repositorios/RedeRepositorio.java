@@ -83,7 +83,7 @@ public class RedeRepositorio {
                             @Override
                             public Sessao apply(ISessao iSessao) throws Exception {
                                 Sessao sessao = new Sessao();
-                                sessao.iSessao = iSessao;
+                                sessao.iSessaoSA = iSessao;
                                 return sessao;
                             }
                          }
@@ -103,7 +103,7 @@ public class RedeRepositorio {
 
                                 Sessao sessao = new Sessao();
                                 sessao.iContagemTipoMaquina = iContagemTipoMaquina;
-                                sessao.iSessao = iSessao;
+                                sessao.iSessaoSHT = iSessao;
                                 return sessao;
                             }
                         }
@@ -141,7 +141,7 @@ public class RedeRepositorio {
 
         Single<Sessao> single = null;
 
-        switch (AppConfig.APP_MODO){
+        switch (api){
 
 
             case AppConfig.APP_SA:
@@ -152,7 +152,7 @@ public class RedeRepositorio {
                                  @Override
                                  public Sessao apply(ISessao iSessao) throws Exception {
                                      Sessao sessao = new Sessao();
-                                     sessao.iSessao = iSessao;
+                                     sessao.iSessaoSA = iSessao;
                                      return sessao;
                                  }
                              }
@@ -172,7 +172,7 @@ public class RedeRepositorio {
 
                                 Sessao sessao = new Sessao();
                                 sessao.iContagemTipoMaquina = iContagemTipoMaquina;
-                                sessao.iSessao = iSessao;
+                                sessao.iSessaoSHT = iSessao;
                                 return sessao;
                             }
                         }

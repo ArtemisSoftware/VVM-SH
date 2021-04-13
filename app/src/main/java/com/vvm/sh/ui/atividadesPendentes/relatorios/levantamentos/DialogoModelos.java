@@ -165,6 +165,8 @@ public class DialogoModelos extends BaseDaggerDialogoPersistenteFragment {
             AlertDialog d = (AlertDialog) getDialog();
             Tipo modelo = (Tipo) binding.spnrModelo.getItems().get(position);
 
+            viewModel.obterDadosModelo(modelo.id);
+
             if(modelo.detalhe.equals("0") == true){
 
                 d.getButton(DialogInterface.BUTTON_POSITIVE).setTag(0);

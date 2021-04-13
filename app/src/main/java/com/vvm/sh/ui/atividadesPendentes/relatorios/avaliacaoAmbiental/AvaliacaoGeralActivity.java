@@ -182,8 +182,10 @@ public class AvaliacaoGeralActivity extends BaseDaggerActivity
                     bundle.putInt(getString(R.string.argumento_origem_relatorio), origem);
                     bundle.putInt(getString(R.string.argumento_id_atividade), idAtividade);
 
+                    int tipo = bundle.getInt(getString(R.string.argumento_tipo_relatorio));
+
                     Intent intent;
-                    if(origem == Identificadores.Relatorios.ID_RELATORIO_ILUMINACAO){
+                    if(tipo == Identificadores.Relatorios.ID_RELATORIO_ILUMINACAO){
                         intent = new Intent(AvaliacaoGeralActivity.this, AvaliacaoIluminacaoRegistoActivity.class);
                     }
                     else{

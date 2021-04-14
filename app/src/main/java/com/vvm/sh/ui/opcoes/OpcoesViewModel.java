@@ -16,6 +16,7 @@ import com.vvm.sh.servicos.tipos.CarregarTipoTemplatesAvrAsyncTask;
 import com.vvm.sh.servicos.tipos.CarregarTipoAtividadesPlaneaveisAsyncTask;
 import com.vvm.sh.servicos.tipos.recarregar.RecarregarTipoAsyncTask;
 import com.vvm.sh.servicos.tipos.recarregar.RecarregarTipoChecklistAsyncTask;
+import com.vvm.sh.servicos.tipos.recarregar.RecarregarTipoTemplateAvrAsyncTask;
 import com.vvm.sh.ui.opcoes.modelos.ResumoChecklist;
 import com.vvm.sh.ui.opcoes.modelos.ResumoTipo;
 import com.vvm.sh.ui.opcoes.modelos.TemplateAvr;
@@ -161,7 +162,7 @@ public class OpcoesViewModel extends BaseViewModel {
 
             case Identificadores.Atualizacoes.TEMPLATE:
 
-                recarregarTemplates(activity, handlerNotificacoesUI);
+                recarregarTemplates(activity);
                 break;
 
 
@@ -556,6 +557,43 @@ public class OpcoesViewModel extends BaseViewModel {
 
 
 
+    /**
+     * Metodo que permite recarregar todos os templates
+     */
+    private void recarregarTemplates(Activity atividade){
+
+        showProgressBar(true);
+
+        redeRepositorio.obterTemplateAvr()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+
+                        new SingleObserver<List<Object>>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onSuccess(List<Object> registos) {
+
+                                RecarregarTipoTemplateAvrAsyncTask servico = new RecarregarTipoTemplateAvrAsyncTask(atividade, vvmshBaseDados, carregamentoTiposRepositorio);
+                                servico.execute(registos);
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                showProgressBar(false);
+                            }
+                        }
+                );
+
+    }
+
+
 
 
 
@@ -790,39 +828,39 @@ public class OpcoesViewModel extends BaseViewModel {
      */
     private void recarregarTemplates(Activity atividade, Handler handlerNotificacoesUI){
 
-        showProgressBar(true);
-
-        try {
-            tiposRepositorio.obterTemplateAvr()
-                    .subscribeOn(Schedulers.io())
-                    .observeOn(AndroidSchedulers.mainThread())
-                    .subscribe(
-
-
-                            new SingleObserver<TemplateAvr>() {
-                                @Override
-                                public void onSubscribe(Disposable d) {
-                                    disposables.add(d);
-                                }
-
-                                @Override
-                                public void onSuccess(TemplateAvr templateAvr) {
-
-                                    CarregarTipoTemplatesAvrAsyncTask servico = new CarregarTipoTemplatesAvrAsyncTask(atividade, vvmshBaseDados, handlerNotificacoesUI, tiposRepositorio);
-                                    servico.execute(templateAvr);
-                                    showProgressBar(false);
-                                }
-
-                                @Override
-                                public void onError(Throwable e) {
-                                    showProgressBar(false);
-                                }
-                            }
-                    );
-        } catch (TipoInexistenteException e) {
-            showProgressBar(false);
-            messagemLiveData.setValue(Recurso.erro(e.getMessage()));
-        }
+//        showProgressBar(true);
+//
+//        try {
+//            redeRepositorio.obterTemplateAvr()
+//                    .subscribeOn(Schedulers.io())
+//                    .observeOn(AndroidSchedulers.mainThread())
+//                    .subscribe(
+//
+//
+//                            new SingleObserver<TemplateAvr>() {
+//                                @Override
+//                                public void onSubscribe(Disposable d) {
+//                                    disposables.add(d);
+//                                }
+//
+//                                @Override
+//                                public void onSuccess(TemplateAvr templateAvr) {
+//
+//                                    CarregarTipoTemplatesAvrAsyncTask servico = new CarregarTipoTemplatesAvrAsyncTask(atividade, vvmshBaseDados, handlerNotificacoesUI, tiposRepositorio);
+//                                    servico.execute(templateAvr);
+//                                    showProgressBar(false);
+//                                }
+//
+//                                @Override
+//                                public void onError(Throwable e) {
+//                                    showProgressBar(false);
+//                                }
+//                            }
+//                    );
+//        } catch (TipoInexistenteException e) {
+//            showProgressBar(false);
+//            messagemLiveData.setValue(Recurso.erro(e.getMessage()));
+//        }
     }
 
 

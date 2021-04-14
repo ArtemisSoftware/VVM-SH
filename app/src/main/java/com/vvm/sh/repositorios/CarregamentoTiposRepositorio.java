@@ -38,6 +38,11 @@ public class CarregamentoTiposRepositorio {
     }
 
 
+    //---------------------------
+    //Tipos
+    //---------------------------
+
+
     private void inserirTipo(Atualizacao atualizacao, List<Tipo> tiposNovos, List<Tipo> tiposAlterados){
 
         if(atualizacaoDao.existeRegisto(atualizacao.descricao, atualizacao.api) == true){
@@ -81,43 +86,16 @@ public class CarregamentoTiposRepositorio {
 
 
 
+    //---------------------------
+    //Template avr
+    //---------------------------
 
-
-
-    private void inserirTipoAtividadesPlaneaveis(Atualizacao atualizacao, List<TipoAtividadePlaneavel> tiposNovos, List<TipoAtividadePlaneavel> tiposAlterados){
-
-        if(atualizacaoDao.existeRegisto(atualizacao.descricao, atualizacao.api) == true){
-            atualizacaoDao.atualizarRegisto(atualizacao);
-        }
-        else{
-            atualizacaoDao.inserirRegisto(atualizacao);
-        }
-
-        tipoDao.inserirAtividadesPlaneaiveis(tiposNovos);
-        tipoDao.atualizarAtividadesPlaneaiveis(tiposAlterados);
-    }
-
-    /**
-     * Metodo que permite atualizar um tipo<br>
-     *     1->Atualizar timestamp<br>
-     *     2->inserir novos dados
-     * @param atualizacao os dados da atualizacao
-     * @param tiposNovos tipos novos a inserir
-     * @param tiposAlterados tipos a alterar
-     */
-    public void atualizarTipoAtividadesPlaneaveis_(Atualizacao atualizacao, List<TipoAtividadePlaneavel> tiposNovos, List<TipoAtividadePlaneavel> tiposAlterados){
-        inserirTipoAtividadesPlaneaveis(atualizacao, tiposNovos, tiposAlterados);
-    }
-
-
-
-
-    public void atualizarTipoTemplateAvr(Atualizacao atualizacaoLevantamento, List<TipoTemplateAvrLevantamento> dadosNovosLevantamento, List<TipoTemplateAvrLevantamento> dadosAlteradosLevantamento,
+    public void inserirTipoTemplateAvr(Atualizacao atualizacaoLevantamento,
+                                         List<TipoTemplateAvrLevantamento> dadosNovosLevantamento, List<TipoTemplateAvrLevantamento> dadosAlteradosLevantamento,
                                          Atualizacao atualizacaoRisco,
                                          List<TipoTemplateAvrRisco> dadosNovosRiscos, List<TipoTemplateAvrRisco> dadosAlteradosRiscos,
                                          List<TipoTemplatesAVRMedidaRisco> medidasExistentes, List<TipoTemplatesAVRMedidaRisco> medidasAlteradasExistentes,
                                          List<TipoTemplatesAVRMedidaRisco> medidasRecomendadas, List<TipoTemplatesAVRMedidaRisco> medidasAlteradasRecomendadas) {
-
 
         if(atualizacaoLevantamento != null) {
 
@@ -190,8 +168,89 @@ public class CarregamentoTiposRepositorio {
             tipoDao.inserirTemplatesAVRMedidaRisco(medidasAlteradas);
         }
 
+
     }
 
+
+
+    public void atualizarTipoTemplateAvr(Atualizacao atualizacaoLevantamento,
+                                         List<TipoTemplateAvrLevantamento> dadosNovosLevantamento, List<TipoTemplateAvrLevantamento> dadosAlteradosLevantamento,
+                                         Atualizacao atualizacaoRisco,
+                                         List<TipoTemplateAvrRisco> dadosNovosRiscos, List<TipoTemplateAvrRisco> dadosAlteradosRiscos,
+                                         List<TipoTemplatesAVRMedidaRisco> medidasExistentes, List<TipoTemplatesAVRMedidaRisco> medidasAlteradasExistentes,
+                                         List<TipoTemplatesAVRMedidaRisco> medidasRecomendadas, List<TipoTemplatesAVRMedidaRisco> medidasAlteradasRecomendadas) {
+
+
+            inserirTipoTemplateAvr(atualizacaoLevantamento, dadosNovosLevantamento, dadosAlteradosLevantamento,
+                    atualizacaoRisco,
+                    dadosNovosRiscos, dadosAlteradosRiscos, medidasExistentes, medidasAlteradasExistentes, medidasRecomendadas, medidasAlteradasRecomendadas
+                    );
+
+    }
+
+
+
+    public void recarregarTipoTemplateAvr(Atualizacao atualizacaoLevantamento,
+                                             List<TipoTemplateAvrLevantamento> dadosNovosLevantamento, List<TipoTemplateAvrLevantamento> dadosAlteradosLevantamento,
+                                             Atualizacao atualizacaoRisco,
+                                             List<TipoTemplateAvrRisco> dadosNovosRiscos, List<TipoTemplateAvrRisco> dadosAlteradosRiscos,
+                                             List<TipoTemplatesAVRMedidaRisco> medidasExistentes, List<TipoTemplatesAVRMedidaRisco> medidasAlteradasExistentes,
+                                             List<TipoTemplatesAVRMedidaRisco> medidasRecomendadas, List<TipoTemplatesAVRMedidaRisco> medidasAlteradasRecomendadas){
+
+        atualizacaoDao.remover(atualizacaoLevantamento.descricao, atualizacaoLevantamento.api);
+        atualizacaoDao.remover(atualizacaoRisco.descricao, atualizacaoRisco.api);
+
+        inserirTipoTemplateAvr(atualizacaoLevantamento, dadosNovosLevantamento, dadosAlteradosLevantamento,
+                atualizacaoRisco,
+                dadosNovosRiscos, dadosAlteradosRiscos, medidasExistentes, medidasAlteradasExistentes, medidasRecomendadas, medidasAlteradasRecomendadas
+        );
+    }
+
+
+
+    //---------------------------
+    //Atividades planeaveis
+    //---------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    private void inserirTipoAtividadesPlaneaveis(Atualizacao atualizacao, List<TipoAtividadePlaneavel> tiposNovos, List<TipoAtividadePlaneavel> tiposAlterados){
+
+        if(atualizacaoDao.existeRegisto(atualizacao.descricao, atualizacao.api) == true){
+            atualizacaoDao.atualizarRegisto(atualizacao);
+        }
+        else{
+            atualizacaoDao.inserirRegisto(atualizacao);
+        }
+
+        tipoDao.inserirAtividadesPlaneaiveis(tiposNovos);
+        tipoDao.atualizarAtividadesPlaneaiveis(tiposAlterados);
+    }
+
+    /**
+     * Metodo que permite atualizar um tipo<br>
+     *     1->Atualizar timestamp<br>
+     *     2->inserir novos dados
+     * @param atualizacao os dados da atualizacao
+     * @param tiposNovos tipos novos a inserir
+     * @param tiposAlterados tipos a alterar
+     */
+    public void atualizarTipoAtividadesPlaneaveis_(Atualizacao atualizacao, List<TipoAtividadePlaneavel> tiposNovos, List<TipoAtividadePlaneavel> tiposAlterados){
+        inserirTipoAtividadesPlaneaveis(atualizacao, tiposNovos, tiposAlterados);
+    }
 
 
 

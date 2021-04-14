@@ -776,8 +776,24 @@ public class RedeRepositorio {
     }
 
     //---------------------------
-    //Tipos
+    //Templates avr
     //---------------------------
+
+
+
+    public Single<List<Object>> obterTemplateAvr()  {
+
+
+        SingleSource[] source = new SingleSource[2];
+
+        source[0] = apiST.obterTipoTemplatesAVR_Levantamentos(SegurancaTrabalhoApi.HEADER_TIPO);
+        source[1] = apiST.obterTipoTemplatesAVR_Riscos(SegurancaTrabalhoApi.HEADER_TIPO);
+
+        return Single.concatArray(source).toList();
+
+    }
+
+
 
     //---------------------------
     //Tipos
@@ -849,27 +865,6 @@ public class RedeRepositorio {
 
 
 
-
-    public Single<TemplateAvr> obterTemplateAvr() throws TipoInexistenteException {
-
-        Single<TemplateAvr> single = Single.zip(
-                apiST.obterTipoTemplatesAVR_Levantamentos(SegurancaTrabalhoApi.HEADER_TIPO),
-                apiST.obterTipoTemplatesAVR_Riscos(SegurancaTrabalhoApi.HEADER_TIPO),
-                new BiFunction<ITipoTemplateAvrLevantamentoListagem, ITipoTemplateAvrRiscoListagem, TemplateAvr>() {
-                    @Override
-                    public TemplateAvr apply(ITipoTemplateAvrLevantamentoListagem levantamentos, ITipoTemplateAvrRiscoListagem riscos) throws Exception {
-
-                        TemplateAvr resultado = new TemplateAvr();
-                        resultado.levantamentos = levantamentos;
-                        resultado.riscos = riscos;
-
-                        return resultado;
-                    }
-                });
-
-
-        return single;
-    }
 
 
 

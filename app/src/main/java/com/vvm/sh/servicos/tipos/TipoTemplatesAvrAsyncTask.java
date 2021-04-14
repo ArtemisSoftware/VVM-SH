@@ -129,10 +129,23 @@ public abstract class TipoTemplatesAvrAsyncTask extends CarregamentoTipoAsyncTas
         }
 
 
-//        repositorio.atualizarTipoTemplateAvr(
-//                atualizacaoLevantamento, dadosNovos, dadosAlterados,
-//                atualizacaoRisco, dadosNovosRiscos, dadosAlteradosRiscos,
-//                medidasExistentes, medidasAlteradasExistentes, medidasRecomendadas, medidasAlteradasRecomendadas);
+        inserirRegistoBd(
+                atualizacaoLevantamento, dadosNovos, dadosAlterados,
+                atualizacaoRisco, dadosNovosRiscos, dadosAlteradosRiscos,
+                medidasExistentes, medidasAlteradasExistentes, medidasRecomendadas, medidasAlteradasRecomendadas);
 
     }
+
+
+    //-----------------------
+    //Metodos abstratos
+    //-----------------------
+
+
+    protected abstract void inserirRegistoBd(Atualizacao atualizacaoLevantamento, List<TipoTemplateAvrLevantamento> dadosNovosLevantamento, List<TipoTemplateAvrLevantamento> dadosAlteradosLevantamento,
+                                             Atualizacao atualizacaoRisco,
+                                             List<TipoTemplateAvrRisco> dadosNovosRiscos, List<TipoTemplateAvrRisco> dadosAlteradosRiscos,
+                                             List<TipoTemplatesAVRMedidaRisco> medidasExistentes, List<TipoTemplatesAVRMedidaRisco> medidasAlteradasExistentes,
+                                             List<TipoTemplatesAVRMedidaRisco> medidasRecomendadas, List<TipoTemplatesAVRMedidaRisco> medidasAlteradasRecomendadas);
+
 }

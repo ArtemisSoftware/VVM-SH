@@ -15,6 +15,7 @@ import com.vvm.sh.servicos.tipos.CarregarTipoAsyncTask;
 import com.vvm.sh.servicos.tipos.CarregarTipoTemplatesAvrAsyncTask;
 import com.vvm.sh.servicos.tipos.CarregarTipoAtividadesPlaneaveisAsyncTask;
 import com.vvm.sh.servicos.tipos.recarregar.RecarregarTipoAsyncTask;
+import com.vvm.sh.servicos.tipos.recarregar.RecarregarTipoAtividadesPlaneaveisAsyncTask;
 import com.vvm.sh.servicos.tipos.recarregar.RecarregarTipoChecklistAsyncTask;
 import com.vvm.sh.servicos.tipos.recarregar.RecarregarTipoTemplateAvrAsyncTask;
 import com.vvm.sh.ui.opcoes.modelos.ResumoChecklist;
@@ -83,9 +84,6 @@ public class OpcoesViewModel extends BaseViewModel {
 
                 obterResumoTemplate();
                 break;
-
-
-
 
             case Identificadores.Atualizacoes.ATIVIDADES_PLANEAVEIS:
 
@@ -169,7 +167,7 @@ public class OpcoesViewModel extends BaseViewModel {
 
             case Identificadores.Atualizacoes.ATIVIDADES_PLANEAVEIS:
 
-                recarregarAtividadesPlaneaveis(activity, handlerNotificacoesUI);
+                recarregarAtividadesPlaneaveis(activity);
                 break;
 
             default:
@@ -276,6 +274,49 @@ public class OpcoesViewModel extends BaseViewModel {
         showProgressBar(true);
 
         tiposRepositorio.obterResumoTemplate()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new Observer<List<ResumoTipo>>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onNext(List<ResumoTipo> registos) {
+                                tipos.setValue(registos);
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onComplete() {
+                                showProgressBar(false);
+                            }
+                        }
+
+
+                );
+
+    }
+
+
+
+
+    /**
+     * Metodo que permite obter o resumo dos registos existentes
+     */
+    private void obterResumoAtividadesPlaneaveis(){
+
+        showProgressBar(true);
+
+        tiposRepositorio.obterResumoAtividadesPlaneaveis()
                 .subscribeOn(Schedulers.io())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
@@ -595,6 +636,40 @@ public class OpcoesViewModel extends BaseViewModel {
 
 
 
+    /**
+     * Metodo que permite recarregar todas as atividades planeaveis
+     */
+    private void recarregarAtividadesPlaneaveis(Activity atividade){
+
+        showProgressBar(true);
+
+        redeRepositorio.obterAtividadesPlaneaveis()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new SingleObserver<List<Object>>() {
+                            @Override
+                            public void onSubscribe(Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onSuccess(List<Object> registos) {
+
+                                RecarregarTipoAtividadesPlaneaveisAsyncTask servico = new RecarregarTipoAtividadesPlaneaveisAsyncTask(atividade, vvmshBaseDados, carregamentoTiposRepositorio);
+                                servico.execute(registos);
+
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onError(Throwable e) {
+                                showProgressBar(false);
+                            }
+                        }
+                );
+    }
 
 
 
@@ -649,49 +724,6 @@ public class OpcoesViewModel extends BaseViewModel {
     //---------------------
 
 
-
-
-
-
-    /**
-     * Metodo que permite obter o resumo dos registos existentes
-     */
-    private void obterResumoAtividadesPlaneaveis(){
-
-        showProgressBar(true);
-
-        tiposRepositorio.obterResumoAtividadesPlaneaveis()
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
-
-                        new Observer<List<ResumoTipo>>() {
-                            @Override
-                            public void onSubscribe(Disposable d) {
-                                disposables.add(d);
-                            }
-
-                            @Override
-                            public void onNext(List<ResumoTipo> registos) {
-                                tipos.setValue(registos);
-                                showProgressBar(false);
-                            }
-
-                            @Override
-                            public void onError(Throwable e) {
-                                showProgressBar(false);
-                            }
-
-                            @Override
-                            public void onComplete() {
-                                showProgressBar(false);
-                            }
-                        }
-
-
-                );
-
-    }
 
 
 

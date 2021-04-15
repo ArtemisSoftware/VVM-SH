@@ -796,8 +796,16 @@ public class RedeRepositorio {
 
 
     //---------------------------
-    //Tipos
+    //Atividades planeaveis
     //---------------------------
+
+
+    public Single<List<Object>> obterAtividadesPlaneaveis() {
+
+        SingleSource[] source = new SingleSource[1];
+        source[0] = apiST.obterTipoAtividadesPlaneaveis(SegurancaTrabalhoApi.HEADER_TIPO);
+        return Single.concatArray(source).toList();
+    }
 
 
 
@@ -858,9 +866,6 @@ public class RedeRepositorio {
 
 
 
-    public Single<ITipoAtividadePlaneavelListagem> obterAtividadesPlaneaveis() throws TipoInexistenteException {
-        return apiST.obterTipoAtividadesPlaneaveis(SegurancaTrabalhoApi.HEADER_TIPO);
-    }
 
 
 

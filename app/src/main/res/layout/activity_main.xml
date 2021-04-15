@@ -172,6 +172,7 @@
 
 
             <androidx.recyclerview.widget.RecyclerView
+                android:layout_marginTop="12dp"
                 android:id="@+id/rcl_registos"
                 style="@style/lista"
                 android:visibility="@{viewmodel.marcacoes.size() > 0 ? View.VISIBLE : View.GONE}"

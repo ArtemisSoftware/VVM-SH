@@ -44,4 +44,9 @@ public class AtualizarTipoAtividadesPlaneaveisAsyncTask__v2 extends TipoAtividad
         listener.atualizarTransferencia(new AtualizacaoUI_(AtualizacaoUI_.Estado.PROCESSAMENTO_ATIVIDADES_PLANEAVEIS, index, limite, obterDescricaoApi(atualizacao) + " " + atualizacao.descricao));
 
     }
+
+    @Override
+    protected void inserirRegistoBd(Atualizacao atualizacao, List<TipoAtividadePlaneavel> dadosNovos, List<TipoAtividadePlaneavel> dadosAlterados) {
+        repositorio.atualizarTipoAtividadesPlaneaveis(atualizacao, dadosNovos, dadosAlterados);
+    }
 }

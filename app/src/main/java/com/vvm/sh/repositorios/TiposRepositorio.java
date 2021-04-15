@@ -131,6 +131,17 @@ public class TiposRepositorio {
     //------------
 
 
+
+    /**
+     * Metodo que permite obter o resumo das atividades planeaveis
+     * @return uma lista
+     */
+    public Observable<List<ResumoTipo>> obterResumoAtividadesPlaneaveis() {
+        return tipoDao.obterResumoAtividadesPlaneaveis();
+    }
+
+
+
     //------------
     //Templates
     //------------
@@ -308,14 +319,6 @@ public class TiposRepositorio {
     //------------
     //Atividades planeaveis
     //------------
-
-    /**
-     * Metodo que permite obter o resumo das atividades planeaveis
-     * @return uma lista
-     */
-    public Observable<List<ResumoTipo>> obterResumoAtividadesPlaneaveis() {
-        return tipoDao.obterResumoAtividadesPlaneaveis();
-    }
 
 
     public Single<ITipoAtividadePlaneavelListagem> obterAtividadesPlaneaveis() throws TipoInexistenteException {

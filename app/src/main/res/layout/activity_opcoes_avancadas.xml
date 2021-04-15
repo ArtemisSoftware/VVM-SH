@@ -131,7 +131,6 @@
 
 
             <LinearLayout
-                android:visibility="gone"
                 android:id="@+id/lnr_lyt_atividades_planeaveis"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"

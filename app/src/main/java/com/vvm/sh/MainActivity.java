@@ -328,10 +328,7 @@ public class MainActivity extends BaseDaggerActivity
         if(PreferenciasUtil.agendaEditavel(this) == true) {
             dialogo.alerta(getString(R.string.atualizar_trabalho_dia), getString(R.string.atualizar_trabalho_adicionar), listener, true);
         }
-
-
     }
-
 
 
 

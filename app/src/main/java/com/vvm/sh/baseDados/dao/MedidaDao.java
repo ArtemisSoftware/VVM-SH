@@ -64,21 +64,45 @@ abstract public class MedidaDao implements BaseDao<MedidaResultado> {
 
 
 
+//    @Query("INSERT INTO medidasResultado (id, origem, idMedida) " +
+//            "SELECT rsc_res.id, :origemMedidas as origem, rsc_modelo.idMedida " +
+//            "FROM tiposTemplatesAVRMedidasRisco as rsc_modelo " +
+//
+//            "LEFT JOIN (SELECT id FROM tipos WHERE tipo = :tipo AND ativo = 1 AND api = :api) as tp_med_recom " +
+//            "ON tp_med_recom.id = rsc_modelo.idMedida " +
+//
+//            "LEFT JOIN (SELECT idTipoRisco, id, idLevantamento FROM riscosResultado WHERE idTipoRisco > 0) as rsc_res " +
+//            "ON rsc_modelo.id = rsc_res.idTipoRisco " +
+//
+//            "WHERE origem = :origemModelo " +
+//            "AND rsc_res.idLevantamento IN (SELECT id FROM levantamentosRiscoResultado WHERE idAtividade = :idAtividade AND idModelo= :idModelo) " +
+//            "")
+//    abstract public Completable inserirMedidasRisco(int idAtividade, int idModelo, String tipo, int origemMedidas, int origemModelo, int api);
+
+
+
     @Query("INSERT INTO medidasResultado (id, origem, idMedida) " +
-            "SELECT rsc_res.id, :origemMedidas as origem, rsc_modelo.idMedida " +
-            "FROM tiposTemplatesAVRMedidasRisco as rsc_modelo " +
 
-            "LEFT JOIN (SELECT id FROM tipos WHERE tipo = :tipo AND ativo = 1 AND api = :api) as tp_med_recom " +
-            "ON tp_med_recom.id = rsc_modelo.idMedida " +
+            "SELECT rsc_res.id, :origemMedidas as origem, template_medidas_risco.idMedida " +
+            "FROM tiposTemplatesAVRMedidasRisco as template_medidas_risco " +
 
-            "LEFT JOIN (SELECT idTipoRisco, id, idLevantamento FROM riscosResultado WHERE idTipoRisco > 0) as rsc_res " +
-            "ON rsc_modelo.id = rsc_res.idTipoRisco " +
 
-            "WHERE origem = :origemModelo " +
-            "AND rsc_res.idLevantamento IN (SELECT id FROM levantamentosRiscoResultado WHERE idAtividade = :idAtividade AND idModelo= :idModelo) " +
+            "LEFT JOIN (SELECT id, ativo FROM tipos WHERE tipo = :tipo AND api = :api) as tp_med " +
+            "ON template_medidas_risco.idMedida = tp_med.id " +
+
+
+            "LEFT JOIN (" +
+            "SELECT idTipoRisco, id, idLevantamento " +
+            "FROM riscosResultado " +
+            "WHERE idLevantamento IN (SELECT id FROM levantamentosRiscoResultado WHERE idAtividade = :idAtividade AND idModelo= :idModelo)" +
+            ") as rsc_res " +
+            "ON template_medidas_risco.id = rsc_res.idTipoRisco " +
+
+
+            "WHERE origem = :origemModelo AND tp_med.ativo = 1 " +
+
             "")
     abstract public Completable inserirMedidasRisco(int idAtividade, int idModelo, String tipo, int origemMedidas, int origemModelo, int api);
-
 
 
 

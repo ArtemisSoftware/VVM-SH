@@ -5,6 +5,7 @@ import androidx.annotation.NonNull;
 import com.vvm.sh.api.SegurancaAlimentarApi;
 import com.vvm.sh.api.SegurancaTrabalhoApi;
 import com.vvm.sh.baseDados.dao.AtualizacaoDao;
+import com.vvm.sh.baseDados.dao.TipoDadosDao;
 import com.vvm.sh.baseDados.dao.TipoDao;
 import com.vvm.sh.baseDados.dao.TipoNovoDao;
 import com.vvm.sh.baseDados.entidades.AreaChecklist;
@@ -29,12 +30,14 @@ public class CarregamentoTiposRepositorio {
     private final AtualizacaoDao atualizacaoDao;
     private final TipoDao tipoDao;
     private final TipoNovoDao tipoNovoDao;
+    private final TipoDadosDao tipoDadosDao;
 
-    public CarregamentoTiposRepositorio(@NonNull AtualizacaoDao atualizacaoDao, @NonNull TipoDao tipoDao, @NonNull TipoNovoDao tipoNovoDao) {
+    public CarregamentoTiposRepositorio(@NonNull AtualizacaoDao atualizacaoDao, @NonNull TipoDao tipoDao, @NonNull TipoDadosDao tipoDadosDao, @NonNull TipoNovoDao tipoNovoDao) {
 
         this.atualizacaoDao = atualizacaoDao;
         this.tipoDao = tipoDao;
         this.tipoNovoDao = tipoNovoDao;
+        this.tipoDadosDao = tipoDadosDao;
     }
 
 
@@ -105,8 +108,8 @@ public class CarregamentoTiposRepositorio {
                 atualizacaoDao.inserirRegisto(atualizacaoLevantamento);
             }
 
-            tipoDao.inserirTemplateAvrLevantamento(dadosNovosLevantamento);
-            tipoDao.atualizarTemplateAvrLevantamento(dadosAlteradosLevantamento);
+            tipoDadosDao.inserirTemplateAvrLevantamento(dadosNovosLevantamento);
+            tipoDadosDao.atualizarTemplateAvrLevantamento(dadosAlteradosLevantamento);
         }
 
 
@@ -128,38 +131,31 @@ public class CarregamentoTiposRepositorio {
 
             for(TipoTemplatesAVRMedidaRisco item : medidasExistentes){
 
-                if(tipoDao.filtrarMedidaExistentesTemplate(item.id) == true){
+                if(tipoDadosDao.filtrarMedidasTemplate(item.id, TiposUtil.MetodosTipos.MEDIDAS_PREVENCAO_ADOPTADAS) == true){
                     medidas.add(item);
                 }
             }
 
             for(TipoTemplatesAVRMedidaRisco item : medidasRecomendadas){
 
-                if(tipoDao.filtrarMedidaRecomendadasTemplate(item.id) == true){
+                if(tipoDadosDao.filtrarMedidasTemplate(item.id, TiposUtil.MetodosTipos.MEDIDAS_PREVENCAO_RECOMENDADAS) == true){
                     medidas.add(item);
                 }
             }
-
-            tipoDao.inserirTemplatesAVRMedidaRisco(medidas);
-
 
 
 
 
             for(TipoTemplatesAVRMedidaRisco item : medidasAlteradasExistentes){
 
-                tipoDao.removerTemplatesAVRMedidaRisco(item.id, item.origem);
-
-                if(tipoDao.filtrarMedidaExistentesTemplate(item.id) == true){
+                if(tipoDadosDao.filtrarMedidasTemplate(item.id, TiposUtil.MetodosTipos.MEDIDAS_PREVENCAO_ADOPTADAS) == true){
                     medidasAlteradas.add(item);
                 }
             }
 
             for(TipoTemplatesAVRMedidaRisco item : medidasAlteradasRecomendadas){
 
-                tipoDao.removerTemplatesAVRMedidaRisco(item.id, item.origem);
-
-                if(tipoDao.filtrarMedidaRecomendadasTemplate(item.id) == true){
+                if(tipoDadosDao.filtrarMedidasTemplate(item.id, TiposUtil.MetodosTipos.MEDIDAS_PREVENCAO_RECOMENDADAS) == true){
                     medidasAlteradas.add(item);
                 }
             }

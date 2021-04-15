@@ -3,6 +3,7 @@ package com.vvm.sh.di.transferencias;
 import com.vvm.sh.api.SegurancaAlimentarApi;
 import com.vvm.sh.api.SegurancaTrabalhoApi;
 import com.vvm.sh.baseDados.dao.AtualizacaoDao;
+import com.vvm.sh.baseDados.dao.TipoDadosDao;
 import com.vvm.sh.baseDados.dao.TipoDao;
 import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.baseDados.dao.TipoNovoDao;
@@ -91,9 +92,9 @@ public class TransferenciasModule {
 
     @TransferenciasScope
     @Provides
-    CarregamentoTiposRepositorio provideCarregamentoTiposRepositorio(AtualizacaoDao atualizacaoDao, TipoDao tipoDao, TipoNovoDao tipoNovoDao) {
+    CarregamentoTiposRepositorio provideCarregamentoTiposRepositorio(AtualizacaoDao atualizacaoDao, TipoDao tipoDao, TipoDadosDao tipoDadosDao, TipoNovoDao tipoNovoDao) {
 
-        CarregamentoTiposRepositorio repositorio = new CarregamentoTiposRepositorio(atualizacaoDao, tipoDao, tipoNovoDao);
+        CarregamentoTiposRepositorio repositorio = new CarregamentoTiposRepositorio(atualizacaoDao, tipoDao, tipoDadosDao, tipoNovoDao);
         return repositorio;
     }
 

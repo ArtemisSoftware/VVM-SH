@@ -4,19 +4,14 @@ import android.content.Context;
 
 import androidx.lifecycle.MutableLiveData;
 
-import com.titan.pdfdocumentlibrary.bundle.Template;
 import com.vvm.sh.api.modelos.pedido.Codigo;
 import com.vvm.sh.baseDados.entidades.ImagemResultado;
 import com.vvm.sh.baseDados.entidades.InformacaoSstResultado;
 import com.vvm.sh.baseDados.entidades.ObrigacaoLegalResultado;
 import com.vvm.sh.documentos.DadosTemplate;
 import com.vvm.sh.documentos.OnDocumentoListener;
-import com.vvm.sh.documentos.informacaoSst.InformacaoSst;
-import com.vvm.sh.documentos.informacaoSst.modelos.DadosInformacaoSst;
 import com.vvm.sh.repositorios.InformacaoSstRepositorio;
 import com.vvm.sh.repositorios.RedeRepositorio;
-import com.vvm.sh.repositorios.TransferenciasRepositorio;
-import com.vvm.sh.servicos.pdf.DocumentoPdfAsyncTask;
 import com.vvm.sh.ui.informacaoSst.modelos.ObrigacaoLegal;
 import com.vvm.sh.ui.informacaoSst.modelos.RelatorioInformacaoSst;
 import com.vvm.sh.util.Recurso;

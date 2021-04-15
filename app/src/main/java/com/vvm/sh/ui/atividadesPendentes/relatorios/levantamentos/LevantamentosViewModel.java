@@ -1128,6 +1128,9 @@ public class LevantamentosViewModel extends BaseViewModel {
                             @Override
                             public void onSuccess(List<Tipo> tipos) {
                                 modelos.setValue(tipos);
+                                if(tipos != null) {
+                                    obterDadosModelo(tipos.get(0).id);
+                                }
                             }
 
                             @Override

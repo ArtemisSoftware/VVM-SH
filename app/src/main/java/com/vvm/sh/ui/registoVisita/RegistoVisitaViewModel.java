@@ -11,11 +11,7 @@ import com.vvm.sh.baseDados.entidades.RegistoVisitaResultado;
 import com.vvm.sh.baseDados.entidades.TrabalhoRealizadoResultado;
 import com.vvm.sh.documentos.DadosTemplate;
 import com.vvm.sh.documentos.OnDocumentoListener;
-import com.vvm.sh.documentos.registoVisita.RegistoVisita;
-import com.vvm.sh.documentos.registoVisita.modelos.DadosRegistoVisita;
 import com.vvm.sh.repositorios.RegistoVisitaRepositorio;
-import com.vvm.sh.servicos.pdf.EnvioRegistoVisitaAsyncTask;
-import com.vvm.sh.servicos.pdf.DocumentoPdfAsyncTask;
 import com.vvm.sh.documentos.DadosCliente;
 import com.vvm.sh.ui.registoVisita.modelos.RelatorioRegistoVisita;
 import com.vvm.sh.ui.registoVisita.modelos.TrabalhoRealizado;
@@ -23,14 +19,11 @@ import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.ResultadoId;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.constantes.Sintaxe;
-import com.vvm.sh.util.email.Email;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
 
 import java.util.List;
-import java.util.concurrent.Callable;
 
 import javax.inject.Inject;
-import javax.mail.Transport;
 
 import io.reactivex.Maybe;
 import io.reactivex.MaybeObserver;

@@ -213,11 +213,7 @@ abstract public class TipoDao implements BaseDao<Tipo> {
     abstract public List<Long> inserirItensChecklis(List<ItemChecklist> registo);
 
 
-    @Insert
-    abstract public List<Long> inserirTemplateAvrLevantamento(List<TipoTemplateAvrLevantamento> tipo);
 
-    @Update
-    abstract public Integer atualizarTemplateAvrLevantamento(List<TipoTemplateAvrLevantamento> tipo);
 
 
     @Insert
@@ -241,13 +237,13 @@ abstract public class TipoDao implements BaseDao<Tipo> {
     abstract public int obterIdTipo(int idProvisorio, String tipo);
 
 
-    @Query("SELECT CASE WHEN ativo = 1 THEN 1 ELSE 0 END valido " +
-            "FROM tipos WHERE id  =:id AND tipo ='" + TiposUtil.MetodosTipos.MEDIDAS_PREVENCAO_RECOMENDADAS +"' ")
-    abstract public boolean filtrarMedidaRecomendadasTemplate(int id);
-
-    @Query("SELECT CASE WHEN ativo = 1 THEN 1 ELSE 0 END valido " +
-            "FROM tipos WHERE id  =:id AND tipo ='" + TiposUtil.MetodosTipos.MEDIDAS_PREVENCAO_ADOPTADAS +"' ")
-    abstract public boolean filtrarMedidaExistentesTemplate(int id);
+//    @Query("SELECT CASE WHEN ativo = 1 THEN 1 ELSE 0 END valido " +
+//            "FROM tipos WHERE id  =:id AND tipo ='" + TiposUtil.MetodosTipos.MEDIDAS_PREVENCAO_RECOMENDADAS +"' ")
+//    abstract public boolean filtrarMedidaRecomendadasTemplate(int id);
+//
+//    @Query("SELECT CASE WHEN ativo = 1 THEN 1 ELSE 0 END valido " +
+//            "FROM tipos WHERE id  =:id AND tipo ='" + TiposUtil.MetodosTipos.MEDIDAS_PREVENCAO_ADOPTADAS +"' ")
+//    abstract public boolean filtrarMedidaExistentesTemplate(int id);
 
 
     @Query("DELETE FROM tiposTemplateAvrLevantamentos ")

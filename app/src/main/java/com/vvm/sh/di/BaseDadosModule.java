@@ -8,6 +8,7 @@ import com.vvm.sh.baseDados.BaseDadosContantes;
 import com.vvm.sh.baseDados.Migracao;
 import com.vvm.sh.baseDados.dao.ImagemDao;
 import com.vvm.sh.baseDados.dao.ResultadoDao;
+import com.vvm.sh.baseDados.dao.TipoDadosDao;
 import com.vvm.sh.baseDados.dao.TipoDao;
 import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.baseDados.dao.TransferenciasDao_v2;
@@ -35,10 +36,18 @@ public class BaseDadosModule {
     static TipoDao provideTipoDao(VvmshBaseDados vvmshBaseDados){
 
         TipoDao dao = vvmshBaseDados.obterTipoDao();
-
-        //Timber.d("Providing NoteDao: " + dao);
         return dao;
     }
+
+
+    @Singleton
+    @Provides
+    static TipoDadosDao provideTipoDadosDao(VvmshBaseDados vvmshBaseDados){
+
+        TipoDadosDao dao = vvmshBaseDados.obterTipoDadosDao();
+        return dao;
+    }
+
 
 
     @Singleton
@@ -80,8 +89,6 @@ public class BaseDadosModule {
     static int provideIdApi(Application application){
 
         int idApi = PreferenciasUtil.obterIdApi(application.getApplicationContext());
-
-        //Timber.d("Providing NoteDao: " + dao);
         return idApi;
     }
 }

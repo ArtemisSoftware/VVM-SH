@@ -99,7 +99,7 @@ abstract public class MedidaDao implements BaseDao<MedidaResultado> {
             "ON template_medidas_risco.id = rsc_res.idTipoRisco " +
 
 
-            "WHERE origem = :origemModelo AND tp_med.ativo = 1 " +
+            "WHERE origem = :origemModelo AND tp_med.ativo = 1 AND template_medidas_risco.id = rsc_res.idTipoRisco " +
 
             "")
     abstract public Completable inserirMedidasRisco(int idAtividade, int idModelo, String tipo, int origemMedidas, int origemModelo, int api);

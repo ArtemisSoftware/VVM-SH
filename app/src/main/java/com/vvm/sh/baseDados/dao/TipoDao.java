@@ -98,6 +98,15 @@ abstract public class TipoDao implements BaseDao<Tipo> {
     //--------------------
 
 
+    @Query("SELECT *, 0 as numeroRegistosSA, numeroRegistosSHT, seloTemporal " +
+            "FROM atualizacoes as atl " +
+            "LEFT JOIN (SELECT " + Identificadores.Atualizacoes.ATIVIDADES_PLANEAVEIS + " as tipo, COUNT(id) as numeroRegistosSHT FROM tiposAtividadesPlaneaveis WHERE ativo = 1) as tp_sht " +
+            "ON atl.tipo = tp_sht.tipo " +
+            "WHERE atl.tipo = " + Identificadores.Atualizacoes.ATIVIDADES_PLANEAVEIS + " " +
+            "ORDER BY descricao ASC")
+    abstract public Observable<List<ResumoTipo>> obterResumoAtividadesPlaneaveis();
+
+
     //-------------------
     //Templates
     //--------------------
@@ -303,17 +312,6 @@ abstract public class TipoDao implements BaseDao<Tipo> {
 
 
 
-
-
-
-
-    @Query("SELECT *, 0 as numeroRegistosSA, numeroRegistosSHT " +
-            "FROM atualizacoes as atl " +
-            "LEFT JOIN (SELECT " + Identificadores.Atualizacoes.ATIVIDADES_PLANEAVEIS + " as tipo, COUNT(id) as numeroRegistosSHT FROM tiposAtividadesPlaneaveis WHERE ativo = 1) as tp_sht " +
-            "ON atl.tipo = tp_sht.tipo " +
-            "WHERE atl.tipo = " + Identificadores.Atualizacoes.ATIVIDADES_PLANEAVEIS + " " +
-            "ORDER BY descricao ASC")
-    abstract public Observable<List<ResumoTipo>> obterResumoAtividadesPlaneaveis();
 
 
 

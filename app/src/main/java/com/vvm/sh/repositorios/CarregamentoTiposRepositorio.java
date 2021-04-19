@@ -130,34 +130,35 @@ public class CarregamentoTiposRepositorio {
 
             for(TipoTemplatesAVRMedidaRisco item : medidasExistentes){
 
-                if(tipoDadosDao.filtrarMedidasTemplate(item.id, TiposUtil.MetodosTipos.MEDIDAS_PREVENCAO_ADOPTADAS) == true){
+                if(tipoDadosDao.filtrarMedidasTemplate(item.idMedida, TiposUtil.MetodosTipos.MEDIDAS_PREVENCAO_ADOPTADAS) == true){
                     medidas.add(item);
                 }
             }
 
             for(TipoTemplatesAVRMedidaRisco item : medidasRecomendadas){
 
-                if(tipoDadosDao.filtrarMedidasTemplate(item.id, TiposUtil.MetodosTipos.MEDIDAS_PREVENCAO_RECOMENDADAS) == true){
+                if(tipoDadosDao.filtrarMedidasTemplate(item.idMedida, TiposUtil.MetodosTipos.MEDIDAS_PREVENCAO_RECOMENDADAS) == true){
                     medidas.add(item);
                 }
             }
 
             for(TipoTemplatesAVRMedidaRisco item : medidasAlteradasExistentes){
 
-                if(tipoDadosDao.filtrarMedidasTemplate(item.id, TiposUtil.MetodosTipos.MEDIDAS_PREVENCAO_ADOPTADAS) == true){
+                if(tipoDadosDao.filtrarMedidasTemplate(item.idMedida, TiposUtil.MetodosTipos.MEDIDAS_PREVENCAO_ADOPTADAS) == true){
                     medidasAlteradas.add(item);
                 }
             }
 
             for(TipoTemplatesAVRMedidaRisco item : medidasAlteradasRecomendadas){
 
-                if(tipoDadosDao.filtrarMedidasTemplate(item.id, TiposUtil.MetodosTipos.MEDIDAS_PREVENCAO_RECOMENDADAS) == true){
+                if(tipoDadosDao.filtrarMedidasTemplate(item.idMedida, TiposUtil.MetodosTipos.MEDIDAS_PREVENCAO_RECOMENDADAS) == true){
                     medidasAlteradas.add(item);
                 }
             }
 
 
-            tipoDao.inserirTemplatesAVRMedidaRisco(medidasAlteradas);
+            tipoDao.inserirTemplatesAVRMedidaRisco(medidas);
+            tipoDao.atualizarTemplatesAVRMedidaRisco(medidasAlteradas);
         }
 
 

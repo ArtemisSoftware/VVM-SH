@@ -321,11 +321,6 @@ public class TiposRepositorio {
     //------------
 
 
-    public Single<ITipoAtividadePlaneavelListagem> obterAtividadesPlaneaveis() throws TipoInexistenteException {
-        return apiST.obterTipoAtividadesPlaneaveis(SegurancaTrabalhoApi.HEADER_TIPO);
-    }
-
-
     //------------
     //templates
     //------------

@@ -780,9 +780,7 @@ public class RedeRepositorio {
     //---------------------------
 
 
-
     public Single<List<Object>> obterTemplateAvr()  {
-
 
         SingleSource[] source = new SingleSource[2];
 
@@ -792,7 +790,6 @@ public class RedeRepositorio {
         return Single.concatArray(source).toList();
 
     }
-
 
 
     //---------------------------

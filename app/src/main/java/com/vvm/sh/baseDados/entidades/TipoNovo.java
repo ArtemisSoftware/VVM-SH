@@ -59,4 +59,28 @@ public class TipoNovo {
         this.ativo = 1;
         this.estado = Identificadores.Estados.Equipamentos.ESTADO_PENDENTE ;
     }
+
+    public String obterEstado(){
+
+        String resultado = "";
+
+        switch (estado){
+
+            case Identificadores.Estados.Equipamentos.ESTADO_PENDENTE:
+                resultado = "Pendente";
+                break;
+
+            case Identificadores.Estados.Equipamentos.ESTADO_DEFINITIVO:
+                resultado = "Definitivo";
+                break;
+
+            case Identificadores.Estados.Equipamentos.ESTADO_REJEITADO:
+                resultado = "Rejeitado";
+                break;
+
+        }
+
+
+        return resultado;
+    }
 }

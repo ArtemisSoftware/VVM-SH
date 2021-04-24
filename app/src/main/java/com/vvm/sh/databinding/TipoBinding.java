@@ -8,8 +8,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.jaredrummler.materialspinner.MaterialSpinner;
 import com.vvm.sh.baseDados.entidades.Tipo;
+import com.vvm.sh.baseDados.entidades.TipoNovo;
 import com.vvm.sh.ui.opcoes.adaptadores.OnTipoListener;
 import com.vvm.sh.ui.opcoes.adaptadores.TipoChecklistRecyclerAdapter;
+import com.vvm.sh.ui.opcoes.adaptadores.TipoNovoRecyclerAdapter;
 import com.vvm.sh.ui.opcoes.adaptadores.TipoRecyclerAdapter;
 import com.vvm.sh.ui.opcoes.modelos.ResumoChecklist;
 import com.vvm.sh.ui.opcoes.modelos.ResumoTipo;
@@ -86,6 +88,30 @@ public class TipoBinding {
         }
 
     }
+
+
+
+    @BindingAdapter({"tiposNovo"})
+    public static void setTiposNovo(RecyclerView view, List<TipoNovo> items) {
+
+        if(items == null){
+            return;
+        }
+
+        RecyclerView.LayoutManager layoutManager = view.getLayoutManager();
+
+        if(layoutManager == null){
+            view.setLayoutManager(new LinearLayoutManager(view.getContext()));
+        }
+
+        TipoNovoRecyclerAdapter adapter = (TipoNovoRecyclerAdapter) view.getAdapter();
+
+        if(adapter == null){
+            adapter = new TipoNovoRecyclerAdapter(view.getContext(), items);
+            view.setAdapter(adapter);
+        }
+    }
+
 
 
     @BindingAdapter({"tipos", "id"})

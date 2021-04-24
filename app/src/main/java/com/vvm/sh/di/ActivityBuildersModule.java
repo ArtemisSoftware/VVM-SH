@@ -107,6 +107,7 @@ import com.vvm.sh.ui.imagens.GaleriaActivity;
 import com.vvm.sh.ui.informacaoSst.DialogoResponsavel;
 import com.vvm.sh.ui.informacaoSst.InformacaoSstActivity;
 import com.vvm.sh.ui.informacaoSst.ObrigacoesLegaisActivity;
+import com.vvm.sh.ui.opcoes.TiposNovosActivity;
 import com.vvm.sh.ui.pesquisa.PesquisaMedidasActivity;
 import com.vvm.sh.ui.planoAccao.PlanoAccaoActivity;
 import com.vvm.sh.ui.registoVisita.DadosClienteActivity;
@@ -200,6 +201,13 @@ public abstract class ActivityBuildersModule {
             modules = { OpcoesViewModelsModule.class, OpcoesModule.class }
     )
     abstract TiposActivity contributeTiposActivity();
+
+
+    @OpcoesScope
+    @ContributesAndroidInjector(
+            modules = { OpcoesViewModelsModule.class, OpcoesModule.class }
+    )
+    abstract TiposNovosActivity contributeTiposNovosActivity();
 
 
     @TransferenciasScope

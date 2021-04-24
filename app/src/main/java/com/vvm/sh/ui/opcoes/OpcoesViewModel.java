@@ -7,6 +7,7 @@ import androidx.lifecycle.MutableLiveData;
 
 import com.vvm.sh.api.modelos.pedido.ITipoChecklist;
 import com.vvm.sh.api.modelos.pedido.ITipoListagem;
+import com.vvm.sh.baseDados.entidades.TipoNovo;
 import com.vvm.sh.repositorios.CarregamentoTiposRepositorio;
 import com.vvm.sh.repositorios.RedeRepositorio;
 import com.vvm.sh.repositorios.TiposRepositorio;
@@ -44,6 +45,7 @@ public class OpcoesViewModel extends BaseViewModel {
 
     public MutableLiveData<List<ResumoTipo>> tipos;
     public MutableLiveData<List<ResumoChecklist>> tiposChecklist;
+    public MutableLiveData<List<TipoNovo>> tiposEquipamentos;
 
     @Inject
     public OpcoesViewModel(CarregamentoTiposRepositorio carregamentoTiposRepositorio, TiposRepositorio tiposRepositorio, RedeRepositorio redeRepositorio){
@@ -54,6 +56,7 @@ public class OpcoesViewModel extends BaseViewModel {
 
         tipos = new MutableLiveData<>();
         tiposChecklist = new MutableLiveData<>();
+        tiposEquipamentos = new MutableLiveData<>();
     }
 
 
@@ -667,6 +670,6 @@ public class OpcoesViewModel extends BaseViewModel {
     }
 
 
-
-
+    public void obterEquipamentos() {
+    }
 }

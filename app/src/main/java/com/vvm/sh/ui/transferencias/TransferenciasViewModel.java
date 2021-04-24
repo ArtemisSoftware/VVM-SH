@@ -70,7 +70,7 @@ public class TransferenciasViewModel extends BaseViewModel {
 
 
     public MutableLiveData<Boolean> aguardar;
-
+    public MutableLiveData<Boolean> contagemUpload;
 
 
     @Inject
@@ -89,7 +89,9 @@ public class TransferenciasViewModel extends BaseViewModel {
         this.uploads = new MutableLiveData<>();
         this.pendencias = new MutableLiveData<>();
         this.aguardar = new MutableLiveData<>();
+        this.contagemUpload = new MutableLiveData<>();
         aguardar.postValue(true);
+        contagemUpload.postValue(false);
     }
 
     public MutableLiveData<List<Pendencia>> observarPendencias(){
@@ -100,7 +102,9 @@ public class TransferenciasViewModel extends BaseViewModel {
         return uploads;
     }
 
-
+    public MutableLiveData<Boolean> observarContagemUpload(){
+        return contagemUpload;
+    }
 
 
     /**
@@ -490,72 +494,57 @@ public class TransferenciasViewModel extends BaseViewModel {
 
 
 
-    public void upload(DadosUpload dadosUploadSA, DadosUpload dadosUploadSH) {
+    public void uploadSA(DadosUpload dadosUploadSA, DadosUpload dadosUploadSH) {
 
-        showProgressBar(true);
+        if(dadosUploadSA.dados.size() > 0) {
+            redeRepositorio.uploadSA(dadosUploadSA)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
 
-        redeRepositorio.upload(dadosUploadSA, dadosUploadSH)
-                .subscribeOn(Schedulers.io())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(
+                            new SingleObserver<Codigo>() {
+                                @Override
+                                public void onSubscribe(Disposable d) {
+                                    disposables.add(d);
+                                }
 
-                        new SingleObserver<Codigo>() {
-                            @Override
-                            public void onSubscribe(Disposable d) {
-                                disposables.add(d);
+                                @Override
+                                public void onSuccess(Codigo codigo) {
+                                    contagemUpload.setValue(true);
+                                }
+
+                                @Override
+                                public void onError(Throwable e) {
+                                    formatarErro(e);
+                                }
                             }
+                    );
+        }
 
-                            @Override
-                            public void onSuccess(Codigo codigo) {
-                                messagemLiveData.setValue(Recurso.successo(Sintaxe.Frases.DADOS_ENVIADOS_SUCESSO));
-                                showProgressBar(false);
+        if(dadosUploadSH.dados.size() > 0) {
+            redeRepositorio.uploadSH(dadosUploadSH)
+                    .subscribeOn(Schedulers.io())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .subscribe(
+
+                            new SingleObserver<Codigo>() {
+                                @Override
+                                public void onSubscribe(Disposable d) {
+                                    disposables.add(d);
+                                }
+
+                                @Override
+                                public void onSuccess(Codigo codigo) {
+                                    contagemUpload.setValue(true);
+                                }
+
+                                @Override
+                                public void onError(Throwable e) {
+                                    formatarErro(e);
+                                }
                             }
-
-                            @Override
-                            public void onError(Throwable e) {
-                                showProgressBar(false);
-                                formatarErro(e);
-                            }
-                        }
-                );
-
-//        if(AppConfig.sa == true){
-//            uploadSA(dadosUpload);
-//        }
-//        else{
-//
-//
-//            showProgressBar(true);
-//
-//            transferenciasRepositorio.submeterSH(dadosUpload)
-//                    .subscribeOn(Schedulers.io())
-//                    .observeOn(AndroidSchedulers.mainThread())
-//                    .subscribe(
-//                            new Observer<Codigo>() {
-//                                @Override
-//                                public void onSubscribe(Disposable d) {
-//                                    disposables.add(d);
-//                                }
-//
-//                                @Override
-//                                public void onNext(Codigo codigo) {
-//                                    sincronizar();
-//                                    showProgressBar(false);
-//                                }
-//
-//                                @Override
-//                                public void onError(Throwable e) {
-//                                    showProgressBar(false);
-//                                    formatarErro(e);
-//                                }
-//
-//                                @Override
-//                                public void onComplete() {
-//                                    showProgressBar(false);
-//                                }
-//                            }
-//                    );
-//        }
+                    );
+        }
 
     }
 

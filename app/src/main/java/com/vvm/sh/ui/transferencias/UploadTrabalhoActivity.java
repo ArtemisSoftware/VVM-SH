@@ -40,6 +40,8 @@ public class UploadTrabalhoActivity extends BaseDaggerActivity implements OnTran
 
     private TransferenciasViewModel viewModel;
 
+    private int contador = 0;
+
 
     @Override
     protected void intActivity(Bundle savedInstanceState) {
@@ -74,21 +76,30 @@ public class UploadTrabalhoActivity extends BaseDaggerActivity implements OnTran
     @Override
     protected void subscreverObservadores() {
 
-//        viewModel.observarPendencias().observe(this, new Observer<List<Pendencia>>() {
-//            @Override
-//            public void onChanged(List<Pendencia> pendencias) {
-//                formatarPendencias(pendencias);
-//            }
-//        });
-//
-//        viewModel.observarUpload().observe(this, new Observer<List<Upload>>() {
-//            @Override
-//            public void onChanged(List<Upload> uploads) {
-//                formatarUploads(uploads);
-//            }
-//        });
-//
-//
+        viewModel.observarContagemUpload().observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean contagem) {
+
+                --contador;
+
+                if(contador == 0){
+                    AtualizacaoUI_ atualizacaoUI = new AtualizacaoUI_(AtualizacaoUI_.Estado.PROCESSAMENTO_DADOS_UPLOAD, null);
+                    atualizacaoUI.mensagem = "Upload realizado com sucesso";
+                    activityUploadBinding.setAtualizacaoTrabalho(atualizacaoUI);
+
+
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        @Override
+                        public void run() {
+                            activityUploadBinding.ctrlUploadDados.setVisibility(View.GONE);
+                            activityUploadBinding.ctrlUploadRelatorio.setVisibility(View.VISIBLE);
+                        }
+                    }, AppConfig.TEMPO_CONSULTA_UPLOAD);
+                }
+            }
+        });
+
 
         viewModel.observarMessagem().observe(this, new Observer<Recurso>() {
             @Override
@@ -98,19 +109,12 @@ public class UploadTrabalhoActivity extends BaseDaggerActivity implements OnTran
 
                     case SUCESSO:
 
-                                Handler handler = new Handler();
-        handler.postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                activityUploadBinding.ctrlUploadDados.setVisibility(View.GONE);
-                activityUploadBinding.ctrlUploadRelatorio.setVisibility(View.VISIBLE);
-            }
-        }, AppConfig.TEMPO_CONSULTA_UPLOAD);
+
                         break;
 
                     case ERRO:
-
-                        dialogo.erro(((Codigo)recurso.dados).mensagem);
+                        activityUploadBinding.ctrlUploadDados.setVisibility(View.GONE);
+                        dialogo.erro("Upload", ((Codigo)recurso.dados).mensagem, listenerActivity);
                         break;
 
                     default:
@@ -275,7 +279,6 @@ public class UploadTrabalhoActivity extends BaseDaggerActivity implements OnTran
 
         switch (atualizacaoUI.estado){
 
-
             case PROCESSAMENTO_DADOS_UPLOAD:
 
                 activityUploadBinding.ctrlUploadDados.setVisibility(View.VISIBLE);
@@ -290,7 +293,19 @@ public class UploadTrabalhoActivity extends BaseDaggerActivity implements OnTran
 
     @Override
     public void atualizar(DadosUpload dadosSA, DadosUpload dadosSH) {
-        viewModel.upload(dadosSA, dadosSH);
+
+        contador = 0;
+
+        if(dadosSA.dados.size() > 0){
+            ++contador;
+        }
+
+        if(dadosSH.dados.size() > 0){
+            ++contador;
+        }
+
+        viewModel.uploadSA(dadosSA, dadosSH);
+
     }
 
     @Override

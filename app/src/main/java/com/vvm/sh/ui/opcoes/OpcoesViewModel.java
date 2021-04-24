@@ -5,22 +5,17 @@ import android.os.Handler;
 
 import androidx.lifecycle.MutableLiveData;
 
-import com.vvm.sh.api.modelos.pedido.ITipoAtividadePlaneavelListagem;
 import com.vvm.sh.api.modelos.pedido.ITipoChecklist;
 import com.vvm.sh.api.modelos.pedido.ITipoListagem;
 import com.vvm.sh.repositorios.CarregamentoTiposRepositorio;
 import com.vvm.sh.repositorios.RedeRepositorio;
 import com.vvm.sh.repositorios.TiposRepositorio;
-import com.vvm.sh.servicos.tipos.CarregarTipoAsyncTask;
-import com.vvm.sh.servicos.tipos.CarregarTipoTemplatesAvrAsyncTask;
-import com.vvm.sh.servicos.tipos.CarregarTipoAtividadesPlaneaveisAsyncTask;
 import com.vvm.sh.servicos.tipos.recarregar.RecarregarTipoAsyncTask;
 import com.vvm.sh.servicos.tipos.recarregar.RecarregarTipoAtividadesPlaneaveisAsyncTask;
 import com.vvm.sh.servicos.tipos.recarregar.RecarregarTipoChecklistAsyncTask;
 import com.vvm.sh.servicos.tipos.recarregar.RecarregarTipoTemplateAvrAsyncTask;
 import com.vvm.sh.ui.opcoes.modelos.ResumoChecklist;
 import com.vvm.sh.ui.opcoes.modelos.ResumoTipo;
-import com.vvm.sh.ui.opcoes.modelos.TemplateAvr;
 import com.vvm.sh.ui.transferencias.adaptadores.OnTransferenciaListener;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.constantes.Identificadores;

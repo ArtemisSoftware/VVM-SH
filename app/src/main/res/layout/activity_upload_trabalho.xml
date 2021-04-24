@@ -61,6 +61,7 @@
         android:padding="10dp">
 
 
+        <!-- Upload de dados -->
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/ctrl_upload_dados"
@@ -223,7 +224,7 @@
 
 
 
-
+        <!-- LISTA de dados de upload -->
 
 
         <androidx.constraintlayout.widget.ConstraintLayout

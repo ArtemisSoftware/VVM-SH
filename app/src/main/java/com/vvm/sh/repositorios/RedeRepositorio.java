@@ -571,21 +571,23 @@ public class RedeRepositorio {
 
 
 
-    public Single<Codigo> upload(DadosUpload dadosUploadSA, DadosUpload dadosUploadSH){
+//    public Single<Codigo> upload(DadosUpload dadosUploadSA, DadosUpload dadosUploadSH){
+//
+//        if(dadosUploadSA.dados.size() > 0 && dadosUploadSH.dados.size() == 0){
+//            return uploadSA(dadosUploadSA);
+//        }
+//        else if(dadosUploadSH.dados.size() > 0 && dadosUploadSA.dados.size() == 0){
+//            return uploadSH(dadosUploadSH);
+//        }
+//        else{
+//
+//            return null
+//
+//        }
+//    }
 
-        if(dadosUploadSA.dados.size() > 0 && dadosUploadSH.dados.size() == 0){
-            return uploadSA(dadosUploadSA);
-        }
-        else if(dadosUploadSH.dados.size() > 0 && dadosUploadSA.dados.size() == 0){
-            return uploadSH(dadosUploadSH);
-        }
-        else{
-            return null;
-        }
-    }
 
-
-    private Single<Codigo> uploadSA(DadosUpload dadosUpload){
+    public Single<Codigo> uploadSA(DadosUpload dadosUpload){
 
         if(dadosUpload.numeroFicheirosImagens == 0){
             return uploadDados(dadosUpload);
@@ -596,7 +598,7 @@ public class RedeRepositorio {
     }
 
 
-    private Single<Codigo> uploadSH(DadosUpload dadosUpload){
+    public Single<Codigo> uploadSH(DadosUpload dadosUpload){
 
         if(dadosUpload.numeroFicheirosImagens == 0){
             return uploadDados(dadosUpload);

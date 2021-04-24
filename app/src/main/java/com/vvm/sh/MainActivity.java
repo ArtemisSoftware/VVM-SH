@@ -47,13 +47,7 @@ public class MainActivity extends BaseDaggerActivity
         OnAgendaListener.OnOpcoesListener{
 
 
-
-
     private ActivityMainBinding activityMainBinding;
-
-    @Inject
-    ViewModelProviderFactory providerFactory;
-
 
     private AgendaViewModel viewModel;
 
@@ -64,7 +58,7 @@ public class MainActivity extends BaseDaggerActivity
     @Override
     protected void intActivity(Bundle savedInstanceState) {
 
-        viewModel = ViewModelProviders.of(this, providerFactory).get(AgendaViewModel.class);
+        viewModel = ViewModelProviders.of(this, providerFactory_).get(AgendaViewModel.class);
 
         activityMainBinding = (ActivityMainBinding) activityBinding;
         activityMainBinding.setLifecycleOwner(this);

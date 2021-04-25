@@ -87,7 +87,7 @@ public abstract class DadosUploadAsyncTask  extends AsyncTask<List<Upload>, Void
         this.repositorio = repositorio;
         this.idUtilizador = idUtilizador;
         this.idImagens = new ArrayList<>();
-        this.dadosUpload = new DadosUpload(idUtilizador);
+        //this.dadosUpload = new DadosUpload(idUtilizador);
         atualizacaoUI = new AtualizacaoUI(handler);
     }
 

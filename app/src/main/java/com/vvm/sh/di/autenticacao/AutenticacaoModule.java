@@ -18,8 +18,6 @@ public class AutenticacaoModule {
     static UtilizadorDao provideUtilizadorDao(VvmshBaseDados vvmshBaseDados){
 
         UtilizadorDao dao = vvmshBaseDados.obterUtilizadorDao();
-
-        //Timber.d("Providing NoteDao: " + dao);
         return dao;
     }
 
@@ -30,8 +28,6 @@ public class AutenticacaoModule {
     AutenticacaoRepositorio provideAutenticacaoRepositorio(SegurancaAlimentarApi segurancaAlimentarApi, SegurancaTrabalhoApi segurancaTrabalhoApi, UtilizadorDao utilizadorDao) {
 
         AutenticacaoRepositorio repositorio = new AutenticacaoRepositorio(segurancaAlimentarApi, segurancaTrabalhoApi, utilizadorDao);
-
-        //Timber.d("Providing PokemonRepository: " + repository);
         return repositorio;
     }
 }

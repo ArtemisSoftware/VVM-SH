@@ -25,6 +25,7 @@ import io.reactivex.Single;
 
 public class FormacaoRepositorio {
 
+    private final int idApi;
     private final FormandoDao formandoDao;
     private final AcaoFormacaoDao acaoFormacaoDao;
     private final TipoDao tipoDao;
@@ -32,9 +33,11 @@ public class FormacaoRepositorio {
     private final AtividadePendenteDao atividadePendenteDao;
     public final ResultadoDao resultadoDao;
 
-    public FormacaoRepositorio(@NonNull FormandoDao formandoDao, @NonNull AcaoFormacaoDao acaoFormacaoDao,
+    public FormacaoRepositorio(int idApi, @NonNull FormandoDao formandoDao, @NonNull AcaoFormacaoDao acaoFormacaoDao,
                                @NonNull AtividadePendenteDao atividadePendenteDao, ImagemDao imagemDao,
                                @NonNull TipoDao tipoDao, @NonNull ResultadoDao resultadoDao) {
+
+        this.idApi = idApi;
         this.formandoDao = formandoDao;
         this.acaoFormacaoDao = acaoFormacaoDao;
         this.tipoDao = tipoDao;
@@ -87,7 +90,7 @@ public class FormacaoRepositorio {
 
 
     public Flowable<List<Tipo>> obterCursos() {
-        return tipoDao.obterTipos(TiposUtil.MetodosTipos.CURSOS);
+        return tipoDao.obterTipos(TiposUtil.MetodosTipos.CURSOS, idApi);
     }
 
 

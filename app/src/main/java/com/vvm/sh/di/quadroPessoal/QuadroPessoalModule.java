@@ -17,8 +17,6 @@ public class QuadroPessoalModule {
     static QuadroPessoalDao provideQuadroPessoalDao(VvmshBaseDados vvmshBaseDados){
 
         QuadroPessoalDao dao = vvmshBaseDados.obterQuadroPessoalDao();
-
-        //Timber.d("Providing NoteDao: " + dao);
         return dao;
     }
 
@@ -29,8 +27,6 @@ public class QuadroPessoalModule {
     QuadroPessoalRepositorio provideTarefaRepositorio(QuadroPessoalDao quadroPessoalDao, TipoDao tipoDao, ResultadoDao resultadoDao) {
 
         QuadroPessoalRepositorio repositorio = new QuadroPessoalRepositorio(quadroPessoalDao, tipoDao, resultadoDao);
-
-        //Timber.d("Providing PokemonRepository: " + repository);
         return repositorio;
     }
 

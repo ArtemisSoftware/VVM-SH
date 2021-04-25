@@ -43,7 +43,7 @@ public class DialogoCalendario extends BaseDatePickerDialog {
             Calendar calendario = Calendar.getInstance();
             calendario.setTime(datas.get(index));
 
-            pendencias [0] = calendario;
+            pendencias [index] = calendario;
         }
 
         return pendencias;

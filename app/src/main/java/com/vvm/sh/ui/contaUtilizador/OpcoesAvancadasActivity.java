@@ -13,6 +13,7 @@ import com.vvm.sh.R;
 import com.vvm.sh.servicos.email.EnvioEmailAsyncTask;
 import com.vvm.sh.ui.BaseActivity;
 import com.vvm.sh.ui.opcoes.TiposActivity;
+import com.vvm.sh.ui.opcoes.TiposNovosActivity;
 import com.vvm.sh.util.email.Email;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.interfaces.OnPermissaoConcedidaListener;
@@ -87,7 +88,13 @@ public class OpcoesAvancadasActivity extends BaseActivity {
         startActivity(intent);
     }
 
+    @OnClick(R.id.lnr_lyt_equipamentos)
+    public void lnr_lyt_equipamentos_OnClickListener(View view) {
 
+        Intent intent;
+        intent = new Intent(this, TiposNovosActivity.class);
+        startActivity(intent);
+    }
 
     @OnClick(R.id.lnr_lyt_exportar_bd)
     public void lnr_lyt_exportar_bd_OnClickListener(View view) {

@@ -36,17 +36,13 @@ public class RegistoVisitaActivity extends BaseDaggerActivity {
 
     private ActivityRegistoVisitaBinding activityRegistoVisitaBinding;
 
-    @Inject
-    ViewModelProviderFactory providerFactory;
-
-
     private RegistoVisitaViewModel viewModel;
 
 
     @Override
     protected void intActivity(Bundle savedInstanceState) {
 
-        viewModel = ViewModelProviders.of(this, providerFactory).get(RegistoVisitaViewModel.class);
+        viewModel = ViewModelProviders.of(this, providerFactory_).get(RegistoVisitaViewModel.class);
 
         activityRegistoVisitaBinding = (ActivityRegistoVisitaBinding) activityBinding;
         activityRegistoVisitaBinding.setLifecycleOwner(this);
@@ -93,6 +89,7 @@ public class RegistoVisitaActivity extends BaseDaggerActivity {
 
                     case SUCESSO:
 
+                        dialogo.sucesso(recurso.messagem);
                         break;
 
                     case ERRO:

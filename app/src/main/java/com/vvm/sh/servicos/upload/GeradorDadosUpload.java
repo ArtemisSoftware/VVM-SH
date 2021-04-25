@@ -48,7 +48,7 @@ public abstract class GeradorDadosUpload {
     private List<Upload> uploads;
 
     public GeradorDadosUpload(OnTransferenciaListener.OnUploadListener listener, UploadRepositorio repositorio, List<Upload> uploads, String idUtilizador, int api) {
-        this.dadosUpload = new DadosUpload(idUtilizador);
+        this.dadosUpload = obterDadosUpload(idUtilizador);
         this.dadosUpload.api = api;
         this.repositorio = repositorio;
         this.idImagens = new ArrayList<>();
@@ -328,7 +328,7 @@ public abstract class GeradorDadosUpload {
     //Metodos abstratos
     //-----------------------
 
-
+    protected abstract DadosUpload obterDadosUpload(String idUtilizador);
 
 
     protected abstract void obterDados(DadosFormulario dadosFormulario, Resultado resultado);

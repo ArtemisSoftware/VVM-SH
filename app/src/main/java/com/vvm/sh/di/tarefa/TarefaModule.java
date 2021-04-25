@@ -21,8 +21,6 @@ public class TarefaModule {
     static TarefaDao provideTarefaDao(VvmshBaseDados vvmshBaseDados){
 
         TarefaDao dao = vvmshBaseDados.obterTarefaDao();
-
-        //Timber.d("Providing NoteDao: " + dao);
         return dao;
     }
 
@@ -32,8 +30,6 @@ public class TarefaModule {
     static EmailDao provideEmailDao(VvmshBaseDados vvmshBaseDados){
 
         EmailDao dao = vvmshBaseDados.obterEmailDao();
-
-        //Timber.d("Providing NoteDao: " + dao);
         return dao;
     }
 
@@ -61,8 +57,6 @@ public class TarefaModule {
                                                ParqueExtintorDao parqueExtintorDao, ResultadoDao resultadoDao) {
 
         TarefaRepositorio repositorio = new TarefaRepositorio(tarefaDao, emailDao, sinistralidadeDao, parqueExtintorDao, resultadoDao);
-
-        //Timber.d("Providing PokemonRepository: " + repository);
         return repositorio;
     }
 

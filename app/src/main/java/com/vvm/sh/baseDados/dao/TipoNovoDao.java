@@ -99,4 +99,9 @@ abstract public class TipoNovoDao implements BaseDao<TipoNovo> {
             "WHERE idProvisorio =:idProvisorio AND tipo ='" + TiposUtil.MetodosTipos.TIPOS_MAQUINA + "' ")
     public abstract void aprovarEquipamentos(int idDefinitivo, int idProvisorio);
 
+
+
+    @Query("SELECT * FROM tiposNovos WHERE tipo = '" + TiposUtil.MetodosTipos.TIPOS_MAQUINA + "'")
+    public abstract Single<List<TipoNovo>> obterTiposEquipamentos();
+
 }

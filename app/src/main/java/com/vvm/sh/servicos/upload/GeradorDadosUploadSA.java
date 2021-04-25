@@ -11,6 +11,8 @@ import com.vvm.sh.baseDados.entidades.AnomaliaResultado;
 import com.vvm.sh.baseDados.entidades.Resultado;
 import com.vvm.sh.repositorios.UploadRepositorio;
 import com.vvm.sh.ui.transferencias.adaptadores.OnTransferenciaListener;
+import com.vvm.sh.ui.transferencias.modelos.DadosUpload;
+import com.vvm.sh.ui.transferencias.modelos.DadosUploadSA;
 import com.vvm.sh.ui.transferencias.modelos.Upload;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.mapeamento.UploadMapping;
@@ -29,6 +31,10 @@ public class GeradorDadosUploadSA extends GeradorDadosUpload{
     }
 
 
+    @Override
+    protected DadosUpload obterDadosUpload(String idUtilizador) {
+        return new DadosUploadSA(idUtilizador);
+    }
 
     @Override
     protected void obterDados(DadosFormulario dadosFormulario, Resultado resultado) {

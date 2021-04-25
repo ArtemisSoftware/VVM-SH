@@ -558,6 +558,7 @@
     <string name="numero_levantamentos_">Nº de levantamentos:</string>
     <string name="identificador_provisorio_">Identificador provisório:</string>
     <string name="identificador_definitivo_">Identificador definitivo:</string>
+    <string name="gerir_equipamentos">Gerir equipamentos</string>
 
 
 </resources>

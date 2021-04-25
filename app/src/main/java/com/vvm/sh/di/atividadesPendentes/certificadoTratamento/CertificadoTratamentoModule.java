@@ -1,5 +1,7 @@
 package com.vvm.sh.di.atividadesPendentes.certificadoTratamento;
 
+import android.app.Application;
+
 import com.vvm.sh.api.SegurancaAlimentarApi;
 import com.vvm.sh.api.SegurancaTrabalhoApi;
 import com.vvm.sh.baseDados.VvmshBaseDados;
@@ -18,6 +20,9 @@ import com.vvm.sh.di.transferencias.TransferenciasScope;
 import com.vvm.sh.repositorios.CertificadoTratamentoRepositorio;
 import com.vvm.sh.repositorios.FormacaoRepositorio;
 import com.vvm.sh.repositorios.TransferenciasRepositorio;
+import com.vvm.sh.util.metodos.PreferenciasUtil;
+
+import javax.inject.Named;
 
 import dagger.Module;
 import dagger.Provides;
@@ -26,6 +31,14 @@ import dagger.Provides;
 public class CertificadoTratamentoModule {
 
 
+    @CertificadoTratamentoScope
+    @Provides
+    @Named("idApi_")
+    static int provideIdApi(Application application){
+
+        int idApi = PreferenciasUtil.obterIdApi(application.getApplicationContext());
+        return idApi;
+    }
 
     @CertificadoTratamentoScope
     @Provides
@@ -68,7 +81,7 @@ public class CertificadoTratamentoModule {
 
     @CertificadoTratamentoScope
     @Provides
-    CertificadoTratamentoRepositorio provideCertificadoTratamentoRepositorio(int idApi, CertificadoTratamentoDao certificadoTratamentoDao, ImagemDao imagemDao,
+    CertificadoTratamentoRepositorio provideCertificadoTratamentoRepositorio(@Named("idApi_") int idApi, CertificadoTratamentoDao certificadoTratamentoDao, ImagemDao imagemDao,
                                                                              ResultadoDao resultadoDao, PdfDao pdfDao) {
 
         CertificadoTratamentoRepositorio repositorio = new CertificadoTratamentoRepositorio(idApi, certificadoTratamentoDao, imagemDao, pdfDao, resultadoDao);

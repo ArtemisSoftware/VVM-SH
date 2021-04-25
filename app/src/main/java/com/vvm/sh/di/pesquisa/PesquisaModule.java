@@ -1,5 +1,7 @@
 package com.vvm.sh.di.pesquisa;
 
+import android.app.Application;
+
 import com.vvm.sh.api.SegurancaAlimentarApi;
 import com.vvm.sh.api.SegurancaHigieneApi;
 import com.vvm.sh.api.SegurancaTrabalhoApi;
@@ -11,11 +13,15 @@ import com.vvm.sh.baseDados.dao.TipoDao;
 import com.vvm.sh.baseDados.dao.TipoNovoDao;
 import com.vvm.sh.baseDados.dao.VerificacaoEquipamentoDao;
 import com.vvm.sh.baseDados.entidades.VerificacaoEquipamentoResultado;
+import com.vvm.sh.di.informacaoSst.InformacaoSstScope;
 import com.vvm.sh.di.opcoes.OpcoesScope;
 import com.vvm.sh.repositorios.EquipamentoRepositorio;
 import com.vvm.sh.repositorios.PesquisaRepositorio;
 import com.vvm.sh.repositorios.TiposRepositorio;
 import com.vvm.sh.repositorios.VersaoAppRepositorio;
+import com.vvm.sh.util.metodos.PreferenciasUtil;
+
+import javax.inject.Named;
 
 import dagger.Module;
 import dagger.Provides;
@@ -24,6 +30,14 @@ import dagger.Provides;
 @Module
 public class PesquisaModule {
 
+    @PesquisaScope
+    @Provides
+    @Named("idApi_")
+    static int provideIdApi(Application application){
+
+        int idApi = PreferenciasUtil.obterIdApi(application.getApplicationContext());
+        return idApi;
+    }
 
     @PesquisaScope
     @Provides
@@ -66,7 +80,7 @@ public class PesquisaModule {
 
     @PesquisaScope
     @Provides
-    EquipamentoRepositorio provideEquipamentoRepositorio(int idApi, TipoNovoDao tipoNovoDao, TipoDao tipoDao, VerificacaoEquipamentoDao verificacaoEquipamentoDao,
+    EquipamentoRepositorio provideEquipamentoRepositorio(@Named("idApi_") int idApi, TipoNovoDao tipoNovoDao, TipoDao tipoDao, VerificacaoEquipamentoDao verificacaoEquipamentoDao,
                                                          ResultadoDao resultadoDao) {
 
         EquipamentoRepositorio repositorio = new EquipamentoRepositorio(idApi, tipoNovoDao, tipoDao, verificacaoEquipamentoDao, resultadoDao);
@@ -105,7 +119,7 @@ public class PesquisaModule {
 
     @PesquisaScope
     @Provides
-    PesquisaRepositorio providePesquisaRepositorio(int idApi, PesquisaDao pesquisaDao) {
+    PesquisaRepositorio providePesquisaRepositorio(@Named("idApi_") int idApi, PesquisaDao pesquisaDao) {
 
         PesquisaRepositorio repositorio = new PesquisaRepositorio(idApi, pesquisaDao);
         return repositorio;

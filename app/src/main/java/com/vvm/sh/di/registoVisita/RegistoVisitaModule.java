@@ -1,12 +1,18 @@
 package com.vvm.sh.di.registoVisita;
 
+import android.app.Application;
+
 import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.baseDados.dao.ImagemDao;
 import com.vvm.sh.baseDados.dao.PdfDao;
 import com.vvm.sh.baseDados.dao.RegistoVisitaDao;
 import com.vvm.sh.baseDados.dao.ResultadoDao;
 import com.vvm.sh.baseDados.dao.TrabalhosRealizadosDao;
+import com.vvm.sh.di.pesquisa.PesquisaScope;
 import com.vvm.sh.repositorios.RegistoVisitaRepositorio;
+import com.vvm.sh.util.metodos.PreferenciasUtil;
+
+import javax.inject.Named;
 
 import dagger.Module;
 import dagger.Provides;
@@ -14,6 +20,14 @@ import dagger.Provides;
 @Module
 public class RegistoVisitaModule {
 
+    @RegistoVisitaScope
+    @Provides
+    @Named("idApi_")
+    static int provideIdApi(Application application){
+
+        int idApi = PreferenciasUtil.obterIdApi(application.getApplicationContext());
+        return idApi;
+    }
 
     @RegistoVisitaScope
     @Provides
@@ -45,7 +59,7 @@ public class RegistoVisitaModule {
 
     @RegistoVisitaScope
     @Provides
-    RegistoVisitaRepositorio provideRegistoVisitaRepositorio(int api, RegistoVisitaDao registoVisitaDao,
+    RegistoVisitaRepositorio provideRegistoVisitaRepositorio(@Named("idApi_") int api, RegistoVisitaDao registoVisitaDao,
                                                              TrabalhosRealizadosDao trabalhosRealizadosDao, ImagemDao imagemDao, PdfDao pdfDao, ResultadoDao resultadoDao) {
 
         RegistoVisitaRepositorio repositorio = new RegistoVisitaRepositorio(api, registoVisitaDao, trabalhosRealizadosDao, imagemDao, pdfDao, resultadoDao);

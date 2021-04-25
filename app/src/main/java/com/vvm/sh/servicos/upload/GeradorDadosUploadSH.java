@@ -51,6 +51,8 @@ import com.vvm.sh.baseDados.entidades.TrabalhadorVulneravelResultado;
 import com.vvm.sh.baseDados.entidades.TrabalhoRealizadoResultado;
 import com.vvm.sh.repositorios.UploadRepositorio;
 import com.vvm.sh.ui.transferencias.adaptadores.OnTransferenciaListener;
+import com.vvm.sh.ui.transferencias.modelos.DadosUpload;
+import com.vvm.sh.ui.transferencias.modelos.DadosUploadSH;
 import com.vvm.sh.ui.transferencias.modelos.Upload;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.constantes.Sintaxe;
@@ -77,7 +79,10 @@ public class GeradorDadosUploadSH extends GeradorDadosUpload{
     }
 
 
-
+    @Override
+    protected DadosUpload obterDadosUpload(String idUtilizador) {
+        return new DadosUploadSH(idUtilizador);
+    }
 
     @Override
     protected void obterDados(DadosFormulario dadosFormulario, Resultado resultado) {

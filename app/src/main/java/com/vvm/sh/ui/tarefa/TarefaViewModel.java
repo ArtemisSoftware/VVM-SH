@@ -38,7 +38,6 @@ import io.reactivex.schedulers.Schedulers;
 public class TarefaViewModel extends BaseViewModel {
 
     private final TarefaRepositorio tarefaRepositorio;
-    private final int idApi;
 
     public MutableLiveData<TarefaDia> tarefaDia;
     public MutableLiveData<List<AtividadeExecutada>> atividadesExecutadas;
@@ -51,8 +50,7 @@ public class TarefaViewModel extends BaseViewModel {
 
 
     @Inject
-    public TarefaViewModel(int idApi, TarefaRepositorio tarefaRepositorio){
-        this.idApi = idApi;
+    public TarefaViewModel(TarefaRepositorio tarefaRepositorio){
         this.tarefaRepositorio = tarefaRepositorio;
         tarefaDia = new MutableLiveData<>();
         opcoesCliente = new MutableLiveData<>();
@@ -548,7 +546,7 @@ public class TarefaViewModel extends BaseViewModel {
         items.add(OpcaoCliente.email());
         items.add(OpcaoCliente.crossSelling());
 
-        if(idApi == Identificadores.App.APP_ST) {
+        if(registo.tarefa.api == Identificadores.App.APP_ST) {
             items.add(OpcaoCliente.sinistralidade());
 
 

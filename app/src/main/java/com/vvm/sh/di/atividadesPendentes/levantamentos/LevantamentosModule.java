@@ -1,5 +1,7 @@
 package com.vvm.sh.di.atividadesPendentes.levantamentos;
 
+import android.app.Application;
+
 import com.vvm.sh.baseDados.VvmshBaseDados;
 import com.vvm.sh.baseDados.dao.CategoriaProfissionalDao;
 import com.vvm.sh.baseDados.dao.ImagemDao;
@@ -11,14 +13,27 @@ import com.vvm.sh.baseDados.dao.ResultadoDao;
 import com.vvm.sh.baseDados.dao.RiscoDao;
 import com.vvm.sh.baseDados.dao.TipoDao;
 import com.vvm.sh.di.atividadesPendentes.avaliacaoAmbiental.AvaliacaoAmbientalScope;
+import com.vvm.sh.di.atividadesPendentes.checklist.ChecklistScope;
 import com.vvm.sh.repositorios.LevantamentoAvaliacaoRepositorio;
 import com.vvm.sh.repositorios.LevantamentoRepositorio;
+import com.vvm.sh.util.metodos.PreferenciasUtil;
+
+import javax.inject.Named;
 
 import dagger.Module;
 import dagger.Provides;
 
 @Module
 public class LevantamentosModule {
+
+    @LevantamentosScope
+    @Provides
+    @Named("idApi_")
+    static int provideIdApi(Application application){
+
+        int idApi = PreferenciasUtil.obterIdApi(application.getApplicationContext());
+        return idApi;
+    }
 
     @LevantamentosScope
     @Provides
@@ -66,7 +81,8 @@ public class LevantamentosModule {
 
     @LevantamentosScope
     @Provides
-    LevantamentoRepositorio provideLevantamentoRepositorio(int idApi, LevantamentoDao levantamentoDao, CategoriaProfissionalDao categoriaProfissionalDao,
+    LevantamentoRepositorio provideLevantamentoRepositorio(@Named("idApi_") int idApi,
+                                                           LevantamentoDao levantamentoDao, CategoriaProfissionalDao categoriaProfissionalDao,
                                                            RiscoDao riscoDao, MedidaDao medidaDao, PropostaPlanoAcaoDao propostaPlanoAcaoDao, ImagemDao imagemDao,
                                                            TipoDao tipoDao, ResultadoDao resultadoDao) {
 

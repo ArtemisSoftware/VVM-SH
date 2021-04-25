@@ -1,5 +1,7 @@
 package com.vvm.sh.di.informacaoSst;
 
+import android.app.Application;
+
 import com.vvm.sh.api.SegurancaAlimentarApi;
 import com.vvm.sh.api.SegurancaTrabalhoApi;
 import com.vvm.sh.baseDados.VvmshBaseDados;
@@ -12,11 +14,15 @@ import com.vvm.sh.baseDados.dao.ResultadoDao;
 import com.vvm.sh.baseDados.dao.TrabalhosRealizadosDao;
 import com.vvm.sh.baseDados.dao.TransferenciasDao;
 import com.vvm.sh.di.atividadesPendentes.certificadoTratamento.CertificadoTratamentoScope;
+import com.vvm.sh.di.crossSelling.CrossSellingScope;
 import com.vvm.sh.di.registoVisita.RegistoVisitaScope;
 import com.vvm.sh.repositorios.InformacaoSstRepositorio;
 import com.vvm.sh.repositorios.RegistoVisitaRepositorio;
 import com.vvm.sh.repositorios.TransferenciasRepositorio;
 import com.vvm.sh.util.ResultadoId;
+import com.vvm.sh.util.metodos.PreferenciasUtil;
+
+import javax.inject.Named;
 
 import dagger.Module;
 import dagger.Provides;
@@ -24,6 +30,14 @@ import dagger.Provides;
 @Module
 public class InformacaoSstModule {
 
+    @InformacaoSstScope
+    @Provides
+    @Named("idApi_")
+    static int provideIdApi(Application application){
+
+        int idApi = PreferenciasUtil.obterIdApi(application.getApplicationContext());
+        return idApi;
+    }
 
     @InformacaoSstScope
     @Provides
@@ -78,7 +92,7 @@ public class InformacaoSstModule {
 
     @InformacaoSstScope
     @Provides
-    InformacaoSstRepositorio provideInformacaoSstRepositorio(int api, InformacaoSstDao informacaoSstDao, ObrigacoesLegaisDao obrigacoesLegaisDao, ImagemDao imagemDao, PdfDao pdfDao, ResultadoDao resultadoDao) {
+    InformacaoSstRepositorio provideInformacaoSstRepositorio(@Named("idApi_") int api, InformacaoSstDao informacaoSstDao, ObrigacoesLegaisDao obrigacoesLegaisDao, ImagemDao imagemDao, PdfDao pdfDao, ResultadoDao resultadoDao) {
 
         InformacaoSstRepositorio repositorio = new InformacaoSstRepositorio(api, informacaoSstDao, obrigacoesLegaisDao, imagemDao, pdfDao, resultadoDao, ResultadoId.INFORMCAO_SST);
         return repositorio;

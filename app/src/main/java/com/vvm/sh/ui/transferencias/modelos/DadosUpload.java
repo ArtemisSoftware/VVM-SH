@@ -22,7 +22,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
 
-public class DadosUpload {
+public abstract class DadosUpload {
 
     public int api;
 
@@ -76,16 +76,9 @@ public class DadosUpload {
 
     public void formatarDados(){
 
-        if(AppConfig.APP_MODO == AppConfig.APP_SHT) { //TODO:só para sh
-
-                for (int index = 0; index < dados.size(); ++index) {
-                    dados.get(index).numeroFicheirosFotos = numeroFicheirosImagens + "";
-                    dados.get(index).versaoApp = this.versao; //TODO:só para sh
-                }
-        }
-
         Gson gson = new Gson();
-        BlocoDados registoDados = UploadMapping.INSTANCE.mapDadosSH(this);
+        //BlocoDados registoDados = UploadMapping.INSTANCE.mapDadosSH(this);
+        BlocoDados registoDados = obterBlocoDados();
         String dados = gson.toJson(registoDados);
 
         try {
@@ -141,6 +134,12 @@ public class DadosUpload {
             if(dado.get("RegistoVisita").getAsJsonObject().size() == 0){
                 dado.remove("RegistoVisita");
             }
+            else {
+                if(dado.get("RegistoVisita").getAsJsonObject().get("trabalhosRealizados") == null){
+                    dado.remove("RegistoVisita");
+                }
+
+            }
 
             if(dado.get("Sinistralidade").getAsJsonObject().size() == 0){
                 dado.remove("Sinistralidade");
@@ -188,6 +187,9 @@ public class DadosUpload {
         return upload;
     }
 
+
+
+    abstract protected BlocoDados obterBlocoDados();
 
     //---------------------
     //Classe

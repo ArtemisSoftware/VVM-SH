@@ -138,7 +138,7 @@ public class UploadTrabalhoActivity extends BaseDaggerActivity implements OnTran
 
         if(bundle != null){
             activityUploadBinding.txtTituloTrabalho.setText(getString(R.string.reupload_dados) + " " + DatasUtil.converterData(bundle.getLong(getString(R.string.argumento_data)), DatasUtil.FORMATO_DD_MM_YYYY));
-            viewModel.obterPendencias_(this, PreferenciasUtil.obterIdUtilizador(this), bundle.getLong(getString(R.string.argumento_data)), true);
+            viewModel.obterPendencias_(this, PreferenciasUtil.obterIdUtilizador(this), bundle.getLong(getString(R.string.argumento_data)), true, true);
         }
         else {
             activityUploadBinding.txtTituloTrabalho.setText(getString(R.string.upload_dados));
@@ -146,133 +146,6 @@ public class UploadTrabalhoActivity extends BaseDaggerActivity implements OnTran
         }
 
     }
-
-//
-//
-//    /**
-//     * Metodo que permite formatar os dados do upload
-//     * @param registos os registos de upload
-//     */
-//    private void formatarUploads(List<Upload> registos) {
-//
-//        if(registos.size() == 0) {
-//
-//            OnDialogoListener listener = new OnDialogoListener() {
-//                @Override
-//                public void onExecutar() {
-//                    finish();
-//                }
-//            };
-//
-//            dialogo.alerta(getString(R.string.upload), getString(R.string.upload_dados_inexistentes), listener);
-//            activityUploadBinding.lnrLytProgresso.setVisibility(View.GONE);
-//        }
-//        else{
-//            activityUploadBinding.lnrLytProgresso.setVisibility(View.VISIBLE);
-//        }
-//    }
-//
-//
-//    /**
-//     * Metodo que permite formatar as pendencias
-//     * @param registos os registos pendentes
-//     */
-//    private void formatarPendencias(List<Pendencia> registos) {
-//
-//        if(registos.size() == 0) {
-//
-//            Bundle bundle = getIntent().getExtras();
-//
-//            if(bundle != null){
-//                viewModel.obterUpload(PreferenciasUtil.obterIdUtilizador(this), bundle.getLong(getString(R.string.argumento_data)), handlerNotificacoesUI);
-//            }
-//            else{
-//                viewModel.obterUpload(PreferenciasUtil.obterIdUtilizador(this), handlerNotificacoesUI);
-//            }
-//        }
-//        else{
-//            activityUploadBinding.lnrLytProgresso.setVisibility(View.GONE);
-//            dialogo.alerta(getString(R.string.pendencias), getString(R.string.pendencias_tarefas_upload));
-//        }
-//    }
-//
-//
-//
-//
-//    /**
-//     * Metodo que permite apresentar o progresso da execucao de um servico
-//     * @param comunicado os dados da execucao
-//     */
-//    private void imprimirProgresso(AtualizacaoUI.Comunicado comunicado){
-//
-//        if(comunicado.obterLimite() != Sintaxe.SEM_REGISTO){
-//            if(activityUploadBinding.progressBarProgresso.getMax() != comunicado.obterLimite()){
-//                activityUploadBinding.progressBarProgresso.setMax(comunicado.obterLimite());
-//            }
-//        }
-//
-//        activityUploadBinding.txtProgresso.setText(comunicado.obterPosicao() + "/" + comunicado.obterLimite());
-//        activityUploadBinding.txtTituloProgresso.setText(comunicado.obterMensagem());
-//        activityUploadBinding.progressBarProgresso.setProgress(comunicado.obterPosicao());
-//    }
-//
-//
-//    /**
-//     * Metodo que permite realizar o upload dos dados
-//     * @param dadosUpload dados para upload
-//     */
-//    private void uploadDados(DadosUpload dadosUpload){
-//
-//        Handler handler = new Handler();
-//        handler.postDelayed(new Runnable() {
-//            @Override
-//            public void run() {
-//
-//                viewModel.upload(dadosUpload);
-//            }
-//        }, AppConfig.TEMPO_CONSULTA_UPLOAD);
-//
-//    }
-//
-//
-//    //----------------------------------------
-//    //HANDLER (notificacoes para o ui)
-//    //----------------------------------------
-//
-//
-//    final Handler handlerNotificacoesUI = new Handler(){
-//        @Override
-//        public void handleMessage(Message msg) {
-//
-//            AtualizacaoUI.Comunicado comunicado = (AtualizacaoUI.Comunicado) msg.obj;
-//
-//            switch (comunicado.obterCodigo()) {
-//
-//                case PROCESSAMENTO_DADOS:
-//
-//                    imprimirProgresso(comunicado);
-//                    break;
-//
-//
-//                case PROCESSAMENTO_UPLOAD_CONCLUIDO:
-//
-//                    uploadDados((DadosUpload) comunicado.objeto);
-//                    break;
-//
-//
-//                default:
-//                    //TODO: alerta de erro
-//
-//                    //--Alerta de erro
-//                    //if(comunicado.obterMensagem() != null)
-//                    //--AlertaUI.erro(dialogo, comunicado.obterMensagem())
-//                    break;
-//            }
-//
-//            super.handleMessage(msg);
-//        }
-//    };
-//
 
     @Override
     public void atualizar(AtualizacaoUI_ atualizacaoUI) {

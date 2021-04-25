@@ -224,27 +224,33 @@ public class TransferenciasViewModel extends BaseViewModel {
      * @param idUtilizador o identificador do utilizador
      */
     public void obterPendencias(OnTransferenciaListener listener, String idUtilizador, boolean upload) {
-        obterPendencias(listener, null, idUtilizador, transferenciasRepositorio.obterPendencias(idUtilizador), upload);
+        obterPendencias(listener, null, idUtilizador, transferenciasRepositorio.obterPendencias(idUtilizador), 0, upload, false);
     }
 
     public void obterPendencias(OnTransferenciaListener listener, String idUtilizador, long data, boolean upload) {
-        obterPendencias(listener, null, idUtilizador, transferenciasRepositorio.obterPendencias(idUtilizador, data), upload);
+        obterPendencias(listener, null, idUtilizador, transferenciasRepositorio.obterPendencias(idUtilizador, data), data, upload, false);
     }
 
     public void obterPendencias_(OnTransferenciaListener.OnUploadListener listener, String idUtilizador, boolean upload) {
-        obterPendencias(null, listener, idUtilizador, transferenciasRepositorio.obterPendencias(idUtilizador), upload);
+        obterPendencias(null, listener, idUtilizador, transferenciasRepositorio.obterPendencias(idUtilizador), 0, upload, false);
     }
 
     public void obterPendencias_(OnTransferenciaListener.OnUploadListener listener, String idUtilizador, long data, boolean upload) {
-        obterPendencias(null, listener, idUtilizador, transferenciasRepositorio.obterPendencias(idUtilizador, data), upload);
+        obterPendencias(null, listener, idUtilizador, transferenciasRepositorio.obterPendencias(idUtilizador, data), data, upload, false);
     }
+
+
+    public void obterPendencias_(OnTransferenciaListener.OnUploadListener listener, String idUtilizador, long data, boolean upload, boolean reupload) {
+        obterPendencias(null, listener, idUtilizador, transferenciasRepositorio.obterPendencias(idUtilizador, data), data, upload, reupload);
+    }
+
 
 
     /**
      * Metodo que permite obter as pendencias
      * @param maybe
      */
-    private void obterPendencias(OnTransferenciaListener listener, OnTransferenciaListener.OnUploadListener listenerUpload, String idUtilizador, Maybe<DadosPendencia> maybe, boolean upload){
+    private void obterPendencias(OnTransferenciaListener listener, OnTransferenciaListener.OnUploadListener listenerUpload, String idUtilizador, Maybe<DadosPendencia> maybe, long data, boolean upload, boolean reupload){
 
         maybe
                 .subscribeOn(Schedulers.io())
@@ -261,16 +267,25 @@ public class TransferenciasViewModel extends BaseViewModel {
                             public void onSuccess(DadosPendencia dadosPendencia) {
 
                                 pendencias.setValue(dadosPendencia.pendencias);
-                                aguardar.setValue(false);
 
                                 if (dadosPendencia.pendencias.size() == 0) {
 
                                     if(upload == false) {
+                                        aguardar.setValue(false);
                                         atualizarDados(listener);
                                     }
                                     else{
-                                        obterUpload(listenerUpload, idUtilizador);
+                                        if(reupload == true){
+                                            obterUpload(listenerUpload, idUtilizador, data);
+                                        }
+                                        else {
+                                            obterUpload(listenerUpload, idUtilizador);
+                                        }
+                                        aguardar.setValue(false);
                                     }
+                                }
+                                else{
+                                    aguardar.setValue(false);
                                 }
                             }
 
@@ -285,6 +300,26 @@ public class TransferenciasViewModel extends BaseViewModel {
                             }
                         }
                 );
+    }
+
+
+
+    /**
+     * Metodo que permite obter os dados para upload
+     */
+    public void obterUpload(OnTransferenciaListener.OnUploadListener listener, String idUtilizador){
+        Observable<List<Upload>> observable = transferenciasRepositorio.obterUploads(idUtilizador).toObservable();
+        obterUpload(listener, observable, idUtilizador, false);
+    }
+
+    /**
+     * Metodo que permite obter os dados para upload de uma data
+     * @param idUtilizador o identificador do utilizador
+     * @param data a data dos dados
+     */
+    public void obterUpload(OnTransferenciaListener.OnUploadListener listener, String idUtilizador, long data){
+        Observable<List<Upload>> observable = transferenciasRepositorio.obterUploads(idUtilizador, data).toObservable();
+        obterUpload(listener, observable, idUtilizador, true);
     }
 
 
@@ -424,13 +459,6 @@ public class TransferenciasViewModel extends BaseViewModel {
     //------------------------
 
 
-    /**
-     * Metodo que permite obter os dados para upload
-     */
-    public void obterUpload(OnTransferenciaListener.OnUploadListener listener, String idUtilizador){
-        Observable<List<Upload>> observable = transferenciasRepositorio.obterUploads(idUtilizador).toObservable();
-        obterUpload(listener, observable, idUtilizador, false);
-    }
 
 
 

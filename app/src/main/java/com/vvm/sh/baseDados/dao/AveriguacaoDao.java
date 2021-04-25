@@ -86,7 +86,7 @@ abstract public class AveriguacaoDao implements BaseDao<RelatorioAveriguacaoResu
 
 
     @Query("INSERT INTO relatorioAveriguacaoResultado (idRelatorio, idMedida, implementado, idPonderacao) " +
-            "SELECT id as idRelatorio, idMedida, 1 as implementado, 0 as idPonderacao " +
+            "SELECT id as idRelatorio, idMedida, 0 as implementado, 0 as idPonderacao " +
             "FROM medidasAveriguacao " +
             "WHERE origem =" + Identificadores.Origens.AVERIGUACAO_AVALIACAO_RISCOS +" AND idRelatorio =:idRelatorio")
     abstract public Completable inserirNaoImplementado(int idRelatorio);

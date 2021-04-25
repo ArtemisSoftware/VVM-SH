@@ -111,9 +111,12 @@ public class DadosUploadAsyncTask__v2 extends AsyncTask<List<Upload>, Void, Void
     @Override
     protected void onPostExecute(Void aVoid) {
 
-        listener.atualizar(new AtualizacaoUI_(AtualizacaoUI_.Estado.PROCESSAMENTO_DADOS_UPLOAD, erro));
-
-        listener.atualizar(geradorDadosUploadSA.dadosUpload, geradorDadosUploadSH.dadosUpload);
+        if(erro != null) {
+            listener.atualizar(new AtualizacaoUI_(AtualizacaoUI_.Estado.PROCESSAMENTO_DADOS_UPLOAD, erro));
+        }
+        else {
+            listener.atualizar(geradorDadosUploadSA.dadosUpload, geradorDadosUploadSH.dadosUpload);
+        }
     }
 
 

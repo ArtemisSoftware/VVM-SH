@@ -68,6 +68,7 @@ import com.vvm.sh.util.metodos.TiposUtil;
 import java.util.List;
 
 import io.reactivex.Maybe;
+import io.reactivex.Observable;
 import io.reactivex.Single;
 
 @Dao
@@ -136,6 +137,37 @@ abstract public class TransferenciasDao implements BaseDao<Resultado> {
             "ON trf.idTarefa = res_sinc.idTarefa " +
             "WHERE ct_sinc_total > 0 AND idUtilizador = :idUtilizador AND data = :data")
     abstract public Maybe<List<Upload>> obterUploads(String idUtilizador, long data);
+
+
+
+    @Transaction
+    @Query("SELECT *, " +
+            "CASE " +
+            "WHEN IFNULL(ct_sinc_total, 0) = 0 THEN " + Identificadores.Sincronizacao.NAO_SINCRONIZADO + " " +
+            "WHEN IFNULL(ct_sinc, 0) = IFNULL(ct_sinc_total, 0) THEN " + Identificadores.Sincronizacao.SINCRONIZADO + " " +
+            "ELSE  " + Identificadores.Sincronizacao.NAO_SINCRONIZADO + " END as sincronizado " +
+            "FROM tarefas  as trf " +
+            "LEFT JOIN (SELECT idTarefa, COUNT(sincronizado) as ct_sinc_total FROM resultados GROUP BY idTarefa) as res_sinc_total " +
+            "ON trf.idTarefa = res_sinc_total.idTarefa " +
+            "LEFT JOIN (SELECT idTarefa, COUNT(sincronizado) as ct_sinc FROM resultados WHERE sincronizado = "+ Identificadores.Sincronizacao.SINCRONIZADO +" GROUP BY idTarefa) as res_sinc " +
+            "ON trf.idTarefa = res_sinc.idTarefa " +
+            "WHERE ct_sinc_total > 0 AND idUtilizador = :idUtilizador")
+    abstract public Observable<List<Upload>> obterUploads__(String idUtilizador);
+
+
+    @Transaction
+    @Query("SELECT *, " +
+            "CASE " +
+            "WHEN IFNULL(ct_sinc_total, 0) = 0 THEN " + Identificadores.Sincronizacao.NAO_SINCRONIZADO + " " +
+            "WHEN IFNULL(ct_sinc, 0) = IFNULL(ct_sinc_total, 0) THEN " + Identificadores.Sincronizacao.SINCRONIZADO + " " +
+            "ELSE  " + Identificadores.Sincronizacao.NAO_SINCRONIZADO + " END as sincronizado " +
+            "FROM tarefas  as trf " +
+            "LEFT JOIN (SELECT idTarefa, COUNT(sincronizado) as ct_sinc_total FROM resultados GROUP BY idTarefa) as res_sinc_total " +
+            "ON trf.idTarefa = res_sinc_total.idTarefa " +
+            "LEFT JOIN (SELECT idTarefa, COUNT(sincronizado) as ct_sinc FROM resultados WHERE sincronizado = "+ Identificadores.Sincronizacao.SINCRONIZADO +" GROUP BY idTarefa) as res_sinc " +
+            "ON trf.idTarefa = res_sinc.idTarefa " +
+            "WHERE ct_sinc_total > 0 AND idUtilizador = :idUtilizador AND data = :data")
+    abstract public Observable<List<Upload>> obterUploads__(String idUtilizador, long data);
 
 
 

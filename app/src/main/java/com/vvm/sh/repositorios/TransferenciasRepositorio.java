@@ -38,7 +38,6 @@ import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.baseDados.entidades.TipoExtintor;
 import com.vvm.sh.baseDados.entidades.TrabalhadorVulneravelResultado;
 import com.vvm.sh.baseDados.entidades.VerificacaoEquipamentoResultado;
-import com.vvm.sh.ui.atividadesPendentes.relatorios.formacao.modelos.Formando;
 import com.vvm.sh.ui.transferencias.modelos.DadosPendencia;
 import com.vvm.sh.ui.transferencias.modelos.DadosUpload;
 import com.vvm.sh.ui.transferencias.modelos.Pendencia;
@@ -47,8 +46,6 @@ import com.vvm.sh.ui.transferencias.modelos.Upload;
 import com.vvm.sh.util.constantes.AppConfig;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.excepcoes.RespostaWsInvalidaException;
-import com.vvm.sh.util.metodos.ConversorUtil;
-import com.vvm.sh.util.metodos.DatasUtil;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -57,7 +54,6 @@ import io.reactivex.Maybe;
 import io.reactivex.Observable;
 import io.reactivex.ObservableSource;
 import io.reactivex.Single;
-import io.reactivex.SingleSource;
 import io.reactivex.functions.BiFunction;
 import io.reactivex.functions.Function;
 
@@ -431,6 +427,13 @@ public class TransferenciasRepositorio {
         return transferenciasDao.obterUploads(idUtilizador, false);
     }
 
+    public Observable<List<Upload>> obterUploads__(String idUtilizador){
+        return transferenciasDao.obterUploads__(idUtilizador);
+    }
+
+    public Observable<List<Upload>> obterUploads__(String idUtilizador, long data){
+        return transferenciasDao.obterUploads__(idUtilizador, data);
+    }
 
     /**
      * Metodo que permite obter os dados para upload de um dia especifico.

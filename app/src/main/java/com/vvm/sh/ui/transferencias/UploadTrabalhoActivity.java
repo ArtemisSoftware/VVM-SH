@@ -76,6 +76,19 @@ public class UploadTrabalhoActivity extends BaseDaggerActivity implements OnTran
     @Override
     protected void subscreverObservadores() {
 
+        viewModel.observarSincronizado().observe(this, new Observer<Boolean>() {
+            @Override
+            public void onChanged(Boolean sincronizado) {
+
+                if(sincronizado == true){
+                    activityUploadBinding.ctrlUploadDados.setVisibility(View.GONE);
+                    activityUploadBinding.ctrlUploadRelatorio.setVisibility(View.VISIBLE);
+                    activityUploadBinding.txtSubTituloUpload.setVisibility(View.VISIBLE);
+                }
+            }
+
+        });
+
         viewModel.observarContagemUpload().observe(this, new Observer<Boolean>() {
             @Override
             public void onChanged(Boolean contagem) {
@@ -139,10 +152,12 @@ public class UploadTrabalhoActivity extends BaseDaggerActivity implements OnTran
         if(bundle != null){
             activityUploadBinding.txtTituloTrabalho.setText(getString(R.string.reupload_dados) + " " + DatasUtil.converterData(bundle.getLong(getString(R.string.argumento_data)), DatasUtil.FORMATO_DD_MM_YYYY));
             viewModel.obterPendencias_(this, PreferenciasUtil.obterIdUtilizador(this), bundle.getLong(getString(R.string.argumento_data)), true, true);
+            viewModel.obterUploads(PreferenciasUtil.obterIdUtilizador(this), bundle.getLong(getString(R.string.argumento_data)));
         }
         else {
             activityUploadBinding.txtTituloTrabalho.setText(getString(R.string.upload_dados));
             viewModel.obterPendencias_(this, PreferenciasUtil.obterIdUtilizador(this), true);
+            viewModel.obterUploads(PreferenciasUtil.obterIdUtilizador(this));
         }
 
     }

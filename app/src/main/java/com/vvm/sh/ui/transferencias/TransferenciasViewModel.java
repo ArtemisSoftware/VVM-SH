@@ -52,6 +52,7 @@ import io.reactivex.Observable;
 import io.reactivex.Observer;
 import io.reactivex.SingleObserver;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
@@ -71,6 +72,7 @@ public class TransferenciasViewModel extends BaseViewModel {
 
     public MutableLiveData<Boolean> aguardar;
     public MutableLiveData<Boolean> contagemUpload;
+    public MutableLiveData<Boolean> sincronizado;
 
 
     @Inject
@@ -90,8 +92,10 @@ public class TransferenciasViewModel extends BaseViewModel {
         this.pendencias = new MutableLiveData<>();
         this.aguardar = new MutableLiveData<>();
         this.contagemUpload = new MutableLiveData<>();
+        this.sincronizado = new MutableLiveData<>();
         aguardar.postValue(true);
         contagemUpload.postValue(false);
+        sincronizado.postValue(false);
     }
 
     public MutableLiveData<List<Pendencia>> observarPendencias(){
@@ -106,6 +110,10 @@ public class TransferenciasViewModel extends BaseViewModel {
         return contagemUpload;
     }
 
+
+    public MutableLiveData<Boolean> observarSincronizado(){
+        return sincronizado;
+    }
 
     /**
      * Metodo que permite atualizar os tipos
@@ -270,16 +278,26 @@ public class TransferenciasViewModel extends BaseViewModel {
 
                                 if (dadosPendencia.pendencias.size() == 0) {
 
-                                    if(upload == false) {
+                                    if(dadosPendencia.dadosUpload == false){
                                         aguardar.setValue(false);
-                                        atualizarDados(listener);
-                                    }
-                                    else{
-                                        if(reupload == true){
+                                        if (reupload == true) {
                                             obterUpload(listenerUpload, idUtilizador, data);
                                         }
                                         else {
-                                            obterUpload(listenerUpload, idUtilizador);
+                                            sincronizado.setValue(true);
+                                        }
+                                    }
+                                    else {
+                                        if (upload == false) {
+                                            atualizarDados(listener);
+                                        }
+                                        else {
+                                            if (reupload == true) {
+                                                obterUpload(listenerUpload, idUtilizador, data);
+                                            } else {
+                                                obterUpload(listenerUpload, idUtilizador);
+                                            }
+
                                         }
                                         aguardar.setValue(false);
                                     }
@@ -301,6 +319,75 @@ public class TransferenciasViewModel extends BaseViewModel {
                         }
                 );
     }
+
+
+
+    public void obterUploads(String idUtilizador){
+
+        transferenciasRepositorio.obterUploads__(idUtilizador)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new Observer<List<Upload>>() {
+                            @Override
+                            public void onSubscribe(@NonNull Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onNext(@NonNull List<Upload> resultado) {
+                                uploads.setValue(resultado);
+                            }
+
+                            @Override
+                            public void onError(@NonNull Throwable e) {
+
+                            }
+
+                            @Override
+                            public void onComplete() {
+
+                            }
+                        }
+                );
+    }
+
+
+    public void obterUploads(String idUtilizador, long data){
+
+        transferenciasRepositorio.obterUploads__(idUtilizador, data)
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new Observer<List<Upload>>() {
+                            @Override
+                            public void onSubscribe(@NonNull Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onNext(@NonNull List<Upload> resultado) {
+                                uploads.setValue(resultado);
+                            }
+
+                            @Override
+                            public void onError(@NonNull Throwable e) {
+
+                            }
+
+                            @Override
+                            public void onComplete() {
+
+                            }
+                        }
+                );
+    }
+
+
+
+
 
 
 
@@ -498,7 +585,7 @@ public class TransferenciasViewModel extends BaseViewModel {
                             @Override
                             public void onNext(List<Upload> resultado) {
 
-                                uploads.setValue(resultado);
+                                //--uploads.setValue(resultado);
 
                                 if(resultado.size() != 0) {
                                     DadosUploadAsyncTask__v2 servico = new DadosUploadAsyncTask__v2(listener, vvmshBaseDados, uploadRepositorio, idUtilizador);

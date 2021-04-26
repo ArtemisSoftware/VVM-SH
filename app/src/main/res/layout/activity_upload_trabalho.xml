@@ -66,7 +66,7 @@
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/ctrl_upload_dados"
             android:layout_width="470dp"
-            android:visibility="visible"
+            android:visibility="gone"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
@@ -246,6 +246,19 @@
                 app:layout_constraintTop_toTopOf="parent" />
 
 
+
+            <TextView
+                android:id="@+id/txt_sub_titulo_upload"
+                style="@style/textoDetalhe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="24dp"
+                android:visibility="gone"
+                android:text="@string/todos_dados_sincronizados"
+                app:layout_constraintStart_toStartOf="@+id/txt_sub_titulo"
+                app:layout_constraintTop_toBottomOf="@+id/txt_sub_titulo" />
+
+
             <androidx.recyclerview.widget.RecyclerView
                 android:id="@+id/rcl_registos"
                 android:layout_width="match_parent"
@@ -255,7 +268,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="@+id/txt_sub_titulo"
-                app:layout_constraintTop_toBottomOf="@+id/txt_sub_titulo"
+                app:layout_constraintTop_toBottomOf="@+id/txt_sub_titulo_upload"
                 app:uploads="@{viewmodel.uploads}"
                 tools:listitem="@layout/item_upload" />
 

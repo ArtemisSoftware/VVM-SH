@@ -21,7 +21,6 @@ import com.vvm.sh.servicos.trabalho.AtualizarTrabalhoAsyncTask;
 import com.vvm.sh.servicos.trabalho.RecarregarTarefaAsyncTask;
 import com.vvm.sh.servicos.trabalho.RecarregarTarefaAsyncTask__v2;
 import com.vvm.sh.servicos.trabalho.RecarregarTrabalhoAsyncTask;
-import com.vvm.sh.servicos.trabalho.CarregarTrabalhoAsyncTask;
 import com.vvm.sh.servicos.trabalho.RecarregarTrabalhoAsyncTask__v2;
 import com.vvm.sh.servicos.upload.DadosUploadAsyncTask__v2;
 import com.vvm.sh.servicos.upload.DadosUploadSAAsyncTask;
@@ -611,6 +610,8 @@ public class TransferenciasViewModel extends BaseViewModel {
 
     public void uploadSA(DadosUpload dadosUploadSA, DadosUpload dadosUploadSH) {
 
+        uploads.setValue(new ArrayList<>());
+
         if(dadosUploadSA.dados.size() > 0) {
             redeRepositorio.uploadSA(dadosUploadSA)
                     .subscribeOn(Schedulers.io())
@@ -626,6 +627,10 @@ public class TransferenciasViewModel extends BaseViewModel {
                                 @Override
                                 public void onSuccess(Codigo codigo) {
                                     contagemUpload.setValue(true);
+
+                                    List<Upload> registos = uploads.getValue();
+                                    registos.addAll(dadosUploadSA.obterUploadsSincronizados());
+                                    uploads.setValue(registos);
                                 }
 
                                 @Override
@@ -651,6 +656,10 @@ public class TransferenciasViewModel extends BaseViewModel {
                                 @Override
                                 public void onSuccess(Codigo codigo) {
                                     contagemUpload.setValue(true);
+
+                                    List<Upload> registos = uploads.getValue();
+                                    registos.addAll(dadosUploadSH.obterUploadsSincronizados());
+                                    uploads.setValue(registos);
                                 }
 
                                 @Override

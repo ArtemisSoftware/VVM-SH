@@ -4,27 +4,15 @@ import androidx.annotation.NonNull;
 
 import com.vvm.sh.api.SegurancaAlimentarApi;
 import com.vvm.sh.api.SegurancaTrabalhoApi;
-import com.vvm.sh.api.modelos.pedido.ITipoAtividadePlaneavelListagem;
-import com.vvm.sh.api.modelos.pedido.ITipoChecklist;
 import com.vvm.sh.api.modelos.pedido.ITipoListagem;
-import com.vvm.sh.api.modelos.pedido.ITipoTemplateAvrLevantamentoListagem;
-import com.vvm.sh.api.modelos.pedido.ITipoTemplateAvrRiscoListagem;
 import com.vvm.sh.baseDados.dao.AtualizacaoDao;
 import com.vvm.sh.baseDados.dao.TipoDao;
-import com.vvm.sh.baseDados.entidades.AreaChecklist;
+import com.vvm.sh.baseDados.dao.TipoNovoDao;
 import com.vvm.sh.baseDados.entidades.Atualizacao;
 import com.vvm.sh.baseDados.entidades.CheckList;
-import com.vvm.sh.baseDados.entidades.ItemChecklist;
-import com.vvm.sh.baseDados.entidades.SeccaoChecklist;
-import com.vvm.sh.baseDados.entidades.Tipo;
-import com.vvm.sh.baseDados.entidades.TipoAtividadePlaneavel;
 import com.vvm.sh.baseDados.entidades.TipoNovo;
-import com.vvm.sh.baseDados.entidades.TipoTemplateAvrLevantamento;
-import com.vvm.sh.baseDados.entidades.TipoTemplateAvrRisco;
-import com.vvm.sh.baseDados.entidades.TipoTemplatesAVRMedidaRisco;
 import com.vvm.sh.ui.opcoes.modelos.ResumoChecklist;
 import com.vvm.sh.ui.opcoes.modelos.ResumoTipo;
-import com.vvm.sh.ui.opcoes.modelos.TemplateAvr;
 import com.vvm.sh.ui.transferencias.modelos.AtualizacaoTipos;
 import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.constantes.Sintaxe;
@@ -39,7 +27,6 @@ import io.reactivex.Maybe;
 import io.reactivex.Observable;
 import io.reactivex.Single;
 import io.reactivex.SingleSource;
-import io.reactivex.functions.BiFunction;
 import io.reactivex.functions.Function;
 import io.reactivex.functions.Function5;
 
@@ -51,12 +38,15 @@ public class TiposRepositorio {
     private final SegurancaTrabalhoApi apiST;
     private final AtualizacaoDao atualizacaoDao;
     private final TipoDao tipoDao;
+    private final TipoNovoDao tipoNovoDao;
 
-    public TiposRepositorio(@NonNull SegurancaAlimentarApi apiSA, @NonNull SegurancaTrabalhoApi apiST, @NonNull AtualizacaoDao atualizacaoDao, @NonNull TipoDao tipoDao) {
+    public TiposRepositorio(@NonNull SegurancaAlimentarApi apiSA, @NonNull SegurancaTrabalhoApi apiST, @NonNull AtualizacaoDao atualizacaoDao,
+                            @NonNull TipoDao tipoDao, TipoNovoDao tipoNovoDao) {
         this.apiSA = apiSA;
         this.apiST = apiST;
         this.atualizacaoDao = atualizacaoDao;
         this.tipoDao = tipoDao;
+        this.tipoNovoDao = tipoNovoDao;
     }
 
 
@@ -352,28 +342,6 @@ public class TiposRepositorio {
 
 
 
-    public Single<TemplateAvr> obterTemplateAvr() throws TipoInexistenteException {
-
-        Single<TemplateAvr> single = Single.zip(
-                apiST.obterTipoTemplatesAVR_Levantamentos(SegurancaTrabalhoApi.HEADER_TIPO),
-                apiST.obterTipoTemplatesAVR_Riscos(SegurancaTrabalhoApi.HEADER_TIPO),
-                new BiFunction<ITipoTemplateAvrLevantamentoListagem, ITipoTemplateAvrRiscoListagem, TemplateAvr>() {
-                    @Override
-                    public TemplateAvr apply(ITipoTemplateAvrLevantamentoListagem levantamentos, ITipoTemplateAvrRiscoListagem riscos) throws Exception {
-
-                        TemplateAvr resultado = new TemplateAvr();
-                        resultado.levantamentos = levantamentos;
-                        resultado.riscos = riscos;
-
-                        return resultado;
-                    }
-                });
-
-
-        return single;
-    }
-
-
 
 
     public Single<AtualizacaoTipos> eliminarAtualizacoes(int tipo){
@@ -392,38 +360,18 @@ public class TiposRepositorio {
 
 
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    /**
-     * Metodo que permite carregar um tipo<br>
-     *     1->Remover a atualizacao e os dados<br>
-     *     2->Inserir novo timestamp<br>
-     *     3->inserir novos dados
-     * @param atualizacao os dados da atualizacao
-     * @param dadosNovos os dados a inserir
-     * @param dadosAlteradaos os dados a alterar
-     */
-    public void carregarAtividadesPlaneaveis(Atualizacao atualizacao, List<TipoAtividadePlaneavel> dadosNovos, List<TipoAtividadePlaneavel> dadosAlteradaos){
-
-        atualizacaoDao.remover(atualizacao.descricao);
-        tipoDao.removerAtividadesPlaneaveis();
-
-        atualizacaoDao.inserirRegisto(atualizacao);
-        tipoDao.inserirAtividadesPlaneaiveis(dadosNovos);
-        tipoDao.atualizarAtividadesPlaneaiveis(dadosAlteradaos);
+    public Single<List<TipoNovo>> obterEquipamentos(){
+        return tipoNovoDao.obterTiposEquipamentos();
     }
+
+
+
+
+
+
+
+
+
 
 
 }

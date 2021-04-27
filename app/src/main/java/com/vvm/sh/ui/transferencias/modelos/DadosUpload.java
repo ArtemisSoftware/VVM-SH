@@ -13,6 +13,7 @@ import com.vvm.sh.api.modelos.envio.DadosFormulario;
 import com.vvm.sh.api.modelos.envio.Equipamento;
 import com.vvm.sh.api.modelos.envio.Imagem;
 import com.vvm.sh.util.constantes.AppConfig;
+import com.vvm.sh.util.constantes.Identificadores;
 import com.vvm.sh.util.mapeamento.UploadMapping;
 
 import org.json.JSONException;
@@ -188,6 +189,17 @@ public abstract class DadosUpload {
     }
 
 
+    public List<Upload> obterUploadsSincronizados(){
+
+        List<Upload> registos = new ArrayList<>();
+
+        for (Upload item: uploads) {
+            item.sincronizado = Identificadores.Sincronizacao.SINCRONIZADO;
+            registos.add(item);
+        }
+
+        return registos;
+    }
 
     abstract protected BlocoDados obterBlocoDados();
 

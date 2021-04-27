@@ -150,16 +150,18 @@ public class UploadTrabalhoActivity extends BaseDaggerActivity implements OnTran
         Bundle bundle = getIntent().getExtras();
 
         if(bundle != null){
-            activityUploadBinding.txtTituloTrabalho.setText(getString(R.string.reupload_dados) + " " + DatasUtil.converterData(bundle.getLong(getString(R.string.argumento_data)), DatasUtil.FORMATO_DD_MM_YYYY));
-            viewModel.obterPendencias_(this, PreferenciasUtil.obterIdUtilizador(this), bundle.getLong(getString(R.string.argumento_data)), true, true);
+
+            if(bundle.getInt(getString(R.string.argumento_tipo_upload)) == Identificadores.Upload.RE_UPLOAD){
+                activityUploadBinding.txtTituloTrabalho.setText(getString(R.string.reupload_dados) + " " + DatasUtil.converterData(bundle.getLong(getString(R.string.argumento_data)), DatasUtil.FORMATO_DD_MM_YYYY));
+                viewModel.obterPendencias_(this, PreferenciasUtil.obterIdUtilizador(this), bundle.getLong(getString(R.string.argumento_data)), true, true);
+            }
+            else {
+                activityUploadBinding.txtTituloTrabalho.setText(getString(R.string.upload_dados));
+                viewModel.obterPendencias_(this, PreferenciasUtil.obterIdUtilizador(this), true);
+            }
+
             viewModel.obterUploads(PreferenciasUtil.obterIdUtilizador(this), bundle.getLong(getString(R.string.argumento_data)));
         }
-        else {
-            activityUploadBinding.txtTituloTrabalho.setText(getString(R.string.upload_dados));
-            viewModel.obterPendencias_(this, PreferenciasUtil.obterIdUtilizador(this), true);
-            viewModel.obterUploads(PreferenciasUtil.obterIdUtilizador(this));
-        }
-
     }
 
     @Override

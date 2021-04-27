@@ -42,7 +42,7 @@ public class TipoNovoRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.V
 
         TipoNovo registo = items.get(position);
         ((TipoNovoViewHolder)holder).binding.setTipo(registo);
-        ((TipoChecklistViewHolder)holder).binding.executePendingBindings();
+        ((TipoNovoViewHolder)holder).binding.executePendingBindings();
 
 
     }

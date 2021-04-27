@@ -69,11 +69,11 @@ abstract public class UploadDao {
 
 
     @Query("SELECT clb_res.idRegisto as id, " +
-            "IFNULL(clb_res.nome, clb.nome) as nome, " +
+            "CASE WHEN (clb_res.nome IS NULL OR clb_res.nome = '') THEN clb.nome ELSE clb_res.nome END as nome, " +
             "idMorada, sexo, " +
             "IFNULL(clb_res.estado, clb.estado) as estado , dataNascimento, dataAdmissao, dataAdmissaoFuncao, idCategoriaProfissional, posto, profissao " +
             "FROM colaboradoresResultado as clb_res " +
-            "LEFT JOIN (SELECT nome, id, estado FROM colaboradores) as clb ON clb_res.id = clb.id " +
+            "LEFT JOIN (SELECT nome, id, estado FROM colaboradores) as clb ON clb_res.idRegisto = clb.id " +
             "WHERE idTarefa = :idTarefa ")
     public abstract List<ColaboradorBd> obterColaboradores(int idTarefa);
 

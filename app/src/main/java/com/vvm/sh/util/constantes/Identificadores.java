@@ -39,6 +39,12 @@ public class Identificadores {
     public static final int ID_EMAIL_REGISTO_VISITA_VM = 2;
     public static final String UTILIZADOR_INVALIDO = "000";
 
+    public class Upload{
+        public static final int UPLOAD = 1;
+        public static final int RE_UPLOAD = 2;
+    }
+
+
     public class Origens{
 
         public static final int ORIGEM_BD = 1;

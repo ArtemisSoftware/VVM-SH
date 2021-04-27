@@ -32,6 +32,7 @@ import io.reactivex.Observer;
 import io.reactivex.SingleObserver;
 import io.reactivex.SingleSource;
 import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.annotations.NonNull;
 import io.reactivex.disposables.Disposable;
 import io.reactivex.functions.Function;
 import io.reactivex.schedulers.Schedulers;
@@ -671,5 +672,31 @@ public class OpcoesViewModel extends BaseViewModel {
 
 
     public void obterEquipamentos() {
+
+        showProgressBar(true);
+
+        tiposRepositorio.obterEquipamentos()
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(
+
+                        new SingleObserver<List<TipoNovo>>() {
+                            @Override
+                            public void onSubscribe(@NonNull Disposable d) {
+                                disposables.add(d);
+                            }
+
+                            @Override
+                            public void onSuccess(@NonNull List<TipoNovo> tipoNovos) {
+                                tiposEquipamentos.setValue(tipoNovos);
+                                showProgressBar(false);
+                            }
+
+                            @Override
+                            public void onError(@NonNull Throwable e) {
+                                showProgressBar(false);
+                            }
+                        }
+                );
     }
 }

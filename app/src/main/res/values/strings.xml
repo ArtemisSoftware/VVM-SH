@@ -560,6 +560,7 @@
     <string name="identificador_definitivo_">Identificador definitivo:</string>
     <string name="gerir_equipamentos">Gerir equipamentos</string>
     <string name="todos_dados_sincronizados">Todos os dados encontram-se sincronizados</string>
+    <string name="argumento_tipo_upload">upload</string>
 
 
 </resources>

@@ -20,7 +20,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".ui.opcoes.TiposNovosActivity"></activity>
+        <activity android:name=".ui.opcoes.TiposNovosActivity"
+            android:screenOrientation="portrait"
+            android:theme="@style/AppTheme.NoActionBar"/>
         <activity android:name=".ui.registoVisita.AssinaturaRegistoVisitaActivity" />
         <activity android:name=".ui.transferencias.AtualizacaoDadosActivity" />
         <activity android:name=".ui.transferencias.AtualizacaoTiposActivity" />

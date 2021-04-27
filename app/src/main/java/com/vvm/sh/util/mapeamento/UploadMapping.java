@@ -217,6 +217,7 @@ public interface UploadMapping {
 
     @Mapping(target = "idColaborador", source = "id")
     @Mapping(target = "genero", source = "sexo")
+    @Mapping(target = "nome", source = "nome")
     @Mapping(target = "dataAdmissao", ignore = true)
     @Mapping(target = "dataAdmissaoFuncao", ignore = true)
     @Mapping(target = "dataNascimento", ignore = true)

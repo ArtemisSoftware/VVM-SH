@@ -330,6 +330,7 @@ public class MainActivity extends BaseDaggerActivity
     public void reUploadDados() {
         Intent intent = new Intent(this, UploadTrabalhoActivity.class);
         intent.putExtra(getString(R.string.argumento_data), DatasUtil.converterDataLong(activityMainBinding.txtData.getText().toString(), DatasUtil.FORMATO_DD_MMMM_YYYY));
+        intent.putExtra(getString(R.string.argumento_tipo_upload), Identificadores.Upload.RE_UPLOAD);
         startActivity(intent);
     }
 
@@ -389,6 +390,8 @@ public class MainActivity extends BaseDaggerActivity
             case R.id.item_upload_dados:
 
                 intent = new Intent(this, UploadTrabalhoActivity.class);
+                intent.putExtra(getString(R.string.argumento_data), DatasUtil.converterDataLong(activityMainBinding.txtData.getText().toString(), DatasUtil.FORMATO_DD_MMMM_YYYY));
+                intent.putExtra(getString(R.string.argumento_tipo_upload), Identificadores.Upload.UPLOAD);
                 break;
 
 

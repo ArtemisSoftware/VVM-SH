@@ -5,33 +5,21 @@ import androidx.lifecycle.ViewModelProviders;
 
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Message;
 import android.view.View;
 
 import com.vvm.sh.R;
 import com.vvm.sh.api.modelos.pedido.Codigo;
-import com.vvm.sh.databinding.ActivityUploadBinding;
 import com.vvm.sh.databinding.ActivityUploadTrabalhoBinding;
-import com.vvm.sh.di.ViewModelProviderFactory;
 import com.vvm.sh.ui.BaseDaggerActivity;
 import com.vvm.sh.ui.transferencias.adaptadores.OnTransferenciaListener;
 import com.vvm.sh.ui.transferencias.modelos.DadosUpload;
-import com.vvm.sh.ui.transferencias.modelos.Pendencia;
-import com.vvm.sh.ui.transferencias.modelos.Upload;
-import com.vvm.sh.util.AtualizacaoUI;
 import com.vvm.sh.util.AtualizacaoUI_;
 import com.vvm.sh.util.Recurso;
 import com.vvm.sh.util.constantes.AppConfig;
 import com.vvm.sh.util.constantes.Identificadores;
-import com.vvm.sh.util.constantes.Sintaxe;
-import com.vvm.sh.util.interfaces.OnDialogoListener;
 import com.vvm.sh.util.metodos.DatasUtil;
 import com.vvm.sh.util.metodos.PreferenciasUtil;
 import com.vvm.sh.util.viewmodel.BaseViewModel;
-
-import java.util.List;
-
-import javax.inject.Inject;
 
 public class UploadTrabalhoActivity extends BaseDaggerActivity implements OnTransferenciaListener, OnTransferenciaListener.OnUploadListener {
 
@@ -127,7 +115,7 @@ public class UploadTrabalhoActivity extends BaseDaggerActivity implements OnTran
 
                     case ERRO:
                         activityUploadBinding.ctrlUploadDados.setVisibility(View.GONE);
-                        dialogo.erro("Upload", ((Codigo)recurso.dados).mensagem, listenerActivity);
+                        dialogo.erro("Upload", /*((Codigo)recurso.dados).mensagem*/ recurso.messagem, listenerActivity);
                         break;
 
                     default:
@@ -194,7 +182,7 @@ public class UploadTrabalhoActivity extends BaseDaggerActivity implements OnTran
             ++contador;
         }
 
-        viewModel.uploadSA(dadosSA, dadosSH);
+        viewModel.upload(dadosSA, dadosSH);
 
     }
 

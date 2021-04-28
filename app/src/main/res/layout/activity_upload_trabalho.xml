@@ -65,8 +65,8 @@
 
         <androidx.constraintlayout.widget.ConstraintLayout
             android:id="@+id/ctrl_upload_dados"
+            android:visibility="@{viewmodel.pendencias.size() == 0 ? View.VISIBLE : View.GONE}"
             android:layout_width="470dp"
-            android:visibility="gone"
             android:layout_height="wrap_content"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"

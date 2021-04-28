@@ -608,7 +608,7 @@ public class TransferenciasViewModel extends BaseViewModel {
 
 
 
-    public void uploadSA(DadosUpload dadosUploadSA, DadosUpload dadosUploadSH) {
+    public void upload(DadosUpload dadosUploadSA, DadosUpload dadosUploadSH) {
 
         uploads.setValue(new ArrayList<>());
 

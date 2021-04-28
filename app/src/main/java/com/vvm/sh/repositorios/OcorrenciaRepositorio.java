@@ -74,10 +74,9 @@ public class OcorrenciaRepositorio implements Repositorio<OcorrenciaResultado>{
      * @param idTarefa o identificador da tarefa
      * @return uma lista de registos
      */
-    public Observable<List<OcorrenciaRegisto>> obterOcorrenciasRegistadas(int idTarefa) {
+    public Observable<List<OcorrenciaBase>> obterOcorrenciasRegistadas(int idTarefa) {
         return ocorrenciaDao.obterOcorrenciasRegistadas(idTarefa, idApi);
     }
-
 
     /**
      * Metodo que permite obter registo de ocorrencia

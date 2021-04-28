@@ -3,6 +3,7 @@ package com.vvm.sh.servicos.upload;
 import com.vvm.sh.api.modelos.bd.CertificadoBd;
 import com.vvm.sh.api.modelos.bd.FormandoBd;
 import com.vvm.sh.api.modelos.envio.AcaoFormacao;
+import com.vvm.sh.api.modelos.envio.Anomalia;
 import com.vvm.sh.api.modelos.envio.AtividadePendente;
 import com.vvm.sh.api.modelos.envio.CertificadoTratamento;
 import com.vvm.sh.api.modelos.envio.CrossSelling;
@@ -11,6 +12,7 @@ import com.vvm.sh.api.modelos.envio.Email;
 import com.vvm.sh.api.modelos.envio.Formando;
 import com.vvm.sh.api.modelos.envio.Imagem;
 import com.vvm.sh.api.modelos.envio.Ocorrencia;
+import com.vvm.sh.baseDados.entidades.AnomaliaResultado;
 import com.vvm.sh.baseDados.entidades.CrossSellingResultado;
 import com.vvm.sh.baseDados.entidades.ImagemResultado;
 import com.vvm.sh.baseDados.entidades.OcorrenciaResultado;
@@ -30,6 +32,7 @@ import com.vvm.sh.util.metodos.ConversorUtil;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.vvm.sh.util.constantes.Identificadores.Resultados.ID_ANOMALIA_CLIENTE;
 import static com.vvm.sh.util.constantes.Identificadores.Resultados.ID_ATIVIDADE_PENDENTE;
 import static com.vvm.sh.util.constantes.Identificadores.Resultados.ID_CROSS_SELLING;
 import static com.vvm.sh.util.constantes.Identificadores.Resultados.ID_EMAIL;
@@ -132,6 +135,10 @@ public abstract class GeradorDadosUpload {
                         dadosFormulario.fixarAtividadesPendentes(obterAtividadesPendentes(resultado.idTarefa));
                         break;
 
+                    case ID_ANOMALIA_CLIENTE:
+
+                        dadosFormulario.fixarAnomalias(obterAnomaliaCliente(resultado.idTarefa));
+                        break;
 
 
                     default:
@@ -201,7 +208,21 @@ public abstract class GeradorDadosUpload {
 
 
 
+    /**
+     * Metodo que permite obter as anomalias de um cliente
+     * @param idTarefa o identificador da tarefa
+     * @return os dados das anomalias
+     */
+    private List<Anomalia> obterAnomaliaCliente(int idTarefa) {
 
+        List<Anomalia> registos = new ArrayList<>();
+
+        for (AnomaliaResultado item : repositorio.obterAnomalias(idTarefa)) {
+            registos.add(UploadMapping.INSTANCE.map(item));
+        }
+
+        return registos;
+    }
 
 
 

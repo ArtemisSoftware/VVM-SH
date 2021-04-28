@@ -659,7 +659,7 @@ public class TransferenciasViewModel extends BaseViewModel {
 
                                     List<Upload> registos = uploads.getValue();
                                     registos.addAll(dadosUploadSH.obterUploadsSincronizados());
-                                    uploads.setValue(registos);
+                                    uploads.postValue(registos);
                                 }
 
                                 @Override

@@ -218,16 +218,22 @@ public class OcorrenciasViewModel extends BaseViewModel {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(
 
-                        new Observer<List<OcorrenciaRegisto>>() {
+                        new Observer<List<OcorrenciaBase>>() {
                             @Override
                             public void onSubscribe(Disposable d) {
                                 disposables.add(d);
                             }
 
                             @Override
-                            public void onNext(List<OcorrenciaRegisto> resultado) {
+                            public void onNext(List<OcorrenciaBase> resultado) {
 
-                                ocorrenciasInseridas.setValue(resultado);
+                                List<OcorrenciaRegisto> resultados = new ArrayList<>();
+
+                                for(OcorrenciaBase item : resultado){
+                                    resultados.add(new OcorrenciaRegisto(item));
+                                }
+
+                                ocorrenciasInseridas.setValue(resultados);
                                 showProgressBar(false);
                             }
 
@@ -243,6 +249,37 @@ public class OcorrenciasViewModel extends BaseViewModel {
                         }
 
                 );
+
+//        ocorrenciaRepositorio.obterOcorrenciasRegistadas(idTarefa)
+//                .subscribeOn(Schedulers.io())
+//                .observeOn(AndroidSchedulers.mainThread())
+//                .subscribe(
+//
+//                        new Observer<List<OcorrenciaRegisto>>() {
+//                            @Override
+//                            public void onSubscribe(Disposable d) {
+//                                disposables.add(d);
+//                            }
+//
+//                            @Override
+//                            public void onNext(List<OcorrenciaRegisto> resultado) {
+//
+//                                ocorrenciasInseridas.setValue(resultado);
+//                                showProgressBar(false);
+//                            }
+//
+//                            @Override
+//                            public void onError(Throwable e) {
+//                                showProgressBar(false);
+//                            }
+//
+//                            @Override
+//                            public void onComplete() {
+//                                showProgressBar(false);
+//                            }
+//                        }
+//
+//                );
     }
 
 

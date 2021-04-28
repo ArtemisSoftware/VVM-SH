@@ -160,7 +160,7 @@ public class UploadTrabalhoActivity extends BaseDaggerActivity implements OnTran
                 viewModel.obterPendencias_(this, PreferenciasUtil.obterIdUtilizador(this), true);
             }
 
-            viewModel.obterUploads(PreferenciasUtil.obterIdUtilizador(this), bundle.getLong(getString(R.string.argumento_data)));
+            //--viewModel.obterUploads(PreferenciasUtil.obterIdUtilizador(this), bundle.getLong(getString(R.string.argumento_data)));
         }
     }
 

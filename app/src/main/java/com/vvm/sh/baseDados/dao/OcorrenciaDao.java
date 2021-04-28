@@ -8,6 +8,7 @@ import com.vvm.sh.baseDados.BaseDao;
 import com.vvm.sh.baseDados.entidades.Ocorrencia;
 import com.vvm.sh.baseDados.entidades.OcorrenciaHistorico;
 import com.vvm.sh.baseDados.entidades.OcorrenciaResultado;
+import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.ui.ocorrencias.modelos.OcorrenciaBase;
 import com.vvm.sh.ui.ocorrencias.modelos.OcorrenciaRegisto;
 import com.vvm.sh.util.metodos.TiposUtil;
@@ -26,15 +27,14 @@ abstract public class OcorrenciaDao implements BaseDao<OcorrenciaResultado> {
     abstract public Single<List<Ocorrencia>> obterOcorrencias(int idTarefa);
 
 
-    @Transaction
-    @Query("SELECT *, 0 as ultimoRegisto " +
-            "FROM ocorrenciaResultado as ocr_res " +
-            "LEFT JOIN ( " +
-            "SELECT id, descricao, codigo, detalhe  " +
-            "FROM tipos WHERE  tipo = '" + TiposUtil.MetodosTipos.TIPIFICACAO_OCORRENCIA + "' AND ativo = 1 AND api = :api) as tp " +
-            "ON ocr_res.id = tp.id " +
-            "WHERE  idTarefa = :idTarefa ")
-    abstract public Observable<List<OcorrenciaRegisto>> obterOcorrenciasRegistadas(int idTarefa, int api);
+
+    @Query("SELECT tp.id as id, descricao, codigo, detalhe, idTarefa, ocr_res.id as idResultado, observacao, fiscalizado,  0 as ultimoRegisto  " +
+            "FROM tipos as tp " +
+            "LEFT JOIN (SELECT id, idTarefa, observacao, fiscalizado FROM ocorrenciaResultado WHERE idTarefa =:idTarefa) as ocr_res ON tp.id = ocr_res.id " +
+            "WHERE tipo  = '" + TiposUtil.MetodosTipos.TIPIFICACAO_OCORRENCIA + "' AND ativo = 1 AND api = :api AND tp.id = ocr_res.id")
+    abstract public Observable<List<OcorrenciaBase>> obterOcorrenciasRegistadas(int idTarefa, int api);
+
+
 
 
     @Transaction

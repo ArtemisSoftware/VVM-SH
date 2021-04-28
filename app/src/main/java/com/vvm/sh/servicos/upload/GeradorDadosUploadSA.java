@@ -41,10 +41,6 @@ public class GeradorDadosUploadSA extends GeradorDadosUpload{
         switch (resultado.id){
 
 
-            case ID_ANOMALIA_CLIENTE:
-
-                dadosFormulario.fixarAnomalias(obterAnomaliaCliente(resultado.idTarefa));
-                break;
 
 
             default:
@@ -93,21 +89,7 @@ public class GeradorDadosUploadSA extends GeradorDadosUpload{
 
 
 
-    /**
-     * Metodo que permite obter as anomalias de um cliente
-     * @param idTarefa o identificador da tarefa
-     * @return os dados das anomalias
-     */
-    private List<Anomalia> obterAnomaliaCliente(int idTarefa) {
 
-        List<Anomalia> registos = new ArrayList<>();
-
-        for (AnomaliaResultado item : repositorio.obterAnomalias(idTarefa)) {
-            registos.add(UploadMapping.INSTANCE.map(item));
-        }
-
-        return registos;
-    }
 
 
 

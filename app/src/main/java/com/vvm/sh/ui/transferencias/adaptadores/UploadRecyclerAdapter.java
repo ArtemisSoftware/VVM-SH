@@ -51,9 +51,10 @@ public class UploadRecyclerAdapter extends RecyclerView.Adapter<RecyclerView.Vie
     }
 
 
-    public void atualizar(List<Upload> items){
-        this.items.clear();
-        this.items.addAll(items);
+    public void atualizar(List<Upload> dados){
+        this.items = dados;
+//        this.items.clear();
+//        this.items.addAll(dados);
         notifyDataSetChanged();
     }
 

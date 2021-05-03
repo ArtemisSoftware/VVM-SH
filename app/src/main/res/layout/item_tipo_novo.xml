@@ -120,11 +120,15 @@
                 app:layout_constraintStart_toEndOf="@+id/textView75"
                 app:layout_constraintTop_toTopOf="@+id/textView75" />
 
-            <TextView
-                android:id="@+id/textView98"
-                style="@style/textoDetalhe"
+
+            <com.google.android.material.chip.Chip
+                android:id="@+id/chip"
+                estadoEquipamento="@{tipo.estado, default=estado}"
+                tyle="@style/textoDetalhe"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_marginEnd="16dp"
-                android:text="@{tipo.obterEstado(), default=estado}"
+                android:theme="@style/Theme.MaterialComponents.Light"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintTop_toTopOf="@+id/textView" />
 

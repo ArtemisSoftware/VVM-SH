@@ -293,4 +293,8 @@
     <color name="cor_dialogo_erro">#ed2024</color>
     <color name="opaco">#E6FFFFFF</color>
 
+
+    <color name="cor_equipamento_definitivo">#20d2bb</color>
+    <color name="cor_equipamento_rejeitado">#fe485a</color>
+
 </resources>

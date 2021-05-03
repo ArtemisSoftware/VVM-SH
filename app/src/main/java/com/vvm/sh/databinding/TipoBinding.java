@@ -6,7 +6,10 @@ import androidx.databinding.BindingAdapter;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.android.material.chip.Chip;
+import com.google.android.material.chip.ChipDrawable;
 import com.jaredrummler.materialspinner.MaterialSpinner;
+import com.vvm.sh.R;
 import com.vvm.sh.baseDados.entidades.Tipo;
 import com.vvm.sh.baseDados.entidades.TipoNovo;
 import com.vvm.sh.ui.opcoes.adaptadores.OnTipoListener;
@@ -15,8 +18,13 @@ import com.vvm.sh.ui.opcoes.adaptadores.TipoNovoRecyclerAdapter;
 import com.vvm.sh.ui.opcoes.adaptadores.TipoRecyclerAdapter;
 import com.vvm.sh.ui.opcoes.modelos.ResumoChecklist;
 import com.vvm.sh.ui.opcoes.modelos.ResumoTipo;
+import com.vvm.sh.util.constantes.Identificadores;
 
 import java.util.List;
+
+import static com.vvm.sh.util.constantes.Identificadores.Estados.Equipamentos.ESTADO_DEFINITIVO;
+import static com.vvm.sh.util.constantes.Identificadores.Estados.Equipamentos.ESTADO_PENDENTE;
+import static com.vvm.sh.util.constantes.Identificadores.Estados.Equipamentos.ESTADO_REJEITADO;
 
 public class TipoBinding {
 
@@ -111,6 +119,51 @@ public class TipoBinding {
             view.setAdapter(adapter);
         }
     }
+
+
+
+    @BindingAdapter({"estadoEquipamento"})
+    public static void setEstadoEquipamento(Chip view, int estado) {
+
+        String texto = "";
+        int cor = R.color.cor_completo;
+
+        ChipDrawable chipDrawable = (ChipDrawable) view.getChipDrawable();
+
+        switch (estado){
+
+            case ESTADO_DEFINITIVO:
+
+                texto = view.getContext().getString(R.string.definitivo);
+                cor = R.color.cor_equipamento_definitivo;
+                break;
+
+            case ESTADO_PENDENTE:
+
+                texto = view.getContext().getString(R.string.pendente);
+                cor = R.color.cor_pendente;
+                break;
+
+            case ESTADO_REJEITADO:
+
+                texto = view.getContext().getString(R.string.rejeitado);
+                cor = R.color.cor_equipamento_rejeitado;
+                break;
+
+            default:
+
+                texto = view.getContext().getString(R.string.incompleto);
+                cor = R.color.cor_incompleto;
+                break;
+
+        }
+
+        view.setText(texto);
+        chipDrawable.setChipBackgroundColorResource(cor);
+    }
+
+
+
 
 
 

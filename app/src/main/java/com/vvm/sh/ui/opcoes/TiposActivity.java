@@ -100,41 +100,6 @@ public class TiposActivity extends BaseDaggerActivity
 
 
 
-    //----------------------------------------
-    //HANDLER (notificacoes para o ui)
-    //----------------------------------------
-
-
-    final Handler handlerNotificacoesUI = new Handler(){
-        @Override
-        public void handleMessage(Message msg) {
-
-            AtualizacaoUI.Comunicado comunicado = (AtualizacaoUI.Comunicado) msg.obj;
-
-            switch (comunicado.obterCodigo()) {
-
-                case CONCLUIR_ATUALIZACAO_TIPO:
-
-                    dialogo.sucesso(Sintaxe.Palavras.ATUALIZACAO, comunicado.obterDados());
-                    break;
-
-
-                default:
-                    //TODO: alerta de erro
-
-                    //--Alerta de erro
-                    //if(comunicado.obterMensagem() != null)
-                    //--AlertaUI.erro(dialogo, comunicado.obterMensagem())
-                    break;
-            }
-
-            super.handleMessage(msg);
-        }
-    };
-
-
-
-
     //---------------------
     //Eventos
     //---------------------
@@ -142,13 +107,14 @@ public class TiposActivity extends BaseDaggerActivity
 
     @Override
     public void OnTipoLongPressListener(ResumoTipo resumo) {
-        viewModel.recarregarItemTipo(TiposActivity.this, resumo);
+
+        Bundle bundle = getIntent().getExtras();
+        viewModel.recarregarItem(TiposActivity.this, resumo, bundle.getInt(getString(R.string.argumento_id_tipo)));
     }
 
     @Override
     public void OnTipoLongPressListener(ResumoChecklist resumo) {
 
-        //--viewModel.recarregar(TiposActivity.this, resumo, handlerNotificacoesUI);
         viewModel.recarregarItemChecklist(TiposActivity.this, resumo);
     }
 
@@ -187,7 +153,7 @@ public class TiposActivity extends BaseDaggerActivity
 
             case R.id.item_recarregar_geral:
 
-                viewModel.recarregarRegistos( bundle.getInt(getString(R.string.argumento_id_tipo)), TiposActivity.this, handlerNotificacoesUI);
+                viewModel.recarregarRegistos( bundle.getInt(getString(R.string.argumento_id_tipo)), TiposActivity.this);
                 break;
 
             default:

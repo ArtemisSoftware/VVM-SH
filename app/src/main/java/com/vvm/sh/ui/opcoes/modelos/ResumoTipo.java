@@ -23,4 +23,7 @@ public class ResumoTipo {
 
     @ColumnInfo(name = "seloTemporalSHT")
     public String seloTemporalSHT;
+
+    @ColumnInfo(name = "tipoAtualizacao")
+    public int tipoAtualizacao;
 }

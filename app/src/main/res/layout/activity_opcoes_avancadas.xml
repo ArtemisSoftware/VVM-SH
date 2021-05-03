@@ -104,8 +104,8 @@
 
 
             <LinearLayout
-                android:visibility="visible"
                 android:id="@+id/lnr_lyt_checklist"
+                android:visibility="visible"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
                 android:layout_marginTop="16dp"
@@ -169,7 +169,7 @@
                 android:outlineProvider="bounds"
                 android:padding="10dp"
                 app:layout_constraintStart_toStartOf="@+id/textview"
-                app:layout_constraintTop_toBottomOf="@+id/lnr_lyt_checklist">
+                app:layout_constraintTop_toBottomOf="@+id/lnr_lyt_atividades_planeaveis">
 
                 <TextView
                     style="@style/textoDetalhe"
@@ -199,7 +199,7 @@
                 android:layout_marginTop="32dp"
                 android:text="@string/dados"
                 app:layout_constraintStart_toStartOf="@+id/textview"
-                app:layout_constraintTop_toBottomOf="@+id/lnr_lyt_atividades_planeaveis" />
+                app:layout_constraintTop_toBottomOf="@+id/lnr_lyt_equipamentos" />
 
 
             <View

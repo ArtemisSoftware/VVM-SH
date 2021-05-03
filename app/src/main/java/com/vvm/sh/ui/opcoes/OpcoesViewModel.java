@@ -97,53 +97,13 @@ public class OpcoesViewModel extends BaseViewModel {
 
 
 
-    /**
-     * Metodo que permite obter o resumo
-     * @param contexto
-     * @param idTipo
-     * @param descricao
-     * @param handlerNotificacoesUI
-     */
-    public void recarregar(Activity contexto, int idTipo, ResumoTipo descricao, Handler handlerNotificacoesUI, OnTransferenciaListener listener) {
-
-        switch(idTipo){
-
-            case Identificadores.Atualizacoes.TIPO:
-
-                //--recarregarTipos(contexto, descricao);
-                break;
-
-            case Identificadores.Atualizacoes.CHECKLIST:
-
-                //--recarregarItemChecklist(contexto, descricao);
-                break;
-
-
-            case Identificadores.Atualizacoes.TEMPLATE:
-
-
-                //TODO: recarregar template
-                break;
-
-
-            case Identificadores.Atualizacoes.ATIVIDADES_PLANEAVEIS:
-
-                //TODO: recarregar atividades planeaveis
-                break;
-
-            default:
-                break;
-
-        }
-    }
-
 
 
     /**
      * Metodo que permite recarregar todos os registos
      * @param tipo o identificador
      */
-    public void recarregarRegistos(int tipo, Activity activity, Handler handlerNotificacoesUI){
+    public void recarregarRegistos(int tipo, Activity activity){
 
         switch(tipo){
 
@@ -358,10 +318,34 @@ public class OpcoesViewModel extends BaseViewModel {
 
 
 
+    public void recarregarItem(Activity contexto, ResumoTipo resumo, int tipo) {
+
+        switch(tipo){
+
+            case Identificadores.Atualizacoes.TIPO:
+
+                recarregarItemTipo(contexto, resumo);
+                break;
+
+            case Identificadores.Atualizacoes.TEMPLATE:
+
+                break;
+
+            case Identificadores.Atualizacoes.ATIVIDADES_PLANEAVEIS:
+
+                break;
+
+            default:
+                break;
+
+        }
+    }
+
+
     /**
      * Metodo que permite atualizar um tipo
      */
-    public void recarregarItemTipo(Activity contexto, ResumoTipo resumo) {
+    private void recarregarItemTipo(Activity contexto, ResumoTipo resumo) {
 
         showProgressBar(true);
 
@@ -402,9 +386,8 @@ public class OpcoesViewModel extends BaseViewModel {
             showProgressBar(false);
             messagemLiveData.setValue(Recurso.erro(e.getMessage()));
         }
-
-
     }
+
 
 
     public void recarregarItemChecklist(Activity atividade, ResumoChecklist resumo) {
@@ -479,28 +462,6 @@ public class OpcoesViewModel extends BaseViewModel {
                                     messagemLiveData.setValue(Recurso.erro(e.getMessage()));
                                 }
                             }
-
-//                            new SingleObserver<List<ITipoListagem>>() {
-//                                @Override
-//                                public void onSubscribe(Disposable d) {
-//                                    disposables.add(d);
-//                                }
-//
-//                                @Override
-//                                public void onSuccess(List<ITipoListagem> iTipoListagems) {
-//
-//                                    showProgressBar(false);
-//
-//                                    CarregarTipoAsyncTask servico = new CarregarTipoAsyncTask(activity, vvmshBaseDados, handlerNotificacoesUI, carregamentoTiposRepositorio);
-//                                    servico.execute(iTipoListagems);
-//                                }
-//
-//                                @Override
-//                                public void onError(Throwable e) {
-//                                    showProgressBar(false);
-//                                    messagemLiveData.setValue(Recurso.erro(e.getMessage()));
-//                                }
-//                            }
                     );
 
     }
@@ -669,6 +630,14 @@ public class OpcoesViewModel extends BaseViewModel {
                         }
                 );
     }
+
+
+
+
+
+
+
+
 
 
     public void obterEquipamentos() {

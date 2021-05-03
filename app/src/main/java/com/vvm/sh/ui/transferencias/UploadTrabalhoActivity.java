@@ -95,6 +95,8 @@ public class UploadTrabalhoActivity extends BaseDaggerActivity implements OnTran
                         public void run() {
                             activityUploadBinding.ctrlUploadDados.setVisibility(View.GONE);
                             activityUploadBinding.ctrlUploadRelatorio.setVisibility(View.VISIBLE);
+
+                            dialogo.sucesso("Upload realizado com sucesso", "Upload");
                         }
                     }, AppConfig.TEMPO_CONSULTA_UPLOAD);
                 }

@@ -42,7 +42,7 @@ abstract public class TipoDao implements BaseDao<Tipo> {
     //--------------------
 
 
-    @Query("SELECT DISTINCT atl.descricao as descricao, numeroRegistosSA, seloTemporalSA, numeroRegistosSHT, seloTemporalSHT " +
+    @Query("SELECT DISTINCT atl.descricao as descricao, numeroRegistosSA, seloTemporalSA, numeroRegistosSHT, seloTemporalSHT, atl.tipo as tipoAtualizacao " +
             "FROM atualizacoes as atl " +
 
             //SA
@@ -98,7 +98,7 @@ abstract public class TipoDao implements BaseDao<Tipo> {
     //--------------------
 
 
-    @Query("SELECT *, 0 as numeroRegistosSA, numeroRegistosSHT, seloTemporal " +
+    @Query("SELECT *, 0 as numeroRegistosSA, numeroRegistosSHT, seloTemporal, atl.tipo as tipoAtualizacao " +
             "FROM atualizacoes as atl " +
             "LEFT JOIN (SELECT " + Identificadores.Atualizacoes.ATIVIDADES_PLANEAVEIS + " as tipo, COUNT(id) as numeroRegistosSHT FROM tiposAtividadesPlaneaveis WHERE ativo = 1) as tp_sht " +
             "ON atl.tipo = tp_sht.tipo " +
@@ -111,7 +111,7 @@ abstract public class TipoDao implements BaseDao<Tipo> {
     //Templates
     //--------------------
 
-    @Query("SELECT *, 0 as numeroRegistosSA, numeroRegistosSHT, seloTemporal " +
+    @Query("SELECT *, 0 as numeroRegistosSA, numeroRegistosSHT, seloTemporal, atl.tipo as tipoAtualizacao " +
             "FROM atualizacoes as atl " +
 
             "LEFT JOIN (" +
